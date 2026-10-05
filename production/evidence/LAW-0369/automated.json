@@ -1,0 +1,1573 @@
+{
+  "animationId": "LAW-0369",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0369",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": false,
+      "detail": [
+        {
+          "preset": "long-labels-stress",
+          "ratio": "16:9",
+          "error": "Invalid animation parameters:\n - params.custodians[1].name: must have at most 40 characters (received 43)\n - params.stateCaption: must have at most 120 characters (received 131)"
+        },
+        {
+          "preset": "long-labels-stress",
+          "ratio": "9:16",
+          "error": "Invalid animation parameters:\n - params.custodians[1].name: must have at most 40 characters (received 43)\n - params.stateCaption: must have at most 120 characters (received 131)"
+        },
+        {
+          "preset": "long-labels-stress",
+          "ratio": "1:1",
+          "error": "Invalid animation parameters:\n - params.custodians[1].name: must have at most 40 characters (received 43)\n - params.stateCaption: must have at most 120 characters (received 131)"
+        }
+      ]
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "items.0.label"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: the bag lies on A's desk, both sheets unwritten @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "holder": null,
+          "moving": null,
+          "handAc": {
+            "x": 152.4,
+            "y": 252.38
+          },
+          "handBc": {
+            "x": 899.57,
+            "y": 252.38
+          },
+          "handAp": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "handBp": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "gripA": {
+            "x": 186.37,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 403.15,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "penGripB": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "bag": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 198.11,
+            "y": 670.27
+          },
+          "tipB": {
+            "x": 853.86,
+            "y": 670.27
+          },
+          "atTray": false,
+          "atB": false,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            0,
+            0
+          ],
+          "writtenB": [
+            0,
+            0
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            true,
+            true
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "recorded",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: nothing moves during the rest beat @0.145",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "holder": null,
+          "moving": null,
+          "handAc": {
+            "x": 152.4,
+            "y": 252.38
+          },
+          "handBc": {
+            "x": 899.57,
+            "y": 252.38
+          },
+          "handAp": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "handBp": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "gripA": {
+            "x": 186.37,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 403.15,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "penGripB": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "bag": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 198.11,
+            "y": 670.27
+          },
+          "tipB": {
+            "x": 853.86,
+            "y": 670.27
+          },
+          "atTray": false,
+          "atB": false,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            0,
+            0
+          ],
+          "writtenB": [
+            0,
+            0
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            true,
+            true
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "recorded",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: A carries the bag toward the tray @0.25",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "phase": "carry-a",
+          "holder": "a",
+          "moving": "a",
+          "handAc": {
+            "x": 301.99,
+            "y": 191.81
+          },
+          "handBc": {
+            "x": 899.57,
+            "y": 252.38
+          },
+          "handAp": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "handBp": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "gripA": {
+            "x": 301.99,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 518.76,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "penGripB": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "bag": {
+            "x": 410.38,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 198.11,
+            "y": 670.27
+          },
+          "tipB": {
+            "x": 853.86,
+            "y": 670.27
+          },
+          "atTray": false,
+          "atB": false,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            0,
+            0
+          ],
+          "writtenB": [
+            0,
+            0
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            true,
+            true
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "recorded",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: both hands hold the bag on the tray (shared hand-off point) @0.325",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "phase": "hand-off",
+          "holder": "shared",
+          "moving": null,
+          "handAc": {
+            "x": 417.6,
+            "y": 191.81
+          },
+          "handBc": {
+            "x": 634.38,
+            "y": 191.81
+          },
+          "handAp": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "handBp": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "gripA": {
+            "x": 417.6,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 634.38,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "penGripB": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "bag": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 198.11,
+            "y": 670.27
+          },
+          "tipB": {
+            "x": 853.86,
+            "y": 670.27
+          },
+          "atTray": true,
+          "atB": false,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            0,
+            0
+          ],
+          "writtenB": [
+            0,
+            0
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            true,
+            true
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "recorded",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: B carries the bag to B's desk @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "phase": "carry-b",
+          "holder": "b",
+          "moving": "b",
+          "handAc": {
+            "x": 157.31,
+            "y": 251.26
+          },
+          "handBc": {
+            "x": 749.99,
+            "y": 191.81
+          },
+          "handAp": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "handBp": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "gripA": {
+            "x": 533.21,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 749.99,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "penGripB": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "bag": {
+            "x": 641.6,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 198.11,
+            "y": 670.27
+          },
+          "tipB": {
+            "x": 853.86,
+            "y": 670.27
+          },
+          "atTray": false,
+          "atB": false,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            0,
+            0
+          ],
+          "writtenB": [
+            0,
+            0
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            true,
+            true
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "recorded",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the bag is on B's desk before any row of sheet B is written @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "phase": "log-a",
+          "holder": null,
+          "moving": null,
+          "handAc": {
+            "x": 152.4,
+            "y": 252.38
+          },
+          "handBc": {
+            "x": 898.95,
+            "y": 251.26
+          },
+          "handAp": {
+            "x": 252.5,
+            "y": 555.15
+          },
+          "handBp": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "gripA": {
+            "x": 648.82,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 865.6,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 252.5,
+            "y": 555.15
+          },
+          "penGripB": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "bag": {
+            "x": 757.21,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 293.49,
+            "y": 566.8
+          },
+          "tipB": {
+            "x": 853.86,
+            "y": 670.27
+          },
+          "atTray": false,
+          "atB": true,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            1,
+            0
+          ],
+          "writtenB": [
+            0,
+            0
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            true,
+            true
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "recorded",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: A writes sheet A after the hand-off @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "phase": "log-a",
+          "holder": null,
+          "moving": null,
+          "handAc": {
+            "x": 152.4,
+            "y": 252.38
+          },
+          "handBc": {
+            "x": 898.95,
+            "y": 251.26
+          },
+          "handAp": {
+            "x": 252.5,
+            "y": 555.15
+          },
+          "handBp": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "gripA": {
+            "x": 648.82,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 865.6,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 252.5,
+            "y": 555.15
+          },
+          "penGripB": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "bag": {
+            "x": 757.21,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 293.49,
+            "y": 566.8
+          },
+          "tipB": {
+            "x": 853.86,
+            "y": 670.27
+          },
+          "atTray": false,
+          "atB": true,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            1,
+            0
+          ],
+          "writtenB": [
+            0,
+            0
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            true,
+            true
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "recorded",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: then B writes sheet B (separate records) @0.64",
+      "pass": false,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "phase": "log-b",
+          "holder": null,
+          "moving": null,
+          "handAc": {
+            "x": 152.4,
+            "y": 252.38
+          },
+          "handBc": {
+            "x": 899.57,
+            "y": 252.38
+          },
+          "handAp": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "handBp": {
+            "x": 799.05,
+            "y": 555.2
+          },
+          "gripA": {
+            "x": 648.82,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 865.6,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "penGripB": {
+            "x": 799.05,
+            "y": 555.2
+          },
+          "bag": {
+            "x": 757.21,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 198.11,
+            "y": 670.27
+          },
+          "tipB": {
+            "x": 758.06,
+            "y": 566.84
+          },
+          "atTray": false,
+          "atB": true,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            1,
+            1
+          ],
+          "writtenB": [
+            1,
+            0
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            true,
+            true
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "recorded",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: recorded — both sheets carry their rows; composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "done",
+          "holder": null,
+          "moving": null,
+          "handAc": {
+            "x": 152.4,
+            "y": 252.38
+          },
+          "handBc": {
+            "x": 899.57,
+            "y": 252.38
+          },
+          "handAp": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "handBp": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "gripA": {
+            "x": 648.82,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 865.6,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "penGripB": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "bag": {
+            "x": 757.21,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 198.11,
+            "y": 670.27
+          },
+          "tipB": {
+            "x": 853.86,
+            "y": 670.27
+          },
+          "atTray": false,
+          "atB": true,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            1,
+            1
+          ],
+          "writtenB": [
+            1,
+            1
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            true,
+            true
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "recorded",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: gap: sheet B stays without entry and its blank rows are ringed @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "done",
+          "holder": null,
+          "moving": null,
+          "handAc": {
+            "x": 152.4,
+            "y": 252.38
+          },
+          "handBc": {
+            "x": 899.57,
+            "y": 252.38
+          },
+          "handAp": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "handBp": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "gripA": {
+            "x": 648.82,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 865.6,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "penGripB": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "bag": {
+            "x": 757.21,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 198.11,
+            "y": 670.27
+          },
+          "tipB": {
+            "x": 853.86,
+            "y": 670.27
+          },
+          "atTray": false,
+          "atB": true,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            1,
+            1
+          ],
+          "writtenB": [
+            0,
+            0
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            false,
+            false
+          ],
+          "gapRing": 1,
+          "allReached": true,
+          "finalState": "gap",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: gap: nothing is marked before the hold; B's pen never writes @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "phase": "done",
+          "holder": null,
+          "moving": null,
+          "handAc": {
+            "x": 152.4,
+            "y": 252.38
+          },
+          "handBc": {
+            "x": 899.57,
+            "y": 252.38
+          },
+          "handAp": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "handBp": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "gripA": {
+            "x": 648.82,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 865.6,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "penGripB": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "bag": {
+            "x": 757.21,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 198.11,
+            "y": 670.27
+          },
+          "tipB": {
+            "x": 853.86,
+            "y": 670.27
+          },
+          "atTray": false,
+          "atB": true,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            1,
+            1
+          ],
+          "writtenB": [
+            0,
+            0
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            false,
+            false
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "gap",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "hand-off",
+          "holder": "shared",
+          "moving": null,
+          "handAc": {
+            "x": 417.6,
+            "y": 191.81
+          },
+          "handBc": {
+            "x": 634.38,
+            "y": 191.81
+          },
+          "handAp": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "handBp": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "gripA": {
+            "x": 417.6,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 634.38,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "penGripB": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "bag": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 198.11,
+            "y": 670.27
+          },
+          "tipB": {
+            "x": 853.86,
+            "y": 670.27
+          },
+          "atTray": true,
+          "atB": false,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            0,
+            0
+          ],
+          "writtenB": [
+            0,
+            0
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            true,
+            true
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "recorded",
+          "actionCapped": true,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: blank rows come only from the supplied records @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "done",
+          "holder": null,
+          "moving": null,
+          "handAc": {
+            "x": 152.4,
+            "y": 252.38
+          },
+          "handBc": {
+            "x": 830.66,
+            "y": 252.38
+          },
+          "handAp": {
+            "x": 142,
+            "y": 657.87
+          },
+          "handBp": {
+            "x": 841.05,
+            "y": 657.87
+          },
+          "gripA": {
+            "x": 595.23,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 812.01,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 142,
+            "y": 657.87
+          },
+          "penGripB": {
+            "x": 841.05,
+            "y": 657.87
+          },
+          "bag": {
+            "x": 703.62,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 182.78,
+            "y": 670.27
+          },
+          "tipB": {
+            "x": 800.28,
+            "y": 670.27
+          },
+          "atTray": false,
+          "atB": true,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            1
+          ],
+          "writtenB": [
+            0
+          ],
+          "rowsA": [
+            true
+          ],
+          "rowsB": [
+            false
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "recorded",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 983.05,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 279.43,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 491.53,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 703.62,
+            "y": 191.81
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the rest state exactly @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "holder": null,
+          "moving": null,
+          "handAc": {
+            "x": 152.4,
+            "y": 252.38
+          },
+          "handBc": {
+            "x": 899.57,
+            "y": 252.38
+          },
+          "handAp": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "handBp": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "gripA": {
+            "x": 186.37,
+            "y": 191.81
+          },
+          "gripB": {
+            "x": 403.15,
+            "y": 191.81
+          },
+          "penGripA": {
+            "x": 157.11,
+            "y": 658.62
+          },
+          "penGripB": {
+            "x": 894.86,
+            "y": 658.62
+          },
+          "bag": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "tipA": {
+            "x": 198.11,
+            "y": 670.27
+          },
+          "tipB": {
+            "x": 853.86,
+            "y": 670.27
+          },
+          "atTray": false,
+          "atB": false,
+          "writingA": false,
+          "writingB": false,
+          "writtenA": [
+            0,
+            0
+          ],
+          "writtenB": [
+            0,
+            0
+          ],
+          "rowsA": [
+            true,
+            true
+          ],
+          "rowsB": [
+            true,
+            true
+          ],
+          "gapRing": 0,
+          "allReached": true,
+          "finalState": "recorded",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 23,
+          "S": 330.9,
+          "orient": "h",
+          "stage": {
+            "x": 0,
+            "y": 0,
+            "w": 1051.97,
+            "h": 738
+          },
+          "bagStart": {
+            "x": 294.76,
+            "y": 191.81
+          },
+          "bagMid": {
+            "x": 525.99,
+            "y": 191.81
+          },
+          "bagEnd": {
+            "x": 757.21,
+            "y": 191.81
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

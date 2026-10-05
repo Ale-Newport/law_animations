@@ -73,26 +73,26 @@ const isStress = p => [...p.clauses, p.claim.label, p.contract.title, p.scenario
 /* ---------------------------------------------------------------------- */
 
 /** One bench's geometry in local coordinates (origin = bench top-left). */
-function benchGeom(ctx, p, bw, bh, F, minF, stress) {
+function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH) {
   const why = [];
   const pi = promiseIndex(p);
   const prong = 50;
-  const headerH = F * 1.18 * 2 + 22;
+  const headerH = Math.max(headerTextH, F * 1.6) + 22;
   const pad = 22;
   const panel = {x: 0, y: headerH + 8, w: bw, h: bh - headerH - 8};
-  const cw = clamp(bw * 0.44, 260, 560);
+  const cw = clamp(bw * (bw > 1000 ? 0.47 : 0.44), 260, 580);
   const head = fitG(`${p.contract.reference} · ${p.clauseTitle}`, {maxWidth: cw - 40, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700});
   const rowFit = fitG(p.clauses[pi], {maxWidth: cw - 70, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600});
   const bandH = head.height + F * 0.8;
   const rowH = rowFit.height + F * 0.95;
-  const ch = bandH + 22 + rowH + 26 + 30;
-  const sw = clamp(bw * 0.27, 200, 340);
-  const TT = slipText(ctx, p, sw, F, minF, stress, Math.max(ch * 0.9, F * 5.6));
+  const ch = bandH + 22 + rowH + 30;
+  const sw = clamp(bw * 0.29, 210, 340);
+  const TT = slipText(ctx, p, sw, F, minF, stress, Math.max(ch * 0.8, F * 4.4));
   if (head.bad || rowFit.bad || TT.bad) why.push('bench-text');
-  const beamGap = 40, trackH = 18;
+  const beamGap = 34, trackH = 18;
   const stackH = beamGap + TT.h + trackH + 10;
   const contentH = Math.max(ch + 40, stackH + 30);
-  if (contentH > panel.h - 16) why.push('bench-too-short');
+  if (contentH > panel.h - 16) why.push('bench-too-short'); if (globalThis.DBG07) console.log('bench', {F: r(F), bh: r(bh), headerH: r(headerH), ch: r(ch), slipH: r(TT.h), stackH: r(stackH), panel: r(panel.h)});
   const cy = panel.y + 16 + (panel.h - 16) / 2; // slip centre / promise row centre
   const card = {x: pad, y: cy - (bandH + 22 + rowH / 2), w: cw, h: ch};
   const row = {x: card.x + 20, y: card.y + bandH + 22, w: cw - 30, h: rowH};
@@ -122,34 +122,43 @@ function geom(ctx, F, minF, side) {
   const stress = isStress(p);
   const why = [];
   const m = 26;
-  // bottom band: shared clause strip (once), guide chip, neutral note
-  const NFk = F;
-  const shared = show ? p.clauses.map((c, i) => ({i, fit: fitG(c, {maxWidth: side ? (D.w - 2 * m - 40) / Math.min(3, p.clauses.length) - 70 : D.w - 2 * m - 90, size: F, minSize: minF, maxLines: 2, weight: 600})})) : [];
-  const sharedHead = show && p.comparisonLabels.shared ? fitG(p.comparisonLabels.shared, {maxWidth: D.w - 2 * m - 30, size: F, minSize: minF, maxLines: 1, weight: 700}) : null;
-  if (shared.some(s => s.fit.bad)) why.push('shared-text');
-  const chipH = q => q.fit.height + 18;
+  // bottom band: shared clause strip (once, chips flowing in rows), guide chip, neutral note
+  const fullW = D.w - 2 * m;
+  const sharedHead = show && p.comparisonLabels.shared ? fitG(p.comparisonLabels.shared, {maxWidth: fullW - 30, size: F, minSize: minF, maxLines: 1, weight: 700}) : null;
+  const shared = show ? p.clauses.map((c, i) => ({i, fit: fitG(c, {maxWidth: fullW - 80, size: F, minSize: minF, maxLines: 2, weight: 600})})) : [];
+  if (shared.some(s0 => s0.fit.bad)) why.push('shared-text');
   let stripH = 0;
   if (shared.length) {
-    stripH = (sharedHead ? sharedHead.height + 10 : 0) + (side ? Math.max(...shared.map(chipH)) : shared.reduce((a, q) => a + chipH(q) + 8, -8)) + 20;
+    let x = 0, y = sharedHead ? sharedHead.height + 10 : 0, rowH = 0;
+    for (const q of shared) {
+      const w = q.fit.width + 62, hh = q.fit.height + 18;
+      if (x > 0 && x + w > fullW) { x = 0; y += rowH + 10; rowH = 0; }
+      q.x = x; q.y = y; q.w = w; q.h = hh;
+      x += w + 16; rowH = Math.max(rowH, hh);
+    }
+    stripH = y + rowH + 18;
   }
-  const guideFit = show && p.comparisonLabels.guide ? fitG(p.comparisonLabels.guide, {maxWidth: (side ? D.w * 0.4 : D.w - 2 * m) - 40, size: NFk, minSize: minF, maxLines: 2, weight: 700}) : null;
-  const noteFit = showKey && p.comparisonLabels.neutral ? fitG(p.comparisonLabels.neutral, {maxWidth: (side && guideFit ? D.w - 2 * m - (guideFit.width + 80) : D.w - 2 * m) - 40, size: NFk, minSize: minF, maxLines: stress ? 3 : 2, weight: 500}) : null;
+  const guideFit0 = show && p.comparisonLabels.guide ? fitG(p.comparisonLabels.guide, {maxWidth: fullW * 0.42 - 40, size: F, minSize: minF, maxLines: 2, weight: 700}) : null;
+  const noteFit0 = showKey && p.comparisonLabels.neutral ? fitG(p.comparisonLabels.neutral, {maxWidth: fullW - (guideFit0 ? guideFit0.width + 80 : 0) - 40, size: F, minSize: minF, maxLines: 2, weight: 500}) : null;
+  const beside = !guideFit0 || !noteFit0 || (!guideFit0.bad && !noteFit0.bad);
+  const guideFit = beside ? guideFit0 : fitG(p.comparisonLabels.guide, {maxWidth: fullW - 40, size: F, minSize: minF, maxLines: 2, weight: 700});
+  const noteFit = beside ? noteFit0 : fitG(p.comparisonLabels.neutral, {maxWidth: fullW - 40, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 500});
   if ((guideFit && guideFit.bad) || (noteFit && noteFit.bad)) why.push('note-text');
   const gH = guideFit ? guideFit.height + 22 : 0, nH = noteFit ? noteFit.height + 22 : 0;
-  const notesH = side ? Math.max(gH, nH) : gH + (gH && nH ? 12 : 0) + nH;
+  const notesH = beside ? Math.max(gH, nH) : gH + (gH && nH ? 12 : 0) + nH;
   const bottomH = stripH + (notesH ? notesH + 14 : 0);
   const gap = side ? 40 : 26;
   const availH = D.h - 2 * m - bottomH;
   const bw = side ? (D.w - 2 * m - gap) / 2 : D.w - 2 * m;
   const bh = side ? availH : (availH - gap) / 2;
-  const B = benchGeom(ctx, p, bw, bh, F, minF, stress);
+  const R0 = F * 0.9;
+  const headerFits = [p.scenarioA.label, p.scenarioB.label].map(t => (show ? fitG(t, {maxWidth: bw - R0 * 2 - 40, size: F, minSize: minF, maxLines: 2, weight: 700}) : null));
+  if (headerFits.some(f => f && f.bad)) why.push('header-text');
+  const B = benchGeom(ctx, p, bw, bh, F, minF, stress, Math.max(0, ...headerFits.map(f => (f ? f.height : 0))));
   why.push(...B.why);
   const origins = side ? [{x: m, y: m}, {x: m + bw + gap, y: m}] : [{x: m, y: m}, {x: m, y: m + bh + gap}];
-  // headers
-  const headerFits = [p.scenarioA.label, p.scenarioB.label].map(t => (show ? fitG(t, {maxWidth: bw - F * 2.6 - 30, size: F, minSize: minF, maxLines: 2, weight: 700}) : null));
-  if (headerFits.some(f => f && f.bad)) why.push('header-text');
   const yb = m + (side ? bh : 2 * bh + gap) + 14;
-  return {ok: !why.length, why, F, minF, side, bw, bh, B, origins, headerFits, shared, sharedHead, stripH, guideFit, noteFit, gH, nH, yb, m, gap, stress};
+  return {ok: !why.length, why, F, minF, side, bw, bh, B, origins, headerFits, shared, sharedHead, stripH, guideFit, noteFit, gH, nH, yb, m, gap, stress, beside};
 }
 
 /* ---------------------------------------------------------------------- */
@@ -264,20 +273,16 @@ const scene = {
     let y = L.yb;
     if (L.shared.length) {
       const items = [];
-      let x0 = L.m;
-      if (L.sharedHead) { items.push(txt(L.sharedHead, {x: L.m + 6, y, fill: th.fg})); y += L.sharedHead.height + 10; }
-      const ch = Math.max(...L.shared.map(q => q.fit.height + 18));
-      L.shared.forEach(q => {
-        const w = q.fit.width + 60, hh = q.fit.height + 18;
+      if (L.sharedHead) items.push(txt(L.sharedHead, {x: L.m + 6, y, fill: th.fg}));
+      for (const q of L.shared) {
+        const x0 = L.m + q.x, y0 = y + q.y;
         const pr = q.i === promiseIndex(ctx.params);
-        items.push(h('path', {d: roundRectPath(x0, y, w, hh, 9), fill: pr ? '#fff4d6' : '#ffffff', stroke: pr ? '#b79a55' : INK, 'stroke-width': pr ? 2.4 : 1.8}));
-        if (pr) items.push(g({transform: `translate(${r(x0 + w - 14)} ${r(y + hh / 2)}) scale(0.42)`}, socketArt(ctx, undefined, 'right', 1)));
-        items.push(txt(q.fit, {x: x0 + 16, y: y + 9, fill: INK}));
-        if (L.side) x0 += w + 16; else y += hh + 8;
-      });
-      if (L.side) y += ch;
+        items.push(h('path', {d: roundRectPath(x0, y0, q.w, q.h, 9), fill: pr ? '#fff4d6' : '#ffffff', stroke: pr ? '#b79a55' : INK, 'stroke-width': pr ? 2.4 : 1.8}));
+        if (pr) items.push(g({transform: `translate(${r(x0 + q.w - 14)} ${r(y0 + q.h / 2)}) scale(0.42)`}, socketArt(ctx, undefined, 'right', 1)));
+        items.push(txt(q.fit, {x: x0 + 16, y: y0 + 9, fill: INK}));
+      }
       bottom.push(g({name: 'sharedG'}, items));
-      y += 20 - (L.side ? 0 : 8);
+      y += L.stripH;
     }
     L._notesY = y;
     if (L.guideFit) {
@@ -286,8 +291,8 @@ const scene = {
     }
     if (L.noteFit) {
       const w = L.noteFit.width + 40, hh = L.noteFit.height + 22;
-      const nx = L.side && L.guideFit ? L.m + L.guideFit.width + 80 : L.m;
-      const ny = L.side || !L.guideFit ? y : y + L.gH + 12;
+      const nx = L.beside && L.guideFit ? L.m + L.guideFit.width + 80 : L.m;
+      const ny = L.beside || !L.guideFit ? y : y + L.gH + 12;
       bottom.push(g({name: 'noteChip', opacity: 0}, h('path', {d: roundRectPath(nx, ny, w, hh, 12), fill: th.card, stroke: INK, 'stroke-width': 2}), txt(L.noteFit, {x: nx + 20, y: ny + 11, fill: INK})));
     }
     return g({name: 'scene'}, benches, bottom);
