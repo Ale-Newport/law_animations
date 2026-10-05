@@ -35,7 +35,7 @@ import {T} from '../../core/transform.js';
 import {str, num, obj, list, oneOf, annotation} from '../../schemas/fields.js';
 import {
   dpFields, DP_STRINGS, DP_DEFAULTS, DP_ES_DEFAULTS, resolveDP, linkNotes, altText, allocText, valueText,
-  stageGeom, stageArt, pieceArt, bladeArt, dropPos, valueChip, valueChipSize, arrangeScene, placePanel, fitG, fillDrop,
+  stageGeom, stageArt, pieceArt, bladeArt, dropPos, valueChip, valueChipSize, arrangeScene, placePanel, fitG, fillDrop, DROP_CAP,
   clamp, ease, lerp, r, seg, localizeScene,
 } from './kits/distribucion-perdidas.js';
 import {textBlock} from '../../primitives/annotate.js';
@@ -139,7 +139,7 @@ const scene = {
       // stage variants: regular, compact (shorter rail zone) and staggered value chips (two rows)
       st = [false, true].flatMap(compact => [false, true].map(stagger => {
         const go = {chipWs, chipH, compact, stagger: stagger && cs.length > 0};
-        return {bad, go, dims: S => { const G = stageGeom(S, M.n, f, go); return {w: G.W, h: G.H}; }};
+        return {bad, go, dims: S => { const G = stageGeom(S, M.n, f, go); return {w: G.W, h: G.H}; }, dimsMax: S => ({h: stageGeom(S, M.n, f, {...go, drop: DROP_CAP}).H})};
       }));
       stageMemo.set(size, st);
       return st;

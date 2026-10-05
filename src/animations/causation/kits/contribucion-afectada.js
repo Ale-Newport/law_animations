@@ -220,11 +220,11 @@ export function fieldGeom(left, floorY, PH) {
  * Step places: each lane's steps stand in front of it (below its strip), spread evenly along [xs + 0.3, xe − 0.36] (× PH) in the supplied
  * order; `skip` = indices left out (posed by the entry). Objects shrink only when a lane holds many steps.
  */
-export function itemPlaces(G, M, skip = []) {
+export function itemPlaces(G, M, skip = [], from = 0.3) {
   const out = [];
   for (const l of ['a', 'b']) {
     const es = M.entries.filter(e => e.lane === l && !skip.includes(e.i));
-    const x0 = G.xs + 0.3 * G.PH, x1 = G.xe - 0.36 * G.PH;
+    const x0 = G.xs + from * G.PH, x1 = G.xe - 0.36 * G.PH;
     const n = es.length;
     const step = n > 1 ? (x1 - x0) / (n - 1) : 0;
     const k = Math.min(1, n > 1 ? step / (G.itemS * 0.95) : 1);

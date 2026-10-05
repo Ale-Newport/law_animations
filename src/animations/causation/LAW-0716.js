@@ -185,16 +185,18 @@ function tagArt(ctx, m, x, y, P, textOn) {
  * wide boxes).
  */
 function zoneGeom(M, PH, tg, rec, RW, arr, minW, tagSide = false) {
-  // the tag hangs above the slab's left end (free: both trolleys stand at their barriers on the right)
-  const G = fieldGeom(0, 0, PH);
-  const fx = G.xs + 0.2 * PH;
+  // the field stands right of the tag; the focus step stands at the lanes' start, midway between them, with a short
+  // LEADER to the lane it is supplied for (the datum); the tag hangs at the slab's left, level with it
+  const G = fieldGeom(tg.w + 30, 0, PH);
+  const fx = G.xs + 0.16 * PH;
   const ih = G.itemS * ITEM_K, iw = ih * 0.82;
-  // the two slots of the focus step: under lane A, under lane B (item bases)
-  const ys = [G.stand('a'), G.stand('b')];
-  const itemTop = ys[0] - ih;
-  const tagX = G.x0 + 6;
-  const tagY = G.slabTop - 12 - tg.h;
-  let right = Math.max(G.x1, tagX + tg.w) + 12;
+  const sy = G.cy + ih / 2; // the step's base
+  // the leader's two ends: the lower edge of lane A's strip, the upper edge of lane B's strip
+  const ys = [G.yA + G.LT, G.yB - G.LT];
+  const itemTop = sy - ih;
+  const tagX = 6;
+  const tagY = Math.min(G.cy - tg.h / 2, -tg.h - 12);
+  let right = G.x1 + 12;
   let recX = null, recY = null, recTop = 0;
   if (arr === 'side' || arr === 'stack2') {
     recX = right + 30;
@@ -205,7 +207,7 @@ function zoneGeom(M, PH, tg, rec, RW, arr, minW, tagSide = false) {
   if (right < minW) right = minW;
   const top = Math.min(tagY - tg.hole * 1.45, G.top, arr === 'side' || arr === 'stack2' ? recTop : 0);
   void tagSide;
-  return {G, fx, ys, iw, ih, itemTop, tagX, tagY, recX, recY, zW: right + 6, zH: -top + 16, top, tagSide: true};
+  return {G, fx, ys, sy, iw, ih, itemTop, tagX, tagY, recX, recY, zW: right + 6, zH: -top + 16, top, tagSide: true};
 }
 
 /** A slot pad on the slab (● / ◆, identical shape and weight) under a step position `at`. */
@@ -217,10 +219,14 @@ function slotArt(ctx, {G, at, side}) {
     sideMark(ctx, {cx: rx + G.headS * 0.45, cy: -ry * 0.2, s: G.headS * 0.7, side}));
 }
 
-/** The tag's string: from the tag's foot (fixed) to the top of the focus step at y (item base). */
+/** The focus step's leader: from the step's centre to the lane edge at y (the dependent geometry of the datum). */
 function stringD(L, y) {
-  const top = y - L.zg0.ih;
-  return `M${r(L.fxw)} ${r(L.tagAt.y + L.tg.h)}L${r(L.fxw)} ${r(top)}`;
+  return `M${r(L.fxw)} ${r(L.syw - L.zg0.ih / 2)}L${r(L.fxw)} ${r(y)}`;
+}
+
+/** The tag's tie: from the tag's right edge (fixed) to the step's left side (fixed). */
+function tieD(L) {
+  return `M${r(L.tagAt.x + L.tg.w)} ${r(L.tagAt.y + L.tg.h / 2)}L${r(L.fxw - L.zg0.iw / 2 - 2)} ${r(L.syw - L.zg0.ih / 2)}`;
 }
 
 function compose(ctx, base, cfg) {
@@ -301,9 +307,9 @@ function compose(ctx, base, cfg) {
     // crop: the tag, the string and both slots of the focus consequence with the inner ring between them (the
     // consequence and its string move inside it when the datum changes)
     const G = zg.G;
-    const c0 = {x: Math.min(zg.tagX, zg.fx - zg.iw / 2) - 6, y: zg.tagY - 6};
-    // (the tag down to both slots with the step on them: the moving step and its string stay in view)
-    const c1 = {x: Math.max(zg.tagX + tg.w, zg.fx + zg.iw / 2 + G.headS) + 8, y: zg.ys[1] + 8};
+    // (the tag, the step and both leader ends with their slot pads: the moving leader stays in view)
+    const c0 = {x: zg.tagX - 6, y: Math.min(zg.tagY, zg.ys[0] - G.LT * 0.6) - 6};
+    const c1 = {x: zg.fx + zg.iw / 2 + G.headS + 10, y: Math.max(zg.tagY + tg.h, zg.ys[1] + G.LT * 0.6) + 6};
     let crop = {x: c0.x, y: c0.y, w: c1.x - c0.x, h: c1.y - c0.y};
     // (a crop narrower than the room widens, centred, up to 1.6× — so the open lens spans the room)
     const ar = room.w / room.h;
@@ -320,7 +326,7 @@ function compose(ctx, base, cfg) {
     const lensMin = Math.min(crop.w, crop.h) * Z;
     // (lens-content fill: the tag card and the rig parts inside the crop cover >= 0.40 of it — LENS FILL METRIC)
     // (the tag card, the two slot pads, the consequence and the plate strip under the path)
-    const fill = Math.min(1, (tg.w * tg.h + 2 * zg.iw * zg.ih + (zg.ys[1] - zg.ys[0]) * zg.iw) / (crop.w * crop.h));
+    const fill = Math.min(1, (tg.w * tg.h + zg.iw * zg.ih + (zg.ys[1] - zg.ys[0]) * zg.iw * 0.6) / (crop.w * crop.h));
     // (context + lens fill the box while the lens is open: >= 0.82 of its height)
     const spanH = arr === 'side' ? Math.max(zg.zH, crop.h * Z) : zg.zH * room.sBack + 16 + crop.h * Z + 14;
     if (spanH < (arr === 'side' ? 0.9 : 0.82) * (D.h - (room.top || 0)) && !cfg.force) { lastWhy = `span${Math.round(spanH)}`; continue; }
@@ -432,10 +438,11 @@ const scene = {
     }
     L.F = F; L.zx = zx;
     L.Gw = fieldGeom(zx, F, L.PH);
-    L.places = itemPlaces(L.Gw, M, [fi]);
+    L.places = itemPlaces(L.Gw, M, [fi], 0.42);
     L.fxw = zx + L.fx;
     L.zg0 = {iw: L.iw, ih: L.ih};
     L.ysw = L.ys.map(y => F + y);
+    L.syw = F + L.sy;
     L.tagAt = {x: zx + L.tagX, y: F + L.tagY};
     L.crop = {x: zx + L.crop.x, y: F + L.crop.y, w: L.crop.w, h: L.crop.h};
     const dw = L.crop.w * L.Z, dh = L.crop.h * L.Z;
@@ -511,6 +518,7 @@ const scene = {
     const zone = (P, tagP) => {
       const tag = tagArt(ctx, L.tg, L.tagAt.x, L.tagAt.y, tagP, textOn);
       const y0 = L.ysw[L.lanes[0] === 'b' ? 1 : 0];
+      const leader = h('path', {name: `${P}string`, d: stringD(L, y0), stroke: th.ink, 'stroke-width': r(Math.max(4, G.PH * 0.02)), 'stroke-linecap': 'round'});
       // the state produced by the action: both trolleys at their barriers, both connectors drawn (identical)
       const links = M.links.map(l => laneConnector(ctx, {name: `${P}cn${l.lane}`, G, l: l.lane, kind: l.kind, disputed: l.status === 'disputed'}));
       const stand = [
@@ -518,7 +526,7 @@ const scene = {
         ...L.places.map(q => ({y: q.y, node: g({transform: T(q.x, q.y)}, itemArt(ctx, {i: q.i, s: q.s}))})),
         ...['a', 'b'].map(l => ({y: G.laneY(l) + 0.01, node: g({transform: T(G.xb, G.laneY(l))}, laneBarrier(ctx, {name: `${P}lb${l}`, G}))})),
         ...['a', 'b'].map(l => ({y: G.laneY(l) + 0.02, node: g({name: `${P}cart${l}`, transform: T(G.cartX(1), G.laneY(l))}, cartArt(ctx, {PH: G.PH, side: l}))})),
-        {y: 1e9, node: g({name: `${P}item`, transform: T(L.fxw, y0)}, itemArt(ctx, {i: L.fi, s: G.itemS * ITEM_K}))},
+        {y: 1e9, node: g(null, leader, g({name: `${P}item`, transform: T(L.fxw, L.syw)}, itemArt(ctx, {i: L.fi, s: G.itemS * ITEM_K})))},
       ].sort((a0, b0) => a0.y - b0.y);
       return g(null,
         L.arr !== 'side' || P ? floorArt(ctx, {name: `${P}floor`, x0: MARGIN, x1: L.Dv.w - MARGIN, floorY: L.F}) : null,
@@ -526,10 +534,10 @@ const scene = {
           slabArt(ctx, {G}),
           links.map(lk => { const fr = lk.frame(1); return g(null, applyStatic(lk.node, fr)); }),
           // the two slots of the focus step: a ● pad under lane A, a ◆ pad under lane B (same shape and weight)
-          slotArt(ctx, {G, at: {x: L.fxw, y: L.ysw[0]}, side: 'a'}),
-          slotArt(ctx, {G, at: {x: L.fxw, y: L.ysw[1]}, side: 'b'}),
+          slotArt(ctx, {G, at: {x: L.fxw, y: L.ysw[0] - G.LT}, side: 'a'}),
+          slotArt(ctx, {G, at: {x: L.fxw, y: L.ysw[1] + G.LT}, side: 'b'}),
           stand.map(q => q.node)),
-        h('path', {name: `${P}string`, d: stringD(L, y0), fill: 'none', stroke: th.inkSoft, 'stroke-width': 2.5}),
+        h('path', {d: tieD(L), fill: 'none', stroke: th.inkSoft, 'stroke-width': 2.5}),
         tag.node,
       );
     };
@@ -619,10 +627,7 @@ const scene = {
     const yOf = l => L.ysw[l === 'b' ? 1 : 0];
     const yNow = lerp(yOf(L.lanes[0]), yOf(L.lanes[1]), gp0);
     const pt = {x: L.fxw, y: yNow};
-    for (const P of ['', 'lzs-']) {
-      nodes[`${P}item`] = {transform: T(pt.x, pt.y)};
-      nodes[`${P}string`] = {d: stringD(L, yNow)};
-    }
+    for (const P of ['', 'lzs-']) nodes[`${P}string`] = {d: stringD(L, yNow)};
     const txt = u < W.textOut[1] ? Math.min(seg(u, ...W.textIn), 1 - seg(u, ...W.textOut)) : u < W.textBack[0] ? 0 : seg(u, ...W.textBack);
     nodes['rec-g'] = {opacity: r(L.arr === 'side' ? 1 : txt, 3)};
     for (const bn of L.bandNodes) {

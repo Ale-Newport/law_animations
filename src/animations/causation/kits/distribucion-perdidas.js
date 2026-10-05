@@ -427,7 +427,8 @@ export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, dro
 }
 
 /** Extra guide-rail height (× S) that makes a stage of scale S exactly fill height bh (capped). */
-export function fillDrop(G, bh, cap = 0.55) {
+export const DROP_CAP = 0.55;
+export function fillDrop(G, bh, cap = DROP_CAP) {
   return clamp(G.dropMin + (bh - G.H) / G.S, G.dropMin, cap);
 }
 
@@ -487,7 +488,11 @@ export function arrangeScene(ctx, o) {
         if (bw < 100 || bh < 100) continue;
         const S = maxScale(s => { const d = st.dims(s); return d.w <= bw && d.h <= bh; }, 40, o.sMax ?? 2000);
         if (!S) continue;
-        if (!best || S > best.S + 1e-6) best = {size, mode, S, pw, panel, bw, bh, st};
+        // (score: the stage's scale, with a bonus for using the box's height once the rail zone grows — st.dimsMax)
+        const hMax = st.dimsMax ? Math.min(bh, st.dimsMax(S).h) : st.dims(S).h;
+        const used = mode === 'side' ? Math.max(hMax, panel.h) / fullH : (hMax + (panel.h ? panel.h + GAP : 0)) / fullH;
+        const score = S * (0.7 + 0.3 * Math.min(1, used));
+        if (!best || score > best.score + 1e-6) best = {size, mode, S, pw, panel, bw, bh, st, score};
       }
     }
     if (best) cands.push(best);
@@ -496,10 +501,10 @@ export function arrangeScene(ctx, o) {
   // text at >= 20 (the 19.5 px baseline floor) whenever any arrangement allows it; then the largest text whose stage
   // stays >= keep of the largest stage found
   const c20 = cands.filter(c => c.size >= 20 - 1e-9);
-  const pool = c20.length && Math.max(...c20.map(c => c.S)) >= (o.keep20 ?? 0.7) * Math.max(...cands.map(c => c.S)) ? c20 : cands;
-  const Sbest = Math.max(...pool.map(c => c.S));
+  const pool = c20.length && Math.max(...c20.map(c => c.score)) >= (o.keep20 ?? 0.7) * Math.max(...cands.map(c => c.score)) ? c20 : cands;
+  const Sbest = Math.max(...pool.map(c => c.score));
   const keep = o.keep ?? 0.88;
-  const ok = pool.filter(c => c.S >= keep * Sbest - 1e-6);
+  const ok = pool.filter(c => c.score >= keep * Sbest - 1e-6);
   return ok.sort((a, b) => b.size - a.size)[0];
 }
 
