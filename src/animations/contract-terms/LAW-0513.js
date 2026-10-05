@@ -88,7 +88,7 @@ function geom(ctx, F, minF, arr, cols) {
   // ---- the card and the lower/right zone
   let card, zone;
   if (arr === 'side') {
-    const cw = clamp(D.w * (ctx.view.shape === 'landscape' ? 0.32 : stress ? 0.3 : 0.37), 360, 620);
+    const cw = clamp(D.w * (ctx.view.shape === 'landscape' ? 0.32 : stress ? 0.33 : 0.37), 360, 620);
     card = {x: m, y: m, w: cw, h: D.h - 2 * m};
     zone = {x: m + cw + gap, y: m, w: D.w - 2 * m - cw - gap, h: D.h - 2 * m};
   } else {
