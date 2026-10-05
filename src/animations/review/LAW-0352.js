@@ -163,6 +163,7 @@ function compose(ctx, P, R, F, v) {
     const dest = {w: sw.w * kS, h: sw.h * kS};
     dest.x = Lb.x + (Lb.w - dest.w) / 2; dest.y = Lb.y + (Lb.h - dest.h) / 2;
     if (Math.min(dest.w, dest.h) < shortD * 0.343) problems.push('lens-small');
+    if (globalThis.process?.env?.DN_DBG) console.log(JSON.stringify({sw, Lb, kS, dest, shortD, deskh: desk.h}));
     if (problems.length && !v.force) return {ok: false, problems};
     return {F, pips: !!v.pips, step: true, sK, lsrc: sw, desk, band, side, cols, panelH, box, B, TW, tagH, tagY, tagX, fitB, fitA, path, src, dest, k: kS * sK, shortD, ok: !problems.length, problems};
   }

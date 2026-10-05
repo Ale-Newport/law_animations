@@ -120,13 +120,13 @@ function headChip(ctx, it, size, maxW, textOn, hMin = 0) {
 
 /** A stop pad on the plate (● / ◆, identical shape and weight). Local origin = the slot's centre on the plate. */
 
-/** A start pad under a trolley (● / ◆, identical shape and weight). Local origin = the pad's centre on the lane. */
+/** A start pad under a trolley (● / ◆ at its centre, identical shape and weight; shows once the trolley leaves it). */
 function stopArt(ctx, {name, G, side}) {
   const th = ctx.theme;
   const rx = G.cartW * 0.72, ry = G.LT * 1.25;
   return g({name, opacity: 0},
     h('ellipse', {cx: 0, cy: 0, rx: r(rx), ry: r(ry), fill: th.accent2Soft, stroke: th.accent2, 'stroke-width': 3}),
-    sideMark(ctx, {cx: -rx - G.headS * 0.45, cy: 0, s: G.headS * 0.75, side}),
+    sideMark(ctx, {cx: 0, cy: 0, s: G.headS * 0.7, side}),
   );
 }
 
