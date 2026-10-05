@@ -178,19 +178,17 @@ export function compose(ctx, P, F, opts) {
   };
   // (the supplied placement is a preference: when the lens cannot be enlarged enough there, the other side is used)
   // (in order: the deep crop beside the desk, the shallow crop beside it, then either overlapping the desk's lower part)
-  const lensTries = [];
   const choose = placement => {
     const tries = [[true, false], [false, false], [true, true], [false, true]].map(([d, o]) => lensFor(d, placement, o));
-    lensTries.push(...tries.map(t => [placement, t.deep, +t.zoom.toFixed(2), +t.big.toFixed(2), Math.round(t.dest.y)]));
-    return tries.find(t => t.zoom >= 1.5 && t.big >= 0.37) || tries.find(t => t.zoom >= 1.5) || tries[0];
+    return tries.find(t => t.zoom >= 1.5 && t.big >= 0.355) || tries.find(t => t.zoom >= 1.5) || tries[0];
   };
   let LZ = choose(pref);
-  if (LZ.zoom < 1.5 || LZ.big < 0.37) { const L3 = choose(pref === 'right' ? 'bottom' : 'right'); if (L3.zoom >= 1.5 && L3.big >= 0.37) LZ = L3; }
+  if (LZ.zoom < 1.5 || LZ.big < 0.355) { const L3 = choose(pref === 'right' ? 'bottom' : 'right'); if (L3.zoom >= 1.5 && L3.big >= 0.355) LZ = L3; }
   const {src, dest, zoom, placement, deep} = LZ;
   const wasBand = {x: dest.x, y: dest.y + dest.h + 6, w: dest.w, h: bandH - 6};
-  const problems = [plan.needW > inner.w + 0.5 && 'desk-width', plan.needH > inner.h + 0.5 && 'desk-height', !M.ok && 'card-text', PL && !PL.ok && 'panel-text', zoom < 1.5 && 'lens-small', LZ.big < 0.36 && 'lens-thumbnail',
+  const problems = [plan.needW > inner.w + 0.5 && 'desk-width', plan.needH > inner.h + 0.5 && 'desk-height', !M.ok && 'card-text', PL && !PL.ok && 'panel-text', zoom < 1.5 && 'lens-small', LZ.big < 0.35 && 'lens-thumbnail',
     wasFit && wasLab && wasLab.width + wasFit.width + F * 2 > dest.w && 'was-band'].filter(Boolean);
-  return {lensTries, deep, kS, F, side, before, desk, inner, panel, PL, M, plan, A, B, strip, cal, src, dest, wasBand, wasFit, wasLab, zoom, placement, dyC, ok: !problems.length, problems};
+  return {deep, kS, F, side, before, desk, inner, panel, PL, M, plan, A, B, strip, cal, src, dest, wasBand, wasFit, wasLab, zoom, placement, dyC, ok: !problems.length, problems};
 }
 
 const scene = {
@@ -357,7 +355,7 @@ const scene = {
         src: {x: r(S.x), y: r(S.y), w: r(S.w), h: r(S.h)}, dest: {x: r(D.x), y: r(D.y), w: r(D.w), h: r(D.h)},
         value: substituted ? 'after' : 'before', contextShows: shown, lift: r(kLift, 3), newIn: r(kNew, 3), was: r(wasK, 3), marker: r(markK, 3),
         before: C.before, after: L.P.afterValue, focus: side, chipW: r(chipW, 2), tipGap: r(Math.hypot(tipA.x - tipB.x, tipA.y - tipB.y), 2),
-        results: [L.P.outcomes.a, L.P.outcomes.b], dyC: r(C.dyC, 2), placement: C.placement, ctxK: r(ctxK, 3), ctxText: r(txtK, 3), lensTries: C.lensTries,
+        results: [L.P.outcomes.a, L.P.outcomes.b], dyC: r(C.dyC, 2), placement: C.placement, ctxK: r(ctxK, 3), ctxText: r(txtK, 3),
         desk: {x: r(C.desk.x), y: r(C.desk.y), w: r(C.desk.w), h: r(C.desk.h)},
         problems: C.problems, textPx: r(C.F * L.pxu, 1),
       },
