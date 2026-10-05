@@ -1,0 +1,184 @@
+{
+  "animationId": "LAW-0346",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Only the supplied relationships are drawn, each in its kind's style: a plain relation never gets an arrow, and a causal link appears only when the author supplies it. Both cards have the same size, stroke and ink; neither is marked right, wrong or valid. No rule, time limit, outcome or jurisdiction is drawn.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Default: four supplied relationships (two plain relations, two sequences), the tracer goes intake → card B → position → card A → history; the position enlarges.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other relationships — a communication between the history pocket and the position is added, card B is only related (not sequenced) to the intake — another traversal order (history first) and the history pocket as the focus element.",
+      "params": {
+        "relationships": [
+          {
+            "from": "later",
+            "to": "position",
+            "kind": "sequence"
+          },
+          {
+            "from": "initial",
+            "to": "history",
+            "kind": "sequence"
+          },
+          {
+            "from": "history",
+            "to": "position",
+            "kind": "communication"
+          },
+          {
+            "from": "later",
+            "to": "intake",
+            "kind": "relation"
+          }
+        ],
+        "traversalOrder": [
+          "history",
+          "initial",
+          "position",
+          "later",
+          "intake"
+        ],
+        "focusElement": "history",
+        "decisions": {
+          "position": "Position K on the board (fictional)",
+          "initial": "Initial result of example K (placeholder text)",
+          "later": "Later result of example K (placeholder text)"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: five relationships including a supplied causal link, long labels and captions.",
+      "params": {
+        "elements": [
+          {
+            "id": "intake",
+            "label": "Intake tray of this example (fictional)"
+          },
+          {
+            "id": "later",
+            "label": "Card B ◆ of this example, the later one"
+          },
+          {
+            "id": "position",
+            "label": "Position in its holder frame (fictional)"
+          },
+          {
+            "id": "initial",
+            "label": "Card A ● of this example, the initial one"
+          },
+          {
+            "id": "history",
+            "label": "History pocket of this example (fictional)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "later",
+            "to": "intake",
+            "kind": "relation"
+          },
+          {
+            "from": "later",
+            "to": "position",
+            "kind": "sequence"
+          },
+          {
+            "from": "initial",
+            "to": "position",
+            "kind": "relation"
+          },
+          {
+            "from": "initial",
+            "to": "history",
+            "kind": "sequence"
+          },
+          {
+            "from": "history",
+            "to": "position",
+            "kind": "causal"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Line with dots: a plain relation in this example (as supplied)",
+          "communication": "Double line: a communication in this example (as supplied)",
+          "sequence": "Line with a head: a sequence, moves to, in this example (as supplied)",
+          "causal": "Heavy line with a head: a causal link, only because it is supplied"
+        },
+        "decisions": {
+          "position": "Position on the shared board of this fictional example (as supplied)",
+          "initial": "Initial result of this fictional example, written as placeholder text only (as supplied)",
+          "later": "Later result supplied in this fictional example, written as placeholder text (as given)"
+        },
+        "grounds": "Note supplied with the later card in this example: provided by the user here (fictional)",
+        "routes": {
+          "intake": "Intake tray of this example: the later card waits here (as supplied)",
+          "history": "History pocket of this example: an earlier card stays whole, visible"
+        },
+        "outcomes": {
+          "position": "Now held in the position of this example: card B, the later one (as supplied)",
+          "history": "Kept whole and visible in the history pocket: card A, the earlier one (as supplied)"
+        },
+        "labels": {
+          "order": "Order pips on each card: one dot means supplied first, two dots mean supplied later",
+          "key": "Everything is shown as supplied by the user · no conclusion is drawn here"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Spanish texts (locale es), the same scene as the baseline.",
+      "params": {
+        "locale": "es",
+        "decisions": {
+          "position": "Posición en el tablero (ficticia)",
+          "initial": "Resultado inicial (según lo aportado; texto provisional)",
+          "later": "Resultado posterior suministrado (según lo aportado; texto provisional)"
+        },
+        "grounds": "Nota con la tarjeta posterior: aportada por el usuario (ficticia)",
+        "routes": {
+          "intake": "Bandeja de entrada: aquí espera la tarjeta posterior",
+          "history": "Bolsillo de historial: una tarjeta anterior sigue visible"
+        },
+        "outcomes": {
+          "position": "Ya en la posición: tarjeta B (según lo aportado)",
+          "history": "Conservada en el historial: tarjeta A (según lo aportado)"
+        },
+        "labels": {
+          "order": "Puntos de orden: un punto aportada primero, dos puntos aportada después",
+          "key": "Según lo aportado · sin conclusión"
+        },
+        "elements": [
+          {
+            "id": "intake",
+            "label": "Bandeja de entrada"
+          },
+          {
+            "id": "later",
+            "label": "Tarjeta B ◆ (la posterior)"
+          },
+          {
+            "id": "position",
+            "label": "Posición en su marco"
+          },
+          {
+            "id": "initial",
+            "label": "Tarjeta A ● (la inicial)"
+          },
+          {
+            "id": "history",
+            "label": "Bolsillo de historial"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Línea con puntos: una relación simple (según lo aportado)",
+          "communication": "Línea doble: una comunicación (según lo aportado)",
+          "sequence": "Línea con punta: una secuencia, pasa a (según lo aportado)",
+          "causal": "Línea gruesa con punta: un vínculo causal (solo si se aporta)"
+        }
+      }
+    }
+  ]
+}

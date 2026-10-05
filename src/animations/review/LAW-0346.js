@@ -32,7 +32,7 @@
 import {defineAnimation} from '../../core/define.js';
 import {makeMetadata} from '../../core/meta.js';
 import {h, g} from '../../core/svg.js';
-import {T, scaleAbout} from '../../core/transform.js';
+import {T} from '../../core/transform.js';
 import {seg, clamp, ease, lerp, r} from '../../core/time.js';
 import {edgeAnchor, polyline} from '../../core/geometry.js';
 import {str, obj} from '../../schemas/fields.js';
@@ -40,7 +40,7 @@ import {mechanismFields, RELATION_KINDS} from '../../schemas/fields.js';
 import {pxPerUnit} from '../hearings/kits/apertura-audiencia.js';
 import {
   sdFields, SD_EN, SD_ES, localisedSd, fitG, textAt, cardModel, cardNode, placeNode, tokenNode, headPath,
-  calendarNode, orderPips, INK, R2, overlaps,
+  orderPips, INK, R2, overlaps,
 } from './kits/sustitucion-de-decision.js';
 
 const ID = 'LAW-0346';
