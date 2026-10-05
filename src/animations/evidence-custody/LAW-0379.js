@@ -134,7 +134,7 @@ function compose(ctx, P, k) {
   const opts = shape === 'portrait'
     ? [{arr: 'column', strip: 'below', cols: 2}, {arr: 'column', strip: 'below', cols: 1}]
     : shape === 'square'
-      ? [{arr: 'column', strip: 'below', cols: 2}, {arr: 'column', strip: 'below', cols: 3}, {arr: 'column', strip: 'side', pw: 0.3}, {arr: 'row', strip: 'below', cols: 2}, {arr: 'row', strip: 'below', cols: 3}]
+      ? [{arr: 'column', strip: 'below', cols: 2}, {arr: 'column', strip: 'below', cols: 3}, {arr: 'column', strip: 'side', pw: 0.3}, {arr: 'column', strip: 'side', pw: 0.36}, {arr: 'column', strip: 'side', pw: 0.42}, {arr: 'row', strip: 'below', cols: 2}, {arr: 'row', strip: 'below', cols: 3}]
       : [{arr: 'row', strip: 'below', cols: 3}, {arr: 'row', strip: 'side', pw: 0.24}, {arr: 'column', strip: 'side', pw: 0.26}, {arr: 'column', strip: 'side', pw: 0.32}];
   let best = null, bestScore = -1, fallback = null;
   for (const F of F_SIZES) {

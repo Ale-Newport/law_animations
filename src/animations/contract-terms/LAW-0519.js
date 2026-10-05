@@ -91,14 +91,14 @@ function geom(ctx, F, minF) {
   // one small station (gantry + press) per step; the card pauses so that the press of station k meets its tab k
   const cHead = clamp(F * 1.05, 22, 30);
   const stackC = S.w < 700;
-  const cw = Math.min(S.w * (stackC ? 0.37 : 0.36), 300);
+  const cw = Math.min(S.w * (stackC ? 0.4 : 0.36), 300);
   const propFit = fitG(p.proposal, {maxWidth: cw - 18, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 800});
   const chMin = cHead + 10 + propFit.height + 10;
   const cX = stackC ? cw + 26 : S.w * 0.36, cW = S.w - cX;
-  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: cW - 74, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 800});
+  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: cW - 64, size: F, minSize: minF, maxLines: stress || stackC ? 3 : 2, weight: 800});
   const headH = head.height + 22;
   const clW = stackC ? cW - 32 : cW * 0.5 - 24;
-  const clFit = fitG(p.clause, {maxWidth: clW - 18 - discR * 2 - 14 - 12, size: F, minSize: minF, maxLines: 3, weight: 700});
+  const clFit = fitG(p.clause, {maxWidth: clW - 18 - discR * 2 - 14 - 12, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 700});
   const clH0 = clauseBlockH(clFit, discR, stackC ? 0 : 0);
   const pressZone = 70, cGap = 22;
   const fixed = hh + 8 + headH + 36 + cGap + pressZone + 26 + (stackC ? clH0 + 14 : 0);
@@ -116,15 +116,15 @@ function geom(ctx, F, minF) {
   const railY = padY + ch + 16;
   if (railY + 10 > S.h + 2) why.push('board-h');
   const edge = 'top';
-  const tabs = tabSlots(n, cw, ch, edge, true);
+  const tabs = tabSlots(n, cw, ch, edge, true, true);
   const trayStop = {x: 10, y: padY};
   const step = (S.w - cw - 20) / n;
   const stops = [trayStop, ...Array.from({length: n}, (_, k) => ({x: 10 + (k + 1) * step, y: padY}))];
   const stations = Array.from({length: n}, (_, k) => {
     const st = stops[k + 1], t = tabs[k];
-    const hw = t.w + 26, hgt = 44;
+    const hw = t.w + 16, hgt = 44;
     const contact = {x: st.x + t.cx, y: st.y - hgt / 2 + 9};
-    return {k, x: contact.x - hw / 2 - 10, w: hw + 20, head: {w: hw, h: hgt}, contact, rest: {x: contact.x, y: trackY + hgt / 2 + 6}};
+    return {k, x: contact.x - hw / 2 - 5, w: hw + 10, head: {w: hw, h: hgt}, contact, rest: {x: contact.x, y: trackY + hgt / 2 + 6}};
   });
   if (stations.some(st => st.contact.y - st.rest.y < 16)) why.push('press');
   if (stations[0].x < trayStop.x + cw + 22) why.push('station-over-tray');
@@ -185,7 +185,7 @@ const scene = {
           );
         }),
         // the proposal card
-        g({name: `${P}-card`, transform: T(s0.x, s0.y)}, amendmentSheet(ctx, {w: L.cw, h: L.ch, fit: L.propFit, showText: show, name: `${P}-am`, n: L.n, edge: L.edge, headH: L.cHead, sig: false, rev: true})),
+        g({name: `${P}-card`, transform: T(s0.x, s0.y)}, amendmentSheet(ctx, {w: L.cw, h: L.ch, fit: L.propFit, showText: show, name: `${P}-am`, n: L.n, edge: L.edge, headH: L.cHead, sig: false, rev: true, narrow: true})),
         g({transform: T(s0.x, s0.y)}, trayLip(ctx, L.cw, L.ch)),
         // presses (over the card)
         L.stations.map(st => g({name: `${P}-press${st.k}`, transform: T(st.rest.x, st.rest.y)},
