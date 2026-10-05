@@ -69,7 +69,8 @@ function geom(ctx, F, minF, tw) {
   const p = ctx.params;
   const D = ctx.design;
   const tall = ctx.view.shape === 'portrait';
-  const sq = ctx.view.shape === 'square';
+  const sqShape = ctx.view.shape === 'square';
+  const sq = false; // square uses the side layout (sheet left, contract and lens right)
   const show = ctx.show('all'), showKey = ctx.show('key');
   const why = [];
   const pad = 14;
@@ -84,7 +85,7 @@ function geom(ctx, F, minF, tw) {
   const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: Math.max(F * 0.95, minF), minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: '#ffffff'});
   // context sheet
   let sheet, notesBox, lensArea;
-  const ctxW = tall || sq ? D.w - pad * 2 : D.w * 0.37;
+  const ctxW = tall || sq ? D.w - pad * 2 : D.w * (sqShape ? 0.42 : 0.37);
   const gR = Math.min(14, F * 0.6);
   // tile text widths (independent of the tile height)
   const textMax0 = ctxW - 52 - clamp((ctxW - 52) * 0.12, 44, 80) - 20 - 16 - 98 - gR * 2 - 18;
@@ -95,7 +96,7 @@ function geom(ctx, F, minF, tw) {
   const afterFit = stFit(p.afterValue);
   const stH = Math.max(...[...stFits, afterFit, stFit('included'), stFit('review')].map(f => f.height));
   const labH = Math.max(...labFits.map(f => f.height));
-  const head = fitG(`${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`, {maxWidth: ctxW - 50, size: F, minSize: minF, maxLines: 3, weight: 800});
+  const head = fitG(`${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`, {maxWidth: ctxW - 50, size: F, minSize: minF, maxLines: 4, weight: 800});
   const sh = fitG(p.sheetLabel, {maxWidth: ctxW - 50, size: F, minSize: minF, maxLines: 2, weight: 700});
   const headH = head.height + sh.height + 40;
   const tileH0 = labH + stH + (sq ? 28 : 40);
@@ -142,19 +143,25 @@ function geom(ctx, F, minF, tw) {
     const x0 = src.x + src.w + 30;
     lensArea = {x: x0, y: sheet.y + headH, w: sheet.x + sheet.w - 10 - x0, h: sheet.h - headH - 10};
   }
+  const restArea = lensArea;
+  // square: the context steps aside (scales to CS about its left edge) while the lens is open; the lens takes the rest
+  const step = sqShape ? {cs: 0.5, ax: pad, ay: D.h / 2} : null;
+  if (step) { const x0 = pad + ctxW * step.cs + 34; lensArea = {x: x0, y: pad, w: D.w - pad - x0, h: D.h - pad * 2}; }
   const k = Math.min(lensArea.w / src.w, lensArea.h / src.h, 3);
   if (k < 1.5) why.push(`lens-small`);
+  // the lens is a real inspection: its smaller side ≥ 35 % of the frame's short side (checked at 36 %)
+  if (Math.min(src.w, src.h) * k * unitPx(ctx) < 0.36 * 1080) why.push('lens-px');
   const dest = {w: src.w * k, h: src.h * k};
   dest.x = lensArea.x + (lensArea.w - dest.w) / 2;
-  dest.y = tall && !sq ? lensArea.y + (lensArea.h - dest.h) / 2 : clamp(src.y + src.h / 2 - dest.h / 2, lensArea.y, lensArea.y + lensArea.h - dest.h);
+  dest.y = step ? lensArea.y + (lensArea.h - dest.h) / 2 : tall && !sq ? lensArea.y + (lensArea.h - dest.h) / 2 : clamp(src.y + src.h / 2 - dest.h / 2, lensArea.y, lensArea.y + lensArea.h - dest.h);
   // landscape: the contract lies on the right (the lens opens over it, the contract dimmed beneath)
   let docBox = null, docL = null;
   if (!tall && !sq) {
-    const dw = Math.min(lensArea.w * 0.86, 760);
-    docBox = {x: lensArea.x + (lensArea.w - dw) / 2, y: lensArea.y + 40, w: dw, h: lensArea.h - 50};
+    const dw = Math.min(restArea.w * 0.86, 760);
+    docBox = {x: restArea.x + (restArea.w - dw) / 2, y: restArea.y + 40, w: dw, h: restArea.h - 50};
     const padX = 44;
-    const dh = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: dw - padX - 20, size: F, minSize: minF, maxLines: 2, weight: 700});
-    const tf = fitG(p.clauseTitle, {maxWidth: dw - padX - 24, size: F, minSize: minF, maxLines: 2, weight: 800});
+    const dh = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: dw - padX - 20, size: F, minSize: minF, maxLines: 3, weight: 700});
+    const tf = fitG(p.clauseTitle, {maxWidth: dw - padX - 24, size: F, minSize: minF, maxLines: 3, weight: 800});
     const dHeadH = dh.height + 34, titleY = dHeadH + 22;
     let ry = titleY + tf.height + 20;
     const drows = p.clauses.map(c => { const f = fitG(c, {maxWidth: dw - padX - 40, size: F, minSize: minF, maxLines: 3, weight: 600}); const row = {y: ry, h: f.height + 26, fit: f}; ry += row.h + 14; return row; });
@@ -172,7 +179,7 @@ function geom(ctx, F, minF, tw) {
       ny += rh + gap;
     }
   }
-  return {ok: !why.length, why, F, minF, tall, sq, docBox, docL, stH, vm, sheet, head, sh, headH, C, neck, tiles, gR, cgB, cgA, ci, src, dest, k, afterFit, notesPl};
+  return {ok: !why.length, why, F, minF, tall, sq, step, docBox, docL, stH, vm, sheet, head, sh, headH, C, neck, tiles, gR, cgB, cgA, ci, src, dest, k, afterFit, notesPl};
 }
 
 const scene = {
@@ -190,17 +197,18 @@ const scene = {
   build(ctx, L) {
     const p = ctx.params;
     const th = ctx.theme;
-    const show = ctx.show('all');
+    const showAll = ctx.show('all');
+    const show = showAll;
     const S = L.sheet;
     const stB = statuses(p, 'beforeValue');
-    const statusLine = (t, st, fit, name, op) => {
+    const statusLine = (t, st, fit, name, op, show) => {
       const y = (t.h - t.lab.height - L.stH - 10) / 2 + t.lab.height + 10;
       return g({name, opacity: op},
         statusGlyph(ctx, st, show ? tileTextX(t.h) + L.gR : t.w - 20 - L.gR, show ? y + Math.min(fit.height, fit.lineHeight) / 2 : t.h / 2, L.gR),
         show ? txt(fit, {x: tileTextX(t.h) + L.gR * 2 + 12, y, fill: INK}) : null);
     };
     // the sheet content; prefix 'c' (context) or 'l' (lens copy)
-    const content = P => g(null,
+    const content = (P, show = showAll) => g(null,
       h('rect', {x: r(S.x + 8), y: r(S.y + 12), width: r(S.w), height: r(S.h), rx: 14, fill: th.shadow}),
       h('rect', {x: r(S.x), y: r(S.y), width: r(S.w), height: r(S.h), rx: 14, fill: '#f7f4ec', stroke: INK, 'stroke-width': 2.6}),
       h('rect', {x: r(S.x), y: r(S.y), width: r(S.w), height: r(L.headH - 6), rx: 14, fill: th.accent3Soft}),
@@ -211,8 +219,8 @@ const scene = {
         tileArt(ctx, {w: t.w, h: t.h, n: i + 1, fit: null, showText: show}),
         show ? txt(t.lab, {x: tileTextX(t.h), y: (t.h - t.lab.height - L.stH - 10) / 2, fill: INK}) : null,
         i === L.ci
-          ? g(null, statusLine(t, p.beforeValue, t.st, `${P}-before`, 1), statusLine(t, p.afterValue, L.afterFit, `${P}-after`, 0))
-          : statusLine(t, stB[i], t.st, undefined, 1),
+          ? g(null, statusLine(t, p.beforeValue, t.st, `${P}-before`, 1, show), statusLine(t, p.afterValue, L.afterFit, `${P}-after`, 0, show))
+          : statusLine(t, stB[i], t.st, undefined, 1, show),
       )),
       contourNode(ctx, `${P}-cgB`, L.cgB, {drawn: true}),
       contourNode(ctx, `${P}-cgA`, L.cgA),
@@ -223,8 +231,11 @@ const scene = {
     frame: {x: 0, y: 0, w: ctx.design.w, h: ctx.design.h}, color: th.accent2});
     const marker = changedMarker(ctx, {name: 'marker', x: t.x + t.w - 6, y: t.y + 6, radius: 18, opacity: 0});
     const notes = L.notesPl ? L.notesPl.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node)) : [];
-    const doc = L.docBox ? g({transform: T(L.docBox.x, L.docBox.y)}, contractDoc(ctx, {w: L.docBox.w, h: L.docBox.h, head: L.docL.head, headH: L.docL.headH, title: L.docL.title, titleY: L.docL.titleY, rows: L.docL.rows, padX: L.docL.padX, showText: show})) : null;
-    return g({name: 'scene'}, g({name: 'ctx'}, doc, content('c')), marker, g({'data-occludes': 1}, lz.node), notes);
+    const docOf = sh => (L.docBox ? g({transform: T(L.docBox.x, L.docBox.y)}, contractDoc(ctx, {w: L.docBox.w, h: L.docBox.h, head: L.docL.head, headH: L.docL.headH, title: L.docL.title, titleY: L.docL.titleY, rows: L.docL.rows, padX: L.docL.padX, showText: sh})) : null);
+    // stepping aside, the context shows a text-free copy (its text would fall under the size floor)
+    const ghost = L.step ? g({name: 'ghost', opacity: 0}, docOf(false), content('g', false)) : null;
+    const srcS = L.step ? h('rect', {name: 'srcS', rx: 8, fill: 'none', stroke: th.accent2, 'stroke-width': 4, opacity: 0}) : null;
+    return g({name: 'scene'}, g({name: 'ctx'}, g({name: 'creal'}, docOf(show), content('c')), ghost), srcS, marker, g({'data-occludes': 1}, lz.node), notes);
   },
   frame(ctx, L, u) {
     const nodes = {};
@@ -247,8 +258,21 @@ const scene = {
     nodes['c-after'] = {opacity: r(u < W.in[0] ? 0 : u < W.close[0] ? 0 : ctxIn, 3)};
     // dependent geometry: old route retracts, new route draws (lens copy and context together)
     const ret = seg(u, ...W.retract), drw = ease.inOutSine(seg(u, ...W.draw));
-    for (const P of ['c', 'l']) { Object.assign(nodes, contourFrame(`${P}-cgB`, L.cgB, 1 - ret), contourFrame(`${P}-cgA`, L.cgA, drw)); }
+    for (const P of L.step ? ['c', 'l', 'g'] : ['c', 'l']) { Object.assign(nodes, contourFrame(`${P}-cgB`, L.cgB, 1 - ret), contourFrame(`${P}-cgA`, L.cgA, drw)); }
     nodes.marker = {opacity: r(seg(u, ...W.marker), 3)};
+    if (L.step) {
+      const st = L.step;
+      const sc = 1 + (st.cs - 1) * ease.inOutSine(pq);
+      nodes.ctx = {transform: `translate(${r(st.ax, 2)} ${r(st.ay, 2)}) scale(${r(sc, 4)}) translate(${r(-st.ax, 2)} ${r(-st.ay, 2)})`};
+      const tq = clamp((sc - 0.975) / 0.025);
+      nodes.creal = {opacity: r(tq, 3)};
+      nodes.ghost = {opacity: r(1 - tq, 3)};
+      nodes['g-before'] = {...nodes['c-before']};
+      nodes['g-after'] = {...nodes['c-after']};
+      const S2 = L.src, X = v => st.ax + (v - st.ax) * sc, Y = v => st.ay + (v - st.ay) * sc;
+      nodes.srcS = {x: r(X(S2.x)), y: r(Y(S2.y)), width: r(S2.w * sc), height: r(S2.h * sc), opacity: pq > 0.05 ? 1 : 0};
+      for (const nm of ['lens-src', 'lens-coneA', 'lens-coneB', 'lens-dim']) if (nodes[nm]) nodes[nm] = {...nodes[nm], opacity: 0};
+    } else nodes.ctx = {transform: 'translate(0 0)'};
     const noteO = seg(u, ...W.notes), keyO = seg(u, ...W.key);
     if (L.notesPl) for (const pl of L.notesPl) nodes[`${pl.q.name}-g`] = {opacity: r(pl.q.kind === 'key' ? keyO : noteO, 3)};
     const beat = u < BEATS.context[1] ? 'context' : u < BEATS.isolate[1] ? 'isolate' : u < BEATS.substitute[1] ? 'substitute' : u < BEATS.ret[1] ? 'return' : 'hold';

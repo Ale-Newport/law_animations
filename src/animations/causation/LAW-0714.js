@@ -166,7 +166,7 @@ function relMeasures(ctx, base, size, narrowSeq, full) {
         m.seqW = Math.max(m.seqW, chipG(ctx, unwidow(base.relText(q), t0 => chipG(ctx, t0, so).fit), {...so, maxWidth: Math.min(360, full / 2)}).box.w);
       }
       // (trio: a lane–convergence label sits on its short connector in the gap between the parts, up to three lines)
-      if (q.from === 'convergence' || q.to === 'convergence') m.trioW = Math.max(m.trioW, chipG(ctx, base.relText(q), {x: 0, y: 0, maxWidth: Math.max(size * 4.2, 90), size, maxLines: 3}).box.w);
+      if (q.from === 'convergence' || q.to === 'convergence') m.trioW = Math.max(m.trioW, chipG(ctx, base.relText(q), {x: 0, y: 0, maxWidth: Math.min(360, full / 2), size, maxLines: 2}).box.w);
       // (the alternative link's label may wrap to three lines beside its connector)
       if (q.from === 'alternative' || q.to === 'alternative') m.altRelW = Math.max(m.altRelW, chipG(ctx, base.relText(q), {x: 0, y: 0, maxWidth: Math.max(size * 7, 150), size, maxLines: 3}).box.w);
     }
@@ -274,7 +274,7 @@ function compose(ctx, base, cfg) {
     if (trio) {
       // the convergence card (2R = the piece height) between the two pieces; each gap holds its connector's label
       const R = OH * 0.5;
-      const g0 = Math.max(OH * 0.14, (textOn && ctx.show('all') ? trioW : 0) + 28, 40);
+      const g0 = Math.max(OH * 0.14, (textOn && ctx.show('all') ? trioW : 0) + 28, 40) + (base.focus === 'convergence' ? R * 0.25 + 12 : OH * 0.1 + 12);
       const colB = Math.max(pw, cB.w), colA = Math.max(pw, cA.w);
       const gapX = Math.max(2 * R + 2 * g0, (colB + colA) / 2 - pw + 24, cD.w + 16 - pw);
       return {w: colB / 2 + pw + gapX + colA / 2, pw, R, gapX, ow, trio: true};
@@ -548,7 +548,7 @@ const scene = {
         };
         let found = null;
         const inD = b => b.x >= 0 && b.y >= 0 && b.x + b.w <= D.w && b.y + b.h <= D.h;
-        laneB: for (const [mw, ml] of [[Math.min(360, full / 2), 2], [Math.min(240, full / 3), 3], [Math.min(180, full / 3), 4], [Math.max(L.size * 7, 150), 3], [Math.max(L.size * 4.2, 90), 3]]) {
+        laneB: for (const [mw, ml] of [[Math.min(360, full / 2), 2], [Math.min(240, full / 3), 3], [Math.min(180, full / 3), 4], [Math.max(L.size * 7, 150), 3]]) {
           for (const t0 of [0.5, 0.42, 0.58, 0.34, 0.66, 0.26, 0.74, 0.18, 0.82]) {
             for (const off of [1, -1, 0]) {
               const cand = mk(t0, off, mw, ml);

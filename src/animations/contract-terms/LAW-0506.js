@@ -36,7 +36,7 @@ import {
 const ID = 'LAW-0506';
 const DURATION = 6000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
-const W = {trace: [0.15, 0.42], tabsOut: [0.42, 0.46], plates: [0.44, 0.56], slip: [0.54, 0.64], collar: [0.62, 0.72], final: [0.72, 0.77], key: [0.75, 0.8], legend: [0.77, 0.82]};
+const W = {trace: [0.15, 0.42], tabsOut: [0.42, 0.46], plates: [0.44, 0.56], slip: [0.52, 0.63], zoom: [0.63, 0.7], collar: [0.68, 0.76], final: [0.75, 0.79], key: [0.77, 0.81], legend: [0.79, 0.83]};
 const IDS = ['contract', 'clause', 'promise', 'claim'];
 const KINDS = ['relation', 'communication', 'sequence', 'causal'];
 
@@ -125,7 +125,7 @@ function clausePlate(ctx, o) {
 function promiseFilm(ctx, o) {
   const th = ctx.theme;
   return g({name: o.name},
-    h('path', {d: roundRectPath(0, 0, o.w, o.h, 12), fill: '#d6ecf2', 'fill-opacity': 0.42, stroke: '#3c7486', 'stroke-width': 2.6}),
+    h('path', {d: roundRectPath(0, 0, o.w, o.h, 12), fill: '#d6ecf2', 'fill-opacity': 0.3, stroke: '#3c7486', 'stroke-width': 2.6}),
     h('path', {d: `M${r(o.w * 0.62)} 4l${r(o.w * 0.12)} 0M${r(o.w * 0.7)} ${r(o.h - 6)}l${r(o.w * 0.1)} 0`, stroke: '#ffffff', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.9}),
     h('rect', {x: 14, y: 12, width: r(o.frameW), height: r(o.h - 24), rx: 8, fill: 'none', stroke: th.accent2, 'stroke-width': 4}),
     h('path', {d: o.railD, fill: 'none', stroke: th.accent2, 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}),
@@ -156,18 +156,19 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
   const pi = promiseIndex(p);
   const prong = 54;
   const style = shape === 'portrait' ? 'down' : 'right';
-  const dx = 34;
+  const dx = arrangement === 'row' ? 64 : 34;
   const label = id => (p.elements.find(e => e.id === id) || {label: ''}).label;
-  const tabFits = Object.fromEntries(IDS.map(id => [id, show && label(id) ? fitG(label(id), {maxWidth: 420, size: F * 0.86, minSize: minF, maxLines: 1, weight: 700}) : null]));
-  const tabH = F * 0.86 * 1.18 + 14;
+  const TF = Math.max(F * 0.86, minF);
+  const tabFits = Object.fromEntries(IDS.map(id => [id, show && label(id) ? fitG(label(id), {maxWidth: 420, size: TF, minSize: minF, maxLines: 1, weight: 700}) : null]));
+  const tabH = TF * 1.18 + 14;
   // widths
   let slipW, Wk;
   if (arrangement === 'row') {
-    slipW = clamp(D.w * 0.19, 290, 360);
+    slipW = clamp(D.w * 0.205, 290, 380);
     // row: Wc + Wk + Wf + prong + slipW + 3 gaps ≤ D.w − 2m, Wc ≈ Wk − 20, Wf ≈ Wk − padX + 46
     Wk = (D.w - 2 * m - 36 - slipW - 3 * 48) / 3;
   } else if (arrangement === 'column') {
-    slipW = clamp(D.w * 0.36, 280, 340);
+    slipW = clamp(D.w * 0.27, 230, 300);
     Wk = D.w - 2 * m - dx - slipW - 20;
   } else {
     slipW = clamp(D.w * 0.27, 290, 360);
@@ -193,7 +194,7 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
   if (show) noteTexts.push(worstState(p), ...[...new Set(p.relationships.map(q => q.kind))].map(k => p.relationLabels[k] || k));
   if (showKey) noteTexts.push(ctx.t.key);
   const nh = noteTexts.reduce((acc, t) => acc + fitG(t, {maxWidth: D.w - 2 * m - F * 2.4, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 700}).height + F * 0.76 + 14, 0);
-  const tabH0 = F * 0.86 * 1.18 + 14;
+  const tabH0 = Math.max(F * 0.86, minF) * 1.18 + 14;
   let hkT = hkNat, hcT = hcNat, slipMin = F * 6.4;
   if (arrangement === 'row') {
     const availRow = D.h - 2 * m - tabH0 - 8 - 74;
@@ -203,9 +204,9 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
   } else if (arrangement === 'column') {
     const availCol = D.h - 2 * m - tabH0 - 8 - 3 * (tabH0 + 26) + 30;
     const extra = Math.max(0, availCol - (hcNat + hkNat + hfNat + prong + slipNat));
-    hkT = Math.max(hkNat, Math.min(hkNat + extra * 0.8 * ff, D.h - 2 * m - band - nh - 40));
+    hkT = Math.max(hkNat, Math.min(hkNat + extra * 0.3 * ff, D.h - 2 * m - band - nh - 40));
     hcT = hcNat + extra * 0.04 * ff;
-    slipMin = slipNat + extra * 0.12 * ff;
+    slipMin = slipNat + extra * 0.62 * ff;
   } else {
     const row1 = Math.max(hcNat, hfNat);
     const row2avail = D.h - m - (m + tabH0 + 8 + row1 + tabH0 + 34);
@@ -251,7 +252,8 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
   if (show) kinds.forEach(k => notes.push({name: `legend-${k}`, kind: 'legend', k, text: p.relationLabels[k] || k}));
   if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
   const gap = 14;
-  const chipOf = (q, x, yy, w, text, anchor) => chipG(ctx, text ?? q.text, {x, y: yy, anchor, maxWidth: w, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: q.kind === 'key' ? 500 : 700, name: q.name,
+  const NF = Math.min(F, TT.label.size, head.size, title.size, ...rowFits.map(f => f.size));
+  const chipOf = (q, x, yy, w, text, anchor) => chipG(ctx, text ?? q.text, {x, y: yy, anchor, maxWidth: w, size: NF, minSize: minF, maxLines: stress ? 4 : 3, weight: q.kind === 'key' ? 500 : 700, name: q.name,
     glyph: q.kind === 'final' ? (gx, gy, rr) => stateGlyph(ctx, p.finalState, gx, gy, rr) : q.kind === 'legend' ? (gx, gy) => legendGlyph(ctx, q.k, gx, gy, F) : null,
     fill: q.kind === 'final' ? ctx.theme.accent2Soft : ctx.theme.card});
   // place the assembly and the notes
@@ -289,7 +291,7 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
     const heights = col.items.map(q => chipOf(q, 0, 0, col.w, q.worst).box.h);
     const total = heights.reduce((a, b) => a + b + gap, 0) - gap;
     if (col.w < 200 || total > notesBox.bottom - notesBox.top + 0.5) why.push('notes-do-not-fit');
-    let yy = notesBox.anchor === 'end' ? notesBox.top + Math.max(0, (notesBox.bottom - notesBox.top - total) / 2) : notesBox.top;
+    let yy = notesBox.anchor === 'end' ? notesBox.top + Math.max(0, (notesBox.bottom - notesBox.top - total) / 2) : Math.max(notesBox.top, notesBox.bottom - total);
     col.items.forEach((q, i) => {
       const c = chipOf(q, col.x, yy, col.w, null, notesBox.anchor);
       if (c.bad) why.push('note-text');
@@ -371,7 +373,19 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
     ? {x: sock.x - 40, y: sock.y - 44, w: prong + 64, h: 88}
     : {x: sock.x - 44, y: sock.y - 40, w: 88, h: prong + 64};
   const collarFrom = style === 'right' ? {x: 0, y: -collar.y - collar.h - 20} : {x: D.w - collar.x + 20, y: 0};
+  // the hold zoom: the assembled group grows into the room the notes leave
+  const aw = asmBox.w, ah = asmBox.h;
+  const a0 = {x: A.x + asmBox.x, y: A.y + asmBox.y};
+  const nb = placed.map(pl => pl.c.box);
+  let Tz;
+  if (!nb.length) Tz = {x: m, y: m, w: D.w - 2 * m, h: D.h - 2 * m};
+  else if (notesBox.anchor === 'end') { const nx = Math.min(...nb.map(b => b.x)); Tz = {x: m, y: m, w: nx - 40 - m, h: D.h - 2 * m}; }
+  else { const ny = Math.min(...nb.map(b => b.y)); Tz = {x: m, y: m, w: D.w - 2 * m, h: ny - 24 - m}; }
+  const Z = clamp(Math.min(Tz.w / aw, Tz.h / ah), 1, 1.7);
+  const zoom = {Z, c0: {x: a0.x + aw / 2, y: a0.y + ah / 2}, cT: {x: Tz.x + Tz.w / 2, y: Tz.y + Tz.h / 2}};
+  if (Z === 1) zoom.cT = zoom.c0;
   return {
+    zoom,
     ok: !why.length, why, F, minF, arrangement, style, side, prong, slipW, TT, sb, Wc, Wk, Wf, hc, hk, hf, band, head, title, titleY,
     rows, rowW, padX, pi, frameW, filmRail, sockLocal, sock, asm, exp, expBox, routeOf, tabFits, tabH, collar, collarFrom, placed, stress,
   };
@@ -419,7 +433,7 @@ const scene = {
     );
     const slip = claimSlip(ctx, {name: 'claim', T: L.TT, side: L.side, prong: L.prong, showText: show});
     const tabs = ['contract', 'clause', 'promise', 'claim'].map(id => {
-      const t = nameTab(ctx, `tab-${id}`, L.tabFits[id], L.F * 0.86, show);
+      const t = nameTab(ctx, `tab-${id}`, L.tabFits[id], Math.max(L.F * 0.86, L.minF), show);
       const b = L.expBox[id];
       return g({name: `tabg-${id}`, transform: T(b.x + 6, b.y - t.h - 4)}, t.node);
     });
@@ -438,8 +452,7 @@ const scene = {
     return g({name: 'scene'},
       rels.map(q => q.node),
       tabs,
-      contract, clause, film, slip,
-      collar,
+      g({name: 'zoomG'}, contract, clause, film, slip, collar),
       tr,
       notes,
     );
@@ -477,7 +490,15 @@ const scene = {
     // assembly
     const pq = E(seg(a, ...W.plates));
     const sq = seg(a, ...W.slip);
-    const pos = id => ({x: lerp(L.exp[id].x, L.asm[id].x, pq), y: lerp(L.exp[id].y, L.asm[id].y, pq)});
+    const pos = id => {
+      if (id === 'clause' && L.arrangement === 'row') {
+        // first down/up to its final height (still clear of the contract), then across — the contract's head band is never covered
+        const q0 = seg(a, ...W.plates);
+        const v = E(seg(q0, 0, 0.45)), hq = E(seg(q0, 0.45, 1));
+        return {x: lerp(L.exp[id].x, L.asm[id].x, hq), y: lerp(L.exp[id].y, L.asm[id].y, v)};
+      }
+      return {x: lerp(L.exp[id].x, L.asm[id].x, pq), y: lerp(L.exp[id].y, L.asm[id].y, pq)};
+    };
     const swell = (id, P0) => {
       const s = id === focus && sw ? 1.05 : 1;
       if (s === 1) return T(r(P0.x, 2), r(P0.y, 2));
@@ -486,12 +507,16 @@ const scene = {
       return `${T(r(P0.x, 2), r(P0.y, 2))} translate(${r(cx)} ${r(cy)}) scale(${s}) translate(${r(-cx)} ${r(-cy)})`;
     };
     for (const id of ['contract', 'clause', 'promise']) nodes[id] = {transform: swell(id, pos(id))};
+    const zq = E(seg(a, ...W.zoom));
+    const zc = L.zoom;
+    const zs = 1 + (zc.Z - 1) * zq;
+    nodes.zoomG = {transform: `translate(${r(zc.c0.x + (zc.cT.x - zc.c0.x) * zq, 2)} ${r(zc.c0.y + (zc.cT.y - zc.c0.y) * zq, 2)}) scale(${r(zs, 4)}) translate(${r(-zc.c0.x, 2)} ${r(-zc.c0.y, 2)})`};
     // the slip: stays put while the plates move (in a row it shifts with the assembly), then slides in along its axis
     const app = L.side === 'left' ? {x: L.asm.claim.x + 90, y: L.asm.claim.y} : {x: L.asm.claim.x, y: L.asm.claim.y + 90};
     let tip;
     if (sq > 0) {
-      const s1 = seg(sq, 0, 0.7), s2 = seg(sq, 0.7, 1);
-      tip = s2 > 0 ? {x: lerp(app.x, L.asm.claim.x, ease.inOutSine(s2)), y: lerp(app.y, L.asm.claim.y, ease.inOutSine(s2))} : {x: lerp(L.exp.claim.x, app.x, E(s1)), y: lerp(L.exp.claim.y, app.y, E(s1))};
+      const s1 = seg(sq, 0, 0.75), s2 = seg(sq, 0.75, 1);
+      tip = s2 > 0 ? {x: lerp(app.x, L.asm.claim.x, ease.inOutSine(s2)), y: lerp(app.y, L.asm.claim.y, ease.inOutSine(s2))} : {x: lerp(L.exp.claim.x, app.x, ease.inOutSine(s1)), y: lerp(L.exp.claim.y, app.y, ease.inOutSine(s1))};
     } else tip = L.exp.claim;
     nodes.claim = {transform: swell('claim', tip)};
     const seated = sq >= 1;
@@ -511,7 +536,7 @@ const scene = {
       nodes,
       semantic: {
         beat, tracer: trPos ? P2(trPos) : null, tracerAt: at, trace: r(tq, 3), focusSwell: sw === 1 ? focus : null,
-        assembled: r(pq, 3), slipTip: P2(tip), seated, connected: seated, collar: r(cq, 3), collarOn: cq >= 1,
+        assembled: r(pq, 3), zoom: r(zs, 3), slipTip: P2(tip), seated, connected: seated, collar: r(cq, 3), collarOn: cq >= 1,
         collarStyle: p.finalState === 'disputed' ? 'dashed' : 'solid', finalState: p.finalState,
         filmRegistered: pq >= 1, contract: plates.contract, clause: plates.clause, promise: plates.promise,
         tabsShown: r(tabsO, 3), relations: L.rels.length, finalShown: r(fin, 3), keyShown: r(keyO, 3),

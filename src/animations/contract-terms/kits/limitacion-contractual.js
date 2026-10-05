@@ -58,7 +58,7 @@ export const CONTENT = {
   categories: [
     {label: 'Category 1 (supplied)', status: 'included', clause: 1},
     {label: 'Category 2 (supplied)', status: 'review', clause: 2},
-    {label: 'Category 3 (supplied)', status: 'included', clause: 1},
+    {label: 'Category 3 (supplied)', status: 'included', clause: 2},
   ],
   statusLabels: {included: 'Category included (as supplied)', review: 'Exclusion to be reviewed (as supplied)'},
 };
@@ -70,7 +70,7 @@ export const CONTENT_ES = {
   categories: [
     {label: 'Categoría 1 (aportada)', status: 'included', clause: 1},
     {label: 'Categoría 2 (aportada)', status: 'review', clause: 2},
-    {label: 'Categoría 3 (aportada)', status: 'included', clause: 1},
+    {label: 'Categoría 3 (aportada)', status: 'included', clause: 2},
   ],
   statusLabels: {included: 'Categoría incluida (según lo aportado)', review: 'Exclusión por revisar (según lo aportado)'},
 };
