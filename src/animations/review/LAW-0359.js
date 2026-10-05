@@ -23,10 +23,11 @@ import {T} from '../../core/transform.js';
 import {seg, clamp, lerp, ease, r} from '../../core/time.js';
 import {roundRectPath} from '../../core/geometry.js';
 import {str, int, list, obj} from '../../schemas/fields.js';
-import {deskWindow} from '../../primitives/desk.js';
+import {deskWindow, topArm} from '../../primitives/desk.js';
+import {actorLook} from '../../primitives/people-style.js';
 import {
   ciiFields, CII_EN, CII_ES, localisedCi, fitG, textAt, originModel, originNode, endModel, endNode, mapPlan, shiftPlan,
-  trackNode, trackDims, inkNode, chevron, filterClip, puckNode, trayNode, calendarNode, folderNode, panelLayout, panelNode, markGlyph,
+  trackNode, trackDims, inkNode, clipGrip, chevron, filterClip, puckNode, trayNode, calendarNode, folderNode, panelLayout, panelNode, markGlyph,
   inkColor, INK, R2,
 } from './kits/cierre-de-itinerario.js';
 import {laneColor} from './kits/confirmacion-ilustrativa.js';
@@ -268,7 +269,7 @@ const scene = {
     const shape = ctx.view.shape;
     const showKey = ctx.show('key');
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
-    const arrangements = shape === 'landscape' ? [{arr: 'row', cols: 3, orient: 'h'}, {arr: 'row', cols: 3, orient: 'v'}, {arr: 'row', cols: 2, orient: 'h'}, {arr: 'row', cols: 3, tight: true, orient: 'v'}]
+    const arrangements = shape === 'landscape' ? [{arr: 'row', cols: 3, orient: 'h', capHead: true}, {arr: 'row', cols: 3, orient: 'h'}, {arr: 'row', cols: 3, orient: 'v'}, {arr: 'row', cols: 2, orient: 'h'}, {arr: 'row', cols: 3, tight: true, orient: 'v'}]
       : shape === 'portrait' ? [{arr: 'column', cols: 2, orient: 'h'}, {arr: 'column', cols: 1, orient: 'h'}, {arr: 'column', cols: 2, tight: true, orient: 'h'}]
         : [{arr: 'column', pw: 0.3, tight: true, orient: 'h'}, {arr: 'column', pw: 0.42, tight: true, orient: 'h', compact: true}, {arr: 'column', pw: 0.48, tight: true, orient: 'h', compact: true}, {arr: 'row', cols: 2, tight: true, orient: 'v', compact: true, capHead: true}, {arr: 'row', cols: 3, tight: true, orient: 'v', compact: true, capHead: true}, {arr: 'row', cols: 3, tight: true, orient: 'h', compact: true}];
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
@@ -282,13 +283,33 @@ const scene = {
     }
     if (!C) for (const a of arrangements) { const c = compose(ctx, P, sizes[sizes.length - 1] * 0.8, a); if (c.D) { C = c; break; } }
     // the comparison guide: the focus route's end card and the last leg of its track, on both desks
+    // hands (desk-0 coordinates; desk B is the same rig offset): the right hand holds the puck, the left hand lays clips
+    const dk0 = C.desks[0], pl0 = C.D[0].pl, Dm = pl0.D;
+    const deskB = dk0.y + C.dh;
+    C.restR = {x: dk0.x + dk0.w - Math.max(C.G * 3, 50), y: deskB - C.restBand * 0.5};
+    C.restL = {x: dk0.x + Math.max(C.G * 3, 50), y: deskB - C.restBand * 0.45};
+    C.clipSize = C.orient === 'h' ? {w: Dm.along, h: Dm.across} : {w: Dm.across, h: Dm.along};
+    C.grip = clipGrip(C.clipSize);
+    const sOff = Math.max(90, C.G * 5);
+    C.shoulderR = {x: C.restR.x + C.G * 2.4, y: deskB + sOff};
+    C.shoulderL = {x: C.restL.x - C.G * 2.4, y: deskB + sOff};
+    const far = (sh, pts) => Math.max(...pts.map(q => Math.hypot(q.x - sh.x, q.y - sh.y)));
+    const ptsR = [C.restR, ...pl0.routes.flatMap(q => q.pts)];
+    const ptsL = [C.restL, ...pl0.slotsAt.map(q => ({x: q.x + C.grip.x, y: q.y + C.grip.y})), ...C.pendIdx.map(i => ({x: pl0.routes[i].clipC.x + C.grip.x, y: pl0.routes[i].clipC.y + C.grip.y}))];
+    const look0 = actorLook(ctx, {appearance: {}}, 0);
+    const armW = clamp(C.G * 2, 26, 50);
+    const lenR = far(C.shoulderR, ptsR) * 0.5 + 26, lenL = far(C.shoulderL, ptsL) * 0.5 + 26;
+    const arms = ['a', 'b'].map(s => ({
+      R: topArm(ctx, {name: `${s}-armR`, skin: look0.skin, sleeve: look0.outfit, handed: 'right', upper: lenR, lower: lenR, width: armW, handScale: 1.3}),
+      L: topArm(ctx, {name: `${s}-armL`, skin: look0.skin, sleeve: look0.outfit, handed: 'left', upper: lenL, lower: lenL, width: armW, handScale: 1.3}),
+    }));
     const rings = C.D.map(d => {
       const pad = Math.max(8, C.F * 0.4);
       const e = d.pl.E[C.fi], cb = d.pl.routes[C.fi].clip;
       const x0 = Math.min(e.x, cb.x) - pad, y0 = Math.min(e.y, cb.y) - pad;
       return {x: x0, y: y0, w: Math.max(e.x + e.w, cb.x + cb.w) + pad - x0, h: Math.max(e.y + e.h, cb.y + cb.h) + pad - y0};
     });
-    return {P, C, rings, pxu};
+    return {P, C, rings, arms, pxu};
   },
   build(ctx, L) {
     const {C, P} = L;
@@ -322,11 +343,10 @@ const scene = {
         pl.routes.map((rt, j) => g(null, rt.chev.map((c, q) => chevron(D0, {name: `${s}-chev${j}-${q}`, transform: T(c.x, c.y, c.a), opacity: 0})))),
         g({transform: T(pl.O.x, pl.O.y)}, originNode(ctx, C.OM, {prefix: `${s}-origin`})),
         pl.E.map((b, j) => g({transform: T(b.x, b.y)}, endNode(ctx, C.EM, j, routes[j], {prefix: `${s}-end${j}`, num: C.compact ? {text: String(j + 1), size: C.F * 0.85} : null}))),
-        C.pendIdx.map((ri, k) => {
-          const cs = C.orient === 'h' ? {w: D0.along, h: D0.across} : {w: D0.across, h: D0.along};
-          return g({name: `${s}-clip${k}`, transform: T(pl.slotsAt[k].x, pl.slotsAt[k].y)}, filterClip(ctx, {prefix: `${s}-clip${k}-art`, w: cs.w, h: cs.h}));
-        }),
-        g({name: `${s}-puck`, transform: T(pl.slotsAt[pl.slotsAt.length - 1].x, pl.slotsAt[pl.slotsAt.length - 1].y)}, puckNode(ctx, Math.min(D0.puck, D0.along * 0.48)))), desk.frame);
+        L.arms[i].L.arm, L.arms[i].R.arm, L.arms[i].L.palm, L.arms[i].R.palm,
+        C.pendIdx.map((ri, k) => g({name: `${s}-clip${k}`, transform: T(pl.slotsAt[k].x, pl.slotsAt[k].y)}, filterClip(ctx, {prefix: `${s}-clip${k}-art`, w: C.clipSize.w, h: C.clipSize.h}))),
+        g({name: `${s}-puck`, transform: T(C.restR.x, C.restR.y)}, puckNode(ctx, D0.puck)),
+        L.arms[i].L.thumb, L.arms[i].R.thumb), desk.frame);
     });
     const gc = th.accent3;
     const R0 = L.rings[0], R1 = L.rings[1];
@@ -353,8 +373,14 @@ const scene = {
         nodes[`${s}-end${j}-st`] = {opacity: S.routes[j].state === 'concluded' ? (S.ink[j] >= 1 ? 1 : 0) : S.laid[j]};
       });
       S.clips.forEach((c, k) => { nodes[`${s}-clip${k}`] = {transform: T(c.x + dx, c.y + dy, 0, c.s || 1)}; });
+      const off = q => ({x: q.x + dx, y: q.y + dy});
+      const pr = L.arms[i].R.pose(off(C.shoulderR), off(S.puck), -1);
+      const plh = L.arms[i].L.pose(off(C.shoulderL), off(S.handL), 1);
+      Object.assign(nodes, pr.nodes, plh.nodes);
+      S.hR = R2(pr.hand); S.hL = R2(plh.hand); S.reached = pr.reached && plh.reached;
+      S.gripS = S.held >= 0 ? R2(off({x: S.clips[S.held].x + C.grip.x * (S.clips[S.held].s || 1), y: S.clips[S.held].y + C.grip.y * (S.clips[S.held].s || 1)})) : null;
       const rl = q => ({x: r(q.x, 1), y: r(q.y, 1)});
-      look[s] = {puck: rl(S.puck), ink: S.ink.map(v => r(v, 3)), clips: S.clips.map(rl), badges: S.routes.map((rt, j) => (rt.state === 'concluded' ? (S.ink[j] >= 1 ? 1 : 0) : S.laid[j]))};
+      look[s] = {puck: rl(S.puck), handL: rl(S.handL), ink: S.ink.map(v => r(v, 3)), clips: S.clips.map(rl), badges: S.routes.map((rt, j) => (rt.state === 'concluded' ? (S.ink[j] >= 1 ? 1 : 0) : S.laid[j]))};
       sem[s] = {S, puck: R2({x: S.puck.x + dx, y: S.puck.y + dy})};
     });
     const guideK = seg(u, ...W.guide), noteK = seg(u, ...W.note);
@@ -371,6 +397,8 @@ const scene = {
       nodes,
       semantic: {
         beat, lookA: look.a, lookB: look.b, puckA: sem.a.puck, puckB: sem.b.puck,
+        handRA: sem.a.S.hR, handRB: sem.b.S.hR, handLA: sem.a.S.hL, handLB: sem.b.S.hL, gripSA: sem.a.S.gripS, gripSB: sem.b.S.gripS,
+        heldA: sem.a.S.held >= 0, heldB: sem.b.S.held >= 0, allReached: sem.a.S.reached && sem.b.S.reached,
         clipB: R2(sem.b.S.clips[fk]),
         focus: fi, inkFocusA: r(sem.a.S.ink[fi], 3), inkFocusB: r(sem.b.S.ink[fi], 3), laidFocusA: sem.a.S.laid[fi], laidFocusB: sem.b.S.laid[fi],
         sharedSame: JSON.stringify(pick(look.a.ink, fi)) === JSON.stringify(pick(look.b.ink, fi)) && JSON.stringify(pick(look.a.badges, fi)) === JSON.stringify(pick(look.b.badges, fi)) && JSON.stringify(look.a.clips.filter((c, k) => k !== fk)) === JSON.stringify(look.b.clips.filter((c, k) => k !== fk)),

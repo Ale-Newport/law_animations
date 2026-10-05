@@ -222,7 +222,6 @@ const scene = {
       if (found && (!C || score(found) > score(C))) C = found;
       if (C && ++tried >= 3) break;
     }
-    if (globalThis.process?.env?.DN_DBG) for (const v of vs) { const c = compose(ctx, P, R, 19, v); console.log(JSON.stringify(v), Math.round(c.B?.fw || 0), c.problems.join(',')); }
     return {P, R, C: C || best};
   },
   build(ctx, L) {
