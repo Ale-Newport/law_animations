@@ -169,7 +169,7 @@ function compose(ctx, P, k) {
       const box = {w: b0.w - pad * 2, h: b0.h - pad * 2 - Math.min(30, b0.h * 0.05)};
       let st = null;
       for (const [bagMode, orient] of [['left', 'v'], ['top', 'v'], ['left', 'h']]) {
-        const sA = fitStation(box, {n, texts: tA, F, bagMode, orient, title: null, tagText: ctx.show('key'), sheetFrac: [0.34, 0.44, 0.54, 0.62], minS: 26, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...P.records.map(rw => rw.field).map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null});
+        const sA = fitStation(box, {n, texts: tA, F, bagMode, orient, title: null, tagText: false, sheetFrac: [0.34, 0.44, 0.54, 0.62], minS: 26});
         if (!sA) continue;
         // B uses the same S and sheet width as A (identical scale); only its row texts differ
         if (!st || sA.G.S > st.G.S) st = sA;

@@ -1,0 +1,147 @@
+{
+  "animationId": "LAW-0515",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the contract, its order-of-documents clause and the annexes are generic placeholders. Scenarios A and B are identical except for ONE supplied fact: the listed position of the changed annex (A: listed first; B: configured lower). The order shown is only the supplied order list — no interpretation doctrine, no conflict rule, no document prevails beyond its supplied position, no winner, no outcome, no jurisdiction. A and B have equal visual weight (same stage art; badges in their lane colours). Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): definitions; the clause text (only the clause heading is drawn, in the shared strip); clauses = the supplied order-of-documents clause heading, schedules = the annexes, priorities = the shared order of the other annexes, changedAnnex + scenarioA/B.position = the changed fact.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three annexes; the shared order of the others is A, C. Annex B is listed first in A and configured third in B: its folder ends in the top tier in A and the bottom tier in B.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four annexes; Annex D's position is the changed fact — listed first in A, configured second in B; the shared order of the others is C, A, B.",
+      "params": {
+        "contract": {
+          "reference": "CT-517",
+          "title": "Supply contract (fictional)"
+        },
+        "schedules": [
+          {
+            "tab": "A",
+            "label": "Annex A · Delivery plan"
+          },
+          {
+            "tab": "B",
+            "label": "Annex B · Price list"
+          },
+          {
+            "tab": "C",
+            "label": "Annex C · Quality plan"
+          },
+          {
+            "tab": "D",
+            "label": "Annex D · Special terms"
+          }
+        ],
+        "priorities": [
+          3,
+          1,
+          2
+        ],
+        "changedAnnex": 4,
+        "scenarioA": {
+          "label": "Priority document (as supplied)",
+          "position": 1
+        },
+        "scenarioB": {
+          "label": "Subordinate document, as configured",
+          "position": 2
+        },
+        "changedFact": "Only the listed position of Annex D differs"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: four long annex labels, long scenario labels, a long changed-fact label, long shared facts and legend heading; Annex C changes from position 1 (A) to position 4 (B).",
+      "params": {
+        "contract": {
+          "reference": "CONTRACT-2026-0208",
+          "title": "Services contract with several annexes, fictional example"
+        },
+        "clause": {
+          "heading": "Order of documents clause, lines exactly as listed",
+          "text": "The documents rank in the order listed below, as supplied in this example"
+        },
+        "schedules": [
+          {
+            "tab": "A",
+            "label": "Annex A · Technical scope of services, as supplied"
+          },
+          {
+            "tab": "B",
+            "label": "Annex B · Price list and payment plan, as supplied"
+          },
+          {
+            "tab": "C",
+            "label": "Annex C · Service levels and reporting as supplied"
+          },
+          {
+            "tab": "D",
+            "label": "Annex D · Security and data handling as supplied"
+          }
+        ],
+        "priorities": [
+          1,
+          4,
+          2
+        ],
+        "changedAnnex": 3,
+        "scenarioA": {
+          "label": "Priority document, exactly as listed in the supplied order",
+          "position": 1
+        },
+        "scenarioB": {
+          "label": "Subordinate document, exactly as the configuration places it",
+          "position": 4
+        },
+        "changedFact": "Only the listed position of Annex C differs in this example",
+        "sharedFacts": "Same contract, same annexes and the same order for every other annex as supplied",
+        "comparisonLabels": {
+          "legend": "Annexes shared by both scenarios"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea de base en español: tres anexos; el Anexo B figura primero en A y tercero en B por configuración.",
+      "params": {
+        "locale": "es",
+        "contract": {
+          "reference": "CT-208",
+          "title": "Contrato de servicios (ficticio)"
+        },
+        "clause": {
+          "heading": "Cláusula de orden de documentos",
+          "text": "Los documentos se ordenan según la lista (texto aportado)"
+        },
+        "schedules": [
+          {
+            "tab": "A",
+            "label": "Anexo A · Alcance técnico"
+          },
+          {
+            "tab": "B",
+            "label": "Anexo B · Lista de precios"
+          },
+          {
+            "tab": "C",
+            "label": "Anexo C · Niveles de servicio"
+          }
+        ],
+        "scenarioA": {
+          "label": "Documento prioritario (según lo aportado)",
+          "position": 1
+        },
+        "scenarioB": {
+          "label": "Documento subordinado, según la configuración",
+          "position": 3
+        },
+        "changedFact": "Solo difiere la posición listada del Anexo B",
+        "sharedFacts": "Mismo contrato, mismos anexos, mismo orden para los demás",
+        "comparisonLabels": {
+          "legend": "Anexos (comunes)"
+        }
+      }
+    }
+  ]
+}

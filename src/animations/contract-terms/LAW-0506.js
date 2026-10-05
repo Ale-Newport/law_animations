@@ -246,7 +246,16 @@ function model(ctx, F, Pw, mode, AB, stress, show) {
   const ml = stress ? 4 : 3;
   const title = fitG(p.clauseTitle, {maxWidth: Pw - padX - 2.6 * F, size: F, minSize: F * 0.92, maxLines: 3, weight: 700});
   const rowFits = p.clauses.map(c => fitG(c, {maxWidth: rowW - 30, size: F, minSize: F * 0.92, maxLines: ml, weight: 600}));
-  const Wc = Pw + ox - 0.8 * F;
+  const TF = F;
+  const label = id => (p.elements.find(e => e.id === id) || {label: ''}).label;
+  const tabFits = Object.fromEntries(IDS.map(id => [id, show && label(id) ? fitG(label(id), {maxWidth: Math.max(8 * F, Math.min(Pw * 0.7, 18 * F)), size: TF, minSize: TF * 0.92, maxLines: 1, weight: 700}) : null]));
+  if (IDS.some(id => tabFits[id] && tabFits[id].bad)) why.push('tab-text');
+  const tabW = id => (show && tabFits[id] ? tabFits[id].width : TF * 4) + 30;
+  const tabH = (show && tabFits.contract ? tabFits.contract.height : TF * 1.18) + 14;
+  // the contract sheet stops short of the clause plate's name tab, so in the exploded view the relation from the
+  // contract's tab to the clause's tab runs past the contract's head band instead of across it
+  const exC = (mode === 'side' ? 2.2 : 1.4) * F;
+  const Wc = clamp(Pw + ox + exC - tabW('clause') - 2.2 * F, Math.min(Pw * 0.6, Pw + ox - 0.8 * F), Pw + ox - 0.8 * F);
   const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: Wc - 2.6 * F, size: F, minSize: F * 0.92, maxLines: ml, weight: 700});
   if (title.bad || head.bad || rowFits.some(f => f.bad)) why.push('plate-text');
   const band = head.height + 0.9 * F, oy = band + 0.45 * F;
@@ -284,15 +293,9 @@ function model(ctx, F, Pw, mode, AB, stress, show) {
   }
   const claimAsm = mode === 'side' ? {x: sockL.x + 4, y: sockL.y} : {x: sockL.x, y: sockL.y + 4};
   // tabs
-  const TF = F;
-  const label = id => (p.elements.find(e => e.id === id) || {label: ''}).label;
-  const tabFits = Object.fromEntries(IDS.map(id => [id, show && label(id) ? fitG(label(id), {maxWidth: Math.max(8 * F, Math.min(Pw * 0.7, 18 * F)), size: TF, minSize: TF * 0.92, maxLines: 1, weight: 700}) : null]));
-  if (IDS.some(id => tabFits[id] && tabFits[id].bad)) why.push('tab-text');
-  const tabW = id => (show && tabFits[id] ? tabFits[id].width : TF * 4) + 30;
-  const tabH = (show && tabFits.contract ? tabFits.contract.height : TF * 1.18) + 14;
   const ey = tabH + 0.9 * F;
   // exploded offsets along the depth axis (contract back; the film and the claim forward)
-  const off = {contract: {x: -(mode === 'side' ? 2.2 : 1.4) * F, y: -ey}, clause: {x: 0, y: 0}, promise: {x: 0, y: 0}, claim: {x: 0, y: 0}};
+  const off = {contract: {x: -exC, y: -ey}, clause: {x: 0, y: 0}, promise: {x: 0, y: 0}, claim: {x: 0, y: 0}};
   let TT, rest, filmAbove = true;
   if (mode === 'side') {
     // exploded: a right-hand column beside the stack — the film (lifted off its line) and the claim slip, each with its tab
@@ -324,7 +327,7 @@ function model(ctx, F, Pw, mode, AB, stress, show) {
   const sb = slipBox(TT, side, prong);
   const claimLocal = side === 'left' ? box(0, sb.y, prong + sb.w + 10, sb.h + 12) : box(sb.x, 0, sb.w + 10, prong + sb.h + 12);
   const tabL = {
-    contract: {x: Wc - tabW('contract') - 1.6 * F, y: -tabH - 3},
+    contract: {x: Math.max(0.6 * F, Wc - tabW('contract') - 1.2 * F), y: -tabH - 3},
     clause: {x: Pw - tabW('clause') - F, y: -tabH - 3},
     promise: mode === 'side' ? {x: 0.6 * F, y: -tabH - 3} : {x: fw - tabW('promise') - 0.6 * F, y: fh + 3},
     claim: side === 'left' ? {x: prong + 10, y: sb.y - tabH - 3} : {x: sb.x - tabW('claim') - 12, y: prong + 12},
