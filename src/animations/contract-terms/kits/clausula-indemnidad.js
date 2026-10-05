@@ -179,7 +179,7 @@ export function contractSheet(ctx, o) {
   });
   // decorative filler lines below the rows (simulated text)
   const last = o.rows[o.rows.length - 1];
-  for (let y = last.y + last.h + 30; y < hh - 24; y += 28) parts.push(h('path', {d: `M${r(S.padX)} ${r(y)}h${r((S.rowW - 40) * (0.5 + 0.4 * (((y * 7) | 0) % 10) / 10))}`, stroke: '#ebe4d5', 'stroke-width': 5, 'stroke-linecap': 'round'}));
+  for (let y = last.y + last.h + 30; y < hh - (o.fillerStop ?? 24); y += 28) parts.push(h('path', {d: `M${r(S.padX)} ${r(y)}h${r((S.rowW - 40) * (0.5 + 0.4 * (((y * 7) | 0) % 10) / 10))}`, stroke: '#ebe4d5', 'stroke-width': 5, 'stroke-linecap': 'round'}));
   return g({name: `${P}sheet`}, parts);
 }
 

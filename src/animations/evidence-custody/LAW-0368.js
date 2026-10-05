@@ -193,7 +193,7 @@ function compose(ctx, P, recs, F, opt, LG) {
   const objIn = {x: bag.x + PM.inner.x + PM.inner.w / 2, y: bag.y + PM.inner.y + PM.inner.h / 2};
   const cx = bag.x + PM.w / 2;
   const stripC = {x: cx, y: bag.y + PM.fh};
-  const source = {x: cx - S * 0.56, y: bag.y + S * 0.03, w: S * 1.47, h: S * 0.635};
+  const source = {x: cx - S * 0.56, y: bag.y - S * 0.06, w: S * 1.47, h: S * 1.375}; // the seam and the object below it (the label stays outside)
   const lw = zoneLens.w * 0.98, lh = zoneLens.h * 0.97;
   const zoom = Math.min(lw / source.w, lh / source.h);
   const dest = {w: source.w * zoom, h: source.h * zoom};

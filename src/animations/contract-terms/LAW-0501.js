@@ -69,10 +69,10 @@ const defaultParamsEs = {
 const isStress = p => [...p.clauses, ...p.categories.map(c => c.label), p.contract.title, p.statusLabels.included, p.statusLabels.review, p.sheetLabel].some(t => t.length > 40) || p.annotations.length > 1;
 
 /** Geometry for one candidate text size. */
-function geom(ctx, F, minF, legend = false) {
+function geom(ctx, F, minF, legend = false, stack = false) {
   const p = ctx.params;
   const D = ctx.design;
-  const shape = ctx.view.shape;
+  const shape = stack ? 'portrait' : ctx.view.shape;
   const show = ctx.show('all'), showKey = ctx.show('key');
   const stress = isStress(p);
   const why = [];
@@ -120,7 +120,7 @@ function geom(ctx, F, minF, legend = false) {
   }
   // contract content
   const padX = 44;
-  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: doc.w - padX - 20, size: F, minSize: minF, maxLines: 2, weight: 700});
+  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: doc.w - padX - 20, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700});
   const headH = head.height + 34;
   const titleF = fitG(p.clauseTitle, {maxWidth: doc.w - padX - 24, size: F * 1.05, minSize: minF, maxLines: 2, weight: 800});
   const titleY = headH + 22;
@@ -139,7 +139,7 @@ function geom(ctx, F, minF, legend = false) {
   const tileW = C.x + C.w - 20 - tileX;
   const n = p.categories.length;
   const gR = Math.min(15, F * 0.6);
-  const labFits = p.categories.map(c => fitG(c.label, {maxWidth: tileW - tileTextX(80) - 10 - (legend ? gR * 2 + 30 : 0), size: F, minSize: minF, maxLines: 2, weight: 700}));
+  const labFits = p.categories.map(c => fitG(c.label, {maxWidth: tileW - tileTextX(80) - 10 - (legend ? gR * 2 + 30 : 0), size: F, minSize: minF, maxLines: legend ? 3 : 2, weight: 700}));
   const NONE = {height: 0, width: 0, lines: [], size: F, lineHeight: F, bad: false};
   const stFits = legend ? p.categories.map(() => NONE) : p.categories.map(c => fitG(p.statusLabels[c.status], {maxWidth: tileW - tileTextX(80) - gR * 2 - 22, size: F, minSize: minF, maxLines: 2, weight: 600}));
   const stWorst = legend ? NONE : fitG(worstStatus(p), {maxWidth: tileW - tileTextX(80) - gR * 2 - 22, size: F, minSize: minF, maxLines: 2, weight: 600});
@@ -166,6 +166,7 @@ function geom(ctx, F, minF, legend = false) {
   const glassStops = rows.map(row => [{x: doc.x + padX + 30, y: doc.y + row.y + row.h / 2}, {x: doc.x + padX + Math.max(60, Math.min(doc.w - padX - 70, row.fit.width - 30)), y: doc.y + row.y + row.h / 2}]);
   const farL = Math.max(...glassStops.flat().map(q => Math.hypot(q.x - shL.x, q.y - shL.y)), Math.hypot(glassRest.x - shL.x, glassRest.y - shL.y)) - (hl + R) * 0.4;
   const farR = Math.max(...cg.pts.map(q => Math.hypot(q.x + mk.len * 0.55 - shR.x, q.y + 40 - shR.y)));
+  if (globalThis.DBG501) console.log(F * unitPx(ctx), legend, stack, why.join());
   return {
     ok: !why.length, why, F, minF, shape, desk, doc, sheet, notesBox, notesPl, glassRest, tipRest, shL, shR,
     legend, padX, head, headH, titleF, titleY, rows, sh, shH, C, neck, tiles, gR, cg, glass: {R, hl}, mk, glassStops,
@@ -199,6 +200,7 @@ const scene = {
       if (L.ok) break;
       L = geom(ctx, fpx / upx, minF, true);
       if (L.ok) break;
+      if (ctx.view.shape === 'square') { L = geom(ctx, fpx / upx, minF, true, true); if (L.ok) break; }
     }
     L.upx = upx;
     return L;
