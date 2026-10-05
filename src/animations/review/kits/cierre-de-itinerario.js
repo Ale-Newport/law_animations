@@ -381,7 +381,9 @@ export function planBounds(pl) {
 export function trackNode(ctx, rt, D, o) {
   return g({name: o.prefix},
     h('path', {d: rt.d, fill: 'none', stroke: SLATE, 'stroke-width': r(D.tw + 4, 2), 'stroke-linejoin': 'round', 'stroke-linecap': 'butt'}),
-    h('path', {d: rt.d, fill: 'none', stroke: TRACK, 'stroke-width': r(D.tw, 2), 'stroke-linejoin': 'round', 'stroke-linecap': 'butt'}));
+    h('path', {d: rt.d, fill: 'none', stroke: TRACK, 'stroke-width': r(D.tw, 2), 'stroke-linejoin': 'round', 'stroke-linecap': 'butt'}),
+    // printed direction marks of the way as drawn in the file (pale slate, the same on every route: they carry no state)
+    o.marks === false ? null : g(null, rt.chev.map(c => chevron(D, {transform: T(c.x, c.y, c.a), stroke: '#9aa5b1'}))));
 }
 
 /** Ink laid along a track as it is traced (dash-revealed). Named `${prefix}`. */
@@ -392,7 +394,7 @@ export function inkNode(ctx, rt, D, o) {
 /** A direction chevron (local origin = centre, pointing +x). */
 export function chevron(D, o = {}) {
   const k = D.tw * 0.3;
-  return h('path', {name: o.name, d: `M${r(-k * 0.7)} ${r(-k)}L${r(k * 0.5)} 0L${r(-k * 0.7)} ${r(k)}`, fill: 'none', stroke: '#fff', 'stroke-width': r(Math.max(2.4, D.tw * 0.16), 2), 'stroke-linecap': 'round', 'stroke-linejoin': 'round', transform: o.transform, opacity: o.opacity});
+  return h('path', {name: o.name, d: `M${r(-k * 0.7)} ${r(-k)}L${r(k * 0.5)} 0L${r(-k * 0.7)} ${r(k)}`, fill: 'none', stroke: o.stroke || '#fff', 'stroke-width': r(Math.max(2.4, D.tw * 0.16), 2), 'stroke-linecap': 'round', 'stroke-linejoin': 'round', transform: o.transform, opacity: o.opacity});
 }
 
 /**

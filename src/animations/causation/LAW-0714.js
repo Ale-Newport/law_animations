@@ -94,7 +94,7 @@ const defaultParamsEs = {
 const MARGIN = 10;
 const SHAPES = {
   landscape: {size: 26, minSize: 17, modes: ['row', 'rowcol'], rws: [420, 480, 540, 600]},
-  square: {size: 24, minSize: 17, modes: ['row', 'rowcol', 'stack'], rws: [340, 380, 420, 480, 540]},
+  square: {size: 24, minSize: 17, modes: ['band', 'row', 'rowcol', 'stack'], rws: [340, 380, 420, 480, 540]},
   portrait: {size: 25, minSize: 17, modes: ['stack', 'band'], rws: [460, 520, 620, 720, 930]},
 };
 
@@ -257,7 +257,7 @@ function compose(ctx, base, cfg) {
   if (band.bad || leftBand.bad) return {bad: 'band'};
   // (band mode packs tighter — gaps of 12 above the key band and 22 under the top band — so the ring pieces keep the
   // subject floor in square boxes)
-  const bandGap = mode === 'band' ? 12 : 18, topGap = mode === 'band' ? 22 : 30;
+  const bandGap = mode === 'band' ? 12 : 18, topGap = mode === 'band' ? 70 : 30;
   const bandH = band.h && mode !== 'rowcol' ? band.h + bandGap : 0;
   const bandColH = band.h && mode === 'rowcol' ? band.h + 18 : 0;
   // relation label height budget (one chip line)
