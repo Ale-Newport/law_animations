@@ -26,10 +26,10 @@
     "src/schemas/fields.js"
   ],
   "environment": {
-    "browser": "chromium 153.0.8010.12",
+    "browser": "chromium 141.0.7390.37",
     "playwright": "@playwright/test 1.63.0",
-    "node": "v26.0.0",
-    "platform": "darwin-arm64",
+    "node": "v22.22.0",
+    "platform": "linux-x64",
     "fonts": "system font stack (see src/core/text.js FONTS)"
   },
   "commands": [
@@ -175,11 +175,33 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0495/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0495/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0495/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0495/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0495/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0495/sheet-16x9-es.png",
+      "production/evidence/LAW-0495/sheet-9x16-alternative.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0495-16x9.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0495-alt-1x1.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0495-alt3-1x1.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0495-base3-1x1.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0495-base3-1x1-nt.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0495-base3-9x16.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0495-base3-16x9.png"
+    ],
+    "findings": [
+      "BLOCKING: at 1:1 any params with 3 obligations (schema allows 1..3; kit default is 3) render an EMPTY scene (only the provenance tag) for the whole timeline - reproduced with defaults+3 obligations, contrast-or-alternative+3 tasks (tranche 2-2 and 2-3), and with textVisibility none; layout() returns no-layout-fits and build() emits an empty group. 16:9 and 9:16 render fine with 3. Fix: add a 1:1 fallback (e.g. relax kMax / room-share gate or reuse the stress strip layout, which does fit 3 long obligations at 1:1) or cap obligations at 2 for this ID, and add a test over 1..3 obligations x ratios",
+      "Otherwise: two identical rooms, localized ringed state change, bracket shut in produced room only, guide strip without winner; matches accepted sibling LAW-0491 quality"
+    ],
+    "sourceHash": "4afa4f9e68db4e82c9e297db17f3e8e9318e2632ab368b7fd56dba1458b51810",
+    "renderFingerprint": "6d9ed120431141ef3a647e4923eb967dafb061ea0b85024872dd1f25ed5b3369",
+    "reviewedAt": "2026-10-05T16:42:45.031Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -193,8 +215,13 @@
   ],
   "knownIssues": [],
   "accepted": false,
-  "renderFingerprint": "90807b944481851c814a9ec68dcae82117748a91fb26b3fd98bd2a6016969a23",
+  "renderFingerprint": "6d9ed120431141ef3a647e4923eb967dafb061ea0b85024872dd1f25ed5b3369",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.3,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0495/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

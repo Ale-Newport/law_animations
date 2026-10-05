@@ -1,0 +1,51 @@
+{
+  "animationId": "LAW-0337",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. A neutral filing arrangement only: folder A (the original file, with a placeholder decision sheet whose content is never shown) and folder B (a separate folder for the proposed additional pieces) have the same size and stroke and differ only by their lane colour (blue / amber) and their side of a neutral divider, which decides nothing. The pieces are placeholder sheets; the reason noted by the proposer (grounds) is shown as supplied and never assessed. The two supplied states have equal weight: ● kept-separate (both folders closed) and ◆ open-for-review (folder B left open). No admissibility rule, assessment, time limit, outcome or jurisdiction is drawn. Brief fields: decisions, grounds, routes, outcomes, objectLabels, actionProgress, annotations and finalState are editable; actorLabels maps to courier.label (the participant) and routes.original / routes.additional (the two folders).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three new pieces; the participant closes the original file in folder A, files N1–N3 one by one in folder B across the divider, then closes folder B (● kept separate).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: two new pieces with other labels, another participant and the supplied state ◆ open-for-review — folder B stays open with its pieces in view; a note rings folder B.",
+      "params": {
+        "pieces": ["Letter K-2 (fictional)", "Photo set K-3 (fictional)"],
+        "grounds": "Reason noted by the proposer: “found after the first filing” (as supplied)",
+        "courier": {"label": "Participant B (fictional)", "appearance": {"skin": 4, "hair": "curly", "hairColor": 1, "outfit": 3}},
+        "outcomes": {"a": "Both folders closed, as supplied here", "b": "Folder B open for review, as supplied here"},
+        "annotations": [{"target": "additional", "text": "Folder B holds only the proposed pieces (as supplied)"}],
+        "finalState": "open-for-review"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: four new pieces with long labels, long captions, two notes and a long state caption.",
+      "params": {
+        "decisions": {"title": "Decision under review in the fictional example file 2041-B (content not shown here)"},
+        "grounds": "Reason noted by the person who proposes the additional pieces: “documents that appeared later” (as supplied)",
+        "routes": {
+          "original": "A · Original file of the fictional example, kept in its own folder (material original)",
+          "additional": "B · Separate folder for the proposed additional material of the example (fictional)",
+          "divider": "Plain divider standing between the two folders of this example (neutral; it decides nothing)"
+        },
+        "pieces": ["N1 · Letter of the example (fictional)", "N2 · Photo set (fictional)", "N3 · Spreadsheet print (fictional)", "N4 · Note of a call (fictional)"],
+        "labels": {"heading": "Document review in the fictional example file (as supplied)", "pieces": "New pieces proposed in this example", "key": "As supplied · illustrative only · no conclusion drawn"},
+        "courier": {"label": "Participant of the example who files the pieces (fictional)"},
+        "outcomes": {"a": "Kept in two closed folders on either side of the divider (as supplied)", "b": "Folder B left open so its pieces stay in view for review (as supplied)"},
+        "objectLabels": {"intake": "Intake tray where the new pieces of this example arrive", "calendar": "Wall calendar on the left wall (no date marked; a fixture only)"},
+        "annotations": [
+          {"target": "divider", "text": "The new pieces stay on folder B’s side of the divider the whole time (as supplied)"},
+          {"target": "original", "text": "Folder A is closed over the original file and is not opened again (as supplied)"}
+        ],
+        "stateCaption": "The original file and the four new pieces of this example are kept in separate closed folders (as supplied)"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Ejemplo base en español: tres piezas nuevas, archivadas aparte del expediente original (● en carpetas separadas).",
+      "params": {"locale": "es"}
+    }
+  ]
+}

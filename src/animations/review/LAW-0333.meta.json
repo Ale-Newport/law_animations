@@ -1,0 +1,477 @@
+{
+  "id": "LAW-0333",
+  "slug": "review-04-story",
+  "title": "Review limits — two hands carry an expandable frame onto a placeholder decision and open it over exactly the supplied sections",
+  "titleEs": "Límites de revisión — Microescena con objetos y actores",
+  "category": "review",
+  "categoryName": "Impugnaciones y revisión",
+  "motif": "Límites de revisión",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "A top-down desk. A placeholder decision sheet shows its numbered sections (supplied tags); two equal arrow tags (● question A, ◆ question B) point at the sections they refer to (as supplied); a desk calendar is a fixture only. The reviewer's hands take a closed, expandable review frame, carry its lower rail up to the last supplied section and push its upper rail up to the first, then lay it flat: its neutral filter glass settles over exactly the supplied range and the hands return. The hold describes where each arrow's section lies — inside or outside the frame — as supplied. No rule about what a review may cover, no admission and no outcome are drawn; jurisdiction unspecified.",
+  "tags": [
+    "review",
+    "review limits",
+    "scope as supplied",
+    "frame",
+    "filter",
+    "decision sections",
+    "arrows",
+    "calendar",
+    "desk",
+    "hands"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/review/kits/limites-de-revision.js",
+    "src/primitives/desk.js",
+    "src/primitives/paper.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "decisions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Name of the decision printed on the sheet (fictional, as supplied)"
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 56,
+              "description": "Section tag (placeholder)"
+            },
+            "minItems": 3,
+            "maxItems": 6,
+            "description": "The decision's numbered sections (apartados), top to bottom (editable placeholder tags, as supplied) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "title",
+          "sections"
+        ],
+        "description": "The decision under review (fictional; placeholder text only)"
+      },
+      "grounds": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "side": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "a (question A, ●) or b (question B, ◆)"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "Text of the question (as supplied)"
+            },
+            "section": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5,
+              "description": "Index in `decisions.sections` the arrow points at"
+            }
+          },
+          "required": [
+            "side",
+            "text",
+            "section"
+          ],
+          "description": "Question"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "The two questions supplied by the author (● A, ◆ B — equal weight). Each arrow points at the section it refers to (as supplied); nothing is decided about it (array replaces the previous value)"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "from": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5,
+            "description": "First enclosed section (index)"
+          },
+          "to": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5,
+            "description": "Last enclosed section (index)"
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "description": "The review frame: the first and last section it encloses (indices in `decisions.sections`, as supplied). The frame shows the supplied scope only"
+      },
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "inside": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for an arrow whose section lies inside the frame"
+          },
+          "outside": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for an arrow whose section lies outside the frame"
+          }
+        },
+        "required": [
+          "inside",
+          "outside"
+        ],
+        "description": "Captions of where an arrow's tip lies (descriptive geometry only, as supplied)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "frame": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the review frame (keep \"as supplied\")"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "frame",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for the reviewer's hands (generic)"
+          }
+        },
+        "required": [
+          "a"
+        ],
+        "description": "Caption of the actor (legend)"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "filter": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for the filter glass held by the frame (neutral tint)"
+          },
+          "calendar": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for the desk calendar (a fixture only)"
+          }
+        },
+        "required": [
+          "filter",
+          "calendar"
+        ],
+        "description": "Captions of the desk objects in the legend"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "frame",
+                "questionA",
+                "questionB",
+                "calendar"
+              ],
+              "description": "What the note refers to"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Note text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Note"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial notes shown in the hold; each is keyed to a ring on its target (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "delimited",
+          "pending"
+        ],
+        "description": "The state supplied by the author (no conclusion is inferred): delimited — the frame is laid over the supplied sections; pending — the frame stays closed at rest"
+      },
+      "stateCaption": {
+        "type": "string",
+        "maxLength": 110,
+        "description": "Caption of the supplied state in the hold (empty: the built-in caption of that state)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "decisions": {
+      "title": "Decision under review (fictional)",
+      "sections": [
+        "Section 1 (supplied text)",
+        "Section 2 (supplied text)",
+        "Section 3 (supplied text)",
+        "Section 4 (supplied text)",
+        "Section 5 (supplied text)"
+      ]
+    },
+    "grounds": [
+      {
+        "side": "a",
+        "text": "Question A (fictional, as supplied)",
+        "section": 1
+      },
+      {
+        "side": "b",
+        "text": "Question B (fictional, as supplied)",
+        "section": 3
+      }
+    ],
+    "routes": {
+      "from": 1,
+      "to": 2
+    },
+    "outcomes": {
+      "inside": "Its section lies inside the frame (as supplied)",
+      "outside": "Its section lies outside the frame (as supplied)"
+    },
+    "labels": {
+      "frame": "Review frame: the sections it encloses are supplied",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "actorLabels": {
+      "a": "Reviewer's hands (fictional, generic)"
+    },
+    "objectLabels": {
+      "filter": "Filter glass inside the frame (neutral tint)",
+      "calendar": "Desk calendar (no date marked)"
+    },
+    "annotations": [
+      {
+        "target": "frame",
+        "text": "The frame encloses only the sections supplied"
+      }
+    ],
+    "stateCaption": "",
+    "actionProgress": 1,
+    "finalState": "delimited"
+  }
+}

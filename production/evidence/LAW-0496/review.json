@@ -27,16 +27,16 @@
     "src/schemas/fields.js"
   ],
   "environment": {
-    "browser": "chromium 153.0.8010.12",
+    "browser": "chromium 141.0.7390.37",
     "playwright": "@playwright/test 1.63.0",
-    "node": "v26.0.0",
-    "platform": "darwin-arm64",
+    "node": "v22.22.0",
+    "platform": "linux-x64",
     "fonts": "system font stack (see src/core/text.js FONTS)"
   },
   "commands": [
     {
       "command": "npx playwright test tests/animations/LAW-0496.test.js --reporter=line",
-      "exitCode": 0
+      "exitCode": 1
     }
   ],
   "structure": {
@@ -61,8 +61,8 @@
     "requiredPresetsPresent": true
   },
   "automatedChecks": {
-    "status": "pass",
-    "exitCode": 0,
+    "status": "fail",
+    "exitCode": 1,
     "checks": 32,
     "failed": [],
     "details": "production/evidence/LAW-0496/automated.json",
@@ -161,11 +161,35 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0496/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0496/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0496/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0496/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0496/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0496/sheet-16x9-es.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0496-16x9.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0496-notext.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0496-9x16-pan.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0496-9x16-fine.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0496-1x1-crop.png",
+      "production/scratch/rev-contract-terms-04/rev-LAW-0496-ls-1x1.png"
+    ],
+    "findings": [
+      "BLOCKING: automatedChecks fail (exit 1), reproduced twice with tests/animations/LAW-0496.test.js: 2 failing tests",
+      "(1) 'Δ marker is clear of every text': default and baseline-illustrative 1:1 hold - Δ badge sits on the event card's top-right border over st-ev-in-sheet (seen in 1:1 crop at t=1); move the badge clear of the card at 1:1",
+      "(2) 'no one-word line': long-labels-stress 1:1 party plate wraps 'Maria-Fernanda / Castellanos / Villavicencio' one word per line; widen the plate or rebalance the wrap",
+      "Note: lens copy appears by cross-fade at a separate spot (slot empties, card fades in below/beside) with no leader tying it to the slot, unlike sibling LAW-0492's stem; consider a connector",
+      "Builder-disclosed print-bar fallback (fine print legible only in lens) is untested; add a test case that triggers it",
+      "Otherwise action, substitution with struck 'was', bracket reopening and final Δ marker read; neutral content"
+    ],
+    "sourceHash": "7ba1ab70b167ff4652527348740edae018cbec54338c9cb34a8370ae078cf8c4",
+    "renderFingerprint": "61fab2c03f58253ac955ef34d7247605f84b8095a5ef661c3dbaddcb78394bc4",
+    "reviewedAt": "2026-10-05T16:42:45.227Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -178,8 +202,13 @@
   ],
   "knownIssues": [],
   "accepted": false,
-  "renderFingerprint": "9247171cfbaee8f4572557bcfe3b3467c7f0a54f50556d69984a4269a41d3131",
+  "renderFingerprint": "61fab2c03f58253ac955ef34d7247605f84b8095a5ef661c3dbaddcb78394bc4",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
   "thumb": "production/evidence/LAW-0496/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }
