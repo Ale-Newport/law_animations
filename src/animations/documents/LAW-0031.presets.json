@@ -1,0 +1,85 @@
+{
+  "animationId": "LAW-0031",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Same four copies filed in parallel; A tabs the newest copy (v4), B tabs the copy before it (v3).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: five copies of a lease with a redacted clause; the selected copy is not the newest (A tabs C) and B tabs the copy before it (B).",
+      "params": {
+        "documentId": "LEASE-07",
+        "documentTitle": "Equipment Lease",
+        "clauses": ["Equipment list", "Monthly amount (hypothetical)", "Confidential annex", "Return of equipment"],
+        "redactions": [2],
+        "versions": [
+          {"id": "A", "date": "Week 1"},
+          {"id": "B", "date": "Week 2"},
+          {"id": "C", "date": "Week 3"},
+          {"id": "D", "date": "Week 5"},
+          {"id": "E", "date": "Week 6"}
+        ],
+        "signers": [
+          {"name": "Priya Lindqvist", "role": "Clerk", "appearance": {"skin": 2, "hair": "bun", "outfit": 3}},
+          {"name": "Jonah Adeyemi", "role": "Reviewer", "appearance": {"skin": 5, "hair": "buzz", "outfit": 0}}
+        ],
+        "scenarioA": {"label": "Selected version", "caption": "The tab marks draft C, a middle copy"},
+        "scenarioB": {"label": "Previous version", "caption": "The tab marks draft B, the copy before C"},
+        "tabbed": {"a": "C", "b": "B"},
+        "changedFact": "Only the tabbed draft differs: C in A, B in B",
+        "sharedFacts": ["Same five drafts", "Same order", "Same redacted annex"],
+        "folderLabel": "Lease drafts"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long scenario labels, captions, identifiers, shared facts and guide text to exercise wrapping and bounded shrinking.",
+      "params": {
+        "documentId": "FRAMEWORK-2026-000417-B",
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment and Related Services",
+        "versions": [
+          {"id": "DRAFT-01", "date": "Day 2, morning"},
+          {"id": "DRAFT-02", "date": "Day 5, after meeting"},
+          {"id": "DRAFT-03-REV", "date": "Day 9, with comments"},
+          {"id": "DRAFT-04-CLEAN", "date": "Day 12, clean copy"}
+        ],
+        "tabbed": {"a": "DRAFT-04-CLEAN", "b": "DRAFT-03-REV"},
+        "signers": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Document control clerk"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Reviewing representative"}
+        ],
+        "scenarioA": {"label": "Tab placed on the version selected for circulation", "caption": "The index tab identifies the newest clean copy in the working file"},
+        "scenarioB": {"label": "Tab placed on the version immediately before it", "caption": "The index tab identifies the revised draft that precedes the clean copy"},
+        "changedFact": "Only the copy that receives the index tab differs between the two situations",
+        "sharedFacts": ["Same four drafts in the same working file", "Same order of identifiers", "Same clerk, reviewer, tab and pen"],
+        "comparisonLabels": {"guide": "Changed fact: the copy that carries the index tab in each situation", "neutral": "Two situations shown side by side for comparison only — no outcome, preference or legal effect is stated"},
+        "folderLabel": "Supplier contract drafts — working file"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de suministro",
+        "clauses": ["Objeto del suministro", "Precios (hipotéticos)", "Calendario de entregas"],
+        "versions": [
+          {"id": "v1", "date": "Día 2"},
+          {"id": "v2", "date": "Día 5"},
+          {"id": "v3", "date": "Día 9"},
+          {"id": "v4", "date": "Día 12"}
+        ],
+        "signers": [{"name": "Lena Ortiz", "role": "Archivo"}, {"name": "Kofi Mensah", "role": "Revisión"}],
+        "scenarioA": {"label": "Versión seleccionada", "caption": "La pestaña marca la copia más reciente, v4"},
+        "scenarioB": {"label": "Versión anterior", "caption": "La pestaña marca la copia anterior, v3"},
+        "changedFact": "Solo cambia la copia que recibe la pestaña",
+        "sharedFacts": ["Mismas cuatro copias", "Mismo orden en el expediente", "Mismas personas, pestaña y pluma"],
+        "comparisonLabels": {"guide": "Hecho cambiado: qué copia lleva la pestaña", "neutral": "Dos situaciones lado a lado — no se indica ningún desenlace"},
+        "folderLabel": "Expediente de versiones"
+      }
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "animationId": "LAW-0002",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Signer, pen, signature layer, document body, receiving folder and recipient, traversed in the signing order.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the document is sent straight to the recipient for countersignature and then filed; the tracer focuses the document body.",
+      "params": {
+        "documentId": "LEASE-22",
+        "documentTitle": "Equipment Lease",
+        "clauses": ["Equipment list", "Monthly amount (hypothetical)", "Return of equipment"],
+        "elements": [
+          {"id": "signer", "label": "First signer"},
+          {"id": "pen", "label": "Pen"},
+          {"id": "signature", "label": "First signature"},
+          {"id": "document", "label": "Lease body"},
+          {"id": "recipient", "label": "Second party"},
+          {"id": "folder", "label": "Shared file"}
+        ],
+        "relationships": [
+          {"from": "signer", "to": "pen", "kind": "relation", "label": "holds"},
+          {"from": "pen", "to": "signature", "kind": "sequence", "label": "draws"},
+          {"from": "signature", "to": "document", "kind": "relation", "label": "part of"},
+          {"from": "document", "to": "recipient", "kind": "communication", "label": "sent for countersignature"},
+          {"from": "recipient", "to": "folder", "kind": "sequence", "label": "files"}
+        ],
+        "focusElement": "document",
+        "traversalOrder": ["signer", "pen", "signature", "document", "recipient", "folder"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long component labels and relationship captions to exercise wrapping and bounded shrinking.",
+      "params": {
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment",
+        "signers": [{"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"}, {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Party B"}],
+        "elements": [
+          {"id": "signer", "label": "Authorised signatory for the supplier"},
+          {"id": "pen", "label": "Writing instrument used"},
+          {"id": "signature", "label": "Handwritten signature layer on the line"},
+          {"id": "document", "label": "Body of the framework agreement"},
+          {"id": "folder", "label": "Customer contract records — originals"},
+          {"id": "recipient", "label": "Receiving representative of the customer"}
+        ],
+        "relationships": [
+          {"from": "signer", "to": "pen", "kind": "relation", "label": "holds the writing instrument"},
+          {"from": "pen", "to": "signature", "kind": "sequence", "label": "traces the handwritten mark"},
+          {"from": "signature", "to": "document", "kind": "relation", "label": "belongs to the signature line"},
+          {"from": "document", "to": "folder", "kind": "communication", "label": "delivered to the customer file"},
+          {"from": "folder", "to": "recipient", "kind": "relation", "label": "kept by the representative"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de servicios",
+        "clauses": ["Objeto del servicio", "Honorarios (hipotéticos)", "Duración y preaviso"],
+        "elements": [
+          {"id": "signer", "label": "Firmante (parte A)"},
+          {"id": "pen", "label": "Pluma"},
+          {"id": "signature", "label": "Capa de firma"},
+          {"id": "document", "label": "Cuerpo del documento"},
+          {"id": "folder", "label": "Expediente de la parte B"},
+          {"id": "recipient", "label": "Destinataria (parte B)"}
+        ],
+        "relationships": [
+          {"from": "signer", "to": "pen", "kind": "relation", "label": "sostiene"},
+          {"from": "pen", "to": "signature", "kind": "sequence", "label": "traza la marca"},
+          {"from": "signature", "to": "document", "kind": "relation", "label": "pertenece a"},
+          {"from": "document", "to": "folder", "kind": "communication", "label": "entregado"},
+          {"from": "folder", "to": "recipient", "kind": "relation", "label": "custodiado por"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}

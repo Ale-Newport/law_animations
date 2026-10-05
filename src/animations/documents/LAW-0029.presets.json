@@ -1,0 +1,85 @@
+{
+  "animationId": "LAW-0029",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Four fictional successive copies are filed oldest first into a chain; the reviewer tabs the newest copy (v4) and ticks the tab.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: three copies of a different document, one clause redacted, and the tab identifies an earlier copy (B) rather than the newest; the callout points at the tabbed copy.",
+      "params": {
+        "documentId": "LEASE-07",
+        "documentTitle": "Equipment Lease",
+        "clauses": ["Equipment list", "Monthly amount (hypothetical)", "Confidential annex", "Return of equipment"],
+        "redactions": [2],
+        "versions": [
+          {"id": "A", "date": "Week 1"},
+          {"id": "B", "date": "Week 2"},
+          {"id": "C", "date": "Week 4"}
+        ],
+        "selectedVersion": "B",
+        "signers": [
+          {"name": "Priya Lindqvist", "role": "Clerk", "appearance": {"skin": 2, "hair": "bun", "outfit": 3}},
+          {"name": "Jonah Adeyemi", "role": "Reviewer", "appearance": {"skin": 5, "hair": "buzz", "outfit": 0}}
+        ],
+        "actorLabels": {"a": "Records clerk", "b": "Reviewer"},
+        "objectLabels": {"folder": "Lease drafts", "tab": "Selected draft"},
+        "annotations": [{"target": "selected", "text": "Tab placed on draft B, not on the newest copy"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Five copies, long identifiers, dates, names, labels and two long callouts to exercise wrapping and bounded shrinking.",
+      "params": {
+        "documentId": "FRAMEWORK-2026-000417-B",
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment and Related Services",
+        "clauses": [
+          "Definitions and interpretation of terms used throughout this agreement",
+          "Scope of the supply obligations and the maintenance schedule (hypothetical)",
+          "Fees, invoicing and payment arrangements (hypothetical amounts only)",
+          "Duration, renewal and the procedure for giving notice between the parties"
+        ],
+        "versions": [
+          {"id": "DRAFT-01", "date": "Day 2, morning"},
+          {"id": "DRAFT-02", "date": "Day 5, after meeting"},
+          {"id": "DRAFT-03", "date": "Day 9, circulated"},
+          {"id": "DRAFT-04-REV", "date": "Day 12, with comments"},
+          {"id": "DRAFT-05-CLEAN", "date": "Day 14, clean copy"}
+        ],
+        "selectedVersion": "DRAFT-04-REV",
+        "signers": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Clerk"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Reviewer"}
+        ],
+        "actorLabels": {"a": "Document control clerk", "b": "Reviewing representative"},
+        "objectLabels": {"folder": "Supplier contract drafts — working file", "tab": "Version selected for circulation"},
+        "annotations": [
+          {"target": "previous", "text": "The earlier draft remains in the chain directly beneath the tabbed copy"},
+          {"target": "folder", "text": "All copies are held in one working file in the order of their identifiers"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de suministro",
+        "clauses": ["Objeto del suministro", "Precios (hipotéticos)", "Calendario de entregas"],
+        "versions": [
+          {"id": "v1", "date": "Día 2"},
+          {"id": "v2", "date": "Día 5"},
+          {"id": "v3", "date": "Día 9"},
+          {"id": "v4", "date": "Día 12"}
+        ],
+        "signers": [{"name": "Lena Ortiz", "role": "Archivo"}, {"name": "Kofi Mensah", "role": "Revisión"}],
+        "actorLabels": {"a": "Archivo", "b": "Revisión"},
+        "objectLabels": {"folder": "Expediente de versiones", "tab": "Versión seleccionada"},
+        "annotations": [{"target": "previous", "text": "La versión anterior sigue en la cadena"}]
+      }
+    }
+  ]
+}

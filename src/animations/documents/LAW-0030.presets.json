@@ -1,0 +1,111 @@
+{
+  "animationId": "LAW-0030",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Four copies come apart into a zig-zag chain linked by sequence arrows; the file holds the chain, the tab identifies v4 and the pen ticks the tab.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: three drafts, the tab identifies the middle draft (B), the tracer starts at the tab and walks the chain backwards, and one relation is a supplied communication (the file is sent to the reviewer's pen).",
+      "params": {
+        "documentId": "LEASE-07",
+        "documentTitle": "Equipment Lease",
+        "clauses": ["Equipment list", "Monthly amount (hypothetical)", "Confidential annex"],
+        "redactions": [2],
+        "versions": [
+          {"id": "A", "date": "Week 1"},
+          {"id": "B", "date": "Week 2"},
+          {"id": "C", "date": "Week 4"}
+        ],
+        "selectedVersion": "B",
+        "elements": [
+          {"id": "copy1", "label": "Draft A"},
+          {"id": "copy2", "label": "Draft B (tabbed)"},
+          {"id": "copy3", "label": "Draft C"},
+          {"id": "tab", "label": "Index tab"},
+          {"id": "folder", "label": "Lease drafts"},
+          {"id": "pen", "label": "Reviewer's pen"}
+        ],
+        "relationships": [
+          {"from": "folder", "to": "copy1", "kind": "relation", "label": "holds"},
+          {"from": "copy1", "to": "copy2", "kind": "sequence", "label": "next draft"},
+          {"from": "copy2", "to": "copy3", "kind": "sequence", "label": "next draft"},
+          {"from": "tab", "to": "copy2", "kind": "relation", "label": "identifies"},
+          {"from": "pen", "to": "tab", "kind": "communication", "label": "tick sent"}
+        ],
+        "focusElement": "copy2",
+        "traversalOrder": ["tab", "copy2", "copy1", "folder"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Five copies, long identifiers and long element and relation captions.",
+      "params": {
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment",
+        "versions": [
+          {"id": "DRAFT-01", "date": "Day 2, morning"},
+          {"id": "DRAFT-02", "date": "Day 5, after meeting"},
+          {"id": "DRAFT-03", "date": "Day 9, circulated"},
+          {"id": "DRAFT-04-REV", "date": "Day 12, with comments"},
+          {"id": "DRAFT-05-CLEAN", "date": "Day 14, clean copy"}
+        ],
+        "selectedVersion": "DRAFT-05-CLEAN",
+        "elements": [
+          {"id": "copy1", "label": "First circulated draft"},
+          {"id": "copy2", "label": "Second draft after meeting"},
+          {"id": "copy3", "label": "Third circulated draft"},
+          {"id": "copy4", "label": "Revised draft with comments (previous)"},
+          {"id": "copy5", "label": "Clean copy selected for circulation"},
+          {"id": "tab", "label": "Index tab marking the selection"},
+          {"id": "folder", "label": "Supplier working file"},
+          {"id": "pen", "label": "Reviewer's pen"}
+        ],
+        "relationships": [
+          {"from": "folder", "to": "copy1", "kind": "relation", "label": "holds the chain in order"},
+          {"from": "copy1", "to": "copy2", "kind": "sequence", "label": "followed by"},
+          {"from": "copy2", "to": "copy3", "kind": "sequence", "label": "followed by"},
+          {"from": "copy3", "to": "copy4", "kind": "sequence", "label": "followed by"},
+          {"from": "copy4", "to": "copy5", "kind": "sequence", "label": "followed by"},
+          {"from": "tab", "to": "copy5", "kind": "relation", "label": "identifies the selected copy"},
+          {"from": "pen", "to": "tab", "kind": "relation", "label": "ticks the tab"}
+        ],
+        "traversalOrder": ["folder", "copy1", "copy2", "copy3", "copy4", "copy5", "tab"]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de suministro",
+        "versions": [
+          {"id": "v1", "date": "Día 2"},
+          {"id": "v2", "date": "Día 5"},
+          {"id": "v3", "date": "Día 9"},
+          {"id": "v4", "date": "Día 12"}
+        ],
+        "elements": [
+          {"id": "copy1", "label": "Primera copia"},
+          {"id": "copy2", "label": "Segunda copia"},
+          {"id": "copy3", "label": "Versión anterior"},
+          {"id": "copy4", "label": "Versión seleccionada"},
+          {"id": "tab", "label": "Pestaña índice"},
+          {"id": "folder", "label": "Expediente de versiones"},
+          {"id": "pen", "label": "Pluma"}
+        ],
+        "relationships": [
+          {"from": "folder", "to": "copy1", "kind": "relation", "label": "contiene la cadena"},
+          {"from": "copy1", "to": "copy2", "kind": "sequence", "label": "siguiente"},
+          {"from": "copy2", "to": "copy3", "kind": "sequence", "label": "siguiente"},
+          {"from": "copy3", "to": "copy4", "kind": "sequence", "label": "siguiente"},
+          {"from": "tab", "to": "copy4", "kind": "relation", "label": "identifica"},
+          {"from": "pen", "to": "tab", "kind": "relation", "label": "marca"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}

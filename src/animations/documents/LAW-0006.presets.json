@@ -1,0 +1,102 @@
+{
+  "animationId": "LAW-0006",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Exploded stack of a fictional lease copy: ink pad inks the die, the die presses one spot of the copy, the folder supports the copy, the copy reproduces the signed original.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different document with a redacted clause, the copy is described as filed in the folder (communication link), the tracer starts at the signature and ends with the press, and the stamp is the focus element.",
+      "params": {
+        "documentId": "INV-0071",
+        "documentTitle": "Delivery Note",
+        "clauses": ["Items delivered", "Quantities (hypothetical)", "Delivery address", "Internal reference"],
+        "redactions": [3],
+        "signers": [{"name": "Priya Lindqvist", "role": "Party A"}, {"name": "Jonah Adeyemi", "role": "Party B"}],
+        "stampLabel": "FILE COPY",
+        "elements": [
+          {"id": "ink", "label": "Ink pad"},
+          {"id": "stamp", "label": "Rubber stamp"},
+          {"id": "mark", "label": "Impression"},
+          {"id": "copy", "label": "Photocopy"},
+          {"id": "original", "label": "Signed original"},
+          {"id": "folder", "label": "Incoming file"},
+          {"id": "pen", "label": "Pen"}
+        ],
+        "relationships": [
+          {"from": "pen", "to": "original", "kind": "relation", "label": "signed with"},
+          {"from": "copy", "to": "original", "kind": "relation", "label": "copy of"},
+          {"from": "ink", "to": "stamp", "kind": "sequence", "label": "inks the die"},
+          {"from": "stamp", "to": "mark", "kind": "sequence", "label": "presses one spot"},
+          {"from": "copy", "to": "folder", "kind": "communication", "label": "filed in"}
+        ],
+        "focusElement": "stamp",
+        "traversalOrder": ["pen", "original", "copy", "ink", "stamp", "mark"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long component labels, long relation captions, long document data and a long stamp legend.",
+      "params": {
+        "documentId": "REG-2026-000417-COPY-B",
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment and Related Services",
+        "clauses": [
+          "Definitions and interpretation of terms used throughout this agreement",
+          "Scope of the supply obligations and the maintenance schedule (hypothetical)",
+          "Fees, invoicing and payment arrangements (hypothetical amounts only)",
+          "Duration, renewal and the procedure for giving notice between the parties"
+        ],
+        "signers": [{"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"}, {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Party B"}],
+        "stampLabel": "COPY RECEIVED AT DESK",
+        "elements": [
+          {"id": "ink", "label": "Self-contained ink pad with the lid folded back"},
+          {"id": "stamp", "label": "Hand stamp with a rubber die and wooden mount"},
+          {"id": "mark", "label": "Impression left in the upper margin"},
+          {"id": "copy", "label": "Photocopy presented at the registry desk"},
+          {"id": "original", "label": "Signed original presented for comparison"},
+          {"id": "folder", "label": "Registry intake file for copies received"},
+          {"id": "pen", "label": "Pen used for the signature"}
+        ],
+        "relationships": [
+          {"from": "ink", "to": "stamp", "kind": "sequence", "label": "ink is picked up by the die"},
+          {"from": "stamp", "to": "mark", "kind": "sequence", "label": "die pressed once onto a single spot"},
+          {"from": "copy", "to": "original", "kind": "relation", "label": "reproduces the content of"},
+          {"from": "folder", "to": "copy", "kind": "relation", "label": "holds the sheet from below"},
+          {"from": "pen", "to": "original", "kind": "relation", "label": "wrote the signature on"}
+        ],
+        "relationLabels": {"relation": "plain relation (no direction)", "communication": "communication between parts", "sequence": "sequence of steps", "causal": "causal link as supplied by the author"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de arrendamiento",
+        "clauses": ["Inmueble", "Renta (hipotética)", "Duración y preaviso"],
+        "signers": [{"name": "Alex Moreno", "role": "Parte A"}, {"name": "Sam Okafor", "role": "Parte B"}],
+        "stampLabel": "COPIA",
+        "elements": [
+          {"id": "ink", "label": "Tampón"},
+          {"id": "stamp", "label": "Troquel del sello"},
+          {"id": "mark", "label": "Marca de tinta"},
+          {"id": "copy", "label": "Copia"},
+          {"id": "original", "label": "Original"},
+          {"id": "folder", "label": "Carpeta"},
+          {"id": "pen", "label": "Pluma"}
+        ],
+        "relationships": [
+          {"from": "ink", "to": "stamp", "kind": "sequence", "label": "entinta el troquel"},
+          {"from": "stamp", "to": "mark", "kind": "sequence", "label": "presiona un punto"},
+          {"from": "copy", "to": "original", "kind": "relation", "label": "copia de"},
+          {"from": "folder", "to": "copy", "kind": "relation", "label": "sostiene"},
+          {"from": "pen", "to": "original", "kind": "relation", "label": "firmado con"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}

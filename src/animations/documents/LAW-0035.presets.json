@@ -1,0 +1,62 @@
+{
+  "animationId": "LAW-0035",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Same notice, parties, trays and hand-off; the only difference is whether an acknowledgment card travels with the envelope.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a change-of-address notice with a redacted first heading, different parties, a later stamp date and different scenario wording; still exactly one changed fact.",
+      "params": {
+        "documentId": "ADR-512",
+        "documentTitle": "Notice of Change of Address",
+        "clauses": ["Previous address (withheld)", "New address for correspondence", "Date the change applies (as supplied)"],
+        "redactions": [0],
+        "signers": [
+          {"name": "Priya Lindqvist", "role": "Sender", "appearance": {"skin": 2, "hair": "bun", "outfit": 3}},
+          {"name": "Jonah Adeyemi", "role": "Recipient", "appearance": {"skin": 5, "hair": "buzz", "outfit": 0}}
+        ],
+        "scenarioA": {"label": "Receipt card attached", "caption": "The card is clipped on before dispatch"},
+        "scenarioB": {"label": "No receipt card", "caption": "The envelope is dispatched on its own"},
+        "changedFact": "The only difference: a receipt card clipped to the envelope before dispatch",
+        "sharedFacts": ["Same notice text", "Same redacted heading", "Same delivery to the IN tray"],
+        "comparisonLabels": {"guide": "Changed fact: receipt card", "neutral": "Shown for comparison only — no effect is stated"},
+        "receiptDate": "Day 12"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long scenario labels, captions, names and notes.",
+      "params": {
+        "documentTitle": "Notice of Rescheduled Annual Coordination Meeting and Enclosed Supporting Documents",
+        "signers": [{"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Sending office coordinator"}, {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Receiving office representative"}],
+        "scenarioA": {"label": "Delivery with an acknowledgment card returned", "caption": "The sending coordinator clips an acknowledgment card to the envelope before dispatch"},
+        "scenarioB": {"label": "Delivery without any acknowledgment card", "caption": "The sending coordinator dispatches the envelope without an acknowledgment card"},
+        "changedFact": "Only whether an acknowledgment card is clipped to the envelope before dispatch differs between the two situations",
+        "sharedFacts": ["Identical notice text and enclosures", "Identical parties and offices", "Identical trays, hatch and hand-off"],
+        "comparisonLabels": {"guide": "Changed fact: acknowledgment card clipped before dispatch", "neutral": "Two situations shown side by side for comparison — the animation states no outcome or legal effect"},
+        "objectLabels": {"outTray": "OUTGOING MAIL", "inTray": "INCOMING MAIL", "folder": "Correspondence register", "card": "Acknowledgment of receipt", "stamp": "RECEIVED"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Convocatoria de reunión",
+        "clauses": ["Fecha y lugar de la reunión", "Documentos adjuntos", "Contacto para consultas"],
+        "signers": [{"name": "Alex Moreno", "role": "Remitente"}, {"name": "Sam Okafor", "role": "Destinataria"}],
+        "scenarioA": {"label": "Entrega documentada", "caption": "Un acuse de recibo viaja con la notificación"},
+        "scenarioB": {"label": "Entrega no acreditada", "caption": "La notificación viaja sin acuse de recibo"},
+        "changedFact": "Única diferencia: si el acuse de recibo viaja con la notificación",
+        "sharedFacts": ["Misma notificación", "Mismas partes", "Mismas bandejas y entrega"],
+        "comparisonLabels": {"guide": "Hecho cambiado: acuse de recibo", "neutral": "Dos situaciones lado a lado — no se afirma ningún efecto jurídico"},
+        "objectLabels": {"outTray": "SALIDA", "inTray": "ENTRADA", "folder": "Expediente de avisos", "card": "Acuse de recibo", "stamp": "RECIBIDO"},
+        "receiptDate": "Día 3"
+      }
+    }
+  ]
+}

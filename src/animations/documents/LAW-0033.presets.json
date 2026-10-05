@@ -1,0 +1,64 @@
+{
+  "animationId": "LAW-0033",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional notice of meeting carried from the sender's OUT tray to the recipient's IN tray; the recipient signs and date-stamps the acknowledgment card, which is returned and filed by the sender.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different notice with its first heading redacted; the recipient signs and stamps the acknowledgment but keeps it, so nothing comes back to the sender's folder.",
+      "params": {
+        "documentId": "ADR-512",
+        "documentTitle": "Notice of Change of Address",
+        "clauses": ["Previous address (withheld)", "New address for correspondence", "Date the change applies (as supplied)"],
+        "redactions": [0],
+        "signers": [
+          {"name": "Priya Lindqvist", "role": "Sender", "appearance": {"skin": 2, "hair": "bun", "outfit": 3}},
+          {"name": "Jonah Adeyemi", "role": "Recipient", "appearance": {"skin": 5, "hair": "buzz", "outfit": 0}}
+        ],
+        "actorLabels": {"a": "Sender", "b": "Recipient"},
+        "receiptDate": "Day 12",
+        "finalState": "signed-kept",
+        "annotations": [{"target": "signature", "text": "Acknowledgment signed; kept by the recipient"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, long title, long prop labels and two long callouts to exercise wrapping and bounded shrinking.",
+      "params": {
+        "documentId": "NOTICE-2026-000417-B",
+        "documentTitle": "Notice of Rescheduled Annual Coordination Meeting and Enclosed Supporting Documents",
+        "clauses": ["Revised date, time and meeting room for the coordination meeting", "List of supporting documents enclosed with this notice"],
+        "signers": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Sender"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Recipient"}
+        ],
+        "actorLabels": {"a": "Sending office coordinator", "b": "Receiving office representative"},
+        "objectLabels": {"outTray": "OUTGOING MAIL", "inTray": "INCOMING MAIL", "folder": "Correspondence register — notices sent", "card": "Acknowledgment of receipt", "stamp": "RECEIVED"},
+        "receiptDate": "Day 3, morning",
+        "annotations": [
+          {"target": "record", "text": "Signed and date-stamped acknowledgment returned and filed in the sender's register"},
+          {"target": "envelope", "text": "Notice left in the receiving office's incoming tray"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "documentId": "NTF-207",
+        "documentTitle": "Convocatoria de reunión",
+        "clauses": ["Fecha y lugar de la reunión", "Documentos adjuntos", "Contacto para consultas"],
+        "signers": [{"name": "Alex Moreno", "role": "Remitente"}, {"name": "Sam Okafor", "role": "Destinataria"}],
+        "actorLabels": {"a": "Remitente", "b": "Destinataria"},
+        "objectLabels": {"outTray": "SALIDA", "inTray": "ENTRADA", "folder": "Expediente de avisos", "card": "Acuse de recibo", "stamp": "RECIBIDO"},
+        "receiptDate": "Día 3",
+        "annotations": [{"target": "record", "text": "Acuse firmado archivado por el remitente"}]
+      }
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "animationId": "LAW-0038",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Custody and circulation decomposed: the original is kept in the sealed box, a copy is reproduced from it and circulates to the reader's file, and only the copy receives notes.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the copy is the focus element, a clause is redacted on the circulating copy, the traversal ends at the pen, and one link is supplied by the author as causal.",
+      "params": {
+        "documentId": "LEASE-22",
+        "documentTitle": "Equipment Lease",
+        "clauses": ["Equipment list", "Monthly amount (hypothetical)", "Contact details"],
+        "redactions": [2],
+        "objectLabels": {"box": "Box 12 · Leases", "seal": "SEALED", "copyMark": "COPY 1", "folder": "Project file"},
+        "elements": [
+          {"id": "original", "label": "Signed lease"},
+          {"id": "box", "label": "Lease box"},
+          {"id": "seal", "label": "Box seal"},
+          {"id": "copy", "label": "Redacted copy"},
+          {"id": "pen", "label": "Reviewer’s pen"},
+          {"id": "folder", "label": "Project file"}
+        ],
+        "relationships": [
+          {"from": "original", "to": "box", "kind": "relation", "label": "kept in"},
+          {"from": "seal", "to": "box", "kind": "causal", "label": "keeps shut (supplied)"},
+          {"from": "original", "to": "copy", "kind": "sequence", "label": "copied, clause 3 redacted"},
+          {"from": "copy", "to": "folder", "kind": "communication", "label": "sent to"},
+          {"from": "pen", "to": "copy", "kind": "relation", "label": "annotates"}
+        ],
+        "focusElement": "copy",
+        "traversalOrder": ["box", "original", "copy", "pen"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long element and relation labels to exercise wrapping and label placement.",
+      "params": {
+        "documentId": "AGREEMENT-2026-000417-B",
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment",
+        "objectLabels": {"box": "Archive box 2026-07 · Signed originals", "seal": "SEALED FOR CUSTODY", "copyMark": "WORKING COPY — NOT THE ORIGINAL", "folder": "Customer review file"},
+        "elements": [
+          {"id": "original", "label": "Signed original of the framework agreement"},
+          {"id": "box", "label": "Archive box for signed originals"},
+          {"id": "seal", "label": "Custody seal across the lid"},
+          {"id": "copy", "label": "Working copy for the reviewers"},
+          {"id": "pen", "label": "Pen of the reviewing representative"},
+          {"id": "folder", "label": "Customer review file (working copies)"}
+        ],
+        "relationships": [
+          {"from": "original", "to": "box", "kind": "relation", "label": "kept inside the archive box"},
+          {"from": "seal", "to": "box", "kind": "relation", "label": "closes the lid of the box"},
+          {"from": "original", "to": "copy", "kind": "sequence", "label": "reproduced as a working copy"},
+          {"from": "copy", "to": "folder", "kind": "communication", "label": "circulates to the review file"},
+          {"from": "pen", "to": "copy", "kind": "relation", "label": "writes review notes on the copy"}
+        ],
+        "relationLabels": {"relation": "plain relation (no direction)", "communication": "communication between people", "sequence": "sequence of steps", "causal": "causal link (only as supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de suministro",
+        "clauses": ["Partes", "Bienes (hipotéticos)", "Condiciones de entrega"],
+        "objectLabels": {"box": "Caja 07 · Originales", "seal": "PRECINTADO", "copyMark": "COPIA", "folder": "Carpeta de trabajo"},
+        "elements": [
+          {"id": "original", "label": "Original firmado"},
+          {"id": "box", "label": "Caja de archivo"},
+          {"id": "seal", "label": "Precinto de custodia"},
+          {"id": "copy", "label": "Copia de trabajo"},
+          {"id": "pen", "label": "Pluma del lector"},
+          {"id": "folder", "label": "Carpeta de trabajo"}
+        ],
+        "relationships": [
+          {"from": "original", "to": "box", "kind": "relation", "label": "se guarda en"},
+          {"from": "seal", "to": "box", "kind": "relation", "label": "cierra"},
+          {"from": "original", "to": "copy", "kind": "sequence", "label": "se reproduce como"},
+          {"from": "copy", "to": "folder", "kind": "communication", "label": "circula hacia"},
+          {"from": "pen", "to": "copy", "kind": "relation", "label": "anota sobre"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}

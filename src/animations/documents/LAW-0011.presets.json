@@ -1,0 +1,62 @@
+{
+  "animationId": "LAW-0011",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Two identical registration files opened in parallel; in B document 3 is listed but absent.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a three-document licence file where the FIRST document is the absent one, so B's cascade starts with the empty slot and the pen skips the first entry.",
+      "params": {
+        "documentId": "LIC-208",
+        "documentTitle": "Licence renewal",
+        "clauses": ["Renewal form", "Previous licence copy", "Site plan"],
+        "signers": [{"name": "Priya Lindqvist", "role": "Registry officer", "appearance": {"skin": 2, "hair": "bun", "outfit": 3}}, {"name": "Jonah Adeyemi", "role": "Holder"}],
+        "changedIndex": 0,
+        "scenarioA": {"label": "All documents filed", "caption": "The three listed documents are in the folder"},
+        "scenarioB": {"label": "First document absent", "caption": "The renewal form is listed but not in the folder"},
+        "changedFact": "Only document 1 differs: listed in both, absent from B",
+        "sharedFacts": ["Same licence file", "Same inventory", "Same opening steps"],
+        "comparisonLabels": {"guide": "Changed fact: document 1", "neutral": "Both files shown side by side — no consequence is stated"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long scenario labels, captions, notes and document headings to exercise wrapping and bounded shrinking.",
+      "params": {
+        "documentId": "FILE-2026-000417-B",
+        "documentTitle": "Request for registration of a change of address and of the related supporting documentation",
+        "clauses": [
+          "Completed application form with all mandatory sections filled in",
+          "Certified copy of the identity document of the requesting party",
+          "Supporting letter from the previous address holder (fictional)",
+          "Receipt for the hypothetical administrative fee paid at the counter"
+        ],
+        "signers": [{"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Clerk"}, {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Requesting party"}],
+        "scenarioA": {"label": "Complete case file with every listed document", "caption": "Each document listed on the index sheet is physically inside the folder"},
+        "scenarioB": {"label": "Case file with one listed document absent", "caption": "The supporting letter is listed on the index sheet but is not inside the folder"},
+        "changedFact": "Only the presence of the supporting letter differs between the two otherwise identical case files",
+        "sharedFacts": ["Same file number and title", "Same index sheet", "Same clerk and the same opening steps"],
+        "comparisonLabels": {"guide": "Changed fact: presence of the supporting letter (document 3)", "neutral": "Two situations shown side by side for comparison — the animation states no consequence for either"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Solicitud de inscripción",
+        "clauses": ["Formulario de solicitud", "Copia del documento de identidad", "Carta de apoyo", "Recibo de tasa (hipotético)"],
+        "signers": [{"name": "Dana Ruiz", "role": "Funcionaria"}, {"name": "Sam Okafor", "role": "Solicitante"}],
+        "scenarioA": {"label": "Expediente completo", "caption": "Todos los documentos listados están en la carpeta"},
+        "scenarioB": {"label": "Documento ausente", "caption": "El documento 3 figura en el índice pero no está en la carpeta"},
+        "changedFact": "Solo cambia el documento 3: listado en ambos, ausente en B",
+        "sharedFacts": ["Mismo número", "Mismo índice", "Mismos pasos de apertura"],
+        "comparisonLabels": {"guide": "Hecho cambiado: documento 3", "neutral": "Dos situaciones lado a lado; no se indica ninguna consecuencia"}
+      }
+    }
+  ]
+}

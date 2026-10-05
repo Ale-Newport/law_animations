@@ -1,0 +1,82 @@
+{
+  "animationId": "LAW-0023",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Same supply agreement and delivery schedule in both scenes; A joins the annex at clause 2, B lays it apart.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a four-clause lease with a redacted clause; the inventory annex is joined at clause 3 in A and kept apart in B.",
+      "params": {
+        "documentId": "LEASE-51",
+        "documentTitle": "Equipment Lease",
+        "clauses": ["Leased equipment", "Monthly amount (hypothetical)", "Condition on return", "Confidential terms"],
+        "redactions": [3],
+        "linkedClause": 2,
+        "annex": {"label": "ANNEX B", "title": "Equipment inventory"},
+        "reference": "see Annex B",
+        "signers": [
+          {"name": "Priya Lindqvist", "role": "Lessor", "appearance": {"skin": 2, "hair": "bun", "outfit": 3}},
+          {"name": "Jonah Adeyemi", "role": "Lessee", "appearance": {"skin": 5, "hair": "buzz", "outfit": 0}}
+        ],
+        "scenarioA": {"label": "Inventory joined", "caption": "Tab placed at clause 3 and linked"},
+        "scenarioB": {"label": "Inventory apart", "caption": "Placed next to the lease, no link"},
+        "changedFact": "Only whether the inventory is joined at clause 3 differs",
+        "sharedFacts": ["Same lease", "Same inventory", "Same reference and seal"],
+        "comparisonLabels": {"guide": "Changed fact: tab at clause 3 / gap", "neutral": "Both situations are shown for comparison only — no result is implied"},
+        "folderLabel": "Lease annexes",
+        "sealLabel": "LEASE-51"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long scenario labels, captions, notes, names and document texts.",
+      "params": {
+        "documentId": "AGREEMENT-2026-000417-B",
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment and Related Services",
+        "clauses": [
+          "Definitions and interpretation of terms used throughout this agreement",
+          "Scope of the supply obligations and the maintenance schedule",
+          "Fees, invoicing and payment arrangements (hypothetical amounts only)",
+          "Technical specifications of the equipment to be supplied"
+        ],
+        "linkedClause": 3,
+        "annex": {"label": "SCHEDULE 3 — TECHNICAL", "title": "Technical specifications of the laboratory equipment and accessories"},
+        "reference": "as set out in Schedule 3",
+        "signers": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Supplier"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Customer"}
+        ],
+        "scenarioA": {"label": "Technical schedule joined at clause 4", "caption": "The schedule's tab is placed at clause 4 and linked to the cross-reference"},
+        "scenarioB": {"label": "Technical schedule kept apart", "caption": "The schedule is laid beside the agreement without being joined to it"},
+        "changedFact": "Only whether the technical schedule is physically joined at clause 4 differs between the two scenes",
+        "sharedFacts": ["Same framework agreement", "Same technical schedule", "Same written cross-reference", "Same seal"],
+        "comparisonLabels": {"guide": "Changed fact: schedule joined at clause 4 / laid apart with a gap", "neutral": "The two situations are shown side by side for comparison only; no legal outcome is stated or implied"},
+        "folderLabel": "Schedules and technical annexes",
+        "sealLabel": "AGR-000417"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de suministro",
+        "clauses": ["Partes y objeto", "Entrega de los bienes", "Precio (hipotético)"],
+        "annex": {"label": "ANEXO 1", "title": "Calendario de entregas"},
+        "reference": "véase Anexo 1",
+        "signers": [{"name": "Alex Moreno", "role": "Parte A"}, {"name": "Sam Okafor", "role": "Parte B"}],
+        "scenarioA": {"label": "Anexo enlazado", "caption": "Unido en la cláusula 2, vínculo trazado a su pestaña"},
+        "scenarioB": {"label": "Anexo separado", "caption": "Colocado junto al contrato, sin unir"},
+        "changedFact": "Solo cambia la unión entre la cláusula 2 y el anexo",
+        "sharedFacts": ["Mismo contrato y anexo", "Misma remisión escrita", "Mismo sello"],
+        "comparisonLabels": {"guide": "Hecho cambiado: unido en la cláusula / colocado aparte", "neutral": "Dos situaciones lado a lado — no se indica ningún desenlace"},
+        "folderLabel": "Anexos",
+        "sealLabel": "CTR-208"
+      }
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "animationId": "LAW-0001",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional service agreement signed by Party A and passed to Party B, who stamps it as received.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the signer keeps the signed copy (no transfer, no receipt stamp), with a redacted clause and a different document.",
+      "params": {
+        "documentId": "LEASE-22",
+        "documentTitle": "Equipment Lease",
+        "clauses": ["Equipment list", "Monthly amount (hypothetical)", "Return of equipment", "Confidential annex"],
+        "redactions": [3],
+        "signers": [
+          {"name": "Priya Lindqvist", "role": "Party A", "appearance": {"skin": 2, "hair": "bun", "outfit": 3}},
+          {"name": "Jonah Adeyemi", "role": "Party B", "appearance": {"skin": 5, "hair": "buzz", "outfit": 0}}
+        ],
+        "actorLabels": {"a": "Signer", "b": "Counterparty"},
+        "finalState": "signed-retained",
+        "annotations": [{"target": "signature", "text": "Signed copy kept by Party A"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, long title and long clause headings to exercise wrapping and bounded shrinking.",
+      "params": {
+        "documentId": "AGREEMENT-2026-000417-B",
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment and Related Services",
+        "clauses": [
+          "Definitions and interpretation of terms used throughout this agreement",
+          "Scope of the supply obligations and the maintenance schedule (hypothetical)",
+          "Fees, invoicing and payment arrangements (hypothetical amounts only)",
+          "Duration, renewal and the procedure for giving notice between the parties",
+          "Signatures of the parties"
+        ],
+        "signers": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Party B"}
+        ],
+        "actorLabels": {"a": "Authorised signatory for the supplier", "b": "Receiving representative of the customer"},
+        "objectLabels": {"folder": "Customer contract records — originals", "stamp": "RECEIVED ORIGINAL"},
+        "annotations": [
+          {"target": "signature", "text": "Signature added on the designated signature line by the authorised signatory"},
+          {"target": "stamp", "text": "Receipt stamp applied by the receiving representative"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "documentId": "DOC-104",
+        "documentTitle": "Contrato de servicios",
+        "clauses": ["Objeto del servicio", "Honorarios (hipotéticos)", "Duración y preaviso"],
+        "signers": [{"name": "Alex Moreno", "role": "Parte A"}, {"name": "Sam Okafor", "role": "Parte B"}],
+        "actorLabels": {"a": "Firmante", "b": "Parte receptora"},
+        "objectLabels": {"folder": "Expediente de la parte B", "stamp": "RECIBIDO"},
+        "annotations": [{"target": "signature", "text": "Firma añadida por la parte A"}]
+      }
+    }
+  ]
+}

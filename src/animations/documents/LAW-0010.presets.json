@@ -1,0 +1,99 @@
+{
+  "animationId": "LAW-0010",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Exploded case file: cover hinged to the folder, four document layers, index card, pen and opening stamp, traversed in the opening order.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: document 3 is listed but absent (dashed layer, entry never ticked); the index is linked to the layers by a communication-style listing, the tracer focuses the index and visits the stamp before the pen.",
+      "params": {
+        "documentId": "LIC-208",
+        "documentTitle": "Licence renewal",
+        "clauses": ["Renewal form", "Previous licence copy", "Site plan", "Inspection note", "Confidential annex"],
+        "redactions": [4],
+        "signers": [{"name": "Priya Lindqvist", "role": "Registry officer"}, {"name": "Jonah Adeyemi", "role": "Holder"}],
+        "absentDocument": 2,
+        "elements": [
+          {"id": "cover", "label": "Cover"},
+          {"id": "folder", "label": "Licence folder"},
+          {"id": "documents", "label": "Filed documents"},
+          {"id": "index", "label": "Inventory sheet"},
+          {"id": "pen", "label": "Pen"},
+          {"id": "stamp", "label": "Registry stamp"}
+        ],
+        "relationships": [
+          {"from": "cover", "to": "folder", "kind": "relation", "label": "hinged to"},
+          {"from": "folder", "to": "documents", "kind": "relation", "label": "holds"},
+          {"from": "documents", "to": "index", "kind": "relation", "label": "listed on"},
+          {"from": "index", "to": "stamp", "kind": "sequence", "label": "registered with"},
+          {"from": "index", "to": "pen", "kind": "sequence", "label": "entries checked with"}
+        ],
+        "focusElement": "index",
+        "traversalOrder": ["folder", "documents", "index", "stamp", "index", "pen"],
+        "stampLabel": "REGISTERED"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long component labels, relationship captions and document headings to exercise wrapping and bounded shrinking.",
+      "params": {
+        "documentId": "FILE-2026-000417-B",
+        "documentTitle": "Request for registration of a change of address and of the related supporting documentation",
+        "clauses": [
+          "Completed application form with all mandatory sections filled in",
+          "Certified copy of the identity document of the requesting party",
+          "Supporting letter from the previous address holder (fictional)",
+          "Receipt for the hypothetical administrative fee paid at the counter"
+        ],
+        "signers": [{"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Clerk"}, {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Requesting party"}],
+        "elements": [
+          {"id": "cover", "label": "Front cover of the case folder"},
+          {"id": "folder", "label": "Folder carrying the case file number"},
+          {"id": "documents", "label": "Documents filed as separate layers"},
+          {"id": "index", "label": "Index sheet listing every document"},
+          {"id": "pen", "label": "Pen used for the check marks"},
+          {"id": "stamp", "label": "Stamp recording the opening"}
+        ],
+        "relationships": [
+          {"from": "cover", "to": "folder", "kind": "relation", "label": "attached along the hinge"},
+          {"from": "folder", "to": "documents", "kind": "relation", "label": "holds each document as a layer"},
+          {"from": "documents", "to": "index", "kind": "relation", "label": "each layer has one index entry"},
+          {"from": "index", "to": "pen", "kind": "sequence", "label": "entries checked one by one"},
+          {"from": "pen", "to": "stamp", "kind": "sequence", "label": "then the opening is stamped"}
+        ],
+        "stampLabel": "FILE OPENED"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Solicitud de inscripción",
+        "clauses": ["Formulario de solicitud", "Copia del documento de identidad", "Carta de apoyo", "Recibo de tasa (hipotético)"],
+        "signers": [{"name": "Dana Ruiz", "role": "Funcionaria"}, {"name": "Sam Okafor", "role": "Solicitante"}],
+        "elements": [
+          {"id": "cover", "label": "Tapa delantera"},
+          {"id": "folder", "label": "Carpeta y número"},
+          {"id": "documents", "label": "Documentos en capas"},
+          {"id": "index", "label": "Hoja índice"},
+          {"id": "pen", "label": "Pluma"},
+          {"id": "stamp", "label": "Sello de apertura"}
+        ],
+        "relationships": [
+          {"from": "cover", "to": "folder", "kind": "relation", "label": "unida por la bisagra"},
+          {"from": "folder", "to": "documents", "kind": "relation", "label": "contiene en capas"},
+          {"from": "documents", "to": "index", "kind": "relation", "label": "una entrada por capa"},
+          {"from": "index", "to": "pen", "kind": "sequence", "label": "se revisa con"},
+          {"from": "pen", "to": "stamp", "kind": "sequence", "label": "después se sella"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"},
+        "stampLabel": "ABIERTO"
+      }
+    }
+  ]
+}

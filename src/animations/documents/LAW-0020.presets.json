@@ -1,0 +1,80 @@
+{
+  "animationId": "LAW-0020",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the substitution states no legal effect.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The lens enlarges the account-reference field of a fictional intake record; inside the lens its value goes from visible to covered by a band; the context then shows the same change with a marker.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the extent of an existing band is substituted — the phone value goes from fully covered to partly covered, so its last digits become readable; a different record and a lens placed above the field.",
+      "params": {
+        "documentId": "HR-0419",
+        "documentTitle": "Witness Contact Sheet",
+        "clauses": ["Full name", "Relation to the matter", "Availability", "Phone number (fictional)"],
+        "fieldValues": ["Priya Lindqvist", "Neighbour of Party A", "Weekday mornings", "000-555-0199"],
+        "redactions": [0, 3],
+        "signers": [
+          {"name": "Jonah Adeyemi", "role": "Paralegal", "appearance": {"skin": 5, "hair": "buzz", "outfit": 2}},
+          {"name": "Mei Tanaka", "role": "Reviewer", "appearance": {"skin": 1, "hair": "bun", "outfit": 6}}
+        ],
+        "focusTarget": "extent",
+        "focusField": 3,
+        "beforeValue": "Whole number covered",
+        "afterValue": "Last four digits visible",
+        "partialCover": 0.66,
+        "detailGeometry": {"zoom": 2.8, "placement": "top"},
+        "contextLabels": {"context": "Sheet in the disclosure bundle", "marker": "Band extent changed"},
+        "stampLabel": "DISCLOSURE COPY",
+        "folderLabel": "Disclosure bundle"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long field label, long before/after values, long context caption and marker label.",
+      "params": {
+        "documentId": "RECORD-2026-000417-CONFIDENTIAL",
+        "documentTitle": "Consolidated Intake and Contact Record for the Fictional Equipment Lease Review Matter",
+        "clauses": [
+          "Full legal name of the individual client as provided at intake",
+          "Residential address including building, floor and postal district",
+          "Internal account reference and fictional billing identifier",
+          "Short description of the matter as recorded by the intake desk",
+          "Fee arrangement agreed at intake (hypothetical amounts only)"
+        ],
+        "fieldValues": [
+          "Maria-Fernanda Castellanos Villavicencio",
+          "Apartment 12B, 1400 Hypothetical Blvd, Northtown District",
+          "ACC-0000-1234-5678-9012 (fictional reference)",
+          "Review of an equipment lease and its related correspondence",
+          "Fixed fee of 900 per quarter plus expenses (hypothetical)"
+        ],
+        "redactions": [0, 1, 4],
+        "beforeValue": "Readable in full on the copy that lies on the release folder",
+        "afterValue": "Covered by an opaque band inside its box, label and layout kept",
+        "contextLabels": {"context": "Copy prepared for release lying stamped on the release folder", "marker": "Datum changed in this field"},
+        "stampLabel": "REDACTED OUTGOING COPY",
+        "folderLabel": "Copies prepared for the requesting party"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "documentId": "REG-2231",
+        "documentTitle": "Ficha de alta de cliente",
+        "clauses": ["Nombre del cliente", "Domicilio", "Referencia de cuenta", "Resumen del asunto", "Base de honorarios (hipotética)"],
+        "fieldValues": ["Alex Moreno", "Calle Ejemplo 14, Villanorte", "REF-0000-1234 (ficticia)", "Revisión de un arrendamiento", "Importe fijo de 900 (hipotético)"],
+        "signers": [{"name": "Jordan Pike", "role": "Auxiliar"}, {"name": "Rina Solis", "role": "Revisora"}],
+        "beforeValue": "Visible",
+        "afterValue": "Cubierta por una banda",
+        "contextLabels": {"context": "Copia sobre la carpeta de entrega", "marker": "Dato cambiado"},
+        "stampLabel": "COPIA REDACTADA",
+        "folderLabel": "Copias para entrega"
+      }
+    }
+  ]
+}

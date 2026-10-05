@@ -1,0 +1,67 @@
+{
+  "animationId": "LAW-0009",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional registration file with four documents: the clerk opens it, lays the documents out in layers, ticks the index and stamps the registry box.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a five-document file in which document 3 is listed in the index but absent, so its slot stays as a dashed ghost and the pen passes over its box; no stamp is applied and one heading is redacted.",
+      "params": {
+        "documentId": "LIC-208",
+        "documentTitle": "Licence renewal",
+        "clauses": ["Renewal form", "Previous licence copy", "Site plan", "Inspection note", "Confidential annex"],
+        "redactions": [4],
+        "signers": [
+          {"name": "Priya Lindqvist", "role": "Registry officer", "appearance": {"skin": 2, "hair": "bun", "outfit": 3}},
+          {"name": "Jonah Adeyemi", "role": "Holder", "appearance": {"skin": 5, "hair": "buzz", "outfit": 0}}
+        ],
+        "actorLabels": {"a": "Registry officer", "b": "Holder"},
+        "absentDocument": 2,
+        "finalState": "opened",
+        "annotations": [{"target": "index", "text": "Entry 3 is listed but not in the file"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long file title, long document headings, long names and two annotations to exercise wrapping and bounded shrinking.",
+      "params": {
+        "documentId": "FILE-2026-000417-B",
+        "documentTitle": "Request for registration of a change of address and of the related supporting documentation",
+        "clauses": [
+          "Completed application form with all mandatory sections filled in",
+          "Certified copy of the identity document of the requesting party",
+          "Supporting letter from the previous address holder (fictional)",
+          "Receipt for the hypothetical administrative fee paid at the counter"
+        ],
+        "signers": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Clerk"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Applicant"}
+        ],
+        "actorLabels": {"a": "Registry clerk opening the file", "b": "Requesting party"},
+        "objectLabels": {"stamp": "FILE OPENED"},
+        "annotations": [
+          {"target": "layers", "text": "Each document of the file is laid out as its own visible layer"},
+          {"target": "stamp", "text": "Opening stamp pressed on the registry box of the index sheet"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "documentId": "EXP-0417",
+        "documentTitle": "Solicitud de inscripción",
+        "clauses": ["Formulario de solicitud", "Copia del documento de identidad", "Carta de apoyo", "Recibo de tasa (hipotético)"],
+        "signers": [{"name": "Dana Ruiz", "role": "Funcionaria"}, {"name": "Sam Okafor", "role": "Solicitante"}],
+        "actorLabels": {"a": "Funcionaria", "b": "Solicitante"},
+        "objectLabels": {"stamp": "ABIERTO"},
+        "annotations": [{"target": "layers", "text": "Cada documento queda como una capa visible"}]
+      }
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "animationId": "LAW-0026",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; language tags are labels only and imply no jurisdiction.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Segment 2 of a fictional delivery letter and its English equivalent are lifted out; the term record supplies the equivalent of «lonja», which fills the translated segment when the tracer arrives.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a visit notice whose key term has no confirmed equivalent; the record shows a question mark, the translated segment keeps the source term in a dashed box, the record reaches the translation as a communication (query) and the tracer starts from the translated side.",
+      "params": {
+        "documentId": "TR-311",
+        "documentTitle": "Aviso de visita",
+        "targetTitle": "Visit notice",
+        "clauses": ["La visita empieza a las diez.", "El grupo se reúne junto al hórreo de la finca.", "Se ruega llegar con calzado cómodo."],
+        "translations": ["The visit starts at ten.", "The group meets beside the farm granary.", "Please arrive in comfortable shoes."],
+        "term": {"segment": 1, "source": "hórreo", "target": "granary"},
+        "termStatus": "unconfirmed",
+        "elements": [
+          {"id": "source", "label": "Source page (ES)"},
+          {"id": "segment", "label": "Source segment 2"},
+          {"id": "record", "label": "Term record (open query)"},
+          {"id": "translation", "label": "Translated segment 2"},
+          {"id": "target", "label": "Translated page (EN)"},
+          {"id": "folder", "label": "Translation file"}
+        ],
+        "relationships": [
+          {"from": "source", "to": "segment", "kind": "relation", "label": "contains"},
+          {"from": "segment", "to": "translation", "kind": "relation", "label": "guide: equivalent segment"},
+          {"from": "segment", "to": "record", "kind": "sequence", "label": "term looked up"},
+          {"from": "record", "to": "translation", "kind": "communication", "label": "no confirmed equivalent: query"},
+          {"from": "translation", "to": "target", "kind": "relation", "label": "placed in"},
+          {"from": "target", "to": "folder", "kind": "relation", "label": "filed with its source"}
+        ],
+        "traversalOrder": ["target", "translation", "record", "segment", "source"],
+        "focusElement": "translation"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long element labels, relation captions and segment wording.",
+      "params": {
+        "documentTitle": "Carta de coordinación para la entrega y recepción de mercancías en el puerto",
+        "targetTitle": "Coordination letter for the delivery and receipt of goods at the harbour",
+        "clauses": [
+          "El proveedor entrega veinte cajas de material de laboratorio el día 3 por la mañana.",
+          "La carga se deja en la lonja del puerto, junto a la báscula municipal de pesaje.",
+          "Cada parte guarda una copia firmada de esta carta en su propio archivo."
+        ],
+        "translations": [
+          "The supplier delivers twenty boxes of laboratory material on the morning of day 3.",
+          "The load is left at the port fish-market hall, next to the municipal weighing scale.",
+          "Each party keeps a signed copy of this letter in its own archive."
+        ],
+        "term": {"segment": 1, "source": "lonja del puerto", "target": "port fish-market hall"},
+        "signers": [{"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Translator"}, {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Reviewer"}],
+        "elements": [
+          {"id": "source", "label": "Original correspondence page (ES)"},
+          {"id": "segment", "label": "Source segment 2 with the key term"},
+          {"id": "record", "label": "Terminology record kept by the translator"},
+          {"id": "translation", "label": "Translated segment 2 with its equivalent"},
+          {"id": "target", "label": "Translated correspondence page (EN)"},
+          {"id": "folder", "label": "Correspondence file with translated copies"}
+        ],
+        "relationships": [
+          {"from": "source", "to": "segment", "kind": "relation", "label": "contains this segment"},
+          {"from": "segment", "to": "translation", "kind": "relation", "label": "guide: equivalent segment pair"},
+          {"from": "segment", "to": "record", "kind": "sequence", "label": "key term looked up in the record"},
+          {"from": "record", "to": "translation", "kind": "sequence", "label": "recorded equivalent inserted"},
+          {"from": "translation", "to": "target", "kind": "relation", "label": "placed in the translated page"},
+          {"from": "target", "to": "folder", "kind": "relation", "label": "filed together with its source"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline with Spanish interface labels (the segments keep their two languages).",
+      "params": {
+        "locale": "es",
+        "signers": [{"name": "Lena Ortiz", "role": "Traductora"}, {"name": "Tomás Rivera", "role": "Revisor"}],
+        "elements": [
+          {"id": "source", "label": "Página original (ES)"},
+          {"id": "segment", "label": "Segmento de origen 2"},
+          {"id": "record", "label": "Ficha terminológica"},
+          {"id": "translation", "label": "Segmento traducido 2"},
+          {"id": "target", "label": "Página traducida (EN)"},
+          {"id": "folder", "label": "Expediente de traducción"}
+        ],
+        "relationships": [
+          {"from": "source", "to": "segment", "kind": "relation", "label": "contiene"},
+          {"from": "segment", "to": "translation", "kind": "relation", "label": "guía: segmento equivalente"},
+          {"from": "segment", "to": "record", "kind": "sequence", "label": "término consultado"},
+          {"from": "record", "to": "translation", "kind": "sequence", "label": "equivalente insertado"},
+          {"from": "translation", "to": "target", "kind": "relation", "label": "colocado en"},
+          {"from": "target", "to": "folder", "kind": "relation", "label": "archivado con su original"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}

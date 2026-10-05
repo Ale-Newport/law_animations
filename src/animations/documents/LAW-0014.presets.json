@@ -1,0 +1,119 @@
+{
+  "animationId": "LAW-0014",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; relationships are descriptive and none is causal unless a preset supplies it.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Printing-services agreement: rows 1 and 3 differ, row 2 keeps the same wording; the tracer goes original → row ladder → modified words → row ladder → revised.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a loan note with a deletion and a redacted clause; the drafter's pen is the focus and the tracer starts from the pen, visiting pen → revised → row ladder → modified words → row ladder → original → folder; the file is related by a communication link.",
+      "params": {
+        "documentId": "LOAN-07",
+        "documentTitle": "Equipment Loan Note",
+        "clauses": [
+          "The Lender provides two laptops and one projector for the workshop.",
+          "The Borrower returns the equipment to the front desk.",
+          "Questions about the loan go to the workshop coordinator.",
+          "Coordinator contact: private mobile number and home address."
+        ],
+        "edits": [
+          {"clause": 0, "from": "two", "to": "three"},
+          {"clause": 0, "from": "and one projector", "to": ""},
+          {"clause": 1, "from": "front desk", "to": "storage room"}
+        ],
+        "redactions": [3],
+        "elements": [
+          {"id": "original", "label": "Draft 1"},
+          {"id": "alignment", "label": "Clause rows matched"},
+          {"id": "revised", "label": "Draft 2"},
+          {"id": "change", "label": "Wording that differs"},
+          {"id": "pen", "label": "Lender’s pen"},
+          {"id": "folder", "label": "Loan file"}
+        ],
+        "relationships": [
+          {"from": "pen", "to": "revised", "kind": "sequence", "label": "writes Draft 2"},
+          {"from": "original", "to": "alignment", "kind": "relation", "label": "by row"},
+          {"from": "alignment", "to": "revised", "kind": "relation", "label": "by row"},
+          {"from": "alignment", "to": "change", "kind": "relation", "label": "isolates"},
+          {"from": "revised", "to": "folder", "kind": "communication", "label": "sent to the file"},
+          {"from": "folder", "to": "original", "kind": "relation", "label": "keeps"}
+        ],
+        "focusElement": "pen",
+        "traversalOrder": ["pen", "revised", "alignment", "change", "alignment", "original", "folder"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long clause wording, long replacement phrases and long component / relation labels.",
+      "params": {
+        "documentId": "FRAMEWORK-2026-000417-B",
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment",
+        "clauses": [
+          "The Supplier delivers the listed laboratory equipment to the receiving building on time.",
+          "Maintenance visits are arranged by the facilities coordinator after a written request.",
+          "Any change to this agreement is recorded in a numbered amendment signed by both parties.",
+          "Contact between the parties is handled by the named project representatives."
+        ],
+        "edits": [
+          {"clause": 0, "from": "the receiving building", "to": "the customer’s main research laboratory"},
+          {"clause": 1, "from": "facilities coordinator", "to": "external maintenance contractor"},
+          {"clause": 3, "from": "named project representatives", "to": "designated contract managers"}
+        ],
+        "elements": [
+          {"id": "original", "label": "Original wording as signed by both parties"},
+          {"id": "alignment", "label": "Clause-by-clause row alignment of both versions"},
+          {"id": "revised", "label": "Revised wording proposed by the supplier"},
+          {"id": "change", "label": "Words modified between the two versions"},
+          {"id": "pen", "label": "Pen of the supplier’s authorised drafter"},
+          {"id": "folder", "label": "Customer contract records — amendments"}
+        ],
+        "relationships": [
+          {"from": "original", "to": "alignment", "kind": "relation", "label": "matched clause by clause"},
+          {"from": "alignment", "to": "revised", "kind": "relation", "label": "matched clause by clause"},
+          {"from": "alignment", "to": "change", "kind": "relation", "label": "same clause row, different wording"},
+          {"from": "pen", "to": "revised", "kind": "sequence", "label": "writes the proposed revision"},
+          {"from": "folder", "to": "original", "kind": "relation", "label": "keeps the signed version"},
+          {"from": "folder", "to": "revised", "kind": "relation", "label": "keeps the proposal"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de servicios de impresión",
+        "clauses": [
+          "El proveedor entregará los folletos impresos en la oficina central.",
+          "Cada entrega se anota en la hoja de pedidos compartida.",
+          "Cualquiera de las partes puede escribir a la otra por carta."
+        ],
+        "edits": [
+          {"clause": 0, "from": "impresos", "to": "digitales"},
+          {"clause": 0, "from": "central", "to": "regional"},
+          {"clause": 2, "from": "carta", "to": "correo electrónico"}
+        ],
+        "elements": [
+          {"id": "original", "label": "Texto original (A)"},
+          {"id": "alignment", "label": "Filas alineadas por cláusula"},
+          {"id": "revised", "label": "Texto revisado (B)"},
+          {"id": "change", "label": "Palabras modificadas"},
+          {"id": "pen", "label": "Pluma de la redactora"},
+          {"id": "folder", "label": "Expediente de redacción"}
+        ],
+        "relationships": [
+          {"from": "original", "to": "alignment", "kind": "relation", "label": "por fila"},
+          {"from": "alignment", "to": "revised", "kind": "relation", "label": "por fila"},
+          {"from": "alignment", "to": "change", "kind": "relation", "label": "misma fila, otras palabras"},
+          {"from": "pen", "to": "revised", "kind": "sequence", "label": "escribe la revisión"},
+          {"from": "folder", "to": "original", "kind": "relation", "label": "guarda"},
+          {"from": "folder", "to": "revised", "kind": "relation", "label": "guarda"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}

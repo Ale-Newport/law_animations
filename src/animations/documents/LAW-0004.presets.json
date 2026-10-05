@@ -1,0 +1,48 @@
+{
+  "animationId": "LAW-0004",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The delivered copy's signature block is inspected; the datum changes from a pending to an incorporated signature.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the substituted datum is the date written beside the signature (Day 3 → Day 5), the signature itself is unchanged.",
+      "params": {
+        "focusTarget": "date",
+        "beforeValue": "Day 3",
+        "afterValue": "Day 5",
+        "contextLabels": {"context": "Signed copy on Party B’s folder", "marker": "Date changed"},
+        "detailGeometry": {"zoom": 3, "placement": "auto"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long printed-name substitution and long context labels.",
+      "params": {
+        "focusTarget": "signer",
+        "signers": [{"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"}, {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Party B"}],
+        "beforeValue": "Maria-Fernanda Castellanos",
+        "afterValue": "Maria-Fernanda Castellanos Villavicencio, for Castellanos Studio",
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment",
+        "contextLabels": {"context": "Delivered original on the receiving representative’s customer file", "marker": "Printed name replaced"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de servicios",
+        "clauses": ["Objeto del servicio", "Honorarios (hipotéticos)", "Duración y preaviso"],
+        "beforeValue": "Pendiente",
+        "afterValue": "Incorporada",
+        "signatureDate": "Día 3",
+        "contextLabels": {"context": "Copia entregada en el expediente de la parte B", "marker": "Dato cambiado"},
+        "stampLabel": "RECIBIDO"
+      }
+    }
+  ]
+}

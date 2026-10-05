@@ -1,0 +1,86 @@
+{
+  "animationId": "LAW-0019",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the comparison states no outcome.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Full copy (A) vs redacted copy (B) of the same fictional intake record; both receive the same copy stamp.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: in B the selected fields of a different record are only outlined (marked) instead of covered, so the sequence and the marks change while every value stays readable.",
+      "params": {
+        "documentId": "HR-0419",
+        "documentTitle": "Witness Contact Sheet",
+        "clauses": ["Full name", "Phone number (fictional)", "Relation to the matter", "Availability"],
+        "fieldValues": ["Priya Lindqvist", "000-555-0199", "Neighbour of Party A", "Weekday mornings"],
+        "redactions": [1],
+        "signers": [
+          {"name": "Jonah Adeyemi", "role": "Paralegal", "appearance": {"skin": 5, "hair": "buzz", "outfit": 2}},
+          {"name": "Mei Tanaka", "role": "Reviewer", "appearance": {"skin": 1, "hair": "bun", "outfit": 6}}
+        ],
+        "scenarioA": {"label": "Unmarked copy", "caption": "No field is marked"},
+        "scenarioB": {"label": "Marked copy", "caption": "The phone field is outlined, still readable"},
+        "changedFact": "Only the outline around the phone field differs",
+        "sharedFacts": ["Same sheet", "Same values", "Same copy stamp"],
+        "comparisonLabels": {"guide": "Changed fact: outline around one field", "neutral": "Two situations shown side by side — no outcome is stated"},
+        "scenarioBMode": "outline",
+        "folderLabel": "Working file"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels, values, scenario captions and notes to exercise wrapping and bounded shrinking.",
+      "params": {
+        "documentId": "RECORD-2026-000417-CONFIDENTIAL",
+        "documentTitle": "Consolidated Intake and Contact Record for the Fictional Equipment Lease Review Matter",
+        "clauses": [
+          "Full legal name of the individual client as provided at intake",
+          "Residential address including building, floor and postal district",
+          "Internal account reference and fictional billing identifier",
+          "Short description of the matter as recorded by the intake desk",
+          "Fee arrangement agreed at intake (hypothetical amounts only)"
+        ],
+        "fieldValues": [
+          "Maria-Fernanda Castellanos Villavicencio",
+          "Apartment 12B, 1400 Hypothetical Blvd, Northtown District",
+          "ACC-0000-1234-5678-9012 (fictional reference)",
+          "Review of an equipment lease and its related correspondence",
+          "Fixed fee of 900 per quarter plus expenses (hypothetical)"
+        ],
+        "redactions": [0, 1, 2, 4],
+        "signers": [
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Clerk"},
+          {"name": "Anastasia Konstantinopoulou-Reyes", "role": "Reviewer"}
+        ],
+        "scenarioA": {"label": "Complete copy with every field left readable", "caption": "The same record handed over without any band over its values"},
+        "scenarioB": {"label": "Copy with opaque bands over four selected fields", "caption": "Name, address, account reference and fee arrangement covered inside their boxes"},
+        "changedFact": "Only whether opaque bands are laid over the four selected value boxes differs between the two copies",
+        "sharedFacts": ["Same consolidated record", "Same field labels and page layout", "Same people at the same desk", "Same outgoing copy stamp"],
+        "comparisonLabels": {"guide": "Changed fact: value box readable or covered by an opaque band", "neutral": "Two situations are shown side by side for comparison only — no outcome, preference or consequence is stated"},
+        "stampLabel": "OUTGOING COPY",
+        "folderLabel": "Copies prepared for the requesting party"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "documentId": "REG-2231",
+        "documentTitle": "Ficha de alta de cliente",
+        "clauses": ["Nombre del cliente", "Domicilio", "Referencia de cuenta", "Resumen del asunto", "Base de honorarios (hipotética)"],
+        "fieldValues": ["Alex Moreno", "Calle Ejemplo 14, Villanorte", "REF-0000-1234 (ficticia)", "Revisión de un arrendamiento", "Importe fijo de 900 (hipotético)"],
+        "signers": [{"name": "Jordan Pike", "role": "Auxiliar"}, {"name": "Rina Solis", "role": "Revisora"}],
+        "scenarioA": {"label": "Copia íntegra", "caption": "Todos los valores siguen legibles"},
+        "scenarioB": {"label": "Copia redactada", "caption": "Valores seleccionados cubiertos con bandas"},
+        "changedFact": "Solo difieren las bandas sobre los valores seleccionados",
+        "sharedFacts": ["Mismo registro", "Misma estructura de campos", "Mismo sello de copia"],
+        "comparisonLabels": {"guide": "Hecho cambiado: valor visible o cubierto", "neutral": "Dos copias lado a lado — no se indica ningún desenlace"},
+        "stampLabel": "COPIA",
+        "folderLabel": "Copias para entrega"
+      }
+    }
+  ]
+}

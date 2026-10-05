@@ -1,0 +1,95 @@
+{
+  "animationId": "LAW-0015",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. The two scenes differ only in the wording of the incoming copy; no outcome, winner or legal effect is shown.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Printing-services agreement: A's incoming copy repeats the filed wording (every row ticked), B's carries three revised words in rows 1 and 3 (linked); the closing guide rings both rows.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a loan note whose revised copy deletes words and changes a quantity; a redacted clause is identical (withheld) in both scenes, and the changed fact sits in row 1.",
+      "params": {
+        "documentId": "LOAN-07",
+        "documentTitle": "Equipment Loan Note",
+        "clauses": [
+          "The Lender provides two laptops and one projector for the workshop.",
+          "The Borrower returns the equipment to the front desk.",
+          "Coordinator contact: private mobile number and home address."
+        ],
+        "edits": [
+          {"clause": 0, "from": "two", "to": "three"},
+          {"clause": 0, "from": "and one projector", "to": ""}
+        ],
+        "redactions": [2],
+        "signers": [
+          {"name": "Priya Lindqvist", "role": "Lender’s drafter", "appearance": {"skin": 2, "hair": "bun", "outfit": 3}},
+          {"name": "Jonah Adeyemi", "role": "Borrower’s reviewer", "appearance": {"skin": 5, "hair": "buzz", "outfit": 0}}
+        ],
+        "scenarioA": {"label": "Draft 1 returned unchanged", "caption": "The incoming copy has the same quantities"},
+        "scenarioB": {"label": "Draft 2 returned", "caption": "The incoming copy changes a quantity and drops the projector"},
+        "changedFact": "Only the first clause of the incoming copy differs",
+        "sharedFacts": ["Same filed draft", "Same parties", "Same withheld contact clause"],
+        "comparisonLabels": {"guide": "Changed fact: clause 1", "neutral": "Both returns are shown as supplied — no outcome is stated"},
+        "versionLabels": {"filed": "Filed Draft 1", "incoming": "Returned copy"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long clause wording, replacement phrases, names and scenario captions.",
+      "params": {
+        "documentId": "FRAMEWORK-2026-000417-B",
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment",
+        "clauses": [
+          "The Supplier delivers the listed laboratory equipment to the receiving building on time.",
+          "Maintenance visits are arranged by the facilities coordinator after a written request.",
+          "Any change to this agreement is recorded in a numbered amendment signed by both parties.",
+          "Contact between the parties is handled by the named project representatives."
+        ],
+        "edits": [
+          {"clause": 0, "from": "the receiving building", "to": "the customer’s main research laboratory"},
+          {"clause": 1, "from": "facilities coordinator", "to": "external maintenance contractor"},
+          {"clause": 3, "from": "named project representatives", "to": "designated contract managers"}
+        ],
+        "signers": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Authorised drafter for the supplier"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Reviewing representative of the customer"}
+        ],
+        "scenarioA": {"label": "Incoming copy exactly as originally signed", "caption": "Every clause of the incoming copy matches the filed original word for word"},
+        "scenarioB": {"label": "Incoming copy with the supplier’s revised wording", "caption": "Three clauses of the incoming copy carry wording proposed by the supplier"},
+        "changedFact": "Only the wording of the incoming copy differs between the two situations shown",
+        "sharedFacts": ["Same filed original agreement", "Same drafter and reviewer", "Same row-by-row check and comparison stamp"],
+        "comparisonLabels": {"guide": "Changed fact: the wording of {rows} of the incoming copy", "neutral": "Two situations shown side by side for comparison — no outcome, validity or preference is stated"},
+        "versionLabels": {"filed": "Filed original as signed", "incoming": "Incoming copy under review"},
+        "stampLabel": "COMPARED IN FULL"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de servicios de impresión",
+        "clauses": [
+          "El proveedor entregará los folletos impresos en la oficina central.",
+          "Cada entrega se anota en la hoja de pedidos compartida.",
+          "Cualquiera de las partes puede escribir a la otra por carta."
+        ],
+        "edits": [
+          {"clause": 0, "from": "impresos", "to": "digitales"},
+          {"clause": 0, "from": "central", "to": "regional"},
+          {"clause": 2, "from": "carta", "to": "correo electrónico"}
+        ],
+        "signers": [{"name": "Lena Ortiz", "role": "Parte redactora"}, {"name": "Kofi Mensah", "role": "Revisor"}],
+        "scenarioA": {"label": "Texto original", "caption": "La copia entrante repite la redacción archivada"},
+        "scenarioB": {"label": "Texto revisado", "caption": "La copia entrante trae redacción revisada"},
+        "changedFact": "Solo cambia la redacción de la copia entrante",
+        "sharedFacts": ["Mismo original archivado", "Mismas partes", "Misma revisión y sello"],
+        "comparisonLabels": {"guide": "Hecho cambiado: redacción de la copia entrante, {rows}", "neutral": "Dos situaciones lado a lado — no se indica ningún resultado"},
+        "versionLabels": {"filed": "Original archivado", "incoming": "Copia entrante"},
+        "stampLabel": "COTEJADO"
+      }
+    }
+  ]
+}

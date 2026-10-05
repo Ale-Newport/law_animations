@@ -1,0 +1,66 @@
+{
+  "animationId": "LAW-0016",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; substituting a word changes only the drawn comparison, never a legal effect.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Zoom into the first linked pair (printed → digital); the revised word is replaced by 'online', the line re-flows and the link re-anchors.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the focused revised words 'branch' are replaced by 'main' — the same words as the original — so that pair no longer differs: its link and highlights retract, while the other links stay.",
+      "params": {
+        "focusEdit": 1,
+        "beforeValue": "branch",
+        "afterValue": "main",
+        "detailGeometry": {"zoom": 3, "placement": "left"},
+        "contextLabels": {"context": "Aligned versions, second change in row 1", "marker": "Now matches the original"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long clause wording, a long replacement phrase on the original sheet and long context labels.",
+      "params": {
+        "documentId": "FRAMEWORK-2026-000417-B",
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment",
+        "clauses": [
+          "The Supplier delivers the listed laboratory equipment to the receiving building on time.",
+          "Maintenance visits are arranged by the facilities coordinator after a written request.",
+          "Any change to this agreement is recorded in a numbered amendment signed by both parties."
+        ],
+        "edits": [
+          {"clause": 0, "from": "the receiving building", "to": "the customer’s main research laboratory"},
+          {"clause": 1, "from": "facilities coordinator", "to": "external maintenance contractor"}
+        ],
+        "focusTarget": "original",
+        "focusEdit": 1,
+        "beforeValue": "facilities coordinator",
+        "afterValue": "facilities and procurement coordination team",
+        "contextLabels": {"context": "Original agreement and supplier revision aligned clause by clause", "marker": "Original wording replaced in this view"},
+        "detailGeometry": {"zoom": 2.2, "placement": "bottom"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de servicios de impresión",
+        "clauses": [
+          "El proveedor entregará los folletos impresos en la oficina central.",
+          "Cada entrega se anota en la hoja de pedidos compartida.",
+          "Cualquiera de las partes puede escribir a la otra por carta."
+        ],
+        "edits": [
+          {"clause": 0, "from": "impresos", "to": "digitales"},
+          {"clause": 0, "from": "central", "to": "regional"},
+          {"clause": 2, "from": "carta", "to": "correo electrónico"}
+        ],
+        "beforeValue": "digitales",
+        "afterValue": "en línea",
+        "contextLabels": {"context": "Versiones alineadas tras el cotejo", "marker": "Dato cambiado"}
+      }
+    }
+  ]
+}

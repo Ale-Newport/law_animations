@@ -1,0 +1,275 @@
+{
+  "animationId": "LAW-0018",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; relationships are descriptive and none is causal unless the author supplies it.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Exploded redaction mechanism for a fictional intake record: film lifts out, bands drawn on the film then land on three selected fields of the working copy, which is filed.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different record, only the phone field selected, a different relationship set (the full copy is related to the copy as a plain relation; no stamp relation, so the copy stamp stays an unconnected element and no copy-type impression is printed) and the tracer visits the full copy first, reaching the marker last: the marker then draws the band on the overlay and it lands on the copy. The focus element is the working copy.",
+      "params": {
+        "documentId": "HR-0419",
+        "documentTitle": "Witness Contact Sheet",
+        "clauses": [
+          "Full name",
+          "Phone number (fictional)",
+          "Relation to the matter",
+          "Availability"
+        ],
+        "fieldValues": [
+          "Priya Lindqvist",
+          "000-555-0199",
+          "Neighbour of Party A",
+          "Weekday mornings"
+        ],
+        "redactions": [
+          1
+        ],
+        "elements": [
+          {
+            "id": "original",
+            "label": "Source sheet"
+          },
+          {
+            "id": "copy",
+            "label": "Copy for disclosure"
+          },
+          {
+            "id": "film",
+            "label": "Band overlay"
+          },
+          {
+            "id": "pen",
+            "label": "Marker"
+          },
+          {
+            "id": "stamp",
+            "label": "Copy stamp"
+          },
+          {
+            "id": "folder",
+            "label": "Disclosure bundle"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "original",
+            "to": "copy",
+            "kind": "relation",
+            "label": "same fields"
+          },
+          {
+            "from": "pen",
+            "to": "film",
+            "kind": "sequence",
+            "label": "draws one band"
+          },
+          {
+            "from": "film",
+            "to": "copy",
+            "kind": "relation",
+            "label": "aligned to the phone field"
+          },
+          {
+            "from": "copy",
+            "to": "folder",
+            "kind": "communication",
+            "label": "added to bundle"
+          }
+        ],
+        "focusElement": "copy",
+        "traversalOrder": [
+          "original",
+          "copy",
+          "film",
+          "pen"
+        ],
+        "stampLabel": "DISCLOSURE COPY"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long element labels, relation captions, field labels and values.",
+      "params": {
+        "documentId": "RECORD-2026-000417-CONFIDENTIAL",
+        "documentTitle": "Consolidated Intake and Contact Record for the Fictional Equipment Lease Review Matter",
+        "clauses": [
+          "Full legal name of the individual client as provided at intake",
+          "Residential address including building, floor and postal district",
+          "Internal account reference and fictional billing identifier",
+          "Short description of the matter as recorded by the intake desk",
+          "Fee arrangement agreed at intake (hypothetical amounts only)"
+        ],
+        "fieldValues": [
+          "Maria-Fernanda Castellanos Villavicencio",
+          "Apartment 12B, 1400 Hypothetical Blvd, Northtown District",
+          "ACC-0000-1234-5678-9012 (fictional reference)",
+          "Review of an equipment lease and its related correspondence",
+          "Fixed fee of 900 per quarter plus expenses (hypothetical)"
+        ],
+        "redactions": [
+          0,
+          1,
+          2,
+          4
+        ],
+        "elements": [
+          {
+            "id": "original",
+            "label": "Complete original record kept on file"
+          },
+          {
+            "id": "copy",
+            "label": "Working copy prepared for release"
+          },
+          {
+            "id": "film",
+            "label": "Transparent redaction layer with bands"
+          },
+          {
+            "id": "pen",
+            "label": "Broad black redaction marker"
+          },
+          {
+            "id": "stamp",
+            "label": "Outgoing copy-type stamp"
+          },
+          {
+            "id": "folder",
+            "label": "Folder of copies prepared for release"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "original",
+            "to": "copy",
+            "kind": "sequence",
+            "label": "duplicated page by page"
+          },
+          {
+            "from": "pen",
+            "to": "film",
+            "kind": "sequence",
+            "label": "draws the opaque bands"
+          },
+          {
+            "from": "film",
+            "to": "copy",
+            "kind": "relation",
+            "label": "registered over the four fields"
+          },
+          {
+            "from": "stamp",
+            "to": "copy",
+            "kind": "relation",
+            "label": "marks the type of copy"
+          },
+          {
+            "from": "copy",
+            "to": "folder",
+            "kind": "communication",
+            "label": "placed in the release folder"
+          }
+        ],
+        "relationLabels": {
+          "relation": "plain relation between parts",
+          "communication": "communication or hand-over",
+          "sequence": "sequence of steps",
+          "causal": "causal link (only when supplied)"
+        },
+        "stampLabel": "REDACTED OUTGOING COPY"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "documentId": "REG-2231",
+        "documentTitle": "Ficha de alta de cliente",
+        "clauses": [
+          "Nombre del cliente",
+          "Domicilio",
+          "Referencia de cuenta",
+          "Resumen del asunto",
+          "Base de honorarios (hipotética)"
+        ],
+        "fieldValues": [
+          "Alex Moreno",
+          "Calle Ejemplo 14, Villanorte",
+          "REF-0000-1234 (ficticia)",
+          "Revisión de un arrendamiento",
+          "Importe fijo de 900 (hipotético)"
+        ],
+        "elements": [
+          {
+            "id": "original",
+            "label": "Registro original"
+          },
+          {
+            "id": "copy",
+            "label": "Copia de trabajo"
+          },
+          {
+            "id": "film",
+            "label": "Capa de ocultación"
+          },
+          {
+            "id": "pen",
+            "label": "Rotulador"
+          },
+          {
+            "id": "stamp",
+            "label": "Sello de copia"
+          },
+          {
+            "id": "folder",
+            "label": "Carpeta de entrega"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "original",
+            "to": "copy",
+            "kind": "sequence",
+            "label": "duplicada"
+          },
+          {
+            "from": "pen",
+            "to": "film",
+            "kind": "sequence",
+            "label": "traza las bandas"
+          },
+          {
+            "from": "film",
+            "to": "copy",
+            "kind": "relation",
+            "label": "cubre campos elegidos"
+          },
+          {
+            "from": "stamp",
+            "to": "copy",
+            "kind": "relation",
+            "label": "marca el tipo de copia"
+          },
+          {
+            "from": "copy",
+            "to": "folder",
+            "kind": "communication",
+            "label": "archivada"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación",
+          "communication": "comunicación",
+          "sequence": "secuencia",
+          "causal": "causal (aportada)"
+        },
+        "stampLabel": "COPIA REDACTADA"
+      }
+    }
+  ]
+}

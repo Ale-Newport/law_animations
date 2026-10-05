@@ -1,0 +1,59 @@
+{
+  "animationId": "LAW-0003",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Same document, parties and delivery; only the signature line differs (blank vs signed).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a lease with a redacted annex, different parties and scenario wording; still exactly one changed fact.",
+      "params": {
+        "documentId": "LEASE-22",
+        "documentTitle": "Equipment Lease",
+        "clauses": ["Equipment list", "Monthly amount (hypothetical)", "Return of equipment", "Confidential annex"],
+        "redactions": [3],
+        "signers": [
+          {"name": "Priya Lindqvist", "role": "Lessee", "appearance": {"skin": 2, "hair": "bun", "outfit": 3}},
+          {"name": "Jonah Adeyemi", "role": "Lessor", "appearance": {"skin": 5, "hair": "buzz", "outfit": 0}}
+        ],
+        "scenarioA": {"label": "Unsigned copy delivered", "caption": "Signature line left empty"},
+        "scenarioB": {"label": "Signed copy delivered", "caption": "Signature added before delivery"},
+        "changedFact": "The only difference: a signature on the lessee’s line",
+        "sharedFacts": ["Same lease text", "Same redacted annex", "Same delivery"],
+        "comparisonLabels": {"guide": "Changed fact: lessee signature", "neutral": "Shown for comparison only — no effect is stated"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long scenario labels, captions and names.",
+      "params": {
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment",
+        "signers": [{"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Authorised signatory"}, {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Receiving representative"}],
+        "scenarioA": {"label": "Signature still pending on the designated line", "caption": "The authorised signatory has not yet added a handwritten signature"},
+        "scenarioB": {"label": "Signature incorporated on the designated line", "caption": "The authorised signatory adds a handwritten signature before delivery"},
+        "changedFact": "Only the presence of the handwritten signature on the designated signature line differs",
+        "sharedFacts": ["Identical agreement text and clause headings", "Identical parties and representatives", "Identical delivery, receipt and stamping"],
+        "comparisonLabels": {"guide": "Changed fact: handwritten signature on the designated line", "neutral": "Two situations shown side by side for comparison — the animation states no outcome or effect"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de servicios",
+        "clauses": ["Objeto del servicio", "Honorarios (hipotéticos)", "Duración y preaviso"],
+        "signers": [{"name": "Alex Moreno", "role": "Parte A"}, {"name": "Sam Okafor", "role": "Parte B"}],
+        "scenarioA": {"label": "Firma pendiente", "caption": "La línea de firma queda en blanco"},
+        "scenarioB": {"label": "Firma incorporada", "caption": "La firma se traza sobre la línea"},
+        "changedFact": "Solo cambia la firma sobre la línea",
+        "sharedFacts": ["Mismo documento", "Mismas partes", "Misma entrega y sello de recepción"],
+        "comparisonLabels": {"guide": "Hecho cambiado: línea de firma", "neutral": "Dos situaciones lado a lado — no se afirma ningún resultado"},
+        "stampLabel": "RECIBIDO"
+      }
+    }
+  ]
+}

@@ -1,0 +1,467 @@
+{
+  "id": "LAW-0035",
+  "slug": "documents-09-contrast",
+  "title": "Documented notice — delivery with vs without a returned acknowledgment",
+  "titleEs": "Notificación documentada — Comparación de dos supuestos",
+  "category": "documents",
+  "categoryName": "Documentos e instrumentos",
+  "motif": "Notificación documentada",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical offices run the same tray-to-tray delivery in parallel. The single changed fact: in A the sender clips an acknowledgment card to the envelope, which comes back signed and date-stamped into the folder; in B no card travels and the folder card stays blank. At the close both folder cards are ringed; on wide and tall frames an enlarged copy of each lifts out of its panel and a guide joins the two copies (on square frames the guide joins the folder cards), without stating any outcome.",
+  "tags": [
+    "notice",
+    "comparison",
+    "acknowledgment",
+    "record",
+    "envelope",
+    "tray",
+    "side-by-side",
+    "stacked"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/documents/kits/notificacion-documentada.js",
+    "src/frameworks/paired.js",
+    "src/primitives/paper.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "documentId": {
+        "type": "string",
+        "maxLength": 32,
+        "description": "Identifier printed on the document (fictional)"
+      },
+      "documentTitle": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "Document title printed on the sheet (wraps to two lines, then shrinks within a bound, then ellipsis with full text kept accessible)"
+      },
+      "clauses": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 90,
+          "description": "Clause heading"
+        },
+        "minItems": 1,
+        "maxItems": 5,
+        "description": "Clause headings shown on the document (array replaces the previous value)"
+      },
+      "signers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Signer (first) and receiving party (second) (array replaces the previous value)"
+      },
+      "redactions": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4,
+          "description": "Clause index"
+        },
+        "minItems": 0,
+        "maxItems": 5,
+        "description": "Zero-based clause indices covered by redaction bars (array replaces the previous value)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "outTray": {
+            "type": "string",
+            "maxLength": 24,
+            "description": "Label plate of the sender’s tray"
+          },
+          "inTray": {
+            "type": "string",
+            "maxLength": 24,
+            "description": "Label plate of the recipient’s tray"
+          },
+          "folder": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label on the sender’s record folder"
+          },
+          "card": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Header printed on the acknowledgment card"
+          },
+          "stamp": {
+            "type": "string",
+            "maxLength": 20,
+            "description": "Word printed by the date stamp"
+          }
+        },
+        "required": [],
+        "description": "Labels printed on the props"
+      },
+      "receiptDate": {
+        "type": "string",
+        "maxLength": 24,
+        "description": "Relative date printed by the date stamp (fictional, e.g. “Day 3”)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "documentId": "NTF-207",
+    "documentTitle": "Notice of Meeting",
+    "clauses": [
+      "Date and place of the meeting",
+      "Documents enclosed",
+      "Contact for questions"
+    ],
+    "signers": [
+      {
+        "name": "Alex Moreno",
+        "role": "Sender"
+      },
+      {
+        "name": "Sam Okafor",
+        "role": "Recipient"
+      }
+    ],
+    "redactions": [],
+    "scenarioA": {
+      "label": "Documented delivery",
+      "caption": "An acknowledgment card travels with the notice"
+    },
+    "scenarioB": {
+      "label": "Delivery not evidenced",
+      "caption": "The notice travels without an acknowledgment card"
+    },
+    "changedFact": "Only difference: whether the acknowledgment card is sent with the notice",
+    "sharedFacts": [
+      "Same notice",
+      "Same parties",
+      "Same trays and hand-off"
+    ],
+    "comparisonLabels": {
+      "guide": "Changed fact: acknowledgment card",
+      "neutral": "Two situations side by side — no legal effect is stated"
+    },
+    "objectLabels": {
+      "outTray": "OUT",
+      "inTray": "IN",
+      "folder": "Notice file",
+      "card": "Acknowledgment",
+      "stamp": "RECEIVED"
+    },
+    "receiptDate": "Day 3"
+  }
+}

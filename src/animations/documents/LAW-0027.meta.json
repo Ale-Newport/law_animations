@@ -1,0 +1,512 @@
+{
+  "id": "LAW-0027",
+  "slug": "documents-07-contrast",
+  "title": "Parallel translation — equivalent available vs not confirmed",
+  "titleEs": "Traducción paralela — Comparación de dos supuestos",
+  "category": "documents",
+  "categoryName": "Documentos e instrumentos",
+  "motif": "Traducción paralela",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical translation desks start with a blank term slot. In A the pen writes the equivalent; in B it writes the retained source term in a dashed box and a question mark (the bracket of that pair stays dashed). Both then link every segment pair and stamp the translation the same way; a comparison guide joins the two slots without stating any outcome.",
+  "tags": [
+    "translation",
+    "comparison",
+    "term",
+    "equivalent",
+    "guides",
+    "side-by-side",
+    "stacked"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/documents/kits/traduccion-paralela.js",
+    "src/frameworks/paired.js",
+    "src/primitives/paper.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "documentId": {
+        "type": "string",
+        "maxLength": 32,
+        "description": "Identifier printed in the footer of both pages (fictional)"
+      },
+      "documentTitle": {
+        "type": "string",
+        "maxLength": 100,
+        "description": "Title printed on the source page (original language)"
+      },
+      "targetTitle": {
+        "type": "string",
+        "maxLength": 100,
+        "description": "Title printed on the translated page"
+      },
+      "languages": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "type": "string",
+            "maxLength": 14,
+            "description": "Tag of the source page, e.g. ES",
+            "minLength": 1
+          },
+          "target": {
+            "type": "string",
+            "maxLength": 14,
+            "description": "Tag of the translated page, e.g. EN",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "source",
+          "target"
+        ],
+        "description": "Language tags printed in each page header (labels only; they imply no jurisdiction)"
+      },
+      "clauses": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 110,
+          "description": "Source segment",
+          "minLength": 1
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Source segments (original wording) in reading order; each one is an alignment unit (array replaces the previous value)"
+      },
+      "translations": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 110,
+          "description": "Translated segment",
+          "minLength": 1
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Translated segments in the same order: translated segment N is the equivalent of source segment N (extra items stay unlinked) (array replaces the previous value)"
+      },
+      "term": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "segment": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Zero-based index of the segment pair that contains the term"
+          },
+          "source": {
+            "type": "string",
+            "maxLength": 36,
+            "description": "Term as written in the source segment (highlighted where it appears verbatim)",
+            "minLength": 1
+          },
+          "target": {
+            "type": "string",
+            "maxLength": 36,
+            "description": "Equivalent as written in the translated segment; the slot replaces these words (or is appended when they do not appear)",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "segment",
+          "source",
+          "target"
+        ],
+        "description": "Key term examined inside one segment pair"
+      },
+      "signers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Translator who draws the guides (first) and reviewer who stamps the translation (second) (array replaces the previous value)"
+      },
+      "redactions": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Segment index"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Zero-based segment indices whose wording is withheld by redaction bars on both pages (their guides are still drawn) (array replaces the previous value)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      },
+      "stampLabel": {
+        "type": "string",
+        "maxLength": 22,
+        "description": "Text of the reviewer stamp pressed identically in both scenes"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "documentId": "TR-208",
+    "documentTitle": "Carta de entrega",
+    "targetTitle": "Delivery letter",
+    "languages": {
+      "source": "ES",
+      "target": "EN"
+    },
+    "clauses": [
+      "El proveedor entrega veinte cajas el día 3.",
+      "La carga se deja en la lonja del puerto.",
+      "Cada parte guarda una copia de esta carta."
+    ],
+    "translations": [
+      "The supplier delivers twenty boxes on day 3.",
+      "The load is left at the port fish-market hall.",
+      "Each party keeps a copy of this letter."
+    ],
+    "term": {
+      "segment": 1,
+      "source": "lonja",
+      "target": "fish-market hall"
+    },
+    "signers": [
+      {
+        "name": "Lena Ortiz",
+        "role": "Translator"
+      },
+      {
+        "name": "Tomás Rivera",
+        "role": "Reviewer"
+      }
+    ],
+    "redactions": [],
+    "scenarioA": {
+      "label": "Translation available",
+      "caption": "An equivalent of «lonja» is written in the slot"
+    },
+    "scenarioB": {
+      "label": "Term without confirmed equivalent",
+      "caption": "The slot keeps «lonja» and a question mark"
+    },
+    "changedFact": "Only the equivalent of «lonja» differs",
+    "sharedFacts": [
+      "Same pages and segments",
+      "Same guides",
+      "Same translator and reviewer"
+    ],
+    "comparisonLabels": {
+      "guide": "Changed fact: the term slot",
+      "neutral": "Two situations side by side — no outcome is stated"
+    },
+    "stampLabel": "ALIGNED"
+  }
+}

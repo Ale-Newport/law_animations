@@ -1,0 +1,101 @@
+{
+  "animationId": "LAW-0022",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Exploded join of a fictional supply agreement: clause 2 lifts out of the contract, Annex 1 rises out of its folder; the tracer runs folder → annex → clause → contract and the reference is written when it reaches the clause.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a lease whose clause 3 is linked to an inventory annex; the pen and the seal are the focus of a different traversal (pen → clause → annex → seal), the folder relation is shown as a communication and the seal relation is omitted from the contract side.",
+      "params": {
+        "documentId": "LEASE-51",
+        "documentTitle": "Equipment Lease",
+        "clauses": ["Leased equipment", "Monthly amount (hypothetical)", "Condition on return", "Confidential terms"],
+        "redactions": [3],
+        "linkedClause": 2,
+        "annex": {"label": "ANNEX B", "title": "Equipment inventory"},
+        "reference": "see Annex B",
+        "elements": [
+          {"id": "contract", "label": "Lease"},
+          {"id": "clause", "label": "Clause 3 — return condition"},
+          {"id": "pen", "label": "Pen of the lessor"},
+          {"id": "annex", "label": "Annex B (inventory)"},
+          {"id": "folder", "label": "Lessee's file"},
+          {"id": "seal", "label": "Lease seal"}
+        ],
+        "relationships": [
+          {"from": "contract", "to": "clause", "kind": "relation", "label": "contains"},
+          {"from": "pen", "to": "clause", "kind": "sequence", "label": "adds the reference"},
+          {"from": "clause", "to": "annex", "kind": "relation", "label": "refers to"},
+          {"from": "folder", "to": "annex", "kind": "communication", "label": "sent over"},
+          {"from": "seal", "to": "annex", "kind": "sequence", "label": "stamped after"}
+        ],
+        "focusElement": "annex",
+        "traversalOrder": ["pen", "clause", "annex", "seal"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long element labels, relation captions, clause heading and reference to exercise wrapping and label placement.",
+      "params": {
+        "documentId": "AGREEMENT-2026-000417-B",
+        "documentTitle": "Framework Agreement for the Supply and Maintenance of Laboratory Equipment and Related Services",
+        "clauses": [
+          "Definitions and interpretation of terms used throughout this agreement",
+          "Scope of the supply obligations and the maintenance schedule",
+          "Fees, invoicing and payment arrangements (hypothetical amounts only)",
+          "Duration, renewal and the procedure for giving notice",
+          "Technical specifications of the equipment to be supplied"
+        ],
+        "linkedClause": 4,
+        "annex": {"label": "SCHEDULE 3 — TECHNICAL", "title": "Technical specifications of the laboratory equipment and accessories"},
+        "reference": "as set out in Schedule 3",
+        "elements": [
+          {"id": "contract", "label": "Framework agreement (main body of the contract)"},
+          {"id": "clause", "label": "Clause 5 — technical specifications (linked)"},
+          {"id": "pen", "label": "Pen used by the authorised signatory"},
+          {"id": "annex", "label": "Schedule 3 — technical specifications"},
+          {"id": "folder", "label": "Folder of schedules and technical annexes"},
+          {"id": "seal", "label": "Seal of the supplier's contract office"}
+        ],
+        "relationships": [
+          {"from": "contract", "to": "clause", "kind": "relation", "label": "contains the clause"},
+          {"from": "pen", "to": "clause", "kind": "sequence", "label": "writes the cross-reference"},
+          {"from": "clause", "to": "annex", "kind": "relation", "label": "refers to the schedule"},
+          {"from": "folder", "to": "annex", "kind": "sequence", "label": "schedule taken out"},
+          {"from": "seal", "to": "annex", "kind": "relation", "label": "marks the join of both sheets"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Contrato de suministro",
+        "clauses": ["Partes y objeto", "Entrega de los bienes", "Precio (hipotético)"],
+        "annex": {"label": "ANEXO 1", "title": "Calendario de entregas"},
+        "reference": "véase Anexo 1",
+        "elements": [
+          {"id": "contract", "label": "Contrato"},
+          {"id": "clause", "label": "Cláusula 2 — cláusula enlazada"},
+          {"id": "pen", "label": "Pluma"},
+          {"id": "annex", "label": "Anexo 1"},
+          {"id": "folder", "label": "Carpeta de anexos"},
+          {"id": "seal", "label": "Sello"}
+        ],
+        "relationships": [
+          {"from": "contract", "to": "clause", "kind": "relation", "label": "contiene"},
+          {"from": "pen", "to": "clause", "kind": "sequence", "label": "escribe la remisión"},
+          {"from": "clause", "to": "annex", "kind": "relation", "label": "remite a"},
+          {"from": "folder", "to": "annex", "kind": "sequence", "label": "se extrae"},
+          {"from": "seal", "to": "annex", "kind": "relation", "label": "marca la unión"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}

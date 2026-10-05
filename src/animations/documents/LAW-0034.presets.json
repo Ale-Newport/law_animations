@@ -1,0 +1,103 @@
+{
+  "animationId": "LAW-0034",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The delivery-and-record loop: sender, OUT tray, envelope with the enclosed notice, IN tray, recipient, acknowledgment card and the sender's notice file, traversed in delivery order.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the acknowledgment is kept by the recipient (it is related to the IN tray, not returned); the tracer starts at the notice and the focus is the envelope. The first heading of the notice is redacted.",
+      "params": {
+        "documentId": "ADR-512",
+        "documentTitle": "Notice of Change of Address",
+        "clauses": ["Previous address (withheld)", "New address for correspondence", "Date the change applies (as supplied)"],
+        "redactions": [0],
+        "elements": [
+          {"id": "sender", "label": "Sending office"},
+          {"id": "outTray", "label": "OUT tray"},
+          {"id": "document", "label": "Change-of-address notice"},
+          {"id": "envelope", "label": "Envelope"},
+          {"id": "inTray", "label": "IN tray"},
+          {"id": "recipient", "label": "Receiving office"},
+          {"id": "acknowledgment", "label": "Acknowledgment (kept)"},
+          {"id": "folder", "label": "Sending office file"}
+        ],
+        "relationships": [
+          {"from": "document", "to": "envelope", "kind": "relation", "label": "enclosed in"},
+          {"from": "sender", "to": "outTray", "kind": "relation", "label": "places"},
+          {"from": "outTray", "to": "envelope", "kind": "sequence", "label": "dispatched"},
+          {"from": "envelope", "to": "inTray", "kind": "communication", "label": "delivered"},
+          {"from": "inTray", "to": "recipient", "kind": "relation", "label": "received by"},
+          {"from": "recipient", "to": "acknowledgment", "kind": "sequence", "label": "signs"},
+          {"from": "folder", "to": "sender", "kind": "relation", "label": "kept by"}
+        ],
+        "focusElement": "envelope",
+        "traversalOrder": ["document", "envelope", "inTray", "recipient", "acknowledgment"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long component labels and relationship captions to exercise wrapping and bounded shrinking.",
+      "params": {
+        "documentTitle": "Notice of Rescheduled Annual Coordination Meeting and Enclosed Supporting Documents",
+        "signers": [{"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Sender"}, {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Recipient"}],
+        "elements": [
+          {"id": "sender", "label": "Sending office coordinator (Party A)"},
+          {"id": "outTray", "label": "Outgoing correspondence tray"},
+          {"id": "document", "label": "Notice of rescheduled meeting"},
+          {"id": "envelope", "label": "Window envelope carrying the notice"},
+          {"id": "inTray", "label": "Incoming correspondence tray"},
+          {"id": "recipient", "label": "Receiving office representative (Party B)"},
+          {"id": "acknowledgment", "label": "Acknowledgment of receipt card"},
+          {"id": "folder", "label": "Correspondence register — notices sent"}
+        ],
+        "relationships": [
+          {"from": "sender", "to": "outTray", "kind": "relation", "label": "places the notice in"},
+          {"from": "document", "to": "envelope", "kind": "relation", "label": "enclosed in the envelope"},
+          {"from": "outTray", "to": "envelope", "kind": "sequence", "label": "dispatched from the tray"},
+          {"from": "envelope", "to": "inTray", "kind": "communication", "label": "delivered through the hatch"},
+          {"from": "inTray", "to": "recipient", "kind": "relation", "label": "received by the representative"},
+          {"from": "recipient", "to": "acknowledgment", "kind": "sequence", "label": "signs and date-stamps"},
+          {"from": "acknowledgment", "to": "folder", "kind": "communication", "label": "returned to the register"},
+          {"from": "folder", "to": "sender", "kind": "relation", "label": "kept by the coordinator"}
+        ],
+        "objectLabels": {"outTray": "OUTGOING MAIL", "inTray": "INCOMING MAIL", "folder": "Correspondence register", "card": "Acknowledgment of receipt", "stamp": "RECEIVED"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "documentTitle": "Convocatoria de reunión",
+        "clauses": ["Fecha y lugar de la reunión", "Documentos adjuntos", "Contacto para consultas"],
+        "elements": [
+          {"id": "sender", "label": "Remitente (parte A)"},
+          {"id": "outTray", "label": "Bandeja de salida"},
+          {"id": "document", "label": "Notificación"},
+          {"id": "envelope", "label": "Sobre"},
+          {"id": "inTray", "label": "Bandeja de entrada"},
+          {"id": "recipient", "label": "Destinataria (parte B)"},
+          {"id": "acknowledgment", "label": "Acuse de recibo"},
+          {"id": "folder", "label": "Expediente del remitente"}
+        ],
+        "relationships": [
+          {"from": "sender", "to": "outTray", "kind": "relation", "label": "deposita"},
+          {"from": "document", "to": "envelope", "kind": "relation", "label": "va dentro de"},
+          {"from": "outTray", "to": "envelope", "kind": "sequence", "label": "sale"},
+          {"from": "envelope", "to": "inTray", "kind": "communication", "label": "entregado"},
+          {"from": "inTray", "to": "recipient", "kind": "relation", "label": "recibido por"},
+          {"from": "recipient", "to": "acknowledgment", "kind": "sequence", "label": "firma y fecha"},
+          {"from": "acknowledgment", "to": "folder", "kind": "communication", "label": "devuelto"},
+          {"from": "folder", "to": "sender", "kind": "relation", "label": "custodiado por"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"},
+        "objectLabels": {"outTray": "SALIDA", "inTray": "ENTRADA", "folder": "Expediente", "card": "Acuse de recibo", "stamp": "RECIBIDO"},
+        "receiptDate": "Día 3"
+      }
+    }
+  ]
+}
