@@ -358,6 +358,7 @@ const scene = {
       nodes,
       semantic: {
         lensOpen: r(open, 3), datum: after ? 'after' : 'before', dep: r(dep, 3),
+        cord: r(cordQ, 3), connected: cordQ >= 1,
         bracket: dep <= 0 ? (L.before === 'provided' ? 'closed' : 'open') : dep >= 1 ? (L.after === 'provided' ? 'closed' : 'open') : 'moving',
         contextValue: hand.ctx > 0.5 ? p.stateLabels[stateNow] : null, contextState: hand.ctx > 0.5 ? stateNow : null,
         lensValue: hand.copy > 0.5 ? p.stateLabels[stateNow] : null, lensState: hand.copy > 0.5 ? stateNow : null, valueLegible: r(turnV, 3),

@@ -1,58 +1,144 @@
 {
   "animationId": "LAW-0500",
-  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the circumstance and the clauses are generic placeholders, never real contract text. The substituted datum is the supplied state of the circumstance — provided or undescribed, supplied states of equal weight (● and ◆ of the same area, colour and stroke); its only dependent geometry is the bracket, which marks the supplied section as supplied. No rule on conditions is stated: no condition precedent or subsequent, no fulfilment, no automatic effect, no clause that becomes due, binding or enforceable, and no jurisdiction. Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): clauses (the circumstance card and the clause cards stand for the clauses), schedules, definitions and priorities (no priority or order between clauses is drawn). focusTarget has one value (the circumstance card's state row). No stress field is capped.",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the communication and the sections of the termination clause are generic placeholders, never real contract text or notices. \"Provided for\" and \"not described\" are supplied cases of equal weight (● and ◆ of the same area, colour and stroke); the connector bracket and cord only show the connection that is supplied. No termination doctrine is stated: no ground or right to terminate, no notice period or time limit, no effect, no validity or sufficiency judgement, and no jurisdiction; the case \"not described\" is neutral (no conclusion). Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): schedules, definitions and priorities (no priority or order between sections is drawn); clauses = the sections of the termination clause. No stress field is capped.",
   "presets": [
     {
       "name": "baseline-illustrative",
-      "description": "The board after the story: the circumstance card (provided, as supplied) and the bracket shut on clauses 1–2; the lens inspects the card and its state turns to undescribed; the bracket then slides open.",
+      "description": "Context after the story: the card (case provided for), the bracket shut on section 2 and the cord drawn; the lens shows the card, the case turns to not described, then the cord is withdrawn and the bracket opens, as supplied.",
       "params": {}
     },
     {
       "name": "contrast-or-alternative",
-      "description": "Substantive alternative: other parties and contract, two tasks, the section 2–2, and the other way round — the state turns from undescribed to provided and the bracket then slides shut.",
+      "description": "Substantive alternative: other parties, contract, card and sections, section 1, and the substitution the other way — not described → provided for: the bracket slides shut, then the cord is drawn.",
       "params": {
         "parties": [
-          {"name": "Ines Duarte", "role": "Party A", "appearance": {"skin": 1, "hair": "long", "hairColor": 4, "outfit": 2}},
-          {"name": "Kwame Asante", "role": "Party B", "appearance": {"skin": 5, "hair": "curly", "outfit": 6, "glasses": true}}
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
         ],
-        "contract": {"reference": "CT-604", "title": "Service contract (fictional)"},
-        "circumstance": {"label": "Circumstance 2 (supplied)"},
-        "clauses": ["Task 1 (supplied text)", "Task 2 (supplied text)"],
-        "section": {"from": 2, "to": 2},
         "beforeValue": "undescribed",
         "afterValue": "provided",
-        "contextLabels": {"context": "Circumstance card and tasks, as supplied", "marker": "Changed: the supplied state of circumstance 2"}
+        "contextLabels": {
+          "context": "Communication card and sections, as supplied",
+          "marker": "Changed: the supplied case of communication 2"
+        },
+        "contract": {
+          "reference": "CT-608",
+          "title": "Service contract (fictional)"
+        },
+        "circumstance": {
+          "label": "Communication 2 (supplied)"
+        },
+        "clauses": [
+          "Section A (supplied text)",
+          "Section B (supplied text)"
+        ],
+        "section": {
+          "from": 1,
+          "to": 1
+        }
       }
     },
     {
       "name": "long-labels-stress",
-      "description": "Long labels: long names, a long contract heading, long panel headings, a long circumstance label and state wording, three long clauses, the section 1–3 and long context labels.",
+      "description": "Long labels: long names, a long contract heading, long panel headings, a long card label and case wording, three long sections, sections 2–3, long context and marker labels.",
       "params": {
         "parties": [
-          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"},
-          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Party B"}
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
         ],
-        "contract": {"reference": "CONTRACT-2026-0517", "title": "Contract with an circumstance panel and a section of clauses (fictional)"},
-        "panels": {"circumstance": "Circumstance named in the contract", "section": "Section of clauses, as listed here"},
-        "circumstance": {"label": "Circumstance 1, as named in this fictional contract (supplied)"},
-        "stateLabels": {"provided": "Circumstance provided, exactly as supplied in this example", "undescribed": "Circumstance undescribed, exactly as supplied in this example"},
-        "clauses": ["Clause 1, first item listed in the section panel (supplied text)", "Clause 2, second item listed in the section panel (supplied text)", "Clause 3, third item listed in the section panel (supplied text)"],
-        "section": {"from": 1, "to": 3},
-        "contextLabels": {"context": "The circumstance card and the section of clauses, exactly as supplied", "marker": "Changed: the supplied state of circumstance 1, and nothing else"}
+        "contextLabels": {
+          "context": "Communication card, connector and sections of the clause, exactly as supplied",
+          "marker": "Changed: the supplied case of communication 1, nothing else"
+        },
+        "contract": {
+          "reference": "CONTRACT-2026-0523",
+          "title": "Contract with a panel of communications and a termination clause (fictional)"
+        },
+        "panels": {
+          "circumstance": "Circumstances and communications, as supplied",
+          "section": "Termination clause, sections as listed here"
+        },
+        "circumstance": {
+          "label": "Communication 1, named in this fictional contract (supplied)"
+        },
+        "stateLabels": {
+          "provided": "Case provided for, exactly as supplied in this example",
+          "undescribed": "Case not described, exactly as supplied in this example"
+        },
+        "clauses": [
+          "Section 1, first item listed in the clause panel (supplied text)",
+          "Section 2, second item listed in the clause panel (supplied text)",
+          "Section 3, third item listed in the clause panel (supplied text)"
+        ],
+        "section": {
+          "from": 2,
+          "to": 3
+        }
       }
     },
     {
       "name": "baseline-es",
-      "description": "Línea de base en español: la lupa inspecciona la tarjeta de la comunicación; su estado pasa de previsto a no descrito (según lo aportado) y después el corchete se abre.",
+      "description": "Línea de base en español: contexto tras la historia; la lupa muestra la tarjeta, el supuesto pasa de previsto a no descrito y después se retira el cable y se abre el conector, según lo aportado.",
       "params": {
         "locale": "es",
-        "parties": [{"name": "Lucía Ferrer", "role": "Parte A"}, {"name": "Tomás Ibarra", "role": "Parte B"}],
-        "contract": {"reference": "CT-517", "title": "Contrato (ficticio)"},
-        "panels": {"circumstance": "Comunicación", "section": "Cláusula de terminación"},
-        "circumstance": {"label": "Comunicación 1 (aportado)"},
-        "stateLabels": {"provided": "Comunicación previsto (según lo aportado)", "undescribed": "Comunicación no descrito (según lo aportado)"},
-        "clauses": ["Apartado 1 (texto aportado)", "Apartado 2 (texto aportado)", "Apartado 3 (texto aportado)"],
-        "contextLabels": {"context": "Tarjeta de la comunicación y apartado, según lo aportado", "marker": "Cambio: el estado aportado de la comunicación 1"}
+        "parties": [
+          {
+            "name": "Lucía Ferrer",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomás Ibarra",
+            "role": "Parte B"
+          }
+        ],
+        "contextLabels": {
+          "context": "Tarjeta de la comunicación y apartado conectado, según lo aportado",
+          "marker": "Cambio: el supuesto aportado de la comunicación 1"
+        },
+        "contract": {
+          "reference": "CT-523",
+          "title": "Contrato (ficticio)"
+        },
+        "panels": {
+          "circumstance": "Circunstancias y comunicaciones",
+          "section": "Cláusula de terminación"
+        },
+        "circumstance": {
+          "label": "Comunicación 1 (aportada)"
+        },
+        "stateLabels": {
+          "provided": "Supuesto previsto (según lo aportado)",
+          "undescribed": "Supuesto no descrito (según lo aportado)"
+        },
+        "clauses": [
+          "Apartado 1 (texto aportado)",
+          "Apartado 2 (texto aportado)",
+          "Apartado 3 (texto aportado)"
+        ]
       }
     }
   ]
