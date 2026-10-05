@@ -1,0 +1,672 @@
+{
+  "id": "LAW-0242",
+  "slug": "civil-claim-01-mechanism",
+  "title": "Pre-claim request — the loop from the sender’s letter to the response space and back",
+  "titleEs": "Requerimiento previo — Mecanismo o relación explicada",
+  "category": "civil-claim",
+  "categoryName": "Inicio de reclamaciones civiles",
+  "motif": "Requerimiento previo",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "A spatial loop of the components — case file, Party A, the letter, Party B’s tray, Party B, the calendar strip (response space) and Party A’s reply pocket. Only the supplied relationships are drawn, each in its kind’s style and labelled beside its connector; a small letter traces the supplied order while the calendar enlarges and unfolds its supplied days; states stay visible at the end (sent, in Party B’s tray, response space open, reply received on the supplied day or reply pending). No causality is drawn unless supplied; no period or outcome is shown.",
+  "tags": [
+    "pre-claim request",
+    "mechanism",
+    "relationships",
+    "communication",
+    "sequence",
+    "calendar",
+    "response space",
+    "tray",
+    "reply pocket",
+    "tracer"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/civil-claim/kits/requerimiento-previo.js",
+    "src/animations/civil-claim/kits/civil-claim-art.js",
+    "src/primitives/badges.js",
+    "src/primitives/annotate.js",
+    "src/frameworks/graph.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Party A (sends the pre-claim communication) and Party B (receives it), in this order; fictional (array replaces the previous value)"
+      },
+      "documents": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "caseFile": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "type": "string",
+                "maxLength": 30,
+                "description": "Reference on the file tab"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Title on the file plate"
+              }
+            },
+            "required": [
+              "ref",
+              "title"
+            ],
+            "description": "The case file (expediente) on the shelf"
+          },
+          "letter": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "type": "string",
+                "maxLength": 30,
+                "description": "Reference printed on the letter"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 90,
+                "description": "Supplied contents printed on the letter"
+              }
+            },
+            "required": [
+              "ref",
+              "title"
+            ],
+            "description": "The pre-claim letter"
+          },
+          "replySlip": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Text on the tear-off reply slip"
+          }
+        },
+        "required": [
+          "caseFile",
+          "letter",
+          "replySlip"
+        ],
+        "description": "Documents drawn in the scene (fictional, as supplied)"
+      },
+      "stages": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sent": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Tag where the letter leaves Party A"
+          },
+          "delivered": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Tag at Party B’s tray once the letter lands"
+          },
+          "replied": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Tag at Party A’s reply pocket when a reply is supplied"
+          },
+          "pending": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Tag at Party A’s reply pocket when no reply is supplied"
+          }
+        },
+        "required": [
+          "sent",
+          "delivered",
+          "replied",
+          "pending"
+        ],
+        "description": "Stage captions shown as tags (descriptive only)"
+      },
+      "dates": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sent": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Date line printed on the letter"
+          },
+          "window": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Day label"
+            },
+            "minItems": 2,
+            "maxItems": 7,
+            "description": "Day labels of the response space drawn on the calendar strip (as supplied) (array replaces the previous value)"
+          },
+          "replyDay": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "description": "Zero-based index of the day on which the reply lands (only used when a reply is supplied)"
+          }
+        },
+        "required": [
+          "sent",
+          "window",
+          "replyDay"
+        ],
+        "description": "Dates, all supplied placeholders (nothing is inferred from them)"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "partyA",
+                "caseFile",
+                "letter",
+                "trayB",
+                "partyB",
+                "calendar",
+                "replyPocket"
+              ],
+              "description": "Component id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Component"
+        },
+        "minItems": 2,
+        "maxItems": 7,
+        "description": "Component labels; ids are fixed by the scene, labels are editable (a party id replaces the \"name · role\" caption) (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "partyA",
+                "caseFile",
+                "letter",
+                "trayB",
+                "partyB",
+                "calendar",
+                "replyPocket"
+              ],
+              "description": "Source component id"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "partyA",
+                "caseFile",
+                "letter",
+                "trayB",
+                "partyB",
+                "calendar",
+                "replyPocket"
+              ],
+              "description": "Target component id"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Label drawn beside the connector (empty = the caption of its kind)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "A supplied relationship between two components (drawn as supplied; not a legal finding)"
+        },
+        "minItems": 1,
+        "maxItems": 8,
+        "description": "Explicit relationships between components; kind controls the line style (causal only when supplied) (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "partyA",
+          "caseFile",
+          "letter",
+          "trayB",
+          "partyB",
+          "calendar",
+          "replyPocket"
+        ],
+        "description": "Component enlarged while the tracer passes"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for sequence links"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Caption used for each relation kind"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "partyA",
+            "caseFile",
+            "letter",
+            "trayB",
+            "partyB",
+            "calendar",
+            "replyPocket"
+          ],
+          "description": "Component id"
+        },
+        "minItems": 2,
+        "maxItems": 8,
+        "description": "Order in which the tracer visits components (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Party A",
+        "role": "Sender"
+      },
+      {
+        "name": "Party B",
+        "role": "Recipient"
+      }
+    ],
+    "documents": {
+      "caseFile": {
+        "ref": "CF-0412",
+        "title": "Case file · fictional claim"
+      },
+      "letter": {
+        "ref": "Ref. CF-0412/1",
+        "title": "Request to return the fictional item (as supplied)"
+      },
+      "replySlip": "Reply slip (as supplied)"
+    },
+    "stages": {
+      "sent": "Sent by Party A",
+      "delivered": "In Party B’s tray",
+      "replied": "Reply received",
+      "pending": "Reply pending"
+    },
+    "dates": {
+      "sent": "Sent: Day 0 (as supplied)",
+      "window": [
+        "Day 1",
+        "Day 2",
+        "Day 3",
+        "Day 4",
+        "Day 5"
+      ],
+      "replyDay": 2
+    },
+    "elements": [
+      {
+        "id": "caseFile",
+        "label": "Case file"
+      },
+      {
+        "id": "letter",
+        "label": "Pre-claim letter"
+      },
+      {
+        "id": "trayB",
+        "label": "Party B’s tray"
+      },
+      {
+        "id": "calendar",
+        "label": "Response space"
+      },
+      {
+        "id": "replyPocket",
+        "label": "Party A’s reply pocket"
+      }
+    ],
+    "relationships": [
+      {
+        "from": "caseFile",
+        "to": "partyA",
+        "kind": "relation",
+        "label": "kept by"
+      },
+      {
+        "from": "partyA",
+        "to": "letter",
+        "kind": "sequence",
+        "label": "signs, then sends"
+      },
+      {
+        "from": "letter",
+        "to": "trayB",
+        "kind": "communication",
+        "label": ""
+      },
+      {
+        "from": "trayB",
+        "to": "calendar",
+        "kind": "sequence",
+        "label": "opens"
+      },
+      {
+        "from": "partyB",
+        "to": "replyPocket",
+        "kind": "communication",
+        "label": "reply slip (as supplied)"
+      },
+      {
+        "from": "calendar",
+        "to": "replyPocket",
+        "kind": "relation",
+        "label": "reply lands on a supplied day"
+      }
+    ],
+    "focusElement": "calendar",
+    "relationLabels": {
+      "relation": "relation",
+      "communication": "communication",
+      "sequence": "then",
+      "causal": "causal (as supplied)"
+    },
+    "traversalOrder": [
+      "partyA",
+      "letter",
+      "trayB",
+      "calendar",
+      "replyPocket"
+    ]
+  }
+}

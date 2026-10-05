@@ -1,0 +1,407 @@
+{
+  "animationId": "LAW-0258",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. 'Admitted' and 'disputed' are only states supplied for this example: nothing states an effect of admitting or disputing, a burden of proof, a consequence or an outcome. Only supplied relationships are drawn, without arrowheads (a causal link only when supplied); the order is captioned 'Sequence as configured (illustrative)'. Long-labels-stress: coordinator decision (standing stress rule, AUTHORING item 20, 2026-09-26): relation and component labels are capped (see the preset description); every other field keeps its near-maximum length.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Default fictional example: three allegations, three sections (one admitted, two disputed, as supplied), seven supplied relationships and the response as the focus.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "A different fictional deposit dispute: two allegations, different relationship kinds (communication and a configured sequence), the claim as the focus and a different traversal order.",
+      "params": {
+        "parties": [
+          {
+            "name": "Party B",
+            "role": "Respondent (fictional)",
+            "appearance": {
+              "skin": 1,
+              "hair": "bun",
+              "hairColor": 4,
+              "outfit": 2,
+              "glasses": true
+            }
+          },
+          {
+            "name": "Party A",
+            "role": "Claimant (fictional)",
+            "appearance": {
+              "skin": 4,
+              "hair": "curly",
+              "hairColor": 0,
+              "outfit": 5
+            }
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-0977",
+            "title": "Case file · fictional deposit dispute"
+          },
+          "claim": {
+            "title": "Initial claim · Party A",
+            "allegations": [
+              "A deposit was paid on Day 1",
+              "The deposit was not returned"
+            ]
+          },
+          "response": {
+            "title": "Response · Party B",
+            "sections": [
+              {
+                "label": "Section 1 · on the payment",
+                "refers": 0,
+                "state": "disputed"
+              },
+              {
+                "label": "Section 2 · on the return",
+                "refers": 1,
+                "state": "admitted"
+              }
+            ]
+          }
+        },
+        "dates": {
+          "window": [
+            "Day 2",
+            "Day 3",
+            "Day 4",
+            "Day 5"
+          ],
+          "responseDay": 2
+        },
+        "elements": [
+          {
+            "id": "caseFile",
+            "label": "Case file"
+          },
+          {
+            "id": "trays",
+            "label": "Claim and response trays"
+          },
+          {
+            "id": "calendar",
+            "label": "Calendar (as supplied)"
+          },
+          {
+            "id": "partyB",
+            "label": "Party B · respondent (fictional)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "claim",
+            "kind": "relation",
+            "label": "filed by"
+          },
+          {
+            "from": "claim",
+            "to": "response",
+            "kind": "communication",
+            "label": "answered section by section"
+          },
+          {
+            "from": "partyB",
+            "to": "response",
+            "kind": "sequence",
+            "label": "then written (as configured)"
+          },
+          {
+            "from": "response",
+            "to": "trays",
+            "kind": "communication",
+            "label": "placed in the response tray"
+          },
+          {
+            "from": "caseFile",
+            "to": "trays",
+            "kind": "relation",
+            "label": "both trays feed the case file"
+          }
+        ],
+        "focusElement": "claim",
+        "relationLabels": {
+          "relation": "relation",
+          "communication": "communication",
+          "sequence": "then (as configured)",
+          "causal": "causal (as supplied)"
+        },
+        "traversalOrder": [
+          "partyA",
+          "claim",
+          "response",
+          "partyB"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths: long party names and roles, case file, titles and relation-kind captions; allegation, section and day counts as in LAW-0257's capped stress preset. Coordinator decision (standing stress rule, AUTHORING item 20, 2026-09-26): the relation labels and the component labels are capped to the longest values found to keep every ratio at text >= 16 px with every relation label in a free spot beside its own connector — relation labels 'answered from the tray' 22 → 'answered from it' 16; 'the initial claim is kept in the case file' 42 → 'kept in the fictional case file' 31; 'written by Party B (fictional)' 30 → 'written by Party B' 18; 'each section answers exactly one allegation' 43 → 'each section answers one allegation' 35; 'dated on a supplied calendar day' 32 → 'dated on one supplied day' 25; component labels 'Case file of the fictional borrowed-item claim' 46 → 'Case file of the fictional claim' 32; 'Trays for the initial claim and the response' 44 → 'Initial claim and response trays' 32; 'Calendar of the exchange of documents (supplied)' 48 → 'Calendar of the exchange (supplied)' 35. Each stays longer than its baseline value; party names and roles, the documents, the relation-kind captions and the day labels keep their near-maximum lengths. True driver: at 1:1 the seven relation labels need free spots beside short connectors among seven components. Measured (rendered, 1:1) with the near-maximum labels: a relation label found no free spot and lay over Party B's portrait or the response sheet. Tried first: edge labels lying on their own connectors, alternative 1:1 compositions tried before the text steps down, narrower sheets, two-line calendar days, more relaxation rounds and more anchor positions along each connector.",
+      "params": {
+        "parties": [
+          {
+            "name": "Party B · Bartholomew Nakamura-Fitzgerald",
+            "role": "Respondent answering the claim (fictional)"
+          },
+          {
+            "name": "Party A · Maximiliana Oyelaran-Castellanos",
+            "role": "Claimant who filed the claim (fictional)"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-2024-000517-AB",
+            "title": "Case file · fictional claim about a borrowed item, volume 1"
+          },
+          "claim": {
+            "title": "Initial claim filed by Party A (fictional)",
+            "allegations": [
+              "The borrowed item reached Party B on Day 1",
+              "The item came back with a cracked casing",
+              "No repair or replacement was offered"
+            ]
+          },
+          "response": {
+            "title": "Structured response by Party B (fictional)",
+            "sections": [
+              {
+                "label": "Section 1 · on the delivery of the item",
+                "refers": 0,
+                "state": "admitted"
+              },
+              {
+                "label": "Section 2 · on the condition on return",
+                "refers": 1,
+                "state": "disputed"
+              },
+              {
+                "label": "Section 3 · on any offer of repair",
+                "refers": 2,
+                "state": "disputed"
+              }
+            ]
+          }
+        },
+        "stages": {
+          "admitted": "Fact marked admitted in this example (as supplied)",
+          "disputed": "Fact marked disputed in this example (as supplied)",
+          "linked": "Each section is linked to one initial allegation"
+        },
+        "dates": {
+          "window": [
+            "Day 1 (supplied)",
+            "Day 2 (supplied)",
+            "Day 3 (supplied)",
+            "Day 4 (supplied)",
+            "Day 5 (supplied)"
+          ],
+          "responseDay": 2
+        },
+        "elements": [
+          {
+            "id": "caseFile",
+            "label": "Case file of the fictional claim"
+          },
+          {
+            "id": "trays",
+            "label": "Initial claim and response trays"
+          },
+          {
+            "id": "calendar",
+            "label": "Calendar of the exchange (supplied)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "caseFile",
+            "to": "claim",
+            "kind": "relation",
+            "label": "kept in the fictional case file"
+          },
+          {
+            "from": "partyA",
+            "to": "claim",
+            "kind": "relation",
+            "label": "filed by Party A (fictional)"
+          },
+          {
+            "from": "claim",
+            "to": "trays",
+            "kind": "communication",
+            "label": "received in the claim tray"
+          },
+          {
+            "from": "trays",
+            "to": "response",
+            "kind": "communication",
+            "label": "answered from it"
+          },
+          {
+            "from": "partyB",
+            "to": "response",
+            "kind": "relation",
+            "label": "written by Party B"
+          },
+          {
+            "from": "response",
+            "to": "claim",
+            "kind": "relation",
+            "label": "each section answers one allegation"
+          },
+          {
+            "from": "response",
+            "to": "calendar",
+            "kind": "relation",
+            "label": "dated on one supplied day"
+          }
+        ],
+        "focusElement": "response",
+        "relationLabels": {
+          "relation": "relation between components",
+          "communication": "communication between components",
+          "sequence": "then, in the order configured",
+          "causal": "causal, only as supplied"
+        },
+        "traversalOrder": [
+          "partyA",
+          "claim",
+          "trays",
+          "response",
+          "calendar"
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "The baseline in Spanish (locale es): every default text in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Parte B",
+            "role": "Demandada"
+          },
+          {
+            "name": "Parte A",
+            "role": "Demandante"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "EXP-0517",
+            "title": "Expediente · reclamación ficticia"
+          },
+          "claim": {
+            "title": "Demanda · Parte A",
+            "allegations": [
+              "El objeto se entregó el día 1",
+              "El objeto llegó dañado",
+              "No se ofreció reparación"
+            ]
+          },
+          "response": {
+            "title": "Contestación · Parte B",
+            "sections": [
+              {
+                "label": "Apartado 1 · sobre la entrega",
+                "refers": 0,
+                "state": "admitted"
+              },
+              {
+                "label": "Apartado 2 · sobre el daño",
+                "refers": 1,
+                "state": "disputed"
+              },
+              {
+                "label": "Apartado 3 · sobre la reparación",
+                "refers": 2,
+                "state": "disputed"
+              }
+            ]
+          }
+        },
+        "dates": {
+          "window": [
+            "Día 1",
+            "Día 2",
+            "Día 3",
+            "Día 4",
+            "Día 5"
+          ],
+          "responseDay": 3
+        },
+        "stages": {
+          "admitted": "Hecho admitido (según lo aportado)",
+          "disputed": "Hecho controvertido (según lo aportado)",
+          "linked": "Cada apartado vinculado a una alegación"
+        },
+        "elements": [
+          {
+            "id": "caseFile",
+            "label": "Expediente"
+          },
+          {
+            "id": "trays",
+            "label": "Bandejas de demanda y contestación"
+          },
+          {
+            "id": "calendar",
+            "label": "Calendario (según lo aportado)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "caseFile",
+            "to": "claim",
+            "kind": "relation",
+            "label": "en el expediente"
+          },
+          {
+            "from": "partyA",
+            "to": "claim",
+            "kind": "relation",
+            "label": "la presenta"
+          },
+          {
+            "from": "claim",
+            "to": "trays",
+            "kind": "communication",
+            "label": "se recibe"
+          },
+          {
+            "from": "trays",
+            "to": "response",
+            "kind": "communication",
+            "label": "se contesta"
+          },
+          {
+            "from": "partyB",
+            "to": "response",
+            "kind": "relation",
+            "label": "la redacta"
+          },
+          {
+            "from": "response",
+            "to": "claim",
+            "kind": "relation",
+            "label": "un apartado por alegación"
+          },
+          {
+            "from": "response",
+            "to": "calendar",
+            "kind": "relation",
+            "label": "fecha: un día aportado"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación",
+          "communication": "comunicación",
+          "sequence": "después (según la configuración)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

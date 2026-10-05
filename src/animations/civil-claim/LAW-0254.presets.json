@@ -1,0 +1,285 @@
+{
+ "animationId": "LAW-0254",
+ "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. The notification route, its stops and its dates are supplied and editable placeholders drawn in the configured order ('Sequence as configured (illustrative)'); nothing states a valid method, a required form, a deadline, 'deemed' service or any effect. 'Questioned' only means that someone questions the communication in this configured example: a neutral ◆ chip and a dashed outline on the supplied leg, never a verdict. Coordinator standing rule (AUTHORING item 20): long-labels-stress is capped. True drivers, measured on the layout (text >= 16 px and badges >= 96 px required) with the near-maximum values (three stops of 44–48 characters, four date labels of 35–38, seven element labels of 44–54, six relationship labels of 31–40 including the two sequence legs, tray labels of 35): at 1:1 no arrangement fits — the best needs 1.32 times the region's height (the tray plates wrap to four lines, the three stop plates to five, and the extra name chips add rows), or the one-row calendar 1.03 times its width; the sequence legs' labels beside the trays at the frame's edges find no free place ('rel-label' hard/frame); at 9:16 the trays' name chips find no free place. Fallbacks tried first: one-row comb, two-row grid and vertical comb arrangements with three spacings; parties beside or below their trays; one-, two- and three-column calendars with cells sized to the widest word; the calendar named by its chip instead of a header title; a bottom band or a side-column panel; relationship labels in four widths and up to four lines; smaller gaps and margins; room reserved beside the parties' connectors. Capped values: two stops (baseline count 2) and three legs (baseline count 3) instead of three and four, with near-maximum names and dates; four element labels of 33–42 characters (baseline two) instead of seven of 44–54; the two sequence legs unlabelled (as in the baseline; their style and the legend give their kind) — four near-maximum relationship labels remain; tray labels of 23 characters (baseline 13–14) instead of 35. Every other field stays at near-maximum length (parties, file reference and title, calendar title, route caption, relation-kind captions, both state chips).",
+ "presets": [
+  {
+   "name": "baseline-illustrative",
+   "description": "The route, its two stops, the calendar, the trays, the file and both parties, joined by six supplied relationships (two sequence legs as configured); the tracer runs the configured order; final state documented (●).",
+   "params": {}
+  },
+  {
+   "name": "contrast-or-alternative",
+   "description": "Three stops and four legs; the calendar is the focus element; a communication line from the in-tray to Party B; final state questioned in this example (◆ and the dashed disputed marker on the last leg).",
+   "params": {
+    "stages": [
+     "Mail room (fictional)",
+     "Courier desk (fictional)",
+     "Front desk (fictional)"
+    ],
+    "dates": {
+     "legs": [
+      "Day 1 (as supplied)",
+      "Day 2 (as supplied)",
+      "Day 4 (as supplied)",
+      "Day 5 (as supplied)"
+     ]
+    },
+    "elements": [
+     {
+      "id": "calendar",
+      "label": "Calendar of the legs"
+     },
+     {
+      "id": "file",
+      "label": "The case file (CF-0977)"
+     }
+    ],
+    "relationships": [
+     {
+      "from": "partyA",
+      "to": "outTray",
+      "kind": "relation",
+      "label": "places the file"
+     },
+     {
+      "from": "outTray",
+      "to": "route",
+      "kind": "sequence"
+     },
+     {
+      "from": "calendar",
+      "to": "route",
+      "kind": "relation",
+      "label": "a date per leg"
+     },
+     {
+      "from": "route",
+      "to": "inTray",
+      "kind": "sequence"
+     },
+     {
+      "from": "inTray",
+      "to": "partyB",
+      "kind": "communication",
+      "label": "received (as supplied)"
+     }
+    ],
+    "focusElement": "calendar",
+    "traversalOrder": [
+     "partyA",
+     "outTray",
+     "route",
+     "inTray",
+     "partyB"
+    ],
+    "finalState": "questioned",
+    "questionedLeg": 3
+   }
+  },
+  {
+   "name": "long-labels-stress",
+   "description": "Near-maximum stop names, date labels, relationship labels (four), captions, state chips and file reference and title; two stops and three legs; final state questioned on leg 2. Capped (coordinator standing rule, AUTHORING item 20) — see the note.",
+   "params": {
+    "parties": [
+     {
+      "name": "Party A · Maximiliana Oyelaran-Castellanos",
+      "role": "Party starting the communication (fictional)"
+     },
+     {
+      "name": "Party B · Bartholomew Nakamura-Fitzgerald",
+      "role": "The other party in this example (fictional)"
+     }
+    ],
+    "documents": {
+     "caseFile": {
+      "ref": "CF-2024-000530-AB/77",
+      "title": "Case file · fictional claim about a borrowed item, volume 1"
+     }
+    },
+    "stages": [
+     "Mail room, ground floor, north wing (fictional)",
+     "Courier hand-over desk, building two (fictional)"
+    ],
+    "dates": {
+     "legs": [
+      "Leg 1 · Monday, Day 1 (as supplied)",
+      "Leg 2 · Wednesday, Day 3 (as supplied)",
+      "Leg 3 · Friday, Day 5 (as supplied)"
+     ]
+    },
+    "objectLabels": {
+     "outTray": "Outgoing tray · Party A",
+     "inTray": "Incoming tray · Party B",
+     "calendar": "Dates of each leg of the route (as supplied)",
+     "route": "Sequence of the stops as configured here (illustrative)",
+     "documented": "Communication documented in this configured example (as supplied)",
+     "questioned": "Communication questioned in this configured example (as supplied)"
+    },
+    "elements": [
+     {
+      "id": "partyA",
+      "label": "Party A · Maximiliana Oyelaran (fictional)"
+     },
+     {
+      "id": "partyB",
+      "label": "Party B · Bartholomew Nakamura (fictional)"
+     },
+     {
+      "id": "file",
+      "label": "Case file CF-2024-000530-AB/77 (fict.)"
+     },
+     {
+      "id": "calendar",
+      "label": "Calendar with a date for each leg"
+     }
+    ],
+    "relationships": [
+     {
+      "from": "partyA",
+      "to": "outTray",
+      "kind": "relation",
+      "label": "places the case file in the tray"
+     },
+     {
+      "from": "outTray",
+      "to": "route",
+      "kind": "sequence"
+     },
+     {
+      "from": "file",
+      "to": "route",
+      "kind": "relation",
+      "label": "travels along each configured leg"
+     },
+     {
+      "from": "calendar",
+      "to": "route",
+      "kind": "relation",
+      "label": "one supplied date for every leg"
+     },
+     {
+      "from": "route",
+      "to": "inTray",
+      "kind": "sequence"
+     },
+     {
+      "from": "inTray",
+      "to": "partyB",
+      "kind": "communication",
+      "label": "received in Party B’s tray (as supplied)"
+     }
+    ],
+    "relationLabels": {
+     "relation": "Relation between two parts (plain line)",
+     "communication": "Communication between parts (blue line)",
+     "sequence": "Sequence of legs as configured (illustrative)",
+     "causal": "Causal link only when supplied"
+    },
+    "traversalOrder": [
+     "partyA",
+     "outTray",
+     "route",
+     "inTray",
+     "partyB"
+    ],
+    "focusElement": "route",
+    "finalState": "questioned",
+    "questionedLeg": 1
+   }
+  },
+  {
+   "name": "baseline-es",
+   "description": "Spanish locale with the Spanish default texts (baseline).",
+   "params": {
+    "locale": "es",
+    "parties": [
+     {
+      "name": "Parte A",
+      "role": "Parte que comunica"
+     },
+     {
+      "name": "Parte B",
+      "role": "Otra parte"
+     }
+    ],
+    "documents": {
+     "caseFile": {
+      "ref": "EXP-0530",
+      "title": "Expediente · reclamación ficticia"
+     }
+    },
+    "stages": [
+     "Correspondencia (ficticia)",
+     "Recepción (ficticia)"
+    ],
+    "dates": {
+     "legs": [
+      "Día 1 (según lo aportado)",
+      "Día 2 (según lo aportado)",
+      "Día 3 (según lo aportado)"
+     ]
+    },
+    "objectLabels": {
+     "outTray": "Salida · Parte A",
+     "inTray": "Entrada · Parte B",
+     "calendar": "Fechas de los tramos (según lo aportado)",
+     "route": "Secuencia según lo configurado (ilustrativa)",
+     "documented": "Comunicación documentada (según lo aportado)",
+     "questioned": "Comunicación cuestionada en este ejemplo (según lo aportado)"
+    },
+    "elements": [
+     {
+      "id": "file",
+      "label": "El expediente"
+     },
+     {
+      "id": "calendar",
+      "label": "Calendario de los tramos"
+     }
+    ],
+    "relationships": [
+     {
+      "from": "partyA",
+      "to": "outTray",
+      "kind": "relation",
+      "label": "deja el expediente"
+     },
+     {
+      "from": "outTray",
+      "to": "route",
+      "kind": "sequence"
+     },
+     {
+      "from": "file",
+      "to": "route",
+      "kind": "relation",
+      "label": "la recorre"
+     },
+     {
+      "from": "calendar",
+      "to": "route",
+      "kind": "relation",
+      "label": "una fecha por tramo"
+     },
+     {
+      "from": "route",
+      "to": "inTray",
+      "kind": "sequence"
+     },
+     {
+      "from": "inTray",
+      "to": "partyB",
+      "kind": "relation",
+      "label": "en la bandeja de B"
+     }
+    ],
+    "relationLabels": {
+     "relation": "Relación (línea simple)",
+     "communication": "Comunicación (línea azul)",
+     "sequence": "Secuencia según lo configurado (ilustrativa)",
+     "causal": "Vínculo causal (según lo aportado)"
+    }
+   }
+  }
+ ]
+}

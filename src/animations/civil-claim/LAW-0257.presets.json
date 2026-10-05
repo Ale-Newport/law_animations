@@ -1,0 +1,237 @@
+{
+  "animationId": "LAW-0257",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. 'Admitted' and 'disputed' are only states supplied for this example: nothing states an effect of admitting or disputing, a burden of proof, a consequence or an outcome. Long-labels-stress: coordinator decision (standing stress rule, AUTHORING item 20, 2026-09-26): allegation and section counts and texts, day labels and the callout are capped (see the preset description); every other field keeps its near-maximum length.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Party B links each of the three response sections to the allegation it answers; section 1 is admitted (●, solid) and sections 2 and 3 are disputed (◆, dashed), as supplied; the response day (Day 4, as supplied) is marked.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different fictional dispute with two allegations; the first section is disputed and the second admitted (as supplied).",
+      "params": {
+        "parties": [
+          {
+            "name": "Party B",
+            "role": "Respondent (fictional)",
+            "appearance": {
+              "skin": 1,
+              "hair": "bun",
+              "hairColor": 4,
+              "outfit": 2,
+              "glasses": true
+            }
+          },
+          {
+            "name": "Party A",
+            "role": "Claimant (fictional)",
+            "appearance": {
+              "skin": 4,
+              "hair": "curly",
+              "hairColor": 0,
+              "outfit": 5
+            }
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-0977",
+            "title": "Case file · fictional deposit dispute"
+          },
+          "claim": {
+            "title": "Initial claim · Party A",
+            "allegations": [
+              "A deposit was paid on Day 1",
+              "The deposit was not returned"
+            ]
+          },
+          "response": {
+            "title": "Response · Party B",
+            "sections": [
+              {
+                "label": "Section 1 · on the payment",
+                "refers": 0,
+                "state": "disputed"
+              },
+              {
+                "label": "Section 2 · on the return",
+                "refers": 1,
+                "state": "admitted"
+              }
+            ]
+          }
+        },
+        "dates": {
+          "window": [
+            "Day 2",
+            "Day 3",
+            "Day 4",
+            "Day 5"
+          ],
+          "responseDay": 2
+        },
+        "finalState": "disputed",
+        "annotations": [
+          {
+            "target": "claim",
+            "text": "Each allegation receives exactly one linked section (as supplied)"
+          }
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths: long party names and roles, case file, titles, stage captions, prop labels and a long callout; three allegations, three sections and five day labels. Coordinator decision (standing stress rule, AUTHORING item 20, 2026-09-26): counts and the longest texts are capped to the largest values found to keep every ratio at text >= 16 px and people at head >= 52 px at 16:9 and 9:16 (1080p, the story floor of LAW-0249) and >= 45 px at 1:1 (the stress floor of LAW-0251 / LAW-0447: at 1:1 the text column's width, set by its height, bounds the stage) — allegations 4 → 3 and sections 4 → 3 (the fourth allegation and section are dropped), each allegation shortened by dropping its ' (supplied)' suffix (≈ 55 → 37–42 characters), section labels ≈ 50 → 34–40 characters, day labels 7 → 5 (the baseline count), and the callout 86 → 57 characters. Party names and roles, the case file, titles, stage captions and prop labels keep their near-maximum lengths. True driver: the text column's height at 1:1 and 9:16 (every supplied text is printed there once the props are drawn without text) against the figure floor. Measured with the uncapped values (DOM-less layout estimate): 1:1 nothing fits (stage and column both overflow), 9:16 head ≈ 38 px. Measured (rendered) with the capped values: heads 75 / 57 / 46 px at 16:9 / 9:16 / 1:1. Tried first: a two-level split stage, shorter party roles (no gain at 1:1), a stacked column at 1:1, a hanging board over the desk (adopted for 1:1 and 9:16), wider columns (0.36 / 0.42 of the width) and callouts beside the column instead of across it.",
+      "params": {
+        "parties": [
+          {
+            "name": "Party B · Bartholomew Nakamura-Fitzgerald",
+            "role": "Respondent answering the claim (fictional)"
+          },
+          {
+            "name": "Party A · Maximiliana Oyelaran-Castellanos",
+            "role": "Claimant who filed the claim (fictional)"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-2024-000517-AB",
+            "title": "Case file · fictional claim about a borrowed item, volume 1"
+          },
+          "claim": {
+            "title": "Initial claim filed by Party A (fictional)",
+            "allegations": [
+              "The borrowed item reached Party B on Day 1",
+              "The item came back with a cracked casing",
+              "No repair or replacement was offered"
+            ]
+          },
+          "response": {
+            "title": "Structured response by Party B (fictional)",
+            "sections": [
+              {
+                "label": "Section 1 · on the delivery of the item",
+                "refers": 0,
+                "state": "admitted"
+              },
+              {
+                "label": "Section 2 · on the condition on return",
+                "refers": 1,
+                "state": "disputed"
+              },
+              {
+                "label": "Section 3 · on any offer of repair",
+                "refers": 2,
+                "state": "disputed"
+              }
+            ]
+          }
+        },
+        "dates": {
+          "window": [
+            "Day 1 (supplied)",
+            "Day 2 (supplied)",
+            "Day 3 (supplied)",
+            "Day 4 (supplied)",
+            "Day 5 (supplied)"
+          ],
+          "responseDay": 2
+        },
+        "stages": {
+          "admitted": "Fact marked admitted in this example (as supplied)",
+          "disputed": "Fact marked disputed in this example (as supplied)",
+          "linked": "Each section is linked to one initial allegation"
+        },
+        "objectLabels": {
+          "calendar": "Calendar of the exchange of documents (supplied)",
+          "claimTray": "Initial claim received · Party A",
+          "responseTray": "Structured response · Party B"
+        },
+        "annotations": [
+          {
+            "target": "response",
+            "text": "Each section is linked by its own thread to an allegation"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: la Parte B vincula cada apartado de la contestación con la alegación que contesta; el apartado 1 es un hecho admitido (●) y los apartados 2 y 3 hechos controvertidos (◆), según lo aportado.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Parte B",
+            "role": "Demandada"
+          },
+          {
+            "name": "Parte A",
+            "role": "Demandante"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "EXP-0517",
+            "title": "Expediente · reclamación ficticia"
+          },
+          "claim": {
+            "title": "Demanda · Parte A",
+            "allegations": [
+              "El objeto se entregó el día 1",
+              "El objeto llegó dañado",
+              "No se ofreció reparación"
+            ]
+          },
+          "response": {
+            "title": "Contestación · Parte B",
+            "sections": [
+              {
+                "label": "Apartado 1 · sobre la entrega",
+                "refers": 0,
+                "state": "admitted"
+              },
+              {
+                "label": "Apartado 2 · sobre el daño",
+                "refers": 1,
+                "state": "disputed"
+              },
+              {
+                "label": "Apartado 3 · sobre la reparación",
+                "refers": 2,
+                "state": "disputed"
+              }
+            ]
+          }
+        },
+        "dates": {
+          "window": [
+            "Día 1",
+            "Día 2",
+            "Día 3",
+            "Día 4",
+            "Día 5"
+          ],
+          "responseDay": 3
+        },
+        "stages": {
+          "admitted": "Hecho admitido (según lo aportado)",
+          "disputed": "Hecho controvertido (según lo aportado)",
+          "linked": "Cada apartado vinculado a una alegación"
+        },
+        "objectLabels": {
+          "calendar": "Calendario (según lo aportado)",
+          "claimTray": "Demanda · Parte A",
+          "responseTray": "Contestación · Parte B"
+        },
+        "annotations": [
+          {
+            "target": "response",
+            "text": "Cada apartado se vincula a la alegación que contesta"
+          }
+        ]
+      }
+    }
+  ]
+}

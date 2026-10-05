@@ -1,0 +1,236 @@
+{
+  "animationId": "LAW-0260",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. 'Admitted' and 'disputed' are only states supplied for this example: nothing states an effect of admitting or disputing, a burden of proof, a consequence or an outcome. The lens changes only the state supplied for the first section; nothing follows from either state.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Default fictional example: the first section's supplied state changes from admitted to disputed inside the lens, then in the context.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "A different fictional deposit dispute: the payment section starts disputed and the alternative value is admitted; a stronger zoom (2.6×).",
+      "params": {
+        "parties": [
+          {
+            "name": "Party B",
+            "role": "Respondent (fictional)",
+            "appearance": {
+              "skin": 1,
+              "hair": "bun",
+              "hairColor": 4,
+              "outfit": 2,
+              "glasses": true
+            }
+          },
+          {
+            "name": "Party A",
+            "role": "Claimant (fictional)",
+            "appearance": {
+              "skin": 4,
+              "hair": "curly",
+              "hairColor": 0,
+              "outfit": 5
+            }
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-0977",
+            "title": "Case file · fictional deposit dispute"
+          },
+          "claim": {
+            "title": "Initial claim · Party A",
+            "allegations": [
+              "A deposit was paid on Day 1",
+              "The deposit was not returned"
+            ]
+          },
+          "response": {
+            "title": "Response · Party B",
+            "sections": [
+              {
+                "label": "Section 1 · on the payment",
+                "refers": 0,
+                "state": "disputed"
+              },
+              {
+                "label": "Section 2 · on the return",
+                "refers": 1,
+                "state": "admitted"
+              }
+            ]
+          }
+        },
+        "dates": {
+          "window": [
+            "Day 2",
+            "Day 3",
+            "Day 4",
+            "Day 5"
+          ],
+          "responseDay": 2
+        },
+        "focusTarget": "state",
+        "beforeValue": "§1 · ◆ Payment disputed (as supplied)",
+        "afterValue": "§1 · ● Payment admitted (as supplied)",
+        "detailGeometry": {
+          "zoom": 2.6,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "The response answers the deposit claim section by section",
+          "marker": "Datum changed"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths in the before and after values, the context caption and the marker label; zoom at its minimum (1.5×); names, documents and counts as in LAW-0257's capped stress preset (coordinator decision, AUTHORING item 20, 2026-09-26 — see LAW-0257).",
+      "params": {
+        "parties": [
+          {
+            "name": "Party B · Bartholomew Nakamura-Fitzgerald",
+            "role": "Respondent answering the claim (fictional)"
+          },
+          {
+            "name": "Party A · Maximiliana Oyelaran-Castellanos",
+            "role": "Claimant who filed the claim (fictional)"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-2024-000517-AB",
+            "title": "Case file · fictional claim about a borrowed item, volume 1"
+          },
+          "claim": {
+            "title": "Initial claim filed by Party A (fictional)",
+            "allegations": [
+              "The borrowed item reached Party B on Day 1",
+              "The item came back with a cracked casing",
+              "No repair or replacement was offered"
+            ]
+          },
+          "response": {
+            "title": "Structured response by Party B (fictional)",
+            "sections": [
+              {
+                "label": "Section 1 · on the delivery of the item",
+                "refers": 0,
+                "state": "admitted"
+              },
+              {
+                "label": "Section 2 · on the condition on return",
+                "refers": 1,
+                "state": "disputed"
+              },
+              {
+                "label": "Section 3 · on any offer of repair",
+                "refers": 2,
+                "state": "disputed"
+              }
+            ]
+          }
+        },
+        "stages": {
+          "admitted": "Fact marked admitted in this example (as supplied)",
+          "disputed": "Fact marked disputed in this example (as supplied)",
+          "linked": "Each section is linked to one initial allegation"
+        },
+        "dates": {
+          "window": [
+            "Day 1 (supplied)",
+            "Day 2 (supplied)",
+            "Day 3 (supplied)",
+            "Day 4 (supplied)",
+            "Day 5 (supplied)"
+          ],
+          "responseDay": 2
+        },
+        "focusTarget": "state",
+        "beforeValue": "§1 · ● Fact marked admitted in this fictional example (as supplied)",
+        "afterValue": "§1 · ◆ Fact marked disputed in this fictional example (as supplied)",
+        "detailGeometry": {
+          "zoom": 1.5,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Every section of the structured response is linked to one initial allegation",
+          "marker": "Supplied datum changed here"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "The baseline in Spanish (locale es): every default text in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Parte B",
+            "role": "Demandada"
+          },
+          {
+            "name": "Parte A",
+            "role": "Demandante"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "EXP-0517",
+            "title": "Expediente · reclamación ficticia"
+          },
+          "claim": {
+            "title": "Demanda · Parte A",
+            "allegations": [
+              "El objeto se entregó el día 1",
+              "El objeto llegó dañado",
+              "No se ofreció reparación"
+            ]
+          },
+          "response": {
+            "title": "Contestación · Parte B",
+            "sections": [
+              {
+                "label": "Apartado 1 · sobre la entrega",
+                "refers": 0,
+                "state": "admitted"
+              },
+              {
+                "label": "Apartado 2 · sobre el daño",
+                "refers": 1,
+                "state": "disputed"
+              },
+              {
+                "label": "Apartado 3 · sobre la reparación",
+                "refers": 2,
+                "state": "disputed"
+              }
+            ]
+          }
+        },
+        "stages": {
+          "admitted": "Hecho admitido (según lo aportado)",
+          "disputed": "Hecho controvertido (según lo aportado)",
+          "linked": "Cada apartado vinculado a una alegación"
+        },
+        "dates": {
+          "window": [
+            "Día 1",
+            "Día 2",
+            "Día 3",
+            "Día 4",
+            "Día 5"
+          ],
+          "responseDay": 3
+        },
+        "beforeValue": "§1 · ● Hecho admitido (según lo aportado)",
+        "afterValue": "§1 · ◆ Hecho controvertido (según lo aportado)",
+        "contextLabels": {
+          "context": "Cada apartado de la contestación se vincula a una alegación",
+          "marker": "Dato cambiado"
+        }
+      }
+    }
+  ]
+}

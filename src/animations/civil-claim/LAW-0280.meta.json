@@ -1,0 +1,503 @@
+{
+  "id": "LAW-0280",
+  "slug": "civil-claim-10-inspect",
+  "title": "Ordering of issues (illustrative) — a lens on the sorting board: the supplied state of the third issue card changes, and with it its column",
+  "titleEs": "Ordenación de cuestiones — Inspección y cambio de un dato",
+  "category": "civil-claim",
+  "categoryName": "Inicio de reclamaciones civiles",
+  "motif": "Ordenación de cuestiones",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The state produced by the grouping: Party A at rest beside her empty tray; on the case file the sorting board — ● agreed and ◆ open columns, Subject A and Subject B rows, Issue 1 and Issue 2 under Subject A and the third card under Subject B in the column of its supplied state (by default ● agreed), each subject row framed; the calendar marks the supplied day; Party B at the right; the supplied texts in a column. A lens opens beside the board: a real enlarged copy of the board’s grid at the same coordinates, where its printed texts become legible, with a datum card; while it holds the datum the context copy is hidden. Inside the lens only the datum changes — the ● glyph goes, the card slides into the ◆ column and its ◆ glyph comes — then the context returns already in the new state, with a Δ changed-datum marker. Seeking back restores the old datum. Both states have equal weight: “agreed” only means the supplied list marks the issue as agreed between the parties; nothing is decided or proven; no procedure, effect or outcome.",
+  "tags": [
+    "ordering of issues",
+    "agreed issue",
+    "open issue",
+    "inspect",
+    "lens",
+    "case file",
+    "sorting board",
+    "datum change",
+    "issue state"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/civil-claim/kits/ordenacion-cuestiones.js",
+    "src/animations/civil-claim/kits/reconvencion-ilustrativa.js",
+    "src/animations/civil-claim/kits/civil-claim-art.js",
+    "src/animations/civil-claim/kits/requerimiento-previo.js",
+    "src/primitives/person.js",
+    "src/primitives/markers.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Party A (at the left, beside her tray) and Party B (at the right), in this order (array replaces the previous value)"
+      },
+      "documents": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "caseFile": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "type": "string",
+                "maxLength": 30,
+                "description": "Reference on the case file"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Title on the case file"
+              }
+            },
+            "required": [
+              "ref",
+              "title"
+            ],
+            "description": "The case file (expediente) standing open on the easel as the sorting board"
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Issue card label"
+            },
+            "minItems": 3,
+            "maxItems": 3,
+            "description": "Labels of the three issue cards (generic and fictional, as supplied): Issue 1 (●, Subject A), Issue 2 (◆, Subject A) and the third card, which is brought to the Subject B row (array replaces the previous value)"
+          },
+          "subjects": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "a": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Subject of the upper row (Issue 1 and Issue 2)"
+              },
+              "b": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Subject of the lower row (the third card)"
+              }
+            },
+            "required": [
+              "a",
+              "b"
+            ],
+            "description": "The two supplied subjects the cards are grouped by"
+          }
+        },
+        "required": [
+          "caseFile",
+          "issues",
+          "subjects"
+        ],
+        "description": "Documents drawn in the scene (fictional, as supplied)"
+      },
+      "stages": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "agreed": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of the state \"agreed issue\" (●: the supplied list marks the issue as agreed between the parties — nothing decided or proven)"
+          },
+          "open": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of the state \"open issue\" (◆: a neutral pending state)"
+          }
+        },
+        "required": [
+          "agreed",
+          "open"
+        ],
+        "description": "Captions of the two supplied states of an issue (descriptive only; equal weight)"
+      },
+      "dates": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "window": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Day label"
+            },
+            "minItems": 2,
+            "maxItems": 7,
+            "description": "Day labels of the calendar (as supplied) (array replaces the previous value)"
+          },
+          "groupDay": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "description": "Zero-based index of the day the cards are grouped (as supplied)"
+          }
+        },
+        "required": [
+          "window",
+          "groupDay"
+        ],
+        "description": "Dates, all supplied placeholders (nothing is inferred from them)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "issueState"
+        ],
+        "description": "Detail that is enlarged and substituted: \"issueState\" (the supplied state of the third issue card, which decides its column in the Subject B row; a value with ◆ or the \"open\" caption names the open issue, any other value the agreed issue)"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution (as supplied)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative datum, as supplied)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens relative to the context (at least 1.5)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "right",
+              "bottom",
+              "top"
+            ],
+            "description": "Where the lens sits relative to the scene"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption (the single editorial annotation)"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Party A",
+        "role": "Claimant"
+      },
+      {
+        "name": "Party B",
+        "role": "Respondent"
+      }
+    ],
+    "documents": {
+      "caseFile": {
+        "ref": "CF-0960",
+        "title": "Case file · fictional dispute"
+      },
+      "issues": [
+        "Issue 1 (as supplied)",
+        "Issue 2 (as supplied)",
+        "Issue 3 (as supplied)"
+      ],
+      "subjects": {
+        "a": "Subject A (as supplied)",
+        "b": "Subject B (as supplied)"
+      }
+    },
+    "stages": {
+      "agreed": "Agreed issue (as supplied)",
+      "open": "Open issue (as supplied)"
+    },
+    "dates": {
+      "window": [
+        "Day 1",
+        "Day 2",
+        "Day 3",
+        "Day 4",
+        "Day 5"
+      ],
+      "groupDay": 2
+    },
+    "focusTarget": "issueState",
+    "beforeValue": "● Agreed issue (as supplied)",
+    "afterValue": "◆ Open issue (as supplied)",
+    "detailGeometry": {
+      "zoom": 2.2,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "The sorting board, as supplied",
+      "marker": "Datum changed"
+    }
+  }
+}

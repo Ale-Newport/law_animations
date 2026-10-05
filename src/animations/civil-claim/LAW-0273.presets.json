@@ -1,0 +1,63 @@
+{
+  "animationId": "LAW-0273",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. Party C is a generic fictional newcomer; her card is a request to intervene shown only as supplied (never as granted or refused). The initial relation and the intervention requested are supplied configurations of this example, drawn with equal weight; nothing states a rule for intervention (standing, interest, types, admission, effects or outcomes).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Default fictional example: Party C pushes her card out of her tray into the empty slot of the case file; the initial relation (●) gives way to the supplied configuration “intervention requested” (◆).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "A different fictional dispute about a shared garden: other people, case file, request label and days; the same supplied configuration (◆ intervention requested).",
+      "params": {
+        "parties": [
+          {"name": "Party A", "role": "Claimant", "appearance": {"skin": 4, "hair": "curly", "hairColor": 0, "outfit": 5}},
+          {"name": "Party B", "role": "Respondent", "appearance": {"skin": 1, "hair": "bun", "hairColor": 4, "outfit": 2, "glasses": true}},
+          {"name": "Party C", "role": "Neighbour (fictional)", "appearance": {"skin": 2, "hair": "short", "hairColor": 2, "outfit": 3}}
+        ],
+        "documents": {
+          "caseFile": {"ref": "CF-0952", "title": "Case file · fictional garden dispute"},
+          "request": "Party C · request to take part (as supplied)"
+        },
+        "dates": {"window": ["Day 2", "Day 3", "Day 4", "Day 5", "Day 6"], "requestDay": 1},
+        "annotations": [{"target": "caseFile", "text": "The relation as configured in this example"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long party names and roles, case file, request label, six day labels, configuration captions, prop labels and a long callout (each longer than the baseline; never fewer items).",
+      "params": {
+        "parties": [
+          {"name": "Party A · Maximiliana Oyelaran-Castellanos", "role": "Claimant (fictional)"},
+          {"name": "Party B · Bartholomew Nakamura-Fitzgerald", "role": "Respondent (fictional)"},
+          {"name": "Party C · Theodora Vandermeer-Okonkwo", "role": "Third party (fictional newcomer)"}
+        ],
+        "documents": {
+          "caseFile": {"ref": "CF-2024-0915", "title": "Case file · fictional dispute about a lent bicycle, volume 1"},
+          "request": "Party C · request to intervene in the represented relation (as supplied)"
+        },
+        "dates": {"window": ["Day 01", "Day 02", "Day 03", "Day 04", "Day 05", "Day 06"], "requestDay": 3},
+        "stages": {"initial": "Initial relation of Party A and Party B (as supplied)", "requested": "Intervention requested by Party C (as supplied)"},
+        "objectLabels": {"calendar": "Calendar of the case file (as supplied)", "trays": "Party C · tray of her request card"},
+        "annotations": [{"target": "cards", "text": "Party C’s card is added to the represented relation as a request (as supplied)"}]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "The baseline in Spanish (locale es): every default text in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [{"name": "Parte A", "role": "Demandante"}, {"name": "Parte B", "role": "Demandada"}, {"name": "Parte C", "role": "Tercero (ficticio)"}],
+        "documents": {
+          "caseFile": {"ref": "EXP-0915", "title": "Expediente · disputa ficticia"},
+          "request": "Parte C · solicitud de intervención (aportada)"
+        },
+        "dates": {"window": ["Día 1", "Día 2", "Día 3", "Día 4", "Día 5"], "requestDay": 2},
+        "stages": {"initial": "Relación inicial (aportada)", "requested": "Intervención solicitada (aportada)"},
+        "objectLabels": {"calendar": "Calendario (aportado)", "trays": "Parte C · bandeja"},
+        "annotations": [{"target": "cards", "text": "La tarjeta de la Parte C se añade como solicitud (aportada)"}]
+      }
+    }
+  ]
+}

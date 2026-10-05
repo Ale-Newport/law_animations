@@ -1,0 +1,497 @@
+{
+  "id": "LAW-0253",
+  "slug": "civil-claim-04-story",
+  "title": "Communication to the other party — a case file travels along a supplied notification route",
+  "titleEs": "Comunicación a la contraparte — Microescena con objetos y actores",
+  "category": "civil-claim",
+  "categoryName": "Inicio de reclamaciones civiles",
+  "motif": "Comunicación a la contraparte",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "In a fictional office, Party A lifts the case file from her out-tray into the carrier of a wall track; the file travels along the supplied, editable route through its stops and comes down into Party B’s in-tray, and each leg’s calendar cell opens with its supplied date. The hold shows the supplied state: documented (●) or questioned in this example (◆, with a dashed disputed marker on the supplied leg). The order is only the configured one; nothing states a valid method, a deadline or an effect.",
+  "tags": [
+    "office",
+    "case file",
+    "route",
+    "notification",
+    "calendar",
+    "tray",
+    "parties",
+    "documented",
+    "questioned",
+    "sequence as configured"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/civil-claim/kits/civil-claim-art.js",
+    "src/animations/civil-claim/kits/comunicacion-contraparte.js",
+    "src/primitives/person.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Party A (starts the communication) and Party B (the other party), in this order; fictional (array replaces the previous value)"
+      },
+      "documents": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "caseFile": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "type": "string",
+                "maxLength": 30,
+                "description": "Reference on the file tab"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Title on the file plate"
+              }
+            },
+            "required": [
+              "ref",
+              "title"
+            ],
+            "description": "The case file (expediente) that travels along the route"
+          }
+        },
+        "required": [
+          "caseFile"
+        ],
+        "description": "Documents drawn in the scene (fictional, as supplied)"
+      },
+      "stages": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Stop name"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Stops of the notification route, in the configured order (supplied and editable; descriptive only) (array replaces the previous value)"
+      },
+      "dates": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "legs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Date label"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Date label of each leg of the route, in order (one more than the stops; missing labels are drawn as \"—\") (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "legs"
+        ],
+        "description": "Dates, all supplied placeholders (nothing is inferred from them)"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for Party A"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for Party B"
+          }
+        },
+        "required": [],
+        "description": "Chip captions under each party (empty = \"name · role\")"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "outTray": {
+            "type": "string",
+            "maxLength": 36,
+            "description": "Label plate on Party A’s out-tray"
+          },
+          "inTray": {
+            "type": "string",
+            "maxLength": 36,
+            "description": "Label plate on Party B’s in-tray"
+          },
+          "calendar": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Title of the calendar with the legs’ dates"
+          },
+          "route": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the route (the order shown is only the configured one)"
+          },
+          "documented": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Final-state chip when the communication is supplied as documented"
+          },
+          "questioned": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Final-state chip when the communication is supplied as questioned (only that someone questions it here)"
+          }
+        },
+        "required": [],
+        "description": "Labels printed on the props and tags"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "file",
+                "route",
+                "calendar"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "documented",
+          "questioned"
+        ],
+        "description": "State supplied for the final hold: the communication is documented, or it is questioned in this configured example. No validity, deadline or effect is inferred"
+      },
+      "questionedLeg": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 3,
+        "description": "Zero-based leg that is questioned (only drawn when the final state is \"questioned\")"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Party A",
+        "role": "Sending party"
+      },
+      {
+        "name": "Party B",
+        "role": "Other party"
+      }
+    ],
+    "documents": {
+      "caseFile": {
+        "ref": "CF-0530",
+        "title": "Case file · fictional claim"
+      }
+    },
+    "stages": [
+      "Mail room (fictional)",
+      "Front desk (fictional)"
+    ],
+    "dates": {
+      "legs": [
+        "Day 1 (as supplied)",
+        "Day 2 (as supplied)",
+        "Day 3 (as supplied)"
+      ]
+    },
+    "actorLabels": {
+      "a": "",
+      "b": ""
+    },
+    "objectLabels": {
+      "outTray": "Out · Party A",
+      "inTray": "In · Party B",
+      "calendar": "Leg dates (as supplied)",
+      "route": "Sequence as configured (illustrative)",
+      "documented": "Communication documented (as supplied)",
+      "questioned": "Communication questioned in this example (as supplied)"
+    },
+    "actionProgress": 1,
+    "annotations": [
+      {
+        "target": "calendar",
+        "text": "Each leg’s cell opens as that leg is completed"
+      }
+    ],
+    "finalState": "documented",
+    "questionedLeg": 2
+  }
+}

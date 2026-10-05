@@ -1,0 +1,534 @@
+{
+  "id": "LAW-0243",
+  "slug": "civil-claim-01-contrast",
+  "title": "Pre-claim request — reply received vs reply pending, the same letter in two scenes",
+  "titleEs": "Requerimiento previo — Comparación de dos supuestos",
+  "category": "civil-claim",
+  "categoryName": "Inicio de reclamaciones civiles",
+  "motif": "Requerimiento previo",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical office scenes (side by side, or stacked on tall frames). In both, Party A signs the same letter and pushes it into Party B’s tray, and the same response space opens. Only one supplied fact differs: in A the reply slip comes back along the return rail into Party A’s pocket on the supplied day; in B nothing comes back and the pocket and calendar slots stay empty. A guide outlines both pockets; a neutral note says no outcome is stated.",
+  "tags": [
+    "pre-claim request",
+    "contrast",
+    "reply received",
+    "reply pending",
+    "response space",
+    "calendar",
+    "tray",
+    "pocket",
+    "paired scenes"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/civil-claim/kits/requerimiento-previo.js",
+    "src/animations/civil-claim/kits/civil-claim-art.js",
+    "src/animations/roles/kits/mediation-labels.js",
+    "src/primitives/person.js",
+    "src/primitives/paper.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Party A (sends the pre-claim communication) and Party B (receives it), in this order; fictional (array replaces the previous value)"
+      },
+      "documents": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "caseFile": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "type": "string",
+                "maxLength": 30,
+                "description": "Reference on the file tab"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Title on the file plate"
+              }
+            },
+            "required": [
+              "ref",
+              "title"
+            ],
+            "description": "The case file (expediente) on the shelf"
+          },
+          "letter": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "type": "string",
+                "maxLength": 30,
+                "description": "Reference printed on the letter"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 90,
+                "description": "Supplied contents printed on the letter"
+              }
+            },
+            "required": [
+              "ref",
+              "title"
+            ],
+            "description": "The pre-claim letter"
+          },
+          "replySlip": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Text on the tear-off reply slip"
+          }
+        },
+        "required": [
+          "caseFile",
+          "letter",
+          "replySlip"
+        ],
+        "description": "Documents drawn in the scene (fictional, as supplied)"
+      },
+      "stages": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sent": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Tag where the letter leaves Party A"
+          },
+          "delivered": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Tag at Party B’s tray once the letter lands"
+          },
+          "replied": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Tag at Party A’s reply pocket when a reply is supplied"
+          },
+          "pending": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Tag at Party A’s reply pocket when no reply is supplied"
+          }
+        },
+        "required": [
+          "sent",
+          "delivered",
+          "replied",
+          "pending"
+        ],
+        "description": "Stage captions shown as tags (descriptive only)"
+      },
+      "dates": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sent": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Date line printed on the letter"
+          },
+          "window": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Day label"
+            },
+            "minItems": 2,
+            "maxItems": 7,
+            "description": "Day labels of the response space drawn on the calendar strip (as supplied) (array replaces the previous value)"
+          },
+          "replyDay": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "description": "Zero-based index of the day on which the reply lands (only used when a reply is supplied)"
+          }
+        },
+        "required": [
+          "sent",
+          "window",
+          "replyDay"
+        ],
+        "description": "Dates, all supplied placeholders (nothing is inferred from them)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Party A",
+        "role": "Sender"
+      },
+      {
+        "name": "Party B",
+        "role": "Recipient"
+      }
+    ],
+    "documents": {
+      "caseFile": {
+        "ref": "CF-0412",
+        "title": "Case file · fictional claim"
+      },
+      "letter": {
+        "ref": "Ref. CF-0412/1",
+        "title": "Request to return the fictional item (as supplied)"
+      },
+      "replySlip": "Reply slip (as supplied)"
+    },
+    "stages": {
+      "sent": "Sent by Party A",
+      "delivered": "In Party B’s tray",
+      "replied": "Reply received",
+      "pending": "Reply pending"
+    },
+    "dates": {
+      "sent": "Sent: Day 0 (as supplied)",
+      "window": [
+        "Day 1",
+        "Day 2",
+        "Day 3",
+        "Day 4",
+        "Day 5"
+      ],
+      "replyDay": 2
+    },
+    "scenarioA": {
+      "label": "Reply received",
+      "caption": "A reply comes back in the supplied response space"
+    },
+    "scenarioB": {
+      "label": "Reply pending",
+      "caption": "No reply is in the tray (as supplied)"
+    },
+    "changedFact": "Whether a reply comes back (as supplied)",
+    "sharedFacts": [
+      "Same letter, same parties, same supplied response space"
+    ],
+    "comparisonLabels": {
+      "guide": "Only the reply pocket differs",
+      "neutral": "Two supplied situations side by side; no outcome is stated"
+    }
+  }
+}

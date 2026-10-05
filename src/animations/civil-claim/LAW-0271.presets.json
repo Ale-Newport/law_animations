@@ -1,0 +1,64 @@
+{
+  "animationId": "LAW-0271",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. Joint handling (A) and separate folders (B) are supplied configurations drawn with equal weight; only that one fact differs; each claim folder keeps its own label; no winner, rule, condition, effect or outcome is shown.",
+  "presets": [
+    {"name": "baseline-illustrative", "description": "Default fictional example: three claim folders; A joint handling (●), B separate folders (◆).", "params": {}},
+    {
+      "name": "contrast-or-alternative",
+      "description": "A different fictional deposit dispute with two claim folders and other scenario labels; the same single changed fact.",
+      "params": {
+        "parties": [
+          {"name": "Party A", "role": "Claimant", "appearance": {"skin": 4, "hair": "curly", "hairColor": 0, "outfit": 5}},
+          {"name": "Party B", "role": "Respondent", "appearance": {"skin": 1, "hair": "bun", "hairColor": 4, "outfit": 2, "glasses": true}}
+        ],
+        "documents": {"caseFile": {"ref": "CF-0784", "title": "Case file · fictional deposit dispute"}, "claims": ["Claim 1 (as supplied): return of a deposit", "Claim 2 (as supplied): a key handed back"]},
+        "dates": {"window": ["Day 2", "Day 3", "Day 4", "Day 5", "Day 6"], "gatherDay": 1},
+        "scenarioA": {"label": "One jacket for both folders (as supplied)"},
+        "scenarioB": {"label": "One jacket per folder (as supplied)"},
+        "sharedFacts": ["Same parties, case file and two claim folders"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long party names and roles, case file, four long claim labels, six day labels, long scenario labels, changed fact, shared facts, guide and note (each longer than the baseline; never fewer items).",
+      "params": {
+        "parties": [
+          {"name": "Party A · Maximiliana Oyelaran-Castellanos", "role": "Claimant (fictional)"},
+          {"name": "Party B · Bartholomew Nakamura-Fitzgerald", "role": "Respondent (fictional)"}
+        ],
+        "documents": {
+          "caseFile": {"ref": "CF-2024-0712", "title": "Case file · fictional dispute about a lent bicycle, volume 1"},
+          "claims": [
+            "Claim 1 (as supplied): return of the lent bicycle in spring",
+            "Claim 2 (as supplied): repair of its broken lock and chain",
+            "Claim 3 (as supplied): a signed copy of the original receipt",
+            "Claim 4 (as supplied): a written note about the hand-over"
+          ]
+        },
+        "dates": {"window": ["Day 01", "Day 02", "Day 03", "Day 04", "Day 05", "Day 06"], "gatherDay": 3},
+        "stages": {"joint": "Joint handling of the claim folders (as supplied)", "separate": "Separate folders for each claim (as supplied)"},
+        "scenarioA": {"label": "Joint handling of all claim folders (as supplied)"},
+        "scenarioB": {"label": "Separate folders, one per claim (as supplied)"},
+        "changedFact": "How the claim folders are arranged on the case file in this fictional example",
+        "sharedFacts": ["Same parties, case file, claim folders and calendar in both rooms"],
+        "comparisonLabels": {"guide": "Only the frames round the claim folders differ; each keeps its label", "neutral": "No conclusion is drawn from either arrangement"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "The baseline in Spanish (locale es): every default text in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [{"name": "Parte A", "role": "Demandante"}, {"name": "Parte B", "role": "Demandada"}],
+        "documents": {"caseFile": {"ref": "EXP-0712", "title": "Expediente · disputa ficticia"}, "claims": ["Pretensión 1 (aportada): devolución de una bicicleta", "Pretensión 2 (aportada): arreglo de su candado", "Pretensión 3 (aportada): copia de un recibo"]},
+        "dates": {"window": ["Día 1", "Día 2", "Día 3", "Día 4", "Día 5"], "gatherDay": 2},
+        "stages": {"joint": "Tramitación conjunta (aportada)", "separate": "Carpetas separadas (aportadas)"},
+        "scenarioA": {"label": "Tramitación conjunta (aportada)"},
+        "scenarioB": {"label": "Carpetas separadas (aportadas)"},
+        "changedFact": "Disposición de las carpetas",
+        "sharedFacts": ["Mismas partes, expediente y carpetas"],
+        "comparisonLabels": {"guide": "Solo cambian los marcos; cada etiqueta es propia", "neutral": "Sin conclusión"}
+      }
+    }
+  ]
+}

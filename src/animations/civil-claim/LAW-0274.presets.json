@@ -1,0 +1,74 @@
+{
+  "animationId": "LAW-0274",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. Relationships are drawn only as supplied (no arrowheads unless a causal link is supplied). Party C is a generic fictional newcomer; her card is a request to intervene shown only as supplied (never as granted or refused). The initial relation and the intervention requested are supplied configurations of equal weight; nothing states a rule for intervention.",
+  "presets": [
+    {"name": "baseline-illustrative", "description": "Default fictional example: Party C, her request card in its tray, the case file, Party A, Party B and the calendar; the intervention requested (◆) shown at the gather.", "params": {}},
+    {
+      "name": "contrast-or-alternative",
+      "description": "A different fictional garden dispute: other people, case file, request label and days, a different order of visits starting from the case file.",
+      "params": {
+        "parties": [
+          {"name": "Party A", "role": "Claimant", "appearance": {"skin": 4, "hair": "curly", "hairColor": 0, "outfit": 5}},
+          {"name": "Party B", "role": "Respondent", "appearance": {"skin": 1, "hair": "bun", "hairColor": 4, "outfit": 2, "glasses": true}},
+          {"name": "Party C", "role": "Neighbour (fictional)", "appearance": {"skin": 2, "hair": "short", "hairColor": 2, "outfit": 3}}
+        ],
+        "documents": {"caseFile": {"ref": "CF-0952", "title": "Case file · fictional garden dispute"}, "request": "Party C · request to take part (as supplied)"},
+        "dates": {"window": ["Day 2", "Day 3", "Day 4", "Day 5", "Day 6"], "requestDay": 1},
+        "relationships": [
+          {"from": "partyA", "to": "caseFile", "kind": "relation", "label": "in the initial relation"},
+          {"from": "partyB", "to": "caseFile", "kind": "relation", "label": "also in the initial relation"},
+          {"from": "partyC", "to": "request", "kind": "relation", "label": "supplied by Party C"},
+          {"from": "request", "to": "caseFile", "kind": "communication", "label": "brought to the case file"}
+        ],
+        "traversalOrder": ["partyA", "caseFile", "request", "partyC"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long party names and roles, case file, request label, six day labels, configuration captions, component labels and relation labels (each longer than the baseline; never fewer items).",
+      "params": {
+        "parties": [
+          {"name": "Party A · Maximiliana Oyelaran-Castellanos", "role": "Claimant (fictional)"},
+          {"name": "Party B · Bartholomew Nakamura-Fitzgerald", "role": "Respondent (fictional)"},
+          {"name": "Party C · Theodora Vandermeer-Okonkwo", "role": "Third party (fictional newcomer)"}
+        ],
+        "documents": {
+          "caseFile": {"ref": "CF-2024-0915", "title": "Case file · fictional dispute about a lent bicycle, volume 1"},
+          "request": "Party C · request to intervene in the represented relation (as supplied)"
+        },
+        "dates": {"window": ["Day 01", "Day 02", "Day 03", "Day 04", "Day 05", "Day 06"], "requestDay": 3},
+        "stages": {"initial": "Initial relation of Party A and Party B (as supplied)", "requested": "Intervention requested by Party C (as supplied)"},
+        "elements": [
+          {"id": "request", "label": "Party C · tray of her request card"},
+          {"id": "calendar", "label": "Calendar of the case file (as supplied)"}
+        ],
+        "relationships": [
+          {"from": "partyC", "to": "request", "kind": "relation", "label": "supplied by Party C (fictional newcomer)"},
+          {"from": "request", "to": "caseFile", "kind": "communication", "label": "brought to the case file as a request"},
+          {"from": "partyA", "to": "caseFile", "kind": "relation", "label": "in the initial relation (as supplied)"},
+          {"from": "partyB", "to": "caseFile", "kind": "relation", "label": "also in the initial relation (as supplied)"}
+        ],
+        "relationLabels": {"relation": "relation (as supplied)", "communication": "communication (as supplied)", "sequence": "then (as configured, illustrative)", "causal": "causal (as supplied by the author)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "The baseline in Spanish (locale es): every default text in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [{"name": "Parte A", "role": "Demandante"}, {"name": "Parte B", "role": "Demandada"}, {"name": "Parte C", "role": "Tercero (ficticio)"}],
+        "documents": {"caseFile": {"ref": "EXP-0915", "title": "Expediente · disputa ficticia"}, "request": "Parte C · solicitud de intervención (aportada)"},
+        "dates": {"window": ["Día 1", "Día 2", "Día 3", "Día 4", "Día 5"], "requestDay": 2},
+        "stages": {"initial": "Relación inicial (aportada)", "requested": "Intervención solicitada (aportada)"},
+        "elements": [{"id": "request", "label": "Parte C · bandeja"}, {"id": "calendar", "label": "Calendario (aportado)"}],
+        "relationships": [
+          {"from": "partyC", "to": "request", "kind": "relation", "label": "aportada por la Parte C"},
+          {"from": "request", "to": "caseFile", "kind": "communication", "label": "llevada al expediente"},
+          {"from": "partyA", "to": "caseFile", "kind": "relation", "label": "en la relación inicial"},
+          {"from": "partyB", "to": "caseFile", "kind": "relation", "label": "también en la relación inicial"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "después (según la configuración)", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}

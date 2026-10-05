@@ -1,0 +1,252 @@
+{
+  "animationId": "LAW-0259",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. 'Admitted' and 'disputed' are only states supplied for this example: nothing states an effect of admitting or disputing, a burden of proof, a consequence or an outcome. The two scenes differ only in the state supplied for the first section. Long-labels-stress: coordinator decision (standing stress rule, AUTHORING item 20, 2026-09-26): the shared-strip texts and the roles are capped (see the preset description); scenario labels, names, case file and day labels keep their near-maximum lengths.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Default fictional example: three allegations and three sections; the first section's fact is admitted in A and disputed in B (as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "A different fictional deposit dispute: two allegations; the payment section is admitted in A and disputed in B; one shared fact.",
+      "params": {
+        "parties": [
+          {
+            "name": "Party B",
+            "role": "Respondent (fictional)",
+            "appearance": {
+              "skin": 1,
+              "hair": "bun",
+              "hairColor": 4,
+              "outfit": 2,
+              "glasses": true
+            }
+          },
+          {
+            "name": "Party A",
+            "role": "Claimant (fictional)",
+            "appearance": {
+              "skin": 4,
+              "hair": "curly",
+              "hairColor": 0,
+              "outfit": 5
+            }
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-0977",
+            "title": "Case file · fictional deposit dispute"
+          },
+          "claim": {
+            "title": "Initial claim · Party A",
+            "allegations": [
+              "A deposit was paid on Day 1",
+              "The deposit was not returned"
+            ]
+          },
+          "response": {
+            "title": "Response · Party B",
+            "sections": [
+              {
+                "label": "Section 1 · on the payment",
+                "refers": 0,
+                "state": "disputed"
+              },
+              {
+                "label": "Section 2 · on the return",
+                "refers": 1,
+                "state": "admitted"
+              }
+            ]
+          }
+        },
+        "dates": {
+          "window": [
+            "Day 2",
+            "Day 3",
+            "Day 4",
+            "Day 5"
+          ],
+          "responseDay": 2
+        },
+        "scenarioA": {
+          "label": "Section 1: payment admitted"
+        },
+        "scenarioB": {
+          "label": "Section 1: payment disputed"
+        },
+        "changedFact": "The state supplied for the section on the payment",
+        "sharedFacts": [
+          "Same deposit dispute, parties and calendar"
+        ],
+        "comparisonLabels": {
+          "guide": "Only the payment section’s thread and state differ",
+          "neutral": "Two configured states; nothing follows from either"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths in the scenario labels, party names, case file and day labels; counts as in LAW-0257's capped stress preset. Coordinator decision (standing stress rule, AUTHORING item 20, 2026-09-26): the texts printed in the shared strip and the roles are capped to the longest values found to keep every ratio at text >= 16 px with people at head >= 45 px (the contrast floor of LAW-0251 / LAW-0447) — scenario captions 'The first section marks the delivery allegation admitted, exactly as supplied here' 82 → 'Delivery marked admitted, as supplied' 37; 'The first section marks the delivery allegation disputed, exactly as supplied here' 82 → 'Delivery marked disputed, as supplied' 37; changed fact 'The state supplied for the first section of the structured response (admitted in A, disputed in B), nothing else' 112 → 'The state supplied for section 1 (A admitted, B disputed)' 57; shared facts 2 → 1 ('Same allegations of the initial claim, same sections · Same fictional parties, case file, trays and calendar' 108 → 'Same allegations, sections, parties, trays and calendar' 55); guide 'Only the first section’s thread and its supplied state differ here' 66 → 'Only the first section’s thread and its supplied state differ' 61; neutral note 'Two configured states shown side by side for illustration; no conclusion, winner or effect is drawn' 99 → 'Shown side by side for illustration; no conclusion is drawn' 59; roles 'Respondent answering the claim (fictional)' 42 → 'Respondent (fictional)' 22; 'Claimant who filed the claim (fictional)' 40 → 'Claimant (fictional)' 20; titles 'Initial claim filed by Party A (fictional)' 42 → 'Initial claim by Party A (fictional)' 36; 'Structured response by Party B (fictional)' 42 → 'Response by Party B (fictional)' 31; allegations 'The borrowed item reached Party B on Day 1' 42 → 'The item reached Party B on Day 1' 33; 'The item came back with a cracked casing' 40 → 'It came back with a cracked casing' 34; 'No repair or replacement was offered' 36 → 'No repair or replacement offered' 32; sections 'Section 1 · on the delivery of the item' 39 → 'Section 1 · on the delivery' 27; 'Section 2 · on the condition on return' 38 → 'Section 2 · on the condition' 28; 'Section 3 · on any offer of repair' 34 → 'Section 3 · on any repair offer' 31. The scenario labels and party names keep their near-maximum lengths. True driver: at 1:1 the shared strip (every supplied text printed once at >= 16 px) and the two scenes share the frame height; the scenes' height sets the people. Measured (rendered, 1:1): with the near-maximum values head 30 px; with the first caps 40–41 px; capped as above 48.1 px (seated Party A; Party B 53.7), with the two changed-thread insets at the head of the strip. Tried first: stacked scenes with the strip in a side column, hanging-board scenes, larger people scales (up to 2.1), captions moved from the headers to the strip, and bar-only scene sheets.",
+      "params": {
+        "parties": [
+          {
+            "name": "Party B · Bartholomew Nakamura-Fitzgerald",
+            "role": "Respondent (fictional)"
+          },
+          {
+            "name": "Party A · Maximiliana Oyelaran-Castellanos",
+            "role": "Claimant (fictional)"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-2024-000517-AB",
+            "title": "Case file · fictional claim about a borrowed item, volume 1"
+          },
+          "claim": {
+            "title": "Initial claim by Party A (fictional)",
+            "allegations": [
+              "The item reached Party B on Day 1",
+              "It came back with a cracked casing",
+              "No repair or replacement offered"
+            ]
+          },
+          "response": {
+            "title": "Response by Party B (fictional)",
+            "sections": [
+              {
+                "label": "Section 1 · on the delivery",
+                "refers": 0,
+                "state": "admitted"
+              },
+              {
+                "label": "Section 2 · on the condition",
+                "refers": 1,
+                "state": "disputed"
+              },
+              {
+                "label": "Section 3 · on any repair offer",
+                "refers": 2,
+                "state": "disputed"
+              }
+            ]
+          }
+        },
+        "stages": {
+          "admitted": "Fact marked admitted in this example (as supplied)",
+          "disputed": "Fact marked disputed in this example (as supplied)",
+          "linked": "Each section is linked to one initial allegation"
+        },
+        "dates": {
+          "window": [
+            "Day 1 (supplied)",
+            "Day 2 (supplied)",
+            "Day 3 (supplied)",
+            "Day 4 (supplied)",
+            "Day 5 (supplied)"
+          ],
+          "responseDay": 2
+        },
+        "scenarioA": {
+          "label": "Section 1: delivery admitted in this example",
+          "caption": "Delivery marked admitted, as supplied"
+        },
+        "scenarioB": {
+          "label": "Section 1: delivery disputed in this example",
+          "caption": "Delivery marked disputed, as supplied"
+        },
+        "changedFact": "The state supplied for section 1 (A admitted, B disputed)",
+        "sharedFacts": [
+          "Same allegations, sections, parties, trays and calendar"
+        ],
+        "comparisonLabels": {
+          "guide": "Only the first section’s thread and its supplied state differ",
+          "neutral": "Shown side by side for illustration; no conclusion is drawn"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "The baseline in Spanish (locale es): every default text in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Parte B",
+            "role": "Demandada"
+          },
+          {
+            "name": "Parte A",
+            "role": "Demandante"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "EXP-0517",
+            "title": "Expediente · reclamación ficticia"
+          },
+          "claim": {
+            "title": "Demanda · Parte A",
+            "allegations": [
+              "El objeto se entregó el día 1",
+              "El objeto llegó dañado",
+              "No se ofreció reparación"
+            ]
+          },
+          "response": {
+            "title": "Contestación · Parte B",
+            "sections": [
+              {
+                "label": "Apartado 1 · sobre la entrega",
+                "refers": 0,
+                "state": "admitted"
+              },
+              {
+                "label": "Apartado 2 · sobre el daño",
+                "refers": 1,
+                "state": "disputed"
+              },
+              {
+                "label": "Apartado 3 · sobre la reparación",
+                "refers": 2,
+                "state": "disputed"
+              }
+            ]
+          }
+        },
+        "stages": {
+          "admitted": "Hecho admitido (según lo aportado)",
+          "disputed": "Hecho controvertido (según lo aportado)",
+          "linked": "Cada apartado vinculado a una alegación"
+        },
+        "dates": {
+          "window": [
+            "Día 1",
+            "Día 2",
+            "Día 3",
+            "Día 4",
+            "Día 5"
+          ],
+          "responseDay": 3
+        },
+        "scenarioA": {
+          "label": "Apartado 1: hecho admitido"
+        },
+        "scenarioB": {
+          "label": "Apartado 1: hecho controvertido"
+        },
+        "changedFact": "El estado aportado del apartado 1",
+        "sharedFacts": [
+          "Mismas alegaciones, apartados y partes"
+        ],
+        "comparisonLabels": {
+          "guide": "Solo cambian el hilo y el estado del apartado 1",
+          "neutral": "Sin conclusión"
+        }
+      }
+    }
+  ]
+}

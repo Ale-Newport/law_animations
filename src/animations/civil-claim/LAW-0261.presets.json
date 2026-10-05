@@ -1,0 +1,188 @@
+{
+  "animationId": "LAW-0261",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. The initial and the additional claim are supplied values of this example, shown with equal weight: nothing states a rule for an additional claim (admissibility, connection, set-off, time limits) or any effect, and neither claim cancels, defeats or reduces the other.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Default fictional example: the additional claim is filed into the case file beside the initial claim.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "A different fictional deposit dispute; the additional claim stays with Party B at the lane's end (finalState held, as supplied).",
+      "params": {
+        "parties": [
+          {
+            "name": "Party A",
+            "role": "Claimant (fictional)",
+            "appearance": {
+              "skin": 4,
+              "hair": "curly",
+              "hairColor": 0,
+              "outfit": 5
+            }
+          },
+          {
+            "name": "Party B",
+            "role": "Respondent (fictional)",
+            "appearance": {
+              "skin": 1,
+              "hair": "bun",
+              "hairColor": 4,
+              "outfit": 2,
+              "glasses": true
+            }
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-0733",
+            "title": "Case file · fictional deposit dispute"
+          },
+          "initialClaim": {
+            "title": "Initial claim · Party A",
+            "summary": "Return of a rental deposit"
+          },
+          "additionalClaim": {
+            "title": "Additional claim · Party B",
+            "summary": "Cleaning costs after the move"
+          }
+        },
+        "dates": {
+          "window": [
+            "Day 2",
+            "Day 3",
+            "Day 4",
+            "Day 5",
+            "Day 6"
+          ],
+          "initialDay": 0,
+          "additionalDay": 2
+        },
+        "finalState": "held",
+        "annotations": [
+          {
+            "target": "additionalClaim",
+            "text": "Kept by Party B in this example (as supplied)"
+          }
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels, capped (item 20): long party names, case-file title, claim titles, six day labels, stage captions, prop labels and a long callout at full length; the claim summaries, party roles, case-file reference and day labels capped (each still strictly longer than the baseline). Driver: at 1:1 every supplied text is printed in a column over the scene and the long names in 3-line chips under the people, which leaves the counter too short — uncapped, the rendered head at 1:1 was 24.4 px (floor 45); capped, it is 54.2 px.",
+      "params": {
+        "parties": [
+          {
+            "name": "Party A · Maximiliana Oyelaran-Castellanos",
+            "role": "Claimant (fictional)"
+          },
+          {
+            "name": "Party B · Bartholomew Nakamura-Fitzgerald",
+            "role": "Respondent (fictional)"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-2024-0612",
+            "title": "Case file · fictional dispute about a lent bicycle, volume 1"
+          },
+          "initialClaim": {
+            "title": "Initial claim filed by Party A (fictional)",
+            "summary": "Return of the lent bicycle, as supplied"
+          },
+          "additionalClaim": {
+            "title": "Additional claim filed by Party B (fictional)",
+            "summary": "Payment for the repairs, as supplied"
+          }
+        },
+        "dates": {
+          "window": [
+            "Day 01",
+            "Day 02",
+            "Day 03",
+            "Day 04",
+            "Day 05",
+            "Day 06"
+          ],
+          "initialDay": 0,
+          "additionalDay": 4
+        },
+        "stages": {
+          "initial": "Initial claim of this example (as supplied)",
+          "additional": "Additional claim of this example (as supplied)",
+          "both": "Both claims kept in the case file, side by side"
+        },
+        "objectLabels": {
+          "calendar": "Calendar of the exchange of claims (as supplied)",
+          "trayA": "Outgoing tray · Party A",
+          "trayB": "Outgoing tray · Party B"
+        },
+        "annotations": [
+          {
+            "target": "caseFile",
+            "text": "The additional claim joins the case file; the initial claim stays in its own sleeve"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "The baseline in Spanish (locale es): every default text in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Parte A",
+            "role": "Demandante"
+          },
+          {
+            "name": "Parte B",
+            "role": "Demandada"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "EXP-0612",
+            "title": "Expediente · disputa ficticia"
+          },
+          "initialClaim": {
+            "title": "Demanda inicial · Parte A",
+            "summary": "Devolución de una bicicleta prestada"
+          },
+          "additionalClaim": {
+            "title": "Pretensión adicional · Parte B",
+            "summary": "Pago de reparaciones realizadas"
+          }
+        },
+        "dates": {
+          "window": [
+            "Día 1",
+            "Día 2",
+            "Día 3",
+            "Día 4",
+            "Día 5"
+          ],
+          "initialDay": 0,
+          "additionalDay": 3
+        },
+        "stages": {
+          "initial": "Pretensión inicial (según lo aportado)",
+          "additional": "Pretensión adicional (según lo aportado)",
+          "both": "Ambas pretensiones constan en el expediente"
+        },
+        "objectLabels": {
+          "calendar": "Calendario (según lo aportado)",
+          "trayA": "Parte A",
+          "trayB": "Parte B"
+        },
+        "annotations": [
+          {
+            "target": "caseFile",
+            "text": "La pretensión adicional se suma al expediente; la inicial permanece"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "animationId": "LAW-0276",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. The substituted datum is the supplied configuration of the represented relation: the initial relation (●, Party C's card in her tray) or the intervention requested (◆, her card in the third slot). Both are supplied values of equal weight; the request is never shown as granted or refused; nothing follows from either.",
+  "presets": [
+    {"name": "baseline-illustrative", "description": "Default fictional example: the initial relation (●) is substituted by the intervention requested (◆) inside the lens; Party C’s card moves into the third slot.", "params": {}},
+    {
+      "name": "contrast-or-alternative",
+      "description": "A different fictional garden dispute: other people, case file, request label, days and context caption; the same substitution of the supplied configuration.",
+      "params": {
+        "parties": [
+          {"name": "Party A", "role": "Claimant", "appearance": {"skin": 4, "hair": "curly", "hairColor": 0, "outfit": 5}},
+          {"name": "Party B", "role": "Respondent", "appearance": {"skin": 1, "hair": "bun", "hairColor": 4, "outfit": 2, "glasses": true}},
+          {"name": "Party C", "role": "Neighbour (fictional)", "appearance": {"skin": 2, "hair": "short", "hairColor": 2, "outfit": 3}}
+        ],
+        "documents": {"caseFile": {"ref": "CF-0952", "title": "Case file · fictional garden dispute"}, "request": "Party C · request to take part (as supplied)"},
+        "dates": {"window": ["Day 2", "Day 3", "Day 4", "Day 5", "Day 6"], "requestDay": 1},
+        "beforeValue": "● Party A and Party B only (as supplied)",
+        "afterValue": "◆ Party C’s request added (as supplied)",
+        "contextLabels": {"context": "The garden case as configured here", "marker": "Datum changed"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long party names and roles, case file, request label, six day labels, configuration captions, before and after values and context labels (each longer than the baseline; never fewer items).",
+      "params": {
+        "parties": [
+          {"name": "Party A · Maximiliana Oyelaran-Castellanos", "role": "Claimant (fictional)"},
+          {"name": "Party B · Bartholomew Nakamura-Fitzgerald", "role": "Respondent (fictional)"},
+          {"name": "Party C · Theodora Vandermeer-Okonkwo", "role": "Third party (fictional newcomer)"}
+        ],
+        "documents": {
+          "caseFile": {"ref": "CF-2024-0915", "title": "Case file · fictional dispute about a lent bicycle, volume 1"},
+          "request": "Party C · request to intervene in the represented relation (as supplied)"
+        },
+        "dates": {"window": ["Day 01", "Day 02", "Day 03", "Day 04", "Day 05", "Day 06"], "requestDay": 3},
+        "stages": {"initial": "Initial relation of Party A and Party B (as supplied)", "requested": "Intervention requested by Party C (as supplied)"},
+        "beforeValue": "● Initial relation of Party A and Party B, Party C’s card in her tray (as supplied)",
+        "afterValue": "◆ Intervention requested by Party C, her card in the third slot (as supplied)",
+        "contextLabels": {"context": "The represented relation of this fictional example, as supplied", "marker": "Supplied datum changed here"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "The baseline in Spanish (locale es): every default text in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [{"name": "Parte A", "role": "Demandante"}, {"name": "Parte B", "role": "Demandada"}, {"name": "Parte C", "role": "Tercero (ficticio)"}],
+        "documents": {"caseFile": {"ref": "EXP-0915", "title": "Expediente · disputa ficticia"}, "request": "Parte C · solicitud de intervención (aportada)"},
+        "dates": {"window": ["Día 1", "Día 2", "Día 3", "Día 4", "Día 5"], "requestDay": 2},
+        "stages": {"initial": "Relación inicial (aportada)", "requested": "Intervención solicitada (aportada)"},
+        "beforeValue": "● Relación inicial (aportada)",
+        "afterValue": "◆ Intervención solicitada (aportada)",
+        "contextLabels": {"context": "La relación representada (según lo aportado)", "marker": "Dato cambiado"}
+      }
+    }
+  ]
+}

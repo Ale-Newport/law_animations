@@ -1,0 +1,336 @@
+{
+  "animationId": "LAW-0246",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. Relationships are drawn only as supplied; nothing states which sections a filing needs, a deadline, a court or a consequence. A section without a linked piece is only pending in the configured example.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Party A works from the case file; its three pieces are each assembled into their own section of the written filing; the calendar dates it and it names Party B. Every section ends with its piece in place (as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: no documents piece is linked to the filing (its section stays 'to complete'), the parties and documents differ, one supplied link is a sequence (captioned 'sequence as configured (illustrative)') and the tracer visits a different order with the case file in focus.",
+      "params": {
+        "parties": [
+          {
+            "name": "Party A",
+            "role": "Prepares the filing",
+            "appearance": {
+              "skin": 4,
+              "hair": "curly",
+              "hairColor": 0,
+              "outfit": 5
+            }
+          },
+          {
+            "name": "Party B",
+            "role": "Named in the filing"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-0977",
+            "title": "Case file · fictional deposit dispute"
+          },
+          "filing": {
+            "ref": "Draft F-0977/2",
+            "title": "Written claim · fictional deposit"
+          }
+        },
+        "sections": [
+          {
+            "heading": "Facts",
+            "item": "A fictional deposit of 400 units was paid on Day 1 (hypothetical)"
+          },
+          {
+            "heading": "Requests",
+            "item": "Return of the fictional deposit (as supplied)"
+          },
+          {
+            "heading": "Documents",
+            "item": "Receipt R-3 (fictional)"
+          }
+        ],
+        "dates": {
+          "filing": "Dated: Week 2, Day 3 (as supplied)",
+          "calendar": "Week 2 · Day 3"
+        },
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "caseFile",
+            "kind": "relation",
+            "label": "works from"
+          },
+          {
+            "from": "facts",
+            "to": "filing",
+            "kind": "sequence",
+            "label": "first (as configured)"
+          },
+          {
+            "from": "requests",
+            "to": "filing",
+            "kind": "relation",
+            "label": "assembled into"
+          },
+          {
+            "from": "calendar",
+            "to": "filing",
+            "kind": "relation",
+            "label": "dates"
+          },
+          {
+            "from": "filing",
+            "to": "partyB",
+            "kind": "relation",
+            "label": "names"
+          }
+        ],
+        "focusElement": "caseFile",
+        "traversalOrder": [
+          "caseFile",
+          "facts",
+          "requests",
+          "filing",
+          "partyB"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths in every field: long party names and roles, references and titles, section headings and pieces, dates, states, element labels and relationship labels (eight relationships — the schema maximum — including a Party A → calendar link drawn by the router).",
+      "params": {
+        "parties": [
+          {
+            "name": "Party A · Maximiliana Oyelaran-Castellanos",
+            "role": "Prepares the written filing (fictional)"
+          },
+          {
+            "name": "Party B · Bartholomew Nakamura-Fitzgerald",
+            "role": "Named as the other party in the filing (fictional)"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-2024-000520-AB",
+            "title": "Case file · fictional claim about a damaged parcel, vol. 1"
+          },
+          "filing": {
+            "ref": "Draft F-2024-000520/01",
+            "title": "Written claim · fictional draft about the damaged parcel, volume 1"
+          }
+        },
+        "sections": [
+          {
+            "heading": "Facts as supplied by Party A",
+            "item": "The fictional parcel and its accessories arrived visibly damaged on Day 2 (as supplied)"
+          },
+          {
+            "heading": "Requests as supplied by Party A",
+            "item": "Replace the fictional parcel and its accessories with undamaged ones (as supplied)"
+          },
+          {
+            "heading": "Documents supplied by Party A",
+            "item": "Delivery note D-17, photo set P-3 and a fictional courier receipt (all fictional)"
+          }
+        ],
+        "dates": {
+          "filing": "Dated on the drafting day, Day 6 (as supplied)",
+          "calendar": "Day 6 (as supplied)"
+        },
+        "labels": {
+          "calendar": "Drafting day of this fictional claim"
+        },
+        "states": {
+          "inPlace": "Supplied piece in place (as supplied)",
+          "pending": "Still to complete (as supplied)"
+        },
+        "elements": [
+          {
+            "id": "caseFile",
+            "label": "Case file holding the supplied pieces"
+          },
+          {
+            "id": "filing",
+            "label": "Written filing being assembled"
+          },
+          {
+            "id": "calendar",
+            "label": "Calendar with the drafting day"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "caseFile",
+            "kind": "relation",
+            "label": "works from the case file"
+          },
+          {
+            "from": "facts",
+            "to": "filing",
+            "kind": "relation",
+            "label": "assembled into section 1"
+          },
+          {
+            "from": "requests",
+            "to": "filing",
+            "kind": "relation",
+            "label": "assembled into section 2"
+          },
+          {
+            "from": "documents",
+            "to": "filing",
+            "kind": "relation",
+            "label": "assembled into section 3"
+          },
+          {
+            "from": "calendar",
+            "to": "filing",
+            "kind": "relation",
+            "label": "dates the written filing"
+          },
+          {
+            "from": "filing",
+            "to": "partyB",
+            "kind": "relation",
+            "label": "names the other party"
+          },
+          {
+            "from": "partyA",
+            "to": "calendar",
+            "kind": "relation",
+            "label": "keeps the drafting day"
+          },
+          {
+            "from": "caseFile",
+            "to": "filing",
+            "kind": "relation",
+            "label": "same reference as supplied"
+          }
+        ],
+        "traversalOrder": [
+          "partyA",
+          "caseFile",
+          "facts",
+          "requests",
+          "documents",
+          "filing",
+          "calendar",
+          "partyB"
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: la Parte A trabaja con el expediente; sus tres piezas se incorporan cada una a su apartado del escrito; el calendario lo fecha y el escrito nombra a la Parte B.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Parte A",
+            "role": "Prepara el escrito"
+          },
+          {
+            "name": "Parte B",
+            "role": "Nombrada en el escrito"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "EXP-0520",
+            "title": "Expediente · reclamación ficticia"
+          },
+          "filing": {
+            "ref": "Borrador E-0520/1",
+            "title": "Demanda · borrador ficticio"
+          }
+        },
+        "sections": [
+          {
+            "heading": "Hechos",
+            "item": "El paquete ficticio llegó dañado el día 2"
+          },
+          {
+            "heading": "Peticiones",
+            "item": "Sustituir el paquete ficticio"
+          },
+          {
+            "heading": "Documentos",
+            "item": "Albarán D-17 (ficticio)"
+          }
+        ],
+        "dates": {
+          "filing": "Fecha: día 6 (según lo aportado)",
+          "calendar": "Día 6"
+        },
+        "labels": {
+          "calendar": "Día de redacción"
+        },
+        "states": {
+          "inPlace": "Pieza en su sitio",
+          "pending": "Por completar"
+        },
+        "elements": [
+          {
+            "id": "caseFile",
+            "label": "Expediente"
+          },
+          {
+            "id": "filing",
+            "label": "Escrito"
+          },
+          {
+            "id": "calendar",
+            "label": "Calendario"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "caseFile",
+            "kind": "relation",
+            "label": "trabaja con"
+          },
+          {
+            "from": "facts",
+            "to": "filing",
+            "kind": "relation",
+            "label": "se incorpora a"
+          },
+          {
+            "from": "requests",
+            "to": "filing",
+            "kind": "relation",
+            "label": "se incorpora a"
+          },
+          {
+            "from": "documents",
+            "to": "filing",
+            "kind": "relation",
+            "label": "se incorpora a"
+          },
+          {
+            "from": "calendar",
+            "to": "filing",
+            "kind": "relation",
+            "label": "fecha"
+          },
+          {
+            "from": "filing",
+            "to": "partyB",
+            "kind": "relation",
+            "label": "nombra a"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relacionado (según lo aportado)",
+          "communication": "comunica (según lo aportado)",
+          "sequence": "después (según lo configurado)",
+          "causal": "causa (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

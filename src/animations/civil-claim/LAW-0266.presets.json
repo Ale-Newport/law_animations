@@ -1,0 +1,334 @@
+{
+  "animationId": "LAW-0266",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. The initial version and the proposed modification are supplied values of this example, shown with equal weight; the proposal is only proposed (never shown as approved or rejected), the earlier text stays readable in the change history, and nothing states a rule for amending (permission, time limits, admissibility) or any effect. Only supplied relationships are drawn, without arrowheads (a causal link only when supplied); the order is captioned 'Sequence as configured (illustrative)'.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Default fictional example: six supplied relationships, the case file as the focus; the tracer goes Party A → proposal → trays → history → case file.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "A different fictional deposit dispute: fewer relationships with a configured sequence link, the history as the focus and a different traversal order.",
+      "params": {
+        "parties": [
+          {
+            "name": "Party A",
+            "role": "Claimant",
+            "appearance": {
+              "skin": 4,
+              "hair": "curly",
+              "hairColor": 0,
+              "outfit": 5
+            }
+          },
+          {
+            "name": "Party B",
+            "role": "Respondent",
+            "appearance": {
+              "skin": 1,
+              "hair": "bun",
+              "hairColor": 4,
+              "outfit": 2,
+              "glasses": true
+            }
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-0781",
+            "title": "Case file · fictional deposit dispute"
+          },
+          "writing": {
+            "title": "Claim · Party A",
+            "sections": [
+              "§1 Facts: a flat was rented",
+              "§2 Request: return of the deposit"
+            ]
+          },
+          "modification": {
+            "section": 1,
+            "text": "§2 Request: return of half of the deposit"
+          }
+        },
+        "dates": {
+          "window": [
+            "Day 2",
+            "Day 3",
+            "Day 4",
+            "Day 5",
+            "Day 6"
+          ],
+          "writingDay": 0,
+          "modificationDay": 2
+        },
+        "elements": [
+          {
+            "id": "trays",
+            "label": "The two trays"
+          },
+          {
+            "id": "calendar",
+            "label": "Days of the writing (as supplied)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "proposal",
+            "kind": "relation",
+            "label": "proposed by"
+          },
+          {
+            "from": "proposal",
+            "to": "caseFile",
+            "kind": "relation",
+            "label": "for the writing"
+          },
+          {
+            "from": "caseFile",
+            "to": "history",
+            "kind": "sequence",
+            "label": ""
+          },
+          {
+            "from": "partyB",
+            "to": "history",
+            "kind": "relation",
+            "label": "shown to Party B"
+          }
+        ],
+        "focusElement": "history",
+        "traversalOrder": [
+          "partyA",
+          "proposal",
+          "caseFile",
+          "history"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long party names and roles, case file, writing title, sections and proposal, six day labels, stage captions, component labels, relation labels and relation-kind captions (each longer than the baseline); one more relationship than the baseline.",
+      "params": {
+        "parties": [
+          {
+            "name": "Party A · Maximiliana Oyelaran-Castellanos",
+            "role": "Claimant (fictional)"
+          },
+          {
+            "name": "Party B · Bartholomew Nakamura-Fitzgerald",
+            "role": "Respondent (fictional)"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "CF-2024-0655",
+            "title": "Case file · fictional dispute about a lent bicycle, volume 1"
+          },
+          "writing": {
+            "title": "Claim filed by Party A (fictional)",
+            "sections": [
+              "§1 Facts: a bicycle was lent in spring",
+              "§2 Request: return of the lent bicycle",
+              "§3 Documents: a signed receipt"
+            ]
+          },
+          "modification": {
+            "section": 1,
+            "text": "§2 Request: return of the bicycle, its lock and its lights"
+          }
+        },
+        "dates": {
+          "window": [
+            "Day 01",
+            "Day 02",
+            "Day 03",
+            "Day 04",
+            "Day 05",
+            "Day 06"
+          ],
+          "writingDay": 0,
+          "modificationDay": 4
+        },
+        "stages": {
+          "initial": "Initial version of this section (as supplied)",
+          "proposed": "Proposed modification of this section (supplied)",
+          "history": "Earlier text kept in the change history, readable"
+        },
+        "elements": [
+          {
+            "id": "trays",
+            "label": "Party A’s tray and the change-history tray"
+          },
+          {
+            "id": "calendar",
+            "label": "Calendar of the writing (as supplied)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "proposal",
+            "kind": "relation",
+            "label": "proposed by Party A"
+          },
+          {
+            "from": "proposal",
+            "to": "caseFile",
+            "kind": "relation",
+            "label": "proposed for this writing"
+          },
+          {
+            "from": "proposal",
+            "to": "trays",
+            "kind": "communication",
+            "label": "from Party A’s own tray"
+          },
+          {
+            "from": "trays",
+            "to": "history",
+            "kind": "communication",
+            "label": "earlier text to the history"
+          },
+          {
+            "from": "partyB",
+            "to": "history",
+            "kind": "relation",
+            "label": "shown to Party B too"
+          },
+          {
+            "from": "history",
+            "to": "caseFile",
+            "kind": "relation",
+            "label": "kept beside it, readable"
+          },
+          {
+            "from": "history",
+            "to": "calendar",
+            "kind": "relation",
+            "label": "day of the change (as supplied)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relation between components",
+          "communication": "communication between components",
+          "sequence": "then, in the order configured here",
+          "causal": "causal link (as supplied by the author)"
+        },
+        "traversalOrder": [
+          "partyA",
+          "proposal",
+          "trays",
+          "history",
+          "caseFile"
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "The baseline in Spanish (locale es): every default text in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Parte A",
+            "role": "Demandante"
+          },
+          {
+            "name": "Parte B",
+            "role": "Demandada"
+          }
+        ],
+        "documents": {
+          "caseFile": {
+            "ref": "EXP-0655",
+            "title": "Expediente · disputa ficticia"
+          },
+          "writing": {
+            "title": "Demanda · Parte A",
+            "sections": [
+              "§1 Hechos: se prestó una bicicleta",
+              "§2 Petición: devolución de la bicicleta",
+              "§3 Documentos: un recibo"
+            ]
+          },
+          "modification": {
+            "section": 1,
+            "text": "§2 Petición: devolución de la bicicleta y su candado"
+          }
+        },
+        "dates": {
+          "window": [
+            "Día 1",
+            "Día 2",
+            "Día 3",
+            "Día 4",
+            "Día 5"
+          ],
+          "writingDay": 0,
+          "modificationDay": 3
+        },
+        "stages": {
+          "initial": "Versión inicial (según lo aportado)",
+          "proposed": "Modificación propuesta (según lo aportado)",
+          "history": "El texto anterior se conserva en el historial"
+        },
+        "elements": [
+          {
+            "id": "trays",
+            "label": "Bandeja de la Parte A y del historial"
+          },
+          {
+            "id": "calendar",
+            "label": "Calendario (según lo aportado)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "proposal",
+            "kind": "relation",
+            "label": "la propone"
+          },
+          {
+            "from": "proposal",
+            "to": "caseFile",
+            "kind": "relation",
+            "label": "para el escrito"
+          },
+          {
+            "from": "proposal",
+            "to": "trays",
+            "kind": "communication",
+            "label": "desde su bandeja"
+          },
+          {
+            "from": "trays",
+            "to": "history",
+            "kind": "communication",
+            "label": "el anterior, al historial"
+          },
+          {
+            "from": "partyB",
+            "to": "history",
+            "kind": "relation",
+            "label": "a la vista de la Parte B"
+          },
+          {
+            "from": "history",
+            "to": "caseFile",
+            "kind": "relation",
+            "label": "se conserva"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación",
+          "communication": "comunicación",
+          "sequence": "después (según la configuración)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

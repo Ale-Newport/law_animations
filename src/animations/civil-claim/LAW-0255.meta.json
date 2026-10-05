@@ -1,0 +1,511 @@
+{
+  "id": "LAW-0255",
+  "slug": "civil-claim-04-contrast",
+  "title": "Communication to the other party — documented or questioned: the same route, one supplied detail changed",
+  "titleEs": "Comunicación a la contraparte — Comparación de dos supuestos",
+  "category": "civil-claim",
+  "categoryName": "Inicio de reclamaciones civiles",
+  "motif": "Comunicación a la contraparte",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical office scenes run the same supplied route at the same moments: Party A lifts the case file into the carrier, it travels through the stops (each leg’s date opens) and Party B sets it in her tray. Only one supplied detail differs, on the same leg: in A a solid outline with ● (documented, as supplied), in B a dashed outline — the disputed marker — with ◆ (questioned in this configured example). A guide joins the two outlined legs. No winner, score, validity or effect.",
+  "tags": [
+    "contrast",
+    "route",
+    "case file",
+    "calendar",
+    "trays",
+    "parties",
+    "documented",
+    "questioned",
+    "disputed marker",
+    "sequence as configured"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/civil-claim/kits/civil-claim-art.js",
+    "src/animations/civil-claim/kits/comunicacion-contraparte.js",
+    "src/primitives/person.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Party A (starts the communication) and Party B (the other party), in this order; fictional (array replaces the previous value)"
+      },
+      "documents": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "caseFile": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "type": "string",
+                "maxLength": 30,
+                "description": "Reference on the file tab"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Title on the file plate"
+              }
+            },
+            "required": [
+              "ref",
+              "title"
+            ],
+            "description": "The case file (expediente) that travels along the route"
+          }
+        },
+        "required": [
+          "caseFile"
+        ],
+        "description": "Documents drawn in the scene (fictional, as supplied)"
+      },
+      "stages": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Stop name"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Stops of the notification route, in the configured order (supplied and editable; descriptive only) (array replaces the previous value)"
+      },
+      "dates": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "legs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Date label"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Date label of each leg of the route, in order (one more than the stops; missing labels are drawn as \"—\") (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "legs"
+        ],
+        "description": "Dates, all supplied placeholders (nothing is inferred from them)"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "outTray": {
+            "type": "string",
+            "maxLength": 36,
+            "description": "Label plate on Party A’s out-tray"
+          },
+          "inTray": {
+            "type": "string",
+            "maxLength": 36,
+            "description": "Label plate on Party B’s in-tray"
+          },
+          "calendar": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Title of the calendar with the legs’ dates"
+          },
+          "route": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the route (the order shown is only the configured one)"
+          },
+          "documented": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Final-state chip when the communication is supplied as documented"
+          },
+          "questioned": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Final-state chip when the communication is supplied as questioned (only that someone questions it here)"
+          }
+        },
+        "required": [],
+        "description": "Labels printed in the shared strip (trays, calendar, route caption) and the two state chips"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of scenario A"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of scenario B"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 100,
+        "description": "The single fact that differs between A and B (as supplied)"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 90,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Facts common to both scenes (as supplied) (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the guide joining the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral note under the comparison"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison"
+      },
+      "questionedLeg": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 3,
+        "description": "Zero-based leg that carries the changed detail in both scenes"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Party A",
+        "role": "Sending party"
+      },
+      {
+        "name": "Party B",
+        "role": "Other party"
+      }
+    ],
+    "documents": {
+      "caseFile": {
+        "ref": "CF-0530",
+        "title": "Case file · fictional claim"
+      }
+    },
+    "stages": [
+      "Mail room (fictional)",
+      "Front desk (fictional)"
+    ],
+    "dates": {
+      "legs": [
+        "Day 1 (as supplied)",
+        "Day 2 (as supplied)",
+        "Day 3 (as supplied)"
+      ]
+    },
+    "objectLabels": {
+      "outTray": "Out · Party A",
+      "inTray": "In · Party B",
+      "calendar": "Leg dates (as supplied)",
+      "route": "Sequence as configured (illustrative)",
+      "documented": "Communication documented (as supplied)",
+      "questioned": "Communication questioned in this example (as supplied)"
+    },
+    "scenarioA": {
+      "label": "Communication documented",
+      "caption": "As supplied"
+    },
+    "scenarioB": {
+      "label": "Communication questioned",
+      "caption": "In this example only"
+    },
+    "changedFact": "Changed: documented or questioned (as supplied)",
+    "sharedFacts": [
+      "Everything else is the same in A and B"
+    ],
+    "comparisonLabels": {
+      "guide": "The one detail that differs",
+      "neutral": "No winner, score or conclusion"
+    },
+    "questionedLeg": 2
+  }
+}

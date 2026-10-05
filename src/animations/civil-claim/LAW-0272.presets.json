@@ -1,0 +1,60 @@
+{
+  "animationId": "LAW-0272",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. The before and after values are supplied configurations of equal weight; only that datum changes; every claim folder keeps its own label; nothing states a rule for joining claims, a condition, an effect or an outcome.",
+  "presets": [
+    {"name": "baseline-illustrative", "description": "Default fictional example: three claim folders; the configuration changes from joint handling (●) to separate folders (◆).", "params": {}},
+    {
+      "name": "contrast-or-alternative",
+      "description": "A different fictional deposit dispute with two claim folders; the substitution runs the other way: from separate folders (◆) to joint handling (●).",
+      "params": {
+        "parties": [
+          {"name": "Party A", "role": "Claimant", "appearance": {"skin": 4, "hair": "curly", "hairColor": 0, "outfit": 5}},
+          {"name": "Party B", "role": "Respondent", "appearance": {"skin": 1, "hair": "bun", "hairColor": 4, "outfit": 2, "glasses": true}}
+        ],
+        "documents": {"caseFile": {"ref": "CF-0784", "title": "Case file · fictional deposit dispute"}, "claims": ["Claim 1 (as supplied): return of a deposit", "Claim 2 (as supplied): a key handed back"]},
+        "dates": {"window": ["Day 2", "Day 3", "Day 4", "Day 5", "Day 6"], "gatherDay": 1},
+        "beforeValue": "◆ Separate folders (as supplied)",
+        "afterValue": "● Joint handling (as supplied)",
+        "contextLabels": {"context": "Two folders, each with its own label", "marker": "Datum changed"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long party names and roles, case file, four long claim labels, six day labels, long before/after values and context labels (each longer than the baseline; never fewer items).",
+      "params": {
+        "parties": [
+          {"name": "Party A · Maximiliana Oyelaran-Castellanos", "role": "Claimant (fictional)"},
+          {"name": "Party B · Bartholomew Nakamura-Fitzgerald", "role": "Respondent (fictional)"}
+        ],
+        "documents": {
+          "caseFile": {"ref": "CF-2024-0712", "title": "Case file · fictional dispute about a lent bicycle, volume 1"},
+          "claims": [
+            "Claim 1 (as supplied): return of the lent bicycle in spring",
+            "Claim 2 (as supplied): repair of its broken lock and chain",
+            "Claim 3 (as supplied): a signed copy of the original receipt",
+            "Claim 4 (as supplied): a written note about the hand-over"
+          ]
+        },
+        "dates": {"window": ["Day 01", "Day 02", "Day 03", "Day 04", "Day 05", "Day 06"], "gatherDay": 3},
+        "stages": {"joint": "Joint handling of the claim folders (as supplied)", "separate": "Separate folders for each claim (as supplied)"},
+        "beforeValue": "● Joint handling of all the claim folders in one jacket (as supplied)",
+        "afterValue": "◆ Separate folders, one jacket for each claim folder (as supplied)",
+        "contextLabels": {"context": "Each claim folder keeps its own label, whole and readable", "marker": "Supplied datum changed here"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "The baseline in Spanish (locale es): every default text in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [{"name": "Parte A", "role": "Demandante"}, {"name": "Parte B", "role": "Demandada"}],
+        "documents": {"caseFile": {"ref": "EXP-0712", "title": "Expediente · disputa ficticia"}, "claims": ["Pretensión 1 (aportada): devolución de una bicicleta", "Pretensión 2 (aportada): arreglo de su candado", "Pretensión 3 (aportada): copia de un recibo"]},
+        "dates": {"window": ["Día 1", "Día 2", "Día 3", "Día 4", "Día 5"], "gatherDay": 2},
+        "stages": {"joint": "Tramitación conjunta (aportada)", "separate": "Carpetas separadas (aportadas)"},
+        "beforeValue": "● Tramitación conjunta (aportada)",
+        "afterValue": "◆ Carpetas separadas (aportadas)",
+        "contextLabels": {"context": "Cada carpeta conserva su propia etiqueta", "marker": "Dato cambiado"}
+      }
+    }
+  ]
+}

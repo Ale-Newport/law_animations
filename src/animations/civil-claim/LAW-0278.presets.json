@@ -1,0 +1,82 @@
+{
+  "animationId": "LAW-0278",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. Relationships are drawn only as supplied (no arrowheads unless a causal link is supplied). The issue cards and subjects are generic and fictional. “Agreed issue” only means the supplied list marks the issue as agreed between the parties; “open issue” is a neutral pending state; both have equal weight and nothing is decided or proven. No procedure, court power, binding effect, time limit or outcome is shown.",
+  "presets": [
+    {"name": "baseline-illustrative", "description": "Default fictional example: Party A, the third issue card in her tray, the case file as the sorting board, Party B and the calendar; at the gather the card in the open-issue column (◆) of the Subject B row.", "params": {}},
+    {
+      "name": "contrast-or-alternative",
+      "description": "A different fictional garden dispute: other people, case file, issues, subjects and days, a different order of visits starting from the case file, and the third card supplied as an agreed issue (●).",
+      "params": {
+        "parties": [
+          {"name": "Party A", "role": "Claimant", "appearance": {"skin": 4, "hair": "curly", "hairColor": 0, "outfit": 5}},
+          {"name": "Party B", "role": "Respondent", "appearance": {"skin": 1, "hair": "bun", "hairColor": 4, "outfit": 2, "glasses": true}}
+        ],
+        "documents": {
+          "caseFile": {"ref": "CF-0977", "title": "Case file · fictional garden dispute"},
+          "issues": ["Issue 1 · the fence (as supplied)", "Issue 2 · the hedge (as supplied)", "Issue 3 · the gate (as supplied)"],
+          "subjects": {"a": "Subject A · boundary (as supplied)", "b": "Subject B · access (as supplied)"}
+        },
+        "dates": {"window": ["Day 2", "Day 3", "Day 4", "Day 5", "Day 6"], "groupDay": 1},
+        "relationships": [
+          {"from": "partyB", "to": "caseFile", "kind": "relation", "label": "a party to the example"},
+          {"from": "calendar", "to": "caseFile", "kind": "relation", "label": "grouping day (as supplied)"},
+          {"from": "partyA", "to": "issue", "kind": "relation", "label": "in Party A’s tray"},
+          {"from": "issue", "to": "caseFile", "kind": "communication", "label": "brought to the board"}
+        ],
+        "traversalOrder": ["partyB", "caseFile", "issue", "partyA"],
+        "issueState": "agreed"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long party names and roles, case file, issue labels, subjects, six day labels, state captions, component labels and relation labels (each longer than the baseline; never fewer items).",
+      "params": {
+        "parties": [
+          {"name": "Party A · Maximiliana Oyelaran-Castellanos", "role": "Claimant (fictional)"},
+          {"name": "Party B · Bartholomew Nakamura-Fitzgerald", "role": "Respondent (fictional)"}
+        ],
+        "documents": {
+          "caseFile": {"ref": "CF-2024-0960", "title": "Case file · fictional dispute about a lent bicycle, volume 1"},
+          "issues": ["Issue 1 · how the bicycle looked when it was lent to Party B (as supplied)", "Issue 2 · how the bicycle looked when it came back to Party A (as supplied)", "Issue 3 · the cost of the repair to the rear wheel (as supplied)"],
+          "subjects": {"a": "Subject A · how the lent bicycle looked (as supplied)", "b": "Subject B · repair costs in the example (as supplied)"}
+        },
+        "dates": {"window": ["Day 01", "Day 02", "Day 03", "Day 04", "Day 05", "Day 06"], "groupDay": 3},
+        "stages": {"agreed": "Issue marked as agreed by both parties (as supplied)", "open": "Issue still open between the parties (as supplied)"},
+        "elements": [
+          {"id": "issue", "label": "Party A · tray of her issue cards"},
+          {"id": "calendar", "label": "Calendar of the case file (as supplied)"}
+        ],
+        "relationships": [
+          {"from": "partyA", "to": "issue", "kind": "relation", "label": "kept in Party A’s tray (as supplied)"},
+          {"from": "issue", "to": "caseFile", "kind": "communication", "label": "brought to the sorting board under Subject B"},
+          {"from": "partyB", "to": "caseFile", "kind": "relation", "label": "a party to the fictional example (as supplied)"},
+          {"from": "calendar", "to": "caseFile", "kind": "relation", "label": "day of the grouping on the board (as supplied)"}
+        ],
+        "relationLabels": {"relation": "relation (as supplied)", "communication": "communication (as supplied)", "sequence": "then (as configured, illustrative)", "causal": "causal (as supplied by the author)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "The baseline in Spanish (locale es): every default text in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [{"name": "Parte A", "role": "Demandante"}, {"name": "Parte B", "role": "Demandada"}],
+        "documents": {
+          "caseFile": {"ref": "EXP-0960", "title": "Expediente · disputa ficticia"},
+          "issues": ["Cuestión 1 (aportada)", "Cuestión 2 (aportada)", "Cuestión 3 (aportada)"],
+          "subjects": {"a": "Asunto A (aportado)", "b": "Asunto B (aportado)"}
+        },
+        "dates": {"window": ["Día 1", "Día 2", "Día 3", "Día 4", "Día 5"], "groupDay": 2},
+        "stages": {"agreed": "Cuestión acordada (según lo aportado)", "open": "Cuestión por resolver (según lo aportado)"},
+        "elements": [{"id": "issue", "label": "Parte A · bandeja"}, {"id": "calendar", "label": "Calendario (aportado)"}],
+        "relationships": [
+          {"from": "partyA", "to": "issue", "kind": "relation", "label": "en la bandeja de la Parte A"},
+          {"from": "issue", "to": "caseFile", "kind": "communication", "label": "llevada al tablero"},
+          {"from": "partyB", "to": "caseFile", "kind": "relation", "label": "parte en el ejemplo"},
+          {"from": "calendar", "to": "caseFile", "kind": "relation", "label": "día de la agrupación (aportado)"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "después (según la configuración)", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}

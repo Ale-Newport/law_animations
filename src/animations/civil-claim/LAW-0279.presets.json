@@ -1,0 +1,73 @@
+{
+  "animationId": "LAW-0279",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. The issue cards and subjects are generic and fictional. Scenario A supplies Issue 3 as agreed (the supplied list marks it as agreed between the parties), scenario B as open (a neutral pending state); both have equal weight and nothing is decided or proven. No winner, procedure, court power, binding effect, time limit or outcome is shown.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Default fictional example: the same room twice; Issue 3 supplied as agreed (A, ● nearer column) or as open (B, ◆ farther column).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "A different fictional dispute about a shared garden: other people, case file, issues, subjects and days, with scenario captions; the same single difference.",
+      "params": {
+        "parties": [
+          {"name": "Party A", "role": "Claimant", "appearance": {"skin": 4, "hair": "curly", "hairColor": 0, "outfit": 5}},
+          {"name": "Party B", "role": "Respondent", "appearance": {"skin": 1, "hair": "bun", "hairColor": 4, "outfit": 2, "glasses": true}}
+        ],
+        "documents": {
+          "caseFile": {"ref": "CF-0977", "title": "Case file · fictional garden dispute"},
+          "issues": ["Issue 1 · the fence (as supplied)", "Issue 2 · the hedge (as supplied)", "Issue 3 · the gate (as supplied)"],
+          "subjects": {"a": "Subject A · boundary (as supplied)", "b": "Subject B · access (as supplied)"}
+        },
+        "dates": {"window": ["Day 2", "Day 3", "Day 4", "Day 5", "Day 6"], "groupDay": 1},
+        "scenarioA": {"label": "The gate issue agreed (as supplied)", "caption": "The supplied list marks the gate issue as agreed"},
+        "scenarioB": {"label": "The gate issue open (as supplied)", "caption": "The supplied list leaves the gate issue open"},
+        "changedFact": "The state of the gate issue in the supplied list",
+        "sharedFacts": ["Same parties, case file, subjects and calendar"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long party names and roles, case file, issue labels, subjects, state captions, scenario labels and captions, changed fact, shared facts, guide and note (each longer than the baseline; never fewer items). Coordinator decision (standing rule 2026-09-26, AUTHORING item 20): the first two issue labels are capped — from 74 and 75 to 52 and 53 characters, still strictly longer than the baseline's 21 — because at 1:1 the shared strip left the rooms' heads at 43.5 px (browser-measured, under the 45 px civil-claim contrast stress floor) after the header-caption and people-scale fallbacks; with the cap they measure 46.6 px. The pre-cap copy is production/scratch/civil-claim-10/LAW-0279.presets.precap.json.",
+      "params": {
+        "parties": [
+          {"name": "Party A · Maximiliana Oyelaran-Castellanos", "role": "Claimant (fictional)"},
+          {"name": "Party B · Bartholomew Nakamura-Fitzgerald", "role": "Respondent (fictional)"}
+        ],
+        "documents": {
+          "caseFile": {"ref": "CF-2024-0960", "title": "Case file · fictional dispute about a lent bicycle, volume 1"},
+          "issues": ["Issue 1 · the bicycle when it was lent (as supplied)", "Issue 2 · the bicycle when it came back (as supplied)", "Issue 3 · the cost of the repair to the rear wheel (as supplied)"],
+          "subjects": {"a": "Subject A · how the lent bicycle looked (as supplied)", "b": "Subject B · repair costs in the example (as supplied)"}
+        },
+        "dates": {"window": ["Day 01", "Day 02", "Day 03", "Day 04", "Day 05", "Day 06"], "groupDay": 3},
+        "stages": {"agreed": "Issue marked as agreed by both parties (as supplied)", "open": "Issue still open between the parties (as supplied)"},
+        "scenarioA": {"label": "Issue 3 marked as agreed in the supplied list", "caption": "Scenario A · the supplied list marks the repair issue as agreed between the parties"},
+        "scenarioB": {"label": "Issue 3 left open in the supplied list", "caption": "Scenario B · the supplied list leaves the repair issue open between the parties"},
+        "changedFact": "The state of Issue 3 (the repair to the rear wheel) in the supplied list: marked as agreed or left open",
+        "sharedFacts": ["Same parties, case file, subjects, issue cards and calendar in A and B"],
+        "comparisonLabels": {"guide": "Only the state of Issue 3 and the column it is grouped in differ", "neutral": "No conclusion is drawn from either state; both are shown as supplied"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "The baseline in Spanish (locale es): every default text in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [{"name": "Parte A", "role": "Demandante"}, {"name": "Parte B", "role": "Demandada"}],
+        "documents": {
+          "caseFile": {"ref": "EXP-0960", "title": "Expediente · disputa ficticia"},
+          "issues": ["Cuestión 1 (aportada)", "Cuestión 2 (aportada)", "Cuestión 3 (aportada)"],
+          "subjects": {"a": "Asunto A (aportado)", "b": "Asunto B (aportado)"}
+        },
+        "dates": {"window": ["Día 1", "Día 2", "Día 3", "Día 4", "Día 5"], "groupDay": 2},
+        "stages": {"agreed": "Cuestión acordada (según lo aportado)", "open": "Cuestión por resolver (según lo aportado)"},
+        "scenarioA": {"label": "Cuestión 3 acordada (aportada)"},
+        "scenarioB": {"label": "Cuestión 3 por resolver (aportada)"},
+        "changedFact": "El estado de la cuestión 3 en la lista aportada: acordada o por resolver",
+        "sharedFacts": ["Mismas partes, expediente, asuntos y calendario"],
+        "comparisonLabels": {"guide": "Solo cambian el estado de la cuestión 3 y su columna", "neutral": "Sin conclusión"}
+      }
+    }
+  ]
+}

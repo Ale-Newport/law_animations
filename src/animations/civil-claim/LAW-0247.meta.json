@@ -1,0 +1,555 @@
+{
+  "id": "LAW-0247",
+  "slug": "civil-claim-02-contrast",
+  "title": "Preparing a claim — a complete filing and a filing with one section to complete, side by side",
+  "titleEs": "Preparación de demanda — Comparación de dos supuestos",
+  "category": "civil-claim",
+  "categoryName": "Inicio de reclamaciones civiles",
+  "motif": "Preparación de demanda",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical drafting stages: Party A, a case file with three covered trays and a written filing with three sections. At the change beat the tray flaps fold down: in A every tray holds its supplied piece; in B the configured section’s tray is empty (not supplied in that example). Party A pushes the supplied pieces into their sections in both scenes; in B that section keeps its neutral empty slot. A guide outlines the changed section in both scenes; equal-weight tags, a neutral note and the key. No winner, score, admissibility, deadline or consequence.",
+  "tags": [
+    "claim preparation",
+    "written filing",
+    "comparison",
+    "section to complete",
+    "trays",
+    "case file",
+    "party A"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/civil-claim/kits/preparacion-demanda.js",
+    "src/animations/civil-claim/kits/civil-claim-art.js",
+    "src/animations/civil-claim/kits/requerimiento-previo.js",
+    "src/animations/roles/kits/mediation-labels.js",
+    "src/primitives/person.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Party A (prepares the filing) and Party B (the other party named in it), in this order; fictional (array replaces the previous value)"
+      },
+      "documents": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "caseFile": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "type": "string",
+                "maxLength": 30,
+                "description": "Reference on the file tab"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Title on the file plate"
+              }
+            },
+            "required": [
+              "ref",
+              "title"
+            ],
+            "description": "The case file (expediente) the pieces belong to"
+          },
+          "filing": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "type": "string",
+                "maxLength": 30,
+                "description": "Reference printed on the filing"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 70,
+                "description": "Title printed on the filing"
+              }
+            },
+            "required": [
+              "ref",
+              "title"
+            ],
+            "description": "The written filing being assembled"
+          }
+        },
+        "required": [
+          "caseFile",
+          "filing"
+        ],
+        "description": "Documents drawn in the scene (fictional, as supplied)"
+      },
+      "sections": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "heading": {
+              "type": "string",
+              "maxLength": 36,
+              "description": "Section heading printed on the filing"
+            },
+            "item": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Text on the supplied piece (card) for this section; not drawn while the section is pending"
+            }
+          },
+          "required": [
+            "heading",
+            "item"
+          ],
+          "description": "Section"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "The filing’s sections as configured in this fictional example (nothing states which sections a filing needs): the heading printed on the filing and the text of the supplied piece that goes into it (array replaces the previous value)"
+      },
+      "stages": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "filled": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Tag when every configured section holds its piece"
+          },
+          "pending": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Tag at a section that is still empty in this configured example (not a defect, rejection or penalty)"
+          }
+        },
+        "required": [
+          "filled",
+          "pending"
+        ],
+        "description": "State captions (descriptive only; no conclusion)"
+      },
+      "dates": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "filing": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Date line printed on the filing"
+          },
+          "calendar": {
+            "type": "string",
+            "maxLength": 24,
+            "description": "Day shown on the wall calendar"
+          }
+        },
+        "required": [
+          "filing",
+          "calendar"
+        ],
+        "description": "Dates, supplied placeholders only (nothing is inferred from them)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "calendar": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption on the wall calendar’s hanger bar"
+          }
+        },
+        "required": [],
+        "description": "Labels printed on the props"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description of A"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description of B"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedSection": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2,
+        "description": "Zero-based index of the only section that differs: its piece is supplied in A and not (yet) in B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B (as supplied)"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed section"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Party A",
+        "role": "Prepares the filing"
+      },
+      {
+        "name": "Party B",
+        "role": "Named in the filing"
+      }
+    ],
+    "documents": {
+      "caseFile": {
+        "ref": "CF-0520",
+        "title": "Case file · fictional claim"
+      },
+      "filing": {
+        "ref": "Draft F-0520/1",
+        "title": "Written claim · fictional draft"
+      }
+    },
+    "sections": [
+      {
+        "heading": "Facts",
+        "item": "The fictional parcel arrived damaged on Day 2"
+      },
+      {
+        "heading": "Requests",
+        "item": "Replace the fictional parcel (as supplied)"
+      },
+      {
+        "heading": "Documents",
+        "item": "Delivery note D-17 (fictional)"
+      }
+    ],
+    "stages": {
+      "filled": "All sections filled (as supplied)",
+      "pending": "Section to complete (as supplied)"
+    },
+    "dates": {
+      "filing": "Dated: Day 6 (as supplied)",
+      "calendar": "Day 6"
+    },
+    "labels": {
+      "calendar": "Drafting day"
+    },
+    "scenarioA": {
+      "label": "Filing complete",
+      "caption": "Every piece is supplied (as supplied)"
+    },
+    "scenarioB": {
+      "label": "Section to complete",
+      "caption": "Documents piece not supplied yet"
+    },
+    "changedSection": 2,
+    "changedFact": "Only whether the documents piece is supplied differs",
+    "sharedFacts": [
+      "Same party, case file, draft and day in A and B"
+    ],
+    "comparisonLabels": {
+      "guide": "Only this section differs",
+      "neutral": "Two configured examples side by side; no conclusion is drawn"
+    }
+  }
+}

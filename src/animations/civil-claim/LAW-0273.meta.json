@@ -1,0 +1,505 @@
+{
+  "id": "LAW-0273",
+  "slug": "civil-claim-09-story",
+  "title": "Third-party intervention (illustrative) — a newcomer’s card is brought into a represented procedural relation, as a request supplied",
+  "titleEs": "Intervención de tercero — Microescena con objetos y actores",
+  "category": "civil-claim",
+  "categoryName": "Inicio de reclamaciones civiles",
+  "motif": "Intervención de tercero",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "Side view of an open room. The case file stands open on an easel and represents the procedural relation: Party A’s and Party B’s cards stand in their slots inside one frame (● initial relation). Party C, a fictional newcomer, stands at the left beside her tray, which holds her card — the request to intervene, as supplied. She pushes the card with a push bar out of the tray; it glides on into the empty third slot, drawn exactly like the other cards. Then the initial frame goes and the supplied configuration comes — one frame round all three cards (◆ intervention requested) — and the calendar marks the supplied day. The request is shown only as supplied, never as granted or refused; both configurations have equal weight; no standing test, type of intervention, admission, effect or outcome is shown.",
+  "tags": [
+    "third party",
+    "intervention requested",
+    "initial relation",
+    "newcomer",
+    "case file",
+    "easel",
+    "tray",
+    "push bar",
+    "calendar",
+    "party cards"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/civil-claim/kits/intervencion-tercero.js",
+    "src/animations/civil-claim/kits/reconvencion-ilustrativa.js",
+    "src/animations/civil-claim/kits/civil-claim-art.js",
+    "src/animations/civil-claim/kits/requerimiento-previo.js",
+    "src/primitives/person.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "Party A, Party B (the initial relation) and Party C (the newcomer, a fictional third party), in this order (array replaces the previous value)"
+      },
+      "documents": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "caseFile": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "type": "string",
+                "maxLength": 30,
+                "description": "Reference on the case file"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Title on the case file"
+              }
+            },
+            "required": [
+              "ref",
+              "title"
+            ],
+            "description": "The case file (expediente) standing open on the easel: it represents the procedural relation"
+          },
+          "request": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Label of Party C’s card: the request to intervene, shown as supplied (never as granted or refused)"
+          }
+        },
+        "required": [
+          "caseFile",
+          "request"
+        ],
+        "description": "Documents drawn in the scene (fictional, as supplied)"
+      },
+      "stages": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "initial": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the configuration \"initial relation\" (●: one frame round Party A and Party B)"
+          },
+          "requested": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the configuration \"intervention requested\" (◆: one frame round Party A, Party B and Party C’s card)"
+          }
+        },
+        "required": [
+          "initial",
+          "requested"
+        ],
+        "description": "Captions of the two supplied configurations of the represented relation (descriptive only)"
+      },
+      "dates": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "window": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Day label"
+            },
+            "minItems": 2,
+            "maxItems": 7,
+            "description": "Day labels of the calendar (as supplied) (array replaces the previous value)"
+          },
+          "requestDay": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "description": "Zero-based index of the day Party C’s card is brought to the case file (as supplied)"
+          }
+        },
+        "required": [
+          "window",
+          "requestDay"
+        ],
+        "description": "Dates, all supplied placeholders (nothing is inferred from them)"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for Party A"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for Party B"
+          },
+          "c": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for Party C (the newcomer)"
+          }
+        },
+        "required": [],
+        "description": "Chip captions under each party (empty = \"name · role\")"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "calendar": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Title on the calendar"
+          },
+          "trays": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label plate under Party C’s tray"
+          }
+        },
+        "required": [],
+        "description": "Labels printed on the props"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "caseFile",
+                "cards",
+                "trays",
+                "calendar"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "requested",
+          "initial"
+        ],
+        "description": "Configuration of the represented relation at the hold (as supplied; descriptive only — nothing is inferred from it): \"requested\" (Party C's card is brought into the empty slot and one frame round all three cards is drawn, ◆ intervention requested) or \"initial\" (Party C's card stays in her tray and the initial relation stays drawn, ●). The request is never shown as granted or refused"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Party A",
+        "role": "Claimant"
+      },
+      {
+        "name": "Party B",
+        "role": "Respondent"
+      },
+      {
+        "name": "Party C",
+        "role": "Third party (fictional)"
+      }
+    ],
+    "documents": {
+      "caseFile": {
+        "ref": "CF-0915",
+        "title": "Case file · fictional dispute"
+      },
+      "request": "Party C · request to intervene (as supplied)"
+    },
+    "stages": {
+      "initial": "Initial relation (as supplied)",
+      "requested": "Intervention requested (as supplied)"
+    },
+    "dates": {
+      "window": [
+        "Day 1",
+        "Day 2",
+        "Day 3",
+        "Day 4",
+        "Day 5"
+      ],
+      "requestDay": 2
+    },
+    "actorLabels": {
+      "a": "",
+      "b": "",
+      "c": ""
+    },
+    "objectLabels": {
+      "calendar": "Calendar (as supplied)",
+      "trays": "Party C · tray"
+    },
+    "actionProgress": 1,
+    "annotations": [
+      {
+        "target": "cards",
+        "text": "Party C’s card is added as a request (as supplied)"
+      }
+    ],
+    "finalState": "requested"
+  }
+}
