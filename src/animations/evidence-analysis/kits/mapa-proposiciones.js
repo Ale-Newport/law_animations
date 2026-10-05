@@ -51,10 +51,13 @@ export function boardLayout(inner, P, links, o = {}) {
   const pad = Math.min(inner.w, inner.h) * 0.06;
   const cw0 = (inner.w * (cb - ca) - pad * 2) / nC;
   const k = o.cardScale ?? 1;
-  const cw = Math.min(cw0 * 0.8, inner.h * 0.5) * k;
-  const ch = cw * 0.6;
+  const cw = Math.min(cw0 * 0.88, inner.h * 0.6) * k;
+  const band = clamp(cw * 0.17, 30, 46);
+  // with printed claim text the card grows to hold it (o.claimText(cw) → text block height, or null)
+  const textH = o.claimText ? o.claimText(cw) : null;
+  const ch = textH != null ? Math.max(cw * 0.5, band + textH + Math.max(14, cw * 0.05) + 16) : cw * 0.6;
   const ew0 = (inner.w * (eb - ea) - pad * 2) / nE;
-  const ew = Math.min(ew0 * 0.5, inner.h * 0.3) * k;
+  const ew = Math.min(ew0 * 0.56, inner.h * 0.34) * k;
   const eh = ew * 1.22;
   const tw = ew * 0.62, th = Math.max(26, ew * 0.3);
   const claims = P.claims.map((c, i) => {
@@ -93,7 +96,7 @@ export function boardLayout(inner, P, links, o = {}) {
     e: {x: evid[l.e].x + portOf[l.n].e.dx, y: evid[l.e].y + portOf[l.n].e.dy},
     eLocal: portOf[l.n].e,
   }));
-  return {inner, claims, evid, ends, portOf, cw, ch, ew, eh, tw, th, pad};
+  return {inner, claims, evid, ends, portOf, cw, ch, ew, eh, tw, th, pad, band};
 }
 
 /**
@@ -102,9 +105,9 @@ export function boardLayout(inner, P, links, o = {}) {
  * @param {ReturnType<typeof boardLayout>} BL
  * @param {number} s  render scale of the board (design units → frame px at 1080p ≈ 1)
  */
-export function idFits(P, BL, s = 1) {
+export function idFits(P, BL, s = 1, textF = null) {
   const floor = 20 / s;
-  const band = Math.max(26, BL.ch * 0.3);
+  const band = BL.band;
   let ok = true;
   const claim = P.claims.map(c => {
     const f = fitG(c.id, {maxWidth: BL.cw * 0.62, size: Math.max(floor, band * 0.62), minSize: floor, maxLines: 1, weight: 800});
@@ -116,8 +119,18 @@ export function idFits(P, BL, s = 1) {
     if (!f.ok || BL.th * 0.95 < f.size) ok = false;
     return f;
   });
-  return {claim, ev, ok};
+  const text = textF ? P.claims.map(c => claimTextFit(c.text, BL.cw, textF)) : null;
+  if (text && text.some(f => !f.ok)) ok = false;
+  return {claim, ev, text, ok};
 }
+
+/** Claim text printed on a card of width cw at size F (up to 4 lines, never below F). */
+export function claimTextFit(text, cw, F) {
+  return fitG(text, {maxWidth: cw * 0.86, size: F, minSize: F, maxLines: 4, weight: 500});
+}
+
+/** Height callback for boardLayout's claimText option. */
+export const claimTextH = (P, F) => cw => Math.max(...P.claims.map(c => claimTextFit(c.text, cw, F).height));
 
 /**
  * Card nodes (local origin = top-left of each card; the caller places them with a transform).
@@ -129,7 +142,7 @@ export function idFits(P, BL, s = 1) {
 export function cardNodes(ctx, BL, P, o) {
   const show = ctx.show('key') && o.ids;
   const claims = BL.claims.map((C, i) => g({name: `${o.prefix}-c${i}`, transform: T(C.x, C.y)},
-    claimCardArt(ctx, {w: C.w, h: C.h, index: i, idFit: show ? o.ids.claim[i] : null, ports: C.ports}),
+    claimCardArt(ctx, {w: C.w, h: C.h, band: BL.band, index: i, idFit: show ? o.ids.claim[i] : null, textFit: show && o.ids.text ? o.ids.text[i] : null, ports: C.ports}),
     o.pins !== false ? g({transform: T(C.w / 2, Math.max(8, C.h * 0.08))}, pushpin(Math.max(6, C.h * 0.075))) : null,
   ));
   const evid = BL.evid.map((E, j) => {
@@ -172,9 +185,10 @@ export function linkLine(P, l, kind = l.kind) {
 export function contentRows(ctx, P, links, o = {}) {
   const rows = [];
   if (!ctx.show('key')) return rows;
-  P.claims.forEach((c, i) => rows.push({kind: 'item', icon: 'claim', index: i, text: `${c.id} — ${c.text}`, name: `lg-c${i}`}));
+  if (o.claims !== false) P.claims.forEach((c, i) => rows.push({kind: 'item', icon: 'claim', index: i, text: `${c.id} — ${c.text}`, name: `lg-c${i}`}));
   P.evidence.forEach((e, j) => rows.push({kind: 'item', icon: `ev-${e.kind}`, look: (o.looks || [])[j], text: `${e.id} — ${e.label}`, name: `lg-e${j}`}));
-  if (o.links !== false) links.forEach(l => { if (l.n !== o.skipLink) rows.push({kind: 'item', icon: `line-${l.kind}`, text: linkLine(P, l), name: `lg-l${l.n}`}); });
+  if (o.links === 'each') links.forEach(l => { if (l.n !== o.skipLink) rows.push({kind: 'item', icon: `line-${l.kind}`, text: linkLine(P, l), name: `lg-l${l.n}`}); });
+  else if (o.links !== false) for (const kind of ['direct', 'disputed']) if (links.some(l => l.kind === kind)) rows.push({kind: 'item', icon: `line-${kind}`, text: kind === 'direct' ? P.labels.direct : P.labels.disputed, name: `lg-k-${kind}`});
   if (o.open !== false && ctx.show('all')) P.uncertainties.forEach((u, i) => rows.push({kind: 'item', icon: 'open', text: u, name: `lg-u${i}`}));
   return rows;
 }

@@ -88,7 +88,8 @@ function geom(ctx, F, minF, mode, cwPick) {
   // ---- the card column (card on top, legend / key / tags below it) and the assembly area
   const cwF = cwPick ?? (mode === 'beside' ? (shape === 'landscape' ? 0.3 : 0.36) : (stress ? 0.45 : 0.47));
   const cw = clamp(D.w * cwF, 340, 600);
-  const C = cardText(p, order, cw, F, minF, {stress});
+  // ('above' mode: the right end of each row stays free for the connectors leaving the card towards the parked layers)
+  const C = cardText(p, order, cw, F, minF, {stress, rightPad: mode === 'above' ? 80 : 0});
   if (C.bad) why.push('card-fit');
   const card = {x: m, y: m, w: cw, h: Math.min(D.h - 2 * m, C.need + 6)};
   if (C.need > D.h - 2 * m + 0.5) why.push('card-text');
@@ -135,7 +136,15 @@ function geom(ctx, F, minF, mode, cwPick) {
   const parks = p.schedules.map((_, i) => ({x: parkX + (i % 2 ? sk * 0.7 : 0), y: ns > 1 ? parkTop + i * spread : (parkTop + parkBot) / 2}));
   const discX = rackX + lw + sk + 14 + discR;
   const rowA = k => ({x: card.x + card.w, y: card.y + rows[k].y + rows[k].h / 2});
-  const layerB = P0 => ({x: P0.x + sk / 2, y: P0.y - ld / 2});
+  // a connector ends on the layer edge facing the card: the left edge on the rack (and on the parking column in
+  // 'beside' mode); in 'above' mode the parked layers lie under the card, so there it ends on their right edge and
+  // the end glides to the left edge while the layer slides across (its print is hidden then)
+  const layerB = (P0, slideT = 1) => {
+    const left = {x: P0.x + sk / 2, y: P0.y - ld / 2};
+    if (mode === 'beside') return left;
+    const right = {x: P0.x + lw + sk / 2, y: P0.y - ld / 2};
+    return {x: lerp(right.x, left.x, slideT), y: left.y};
+  };
   // ---- notes
   const placed = [];
   const below = {x: card.x, w: card.w, top: legendTop, bottom: D.h - m};
@@ -285,6 +294,7 @@ const scene = {
     const tSpan = (W.trace[1] - W.trace[0]) / n, sSpan = (W.slide[1] - W.slide[0]) / n;
     const lerpP = (P, Q, t) => ({x: lerp(P.x, Q.x, t), y: lerp(P.y, Q.y, t)});
     const pos = {}; // schedule index → current front-left corner
+    const slideT = {};
     let moving = null, seatedN = 0;
     for (let j = 0; j < n; j++) {
       const k = seq[j];
@@ -295,6 +305,7 @@ const scene = {
       // an arc: out of the parking column, then into the rack at the level's height
       const P = {x: lerp(P0.x, P1.x, t), y: lerp(P0.y, P1.y, ease.outCubic(clamp(t * 1.25))) - Math.sin(Math.PI * t) * 30};
       pos[si] = P;
+      slideT[si] = t;
       if (q > 0 && q < 1) moving = si;
       if (q >= 1) seatedN++;
       const printO = q <= 0 || q >= 1 ? 1 : clamp(Math.abs(q - 0.5) * 2 * 6 - 4.6);
@@ -317,7 +328,7 @@ const scene = {
     for (let j = 0; j < n; j++) {
       const k = seq[j];
       const si = L.order[k];
-      const A = L.rowA(k), B = L.layerB(pos[si]);
+      const A = L.rowA(k), B = L.layerB(pos[si], slideT[si]);
       const q = seg(a, W.trace[0] + j * tSpan, W.trace[0] + (j + 0.9) * tSpan);
       const len = Math.hypot(B.x - A.x, B.y - A.y);
       const d = `M${r(A.x, 1)} ${r(A.y, 1)}L${r(B.x, 1)} ${r(B.y, 1)}`;
@@ -336,7 +347,7 @@ const scene = {
     for (const pl of L.placed) nodes[`${pl.q.name}-g`] = {opacity: r(pl.q.kind === 'key' ? keyO : pl.q.kind === 'legend' ? legO : tagO, 3)};
     const beat = u < BEATS.rest[1] ? 'rest' : u < BEATS.action[1] ? 'action' : u < BEATS.complete[1] ? 'complete' : 'hold';
     // relations: every connector ends on its layer's edge (B) and starts on its list line (A)
-    const ends = L.order.map((si, k) => ({k, si, A: P2(L.rowA(k)), B: P2(L.layerB(pos[si]))}));
+    const ends = L.order.map((si, k) => ({k, si, A: P2(L.rowA(k)), B: P2(L.layerB(pos[si], slideT[si]))}));
     const seatedOrder = L.order.filter((si, k) => pos[si].x === L.levels[k].x && pos[si].y === L.levels[k].y);
     return {
       nodes,

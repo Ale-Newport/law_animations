@@ -227,7 +227,7 @@ export function threadPolyD(pts) {
  */
 export function claimCardArt(ctx, o) {
   const {w, h: hh} = o;
-  const band = Math.max(26, hh * 0.3);
+  const band = o.band ?? Math.max(26, hh * 0.3);
   const parts = [
     h('path', {d: roundRectPath(5, 7, w, hh, 8), fill: '#000', opacity: 0.16}),
     h('path', {d: roundRectPath(0, 0, w, hh, 8), fill: CARD, stroke: INK, 'stroke-width': 2.4}),
@@ -235,11 +235,15 @@ export function claimCardArt(ctx, o) {
   ];
   const pipR = Math.max(4, band * 0.13);
   for (let i = 0; i <= o.index; i++) parts.push(h('circle', {cx: r(w - band * 0.45 - i * pipR * 2.8), cy: r(band / 2), r: r(pipR), fill: '#fff', opacity: 0.9}));
-  const n = o.lines ?? 3;
-  const ly0 = band + (hh - band) * 0.24, lstep = (hh - band) * 0.55 / Math.max(1, n - 1);
-  const bars = [];
-  for (let i = 0; i < n; i++) bars.push(`M${r(w * 0.1)} ${r(ly0 + i * lstep)}H${r(w * (i === n - 1 ? 0.6 : 0.9))}`);
-  parts.push(h('path', {d: bars.join(''), stroke: CARD_LINE, 'stroke-width': r(Math.max(3, hh * 0.05), 2), 'stroke-linecap': 'round', fill: 'none'}));
+  if (o.textFit) {
+    parts.push(textAt(o.textFit, {x: w * 0.07, y: band + Math.max(6, (hh - band) * 0.08), fill: INK}));
+  } else {
+    const n = o.lines ?? 3;
+    const ly0 = band + (hh - band) * 0.24, lstep = (hh - band) * 0.55 / Math.max(1, n - 1);
+    const bars = [];
+    for (let i = 0; i < n; i++) bars.push(`M${r(w * 0.1)} ${r(ly0 + i * lstep)}H${r(w * (i === n - 1 ? 0.6 : 0.9))}`);
+    parts.push(h('path', {d: bars.join(''), stroke: CARD_LINE, 'stroke-width': r(Math.max(3, hh * 0.05), 2), 'stroke-linecap': 'round', fill: 'none'}));
+  }
   if (o.idFit) parts.push(textAt(o.idFit, {x: w * 0.07, y: band / 2 - o.idFit.size * 0.55, fill: '#fff'}));
   for (const px of o.ports || []) parts.push(g({transform: T(px, hh - Math.max(6, hh * 0.08))}, eyelet(Math.max(5, hh * 0.055))));
   return g({name: o.name}, parts);

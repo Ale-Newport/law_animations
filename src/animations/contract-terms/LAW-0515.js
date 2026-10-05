@@ -299,7 +299,7 @@ const scene = {
         nodes[`${which}-chip${si}`] = {transform: T(r(P.x, 2), r(P.y, 2))};
         chipsLook.push({si, x: r(P.x), y: r(P.y)});
       });
-      const fPre = {x: L.lcW - 4, y: L.slotY(0) + (L.slotY(n - 1) - L.slotY(0)) / 2 - L.chipS / 2};
+      const fPre = {x: L.lcW + 4, y: L.slotY(0) + (L.slotY(n - 1) - L.slotY(0)) / 2 - L.chipS / 2};
       const fPost = {x: lcChipX, y: L.slotY(ord.indexOf(L.O.f)) - L.chipS / 2};
       const arc = Math.sin(Math.PI * cq) * 30;
       const FP = {x: lerp(fPre.x, fPost.x, cq) + arc, y: lerp(fPre.y, fPost.y, cq)};

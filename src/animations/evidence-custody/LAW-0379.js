@@ -239,7 +239,8 @@ const scene = {
     // guide rings: the changed cell + tag + row space band, in both stations
     const guide = sides.map(sd => {
       const c = G.cells[k];
-      if (G.orient === 'h') return {x: sd.ox + c.x - G.gC / 2 - 2, y: sd.oy + c.y - 10, w: G.pitch + 4, h: G.sheet.y + G.sheet.h - c.y + 18};
+      // horizontal station: the guide rings the changed cell with its tag; the row ring marks its entry slot
+      if (G.orient === 'h') return {x: sd.ox + c.x - G.gC / 2 - 2, y: sd.oy + c.y - 10, w: G.pitch + 4, h: G.tags[k].hole.y + G.tagH * 0.75 - c.y + 10};
       const x0 = sd.ox + c.x - 10, x1 = sd.ox + G.sheet.x + G.sheet.w + 8;
       const y0 = sd.oy + c.y - G.gC / 2 - 4, y1 = sd.oy + c.y + c.h + G.gC / 2 + 4;
       return {x: x0, y: y0, w: x1 - x0, h: y1 - y0};
@@ -290,7 +291,7 @@ const scene = {
       Object.assign(nodes, stationProps(G, sd.N, {prefix: sd.pref, ox: sd.ox, oy: sd.oy}, s.items));
       const pa = sd.arm.pose(sd.shoulder, s.hand, 1);
       Object.assign(nodes, pa.nodes);
-      nodes[`ring${sd.pref}`] = {opacity: r(ringK, 3)};
+      nodes[`ring${sd.pref}`] = {opacity: r(G.orient === "h" ? Math.max(ringK, guideK) : ringK, 3)};
       nodes[`guide${sd.pref}`] = {opacity: r(guideK, 3)};
       const look = {states: s.items.map(it => it.state), links: s.items.map(it => r(it.link, 3)), rows: s.items.map(it => r(it.row, 3)), hand: R2({x: s.hand.x - sd.ox, y: s.hand.y - sd.oy})};
       looks.push(look);

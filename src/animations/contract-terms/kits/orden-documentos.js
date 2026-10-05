@@ -167,7 +167,7 @@ export function cardText(p, order, w, F, minF, o = {}) {
   const tab = F * 1.4;
   const rowX = padX + lead;
   const labelX = rowX + disc * 2 + 12 + tab + 12;
-  const labelW = w - labelX - 22;
+  const labelW = w - labelX - 22 - (o.rightPad ?? 0);
   const rows = order.map((si, k) => fitK(o.rowText ? o.rowText(k, si) : p.schedules[si].label, {maxWidth: labelW, size: F, minSize: minF, maxLines: stress ? 5 : 3, weight: 600}));
   const rowH = rows.map(f => Math.max(f.height, disc * 2, tab) + F * 0.8);
   const headingY = headH + F * 0.75;

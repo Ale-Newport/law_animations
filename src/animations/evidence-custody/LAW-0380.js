@@ -24,6 +24,7 @@ import {seg, clamp, r, ease, lerp} from '../../core/time.js';
 import {str, int, obj, num, oneOf} from '../../schemas/fields.js';
 import {T} from '../../core/transform.js';
 import {lens} from '../../frameworks/lens.js';
+import {roundRectPath} from '../../core/geometry.js';
 import {changedMarker} from '../../primitives/markers.js';
 import {localised, benchNode, panelLayout, fitG, textAt, WRITE_INK, INK, R2} from './kits/evidence-art.js';
 import {
@@ -104,7 +105,7 @@ const scene = {
     // the station and legend are composed in a reduced design box so the lens always has a free side (right on wide
     // and square frames, bottom on tall ones); the lens may still overlap the dimmed legend
     const tallF = ctx.view.shape === 'portrait';
-    const C = composeScene(ctx, {n, texts, title: null, rows: () => legendRows(ctx, P, k, after), noBag: true, tagText: ctx.show('key'), noExpand: true, sheetFrac: [0.4, 0.5, 0.6], minS: 30, maxS: ctx.view.shape === 'square' ? 108 : 170, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...[...P.records.map(rw => rw.field), P.beforeValue, P.afterValue].map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null}, panelLayout);
+    const C = composeScene(ctx, {n, texts, title: null, rows: () => legendRows(ctx, P, k, after), noBag: true, tagText: ctx.show('key'), noExpand: true, sheetFrac: [0.4, 0.5, 0.6], minS: 30, maxS: ctx.view.shape === 'square' ? 108 : tallF ? 125 : 170, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...[...P.records.map(rw => rw.field), P.beforeValue, P.afterValue].map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null}, panelLayout);
     const G = C.st.G, SF = C.st.SF;
     const X = v => C.ox + v, Y = v => C.oy + v;
     const linked = P.items.map((_, i) => i !== k && Boolean(texts[i]));
@@ -130,8 +131,11 @@ const scene = {
     // while the lens is open the context steps aside (scaled about its corner into one part of the frame); at rest
     // and in the hold it fills its full composition. Its text never drops below ~17.5 px.
     const B0 = C.bench;
-    const reg = tallF ? {x: 0, y: 0, w: DW, h: DH * 0.5} : {x: 0, y: 0, w: DW * 0.56, h: DH};
-    const sMin = ctx.show('key') ? Math.min(1, (C.F >= 19.5 ? 20 : 16.5) / C.F) : 0.5;
+    const reg = tallF ? {x: 0, y: 0, w: DW, h: DH * 0.44} : {x: 0, y: 0, w: DW * 0.45, h: DH};
+    // while stepped aside the context's list text and small tag references fade to a dim backdrop (the lens holds the
+    // detail); only the focus tag's reference stays legible until the lens takes it over, so it bounds the scale
+    const fbSize = Math.max(17, Math.min(C.F, G.tagH * 0.5));
+    const sMin = ctx.show('key') ? Math.min(1, Math.max(0.5, 17 / fbSize)) : 0.45;
     const sc = Math.min(1, Math.max(sMin, Math.min(reg.w / B0.w, reg.h / B0.h)));
     const step = {s: sc, x: reg.x - B0.x * sc + (tallF ? (reg.w - B0.w * sc) / 2 : 0), y: reg.y - B0.y * sc + (tallF ? 0 : (reg.h - B0.h * sc) / 2)};
     const srcRest = src;
@@ -178,6 +182,13 @@ const scene = {
       const parts = [];
       if (L.before >= 0) parts.push(linkLine(`${pref}-lb`, L.tip, L.badge(L.before), lw).node);
       if (L.after >= 0) parts.push(linkLine(`${pref}-la`, L.tip, L.badge(L.after), lw).node);
+      // the substituted tag also changes physically (blue-grey re-written card with a second punched hole), so the
+      // swap reads with labels hidden; neutral colour, no verdict
+      const TGm = L.N.TG;
+      parts.push(g({name: `${pref}-tagx`, opacity: 0, transform: T(C.ox + t.hole.x, C.oy + t.hole.y, t.angle)},
+        h('path', {d: roundRectPath(TGm.x0 + TGm.h * 0.3, -TGm.h / 2 + 3, TGm.x1 - TGm.x0 - TGm.h * 0.3 - 3, TGm.h - 6, 6), fill: '#b9cde0', stroke: INK, 'stroke-width': 1.8}),
+        h('circle', {cx: r(TGm.x1 - TGm.h * 0.35), cy: 0, r: r(TGm.holeR * 1.3), fill: '#3f6b5a', stroke: INK, 'stroke-width': 1.4}),
+        h('path', {d: `M${r(TGm.rx0)} ${r(TGm.h * 0.22)}h${r((TGm.rx1 - TGm.rx0) * 0.5)}`, stroke: WRITE_INK, 'stroke-width': 2.4, 'stroke-linecap': 'round'})));
       parts.push(tagText(pref, L.fb, 'vb'), tagText(pref, L.fa, 'va'));
       return parts;
     };
@@ -232,13 +243,18 @@ const scene = {
     nodes['st-va'] = {opacity: ctxA};
     nodes['lz-vb'] = {opacity: r(lensB, 3), transform: T(L.C.ox + G.tags[k].hole.x, L.C.oy + G.tags[k].hole.y - lifted * G.tagH * 0.8, G.tags[k].angle)};
     nodes['lz-va'] = {opacity: r(lensA, 3)};
+    nodes['lz-tagx'] = {opacity: r(lensOpen ? written : 0, 3)};
+    nodes['st-tagx'] = {opacity: shown === 'after' && !lensOpen ? 1 : 0};
     nodes['lz-trace'] = {opacity: r(seg(u, ...W.trace), 3)};
     Object.assign(nodes, L.lensObj.frame(open, open));
     const stepK = ease.inOutCubic(seg(u, ...W.stepOut)) * (1 - ease.inOutCubic(seg(u, ...W.stepBack)));
     const sk = lerp(1, L.step.s, stepK);
     nodes.ctxg = {transform: T(L.step.x * stepK, L.step.y * stepK, 0, sk)};
     // the small cell-tag references would fall under 16 px while stepped: they fade out and back (rows keep them)
-    for (let i = 0; i < n; i++) if (i !== k && L.tagSmall) nodes[`st-tt${i}`] = {opacity: r(1 - stepK, 3)};
+    for (let i = 0; i < n; i++) {
+      if (i !== k) nodes[`st-tt${i}`] = {opacity: r(1 - stepK, 3)};
+      nodes[`st-row${i}`] = {opacity: r(1 - 0.85 * stepK, 3)};
+    }
     const mk = seg(u, ...W.marker);
     nodes.marker = {opacity: r(mk, 3)};
     if (L.C.PL) for (const col of L.C.PL.cols) for (const row of col.rows) if (row.name === 'state-tag') nodes[row.name] = {opacity: r(mk, 3)};

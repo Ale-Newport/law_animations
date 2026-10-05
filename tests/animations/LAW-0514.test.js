@@ -43,9 +43,10 @@ ratioChecks(ID, 'connectors land on their elements; non-crossing at the hold; le
   {at: [0.2], fn: 's.legendKind.every(b => s.parkBoxes.every(q => b.x >= q.x + q.w || b.x + b.w <= q.x || b.y >= q.y + q.h || b.y + b.h <= q.y))', label: 'legend clear of the parked layers'},
 ]);
 
-// every connector end is ON its layer: the end dot keeps a constant offset from the layer's rendered translation while
-// the layer slides (every ratio), and sits where the semantic end says
-test(`${ID}: connector ends stay on their layer's edge while it slides (rendered, every ratio)`, async ({page}) => {
+// every connector end is ON its layer: the end dot sits where the semantic end says, and keeps a constant offset from
+// the layer's rendered translation while the layer is parked and again once it is seated (every ratio). (In 'above'
+// mode the end glides from the parked layer's right edge to its left edge during the slide.)
+test(`${ID}: connector ends stay on their layer's edge (rendered, every ratio)`, async ({page}) => {
   await openHost(page);
   const out = await page.evaluate(async ([ratios]) => {
     const def = await window.__lib.load('LAW-0514');
@@ -56,21 +57,24 @@ test(`${ID}: connector ends stay on their layer's edge while it slides (rendered
       document.getElementById('slots').appendChild(el);
       const x = def.create(el, {width: w, height: h});
       await x.ready;
-      const off = {};
-      for (const u of [0.3, 0.42, 0.45, 0.48, 0.5, 0.53, 0.55, 0.58, 0.6, 0.63, 0.65, 0.68, 0.7]) {
-        x.seek(u * x.durationMs);
-        const s = def.evaluate({width: w, height: h, timeMs: u * x.durationMs}).semantic;
-        for (const e of s.ends) {
-          const lay = x.element.querySelector(`[data-node="lay${e.si}"]`);
-          const m = (lay.getAttribute('transform') || '').match(/^translate\(([-0-9.]+) ([-0-9.]+)\)$/);
-          const b = x.element.querySelector(`[data-node="rel${e.k}-line"]`);
-          const d = (b.getAttribute('d') || '').match(/L([-0-9.]+) ([-0-9.]+)$/);
-          if (!m || !d) { bad.push(`${ratio} u${u} k${e.k} parse`); continue; }
-          n++;
-          const o = {x: parseFloat(d[1]) - parseFloat(m[1]), y: parseFloat(d[2]) - parseFloat(m[2])};
-          if (!off[e.k]) off[e.k] = o;
-          else if (Math.abs(o.x - off[e.k].x) > 0.6 || Math.abs(o.y - off[e.k].y) > 0.6) bad.push(`${ratio} u${u} k${e.k} end moved off its layer`);
-          if (Math.abs(parseFloat(d[1]) - e.B.x) > 1 || Math.abs(parseFloat(d[2]) - e.B.y) > 1) bad.push(`${ratio} u${u} k${e.k} end not at B`);
+      for (const [phase, us] of [['parked', [0.36, 0.38, 0.4, 0.42]], ['seated', [0.72, 0.8, 0.9]], ['slide', [0.45, 0.5, 0.55, 0.6, 0.65, 0.7]]]) {
+        const off = {};
+        for (const u of us) {
+          x.seek(u * x.durationMs);
+          const s = def.evaluate({width: w, height: h, timeMs: u * x.durationMs}).semantic;
+          for (const e of s.ends) {
+            const lay = x.element.querySelector(`[data-node="lay${e.si}"]`);
+            const m = (lay.getAttribute('transform') || '').match(/^translate\(([-0-9.]+) ([-0-9.]+)\)$/);
+            const b = x.element.querySelector(`[data-node="rel${e.k}-line"]`);
+            const d = (b.getAttribute('d') || '').match(/L([-0-9.]+) ([-0-9.]+)$/);
+            if (!d) { bad.push(`${ratio} u${u} k${e.k} parse`); continue; }
+            n++;
+            if (Math.abs(parseFloat(d[1]) - e.B.x) > 1 || Math.abs(parseFloat(d[2]) - e.B.y) > 1) bad.push(`${ratio} u${u} k${e.k} end not at B`);
+            if (phase === 'slide' || !m) continue;
+            const o = {x: parseFloat(d[1]) - parseFloat(m[1]), y: parseFloat(d[2]) - parseFloat(m[2])};
+            if (!off[e.k]) off[e.k] = o;
+            else if (Math.abs(o.x - off[e.k].x) > 0.6 || Math.abs(o.y - off[e.k].y) > 0.6) bad.push(`${ratio} ${phase} u${u} k${e.k} end moved off its layer`);
+          }
         }
       }
       x.destroy();
