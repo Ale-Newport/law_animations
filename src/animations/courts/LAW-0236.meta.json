@@ -1,0 +1,486 @@
+{
+  "id": "LAW-0236",
+  "slug": "courts-09-inspect",
+  "title": "Court archive — inspecting the file's supplied state and substituting it",
+  "titleEs": "Archivo judicial — Inspección y cambio de un dato",
+  "category": "courts",
+  "categoryName": "Órganos y espacios judiciales",
+  "motif": "Archivo judicial",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "In a generic, fictional archive room the located file lies in the ● tray of its supplied state. A lens enlarges the counter, the two trays, the clerk and the tag with the datum; the datum is substituted (\"active\" → \"archived\", the old value kept as \"was\"), and only the dependent geometry follows: the clerk moves the file to the ◆ tray. The lens closes onto the updated context with a neutral changed-datum marker. \"Archived\" is only another tray and shelf block here: no rule, time span or outcome.",
+  "tags": [
+    "floor plan",
+    "inspect",
+    "lens",
+    "archive",
+    "case file",
+    "state",
+    "tray",
+    "datum",
+    "substitution",
+    "active",
+    "archived"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/courts/kits/courts-art.js",
+    "src/animations/courts/kits/archivo-judicial.js",
+    "src/animations/courts/kits/asignacion-de-organo.js",
+    "src/primitives/markers.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "courts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "building": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the building (fictional)"
+          },
+          "archive": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the archive room (fictional)"
+          },
+          "active": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the ● block: shelves for files supplied as active (fictional)"
+          },
+          "archived": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the ◆ block: shelves for files supplied as archived — only a different shelf location in this example (fictional)"
+          }
+        },
+        "required": [
+          "building",
+          "archive",
+          "active",
+          "archived"
+        ],
+        "description": "Generic, fictional building and archive room with its two shelf blocks: ● for files supplied as active, ◆ for files supplied as archived. No real court, building shape, emblem or jurisdiction"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "rails": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the mobile shelving units on their floor rails"
+          },
+          "locator": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the locator link from the counter to the unit lamps"
+          }
+        },
+        "required": [
+          "rails",
+          "locator"
+        ],
+        "description": "The mobile shelving and the locator link (as configured)"
+      },
+      "seats": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "counter": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the counter with its two trays (● and ◆)"
+          },
+          "clerk": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "maxLength": 40,
+                "description": "Neutral label of the clerk (fictional)"
+              },
+              "appearance": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "skin": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 5,
+                    "description": "Skin tone index 0–5"
+                  },
+                  "hair": {
+                    "type": "string",
+                    "enum": [
+                      "short",
+                      "long",
+                      "bun",
+                      "curly",
+                      "buzz",
+                      "scarf"
+                    ],
+                    "description": "Hair style"
+                  },
+                  "hairColor": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 6,
+                    "description": "Hair colour index 0–6"
+                  },
+                  "outfit": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 7,
+                    "description": "Outfit colour index 0–7"
+                  },
+                  "glasses": {
+                    "type": "boolean",
+                    "description": "Wears glasses"
+                  }
+                },
+                "required": [],
+                "description": "Optional appearance overrides; defaults derive from the seed (never tied to a role)"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "description": "The generic clerk (fictional)"
+          }
+        },
+        "required": [
+          "counter",
+          "clerk"
+        ],
+        "description": "The counter and the generic clerk"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sequence": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption shown wherever an order is drawn"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 110,
+            "description": "Neutral key shown with the labels (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "sequence",
+          "key"
+        ],
+        "description": "Editable built-in captions"
+      },
+      "file": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Identifier printed on the request slip (fictional)"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "active",
+              "archived"
+            ],
+            "description": "State of the file as supplied: active = kept on the ● shelves, archived = kept on the ◆ shelves (only a shelf location in this configured example)"
+          }
+        },
+        "required": [
+          "identifier",
+          "state"
+        ],
+        "description": "The case file located by its identifier (fictional)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "fileState"
+        ],
+        "description": "Detail that is enlarged and substituted: the tag with the file's supplied state (and the tray it sends the file to)"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "The file's state as supplied before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "The alternative supplied state"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Largest magnification of the lens, against the context at rest"
+          },
+          "before": {
+            "type": "string",
+            "enum": [
+              "active",
+              "archived"
+            ],
+            "description": "The tray (and cue) the before value draws: active = ●, archived = ◆"
+          },
+          "after": {
+            "type": "string",
+            "enum": [
+              "active",
+              "archived"
+            ],
+            "description": "The tray (and cue) the after value draws: active = ●, archived = ◆"
+          }
+        },
+        "required": [],
+        "description": "Lens and the geometry each value draws"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Context caption (the single editorial note)"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "courts": {
+      "building": "Generic building (fictional)",
+      "archive": "Archive room (fictional)",
+      "active": "Active files (fictional)",
+      "archived": "Archived files (fictional)"
+    },
+    "routes": {
+      "rails": "Mobile shelving units on floor rails",
+      "locator": "Locator link to the unit lamps (as configured)"
+    },
+    "seats": {
+      "counter": "Counter with two trays, ● and ◆",
+      "clerk": {
+        "name": "Clerk (generic)"
+      }
+    },
+    "labels": {
+      "sequence": "Sequence as configured (illustrative)",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "file": {
+      "identifier": "File 24-017 (fictional)",
+      "state": "active"
+    },
+    "focusTarget": "fileState",
+    "beforeValue": "State: active (as supplied)",
+    "afterValue": "State: archived (as supplied)",
+    "detailGeometry": {
+      "zoom": 2.2,
+      "before": "active",
+      "after": "archived"
+    },
+    "contextLabels": {
+      "context": "The file after the shelves located it, as configured",
+      "marker": "Changed: one supplied datum, the file's state"
+    }
+  }
+}

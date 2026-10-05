@@ -1,0 +1,546 @@
+{
+  "id": "LAW-0207",
+  "slug": "courts-02-contrast",
+  "title": "Editable hierarchy — the same scene with one body placed on two supplied levels",
+  "titleEs": "Jerarquía judicial editable — Comparación de dos supuestos",
+  "category": "courts",
+  "categoryName": "Órganos y espacios judiciales",
+  "motif": "Jerarquía judicial editable",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical podium scenes of generic fictional buildings. The only supplied difference is the level at which the configuration places one body: the origin level in A, the configured review level in B. The podiums rise in parallel; the focus body, its links and their lanes differ, and a guide joins the two placements. No winner, no outcome, and no claim that any review happens.",
+  "tags": [
+    "hierarchy",
+    "contrast",
+    "origin level",
+    "configured review level",
+    "generic buildings",
+    "podium",
+    "room plan",
+    "links",
+    "as configured"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/courts/kits/courts-art.js",
+    "src/animations/courts/kits/jerarquia-editable.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "courts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "maxLength": 36,
+                  "description": "Level name (as configured)"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "description": "Level"
+            },
+            "minItems": 2,
+            "maxItems": 3,
+            "description": "Levels in the supplied order; the first is drawn lowest, the last highest (array replaces the previous value)"
+          },
+          "bodies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 40,
+                  "description": "Editable label of the body (fictional)"
+                },
+                "level": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 3,
+                  "description": "1-based index of its supplied level (a level beyond the list is clamped to the last one)"
+                }
+              },
+              "required": [
+                "label",
+                "level"
+              ],
+              "description": "Body"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Generic fictional bodies drawn as buildings, left to right in this order (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "levels",
+          "bodies"
+        ],
+        "description": "The supplied hierarchy, entirely editable and fictional: level names in their supplied order (the first is drawn lowest) and the generic bodies placed on them. It is not a statement about any real court system"
+      },
+      "routes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index of the first body"
+            },
+            "to": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index of the second body"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "sequence"
+              ],
+              "description": "relation (default, no arrow) | sequence (arrow, only when supplied)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "Link"
+        },
+        "minItems": 0,
+        "maxItems": 5,
+        "description": "Links between bodies as configured (indices into courts.bodies). kind \"relation\" is a plain line without arrow; \"sequence\" gets an arrow and is used only when the author supplies it. A link to an unknown body is ignored (array replaces the previous value)"
+      },
+      "seats": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "People seated in the room plan on each podium (fictional)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "note": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Visible note saying the hierarchy is as configured and illustrative"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [],
+        "description": "Editable built-in captions"
+      },
+      "people": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed (never tied to a level or role)"
+            }
+          },
+          "required": [],
+          "description": "Person"
+        },
+        "minItems": 0,
+        "maxItems": 10,
+        "description": "Optional appearance of the seated people, body by body (array replaces the previous value)"
+      },
+      "focusBody": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 3,
+        "description": "Index of the body whose placement differs (its own `level` is replaced by the scenario level)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Short label of the scenario"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "One-line description of the scenario"
+          },
+          "level": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "Level (1-based) at which the supplied configuration places the focus body in this scenario"
+          }
+        },
+        "required": [
+          "label",
+          "level"
+        ],
+        "description": "Scenario A (origin level)"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Short label of the scenario"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "One-line description of the scenario"
+          },
+          "level": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "Level (1-based) at which the supplied configuration places the focus body in this scenario"
+          }
+        },
+        "required": [
+          "label",
+          "level"
+        ],
+        "description": "Scenario B (configured review level)"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 80,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 44,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label on the guide joining the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "courts": {
+      "levels": [
+        {
+          "name": "Origin level (as configured)"
+        },
+        {
+          "name": "Level 2 (as configured)"
+        },
+        {
+          "name": "Configured review level"
+        }
+      ],
+      "bodies": [
+        {
+          "label": "Origin body A (fictional)",
+          "level": 1
+        },
+        {
+          "label": "Body X (fictional)",
+          "level": 1
+        },
+        {
+          "label": "Review body (as configured)",
+          "level": 3
+        }
+      ]
+    },
+    "routes": [
+      {
+        "from": 0,
+        "to": 1,
+        "kind": "relation"
+      },
+      {
+        "from": 1,
+        "to": 2,
+        "kind": "relation"
+      }
+    ],
+    "seats": 1,
+    "labels": {
+      "note": "Hierarchy as configured (illustrative)",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "people": [],
+    "focusBody": 1,
+    "scenarioA": {
+      "label": "Origin level",
+      "caption": "Body X placed on the origin level",
+      "level": 1
+    },
+    "scenarioB": {
+      "label": "Configured review level",
+      "caption": "Body X placed on the configured review level",
+      "level": 3
+    },
+    "changedFact": "Only the supplied level of body X differs",
+    "sharedFacts": [
+      "Same levels, bodies and links",
+      "Same rooms and people"
+    ],
+    "comparisonLabels": {
+      "guide": "Only this placement differs",
+      "neutral": "Both as supplied · no winner, no outcome"
+    }
+  }
+}

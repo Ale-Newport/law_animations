@@ -1,0 +1,302 @@
+{
+  "animationId": "LAW-0214",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; relationships are drawn only as supplied (plain relations by default) and carry no legal meaning, validity or outcome.",
+  "coordinatorDecision": "Standing coordinator rule 2026-09-26 (AUTHORING item 20): after the fallbacks (adaptive room size, captions above/below/beside in three widths, relation labels along and off each connector in two widths, legend in its own column), two stress items are capped for 1:1. Measured with six participants (three at the tables): the room labels could not be placed clear of each other at 17.1 px in 1:1 (fallback overlaps); with five participants (the baseline count) they fit. The bench–windows relation label 'linked to the windows (as supplied)' (35 chars) found no clear place at >= 16 px in 1:1; 'linked (as supplied) to both' (28 chars, longer than the baseline's 20) fits. Every other stress field keeps its full length. A fourth stress relation (building–bench) was dropped: in every ratio its connector had to cross the room component (ambiguous routing, AUTHORING item 16); the stress keeps the baseline's three relations with longer labels.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Exploded plan: building, hearing room with two participants, the bench with the presiding seat, and two remote windows; three plain relations (contains, holds, linked as supplied); the tracer visits building, room, bench and windows; the bench enlarges.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a supplied sequence (captioned as configured, illustrative) between the room and the bench, a different traversal and focus (the windows), different people and one remote window.",
+      "params": {
+        "courts": {
+          "building": "Community hall (fictional)",
+          "room": "Room 5 (fictional)"
+        },
+        "seats": [
+          {
+            "slot": "left2",
+            "label": "Participant 1"
+          },
+          {
+            "slot": "win1",
+            "label": "Participant 2"
+          },
+          {
+            "slot": "right1",
+            "label": "Participant 3"
+          }
+        ],
+        "routes": [
+          {
+            "seat": 0
+          },
+          {
+            "seat": 1
+          },
+          {
+            "seat": 2
+          }
+        ],
+        "people": [
+          {
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 3,
+              "outfit": 2
+            }
+          },
+          {
+            "appearance": {
+              "skin": 4,
+              "hair": "curly",
+              "hairColor": 1,
+              "outfit": 5
+            }
+          },
+          {
+            "appearance": {
+              "skin": 2,
+              "hair": "buzz",
+              "hairColor": 0,
+              "outfit": 0,
+              "glasses": true
+            }
+          }
+        ],
+        "elements": [
+          {
+            "id": "building",
+            "label": "Community hall"
+          },
+          {
+            "id": "room",
+            "label": "Room plan"
+          },
+          {
+            "id": "bench",
+            "label": "Bench"
+          },
+          {
+            "id": "windows",
+            "label": "Window of participant 2"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "building",
+            "to": "room",
+            "kind": "relation",
+            "label": "contains"
+          },
+          {
+            "from": "room",
+            "to": "bench",
+            "kind": "sequence",
+            "label": "sequence as configured (illustrative)"
+          },
+          {
+            "from": "bench",
+            "to": "windows",
+            "kind": "relation",
+            "label": "linked (as supplied)"
+          }
+        ],
+        "focusElement": "windows",
+        "traversalOrder": [
+          "room",
+          "bench",
+          "windows"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum text and counts: long component captions, relation labels, place labels, kind captions and key; six participants (three in the room, the presiding seat at the bench, two in windows); three relations (the baseline count).",
+      "params": {
+        "courts": {
+          "building": "Municipal civic services building, east wing (fictional)",
+          "room": "Multipurpose hearing room 3, first floor (fictional)"
+        },
+        "seats": [
+          {
+            "slot": "front",
+            "label": "Presiding seat behind the bench (as supplied)"
+          },
+          {
+            "slot": "left1",
+            "label": "Participant A, seated at the left-hand table"
+          },
+          {
+            "slot": "win1",
+            "label": "Participant B, appearing in a remote window"
+          },
+          {
+            "slot": "right1",
+            "label": "Participant C, seated at the right-hand table"
+          },
+          {
+            "slot": "win2",
+            "label": "Participant D, appearing in a remote window"
+          }
+        ],
+        "routes": [
+          {
+            "seat": 0
+          },
+          {
+            "seat": 1
+          },
+          {
+            "seat": 2
+          },
+          {
+            "seat": 3
+          },
+          {
+            "seat": 4
+          }
+        ],
+        "labels": {
+          "key": "Places, relations and labels are shown as supplied by the author · no conclusion drawn"
+        },
+        "elements": [
+          {
+            "id": "building",
+            "label": "Generic civic building (fictional)"
+          },
+          {
+            "id": "room",
+            "label": "Hearing room with its participants"
+          },
+          {
+            "id": "bench",
+            "label": "Bench (judicial table) with two link hubs"
+          },
+          {
+            "id": "windows",
+            "label": "Remote windows around the room edge"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "building",
+            "to": "room",
+            "kind": "relation",
+            "label": "contains the hearing room"
+          },
+          {
+            "from": "room",
+            "to": "bench",
+            "kind": "relation",
+            "label": "holds the bench on its platform"
+          },
+          {
+            "from": "bench",
+            "to": "windows",
+            "kind": "relation",
+            "label": "linked (as supplied) to both"
+          }
+        ],
+        "relationLabels": {
+          "relation": "plain relation, no direction",
+          "communication": "communication between parts",
+          "sequence": "sequence as configured",
+          "causal": "causal link (as supplied)"
+        },
+        "traversalOrder": [
+          "building",
+          "room",
+          "bench",
+          "windows",
+          "bench",
+          "room"
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Spanish labels for the baseline example.",
+      "params": {
+        "locale": "es",
+        "courts": {
+          "building": "Edificio cívico (ficticio)",
+          "room": "Sala de vistas 3 (ficticia)"
+        },
+        "seats": [
+          {
+            "slot": "front",
+            "label": "Asiento de presidencia (según lo aportado)"
+          },
+          {
+            "slot": "left1",
+            "label": "Participante A"
+          },
+          {
+            "slot": "win1",
+            "label": "Participante B"
+          },
+          {
+            "slot": "right1",
+            "label": "Participante C"
+          },
+          {
+            "slot": "win2",
+            "label": "Participante D"
+          }
+        ],
+        "labels": {
+          "key": "Lugares y relaciones según lo aportado · sin conclusión"
+        },
+        "elements": [
+          {
+            "id": "building",
+            "label": "Edificio"
+          },
+          {
+            "id": "room",
+            "label": "Sala de vistas"
+          },
+          {
+            "id": "bench",
+            "label": "Mesa judicial con enlaces"
+          },
+          {
+            "id": "windows",
+            "label": "Ventanas remotas"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "building",
+            "to": "room",
+            "kind": "relation",
+            "label": "contiene"
+          },
+          {
+            "from": "room",
+            "to": "bench",
+            "kind": "relation",
+            "label": "sostiene"
+          },
+          {
+            "from": "bench",
+            "to": "windows",
+            "kind": "relation",
+            "label": "enlazada (según lo aportado)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación",
+          "communication": "comunicación",
+          "sequence": "secuencia",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

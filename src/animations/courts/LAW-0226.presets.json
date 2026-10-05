@@ -1,0 +1,308 @@
+{
+  "id": "LAW-0226",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The building, the room, the sheet, the lectern with its camera and the shared screen; plain relations only; the screen shows the copy when the tracer reaches it.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "An author-configured sequence (drawn with the caption 'sequence as configured (illustrative)'), the screen as focus, and no camera–screen relationship at first: the order visits the screen last.",
+      "params": {
+        "courts": {
+          "building": "Community hall (fictional)",
+          "room": "Room 6 (fictional)"
+        },
+        "seats": [
+          {
+            "slot": "front",
+            "label": "Front seat (as supplied)"
+          },
+          {
+            "slot": "left2",
+            "label": "Participant 1"
+          },
+          {
+            "slot": "right1",
+            "label": "Participant 2"
+          }
+        ],
+        "routes": [
+          {
+            "seat": 2
+          },
+          {
+            "seat": 1
+          },
+          {
+            "seat": 0
+          }
+        ],
+        "elements": [
+          {
+            "id": "building",
+            "label": "Community hall"
+          },
+          {
+            "id": "room",
+            "label": "Room plan"
+          },
+          {
+            "id": "document",
+            "label": "Sheet 7 (fictional)"
+          },
+          {
+            "id": "camera",
+            "label": "Lectern and camera"
+          },
+          {
+            "id": "screen",
+            "label": "Shared screen"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "building",
+            "to": "room",
+            "kind": "relation",
+            "label": "contains"
+          },
+          {
+            "from": "document",
+            "to": "camera",
+            "kind": "sequence",
+            "label": "placed, then"
+          },
+          {
+            "from": "camera",
+            "to": "screen",
+            "kind": "relation",
+            "label": "linked (as supplied)"
+          }
+        ],
+        "focusElement": "screen",
+        "traversalOrder": [
+          "room",
+          "document",
+          "camera",
+          "screen"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: five participants, long part captions and relation labels, six relationships.",
+      "params": {
+        "courts": {
+          "building": "Municipal civic services building, east wing (fictional)",
+          "room": "Multipurpose hearing room 4, first floor (fictional)"
+        },
+        "seats": [
+          {
+            "slot": "front",
+            "label": "Presiding seat behind the bench (as supplied)"
+          },
+          {
+            "slot": "left1",
+            "label": "Participant A, seated at the left-hand table"
+          },
+          {
+            "slot": "left2",
+            "label": "Representative of participant A (as supplied)"
+          },
+          {
+            "slot": "right1",
+            "label": "Participant B, seated at the right-hand table"
+          },
+          {
+            "slot": "right2",
+            "label": "Representative of participant B (as supplied)"
+          }
+        ],
+        "routes": [
+          {
+            "seat": 1
+          },
+          {
+            "seat": 0
+          },
+          {
+            "seat": 2
+          },
+          {
+            "seat": 3
+          },
+          {
+            "seat": 4
+          }
+        ],
+        "labels": {
+          "document": "Document 3, printed plan of a fictional shop",
+          "screen": "Shared screen on the front wall",
+          "camera": "Lectern with the document camera (fictional)",
+          "key": "Places, labels and the document are shown as supplied by the author · no conclusion drawn"
+        },
+        "elements": [
+          {
+            "id": "building",
+            "label": "Generic civic building (fictional)"
+          },
+          {
+            "id": "room",
+            "label": "Hearing room with its participants"
+          },
+          {
+            "id": "document",
+            "label": "Document 3, printed plan of a fictional shop"
+          },
+          {
+            "id": "camera",
+            "label": "Lectern with its document camera (fictional)"
+          },
+          {
+            "id": "screen",
+            "label": "Shared screen on the front wall of the room"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "building",
+            "to": "room",
+            "kind": "relation",
+            "label": "contains the hearing room"
+          },
+          {
+            "from": "document",
+            "to": "camera",
+            "kind": "relation",
+            "label": "laid on the camera plate (as supplied)"
+          },
+          {
+            "from": "camera",
+            "to": "screen",
+            "kind": "relation",
+            "label": "shows an enlarged copy on the screen"
+          },
+          {
+            "from": "screen",
+            "to": "room",
+            "kind": "relation",
+            "label": "faces every participant in the room"
+          },
+          {
+            "from": "room",
+            "to": "camera",
+            "kind": "relation",
+            "label": "holds the lectern"
+          }
+        ],
+        "focusElement": "document",
+        "relationLabels": {
+          "relation": "plain relation (as supplied)",
+          "communication": "communication (as supplied)",
+          "sequence": "sequence as configured",
+          "causal": "causal link (as supplied)"
+        },
+        "traversalOrder": [
+          "building",
+          "room",
+          "document",
+          "camera",
+          "screen",
+          "room"
+        ]
+      },
+      "coordinatorDecision": "Standing coordinator rule (2026-09-26, from LAW-0687/0689-0692; see docs/AUTHORING.md item 20): with six relationships no composition places every label: at 1:1 the presenter's label has no clear place, and at 9:16 and 1:1 the camera (lectern) part's caption has no clear place either (tried: presenter label first/last, captions before/after relation labels, lectern-part padding, mirrored and row/column/stack part clusters, sizes 22.5-16.6 px; every one left a label or caption without a clear place). Dropping any one of the room-camera or document-room relationships fits every ratio (1:1 at 17.1 px, people 65 px). The count is capped at five relationships (baseline: four); every text stays longer than baseline. The room-lectern label is kept at 'holds the lectern' (the longer 'holds the lectern in its front aisle' leaves the lectern's caption without a clear place at 1:1)."
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español.",
+      "params": {
+        "locale": "es",
+        "courts": {
+          "building": "Edificio cívico (ficticio)",
+          "room": "Sala de vistas 4 (ficticia)"
+        },
+        "seats": [
+          {
+            "slot": "front",
+            "label": "Asiento de presidencia (según lo aportado)"
+          },
+          {
+            "slot": "left1",
+            "label": "Participante A"
+          },
+          {
+            "slot": "right1",
+            "label": "Participante B"
+          },
+          {
+            "slot": "right2",
+            "label": "Participante C"
+          }
+        ],
+        "labels": {
+          "document": "Documento 3 (ficticio)",
+          "screen": "Pantalla común",
+          "camera": "Atril con cámara de documentos",
+          "key": "Lugares y etiquetas según lo aportado · sin conclusión"
+        },
+        "elements": [
+          {
+            "id": "building",
+            "label": "Edificio"
+          },
+          {
+            "id": "room",
+            "label": "Sala de vistas"
+          },
+          {
+            "id": "document",
+            "label": "Documento 3 (ficticio)"
+          },
+          {
+            "id": "camera",
+            "label": "Atril con cámara de documentos"
+          },
+          {
+            "id": "screen",
+            "label": "Pantalla común"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "building",
+            "to": "room",
+            "kind": "relation",
+            "label": "contiene"
+          },
+          {
+            "from": "document",
+            "to": "camera",
+            "kind": "relation",
+            "label": "sobre la bandeja"
+          },
+          {
+            "from": "camera",
+            "to": "screen",
+            "kind": "relation",
+            "label": "muestra una copia ampliada"
+          },
+          {
+            "from": "screen",
+            "to": "room",
+            "kind": "relation",
+            "label": "de cara a la sala"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación",
+          "communication": "comunicación",
+          "sequence": "secuencia",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

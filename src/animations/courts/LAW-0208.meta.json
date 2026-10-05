@@ -1,0 +1,517 @@
+{
+  "id": "LAW-0208",
+  "slug": "courts-02-inspect",
+  "title": "Editable hierarchy — inspecting one body’s supplied level and substituting it",
+  "titleEs": "Jerarquía judicial editable — Inspección y cambio de un dato",
+  "category": "courts",
+  "categoryName": "Órganos y espacios judiciales",
+  "motif": "Jerarquía judicial editable",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "Generic fictional buildings stand on podiums at their supplied levels. The scene shrinks into a corner while a lens enlarges a real copy of the tag at the foot of one podium; its supplied value is struck, docked as \"was: …\" and replaced by the alternative value, and only the dependent geometry follows (that podium moves to the supplied level and its links re-route). The scene grows back with a neutral Δ marker. No real court system, review or outcome is depicted.",
+  "tags": [
+    "hierarchy",
+    "inspect",
+    "lens",
+    "substitution",
+    "origin level",
+    "configured review level",
+    "generic buildings",
+    "podium",
+    "as configured"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/courts/kits/courts-art.js",
+    "src/animations/courts/kits/jerarquia-editable.js",
+    "src/primitives/markers.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "courts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "maxLength": 36,
+                  "description": "Level name (as configured)"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "description": "Level"
+            },
+            "minItems": 2,
+            "maxItems": 3,
+            "description": "Levels in the supplied order; the first is drawn lowest, the last highest (array replaces the previous value)"
+          },
+          "bodies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 40,
+                  "description": "Editable label of the body (fictional)"
+                },
+                "level": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 3,
+                  "description": "1-based index of its supplied level (a level beyond the list is clamped to the last one)"
+                }
+              },
+              "required": [
+                "label",
+                "level"
+              ],
+              "description": "Body"
+            },
+            "minItems": 2,
+            "maxItems": 3,
+            "description": "Generic fictional bodies drawn as buildings, left to right in this order (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "levels",
+          "bodies"
+        ],
+        "description": "The supplied hierarchy, entirely editable and fictional: level names in their supplied order (the first is drawn lowest) and the generic bodies placed on them. It is not a statement about any real court system"
+      },
+      "routes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Index of the first body"
+            },
+            "to": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Index of the second body"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "sequence"
+              ],
+              "description": "relation (default, no arrow) | sequence (arrow, only when supplied)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "Link"
+        },
+        "minItems": 0,
+        "maxItems": 5,
+        "description": "Links between bodies as configured (indices into courts.bodies). kind \"relation\" is a plain line without arrow; \"sequence\" gets an arrow and is used only when the author supplies it. A link to an unknown body is ignored (array replaces the previous value)"
+      },
+      "seats": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2,
+        "description": "People seated in the room plan on each podium (fictional)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "note": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Visible note saying the hierarchy is as configured and illustrative"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [],
+        "description": "Editable built-in captions"
+      },
+      "people": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed (never tied to a level or role)"
+            }
+          },
+          "required": [],
+          "description": "Person"
+        },
+        "minItems": 0,
+        "maxItems": 10,
+        "description": "Optional appearance of the seated people, body by body (array replaces the previous value)"
+      },
+      "focusBody": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2,
+        "description": "Which body (index in courts.bodies) carries the inspected tag"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "level",
+          "wording"
+        ],
+        "description": "level: the supplied level of the body is substituted (its podium moves to afterLevel); wording: only the wording of the tag changes"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 44,
+        "description": "Value shown on the tag before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 44,
+        "description": "Value shown on the tag after the substitution (the alternative datum)"
+      },
+      "afterLevel": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 3,
+        "description": "For focusTarget \"level\": the supplied level (1-based) after the substitution"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Maximum magnification of the lens relative to the context"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "right",
+              "bottom"
+            ],
+            "description": "Where the freed space for the lens is taken"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels of the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "courts": {
+      "levels": [
+        {
+          "name": "Origin level (as configured)"
+        },
+        {
+          "name": "Level 2 (as configured)"
+        },
+        {
+          "name": "Configured review level"
+        }
+      ],
+      "bodies": [
+        {
+          "label": "Body X (fictional)",
+          "level": 1
+        },
+        {
+          "label": "Level 2 body (fictional)",
+          "level": 2
+        },
+        {
+          "label": "Review body (as configured)",
+          "level": 3
+        }
+      ]
+    },
+    "routes": [
+      {
+        "from": 0,
+        "to": 1,
+        "kind": "relation"
+      },
+      {
+        "from": 1,
+        "to": 2,
+        "kind": "relation"
+      }
+    ],
+    "seats": 2,
+    "labels": {
+      "note": "Hierarchy as configured (illustrative)",
+      "key": "Levels and placements as supplied · no conclusion drawn"
+    },
+    "people": [],
+    "focusBody": 0,
+    "focusTarget": "level",
+    "beforeValue": "Placed at: origin level",
+    "afterValue": "Placed at: configured review level",
+    "afterLevel": 3,
+    "detailGeometry": {
+      "zoom": 3,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "The supplied hierarchy, one tag inspected",
+      "marker": "One supplied datum changed"
+    }
+  }
+}

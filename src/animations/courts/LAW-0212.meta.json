@@ -1,0 +1,490 @@
+{
+  "id": "LAW-0212",
+  "slug": "courts-03-inspect",
+  "title": "Venue assignment — inspecting the datum on the file tag and substituting it",
+  "titleEs": "Asignación de órgano — Inspección y cambio de un dato",
+  "category": "courts",
+  "categoryName": "Órganos y espacios judiciales",
+  "motif": "Asignación de órgano",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The site plan with the clerk and the case file at the sorting point, routed to the venue whose supplied mapping tag equals the file datum, is the context. It stays large and in place, dimmed, while a lens over free space (never over a venue, its tags, the destination or the intake) enlarges a real copy of the sorting point, the clerk and the file; in the datum stack beside the file the old datum is struck through and docked as \"was: …\", the new one appears and only the dependent route changes — to the venue whose tag equals the new value, or to the waiting slot when none does. The plan returns to full size; a neutral Δ marks the change; seeking back restores the old datum.",
+  "tags": [
+    "inspect",
+    "lens",
+    "site plan",
+    "venue",
+    "case file",
+    "datum",
+    "mapping",
+    "substitution",
+    "changed marker",
+    "route"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/courts/kits/courts-art.js",
+    "src/animations/courts/kits/asignacion-de-organo.js",
+    "src/animations/courts/kits/distribucion-de-sala.js",
+    "src/primitives/markers.js",
+    "src/animations/roles/kits/mediation-labels.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "courts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "origin": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the intake office (fictional)"
+          },
+          "venues": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "maxLength": 60,
+                  "description": "Editable venue name (fictional)"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "description": "Venue"
+            },
+            "minItems": 2,
+            "maxItems": 3,
+            "description": "The venues, generic fictional buildings with editable names, drawn in this order (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "origin",
+          "venues"
+        ],
+        "description": "Generic, fictional buildings: the intake office where the file starts and the venues (sedes) it can be sent to. No real court, building shape, emblem or jurisdiction"
+      },
+      "routes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "datum": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Datum value exactly as supplied (e.g. \"district = East (fictional)\")"
+            },
+            "venue": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Index of the venue in courts.venues"
+            }
+          },
+          "required": [
+            "datum",
+            "venue"
+          ],
+          "description": "Mapping row"
+        },
+        "minItems": 1,
+        "maxItems": 4,
+        "description": "The SUPPLIED mapping: each row sends one datum value to one venue. The file follows the first row whose datum equals the file datum; when no row matches, the venue stays pending. Nothing else decides the route; a row naming a missing venue is ignored (array replaces the previous value)"
+      },
+      "seats": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "arrival": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the in-tray on the desk of each venue"
+          },
+          "waiting": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the dashed waiting slot at the sorting point"
+          }
+        },
+        "required": [
+          "arrival",
+          "waiting"
+        ],
+        "description": "Places where the file can be set down (as supplied)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "junction": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption of the sorting point (the junction)"
+          },
+          "datum": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Prefix of the file datum"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 110,
+            "description": "Neutral key shown with the labels (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "junction",
+          "datum",
+          "key"
+        ],
+        "description": "Editable built-in captions"
+      },
+      "clerk": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "appearance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "skin": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5,
+                "description": "Skin tone index 0–5"
+              },
+              "hair": {
+                "type": "string",
+                "enum": [
+                  "short",
+                  "long",
+                  "bun",
+                  "curly",
+                  "buzz",
+                  "scarf"
+                ],
+                "description": "Hair style"
+              },
+              "hairColor": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 6,
+                "description": "Hair colour index 0–6"
+              },
+              "outfit": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7,
+                "description": "Outfit colour index 0–7"
+              },
+              "glasses": {
+                "type": "boolean",
+                "description": "Wears glasses"
+              }
+            },
+            "required": [],
+            "description": "Optional appearance overrides; defaults derive from the seed (never tied to a role)"
+          }
+        },
+        "required": [],
+        "description": "Optional appearance of the clerk who carries the file"
+      },
+      "file": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Name of the file (fictional)"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "The case file (fictional); its datum is beforeValue, then afterValue"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "file-datum"
+        ],
+        "description": "Detail that is substituted: the datum on the file tag (the route then follows the supplied mapping row that names the new value, or the file waits when none does)"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "The datum on the file tag before the substitution (matched against the mapping rows)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "Value after the substitution (the alternative supplied value)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Largest magnification of the lens, relative to the context it is taken from"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "courts": {
+      "origin": "Intake office (fictional)",
+      "venues": [
+        {
+          "name": "Venue North (fictional)"
+        },
+        {
+          "name": "Venue East (fictional)"
+        },
+        {
+          "name": "Venue South (fictional)"
+        }
+      ]
+    },
+    "routes": [
+      {
+        "datum": "district = North (fictional)",
+        "venue": 0
+      },
+      {
+        "datum": "district = East (fictional)",
+        "venue": 1
+      },
+      {
+        "datum": "district = South (fictional)",
+        "venue": 2
+      }
+    ],
+    "seats": {
+      "arrival": "In-tray on the venue desk",
+      "waiting": "Waiting slot at the sorting point"
+    },
+    "labels": {
+      "junction": "Sorting point",
+      "datum": "Supplied datum",
+      "key": "Data and mapping as supplied · no conclusion drawn"
+    },
+    "file": {
+      "label": "Case file 24-017 (fictional)"
+    },
+    "clerk": {},
+    "focusTarget": "file-datum",
+    "beforeValue": "district = East (fictional)",
+    "afterValue": "district = South (fictional)",
+    "detailGeometry": {
+      "zoom": 2.6
+    },
+    "contextLabels": {
+      "context": "The file at the sorting point, routed as the supplied mapping gives",
+      "marker": "Changed: one supplied datum on the file tag"
+    }
+  }
+}

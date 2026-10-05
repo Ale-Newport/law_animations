@@ -1,0 +1,264 @@
+{
+  "id": "LAW-0238",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The parts of the route (entrance with ramp and steps, tactile strip, wall sign, hearing room) with four supplied plain relations; the tracer follows the route while the entrance enlarges.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Another building and order: a supplied sequence link (drawn with its caption), the tracer starts at the sign, the strip enlarges.",
+      "params": {
+        "courts": {
+          "building": "Community hall (fictional)",
+          "room": "Room 5 (fictional)"
+        },
+        "seats": [
+          {
+            "label": "Participant 1",
+            "mode": "cane",
+            "place": "left"
+          },
+          {
+            "label": "Participant 2",
+            "mode": "wheelchair",
+            "place": "right"
+          }
+        ],
+        "elements": [
+          {
+            "id": "building",
+            "label": "Community hall"
+          },
+          {
+            "id": "entrance",
+            "label": "Door, steps and ramp"
+          },
+          {
+            "id": "strip",
+            "label": "Guidance strip"
+          },
+          {
+            "id": "sign",
+            "label": "Sign with pictogram"
+          },
+          {
+            "id": "room",
+            "label": "Room 5"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "building",
+            "to": "entrance",
+            "kind": "relation",
+            "label": "has"
+          },
+          {
+            "from": "entrance",
+            "to": "strip",
+            "kind": "sequence",
+            "label": "then"
+          },
+          {
+            "from": "strip",
+            "to": "room",
+            "kind": "relation",
+            "label": "leads to the door"
+          },
+          {
+            "from": "sign",
+            "to": "room",
+            "kind": "relation",
+            "label": "names the room"
+          }
+        ],
+        "focusElement": "strip",
+        "traversalOrder": [
+          "sign",
+          "room",
+          "strip",
+          "entrance"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: long part captions, relation labels and names, three participants.",
+      "params": {
+        "courts": {
+          "building": "Municipal civic services building, east wing (fictional)",
+          "room": "Multipurpose hearing room 2, ground floor (fictional)"
+        },
+        "seats": [
+          {
+            "label": "Participant A, arriving from the pavement",
+            "mode": "wheelchair",
+            "place": "left"
+          },
+          {
+            "label": "Participant B, arriving with a long cane",
+            "mode": "cane",
+            "place": "right"
+          },
+          {
+            "label": "Participant C, arriving on foot (as supplied)",
+            "mode": "walking",
+            "place": "mid"
+          }
+        ],
+        "labels": {
+          "ramp": "Ramp beside the entrance steps, with handrails",
+          "tactile": "Tactile guidance strip from the door to the room",
+          "sign": "Wall sign with a pictogram beside the room door",
+          "key": "Places, routes and supports are shown as supplied by the author · no conclusion drawn"
+        },
+        "elements": [
+          {
+            "id": "building",
+            "label": "Generic civic building (fictional)"
+          },
+          {
+            "id": "entrance",
+            "label": "Main entrance with ramp, steps and handrails"
+          },
+          {
+            "id": "strip",
+            "label": "Tactile guidance strip along the corridor"
+          },
+          {
+            "id": "sign",
+            "label": "Wall sign with a pictogram"
+          },
+          {
+            "id": "room",
+            "label": "Hearing room on the ground floor"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "building",
+            "to": "entrance",
+            "kind": "relation",
+            "label": "has its main entrance here"
+          },
+          {
+            "from": "entrance",
+            "to": "strip",
+            "kind": "relation",
+            "label": "the strip begins at the entrance door"
+          },
+          {
+            "from": "strip",
+            "to": "room",
+            "kind": "relation",
+            "label": "the strip ends at the room door"
+          },
+          {
+            "from": "sign",
+            "to": "room",
+            "kind": "relation",
+            "label": "marks the room door (as supplied)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "plain relation (as supplied)",
+          "communication": "communication (as supplied)",
+          "sequence": "sequence (as configured)",
+          "causal": "causal link (only as supplied)"
+        },
+        "traversalOrder": [
+          "building",
+          "entrance",
+          "strip",
+          "room",
+          "sign"
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español.",
+      "params": {
+        "courts": {
+          "building": "Edificio cívico (ficticio)",
+          "room": "Sala de vistas 2 (ficticia)"
+        },
+        "seats": [
+          {
+            "label": "Participante A",
+            "mode": "wheelchair",
+            "place": "left"
+          },
+          {
+            "label": "Participante B",
+            "mode": "cane",
+            "place": "right"
+          }
+        ],
+        "labels": {
+          "ramp": "Rampa con pasamanos",
+          "tactile": "Franja táctil de guía",
+          "sign": "Señal junto a la puerta",
+          "key": "Según lo aportado · sin conclusión"
+        },
+        "elements": [
+          {
+            "id": "building",
+            "label": "Edificio"
+          },
+          {
+            "id": "entrance",
+            "label": "Entrada con rampa y escalones"
+          },
+          {
+            "id": "strip",
+            "label": "Franja táctil de guía"
+          },
+          {
+            "id": "sign",
+            "label": "Señal de pared"
+          },
+          {
+            "id": "room",
+            "label": "Sala de vistas"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "building",
+            "to": "entrance",
+            "kind": "relation",
+            "label": "tiene"
+          },
+          {
+            "from": "entrance",
+            "to": "strip",
+            "kind": "relation",
+            "label": "la franja empieza en la puerta"
+          },
+          {
+            "from": "strip",
+            "to": "room",
+            "kind": "relation",
+            "label": "termina en la puerta de la sala"
+          },
+          {
+            "from": "sign",
+            "to": "room",
+            "kind": "relation",
+            "label": "señala la puerta"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación",
+          "communication": "comunicación",
+          "sequence": "secuencia",
+          "causal": "causal (según lo aportado)"
+        },
+        "locale": "es"
+      }
+    }
+  ]
+}

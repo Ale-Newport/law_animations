@@ -1,0 +1,60 @@
+{
+  "id": "LAW-0240",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The ramp datum: a ramp with handrails beside the steps → steps only, a barrier detected (as supplied); only the ramp leaves.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "The handrails datum, the other way round: steps without handrails → handrails on both sides (as supplied); another building.",
+      "params": {
+        "courts": {"building": "Community hall (fictional)", "room": "Room 5 (fictional)"},
+        "seats": [
+          {"label": "Participant 1", "mode": "cane", "place": "left"},
+          {"label": "Participant 2", "mode": "wheelchair", "place": "right"}
+        ],
+        "routes": [{"seat": 0}, {"seat": 1}],
+        "focusTarget": "handrails",
+        "beforeValue": "Steps without handrails (as supplied)",
+        "afterValue": "Handrails on both sides of the steps (as supplied)",
+        "detailGeometry": {"zoom": 2.6, "placement": "auto", "change": "absent-to-present"},
+        "contextLabels": {"context": "Both participants at their places, as supplied", "marker": "Changed: the handrails datum"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: three participants, long values and captions.",
+      "params": {
+        "courts": {"building": "Municipal civic services building, east wing (fictional)", "room": "Multipurpose hearing room 2, ground floor (fictional)"},
+        "seats": [
+          {"label": "Participant A, arriving from the pavement", "mode": "wheelchair", "place": "left"},
+          {"label": "Participant B, arriving with a long cane", "mode": "cane", "place": "right"},
+          {"label": "Participant C, arriving on foot (as supplied)", "mode": "walking", "place": "mid"}
+        ],
+        "routes": [{"seat": 0}, {"seat": 1}, {"seat": 2}],
+        "labels": {"ramp": "Ramp beside the entrance steps, with handrails", "tactile": "Tactile guidance strip from the door to the room", "sign": "Wall sign with a pictogram beside the room door", "key": "Places, routes and supports are shown as supplied by the author · no conclusion drawn"},
+        "beforeValue": "A ramp with handrails beside the entrance steps (as supplied)",
+        "afterValue": "Only the entrance steps, no ramp: a barrier detected (as supplied)",
+        "contextLabels": {"context": "Every participant at the place supplied for them in the room", "marker": "Changed: one supplied datum about the entrance"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español.",
+      "params": {
+        "courts": {"building": "Edificio cívico (ficticio)", "room": "Sala de vistas 2 (ficticia)"},
+        "seats": [
+          {"label": "Participante A", "mode": "wheelchair", "place": "left"},
+          {"label": "Participante B", "mode": "cane", "place": "right"}
+        ],
+        "labels": {"ramp": "Rampa con pasamanos", "tactile": "Franja táctil de guía", "sign": "Señal junto a la puerta", "key": "Según lo aportado · sin conclusión"},
+        "beforeValue": "Rampa con pasamanos junto a los escalones (según lo aportado)",
+        "afterValue": "Solo escalones: barrera detectada (según lo aportado)",
+        "contextLabels": {"context": "Cada participante en su lugar de la sala, según lo aportado", "marker": "Cambiado: un dato aportado"},
+        "locale": "es"
+      }
+    }
+  ]
+}

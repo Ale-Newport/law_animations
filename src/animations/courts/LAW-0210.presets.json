@@ -1,0 +1,308 @@
+{
+  "animationId": "LAW-0210",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All buildings, names and data are fictional and illustrative. Every shipped preset uses plain relations only (no arrow between parts, and never between venues); the route follows only the supplied mapping. Long-labels-stress: coordinator decision 2026-09-26 (standing rule, AUTHORING item 20): near-maximum stress text did not fit 1:1 at >= 16 px after trying six row templates, a two-column mapping sheet and wider gaps (mapping sheet and parts overflowed; fallback truncated the origin name); the stress field lengths were capped to the longest tried values that fit every ratio at 16.6-18.9 px; every field stays strictly longer than baseline and the relationship count (5) is >= baseline (5).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Six parts on a loop, five plain relations; the tracer follows the supplied order; the mapping row of Venue East matches the file datum, so the switch turns to East and the file lies in the in-tray.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: two venues and a file datum that no mapping row names; the switch turns to the waiting slot and the file waits there; the switch is the focus part and the tracer visits the mapping sheet before the switch.",
+      "params": {
+        "courts": {
+          "origin": "Registry desk (fictional)",
+          "venues": [
+            {
+              "name": "Venue Hill (fictional)"
+            },
+            {
+              "name": "Venue Park (fictional)"
+            }
+          ]
+        },
+        "routes": [
+          {
+            "datum": "zone = Hill (fictional)",
+            "venue": 0
+          },
+          {
+            "datum": "zone = Park (fictional)",
+            "venue": 1
+          }
+        ],
+        "file": {
+          "label": "Case file 25-102 (fictional)",
+          "datum": "zone = Lake (fictional)"
+        },
+        "relationships": [
+          {
+            "from": "origin",
+            "to": "file",
+            "kind": "relation",
+            "label": "held at"
+          },
+          {
+            "from": "file",
+            "to": "mapping",
+            "kind": "relation",
+            "label": "datum looked up on the sheet"
+          },
+          {
+            "from": "mapping",
+            "to": "switch",
+            "kind": "relation",
+            "label": "sets"
+          },
+          {
+            "from": "mapping",
+            "to": "venues",
+            "kind": "relation",
+            "label": "names venues"
+          },
+          {
+            "from": "venues",
+            "to": "room",
+            "kind": "relation",
+            "label": "each has"
+          }
+        ],
+        "focusElement": "switch",
+        "traversalOrder": [
+          "origin",
+          "file",
+          "mapping",
+          "switch"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, data, captions and relation labels (capped under the standing coordinator rule, see note): three venues, four mapping rows, five plain relations. coordinator decision 2026-09-26.",
+      "params": {
+        "courts": {
+          "origin": "Central intake and registry office (fictional)",
+          "venues": [
+            {
+              "name": "Venue North, civic building on the avenue (fictional)"
+            },
+            {
+              "name": "Venue East, annex by the river market (fictional)"
+            },
+            {
+              "name": "Venue South, former library, ring road (fictional)"
+            }
+          ]
+        },
+        "routes": [
+          {
+            "datum": "district = North, the old quarter (fictional)",
+            "venue": 0
+          },
+          {
+            "datum": "district = East, both river banks (fictional)",
+            "venue": 1
+          },
+          {
+            "datum": "district = South, past the ring road (fictional)",
+            "venue": 2
+          },
+          {
+            "datum": "district = Harbour side and piers (fictional)",
+            "venue": 0
+          }
+        ],
+        "seats": {
+          "arrival": "In-tray on the receiving desk of each venue",
+          "waiting": "Dashed waiting slot at the sorting point"
+        },
+        "labels": {
+          "junction": "Sorting point where road meets avenue",
+          "datum": "Supplied datum on the tag",
+          "key": "Data, names and mapping rows as supplied · no conclusion drawn"
+        },
+        "file": {
+          "label": "Case file 24-017, second volume (fictional)",
+          "datum": "district = East, both river banks (fictional)"
+        },
+        "elements": [
+          {
+            "id": "origin",
+            "label": "Intake and registry office"
+          },
+          {
+            "id": "file",
+            "label": "Case file with its supplied datum"
+          },
+          {
+            "id": "switch",
+            "label": "Switch at the sorting point (plan)"
+          },
+          {
+            "id": "mapping",
+            "label": "Supplied mapping sheet, datum to venue"
+          },
+          {
+            "id": "venues",
+            "label": "Generic venues (fictional buildings)"
+          },
+          {
+            "id": "room",
+            "label": "Receiving desk with its in-tray"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "origin",
+            "to": "file",
+            "kind": "relation",
+            "label": "held at the office"
+          },
+          {
+            "from": "file",
+            "to": "switch",
+            "kind": "relation",
+            "label": "carried to sorting"
+          },
+          {
+            "from": "switch",
+            "to": "mapping",
+            "kind": "relation",
+            "label": "reads the rows"
+          },
+          {
+            "from": "mapping",
+            "to": "venues",
+            "kind": "relation",
+            "label": "each row names one venue"
+          },
+          {
+            "from": "venues",
+            "to": "room",
+            "kind": "relation",
+            "label": "one desk each"
+          }
+        ],
+        "relationLabels": {
+          "relation": "linked as configured by the author",
+          "communication": "communication as configured (illustrative)",
+          "sequence": "sequence as configured (illustrative)",
+          "causal": "causal link as supplied by the author (illustrative)"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "courts": {
+          "origin": "Oficina de registro (ficticia)",
+          "venues": [
+            {
+              "name": "Sede Norte (ficticia)"
+            },
+            {
+              "name": "Sede Este (ficticia)"
+            },
+            {
+              "name": "Sede Sur (ficticia)"
+            }
+          ]
+        },
+        "routes": [
+          {
+            "datum": "distrito = Norte (ficticio)",
+            "venue": 0
+          },
+          {
+            "datum": "distrito = Este (ficticio)",
+            "venue": 1
+          },
+          {
+            "datum": "distrito = Sur (ficticio)",
+            "venue": 2
+          }
+        ],
+        "seats": {
+          "arrival": "Bandeja de entrada de la sede",
+          "waiting": "Hueco de espera del punto de reparto"
+        },
+        "labels": {
+          "junction": "Punto de reparto",
+          "datum": "Dato aportado",
+          "key": "Datos y correspondencias según lo aportado · sin conclusión"
+        },
+        "file": {
+          "label": "Expediente 24-017 (ficticio)",
+          "datum": "distrito = Este (ficticio)"
+        },
+        "elements": [
+          {
+            "id": "origin",
+            "label": "Oficina de registro"
+          },
+          {
+            "id": "file",
+            "label": "Expediente y su dato"
+          },
+          {
+            "id": "switch",
+            "label": "Desvío del punto de reparto"
+          },
+          {
+            "id": "mapping",
+            "label": "Hoja de correspondencias"
+          },
+          {
+            "id": "venues",
+            "label": "Sedes"
+          },
+          {
+            "id": "room",
+            "label": "Mesa de recepción"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "origin",
+            "to": "file",
+            "kind": "relation",
+            "label": "está en"
+          },
+          {
+            "from": "file",
+            "to": "switch",
+            "kind": "relation",
+            "label": "llevado a"
+          },
+          {
+            "from": "switch",
+            "to": "mapping",
+            "kind": "relation",
+            "label": "lee"
+          },
+          {
+            "from": "mapping",
+            "to": "venues",
+            "kind": "relation",
+            "label": "una fila por dato"
+          },
+          {
+            "from": "venues",
+            "to": "room",
+            "kind": "relation",
+            "label": "cada una tiene"
+          }
+        ],
+        "relationLabels": {
+          "relation": "vinculado según lo configurado",
+          "communication": "comunicación configurada (ilustrativa)",
+          "sequence": "secuencia configurada (ilustrativa)",
+          "causal": "vínculo causal aportado (ilustrativo)"
+        }
+      }
+    }
+  ]
+}

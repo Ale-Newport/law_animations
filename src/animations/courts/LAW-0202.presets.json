@@ -1,0 +1,315 @@
+{
+  "animationId": "LAW-0202",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; positions and labels are as supplied and carry no legal meaning.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Building contains the room; the participant enters through the main door and walks to the left-table seat; the seat is labelled. The tracer goes building → room → entrance → seat → label sheet; the seat enlarges.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the traced participant goes to the outer seat of the right-hand table, the tracer starts at the participant, the room is related to the building the other way round (is part of), and the focus element is the label sheet.",
+      "params": {
+        "seats": [
+          {
+            "slot": "right2",
+            "label": "Observer (as supplied)"
+          },
+          {
+            "slot": "front",
+            "label": "Front seat (as supplied)"
+          },
+          {
+            "slot": "back2",
+            "label": "Participant B"
+          }
+        ],
+        "routes": [
+          {
+            "seat": 0,
+            "door": "main"
+          },
+          {
+            "seat": 2,
+            "door": "main"
+          },
+          {
+            "seat": 1,
+            "door": "side"
+          }
+        ],
+        "people": [
+          {
+            "appearance": {
+              "skin": 4,
+              "hair": "curly",
+              "hairColor": 0,
+              "outfit": 6
+            }
+          }
+        ],
+        "relationships": [
+          {
+            "from": "participant",
+            "to": "entrance",
+            "kind": "sequence",
+            "label": "arrives at"
+          },
+          {
+            "from": "entrance",
+            "to": "seat",
+            "kind": "sequence",
+            "label": "walks to"
+          },
+          {
+            "from": "seat",
+            "to": "label",
+            "kind": "relation",
+            "label": "matches row 1"
+          },
+          {
+            "from": "room",
+            "to": "building",
+            "kind": "relation",
+            "label": "is part of"
+          }
+        ],
+        "focusElement": "label",
+        "traversalOrder": [
+          "participant",
+          "entrance",
+          "seat",
+          "label"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum captions, relation labels and six seat labels on the sheet.",
+      "params": {
+        "courts": {
+          "building": "Municipal civic services building, east wing (fictional)",
+          "room": "Multipurpose hearing room 2, first floor (fictional)"
+        },
+        "seats": [
+          {
+            "slot": "left1",
+            "label": "Participant A, seated at the left-hand table"
+          },
+          {
+            "slot": "front",
+            "label": "Presiding seat behind the front desk (as supplied)"
+          },
+          {
+            "slot": "left2",
+            "label": "Representative of participant A (as supplied)"
+          },
+          {
+            "slot": "right1",
+            "label": "Participant B, seated at the right-hand table"
+          },
+          {
+            "slot": "right2",
+            "label": "Representative of participant B (as supplied)"
+          },
+          {
+            "slot": "back1",
+            "label": "Member of the public on the back bench"
+          }
+        ],
+        "routes": [
+          {
+            "seat": 0,
+            "door": "main"
+          },
+          {
+            "seat": 1,
+            "door": "side"
+          },
+          {
+            "seat": 2,
+            "door": "main"
+          },
+          {
+            "seat": 3,
+            "door": "main"
+          },
+          {
+            "seat": 4,
+            "door": "side"
+          },
+          {
+            "seat": 5,
+            "door": "main"
+          }
+        ],
+        "labels": {
+          "mainDoor": "Main door from the corridor",
+          "sideDoor": "Side door from the corridor",
+          "key": "Positions and labels are shown as supplied by the author · no conclusion drawn"
+        },
+        "elements": [
+          {
+            "id": "building",
+            "label": "Generic civic building, shown only as a fiction"
+          },
+          {
+            "id": "room",
+            "label": "Plan of the multipurpose room inside the building"
+          },
+          {
+            "id": "entrance",
+            "label": "Entrance door used to arrive, as supplied here"
+          },
+          {
+            "id": "participant",
+            "label": "Participant walking in (a fictional person only)"
+          },
+          {
+            "id": "seat",
+            "label": "Seat assigned to that person, exactly as supplied"
+          },
+          {
+            "id": "label",
+            "label": "Editable seat label carrying the supplied words"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "building",
+            "to": "room",
+            "kind": "relation",
+            "label": "contains the room that is drawn as a plan here"
+          },
+          {
+            "from": "participant",
+            "to": "entrance",
+            "kind": "sequence",
+            "label": "first passes through this entrance on the way in"
+          },
+          {
+            "from": "entrance",
+            "to": "seat",
+            "kind": "sequence",
+            "label": "then walks along the aisle route up to the seat"
+          },
+          {
+            "from": "seat",
+            "to": "label",
+            "kind": "relation",
+            "label": "carries its own editable label, as supplied here"
+          },
+          {
+            "from": "participant",
+            "to": "label",
+            "kind": "relation",
+            "label": "is named only by a label on the sheet shown here"
+          }
+        ],
+        "relationLabels": {
+          "relation": "plain relation between parts (no order)",
+          "communication": "communication between the people shown",
+          "sequence": "sequence of steps, in the supplied order",
+          "causal": "causal link, only when it is supplied"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "courts": {
+          "building": "Edificio cívico (ficticio)",
+          "room": "Sala 2 (ficticia)"
+        },
+        "seats": [
+          {
+            "slot": "front",
+            "label": "Asiento de presidencia (según lo aportado)"
+          },
+          {
+            "slot": "left1",
+            "label": "Participante A"
+          },
+          {
+            "slot": "right1",
+            "label": "Participante B"
+          },
+          {
+            "slot": "right2",
+            "label": "Participante C"
+          },
+          {
+            "slot": "back1",
+            "label": "Asiento del público"
+          }
+        ],
+        "labels": {
+          "mainDoor": "Puerta principal",
+          "sideDoor": "Puerta lateral",
+          "key": "Posiciones y etiquetas según lo aportado · sin conclusión"
+        },
+        "elements": [
+          {
+            "id": "building",
+            "label": "Edificio"
+          },
+          {
+            "id": "room",
+            "label": "Plano de la sala"
+          },
+          {
+            "id": "entrance",
+            "label": "Entrada"
+          },
+          {
+            "id": "participant",
+            "label": "Participante"
+          },
+          {
+            "id": "seat",
+            "label": "Asiento"
+          },
+          {
+            "id": "label",
+            "label": "Etiquetas editables"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "building",
+            "to": "room",
+            "kind": "relation",
+            "label": "contiene"
+          },
+          {
+            "from": "participant",
+            "to": "entrance",
+            "kind": "sequence",
+            "label": "entra por"
+          },
+          {
+            "from": "entrance",
+            "to": "seat",
+            "kind": "sequence",
+            "label": "camina hasta"
+          },
+          {
+            "from": "seat",
+            "to": "label",
+            "kind": "relation",
+            "label": "lleva su etiqueta"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación",
+          "communication": "comunicación",
+          "sequence": "secuencia",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

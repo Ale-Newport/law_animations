@@ -1,0 +1,509 @@
+{
+  "id": "LAW-0237",
+  "slug": "courts-10-story",
+  "title": "Accessibility adaptation — reaching the hearing room along the ramp, the tactile strip and the sign",
+  "titleEs": "Adaptación de accesibilidad — Microescena con objetos y actores",
+  "category": "courts",
+  "categoryName": "Órganos y espacios judiciales",
+  "motif": "Adaptación de accesibilidad",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "A generic building stands beside the floor plan of its ground floor. In the supplied order, a participant in a wheelchair rolls up the ramp with handrails beside the entrance steps, and a participant with a long cane climbs the steps and follows the tactile guidance strip, the cane tip sweeping over it; the doors open as they arrive, they pass the wall sign by the hearing-room door and reach their places at the table (the wheelchair place has no chair). The final state is as supplied; no standard, measurement, obligation, compliance or outcome is stated.",
+  "tags": [
+    "floor plan",
+    "accessibility",
+    "ramp",
+    "handrail",
+    "tactile strip",
+    "sign",
+    "wheelchair",
+    "long cane",
+    "route",
+    "building"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/courts/kits/adaptacion-accesibilidad.js",
+    "src/animations/courts/kits/courts-art.js",
+    "src/animations/courts/kits/distribucion-de-sala.js",
+    "src/animations/courts/kits/presentacion-de-prueba.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "courts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "building": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name printed under the generic building (fictional)"
+          },
+          "room": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the hearing room (fictional)"
+          }
+        },
+        "required": [
+          "building",
+          "room"
+        ],
+        "description": "Generic, fictional building and hearing room (no real court, building shape or emblem)"
+      },
+      "seats": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Editable label of the participant (as supplied)"
+            },
+            "mode": {
+              "type": "string",
+              "enum": [
+                "wheelchair",
+                "cane",
+                "walking"
+              ],
+              "description": "How the participant moves: wheelchair, cane (walks with a long cane) or walking"
+            },
+            "place": {
+              "type": "string",
+              "enum": [
+                "left",
+                "mid",
+                "right"
+              ],
+              "description": "Place at the table in the room (left, middle or right)"
+            }
+          },
+          "required": [
+            "label",
+            "mode",
+            "place"
+          ],
+          "description": "Participant"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Participants who reach the room, as supplied: how each one moves (drawn as their own equipment, never as a diagnosis) and their place at the table. Every participant is drawn at the same size (array replaces the previous value)"
+      },
+      "routes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "seat": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Index of the participant in `seats`"
+            }
+          },
+          "required": [
+            "seat"
+          ],
+          "description": "Route"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Arrival order (as supplied), as participant indices; unknown or repeated indices are ignored and unlisted participants follow in list order. The order is shown with the caption \"sequence as configured (illustrative)\" (array replaces the previous value)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ramp": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the ramp beside the steps (with its handrails)"
+          },
+          "tactile": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the tactile guidance strip"
+          },
+          "sign": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the wall sign beside the room door"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key shown with the labels (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [],
+        "description": "Editable built-in captions"
+      },
+      "people": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed (never tied to a role)"
+            }
+          },
+          "required": [],
+          "description": "Person"
+        },
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Optional appearance of each participant, in order (array replaces the previous value)"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "wheelchair": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for a participant moving with a wheelchair"
+          },
+          "cane": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for a participant walking with a long cane"
+          },
+          "walking": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for a participant walking"
+          }
+        },
+        "required": [],
+        "description": "Legend captions of how the participants move (as supplied; the same person size for all)"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "steps": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the entrance steps"
+          }
+        },
+        "required": [],
+        "description": "Legend caption of the entrance steps"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "ramp",
+                "tactile",
+                "sign",
+                "everyone"
+              ],
+              "description": "What the note refers to (\"everyone\" rings every participant alike)"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Note text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Note"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial notes shown in the final hold; each is keyed to a solid neutral ring drawn on its target (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "in-room",
+          "at-door"
+        ],
+        "description": "The state supplied by the author for the final hold (no conclusion is inferred)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "courts": {
+      "building": "Civic building (fictional)",
+      "room": "Hearing room 2 (fictional)"
+    },
+    "seats": [
+      {
+        "label": "Participant A",
+        "mode": "wheelchair",
+        "place": "left"
+      },
+      {
+        "label": "Participant B",
+        "mode": "cane",
+        "place": "right"
+      }
+    ],
+    "routes": [
+      {
+        "seat": 0
+      },
+      {
+        "seat": 1
+      }
+    ],
+    "labels": {
+      "ramp": "Ramp with handrails",
+      "tactile": "Tactile guidance strip",
+      "sign": "Wall sign by the door",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "people": [],
+    "actorLabels": {
+      "wheelchair": "Moves with a wheelchair (as supplied)",
+      "cane": "Walks with a long cane (as supplied)",
+      "walking": "Walks (as supplied)"
+    },
+    "objectLabels": {
+      "steps": "Entrance steps"
+    },
+    "actionProgress": 1,
+    "annotations": [
+      {
+        "target": "tactile",
+        "text": "The strip runs from the entrance to the room door"
+      }
+    ],
+    "finalState": "in-room"
+  }
+}

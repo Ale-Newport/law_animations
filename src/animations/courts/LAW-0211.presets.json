@@ -1,0 +1,200 @@
+{
+  "animationId": "LAW-0211",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All buildings, names and data are fictional and illustrative. The two scenes differ only in the supplied datum; neither is presented as correct, and no legal consequence is shown. Long-labels-stress: coordinator decision 2026-09-26 (standing rule, AUTHORING item 20): after trying a right-hand text column (rejected: scenes at ~40% width), full-width stacked scenes and plan crops, near-maximum stress text does not fit 1:1 at >= 16 px (measured: strip 565 design units at 16.6 px vs about 480 available with people >= 60 px); stress field lengths capped to the longest tried values that fit every ratio (1:1 strip 483 units at 16.6 px, people 60.5 px); every field stays strictly longer than baseline and counts stay >= baseline.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three generic venues and the same mapping in both scenes: in A the datum is named by the row of Venue East (the file is set in its in-tray); in B no row names the datum (the file waits in the dashed slot).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: two venues; in A the datum names the second venue; in B the datum is recorded as not stated, which no row names; a different clerk.",
+      "params": {
+        "courts": {
+          "origin": "Registry desk (fictional)",
+          "venues": [
+            {
+              "name": "Venue Hill (fictional)"
+            },
+            {
+              "name": "Venue Park (fictional)"
+            }
+          ]
+        },
+        "routes": [
+          {
+            "datum": "zone = Hill (fictional)",
+            "venue": 0
+          },
+          {
+            "datum": "zone = Park (fictional)",
+            "venue": 1
+          }
+        ],
+        "file": {
+          "label": "Case file 25-102 (fictional)"
+        },
+        "clerk": {
+          "appearance": {
+            "skin": 4,
+            "hair": "bun",
+            "hairColor": 1,
+            "outfit": 2,
+            "glasses": true
+          }
+        },
+        "scenarioA": {
+          "label": "Venue selected (as supplied)",
+          "caption": "The datum is named by the Park row",
+          "datum": "zone = Park (fictional)"
+        },
+        "scenarioB": {
+          "label": "Venue pending (as supplied)",
+          "caption": "The datum is recorded as not stated",
+          "datum": "zone = not stated (fictional)"
+        },
+        "changedFact": "Changed fact: the zone recorded on the file tag",
+        "sharedFacts": [
+          "Same two venues and the same two mapping rows"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, data and captions (capped by the standing coordinator rule so that 1:1 fits at >= 16 px; every field still longer than baseline): three venues, four mapping rows, three shared facts. coordinator decision 2026-09-26: lengths capped under the standing rule (see note).",
+      "params": {
+        "courts": {
+          "origin": "Central intake and registry office (fictional)",
+          "venues": [
+            {
+              "name": "Venue North, civic building on the avenue (fictional)"
+            },
+            {
+              "name": "Venue East, annex by the river market (fictional)"
+            },
+            {
+              "name": "Venue South, former library, ring road (fictional)"
+            }
+          ]
+        },
+        "routes": [
+          {
+            "datum": "district = North, the old quarter (fictional)",
+            "venue": 0
+          },
+          {
+            "datum": "district = East, both river banks (fictional)",
+            "venue": 1
+          },
+          {
+            "datum": "district = South, past the ring road (fictional)",
+            "venue": 2
+          },
+          {
+            "datum": "district = Harbour side and piers (fictional)",
+            "venue": 0
+          }
+        ],
+        "seats": {
+          "arrival": "In-tray on the receiving desk of each venue",
+          "waiting": "Dashed waiting slot at the sorting point"
+        },
+        "labels": {
+          "junction": "Sorting point where road meets avenue",
+          "datum": "Supplied datum on the tag",
+          "key": "Data, names and mapping rows as supplied · no conclusion drawn"
+        },
+        "file": {
+          "label": "Case file 24-017, second volume (fictional)"
+        },
+        "scenarioA": {
+          "label": "Venue selected by a supplied row",
+          "caption": "One supplied mapping row names this datum",
+          "datum": "district = East, both river banks (fictional)"
+        },
+        "scenarioB": {
+          "label": "Venue pending: no supplied row",
+          "caption": "No supplied mapping row names this datum here",
+          "datum": "district = West, past the old mill (fictional)"
+        },
+        "changedFact": "Changed fact: only the supplied datum on the file tag differs",
+        "sharedFacts": [
+          "Same three venues, names and mapping rows here",
+          "Same clerk, same file, same route to the sorting point here",
+          "Same timing in both scenes"
+        ],
+        "comparisonLabels": {
+          "guide": "Only this supplied datum differs",
+          "neutral": "Both scenes are shown exactly as supplied · no winner, no outcome, no conclusion drawn"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "courts": {
+          "origin": "Oficina de registro (ficticia)",
+          "venues": [
+            {
+              "name": "Sede Norte (ficticia)"
+            },
+            {
+              "name": "Sede Este (ficticia)"
+            },
+            {
+              "name": "Sede Sur (ficticia)"
+            }
+          ]
+        },
+        "routes": [
+          {
+            "datum": "distrito = Norte (ficticio)",
+            "venue": 0
+          },
+          {
+            "datum": "distrito = Este (ficticio)",
+            "venue": 1
+          },
+          {
+            "datum": "distrito = Sur (ficticio)",
+            "venue": 2
+          }
+        ],
+        "seats": {
+          "arrival": "Bandeja de entrada de la sede",
+          "waiting": "Hueco de espera del punto de reparto"
+        },
+        "labels": {
+          "junction": "Punto de reparto",
+          "datum": "Dato aportado",
+          "key": "Datos y correspondencias según lo aportado · sin conclusión"
+        },
+        "file": {
+          "label": "Expediente 24-017 (ficticio)"
+        },
+        "scenarioA": {
+          "label": "Órgano seleccionado",
+          "caption": "Una fila aportada nombra el dato",
+          "datum": "distrito = Este (ficticio)"
+        },
+        "scenarioB": {
+          "label": "Competencia pendiente",
+          "caption": "Ninguna fila aportada nombra el dato",
+          "datum": "distrito = Oeste (ficticio)"
+        },
+        "changedFact": "Hecho cambiado: el dato aportado en la etiqueta del expediente",
+        "sharedFacts": [
+          "Mismas sedes y mismas filas de correspondencia",
+          "Mismo auxiliar, mismo expediente, mismo recorrido"
+        ],
+        "comparisonLabels": {
+          "guide": "Solo cambia este dato",
+          "neutral": "Ambas escenas según lo aportado · sin ganador, sin resultado, sin conclusión"
+        }
+      }
+    }
+  ]
+}

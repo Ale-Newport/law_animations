@@ -1,0 +1,258 @@
+{
+  "animationId": "LAW-0206",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. The hierarchy, the pieces and every relationship are entirely supplied, fictional and illustrative; no real court system, appeal route or effect is depicted.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three supplied levels and three bodies on the plan sheet; four plain relations (plan to each building, origin building to its room, room to its people); the tracer reads room → origin building → plan → review building; the plan enlarges.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: two levels, three bodies (two on the origin level), plain relations only, one person, a different traversal order and the room as the focus element.",
+      "params": {
+        "courts": {
+          "levels": [
+            {
+              "name": "Origin level (as configured)"
+            },
+            {
+              "name": "Configured review level"
+            }
+          ],
+          "bodies": [
+            {
+              "label": "Origin body A (fictional)",
+              "level": 1
+            },
+            {
+              "label": "Origin body B (fictional)",
+              "level": 1
+            },
+            {
+              "label": "Review body (as configured)",
+              "level": 2
+            }
+          ]
+        },
+        "routes": [
+          {
+            "from": 0,
+            "to": 2,
+            "kind": "relation"
+          },
+          {
+            "from": 1,
+            "to": 2,
+            "kind": "relation"
+          }
+        ],
+        "seats": 1,
+        "relationships": [
+          {
+            "from": "plan",
+            "to": "origin",
+            "kind": "relation"
+          },
+          {
+            "from": "plan",
+            "to": "review",
+            "kind": "relation"
+          },
+          {
+            "from": "origin",
+            "to": "room",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "room",
+        "traversalOrder": [
+          "plan",
+          "origin",
+          "room",
+          "people"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum names and counts: four levels, four bodies, three plain links on the sheet, long element labels and relation captions, two people, three plain relationships (plan–origin, plan–review, origin–room).",
+      "params": {
+        "courts": {
+          "levels": [
+            {
+              "name": "Origin level of the fictional example"
+            },
+            {
+              "name": "Second level of the fictional example"
+            },
+            {
+              "name": "Third level of the fictional example"
+            },
+            {
+              "name": "Configured review level (example only)"
+            }
+          ],
+          "bodies": [
+            {
+              "label": "Origin-level body of the northern area",
+              "level": 1
+            },
+            {
+              "label": "Second-level body of the example (set)",
+              "level": 2
+            },
+            {
+              "label": "Third-level body of the example (set)",
+              "level": 3
+            },
+            {
+              "label": "Review body of the example (configured)",
+              "level": 4
+            }
+          ]
+        },
+        "routes": [
+          {
+            "from": 0,
+            "to": 1,
+            "kind": "relation"
+          },
+          {
+            "from": 1,
+            "to": 2,
+            "kind": "relation"
+          },
+          {
+            "from": 2,
+            "to": 3,
+            "kind": "relation"
+          }
+        ],
+        "seats": 2,
+        "labels": {
+          "note": "Hierarchy supplied by the author (illustrative only)",
+          "key": "Every relation is drawn only as supplied by the author · no conclusion drawn"
+        },
+        "elements": [
+          {
+            "id": "plan",
+            "label": "Plan sheet of the supplied levels and bodies"
+          },
+          {
+            "id": "origin",
+            "label": "Generic building on the origin level (set)"
+          },
+          {
+            "id": "review",
+            "label": "Building on the configured review level only"
+          },
+          {
+            "id": "room",
+            "label": "Plan of one room of the origin building"
+          },
+          {
+            "id": "people",
+            "label": "People who sit in that room (fictional)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "plan",
+            "to": "origin",
+            "kind": "relation"
+          },
+          {
+            "from": "plan",
+            "to": "review",
+            "kind": "relation"
+          },
+          {
+            "from": "origin",
+            "to": "room",
+            "kind": "relation"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Relation, exactly as configured",
+          "communication": "Communication, only as supplied",
+          "sequence": "Sequence as configured (illustrative)",
+          "causal": "Causal link, only as supplied"
+        },
+        "traversalOrder": [
+          "people",
+          "room",
+          "origin",
+          "plan",
+          "review"
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "courts": {
+          "levels": [
+            {
+              "name": "Nivel de origen (configurado)"
+            },
+            {
+              "name": "Nivel 2 (configurado)"
+            },
+            {
+              "name": "Nivel de revisión configurado"
+            }
+          ],
+          "bodies": [
+            {
+              "label": "Órgano de origen A (ficticio)",
+              "level": 1
+            },
+            {
+              "label": "Órgano de nivel 2 (ficticio)",
+              "level": 2
+            },
+            {
+              "label": "Órgano de revisión (configurado)",
+              "level": 3
+            }
+          ]
+        },
+        "labels": {
+          "note": "Jerarquía aportada (ilustrativa)",
+          "key": "Relaciones según lo aportado · sin conclusión"
+        },
+        "elements": [
+          {
+            "id": "plan",
+            "label": "Plano de los niveles aportados"
+          },
+          {
+            "id": "origin",
+            "label": "Edificio del nivel de origen"
+          },
+          {
+            "id": "review",
+            "label": "Edificio del nivel de revisión configurado"
+          },
+          {
+            "id": "room",
+            "label": "Una sala del edificio de origen"
+          },
+          {
+            "id": "people",
+            "label": "Personas de esa sala (ficticias)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Relación (configurada)",
+          "communication": "Comunicación (aportada)",
+          "sequence": "Secuencia configurada (ilustrativa)",
+          "causal": "Vínculo causal (aportado)"
+        }
+      }
+    }
+  ]
+}

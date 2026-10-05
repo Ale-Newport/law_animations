@@ -1,0 +1,503 @@
+{
+  "id": "LAW-0221",
+  "slug": "courts-06-story",
+  "title": "Turn organisation — a turn signal passes by hand between participants at a hearing table",
+  "titleEs": "Organización de turnos — Microescena con objetos y actores",
+  "category": "courts",
+  "categoryName": "Órganos y espacios judiciales",
+  "motif": "Organización de turnos",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "A generic building stands beside the plan of one of its hearing rooms. Participants sit along the two long sides of one table, each with a turn lamp in front of them and a party badge (● or ◆, equal weight) on the chair back. A small turn-signal token passes by hand along the supplied sequence: the holder pushes it across the table, the next person reaches out, catches it and draws it in; their lamp lights after it arrives (active turn) while the others stay unlit (pending turn: waiting only). The sequence is as configured (illustrative); no speaking order, time per turn or consequence is stated.",
+  "tags": [
+    "hearing room",
+    "turns",
+    "turn signal",
+    "active turn",
+    "pending turn",
+    "sequence as configured",
+    "floor plan",
+    "top-down people",
+    "hand-off",
+    "building"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/courts/kits/courts-art.js",
+    "src/animations/courts/kits/organizacion-de-turnos.js",
+    "src/animations/courts/kits/distribucion-de-sala.js",
+    "src/primitives/people-style.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "courts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "building": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Name printed under the generic building (fictional)"
+          },
+          "room": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Name of the hearing room drawn as a plan (fictional)"
+          }
+        },
+        "required": [
+          "building",
+          "room"
+        ],
+        "description": "Generic, fictional building and hearing room (no real court, building shape or emblem)"
+      },
+      "seats": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "slot": {
+              "type": "string",
+              "enum": [
+                "top1",
+                "top2",
+                "top3",
+                "bottom1",
+                "bottom2",
+                "bottom3"
+              ],
+              "description": "Position at the table: top1–top3 along one long side, bottom1–bottom3 along the other"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Editable label of the participant (as supplied)"
+            },
+            "party": {
+              "type": "string",
+              "enum": [
+                "circle",
+                "diamond"
+              ],
+              "description": "Party badge drawn on the chair back (● circle or ◆ diamond; equal weight)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed (never tied to a party or a turn)"
+            }
+          },
+          "required": [
+            "slot",
+            "label",
+            "party"
+          ],
+          "description": "Seat"
+        },
+        "minItems": 2,
+        "maxItems": 6,
+        "description": "Participants at the table: a seat position, an editable label and a party badge (● or ◆, told apart only by the glyph). Positions, labels and parties are as supplied and carry no legal meaning (array replaces the previous value)"
+      },
+      "routes": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5,
+          "description": "Seat index"
+        },
+        "minItems": 2,
+        "maxItems": 6,
+        "description": "Sequence as configured (illustrative): the seat indices in the order the turn signal passes between them. It is supplied data, not a required speaking order (array replaces the previous value)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "active": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Legend of the lit lamp (active turn)"
+          },
+          "pending": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Legend of the unlit lamp (pending turn: waiting only)"
+          },
+          "signal": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Legend of the turn signal token"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Legend of the numbers on the lamps (the sequence as configured)"
+          },
+          "circle": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Legend of the ● party badge"
+          },
+          "diamond": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Legend of the ◆ party badge"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Key: states and sequence are as supplied; no conclusion is drawn"
+          }
+        },
+        "required": [
+          "active",
+          "pending",
+          "key"
+        ],
+        "description": "Editable legend texts"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "participant": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for the people drawn from above"
+          }
+        },
+        "required": [],
+        "description": "Caption of the person glyph in the legend"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "signal": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption of the turn signal token"
+          }
+        },
+        "required": [],
+        "description": "Captions of the plan objects in the legend"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the passing of the signal is allowed to progress (1 = the whole supplied sequence; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "signal",
+                "table",
+                "firstLamp",
+                "lastLamp"
+              ],
+              "description": "What the note refers to"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Note text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Note"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial notes shown in the final hold; each is keyed to a ring drawn on its target in the plan (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "turn-active",
+          "all-pending"
+        ],
+        "description": "The state supplied by the author for the final hold (no conclusion is inferred): the last person in the sequence holds the signal, or the signal is back in the tray and every turn is pending"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "courts": {
+      "building": "Civic building (fictional)",
+      "room": "Hearing room 2 (fictional)"
+    },
+    "seats": [
+      {
+        "slot": "top1",
+        "label": "Participant A",
+        "party": "circle"
+      },
+      {
+        "slot": "bottom1",
+        "label": "Participant B",
+        "party": "diamond"
+      },
+      {
+        "slot": "top2",
+        "label": "Participant C",
+        "party": "circle"
+      },
+      {
+        "slot": "bottom2",
+        "label": "Participant D",
+        "party": "diamond"
+      }
+    ],
+    "routes": [
+      1,
+      2,
+      3
+    ],
+    "labels": {
+      "active": "Active turn",
+      "pending": "Pending turn (waiting)",
+      "signal": "Turn signal",
+      "sequence": "Sequence as configured (illustrative)",
+      "circle": "Party ● (fictional)",
+      "diamond": "Party ◆ (fictional)",
+      "key": "Turns and sequence as supplied · no conclusion drawn"
+    },
+    "actorLabels": {
+      "participant": "Participant (fictional)"
+    },
+    "objectLabels": {
+      "signal": "Turn signal, passed by hand"
+    },
+    "actionProgress": 1,
+    "annotations": [
+      {
+        "target": "signal",
+        "text": "The signal ends with the last person in the sequence (as supplied)"
+      }
+    ],
+    "finalState": "turn-active"
+  }
+}

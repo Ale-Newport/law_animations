@@ -1,0 +1,543 @@
+{
+  "id": "LAW-0219",
+  "slug": "courts-05-contrast",
+  "title": "Room access — the same room with one participant’s supplied route changed",
+  "titleEs": "Acceso a sala — Comparación de dos supuestos",
+  "category": "courts",
+  "categoryName": "Órganos y espacios judiciales",
+  "motif": "Acceso a sala",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two complete plans of the same generic room with the same two separate supplied routes (● public access, ◆ restricted access as configured), the same seats, people and entrance order. Only one participant’s supplied route differs: in A they take one route, in B the other; their route line draws from the entrance hall through a different door to the same seat, and everyone enters in parallel with the same timing. A guide joins the changed route in both scenes; the neutral note says both are as supplied, with no winner, rule or outcome.",
+  "tags": [
+    "contrast",
+    "room access",
+    "public access",
+    "restricted access as configured",
+    "routes",
+    "doors",
+    "paired scenes",
+    "floor plan",
+    "seating"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/courts/kits/courts-art.js",
+    "src/animations/courts/kits/acceso-a-sala.js",
+    "src/animations/courts/kits/distribucion-de-sala.js",
+    "src/animations/roles/kits/mediation-labels.js",
+    "src/primitives/people-style.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "courts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "building": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name printed under the generic building (fictional)"
+          },
+          "room": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the room drawn as a plan (fictional)"
+          }
+        },
+        "required": [
+          "building",
+          "room"
+        ],
+        "description": "Generic, fictional building and room (no real court, building shape or emblem)"
+      },
+      "seats": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "slot": {
+              "type": "string",
+              "enum": [
+                "front1",
+                "front2",
+                "front3",
+                "front4",
+                "back1",
+                "back2",
+                "back3",
+                "back4"
+              ],
+              "description": "Position in the generic room: front1–front4 (the two tables) or back1–back4 (the two benches)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Editable label of the participant on this seat (as supplied)"
+            }
+          },
+          "required": [
+            "slot",
+            "label"
+          ],
+          "description": "Seat"
+        },
+        "minItems": 2,
+        "maxItems": 6,
+        "description": "Seats of the plan: a fixed position in the generic room and the editable label of its occupant, revealed when the seat is taken. Positions and labels are as supplied and carry no legal meaning (array replaces the previous value)"
+      },
+      "routes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "seat": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5,
+              "description": "Index of the seat in `seats`"
+            },
+            "access": {
+              "type": "string",
+              "enum": [
+                "public",
+                "restricted"
+              ],
+              "description": "Supplied access route: public (corridor and door on the bottom wall) or restricted (corridor and door on the left wall, restricted access as configured)"
+            }
+          },
+          "required": [
+            "seat",
+            "access"
+          ],
+          "description": "Route"
+        },
+        "minItems": 1,
+        "maxItems": 6,
+        "description": "Who walks to which seat by which supplied access route, in entrance order (as supplied). A route to an unknown or already taken seat is ignored (array replaces the previous value)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "publicAccess": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption of the public access route and its door"
+          },
+          "restrictedAccess": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the restricted access route and its door (as configured)"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Neutral key shown with the labels (must say that the data are as supplied and no conclusion is drawn)"
+          }
+        },
+        "required": [],
+        "description": "Editable built-in captions"
+      },
+      "people": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed (never tied to a route or role)"
+            }
+          },
+          "required": [],
+          "description": "Person"
+        },
+        "minItems": 0,
+        "maxItems": 6,
+        "description": "Optional appearance of the person on each route, in route order (array replaces the previous value)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description of the scenario (as supplied)"
+          },
+          "access": {
+            "type": "string",
+            "enum": [
+              "public",
+              "restricted"
+            ],
+            "description": "The supplied access route of the focus participant in this scenario"
+          }
+        },
+        "required": [
+          "label",
+          "access"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description of the scenario (as supplied)"
+          },
+          "access": {
+            "type": "string",
+            "enum": [
+              "public",
+              "restricted"
+            ],
+            "description": "The supplied access route of the focus participant in this scenario"
+          }
+        },
+        "required": [
+          "label",
+          "access"
+        ],
+        "description": "Scenario B"
+      },
+      "focusRoute": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 5,
+        "description": "Index in `routes` of the participant whose supplied route differs between A and B (they wait in the entrance hall in both scenes)"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the guide joining the changed detail in both scenes"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 110,
+            "description": "Neutral note (no winner, no outcome, no conclusion)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "courts": {
+      "building": "Civic building (fictional)",
+      "room": "Room 3 (fictional)"
+    },
+    "seats": [
+      {
+        "slot": "front1",
+        "label": "Participant A"
+      },
+      {
+        "slot": "front3",
+        "label": "Participant B"
+      },
+      {
+        "slot": "back1",
+        "label": "Participant C"
+      },
+      {
+        "slot": "back4",
+        "label": "Participant D"
+      }
+    ],
+    "routes": [
+      {
+        "seat": 0,
+        "access": "restricted"
+      },
+      {
+        "seat": 1,
+        "access": "public"
+      },
+      {
+        "seat": 2,
+        "access": "public"
+      },
+      {
+        "seat": 3,
+        "access": "restricted"
+      }
+    ],
+    "labels": {
+      "publicAccess": "Public access",
+      "restrictedAccess": "Restricted access as configured",
+      "key": "Routes, seats and labels as supplied · no conclusion drawn"
+    },
+    "people": [],
+    "scenarioA": {
+      "label": "A · Public access",
+      "caption": "Participant D takes the public route",
+      "access": "public"
+    },
+    "scenarioB": {
+      "label": "B · Restricted access as configured",
+      "caption": "Participant D takes the restricted route as configured",
+      "access": "restricted"
+    },
+    "focusRoute": 3,
+    "changedFact": "Changed fact: the supplied route of Participant D",
+    "sharedFacts": [
+      "Same room, doors, seats and people",
+      "Same entrance order and timing"
+    ],
+    "comparisonLabels": {
+      "guide": "Only this route differs",
+      "neutral": "Both scenes as supplied · no winner, no outcome"
+    }
+  }
+}

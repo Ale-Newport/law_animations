@@ -1,0 +1,163 @@
+{
+  "animationId": "LAW-0208",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. The hierarchy, the inspected tag and both values are entirely supplied, fictional and illustrative; no real court system, review or outcome is depicted.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three supplied levels and three bodies; the tag of body X reads 'Placed at: origin level' and is substituted by 'Placed at: configured review level'; its podium moves to that supplied level and its link re-routes.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Physical alternative: the tag of the review body changes from the configured review level to the origin level, so its podium moves DOWN to that supplied level; one person per room, plain links.",
+      "params": {
+        "courts": {
+          "levels": [
+            {
+              "name": "Origin level (as configured)"
+            },
+            {
+              "name": "Configured review level"
+            }
+          ],
+          "bodies": [
+            {
+              "label": "Origin body A (fictional)",
+              "level": 1
+            },
+            {
+              "label": "Review body (as configured)",
+              "level": 2
+            },
+            {
+              "label": "Origin body B (fictional)",
+              "level": 1
+            }
+          ]
+        },
+        "routes": [
+          {
+            "from": 0,
+            "to": 1,
+            "kind": "relation"
+          },
+          {
+            "from": 2,
+            "to": 1,
+            "kind": "relation"
+          }
+        ],
+        "seats": 1,
+        "focusBody": 1,
+        "focusTarget": "level",
+        "beforeValue": "Placed at: configured review level",
+        "afterValue": "Placed at: origin level",
+        "contextLabels": {
+          "context": "The supplied hierarchy, one body's level inspected",
+          "marker": "One supplied level changed"
+        },
+        "afterLevel": 1
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum names and values: three levels with long names, three bodies with long labels, before/after values at their maximum length, two people per room, long captions and a link supplied as a sequence.",
+      "params": {
+        "courts": {
+          "levels": [
+            {
+              "name": "Origin level of the fictional set"
+            },
+            {
+              "name": "Middle level of the fictional set"
+            },
+            {
+              "name": "Configured review level (as set)"
+            }
+          ],
+          "bodies": [
+            {
+              "label": "Body X of the northern example district",
+              "level": 1
+            },
+            {
+              "label": "Second-level body of the fictional set",
+              "level": 2
+            },
+            {
+              "label": "Review body of the example (configured)",
+              "level": 3
+            }
+          ]
+        },
+        "routes": [
+          {
+            "from": 0,
+            "to": 1,
+            "kind": "relation"
+          },
+          {
+            "from": 1,
+            "to": 2,
+            "kind": "relation"
+          }
+        ],
+        "seats": 2,
+        "labels": {
+          "note": "Hierarchy exactly as configured by the author (illustrative)",
+          "key": "Levels, bodies and placements shown only as supplied by the author · no conclusion drawn"
+        },
+        "beforeValue": "Placed at: the origin level of this example",
+        "afterValue": "Placed at: the configured review level (set)",
+        "contextLabels": {
+          "context": "The supplied fictional hierarchy, with the tag of one body inspected",
+          "marker": "One supplied datum was changed (as supplied)"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "courts": {
+          "levels": [
+            {
+              "name": "Nivel de origen (configurado)"
+            },
+            {
+              "name": "Nivel 2 (configurado)"
+            },
+            {
+              "name": "Nivel de revisión configurado"
+            }
+          ],
+          "bodies": [
+            {
+              "label": "Órgano X (ficticio)",
+              "level": 1
+            },
+            {
+              "label": "Órgano de nivel 2 (ficticio)",
+              "level": 2
+            },
+            {
+              "label": "Órgano de revisión (configurado)",
+              "level": 3
+            }
+          ]
+        },
+        "labels": {
+          "note": "Jerarquía según configuración (ilustrativa)",
+          "key": "Niveles y ubicaciones según lo aportado · sin conclusión"
+        },
+        "beforeValue": "Colocado en: nivel de origen",
+        "afterValue": "Colocado en: nivel de revisión configurado",
+        "contextLabels": {
+          "context": "La jerarquía aportada, con una etiqueta inspeccionada",
+          "marker": "Un dato aportado cambiado"
+        }
+      }
+    }
+  ]
+}

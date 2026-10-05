@@ -1,0 +1,204 @@
+{
+ "animationId": "LAW-0230",
+ "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. Every building, space and participant is generic and fictional; only the supplied relationships are drawn, with their kind, and none carries an arrowhead. Nothing states who may attend, a secrecy or confidentiality rule, a vote, a hierarchy, a time span or any outcome. Long-labels-stress: capped under the standing coordinator rule (2026-09-26, from LAW-0687/0689-0692; AUTHORING item 20). (1) Text lengths: near-maximum texts at 1:1 gave people 48.4 px (< 60); the capped texts give 61.5 px. (2) Relationship count (round 2, after the reviewer's traceability rule: every relation label >= 20 px nearer its own line than any other, no line under a label): with six relationships the labels cannot all be placed traceably in any ratio at >= 16.6 px (16:9 17.1 px with 1 failing label; 9:16 and 1:1 failing), with five 9:16 and 1:1 still fail; four relationships (the baseline count) place traceably in every ratio (16:9 19.8 px, 9:16 21.6 px, 1:1 16.6 px, people 70.8-73.7 px). Fallbacks tried first: bracket levels packed by span and label width, labels on either side of their line and slid along it, card widths 1/4.6-1/6.6, card gaps 1.2/2.4 em, names carried on the cards, legend in 3-5 columns, a right-hand text column, room depths 230-820. Every capped field stays longer than its baseline counterpart; counts stay >= baseline (4 participants vs 3, 4 relationships vs 4).",
+ "presets": [
+  {
+   "name": "baseline-illustrative",
+   "description": "Four supplied relationships (three plain links and one sequence: the door closes, then the public space moves along the track); the tracer follows participants → public space → partition → track; the partition is enlarged.",
+   "params": {}
+  },
+  {
+   "name": "contrast-or-alternative",
+   "description": "Fewer supplied relationships and another focus: only three links are drawn and the track card is enlarged; the tracer follows a different order.",
+   "params": {
+    "relationships": [
+     {
+      "from": "participants",
+      "to": "publicSpace",
+      "kind": "relation"
+     },
+     {
+      "from": "publicSpace",
+      "to": "track",
+      "kind": "relation"
+     },
+     {
+      "from": "partition",
+      "to": "zone",
+      "kind": "relation"
+     }
+    ],
+    "focusElement": "track",
+    "traversalOrder": [
+     "participants",
+     "publicSpace",
+     "track"
+    ]
+   }
+  },
+  {
+   "name": "long-labels-stress",
+   "description": "Long names, element labels and relation captions; four participants; four relationships (one sequence). Stress cap under the standing coordinator rule (2026-09-26, from LAW-0687/0689-0692; AUTHORING item 20): see the note.",
+   "params": {
+    "courts": {
+     "building": "Generic civic building, east wing (fictional)",
+     "hearing": "Hearing room two · public space (fictional)",
+     "deliberation": "Deliberation zone two, abstract (fictional)"
+    },
+    "routes": {
+     "track": "Track the public space follows (configured)",
+     "partition": "Generic partition with one hinged door"
+    },
+    "seats": {
+     "bench": "Public benches, two rows (as configured)",
+     "participants": [
+      {
+       "name": "Participant A, the public"
+      },
+      {
+       "name": "Participant B, the public"
+      },
+      {
+       "name": "Participant C, the public"
+      },
+      {
+       "name": "Participant D, the public"
+      }
+     ]
+    },
+    "labels": {
+     "gap": "Separation between both spaces (illustrative)",
+     "sequence": "Sequence exactly as configured (illustrative)",
+     "key": "Every name and caption is shown as supplied · no conclusion drawn"
+    },
+    "elements": [
+     {
+      "id": "publicSpace",
+      "label": "Public space with benches (moves)"
+     },
+     {
+      "id": "zone",
+      "label": "Abstract zone (it stays)"
+     },
+     {
+      "id": "partition",
+      "label": "Partition and its door"
+     },
+     {
+      "id": "track",
+      "label": "Track in the margin"
+     },
+     {
+      "id": "participants",
+      "label": "Seated participants (four)"
+     },
+     {
+      "id": "building",
+      "label": "Building around both spaces"
+     }
+    ],
+    "relationships": [
+     {
+      "from": "participants",
+      "to": "publicSpace",
+      "kind": "relation"
+     },
+     {
+      "from": "publicSpace",
+      "to": "partition",
+      "kind": "relation"
+     },
+     {
+      "from": "partition",
+      "to": "zone",
+      "kind": "relation"
+     },
+     {
+      "from": "partition",
+      "to": "track",
+      "kind": "sequence"
+     }
+    ],
+    "relationLabels": {
+     "relation": "Linked as configured",
+     "communication": "Communication as configured",
+     "sequence": "Sequence as configured (illustrative)",
+     "causal": "Causal link as supplied by the author"
+    },
+    "traversalOrder": [
+     "participants",
+     "publicSpace",
+     "partition",
+     "track"
+    ]
+   }
+  },
+  {
+   "name": "baseline-es",
+   "description": "Línea base en español.",
+   "params": {
+    "locale": "es",
+    "courts": {
+     "building": "Edificio (ficticio)",
+     "hearing": "Sala de audiencia (ficticia)",
+     "deliberation": "Zona de deliberación (ficticia)"
+    },
+    "routes": {
+     "track": "Recorrido (configurado)",
+     "partition": "Tabique con puerta"
+    },
+    "seats": {
+     "bench": "Bancos",
+     "participants": [
+      {
+       "name": "Participante A"
+      },
+      {
+       "name": "Participante B"
+      },
+      {
+       "name": "Participante C"
+      }
+     ]
+    },
+    "labels": {
+     "gap": "Separación (ilustrativa)",
+     "sequence": "Secuencia según lo configurado (ilustrativa)",
+     "key": "Según lo aportado · sin conclusión"
+    },
+    "elements": [
+     {
+      "id": "publicSpace",
+      "label": "Espacio público (se mueve)"
+     },
+     {
+      "id": "zone",
+      "label": "Zona abstracta (queda)"
+     },
+     {
+      "id": "partition",
+      "label": "Tabique y puerta"
+     },
+     {
+      "id": "track",
+      "label": "Recorrido"
+     },
+     {
+      "id": "participants",
+      "label": "Participantes sentados"
+     },
+     {
+      "id": "building",
+      "label": "Edificio que los rodea"
+     }
+    ],
+    "relationLabels": {
+     "relation": "Vinculados",
+     "communication": "Comunicación según lo configurado",
+     "sequence": "Secuencia configurada (ilustrativa)",
+     "causal": "Vínculo causal aportado"
+    }
+   }
+  }
+ ]
+}

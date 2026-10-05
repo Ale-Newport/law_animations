@@ -1,0 +1,315 @@
+{
+  "animationId": "LAW-0218",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Only supplied relationships are drawn; every shipped relationship is a plain relation (no arrow) — none reads as a directed route between institutions. No preset states who may attend, any rule or any outcome. Coordinator decision (standing stress rule, 2026-09-26): the long-labels-stress texts are capped to lengths that fit the 1:1 frame; see that preset's description for the measurements.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The plan opens into hall, public corridor, restricted corridor and room; five plain relations are drawn; the tracer visits hall, public route, room and restricted route while the hall enlarges and one participant per route walks to a seat.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: three relations only (the two door relations and the building), the restricted route in focus, a different traversal, and different people and seats.",
+      "params": {
+        "courts": {
+          "building": "Community hall (fictional)",
+          "room": "Room 5 (fictional)"
+        },
+        "seats": [
+          {
+            "slot": "front2",
+            "label": "Participant E"
+          },
+          {
+            "slot": "back3",
+            "label": "Participant F"
+          },
+          {
+            "slot": "front4",
+            "label": "Participant G"
+          }
+        ],
+        "routes": [
+          {
+            "seat": 1,
+            "access": "restricted"
+          },
+          {
+            "seat": 0,
+            "access": "public"
+          },
+          {
+            "seat": 2,
+            "access": "public"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "restrictedRoute",
+            "to": "room",
+            "kind": "relation",
+            "label": "Door (as configured)"
+          },
+          {
+            "from": "publicRoute",
+            "to": "room",
+            "kind": "relation",
+            "label": "Door (as configured)"
+          },
+          {
+            "from": "building",
+            "to": "room",
+            "kind": "relation",
+            "label": "Contains (as configured)"
+          }
+        ],
+        "focusElement": "restrictedRoute",
+        "traversalOrder": [
+          "restrictedRoute",
+          "room",
+          "publicRoute"
+        ],
+        "people": [
+          {
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 3,
+              "outfit": 2
+            }
+          },
+          {
+            "appearance": {
+              "skin": 4,
+              "hair": "buzz",
+              "hairColor": 5,
+              "outfit": 0,
+              "glasses": true
+            }
+          },
+          {
+            "appearance": {
+              "skin": 2,
+              "hair": "bun",
+              "hairColor": 1,
+              "outfit": 3
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels, capped under the standing stress rule (coordinator decision 2026-09-26, AUTHORING item 20): every text is strictly longer than the baseline and every count equals the baseline (four people, five relations, five parts). Measured with the near-maximum set (six people, six relations, 45–50-character captions) after trying the column, band, balanced-stack, supplied-seats-only and narrower-gap (210/180/150) fallbacks: at 1080x1080 two seat labels and seven captions stay unplaced down to 16.6 px with people at 59 px; an intermediate set (seat labels ~45, relation labels ~48 characters) still leaves one part caption unplaced at 1:1. With these capped texts every ratio fits (1:1 at 16.9 px, people ~65 px).",
+      "params": {
+        "courts": {
+          "building": "Municipal civic services building (fictional)",
+          "room": "Multipurpose room 3, ground floor (fictional)"
+        },
+        "seats": [
+          {
+            "slot": "front1",
+            "label": "Participant A (as supplied)"
+          },
+          {
+            "slot": "front4",
+            "label": "Participant B (as supplied)"
+          },
+          {
+            "slot": "back1",
+            "label": "Participant C (as supplied)"
+          },
+          {
+            "slot": "back4",
+            "label": "Participant D (as supplied)"
+          }
+        ],
+        "routes": [
+          {
+            "seat": 0,
+            "access": "restricted"
+          },
+          {
+            "seat": 1,
+            "access": "public"
+          },
+          {
+            "seat": 2,
+            "access": "public"
+          },
+          {
+            "seat": 3,
+            "access": "restricted"
+          }
+        ],
+        "labels": {
+          "publicAccess": "Public access from the entrance hall",
+          "restrictedAccess": "Restricted access as configured (from the hall)",
+          "key": "Routes, seats and labels as supplied by the author · no conclusion drawn"
+        },
+        "elements": [
+          {
+            "id": "building",
+            "label": "Generic civic building (fictional)"
+          },
+          {
+            "id": "lobby",
+            "label": "Entrance hall of both routes"
+          },
+          {
+            "id": "publicRoute",
+            "label": "Public corridor and its door"
+          },
+          {
+            "id": "restrictedRoute",
+            "label": "Restricted corridor and its door"
+          },
+          {
+            "id": "room",
+            "label": "Room with its supplied seats"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "lobby",
+            "to": "publicRoute",
+            "kind": "relation",
+            "label": "Opens onto it (as configured)"
+          },
+          {
+            "from": "lobby",
+            "to": "restrictedRoute",
+            "kind": "relation",
+            "label": "Opens onto it (as configured)"
+          },
+          {
+            "from": "publicRoute",
+            "to": "room",
+            "kind": "relation",
+            "label": "Door into the room (as configured)"
+          },
+          {
+            "from": "restrictedRoute",
+            "to": "room",
+            "kind": "relation",
+            "label": "Door into the room (as configured)"
+          },
+          {
+            "from": "building",
+            "to": "room",
+            "kind": "relation",
+            "label": "Contains the room (as configured)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Relation between parts (as configured)",
+          "communication": "Communication (as supplied)",
+          "sequence": "Sequence as configured (illustrative)",
+          "causal": "Causal link (as supplied)"
+        },
+        "traversalOrder": [
+          "building",
+          "lobby",
+          "restrictedRoute",
+          "room",
+          "publicRoute",
+          "lobby"
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "El mismo mecanismo en español: vestíbulo, pasillo público, pasillo restringido configurado y sala, con cinco relaciones simples.",
+      "params": {
+        "locale": "es",
+        "courts": {
+          "building": "Edificio cívico (ficticio)",
+          "room": "Sala 3 (ficticia)"
+        },
+        "seats": [
+          {
+            "slot": "front1",
+            "label": "Participante A"
+          },
+          {
+            "slot": "front3",
+            "label": "Participante B"
+          },
+          {
+            "slot": "back1",
+            "label": "Participante C"
+          },
+          {
+            "slot": "back4",
+            "label": "Participante D"
+          }
+        ],
+        "labels": {
+          "publicAccess": "Acceso público",
+          "restrictedAccess": "Acceso restringido configurado",
+          "key": "Recorridos, asientos y etiquetas según lo aportado · sin conclusión"
+        },
+        "elements": [
+          {
+            "id": "building",
+            "label": "Edificio genérico"
+          },
+          {
+            "id": "lobby",
+            "label": "Vestíbulo"
+          },
+          {
+            "id": "publicRoute",
+            "label": "Pasillo y puerta públicos"
+          },
+          {
+            "id": "restrictedRoute",
+            "label": "Pasillo y puerta restringidos"
+          },
+          {
+            "id": "room",
+            "label": "Sala y sus asientos"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "lobby",
+            "to": "publicRoute",
+            "kind": "relation",
+            "label": "Da a (según configuración)"
+          },
+          {
+            "from": "lobby",
+            "to": "restrictedRoute",
+            "kind": "relation",
+            "label": "Da a (según configuración)"
+          },
+          {
+            "from": "publicRoute",
+            "to": "room",
+            "kind": "relation",
+            "label": "Puerta (según configuración)"
+          },
+          {
+            "from": "restrictedRoute",
+            "to": "room",
+            "kind": "relation",
+            "label": "Puerta (según configuración)"
+          },
+          {
+            "from": "building",
+            "to": "room",
+            "kind": "relation",
+            "label": "Contiene (según configuración)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Relación (según configuración)",
+          "communication": "Comunicación",
+          "sequence": "Secuencia configurada (ilustrativa)",
+          "causal": "Vínculo causal (aportado)"
+        }
+      }
+    }
+  ]
+}

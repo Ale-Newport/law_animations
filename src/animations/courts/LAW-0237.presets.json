@@ -1,0 +1,60 @@
+{
+  "id": "LAW-0237",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Two participants reach the hearing room in the supplied order: one up the ramp with handrails, one up the steps and along the tactile strip; both end at their places (as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Another room and order: the participant with the long cane arrives first; the supplied final state is 'at the room door'.",
+      "params": {
+        "courts": {"building": "Community hall (fictional)", "room": "Room 5 (fictional)"},
+        "seats": [
+          {"label": "Participant 1", "mode": "cane", "place": "left"},
+          {"label": "Participant 2", "mode": "wheelchair", "place": "right"}
+        ],
+        "routes": [{"seat": 0}, {"seat": 1}],
+        "annotations": [{"target": "sign", "text": "Sign with a pictogram beside the room door"}],
+        "finalState": "at-door"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: three participants, long labels, captions and notes.",
+      "params": {
+        "courts": {"building": "Municipal civic services building, east wing (fictional)", "room": "Multipurpose hearing room 2, ground floor (fictional)"},
+        "seats": [
+          {"label": "Participant A, arriving from the pavement", "mode": "wheelchair", "place": "left"},
+          {"label": "Participant B, arriving with a long cane", "mode": "cane", "place": "right"},
+          {"label": "Participant C, arriving on foot (as supplied)", "mode": "walking", "place": "mid"}
+        ],
+        "routes": [{"seat": 0}, {"seat": 1}, {"seat": 2}],
+        "labels": {"ramp": "Ramp beside the entrance steps, with handrails", "tactile": "Tactile guidance strip from the door to the room", "sign": "Wall sign with a pictogram beside the room door", "key": "Places, routes and supports are shown as supplied by the author · no conclusion drawn"},
+        "actorLabels": {"wheelchair": "Moves with their own wheelchair along the route (as supplied)", "cane": "Walks with a long cane along the tactile strip (as supplied)", "walking": "Walks along the corridor to the room (as supplied)"},
+        "objectLabels": {"steps": "Entrance steps with a handrail on each side"},
+        "annotations": [
+          {"target": "tactile", "text": "The tactile strip runs from the entrance door to the door of the hearing room"},
+          {"target": "everyone", "text": "Every participant reaches the place supplied for them at the table"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español.",
+      "params": {
+        "courts": {"building": "Edificio cívico (ficticio)", "room": "Sala de vistas 2 (ficticia)"},
+        "seats": [
+          {"label": "Participante A", "mode": "wheelchair", "place": "left"},
+          {"label": "Participante B", "mode": "cane", "place": "right"}
+        ],
+        "labels": {"ramp": "Rampa con pasamanos", "tactile": "Franja táctil de guía", "sign": "Señal junto a la puerta", "key": "Según lo aportado · sin conclusión"},
+        "actorLabels": {"wheelchair": "Se desplaza en silla de ruedas (según lo aportado)", "cane": "Camina con bastón largo (según lo aportado)", "walking": "Camina (según lo aportado)"},
+        "objectLabels": {"steps": "Escalones de la entrada"},
+        "annotations": [{"target": "tactile", "text": "La franja va de la entrada a la puerta de la sala"}],
+        "locale": "es"
+      }
+    }
+  ]
+}

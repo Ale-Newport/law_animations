@@ -1,0 +1,504 @@
+{
+  "id": "LAW-0215",
+  "slug": "courts-04-contrast",
+  "title": "Physical and remote room — the same hearing with one participant in the room or in a window",
+  "titleEs": "Sala física y remota — Comparación de dos supuestos",
+  "category": "courts",
+  "categoryName": "Órganos y espacios judiciales",
+  "motif": "Sala física y remota",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical plans of the same generic hearing room. The only changed fact is where one participant appears, as supplied: in A a ring marks their chair and they walk from their own place through the corridor and door to sit in the room; in B a screen bezel frames their own place and the bench draws a solid link to it, and they sit at their desk. Everything else — the other people, the shared window and its link, the timing, sizes and label style — is the same. A guide names the changed fact; no winner, validity or outcome is shown.",
+  "tags": [
+    "contrast",
+    "floor plan",
+    "hearing room",
+    "remote window",
+    "in person",
+    "link",
+    "bench",
+    "equal weight"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/courts/kits/courts-art.js",
+    "src/animations/courts/kits/sala-fisica-remota.js",
+    "src/animations/courts/kits/distribucion-de-sala.js",
+    "src/animations/roles/kits/mediation-labels.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "courts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "building": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name printed under the generic building (fictional)"
+          },
+          "room": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the room drawn as a plan (fictional)"
+          }
+        },
+        "required": [
+          "building",
+          "room"
+        ],
+        "description": "Generic, fictional building and hearing room (no real court, building shape, emblem or platform)"
+      },
+      "seats": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "slot": {
+              "type": "string",
+              "enum": [
+                "front",
+                "left1",
+                "left2",
+                "win1",
+                "win2"
+              ],
+              "description": "Place: front, left1, left2 (room seats) or win1, win2 (remote windows)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Editable label of the participant at this place (as supplied)"
+            }
+          },
+          "required": [
+            "slot",
+            "label"
+          ],
+          "description": "Place"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Places of the participants, as supplied: a seat in the compact room (front = behind the bench; left1/left2 = the two seats at its table) or a remote window at the room edge (win1/win2, on the right wall), each with its editable label. Only the places the compact room draws are offered. Where a participant appears is as supplied and carries no legal meaning (array replaces the previous value)"
+      },
+      "routes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "seat": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index of the place in `seats`"
+            }
+          },
+          "required": [
+            "seat"
+          ],
+          "description": "Route"
+        },
+        "minItems": 1,
+        "maxItems": 6,
+        "description": "Arrival order (as supplied), as seat indices. Every seat is always drawn: a seat index missing from this list is appended in seat order, and an unknown or repeated index is ignored, so the list can be edited before or after Seats (array replaces the previous value)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mainDoor": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Caption of the main door"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key shown with the labels (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [],
+        "description": "Editable built-in captions"
+      },
+      "people": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed (never tied to a role or to where a person appears)"
+            }
+          },
+          "required": [],
+          "description": "Person"
+        },
+        "minItems": 0,
+        "maxItems": 6,
+        "description": "Optional appearance of the person on each route, in route order (array replaces the previous value)"
+      },
+      "focusSeat": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 3,
+        "description": "Index in `seats` of the participant whose place differs between A and B. It must be a room seat (front, left1, left2): used when they appear in the room; in the window scenario their own place beside the corridor is framed as a window. With a room-seat focus, at most one other participant may be in a window (see the combination rules)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description of where the focus participant appears (as supplied)"
+          },
+          "appears": {
+            "type": "string",
+            "enum": [
+              "room",
+              "window"
+            ],
+            "description": "Where the focus participant appears in this scenario, as supplied: in the room (at their room seat) or in a window at the room edge. It carries no legal meaning"
+          }
+        },
+        "required": [
+          "label",
+          "appears"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description of where the focus participant appears (as supplied)"
+          },
+          "appears": {
+            "type": "string",
+            "enum": [
+              "room",
+              "window"
+            ],
+            "description": "Where the focus participant appears in this scenario, as supplied: in the room (at their room seat) or in a window at the room edge. It carries no legal meaning"
+          }
+        },
+        "required": [
+          "label",
+          "appears"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome; must say that no conclusion is drawn)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "courts": {
+      "building": "Civic building (fictional)",
+      "room": "Hearing room 3 (fictional)"
+    },
+    "seats": [
+      {
+        "slot": "win1",
+        "label": "Participant B"
+      },
+      {
+        "slot": "left2",
+        "label": "Participant A"
+      }
+    ],
+    "routes": [
+      {
+        "seat": 0
+      },
+      {
+        "seat": 1
+      }
+    ],
+    "labels": {
+      "mainDoor": "Main door",
+      "key": "Places and labels as supplied · no conclusion drawn"
+    },
+    "people": [],
+    "focusSeat": 1,
+    "scenarioA": {
+      "label": "In-person appearance",
+      "caption": "Participant A appears in the room (as supplied)",
+      "appears": "room"
+    },
+    "scenarioB": {
+      "label": "Remote appearance",
+      "caption": "Participant A appears in a window (as supplied)",
+      "appears": "window"
+    },
+    "changedFact": "Changed fact: where Participant A appears (as supplied)",
+    "sharedFacts": [
+      "Same room, bench, door and table",
+      "Participant B appears in a window in both"
+    ],
+    "comparisonLabels": {
+      "guide": "Only this place differs",
+      "neutral": "Both are shown as supplied · no winner, no outcome, no conclusion drawn"
+    }
+  }
+}
