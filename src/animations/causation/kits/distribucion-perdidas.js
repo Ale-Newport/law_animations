@@ -239,11 +239,13 @@ export function trayBack(ctx, {tw, td, ph, i}) {
 }
 export function trayFront(ctx, {tw, td, ph, i, numText}) {
   const th = ctx.theme;
-  const R = Math.min(ph * 0.34, tw * 0.2);
+  // (the number keeps >= 17 px: the disc grows to hold it)
+  const fs = Math.max(17, Math.min(ph * 0.34, tw * 0.2) * 1.1);
+  const R = fs / 1.1;
   return g(null,
     h('path', {d: `M${r(-tw / 2)} ${r(td * 0.35)}H${r(tw / 2)}V${r(td)}Q${r(tw / 2)} ${r(td + 4)} ${r(tw / 2 - 4)} ${r(td + 4)}H${r(-tw / 2 + 4)}Q${r(-tw / 2)} ${r(td + 4)} ${r(-tw / 2)} ${r(td)}Z`, fill: eventTint(th, i), stroke: th.ink, 'stroke-width': 2.5}),
     h('circle', {cx: 0, cy: r(td + 4 + ph * 0.5), r: r(R), fill: eventInk(th, i), stroke: th.ink, 'stroke-width': 2}),
-    numText ? h('text', {x: 0, y: r(td + 4 + ph * 0.5 + R * 0.38), 'text-anchor': 'middle', 'font-size': r(R * 1.1), 'font-weight': 800, 'font-family': "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif", fill: '#fff'}, numText) : null,
+    numText ? h('text', {x: 0, y: r(td + 4 + ph * 0.5 + R * 0.38), 'text-anchor': 'middle', 'font-size': r(fs), 'font-weight': 800, 'font-family': "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif", fill: '#fff'}, numText) : null,
   );
 }
 

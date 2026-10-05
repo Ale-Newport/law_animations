@@ -165,11 +165,26 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "all evidence contact sheets listed, plus --safe 10-frame strips at 16:9/9:16/1:1 and 16:9 labels-hidden strips (production/scratch/rev-review-07/r3-*) viewed as images; fill judged inside the caption-safe box; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0348/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0348/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0348/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0348/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0348/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0348/sheet-16x9-es.png"
+    ],
+    "findings": [
+      "labels-hidden (textVisibility none) 16:9 t=0.40-0.75: dimmed overview table shifts left past the frame edge and is cropped (left ~10% of table outside canvas and outside safe box) - keep the isolate-phase table layout inside the safe box when the legend is hidden",
+      "labelled presets OK: fills safe box at all ratios, lens readable, card swap now visible in return phase (t~0.8)",
+      "minor: 9:16 lens ~1.6x"
+    ],
+    "sourceHash": "265258ab96721ec7362bcbd605c380126cab0ca517eaf84ed2247df8bbcce921",
+    "renderFingerprint": "b5f5630ebf388218704a157d2db4b363d0a4d900c4cdf04ee7ca20ca056f6047",
+    "reviewedAt": "2026-10-05T20:28:07.908Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -185,5 +200,10 @@
   "renderFingerprint": "b5f5630ebf388218704a157d2db4b363d0a4d900c4cdf04ee7ca20ca056f6047",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
   "thumb": "production/evidence/LAW-0348/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

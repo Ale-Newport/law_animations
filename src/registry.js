@@ -361,6 +361,7 @@ export const registry = {
   'LAW-0358': () => import('./animations/review/LAW-0358.js'),
   'LAW-0359': () => import('./animations/review/LAW-0359.js'),
   'LAW-0360': () => import('./animations/review/LAW-0360.js'),
+  'LAW-0361': () => import('./animations/evidence-custody/LAW-0361.js'),
   'LAW-0441': () => import('./animations/contract-formation/LAW-0441.js'),
   'LAW-0442': () => import('./animations/contract-formation/LAW-0442.js'),
   'LAW-0443': () => import('./animations/contract-formation/LAW-0443.js'),
@@ -457,6 +458,7 @@ export const registry = {
   'LAW-0714': () => import('./animations/causation/LAW-0714.js'),
   'LAW-0715': () => import('./animations/causation/LAW-0715.js'),
   'LAW-0716': () => import('./animations/causation/LAW-0716.js'),
+  'LAW-0717': () => import('./animations/causation/LAW-0717.js'),
 };
 
 /** @param {string} id */
