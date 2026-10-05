@@ -1,0 +1,584 @@
+{
+  "animationId": "LAW-0508",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0508",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "contract.reference",
+        "rejected": "Invalid animation parameters:\n - params.contract.reference: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: context: before-value, solid outline @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "value": "before",
+          "lensOpen": 0,
+          "copyShown": 0,
+          "contextDatum": 1,
+          "zoom": 1.862,
+          "lupaGrip": {
+            "x": 81.3,
+            "y": 696.49
+          },
+          "lensCentre": {
+            "x": 245.72,
+            "y": 696.49
+          },
+          "lupaParked": true,
+          "outline": "covered",
+          "markerShown": 0,
+          "keyShown": 0,
+          "wasShown": 0,
+          "lensPlace": "left",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lupaBox": {
+            "x": 67.3,
+            "y": 642.98,
+            "w": 265.82,
+            "h": 107.02
+          },
+          "tagBox": {
+            "x": 1210.8,
+            "y": 87.33,
+            "w": 380,
+            "h": 192.94
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: lens open: the datum shown in the lens only @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "value": "before",
+          "lensOpen": 1,
+          "copyShown": 1,
+          "contextDatum": 0,
+          "zoom": 1.862,
+          "lupaGrip": {
+            "x": 1251.78,
+            "y": 253.28
+          },
+          "lensCentre": {
+            "x": 1400.8,
+            "y": 183.8
+          },
+          "lupaParked": false,
+          "outline": "covered",
+          "markerShown": 0,
+          "keyShown": 0,
+          "wasShown": 0,
+          "lensPlace": "left",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lupaBox": {
+            "x": 67.3,
+            "y": 642.98,
+            "w": 265.82,
+            "h": 107.02
+          },
+          "tagBox": {
+            "x": 1210.8,
+            "y": 87.33,
+            "w": 380,
+            "h": 192.94
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: substituted in the lens, old value traceable; the outline edge follows @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "value": "after",
+          "lensOpen": 1,
+          "copyShown": 1,
+          "contextDatum": 0,
+          "zoom": 1.862,
+          "lupaGrip": {
+            "x": 1251.78,
+            "y": 253.28
+          },
+          "lensCentre": {
+            "x": 1400.8,
+            "y": 183.8
+          },
+          "lupaParked": false,
+          "outline": "changing",
+          "markerShown": 0,
+          "keyShown": 0,
+          "wasShown": 1,
+          "lensPlace": "left",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lupaBox": {
+            "x": 67.3,
+            "y": 642.98,
+            "w": 265.82,
+            "h": 107.02
+          },
+          "tagBox": {
+            "x": 1210.8,
+            "y": 87.33,
+            "w": 380,
+            "h": 192.94
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: back to context with the changed marker @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "value": "after",
+          "lensOpen": 0,
+          "copyShown": 0,
+          "contextDatum": 1,
+          "zoom": 1.862,
+          "lupaGrip": {
+            "x": 81.3,
+            "y": 696.49
+          },
+          "lensCentre": {
+            "x": 245.72,
+            "y": 696.49
+          },
+          "lupaParked": true,
+          "outline": "disputed",
+          "markerShown": 1,
+          "keyShown": 1,
+          "wasShown": 1,
+          "lensPlace": "left",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lupaBox": {
+            "x": 67.3,
+            "y": 642.98,
+            "w": 265.82,
+            "h": 107.02
+          },
+          "tagBox": {
+            "x": 1210.8,
+            "y": 87.33,
+            "w": 380,
+            "h": 192.94
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the before-value @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "value": "before",
+          "lensOpen": 0,
+          "copyShown": 0,
+          "contextDatum": 1,
+          "zoom": 1.862,
+          "lupaGrip": {
+            "x": 439.32,
+            "y": 560.32
+          },
+          "lensCentre": {
+            "x": 602.24,
+            "y": 538.24
+          },
+          "lupaParked": false,
+          "outline": "covered",
+          "markerShown": 0,
+          "keyShown": 0,
+          "wasShown": 0,
+          "lensPlace": "left",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lupaBox": {
+            "x": 67.3,
+            "y": 642.98,
+            "w": 265.82,
+            "h": 107.02
+          },
+          "tagBox": {
+            "x": 1210.8,
+            "y": 87.33,
+            "w": 380,
+            "h": 192.94
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: reverse substitution: the outline becomes solid @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "value": "after",
+          "lensOpen": 0,
+          "copyShown": 0,
+          "contextDatum": 1,
+          "zoom": 1.648,
+          "lupaGrip": {
+            "x": 81.3,
+            "y": 696.49
+          },
+          "lensCentre": {
+            "x": 245.72,
+            "y": 696.49
+          },
+          "lupaParked": true,
+          "outline": "covered",
+          "markerShown": 1,
+          "keyShown": 1,
+          "wasShown": 1,
+          "lensPlace": "left",
+          "textPx": 26.5,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lupaBox": {
+            "x": 67.3,
+            "y": 642.98,
+            "w": 265.82,
+            "h": 107.02
+          },
+          "tagBox": {
+            "x": 1210.8,
+            "y": 397.27,
+            "w": 380,
+            "h": 186.46
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the outline changes only after the substitution @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "value": "before",
+          "lensOpen": 1,
+          "copyShown": 0,
+          "contextDatum": 0,
+          "zoom": 1.862,
+          "lupaGrip": {
+            "x": 1251.78,
+            "y": 253.28
+          },
+          "lensCentre": {
+            "x": 1400.8,
+            "y": 183.8
+          },
+          "lupaParked": false,
+          "outline": "covered",
+          "markerShown": 0,
+          "keyShown": 0,
+          "wasShown": 0.6,
+          "lensPlace": "left",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lupaBox": {
+            "x": 67.3,
+            "y": 642.98,
+            "w": 265.82,
+            "h": 107.02
+          },
+          "tagBox": {
+            "x": 1210.8,
+            "y": 87.33,
+            "w": 380,
+            "h": 192.94
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: opening: never two legible copies @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "value": "before",
+          "lensOpen": 0.981,
+          "copyShown": 1,
+          "contextDatum": 0,
+          "zoom": 1.862,
+          "lupaGrip": {
+            "x": 1251.78,
+            "y": 253.28
+          },
+          "lensCentre": {
+            "x": 1400.8,
+            "y": 183.8
+          },
+          "lupaParked": false,
+          "outline": "covered",
+          "markerShown": 0,
+          "keyShown": 0,
+          "wasShown": 0,
+          "lensPlace": "left",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lupaBox": {
+            "x": 67.3,
+            "y": 642.98,
+            "w": 265.82,
+            "h": 107.02
+          },
+          "tagBox": {
+            "x": 1210.8,
+            "y": 87.33,
+            "w": 380,
+            "h": 192.94
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the inspection part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "value": "before",
+          "lensOpen": 1,
+          "copyShown": 1,
+          "contextDatum": 0,
+          "zoom": 1.862,
+          "lupaGrip": {
+            "x": 1251.78,
+            "y": 253.28
+          },
+          "lensCentre": {
+            "x": 1400.8,
+            "y": 183.8
+          },
+          "lupaParked": false,
+          "outline": "covered",
+          "markerShown": 0,
+          "keyShown": 0,
+          "wasShown": 0,
+          "lensPlace": "left",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": true,
+          "lupaBox": {
+            "x": 67.3,
+            "y": 642.98,
+            "w": 265.82,
+            "h": 107.02
+          },
+          "tagBox": {
+            "x": 1210.8,
+            "y": 87.33,
+            "w": 380,
+            "h": 192.94
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: same sequence @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "value": "after",
+          "lensOpen": 0,
+          "copyShown": 0,
+          "contextDatum": 1,
+          "zoom": 1.862,
+          "lupaGrip": {
+            "x": 81.3,
+            "y": 696.49
+          },
+          "lensCentre": {
+            "x": 245.72,
+            "y": 696.49
+          },
+          "lupaParked": true,
+          "outline": "disputed",
+          "markerShown": 1,
+          "keyShown": 0,
+          "wasShown": 1,
+          "lensPlace": "left",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lupaBox": {
+            "x": 67.3,
+            "y": 642.98,
+            "w": 265.82,
+            "h": 107.02
+          },
+          "tagBox": {
+            "x": 1210.8,
+            "y": 87.33,
+            "w": 380,
+            "h": 192.94
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

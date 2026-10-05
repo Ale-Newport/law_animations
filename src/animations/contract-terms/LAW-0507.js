@@ -11,8 +11,8 @@
  *  0.42–0.52  in both benches the sliding jaw starts to close (identical so far).
  *  0.52–0.62  the change: in A the jaw closes on the far edge of the claim (● on the jaw); in B it is held apart, short of
  *             the claim, and the open span is drawn dashed (◆ on the jaw) — same jaw, colour and stroke in both.
- *  0.62–0.80  a highlight guide outlines both sliding jaws ("Only the supplied scope status differs"); the neutral note
- *             fades in. Hold to 1.00: no winner, no score, no outcome.
+ *  0.62–0.80  a highlight guide outlines both sliding jaws ("Only the supplied scope status differs"). The neutral note
+ *             is shown throughout. Hold to 1.00: no winner, no score, no outcome.
  * No indemnity doctrine: no duty to indemnify or pay, nothing decided beyond the supplied statuses, no amount unless
  * supplied (labelled hypothetical), no jurisdiction.
  * @module animations/contract-terms/LAW-0507
@@ -418,7 +418,7 @@ const scene = {
     const j1 = ease.inOutSine(seg(a, ...W.jaw1)), j2 = ease.inOutSine(seg(a, ...W.jaw2));
     const jawAt = k => (j2 > 0 ? lerp(B.jawMid, k === 0 ? B.jawClosed : B.jawOpen, j2) : lerp(B.jawPark, B.jawMid, j1));
     const spanQ = seg(a, ...W.span);
-    const guideQ = done ? seg(u, ...W.guide) : 0, noteQ = done ? seg(u, ...W.note) : 0;
+    const guideQ = done ? seg(u, ...W.guide) : 0, noteQ = 1; // the neutral note is static information: shown throughout
     const looks = [];
     for (let k = 0; k < 2; k++) {
       const P = k === 0 ? 'a-' : 'b-';

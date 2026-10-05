@@ -165,11 +165,30 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "pass",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) plus --safe 1:1 strips and labels-hidden viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0332/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0332/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0332/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0332/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0332/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0332/sheet-16x9-es.png",
+      "production/scratch/rev3-review-03/r3-safe-0332.png",
+      "production/scratch/rev3-review-03/r3-nolabel-0332.png"
+    ],
+    "findings": [
+      "Tests 42/42 alone (cold create worst 502 ms)",
+      "Build now shows the petition sliding from tray A into tray B (visible at t=0.10 in 16:9/9:16/es), then isolate (context dimmed, still legible), substitute (state record changes with a was line), return with the decision sheet in tray B",
+      "1:1: room spans the safe width, ~45% of safe height, with the legend filling the rest; stations ~180 px, petition ~60-70 px at 1080",
+      "Labels-hidden reads: magnified record changes from circle to diamond, and the decision sheet appears in tray B at the return",
+      "Minor: short build with no participant; the isolate is text-card dominated, as is usual for the inspect treatment; neutral, as-supplied wording"
+    ],
+    "sourceHash": "fc65921c8c3226a017a8ce37eaa6fdc706c4264e05130f9d005b246dbd822d04",
+    "renderFingerprint": "be12e0061176b153e4a17ab298d536cf966c38fa39f1533307e9ebd23e457b88",
+    "reviewedAt": "2026-10-05T22:48:46.911Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -186,23 +205,9 @@
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
   "thumb": "production/evidence/LAW-0332/thumb.png",
   "captureErrors": [],
-  "previousVisualReview": {
-    "status": "fail",
-    "reviewer": "claude subagent (independent reviewer, session 2)",
-    "method": "--safe 1:1 strip + labels-hidden viewed as images; no real-time playback",
-    "live": null,
-    "artifacts": [
-      "production/scratch/rev3-review-03/r2-safe-0332.png",
-      "production/scratch/rev3-review-03/r2-nolabel-0332.png"
-    ],
-    "findings": [
-      "Brief action still not physically shown: petition already in tray B at frame 0; the scene is a record-card text swap - add a build where the petition is carried/placed into the tray before isolating",
-      "1:1 isolate/substitute (t=0.3-0.7): room dims to a small thumbnail in the safe box's top-left (~55% width, ~40% height) beside/under a text card; the decisive change reads as a text label",
-      "Labels-hidden: the change only appears as a small decision sheet in tray B at the return (~40 px), and a tiny record icon mid-room; hard to read"
-    ],
-    "sourceHash": "1e50c750c0e6930be7d7097f4cd0f2af3f71a1276989fdb7608891c226541712",
-    "renderFingerprint": "6a2aea42a28b101aa7733d67943a7990f9fe9a675739341e3cdd56aa0a2b4932",
-    "reviewedAt": "2026-10-05T21:53:37.160Z",
-    "invalidated": "source changed and rendered output differs from what was reviewed"
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
   }
 }

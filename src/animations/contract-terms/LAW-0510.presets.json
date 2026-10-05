@@ -1,0 +1,77 @@
+{
+  "animationId": "LAW-0510",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: generic clause headings, fictional destination labels ('Law X (fictional)', 'Forum Y (fictional)'), never a real country, legal system or court. The two clauses are separate: each clause card has its own plain link to its own plaque; no link is drawn between the clauses or between the plaques; relations are plain (no arrowheads, association not causation), and neither decides the other. No conflict-of-laws or jurisdiction doctrine, no validity, effect, priority or outcome. Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): schedules, definitions, priorities (no ranking between the clauses is shown), actorLabels (no actors), actionProgress and finalState (the hold always shows both routes). traversalOrder is exposed as 'order'. objectLabels are the destination plaque labels (destinations).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Routes in order: Clause 14 → 'Law X (fictional)', then Clause 15 → 'Forum Y (fictional)'.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: another contract with other fictional labels; the forum route is traversed first.",
+      "params": {
+        "contract": {
+          "reference": "CT-733",
+          "title": "Services agreement (fictional)"
+        },
+        "clauses": {
+          "law": "Clause 22 · Governing law",
+          "forum": "Clause 21 · Chosen forum"
+        },
+        "destinations": {
+          "law": "Law Q (fictional)",
+          "forum": "Forum R (fictional)"
+        },
+        "order": "forum-first"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long contract heading, long clause headings, long plaque labels and two annotations.",
+      "params": {
+        "contract": {
+          "reference": "CONTRACT-2026-0508",
+          "title": "Framework contract with two separate choice clauses (fictional)"
+        },
+        "clauses": {
+          "law": "Clause 14 · Choice of law, heading exactly as supplied",
+          "forum": "Clause 15 · Choice of forum, heading exactly as supplied"
+        },
+        "destinations": {
+          "law": "Law X, label exactly as supplied (fictional)",
+          "forum": "Forum Y, label exactly as supplied (fictional)"
+        },
+        "annotations": [
+          {
+            "target": "law",
+            "text": "Clause 14 is linked to its own plaque, as supplied"
+          },
+          {
+            "target": "forum",
+            "text": "Clause 15 is linked to its own plaque, as supplied"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea de base en español: la cláusula 14 enlaza con 'Ley X (ficticia)' y la cláusula 15 con 'Foro Y (ficticio)'.",
+      "params": {
+        "locale": "es",
+        "contract": {
+          "reference": "CT-508",
+          "title": "Contrato (ficticio)"
+        },
+        "clauses": {
+          "law": "Cláusula 14 · Elección de ley",
+          "forum": "Cláusula 15 · Elección de foro"
+        },
+        "destinations": {
+          "law": "Ley X (ficticia)",
+          "forum": "Foro Y (ficticio)"
+        }
+      }
+    }
+  ]
+}

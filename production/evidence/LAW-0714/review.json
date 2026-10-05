@@ -164,11 +164,27 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "all contact sheets (16:9 baseline/alternative/long-labels/es, 9:16, 1:1) and dense / labels-hidden frame strips with safe box viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0714/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0714/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0714/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0714/sheet-16x9-es.png",
+      "production/evidence/LAW-0714/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0714/sheet-1x1-baseline.png"
+    ],
+    "findings": [
+      "LEGAL: alternative preset 16:9 t>=0.35 labels lane A connector 'causal (as supplied)' but lane B 'then (as supplied)/related as supplied' - asymmetric causal framing between lanes; use identical neutral connector wording for both lanes",
+      "1:1 (labels-hidden, safe box): convergence inset ~45px (~17% of safe width), much smaller than the lane pieces; enlarge it as the focus of the trace",
+      "In-row layout not used at 1:1/9:16/stress; 1:1 record and inset crowd top band while pieces sit low",
+      "No actors in this treatment (acceptable as mechanism) but pieces remain modest at 16:9 (~17% of safe width each)"
+    ],
+    "sourceHash": "56113c939c1425a974b85e3e35d7b8fde75f175a4001a9cb3ad1e01b3e1db776",
+    "renderFingerprint": "ef39c936877d141f21d7625587f2955839b3f29947504952cb662a821897cee6",
+    "reviewedAt": "2026-10-05T22:49:06.245Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -184,5 +200,10 @@
   "renderFingerprint": "ef39c936877d141f21d7625587f2955839b3f29947504952cb662a821897cee6",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.12,0.35,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0714/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "not_confirmed",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

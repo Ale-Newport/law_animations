@@ -36,7 +36,7 @@ import {
 const ID = 'LAW-0508';
 const DURATION = 6000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
-const W = {lupaIn: [0.1, 0.2], open: [0.2, 0.32], lift: [0.42, 0.49], was: [0.47, 0.52], after: [0.5, 0.56], edge: [0.56, 0.64], close: [0.68, 0.78], lupaOut: [0.74, 0.82], marker: [0.8, 0.84], key: [0.82, 0.88], label: [0.84, 0.9]};
+const W = {lupaIn: [0.04, 0.2], open: [0.2, 0.32], lift: [0.42, 0.49], was: [0.47, 0.52], after: [0.5, 0.56], edge: [0.56, 0.64], close: [0.68, 0.78], lupaOut: [0.72, 0.84], marker: [0.8, 0.84], key: [0.82, 0.88], label: [0.84, 0.9]};
 
 const strings = {
   en: {...KIT_STRINGS.en},
@@ -82,9 +82,10 @@ const isStress = p => [...p.clauses, p.claim.label, p.contract.title, p.beforeVa
 /* Layout                                                                  */
 /* ---------------------------------------------------------------------- */
 
-function geom(ctx, F, minF, stacked) {
+function geom(ctx, F, minF, placementPref) {
   const p = ctx.params;
   const D = ctx.design;
+  const shape = ctx.view.shape;
   const show = ctx.show('all'), showKey = ctx.show('key');
   const stress = isStress(p);
   const why = [];
@@ -92,31 +93,32 @@ function geom(ctx, F, minF, stacked) {
   const pi = promiseIndex(p);
   const prong = 50;
   const after = p.beforeState === 'covered' ? 'disputed' : 'covered';
-  // the lens destination band
-  const lensBand = stacked ? Math.min(D.h * 0.44, 560) : Math.min(D.w * 0.4, 720);
-  const stand = stacked ? {x: m, y: m, w: D.w - 2 * m, h: D.h - 2 * m - lensBand - 30} : {x: m, y: m, w: D.w - 2 * m - lensBand - 40, h: D.h - 2 * m};
-  // stand parts: board (with frame), ledge, post
+  // the stand fills the frame; the detail lens opens OVER the stand, away from its source
+  const stand = {x: m, y: m, w: D.w - 2 * m, h: D.h - 2 * m};
   const fr = 16;
   const ledgeH = 22;
-  const lupaDim = {lw: clamp(stand.w * 0.16, 120, 190), lh: 0, hl: 0};
+  const lupaDim = {lw: clamp(Math.min(stand.w, stand.h) * 0.2, 130, 200), lh: 0, hl: 0};
   lupaDim.lh = lupaDim.lw * 0.62; lupaDim.hl = lupaDim.lw * 0.62;
-  const shelfH = lupaDim.lh + 26;
+  const shelfH = lupaDim.lh + 28;
   const board = {x: stand.x, y: stand.y, w: stand.w, h: stand.h - shelfH - ledgeH};
   const inner = {x: board.x + fr, y: board.y + fr, w: board.w - 2 * fr, h: board.h - 2 * fr};
   // the tag (value text sized for the longer value; the "was" line below)
-  const tagW = clamp(inner.w * (stacked ? 0.36 : 0.34), 250, 400);
+  const tagW = clamp(inner.w * (shape === 'portrait' ? 0.44 : 0.27), 240, 380);
   const gR = F * 0.42;
   const vMax = tagW - 44 - gR * 2 - 12;
-  const valFits = {before: fitG(p.beforeValue, {maxWidth: vMax, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 700}), after: fitG(p.afterValue, {maxWidth: vMax, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 700})};
-  const wasFit = fitG(`${ctx.t.was}: ${p.beforeValue}`, {maxWidth: tagW - 44, size: Math.max(minF, F * 0.82), minSize: minF, maxLines: stress ? 4 : 3, weight: 500});
+  const valFits = {before: fitG(p.beforeValue, {maxWidth: vMax, size: F, minSize: minF, maxLines: stress ? 5 : 4, weight: 700}), after: fitG(p.afterValue, {maxWidth: vMax, size: F, minSize: minF, maxLines: stress ? 5 : 4, weight: 700})};
+  const wasFit = fitG(`${ctx.t.was}: ${p.beforeValue}`, {maxWidth: tagW - 44, size: Math.max(minF, F * 0.85), minSize: minF, maxLines: stress ? 5 : 4, weight: 500});
   if (valFits.before.bad || valFits.after.bad || wasFit.bad) why.push('tag-text');
   const valH = Math.max(valFits.before.height, valFits.after.height);
   const tagH = 34 + valH + 14 + wasFit.height + 24;
-  // sheet + slip widths
-  const slipW = clamp(inner.w * 0.27, 210, 330);
-  const sheetW = inner.w - (prong + 14) - slipW - 24 - (stacked ? 0 : 0);
+  // the sheet on the left, the column (slip + tag + notes) on its right
+  const slipW = clamp(inner.w * (shape === 'portrait' ? 0.42 : 0.24), 220, 340);
+  const colW = Math.max(slipW, tagW) + 16;
+  const sheetW = Math.min(inner.w - (prong + 14) - colW - 8, inner.w * (shape === 'portrait' ? 0.6 : 0.56));
+  const used = sheetW + prong + 14 + colW;
+  const x0 = inner.x + Math.max(6, (inner.w - used) / 2);
   const S = sheetText(p, sheetW, F, minF, {stress});
-  const sheet = {x: inner.x + 6, y: inner.y + 8, w: sheetW, h: inner.h - 16};
+  const sheet = {x: x0, y: inner.y + 8, w: sheetW, h: inner.h - 16};
   if (S.need > sheet.h) why.push('sheet-text');
   const rows = placeRows(S, sheet.h, F);
   const row = rows[pi];
@@ -126,45 +128,82 @@ function geom(ctx, F, minF, stacked) {
   const tip = {x: sock.x + 4, y: sock.y};
   const sb = slipBox(TT, 'left', prong);
   const dockBox = {x: tip.x + sb.x, y: tip.y + sb.y, w: sb.w, h: sb.h};
-  if (dockBox.y < inner.y - 2) why.push('slip-off-board');
+  if (dockBox.y < inner.y - 2 || dockBox.y + dockBox.h > inner.y + inner.h + 2) why.push('slip-off-board');
+  const colX = dockBox.x;
   // the tag hangs from the slip: below it if there is room, else above it
-  const tagX = clamp(dockBox.x + dockBox.w / 2 - tagW / 2, sheet.x + sheet.w - 40, inner.x + inner.w - tagW - 4);
-  let tag = {x: tagX, y: dockBox.y + dockBox.h + 44, w: tagW, h: tagH, hang: 'below'};
-  if (tag.y + tag.h > inner.y + inner.h + fr + ledgeH * 0.2) tag = {x: tagX, y: dockBox.y - 44 - tagH, w: tagW, h: tagH, hang: 'above'};
-  if (tag.y < inner.y - 4) why.push('tag-does-not-fit');
+  const tagX = colX + Math.max(0, (colW - 16 - tagW) / 2);
+  let tag = {x: tagX, y: dockBox.y + dockBox.h + 30, w: tagW, h: tagH, hang: 'below'};
+  if (tag.y + tag.h > inner.y + inner.h + 4) tag = {x: tagX, y: dockBox.y - 30 - tagH, w: tagW, h: tagH, hang: 'above'};
+  if (tag.y < inner.y + 4) why.push('tag-does-not-fit');
   // the scope outline round the promise row and the docked slip
   const rl = sheet.x + S.padX - 22, rt = sheet.y + row.y - 12, rb = sheet.y + row.y + row.h + 12;
   const sx = sock.x + 8, pad = 14;
   const P = [{x: rl, y: rb}, {x: rl, y: rt}, {x: sx, y: rt}, {x: sx, y: dockBox.y - pad}, {x: dockBox.x + dockBox.w + pad, y: dockBox.y - pad},
     {x: dockBox.x + dockBox.w + pad, y: dockBox.y + dockBox.h + pad}, {x: sx, y: dockBox.y + dockBox.h + pad}, {x: sx, y: rb}];
   const loop = roundedLoop(P, 16);
-  // lens source: the tag and the outline's edge next to it
-  const edgeY = tag.hang === 'below' ? dockBox.y + dockBox.h + pad : dockBox.y - pad;
-  const src = tag.hang === 'below'
-    ? {x: tag.x - 18, y: edgeY - 18, w: tag.w + 36, h: tag.y + tag.h + 14 - (edgeY - 18)}
-    : {x: tag.x - 18, y: tag.y - 14, w: tag.w + 36, h: edgeY + 18 - (tag.y - 14)};
-  // lens destination (same aspect as the source)
-  const band = stacked ? {x: m, y: stand.y + stand.h + 30, w: D.w - 2 * m, h: lensBand} : {x: stand.x + stand.w + 40, y: m, w: lensBand, h: D.h - 2 * m};
-  const zoom = Math.min(p.detailGeometry.zoom, band.w / src.w, band.h / src.h);
+  // lens source: the socket, the docked slip, the tag below/above it and the outline round them (supplied texts wholly inside)
+  const sx0 = Math.min(sock.x - 34, tag.x - 18), sx1 = Math.max(dockBox.x + dockBox.w + pad + 10, tag.x + tag.w + 18);
+  const sy0 = Math.min(dockBox.y - pad - 12, tag.y - 14), sy1 = Math.max(dockBox.y + dockBox.h + pad + 12, tag.y + tag.h + 14);
+  let src = {x: sx0, y: sy0, w: sx1 - sx0, h: sy1 - sy0};
+  if (shape === 'portrait') {
+    // tall frames: the tag and the outline's edge next to it (the lens then spans the frame width)
+    const edgeY = tag.hang === 'below' ? dockBox.y + dockBox.h + pad : dockBox.y - pad;
+    src = tag.hang === 'below'
+      ? {x: tag.x - 18, y: edgeY - 16, w: tag.w + 36, h: tag.y + tag.h + 14 - (edgeY - 16)}
+      : {x: tag.x - 18, y: tag.y - 14, w: tag.w + 36, h: edgeY + 16 - (tag.y - 14)};
+  }
+  // lens destination: over the stand, clear of the source (and of the slip it hangs from)
+  const keep = {x: src.x - 20, y: src.y - 20, w: src.w + 40, h: src.h + 40};
+  const regions = [
+    {k: 'left', x: m, y: m, w: keep.x - m, h: D.h - 2 * m},
+    {k: 'top', x: m, y: m, w: D.w - 2 * m, h: keep.y - m},
+    {k: 'bottom', x: m, y: keep.y + keep.h, w: D.w - 2 * m, h: D.h - m - (keep.y + keep.h)},
+  ].filter(rg => rg.w > 100 && rg.h > 100);
+  let best = null;
+  for (const rg of regions) {
+    const z = Math.min(p.detailGeometry.zoom, (rg.w - 10) / src.w, (rg.h - 10) / src.h, (rg.k === 'left' ? D.w * 0.55 : D.w) / src.w, (rg.k === 'left' ? D.h : D.h * 0.55) / src.h);
+    const smaller = Math.min(src.w * z, src.h * z);
+    if (!best || (placementPref && rg.k === placementPref && z >= 1.5) || z > best.z + 0.05) best = {rg, z, smaller};
+  }
+  const zoom = best ? best.z : 1;
   if (zoom < 1.5) why.push('zoom-too-small');
+  const rg = best ? best.rg : {x: m, y: m, w: 100, h: 100};
   const dest = {w: src.w * zoom, h: src.h * zoom};
-  dest.x = band.x + (band.w - dest.w) / 2;
-  dest.y = band.y + (band.h - dest.h) / 2;
+  dest.x = rg.x + (rg.w - dest.w) / 2;
+  dest.y = rg.y + (rg.h - dest.h) / 2;
   // reading lens: rests on the shelf below the board, then over the tag
   const shelfY = board.y + board.h + ledgeH;
-  const lensRest = {centre: {x: stand.x + 30 + lupaDim.lw / 2, y: shelfY + shelfH / 2}, a: 0};
+  const lensRest = {centre: {x: stand.x + 26 + lupaDim.lh * 0.3 + lupaDim.hl + lupaDim.lw / 2, y: shelfY + shelfH / 2 - 6}, a: 0};
   const lensRead = {centre: {x: tag.x + tag.w / 2, y: tag.y + tag.h / 2}, a: -25};
-  // labels: the stand plate and the marker label (context), the key (in the lens band, after the lens closes)
-  const plateFit = show && p.contextLabels.context ? fitG(p.contextLabels.context, {maxWidth: stand.w - lupaDim.lw - 120, size: F * 0.9 < minF ? minF : F * 0.9, minSize: minF, maxLines: 1, weight: 700}) : null;
+  // the stand plate on the shelf; the marker beside the tag; the marker label and key in the column's free space
+  const plateFit = show && p.contextLabels.context ? fitG(p.contextLabels.context, {maxWidth: stand.w - lupaDim.lw - lupaDim.hl - 100, size: Math.max(minF, F * 0.9), minSize: minF, maxLines: 2, weight: 700}) : null;
   if (plateFit && plateFit.bad) why.push('plate-text');
   const markerR = Math.max(18, F * 0.7);
-  const markerAt = {x: tag.x + tag.w + markerR + 8, y: tag.y + 26};
-  if (markerAt.x + markerR > board.x + board.w - 2) markerAt.x = tag.x - markerR - 8;
-  const mlFit = show && p.contextLabels.marker ? fitG(p.contextLabels.marker, {maxWidth: band.w - 40, size: F, minSize: minF, maxLines: 2, weight: 700}) : null;
-  const keyFit = showKey ? fitG(ctx.t.key, {maxWidth: band.w - 40, size: F, minSize: minF, maxLines: 2, weight: 500}) : null;
+  const markerAt = {x: tag.x + tag.w + markerR + 8, y: tag.y + 28};
+  if (markerAt.x + markerR > inner.x + inner.w - 2) markerAt.x = tag.x - markerR - 8;
+  const notes = [];
+  if (show && p.contextLabels.marker) notes.push({name: 'mlabel', text: p.contextLabels.marker, kind: 'marker'});
+  if (showKey) notes.push({name: 'key', text: ctx.t.key, kind: 'key'});
+  const top0 = Math.min(dockBox.y, tag.y), bot0 = Math.max(dockBox.y + dockBox.h, tag.y + tag.h);
+  const colRegions = [
+    {x: colX - 6, w: inner.x + inner.w - colX - 2, top: bot0 + 22, bottom: inner.y + inner.h - 6},
+    {x: colX - 6, w: inner.x + inner.w - colX - 2, top: inner.y + 6, bottom: top0 - 22},
+  ];
+  const placed = [];
+  const usedR = colRegions.map(q => ({...q, y: q.top}));
+  for (const q of notes) {
+    let ok = false;
+    for (const cr of usedR) {
+      if (cr.w < 180) continue;
+      const c = chipG(ctx, q.text, {x: cr.x, y: cr.y, maxWidth: cr.w, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, opacity: 0, fill: q.kind === 'marker' ? ctx.theme.accent2Soft : ctx.theme.card});
+      if (c.bad || cr.y + c.box.h > cr.bottom) continue;
+      placed.push({q, c}); cr.y += c.box.h + 12; ok = true; break;
+    }
+    if (!ok) why.push(`note-${q.name}`);
+  }
   return {
-    ok: !why.length, why, F, minF, stacked, after, stand, board, inner, fr, ledgeH, shelfH, shelfY, lupaDim, tag, tagW, valFits, wasFit, gR,
-    sheet, S, rows, pi, sock, TT, tip, prong, dockBox, loop, src, dest, band, zoom, lensRest, lensRead, plateFit, markerR, markerAt, mlFit, keyFit, stress,
+    ok: !why.length, why, F, minF, after, stand, board, inner, fr, ledgeH, shelfH, shelfY, lupaDim, tag, tagW, valFits, wasFit, gR,
+    sheet, S, rows, pi, sock, TT, tip, prong, dockBox, loop, src, dest, zoom, lensPlace: best ? best.rg.k : null, lensRest, lensRead, plateFit, markerR, markerAt, placed, stress,
   };
 }
 
@@ -220,14 +259,15 @@ const scene = {
     const stress = isStress(p);
     const minF = (stress ? 16.6 : 20) / upx;
     const shape = ctx.view.shape;
-    const opts = p.detailGeometry.placement === 'bottom' ? [true] : p.detailGeometry.placement === 'right' ? [false] : shape === 'landscape' ? [false, true] : [true, false];
+    const pref = p.detailGeometry.placement === 'auto' ? null : p.detailGeometry.placement === 'right' ? 'left' : 'bottom';
     let L = null;
-    search: for (const fpx of stress ? [23, 21, 19.5, 18, 17] : [28, 26.5, 25, 23, 21.5, 20.5]) for (const st of opts) {
-      L = geom(ctx, fpx / upx, minF, st);
-      if (L.ok) break search;
+    for (const fpx of stress ? [23, 21, 19.5, 18, 17] : [28, 26.5, 25, 23, 21.5, 20.5]) {
+      L = geom(ctx, fpx / upx, minF, pref);
+      if (L.ok) break;
     }
+    void shape;
     L.upx = upx;
-    L.lensF = lensFrame(ctx, {name: 'lens', source: L.src, dest: L.dest, content: null, frame: {x: 0, y: 0, w: ctx.design.w, h: ctx.design.h}, color: ctx.theme.accent2}).frame;
+    L.lensF = lensFrame(ctx, {name: 'lens', source: L.src, dest: L.dest, content: null, color: ctx.theme.accent2}).frame;
     return L;
   },
   build(ctx, L) {
@@ -258,25 +298,17 @@ const scene = {
     // lens content: a real copy of the tag and the outline at the same coordinates
     const content = g(null,
       h('rect', {x: r(L.src.x - 40), y: r(L.src.y - 40), width: r(L.src.w + 80), height: r(L.src.h + 80), fill: '#c9a273'}),
-      slipBottomCopy(ctx, L),
+      h('rect', {x: r(L.sheet.x + L.sheet.w - 60), y: r(L.src.y - 40), width: 60, height: r(L.src.h + 80), fill: '#fffdf7'}),
       outlineCopies(ctx, L, 'L-'),
+      g({transform: T(L.sock.x, L.sock.y)}, socketArt(ctx, undefined, 'right', 1)),
+      g({transform: T(L.tip.x, L.tip.y)}, g({name: 'L-slipcopy', opacity: 0}, claimSlip(ctx, {name: undefined, T: L.TT, side: 'left', prong: L.prong, showText: show}))),
       cord(L),
       scopeTag(ctx, L, 'L-', show),
     );
-    const lz = lensFrame(ctx, {name: 'lens', source: L.src, dest: L.dest, content, frame: {x: 0, y: 0, w: ctx.design.w, h: ctx.design.h}, color: th.accent2});
+    const lz = lensFrame(ctx, {name: 'lens', source: L.src, dest: L.dest, content, color: th.accent2});
     const lupa = readingLens(ctx, {name: 'lupa', ...L.lupaDim});
     const marker = changedMarker(ctx, {name: 'marker', x: L.markerAt.x, y: L.markerAt.y, radius: L.markerR, opacity: 0});
-    // the hold labels in the (now free) lens band: marker label and key
-    const notes = [];
-    let y = L.band.y + 10;
-    if (L.mlFit) {
-      const c = chipG(ctx, ctx.params.contextLabels.marker, {x: L.band.x + L.band.w / 2, y, anchor: 'middle', maxWidth: L.band.w, size: L.F, minSize: L.minF, maxLines: 2, weight: 700, name: 'mlabel', opacity: 0, fill: th.accent2Soft});
-      notes.push(c.node); y += c.box.h + 14; L._ml = c.box;
-    }
-    if (L.keyFit) {
-      const c = chipG(ctx, ctx.t.key, {x: L.band.x + L.band.w / 2, y, anchor: 'middle', maxWidth: L.band.w, size: L.F, minSize: L.minF, maxLines: 2, weight: 500, name: 'key', opacity: 0});
-      notes.push(c.node); L._key = c.box;
-    }
+    const notes = L.placed.map(pl => pl.c.node);
     return g({name: 'scene'},
       standNode, plate,
       sheetNode, sock, slip,
@@ -284,7 +316,7 @@ const scene = {
       cord(L),
       g({name: 'ctxTag'}, ctxTag),
       marker,
-      g({'data-occludes': 1}, lz.node),
+      g({name: 'lz-wrap', 'data-occludes': 1}, lz.node),
       lupa,
       notes,
     );
@@ -297,7 +329,7 @@ const scene = {
     const nodes = {};
     const E = ease.inOutCubic;
     // reading lens
-    const inQ = E(seg(a, ...W.lupaIn)), outQ = E(seg(a, ...W.lupaOut));
+    const inQ = ease.inOutSine(seg(a, ...W.lupaIn)), outQ = ease.inOutSine(seg(a, ...W.lupaOut));
     const C = outQ > 0 ? mix(L.lensRead.centre, L.lensRest.centre, outQ) : mix(L.lensRest.centre, L.lensRead.centre, inQ);
     const A = outQ > 0 ? lerp(L.lensRead.a, L.lensRest.a, outQ) : lerp(L.lensRest.a, L.lensRead.a, inQ);
     const d = L.lupaDim.hl + L.lupaDim.lw / 2;
@@ -314,6 +346,7 @@ const scene = {
     nodes['L-before'] = {opacity: r((1 - lift) * copyO, 3), transform: T(0, r(-26 * ease.outCubic(lift), 2))};
     nodes['L-after'] = {opacity: r(aftQ * copyO, 3), transform: T(0, r(-14 * (1 - ease.outCubic(aftQ)), 2))};
     nodes['L-was'] = {opacity: r(wasQ * copyO, 3)};
+    nodes['L-slipcopy'] = {opacity: r(copyO, 3)};
     // context copy: blanked while the lens shows the datum (one legible place at a time); it swaps while hidden
     const ctxVis = 1 - clamp(open / 0.3);
     const changed = aftQ >= 1;
@@ -328,8 +361,7 @@ const scene = {
     nodes['c-lineBefore'] = {opacity: r(outO, 3)};
     nodes['c-lineAfter'] = {opacity: r(inO, 3)};
     nodes.marker = {opacity: r(done ? seg(u, ...W.marker) : 0, 3)};
-    if (L.mlFit) nodes.mlabel = {opacity: r(done ? seg(u, ...W.label) : 0, 3)};
-    if (L.keyFit) nodes.key = {opacity: r(done ? seg(u, ...W.key) : 0, 3)};
+    for (const pl of L.placed) nodes[pl.q.name] = {opacity: r(done ? seg(u, ...(pl.q.kind === 'key' ? W.key : W.label)) : 0, 3)};
     const contextDatum = Math.max(+nodes['c-before'].opacity, +nodes['c-after'].opacity);
     const copyShown = r(copyO * Math.max(1 - lift, aftQ), 3);
     const beat = u < BEATS.rest[1] ? 'rest' : u < BEATS.action[1] ? 'action' : u < BEATS.complete[1] ? 'complete' : 'hold';
@@ -338,8 +370,8 @@ const scene = {
       semantic: {
         beat, value: substituted && aftQ >= 1 ? 'after' : substituted ? 'changing' : 'before', lensOpen: r(open, 3), copyShown, contextDatum: r(contextDatum, 3),
         zoom: r(L.zoom, 3), lupaGrip: {x: r(grip.x), y: r(grip.y)}, lensCentre: {x: r(C.x), y: r(C.y)}, lupaParked: outQ >= 1 || inQ === 0,
-        outline: inO >= 1 ? L.after : eq > 0 ? 'changing' : p.beforeState, markerShown: r(+nodes.marker.opacity, 3), keyShown: L.keyFit ? r(+nodes.key.opacity, 3) : 0,
-        wasShown: r(Math.max(wasQ * copyO, +nodes['c-was'].opacity), 3), stacked: L.stacked,
+        outline: inO >= 1 ? L.after : eq > 0 ? 'changing' : p.beforeState, markerShown: r(+nodes.marker.opacity, 3), keyShown: nodes.key ? r(+nodes.key.opacity, 3) : 0,
+        wasShown: r(Math.max(wasQ * copyO, +nodes['c-was'].opacity), 3), lensPlace: L.lensPlace,
         textPx: r(L.F * L.upx, 2), layoutOk: L.ok, why: L.why.join(','), problems: L.ok ? [] : L.why, actionCapped: p.actionProgress < 1 && u > capU,
         lupaBox: (() => { const c = L.lensRest.centre; return {x: r(c.x - L.lupaDim.lw / 2 - L.lupaDim.hl - 14), y: r(c.y - L.lupaDim.lh / 2 - 8), w: r(L.lupaDim.lw + L.lupaDim.hl + 28), h: r(L.lupaDim.lh + 16)}; })(),
         tagBox: {x: r(L.tag.x), y: r(L.tag.y), w: r(L.tag.w), h: r(L.tag.h)},

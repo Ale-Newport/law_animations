@@ -262,7 +262,7 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
     // landscape: assembly on the left, notes in a column on the right
     A = {x: m + 10, y: (D.h - asmBox.h) / 2 - asmBox.y};
     const nx = A.x + asmBox.w + 50;
-    notesBox = {x: nx, w: D.w - m - nx, top: m, bottom: D.h - m, anchor: 'end'};
+    notesBox = {x: nx, w: D.w - m - nx, top: m, bottom: D.h - m, anchor: 'end', hmid: true};
   } else {
     // notes below the assembly (square: beside it if there is no room below)
     const nh = notes.reduce((acc, q) => acc + chipOf(q, 0, 0, D.w - 2 * m, q.worst).box.h + gap, 0);
@@ -286,14 +286,14 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
   const placed = [];
   const cols = notesBox.two
     ? [{items: notes.slice(0, notesBox.half), x: m + notesBox.w2 / 2, w: notesBox.w2}, {items: notes.slice(notesBox.half), x: m + notesBox.w2 * 1.5 + 24, w: notesBox.w2}]
-    : [{items: notes, x: notesBox.anchor === 'end' ? notesBox.x + notesBox.w : notesBox.anchor === 'middle' ? notesBox.x + notesBox.w / 2 : notesBox.x, w: notesBox.w}];
+    : [{items: notes, x: notesBox.hmid ? notesBox.x + notesBox.w / 2 : notesBox.anchor === 'end' ? notesBox.x + notesBox.w : notesBox.anchor === 'middle' ? notesBox.x + notesBox.w / 2 : notesBox.x, w: notesBox.w}];
   for (const col of cols) {
     const heights = col.items.map(q => chipOf(q, 0, 0, col.w, q.worst).box.h);
     const total = heights.reduce((a, b) => a + b + gap, 0) - gap;
     if (col.w < 200 || total > notesBox.bottom - notesBox.top + 0.5) why.push('notes-do-not-fit');
     let yy = notesBox.anchor === 'end' ? notesBox.top + Math.max(0, (notesBox.bottom - notesBox.top - total) / 2) : Math.max(notesBox.top, notesBox.bottom - total);
     col.items.forEach((q, i) => {
-      const c = chipOf(q, col.x, yy, col.w, null, notesBox.anchor);
+      const c = chipOf(q, col.x, yy, col.w, null, notesBox.hmid ? 'middle' : notesBox.anchor);
       if (c.bad) why.push('note-text');
       placed.push({q, c});
       yy += heights[i] + gap;
@@ -370,8 +370,8 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
   };
   // collar round the joint
   const collar = style === 'right'
-    ? {x: sock.x - 40, y: sock.y - 44, w: prong + 64, h: 88}
-    : {x: sock.x - 44, y: sock.y - 40, w: 88, h: prong + 64};
+    ? {x: sock.x - 46, y: sock.y - 44, w: prong + 34, h: 88}
+    : {x: sock.x - 44, y: sock.y - 46, w: 88, h: prong + 34};
   const collarFrom = style === 'right' ? {x: 0, y: -collar.y - collar.h - 20} : {x: D.w - collar.x + 20, y: 0};
   // the hold zoom: the assembled group grows into the room the notes leave
   const aw = asmBox.w, ah = asmBox.h;
@@ -445,8 +445,8 @@ const scene = {
     const collar = g({name: 'collar'},
       h('path', {d: roundRectPath(c.x, c.y, c.w, c.h, 22), fill: 'none', stroke: '#ffffff', 'stroke-width': 17, opacity: 0.85}),
       h('path', {d: roundRectPath(c.x, c.y, c.w, c.h, 22), fill: 'none', stroke: SCOPE, 'stroke-width': 9, 'stroke-dasharray': dashed ? '18 11' : undefined}),
-      h('circle', {cx: r(c.x + c.w), cy: r(c.y), r: 20, fill: '#fff', stroke: INK, 'stroke-width': 2}),
-      stateGlyph(ctx, p.finalState, c.x + c.w, c.y, 11),
+      h('circle', {cx: r(c.x), cy: r(c.y), r: 20, fill: '#fff', stroke: INK, 'stroke-width': 2}),
+      stateGlyph(ctx, p.finalState, c.x, c.y, 11),
     );
     const notes = L.placed.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node));
     return g({name: 'scene'},

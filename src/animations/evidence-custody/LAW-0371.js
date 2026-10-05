@@ -148,7 +148,7 @@ const scene = {
     const lrows = legendRows(ctx, P, rows);
     const shape = ctx.view.shape;
     const opts = shape === 'portrait' ? [{arr: 'col', orient: 'h', legend: 'below', cols: 1}, {arr: 'col', orient: 'h', legend: 'below', cols: 2}]
-      : shape === 'square' ? [{arr: 'row', orient: 'v', legend: 'below', cols: 2}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.34}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.3}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.4}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.46}, {arr: 'row', orient: 'v', legend: 'below', cols: 3}]
+      : shape === 'square' ? [{arr: 'row', orient: 'h', legend: 'below', cols: 2}, {arr: 'row', orient: 'h', legend: 'below', cols: 3}, {arr: 'row', orient: 'v', legend: 'below', cols: 2}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.34}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.3}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.4}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.46}, {arr: 'row', orient: 'v', legend: 'below', cols: 3}]
         : [{arr: 'row', orient: 'h', legend: 'below', cols: 3}, {arr: 'row', orient: 'h', legend: 'below', cols: 2}, {arr: 'row', orient: 'v', legend: 'side', pw: 0.24}];
     let C = null, best = null, bestScore = -1;
     for (const F of SIZES) {

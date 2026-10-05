@@ -187,7 +187,8 @@ export function tcStage(box, orient, o) {
   const tray = {x: bagMid.x - bagSz.w / 2 - S * 0.06, y: bagMid.y - bagSz.h / 2 - S * 0.06, w: bagSz.w + S * 0.12, h: bagSz.h + S * 0.12};
   const M = objectModel(o.kind, Math.min(B.inner.w / 1.05, B.inner.h / 0.75) * 0.9);
   const TM = tagModel({w: bagSz.w * 0.7, h: bagSz.h * 0.2, rows: 2});
-  const sheets = {a: sheetModel(logA, o.rowsA), b: sheetModel(logB, o.rowsB)};
+  const shOpt = L => ({minRows: o.minRows ?? 3, headH: o.headFrac ? (L.h - L.h * 0.08 * 0.9 - L.h * 0.04) * o.headFrac : undefined});
+  const sheets = {a: sheetModel(logA, o.rowsA, shOpt(logA)), b: sheetModel(logB, o.rowsB, shOpt(logB))};
   const fits = Za > 60 && bagSz.h > 60 && S >= 80;
   return {box, orient, H, La, Lb, map, ax, hr, S, B, bag: bagSz, M, TM, bagStart, bagMid, bagEnd, persons, armW, gripOff, rest, desks, counter, tray, logs: {a: logA, b: logB}, sheets, fits};
 }

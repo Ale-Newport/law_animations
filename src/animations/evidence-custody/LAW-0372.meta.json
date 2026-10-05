@@ -1,0 +1,507 @@
+{
+  "id": "LAW-0372",
+  "slug": "evidence-custody-03-inspect",
+  "title": "Custody transfer — a lens on the receiving sheet after the hand-off: one row's value is replaced (e.g. by a blank) and marked",
+  "titleEs": "Transferencia de custodia — Inspección y cambio de un dato",
+  "category": "evidence-custody",
+  "categoryName": "Recogida y custodia de pruebas",
+  "motif": "Transferencia de custodia",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "Context: the hand-off room after the transfer — the sealed bag on B's desk, sheet A and sheet B written as supplied. The room steps aside and a lens opens on the focus sheet (by default sheet B) with its rows printed. One row's value is replaced by the alternative datum (by default a blank row, a documentary gap as supplied), with a trace of the before value; the lens closes, the room returns and a neutral Δ marks the changed row. Seeking back restores the before value. No inference about validity, responsibility or outcome; fictional; jurisdiction unspecified.",
+  "tags": [
+    "evidence",
+    "custody",
+    "transfer",
+    "inspect",
+    "lens",
+    "record sheet",
+    "documentary gap",
+    "changed datum",
+    "hand-off"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/evidence-custody/kits/evidence-art.js",
+    "src/animations/evidence-custody/kits/transferencia-custodia.js",
+    "src/frameworks/lens.js",
+    "src/primitives/markers.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Item reference printed in the legend (fictional)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 70,
+              "description": "Short description of the item (fictional)"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "key",
+                "cup",
+                "box"
+              ],
+              "description": "Drawn object: key, cup or box"
+            }
+          },
+          "required": [
+            "id",
+            "label",
+            "kind"
+          ],
+          "description": "Item"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "The item handled in the scene (fictional). kind picks the drawn object (array replaces the previous value)"
+      },
+      "custodians": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Name (fictional)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Descriptive role (not a legal finding)"
+            }
+          },
+          "required": [
+            "name",
+            "role"
+          ],
+          "description": "Custodian"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "The two custodians (fictional; descriptive roles only): the first hands the bag over (A), the second receives it (B) (array replaces the previous value)"
+      },
+      "timestamps": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "What the time refers to"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Time as supplied (illustrative)"
+            }
+          },
+          "required": [
+            "label",
+            "time"
+          ],
+          "description": "Timestamp"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Times noted by the author (illustrative; no time limit is implied) (array replaces the previous value)"
+      },
+      "records": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "log": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "Which sheet the row belongs to (a or b)"
+            },
+            "field": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Field name printed on the sheet"
+            },
+            "value": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Value written in the row (empty = left blank)"
+            }
+          },
+          "required": [
+            "log",
+            "field",
+            "value"
+          ],
+          "description": "Record row"
+        },
+        "minItems": 2,
+        "maxItems": 6,
+        "description": "Rows of the two separate record sheets; log a = sheet of custodian A, log b = sheet of custodian B. An empty value leaves that row blank (as supplied) (array replaces the previous value)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key shown in the legend"
+          },
+          "blank": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Text used for a row left blank"
+          },
+          "logA": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Title of sheet A (the name of custodian A follows)"
+          },
+          "logB": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Title of sheet B (the name of custodian B follows)"
+          }
+        },
+        "required": [
+          "key",
+          "blank",
+          "logA",
+          "logB"
+        ],
+        "description": "Built-in labels"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "b1",
+          "b2",
+          "b3",
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "description": "Row that is enlarged and substituted: b1..b3 = row 1..3 of sheet B, a1..a3 = row 1..3 of sheet A (counted among that sheet's rows; the first row of that sheet when the row does not exist)"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 50,
+        "description": "Value of that row before the substitution (replaces the row's supplied value; empty = left blank)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 50,
+        "description": "Value of that row after the substitution (the alternative datum; empty = left blank, e.g. a documentary gap as supplied)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Minimum magnification of the lens (the lens grows further when room allows)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Side of the room where the lens opens (auto = the larger free side)"
+          }
+        },
+        "required": [
+          "zoom",
+          "placement"
+        ],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [
+          "context",
+          "marker"
+        ],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "items": [
+      {
+        "id": "Item E-03 (fictional)",
+        "label": "Small wooden box in a sealed bag (fictional)",
+        "kind": "box"
+      }
+    ],
+    "custodians": [
+      {
+        "name": "R. Okoye (fictional)",
+        "role": "Person handing the bag over"
+      },
+      {
+        "name": "L. Moreau (fictional)",
+        "role": "Person receiving the bag"
+      }
+    ],
+    "timestamps": [
+      {
+        "label": "Bag handed over",
+        "time": "10:20 (illustrative)"
+      },
+      {
+        "label": "Bag received",
+        "time": "10:21 (illustrative)"
+      }
+    ],
+    "records": [
+      {
+        "log": "a",
+        "field": "Handed over by",
+        "value": "R. Okoye"
+      },
+      {
+        "log": "a",
+        "field": "Time",
+        "value": "10:20"
+      },
+      {
+        "log": "b",
+        "field": "Received by",
+        "value": "L. Moreau"
+      },
+      {
+        "log": "b",
+        "field": "Time",
+        "value": "10:21"
+      }
+    ],
+    "labels": {
+      "key": "As supplied · no conclusion drawn",
+      "blank": "(left blank, as supplied)",
+      "logA": "Sheet A",
+      "logB": "Sheet B"
+    },
+    "focusTarget": "b1",
+    "beforeValue": "L. Moreau",
+    "afterValue": "",
+    "detailGeometry": {
+      "zoom": 1.6,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "The bag is with B; each custodian keeps an own sheet",
+      "marker": "Only this datum was changed"
+    }
+  }
+}
