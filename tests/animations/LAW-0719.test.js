@@ -19,6 +19,11 @@ const ID = 'LAW-0719';
 const P = name => presetsFor(ID).find(q => q.name === name).params;
 
 // the number of boundaries whose position differs between A and B
+const SAME_SCENES = `(() => {
+  const sig = e => JSON.stringify({s: [...e.querySelectorAll('path, rect, circle, ellipse, line')].filter(q => q.getAttribute('stroke') && q.getAttribute('stroke') !== 'none').map(q => (+q.getAttribute('stroke-width') || 0) + '/' + (q.getAttribute('stroke-dasharray') || '')).sort(), t: [...e.querySelectorAll('text')].map(t => +t.getAttribute('font-size')).sort()});
+  const a = svg.querySelector('[data-node="scene-a"]'), b = svg.querySelector('[data-node="scene-b"]');
+  return a && b && sig(a) === sig(b);
+})()`;
 const NDIFF = 's.boundariesA.filter((x, j) => Math.abs(x - s.boundariesB[j]) > 0.5).length';
 
 contractSuite(ID, {
@@ -46,7 +51,8 @@ ratioChecks(ID, 'rendered: inside the frame, no card over foreign text, equal we
   {at: [0, 0.3, 0.6, 1], dom: IN_FRAME, label: 'every drawn piece lies inside the frame'},
   {at: [0.3, 0.6, 1], dom: CARDS_CLEAR, tv: ['all'], label: 'no chip or card covers a text it does not own'},
   {at: [0.1], dom: equalWeight(['head-a', 'head-b']), label: 'the A and B head chips have identical weight'},
-  {at: [0.1], dom: equalWeight(['scene-a', 'scene-b']), label: 'the two stages are drawn with identical weight'},
+  // (the two stages: the same strokes, the same dash patterns — a disputed connector is dashed in both — and text sizes)
+  {at: [0.1], dom: SAME_SCENES, label: 'the two stages are drawn with identical weight'},
 ]);
 
 suppliedTextSuite(ID, {
@@ -64,7 +70,7 @@ ratioChecks(ID, 'no red (rendered)', [
 
 restHoldFill(ID, [0.1, 1]);
 thinContent(ID);
-subjectHeight(ID, [['a-rail', 'a-shelf', 'a-trays', 'a-floor'], ['b-rail', 'b-shelf', 'b-trays', 'b-floor']], [0.1, 1], 0.12);
+subjectHeight(ID, [['a-rail', 'a-shelf', 'a-trays', 'a-floor'], ['b-rail', 'b-shelf', 'b-trays', 'b-floor']], [0.1, 1]);
 coldCreate(ID, 800);
 inFrameSweep(ID);
 sceneAreaShare(ID, ['scene-a', 'scene-b'], [0.1, 1], 0.2);

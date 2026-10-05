@@ -85,6 +85,7 @@ const SHAPES = {
 const HEAD_GAP = 10, PAIR_GAP = 34;
 // stacked stages leave room between them for the guide's chip (up to two lines)
 const pairGap = size => Math.round(size * 2.6 + 30);
+const GUIDE_MW = 520;
 
 function panelItems(ctx, p, M) {
   const t = ctx.t;
@@ -147,6 +148,13 @@ const scene = {
     const tA = M.vA.map(v => valueText(p, v)), tB = M.vB.map(v => valueText(p, v));
     const items = panelItems(ctx, p, M);
     const memo = new Map();
+    const cbx = changedBoundary(M);
+    const guideText = p.comparisonLabels.guide || ctx.t.guide;
+    const bandMemo = new Map();
+    const guideBand = size => {
+      if (!bandMemo.has(size)) bandMemo.set(size, cbx < 0 ? 0 : ctx.show('key') ? chipG(ctx, glueN(guideText), {x: 0, y: 0, maxWidth: GUIDE_MW, size, maxLines: 3}).box.h + 16 : 18);
+      return bandMemo.get(size);
+    };
     const stMemo = new Map();
     const headMemo = new Map();
     const stage = size => {
@@ -162,18 +170,16 @@ const scene = {
         const hk = `${size}`;
         if (!headMemo.has(hk)) headMemo.set(hk, [1400, 900, 700, 560, 440, 360].map(mw => [headChip(ctx, 'a', p.scenarioA.label, p.scenarioA.caption, size, mw), headChip(ctx, 'b', p.scenarioB.label, p.scenarioB.caption, size, mw)]));
         const head = S => { const G = dims0(S); const opts = headMemo.get(hk).filter(hc => hc.every(q => !q.bad && q.w <= G.W + 1)); return opts.length ? opts[0] : headMemo.get(hk)[headMemo.get(hk).length - 1]; };
+        // (side by side: a band between the head chips and the rails holds the guide's top line and its chip)
+        const band = arr === 'row' ? guideBand(size) : 0;
         const pairDims = (S, G) => {
           const hc = head(S);
           if (hc.some(q => q.bad || q.w > G.W + 1)) return {w: 1e9, h: 1e9};
-          const hh = Math.max(hc[0].h, hc[1].h) + HEAD_GAP;
+          const hh = Math.max(hc[0].h, hc[1].h) + HEAD_GAP + band;
           return arr === 'row' ? {w: 2 * G.W + PAIR_GAP, h: G.H + hh} : {w: G.W, h: 2 * (G.H + hh) + pairGap(size)};
         };
         st.push({arr, go, bad: cs.some(c => c.bad), head, dimsMax: S => pairDims(S, stageGeom(S, M.n, fmax, {...go, drop: DROP_CAP})), dims: S => {
-          const G = dims0(S);
-          const hc = head(S);
-          if (hc.some(q => q.bad || q.w > G.W + 1)) return {w: 1e9, h: 1e9};
-          const hh = Math.max(hc[0].h, hc[1].h) + HEAD_GAP;
-          return arr === 'row' ? {w: 2 * G.W + PAIR_GAP, h: G.H + hh} : {w: G.W, h: 2 * (G.H + hh) + pairGap(size)};
+          return pairDims(S, dims0(S));
         }});
       }
       stMemo.set(size, st);
@@ -188,7 +194,8 @@ const scene = {
     const go0 = A.st.go;
     const G0 = stageGeom(A.S, M.n, fmax, go0);
     const hc = A.st.head(A.S);
-    const headH = Math.max(hc[0].h, hc[1].h) + HEAD_GAP;
+    const band = A.st.arr === 'row' ? guideBand(A.size) : 0;
+    const headH = Math.max(hc[0].h, hc[1].h) + HEAD_GAP + band;
     const arr = A.st.arr;
     // grow the rail zone so the pair fills its box's height
     const PG = arr === 'row' ? PAIR_GAP : pairGap(A.size);
@@ -222,7 +229,7 @@ const scene = {
       const ya = origins[0].y + G.bladeRestY - G.bladeH - G.bladeW, yb = origins[1].y + G.bladeRestY - G.bladeH - G.bladeW;
       let d, mid;
       if (arr === 'row') {
-        const top = Math.max(4, Math.min(ya, yb) - headH * 0.25);
+        const top = origins[0].y - band / 2;
         d = `M${r(xa)} ${r(ya)}V${r(top)}H${r(xb)}V${r(yb)}`;
         mid = {x: (xa + xb) / 2, y: top};
       } else {
@@ -234,11 +241,11 @@ const scene = {
       let lab = null;
       if (ctx.show('key')) {
         const text = p.comparisonLabels.guide || ctx.t.guide;
-        const mw = arr === 'row' ? Math.min(G.W * 1.2, 520) : Math.min(G.W * 0.9, 560);
+        const mw = arr === 'row' ? GUIDE_MW : Math.min(G.W * 0.9, 560);
         const c0 = chipG(ctx, glueN(text), {x: 0, y: 0, maxWidth: mw, size: A.size, maxLines: 3});
         const cx = arr === 'row' ? clamp(mid.x, x0 + c0.box.w / 2, x0 + pairW - c0.box.w / 2) : clamp(mid.x + c0.box.w / 2 + 8, x0 + c0.box.w / 2, x0 + pairW - c0.box.w / 2);
         // row: centred on the arch's top line, in the gap above the rail zone; column: in the gap between A and B
-        const cy = arr === 'row' ? origins[0].y + G.railY + G.bladeH * 0.25 + c0.box.h / 2 : origins[1].y - headH - PG / 2;
+        const cy = arr === 'row' ? origins[0].y - band / 2 : origins[1].y - headH - PG / 2;
         lab = chipG(ctx, glueN(text), {x: cx, y: cy - c0.box.h / 2, anchor: 'middle', maxWidth: mw, size: A.size, maxLines: 3, fill: ctx.theme.card, stroke: ctx.theme.accent2, name: 'guide-chip'});
         lab.bad = lab.fit.truncated || lab.fit.broken;
       }
@@ -312,7 +319,8 @@ const scene = {
         nodes[`${P}valg${i}`] = {opacity: r(seg(u, ...W.vals), 3)};
         if (L.diff[i]) nodes[`${P}ring${i}`] = {opacity: r(seg(u, ...W.ring), 3)};
       });
-      look.push({blades: bl, segs, bar: !cutDone});
+      // (the pieces are hidden until the cut: before it the look holds only what is visible)
+      look.push({blades: bl, segs: cutDone ? segs : 'hidden', bar: !cutDone});
     });
     if (L.guide) {
       nodes.guide = {opacity: r(seg(u, ...W.line), 3)};
