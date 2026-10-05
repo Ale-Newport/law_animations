@@ -107,7 +107,12 @@ function compose(ctx, P, F, v) {
   let strip = null;
   if (rowsL.length + rowsR.length) {
     const cols = v.cols ?? (row ? 2 : 1);
-    if (cols === 2) {
+    if (v.side) {
+      // (1:1 stacked: the shared legend stands in a side column beside the two boards)
+      const L1 = panelLayout([...rowsL, ...rowsR], {w: DW * v.side, F, tight: v.tight});
+      strip = {cols: [{PL: L1, x: DW * (1 - v.side)}], h: L1.h, side: true};
+      if (!L1.ok || L1.h > DH) problems.push('strip-text');
+    } else if (cols === 2) {
       const cw = (DW - F * 2) / 2;
       const L1 = panelLayout(rowsL, {w: cw, F, tight: v.tight}), L2 = panelLayout(rowsR, {w: cw, F, tight: v.tight});
       strip = {cols: [{PL: L1, x: 0}, {PL: L2, x: cw + F * 2}], h: Math.max(L1.h, L2.h)};
@@ -118,10 +123,10 @@ function compose(ctx, P, F, v) {
       if (!L1.ok) problems.push('strip-text');
     }
   }
-  const stripH = (strip ? strip.h + F * 0.9 : 0) + (row && !H && guideChipH(ctx, P, F, DW, showAll) ? guideChipH(ctx, P, F, DW, showAll) + F * 0.5 : 0);
+  const stripH = (strip && !v.side ? strip.h + F * 0.9 : 0) + (row && !H && guideChipH(ctx, P, F, DW, showAll) ? guideChipH(ctx, P, F, DW, showAll) + F * 0.5 : 0);
   // scenes
   const gapS = F * 1.6;
-  const sceneW = row ? (DW - gapS) / 2 : DW;
+  const sceneW = row ? (DW - gapS) / 2 : v.side ? DW * (1 - v.side) - F * 1.2 : DW;
   const badgeR = F * 0.95;
   const guideChip = showAll ? chip(ctx, P.comparisonLabels.guide, {x: 0, y: 0, anchor: 'middle', maxWidth: Math.min(DW * 0.4, 360), size: F, minSize: F, maxLines: 2, weight: 600}) : null;
   if (guideChip && guideChip.fit.truncated) problems.push('guide-text');
@@ -174,8 +179,10 @@ function compose(ctx, P, F, v) {
     ? {x: i * (sceneW + gapS), y: dy + headH, w: plateW, h: plateH, headY: dy}
     : {x: 0, y: dy + headH + i * (sceneH + midBand), w: plateW, h: plateH, headY: dy + i * (sceneH + midBand)}));
   const bx = (plateW - B.w) / 2, by = m;
-  const stripY = dy + total - (strip ? strip.h : 0);
-  return {F, H, row, M, TM, B, bx, by, m, stages, heads, headH, badgeR, guideChip, chipH, midBand, strip, stripY, sceneW, ok: !problems.length, problems, v};
+  const stripY = strip && v.side ? Math.max(0, (DH - strip.h) / 2) : dy + total - (strip ? strip.h : 0);
+  const post = Math.max(12, B.gThk * 0.55), pr = Math.max(F * 0.95, post * 0.9);
+  const pauseK = 1.9, pauseOff = (!H || B.top > 0 ? 1 : -1) * (B.gateSpan / 2 + pr * pauseK * 0.85);
+  return {pauseK, pauseOff, F, H, row, M, TM, B, bx, by, m, stages, heads, headH, badgeR, guideChip, chipH, midBand, strip, stripY, sceneW, ok: !problems.length, problems, v};
 }
 
 const scene = {
@@ -185,7 +192,7 @@ const scene = {
     const shape = ctx.view.shape;
     const showKey = ctx.show('key');
     const vs = shape === 'portrait' ? [{arr: 'column', orient: 'h'}, {arr: 'column', orient: 'h', stripCols: 2}, {arr: 'column', orient: 'h', list: true, stripCols: 2}]
-      : shape === 'square' ? [{arr: 'column', orient: 'h', list: true, stripCols: 3, tight: true}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3, tight: true}, {arr: 'row', orient: 'v', list: true}, {arr: 'row', orient: 'v', list: true, tight: true}, {arr: 'column', orient: 'h', list: true, stripCols: 2, tight: true}]
+      : shape === 'square' ? [{arr: 'column', orient: 'h', list: true, side: 0.3}, {arr: 'column', orient: 'h', list: true, side: 0.34, tight: true}, {arr: 'column', orient: 'h', list: true, stripCols: 3, tight: true}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3, tight: true}, {arr: 'row', orient: 'v', list: true}, {arr: 'row', orient: 'v', list: true, tight: true}, {arr: 'column', orient: 'h', list: true, stripCols: 2, tight: true}]
         : [{arr: 'row', orient: 'v', cols: 1, stripCols: 3}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3, tight: true}, {arr: 'row', orient: 'h', list: true}];
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [36, 32, 28, ...SIZES] : SIZES).map(x => x / pxu);
@@ -193,6 +200,7 @@ const scene = {
     outer: for (const F of sizes) for (const v of vs.flatMap(x => [0.3].map(mk => ({...x, minK: mk})))) {
       const c = compose(ctx, P, F, v);
      
+      if (globalThis.DBG && v.side) console.log(r(F * pxu, 1), v.side, c.problems.join(','));
       if (c.ok) { C = c; break outer; }
       if (!best || c.problems.length < best.problems.length) best = c;
     }
@@ -278,6 +286,8 @@ const scene = {
       nodes[`card${k}R`] = {transform: T(pR.x, pR.y)};
       const closed = lerp(0.5, maintained ? 0 : 1, kSet);
       Object.assign(nodes, gateFrame(`bd${k}-gate`, closed, maintained ? 0 : kSet));
+      // (the pause glyph of a closed gate is drawn larger here so A/B read apart at every ratio)
+      nodes[`bd${k}-gate-pause`].transform = `${T(0, C.pauseOff)} scale(${C.pauseK})`;
       const kLit = maintained ? seg(u, ...W.lit) : 0;
       Object.assign(nodes, litFrame(`bd${k}`, B, kLit));
       // (a placeholder until the datum arrives: its filler lines leave before the supplied text comes in)
