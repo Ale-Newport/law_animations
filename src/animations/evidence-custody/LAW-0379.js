@@ -104,13 +104,13 @@ function stripRows(ctx, P, k) {
 /** Split rows into `cols` balanced columns. */
 function columns(ctx, rows, cols, colW, F) {
   if (!rows.length) return {cols: [], h: 0, ok: true, colW};
-  const all = panelLayout(ctx, rows, {w: colW, F});
+  const all = panelLayout(ctx, rows, {w: colW, F, maxLines: 6});
   let PLs = [all];
   if (cols > 1 && rows.length > 1) {
     const half = all.h / cols;
     let idx = all.rows.findIndex(rw => rw.y + rw.h > half);
     idx = Math.max(1, Math.min(rows.length - 1, idx + 1));
-    PLs = [panelLayout(ctx, rows.slice(0, idx), {w: colW, F}), panelLayout(ctx, rows.slice(idx), {w: colW, F})];
+    PLs = [panelLayout(ctx, rows.slice(0, idx), {w: colW, F, maxLines: 6}), panelLayout(ctx, rows.slice(idx), {w: colW, F, maxLines: 6})];
   }
   return {cols: PLs, h: Math.max(...PLs.map(q => q.h)), ok: PLs.every(q => q.ok), colW};
 }
