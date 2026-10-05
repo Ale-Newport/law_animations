@@ -1,0 +1,547 @@
+{
+  "id": "LAW-0330",
+  "slug": "review-03-mechanism",
+  "title": "Authorization request — an exploded view: the petition, the stations, their two-slot trays (the last stop's being the prior-examination tray), the numbered steps and the supplied state, with the links supplied between them",
+  "titleEs": "Solicitud de autorización — Mecanismo o relación explicada",
+  "category": "review",
+  "categoryName": "Impugnaciones y revisión",
+  "motif": "Solicitud de autorización",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "An exploded view of a petition passing to a prior-examination tray along a path configured between abstract stations: the pieces start close together — each station's plate (all the same size, on one row) with its neutral two-slot tray, the numbered steps under the trays, the placeholder petition in its column and the state piece beside the path — and are pulled apart. Only the supplied relationships are drawn, each in its kind's style (a plain relation has end dots and no arrowhead; causal only when supplied). A tracer follows the supplied traversal along the drawn links and along every numbered step to the prior-examination tray; the piece it reaches enlarges, the focus most. The state piece shows the supplied state with equal weight: ● authorization requested, or ◆ decision supplied (the decision's placeholder sheet, content never shown, in the tray's other slot). Illustrative; no criterion, threshold, time limit, rank or outcome is drawn; jurisdiction unspecified.",
+  "tags": [
+    "review",
+    "authorization request",
+    "mechanism",
+    "exploded view",
+    "relationships",
+    "tracer",
+    "prior-examination tray",
+    "abstract stations",
+    "equal size",
+    "numbered steps",
+    "as supplied",
+    "no hierarchy"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/review/kits/solicitud-autorizacion.js",
+    "src/animations/hearings/kits/hearings-art.js",
+    "src/animations/hearings/kits/apertura-audiencia.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "decisions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Name of the petition sheet (fictional, as supplied)"
+          },
+          "supplied": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Name of the supplied decision placeholder sheet (its content is never shown)"
+          }
+        },
+        "required": [
+          "title",
+          "supplied"
+        ],
+        "description": "The petition and the supplied decision (fictional placeholder sheets — no text is drawn on either; the decision's content is never shown)"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "bodies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 60,
+                  "description": "Label of the station (fictional, as supplied)"
+                }
+              },
+              "required": [
+                "label"
+              ],
+              "description": "Station"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Abstract stations (fictional), drawn at the same size on one row, in this order (array replaces the previous value)"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index in `bodies`"
+            },
+            "minItems": 2,
+            "maxItems": 5,
+            "description": "The configured path: indices in `bodies`, in the supplied order (consecutive repeats are ignored). Each step between two of them is drawn and numbered; direction comes only from this order; the last stop holds the prior-examination tray (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "bodies",
+          "steps"
+        ],
+        "description": "The path as configured (as supplied): abstract, fictional stations of the same size on one row, and the supplied order in which the petition passes them; the last stop holds the prior-examination tray. No rank, level or hierarchy is drawn or implied"
+      },
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of ● (authorization requested, as supplied)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of ◆ (decision supplied, as supplied — a placeholder only)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Captions of the two supplied states (equal weight; nothing is inferred from either)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "route": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Heading of the configured path (keep \"as supplied\")"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the numbered steps (keep \"as configured\")"
+          },
+          "exam": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the prior-examination tray (a neutral tray)"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "route",
+          "sequence",
+          "exam",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "suppliedState": {
+        "type": "string",
+        "enum": [
+          "a",
+          "b"
+        ],
+        "description": "The supplied state shown on the state piece: a (● authorization requested — the petition alone) or b (◆ decision supplied — the decision's placeholder sheet, content never shown, lies in the prior-examination tray's other slot); equal weight"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "document",
+                "bodies",
+                "trays",
+                "route",
+                "state"
+              ],
+              "description": "Element id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Element"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Labels of the pieces (listed in the panel beside each piece's glyph); ids are fixed by the scene, labels are editable (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "link": {
+              "type": "string",
+              "enum": [
+                "document-bodies",
+                "bodies-trays",
+                "trays-route",
+                "state-route"
+              ],
+              "description": "Which two pieces it links: the petition and the first station of the path, each station and its tray, the trays and the steps that start or end there, the state and the path"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            }
+          },
+          "required": [
+            "link",
+            "kind"
+          ],
+          "description": "Relationship"
+        },
+        "minItems": 1,
+        "maxItems": 4,
+        "description": "Explicit relationships between pieces; the kind sets the line (a plain relation has end dots and no arrowhead; causal only when supplied). A link not listed is not drawn (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "document",
+          "bodies",
+          "trays",
+          "route",
+          "state"
+        ],
+        "description": "Element enlarged most when the tracer reaches it"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for sequence links (keep \"as configured\")"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Caption of each relation kind (listed in the panel beside the line style)"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "document",
+            "bodies",
+            "trays",
+            "route",
+            "state"
+          ],
+          "description": "Element id"
+        },
+        "minItems": 2,
+        "maxItems": 6,
+        "description": "Order in which the tracer visits the pieces; it moves along a drawn link between two consecutive pieces (and along every step of the route), and starts afresh where no link joins them (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "decisions": {
+      "title": "Petition (fictional; placeholder text)",
+      "supplied": "Decision: text supplied (content not shown)"
+    },
+    "routes": {
+      "bodies": [
+        {
+          "label": "Station A (fictional)"
+        },
+        {
+          "label": "Station B (fictional)"
+        }
+      ],
+      "steps": [
+        0,
+        1
+      ]
+    },
+    "outcomes": {
+      "a": "Authorization requested (as supplied)",
+      "b": "Decision supplied (as supplied)"
+    },
+    "labels": {
+      "route": "Path as configured (as supplied)",
+      "sequence": "Steps numbered in the supplied order (illustrative)",
+      "exam": "Prior-examination tray: a neutral tray at the path’s last stop",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "suppliedState": "a",
+    "elements": [
+      {
+        "id": "document",
+        "label": "Placeholder sheet"
+      },
+      {
+        "id": "bodies",
+        "label": "Stations (fictional, all the same size)"
+      },
+      {
+        "id": "trays",
+        "label": "Two-slot tray of each station (neutral)"
+      },
+      {
+        "id": "route",
+        "label": "Configured path: the numbered steps"
+      },
+      {
+        "id": "state",
+        "label": "Supplied state of the tray (as supplied)"
+      }
+    ],
+    "relationships": [
+      {
+        "link": "document-bodies",
+        "kind": "relation"
+      },
+      {
+        "link": "bodies-trays",
+        "kind": "relation"
+      },
+      {
+        "link": "trays-route",
+        "kind": "relation"
+      },
+      {
+        "link": "state-route",
+        "kind": "relation"
+      }
+    ],
+    "focusElement": "trays",
+    "relationLabels": {
+      "relation": "Linked as configured (as supplied)",
+      "communication": "Passed on as supplied",
+      "sequence": "Sequence as configured (illustrative)",
+      "causal": "Causal link (as supplied)"
+    },
+    "traversalOrder": [
+      "document",
+      "bodies",
+      "trays",
+      "route"
+    ]
+  }
+}

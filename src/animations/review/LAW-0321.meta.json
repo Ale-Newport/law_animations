@@ -1,0 +1,590 @@
+{
+  "id": "LAW-0321",
+  "slug": "review-01-story",
+  "title": "Identifying a ground — a magnifier locates the section a party intends to challenge (as supplied)",
+  "titleEs": "Identificación de motivo — Microescena con objetos y actores",
+  "category": "review",
+  "categoryName": "Impugnaciones y revisión",
+  "motif": "Identificación de motivo",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "A generic examination room seen from above. The decision's numbered placeholder sections lie on a table; a board along the top wall holds the two neutral labels supplied by the party, of the same size (\"Factual discrepancy\" ● and \"Legal question raised\" ◆ by default). The party takes a hand magnifier and, carrying it, walks along the table so that the lens passes over the sections; it stops over each section the party intends to challenge (as supplied), where a neutral frame settles — the same frame for either label. The magnifier is laid back and a line runs from each label to the section it is attached to (as supplied). Illustrative; the decision carries only placeholder text; nothing is evaluated, no section is said to be wrong, neither label is preferred and no outcome is drawn.",
+  "tags": [
+    "review",
+    "challenge as supplied",
+    "magnifier",
+    "decision",
+    "sections",
+    "placeholder text",
+    "as supplied",
+    "equal weight",
+    "label board",
+    "floor plan",
+    "sequence as configured"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/review/kits/identificacion-motivo.js",
+    "src/animations/hearings/kits/hearings-art.js",
+    "src/animations/hearings/kits/apertura-audiencia.js",
+    "src/animations/courts/kits/courts-art.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "decisions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the decision (fictional, as supplied)"
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Apartado tag (placeholder)"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "The decision's apartados lying on the table, numbered in this order (editable placeholder tags, as supplied) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "title",
+          "sections"
+        ],
+        "description": "The decision under examination (fictional; placeholder text only)"
+      },
+      "speakers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Label of this participant (as supplied)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed (never tied to a role)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Participant"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Participants (generic, fictional): one holds the magnifier (see `examiner`), any others stand further along the table. No rank, role rule or order is implied (array replaces the previous value)"
+      },
+      "examiner": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2,
+        "description": "Index in `speakers` of the participant who holds the magnifier (generic and neutral)"
+      },
+      "grounds": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "side": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "a (label A, ●) or b (label B, ◆)"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 70,
+              "description": "Text of the label (as supplied by the party)"
+            }
+          },
+          "required": [
+            "side",
+            "text"
+          ],
+          "description": "Label"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "The two labels the party supplies, one per place on the board (neutral, equal weight, as supplied). A label never says that an apartado is wrong (array replaces the previous value)"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index in `decisions.sections`"
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "description": "Apartados located for label A (as supplied) (array replaces the previous value)"
+          },
+          "b": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index in `decisions.sections`"
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "description": "Apartados located for label B (as supplied) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "The apartados the magnifier locates for each label (indices in `decisions.sections`, as supplied). A line means only \"this label was attached here by the party (as supplied)\""
+      },
+      "sequence": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Index in `grounds`"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Order of the two labels along the board (indices in `grounds`): a sequence as configured (illustrative) (array replaces the previous value)"
+      },
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of ● (label A attached, as supplied)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of ◆ (label B attached, as supplied)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Captions of the two line markers: the state supplied by the party only (equal weight; nothing is inferred)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sequence": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the order of the labels on the board (keep \"as configured\")"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "sequence",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "participant": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for the people drawn from above"
+          }
+        },
+        "required": [
+          "participant"
+        ],
+        "description": "Caption of the person glyph in the legend"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "board": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for the label board"
+          },
+          "table": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for the table with the apartados"
+          },
+          "calendar": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for the wall calendar (a fixture only)"
+          },
+          "located": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for the neutral frame of a located apartado"
+          }
+        },
+        "required": [
+          "board",
+          "table",
+          "calendar",
+          "located"
+        ],
+        "description": "Captions of the room objects in the legend"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the action is allowed to progress (1 = every supplied apartado located and every line drawn; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "board",
+                "labels",
+                "table",
+                "calendar"
+              ],
+              "description": "What the note refers to"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Note text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Note"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial notes shown in the hold; each is keyed to a ring on its target in the room (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "located-labelled",
+          "located-only"
+        ],
+        "description": "The state supplied by the author for the hold (no conclusion is inferred): the located apartados linked to their labels, or located only"
+      },
+      "stateCaption": {
+        "type": "string",
+        "maxLength": 100,
+        "description": "Caption of the supplied state in the hold (empty: the built-in caption of that state)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "decisions": {
+      "title": "Decision under examination (fictional)",
+      "sections": [
+        "Section 1 (supplied text)",
+        "Section 2 (supplied text)",
+        "Section 3 (supplied text)",
+        "Section 4 (supplied text)"
+      ]
+    },
+    "speakers": [
+      {
+        "label": "Party with the magnifier (fictional)"
+      }
+    ],
+    "examiner": 0,
+    "grounds": [
+      {
+        "side": "a",
+        "text": "Factual discrepancy (as supplied)"
+      },
+      {
+        "side": "b",
+        "text": "Legal question raised (as supplied)"
+      }
+    ],
+    "routes": {
+      "a": [
+        1
+      ],
+      "b": [
+        2
+      ]
+    },
+    "sequence": [
+      0,
+      1
+    ],
+    "outcomes": {
+      "a": "Labelled a factual discrepancy (as supplied)",
+      "b": "Labelled a legal question raised (as supplied)"
+    },
+    "labels": {
+      "sequence": "Order of the labels as configured (illustrative)",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "actorLabels": {
+      "participant": "Participant (fictional)"
+    },
+    "objectLabels": {
+      "board": "Board with the two labels of the same size",
+      "table": "Table with the numbered sections",
+      "calendar": "Wall calendar (no date marked)",
+      "located": "Located section (as supplied)"
+    },
+    "annotations": [
+      {
+        "target": "table",
+        "text": "Each line ends on a located section (as supplied)"
+      }
+    ],
+    "stateCaption": "",
+    "actionProgress": 1,
+    "finalState": "located-labelled"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "animationId": "LAW-0332",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. The context is the room after the placeholder petition passed, along the configured path, into the prior-examination tray (a neutral two-slot tray marked only by a plain tab); the stations are abstract and fictional, of the same size on one row (no rank, level or hierarchy). One supplied datum is substituted on the tray's record plate: the supplied state (● authorization requested / ◆ decision supplied — equal weight). The old value is kept in the dock as 'was'; only the dependent state follows in the context (the decision's placeholder sheet — content never shown — in the tray's other slot, and the pins). No criterion, threshold, time limit, outcome (granted / refused / admitted) or jurisdiction is drawn. Brief fields: decisions, routes, outcomes, focusTarget, beforeValue, afterValue, detailGeometry and contextLabels are editable (beforeStatus chooses which state comes first). OMITTED brief field: grounds — grounds of a request would add legal content (criteria) the inspection must not draw.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Two stations, the path A → B; the record reads 'authorization requested' and is substituted by 'decision supplied': the decision's placeholder sheet is laid in B's prior-examination tray.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: three stations with other labels, the path C → A → B, and the reverse substitution: 'decision supplied' → 'authorization requested' (the decision's sheet leaves the tray's other slot).",
+      "params": {
+        "decisions": {
+          "title": "Petition of example K (fictional; placeholder text)",
+          "supplied": "Decision of example K: text supplied (not shown)"
+        },
+        "routes": {
+          "bodies": [
+            {
+              "label": "Station North (fictional)"
+            },
+            {
+              "label": "Station Centre (fictional)"
+            },
+            {
+              "label": "Station South (fictional)"
+            }
+          ],
+          "steps": [
+            2,
+            0,
+            1
+          ]
+        },
+        "outcomes": {
+          "a": "Authorization requested, as supplied here",
+          "b": "Decision supplied, as supplied here"
+        },
+        "beforeStatus": "b",
+        "beforeValue": "State noted for this tray: decision text supplied (as supplied)",
+        "afterValue": "State noted for this tray: authorization requested (as supplied)",
+        "contextLabels": {
+          "context": "The room after the petition passed to the tray here (as supplied)",
+          "marker": "Changed: the supplied state"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: four stations with long labels, a path that crosses back (A → C → B → D), long record values and captions.",
+      "params": {
+        "decisions": {
+          "title": "Petition in this fictional example (placeholder text, nothing real)",
+          "supplied": "Decision in this example: text supplied by the user (not shown)"
+        },
+        "routes": {
+          "bodies": [
+            {
+              "label": "Station A of this fictional example (as supplied)"
+            },
+            {
+              "label": "Station B of this fictional example (as supplied)"
+            },
+            {
+              "label": "Station C of this fictional example (as supplied)"
+            },
+            {
+              "label": "Station D of this fictional example (as supplied)"
+            }
+          ],
+          "steps": [
+            0,
+            2,
+            1,
+            3
+          ]
+        },
+        "outcomes": {
+          "a": "Authorization requested, as supplied in this fictional example",
+          "b": "Decision supplied, as supplied in this fictional example"
+        },
+        "labels": {
+          "route": "Path as configured by the user in this example (as supplied)",
+          "sequence": "Steps numbered in the order supplied by the user (illustrative only)",
+          "exam": "Prior-examination tray: a neutral two-slot tray at the last stop of this path",
+          "key": "As supplied · no conclusion drawn (placeholder content only)"
+        },
+        "beforeStatus": "a",
+        "beforeValue": "State noted for the tray in this example: authorization requested (as supplied)",
+        "afterValue": "State noted for the tray in this example: decision text supplied (as supplied)",
+        "objectLabels": {
+          "record": "Record of the prior-examination tray on the board in this example (as supplied)"
+        },
+        "contextLabels": {
+          "context": "The room after the petition passed to the prior-examination tray (as supplied)",
+          "marker": "Changed here: the state supplied by the user"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {
+          "title": "Petición (ficticia; texto provisional)",
+          "supplied": "Decisión: texto aportado (contenido no mostrado)"
+        },
+        "routes": {
+          "bodies": [
+            {
+              "label": "Puesto A (ficticio)"
+            },
+            {
+              "label": "Puesto B (ficticio)"
+            }
+          ],
+          "steps": [
+            0,
+            1
+          ]
+        },
+        "outcomes": {
+          "a": "Autorización solicitada (según lo aportado)",
+          "b": "Decisión suministrada (según lo aportado)"
+        },
+        "labels": {
+          "route": "Recorrido configurado (según lo aportado)",
+          "sequence": "Pasos numerados en el orden aportado (ilustrativo)",
+          "exam": "Bandeja de examen previo: una bandeja neutra en la última parada",
+          "key": "Según lo aportado · sin conclusión"
+        },
+        "beforeStatus": "a",
+        "beforeValue": "Estado anotado: autorización solicitada (según lo aportado)",
+        "afterValue": "Estado anotado: decisión suministrada (según lo aportado)",
+        "objectLabels": {
+          "record": "Registro de la bandeja de examen previo en el tablero (según lo aportado)"
+        },
+        "contextLabels": {
+          "context": "La sala tras pasar la petición a la bandeja (según lo aportado)",
+          "marker": "Cambio: el estado aportado"
+        }
+      }
+    }
+  ]
+}

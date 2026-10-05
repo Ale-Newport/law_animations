@@ -1,0 +1,73 @@
+{
+  "animationId": "LAW-0328",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. One supplied datum is substituted: the route state on the route's record plate (beforeStatus → the other state). The old value is kept, unchanged, in the dock as 'was'; only the dependent state follows (route drawn solid for 'available', dashed — pending — for 'not checked'; the sheet in the last tray, or waiting in the first with its dashed outline in the last). The bodies are abstract and fictional, of the same size on one row (no rank, level or hierarchy); the route is ONLY the supplied sequence. No admissibility, time limit, leave, ground, outcome or jurisdiction is drawn. Brief fields: decisions, routes, outcomes, focusTarget, beforeValue, afterValue, detailGeometry and contextLabels are editable (beforeStatus says which state the before value names). OMITTED brief field: grounds — grounds of a challenge would add legal content the inspection of a route's supplied state does not need.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three bodies and the route A → B → C, travelled; the record says 'available (as supplied)' and becomes 'not checked (as supplied)': the route is drawn dashed and the sheet waits in A's tray with its outline in C's.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four bodies, the route D → A → C, the record starting at 'not checked' (the sheet waiting in D's tray) and becoming 'available' (the route drawn solid, the sheet in C's tray).",
+      "params": {
+        "decisions": {"title": "Decision of example K (fictional; placeholder text)"},
+        "routes": {
+          "bodies": [{"label": "Body North (fictional)"}, {"label": "Body East (fictional)"}, {"label": "Body South (fictional)"}, {"label": "Body West (fictional)"}],
+          "steps": [3, 0, 2]
+        },
+        "outcomes": {"a": "Route available, as supplied here", "b": "Route not checked, as supplied here"},
+        "beforeStatus": "b",
+        "beforeValue": "Route state noted here: not checked (as supplied)",
+        "afterValue": "Route state noted here: available (as supplied)",
+        "contextLabels": {"context": "The room with the route as configured (as supplied)", "marker": "Changed: the supplied route state"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: four bodies with long labels, a route that crosses back (A → C → B → D), long record values and captions.",
+      "params": {
+        "decisions": {"title": "Decision in this fictional example (placeholder text, nothing real)"},
+        "routes": {
+          "bodies": [
+            {"label": "Body A of this fictional example (as supplied)"},
+            {"label": "Body B of this fictional example (as supplied)"},
+            {"label": "Body C of this fictional example (as supplied)"},
+            {"label": "Body D of this fictional example (as supplied)"}
+          ],
+          "steps": [0, 2, 1, 3]
+        },
+        "outcomes": {"a": "Route available, as supplied in this fictional example", "b": "Route not checked, as supplied in this fictional example"},
+        "labels": {
+          "route": "Route as configured by the user in this example (as supplied)",
+          "sequence": "Steps numbered in the order supplied by the user (illustrative only)",
+          "key": "As supplied · no conclusion drawn (placeholder content only)"
+        },
+        "beforeStatus": "a",
+        "beforeValue": "Route state noted in this fictional example: available (as supplied)",
+        "afterValue": "Route state noted in this fictional example: not checked (as supplied)",
+        "objectLabels": {"ghost": "Dashed outline: the configured route, pending, as supplied in this example", "record": "Record of the route on the board of this example (as supplied)"},
+        "contextLabels": {"context": "The room with the route as configured by the user in this example (as supplied)", "marker": "Changed: the route state supplied in this example"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {"title": "Resolución (ficticia; texto provisional)"},
+        "routes": {
+          "bodies": [{"label": "Órgano A (ficticio)"}, {"label": "Órgano B (ficticio)"}, {"label": "Órgano C (ficticio)"}],
+          "steps": [0, 1, 2]
+        },
+        "outcomes": {"a": "Ruta disponible aportada", "b": "Ruta no comprobada (según lo aportado)"},
+        "labels": {"route": "Ruta configurada (según lo aportado)", "sequence": "Pasos numerados en el orden aportado (ilustrativo)", "key": "Según lo aportado · sin conclusión"},
+        "beforeStatus": "a",
+        "beforeValue": "Estado anotado de la ruta: disponible (según lo aportado)",
+        "afterValue": "Estado anotado de la ruta: no comprobada (según lo aportado)",
+        "objectLabels": {"ghost": "Contorno discontinuo: la ruta configurada, pendiente (según lo aportado)", "record": "Registro de la ruta en el tablero (según lo aportado)"},
+        "contextLabels": {"context": "La sala con la ruta configurada (según lo aportado)", "marker": "Cambio: el estado aportado de la ruta"}
+      }
+    }
+  ]
+}

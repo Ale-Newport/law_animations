@@ -1,0 +1,458 @@
+{
+  "id": "LAW-0328",
+  "slug": "review-02-inspect",
+  "title": "Configured route — inspecting the route's record and substituting its supplied state",
+  "titleEs": "Ruta de recurso — Inspección y cambio de un dato",
+  "category": "review",
+  "categoryName": "Impugnaciones y revisión",
+  "motif": "Ruta de recurso",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The generic room after the placeholder sheet travelled the route configured between abstract bodies (stations of the same size on one row, the numbered steps on the floor, the sheet in the last tray). On the board lies the route's record plate: the supplied route state, its glyph (● available / ◆ not checked) over a short route icon. A lens (a window with a rim, distinct from the panel) opens on the plate — a real enlarged copy of the same room coordinates — and one supplied datum is substituted: the route state. The old value is kept, unchanged, in a dock as \"was\"; the glyph and the icon change (labels hidden: only they show it); only the dependent state follows in the context: the route is drawn dashed (pending) and the sheet waits in the first tray while its dashed outline stays in the last. The context returns with a neutral changed-datum marker. Illustrative; nothing is evaluated; no rank, admissibility, time limit, ground or outcome; jurisdiction unspecified.",
+  "tags": [
+    "review",
+    "configured route",
+    "inspect",
+    "lens",
+    "route record",
+    "substitution",
+    "changed datum",
+    "pending state",
+    "as supplied",
+    "abstract bodies",
+    "equal size"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/review/kits/ruta-recurso.js",
+    "src/animations/hearings/kits/hearings-art.js",
+    "src/animations/hearings/kits/apertura-audiencia.js",
+    "src/animations/courts/kits/courts-art.js",
+    "src/primitives/markers.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "decisions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Name of the decision document (fictional, as supplied)"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "description": "The decision document (fictional; a placeholder sheet — no text is drawn on it)"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "bodies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 60,
+                  "description": "Label of the body (fictional, as supplied)"
+                }
+              },
+              "required": [
+                "label"
+              ],
+              "description": "Body"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Abstract bodies (fictional), drawn as stations of the same size on one row, in this order (array replaces the previous value)"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index in `bodies`"
+            },
+            "minItems": 2,
+            "maxItems": 5,
+            "description": "The configured route: indices in `bodies`, in the supplied order (consecutive repeats are ignored). Each step between two of them is drawn and numbered; direction comes only from this order (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "bodies",
+          "steps"
+        ],
+        "description": "The route as configured (as supplied): abstract, fictional bodies of the same size on one row, and the supplied order in which the document passes them. No rank, level or hierarchy is drawn or implied"
+      },
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of ● (route available, as supplied)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of ◆ (route not checked, as supplied: a pending state)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Captions of the two supplied route states (equal weight; nothing is inferred from either)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "route": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Heading of the configured route (keep \"as supplied\")"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the numbered steps (keep \"as configured\")"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "route",
+          "sequence",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "route-record"
+        ],
+        "description": "Detail that is enlarged and substituted: the route's record plate (the supplied route state); only the dependent route style and the sheet's place follow it"
+      },
+      "beforeStatus": {
+        "type": "string",
+        "enum": [
+          "a",
+          "b"
+        ],
+        "description": "The supplied route state before the substitution: a (● available) or b (◆ not checked, pending); the substitution supplies the other one"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 80,
+        "description": "Value on the record plate before the substitution (as supplied)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 80,
+        "description": "Value on the record plate after the substitution (the alternative datum, as supplied)"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ghost": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption for the dashed outline (the configured route, pending)"
+          },
+          "record": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption for the route record on the board"
+          }
+        },
+        "required": [
+          "ghost",
+          "record"
+        ],
+        "description": "Captions of the room objects in the legend"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.6,
+            "maximum": 4,
+            "description": "Largest magnification of the lens, relative to the context at rest (never below 1.6)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Alignment of the lens inside the space it opens in"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [
+          "context",
+          "marker"
+        ],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "decisions": {
+      "title": "Decision (fictional; placeholder text)"
+    },
+    "routes": {
+      "bodies": [
+        {
+          "label": "Body A (fictional)"
+        },
+        {
+          "label": "Body B (fictional)"
+        },
+        {
+          "label": "Body C (fictional)"
+        }
+      ],
+      "steps": [
+        0,
+        1,
+        2
+      ]
+    },
+    "outcomes": {
+      "a": "Route available (as supplied)",
+      "b": "Route not checked (as supplied)"
+    },
+    "labels": {
+      "route": "Route as configured (as supplied)",
+      "sequence": "Steps numbered in the supplied order (illustrative)",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "focusTarget": "route-record",
+    "beforeStatus": "a",
+    "beforeValue": "Route state noted: available (as supplied)",
+    "afterValue": "Route state noted: not checked (as supplied)",
+    "objectLabels": {
+      "ghost": "Dashed outline: the configured route, pending (as supplied)",
+      "record": "Route record on the board (as supplied)"
+    },
+    "contextLabels": {
+      "context": "The room with the route as configured (as supplied)",
+      "marker": "Changed: the supplied route state"
+    },
+    "detailGeometry": {
+      "zoom": 3,
+      "placement": "auto"
+    }
+  }
+}

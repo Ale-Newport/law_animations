@@ -1,0 +1,103 @@
+{
+  "animationId": "LAW-0330",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. An exploded view of a petition passing to a prior-examination tray along a path configured between abstract stations: plates of the same size on one row (no rank, level or hierarchy), their neutral two-slot trays (the brief's 'filtros' drawn as trays, never as an admission gate; the last stop's is the prior-examination tray, marked only by a plain tab), the numbered steps of the supplied sequence, the placeholder petition and the supplied state (● authorization requested / ◆ decision supplied — equal weight; the decision is a placeholder sheet whose content is never shown). Only the supplied relationships are drawn; a plain relation has no arrowhead and causal links appear only when supplied. No criterion, threshold, time limit, outcome (granted / refused / admitted) or jurisdiction is drawn. Brief fields: decisions, routes, outcomes, elements, relationships, focusElement, relationLabels and traversalOrder are editable (suppliedState chooses the state shown). OMITTED brief field: grounds — grounds of a request would add legal content (criteria) the mechanism must not draw. The 'calendario' object of the brief is left out of the exploded view: no time element is supplied, and a calendar beside a request could be read as a time limit.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Two stations, the path A → B (B's tray is the prior-examination tray), the state 'authorization requested (as supplied)'; four plain relations; the tracer runs from the petition to the first station, its tray and along the step; the trays are the focus.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four stations, the path B → D → A, the state 'decision supplied (as supplied)' (the decision's placeholder sheet in A's prior-examination tray), a sequence link between the trays and the path, a communication between the petition and the first station, the petition as the focus.",
+      "params": {
+        "decisions": {"title": "Petition of example K (fictional; placeholder text)", "supplied": "Decision of example K: text supplied (not shown)"},
+        "routes": {
+          "bodies": [{"label": "Station North (fictional)"}, {"label": "Station East (fictional)"}, {"label": "Station South (fictional)"}, {"label": "Station West (fictional)"}],
+          "steps": [1, 3, 0]
+        },
+        "outcomes": {"a": "Authorization requested, as supplied here", "b": "Decision supplied, as supplied here"},
+        "suppliedState": "b",
+        "relationships": [
+          {"link": "document-bodies", "kind": "communication"},
+          {"link": "bodies-trays", "kind": "relation"},
+          {"link": "trays-route", "kind": "sequence"},
+          {"link": "state-route", "kind": "relation"}
+        ],
+        "focusElement": "document",
+        "traversalOrder": ["document", "bodies", "trays", "route"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: four stations with long labels, a path that crosses back (A → C → B → D), long element labels and captions.",
+      "params": {
+        "decisions": {"title": "Petition in this fictional example (placeholder text, nothing real)", "supplied": "Decision in this example: text supplied by the user (not shown)"},
+        "routes": {
+          "bodies": [
+            {"label": "Station A of this fictional example (as supplied)"},
+            {"label": "Station B of this fictional example (as supplied)"},
+            {"label": "Station C of this fictional example (as supplied)"},
+            {"label": "Station D of this fictional example (as supplied)"}
+          ],
+          "steps": [0, 2, 1, 3]
+        },
+        "outcomes": {"a": "Authorization requested, as supplied in this fictional example", "b": "Decision supplied, as supplied in this fictional example"},
+        "labels": {
+          "route": "Path as configured by the user in this example (as supplied)",
+          "sequence": "Steps numbered in the order supplied by the user (illustrative only)",
+          "exam": "Prior-examination tray: a neutral two-slot tray at the last stop of this path",
+          "key": "As supplied · no conclusion drawn (placeholder content only)"
+        },
+        "suppliedState": "a",
+        "elements": [
+          {"id": "document", "label": "Petition sheet of this fictional example (placeholder)"},
+          {"id": "bodies", "label": "Stations of this example (fictional, all the same size)"},
+          {"id": "trays", "label": "Two-slot tray of each station in this example (neutral)"},
+          {"id": "route", "label": "Path as configured in this example: the numbered steps"},
+          {"id": "state", "label": "State of the tray supplied by the user in this example"}
+        ],
+        "relationships": [
+          {"link": "document-bodies", "kind": "relation"},
+          {"link": "bodies-trays", "kind": "relation"},
+          {"link": "trays-route", "kind": "relation"},
+          {"link": "state-route", "kind": "relation"}
+        ],
+        "focusElement": "trays",
+        "relationLabels": {"relation": "Linked as configured by the user (as supplied)", "communication": "Passed on as supplied in this example", "sequence": "Sequence as configured by the user (illustrative)", "causal": "Causal link, only as supplied in this example"},
+        "traversalOrder": ["document", "bodies", "trays", "route"]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {"title": "Petición (ficticia; texto provisional)", "supplied": "Decisión: texto aportado (contenido no mostrado)"},
+        "routes": {
+          "bodies": [{"label": "Puesto A (ficticio)"}, {"label": "Puesto B (ficticio)"}],
+          "steps": [0, 1]
+        },
+        "outcomes": {"a": "Autorización solicitada (según lo aportado)", "b": "Decisión suministrada (según lo aportado)"},
+        "labels": {"route": "Recorrido configurado (según lo aportado)", "sequence": "Pasos numerados en el orden aportado (ilustrativo)", "exam": "Bandeja de examen previo: una bandeja neutra en la última parada", "key": "Según lo aportado · sin conclusión"},
+        "suppliedState": "a",
+        "elements": [
+          {"id": "document", "label": "Petición (hoja provisional)"},
+          {"id": "bodies", "label": "Puestos (ficticios, todos del mismo tamaño)"},
+          {"id": "trays", "label": "Bandeja de dos huecos de cada puesto (neutra)"},
+          {"id": "route", "label": "Recorrido configurado: los pasos numerados"},
+          {"id": "state", "label": "Estado aportado de la bandeja (según lo aportado)"}
+        ],
+        "relationships": [
+          {"link": "document-bodies", "kind": "relation"},
+          {"link": "bodies-trays", "kind": "relation"},
+          {"link": "trays-route", "kind": "relation"},
+          {"link": "state-route", "kind": "relation"}
+        ],
+        "focusElement": "trays",
+        "relationLabels": {"relation": "Vínculo configurado (según lo aportado)", "communication": "Transmitido según lo aportado", "sequence": "Secuencia según lo configurado (ilustrativa)", "causal": "Vínculo causal (según lo aportado)"},
+        "traversalOrder": ["document", "bodies", "trays", "route"]
+      }
+    }
+  ]
+}

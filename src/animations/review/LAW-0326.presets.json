@@ -1,0 +1,102 @@
+{
+  "animationId": "LAW-0326",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. An exploded view of a route configured between abstract bodies: plates of the same size on one row (no rank, level or hierarchy), their neutral intake trays (the brief's 'filtros', never an admission filter), the numbered steps of the supplied sequence, the placeholder sheet and the supplied route state (● available / ◆ not checked — a pending state, dashed). Only the supplied relationships are drawn; a plain relation has no arrowhead and causal links appear only when supplied. No admissibility, time limit, leave, ground, outcome or jurisdiction is drawn. Brief fields: decisions, routes, outcomes, elements, relationships, focusElement, relationLabels and traversalOrder are editable (routeState chooses the state shown). OMITTED brief field: grounds — grounds of a challenge would add legal content the mechanism of a configured route does not need. The 'calendario' object of the brief is left out of the exploded view: no time element is supplied, and a calendar beside a route could be read as a time limit.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three bodies, the route A → B → C, the state 'available (as supplied)'; four plain relations; the tracer runs from the sheet to the first body, its tray and along both steps; the route is the focus.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four bodies, the route B → D → A, the state 'not checked (as supplied)' (dashed steps), a sequence link between the trays and the route, a communication between the sheet and the first body, the sheet as the focus.",
+      "params": {
+        "decisions": {"title": "Decision of example K (fictional; placeholder text)"},
+        "routes": {
+          "bodies": [{"label": "Body North (fictional)"}, {"label": "Body East (fictional)"}, {"label": "Body South (fictional)"}, {"label": "Body West (fictional)"}],
+          "steps": [1, 3, 0]
+        },
+        "outcomes": {"a": "Route available, as supplied here", "b": "Route not checked, as supplied here"},
+        "routeState": "b",
+        "relationships": [
+          {"link": "document-bodies", "kind": "communication"},
+          {"link": "bodies-trays", "kind": "relation"},
+          {"link": "trays-route", "kind": "sequence"},
+          {"link": "state-route", "kind": "relation"}
+        ],
+        "focusElement": "document",
+        "traversalOrder": ["document", "bodies", "trays", "route"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: four bodies with long labels, a route that crosses back (A → C → B → D), long element labels and captions.",
+      "params": {
+        "decisions": {"title": "Decision in this fictional example (placeholder text, nothing real)"},
+        "routes": {
+          "bodies": [
+            {"label": "Body A of this fictional example (as supplied)"},
+            {"label": "Body B of this fictional example (as supplied)"},
+            {"label": "Body C of this fictional example (as supplied)"},
+            {"label": "Body D of this fictional example (as supplied)"}
+          ],
+          "steps": [0, 2, 1, 3]
+        },
+        "outcomes": {"a": "Route available, as supplied in this fictional example", "b": "Route not checked, as supplied in this fictional example"},
+        "labels": {
+          "route": "Route as configured by the user in this example (as supplied)",
+          "sequence": "Steps numbered in the order supplied by the user (illustrative only)",
+          "key": "As supplied · no conclusion drawn (placeholder content only)"
+        },
+        "routeState": "a",
+        "elements": [
+          {"id": "document", "label": "Decision sheet of this fictional example (placeholder)"},
+          {"id": "bodies", "label": "Bodies of this example (fictional, all the same size)"},
+          {"id": "trays", "label": "Intake tray of each body in this example (neutral)"},
+          {"id": "route", "label": "Route as configured in this example: the numbered steps"},
+          {"id": "state", "label": "State of the route supplied by the user in this example"}
+        ],
+        "relationships": [
+          {"link": "document-bodies", "kind": "relation"},
+          {"link": "bodies-trays", "kind": "relation"},
+          {"link": "trays-route", "kind": "relation"},
+          {"link": "state-route", "kind": "relation"}
+        ],
+        "focusElement": "route",
+        "relationLabels": {"relation": "Linked as configured by the user (as supplied)", "communication": "Passed on as supplied in this example", "sequence": "Sequence as configured by the user (illustrative)", "causal": "Causal link, only as supplied in this example"},
+        "traversalOrder": ["document", "bodies", "trays", "route"]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {"title": "Resolución (ficticia; texto provisional)"},
+        "routes": {
+          "bodies": [{"label": "Órgano A (ficticio)"}, {"label": "Órgano B (ficticio)"}, {"label": "Órgano C (ficticio)"}],
+          "steps": [0, 1, 2]
+        },
+        "outcomes": {"a": "Ruta disponible aportada", "b": "Ruta no comprobada (según lo aportado)"},
+        "labels": {"route": "Ruta configurada (según lo aportado)", "sequence": "Pasos numerados en el orden aportado (ilustrativo)", "key": "Según lo aportado · sin conclusión"},
+        "routeState": "a",
+        "elements": [
+          {"id": "document", "label": "Hoja provisional"},
+          {"id": "bodies", "label": "Órganos (ficticios, todos del mismo tamaño)"},
+          {"id": "trays", "label": "Bandeja de entrada de cada órgano (neutra)"},
+          {"id": "route", "label": "Ruta configurada: los pasos numerados"},
+          {"id": "state", "label": "Estado aportado de la ruta"}
+        ],
+        "relationships": [
+          {"link": "document-bodies", "kind": "relation"},
+          {"link": "bodies-trays", "kind": "relation"},
+          {"link": "trays-route", "kind": "relation"},
+          {"link": "state-route", "kind": "relation"}
+        ],
+        "focusElement": "route",
+        "relationLabels": {"relation": "Vínculo configurado (según lo aportado)", "communication": "Transmitido según lo aportado", "sequence": "Secuencia según lo configurado (ilustrativa)", "causal": "Vínculo causal (según lo aportado)"},
+        "traversalOrder": ["document", "bodies", "trays", "route"]
+      }
+    }
+  ]
+}

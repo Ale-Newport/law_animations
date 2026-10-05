@@ -1,0 +1,531 @@
+{
+  "id": "LAW-0331",
+  "slug": "review-03-contrast",
+  "title": "Authorization request — the same petition passing to the prior-examination tray, with the state supplied as \"authorization requested\" or as \"decision supplied\", in two identical rooms",
+  "titleEs": "Solicitud de autorización — Comparación de dos supuestos",
+  "category": "review",
+  "categoryName": "Impugnaciones y revisión",
+  "motif": "Solicitud de autorización",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical generic rooms: the same abstract stations of the same size on one row with their neutral two-slot trays (the last stop's being the prior-examination tray), the same configured path with its numbered steps, the same placeholder petition in the first tray and the same participant. At the same moment the one supplied difference is introduced: in A \"authorization requested, as supplied\" (● on the sign, a ● pin on the petition), in B \"decision supplied, as supplied\" (◆ on the sign; the decision's placeholder sheet, content never shown, laid with its ◆ pin in the prior-examination tray's other slot). The action then runs over the same window in both: the participant carries the petition along every step to the prior-examination tray. A guide links the two signs. Illustrative; neither state is preferred; no criterion, threshold, time limit, rank or outcome is drawn; jurisdiction unspecified.",
+  "tags": [
+    "review",
+    "authorization request",
+    "contrast",
+    "two rooms",
+    "authorization requested as supplied",
+    "decision supplied as supplied",
+    "placeholder decision",
+    "prior-examination tray",
+    "abstract stations",
+    "equal size",
+    "equal weight"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/review/kits/solicitud-autorizacion.js",
+    "src/animations/hearings/kits/hearings-art.js",
+    "src/animations/hearings/kits/apertura-audiencia.js",
+    "src/animations/courts/kits/courts-art.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "decisions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Name of the petition sheet (fictional, as supplied)"
+          },
+          "supplied": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Name of the supplied decision placeholder sheet (its content is never shown)"
+          }
+        },
+        "required": [
+          "title",
+          "supplied"
+        ],
+        "description": "The petition and the supplied decision (fictional placeholder sheets — no text is drawn on either; the decision's content is never shown)"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "bodies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 60,
+                  "description": "Label of the station (fictional, as supplied)"
+                }
+              },
+              "required": [
+                "label"
+              ],
+              "description": "Station"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Abstract stations (fictional), drawn at the same size on one row, in this order (array replaces the previous value)"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index in `bodies`"
+            },
+            "minItems": 2,
+            "maxItems": 5,
+            "description": "The configured path: indices in `bodies`, in the supplied order (consecutive repeats are ignored). Each step between two of them is drawn and numbered; direction comes only from this order; the last stop holds the prior-examination tray (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "bodies",
+          "steps"
+        ],
+        "description": "The path as configured (as supplied): abstract, fictional stations of the same size on one row, and the supplied order in which the petition passes them; the last stop holds the prior-examination tray. No rank, level or hierarchy is drawn or implied"
+      },
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of ● (authorization requested, as supplied)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of ◆ (decision supplied, as supplied — a placeholder only)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Captions of the two supplied states (equal weight; nothing is inferred from either)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "route": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Heading of the configured path (keep \"as supplied\")"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the numbered steps (keep \"as configured\")"
+          },
+          "exam": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the prior-examination tray (a neutral tray)"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "route",
+          "sequence",
+          "exam",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "courier": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the participant (as supplied)"
+          },
+          "appearance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "skin": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5,
+                "description": "Skin tone index 0–5"
+              },
+              "hair": {
+                "type": "string",
+                "enum": [
+                  "short",
+                  "long",
+                  "bun",
+                  "curly",
+                  "buzz",
+                  "scarf"
+                ],
+                "description": "Hair style"
+              },
+              "hairColor": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 6,
+                "description": "Hair colour index 0–6"
+              },
+              "outfit": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7,
+                "description": "Outfit colour index 0–7"
+              },
+              "glasses": {
+                "type": "boolean",
+                "description": "Wears glasses"
+              }
+            },
+            "required": [],
+            "description": "Optional appearance overrides; defaults derive from the seed (never tied to a role)"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "The generic participant who carries the document (fictional; no role, rank or duty implied)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Name of scenario A (as supplied)"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Optional one-line description of A"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A: the state \"authorization requested\" (●, `outcomes.a`) is introduced; its header reads \"<label> · <outcomes.a>\", with an optional caption"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Name of scenario B (as supplied)"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Optional one-line description of B"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B: the state \"decision supplied\" (◆, `outcomes.b`: the decision's placeholder sheet, content never shown) is introduced; its header reads \"<label> · <outcomes.b>\", with an optional caption"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 130,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 90,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Facts that stay identical in both rooms (drawn once) (array replaces the previous value)"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tray": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for the two-slot trays (neutral trays, never an admission gate)"
+          },
+          "calendar": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for the wall calendar (a fixture only)"
+          }
+        },
+        "required": [
+          "tray",
+          "calendar"
+        ],
+        "description": "Captions of the room objects in the legend"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label of the guide linking the two signs"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (nothing follows from the difference)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "decisions": {
+      "title": "Petition (fictional; placeholder text)",
+      "supplied": "Decision: text supplied (content not shown)"
+    },
+    "routes": {
+      "bodies": [
+        {
+          "label": "Station A (fictional)"
+        },
+        {
+          "label": "Station B (fictional)"
+        }
+      ],
+      "steps": [
+        0,
+        1
+      ]
+    },
+    "outcomes": {
+      "a": "Authorization requested (as supplied)",
+      "b": "Decision supplied (as supplied)"
+    },
+    "labels": {
+      "route": "Path as configured (as supplied)",
+      "sequence": "Steps numbered in the supplied order (illustrative)",
+      "exam": "Prior-examination tray: a neutral tray at the path’s last stop",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "courier": {
+      "label": "Participant carrying the petition (fictional)"
+    },
+    "scenarioA": {
+      "label": "Scenario A"
+    },
+    "scenarioB": {
+      "label": "Scenario B"
+    },
+    "changedFact": "Only the supplied state differs: authorization requested, or a decision supplied (placeholder)",
+    "sharedFacts": [],
+    "objectLabels": {
+      "tray": "Two-slot tray of each station (neutral)",
+      "calendar": "Wall calendar (no date marked)"
+    },
+    "comparisonLabels": {
+      "guide": "The one supplied difference",
+      "neutral": "Neither state weighs more; nothing is evaluated"
+    }
+  }
+}

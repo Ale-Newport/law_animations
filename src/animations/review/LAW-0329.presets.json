@@ -1,0 +1,78 @@
+{
+  "animationId": "LAW-0329",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. The stations are abstract and fictional, drawn at the same size on one row (no rank, level or hierarchy); the path is ONLY the sequence supplied in routes.steps; the prior-examination tray is a neutral two-slot tray at the path’s last stop, marked only by a plain tab (no criterion, threshold or gate). The two supplied states have equal weight: ● 'authorization requested' (the petition alone) and ◆ 'decision supplied' (a placeholder sheet whose content is never shown; never granted / refused / admitted). No time limit, outcome or jurisdiction is drawn. Brief fields: decisions (the petition and the supplied decision placeholder), routes, outcomes, objectLabels, actionProgress, annotations and finalState are editable; actorLabels maps to courier.label (the participant) and routes.bodies[].label (the stations). OMITTED brief field: grounds — grounds of a request would add legal content (criteria) this motif must not draw; the request and the supplied decision are placeholders only.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Two stations of the same size; the configured path A → B (one numbered step); authorization requested as supplied: the participant takes the petition from A's tray, carries it along the step and lays it in B's prior-examination tray; the petition gets its ● pin.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: three stations with other labels, the path C → A → B as supplied (B's tray is the prior-examination tray), and the supplied state 'decision supplied': after the petition is laid, the decision's placeholder sheet is laid in the same tray's other slot with its ◆ pin; a note rings every station alike.",
+      "params": {
+        "decisions": {"title": "Petition of example K (fictional; placeholder text)", "supplied": "Decision of example K: text supplied (not shown)"},
+        "routes": {
+          "bodies": [{"label": "Station North (fictional)"}, {"label": "Station Centre (fictional)"}, {"label": "Station South (fictional)"}],
+          "steps": [2, 0, 1]
+        },
+        "courier": {"label": "Participant B (fictional)", "appearance": {"skin": 4, "hair": "curly", "hairColor": 1, "outfit": 3}},
+        "outcomes": {"a": "Authorization requested, as supplied here", "b": "Decision supplied, as supplied here"},
+        "annotations": [{"target": "stations", "text": "Every station is drawn the same way (as supplied)"}],
+        "finalState": "decision-supplied"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: four stations with long labels, a four-stop path that crosses back (A → C → B → D), long captions, two notes and a long state caption.",
+      "params": {
+        "decisions": {"title": "Petition in this fictional example (placeholder text, nothing real)", "supplied": "Decision in this example: text supplied by the user (not shown)"},
+        "routes": {
+          "bodies": [
+            {"label": "Station A of this fictional example (as supplied)"},
+            {"label": "Station B of this fictional example (as supplied)"},
+            {"label": "Station C of this fictional example (as supplied)"},
+            {"label": "Station D of this fictional example (as supplied)"}
+          ],
+          "steps": [0, 2, 1, 3]
+        },
+        "courier": {"label": "Participant carrying the petition sheet (fictional, generic)"},
+        "outcomes": {"a": "Authorization requested, as supplied in this fictional example", "b": "Decision supplied, as supplied in this fictional example"},
+        "labels": {
+          "route": "Path as configured by the user in this example (as supplied)",
+          "sequence": "Steps numbered in the order supplied by the user (illustrative only)",
+          "exam": "Prior-examination tray: a neutral two-slot tray at the last stop of this path",
+          "key": "As supplied · no conclusion drawn (placeholder content only)"
+        },
+        "objectLabels": {
+          "body": "Station of this fictional example: every station the same size, on one row",
+          "tray": "Two-slot tray of each station (a neutral tray, nothing more)",
+          "calendar": "Wall calendar, a fixture of the room (no date marked)"
+        },
+        "annotations": [
+          {"target": "route", "text": "Each numbered step joins two stations in the order supplied in this example"},
+          {"target": "stations", "text": "Every station is drawn the same size and on the same row (as supplied)"}
+        ],
+        "finalState": "authorization-requested",
+        "stateCaption": "The petition passed along the whole configured path to the prior-examination tray (as supplied)"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {"title": "Petición (ficticia; texto provisional)", "supplied": "Decisión: texto aportado (contenido no mostrado)"},
+        "routes": {
+          "bodies": [{"label": "Puesto A (ficticio)"}, {"label": "Puesto B (ficticio)"}],
+          "steps": [0, 1]
+        },
+        "courier": {"label": "Participante que lleva la petición (ficticio)"},
+        "outcomes": {"a": "Autorización solicitada (según lo aportado)", "b": "Decisión suministrada (según lo aportado)"},
+        "labels": {"route": "Recorrido configurado (según lo aportado)", "sequence": "Pasos numerados en el orden aportado (ilustrativo)", "exam": "Bandeja de examen previo: una bandeja neutra en la última parada", "key": "Según lo aportado · sin conclusión"},
+        "objectLabels": {"body": "Puesto (ficticio): todos del mismo tamaño, en una fila", "tray": "Bandeja de dos huecos de cada puesto (neutra)", "calendar": "Calendario de pared (sin fechas marcadas)"},
+        "annotations": [{"target": "route", "text": "Cada paso une dos puestos, en el orden indicado (según lo aportado)"}]
+      }
+    }
+  ]
+}

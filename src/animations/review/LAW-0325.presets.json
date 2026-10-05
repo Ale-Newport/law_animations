@@ -1,0 +1,78 @@
+{
+  "animationId": "LAW-0325",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. The bodies are abstract and fictional, drawn at the same size on one row (no rank, level or hierarchy); the route is ONLY the sequence supplied in routes.steps; the decision is a placeholder sheet. 'Route not checked' is a neutral pending state (dashed), never invalid. No admissibility, time limit, leave, ground, outcome or jurisdiction is drawn. Brief fields: decisions, routes, outcomes, objectLabels, actionProgress, annotations and finalState are editable; actorLabels maps to courier.label (the participant) and routes.bodies[].label (the bodies). OMITTED brief field: grounds — grounds of a challenge would add legal content this motif does not need (the route alone is the subject); see review-01 for supplied labels.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three bodies of the same size; the configured route A → B → C (two numbered steps); route available as supplied: the participant takes the sheet from A's tray, carries it along step 1, dips it into B's tray, carries it along step 2 and lays it in C's tray.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other body labels, the route C → A → B as supplied, and the supplied state 'route not checked' (pending): the sheet stays in C's tray while its dashed outline traces the configured route; a note rings every station alike.",
+      "params": {
+        "decisions": {"title": "Decision of example K (fictional; placeholder text)"},
+        "routes": {
+          "bodies": [{"label": "Body North (fictional)"}, {"label": "Body Centre (fictional)"}, {"label": "Body South (fictional)"}],
+          "steps": [2, 0, 1]
+        },
+        "courier": {"label": "Participant B (fictional)", "appearance": {"skin": 4, "hair": "curly", "hairColor": 1, "outfit": 3}},
+        "outcomes": {"a": "Route available, as supplied here", "b": "Route not checked, as supplied here"},
+        "annotations": [{"target": "stations", "text": "Every body is drawn the same way (as supplied)"}],
+        "finalState": "route-unchecked"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: four bodies with long labels, a four-stop route that crosses back (A → C → B → D), long captions, two notes and a long state caption.",
+      "params": {
+        "decisions": {"title": "Decision in this fictional example (placeholder text, nothing real)"},
+        "routes": {
+          "bodies": [
+            {"label": "Body A of this fictional example (as supplied)"},
+            {"label": "Body B of this fictional example (as supplied)"},
+            {"label": "Body C of this fictional example (as supplied)"},
+            {"label": "Body D of this fictional example (as supplied)"}
+          ],
+          "steps": [0, 2, 1, 3]
+        },
+        "courier": {"label": "Participant carrying the decision sheet (fictional, generic)"},
+        "outcomes": {"a": "Route available, as supplied in this fictional example", "b": "Route not checked, as supplied in this fictional example"},
+        "labels": {
+          "route": "Route as configured by the user in this example (as supplied)",
+          "sequence": "Steps numbered in the order supplied by the user (illustrative only)",
+          "key": "As supplied · no conclusion drawn (placeholder content only)"
+        },
+        "objectLabels": {
+          "body": "Body of this fictional example: every station the same size, on one row",
+          "tray": "Intake tray of each body (a neutral tray, nothing more)",
+          "calendar": "Wall calendar, a fixture of the room (no date marked)",
+          "ghost": "Dashed outline: the configured route, pending, as supplied in this example"
+        },
+        "annotations": [
+          {"target": "route", "text": "Each numbered step joins two bodies in the order supplied in this example"},
+          {"target": "stations", "text": "Every body is drawn the same size and on the same row (as supplied)"}
+        ],
+        "finalState": "route-available",
+        "stateCaption": "The document travelled the whole configured route in this example (as supplied)"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {"title": "Resolución (ficticia; texto provisional)"},
+        "routes": {
+          "bodies": [{"label": "Órgano A (ficticio)"}, {"label": "Órgano B (ficticio)"}, {"label": "Órgano C (ficticio)"}],
+          "steps": [0, 1, 2]
+        },
+        "courier": {"label": "Participante que lleva la resolución (ficticio)"},
+        "outcomes": {"a": "Ruta disponible aportada", "b": "Ruta no comprobada (según lo aportado)"},
+        "labels": {"route": "Ruta configurada (según lo aportado)", "sequence": "Pasos numerados en el orden aportado (ilustrativo)", "key": "Según lo aportado · sin conclusión"},
+        "objectLabels": {"body": "Órgano (ficticio): todos del mismo tamaño, en una fila", "tray": "Bandeja de entrada de cada órgano", "calendar": "Calendario de pared (sin fechas marcadas)", "ghost": "Contorno discontinuo: la ruta configurada, pendiente (según lo aportado)"},
+        "annotations": [{"target": "route", "text": "Cada paso une dos órganos, en el orden indicado (según lo aportado)"}]
+      }
+    }
+  ]
+}

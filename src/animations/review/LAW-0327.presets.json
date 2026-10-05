@@ -1,0 +1,78 @@
+{
+  "animationId": "LAW-0327",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Both rooms are identical except the ONE supplied route state: A 'available, as supplied' (● sign, route drawn solid; the participant carries the sheet along the route) and B 'not checked, as supplied' (◆ sign, route drawn dashed — a neutral pending state; the sheet stays in the first tray while its dashed outline traces the same route). The bodies are abstract and fictional, of the same size on one row (no rank, level or hierarchy); the route is ONLY the supplied sequence. No admissibility, time limit, leave, ground, outcome or jurisdiction is drawn; neither state is preferred. Brief fields: decisions, routes, outcomes (the two headers' states), scenarioA, scenarioB, changedFact, sharedFacts and comparisonLabels are editable. OMITTED brief field: grounds — grounds of a challenge would add legal content the comparison of a route's supplied state does not need.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three bodies of the same size and the route A → B → C in both rooms; A: route available as supplied — the participant carries the sheet to C's tray; B: route not checked as supplied — the sheet stays in A's tray while its dashed outline traces the route to C.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four bodies with other labels, a route that turns back (D → B → A), a shared fact and captions on both headers.",
+      "params": {
+        "decisions": {"title": "Decision of example K (fictional; placeholder text)"},
+        "routes": {
+          "bodies": [{"label": "Body North (fictional)"}, {"label": "Body East (fictional)"}, {"label": "Body South (fictional)"}, {"label": "Body West (fictional)"}],
+          "steps": [3, 1, 0]
+        },
+        "courier": {"label": "Participant B (fictional)", "appearance": {"skin": 2, "hair": "bun", "hairColor": 3, "outfit": 5}},
+        "outcomes": {"a": "Route available, as supplied here", "b": "Route not checked, as supplied here"},
+        "scenarioA": {"label": "Case 1", "caption": "state supplied by the user"},
+        "scenarioB": {"label": "Case 2", "caption": "state supplied by the user"},
+        "sharedFacts": ["The same bodies, route and sheet in both rooms"],
+        "comparisonLabels": {"guide": "The one supplied difference", "neutral": "Neither state weighs more; nothing follows from either"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: four bodies with long labels, a route that crosses back (A → C → B → D), three shared facts and long captions.",
+      "params": {
+        "decisions": {"title": "Decision in this fictional example (placeholder text, nothing real)"},
+        "routes": {
+          "bodies": [
+            {"label": "Body A of this fictional example (as supplied)"},
+            {"label": "Body B of this fictional example (as supplied)"},
+            {"label": "Body C of this fictional example (as supplied)"},
+            {"label": "Body D of this fictional example (as supplied)"}
+          ],
+          "steps": [0, 2, 1, 3]
+        },
+        "courier": {"label": "Participant carrying the decision sheet (fictional, generic)"},
+        "outcomes": {"a": "Route available, as supplied in this fictional example", "b": "Route not checked, as supplied in this fictional example"},
+        "labels": {
+          "route": "Route as configured by the user in this example (as supplied)",
+          "sequence": "Steps numbered in the order supplied by the user (illustrative only)",
+          "key": "As supplied · no conclusion drawn (placeholder content only)"
+        },
+        "scenarioA": {"label": "Scenario A of this example", "caption": "state supplied by the user"},
+        "scenarioB": {"label": "Scenario B of this example", "caption": "state supplied by the user"},
+        "changedFact": "Only the route state supplied by the user differs here: available, or not checked (a pending state)",
+        "sharedFacts": ["The same four bodies, drawn the same size on one row", "The same configured route with its numbered steps", "The same placeholder sheet and the same participant"],
+        "objectLabels": {"ghost": "Dashed outline: the configured route, pending, as supplied in this example", "calendar": "Wall calendar, a fixture of the room (no date marked)"},
+        "comparisonLabels": {"guide": "The one supplied difference between the two rooms", "neutral": "Neither state weighs more than the other; nothing is evaluated or concluded"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {"title": "Resolución (ficticia; texto provisional)"},
+        "routes": {
+          "bodies": [{"label": "Órgano A (ficticio)"}, {"label": "Órgano B (ficticio)"}, {"label": "Órgano C (ficticio)"}],
+          "steps": [0, 1, 2]
+        },
+        "courier": {"label": "Participante que lleva la resolución (ficticio)"},
+        "outcomes": {"a": "Ruta disponible aportada", "b": "Ruta no comprobada (según lo aportado)"},
+        "labels": {"route": "Ruta configurada (según lo aportado)", "sequence": "Pasos numerados en el orden aportado (ilustrativo)", "key": "Según lo aportado · sin conclusión"},
+        "scenarioA": {"label": "Supuesto A"},
+        "scenarioB": {"label": "Supuesto B"},
+        "changedFact": "Solo cambia el estado aportado de la ruta: disponible, o no comprobada (pendiente)",
+        "sharedFacts": [],
+        "objectLabels": {"ghost": "Contorno discontinuo: la ruta configurada, pendiente (según lo aportado)", "calendar": "Calendario de pared (sin fechas marcadas)"},
+        "comparisonLabels": {"guide": "La única diferencia aportada", "neutral": "Ningún estado pesa más; no se evalúa nada"}
+      }
+    }
+  ]
+}
