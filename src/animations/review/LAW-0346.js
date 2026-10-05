@@ -34,7 +34,7 @@ import {makeMetadata} from '../../core/meta.js';
 import {h, g} from '../../core/svg.js';
 import {T} from '../../core/transform.js';
 import {seg, clamp, ease, lerp, r} from '../../core/time.js';
-import {edgeAnchor, polyline} from '../../core/geometry.js';
+import {edgeAnchor, polyline, roundRectPath} from '../../core/geometry.js';
 import {str, obj} from '../../schemas/fields.js';
 import {mechanismFields, RELATION_KINDS} from '../../schemas/fields.js';
 import {pxPerUnit} from '../hearings/kits/apertura-audiencia.js';
@@ -48,7 +48,7 @@ const DURATION = 7000;
 const IDS = ['intake', 'later', 'position', 'initial', 'history'];
 const W = {
   lift: [0.0, 0.12], capsIn: [0, 0], links: [0.18, 0.43], trace: [0.44, 0.74],
-  tokB: [0.56, 0.68], tokA: [0.6, 0.68], states: [0.75, 0.8],
+  tokB: [0.5, 0.72], tokA: [0.62, 0.72], states: [0.75, 0.8],
 };
 const SIZES = [26, 25, 24, 23, 22, 21, 20.5, 19.5, 18.5, 17.5, 16.5, 16];
 
@@ -140,17 +140,17 @@ function compose(ctx, P, F, opt) {
   // geometry of the components
   let cw, plateW, plateH, colW;
   // labels hidden: the components grow into the room the texts leave
-  const Fg = showKey ? F : F * 1.45;
+  const Fg = (showKey ? F : F * 1.45) * (opt.grow ?? 1);
   if (!tall) {
     colW = (D.w - 2 * mx) / 3;
-    plateW = Math.min(colW * 0.62, Fg * 14);
-    cw = Math.min(colW * 0.84, Fg * opt.cwMax);
+    plateW = Math.min(colW * 0.7, Fg * 14);
+    cw = Math.min(colW * 0.9, Fg * opt.cwMax);
   } else {
     colW = D.w - 2 * mx;
     plateW = Math.min(colW * (showKey ? 0.4 : 0.44), Fg * 13);
     cw = Math.min(colW * 0.48, Fg * opt.cwMax);
   }
-  const CM = cardModel(ctx, {w: cw, F, minF: F, maxLines: opt.cardLines, a: P.decisions.initial, b: P.decisions.later, showText: showKey, minH: showKey ? 0 : cw * 0.75});
+  const CM = cardModel(ctx, {w: cw, F, minF: F, maxLines: opt.cardLines, a: P.decisions.initial, b: P.decisions.later, showText: showKey, minH: showKey ? F * 4.5 * (opt.grow ?? 1) : cw * 0.75});
   if (!CM.ok) problems.push('card-text');
   plateH = Math.max(Fg * 3.8, Math.min(CM.h * 0.7, plateW * 0.6));
   // captions: element label (bold) + description (+ grounds) + reserved state
@@ -214,7 +214,7 @@ function compose(ctx, P, F, opt) {
   const sp = Math.max(0, spare);
   const gapY = gapMin + sp * 0.4;
   let y = my + sp * 0.08 + 12;
-  const plateX = leftX + Math.max(F * 2.2, 46);
+  const plateX = leftX + Math.max(F * 2.2, 46, Math.min(plateH * 0.62, plateW * 0.5) * 1.5);
   for (const id of ['intake', 'position', 'history']) {
     boxes[id] = {x: plateX, y, w: plateW, h: plateH};
     capAt[id] = {x: plateX, y: y + plateH + F * 0.5};
@@ -240,7 +240,7 @@ function compose(ctx, P, F, opt) {
       const cb = {x: capAt[id].x, y: capAt[id].y, w: caps[id].w, h: caps[id].h};
       for (const c of ['later', 'initial']) if (overlaps(cb, {x: boxes[c].x, y: boxes[c].y - cardCapH, w: boxes[c].w, h: boxes[c].h + cardCapH}, 6)) problems.push(`caption-card-${id}`);
     }
-    return {problems, F, tall, CM, boxes, caps, capAt, cardCaps, cardCapH, leg, legCols, legColW, iconW, legH, plateW, plateH, cw, ...extra};
+    return {opt, problems, F, tall, CM, boxes, caps, capAt, cardCaps, cardCapH, leg, legCols, legColW, iconW, legH, plateW, plateH, cw, ...extra};
   }
 }
 
@@ -258,7 +258,14 @@ const scene = {
       if (!best || L.problems.length < best.problems.length) best = L;
       if (!L.problems.length) { best = L; break outer; }
     }
-    const L = best;
+    let L = best;
+    // spend free space on the components themselves: grow places and cards as far as the composition still fits
+    if (!L.problems.length) {
+      for (const grow of [1.8, 1.6, 1.45, 1.3, 1.15]) {
+        const L2 = compose(ctx, P, L.F, {...L.opt, grow});
+        if (!L2.problems.length) { L = L2; break; }
+      }
+    }
     L.P = P;
     L.px = px;
     L.tall = tall;
@@ -325,6 +332,18 @@ const scene = {
     const B = L.boxes;
     const F = L.F;
     const parts = [];
+    // the rail the three places belong to (one physical base, exploded apart): a groove the tokens travel along
+    {
+      const a = B.intake, c = B.history;
+      const rb = L.tall
+        ? {x: a.x - L.tokS * 1.35, y: a.y + a.h * 0.25, w: L.tokS * 1.35 + 14, h: c.y + c.h * 0.75 - (a.y + a.h * 0.25)}
+        : {x: a.x + a.w * 0.2, y: a.y + a.h * 0.28, w: c.x + c.w * 0.8 - (a.x + a.w * 0.2), h: a.h * 0.44};
+      parts.push(g({name: 'mc-railbase'},
+        h('path', {d: roundRectPath(rb.x + 4, rb.y + 6, rb.w, rb.h, 10), fill: th.shadow}),
+        h('path', {d: roundRectPath(rb.x, rb.y, rb.w, rb.h, 10), fill: '#e9e2d3', stroke: '#a39a86', 'stroke-width': 2.5}),
+        L.tall ? h('line', {x1: r(rb.x + L.tokS * 0.6), x2: r(rb.x + L.tokS * 0.6), y1: r(rb.y + 10), y2: r(rb.y + rb.h - 10), stroke: '#c9bfa9', 'stroke-width': 4, 'stroke-linecap': 'round'})
+          : h('line', {x1: r(rb.x + 10), x2: r(rb.x + rb.w - 10), y1: r(rb.y + rb.h / 2), y2: r(rb.y + rb.h / 2), stroke: '#c9bfa9', 'stroke-width': 4, 'stroke-linecap': 'round'})));
+    }
     // places
     for (const id of ['intake', 'position', 'history']) {
       const b = B[id];

@@ -144,7 +144,13 @@ const scene = {
     const gap = 16;
     const zoomMax = P.detailGeometry.zoom;
     // ---- the record's fits (template units) at a plate text multiple rs
+    const recMemo = new Map();
     const recordFor = (Ft, rs) => {
+      const rk = `${Ft}|${rs}|${maxRecLines}`;
+      if (!recMemo.has(rk)) recMemo.set(rk, recordFor0(Ft, rs));
+      return recMemo.get(rk);
+    };
+    const recordFor0 = (Ft, rs) => {
       if (!showKey) return {fits: null, dockFits: null, layout: recordLayout(null, null, Math.max(26, 22)), rs};
       const pick = text => {
         let best = null;
@@ -234,10 +240,10 @@ const scene = {
     // (first the board kept within the row of bodies; only when nothing composes that way may it be wider)
     let boardCheck = true;
     const compose1 = (box, F, scale, rs, names) => {
-      let rec = null;
+      let rec = null; const ta=performance.now();
       const C = composeSa(ctx, P, R, box, F, {scale, text: showKey, names, numbers: showKey, courier: false, untangle: {clearPx: ctx.view.shape === 'square' ? 16 : 18}, docK: R.n >= 4 && ctx.view.shape === 'square' ? 0.95 : R.n <= 2 ? 1.9 : 1.35, gap: R.n <= 2 ? 150 : 70, crop: 1.1, spread: 1.8, deepen: ctx.view.shape === 'portrait' ? 3.5 : 0,
-        board: Ft => { rec = recordFor(Ft || F, rs); return {w: rec.layout.w, h: rec.layout.h}; }});
-      C.rec = rec;
+        board: Ft => { const tr=performance.now(); rec = recordFor(Ft || F, rs); globalThis.__r=(globalThis.__r||0)+performance.now()-tr; return {w: rec.layout.w, h: rec.layout.h}; }});
+      C.rec = rec; globalThis.__a=(globalThis.__a||0)+performance.now()-ta; globalThis.__c1=(globalThis.__c1||0)+1; const tb=performance.now();
       C.refsSize = rs;
       // (the record's board never outgrows the row of bodies: the context stays a scene of bodies and route, not a plate)
       if (boardCheck && C.G.board && C.G.board.w > C.G.rowW * 1.02 + 40) C.problems.push('board-wide');
@@ -262,15 +268,16 @@ const scene = {
         C.lensText = tA / (LP.crop.w * LP.crop.h);
         if (C.lensText < lensTextMin) C.problems.push('lens-text');
       }
-      C.lens = LP;
+      C.lens = LP; globalThis.__b=(globalThis.__b||0)+performance.now()-tb;
       return C;
     };
+    let NC=0, T0=performance.now();
     const composeFor = names => (box, F, scale) => {
       const key = [box.x, box.y, box.w, box.h, F, scale, names, maxRecLines, tryFlip, (showKey ? rsList : [1]).join()].map(v => (typeof v === 'number' ? v.toFixed(4) : v)).join('|');
       if (memo.has(key)) return memo.get(key);
       let C = null;
       for (const rs of showKey ? rsList : [1]) {
-        C = compose1(box, F, scale, rs, names);
+        NC++; C = compose1(box, F, scale, rs, names);
         if (!C.problems.length) break;
       }
       memo.set(key, C);
@@ -302,6 +309,7 @@ const scene = {
       const b4 = searchSa(ctx, rowsFor(names), opts(names));
       if (b4.problems.length < best.problems.length || (!b4.problems.length && best.problems.length)) { best = b4; textLimit = true; }
     }
+    console.log('PROBE', recMemo.size, 'rec', Math.round(globalThis.__r), globalThis.__c1, Math.round(globalThis.__a), Math.round(globalThis.__b), NC, Math.round(performance.now()-T0), rsList.join(), maxRecLines, lensTextMin, best.problems.join('+'));
     const {F, C, lay} = best;
     const G = C.G, k = C.k;
     const {dest, crop, Z, zm, s, anchor, wide} = C.lens;

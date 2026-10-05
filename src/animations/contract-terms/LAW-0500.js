@@ -1,19 +1,21 @@
 /**
  * LAW-0500 — Cláusula de terminación · inspect
  *
- * Storyboard (context = the state provided by the story's action: the contract board with the circumstance card "Circumstance 1
- * (supplied)" seated in its slot, showing its supplied state — ● "Circumstance provided (as supplied)" —, the supplied
- * clause cards and the bracket shut on the supplied section; the two parties stand beside the board):
+ * Storyboard (context = the state produced by the story's action: the contract board with the card "Communication 1
+ * (supplied)" seated in its slot, showing its supplied case — ● "Case provided for (as supplied)" —, the sections of the
+ * termination clause, the connector bracket shut on the supplied section and the connector cord drawn from it to the
+ * card; the two parties stand beside the board):
  *  0.00–0.20  context at rest in its part of the frame; the other part holds a panel (headline, the ●/◆ legend at equal
  *             weight, the key).
- *  0.20–0.28  isolate: the panel leaves and a lens grows at its own place: a real enlarged copy (≥ 1.6×) of the circumstance
- *             card; the context's card is left blank while the lens shows it (one legible copy at a time, glyph included).
- *  0.36–0.42  the old state is struck in the lens.
- *  0.47–0.489 the datum changes: the state row turns over and comes back with the supplied alternative — ◆ "Circumstance
- *             undescribed (as supplied)" — (no value legible for ≤ ~150 ms).
- *  0.50–0.56  only then, the new value legible, its dependent geometry follows in the scene: the bracket slides open in
- *             its track, as supplied (with the alternative provided → it slides shut). Nothing else moves.
- *  0.74–0.80  return: the lens closes onto the card, which shows the new state at once; a Δ marks it (0.80–0.81); the
+ *  0.20–0.28  isolate: the panel leaves and a lens (the magnifier) grows at its own place: a real enlarged copy (≥ 1.6×)
+ *             of the card; the context's card is left blank while the lens shows it (one legible copy at a time).
+ *  0.36–0.42  the old case is struck in the lens.
+ *  0.47–0.489 the datum changes: the case row turns over and comes back with the supplied alternative — ◆ "Case not
+ *             described (as supplied)" — (no value legible for ≤ ~150 ms).
+ *  0.50–0.56  only then, the new value legible, its dependent geometry follows in the scene: the cord is withdrawn and
+ *             the bracket slides open in its track, as supplied (with the alternative not described → provided for: the
+ *             bracket slides shut, then the cord is drawn). Nothing else moves; nothing is concluded.
+ *  0.74–0.80  return: the lens closes onto the card, which shows the new case at once; a Δ marks it (0.80–0.81); the
  *             panel comes back with the marker label, the struck "was:" value, the legend and the key "As supplied · no
  *             conclusion drawn". Seeking back restores the old datum exactly.
  * Labels hidden: the same lens on the circumstance card — its state glyph turns ● → ◆ inside the lens (a non-text change).
@@ -22,8 +24,8 @@
  * Texts too long for a printed card (an unbroken long word): print bars decided per card (the circumstance card, the clause
  * cards); the barred cards' texts are listed once in the panel; a barred circumstance card is printed in the lens, its print
  * filling the window. The lens crop never takes in the legs or the floor (the lens copy is clipped to the board).
- * No rule on conditions: nothing about fulfilment, no automatic effect, no clause becoming due, binding or
- * enforceable; no jurisdiction. Provided and undescribed have equal weight.
+ * No termination doctrine: no right or ground to terminate, no notice period or time limit, no effect, no validity
+ * judgement, no jurisdiction. Provided for and not described have equal weight.
  * @module animations/contract-terms/LAW-0500
  */
 import {defineAnimation} from '../../core/define.js';
@@ -38,7 +40,7 @@ import {changedMarker} from '../../primitives/markers.js';
 import {measure} from '../../core/text.js';
 import {
   motifFields, DEFAULT_CONTENT, DEFAULT_CONTENT_ES, KIT_STRINGS, STATES, PX_BASE, PX_STRESS,
-  layoutStage, stageArt, makeRigs, nameNodes, oblNodes, eventNode, bracketNode, stateGlyph, chipG, eventCard, measureEvent, measureObl, bracketMetrics,
+  layoutStage, stageArt, makeRigs, nameNodes, oblNodes, eventNode, bracketNode, cordGeom, cordNode, cordFrame, stateGlyph, chipG, eventCard, measureEvent, measureObl, bracketMetrics,
   localizeScene, headBox, overlaps, fitG, widestToken, breakingWords,
 } from './kits/clausula-terminacion.js';
 
@@ -57,9 +59,9 @@ const STRINGS = {
 
 const sceneSchema = {
   ...motifFields,
-  focusTarget: oneOf('The inspected object (the circumstance card: its supplied state row)', ['caseState']),
-  beforeValue: oneOf('The supplied state of the circumstance before the substitution', STATES),
-  afterValue: oneOf('The supplied state of the circumstance after the substitution', STATES),
+  focusTarget: oneOf('The inspected object (the communication card: its supplied case row)', ['caseState']),
+  beforeValue: oneOf('The supplied case before the substitution (provided = provided for, undescribed = not described)', STATES),
+  afterValue: oneOf('The supplied case after the substitution (provided = provided for, undescribed = not described)', STATES),
   detailGeometry: obj('Lens geometry', {zoom: num('Largest magnification of the lens (≥ 1.5; the layout may use less room but never under 1.5)', 1.5, 4), placement: oneOf('Where the lens sits', ['auto', 'right', 'below'])}),
   contextLabels: obj('Labels for the context view', {context: str('Context headline', 80), marker: str('Label of the changed-datum marker', 70)}),
 };
@@ -70,12 +72,12 @@ const defaultParams = {
   beforeValue: 'provided',
   afterValue: 'undescribed',
   detailGeometry: {zoom: 2.4, placement: 'auto'},
-  contextLabels: {context: 'Circumstance card and section, as supplied', marker: 'Changed: the supplied state of circumstance 1'},
+  contextLabels: {context: 'Communication card and connected section, as supplied', marker: 'Changed: the supplied case of communication 1'},
 };
 
 const defaultParamsEs = {
   ...DEFAULT_CONTENT_ES,
-  contextLabels: {context: 'Tarjeta de la comunicación y apartado, según lo aportado', marker: 'Cambio: el estado aportado de la comunicación 1'},
+  contextLabels: {context: 'Tarjeta de la comunicación y apartado conectado, según lo aportado', marker: 'Cambio: el supuesto aportado de la comunicación 1'},
 };
 
 function unitPx(ctx) {
@@ -270,7 +272,7 @@ const scene = {
     const th = ctx.theme;
     const F = L.F;
     const Lc = L.Lc;
-    const st = g({name: 'st-scene'}, stageArt(ctx, Lc), oblNodes(ctx, Lc, p.clauses), bracketNode(ctx, Lc, L.before === 'provided'), eventNode(ctx, Lc, L.before, {at: Lc.G.slot}), Lc.rigs[0].node, Lc.rigs[1].node, nameNodes(ctx, Lc, Lc.captions));
+    const st = g({name: 'st-scene'}, stageArt(ctx, Lc), oblNodes(ctx, Lc, p.clauses), bracketNode(ctx, Lc, L.before === 'provided'), eventNode(ctx, Lc, L.before, {at: Lc.G.slot}), cordNode(ctx, {...Lc, P: 'st-'}, cordGeom(Lc.G)), Lc.rigs[0].node, Lc.rigs[1].node, nameNodes(ctx, Lc, Lc.captions));
     const lzL = {...Lc, P: 'lzs-'};
     const strike = L.show ? (() => {
       const G = Lc.G, M = L.lensM ?? G.ME, f = M.st[L.before], Fe = M.F;
@@ -323,8 +325,15 @@ const scene = {
     const hand = handOver(open);
     for (const P of ['st-', 'lzs-']) poseCopy(nodes, L, P, u, hand);
     // the bracket (the context only): its supplied place for the before state, then for the after state
+    // (and the connector cord, drawn only while the case is provided for: withdrawn before the bracket opens, drawn after
+    // it has closed — cause before effect)
     const bx = s => (s === 'provided' ? G.B.closedX : G.B.openX);
-    const brX = bx(L.before) + (bx(L.after) - bx(L.before)) * dep;
+    const cv = s => (s === 'provided' ? 1 : 0);
+    const opening = L.before === 'provided' && L.after !== 'provided', closing = L.before !== 'provided' && L.after === 'provided';
+    const brQ = opening ? seg(dep, 0.45, 1) : closing ? seg(dep, 0, 0.55) : dep;
+    const cordQ = opening ? 1 - seg(dep, 0, 0.45) : closing ? seg(dep, 0.55, 1) : cv(L.before);
+    const brX = bx(L.before) + (bx(L.after) - bx(L.before)) * brQ;
+    Object.assign(nodes, cordFrame('st-', r(cordQ, 4)));
     nodes['st-br'] = {transform: T(r(brX, 2), r(G.B.top, 2))};
     const posed = [G.figA, G.figB].map((fg, i) => Lc.rigs[i].frame({x: fg.x, y: fg.floor, facing: fg.f, scale: fg.k, headTilt: 3}));
     posed.forEach(q => Object.assign(nodes, q.nodes));
@@ -539,15 +548,15 @@ export default defineAnimation({
   metadata: makeMetadata({
     id: ID,
     slug: 'contract-terms-05-inspect',
-    title: 'Activation circumstance, without a rule — inspecting the circumstance card and substituting its supplied state',
+    title: 'Termination clause, without doctrine — inspecting the communication card and substituting its supplied case',
     titleEs: 'Cláusula de terminación — Inspección y cambio de un dato',
     category: 'contract-terms',
     categoryName: 'Contenido y cláusulas',
     motif: 'Cláusula de terminación',
     treatment: 'inspect',
     family: 'focus-and-replay',
-    description: 'The contract board after the story\'s action: the circumstance card "Circumstance 1 (supplied)" seated in its slot with its supplied state ● "Circumstance provided (as supplied)", the supplied clause cards and a neutral bracket shut on the supplied section, the two parties beside the board. A lens grows beside the scene with a real enlarged copy of the circumstance card; the old state is struck, the state row turns over to the supplied alternative ◆ "Circumstance undescribed (as supplied)" and only then the bracket slides open in its track, as supplied. The lens closes onto the card, a Δ marks it and the panel shows the marker, the struck "was:" value, the ●/◆ legend at equal weight and the key "As supplied · no conclusion drawn". Seeking back restores the old datum. No rule and no conclusion.',
-    tags: ['activation circumstance', 'circumstance', 'provided', 'undescribed', 'section', 'bracket', 'lens', 'substitution', 'changed datum', 'characters'],
+    description: 'The contract board after the story\'s action: the card "Communication 1 (supplied)" seated in its slot with its supplied case ● "Case provided for (as supplied)", the sections of the termination clause, a neutral connector bracket shut on the supplied section and the connector cord drawn to the card, the two parties beside the board. A lens grows beside the scene with a real enlarged copy of the card; the old case is struck, the case row turns over to the supplied alternative ◆ "Case not described (as supplied)" and only then the cord is withdrawn and the bracket slides open, as supplied. The lens closes onto the card, a Δ marks it and the panel shows the marker, the struck "was:" value, the ●/◆ legend at equal weight and the key "As supplied · no conclusion drawn". Seeking back restores the old datum. No termination doctrine and no conclusion.',
+    tags: ['termination clause', 'communication', 'provided for', 'not described', 'section', 'connector', 'bracket', 'lens', 'substitution', 'changed datum', 'characters'],
     defaultDurationMs: DURATION,
     assets: ['src/animations/contract-terms/kits/clausula-terminacion.js', 'src/primitives/markers.js', 'src/primitives/person.js', 'src/primitives/annotate.js'],
   }),

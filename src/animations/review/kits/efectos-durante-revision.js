@@ -121,7 +121,7 @@ export function cardModel(P, o) {
     dec = {title, ref, refH, h: title.height + F * 0.45 + refH};
     app = {gr, h: gr.height};
   }
-  const bodyH = o.showText ? Math.max(dec.h, app.h) : F * 2.6;
+  const bodyH = o.showText ? Math.max(dec.h, app.h) : F * (o.compact ? 1.7 : 2.6);
   const hh = Math.max(o.minH ?? 0, stripe + pad * 1.6 + bodyH, w * (o.minK ?? 0.3));
   return {w, h: hh, F, pad, stripe, tw, dec, app, ok, showText: o.showText};
 }
@@ -306,7 +306,15 @@ export function boardPlan(M, TM, o) {
   const mg = F * 0.6;
   const showCal = o.cal !== false;
   let mid, lanes, tag, cal;
-  if (H) {
+  let top = 0;
+  if (H && o.tagTop) {
+    // (contrast: the tag hangs ABOVE the gate in a top band; the middle gap holds only the calendar)
+    top = TM.h + F * 1.1;
+    mid = (showCal ? calH : F) + mg * 2;
+    lanes = [{x: 0, y: top, w: len, h: wd}, {x: 0, y: top + wd + mid, w: len, h: wd}];
+    tag = {x: clamp(gT - TM.w * 0.5, 0, len - TM.w), y: 0, w: TM.w, h: TM.h};
+    cal = showCal ? {x: tStart, y: top + wd + mid / 2 - calH / 2, w: calW, h: calH} : null;
+  } else if (H) {
     mid = Math.max(TM.h, showCal ? calH : 0) + mg * 2 + F * 0.4;
     lanes = [{x: 0, y: 0, w: len, h: wd}, {x: 0, y: wd + mid, w: len, h: wd}];
     tag = {x: clamp(gT - TM.w * 0.3, 0, len - TM.w), y: wd + mg + F * 0.4, w: TM.w, h: TM.h};
@@ -315,10 +323,10 @@ export function boardPlan(M, TM, o) {
     mid = Math.max(TM.w, showCal ? calW : 0) + mg * 2;
     lanes = [{x: 0, y: 0, w: wd, h: len}, {x: wd + mid, y: 0, w: wd, h: len}];
     tag = {x: wd + mg, y: clamp(gT - TM.h * 0.3, 0, len - TM.h), w: TM.w, h: TM.h};
-    cal = showCal ? {x: wd + mid / 2 - calW / 2, y: tStart, w: calW, h: calH} : null;
+    cal = showCal ? {x: wd + mid / 2 - calW / 2, y: o.calEnd ? len - calH - pad : tStart, w: calW, h: calH} : null;
   }
   const tagCal = cal && overlaps(tag, cal, F * 0.4);
-  const W = H ? len : wd * 2 + mid, Hh = H ? wd * 2 + mid : len;
+  const W = H ? len : wd * 2 + mid, Hh = H ? top + wd * 2 + mid : len;
   // chevrons: before the gate (all lanes) and after it; the process lane's after-gate chevrons are the lit ones
   const step = Math.max(F * 2.4, 34);
   const chevAll = [];
@@ -331,10 +339,10 @@ export function boardPlan(M, TM, o) {
   const pos = (i, t) => (H ? {x: lanes[i].x + t, y: lanes[i].y + pad} : {x: lanes[i].x + pad, y: lanes[i].y + t});
   /** World point on lane i's axis at t (centre line). */
   const axis = (i, t) => (H ? {x: lanes[i].x + t, y: lanes[i].y + wd / 2} : {x: lanes[i].x + wd / 2, y: lanes[i].y + t});
-  const gate = H ? {cx: gT, cy: wd / 2, rot: 0} : {cx: wd / 2, cy: gT, rot: 90};
+  const gate = H ? {cx: gT, cy: top + wd / 2, rot: 0} : {cx: wd / 2, cy: gT, rot: 90};
   const gateSpan = wd + F * 1.2;
-  const gateBox = H ? {x: gT - gThk / 2, y: wd / 2 - gateSpan / 2, w: gThk, h: gateSpan} : {x: wd / 2 - gateSpan / 2, y: gT - gThk / 2, w: gateSpan, h: gThk};
-  return {F, H, travel, run, along, across, pad, wd, disc, tStart, tWait, tEnd, gT, gThk, gapS, len, lanes, tag, cal, mid, W, H2: Hh, w: W, h: Hh,
+  const gateBox = H ? {x: gT - gThk / 2, y: top + wd / 2 - gateSpan / 2, w: gThk, h: gateSpan} : {x: wd / 2 - gateSpan / 2, y: gT - gThk / 2, w: gateSpan, h: gThk};
+  return {F, H, top, travel, run, along, across, pad, wd, disc, tStart, tWait, tEnd, gT, gThk, gapS, len, lanes, tag, cal, mid, W, H2: Hh, w: W, h: Hh,
     chevAll, procDim, lit, rev: chevAll, pos, axis, gate, gateSpan, gateBox, tagCal, ok: !tagCal};
 }
 
@@ -349,12 +357,13 @@ export function boardNodes(ctx, B, TM, o) {
     const art = laneArt(ctx, {prefix: `${p}-lane${i}`, i, len: B.len, wd: B.wd, F: B.F, chev: i === 0 ? B.procDim : B.rev, lit: i === 0 ? B.lit : [], disc: B.disc, endT: B.tEnd, along: B.along, pad: B.pad});
     return g({transform: B.H ? T(L.x, L.y) : `${T(L.x + L.w, L.y)} rotate(90)`}, art);
   };
-  const gate = g({transform: T(B.lanes[0].x + B.gate.cx, B.lanes[0].y + B.gate.cy, B.gate.rot)}, gateArt(ctx, {prefix: `${p}-gate`, thk: B.gThk, sp: B.gateSpan, F: B.F}));
+  const gate = g({transform: T(B.gate.cx, B.gate.cy, B.gate.rot)}, gateArt(ctx, {prefix: `${p}-gate`, thk: B.gThk, sp: B.gateSpan, F: B.F}));
   const leader = (() => {
     const t = B.tag;
-    const gb = {x: B.lanes[0].x + B.gateBox.x, y: B.lanes[0].y + B.gateBox.y, w: B.gateBox.w, h: B.gateBox.h};
-    const a = B.H ? {x: clamp(gb.x + gb.w / 2, t.x + 10, t.x + t.w - 10), y: t.y} : {x: t.x, y: clamp(gb.y + gb.h / 2, t.y + 10, t.y + t.h - 10)};
-    const b = B.H ? {x: a.x, y: gb.y + gb.h} : {x: gb.x + gb.w, y: a.y};
+    const gb = B.gateBox;
+    const above = t.y + t.h <= gb.y;
+    const a = B.H ? {x: clamp(gb.x + gb.w / 2, t.x + 10, t.x + t.w - 10), y: above ? t.y + t.h : t.y} : {x: t.x, y: clamp(gb.y + gb.h / 2, t.y + 10, t.y + t.h - 10)};
+    const b = B.H ? {x: a.x, y: above ? gb.y : gb.y + gb.h} : {x: gb.x + gb.w, y: a.y};
     return h('path', {d: `M${r(a.x)} ${r(a.y)}L${r(b.x)} ${r(b.y)}`, stroke: SLATE, 'stroke-width': 3, 'stroke-linecap': 'round'});
   })();
   return {
