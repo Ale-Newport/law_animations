@@ -62,7 +62,7 @@ suppliedTextSuite(ID, {
 renderedTextFloor(ID, ['default', 'baseline-illustrative', 'baseline-es'], 19.5, 0.01);
 textSizeOverTime(ID, 0.01);
 
-// Each scene's share of the FRAME width: >= 0.40 side by side, >= 0.71 stacked, >= 0.55 stacked beside a text column
+// Each scene's share of the FRAME width: >= 0.40 side by side, >= 0.71 stacked, >= 0.44 stacked beside a text column (1:1, labels on: A over B with the shared band in a column — round-4 coordinator request; the wide single-lane boards are height-bound there, so a wider column costs no board height)
 // (the lane is the floor each field stands on), labels shown and hidden, at rest and at the hold.
 sweep(ID, 'each scene spans its share of the frame width (rendered)', `
   let worst = Infinity;
@@ -70,7 +70,7 @@ sweep(ID, 'each scene spans its share of the frame width (rendered)', `
     x.seek(u * x.durationMs);
     const s = x.getState({bounds: false}).semantic;
     const F = frameBox();
-    const need = s.arrangement === 'row' ? 0.4 : s.arrangement === 'textcol' ? 0.55 : 0.71;
+    const need = s.arrangement === 'row' ? 0.4 : s.arrangement === 'textcol' ? 0.44 : 0.71;
     for (const n of ['floorA', 'floorB']) {
       const w = svg.querySelector('[data-node="' + n + '"]').getBoundingClientRect().width / F.width;
       worst = Math.min(worst, w);
