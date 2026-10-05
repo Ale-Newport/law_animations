@@ -96,7 +96,7 @@ const strings = {
 
 const MARGIN = 10;
 const SHAPES = {
-  landscape: {size: 26, minSize: 17, modes: ['side', 'split'], hMin: 250},
+  landscape: {size: 26, minSize: 17, modes: ['side', 'split', 'tall'], hMin: 250},
   square: {size: 24, minSize: 17, modes: ['tall', 'side', 'split', 'below', 'below2'], hMin: 160},
   portrait: {size: 25, minSize: 17, modes: ['below', 'below2', 'side', 'split'], hMin: 250},
 };
