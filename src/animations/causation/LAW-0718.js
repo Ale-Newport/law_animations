@@ -154,7 +154,7 @@ function partChips(ctx, p, M, size, U, arr = 'ring') {
 function geomFor(ctx, p, M, size, U, arr, gx0, ex = 0, ey = 0) {
   const ch = partChips(ctx, p, M, size, U, arr);
   const dims = arr === 'ring'
-    ? {loss: [1, 0.36], barriers: [0.62, 0.42], connectors: [0.62, 0.42], events: [evW(M.n), 0.42]}
+    ? {loss: [1, 0.42], barriers: [0.62, 0.6], connectors: [0.62, 0.6], events: [evW(M.n), 0.52]}
     : {loss: [1, 0.3], barriers: [0.44, 0.36], connectors: [0.44, 0.36], events: [Math.min(1, Math.max(0.6, 0.3 * M.n)), 0.36]};
   const parts = {};
   for (const id of IDS) parts[id] = {w: dims[id][0] * U, h: dims[id][1] * U, chipH: ch[id].nh + (ch[id].sh ? ch[id].sh + 6 : 0) + 10, chipW: Math.max(ch[id].nw, ch[id].sw)};
