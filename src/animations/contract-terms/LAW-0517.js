@@ -7,11 +7,11 @@
  *             (fictional)"; one station per supplied step ("Proposal in writing", "Reviewed by both parties", "Signed by
  *             both parties"), each with a gantry, a press head showing its step pips, a stop pad and a step plate; the
  *             rail is unlit; the loupe rests beside the tray.
- *  0.04–0.30  the loupe slides over the change clause (the block lights); the rail lights from the clause back to the
+ *  0.02–0.33  the loupe slides over the change clause (the block lights); the rail lights from the clause back to the
  *             tray — the procedure the clause sets out; the loupe returns to its place.
- *  0.25–0.65  the sheet slides out of the tray and travels the track: it stops on each station's pad, the press head
+ *  0.28–0.645 the sheet slides out of the tray and travels the track: it stops on each station's pad, the press head
  *             lowers onto its edge and lifts, leaving one layer tab, and the station lamp lights; then it moves on.
- *  0.65–0.75  after the last station the sheet joins the contract (laid over its lower part) and a binder clip closes.
+ *  0.645–0.75 after the last station the sheet joins the contract (laid over its lower part) and a binder clip closes.
  *  0.75–1.00  hold: the contract with the clipped amendment carrying one tab per supplied step; the note "The proposal
  *             followed the steps as supplied" and the key "As supplied · no conclusion drawn".
  * Only the supplied steps are drawn; no doctrine on whether a change is valid or effective; no outcome.
@@ -47,7 +47,7 @@ const sceneSchema = {
 const defaultParams = {...CONTENT, annotations: []};
 const defaultParamsEs = {...CONTENT_ES};
 
-const isStress = p => [p.contract.title, p.clause, p.proposal, ...p.steps].some(t => t.length > 36) || p.annotations.length > 1;
+const isStress = p => [p.contract.title, p.clause, p.proposal, ...p.steps].some(t => t.length > 44) || p.annotations.length > 1;
 
 function geom(ctx, F, minF) {
   const p = ctx.params;
