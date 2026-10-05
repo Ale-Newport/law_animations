@@ -146,9 +146,11 @@ function compose(ctx, P, R, F, v) {
     // (a real inspection: grow the crop around the tag until the stepped-back lens can be large enough)
     {
       const kMax = Math.max(1.5, P.detailGeometry.zoom);
-      const need = shortD * 0.42 / kMax;
+      const need = v.mb ? 0 : shortD * 0.42 / kMax;
       if (src.h < need) src = {...src, y: src.y - (need - src.h) * 0.7, h: need};
       if (src.w < need) src = {...src, x: src.x - (need - src.w) / 2, w: need};
+      // (mat below at 1:1: a squarer crop lets the lens grow beside the stepped-back desk)
+      if (v.mb && src.h < src.w * 0.95) src = {...src, y: src.y - (src.w * 0.95 - src.h) * 0.8, h: src.w * 0.95};
       src.x = Math.max(desk.x + 3, Math.min(src.x, desk.x + desk.w - 3 - src.w));
       src.y = Math.max(desk.y + 3, Math.min(src.y, desk.y + desk.h - 3 - src.h));
     }
@@ -163,7 +165,6 @@ function compose(ctx, P, R, F, v) {
     const dest = {w: sw.w * kS, h: sw.h * kS};
     dest.x = Lb.x + (Lb.w - dest.w) / 2; dest.y = Lb.y + (Lb.h - dest.h) / 2;
     if (Math.min(dest.w, dest.h) < shortD * 0.343) problems.push('lens-small');
-    if (globalThis.process?.env?.DN_DBG) console.log(JSON.stringify({sw, Lb, kS, dest, shortD, deskh: desk.h}));
     if (problems.length && !v.force) return {ok: false, problems};
     return {F, pips: !!v.pips, step: true, sK, lsrc: sw, desk, band, side, cols, panelH, box, B, TW, tagH, tagY, tagX, fitB, fitA, path, src, dest, k: kS * sK, shortD, ok: !problems.length, problems};
   }
@@ -192,7 +193,7 @@ const scene = {
   layout(ctx) {
     const P = localisedDn(ctx, EN, ES);
     const R = resolve(P);
-    const sq = [{dw: 1, step: true, mb: true, fmin: 4, relax: true, pl: 4, maxFw: 420}, {dw: 1, step: true, rw: 0.75, maxFw: 400, relax: true, pl: 4}, {dw: 1, step: true, rw: 0.9, maxFw: 400, relax: true, pl: 4}, {dw: 1, step: true}, {dw: 1}];
+    const sq = [{dw: 1, step: true, mb: true, fmin: 4, pl: 4, maxFw: 420}, {dw: 1, step: true, rw: 0.75, maxFw: 400, relax: true, pl: 4}, {dw: 1, step: true, rw: 0.9, maxFw: 400, relax: true, pl: 4}, {dw: 1, step: true}, {dw: 1}];
     // (labels hidden at 1:1: no legend column, so the board takes the whole square)
     const vs = ctx.view.shape === 'square' && !ctx.show('key') ? sq : ctx.view.shape === 'landscape' ? [0.7, 0.68, 0.66, 0.64, 0.6, 0.56, 0.52].map(dw => ({dw})) : ctx.view.shape === 'square' ? [...sq.slice(0, 3), {dw: 1}, ...[0.58, 0.56, 0.6].flatMap(dw => [4.4, 4.1].map(fmin => ({dw, side: true, pips: true, relax: true, rw: 1.2, fmin})))] : [{dw: 1, step: true, mb: true}, {dw: 1, step: true}, {dw: 1}];
     const sizes = !ctx.show('key') ? [30, 26, ...SIZES] : SIZES;
