@@ -349,8 +349,8 @@ export function iconChip(ctx, it, o, memo) {
 }
 
 /** Flow chips in a panel of width w; returns {placed, h, bad}. */
-export function panelFlow(ctx, items, size, w, memo, {gap = 14, rowGap = 9, center = false, maxLines = 3} = {}) {
-  const sz = items.map(it => iconChip(ctx, it, {size, maxW: w, maxLines: it.maxLines ?? maxLines}, memo));
+export function panelFlow(ctx, items, size, w, memo, {gap = 14, rowGap = 9, center = false, maxLines = 3, chipW = w} = {}) {
+  const sz = items.map(it => iconChip(ctx, it, {size, maxW: chipW, maxLines: it.maxLines ?? maxLines}, memo));
   const fl = flowRows(sz, {x: 0, y: 0, w, gap, rowGap, center});
   return {placed: fl.placed, h: sz.length ? fl.bottom : 0, bad: sz.some(q => q.bad)};
 }
@@ -518,7 +518,12 @@ export function arrangeScene(ctx, o) {
     for (const st of sts) for (const mode of modes) {
       const pws = mode === 'side' ? (o.sideWs ?? [0.3, 0.36, 0.42, 0.5]).map(f => Math.round(full * f)) : [full];
       for (const pw of pws) {
-        const panel = o.items.length ? panelFlow(ctx, o.items, size, pw, o.memo, {center: mode !== 'side', maxLines: mode === 'side' ? 4 : 3}) : {placed: [], h: 0, bad: false};
+        let panel = o.items.length ? panelFlow(ctx, o.items, size, pw, o.memo, {center: mode !== 'side', maxLines: mode === 'side' ? 4 : 3}) : {placed: [], h: 0, bad: false};
+        // (below the stage: chips at most half the width, so they pack two to a row, when that is shorter)
+        if (mode !== 'side' && o.items.length) {
+          const half = panelFlow(ctx, o.items, size, pw, o.memo, {center: true, maxLines: 3, chipW: Math.floor(pw / 2 - 8)});
+          if (!half.bad && (panel.bad || half.h < panel.h - 1)) panel = half;
+        }
         if (panel.bad) continue;
         let bw, bh;
         if (mode === 'side') { if (panel.h > fullH) continue; bw = full - pw - GAP; bh = fullH; } else { bw = full; bh = fullH - (panel.h ? panel.h + GAP : 0); }
@@ -530,7 +535,7 @@ export function arrangeScene(ctx, o) {
         const used = mode === 'side' ? Math.max(hMax, panel.h) / fullH : (hMax + (panel.h ? panel.h + GAP : 0)) / fullH;
         // (and a bonus for a stage that covers a real share of the box: >= 30 % of it gets the full bonus)
         const area = (st.dims(S).w * hMax) / (full * fullH);
-        const score = S * (0.7 + 0.3 * Math.min(1, used)) * (0.75 + 0.25 * Math.min(1, area / 0.3));
+        const score = S * (0.7 + 0.3 * Math.min(1, used)) * (0.7 + 0.3 * Math.min(1, area / (o.areaSat ?? 0.3)));
         if (!best || score > best.score + 1e-6) best = {size, mode, S, pw, panel, bw, bh, st, score};
       }
     }

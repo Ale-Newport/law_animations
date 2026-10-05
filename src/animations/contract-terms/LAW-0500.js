@@ -40,7 +40,7 @@ import {
 const ID = 'LAW-0500';
 const DURATION = 6500;
 const BEATS = {context: [0, 0.2], isolate: [0.2, 0.45], substitute: [0.45, 0.75], back: [0.75, 1]};
-const W = {lupaIn: [0.13, 0.22], open: [0.22, 0.34], lift: [0.45, 0.51], was: [0.5, 0.55], after: [0.53, 0.58], thread: [0.6, 0.7], close: [0.72, 0.8], lupaOut: [0.76, 0.84], marker: [0.8, 0.84], final: [0.82, 0.87], key: [0.85, 0.9]};
+const W = {lupaIn: [0.13, 0.22], open: [0.22, 0.34], lift: [0.45, 0.51], was: [0.5, 0.55], after: [0.53, 0.58], thread: [0.6, 0.7], close: [0.72, 0.8], lupaOut: [0.64, 0.73], marker: [0.8, 0.84], final: [0.82, 0.87], key: [0.85, 0.9]};
 
 const sceneSchema = {
   contract: contractField,
@@ -84,18 +84,21 @@ function geom(ctx, F, minF, place, stack = false, upx = 1) {
   const why = [];
   const pad = 14;
   const right = place === 'right';
+  const tall = place === 'top';
+  if (tall) stack = true;
   // context area (left or top) and lens area (right or bottom)
-  const ctxBox = right ? {x: pad, y: pad, w: D.w * 0.53 - pad, h: D.h - pad * 2} : {x: pad, y: pad, w: D.w - pad * 2, h: D.h * 0.48 - pad};
-  const lensArea = right ? {x: D.w * 0.56, y: pad, w: D.w * 0.44 - pad, h: D.h - pad * 2} : {x: pad, y: D.h * 0.5, w: D.w - pad * 2, h: D.h * 0.5 - pad};
+  const ctxBox = tall ? {x: pad, y: pad, w: D.w - pad * 2, h: D.h - pad * 2} : right ? {x: pad, y: pad, w: D.w * 0.53 - pad, h: D.h - pad * 2} : {x: pad, y: pad, w: D.w - pad * 2, h: D.h * 0.48 - pad};
+  let lensArea = right ? {x: D.w * 0.56, y: pad, w: D.w * 0.44 - pad, h: D.h - pad * 2} : {x: pad, y: D.h * 0.5, w: D.w - pad * 2, h: D.h * 0.5 - pad};
   // the slip
-  const slipW = stack ? clamp(Math.max(F * 9.6, ctxBox.w * 0.45), 240, 520) : clamp(Math.max(F * 9.6, ctxBox.w * 0.36), 240, Math.max(380, F * 10));
+  const SF = tall || stack ? F * 1.2 : F;
+  const slipW = tall ? clamp(ctxBox.w * 0.46, 300, 600) : stack ? clamp(Math.max(SF * 9.6, ctxBox.w * 0.5), 240, 560) : clamp(Math.max(F * 9.6, ctxBox.w * 0.36), 240, Math.max(380, F * 10));
   const sp = 18;
-  const label = fitG(p.communication.label, {maxWidth: slipW - sp * 2, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 700});
+  const label = fitG(p.communication.label, {maxWidth: slipW - sp * 2, size: SF, minSize: minF, maxLines: stress ? 4 : 3, weight: 700});
   const gR = Math.min(13, F * 0.42);
   const caseW = slipW - sp * 2 - gR * 2 - 12;
-  const before = fitG(p.beforeValue, {maxWidth: caseW, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 600});
-  const after = fitG(p.afterValue, {maxWidth: caseW, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 600});
-  const wasF = Math.max(minF, F * 0.82);
+  const before = fitG(p.beforeValue, {maxWidth: caseW, size: SF, minSize: minF, maxLines: stress ? 4 : 3, weight: 600});
+  const after = fitG(p.afterValue, {maxWidth: caseW, size: SF, minSize: minF, maxLines: stress ? 4 : 3, weight: 600});
+  const wasF = Math.max(minF, SF * 0.82);
   const was = fitG(`${ctx.params.locale === 'es' ? 'antes' : 'was'}: ${p.beforeValue}`, {maxWidth: slipW - sp * 2, size: wasF, minSize: minF, maxLines: stress ? 4 : 3, weight: 500});
   const caseH = Math.max(before.height, after.height);
   const caseY = 30 + label.height + 22;
@@ -114,7 +117,8 @@ function geom(ctx, F, minF, place, stack = false, upx = 1) {
   if (head.bad || title.fit.bad || rowFits.some(f => f.bad) || sheetW < 300) why.push('sheet-text');
   // the magnifier rests below the slip
   const R = clamp(F * 2.1, 44, 70), hl = R * 1.5;
-  const sheet = {x: ctxBox.x + 18, y: ctxBox.y + 24, w: sheetW, h: stack ? ctxBox.h - 44 - slipH - 70 : ctxBox.h - 44};
+  const sheet = {x: ctxBox.x + 18, y: ctxBox.y + 24, w: sheetW, h: tall ? D.h * 0.5 - 40 : stack ? ctxBox.h - 44 - slipH - 70 : ctxBox.h - 44};
+  if (tall) lensArea = {x: pad, y: pad, w: D.w - pad * 2, h: sheet.y + sheet.h - pad};
   const rowH0 = rowFits.map(f => f.height + 28);
   const need = rowH0.reduce((a, b) => a + b, 0) + 14 * (rowFits.length - 1);
   const rowsH = sheet.h - rowsTop - 22;
@@ -169,7 +173,7 @@ function geom(ctx, F, minF, place, stack = false, upx = 1) {
   if (show) notes.push({name: 'markerNote', kind: 'marker', text: p.contextLabels.marker});
   if (show) notes.push({name: 'ctxNote', kind: 'note', text: p.contextLabels.context});
   if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
-  const nb = {x: lensArea.x + 10, y: lensArea.y + 10, w: lensArea.w - 20, h: lensArea.h - 20};
+  const nb = tall ? {x: pad + 10, y: slip.y + slipH + 34, w: D.w - pad * 2 - 20, h: D.h - pad - (slip.y + slipH + 34)} : {x: lensArea.x + 10, y: lensArea.y + 10, w: lensArea.w - 20, h: lensArea.h - 20};
   let ny = nb.y;
   const placed = notes.map(q => {
     const c = chipG(ctx, q.text, {x: right ? nb.x : nb.x + nb.w / 2, anchor: right ? 'start' : 'middle', y: ny, maxWidth: nb.w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name,
@@ -188,14 +192,14 @@ function geom(ctx, F, minF, place, stack = false, upx = 1) {
 }
 
 const scene = {
-  sizes: {landscape: [1600, 900], square: [1200, 1050], portrait: [900, 1600]},
+  sizes: {landscape: [1600, 900], square: [1000, 860], portrait: [900, 1600]},
   layout(ctx) {
     const p = ctx.params;
     const upx = unitPx(ctx);
     const stress = isStress(p);
     const minF = (stress ? 16.6 : 20) / upx;
     const pl = p.detailGeometry.placement;
-    const places = pl === 'right' ? ['right'] : pl === 'bottom' ? ['bottom'] : ctx.view.shape === 'portrait' ? ['bottom'] : ctx.view.shape === 'square' ? ['right', 'bottom'] : ['right', 'bottom'];
+    const places = pl === 'right' ? ['right'] : pl === 'bottom' ? ['bottom'] : ctx.view.shape === 'portrait' ? ['top', 'bottom'] : ctx.view.shape === 'square' ? ['right', 'bottom'] : ['right', 'bottom'];
     let L = null;
     search: for (const fpx of stress ? [21, 19.5, 18, 17, 16.6] : [25, 23, 21.5]) for (const place of places) {
       for (const st of place === 'right' ? [false, true] : [false]) {

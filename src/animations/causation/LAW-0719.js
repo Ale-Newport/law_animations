@@ -34,7 +34,7 @@ import {roundRectPath} from '../../core/geometry.js';
 import {contrastFields} from '../../schemas/fields.js';
 import {textBlock} from '../../primitives/annotate.js';
 import {
-  dpFields, DP_STRINGS, DP_DEFAULTS, DP_ES_DEFAULTS, resolveDP, linkNotes, altText, valueText, fmtV,
+  dpFields, DP_STRINGS, DP_DEFAULTS, DP_ES_DEFAULTS, resolveDP, linkNotes, altText, fmtV,
   stageGeom, stageArt, pieceArt, bladeArt, dropPos, valueChip, valueChipSize, arrangeScene, placePanel, fillDrop, DROP_CAP, sideMark,
   chipG, fitG, unwidow, glueN,
   clamp, ease, lerp, r, seg, localizeScene,
@@ -50,8 +50,8 @@ const W = {
 };
 
 const strings = {
-  en: {...DP_STRINGS.en, shared: 'Same in A and B (as supplied)', changed: 'Changed fact', guide: 'Only this differs', neutral: 'No winner, no conclusion: two allocations side by side', boundary: 'boundary after event'},
-  es: {...DP_STRINGS.es, shared: 'Igual en A y B (según lo aportado)', changed: 'Hecho que cambia', guide: 'Solo esto cambia', neutral: 'Sin ganador ni conclusión: dos asignaciones comparadas', boundary: 'límite tras el evento'},
+  en: {...DP_STRINGS.en, shared: 'Same in A and B (as supplied)', changed: 'Changed fact', guide: 'Only this differs', neutral: 'No winner, no conclusion: two allocations side by side', boundary: 'boundary after event', values: 'values'},
+  es: {...DP_STRINGS.es, shared: 'Igual en A y B (según lo aportado)', changed: 'Hecho que cambia', guide: 'Solo esto cambia', neutral: 'Sin ganador ni conclusión: dos asignaciones comparadas', boundary: 'límite tras el evento', values: 'valores'},
 };
 
 const sceneSchema = {
@@ -61,8 +61,8 @@ const sceneSchema = {
 
 const defaultParams = {
   ...DP_DEFAULTS,
-  scenarioA: {label: 'Proposed allocation', caption: 'values as supplied'},
-  scenarioB: {label: 'Alternative allocation', caption: 'values as supplied'},
+  scenarioA: {label: 'Proposed allocation', caption: 'as supplied'},
+  scenarioB: {label: 'Alternative allocation', caption: 'as supplied'},
   changedFact: 'Only where the boundary between events 1 and 2 falls differs: after 40 in A, after 30 in B',
   sharedFacts: ['Same total, same events, same rails and trays'],
   comparisonLabels: {guide: 'Only this differs: the first boundary', neutral: 'No winner, no conclusion: two allocations side by side'},
@@ -70,8 +70,8 @@ const defaultParams = {
 
 const defaultParamsEs = {
   ...DP_ES_DEFAULTS,
-  scenarioA: {label: 'Asignación propuesta', caption: 'valores según lo aportado'},
-  scenarioB: {label: 'Asignación alternativa', caption: 'valores según lo aportado'},
+  scenarioA: {label: 'Asignación propuesta', caption: 'según lo aportado'},
+  scenarioB: {label: 'Asignación alternativa', caption: 'según lo aportado'},
   changedFact: 'Solo cambia dónde cae el límite entre los eventos 1 y 2: tras 40 en A, tras 30 en B',
   sharedFacts: ['Mismo total, mismos eventos, mismas guías y bandejas'],
   comparisonLabels: {guide: 'Solo esto cambia: el primer límite', neutral: 'Sin ganador ni conclusión: dos asignaciones comparadas'},
@@ -80,11 +80,11 @@ const defaultParamsEs = {
 const SHAPES = {
   landscape: {sizes: [26, 16], arr: ['row'], modes: ['below', 'side'], sideWs: [0.24, 0.3, 0.36]},
   square: {sizes: [24, 16], arr: ['row', 'column'], modes: ['below', 'side'], sideWs: [0.3, 0.36, 0.42]},
-  portrait: {sizes: [25, 16], arr: ['column'], modes: ['below'], sideWs: []},
+  portrait: {sizes: [20, 16], arr: ['column'], modes: ['below'], sideWs: []},
 };
-const HEAD_GAP = 10, PAIR_GAP = 34;
+const HEAD_GAP = 6, PAIR_GAP = 34;
 // stacked stages leave room between them for the guide's chip (up to two lines)
-const pairGap = size => Math.round(size * 2.6 + 30);
+const pairGap = size => Math.round(size * 2.5 + 18);
 const GUIDE_MW = 520;
 
 function panelItems(ctx, p, M) {
@@ -107,10 +107,11 @@ function panelItems(ctx, p, M) {
 }
 
 /** Head chip: solid ●/◆ cue (equal weight, same colour) + "A · label — caption". */
-function headChip(ctx, side, label, caption, size, maxW) {
+function headChip(ctx, side, label, caption, size, maxW, unit) {
   const th = ctx.theme;
   const R = size * 0.8;
-  const text = ctx.show('key') ? glueN(`${side === 'a' ? 'A' : 'B'} · ${label}${caption && ctx.show('all') ? ` — ${caption}` : ''}`) : null;
+  // (the values under the trays are bare numbers: the head names their unit, e.g. "values (hypothetical)")
+  const text = ctx.show('key') ? glueN(`${side === 'a' ? 'A' : 'B'} · ${label} · ${ctx.t.values} (${unit})${caption && ctx.show('all') ? ` — ${caption}` : ''}`) : null;
   const fo = {maxWidth: maxW - 2 * R - 34, size, minSize: size, maxLines: 2, weight: 700};
   const fit = text ? fitG(ctx, unwidow(text, t0 => fitG(ctx, t0, fo)), fo) : null;
   const w = 2 * R + 30 + (fit ? fit.width : 0) + (fit ? 6 : 0);
@@ -145,7 +146,7 @@ const scene = {
     const M = resolveDP(p);
     const fmax = M.fA.map((q, i) => Math.max(q, M.fB[i]));
     const showVals = ctx.show('key');
-    const tA = M.vA.map(v => valueText(p, v)), tB = M.vB.map(v => valueText(p, v));
+    const tA = M.vA.map(fmtV), tB = M.vB.map(fmtV);
     const items = panelItems(ctx, p, M);
     const memo = new Map();
     const cbx = changedBoundary(M);
@@ -168,7 +169,7 @@ const scene = {
         const dims0 = S => stageGeom(S, M.n, fmax, go);
         // head chips: measured once per size at a few widths (the narrowest that keeps them in two lines is used)
         const hk = `${size}`;
-        if (!headMemo.has(hk)) headMemo.set(hk, [1400, 900, 700, 560, 440, 360].map(mw => [headChip(ctx, 'a', p.scenarioA.label, p.scenarioA.caption, size, mw), headChip(ctx, 'b', p.scenarioB.label, p.scenarioB.caption, size, mw)]));
+        if (!headMemo.has(hk)) headMemo.set(hk, [1400, 900, 700, 560, 440, 360].map(mw => [headChip(ctx, 'a', p.scenarioA.label, p.scenarioA.caption, size, mw, p.unit), headChip(ctx, 'b', p.scenarioB.label, p.scenarioB.caption, size, mw, p.unit)]));
         const head = S => { const G = dims0(S); const opts = headMemo.get(hk).filter(hc => hc.every(q => !q.bad && q.w <= G.W + 1)); return opts.length ? opts[0] : headMemo.get(hk)[headMemo.get(hk).length - 1]; };
         // (side by side: a band between the head chips and the rails holds the guide's top line and its chip)
         const band = arr === 'row' ? guideBand(size) : 0;
@@ -185,7 +186,7 @@ const scene = {
       stMemo.set(size, st);
       return st;
     };
-    let A = arrangeScene(ctx, {items, stage, modes: SH.modes, sizes: SH.sizes, sideWs: SH.sideWs, memo, sMax: 1200});
+    let A = arrangeScene(ctx, {items, stage, modes: SH.modes, sizes: SH.sizes, sideWs: SH.sideWs, memo, sMax: 1200, areaSat: 0.55});
     const problems = [];
     if (!A) {
       problems.push('no-layout-fits');
