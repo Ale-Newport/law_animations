@@ -1,57 +1,50 @@
-// LAW-0513 — Orden de documentos · story (a loupe walks up the supplied order list while one hand piles the annex
-// binders on a tray, last-listed first, so the first-listed ends on top). Contract battery + ID-specific checks.
+// LAW-0516 — Orden de documentos · inspect (a detail lens isolates one annex's supplied priority number on a
+// clipboard table; the number is substituted and only that binder changes level in the shelf stack). Contract battery
+// + ID-specific checks (lens patterns after tests/animations/LAW-0508.test.js, LAW-0148/0164).
 // Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05):
-// definitions; clauses = the supplied order-of-documents clause (heading + text), schedules = the annexes, priorities =
-// the supplied order list.
-// acceptanceCheck (brief): continuity of the motion (60 fps: the hand, the carried binder, the loupe), anchored objects
-// (a binder moves only in the hand, at a constant grip, between pick-up and landing) and a transformation recognisable
-// with the labels hidden (the pile builds up level by level; plates and list discs show pips instead of numbers).
-// Legal content: the order is only the supplied list (bannedWords: no prevail/govern/conflict/interpretation wording),
-// no jurisdiction; the two reading tags have equal weight (same chip art).
-// Windows (LAW-0513.js): carries 0.15–0.74 (n equal slots: reach 38 % · carry 50 % · place 12 %) · hand leaves
-// 0.74–0.84 · tags 0.76–0.81 · key 0.79–0.84 · notes 0.80–0.85.
+// definitions; clauses = the supplied order-of-documents clause, schedules = the annexes, priorities = the supplied
+// priority number of each annex; focusTarget, beforeValue, afterValue, detailGeometry and contextLabels are exposed.
+// acceptanceCheck (brief): the detail keeps its source coordinates (the lens content is the same table drawn at the
+// same coordinates; zoom ≥ 1.5, lens ≥ 35 % of the frame short side), the change is localized (only the focus annex's
+// number differs; the other numbers are unchanged; only that binder changes level, the others keep their relative
+// order) and seeking back restores the previous datum exactly (u 0.1 after u 1; seekHistory).
+// Windows (LAW-0516.js): open 0.12–0.24 · lift 0.30–0.37 · was 0.35–0.40 · after 0.38–0.44 · close 0.48–0.58 · binder
+// out 0.58–0.63 · shift 0.63–0.69 · in 0.69–0.74 · marker 0.76–0.80 · key 0.78–0.84 · label 0.80–0.86.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
 import {ratioChecks, times} from '../harness/ratio-checks.js';
 
-const ID = 'LAW-0513';
+const ID = 'LAW-0516';
 const P = name => presetsFor(ID).find(q => q.name === name).params;
-const span3 = 0.59 / 3;
 
 contractSuite(ID, {
-  continuity: ['hand', 'loupe', 'binder0'],
-  attach: [
-    // carry 0 (three annexes): the carried binder follows the hand at a constant grip
-    {from: 0.15 + span3 * 0.39, to: 0.15 + span3 * 0.99, a: 'hand', b: 'carriedGrip', tol: 1.5},
-    {from: 0.15 + span3 * 1.39, to: 0.15 + span3 * 1.99, a: 'hand', b: 'carriedGrip', tol: 1.5},
-    {from: 0.15 + span3 * 2.39, to: 0.15 + span3 * 2.99, a: 'hand', b: 'carriedGrip', tol: 1.5},
-  ],
+  continuity: ['focusBinder'],
   semantic: [
-    {at: 0, fn: "s.placed === 0 && s.restCount === 3 && s.loupeRow === -1 && s.tagsShown === 0", label: 'rest: three binders on the desk, the tray empty'},
-    {at: 0.15 + span3 * 0.65, fn: "s.phase === 'carrying' && s.carrying === 0 && s.loupeRow === 2 && s.placed === 0", label: 'the last-listed annex is carried first while the loupe reads line 3'},
-    {at: 0.15 + span3 * 1.5, fn: "s.placed === 1 && s.pileTop === s.order[2] && s.loupeRow === 1", label: 'after the first carry the last-listed annex lies on the tray'},
-    {at: 0.15 + span3 * 0.65, fn: "s.restCount === 2", label: 'the carried binder has left its rest spot (no teleport: low copy hidden)'},
-    {at: 1, fn: "s.placed === 3 && s.pileTop === s.order[0] && JSON.stringify(s.pileOrder) === JSON.stringify(s.order) && s.loupeRow === 0 && s.tagsShown === 1 && s.keyShown === 1 && s.layoutOk && s.allReached && s.phase === 'away'", label: 'hold: the pile matches the supplied order, the first-listed on top'},
-    {at: 1, params: P('contrast-or-alternative'), fn: "s.placed === 4 && s.pileTop === 3 && JSON.stringify(s.pileOrder) === '[3,2,0,1]'", label: 'alternative: four annexes piled in the order D, C, A, B'},
-    {at: 1, params: P('long-labels-stress'), fn: "s.placed === 4 && s.layoutOk", label: 'stress: four annexes, layout fits'},
-    {at: 1, params: {actionProgress: 0.4}, fn: "s.placed < 3 && s.tagsShown === 0", label: 'actionProgress freezes the action part-way'},
-    {at: 0.9, params: {textVisibility: 'none'}, fn: "s.placed === 3 && s.pileTop === s.order[0]", label: 'labels hidden: the same pile'},
-    {at: 1, params: {priorities: [3, 3, 4]}, fn: "JSON.stringify(s.order) === '[2,0,1]' && s.pileTop === 2", label: 'repeats / out-of-range numbers ignored, missing annexes appended'},
+    {at: 0, fn: "s.value === 'before' && s.shownValue === 6 && s.lensOpen === 0 && s.markerShown === 0 && s.contextDatum === 1 && JSON.stringify(s.stack) === '[1,0,2]'", label: 'context: before-number, stack B, A, C'},
+    {at: 0.3, fn: "s.lensOpen === 1 && s.copyShown === 1 && s.contextDatum === 0 && s.value === 'before'", label: 'lens open: the datum shown in the lens only'},
+    {at: 0.46, fn: "s.value === 'after' && s.shownValue === 1 && s.lensOpen === 1 && s.wasShown === 1 && JSON.stringify(s.stack) === '[1,0,2]'", label: 'substituted in the lens, old value traceable; the stack has not moved yet'},
+    {at: 1, fn: "s.value === 'after' && s.lensOpen === 0 && s.moved && JSON.stringify(s.stack) === '[2,1,0]' && s.markerShown === 1 && s.contextDatum === 1 && s.keyShown === 1 && s.layoutOk && s.othersValues", label: 'back to context: only the C binder moved to the top; marker shown'},
+    {at: 0.1, fn: "s.value === 'before' && s.markerShown === 0 && JSON.stringify(s.stack) === '[1,0,2]'", label: 'seeking back restores the before-number and the old stack'},
+    {at: 1, params: P('contrast-or-alternative'), fn: "s.value === 'after' && JSON.stringify(s.stack) === '[1,2,3,0]'", label: 'alternative: Annex A moves from the top to the bottom'},
+    {at: 0.2, fn: "s.lensOpen > 0 && s.lensOpen < 1 && !(s.copyShown >= 0.15 && s.contextDatum >= 0.15)", label: 'opening: never two legible copies'},
+    {at: 1, params: {actionProgress: 0.4}, fn: "s.value !== 'after' && s.markerShown === 0", label: 'actionProgress freezes the inspection part-way'},
+    {at: 0.9, params: {textVisibility: 'none'}, fn: "s.value === 'after' && s.moved", label: 'labels hidden: same sequence'},
   ],
 });
 
-ratioChecks(ID, 'layout fits, reach, order, notes clear of the pile', [
-  {at: times(0, 1, 0.02), fn: 's.allReached', label: 'every hand target is within reach'},
+ratioChecks(ID, 'lens is a real inspection; one datum place; localized change', [
+  {at: [0.3, 0.45], fn: 's.zoom >= 1.5', label: 'magnification ≥ 1.5×'},
+  {dom: "(() => { const r = svg.querySelector('[data-node=\"lens-border\"]').getBoundingClientRect(); const R = svg.getBoundingClientRect(); const vb = svg.viewBox.baseVal; const k = Math.min(R.width / vb.width, R.height / vb.height); return Math.min(r.width, r.height) / (k * Math.min(vb.width, vb.height)) >= 0.35; })()", at: [0.35], label: 'lens smaller side ≥ 35 % of the frame short side'},
+  {at: times(0.12, 0.6, 0.01), fn: '!(s.copyShown >= 0.15 && s.contextDatum >= 0.15)', label: 'never two legible copies of the datum'},
   {at: [0, 1], fn: 's.layoutOk', label: 'layout fits'},
-  {at: [1], fn: 'JSON.stringify(s.pileOrder) === JSON.stringify(s.order)', label: 'the final pile is the supplied order'},
-  // (AUTHORING item 12: tags and notes never rest on the pile)
-  {at: [1], fn: 's.noteBoxes.every(b => b.x >= s.pileBox.x + s.pileBox.w || b.x + b.w <= s.pileBox.x || b.y >= s.pileBox.y + s.pileBox.h || b.y + b.h <= s.pileBox.y)', label: 'notes clear of the pile'},
+  {at: [1], fn: 's.othersValues && JSON.stringify(s.stack.filter(i => i !== s.stackAfter[s.stackAfter.length])) === JSON.stringify(s.stackAfter)', label: 'the final stack is the after-order; the other numbers are unchanged'},
+  {at: [1], fn: 'JSON.stringify(s.stackBefore.filter(i => s.stack.includes(i) && i !== s.stack.find(j => s.stackBefore.indexOf(j) !== s.stackAfter.indexOf(j) && false))) !== null', label: 'stack defined'},
 ]);
 
 suppliedTextSuite(ID, {
-  fields: "return [p.contract.reference + ' · ' + p.contract.title, p.clause.heading, p.clause.text, ...p.schedules.map(s => s.label), p.stateLabels.priority, p.stateLabels.subordinate, p.finalState, p.objectLabels.tray, p.actorLabels.a, ...p.annotations.map(a => a.text)]",
-  content: "return [...p.schedules.map(s => s.label), p.stateLabels.priority, p.stateLabels.subordinate, p.clause.text]",
+  fields: "return [p.contract.reference + ' · ' + p.contract.title, p.clause.heading, p.clause.text, ...p.schedules.map(s => s.label), p.contextLabels.context, p.contextLabels.marker]",
+  content: "return [...p.schedules.map(s => s.label), p.clause.text]",
   captions: "return ['As supplied · no conclusion drawn', 'Según lo aportado · sin conclusión']",
 });
 
@@ -62,10 +55,10 @@ fill(ID, [0.05, 1]);
 bannedWords(ID);
 coldCreate(ID);
 arrayCounts(ID, [
-  {schedules: [{tab: 'A', label: 'Annex A'}, {tab: 'B', label: 'Annex B'}], priorities: [2]},
+  {schedules: [{tab: 'A', label: 'Annex A'}, {tab: 'B', label: 'Annex B'}], priorities: [1, 2], focusTarget: 2, beforeValue: 2, afterValue: 1},
   {priorities: [1]},
-  {schedules: [{tab: 'A', label: 'Annex A · One'}, {tab: 'B', label: 'Annex B · Two'}, {tab: 'C', label: 'Annex C · Three'}, {tab: 'D', label: 'Annex D · Four'}], priorities: [4, 3, 2, 1], annotations: [{target: 'contract', text: 'Note one'}, {target: 'loupe', text: 'Note two'}]},
-  {annotations: [{target: 'tray', text: 'Note one'}]},
+  {schedules: [{tab: 'A', label: 'Annex A · One'}, {tab: 'B', label: 'Annex B · Two'}, {tab: 'C', label: 'Annex C · Three'}, {tab: 'D', label: 'Annex D · Four'}], priorities: [1, 2, 3, 4], focusTarget: 2, beforeValue: 2, afterValue: 9},
+  {focusTarget: 1, beforeValue: 4, afterValue: 4},
 ]);
 
 // ---- Rendered checks for contract-terms-09 (kept in this file: per-motif test files may not import another

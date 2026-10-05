@@ -104,7 +104,7 @@ const scene = {
     // the station and legend are composed in a reduced design box so the lens always has a free side (right on wide
     // and square frames, bottom on tall ones); the lens may still overlap the dimmed legend
     const tallF = ctx.view.shape === 'portrait';
-    const C = composeScene(ctx, {n, texts, title: null, rows: () => legendRows(ctx, P, k, after), noBag: true, tagText: ctx.show('key'), noExpand: true, sheetFrac: [0.4, 0.5, 0.6], minS: 30, maxS: 170, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...[...P.records.map(rw => rw.field), P.beforeValue, P.afterValue].map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null}, panelLayout);
+    const C = composeScene(ctx, {n, texts, title: null, rows: () => legendRows(ctx, P, k, after), noBag: true, tagText: ctx.show('key'), noExpand: true, sheetFrac: [0.4, 0.5, 0.6], minS: 30, maxS: ctx.view.shape === 'square' ? 108 : 170, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...[...P.records.map(rw => rw.field), P.beforeValue, P.afterValue].map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null}, panelLayout);
     const G = C.st.G, SF = C.st.SF;
     const X = v => C.ox + v, Y = v => C.oy + v;
     const linked = P.items.map((_, i) => i !== k && Boolean(texts[i]));
@@ -131,7 +131,7 @@ const scene = {
     // and in the hold it fills its full composition. Its text never drops below ~17.5 px.
     const B0 = C.bench;
     const reg = tallF ? {x: 0, y: 0, w: DW, h: DH * 0.5} : {x: 0, y: 0, w: DW * 0.56, h: DH};
-    const sMin = Math.min(1, 17.5 / C.F);
+    const sMin = ctx.show('key') ? Math.min(1, (C.F >= 19.5 ? 20 : 16.5) / C.F) : 0.5;
     const sc = Math.min(1, Math.max(sMin, Math.min(reg.w / B0.w, reg.h / B0.h)));
     const step = {s: sc, x: reg.x - B0.x * sc + (tallF ? (reg.w - B0.w * sc) / 2 : 0), y: reg.y - B0.y * sc + (tallF ? 0 : (reg.h - B0.h * sc) / 2)};
     const srcRest = src;
@@ -185,7 +185,7 @@ const scene = {
     // the before trace (lens only): a small paper chip under the tag, sized to read at >= 19 px inside the lens
     const kz = L.step.s * L.zoom;
     const traceF = ctx.show('key') ? fitG(`${P.beforeLabel}: ${P.beforeValue}`, {maxWidth: 1000, size: 20 / kz, minSize: 20 / kz, maxLines: 1, weight: 600}) : null;
-    const tx0 = C.ox + t.hole.x - G.tagH * 0.2, ty0 = C.oy + t.hole.y + G.tagH * 0.62;
+    const tx0 = C.ox + t.hole.x - G.tagH * 0.2, ty0 = C.oy + t.hole.y + G.tagH * 0.8;
     const trace = g({name: 'lz-trace', opacity: 0}, traceF ? [
       h('rect', {x: r(tx0 - 6 / kz), y: r(ty0 - 4 / kz), width: r(traceF.width + 12 / kz), height: r(traceF.height + 8 / kz), rx: r(6 / kz), fill: '#fbfaf6', stroke: INK, 'stroke-width': r(1.5 / kz, 3)}),
       textAt(traceF, {x: tx0, y: ty0, fill: '#4a4f55', italic: true})] : null);

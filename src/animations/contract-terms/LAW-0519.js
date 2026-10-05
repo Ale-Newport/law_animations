@@ -67,7 +67,7 @@ function geom(ctx, F, minF) {
   if (show) notes.push({name: 'only', kind: 'note0', text: ctx.t.only, fill: ctx.theme.accentSoft});
   if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
   if (show) p.annotations.forEach((an, i) => notes.push({name: `ann${i}`, kind: 'ann', text: an.text}));
-  const ns = notesStrip(ctx, notes, F, minF);
+  const ns = notesStrip(ctx, notes, F, minF, {keySize: stress ? minF : undefined});
   // shared step legend (drawn once): pips + supplied step text
   const legCols = show ? (side || shape === 'square' ? n : 2) : 0;
   const pipR = clamp(F * 0.3, 6, 9);
@@ -110,9 +110,9 @@ function geom(ctx, F, minF) {
   pressZone += Math.min(extra * 0.45, 130);
   const cExtra = Math.min(extra * 0.4, 150);
   const clH = stackC ? clH0 : Math.max(clH0, Math.min(ch, clauseBlockH(clFit, discR, 2)));
-  const C = {x: cX, y: hh + 8, w: cW, h: (stackC ? headH + clH + 24 + ch + 36 : headH + Math.max(clH + 4, ch + 30) + 20) + cExtra};
+  const C = {x: cX, y: hh + 8, w: cW, h: (stackC ? headH + clH + 18 + ch + 36 : headH + Math.max(clH + 4, ch + 30) + 20) + cExtra};
   const clause = {x: 16, y: headH + 12, w: clW, h: clH, fit: clFit};
-  const attach = stackC ? {x: C.x + (cW - cw) / 2, y: C.y + headH + 12 + clH + 36 + cExtra * 0.5} : {x: C.x + cW * 0.5 + (cW * 0.5 - cw) / 2, y: C.y + headH + 36 + cExtra * 0.5};
+  const attach = stackC ? {x: C.x + (cW - cw) / 2, y: C.y + headH + 12 + clH + 30 + cExtra * 0.5} : {x: C.x + cW * 0.5 + (cW * 0.5 - cw) / 2, y: C.y + headH + 36 + cExtra * 0.5};
   const besideSpot = {x: Math.max(6, (cX - cw) / 2 - 4), y: attach.y};
   if (besideSpot.x + cw > cX - 8) why.push('beside');
   const trackY = C.y + C.h + cGap;

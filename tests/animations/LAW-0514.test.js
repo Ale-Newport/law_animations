@@ -377,7 +377,7 @@ function arrayCounts(ID, variants) {
         const x = def.create(el, {width: w, height: h, params: v});
         await x.ready;
         x.seek(x.durationMs);
-        if (x.element.querySelectorAll('path').length < 20) bad.push(`${ratio}: empty scene`);
+        if (x.element.querySelectorAll('[data-layer="scene"] path, [data-layer="scene"] rect, [data-layer="scene"] circle').length < 20) bad.push(`${ratio}: empty scene`);
         x.destroy();
         el.remove();
       }

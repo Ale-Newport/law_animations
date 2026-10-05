@@ -133,7 +133,7 @@ function compose(ctx, P) {
       }
       const sl = slots(opt.tall);
       const gx = Math.max(120, area.w * 0.09), gy = Math.max(60, area.h * 0.07);
-      const capH = ctx.show('key') ? F * 1.2 * 2 + 8 : 0;
+      const capH = ctx.show('key') ? F * 1.2 * 2 + 8 + 14 : 0;
       const cw = (area.w - gx * (sl.cols - 1)) / sl.cols;
       const ch = (area.h - gy * (sl.rows - 1)) / sl.rows - capH;
       const B = Math.min(cw, ch * 1.6);
@@ -245,7 +245,7 @@ const scene = {
     });
     const caps = ctx.show('key') ? C.present.map(id => {
       const b = C.boxes[id], f = C.caps[id];
-      return g({name: `cap_${id}`, opacity: 0}, textAt(f, {x: b.x + b.w / 2, y: b.y + b.h + 8, fill: ctx.theme.fg, anchor: 'middle'}));
+      return g({name: `cap_${id}`, opacity: 0}, textAt(f, {x: b.x + b.w / 2, y: b.y + b.h + 8 + Math.min(14, b.h * 0.09), fill: ctx.theme.fg, anchor: 'middle'}));
     }) : [];
     const panels = C.PL ? C.PL.cols.map((PLc, i) => g({name: `panel${i}`, transform: T(C.panel.x + i * (C.PL.colW + C.F * 1.2), C.panel.y)}, legendNodes(ctx, PLc))) : [];
     return g({name: 'scene'},

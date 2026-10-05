@@ -175,8 +175,8 @@ export function amendmentSheet(ctx, o) {
   const tabs = tabSlots(o.n, w, hh, o.edge, o.rev, o.narrow);
   const sig = o.sig !== false;
   const labelY = o.headH + (hh - o.headH - (sig ? 34 : 4) - o.fit.height) / 2;
-  return g({name: o.name},
-    tabs.map((t, k) => g({name: `${o.name}-tab${k}`, opacity: 0},
+  return g({name: o.tabsOn ? undefined : o.name},
+    tabs.map((t, k) => g({name: o.tabsOn ? undefined : `${o.name}-tab${k}`, opacity: o.tabsOn ? 1 : 0},
       h('path', {d: roundRectPath(t.x, t.y, t.w, t.h, 5), fill: th.accent2, stroke: INK, 'stroke-width': 2}),
       o.edge === 'top'
         ? h('path', {d: `M${r(t.x + t.w * 0.3)} ${r(t.y + 6)}H${r(t.x + t.w * 0.7)}`, stroke: '#fff', 'stroke-width': 3, 'stroke-linecap': 'round'})
@@ -264,7 +264,7 @@ export function notesStrip(ctx, notes, F, minF, o = {}) {
   const pad = o.pad ?? 14, gap = 12;
   const cols = notes.length > 1 ? Math.min(notes.length, o.cols ?? (ctx.view.shape === 'landscape' ? 3 : ctx.view.shape === 'square' || notes.length > 2 ? 2 : 1)) : 1;
   const cw = (D.w - pad * 2 - gap * (cols - 1)) / cols;
-  const chipOf = (q, x, y) => chipG(ctx, q.text, {x, y, maxWidth: cw, size: Math.max(F * 0.95, minF), minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.fill ?? '#ffffff'});
+  const chipOf = (q, x, y) => chipG(ctx, q.text, {x, y, maxWidth: cw, size: q.kind === 'key' && o.keySize ? o.keySize : Math.max(F * 0.95, minF), minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.fill ?? '#ffffff'});
   const rowsN = Math.ceil(notes.length / cols);
   const sizes = notes.map(q => chipOf(q, 0, 0).box.h);
   const nh = notes.length ? Array.from({length: rowsN}, (_, k) => Math.max(...sizes.slice(k * cols, k * cols + cols))).reduce((a, b) => a + b + gap, -gap) : 0;
@@ -445,7 +445,7 @@ export function trackGeom(ctx, A, F, minF, p, o = {}) {
  * Static nodes of one station: gantry (or side bracket), stop pad, lamp `${pre}lamp${k}`, press group `${pre}press${k}`
  * (translate it in frame), the step plate with pips and text.
  */
-export function stationNode(ctx, G, st, pre, show) {
+export function stationNode(ctx, G, st, pre, show, o = {}) {
   const th = ctx.theme;
   const k = st.k;
   const s = G.stops[k + 1];
@@ -453,12 +453,12 @@ export function stationNode(ctx, G, st, pre, show) {
   const parts = [];
   const pipR = clamp(G.discR * 0.32, 6, 9);
   // step plate
-  const plate = g({name: `${pre}plate${k}`},
+  const plate = g({name: o.lampOn ? undefined : `${pre}plate${k}`},
     h('rect', {x: r(P.x + 6), y: r(P.y + 8), width: r(P.w), height: r(P.h), rx: 10, fill: th.shadow}),
     h('path', {d: roundRectPath(P.x, P.y, P.w, P.h, 10), fill: '#fffdf7', stroke: INK, 'stroke-width': 2.4}),
     h('path', {d: roundRectPath(P.x + 6, P.y + 6, P.w - 12, P.h - 12, 7), fill: 'none', stroke: th.accent2Soft, 'stroke-width': 3}),
     pips(k + 1, P.x + 16 + (k * pipR * 2.8) / 2 + pipR, P.y + 22, pipR, th.accent2),
-    show ? g({name: `${pre}steptext${k}`}, txt(st.fit, {x: P.x + 15, y: P.y + 36 + Math.max(0, (P.h - 50 - st.fit.height) / 2), fill: INK})) : h('path', {d: `M${r(P.x + 15)} ${r(P.y + 46)}h${r(Math.min(P.w - 30, 150))}`, stroke: '#d6cfc0', 'stroke-width': 10, 'stroke-linecap': 'round'}),
+    o.noText ? null : show ? g({name: `${pre}steptext${k}`}, txt(st.fit, {x: P.x + 15, y: P.y + 36 + Math.max(0, (P.h - 50 - st.fit.height) / 2), fill: INK})) : h('path', {d: `M${r(P.x + 15)} ${r(P.y + 46)}h${r(Math.min(P.w - 30, 150))}`, stroke: '#d6cfc0', 'stroke-width': 10, 'stroke-linecap': 'round'}),
   );
   // stop pad
   {
@@ -475,7 +475,7 @@ export function stationNode(ctx, G, st, pre, show) {
       h('path', {d: roundRectPath(gx0 - 6, by - 8, gx1 - gx0 + 12, 18, 6), fill: '#6c747d', stroke: INK, 'stroke-width': 2}),
     );
     const lx = (gx0 + gx1) / 2 + (st.contact.x > (gx0 + gx1) / 2 ? -38 : 38);
-    parts.push(h('circle', {cx: r(lx), cy: r(by + 1), r: 9, fill: '#d9dde1', stroke: INK, 'stroke-width': 1.6}), h('circle', {name: `${pre}lamp${k}`, cx: r(lx), cy: r(by + 1), r: 9, fill: th.accent2, stroke: INK, 'stroke-width': 1.6, opacity: 0}));
+    parts.push(h('circle', {cx: r(lx), cy: r(by + 1), r: 9, fill: '#d9dde1', stroke: INK, 'stroke-width': 1.6}), h('circle', {name: o.lampOn ? undefined : `${pre}lamp${k}`, cx: r(lx), cy: r(by + 1), r: 9, fill: th.accent2, stroke: INK, 'stroke-width': 1.6, opacity: o.lampOn ? 1 : 0}));
   } else {
     const bx0 = s.x + G.sw + 14, bx1 = G.plateX - 8;
     const cy = s.y + G.sh / 2;
@@ -483,7 +483,7 @@ export function stationNode(ctx, G, st, pre, show) {
       h('path', {d: `M${r(bx0)} ${r(s.y - 2)}H${r(bx1)}M${r(bx0)} ${r(s.y + G.sh + 2)}H${r(bx1)}`, stroke: '#8a919a', 'stroke-width': 8, 'stroke-linecap': 'round'}),
       h('path', {d: roundRectPath(bx1 - 10, s.y - 10, 18, G.sh + 20, 6), fill: '#6c747d', stroke: INK, 'stroke-width': 2}),
       h('circle', {cx: r(bx1 - 1), cy: r(cy - G.sh * 0.42), r: 8, fill: '#d9dde1', stroke: INK, 'stroke-width': 1.6}),
-      h('circle', {name: `${pre}lamp${k}`, cx: r(bx1 - 1), cy: r(cy - G.sh * 0.42), r: 8, fill: th.accent2, stroke: INK, 'stroke-width': 1.6, opacity: 0}),
+      h('circle', {name: o.lampOn ? undefined : `${pre}lamp${k}`, cx: r(bx1 - 1), cy: r(cy - G.sh * 0.42), r: 8, fill: th.accent2, stroke: INK, 'stroke-width': 1.6, opacity: o.lampOn ? 1 : 0}),
     );
   }
   // press head (drawn at its rest position; frame translates by the offset)
@@ -495,7 +495,7 @@ export function stationNode(ctx, G, st, pre, show) {
   const clipR = G.edge === 'top'
     ? {x: st.x, y: st.top + 4, w: st.w, h: G.padY + 14 - st.top - 4}
     : {x: s.x + G.sw - 14, y: s.y - 20, w: G.plateX - 8 - (s.x + G.sw - 14), h: G.sh + 40};
-  const press = g({name: `${pre}press${k}`, transform: T(st.rest.x, st.rest.y)},
+  const press = g({name: o.lampOn ? undefined : `${pre}press${k}`, transform: T(st.rest.x, st.rest.y)},
     rod,
     h('rect', {x: r(-H.w / 2 + 4), y: r(-H.h / 2 + 6), width: r(H.w), height: r(H.h), rx: 7, fill: th.shadow}),
     h('path', {d: roundRectPath(-H.w / 2, -H.h / 2, H.w, H.h, 7), fill: '#4a525b', stroke: INK, 'stroke-width': 2.2}),
@@ -518,7 +518,7 @@ export function railNode(ctx, G, pre, lit = 0) {
   return g(null,
     h('path', {d, fill: 'none', stroke: '#cfc6b4', 'stroke-width': 14, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}),
     h('path', {d, fill: 'none', stroke: '#b2a68f', 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}),
-    h('path', {name: `${pre}rail-lit`, d, fill: 'none', stroke: ctx.theme.accent2, 'stroke-width': 7, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-dasharray': `${r(L + 2)} ${r(L + 40)}`, 'stroke-dashoffset': r((L + 2) * (1 - lit))}),
+    h('path', {name: lit >= 1 ? undefined : `${pre}rail-lit`, d, fill: 'none', stroke: ctx.theme.accent2, 'stroke-width': 7, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-dasharray': `${r(L + 2)} ${r(L + 40)}`, 'stroke-dashoffset': r((L + 2) * (1 - lit))}),
   );
 }
 export const railFrame = (pre, G, q) => ({[`${pre}rail-lit`]: {'stroke-dashoffset': r((G.railLen + 2) * (1 - clamp(q)))}});

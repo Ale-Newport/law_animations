@@ -9,8 +9,8 @@
 // labels hidden (exploded → stacked → plugged → collar). Relations are drawn only as supplied (plain lines unless a
 // sequence / causal kind is supplied). Legal content: no indemnity doctrine (bannedWords), no jurisdiction; "scope
 // disputed" is neutral (same collar colour and width, dashed; ◆ of the same area as ●).
-// Windows (LAW-0506.js): trace 0.15–0.42 · tabs out 0.42–0.46 · plates 0.44–0.56 · slip 0.54–0.66 · collar 0.66–0.74 ·
-// hold scale (9:16 / stacked layout only) 0.74–0.78 · tags 0.75–0.83.
+// Windows (LAW-0506.js): explode 0.03–0.17 · tabs 0.12–0.18 · trace 0.18–0.56 · tabs out 0.56–0.60 · plates 0.60–0.72 ·
+// slip 0.72–0.81 · collar 0.81–0.87 · status 0.87–0.91. A camera fit keeps the moving mechanism filling the art box.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
@@ -22,25 +22,26 @@ const P = name => presetsFor(ID).find(q => q.name === name).params;
 contractSuite(ID, {
   continuity: ['contract', 'clause', 'promise', 'slipTip'],
   semantic: [
-    {at: 0, fn: "s.assembled === 0 && !s.seated && s.collar === 0 && s.tabsShown === 1 && s.tracer === null && s.finalShown === 0", label: 'exploded view at rest with name tabs'},
-    {at: 0.3, fn: "s.tracer !== null && s.trace > 0 && s.trace < 1 && s.assembled === 0", label: 'the tracer follows the relations before any assembly'},
-    {at: 0.5, fn: "s.assembled > 0 && s.assembled < 1 && !s.seated && s.tabsShown === 0", label: 'the layers assemble after the trace'},
-    {at: 0.58, fn: "s.filmRegistered && !s.seated && s.collar === 0", label: 'the film is registered before the claim plugs in'},
-    {at: 0.72, fn: "s.seated && s.connected && s.collar > 0 && s.collar < 1", label: 'the collar slides on after the prong seats'},
+    {at: 0, fn: "s.spread === 0 && s.filmRegistered && !s.seated && s.collar === 0 && s.tabsShown === 0 && s.tracer === null && s.finalShown === 0", label: 'rest: the stack assembled, the claim apart'},
+    {at: 0.1, fn: "s.spread > 0 && s.spread < 1 && !s.filmRegistered", label: 'the layers separate along the depth axis'},
+    {at: 0.3, fn: "s.tracer !== null && s.trace > 0 && s.trace < 1 && s.spread === 1 && s.tabsShown === 1", label: 'the tracer follows the relations in the exploded view'},
+    {at: 0.66, fn: "s.assembled > 0 && s.assembled < 1 && !s.seated && s.tabsShown === 0", label: 'the layers re-assemble after the trace'},
+    {at: 0.75, fn: "s.filmRegistered && !s.seated && s.collar === 0", label: 'the film is registered before the claim plugs in'},
+    {at: 0.84, fn: "s.seated && s.connected && s.collar > 0 && s.collar < 1", label: 'the collar slides on after the prong seats'},
     {at: 1, fn: "s.collarOn && s.collarStyle === 'solid' && s.finalState === 'covered' && s.finalShown === 1 && s.keyShown === 1 && s.layoutOk", label: 'hold: covered as supplied, solid collar, tags shown'},
     {at: 1, params: P('contrast-or-alternative'), fn: "s.finalState === 'disputed' && s.collarStyle === 'dashed' && s.collarOn && s.connected", label: 'disputed: the same collar drawn dashed — neutral'},
     {at: 1, params: P('long-labels-stress'), fn: "s.connected && s.layoutOk && s.relations === 4", label: 'stress: four relations, connected, layout fits'},
     {at: 1, params: {actionProgress: 0.5}, fn: "!s.seated && s.collar === 0", label: 'actionProgress freezes the assembly part-way'},
-    {at: 0.8, params: {textVisibility: 'none'}, fn: "s.connected && s.collarOn", label: 'labels hidden: the same assembly'},
+    {at: 0.9, params: {textVisibility: 'none'}, fn: "s.connected && s.collarOn", label: 'labels hidden: the same assembly'},
   ],
 });
 
 ratioChecks(ID, 'layout fits, order, arrangement per ratio', [
   {at: [0, 1], fn: 's.layoutOk', label: 'layout fits'},
-  {at: [0.58], fn: 's.filmRegistered && !s.seated', label: 'registered before plugged'},
-  {at: [0, 0.5, 1], fn: "s.arrangement === 'depth'", label: 'every ratio: an exploded view along a depth axis (one straight move per part)'},
-  {at: [0.5], fn: "s.zoom === 1", label: 'no zoom while the parts move'},
-  {at: [1], fn: "s.zoom >= 1", ratios: ['9:16'], label: '9:16: the assembled stack only grows at the hold'},
+  {at: [0.75], fn: 's.filmRegistered && !s.seated', label: 'registered before plugged'},
+  {at: [0, 0.5, 1], fn: "s.arrangement === 'depth'", label: 'every ratio: an exploded view along a depth axis'},
+  {at: [0.3], fn: "s.routeHits <= 2", label: 'relation curves do not cross supplied text (at most a sample at a tab corner)'},
+  {at: [1], fn: "s.zoom > 0", label: 'camera fit defined'},
 ]);
 
 suppliedTextSuite(ID, {
@@ -52,7 +53,7 @@ suppliedTextSuite(ID, {
 textFloor(ID);
 noTextOverlap(ID);
 seekHistory(ID);
-fill(ID, [0.05, 1], 0.5);
+fill(ID, [0.05, 0.3, 0.5, 0.66, 0.76, 1], 0.8);
 bannedWords(ID);
 coldCreate(ID);
 arrayCounts(ID, [

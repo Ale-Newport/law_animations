@@ -1,0 +1,398 @@
+{
+  "id": "LAW-0516",
+  "slug": "contract-terms-09-inspect",
+  "title": "Order of documents, without doctrine — a lens isolates one annex's supplied priority number; the number is substituted and only that binder changes level in the stack",
+  "titleEs": "Orden de documentos — Inspección y cambio de un dato",
+  "category": "contract-terms",
+  "categoryName": "Contenido y cláusulas",
+  "motif": "Orden de documentos",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "A clipboard holds the contract \"CT-208 · Services contract (fictional)\" with the heading \"Order of documents clause\", its supplied text and a priority table (annex label, tab letter, supplied priority number). On a shelf the annex binders lie stacked spine-out by those numbers, lowest on top. A detail lens opens over the shelf — a real enlargement of the focus annex's tab letter and number cell, the context number blanked in step. In the lens the before-number lifts away and stays traceable as \"was: …\" and the supplied after-number drops in. The lens closes, the cell shows the new number, and only the dependent geometry follows: that binder slides out of the stack, the others close up, and it slides back in at its new level. A changed-datum marker (Δ) appears beside the cell with its label and the key \"As supplied · no conclusion drawn\". Seeking back restores the old number and stack. Nothing prevails or governs beyond the supplied numbers.",
+  "tags": [
+    "order of documents",
+    "priority clause",
+    "annexes",
+    "schedules",
+    "inspect",
+    "detail lens",
+    "substitution",
+    "priority number",
+    "stack",
+    "binders",
+    "clipboard",
+    "changed marker",
+    "as supplied"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/contract-terms/kits/orden-documentos.js",
+    "src/frameworks/lens.js",
+    "src/primitives/markers.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "contract": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Reference printed on the contract (fictional)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Heading of the contract, as supplied (generic, e.g. \"Services contract (fictional)\")"
+          }
+        },
+        "required": [
+          "reference",
+          "title"
+        ],
+        "description": "The contract sheet"
+      },
+      "clause": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "heading": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Heading of the clause, as supplied (e.g. \"Order of documents clause\")"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Supplied clause text introducing the order list (e.g. \"Documents rank in the order listed (supplied text)\")"
+          }
+        },
+        "required": [
+          "heading",
+          "text"
+        ],
+        "description": "The supplied order-of-documents clause (generic, fictional placeholder; never real contract text)"
+      },
+      "schedules": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tab": {
+              "type": "string",
+              "maxLength": 3,
+              "description": "Tab letter printed on the annex (e.g. \"A\")"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Label of the annex, as supplied (e.g. \"Annex A · Technical scope\")"
+            }
+          },
+          "required": [
+            "tab",
+            "label"
+          ],
+          "description": "An annex"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "The annexes (schedules) attached to the contract, in their supplied numbering (array replaces the previous value)"
+      },
+      "priorities": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9,
+          "description": "Priority number, as supplied"
+        },
+        "minItems": 1,
+        "maxItems": 4,
+        "description": "Supplied priority number of each annex, in the annex numbering (the stack is ordered by these numbers, lowest on top; ties keep the annex numbering). Missing entries take their annex number (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 4,
+        "description": "Annex (1 = first annex) whose priority number is enlarged and substituted (clamped to the list)"
+      },
+      "beforeValue": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 9,
+        "description": "Priority number of the focus annex before the substitution, as supplied (replaces its entry in priorities)"
+      },
+      "afterValue": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 9,
+        "description": "Priority number of the focus annex after the substitution, as supplied"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Largest magnification of the lens (it may be smaller to fit, never under 1.5)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "over-shelf",
+              "over-table"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Plate on the shelf (e.g. \"Annex shelf · stacked by priority number\")"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label of the changed-datum marker (e.g. \"Supplied priority number changed\")"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the inspection is allowed to progress (1 = complete; lower values freeze it part-way)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "contract": {
+      "reference": "CT-208",
+      "title": "Services contract (fictional)"
+    },
+    "clause": {
+      "heading": "Order of documents clause",
+      "text": "Documents rank by the priority number listed (supplied text)"
+    },
+    "schedules": [
+      {
+        "tab": "A",
+        "label": "Annex A · Technical scope"
+      },
+      {
+        "tab": "B",
+        "label": "Annex B · Price list"
+      },
+      {
+        "tab": "C",
+        "label": "Annex C · Service levels"
+      }
+    ],
+    "priorities": [
+      4,
+      2,
+      6
+    ],
+    "focusTarget": 3,
+    "beforeValue": 6,
+    "afterValue": 1,
+    "detailGeometry": {
+      "zoom": 3,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Annex shelf · stacked by priority number",
+      "marker": "Supplied priority number changed"
+    },
+    "actionProgress": 1
+  }
+}

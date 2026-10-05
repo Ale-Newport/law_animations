@@ -180,7 +180,7 @@ const fitCam = (AB, b) => { const Z = Math.min(AB.w / b.w, AB.h / b.h); return {
 function notesLayout(ctx, panel, stress) {
   const p = ctx.params, D = ctx.design, upx = unitPx(ctx);
   const show = ctx.show('all'), showKey = ctx.show('key');
-  const m = 16;
+  const m = 8;
   const notes = [];
   const kinds = [...new Set(p.relationships.map(q => q.kind))];
   if (show) kinds.forEach(k => notes.push({name: `legend-${k}`, kind: 'legend', k, text: p.relationLabels[k] || k}));
@@ -336,7 +336,8 @@ function model(ctx, F, Pw, mode, AB, stress, show) {
   const local = {contract: box(0, 0, Wc + te + 10, Hc + te + 14), clause: box(0, 0, Pw + te + 10 + (mode === 'side' ? 6 : 0), Ph + te + 14 + (mode === 'side' ? 0 : 6)), promise: box(0, 0, fw + 6, fh + 6), claim: claimLocal};
   if (mode === 'below') {
     off.promise = {x: 0.9 * F, y: Ph + te + 0.9 * F - fy0};
-    off.claim = {x: 0, y: fy0 + off.promise.y + fh + 6 + tabH + 3 + 0.8 * F - claimAsm.y};
+    // the claim backs away down the depth axis (down and a little to the right)
+    off.claim = {x: 2.5 * F, y: fy0 + off.promise.y + fh + 6 + tabH + 3 + 0.8 * F - claimAsm.y};
   }
   const bboxAt = (o, tabK, claimO) => {
     const bs = IDS.map(id => { const at = add(org[id], id === 'claim' ? claimO : o[id]); const b = local[id]; return box(at.x + b.x, at.y + b.y, b.w, b.h); });
@@ -347,13 +348,13 @@ function model(ctx, F, Pw, mode, AB, stress, show) {
       bs.push(box(full.x, full.y + (tl.y < 0 ? full.h * (1 - tabK) : 0), full.w, full.h * tabK));
     }
     const u0 = union(bs);
-    const pad = 10 + 16 * tabK;
+    const pad = 4 + 6 * tabK;
     return box(u0.x - pad, u0.y - pad, u0.w + 2 * pad, u0.h + 2 * pad);
   };
   if (mode === 'below') {
     // balance the exploded view to the art box's proportions
     const E0 = bboxAt(off, 1, off.claim);
-    if (E0.w / E0.h < asp) { const extra = Math.min(asp * E0.h - E0.w, 6 * F); off.contract.x -= extra * 0.5; off.promise.x += extra * 0.5; }
+    if (E0.w / E0.h < asp) { const extra = Math.min(asp * E0.h - E0.w, 12 * F); off.contract.x -= extra * 0.5; off.promise.x += extra * 0.5; }
   }
   const E = bboxAt(off, 1, off.claim);
   const zero = {contract: {x: 0, y: 0}, clause: {x: 0, y: 0}, promise: {x: 0, y: 0}};
@@ -423,7 +424,8 @@ const scene = {
     {
       const K = atE('clause'), C = atE('contract'), cl = atE('claim');
       const last = L.rows[L.rows.length - 1];
-      L.textBoxes = [
+      // supplied text only exists with labels shown (labels hidden: placeholder bars the curves may cross)
+      L.textBoxes = !ctx.show('all') ? [] : [
         box(K.x + L.rowX - 6, K.y + L.titleY - 10, L.Pw - L.rowX - 0.4 * L.F, last.y + last.h - L.titleY + 16),
         box(C.x + 2, C.y + 2, L.Wc - 4, L.band - 4),
         L.side === 'left' ? box(cl.x + L.sb.x + 10, cl.y + L.sb.y + L.TT.stub, L.TT.w - 20, L.TT.textH - L.TT.stub + 10) : box(cl.x + L.sb.x + 10, cl.y + L.sb.y + L.TT.stub, L.TT.w - 20, L.TT.textH - L.TT.stub + 10),
@@ -442,17 +444,21 @@ const scene = {
       const inside = (q, b) => q.x > b.x && q.x < b.x + b.w && q.y > b.y && q.y < b.y + b.h;
       const others = IDS.filter(id => id !== a0 && id !== b0).map(id => { const c = tabC(id); return box(c.x - L.tabW[id] / 2 - 4, c.y - L.tabH / 2 - 4, L.tabW[id] + 8, L.tabH + 8); });
       const obst = [...L.textBoxes, ...others];
-      const hits = (c1, c2) => { let n0 = 0; for (let i = 1; i < 24; i++) { const q = cubicAt(f, c1, c2, t, i / 24); if (obst.some(b => inside(q, b))) n0++; } return n0; };
+      const hits = (c1, c2, f1 = f, t1 = t) => { let n0 = 0; for (let i = 1; i < 24; i++) { const q = cubicAt(f1, c1, c2, t1, i / 24); if (obst.some(b => inside(q, b))) n0++; } return n0; };
       const nx = -uy, ny = ux;
       const cands = [];
       for (const bow of [0, 0.22, 0.45, 0.8]) for (const sg of [1, -1]) {
         const k = Math.min(bow * len0, 260) * sg;
         cands.push({c1: {x: lerp(f.x, t.x, 0.3) + nx * k, y: lerp(f.y, t.y, 0.3) + ny * k}, c2: {x: lerp(f.x, t.x, 0.7) + nx * k, y: lerp(f.y, t.y, 0.7) + ny * k}});
       }
-      for (const xs of [L.Pw + L.te + 4.2 * L.F, -L.ox - 4.2 * L.F]) cands.push({c1: {x: xs, y: f.y}, c2: {x: xs, y: t.y}});
+      // a side detour leaves and enters the tabs through their side edges
+      const sideEnd = (C0, id, xs) => ({x: C0.x + Math.sign(xs - C0.x) * (L.tabW[id] / 2 + 2), y: C0.y});
+      for (const xs of [L.Pw + L.te + 4.2 * L.F, -L.ox - 4.2 * L.F, L.Pw + L.te + 7 * L.F]) { const f1 = sideEnd(A0, a0, xs), t1 = sideEnd(B0, b0, xs); cands.push({f: f1, t: t1, c1: {x: xs, y: f1.y}, c2: {x: xs, y: t1.y}}); }
+      const ys = Math.min(f.y, t.y) - 3 * L.F, yb = Math.max(f.y, t.y) + 3 * L.F;
+      for (const yv of [ys, yb]) cands.push({c1: {x: f.x, y: yv}, c2: {x: t.x, y: yv}});
       let best = null;
-      for (const c of cands) { const n0 = hits(c.c1, c.c2); if (!best || n0 < best.n) best = {...c, n: n0}; if (n0 === 0) break; }
-      return {from: f, to: t, c1: best.c1, c2: best.c2, hits: best.n};
+      for (const c of cands) { const n0 = hits(c.c1, c.c2, c.f || f, c.t || t); if (!best || n0 < best.n) best = {...c, n: n0}; if (n0 === 0) break; }
+      return {from: best.f || f, to: best.t || t, c1: best.c1, c2: best.c2, hits: best.n};
     };
     // a route box (for the camera): the hull of its control polygon
     L.routeBox = rt => union([rt.from, rt.c1, rt.c2, rt.to].map(q => box(q.x, q.y, 0, 0)));
@@ -463,9 +469,13 @@ const scene = {
     // the camera also keeps the relation curves (exploded view) in the art box
     const rb = union([...L.legs.map(l => L.routeBox(l.route)), ...L.rels.map(q => L.routeBox(q.route))].concat(L.legs.length + L.rels.length ? [] : [L.E]));
     const base = L.bboxAt;
-    L.bboxAt = (o, k, c) => { const b = base(o, k, c); if (k <= 0) return b; const u0 = union([b, box(rb.x - 24, rb.y - 24, rb.w + 48, rb.h + 48)]); return box(lerp(b.x, u0.x, k), lerp(b.y, u0.y, k), lerp(b.w, u0.w, k), lerp(b.h, u0.h, k)); };
+    L.bboxAt = (o, k, c) => { const b = base(o, k, c); if (k <= 0) return b; const u0 = union([b, box(rb.x - 10, rb.y - 10, rb.w + 20, rb.h + 20)]); return box(lerp(b.x, u0.x, k), lerp(b.y, u0.y, k), lerp(b.w, u0.w, k), lerp(b.h, u0.h, k)); };
     L.px = L.minSize * fitCam(L.AB, L.bboxAt(L.off, 1, L.off.claim)).Z * L.upx;
-    if (L.px < (stress ? 16.05 : 19.6) && L.ok) { L.ok = false; L.why = [...L.why, 'text-floor-routes']; }
+    if (L.px < (stress ? 16.05 : 19.6)) {
+      // too many detours to keep in frame at a legible size: frame the parts only (the curves may run into the margin)
+      L.bboxAt = base;
+      L.px = L.minSize * fitCam(L.AB, base(L.off, 1, L.off.claim)).Z * L.upx;
+    }
     L.routeHits = [...L.legs, ...L.rels].reduce((s0, q) => s0 + q.route.hits, 0);
     void stress;
     return L;
@@ -526,7 +536,7 @@ const scene = {
     // tabs: in after the explosion, out before the assembly
     const tabsO = seg(a, ...W.tabsIn) * (1 - seg(a, ...W.tabsOut));
     // the camera keeps the moving mechanism filling the art box (one continuous fit of the parts' current extent)
-    const cam = fitCam(L.AB, L.bboxAt(offs, spread, claimO));
+    const cam = fitCam(L.AB, L.bboxAt(offs, Math.min(spread, tabsO), claimO));
     nodes.cam = {transform: `translate(${r(cam.tx, 2)} ${r(cam.ty, 2)}) scale(${r(cam.Z, 4)})`};
     // tracer along the traversal legs (exploded positions)
     const tq = seg(a, ...W.trace);

@@ -1,0 +1,134 @@
+{
+  "animationId": "LAW-0516",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the contract, its order-of-documents clause, the annexes and their priority numbers are generic placeholders. The stack follows only the supplied numbers (lowest on top; ties keep the annex numbering); exactly one supplied datum is substituted (the focus annex's priority number) and only the dependent geometry (that binder's level) follows. No interpretation doctrine, no conflict rule, nothing prevails beyond the supplied numbers, no jurisdiction. Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): definitions; clauses = the supplied order-of-documents clause, schedules = the annexes, priorities = the supplied priority number of each annex; focusTarget, beforeValue, afterValue, detailGeometry and contextLabels are exposed.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three annexes with priority numbers 4, 2, 6: the stack reads B, A, C. The lens isolates Annex C's number; 6 becomes 1 and the C binder moves from the bottom to the top of the stack.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four annexes numbered 1, 3, 5, 7 (stack A, B, C, D); Annex A's number changes from 1 to 9 and its binder moves from the top to the bottom.",
+      "params": {
+        "contract": {
+          "reference": "CT-517",
+          "title": "Supply contract (fictional)"
+        },
+        "schedules": [
+          {
+            "tab": "A",
+            "label": "Annex A · Delivery plan"
+          },
+          {
+            "tab": "B",
+            "label": "Annex B · Price list"
+          },
+          {
+            "tab": "C",
+            "label": "Annex C · Quality plan"
+          },
+          {
+            "tab": "D",
+            "label": "Annex D · Special terms"
+          }
+        ],
+        "priorities": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "focusTarget": 1,
+        "beforeValue": 1,
+        "afterValue": 9,
+        "contextLabels": {
+          "context": "Annex shelf · stacked by priority number",
+          "marker": "Supplied priority number changed"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long contract heading, clause heading and text, four long annex labels, long shelf plate and marker label; Annex D's number changes from 8 to 2.",
+      "params": {
+        "contract": {
+          "reference": "CONTRACT-2026-0208",
+          "title": "Services contract with several annexes, fictional example"
+        },
+        "clause": {
+          "heading": "Order of documents clause, lines exactly as listed",
+          "text": "The documents rank by the priority number listed for each, as supplied here"
+        },
+        "schedules": [
+          {
+            "tab": "A",
+            "label": "Annex A · Technical scope of services, as supplied"
+          },
+          {
+            "tab": "B",
+            "label": "Annex B · Price list and payment plan, as supplied"
+          },
+          {
+            "tab": "C",
+            "label": "Annex C · Service levels and reporting as supplied"
+          },
+          {
+            "tab": "D",
+            "label": "Annex D · Security and data handling as supplied"
+          }
+        ],
+        "priorities": [
+          3,
+          5,
+          1,
+          8
+        ],
+        "focusTarget": 4,
+        "beforeValue": 8,
+        "afterValue": 2,
+        "detailGeometry": {
+          "zoom": 3,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Annex shelf, stacked by the supplied priority numbers",
+          "marker": "Supplied priority number changed in this example"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea de base en español: tres anexos con números 4, 2, 6; el número del Anexo C pasa de 6 a 1 y su carpeta sube a lo alto de la pila.",
+      "params": {
+        "locale": "es",
+        "contract": {
+          "reference": "CT-208",
+          "title": "Contrato de servicios (ficticio)"
+        },
+        "clause": {
+          "heading": "Cláusula de orden de documentos",
+          "text": "Los documentos se ordenan por el número de prioridad (texto aportado)"
+        },
+        "schedules": [
+          {
+            "tab": "A",
+            "label": "Anexo A · Alcance técnico"
+          },
+          {
+            "tab": "B",
+            "label": "Anexo B · Lista de precios"
+          },
+          {
+            "tab": "C",
+            "label": "Anexo C · Niveles de servicio"
+          }
+        ],
+        "contextLabels": {
+          "context": "Estante de anexos · por número de prioridad",
+          "marker": "Número de prioridad aportado cambiado"
+        }
+      }
+    }
+  ]
+}

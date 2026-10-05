@@ -5,6 +5,7 @@
 // Windows (u, 8 s): context 0–0.20 · lens opens 0.20–0.32 (context copy hidden from 0.20) · old value lifts 0.45–0.51 ·
 // old line retracts 0.46–0.54 · trace 0.50–0.56 · new value 0.54–0.62 · new line 0.58–0.68 · still to 0.75 · lens closes
 // 0.75–0.85 · Δ marker and state 0.86–0.92; still from 0.92.
+// Coordinator decision 2026-10-06 (evidence-custody-05 iteration 2): long-labels-stress entry references shortened to "Entry 26-0x" (longer than baseline).
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite, identicalBeforeChange} from '../harness/supplied-text.js';

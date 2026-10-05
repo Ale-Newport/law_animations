@@ -4,6 +4,7 @@
 // plain relation; no causal link unless supplied).
 // Timing (u, 7 s): separate 0.02–0.17 · captions 0.16–0.20 · connectors in sequence 0.18–0.43 · tracer 0.43–0.75
 // (focus enlarged 0.43–0.49, back 0.75–0.80) · hold from 0.80.
+// Coordinator decision 2026-10-06 (evidence-custody-05 iteration 2): long-labels-stress entry references shortened to "Entry 26-0x" (longer than baseline).
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite, identicalBeforeChange} from '../harness/supplied-text.js';

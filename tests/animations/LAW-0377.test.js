@@ -5,6 +5,7 @@
 // labels hidden (objects end in their cells, lines drawn).
 // Timing (u): rest 0–0.15 · per object a slot proportional to its hand travel (bounded 0.7–1.6×): reach 0–40 %, grip 40–45 %, carry
 // 45–86 %, release 86–93 %, tag written / line drawn 90–125 % · hand back 0.70–0.76 · notes 0.77–0.83 · state 0.78–0.84; still from 0.84.
+// Coordinator decision 2026-10-06 (evidence-custody-05 iteration 2): long-labels-stress entry references shortened to "Entry 26-0x" (longer than baseline).
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite, identicalBeforeChange} from '../harness/supplied-text.js';

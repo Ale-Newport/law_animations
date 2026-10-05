@@ -3,6 +3,7 @@
 // therefore its line differ: diffCount <= 1, rowA/rowB), and no legal consequence is invented (neutral note only).
 // Timing (u, 7.5 s): base 0–0.17 · changed row written in A 0.20–0.32 (ring in both 0.17–0.40) · parallel placing
 // 0.40–0.77 · guide 0.78–0.86 · neutral note 0.80–0.88; still from 0.88.
+// Coordinator decision 2026-10-06 (evidence-custody-05 iteration 2): long-labels-stress entry references shortened to "Entry 26-0x" (longer than baseline).
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite, identicalBeforeChange} from '../harness/supplied-text.js';
