@@ -1,0 +1,218 @@
+{
+  "animationId": "LAW-0485",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the word is generic and fictional, the definition and the clause are placeholders, never real contract text; times are fictional labels. \"Defined term\" and \"term with no linked definition\" are supplied, neutral configurations of equal weight: they only say whether the supplied scenario puts the definition slip in the contract's dock (a thread then links the word to it when the contract is unfolded) or leaves it in the definitions sheet's dock. No interpretation rule (no contra proferentem, no plain meaning, no canon of construction), no conclusion about what the word means and no jurisdiction is stated. Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): the clauses list (one clause, term.clause), schedules, the definitions list (one definition slip, definition) and priorities.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional documents: Party A's definitions sheet travels to Party B; at the term station Party B's hand moves the definition slip into the contract's dock; the contract travels to Party A and is unfolded: a thread links the word to the slip; the supplied configuration is defined term.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties, another word and the supplied configuration term with no linked definition: the definition slip stays in the definitions sheet's dock, outside the contract; the contract is unfolded with no thread.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "sheet": {
+          "reference": "DS-218",
+          "title": "Glossary sheet (fictional)"
+        },
+        "definition": {
+          "label": "Definition 4",
+          "value": "(supplied text)"
+        },
+        "contract": {
+          "reference": "CT-219",
+          "title": "Service contract (fictional)"
+        },
+        "term": {
+          "word": "“Premises”",
+          "clause": "Clause 6"
+        },
+        "sequence": [
+          {
+            "event": "sheet-sent",
+            "time": "Day 4, 09:30 (fictional)"
+          },
+          {
+            "event": "sheet-received",
+            "time": "Day 4, 09:31 (fictional)"
+          },
+          {
+            "event": "term-station",
+            "time": "Term with no linked definition (as supplied)"
+          },
+          {
+            "event": "contract-sent",
+            "time": "Day 4, 09:42 (fictional)"
+          },
+          {
+            "event": "contract-received",
+            "time": "Day 4, 09:43 (fictional)"
+          }
+        ],
+        "actorLabels": {
+          "a": "Passes sheet DS-218",
+          "b": "Holds contract CT-219"
+        },
+        "finalState": "term-unlinked"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long names, captions, references, headings, word, clause, definition, time labels, rack plates and two annotations; the supplied configuration defined term (the slip passes into the contract and the thread links the word to it). Coordinator decision (standing stress rule): Capped under the standing coordinator rule (AUTHORING item 20, 2026-09-26): with the near-maximum word, clause and definition (pre-cap copy: production/scratch/contract-terms-02/LAW-0485.presets.precap.json — word “Scheduled Delivery Window”, clause \"Clause 3.2 (supplied placeholder text)\", definition \"Definition 1 (A)\" + \"(supplied placeholder text)\") no 1:1 layout fits at 16.1 px after trying the wider/narrower card widths (11–22 text sizes), 3- and 5-column strips (column widths 8–15, column gap 1), the stacked arrangement and smaller figures: the contract row and the definition slip wrap to extra lines, so the two-slot racks overrun the space above the floor by 44 design units (2 text lines) at card width 18, and at widths 20–22 the gap between the racks is too narrow (layoutOk false, why \"nofit,rackTall,reachA,reachB\"). The term and definition fields are capped to the longest tried values that fit every ratio, all strictly longer than the baseline (word 20 vs 10 characters, clause 14 vs 8, definition label 16 vs 12, definition text 18 vs 15); every other field keeps its near-maximum length.",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A (definitions sheet)"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B (contract)"
+          }
+        ],
+        "sheet": {
+          "reference": "DEF-SHEET-2026-A",
+          "title": "Definitions sheet, second edition (fictional)"
+        },
+        "definition": {
+          "label": "Definition 1 (A)",
+          "value": "(supplied text, A)"
+        },
+        "contract": {
+          "reference": "CONTRACT-2026-B",
+          "title": "Contract, as assembled by Party B (fictional)"
+        },
+        "term": {
+          "word": "“Scheduled Delivery”",
+          "clause": "Clause 3.2 (A)"
+        },
+        "sequence": [
+          {
+            "event": "sheet-sent",
+            "time": "Day 1, 10:00, front desk (fictional)"
+          },
+          {
+            "event": "sheet-received",
+            "time": "Day 1, 10:01, back office (fictional)"
+          },
+          {
+            "event": "term-station",
+            "time": "Word linked to Definition 1 in contract B (as supplied)"
+          },
+          {
+            "event": "contract-sent",
+            "time": "Day 1, 10:05, back office (fictional)"
+          },
+          {
+            "event": "contract-received",
+            "time": "Day 1, 10:06, front desk (fictional)"
+          }
+        ],
+        "actorLabels": {
+          "a": "Passes Party A's whole definitions sheet",
+          "b": "Holds Party B's own folded contract"
+        },
+        "objectLabels": {
+          "outgoing": "Party A's paper rack",
+          "incoming": "Party B's paper rack"
+        },
+        "annotations": [
+          {
+            "target": "sheet",
+            "text": "Party A's sheet, exactly as supplied here"
+          },
+          {
+            "target": "sequence",
+            "text": "Order as supplied (not to scale)"
+          }
+        ],
+        "finalState": "term-defined"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish: the same scene and configuration with Spanish labels and fictional content.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Lucía Ferrer",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomas Lindqvist",
+            "role": "Parte B"
+          }
+        ],
+        "sheet": {
+          "reference": "HD-801",
+          "title": "Hoja de definiciones (ficticia)"
+        },
+        "definition": {
+          "label": "Definición 1",
+          "value": "(texto aportado)"
+        },
+        "contract": {
+          "reference": "CT-802",
+          "title": "Contrato (ficticio)"
+        },
+        "term": {
+          "word": "«Entrega»",
+          "clause": "Cláusula 3"
+        },
+        "sequence": [
+          {
+            "event": "sheet-sent",
+            "time": "Día 2, 09:00 h (ficticio)"
+          },
+          {
+            "event": "sheet-received",
+            "time": "Día 2, 09:01 h (ficticio)"
+          },
+          {
+            "event": "term-station",
+            "time": "Término definido (según lo aportado)"
+          },
+          {
+            "event": "contract-sent",
+            "time": "Día 2, 09:05 h (ficticio)"
+          },
+          {
+            "event": "contract-received",
+            "time": "Día 2, 09:06 h (ficticio)"
+          }
+        ],
+        "actorLabels": {
+          "a": "Pasa la hoja HD-801",
+          "b": "Tiene el contrato CT-802"
+        },
+        "objectLabels": {
+          "outgoing": "Casillero A",
+          "incoming": "Casillero B"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,297 @@
+{
+  "animationId": "LAW-0483",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the clause is a placeholder, never real contract text; times are fictional labels. \"Clause linked\" and \"external text\" are supplied, neutral configurations of equal weight: they only say where each supplied scenario shows the clause slip (in the contract set's dock, or still in the auxiliary document's dock). No incorporation rule, no conclusion that the clause is or is not part of anything, no winner and no jurisdiction is stated. Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, 2026-10-05): the clauses list, schedules, definitions and priorities. The item exposes the parties, the auxiliary document, its single clause slip (label and placeholder value), the contract set, both scenarios' sequences and configurations, the changed and shared facts and the comparison labels; the single placeholder clause carries the motif's core content (where the slip ends).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional documents in two identical stages; only the supplied configuration differs — in A the slip passes into the contract set's dock (clause linked, as supplied), in B it stays in the auxiliary document's dock (external text, as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties, documents and clause, captions, a changed fact, a shared fact and a neutral note; the same single changed fact.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "document": {
+          "reference": "DA-118",
+          "title": "Price list (fictional)"
+        },
+        "clause": {
+          "label": "Clause 4",
+          "value": "(supplied text)"
+        },
+        "contractSet": {
+          "reference": "CS-119",
+          "title": "Order set (fictional)"
+        },
+        "scenarioA": {
+          "label": "Clause linked (as supplied)",
+          "caption": "The slip passes into the set's dock",
+          "sequence": [
+            {
+              "event": "doc-sent",
+              "time": "Day 4, 09:30 (fictional)"
+            },
+            {
+              "event": "doc-received",
+              "time": "Day 4, 09:31 (fictional)"
+            },
+            {
+              "event": "clause-placed",
+              "time": "Slip in order set B"
+            },
+            {
+              "event": "set-sent",
+              "time": "Day 4, 09:42 (fictional)"
+            },
+            {
+              "event": "set-received",
+              "time": "Day 4, 09:43 (fictional)"
+            }
+          ],
+          "status": "clause-linked"
+        },
+        "scenarioB": {
+          "label": "External text (as supplied)",
+          "caption": "The slip stays in the price list's dock",
+          "sequence": [
+            {
+              "event": "doc-sent",
+              "time": "Day 4, 09:30 (fictional)"
+            },
+            {
+              "event": "doc-received",
+              "time": "Day 4, 09:31 (fictional)"
+            },
+            {
+              "event": "clause-placed",
+              "time": "Slip in price list A"
+            },
+            {
+              "event": "set-sent",
+              "time": "Day 4, 09:42 (fictional)"
+            },
+            {
+              "event": "set-received",
+              "time": "Day 4, 09:43 (fictional)"
+            }
+          ],
+          "status": "external-text"
+        },
+        "changedFact": "Only where the clause slip ends differs",
+        "sharedFacts": [
+          "Same parties, documents and clause"
+        ],
+        "comparisonLabels": {
+          "guide": "Slip: in the set (A) · in the price list (B)",
+          "neutral": "Supplied labels only"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, labels, captions, references, headings, clause and time labels, two shared facts and a neutral note; the auxiliary document's receipt and the clause station supplied with one position (order to be examined). Coordinator decision (standing cap rule, 2026-09-26, SESSION_HANDOFF / AUTHORING item 20; re-derived in the ct-01 fix, 2026-10-05): three fields are capped, each still longer than the baseline — the auxiliary document's heading at 39 characters (baseline 30; 43 fails), the clause text at 18 (baseline 15; 20 fails) and the neutral note at 60 (baseline empty; 68 fails). TRUE driver: 1:1 with labels shown. Any one of the three at its pre-cap length (heading 58, clause text 25, neutral note 69 characters — re-invented values, the builder's originals were lost) makes the right-hand column (colR: the comparison table and the notes) taller than the frame, and the search falls back to the collapse-and-fade layout, whose stages leave the frame at the guide. Not drivers: 9:16 (stages stacked; every pre-cap value fits there at 16.1 px with 61.9 model px heads, ≥ 60 px drawn) and 16:9 (16.1 px, 57.7 model px heads, unchanged). The changed fact is no longer capped: at its pre-cap 62 characters 1:1 keeps colR (16.1 px, 55.2 model px heads). Pre-cap values and measurements: production/scratch/contract-formation-11/LAW-0483.stress.precap.json.",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos",
+            "role": "Party A (auxiliary document)"
+          },
+          {
+            "name": "Oluwaseun Bartholomew",
+            "role": "Party B (contract set)"
+          }
+        ],
+        "document": {
+          "reference": "AUX-DOC-2026-A",
+          "title": "Auxiliary document, 2nd ed. (fictional)"
+        },
+        "clause": {
+          "label": "Clause 7 (A)",
+          "value": "(placeholder text)"
+        },
+        "contractSet": {
+          "reference": "CONTRACT-SET-2026-B",
+          "title": "Contract set, as assembled (fictional)"
+        },
+        "scenarioA": {
+          "label": "Slip moved to contract set B's dock (as supplied)",
+          "caption": "Party B's hand moves the clause slip into the contract set's dock",
+          "sequence": [
+            {
+              "event": "doc-sent",
+              "time": "Day 1, 10:00, front desk (fictional)"
+            },
+            {
+              "event": "doc-received",
+              "time": "Day 1, 10:01, back office (fictional)",
+              "position": 2
+            },
+            {
+              "event": "clause-placed",
+              "time": "Slip moved to contract set B's dock (as supplied)",
+              "position": 2
+            },
+            {
+              "event": "set-sent",
+              "time": "Day 1, 10:05, back office (fictional)"
+            },
+            {
+              "event": "set-received",
+              "time": "Day 1, 10:06, front desk (fictional)"
+            }
+          ],
+          "status": "clause-linked"
+        },
+        "scenarioB": {
+          "label": "Slip stays in document A's dock (as supplied)",
+          "caption": "The clause slip stays in the auxiliary document's own dock",
+          "sequence": [
+            {
+              "event": "doc-sent",
+              "time": "Day 1, 10:00, front desk (fictional)"
+            },
+            {
+              "event": "doc-received",
+              "time": "Day 1, 10:01, back office (fictional)",
+              "position": 2
+            },
+            {
+              "event": "clause-placed",
+              "time": "Slip stays in document A's dock (as supplied)",
+              "position": 2
+            },
+            {
+              "event": "set-sent",
+              "time": "Day 1, 10:05, back office (fictional)"
+            },
+            {
+              "event": "set-received",
+              "time": "Day 1, 10:06, front desk (fictional)"
+            }
+          ],
+          "status": "external-text"
+        },
+        "changedFact": "Only where the clause slip ends differs between the two scenes",
+        "sharedFacts": [
+          "Same parties, the same documents and the same clause",
+          "Same sequence of journeys in both scenes"
+        ],
+        "comparisonLabels": {
+          "guide": "Where the slip lies: contract set (A) · auxiliary document (B)",
+          "neutral": "Supplied labels only; nothing is concluded from either scene"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: dos escenarios idénticos; solo cambia la configuración aportada (cláusula vinculada / texto externo).",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Elena Varga",
+            "role": "Parte A"
+          },
+          {
+            "name": "Samuel Osei",
+            "role": "Parte B"
+          }
+        ],
+        "document": {
+          "reference": "DA-701",
+          "title": "Documento auxiliar (ficticio)"
+        },
+        "clause": {
+          "label": "Cláusula 7",
+          "value": "(texto aportado)"
+        },
+        "contractSet": {
+          "reference": "CC-702",
+          "title": "Conjunto contractual (ficticio)"
+        },
+        "scenarioA": {
+          "label": "Cláusula vinculada (según lo aportado)",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "doc-sent",
+              "time": "Día 1, 10:00 h (ficticio)"
+            },
+            {
+              "event": "doc-received",
+              "time": "Día 1, 10:01 h (ficticio)"
+            },
+            {
+              "event": "clause-placed",
+              "time": "Hoja en el conjunto B"
+            },
+            {
+              "event": "set-sent",
+              "time": "Día 1, 10:05 h (ficticio)"
+            },
+            {
+              "event": "set-received",
+              "time": "Día 1, 10:06 h (ficticio)"
+            }
+          ],
+          "status": "clause-linked"
+        },
+        "scenarioB": {
+          "label": "Texto externo (según lo aportado)",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "doc-sent",
+              "time": "Día 1, 10:00 h (ficticio)"
+            },
+            {
+              "event": "doc-received",
+              "time": "Día 1, 10:01 h (ficticio)"
+            },
+            {
+              "event": "clause-placed",
+              "time": "Hoja en el documento A"
+            },
+            {
+              "event": "set-sent",
+              "time": "Día 1, 10:05 h (ficticio)"
+            },
+            {
+              "event": "set-received",
+              "time": "Día 1, 10:06 h (ficticio)"
+            }
+          ],
+          "status": "external-text"
+        },
+        "changedFact": "",
+        "sharedFacts": [],
+        "comparisonLabels": {
+          "guide": "Hoja: en el conjunto (A) · en el documento (B)",
+          "neutral": ""
+        }
+      }
+    }
+  ]
+}

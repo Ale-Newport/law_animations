@@ -1,0 +1,521 @@
+{
+  "id": "LAW-0484",
+  "slug": "contract-terms-01-inspect",
+  "title": "Clause from an auxiliary document, without a rule — inspecting the supplied configuration and substituting it",
+  "titleEs": "Cláusula incorporada — Inspección y cambio de un dato",
+  "category": "contract-terms",
+  "categoryName": "Contenido y cláusulas",
+  "motif": "Cláusula incorporada",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The story's end state: Party A's auxiliary document (●) in Party B's rack and Party B's contract set (◆, at equal weight) in Party A's rack, the placeholder clause slip in the dock the supplied configuration gives it, and the strip \"Sequence as supplied (illustrative)\". A lens enlarges the clause station (≥ 1.6×); the old label is struck; the station's label turns over to the supplied after value and only its dependent state follows — the clause slip leaves one dock and lies in the other. The lens closes onto the identical station and a Δ marks the changed label; the panel shows the struck \"was:\" value and the key \"As supplied · no conclusion drawn\". Labels hidden, the lens enlarges the contract set and its dock. Seeking back restores the old datum exactly. No incorporation rule and no conclusion on whether the clause is part of anything.",
+  "tags": [
+    "clause",
+    "auxiliary document",
+    "contract set",
+    "dock",
+    "clause linked",
+    "external text",
+    "lens",
+    "substitution",
+    "changed marker"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/contract-terms/kits/clausula-incorporada.js",
+    "src/frameworks/lens.js",
+    "src/primitives/person.js",
+    "src/primitives/annotate.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Party A (hands over the auxiliary document) and Party B (holds the contract set); fictional by default (array replaces the previous value)"
+      },
+      "document": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Reference printed on the auxiliary document (fictional)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Heading of the auxiliary document, as supplied (generic, e.g. \"Auxiliary document (fictional)\")"
+          }
+        },
+        "required": [
+          "reference",
+          "title"
+        ],
+        "description": "Party A's auxiliary document (●)"
+      },
+      "clause": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Clause name, as supplied (e.g. \"Clause 7\")"
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Clause text, as supplied (a placeholder, e.g. \"(supplied text)\")"
+          }
+        },
+        "required": [
+          "label",
+          "value"
+        ],
+        "description": "The clause slip: a placeholder only (e.g. \"Clause 7\" + \"(supplied text)\"; never real clause text)"
+      },
+      "contractSet": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Reference printed on the contract set (fictional)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Heading of the contract set, as supplied (generic, e.g. \"Contract set (fictional)\")"
+          }
+        },
+        "required": [
+          "reference",
+          "title"
+        ],
+        "description": "Party B's contract set (◆)"
+      },
+      "sequence": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "type": "string",
+              "enum": [
+                "doc-sent",
+                "doc-received",
+                "clause-placed",
+                "set-sent",
+                "set-received"
+              ],
+              "description": "Which event"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Fictional time label as supplied, e.g. \"Day 3, 10:00 (fictional)\" (for the clause station: the supplied configuration, e.g. \"Clause linked (as supplied)\" or \"External text (as supplied)\")"
+            },
+            "position": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Optional position in the supplied order (1 = first). Events given the same position are shown together, order to be examined"
+            }
+          },
+          "required": [
+            "event",
+            "time"
+          ],
+          "description": "One event of the supplied sequence. The order of the list is the order shown; events with the same position are shown together as an order to be examined. Times are fictional labels, never computed or compared"
+        },
+        "minItems": 1,
+        "maxItems": 5,
+        "description": "The documents' journeys and the clause station, as supplied, in the order shown (1–5). The order is depicted, never resolved (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "doc-sent",
+          "doc-received",
+          "clause-placed",
+          "set-sent",
+          "set-received"
+        ],
+        "description": "Which station of the supplied sequence has its label inspected and substituted (by default the clause station, whose label is the supplied configuration; for the other stations, a fictional time label)"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 40,
+        "description": "Label the inspected station shows before the substitution (as supplied; fictional)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 40,
+        "description": "Alternative label supplied for the same station (as supplied; fictional)"
+      },
+      "statusBefore": {
+        "type": "string",
+        "enum": [
+          "clause-linked",
+          "external-text"
+        ],
+        "description": "Supplied configuration before the substitution: clause-linked (the clause slip in the contract set's dock) or external-text (the slip in the auxiliary document's dock). Neutral, of equal weight"
+      },
+      "statusAfter": {
+        "type": "string",
+        "enum": [
+          "clause-linked",
+          "external-text"
+        ],
+        "description": "Supplied configuration after the substitution — the clause slip's dock follows it; nothing else changes and nothing is concluded"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens (≥ 1.5)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "right",
+              "below"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption (left at its default, it follows the supplied configuration: at rest the one before, at the hold the one after)"
+          },
+          "contextAfter": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption at the hold, after the substitution (empty: the context caption — or, left at its default, the default caption for the configuration after)"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Elena Varga",
+        "role": "Party A"
+      },
+      {
+        "name": "Samuel Osei",
+        "role": "Party B"
+      }
+    ],
+    "document": {
+      "reference": "DA-701",
+      "title": "Auxiliary document (fictional)"
+    },
+    "clause": {
+      "label": "Clause 7",
+      "value": "(supplied text)"
+    },
+    "contractSet": {
+      "reference": "CS-702",
+      "title": "Contract set (fictional)"
+    },
+    "sequence": [
+      {
+        "event": "doc-sent",
+        "time": "Day 1, 10:00 (fictional)"
+      },
+      {
+        "event": "doc-received",
+        "time": "Day 1, 10:01 (fictional)"
+      },
+      {
+        "event": "clause-placed",
+        "time": "Clause linked (as supplied)"
+      },
+      {
+        "event": "set-sent",
+        "time": "Day 1, 10:05 (fictional)"
+      },
+      {
+        "event": "set-received",
+        "time": "Day 1, 10:06 (fictional)"
+      }
+    ],
+    "focusTarget": "clause-placed",
+    "beforeValue": "Slip in set B (as supplied)",
+    "afterValue": "Slip in document A (as supplied)",
+    "statusBefore": "clause-linked",
+    "statusAfter": "external-text",
+    "detailGeometry": {
+      "zoom": 1.8,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Clause linked (as supplied)",
+      "marker": "Changed: the supplied configuration"
+    }
+  }
+}

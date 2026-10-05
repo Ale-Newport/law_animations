@@ -1,0 +1,289 @@
+{
+  "animationId": "LAW-0482",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the clause is a placeholder, never real contract text; times are fictional labels. \"Clause linked\" and \"external text\" are supplied, neutral configurations of equal weight: they only say whether the supplied scenario shows the clause slip passing into the contract set's dock or staying in the auxiliary document's dock. No incorporation rule, no conclusion that the clause is or is not part of anything and no jurisdiction is stated.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional documents on two lanes: the auxiliary document crosses to Party B and the contract set to Party A; the clause slip passes from the auxiliary document's dock into the contract set's (clause linked, as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties and documents, focus on the auxiliary document, another traversal; the supplied configuration external text — the clause slip stays in the auxiliary document's dock.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "document": {
+          "reference": "DA-118",
+          "title": "Price list (fictional)"
+        },
+        "clause": {
+          "label": "Clause 4",
+          "value": "(supplied text)"
+        },
+        "contractSet": {
+          "reference": "CS-119",
+          "title": "Order set (fictional)"
+        },
+        "sequence": [
+          {
+            "event": "doc-sent",
+            "time": "Day 4, 09:30 (fictional)"
+          },
+          {
+            "event": "doc-received",
+            "time": "Day 4, 09:31 (fictional)"
+          },
+          {
+            "event": "set-sent",
+            "time": "Day 4, 09:42 (fictional)"
+          },
+          {
+            "event": "set-received",
+            "time": "Day 4, 09:43 (fictional)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Hands over DA-118"
+          },
+          {
+            "id": "partyB",
+            "label": "Holds set CS-119"
+          },
+          {
+            "id": "document",
+            "label": "Document A"
+          },
+          {
+            "id": "set",
+            "label": "Set B"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "document",
+            "kind": "communication"
+          },
+          {
+            "from": "document",
+            "to": "partyB",
+            "kind": "communication"
+          },
+          {
+            "from": "partyB",
+            "to": "set",
+            "kind": "communication"
+          },
+          {
+            "from": "set",
+            "to": "partyA",
+            "kind": "communication"
+          }
+        ],
+        "focusElement": "document",
+        "traversalOrder": [
+          "document",
+          "partyB",
+          "set",
+          "partyA"
+        ],
+        "status": "external-text"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, element labels, relation captions, references, headings, clause and time labels; the supplied configuration clause linked (the slip passes into the contract set).",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A (auxiliary document)"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B (contract set)"
+          }
+        ],
+        "document": {
+          "reference": "AUX-DOC-2026-A",
+          "title": "Auxiliary document, second edition (fictional)"
+        },
+        "clause": {
+          "label": "Clause 7 (A)",
+          "value": "(supplied placeholder text)"
+        },
+        "contractSet": {
+          "reference": "CONTRACT-SET-2026-B",
+          "title": "Contract set, as assembled (fictional)"
+        },
+        "sequence": [
+          {
+            "event": "doc-sent",
+            "time": "Day 1, 10:00, front desk (fictional)"
+          },
+          {
+            "event": "doc-received",
+            "time": "Day 1, 10:01, back office (fictional)"
+          },
+          {
+            "event": "set-sent",
+            "time": "Day 1, 10:05, back office (fictional)"
+          },
+          {
+            "event": "set-received",
+            "time": "Day 1, 10:06, front desk (fictional)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Hands over Party A's auxiliary document"
+          },
+          {
+            "id": "partyB",
+            "label": "Holds Party B's own contract set"
+          },
+          {
+            "id": "document",
+            "label": "Auxiliary document A"
+          },
+          {
+            "id": "set",
+            "label": "Contract set B"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "document",
+            "kind": "communication"
+          },
+          {
+            "from": "document",
+            "to": "partyB",
+            "kind": "communication"
+          },
+          {
+            "from": "partyB",
+            "to": "set",
+            "kind": "communication"
+          },
+          {
+            "from": "set",
+            "to": "partyA",
+            "kind": "communication"
+          }
+        ],
+        "focusElement": "set",
+        "relationLabels": {
+          "relation": "relation between the documents (given)",
+          "communication": "communication between the parties",
+          "sequence": "sequence of the events as supplied",
+          "causal": "causal link as supplied by the author"
+        },
+        "traversalOrder": [
+          "partyA",
+          "document",
+          "partyB",
+          "set",
+          "partyA"
+        ],
+        "status": "clause-linked"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: el documento auxiliar pasa al carril de B y el conjunto contractual al de A; la hoja de cláusula pasa del documento auxiliar al conjunto (cláusula vinculada, según lo aportado).",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Elena Varga",
+            "role": "Parte A"
+          },
+          {
+            "name": "Samuel Osei",
+            "role": "Parte B"
+          }
+        ],
+        "document": {
+          "reference": "DA-701",
+          "title": "Documento auxiliar (ficticio)"
+        },
+        "clause": {
+          "label": "Cláusula 7",
+          "value": "(texto aportado)"
+        },
+        "contractSet": {
+          "reference": "CC-702",
+          "title": "Conjunto contractual (ficticio)"
+        },
+        "sequence": [
+          {
+            "event": "doc-sent",
+            "time": "Día 1, 10:00 h (ficticio)"
+          },
+          {
+            "event": "doc-received",
+            "time": "Día 1, 10:01 h (ficticio)"
+          },
+          {
+            "event": "set-sent",
+            "time": "Día 1, 10:05 h (ficticio)"
+          },
+          {
+            "event": "set-received",
+            "time": "Día 1, 10:06 h (ficticio)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Entrega el DA-701"
+          },
+          {
+            "id": "partyB",
+            "label": "Reúne el conjunto CC-702"
+          },
+          {
+            "id": "document",
+            "label": "Documento A"
+          },
+          {
+            "id": "set",
+            "label": "Conjunto B"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación (según lo aportado)",
+          "communication": "comunicación",
+          "sequence": "secuencia (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

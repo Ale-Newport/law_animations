@@ -1,0 +1,410 @@
+/**
+ * LAW-0496 — Condición de activación · inspect
+ *
+ * Storyboard (context = the state produced by the story's action: the contract board with the event card "Event 1
+ * (supplied)" seated in its slot, showing its supplied state — ● "Event produced (as supplied)" —, the supplied
+ * obligation cards and the bracket shut on the supplied tranche; the two parties stand beside the board):
+ *  0.00–0.20  context at rest in its part of the frame; the other part holds a panel (headline, the ●/◆ legend at equal
+ *             weight, the key).
+ *  0.20–0.28  isolate: the panel leaves and a lens grows at its own place: a real enlarged copy (≥ 1.6×) of the event
+ *             card; the context's card is left blank while the lens shows it (one legible copy at a time, glyph included).
+ *  0.36–0.42  the old state is struck in the lens.
+ *  0.47–0.489 the datum changes: the state row turns over and comes back with the supplied alternative — ◆ "Event
+ *             pending (as supplied)" — (no value legible for ≤ ~150 ms).
+ *  0.50–0.56  only then, the new value legible, its dependent geometry follows in the scene: the bracket slides open in
+ *             its track, as supplied (with the alternative produced → it slides shut). Nothing else moves.
+ *  0.74–0.80  return: the lens closes onto the card, which shows the new state at once; a Δ marks it (0.80–0.81); the
+ *             panel comes back with the marker label, the struck "was:" value, the legend and the key "As supplied · no
+ *             conclusion drawn". Seeking back restores the old datum exactly.
+ * Labels hidden: the same lens on the event card — its state glyph turns ● → ◆ inside the lens (a non-text change).
+ * Labels key / none at 1:1 (cf-08 / cf-10 ruling, the LAW-0472/0476/0480/0492 pattern): the context is laid out large
+ * (≥ 0.55 of the frame) at rest and at the hold and shrinks only while the lens is open.
+ * No rule on conditions: nothing about fulfilment, no automatic effect, no obligation becoming due, binding or
+ * enforceable; no jurisdiction. Produced and pending have equal weight.
+ * @module animations/contract-terms/LAW-0496
+ */
+import {defineAnimation} from '../../core/define.js';
+import {makeMetadata} from '../../core/meta.js';
+import {fitDesign} from '../../core/layout.js';
+import {seg, r, ease} from '../../core/time.js';
+import {h, g} from '../../core/svg.js';
+import {T} from '../../core/transform.js';
+import {roundRectPath} from '../../core/geometry.js';
+import {str, num, obj, oneOf} from '../../schemas/fields.js';
+import {changedMarker} from '../../primitives/markers.js';
+import {measure} from '../../core/text.js';
+import {
+  motifFields, DEFAULT_CONTENT, DEFAULT_CONTENT_ES, KIT_STRINGS, STATES, PX_BASE, PX_STRESS,
+  layoutStage, stageArt, makeRigs, nameNodes, oblNodes, eventNode, bracketNode, stateGlyph, chipG, eventCard, measureEvent, measureObl, bracketMetrics,
+  localizeScene, headBox, overlaps,
+} from './kits/condicion-activacion.js';
+
+const ID = 'LAW-0496';
+const DURATION = 8000;
+const W = {
+  open: [0.2, 0.28], strike: [0.36, 0.42], turnOut: [0.47, 0.4795], turnIn: [0.4795, 0.489],
+  dep: [0.5, 0.56], close: [0.74, 0.8], marker: [0.799, 0.812], notes: [0.81, 0.85],
+  panelOut: [0.18, 0.2], panelIn: [0.8, 0.84], shiftUp: [0.14, 0.2], shiftDown: [0.8, 0.86], shrink: [0.195, 0.245], regrow: [0.75, 0.8],
+};
+
+const STRINGS = {
+  en: {...KIT_STRINGS.en, was: 'was: {v}'},
+  es: {...KIT_STRINGS.es, was: 'antes: {v}'},
+};
+
+const sceneSchema = {
+  ...motifFields,
+  focusTarget: oneOf('The inspected object (the event card: its supplied state row)', ['eventState']),
+  beforeValue: oneOf('The supplied state of the event before the substitution', STATES),
+  afterValue: oneOf('The supplied state of the event after the substitution', STATES),
+  detailGeometry: obj('Lens geometry', {zoom: num('Largest magnification of the lens (≥ 1.5; the layout may use less room but never under 1.5)', 1.5, 4), placement: oneOf('Where the lens sits', ['auto', 'right', 'below'])}),
+  contextLabels: obj('Labels for the context view', {context: str('Context headline', 80), marker: str('Label of the changed-datum marker', 70)}),
+};
+
+const defaultParams = {
+  ...DEFAULT_CONTENT,
+  focusTarget: 'eventState',
+  beforeValue: 'produced',
+  afterValue: 'pending',
+  detailGeometry: {zoom: 2.4, placement: 'auto'},
+  contextLabels: {context: 'Event card and tranche, as supplied', marker: 'Changed: the supplied state of event 1'},
+};
+
+const defaultParamsEs = {
+  ...DEFAULT_CONTENT_ES,
+  contextLabels: {context: 'Tarjeta del evento y tramo, según lo aportado', marker: 'Cambio: el estado aportado del evento 1'},
+};
+
+function unitPx(ctx) {
+  const f = fitDesign(ctx.view, ctx.design.w, ctx.design.h);
+  return f.scale * (1080 / Math.min(ctx.view.width, ctx.view.height));
+}
+
+const isStress = p => [...p.obligations, p.event.label].some(t => t.length > 40);
+
+const scene = {
+  sizes: {landscape: [1600, 900], square: [1150, 1000], portrait: [900, 1450]},
+  layout(ctx) {
+    const p = ctx.params;
+    const shape = ctx.view.shape;
+    const D = ctx.design;
+    const upx = unitPx(ctx);
+    const show = ctx.show('all'), showKey = ctx.show('key');
+    const stress = isStress(p);
+    const box = {x: 6, y: 4, w: D.w - 12, h: D.h - 8};
+    const below = p.detailGeometry.placement === 'below' || (p.detailGeometry.placement === 'auto' && shape === 'portrait');
+    const headMin = stress ? 45 : shape === 'square' ? 50 : 60;
+    // (1:1, labels key / none — cf precedent LAW-0472/0476/0480/0492: the context is laid out large over the frame at
+    // rest and at the hold — ≥ 0.55 of the frame — and eases into its part of the frame only while the lens is open: a
+    // uniform scale GROW of the lens-time layout, anchored at the box's top-left corner)
+    const growMode = !below && shape === 'square' && !show;
+    const frameShort = Math.min(ctx.view.width, ctx.view.height);
+    const shortU = (0.35 * frameShort) / (upx * frameShort / 1080);
+    let best = null;
+    /** The panel (rest and hold) in region plr at body size F (print-bar cards: their texts listed once in it). */
+    const panels = (F, plr, cardText) => {
+      const leg = (s, pre) => ({name: `${pre}leg-${s}`, kind: 'leg', text: p.stateLabels[s], glyph: s});
+      // (print-bar cards: their texts are listed once in the panel)
+      const perfs = pre => (show && !cardText ? [{name: `${pre}-ev`, kind: 'perf', text: `${p.panels.event}: ${p.event.label}`}, ...p.obligations.map((t, j) => ({name: `${pre}-o${j}`, kind: 'perf', text: t}))] : []);
+      const restItems = [];
+      if (show) restItems.push({name: 'p-head', kind: 'head', text: p.contextLabels.context}, leg('produced', 'p-'), leg('pending', 'p-'), ...perfs('p'));
+      if (showKey) restItems.push({name: 'p-key', kind: 'key', text: ctx.t.key});
+      const holdItems = [];
+      if (show) holdItems.push({name: 'h-head', kind: 'head', text: p.contextLabels.context}, {name: 'h-marker', kind: 'marker', text: p.contextLabels.marker}, {name: 'h-was', kind: 'was', text: ctx.t.was.replace('{v}', p.stateLabels[p.beforeValue])}, leg('produced', 'h-'), leg('pending', 'h-'), ...perfs('h'));
+      if (show) holdItems.push({name: 'h-final', kind: 'final', text: p.afterValue === 'produced' ? ctx.t.marked : ctx.t.unmarked});
+      if (showKey) holdItems.push({name: 'h-key', kind: 'key', text: ctx.t.key});
+      const placeCol = items => {
+        if (!items.length) return {placed: [], h: 0};
+        const maxW = plr.w - F * 0.6;
+        const chips = items.map(it => ({it, c: chipG(ctx, it.text, {x: 0, y: 0, maxWidth: maxW - (it.glyph || it.kind === 'marker' ? F * 1.6 : 0), size: F, maxLines: 3, weight: it.kind === 'head' ? 700 : 600})}));
+        const hh = chips.reduce((a, q) => a + q.c.box.h + F * 0.45, -F * 0.45);
+        let y = plr.y + Math.max(0, (plr.h - hh) / 2);
+        const placed = chips.map(q => { const ext = q.it.glyph || q.it.kind === 'marker' ? F * 1.6 : 0; const x = plr.x + (plr.w - q.c.box.w - ext) / 2 + ext; const o = {...q, x, y, ext}; y += q.c.box.h + F * 0.45; return o; });
+        return {placed, h: hh, bad: chips.some(q => q.c.fit.bad) || hh > plr.h || chips.some(q => q.c.box.w + (q.it.glyph || q.it.kind === 'marker' ? F * 1.6 : 0) > plr.w)};
+      };
+      return {rest: placeCol(restItems), hold: placeCol(holdItems)};
+    };
+    const sideShares = show ? [0.55, 0.52, 0.5, 0.495, 0.49, 0.48, 0.46, 0.455, 0.58] : [0.7, 0.67, 0.64, 0.61, 0.58, 0.565, 0.55];
+    // (1:1: the board's panels side by side, or stacked — the tranche over the event — when the side-by-side panels are too
+    // narrow for the print)
+    for (const growTo of growMode ? [0.665, 0.655] : [1]) for (const cardText of [true, false]) for (const stack of shape === 'square' ? [false, true] : [false]) for (const zt of stack ? (stress ? [2.1, 1.62, 1.57] : [1.57, 1.62, 2.1]) : [1.62, 2.1]) for (const share of below ? (show ? [0.5, 0.46, 0.55] : [0.6, 0.55, 0.5]) : stack && show ? [0.5, 0.48, 0.46, 0.52, 0.55] : sideShares) for (const px of stress ? PX_STRESS : PX_BASE) {
+      if (best) break;
+      const F = px / upx;
+      const grow = growMode ? growTo / share : 1;
+      const cb = below ? {x: box.x, y: box.y, w: box.w, h: box.h * share} : {x: box.x, y: box.y, w: box.w * share, h: box.h / grow};
+      if (growMode && box.w * share * grow > box.w * 0.8) continue;
+      const lr = below ? {x: box.x, y: box.y + box.h * share + F * 0.4, w: box.w, h: box.h * (1 - share) - F * 0.4} : {x: box.x + box.w * share + F * 0.5, y: box.y, w: box.w * (1 - share) - F * 0.5, h: box.h};
+      const pad = F * 0.12;
+      // (the crop is the event card with its grip tab and the slot's dock round it; when that crop is too short for a real
+      // inspection — under 0.35 of the frame's short side once magnified — the card is laid out taller, its print centred,
+      // rather than the crop taking in the heading above it)
+      let Lc = null, src = null, zoom = 0, minChE = 90 / upx;
+      // (a printed card that cannot fit the widest card the lens allows: skip at once)
+      if (cardText && show && !measureEvent(p, F, (Math.min(lr.w * 0.96, lr.h * 0.96 * 3) / zt) - F * 0.7 - 5, true, true, true)) continue;
+      // (stacked: the obligations' print cannot fit the widest tranche panel the board allows — skip at once)
+      // (side by side: the same for half the board's inner width)
+      if (cardText && show) {
+        const kLo = headMin / (82 * upx), Bm = bracketMetrics(F);
+        const bw = cb.w - 2 * (98 * kLo + 1 + Math.max(8, F * 0.3)) - 2 * Math.max(12, F * 0.36);
+        const wt = stack ? bw - (Bm.gapC + Bm.arm + Bm.gapC + F * 0.45 + Bm.knobDx + Bm.hr + F * 0.35)
+          : (bw - Math.max(F, bw * 0.05) - (Bm.gapC + Bm.travel + Bm.knobDx + Bm.hr + F * 0.35)) / 2;
+        if (!measureObl(p.obligations, F, wt - 2 * Math.max(6, F * 0.25), true, true)) continue;
+      }
+      for (let tries = 0; tries < 3; tries++) {
+        const L1 = layoutStage(ctx, {
+          box: cb, upx, prefix: 'st-', p, px: [px], headMin, headTarget: 0, kMax: show ? (shape === 'square' ? Math.min(1.4, (headMin + 30) / (90 * upx)) : 1.4) : 2, tight: true,
+          names: showKey ? p.parties.map(q => q.name) : null, plates: null, notes: [], tray: false, noReach: true, cardText, stack, knobInBrace: true, eventTextGrow: true, eventFullWidth: true, noTab: true, compactTrack: stack,
+          // (the event card no wider than the lens can magnify ≥ 1.6× — or, failing that, ≥ 2.1×: a narrower, taller card)
+          cwEMax: (Math.min(lr.w * 0.96, lr.h * 0.96 * 3) / zt) - F * 0.7 - 5,
+          minCh: 71 / upx, minChE,
+        });
+        // (a taller card that no longer fits: keep the last layout that did)
+        if (!L1.ok) break;
+        Lc = L1;
+        const G = Lc.G;
+        src = {x: G.slot.x - G.cwE / 2 - G.tabW - pad, y: G.slot.y - G.chE / 2 - 5 - pad, w: G.cwE + G.tabW + 5 + pad * 2, h: G.chE + 10 + pad * 2};
+        zoom = Math.min(p.detailGeometry.zoom, (lr.w * 0.96) / src.w, (lr.h * 0.96) / src.h);
+        // (print-bar cards: the card's print, too fine for the context, is printed at its true size — legible only through
+        // the lens; the card must be tall enough for it)
+        const MeL = !cardText && show ? measureEvent(p, (F * 1.02) / zoom, G.cwE, true, true, true) : null;
+        if (MeL && MeL.ch > G.chE + 0.01) { minChE = Math.max(minChE + 1, MeL.ch + 1); continue; }
+        if (src.h * zoom >= shortU * 1.01) break;
+        minChE = Math.max(minChE + 1, (shortU * 1.03) / zoom - 10 - pad * 2);
+      }
+      if (!Lc) continue;
+      if (src.h * zoom < shortU * 1.01) {
+        // (last resort: the crop takes in the empty board under the card and, if need be, above it — never the panel's heading,
+        // never the names)
+        const need = (shortU * 1.03) / zoom - src.h;
+        const G = Lc.G;
+        const down = Math.max(0, G.floor - 2 - (src.y + src.h)), up = Math.max(0, src.y - (G.panelE.y + G.colHH + 2));
+        if (up + down < need) continue;
+        const dn = Math.min(down, need);
+        src.y -= need - dn; src.h += need;
+        zoom = Math.min(p.detailGeometry.zoom, (lr.w * 0.96) / src.w, (lr.h * 0.96) / src.h);
+        if (src.h * zoom < shortU * 1.01) continue;
+      }
+      // (≥ 1.6 where the frame allows; the 1:1 stacked board ≥ 1.56 — the hard floor is 1.5 against the rest size at every host
+      // size, LENS MAGNIFICATION MARGIN decision 2026-10-04)
+      if (zoom < (show ? (stack ? 1.56 : 1.6) : growMode ? 1.52 * grow : 1.52)) continue;
+      const lensM = !cardText && show ? measureEvent(p, (F * 1.02) / zoom, Lc.G.cwE, true, true, true) : null;
+      if (!cardText && show && (!lensM || lensM.ch > Lc.G.chE + 0.01)) continue;
+      const dest = {w: src.w * zoom, h: src.h * zoom};
+      dest.x = lr.x + (lr.w - dest.w) / 2;
+      dest.y = lr.y + (lr.h - dest.h) / 2;
+      if (Math.min(dest.w, dest.h) < shortU) continue;
+      // the panel (rest and hold) in the lens's place (grow mode: right of the LARGE context)
+      const plr = grow > 1 ? (() => { const x0 = box.x + cb.w * grow + F * 0.6; return {x: x0, y: box.y, w: box.x + box.w - x0, h: box.h}; })() : lr;
+      const pn = panels(F, plr, cardText);
+      if (pn.rest.bad || pn.hold.bad) continue;
+      best = {F, px, Lc, src, dest, zoom, lr, cb, share, cardText, grow, rest: pn.rest, hold: pn.hold, lensM};
+    }
+    if (!best) return {ok: false, why: ['no-layout-fits'], problems: ['no-layout-fits']};
+    const {F, Lc, src, dest, zoom, lr, cb} = best;
+    const L = {ok: true, why: [], F, upx, show, showKey, Lc, src, dest, zoom, lr, cb, below, box, cardText: best.cardText, grow: best.grow, before: p.beforeValue, after: p.afterValue, lensM: best.lensM};
+    Lc.rigs = makeRigs(ctx, Lc, p.parties);
+    Lc.captions = p.parties.map(q => q.name);
+    L.rest = best.rest;
+    L.hold = best.hold;
+    L.dyRest = below ? Math.max(0, (L.lr.h - L.rest.h) / 2) : 0;
+    L.dyHold = below ? Math.max(0, (L.lr.h - L.hold.h) / 2) : 0;
+    if (L.rest.bad || L.hold.bad) { L.why.push('panel-overflow'); L.ok = false; }
+    const heads = [headBox(Lc.G.figA), headBox(Lc.G.figB)];
+    L.lensClearOfHeads = heads.every(hb => !overlaps(hb, dest, 2));
+    L.lensClearOfContext = below ? dest.y >= cb.y + cb.h - 1 : dest.x >= cb.x + cb.w - 1;
+    L.contextFrac = below ? 1 : cb.w / box.w;
+    if (!L.lensClearOfHeads || !L.lensClearOfContext) { L.why.push('lens-over-context'); L.ok = false; }
+    L.problems = L.why;
+    return L;
+  },
+  build(ctx, L) {
+    const p = ctx.params;
+    if (!L.Lc) return g({name: 'scene'});
+    const th = ctx.theme;
+    const F = L.F;
+    const Lc = L.Lc;
+    const st = g({name: 'st-scene'}, stageArt(ctx, Lc), oblNodes(ctx, Lc, p.obligations), bracketNode(ctx, Lc, L.before === 'produced'), eventNode(ctx, Lc, L.before, {at: Lc.G.slot}), Lc.rigs[0].node, Lc.rigs[1].node, nameNodes(ctx, Lc, Lc.captions));
+    const lzL = {...Lc, P: 'lzs-'};
+    const strike = L.show ? (() => {
+      const G = Lc.G, M = L.lensM ?? G.ME, f = M.st[L.before], Fe = M.F;
+      const x0 = G.slot.x - G.cwE / 2, y0 = G.slot.y - G.chE / 2;
+      const yS = y0 + M.padY + Math.max(0, (G.chE - M.ch) / 2) + M.labH + Fe * 0.6;
+      const x = x0 + M.padX + M.gz;
+      // (each line struck along its own length)
+      return g({name: 'lzs-strike', opacity: 0}, f.lines.map((ln, i) => h('path', {d: `M${r(x - 2)} ${r(yS + i * f.lineHeight + f.size * 0.55)}h${r(Math.min(M.tw - M.gz, measure(ln, f.size, f.weight, f.family)) + 4)}`, stroke: th.accent, 'stroke-width': r(Math.max(3, Fe * 0.12), 2), 'stroke-linecap': 'round'})));
+    })() : null;
+    // (print-bar cards: the lens copy also holds the card printed at its true size, shown once the lens is fully open)
+    const lzPrint = L.lensM ? g({name: 'lzs-evp', transform: T(r(Lc.G.slot.x, 2), r(Lc.G.slot.y, 2)), opacity: 0}, eventCard(ctx, {name: 'lzs-evp-in', cw: Lc.G.cwE, ch: Lc.G.chE, M: L.lensM, F: L.lensM.F, state: L.before})) : null;
+    const lzContent = g(null, g({name: 'lzs-scene'}, stageArt(ctx, lzL), eventNode(ctx, lzL, L.before, {at: Lc.G.slot}), lzPrint), strike);
+    const lz = growLens(ctx, L, lzContent);
+    const panel = (pl, nm) => g({name: nm, opacity: 0}, pl.placed.map(q => {
+      const kids = [g({transform: T(q.x - q.c.box.x, q.y - q.c.box.y)}, q.c.node)];
+      if (q.it.glyph) kids.push(stateGlyph(ctx, q.it.glyph, q.x - F * 0.85, q.y + q.c.box.h / 2, F * 0.42));
+      if (q.it.kind === 'marker') kids.push(changedMarker(ctx, {x: q.x - F * 0.85, y: q.y + q.c.box.h / 2, radius: F * 0.6}));
+      if (q.it.kind === 'was') kids.push(h('path', {d: `M${r(q.x + q.c.box.w * 0.08)} ${r(q.y + q.c.box.h / 2)}H${r(q.x + q.c.box.w * 0.92)}`, stroke: th.inkSoft, 'stroke-width': 2.4}));
+      return g({name: q.it.name}, kids);
+    }));
+    // the Δ beside the event card (in the gutter between the panels, level with the card's top)
+    const G = Lc.G;
+    // (stacked panels: beside the card, in the board's right column under the bracket's track)
+    // (side by side: under the card's lower right corner when the panel has room there, else in the gutter by its top)
+    const roomBelow = G.panelE.y + G.panelE.h - (G.slot.y + G.chE / 2 + 5);
+    const mk = !G.stack && roomBelow >= F * 1.7 ? changedMarker(ctx, {name: 'st-delta', x: G.slot.x + G.cwE / 2 - F * 0.75, y: G.slot.y + G.chE / 2 + 5 + F * 0.8, radius: F * 0.6, opacity: 0})
+      : G.stack ? changedMarker(ctx, {name: 'st-delta', x: Math.min(G.slot.x + G.cwE / 2 + 5 + F * 0.8, G.panelE.x + G.panelE.w - F * 0.65), y: G.slot.y - G.chE / 2 + F * 0.6, radius: F * 0.6, opacity: 0})
+      : changedMarker(ctx, {name: 'st-delta', x: G.panelE.x + G.panelE.w + G.gw / 2, y: G.slot.y - G.chE / 2 + F * 0.6, radius: Math.min(F * 0.6, G.gw * 0.45), opacity: 0});
+    return g({name: 'scene'}, st, mk, panel(L.rest, 'panel-rest'), panel(L.hold, 'panel-hold'), lz.node);
+  },
+  frame(ctx, L, u) {
+    const p = ctx.params;
+    if (!L.Lc) return {nodes: {}, semantic: {layoutOk: false, why: L.why.join(','), problems: L.problems}};
+    const nodes = {};
+    const Lc = L.Lc, G = Lc.G;
+    const after = u >= W.turnIn[0];
+    const dep = ease.inOutSine(seg(u, ...W.dep));
+    const open = ease.inOutSine(seg(u, ...W.open)) * (1 - ease.inOutSine(seg(u, ...W.close)));
+    const hand = handOver(open);
+    for (const P of ['st-', 'lzs-']) poseCopy(nodes, L, P, u, hand);
+    // the bracket (the context only): its supplied place for the before state, then for the after state
+    const bx = s => (s === 'produced' ? G.B.closedX : G.B.openX);
+    const brX = bx(L.before) + (bx(L.after) - bx(L.before)) * dep;
+    nodes['st-br'] = {transform: T(r(brX, 2), r(G.B.top, 2))};
+    const posed = [G.figA, G.figB].map((fg, i) => Lc.rigs[i].frame({x: fg.x, y: fg.floor, facing: fg.f, scale: fg.k, headTilt: 3}));
+    posed.forEach(q => Object.assign(nodes, q.nodes));
+    const gs = L.grow > 1 ? 1 + (L.grow - 1) * (u < 0.5 ? 1 - ease.inOutSine(seg(u, ...W.shrink)) : ease.inOutSine(seg(u, ...W.regrow))) : 1;
+    Object.assign(nodes, lensFrame(L, open, gs).nodes);
+    if (L.show) nodes['lzs-strike'] = {opacity: r(seg(u, ...W.strike) * (1 - seg(u, ...W.turnOut)) * (L.lensM ? printOn(open) : 1), 3)};
+    if (L.lensM) {
+      nodes['lzs-evp'] = {opacity: printOn(open)};
+      poseCopy(nodes, L, 'lzs-evp-', u, hand);
+    }
+    nodes['panel-rest'] = {opacity: r(1 - seg(u, ...W.panelOut), 3) * (u < W.panelIn[0] ? 1 : 0)};
+    nodes['panel-hold'] = {opacity: r(seg(u, ...W.panelIn), 3)};
+    for (const q of L.hold.placed) nodes[q.it.name] = {opacity: q.it.kind === 'key' ? r(seg(u, ...W.notes), 3) : 1};
+    for (const q of L.rest.placed) nodes[q.it.name] = {opacity: 1};
+    const lift = u < 0.5 ? L.dyRest * (1 - ease.inOutSine(seg(u, ...W.shiftUp))) : L.dyHold * ease.inOutSine(seg(u, ...W.shiftDown));
+    const ctxT = L.grow > 1 ? growT(L, gs) : T(0, r(lift, 2));
+    nodes['st-scene'] = {transform: ctxT};
+    nodes['st-delta'] = {opacity: r(seg(u, ...W.marker), 3), transform: ctxT};
+    const turnV = after ? seg(u, ...W.turnIn) : 1 - seg(u, ...W.turnOut);
+    const stateNow = after ? L.after : L.before;
+    return {
+      nodes,
+      semantic: {
+        lensOpen: r(open, 3), datum: after ? 'after' : 'before', dep: r(dep, 3),
+        bracket: dep <= 0 ? (L.before === 'produced' ? 'closed' : 'open') : dep >= 1 ? (L.after === 'produced' ? 'closed' : 'open') : 'moving',
+        contextValue: hand.ctx > 0.5 ? p.stateLabels[stateNow] : null, contextState: hand.ctx > 0.5 ? stateNow : null,
+        lensValue: hand.copy > 0.5 ? p.stateLabels[stateNow] : null, lensState: hand.copy > 0.5 ? stateNow : null, valueLegible: r(turnV, 3),
+        zoom: r(L.zoom, 3), contextFrac: r(L.contextFrac, 3), lensClearOfHeads: L.lensClearOfHeads, lensClearOfContext: L.lensClearOfContext,
+        markerVisible: seg(u, ...W.marker) >= 1, strike: r(seg(u, ...W.strike) * (1 - seg(u, ...W.turnOut)), 3),
+        before: L.before, after: L.after,
+        allReached: posed.every(q => q.reached), layoutOk: L.ok, why: L.why.join(','), problems: L.problems,
+        textPx: r(L.F * L.upx, 2), cardText: L.cardText, eventPx: r(G.ME.F * L.upx, 2), headPx: r(90 * G.k * L.upx * gs, 1), contextScale: r(gs, 4), zoomVsRest: r(L.zoom / (L.grow ?? 1), 3),
+      },
+    };
+  },
+};
+
+/** The lens's current size factor and the copy's current magnification (it starts at about the context's own size). */
+function lensNow(L, open) {
+  const s0 = 1 / L.zoom;
+  const sc = s0 + (1 - s0) * open;
+  return {sc, zoomNow: L.zoom * sc};
+}
+
+/** Hand-over between the context's card print and the lens copy: the context copy fades before the lens copy shows. */
+function handOver(open) {
+  if (open <= 0) return {ctx: 1, copy: 0};
+  return {ctx: r(1 - seg(open, 0, 0.04), 3), copy: r(seg(open, 0.05, 0.12), 3)};
+}
+
+/** A lens that grows at its own place (the panel's), never over the context. (Copied from LAW-0492.) */
+function growLens(ctx, L, content) {
+  const th = ctx.theme;
+  const clipId = 'lens-clip';
+  return {node: g({name: 'lens'},
+    h('path', {name: 'lens-src', d: roundRectPath(L.src.x, L.src.y, L.src.w, L.src.h, 10), fill: 'none', stroke: th.fg, 'stroke-width': 4, opacity: 0}),
+    h('defs', null, h('clipPath', {id: ctx.id(clipId)}, h('rect', {name: 'lens-cliprect', rx: 22}))),
+    g({name: 'lens-win', opacity: 0, 'data-occludes': 1},
+      h('rect', {name: 'lens-shadow', rx: 22, fill: th.shadow}),
+      h('rect', {name: 'lens-bg', rx: 22, fill: th.paper}),
+      g({'clip-path': ctx.ref(clipId)}, g({name: 'lens-content'}, g({name: 'lens-cfade', opacity: 0}, content))),
+      h('rect', {name: 'lens-border', rx: 22, fill: 'none', stroke: th.fg, 'stroke-width': 5})))};
+}
+
+/** The grow-mode transform of the context at scale gs (anchored at the box's top-left corner). */
+function growT(L, gs) {
+  const ax = L.box.x, ay = L.box.y;
+  return `translate(${r(ax - ax * gs, 2)} ${r(ay - ay * gs, 2)}) scale(${r(gs, 4)})`;
+}
+
+function lensFrame(L, open, gsAt = 1) {
+  const {sc, zoomNow} = lensNow(L, open);
+  const D = L.dest, S = L.src;
+  const cx = D.x + D.w / 2, cy = D.y + D.h / 2;
+  const R = {x: cx - D.w * sc / 2, y: cy - D.h * sc / 2, w: D.w * sc, h: D.h * sc};
+  const vis = open > 0.001;
+  const rect = {x: r(R.x), y: r(R.y), width: r(R.w), height: r(R.h)};
+  const hand = handOver(open);
+  return {nodes: {
+    'lens-src': {opacity: vis ? 1 : 0, transform: L.grow > 1 ? growT(L, gsAt) : ''},
+    'lens-cliprect': rect,
+    'lens-win': {opacity: vis ? 1 : 0},
+    'lens-shadow': {x: r(R.x + 8), y: r(R.y + 12), width: rect.width, height: rect.height},
+    'lens-bg': rect,
+    'lens-border': rect,
+    'lens-content': {transform: `${T(R.x - S.x * zoomNow, R.y - S.y * zoomNow)} scale(${r(zoomNow, 4)})`},
+    'lens-cfade': {opacity: hand.copy},
+  }, zoomNow};
+}
+
+/** The fine print of a print-bar card: shown in one step once the lens is (almost) fully open — legible only there. */
+function printOn(open) {
+  return open >= 0.985 ? 1 : 0;
+}
+
+/** Pose one copy's event card: the state row by the datum (turning over), blank in the context while the lens holds it. */
+function poseCopy(nodes, L, P0, u, hand) {
+  const lens = P0 !== 'st-';
+  const P = P0 === 'lzs-evp-' ? 'lzs-evp-in' : `${P0}ev-in`;
+  const after = u >= W.turnIn[0];
+  const v0 = 1 - seg(u, ...W.turnOut), v1 = seg(u, ...W.turnIn);
+  const ctxOn = lens ? 1 : hand.ctx;
+  const same = L.before === L.after;
+  nodes[`${P}-label`] = {opacity: ctxOn};
+  // (one state group per state; with before = after the one group turns over in place)
+  if (same) nodes[`${P}-st-${L.before}`] = {opacity: r((after ? v1 : v0) * ctxOn, 3)};
+  else {
+    nodes[`${P}-st-${L.before}`] = {opacity: r(after ? 0 : v0 * ctxOn, 3)};
+    nodes[`${P}-st-${L.after}`] = {opacity: r(after ? v1 * ctxOn : 0, 3)};
+  }
+  if (P0 === 'lzs-' && L.show) {
+    // (the lens copy shows no printed text but the event card's: the rest of the board stays out of it)
+    nodes['lzs-board-head'] = {opacity: 0};
+    for (const nm of ['event', 'tranche']) if (L.Lc.G.headFits[0]) nodes[`lzs-panel-${nm}-head`] = {opacity: 0};
+  }
+}
+
+export default defineAnimation({
+  id: ID,
+  version: '1.0.0',
+  defaultDurationMs: DURATION,
+  metadata: makeMetadata({
+    id: ID,
+    slug: 'contract-terms-04-inspect',
+    title: 'Activation event, without a rule — inspecting the event card and substituting its supplied state',
+    titleEs: 'Condición de activación — Inspección y cambio de un dato',
+    category: 'contract-terms',
+    categoryName: 'Contenido y cláusulas',
+    motif: 'Condición de activación',
+    treatment: 'inspect',
+    family: 'focus-and-replay',
+    description: 'The contract board after the story\'s action: the event card "Event 1 (supplied)" seated in its slot with its supplied state ● "Event produced (as supplied)", the supplied obligation cards and a neutral bracket shut on the supplied tranche, the two parties beside the board. A lens grows beside the scene with a real enlarged copy of the event card; the old state is struck, the state row turns over to the supplied alternative ◆ "Event pending (as supplied)" and only then the bracket slides open in its track, as supplied. The lens closes onto the card, a Δ marks it and the panel shows the marker, the struck "was:" value, the ●/◆ legend at equal weight and the key "As supplied · no conclusion drawn". Seeking back restores the old datum. No rule and no conclusion.',
+    tags: ['activation event', 'event', 'produced', 'pending', 'tranche', 'bracket', 'lens', 'substitution', 'changed datum', 'characters'],
+    defaultDurationMs: DURATION,
+    assets: ['src/animations/contract-terms/kits/condicion-activacion.js', 'src/primitives/markers.js', 'src/primitives/person.js', 'src/primitives/annotate.js'],
+  }),
+  sceneSchema,
+  defaultParams,
+  strings: STRINGS,
+  scene: localizeScene(scene, defaultParams, defaultParamsEs),
+});

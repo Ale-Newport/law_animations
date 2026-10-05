@@ -1,0 +1,500 @@
+{
+  "id": "LAW-0496",
+  "slug": "contract-terms-04-inspect",
+  "title": "Activation event, without a rule — inspecting the event card and substituting its supplied state",
+  "titleEs": "Condición de activación — Inspección y cambio de un dato",
+  "category": "contract-terms",
+  "categoryName": "Contenido y cláusulas",
+  "motif": "Condición de activación",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The contract board after the story's action: the event card \"Event 1 (supplied)\" seated in its slot with its supplied state ● \"Event produced (as supplied)\", the supplied obligation cards and a neutral bracket shut on the supplied tranche, the two parties beside the board. A lens grows beside the scene with a real enlarged copy of the event card; the old state is struck, the state row turns over to the supplied alternative ◆ \"Event pending (as supplied)\" and only then the bracket slides open in its track, as supplied. The lens closes onto the card, a Δ marks it and the panel shows the marker, the struck \"was:\" value, the ●/◆ legend at equal weight and the key \"As supplied · no conclusion drawn\". Seeking back restores the old datum. No rule and no conclusion.",
+  "tags": [
+    "activation event",
+    "event",
+    "produced",
+    "pending",
+    "tranche",
+    "bracket",
+    "lens",
+    "substitution",
+    "changed datum",
+    "characters"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/contract-terms/kits/condicion-activacion.js",
+    "src/primitives/markers.js",
+    "src/primitives/person.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Party A (by the event panel) and Party B (by the track); fictional by default, equal weight (array replaces the previous value)"
+      },
+      "contract": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Reference printed on the contract (fictional)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Heading of the contract, as supplied (generic, e.g. \"Contract (fictional)\")"
+          }
+        },
+        "required": [
+          "reference",
+          "title"
+        ],
+        "description": "The contract board"
+      },
+      "panels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "event": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Heading of the event panel (e.g. \"Event\")"
+          },
+          "tranche": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Heading of the tranche panel (e.g. \"Tranche of obligations\")"
+          }
+        },
+        "required": [
+          "event",
+          "tranche"
+        ],
+        "description": "Headings of the two panels, as supplied"
+      },
+      "event": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the event (e.g. \"Event 1 (supplied)\")"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "The event, as supplied (a generic, fictional placeholder; never a real clause)"
+      },
+      "stateLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "produced": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "State \"produced\", as supplied (e.g. \"Event produced (as supplied)\")"
+          },
+          "pending": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "State \"pending\", as supplied (e.g. \"Event pending (as supplied)\")"
+          }
+        },
+        "required": [
+          "produced",
+          "pending"
+        ],
+        "description": "Wording of the two supplied states of the event (equal weight; ● produced, ◆ pending)"
+      },
+      "obligations": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Obligation, as supplied"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Obligations listed in the tranche panel, as supplied (generic, fictional placeholders, e.g. \"Obligation 1 (supplied text)\"; never real contract text) (array replaces the previous value)"
+      },
+      "tranche": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "from": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "First obligation of the tranche (1–3)"
+          },
+          "to": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "Last obligation of the tranche (1–3)"
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "description": "The supplied tranche the bracket marks: obligations from…to (1 = top; clamped to the list)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "eventState"
+        ],
+        "description": "The inspected object (the event card: its supplied state row)"
+      },
+      "beforeValue": {
+        "type": "string",
+        "enum": [
+          "produced",
+          "pending"
+        ],
+        "description": "The supplied state of the event before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "enum": [
+          "produced",
+          "pending"
+        ],
+        "description": "The supplied state of the event after the substitution"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Largest magnification of the lens (≥ 1.5; the layout may use less room but never under 1.5)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "right",
+              "below"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context headline"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Lucía Ferrer",
+        "role": "Party A"
+      },
+      {
+        "name": "Tomás Ibarra",
+        "role": "Party B"
+      }
+    ],
+    "contract": {
+      "reference": "CT-517",
+      "title": "Contract (fictional)"
+    },
+    "panels": {
+      "event": "Event",
+      "tranche": "Tranche of obligations"
+    },
+    "event": {
+      "label": "Event 1 (supplied)"
+    },
+    "stateLabels": {
+      "produced": "Event produced (as supplied)",
+      "pending": "Event pending (as supplied)"
+    },
+    "obligations": [
+      "Obligation 1 (supplied text)",
+      "Obligation 2 (supplied text)",
+      "Obligation 3 (supplied text)"
+    ],
+    "tranche": {
+      "from": 1,
+      "to": 2
+    },
+    "focusTarget": "eventState",
+    "beforeValue": "produced",
+    "afterValue": "pending",
+    "detailGeometry": {
+      "zoom": 2.4,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Event card and tranche, as supplied",
+      "marker": "Changed: the supplied state of event 1"
+    }
+  }
+}

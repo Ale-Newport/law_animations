@@ -1,0 +1,227 @@
+{
+  "animationId": "LAW-0488",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the word is generic and fictional, the definition and the clause are placeholders, never real contract text; times are fictional labels. \"Defined term\" and \"term with no linked definition\" are supplied, neutral configurations of equal weight: they only say where the supplied scenario shows the definition slip (in the contract's dock, a thread linking the word to it, or in the definitions sheet's dock, no thread). The substitution changes only the inspected label and its dependent state (the slip's dock and the thread). No interpretation rule (no contra proferentem, no plain meaning, no canon of construction), no conclusion about what the word means and no jurisdiction is stated. Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): the clauses list (one clause: term.clause), schedules, the definitions list (one definition slip: definition) and priorities.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional facts, the story's end state; the lens enlarges the term station; its label \"Slip in contract B (as supplied)\" is substituted by the supplied alternative \"Slip in sheet A (as supplied)\"; the thread retracts from the word, the definition slip leaves the contract's dock for the definitions sheet's own and the headline follows the configuration (defined term → term with no linked definition, as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other fictional parties, documents, word and definition; the substitution runs the other way — the slip in the glossary sheet becomes the slip in the service contract and the thread draws from the word to it, as supplied (term with no linked definition → defined term).",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "sheet": {
+          "reference": "DS-218",
+          "title": "Glossary sheet (fictional)"
+        },
+        "definition": {
+          "label": "Definition 4",
+          "value": "(supplied text)"
+        },
+        "contract": {
+          "reference": "CT-219",
+          "title": "Service contract (fictional)"
+        },
+        "term": {
+          "word": "“Premises”",
+          "clause": "Clause 6"
+        },
+        "sequence": [
+          {
+            "event": "sheet-sent",
+            "time": "Day 4, 09:30 (fictional)"
+          },
+          {
+            "event": "sheet-received",
+            "time": "Day 4, 09:31 (fictional)"
+          },
+          {
+            "event": "term-station",
+            "time": "Slip in glossary A (as supplied)"
+          },
+          {
+            "event": "contract-sent",
+            "time": "Day 4, 09:42 (fictional)"
+          },
+          {
+            "event": "contract-received",
+            "time": "Day 4, 09:43 (fictional)"
+          }
+        ],
+        "focusTarget": "term-station",
+        "beforeValue": "Slip in glossary A (as supplied)",
+        "afterValue": "Slip in service contract B (as supplied)",
+        "statusBefore": "term-unlinked",
+        "statusAfter": "term-defined",
+        "detailGeometry": {
+          "zoom": 2,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "The definition slip lies in the glossary, as supplied",
+          "contextAfter": "The definition slip lies in the contract, as supplied",
+          "marker": "Changed: the supplied configuration"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, references, document texts, word, clause, definition, time labels and context labels, all five events; long before and after labels.",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A (definitions sheet)"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B (contract)"
+          }
+        ],
+        "sheet": {
+          "reference": "DEF-SHEET-2026-A",
+          "title": "Definitions sheet, second edition (fictional)"
+        },
+        "definition": {
+          "label": "Definition 1 (A)",
+          "value": "(supplied placeholder text)"
+        },
+        "contract": {
+          "reference": "CONTRACT-2026-B",
+          "title": "Contract, as assembled by Party B (fictional)"
+        },
+        "term": {
+          "word": "“Scheduled Delivery Window”",
+          "clause": "Clause 3.2 (supplied placeholder text)"
+        },
+        "sequence": [
+          {
+            "event": "sheet-sent",
+            "time": "Day 1, 10:00, front desk (fictional)"
+          },
+          {
+            "event": "sheet-received",
+            "time": "Day 1, 10:01, back office (fictional)"
+          },
+          {
+            "event": "term-station",
+            "time": "Slip in contract B's dock (as supplied)"
+          },
+          {
+            "event": "contract-sent",
+            "time": "Day 1, 10:05, back office (fictional)"
+          },
+          {
+            "event": "contract-received",
+            "time": "Day 1, 10:06, front desk (fictional)"
+          }
+        ],
+        "focusTarget": "term-station",
+        "beforeValue": "Slip in contract B's dock (as supplied)",
+        "afterValue": "Slip stays in sheet A (as supplied)",
+        "statusBefore": "term-defined",
+        "statusAfter": "term-unlinked",
+        "detailGeometry": {
+          "zoom": 1.8,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "The definition slip lies in Party B's contract, as supplied in this scene",
+          "contextAfter": "The definition slip lies in Party A's definitions sheet, as supplied",
+          "marker": "Changed: the configuration supplied for the term station"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: la lupa amplía la estación del término; su etiqueta, «Ficha en el contrato B», se sustituye por «Ficha en la hoja A»; el hilo se retira de la palabra y la ficha de definición pasa del contrato a la hoja de definiciones; el titular sigue la configuración aportada («Término definido» → «Término sin definición enlazada», según lo aportado).",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Lucía Ferrer",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomas Lindqvist",
+            "role": "Parte B"
+          }
+        ],
+        "sheet": {
+          "reference": "HD-801",
+          "title": "Hoja de definiciones (ficticia)"
+        },
+        "definition": {
+          "label": "Definición 1",
+          "value": "(texto aportado)"
+        },
+        "contract": {
+          "reference": "CT-802",
+          "title": "Contrato (ficticio)"
+        },
+        "term": {
+          "word": "«Entrega»",
+          "clause": "Cláusula 3"
+        },
+        "sequence": [
+          {
+            "event": "sheet-sent",
+            "time": "Día 2, 09:00 h (ficticio)"
+          },
+          {
+            "event": "sheet-received",
+            "time": "Día 2, 09:01 h (ficticio)"
+          },
+          {
+            "event": "term-station",
+            "time": "Ficha en el contrato B"
+          },
+          {
+            "event": "contract-sent",
+            "time": "Día 2, 09:05 h (ficticio)"
+          },
+          {
+            "event": "contract-received",
+            "time": "Día 2, 09:06 h (ficticio)"
+          }
+        ],
+        "focusTarget": "term-station",
+        "beforeValue": "Ficha en el contrato B",
+        "afterValue": "Ficha en la hoja A",
+        "statusBefore": "term-defined",
+        "statusAfter": "term-unlinked",
+        "detailGeometry": {
+          "zoom": 1.8,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Término definido (según lo aportado)",
+          "marker": "Cambio: la configuración aportada"
+        }
+      }
+    }
+  ]
+}
