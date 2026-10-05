@@ -221,6 +221,8 @@ function compose(ctx, P, F, opt) {
     y += placeBlock(id) + gapY;
   }
   const cardX = D.w - mx - cw;
+  // (the open band between the places and the cards carries the connectors and the tracer)
+  if (cardX < plateX + plateW + 70) problems.push('corridor');
   ['later', 'initial'].forEach((id, i) => {
     const a = i === 0 ? 'intake' : 'position', b = i === 0 ? 'position' : 'history';
     const midY = (boxes[a].y + boxes[a].h / 2 + boxes[b].y + boxes[b].h / 2) / 2;

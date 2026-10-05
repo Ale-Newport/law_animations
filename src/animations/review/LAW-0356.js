@@ -106,7 +106,7 @@ function compose(ctx, P, F, v, pxu) {
   const inner = {x: area.x + m, y: area.y + m, w: area.w - m * 2, h: area.h - m * 2};
   // (the tag with the fewest lines keeps the lens crop low, so the lens can magnify more)
   let TM = null;
-  for (const k of [12, 14, 16]) {
+  for (const k of side ? [12, 14, 16] : [12, 14, 16, 18, 20]) {
     const q = tagModel(P, {w: F * k, F, maxLines: 4});
     if (!TM || (q.ok && (!TM.ok || q.h < TM.h - 1))) TM = q;
   }
@@ -154,7 +154,7 @@ function compose(ctx, P, F, v, pxu) {
   dest.x = side ? room.x + (room.w - dest.w) / 2 : clamp(src.x + src.w / 2 - dest.w / 2, room.x + F * 0.3, room.x + room.w - dest.w - F * 0.3);
   dest.y = side ? room.y + (room.h - dest.h) / 2 : room.y + Math.max(0, (room.h - dest.h) / 2) * 0.35;
   if (Math.min(dest.w, dest.h) < lensMin - 1e-6) problems.push('lens-small');
-  if (globalThis.DBG) console.log('  src', Math.round(src.w), Math.round(src.h), 'room', Math.round(room.w), Math.round(room.h), 'k', k.toFixed(2), 'min', Math.round(lensMin), 'tagw', Math.round(TM.w), 'srcY', Math.round(src.y));
+ 
   const panel = PL ? (side ? {x: band.x + 4, y: Math.max(0, (DH - PL.h) / 2)} : {x: 4, y: band.y + (band.h - PL.h) / 2}) : null;
   if (PL && !PL.ok) problems.push('panel-text');
   return {F, side, M, TM, B, plate, ox, oy, src, dest, k, band, area, PL, panel, before, after, ok: !problems.length, problems};
@@ -168,13 +168,13 @@ const scene = {
     const showKey = ctx.show('key');
     const vs = shape === 'portrait' ? [{}, {cols: 2}]
       : shape === 'square' ? [{cols: 2}, {cols: 2, tight: true}, {cols: 3, tight: true}]
-        : [{side: true, pw: 0.36}, {side: true, pw: 0.4}, {side: true, pw: 0.44}];
+        : showKey ? [{side: true, pw: 0.36}, {side: true, pw: 0.4}, {side: true, pw: 0.44}] : [{side: true, pw: 0.27}, {side: true, pw: 0.31}, {side: true, pw: 0.36}];
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [34, 30, 27, ...SIZES] : SIZES).map(x => x / pxu);
     let C = null, best = null;
     outer: for (const F of sizes) for (const v of vs) {
       const c = compose(ctx, P, F, v, pxu);
-      if (globalThis.DBG) console.log(r(F * pxu, 1), JSON.stringify(v), c.problems.join(','));
+     
       if (c.ok) { C = c; break outer; }
       if (!best || c.problems.length < best.problems.length) best = c;
     }

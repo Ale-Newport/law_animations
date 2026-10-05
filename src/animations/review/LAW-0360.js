@@ -35,7 +35,7 @@ const ID = 'LAW-0360';
 const DURATION = 8000;
 const BEATS = {build: [0, 0.2], isolate: [0.2, 0.45], substitute: [0.45, 0.75], return: [0.75, 1]};
 const W = {ink: [0.03, 0.14], clips: [0.06, 0.16], badges: [0.14, 0.18], src: [0.2, 0.24], open: [0.24, 0.37], panelOut: [0.2, 0.26], lift: [0.47, 0.53], newIn: [0.56, 0.62], close: [0.75, 0.85], marker: [0.85, 0.9], panelIn: [0.85, 0.91]};
-const SIZES = [26, 25, 24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
+const SIZES = [30, 28, 27, 26, 25, 24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 const FOCI = ['route1', 'route2', 'route3'];
 
 const STRINGS = {
@@ -124,6 +124,9 @@ function compose(ctx, P, F, opts) {
       if (OM.ok && EM.ok) break;
     }
     plan = mapPlan(P2, OM, EM, {F, orient, gap: mapW - tot, slots: Math.max(1, np), tray: false});
+    // spare height spreads the end cards apart (a fuller sheet, never a blank band)
+    const spare = mapHmax - plan.needH;
+    if (spare > 1 && n > 1) plan = mapPlan(P2, OM, EM, {F, orient, gap: mapW - tot, slots: Math.max(1, np), tray: false, gx: Math.max(F * 0.8, 14) + Math.min(F * 2.4, spare / (n - 1))});
   } else {
     const gx = Math.max(F * 0.8, 14);
     const ew = Math.min(F * 15, (mapW - (n - 1) * gx) / n);
@@ -154,9 +157,11 @@ function compose(ctx, P, F, opts) {
     const y0 = Math.min(E.y - leg * 0.55, rt.clip.y - F * 0.5);
     src = {x: E.x - m, y: y0, w: E.w + 2 * m, h: E.y + E.h + m - y0};
   }
-  const wasFit = showKey ? fitG(before, {maxWidth: 10000, size: F, minSize: F, maxLines: 1, weight: 600}) : null;
   const wasLab = showKey ? fitG(ctx.t.was, {maxWidth: 1000, size: F, minSize: F, maxLines: 1, weight: 500}) : null;
-  const bandH = wasFit ? F * 2.1 : F * 1.6;
+  const was1 = showKey ? fitG(before, {maxWidth: 10000, size: F, minSize: F, maxLines: 1, weight: 600}) : null;
+  // (the "was" band wraps a long value onto a second line)
+  const wasLines = was1 && was1.width + wasLab.width + F * 2 > src.w * 1.6 ? 2 : 1;
+  const bandH = was1 ? F * (0.9 + 1.2 * wasLines) + F * 0.3 : F * 1.6;
   const shortSide = Math.min(ctx.view.width, ctx.view.height) / fitDesign(ctx.view, DW, DH).scale;
   const kS = opts.shrink || 1;
   const pref = P.detailGeometry.placement === 'auto' ? (opts.band && !opts.shrink ? 'bottom' : 'right') : P.detailGeometry.placement;
@@ -177,16 +182,18 @@ function compose(ctx, P, F, opts) {
     const dy = placement === 'right' ? clamp(srcC.y - (dH + bandH) / 2, room.y, room.y + room.h - dH - bandH) : room.y + Math.max(0, (room.h - dH - bandH) / 2);
     return {dest: {x: dx, y: dy - dyC, w: dW, h: dH}, zoom, big: Math.min(dW, dH) / shortSide, placement};
   };
+  // (the supplied placement is a preference: when the lens cannot be large enough there, the other side is used)
   let LZ = lensFor(pref);
-  if (LZ.zoom < 1.5 || LZ.big < 0.355) { const L2 = lensFor(pref === 'right' ? 'bottom' : 'right'); if (L2.zoom >= 1.5 && L2.big >= 0.355) LZ = L2; }
+  if (LZ.zoom < 1.5 || LZ.big < 0.355) { const L2 = lensFor(pref === 'right' ? 'bottom' : 'right'); if ((L2.zoom >= 1.5 && L2.big >= 0.355) || L2.big > LZ.big) LZ = L2; }
   const {dest, zoom, placement} = LZ;
   const wasBand = {x: dest.x, y: dest.y + dest.h + 6, w: dest.w, h: bandH - 6};
+  const wasFit = was1 ? fitG(before, {maxWidth: dest.w - wasLab.width - F * 1.8, size: F, minSize: F, maxLines: wasLines, weight: 600}) : null;
   // nothing but the focus card, its own track and its own clip may lie inside the crop
   const others = [pl.O, ...pl.E.filter((b, i) => i !== fi), pl.cal, ...pl.routes.filter((q, i) => i !== fi).map(q => q.clip)].filter(Boolean);
   const cropClean = !others.some(b => overlaps(b, src, -0.5));
   const problems = [!fitsW && 'map-width', !fitsH && 'map-height', !OM.ok && 'origin-text', !EM.ok && 'end-text', !plan.ok && plan.problems.join('+'), PL && !PL.ok && 'panel-text',
     zoom < 1.5 && 'lens-small', LZ.big < 0.35 && 'lens-thumbnail', !cropClean && 'crop', tabFit && !tabFit.ok && 'tab-text',
-    wasFit && wasLab && wasLab.width + wasFit.width + F * 2 > dest.w && 'was-band'].filter(Boolean);
+    wasFit && (!wasFit.ok || wasFit.height > wasBand.h - F * 0.4) && 'was-band'].filter(Boolean);
   return {kS, F, fi, before, desk, panel, PL, OM, EM, pl, D: plan.D, folder, tabFit, tabH, tabW, src, dest, wasBand, wasFit, wasLab, zoom, placement, dyC, orient, ok: !problems.length, problems};
 }
 
@@ -198,13 +205,16 @@ const scene = {
     const showKey = ctx.show('key');
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const arrangements = shape === 'portrait' ? [{band: true, orient: 'v', mapK: 0.6}, {band: true, cols: 2, orient: 'v', mapK: 0.6}, {band: true, cols: 2, orient: 'h', mapK: 0.6}]
-      : shape === 'square' ? [{pw: 0.34, orient: 'h'}, {band: true, cols: 2, orient: 'h', shrink: 0.55}, {band: true, cols: 2, orient: 'h', shrink: 0.5}, {pw: 0.4, orient: 'h'}, {band: true, cols: 3, tight: true, orient: 'h', shrink: 0.48}]
-        : [{pw: 0.36, orient: 'h'}, {pw: 0.3, orient: 'h', shrink: 0.62}, {pw: 0.3, orient: 'h', shrink: 0.56}, {pw: 0.36, orient: 'h', shrink: 0.56}, {pw: 0.44, orient: 'h'}];
+      : shape === 'square' ? [{band: true, cols: 2, orient: 'v', shrink: 0.56}, {band: true, cols: 2, orient: 'v', shrink: 0.5}, {band: true, cols: 2, orient: 'h', shrink: 0.55}, {band: true, cols: 2, orient: 'h', shrink: 0.5}, {band: true, cols: 3, tight: true, orient: 'v', shrink: 0.48}, {band: true, cols: 3, tight: true, orient: 'h', shrink: 0.48}]
+        : [{pw: 0.4, orient: 'v'}, {pw: 0.44, orient: 'v'}, {pw: 0.36, orient: 'h'}, {pw: 0.3, orient: 'h', shrink: 0.62}, {pw: 0.3, orient: 'h', shrink: 0.56}, {pw: 0.36, orient: 'h', shrink: 0.56}, {pw: 0.44, orient: 'h'}];
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
     let C = null;
-    outer: for (const F of sizes) {
-      for (const a of arrangements) {
+    // (two passes: the context at full size — no stepping back — while key text stays ≥ ~21 px; then everything)
+    const passes = [{arr: arrangements.filter(a => !a.shrink), sizes: sizes.filter(F => F * pxu >= 21)}, {arr: arrangements, sizes}];
+    outer: for (const pass of passes) for (const F of pass.sizes) {
+      for (const a of pass.arr) {
         const c = compose(ctx, P, F, a);
+        if (globalThis.__trace) globalThis.__trace.push([r(F * pxu, 1), JSON.stringify(a), c.problems, c.zoom && r(c.zoom, 2)]);
         if (c.ok) { C = c; break outer; }
         if (c.pl && (!C || c.problems.length < C.problems.length)) C = c;
       }

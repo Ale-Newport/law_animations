@@ -156,7 +156,7 @@ function compose(ctx, P, F, v) {
     if (!best) best = q;
   }
   let {M, B} = best;
-  if (globalThis.DBG) console.log('  B', Math.round(B.w), Math.round(B.h), 'inner', Math.round(inner.w), Math.round(inner.h), 'M', Math.round(M.w), Math.round(M.h), 'strip', Math.round(stripH), 'head', Math.round(headH));
+ 
   if (!fits(best)) problems.push('board');
   if (!M.ok) problems.push('card-text');
   if (!B.ok) problems.push('tag-calendar');
@@ -190,7 +190,7 @@ const scene = {
     let C = null, best = null;
     outer: for (const F of sizes) for (const v of vs) {
       const c = compose(ctx, P, F, v);
-      if (globalThis.DBG) console.log(r(F * pxu, 1), JSON.stringify(v), c.problems.join(','));
+     
       if (c.ok) { C = c; break outer; }
       if (!best || c.problems.length < best.problems.length) best = c;
     }

@@ -393,7 +393,7 @@ const scene = {
       // the after state up to the record runs clear of it
       // (the inset grown as the focus keeps clear of the content notice's pill: at most 12 units into the notice band's
       // free strip above the design box)
-      convergence: L.mode === 'band' ? L.insetAt : {x: L.mode !== 'stack' ? (bx + ax) / 2 - U.gapX * 0.2 : bx, y: Math.max(zy + R, p.focusElement === 'convergence' ? 1.25 * R + 4 - 12 : 0)},
+      convergence: L.mode === 'band' ? L.insetAt : {x: (bx + ax) / 2, y: Math.max(zy + R, p.focusElement === 'convergence' ? 1.25 * R + 4 - 12 : 0)},
     };
     L.floorY = floorY;
     L.boxes = {

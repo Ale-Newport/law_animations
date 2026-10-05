@@ -145,7 +145,7 @@ function compose(ctx, P, F, opts) {
     }
   }
   const ox = inner.x + (inner.w - B.w) / 2, oy = inner.y + Math.max(0, (inner.h - B.h) / 2);
-  if (globalThis.DBG) console.log('  B', Math.round(B.w), Math.round(B.h), 'inner', Math.round(inner.w), Math.round(inner.h), 'M', Math.round(M.w), Math.round(M.h), 'desk', Math.round(desk.h));
+ 
   const problems = [!fits(best) && 'board', !M.ok && 'card-text', !TM.ok && 'tag-text', !B.ok && 'tag-calendar', PL && !PL.ok && 'panel-text'].filter(Boolean);
   // hands: grips on the outer edge of each card; shoulders outside the desk, tracking the hand along the lane
   const deskB = desk.y + desk.h, deskR = desk.x + desk.w;
@@ -179,7 +179,7 @@ const scene = {
     let C = null;
     outer: for (const F of sizes) {
       for (const a of arrangements) {
-        const c = compose(ctx, P, F, a); if (globalThis.DBG) console.log(r(F * pxu, 1), JSON.stringify(a), c.problems.join(","));
+        const c = compose(ctx, P, F, a);
         if (c.ok) { C = c; break outer; }
         if (!C || c.problems.length < C.problems.length) C = c;
       }

@@ -122,3 +122,5 @@ jurisdictionTest(ID);
 stressLongerTest(ID);
 lineBreakTest(ID);
 noEnglishTest(ID);
+import {sweep as sw0} from './contribucion-afectada-checks.js';
+sw0(ID, 'DBG', `x.seek(x.durationMs); const s = x.getState({bounds: false}).semantic; return JSON.stringify({c: s.labelClash, m: s.layout.mode, b: s.boxes});`, {tvs: ['all'], presets: ['baseline-illustrative']});
