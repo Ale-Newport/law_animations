@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Law animation library</title>
+<meta name="description" content="Local inspection gallery for the law animation library. Runs offline; loads only the selected module.">
+<link rel="icon" href="data:,">
+<script>
+  // scripts/serve.mjs also answers "/" with this page. Move the URL to
+  // /gallery/ (no reload) BEFORE any relative URL is requested, then load the
+  // stylesheet and app from here so every relative path resolves the same way.
+  (function () {
+    if (location.pathname === '/') history.replaceState(null, '', '/gallery/' + location.search + location.hash);
+    var css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'style.css';
+    css.setAttribute('blocking', 'render');
+    document.head.appendChild(css);
+    var app = document.createElement('script');
+    app.type = 'module';
+    app.src = 'app.js';
+    document.head.appendChild(app);
+  })();
+</script>
+</head>
+<body>
+<a class="skip" href="#workspace">Skip to preview</a>
+<header class="top">
+  <h1 class="brand">Law animation library</h1>
+  <div class="search">
+    <label for="q" class="vh">Search animations</label>
+    <input id="q" type="search" autocomplete="off" spellcheck="false"
+      placeholder="Search by ID, title, category, motif or object">
+  </div>
+  <p class="totals" id="totals" aria-live="polite">Loading catalogue…</p>
+</header>
+
+<div class="shell">
+  <aside class="browser" aria-label="Catalogue">
+    <div class="filters">
+      <label>Category
+        <select id="f-category"><option value="">All categories</option></select>
+      </label>
+      <label>Treatment
+        <select id="f-treatment">
+          <option value="">All treatments</option>
+          <option value="story">Story</option>
+          <option value="mechanism">Mechanism</option>
+          <option value="contrast">Contrast</option>
+          <option value="inspect">Inspect</option>
+        </select>
+      </label>
+      <label>Status
+        <select id="f-status"><option value="">All statuses</option></select>
+      </label>
+    </div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div id="list" class="list" role="listbox" tabindex="0" aria-label="Animations">
+      <div id="list-inner" class="list-inner"></div>
+    </div>
+  </aside>
+
+  <main class="workspace" id="workspace" tabindex="-1">
+    <section id="empty" class="empty">
+      <p>Choose an animation from the list to open it here.</p>
+      <p class="muted">Only the selected module is loaded. Items without a saved module are pending and have a brief only.</p>
+    </section>
+
+    <section id="detail" class="detail" hidden>
+      <div class="ident">
+        <p class="ident-id"><span id="d-id"></span> <span id="d-badge" class="chip"></span></p>
+        <h2 id="d-title"></h2>
+        <p id="d-sub" class="muted"></p>
+        <p id="d-notice" class="notice"></p>
+      </div>
+
+      <section id="pending" class="pending-box" hidden>
+        <h3>Pending: no saved module for this ID yet</h3>
+        <p>This ID has an implementation brief only. It is not an animation and cannot be previewed.</p>
+        <dl id="pending-brief" class="facts"></dl>
+      </section>
+
+      <section id="load-error" class="load-error" role="alert" hidden></section>
+
+      <section id="player" class="player" hidden>
+        <div class="stage" id="stage" tabindex="0" aria-label="Preview. Space plays or pauses; left and right arrows step one frame.">
+          <div class="frame" id="frame">
+            <div class="mount" id="mount"></div>
+            <div class="guides" id="guides" hidden></div>
+          </div>
+        </div>
+
+        <div class="transport" role="group" aria-label="Playback">
+          <div class="buttons">
+            <button type="button" id="b-play" class="primary" aria-keyshortcuts="Space">Play</button>
+            <button type="button" id="b-replay">Replay</button>
+            <button type="button" id="b-prev" aria-label="Previous frame" aria-keyshortcuts="ArrowLeft">Frame −1</button>
+            <button type="button" id="b-next" aria-label="Next frame" aria-keyshortcuts="ArrowRight">Frame +1</button>
+            <label class="inline">fps
+              <select id="fps"><option>24</option><option selected>30</option><option>60</option></select>
+            </label>
+            <label class="inline">Speed
+              <select id="speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option></select>
+            </label>
+          </div>
+          <label class="vh" for="scrub">Time in milliseconds</label>
+          <input id="scrub" type="range" min="0" max="6000" step="1" value="0">
+          <div class="readout">
+            <label class="inline">Time
+              <input id="t-ms" type="number" min="0" step="1" value="0" inputmode="numeric"> ms
+            </label>
+            <span id="t-dur" class="muted"></span>
+            <span id="t-frame" class="muted"></span>
+            <span id="t-beat" class="beat"></span>
+          </div>
+        </div>
+
+        <div class="panels">
+          <div class="col">
+            <fieldset class="group" id="display">
+              <legend>Display</legend>
+              <label>Aspect ratio
+                <select id="v-ratio">
+                  <option value="16:9">16:9 landscape</option>
+                  <option value="9:16">9:16 portrait</option>
+                  <option value="1:1">1:1 square</option>
+                </select>
+              </label>
+              <label>Background
+                <span class="pair">
+                  <select id="v-bg"></select>
+                  <input id="v-bg-color" type="color" value="#f6f1e7" aria-label="Custom background colour" hidden>
+                </span>
+              </label>
+              <label>Palette <select id="v-palette"></select></label>
+              <label>Theme <select id="v-theme"></select></label>
+              <label>Locale <select id="v-locale"></select></label>
+              <label>Text labels
+                <select id="v-text">
+                  <option value="all">All labels</option>
+                  <option value="key">Key labels only</option>
+                  <option value="none">No labels</option>
+                </select>
+              </label>
+              <label class="check"><input id="v-reduced" type="checkbox"> Reduced motion</label>
+              <label class="check"><input id="v-guides" type="checkbox"> Show caption-safe area</label>
+            </fieldset>
+
+            <fieldset class="group" id="presets">
+              <legend>Presets</legend>
+              <label>Preset <select id="p-select"></select></label>
+              <p id="p-desc" class="hint"></p>
+              <div class="actions">
+                <button type="button" id="p-reset">Reset to defaults</button>
+              </div>
+              <label>Save current parameters as
+                <span class="pair">
+                  <input id="p-name" type="text" placeholder="Personal preset name" maxlength="60">
+                  <button type="button" id="p-save">Save</button>
+                </span>
+              </label>
+              <div class="actions">
+                <button type="button" id="p-delete" disabled>Delete personal preset</button>
+              </div>
+              <p id="p-msg" class="hint" aria-live="polite"></p>
+            </fieldset>
+
+            <fieldset class="group" id="stills">
+              <legend>Still of current frame</legend>
+              <p class="hint">For inspection and thumbnails only. The library produces no video.</p>
+              <div class="actions">
+                <button type="button" id="x-svg">Save SVG</button>
+                <button type="button" id="x-png">Save PNG</button>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="col wide">
+            <form id="params" class="params" novalidate autocomplete="off">
+              <div class="params-head">
+                <h3>Parameters</h3>
+                <p class="hint">Changes apply to the running preview. Arrays are edited as JSON and replace the previous value.</p>
+              </div>
+              <div id="param-errors" class="errors" role="alert" hidden></div>
+              <div id="param-fields"></div>
+            </form>
+          </div>
+        </div>
+
+        <details class="more" id="meta-box">
+          <summary>Metadata and current state</summary>
+          <div id="meta"></div>
+        </details>
+        <details class="more" id="source-box">
+          <summary>Source</summary>
+          <div class="source-files" id="source-files" role="group" aria-label="Source file"></div>
+          <pre class="code" id="source" tabindex="0"><code></code></pre>
+        </details>
+      </section>
+    </section>
+  </main>
+</div>
+
+</body>
+</html>
