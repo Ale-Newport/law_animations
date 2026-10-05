@@ -357,7 +357,8 @@ const scene = {
     // scale the whole composition (context, panel and lens window) up into any free space of the design box
     {
       const D = ctx.design;
-      const bs = [roomRect, L.panelRect, {x: dest.x - 4, y: dest.y - 4, w: dest.w + 14, h: dest.h + 18}];
+      const qb = ctxPlace(L, 1);
+      const bs = [roomRect, L.panelRect, {x: qb.x, y: qb.y, w: roomRect.w * qb.sc, h: roomRect.h * qb.sc}, {x: dest.x - 4, y: dest.y - 4, w: dest.w + 14, h: dest.h + 18}];
       const x0 = Math.min(...bs.map(b => b.x)), y0 = Math.min(...bs.map(b => b.y));
       const x1 = Math.max(...bs.map(b => b.x + b.w)), y1 = Math.max(...bs.map(b => b.y + b.h));
       const kf = Math.min(1.5, (D.w - 8) / (x1 - x0), (D.h - 8) / (y1 - y0));
