@@ -142,7 +142,7 @@ function compose(ctx, P, recs, F, opt, LG, vs) {
   const zoneLens = wide
     ? {x: lensFirst ? mat.x : mat.x + mat.w * split, y: mat.y, w: mat.w * (1 - split), h: mat.h}
     : {x: mat.x, y: lensFirst ? mat.y : mat.y + mat.h * split, w: mat.w, h: mat.h * (1 - split)};
-  const G = rfStage(zoneCtx, {kind: P.items[0].kind, targets: P.views.map(v => v.target), slots: P.views.length, rows: recs.length, tray: opt.tray, trayFrac: opt.trayFrac, approach: 'down', slotGap: 0.16});
+  const G = rfStage(zoneCtx, {kind: P.items[0].kind, targets: P.views.map(v => v.target), slots: P.views.length, rows: recs.length, tray: opt.tray, trayFrac: opt.trayFrac, approach: opt.approach || 'down', slotGap: 0.16});
   const fi = focusIndex(P);
   const slot = G.tray.slots[fi];
   const pw = G.tray.pw, ph = pw / PRINT_AR;
@@ -167,7 +167,7 @@ function compose(ctx, P, recs, F, opt, LG, vs) {
   const tsz = Math.max(floor, size * 0.85);
   const trace = fit(`${ctx.t.before}: ${P.beforeValue.trim() ? P.beforeValue : ctx.t.blankShort}`, 500, tsz);
   if (!num0 && size * 1.15 + tsz * 1.1 > tabH * 0.98) tOk = false;
-  const badgeR = Math.max(15.5, Math.min(pw, ph) * 0.1);
+  const badgeR = Math.max(7, Math.min(pw, ph) * 0.1);
   const nsz = badgeR * 1.2;
   const nOk = !num0 || (nsz >= floor && [P.beforeValue, P.afterValue].every(v => fitG(v || ' ', {maxWidth: badgeR * 1.7, size: nsz * 0.8, minSize: Math.max(floor, nsz * 0.45), maxLines: 1, weight: 800}).ok));
   const nFits = num0 ? [P.beforeValue, P.afterValue].map(v => fitG(v || ' ', {maxWidth: badgeR * 1.7, size: nsz * 0.8, minSize: Math.max(floor, nsz * 0.45), maxLines: 1, weight: 800})) : null;
@@ -180,9 +180,9 @@ function compose(ctx, P, recs, F, opt, LG, vs) {
   const ew = Math.max(G.stageBox.x + G.stageBox.w, G.tray.x + G.tray.w) - ex0, eh = Math.max(G.stageBox.y + G.stageBox.h, G.tray.y + G.tray.h) - ey0;
   const rsc = clamp(Math.min(mat.h * 0.96 / eh, mat.w * 0.96 / ew), 1, 2.2);
   const restS = G.S * rsc;
-  const stageOk = G.S >= 52 && restS >= 88;
+  const stageOk = G.S >= 58 || restS >= 95;
   const ok = (!PL || PL.ok) && G.fits && zoomOk && textOk && lensBig && stageOk;
-  const minT = Math.min(size, tsz, num0 ? Math.min(...nFits.map(f => f.size)) : size);
+  const minT = Math.min(size, tsz, nsz, num0 ? Math.min(...nFits.map(f => f.size)) : size);
   return {F, rsc, bench, mat, panel, PL, G, fi, slot, pw, ph, tabH, card, source, dest, zoom, size, bFit, aFit, trace, tsz, badgeR, nFits, ok, kText: 16.3 / (minT * vs),
     problems: [PL && !PL.ok && 'panel-text', !zoomOk && 'zoom', !textOk && 'lens-text', !lensBig && 'lens-small', !stageOk && 'stage-small'].filter(Boolean)};
 }
@@ -225,9 +225,9 @@ function sceneParts(ctx, L) {
   const content = g(null,
     h('rect', {x: r(C.source.x - 40), y: r(C.source.y - 40), width: r(C.source.w + 80), height: r(C.source.h + 80), fill: '#e8e4da'}),
     g({transform: T(slot.x, slot.y)}, tabArt(L, {})),
-    g({transform: T(slot.x + pw / 2, slot.y + ph / 2)}, printArt(ctx, G, F0, {name: 'lzp', pw, ph, index: C.fi, rows: L.recs, ruler: true, numberText: showText && !num0 ? String(C.fi + 1) : null})),
+    g({transform: T(slot.x + pw / 2, slot.y + ph / 2)}, printArt(ctx, G, F0, {name: 'lzp', pw, ph, index: C.fi, rows: L.recs, ruler: true, numberText: showText && !num0 ? String(C.fi + 1) : null, badgeR: C.badgeR})),
     g({name: 'lv-text'}, lvBefore, lvAfter, lvTrace),
-    h('rect', {name: 'lv-ring', x: r(num0 ? bx - C.badgeR - 8 : x0 - pw * 0.03), y: r(num0 ? by - C.badgeR : vy), width: 4, height: r(num0 ? C.badgeR * 2 : size * 1.2), rx: 2, fill: th.accent2, opacity: 0}),
+    h('rect', {name: 'lv-ring', x: r(num0 ? bx - C.badgeR - pw * 0.04 : slot.x + pw * 0.012), y: r(num0 ? by - C.badgeR : vy), width: r(pw * 0.022, 2), height: r(num0 ? C.badgeR * 2 : size * 1.2), rx: 2, fill: th.accent2, opacity: 0}),
   );
   const Lz = lens(ctx, {name: 'lens', source: C.source, dest: C.dest, frame: C.bench, content, color: th.accent2});
   return {Lz, bx, by, x0, vy};
@@ -248,7 +248,7 @@ const scene = {
     const lg = new Map();
     for (const [fi, F] of SIZES.entries()) {
       if (firstOk >= 0 && fi > firstOk + 2) break;
-      for (const o0 of opts) for (const split of [0.62, 0.55, 0.48, 0.42, 0.36]) for (const tr of [{tray: 'right', trayFrac: 0.34}, {tray: 'top', trayFrac: 0.3}]) {
+      for (const o0 of opts) for (const split of [0.62, 0.55, 0.48, 0.42, 0.36]) for (const tr of [{tray: 'right', trayFrac: 0.34}, {tray: 'top', trayFrac: 0.3}, {tray: 'right', trayFrac: 0.26, approach: 'left'}]) {
         const key = `${F}|${JSON.stringify(o0)}`;
         if (!lg.has(key)) lg.set(key, legendFor(ctx, rowsL, F, o0));
         const LG = lg.get(key);
@@ -288,7 +288,7 @@ const scene = {
       return g(null,
         g({transform: T(s.x, s.y)}, tabArt(L, {})),
         i === C.fi ? null : h('path', {d: scribbleLine(s.x + pw * 0.05, s.y + ph + C.tabH * 0.36, pw * (0.4 + 0.12 * i), C.tabH * 0.12, i), fill: 'none', stroke: WRITE_INK, 'stroke-width': 2.2}),
-        g({transform: T(s.x + pw / 2, s.y + ph / 2)}, printArt(ctx, G, G.fields[v.target], {name: `cp${i}`, pw, ph, index: i, rows: L.recs, ruler: true, numberText: ctx.show('key') && !(num0 && i === C.fi) ? String(i + 1) : null})),
+        g({transform: T(s.x + pw / 2, s.y + ph / 2)}, printArt(ctx, G, G.fields[v.target], {name: `cp${i}`, pw, ph, index: i, rows: L.recs, ruler: true, numberText: ctx.show('key') && pw >= 170 && !(num0 && i === C.fi) ? String(i + 1) : null})),
       );
     });
     const tabB = g({name: 'cf-before'}, num0 ? g(null, h('circle', {cx: r(bx), cy: r(by), r: r(C.badgeR), fill: '#4f6d8a', stroke: INK, 'stroke-width': 2}), h('circle', {cx: r(bx), cy: r(by), r: r(C.badgeR * 0.45), fill: '#fff'}))

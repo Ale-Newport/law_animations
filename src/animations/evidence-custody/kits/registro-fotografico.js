@@ -428,7 +428,7 @@ export function printArt(ctx, G, F, o) {
   const img = {x: -pw / 2 + m, y: -ph / 2 + m, w: iw, h: iw / 1.5};
   const k = img.w / F.w;
   const clipId = `${o.name}-clip`;
-  const badgeR = Math.max(15.5, Math.min(pw, ph) * 0.1);
+  const badgeR = o.badgeR ?? (o.numberText ? Math.max(15.5, Math.min(pw, ph) * 0.1) : Math.max(7, Math.min(pw, ph) * 0.1));
   const bx = pw / 2 - badgeR - m * 0.4, by = -ph / 2 + badgeR + m * 0.4;
   const dots = [];
   const nd = o.index + 1;
