@@ -120,9 +120,9 @@ export function originModel(P, o) {
   const f = {};
   let ok = true;
   if (st) {
-    f.title = fitG(P.decisions.title, {maxWidth: inner - seal * 2 - F * 0.5, size: F * 1.04, minSize: minF, maxLines: 3, weight: 700, family: 'serif'});
+    f.title = fitG(P.decisions.title, {maxWidth: inner - seal * 2 - F * 0.5, size: F * 1.04, minSize: minF, maxLines: 4, weight: 700, family: 'serif'});
     f.ref = fitG(P.decisions.ref, {maxWidth: inner - F * 1.4, size: F, minSize: minF, maxLines: 2, weight: 600});
-    f.grounds = fitG(P.grounds, {maxWidth: inner, size: F, minSize: minF, maxLines: 4, weight: 500});
+    f.grounds = fitG(P.grounds, {maxWidth: inner, size: F, minSize: minF, maxLines: 5, weight: 500});
     ok = f.title.ok && f.ref.ok && f.grounds.ok;
   }
   let y = pad + F * 0.2;
@@ -149,7 +149,6 @@ export function originNode(ctx, M, o) {
     o.shadow === false ? null : h('path', {d: body, transform: 'translate(6 8)', fill: th.shadow}),
     h('path', {d: body, fill: th.paper, stroke: INK, 'stroke-width': 2.5, 'stroke-linejoin': 'round'}),
     h('path', {d: `M${r(M.w - fold)} 0V${r(fold)}H${r(M.w)}`, fill: th.paperShade, stroke: INK, 'stroke-width': 2, 'stroke-linejoin': 'round'}),
-    h('rect', {x: 0, y: r(M.h - Math.max(6, F * 0.3)), width: r(M.w * 0.3), height: r(Math.max(6, F * 0.3)), fill: SLATE, opacity: 0.0}),
   ];
   // the seal of the resolution (concentric rings; carries no text)
   const sx = M.pad + M.seal, sy = M.header.y + M.header.h / 2;
@@ -191,9 +190,9 @@ export function endModel(P, o) {
     if (!st) return {};
     const f = {
       label: fitG(rt.label, {maxWidth: inner - badgeR * 2 - F * 0.5, size: F, minSize: minF, maxLines: 3, weight: 700}),
-      end: fitG(rt.end, {maxWidth: inner, size: F, minSize: minF, maxLines: 4, weight: 500}),
+      end: fitG(rt.end, {maxWidth: inner, size: F, minSize: minF, maxLines: 5, weight: 500}),
     };
-    if (o.alt && o.alt.index === i) f.alt = fitG(o.alt.text, {maxWidth: inner, size: F, minSize: minF, maxLines: 4, weight: 500});
+    if (o.alt && o.alt.index === i) f.alt = fitG(o.alt.text, {maxWidth: inner, size: F, minSize: minF, maxLines: 5, weight: 500});
     for (const v of Object.values(f)) if (!v.ok) ok = false;
     return f;
   });
@@ -247,7 +246,7 @@ export function endNode(ctx, M, i, route, o) {
 /** Track width, filter-clip size and puck radius for a text size F. */
 export function trackDims(F) {
   const tw = clamp(F * 0.95, 15, 28);
-  return {tw, along: Math.max(F * 1.25, 19), across: tw * 2.5, puck: Math.max(F * 0.78, 13)};
+  return {tw, along: Math.max(F * 1.5, 22), across: tw * 2.9, puck: Math.max(F * 0.8, 13)};
 }
 
 /**
@@ -270,7 +269,7 @@ export function mapPlan(P, OM, EM, o) {
   const slots = Math.max(1, o.slots);
   const sGap = F * 0.45;
   const gv = Math.max(F * 0.8, 14);
-  const gx = Math.max(F * 0.8, 14);
+  const gx = o.gx ?? Math.max(F * 0.8, 14);
   const useCal = o.cal !== false, useTray = o.tray !== false;
   const ow = OM.w, oh = OM.h, ew = EM.w, eh = EM.h;
   let O, E = [], tray = null, cal = null, slotsAt = [], needW, needH, routes = [];
@@ -278,9 +277,12 @@ export function mapPlan(P, OM, EM, o) {
   if (o.orient === 'h') {
     const colH = n * eh + (n - 1) * gx;
     const trayW = slots * along + (slots + 1) * sGap, trayH = across + F * 0.7;
-    const leftH = (useCal ? calH + gv : 0) + oh + (useTray ? gv + trayH : 0);
+    // tray and calendar share one row under O
+    const rowW = (useTray ? trayW : 0) + (useTray && useCal ? F * 0.9 : 0) + (useCal ? calW : 0);
+    const rowH = Math.max(useTray ? trayH : 0, useCal ? calH : 0);
+    const leftH = oh + (rowW ? gv + rowH : 0);
     const H = Math.max(colH, leftH);
-    const oy = clamp((H - oh) / 2, useCal ? calH + gv : 0, H - oh - (useTray ? trayH + gv : 0));
+    const oy = clamp((H - leftH) / 2, 0, H - leftH);
     O = {x: 0, y: oy, w: ow, h: oh};
     const ey0 = (H - colH) / 2;
     for (let i = 0; i < n; i++) E.push({x: ow + o.gap, y: ey0 + i * (eh + gx), w: ew, h: eh});
@@ -293,11 +295,12 @@ export function mapPlan(P, OM, EM, o) {
       const fx = xm + (E[i].x - xm) * 0.56;
       routes.push({pts, clip: {x: fx - along / 2, y: ey - across / 2, w: along, h: across}, clipC: {x: fx, y: ey}});
     }
+    const rx = Math.max(0, (ow - rowW) / 2), ry = O.y + oh + gv;
     if (useTray) {
-      tray = {x: Math.max(0, (ow - trayW) / 2), y: O.y + oh + gv, w: trayW, h: trayH};
+      tray = {x: rx, y: ry + (rowH - trayH) / 2, w: trayW, h: trayH};
       for (let k = 0; k < slots; k++) slotsAt.push({x: tray.x + sGap + along / 2 + k * (along + sGap), y: tray.y + trayH / 2});
     }
-    if (useCal) cal = {x: F * 0.2, y: O.y - gv - calH, w: calW, h: calH};
+    if (useCal) cal = {x: rx + (useTray ? trayW + F * 0.9 : 0), y: ry + (rowH - calH) / 2, w: calW, h: calH};
     needW = ow + o.gap + ew;
     needH = H;
   } else {

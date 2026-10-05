@@ -40,7 +40,7 @@ contractSuite(ID, {
     {at: 0.66, fn: "s.bIn === 'position' && s.aIn === 'history' && s.abut === 0", label: 'B ends in the position and A, whole, in the history pocket'},
     {at: 1, fn: "s.phase === 'held' && s.bIn === 'position' && s.aIn === 'history' && s.reaching === 0 && s.thread === 1 && s.states === 1 && s.allReached && s.problems.length === 0", label: 'hold: B in the position, A kept in the history, thread and states shown; hands down; composition fits'},
     {at: 0.4, params: {textVisibility: 'none'}, fn: "s.phase === 'pushing' || s.phase === 'sliding'", label: 'labels hidden: the same slide'},
-    {at: 1, params: {finalState: 'pending'}, fn: "s.mode === 'pending' && s.bIn === 'intake' && s.aIn === 'position' && s.reaching === 0 && s.ghost !== null && s.thread === 0", label: 'supplied state "pending": nothing is moved; the dashed outline rests in the position'},
+    {at: 1, params: {finalState: 'pending'}, fn: "s.mode === 'pending' && s.bIn === 'rail' && s.abut === 0 && s.aIn === 'position' && s.reaching === 1 && s.ghost !== null && s.thread === 0", label: 'supplied state "pending": card B is slid up to card A and held there; A is not pushed; the dashed outline marks the position'},
     {at: 1, params: {actionProgress: 0.4}, fn: "s.actionCapped && s.bIn === 'rail' && s.states === 0", label: 'actionProgress freezes the action part-way (no state is captioned)'},
     {at: 0.1, fn: "s.phase === 'rest' && s.bIn === 'intake'", label: 'seeking back restores the rest state exactly'},
   ],
@@ -57,7 +57,7 @@ ratioChecks(ID, 'cause before effect, cards only move when pushed, composition f
   {at: times(0, 1, 0.005), fn: "s.aIn === 'position' || s.abut === 0", label: 'card A only moves while card B pushes it (they abut)'},
   {at: [1], tv: ['all'], fn: 's.problems.length === 0', label: 'the composition fits'},
   {at: times(0.15, 0.75, 0.01), fn: 's.allReached', label: 'the hands stay within the arms\' reach'},
-  {at: [1], fn: "s.mode === 'pending' ? (s.bIn === 'intake' && s.aIn === 'position') : (s.bIn === 'position' && s.aIn === 'history')", label: 'the hold shows the supplied state'},
+  {at: [1], fn: "s.mode === 'pending' ? (s.bIn === 'rail' && s.aIn === 'position' && s.abut === 0) : (s.bIn === 'position' && s.aIn === 'history')", label: 'the hold shows the supplied state'},
 ]);
 
 textFloorTest(ID);

@@ -252,8 +252,8 @@ export function orderPips(n, R) {
  */
 export function cardModel(ctx, o) {
   const {w, F} = o;
-  const pad = Math.max(12, F * 0.7);
-  const stripe = Math.max(8, F * 0.42);
+  const pad = Math.max(10, F * (w < F * 9 ? 0.5 : 0.7));
+  const stripe = Math.max(7, F * (w < F * 9 ? 0.32 : 0.42));
   const inner = w - pad * 2 - stripe;
   const head = F * 1.4;
   const fit = s => (o.showText ? fitG(s, {maxWidth: inner, size: F, minSize: o.minF ?? F, maxLines: o.maxLines ?? 3, weight: 600}) : null);
@@ -267,8 +267,12 @@ export function cardModel(ctx, o) {
   const textH = fa && fb ? Math.max(fa.height, fb.height) : F * 1.9;
   const bars = o.bars ?? 2;
   const barH = Math.max(6, F * 0.3);
-  const hh = o.fixH ?? Math.max(o.minH ?? 0, pad + head + F * 0.35 + textH + (bars ? F * 0.5 + bars * barH + (bars - 1) * barH * 0.9 : 0) + pad);
-  return {w, h: hh, pad, stripe, inner, head, fits: {a: fa, b: fb}, textH, bars, barH, F, ok: (!fa || fa.ok) && (!fb || fb.ok)};
+  const natural = pad + head + F * 0.35 + textH + (bars ? F * 0.5 + bars * barH + (bars - 1) * barH * 0.9 : 0) + pad;
+  const hh = o.fixH ?? Math.max(o.minH ?? 0, natural);
+  // a taller card gets more simulated filler lines (never text), up to eight, keeping a blank foot
+  let barsN = bars;
+  if (!o.fixH && hh > natural + barH * 4) barsN = Math.min(8, bars + Math.floor((hh - natural - barH * 3) / (barH * 1.9)));
+  return {w, h: hh, pad, stripe, inner, head, fits: {a: fa, b: fb}, textH, bars: barsN, barH, F, ok: (!fa || fa.ok) && (!fb || fb.ok)};
 }
 
 /**
@@ -335,12 +339,29 @@ export function railGeometry(o) {
   const c0 = m + along + ins * 2 + o.gap;
   const channel = box(c0, along * 2 + ins * 2);
   const position = box(c0, along + ins);
-  const history = box(c0 + along + ins, along + ins);
+  const history0 = box(c0 + along + ins, along + ins);
+  // the pocket is a distinct, deeper receptacle: it reaches into the rail's margin across the rail
+  const ext = Math.max(0, m - 3);
+  const history = X ? {...history0, y: history0.y - ext, h: history0.h + 2 * ext, w: history0.w + ext} : {...history0, x: history0.x - ext, w: history0.w + 2 * ext, h: history0.h + ext};
   const card = a0 => (X ? {x: a0, y: m + ins, w: o.cw, h: o.ch} : {x: m + ins, y: a0, w: o.cw, h: o.ch});
   const cards = {intake: card(m + ins), position: card(c0 + ins), history: card(c0 + ins + along)};
-  const len = c0 + along * 2 + ins * 2 + m;
+  const len = c0 + along * 2 + ins * 2 + m + ext;
   return {axis, ins, m, gap: o.gap, cw: o.cw, ch: o.ch, W: X ? len : across + ins * 2 + m * 2, H: X ? across + ins * 2 + m * 2 : len,
-    intake, channel, position, history, cards, travelB: along + ins * 2 + o.gap, travelA: along};
+    ext, intake, channel, position, history, cards, travelB: along + ins * 2 + o.gap, travelA: along};
+}
+
+/**
+ * Front lip of the history pocket (drawn OVER the cards, local origin = rail top-left): a translucent sleeve edge across
+ * the pocket's near side, so a card kept there reads as held in a receptacle. It covers only the card's blank foot.
+ */
+export function pocketLip(ctx, G, o) {
+  const Hs = G.history;
+  const X = G.axis === 'x';
+  const lh = Math.max(14, (X ? G.ch : G.cw) * 0.12);
+  const d = X ? roundRectPath(Hs.x, Hs.y + Hs.h - lh - 2, Hs.w, lh + 2, 6) : roundRectPath(Hs.x + Hs.w - lh - 2, Hs.y, lh + 2, Hs.h, 6);
+  return g({name: o.prefix},
+    h('path', {d, fill: '#9fb4c4', 'fill-opacity': 0.85, stroke: INK, 'stroke-width': 2}),
+    X ? h('line', {x1: r(Hs.x + 8), x2: r(Hs.x + Hs.w - 8), y1: r(Hs.y + Hs.h - lh + 4), y2: r(Hs.y + Hs.h - lh + 4), stroke: '#fff', 'stroke-width': 2, opacity: 0.7}) : null);
 }
 
 /**
@@ -391,7 +412,7 @@ export function railNode(ctx, G, o) {
     tabs,
     h('path', {d: X ? `M${r(Hs.x)} ${r(Hs.y)}H${r(Hs.x + Hs.w - rc)}Q${r(Hs.x + Hs.w)} ${r(Hs.y)} ${r(Hs.x + Hs.w)} ${r(Hs.y + rc)}V${r(Hs.y + Hs.h - rc)}Q${r(Hs.x + Hs.w)} ${r(Hs.y + Hs.h)} ${r(Hs.x + Hs.w - rc)} ${r(Hs.y + Hs.h)}H${r(Hs.x)}Z`
       : `M${r(Hs.x)} ${r(Hs.y)}V${r(Hs.y + Hs.h - rc)}Q${r(Hs.x)} ${r(Hs.y + Hs.h)} ${r(Hs.x + rc)} ${r(Hs.y + Hs.h)}H${r(Hs.x + Hs.w - rc)}Q${r(Hs.x + Hs.w)} ${r(Hs.y + Hs.h)} ${r(Hs.x + Hs.w)} ${r(Hs.y + Hs.h - rc)}V${r(Hs.y)}Z`,
-    fill: '#dfe4e8', stroke: INK, 'stroke-width': 2.5}),
+    fill: '#c9d6df', stroke: INK, 'stroke-width': 3}),
     X ? h('line', {x1: r(Hs.x + 6), x2: r(Hs.x + Hs.w - 8), y1: r(Hs.y + 6), y2: r(Hs.y + 6), stroke: '#fff', 'stroke-width': 2.5, opacity: 0.8})
       : h('line', {x1: r(Hs.x + 6), x2: r(Hs.x + 6), y1: r(Hs.y + 6), y2: r(Hs.y + Hs.h - 8), stroke: '#fff', 'stroke-width': 2.5, opacity: 0.8})));
   parts.push(h('path', {name: `${P}-pocket-glow`, d: roundRectPath(Hs.x - 3, Hs.y - 3, Hs.w + 6, Hs.h + 6, 12), fill: 'none', stroke: th.accent2, 'stroke-width': 4, opacity: 0}));

@@ -32,7 +32,7 @@ import {
 const ID = 'LAW-0350';
 const DURATION = 7000;
 const BEATS = {separate: [0, 0.18], relate: [0.18, 0.43], trace: [0.43, 0.75], hold: [0.75, 1]};
-const W = {explode: [0.04, 0.16], relate: [0.18, 0.42], trace: [0.44, 0.74], copy: 0.06};
+const W = {explode: [0.04, 0.16], relate: [0.18, 0.42], trace: [0.44, 0.74], copy: 0.035};
 const IDS = ['folder', 'notes', 'doors', 'point', 'renewed'];
 const KINDS = ['relation', 'communication', 'sequence', 'causal'];
 const SIZES = [23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
@@ -125,7 +125,7 @@ function cardContent(ctx, P, R, id, w, F, maxH = 0) {
   const headH = head ? head.height + F * 0.4 : 0;
   const textH = texts.reduce((a, t) => a + t.fit.height + F * 0.3, 0);
   // grow the art into the cell's spare height (the objects stay the subject)
-  if (maxH) artH = Math.max(artH, Math.min(tw * 0.62, maxH - (pad * 1.7 + headH + (texts.length ? F * 0.4 + textH : 0)) - 2));
+  if (maxH) artH = Math.max(artH, Math.min(tw * 0.85, maxH - (pad * 1.7 + headH + (texts.length ? F * 0.4 + textH : 0)) - 2));
   const hh = pad + headH + artH + (texts.length ? F * 0.4 + textH : 0) + pad * 0.7;
   return {id, w, h: hh, pad, head, headH, artH, texts, ok: [head, ...texts.map(t => t.fit)].every(f => !f || f.ok)};
 }
@@ -134,28 +134,32 @@ function cardNode(ctx, K, R, name) {
   const th = ctx.theme;
   const {pad, w} = K;
   const F = K.F;
-  const parts = [h('path', {d: roundRectPath(5, 7, w, K.h, 14), fill: th.shadow}), h('path', {d: roundRectPath(0, 0, w, K.h, 14), fill: th.card, stroke: INK, 'stroke-width': 2.5})];
+  // each component is a physical object resting on its own felt pad (an exploded model of the desk), not a card
+  const parts = [h('path', {d: roundRectPath(6, 9, w, K.h, 18), fill: th.shadow}), h('path', {d: roundRectPath(0, 0, w, K.h, 18), fill: '#5b6b5a', 'fill-opacity': 0, stroke: 'none'}),
+    h('path', {d: roundRectPath(0, 0, w, K.h, 18), fill: th.woodTop, stroke: INK, 'stroke-width': 2.5}),
+    h('path', {d: roundRectPath(8, 8, w - 16, K.h - 16, 12), fill: 'none', stroke: '#8e6441', 'stroke-width': 2, 'stroke-dasharray': '6 6', opacity: 0.6})];
+  const chipBg = (x, y, ww, hh) => h('path', {d: roundRectPath(x - F * 0.25, y - F * 0.15, ww + F * 0.5, hh + F * 0.3, 8), fill: '#fffdf6', stroke: INK, 'stroke-width': 1.5});
   let y = pad;
-  if (K.head) { parts.push(g({name: `${name}-head`}, textAt(K.head, {x: pad, y, fill: INK}))); y += K.headH; }
+  if (K.head) { parts.push(g({name: `${name}-head`}, chipBg(pad, y, K.head.width, K.head.height), textAt(K.head, {x: pad, y, fill: INK}))); y += K.headH; }
   const aw = w - pad * 2, ah = K.artH, cx = w / 2, cy = y + ah / 2;
-  if (K.id === 'folder') parts.push(g({transform: T(cx, cy + ah * 0.05)}, folderArt(ctx, {w: Math.min(aw * 0.7, ah * 1.3), h: Math.min(aw * 0.7, ah * 1.3) * 0.68})));
+  if (K.id === 'folder') parts.push(g({name: `${name}-art`, transform: T(cx, cy + ah * 0.05)}, folderArt(ctx, {w: Math.min(aw * 0.88, ah * 1.4), h: Math.min(aw * 0.88, ah * 1.4) * 0.68})));
   else if (K.id === 'notes') parts.push(g({transform: T(cx, cy)}, slipArt(ctx, {n: R.notes.length, s: ah * 0.85}).node));
   else if (K.id === 'doors') {
-    const tw = Math.min(aw * 0.6, ah * 1.4), tt = Math.max(10, F * 0.6);
+    const tw = Math.min(aw * 0.8, ah * 1.5), tt = Math.max(12, F * 0.75);
     parts.push(h('path', {d: `M${r(cx - tw / 2)} ${r(cy - ah * 0.4)}V${r(cy + ah * 0.1)}M${r(cx + tw / 2)} ${r(cy - ah * 0.4)}V${r(cy + ah * 0.1)}`, stroke: '#3b4a5a', 'stroke-width': r(tt * 0.9), 'stroke-linecap': 'round'}));
     parts.push(g({name: `${name}-dl`, transform: T(cx - tw / 2, cy + ah * 0.1, 0)}, doorArt(ctx, {len: tw / 2, t: tt})));
     parts.push(g({name: `${name}-dr`, transform: T(cx + tw / 2, cy + ah * 0.1, 180)}, doorArt(ctx, {len: tw / 2, t: tt})));
   } else if (K.id === 'point') {
-    const tw = Math.min(aw * 0.62, ah * 1.4), thh = Math.min(ah * 0.92, tw * 0.75);
+    const tw = Math.min(aw * 0.85, ah * 1.4), thh = Math.min(ah * 0.95, tw * 0.75);
     parts.push(g({transform: T(cx - tw / 2, cy - thh / 2)}, trayArt(ctx, {w: tw, h: thh, mouth: 'bottom'})));
     K.tray = {x: cx, y: cy, w: tw, h: thh};
-  } else parts.push(g({transform: T(cx - ah * 0.36, cy - ah * 0.46)}, blankSheetArt(ctx, {w: ah * 0.72, h: ah * 0.92})));
+  } else parts.push(g({transform: T(cx - ah * 0.39, cy - ah * 0.48)}, blankSheetArt(ctx, {w: ah * 0.78, h: ah * 0.96})));
   y += ah + F * 0.4;
   const txt = [];
   for (const t of K.texts) {
-    if (t.pip != null) txt.push(g({transform: T(pad + F * 0.6, y + Math.min(t.fit.height, F * 1.2) / 2)}, indexPip(t.pip, F * 0.5)));
+    if (t.pip != null) txt.push(h('circle', {cx: r(pad + F * 0.6), cy: r(y + Math.min(t.fit.height, F * 1.2) / 2), r: r(F * 0.62), fill: '#fffdf6', stroke: INK, 'stroke-width': 1.5}), g({transform: T(pad + F * 0.6, y + Math.min(t.fit.height, F * 1.2) / 2)}, indexPip(t.pip, F * 0.5)));
     if (t.indent && t.pip == null) txt.push(g({transform: T(pad + F * 0.6, y + F * 0.55)}, pinGlyph(ctx, F * 0.5)));
-    txt.push(textAt(t.fit, {x: pad + t.indent, y, fill: INK}));
+    txt.push(chipBg(pad + t.indent, y, t.fit.width, t.fit.height), textAt(t.fit, {x: pad + t.indent, y, fill: INK}));
     y += t.fit.height + F * 0.3;
   }
   return g({name}, parts, g({name: `${name}-txt`}, txt));
@@ -233,6 +237,8 @@ function compose(ctx, P, R, F, v) {
     bad.forEach(i => { bi[i] = Math.min(6, bi[i] + 1); });
   }
   if (ctx.show('all') && graph.conns.some(c => c.lab && !c.labelClear)) problems.push('label-overlap');
+  // labels left far from their connector on long leaders read poorly: use numbered badges instead
+  if (ctx.show('all') && graph.conns.some(c => c.leader && Math.hypot(c.leader.x2 - c.leader.x1, c.leader.y2 - c.leader.y1) > F * 3)) problems.push('label-far');
   if (ctx.show('all') && graph.conns.some(c => c.lab && c.lab.fit && (c.lab.fit.size < F - 0.01 || c.lab.fit.truncated))) problems.push('label-shrunk');
   const foot = v.foot && ctx.show('all') ? graph.conns.map((c, i) => ({i, at: c.c.at(0.5)})) : [];
   return {F, cards, els, graph, rels, foot, strip, stripY: DH - (strip ? strip.h : 0), ok: !problems.length, problems};
@@ -245,8 +251,8 @@ const scene = {
     const R = resolveDn(P);
     const shape = ctx.view.shape;
     const sc0 = shape === 'landscape' ? 3 : 2;
-    const vs0 = [0.9, 1.3].flatMap(chip => [{gx: 5, gy: 3, cw: 1, sc: sc0, chip}, {gx: 4, gy: 2.5, cw: 1, sc: sc0, chip}, {gx: 5, gy: 3, cw: 0.9, sc: 2, chip}, {gx: 6, gy: 4, cw: 0.85, sc: 2, chip}]);
-    const vs = [...vs0, ...vs0.slice(0, 3).map(v => ({...v, foot: true}))];
+    const vs0 = [0.9, 1.3].flatMap(chip => [{gx: 4, gy: 2, cw: 1, sc: sc0, chip}, {gx: 5, gy: 2.5, cw: 1, sc: sc0, chip}, {gx: 6, gy: 3, cw: 0.92, sc: 2, chip}, {gx: 7, gy: 3.5, cw: 0.85, sc: 2, chip}, {gx: 8, gy: 5, cw: 0.72, sc: 2, chip}]);
+    const vs = [...vs0, ...vs0.map(v => ({...v, foot: true}))];
     const sizes = !ctx.show('key') ? [30, 26, ...SIZES] : SIZES;
     let C = null, best = null;
     outer: for (const F of sizes) for (const v of vs) {
@@ -268,11 +274,11 @@ const scene = {
       g({transform: T(pt.tray.w * 0.26, -pt.tray.w * 0.14)}, slipArt(ctx, {n: R.notes.length, s: pt.tray.w * 0.24}).node)) : null;
     return g({name: 'scene'},
       C.graph.node,
+      tracer(ctx, 'tracer', th.accent2),
       cardEls,
       copy,
       C.graph.labelsNode,
       C.foot.map(f => g({name: `foot${f.i}`, opacity: 0, transform: T(f.at.x, f.at.y)}, dnIcon(ctx, 'num', C.F * 1.2, {index: f.i, F: C.F, color: kindColor(ctx, C.rels[f.i].kind)}))),
-      tracer(ctx, 'tracer', th.accent2),
       C.strip ? g({name: 'strip', transform: T(0, C.stripY)}, C.strip.cols.map(col => g({transform: T(col.x, 0)}, panelNode(ctx, col.PL)))) : null,
     );
   },
@@ -314,6 +320,8 @@ const scene = {
     const kc = vPoint ? clamp((kt - (vPoint.t - 0.03)) / W.copy) * (tr > 0 ? 1 : 0) : 0;
     const kCopy = u >= W.trace[1] ? (vPoint ? 1 : 0) : kc;
     if (C.cards.point && C.cards.point.tray) nodes.copy = {opacity: r(kCopy, 3)};
+    // the folder leaves the review desk: its source copy fades to a faint ghost as the copy settles (one folder only)
+    if (C.cards.folder && C.cards.point && C.cards.point.tray) nodes['card-folder-art'] = {opacity: r(1 - 0.8 * kCopy, 3)};
     if (C.cards.doors) {
       nodes['card-doors-dl'] = {transform: dl(C, 1)};
       nodes['card-doors-dr'] = {transform: dl(C, -1)};
@@ -350,7 +358,7 @@ function nodesPos(C, k) {
 function dl(C, side) {
   const K = C.cards.doors;
   const aw = K.w - K.pad * 2, ah = K.artH;
-  const tw = Math.min(aw * 0.6, ah * 1.4);
+  const tw = Math.min(aw * 0.8, ah * 1.5);
   const cy = K.pad + K.headH + ah / 2;
   const x = side > 0 ? K.w / 2 - tw / 2 : K.w / 2 + tw / 2;
   return T(x, cy + ah * 0.1, side > 0 ? -55 : 235);

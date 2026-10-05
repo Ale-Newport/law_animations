@@ -1,0 +1,331 @@
+{
+  "animationId": "LAW-0354",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0354",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "decisions.title"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: lanes faint, gate unset (half-turned), markers at their cards @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "tokP": {
+            "x": 406.31,
+            "y": 298.4
+          },
+          "tokR": {
+            "x": 406.31,
+            "y": 461.6
+          },
+          "sP": 0.0282,
+          "sR": 0.0282,
+          "sGate": 0.6266,
+          "sStop": 0.5511,
+          "draw": 0,
+          "focus": 1,
+          "set": 0,
+          "closed": 0.5,
+          "lit": 0,
+          "passed": false,
+          "samePace": true,
+          "laneGap": 102.5,
+          "finalState": "maintained",
+          "problems": [],
+          "textPx": 25,
+          "orient": "h"
+        }
+      }
+    },
+    {
+      "name": "semantic: both markers advance at one pace, each on its own lane @0.35",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "tokP": {
+            "x": 516.09,
+            "y": 116.31
+          },
+          "tokR": {
+            "x": 516.09,
+            "y": 643.69
+          },
+          "sP": 0.2674,
+          "sR": 0.2674,
+          "sGate": 0.6266,
+          "sStop": 0.5511,
+          "draw": 1,
+          "focus": 1,
+          "set": 0,
+          "closed": 0.5,
+          "lit": 0,
+          "passed": false,
+          "samePace": true,
+          "laneGap": 102.5,
+          "finalState": "maintained",
+          "problems": [],
+          "textPx": 25,
+          "orient": "h"
+        }
+      }
+    },
+    {
+      "name": "semantic: the gate is set to the supplied datum before the ● marker arrives (cause before effect) @0.48",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "tokP": {
+            "x": 757.77,
+            "y": 75.99
+          },
+          "tokR": {
+            "x": 757.77,
+            "y": 684.01
+          },
+          "sP": 0.55,
+          "sR": 0.55,
+          "sGate": 0.6266,
+          "sStop": 0.5511,
+          "draw": 1,
+          "focus": 1.32,
+          "set": 1,
+          "closed": 0,
+          "lit": 0,
+          "passed": false,
+          "samePace": true,
+          "laneGap": 102.5,
+          "finalState": "maintained",
+          "problems": [],
+          "textPx": 25,
+          "orient": "h"
+        }
+      }
+    },
+    {
+      "name": "semantic: hold (maintained): the ● marker passed the open gate, chevrons lit; the ◆ marker at its bay @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "tokP": {
+            "x": 1140.84,
+            "y": 75.99
+          },
+          "tokR": {
+            "x": 1140.84,
+            "y": 684.01
+          },
+          "sP": 0.9718,
+          "sR": 0.9718,
+          "sGate": 0.6266,
+          "sStop": 0.5511,
+          "draw": 1,
+          "focus": 1.12,
+          "set": 1,
+          "closed": 0,
+          "lit": 1,
+          "passed": true,
+          "samePace": true,
+          "laneGap": 102.5,
+          "finalState": "maintained",
+          "problems": [],
+          "textPx": 25,
+          "orient": "h"
+        }
+      }
+    },
+    {
+      "name": "semantic: suspended (as supplied): the ● marker stops before the closed gate; the ◆ marker still reaches its bay @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "tokP": {
+            "x": 758.82,
+            "y": 75.99
+          },
+          "tokR": {
+            "x": 1140.84,
+            "y": 684.01
+          },
+          "sP": 0.5511,
+          "sR": 0.9718,
+          "sGate": 0.6266,
+          "sStop": 0.5511,
+          "draw": 1,
+          "focus": 1.12,
+          "set": 1,
+          "closed": 1,
+          "lit": 0,
+          "passed": false,
+          "samePace": true,
+          "laneGap": 102.5,
+          "finalState": "suspended",
+          "problems": [],
+          "textPx": 25,
+          "orient": "h"
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the unset gate exactly @0.2",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "tokP": {
+            "x": 406.31,
+            "y": 298.4
+          },
+          "tokR": {
+            "x": 406.31,
+            "y": 461.6
+          },
+          "sP": 0.0282,
+          "sR": 0.0282,
+          "sGate": 0.6266,
+          "sStop": 0.5511,
+          "draw": 0.148,
+          "focus": 1,
+          "set": 0,
+          "closed": 0.5,
+          "lit": 0,
+          "passed": false,
+          "samePace": true,
+          "laneGap": 102.5,
+          "finalState": "maintained",
+          "problems": [],
+          "textPx": 25,
+          "orient": "h"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

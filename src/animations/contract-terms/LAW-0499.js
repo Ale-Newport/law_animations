@@ -1,22 +1,23 @@
 /**
  * LAW-0499 — Cláusula de terminación · contrast
  *
- * Storyboard (two complete rooms, identical except one supplied fact: the state of the circumstance — "Circumstance provided (as
- * supplied)" in room A, "Circumstance undescribed (as supplied)" in room B):
- *  0.00–0.17  base: both rooms show the same contract board, the same two people, the same circumstance card "Circumstance 1
- *             (supplied)" seated in its slot with its state window still blank, and the same clause cards with the
- *             bracket open in its track — identical.
- *  0.17–0.40  change: the state row appears on each circumstance card, ringed — ● "Circumstance provided (as supplied)" in room A,
- *             ◆ "Circumstance undescribed (as supplied)" in room B (same glyph area, colour, stroke and type); the room headers
- *             name the supplied variant.
- *  0.42–0.66  the concrete action, as the supplied configuration: in the room whose circumstance is provided, Party B's hand
- *             slides the bracket shut on the supplied section (it marks the section, nothing else); in the room whose
- *             circumstance is undescribed the bracket stays open and the hand stays at rest. The geometry differs only there.
- *  0.77–1.00  guide: the state row ringed in both rooms with the same tag "Only this differs"; the shared strip names the
+ * Storyboard (two complete rooms, identical except one supplied fact: the case — "Case provided for (as supplied)" in
+ * room A, "Case not described (as supplied)" in room B):
+ *  0.00–0.17  base: both rooms show the same contract board, the same two people, the same card "Communication 1
+ *             (supplied)" seated in its slot with its case window still blank, and the same sections of the termination
+ *             clause with the connector bracket open in its track — identical.
+ *  0.17–0.40  change: the case row appears on each card, ringed — ● "Case provided for (as supplied)" in room A,
+ *             ◆ "Case not described (as supplied)" in room B (same glyph area, colour, stroke and type); the room
+ *             headers name the supplied variant.
+ *  0.42–0.66  the concrete action, as the supplied configuration: in the room whose case is provided for, Party B's hand
+ *             slides the bracket shut on the supplied section; 0.66–0.74 the connector cord is drawn from the bracket to
+ *             the card (the section connected with the communication). In the room whose case is not described the
+ *             bracket stays open, no cord is drawn and the hand stays at rest. The geometry differs only there.
+ *  0.77–1.00  guide: the case row ringed in both rooms with the same tag "Only this differs"; the shared strip names the
  *             changed fact, each room's supplied configuration (equal chips), the parties, the shared facts and the key
- *             "As supplied · no conclusion drawn". No winner, score or outcome.
- * No rule on conditions: no fulfilment, no automatic effect, no clause becoming due, binding or enforceable; no
- * jurisdiction. Provided and undescribed have equal weight.
+ *             "As supplied · no conclusion drawn". No winner, score or outcome; "not described" is neutral.
+ * No termination doctrine: no right or ground to terminate, no notice period or time limit, no effect, no validity
+ * judgement, no jurisdiction. Provided for and not described have equal weight.
  * @module animations/contract-terms/LAW-0499
  */
 import {defineAnimation} from '../../core/define.js';
@@ -30,18 +31,18 @@ import {str, obj, list, oneOf} from '../../schemas/fields.js';
 import {textBlock} from '../../primitives/annotate.js';
 import {
   motifFields, DEFAULT_CONTENT, DEFAULT_CONTENT_ES, KIT_STRINGS, STATES, PX_BASE, PX_STRESS, INK,
-  layoutStage, stageArt, makeRigs, oblNodes, eventNode, bracketNode, moveAt, grabFor, handOf, holding,
+  layoutStage, stageArt, makeRigs, oblNodes, eventNode, bracketNode, cordGeom, cordNode, cordFrame, moveAt, grabFor, handOf, holding,
   localizeScene, fitG, chipG, placeNotes, notesHeight, headBox, overlaps, armClear,
 } from './kits/clausula-terminacion.js';
 
 const ID = 'LAW-0499';
 const DURATION = 7500;
-const W = {head: [0.17, 0.22], state: [0.2, 0.3], ringIn: [0.22, 0.28], ringOut: [0.36, 0.4], br: [0.42, 0.66], guide: [0.78, 0.83], strip: [0.8, 0.85]};
+const W = {head: [0.17, 0.22], state: [0.2, 0.3], ringIn: [0.22, 0.28], ringOut: [0.36, 0.4], br: [0.42, 0.66], cord: [0.66, 0.74], guide: [0.78, 0.83], strip: [0.8, 0.85]};
 const BEATS = {base: [0, 0.17], change: [0.17, 0.4], parallel: [0.4, 0.77], guide: [0.77, 1]};
 
 const STRINGS = {
-  en: {...KIT_STRINGS.en, only: 'Only this differs', partiesT: 'Left: {a} · right: {b}', changedIs: 'Changed fact: {fact}', roomMarked: '{b}: section marked as supplied', roomUnmarked: '{b}: section not marked · as supplied', stateIs: '{b}: {s}'},
-  es: {...KIT_STRINGS.es, only: 'Solo esto cambia', partiesT: 'Izquierda: {a} · derecha: {b}', changedIs: 'Hecho que cambia: {fact}', roomMarked: '{b}: apartado marcado según lo aportado', roomUnmarked: '{b}: apartado sin marcar · según lo aportado', stateIs: '{b}: {s}'},
+  en: {...KIT_STRINGS.en, only: 'Only this differs', partiesT: 'Left: {a} · right: {b}', changedIs: 'Changed fact: {fact}', roomMarked: '{b}: section connected as supplied', roomUnmarked: '{b}: no connection supplied', stateIs: '{b}: {s}'},
+  es: {...KIT_STRINGS.es, only: 'Solo esto cambia', partiesT: 'Izquierda: {a} · derecha: {b}', changedIs: 'Hecho que cambia: {fact}', roomMarked: '{b}: apartado conectado según lo aportado', roomUnmarked: '{b}: sin conexión aportada', stateIs: '{b}: {s}'},
 };
 
 const scenario = d => obj(d, {
@@ -60,22 +61,22 @@ const sceneSchema = {
 
 const defaultParams = {
   ...DEFAULT_CONTENT,
-  clauses: ['Clause 1 (supplied text)', 'Clause 2 (supplied text)'],
-  section: {from: 1, to: 2},
-  changedFact: {label: 'the state of circumstance 1'},
-  scenarioA: {label: 'Circumstance 1 provided (as supplied)', state: 'provided'},
-  scenarioB: {label: 'Circumstance 1 undescribed (as supplied)', state: 'undescribed'},
-  sharedFacts: ['Same contract, parties, clauses and section'],
+  clauses: ['Section 1 (supplied text)', 'Section 2 (supplied text)'],
+  section: {from: 2, to: 2},
+  changedFact: {label: 'the supplied case of communication 1'},
+  scenarioA: {label: 'Case provided for (as supplied)', state: 'provided'},
+  scenarioB: {label: 'Case not described (as supplied)', state: 'undescribed'},
+  sharedFacts: ['Same contract, parties, communication and sections'],
   comparisonLabels: {a: 'A', b: 'B'},
 };
 
 const defaultParamsEs = {
   ...DEFAULT_CONTENT_ES,
   clauses: ['Apartado 1 (texto aportado)', 'Apartado 2 (texto aportado)'],
-  changedFact: {label: 'el estado de la comunicación 1'},
-  scenarioA: {label: 'Comunicación 1 previsto (según lo aportado)', state: 'provided'},
-  scenarioB: {label: 'Comunicación 1 no descrito (según lo aportado)', state: 'undescribed'},
-  sharedFacts: ['Mismo contrato, partes, apartados y apartado'],
+  changedFact: {label: 'el supuesto aportado de la comunicación 1'},
+  scenarioA: {label: 'Supuesto previsto (según lo aportado)', state: 'provided'},
+  scenarioB: {label: 'Supuesto no descrito (según lo aportado)', state: 'undescribed'},
+  sharedFacts: ['Mismo contrato, partes, comunicación y apartados'],
 };
 
 function unitPx(ctx) {
@@ -212,6 +213,7 @@ const scene = {
         oblNodes(ctx, Lr, p.clauses),
         bracketNode(ctx, Lr, false),
         eventNode(ctx, Lr, Lr.state, {at: Lr.G.slot, ring: true}),
+        cordNode(ctx, Lr, cordGeom(Lr.G)),
         tag,
         Lr.rigs[0].node, Lr.rigs[1].node);
     });
@@ -236,6 +238,9 @@ const scene = {
       const from = {x: G.B.openX, y: G.B.top}, to = {x: G.B.closedX, y: G.B.top};
       const br = moveAt(provided ? W.br : null, from, to, u);
       nodes[`${P}br`] = {transform: T(r(br.pos.x, 2), r(br.pos.y, 2))};
+      // the connector cord: drawn on from the clasped bracket to the card only in the room whose case is provided for
+      const cq = provided ? seg(u, ...W.cord) : 0;
+      Object.assign(nodes, cordFrame(P, r(cq, 4)));
       const rest = [G.figA, G.figB].map((fg, k) => Lr.rigs[k].frame({x: fg.x, y: fg.floor, facing: fg.f, scale: fg.k}).hands.near);
       const knob = q => G.knobAt(q.x);
       const hB = provided ? handOf([grabFor(W.br, from, to, knob)], rest[1], u) : null;
@@ -253,8 +258,9 @@ const scene = {
       sem[`armsClear${s}`] = armClear(pa.nodes, `${P}A`) && armClear(pb.nodes, `${P}B`);
       sem[`state${S}`] = st > 0 ? Lr.state : 'none';
       sem[`bracket${S}`] = br.where === 'to' ? 'closed' : br.moving ? 'moving' : 'open';
+      sem[`cord${S}`] = r(cq, 3);
       const rb = L.rooms[i];
-      looks.push(JSON.stringify({st: st > 0 ? 'shown' : 'none', ring: r(ring, 2), br: [r(br.pos.x - rb.x), r(br.pos.y - rb.y)], hB: hB ? [r(hB.x - rb.x), r(hB.y - rb.y)] : null}));
+      looks.push(JSON.stringify({st: st > 0 ? 'shown' : 'none', ring: r(ring, 2), cord: r(cq, 2), br: [r(br.pos.x - rb.x), r(br.pos.y - rb.y)], hB: hB ? [r(hB.x - rb.x), r(hB.y - rb.y)] : null}));
     });
     if (L.strip) for (const q of L.strip.placed) {
       const nm = q.it.name;
@@ -283,15 +289,15 @@ export default defineAnimation({
   metadata: makeMetadata({
     id: ID,
     slug: 'contract-terms-05-contrast',
-    title: 'Activation circumstance, without a rule — the same contract with the circumstance provided or undescribed, in two rooms',
+    title: 'Termination clause, without doctrine — the same contract with the case provided for or not described, in two rooms',
     titleEs: 'Cláusula de terminación — Comparación de dos supuestos',
     category: 'contract-terms',
     categoryName: 'Contenido y cláusulas',
     motif: 'Cláusula de terminación',
     treatment: 'contrast',
     family: 'paired-comparison',
-    description: 'Two rooms with the same contract board, the same two parties, the same circumstance card "Circumstance 1 (supplied)" seated in its slot and the same clause cards with a neutral bracket open in its track. Only the supplied state of the circumstance differs: the state row appears ringed — ● "Circumstance provided (as supplied)" in room A, ◆ "Circumstance undescribed (as supplied)" in room B, drawn alike. As the supplied configuration, in the room whose circumstance is provided Party B slides the bracket shut on the supplied section (it only marks it); in the other room the bracket stays open. The state row is ringed in both rooms with "Only this differs"; the shared strip names the changed fact, each room\'s configuration, the shared facts and the key "As supplied · no conclusion drawn". No winner, score or outcome.',
-    tags: ['activation circumstance', 'circumstance', 'provided', 'undescribed', 'section', 'bracket', 'comparison', 'changed fact', 'equal weight', 'characters'],
+    description: 'Two rooms with the same contract board, the same two parties, the same card "Communication 1 (supplied)" seated in its slot and the same sections of the termination clause with a neutral connector bracket open in its track. Only the supplied case differs: the case row appears ringed — ● "Case provided for (as supplied)" in room A, ◆ "Case not described (as supplied)" in room B, drawn alike. As the supplied configuration, in the room whose case is provided for Party B slides the bracket shut on the supplied section and a connector cord is drawn to the card; in the other room the bracket stays open and no cord is drawn. The case row is ringed in both rooms with "Only this differs"; the shared strip names the changed fact, each room\'s configuration, the shared facts and the key "As supplied · no conclusion drawn". No winner, score or outcome.',
+    tags: ['termination clause', 'section', 'communication', 'provided for', 'not described', 'connector', 'bracket', 'comparison', 'changed fact', 'equal weight', 'characters'],
     defaultDurationMs: DURATION,
     assets: ['src/animations/contract-terms/kits/clausula-terminacion.js', 'src/primitives/person.js', 'src/primitives/annotate.js', 'src/primitives/people-style.js'],
   }),

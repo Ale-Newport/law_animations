@@ -737,7 +737,8 @@ export function stageGeom(ctx, o) {
     R.ledge = tray ? R.tray + chE / 2 : R.slot + chE / 2 + F * 0.3;
   } else {
     const slotRel = slotRoom ? chE / 2 : Hr / 2;
-    const areaTop = Math.min(0, slotRel - chE / 2), areaBot = Math.max(Hr, slotRel + chE / 2 + slotRoom);
+    // (o.cordRoom: a free channel under the section rows for the connector cord — see cordGeom)
+    const areaTop = Math.min(0, slotRel - chE / 2), areaBot = Math.max(Hr + (o.cordRoom ? F * 0.95 : 0), slotRel + chE / 2 + slotRoom);
     R.rows0 = R.colT + colHH + gS - areaTop;
     R.colE = R.colT;
     R.slot = R.rows0 + slotRel;
@@ -1029,7 +1030,8 @@ export function bracketMetrics(F) {
  * The connector cord's route (design units) from the clasped bracket's spine foot to a socket on the circumstance card
  * seated at `card` (default the slot): orthogonal, through free board space only — side by side: down the spine to a
  * channel under the section rows, across under them, up the gutter and into the card's right edge; stacked: from the
- * spine foot straight down (or down and left) to the card's right edge or top edge. Returns {d, a (socket), b (spine)}.
+ * spine foot down (and left) to the card's right edge, or down, right and down to its top edge near its right end.
+ * Returns {d, a (socket), b (spine)}.
  */
 export function cordGeom(G, card = G.slot) {
   const F = G.F;
@@ -1038,17 +1040,30 @@ export function cordGeom(G, card = G.slot) {
   const n = G.rowY.length;
   if (!G.stack) {
     const rowsBot = G.rowY[n - 1] + G.chO / 2;
-    const yc = Math.min(Math.max(rowsBot, bBot) + F * 0.55, G.panelT.y + G.panelT.h - F * 0.35);
     const gx = G.panelE.x + G.We + G.gw / 2;
-    const a = {x: cr, y: card.y}, b = {x: bx, y: bBot};
-    return {d: `M${r(b.x)} ${r(b.y)}V${r(yc)}H${r(gx)}V${r(a.y)}H${r(a.x)}`, a, b};
+    const a = {x: cr, y: card.y};
+    const yc = Math.max(rowsBot, bBot) + F * 0.42;
+    if (yc <= G.panelT.y + G.panelT.h - F * 0.3) {
+      const b = {x: bx, y: bBot};
+      return {d: `M${r(b.x)} ${r(b.y)}V${r(yc)}H${r(gx)}V${r(a.y)}H${r(a.x)}`, a, b};
+    }
+    // (no free channel under the rows: from the spine's top, up into the gap between the panel heading and the first row,
+    // across above the rows, down the gutter)
+    const headBot = G.panelT.y + G.colHH, rowsTop = G.rowY[0] - G.chO / 2;
+    const ya = (headBot + Math.min(rowsTop, G.B.top)) / 2;
+    const b = {x: bx, y: G.B.top};
+    return {d: `M${r(b.x)} ${r(b.y)}V${r(ya)}H${r(gx)}V${r(a.y)}H${r(a.x)}`, a, b};
   }
   if (bx > cr + F * 0.25) {
     const a = {x: cr, y: card.y}, b = {x: bx, y: bBot};
     return {d: `M${r(b.x)} ${r(b.y)}V${r(a.y)}H${r(a.x)}`, a, b};
   }
-  const a = {x: bx, y: ct}, b = {x: bx, y: bBot};
-  return {d: `M${r(b.x)} ${r(b.y)}V${r(a.y)}`, a, b};
+  // (a card under the whole board width: the socket on its top edge near its right end — right of any tag centred over
+  // the card —, reached from the spine foot by a short run in the gap under the clause panel)
+  const ax = Math.max(bx, cr - F * 0.6);
+  const ym = Math.min(Math.max(bBot + F * 0.35, G.panelT.y + G.panelT.h + G.m * 0.35), ct - F * 0.3);
+  const a = {x: ax, y: ct}, b = {x: bx, y: bBot};
+  return {d: `M${r(b.x)} ${r(b.y)}V${r(ym)}H${r(a.x)}V${r(a.y)}`, a, b};
 }
 
 /**

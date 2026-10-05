@@ -1,18 +1,18 @@
 // LAW-0499 — Cláusula de terminación · contrast. Contract battery + ID-specific checks.
 // Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05):
-// clauses (the circumstance card and the clause cards stand for the clauses), schedules, definitions and priorities (no
-// priority or order between clauses is drawn). scenarioA / scenarioB (header and supplied state of each room),
-// changedFact, sharedFacts and comparisonLabels are exposed. No stress field is capped.
+// schedules, definitions and priorities (no priority or order between sections is drawn); clauses = the sections of the
+// termination clause. scenarioA / scenarioB (header and supplied case of each room), changedFact, sharedFacts and
+// comparisonLabels are exposed. No stress field is capped.
 // acceptanceCheck (brief): both scenes exist (two complete rooms, identical before the change beat — semantic look and
-// rendered), exactly the indicated fact changes (the supplied state of the circumstance: the state row of each room's circumstance
-// card; as the supplied configuration of each room, the bracket is slid shut by Party B's hand only where the circumstance is
-// provided — the geometry differs only there), and no legal consequence is invented (no rule or conclusion wording, EN
-// and ES; no jurisdiction; no winner, score or outcome; provided and undescribed drawn alike).
+// rendered), exactly the indicated fact changes (the supplied case: the case row of each room's card; as the supplied
+// configuration of each room, the bracket is slid shut by Party B's hand and the cord drawn only where the case is
+// provided for — the geometry differs only there), and no legal consequence is invented (no termination-rule or
+// conclusion wording, EN and ES; no jurisdiction; no winner, score or outcome; provided for and not described drawn
+// alike; "not described" neutral: no cord, nothing concluded).
 // Layouts: 16:9 rooms side by side (each ≥ 0.40 of the width) with the shared strip below; 9:16 rooms stacked with the
-// strip below; 1:1 rooms stacked beside a right-hand column holding the strip (CF CONTRAST 1:1 STAGE SHARE decision,
-// 2026-10-04), with print-bar cards whose texts are listed once in that column when the printed cards do not fit.
-// Windows (LAW-0499.js W): headers 0.17–0.22 · the state row appears 0.20–0.30 (ring 0.22–0.40) · Party B's hand slides
-// the bracket 0.42–0.66 (provided rooms only) · guide 0.78–0.83 · strip 0.80–0.85.
+// strip below; 1:1 rooms stacked beside a right-hand column, or side by side in the compact arrangement.
+// Windows (LAW-0499.js W): headers 0.17–0.22 · the case row appears 0.20–0.30 (ring 0.22–0.40) · Party B's hand slides
+// the bracket 0.42–0.66 and the cord is drawn 0.66–0.74 (provided rooms only) · guide 0.78–0.83 · strip 0.80–0.85.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite, identicalBeforeChange} from '../harness/supplied-text.js';
@@ -27,11 +27,12 @@ contractSuite(ID, {
   continuity: ['brA', 'brB', 'handAA', 'handAB', 'handBA', 'handBB'],
   semantic: [
     {at: 0.1, fn: "s.stateA === 'none' && s.stateB === 'none' && s.lookA === s.lookB && s.bracketA === 'open' && s.bracketB === 'open'", label: 'base: the two rooms are identical; no state shown yet'},
-    {at: 0.35, fn: "s.stateA === 'provided' && s.stateB === 'undescribed'", label: 'change: provided in room A, undescribed in room B'},
+    {at: 0.35, fn: "s.stateA === 'provided' && s.stateB === 'undescribed'", label: 'change: provided for in room A, not described in room B'},
     {at: 0.55, fn: "s.bracketA === 'moving' && s.heldA && s.bracketB === 'open' && !s.heldB", label: 'room A: Party B slides the bracket; room B: it stays open'},
-    {at: 1, fn: "s.guide === 1 && s.bracketA === 'closed' && s.bracketB === 'open' && s.allReached && s.layoutOk", label: 'guide: the state rows ringed in both rooms; nothing concluded'},
+    {at: 1, fn: "s.guide === 1 && s.bracketA === 'closed' && s.cordA === 1 && s.bracketB === 'open' && s.cordB === 0 && s.allReached && s.layoutOk", label: 'guide: the case rows ringed in both rooms; the cord only in room A; nothing concluded'},
+    {at: 0.65, fn: "s.cordA === 0 && s.cordB === 0", label: 'no cord before the bracket has clasped'},
     {at: 0.15, fn: "s.stateA === 'none' && s.guide === 0 && s.bracketA === 'open'", label: 'seeking back restores the base'},
-    {at: 1, params: P('contrast-or-alternative'), fn: "s.stateA === 'undescribed' && s.stateB === 'provided' && s.bracketA === 'open' && s.bracketB === 'closed'", label: 'alternative: the other way round'},
+    {at: 1, params: P('contrast-or-alternative'), fn: "s.stateA === 'undescribed' && s.stateB === 'provided' && s.bracketA === 'open' && s.bracketB === 'closed' && s.cordA === 0 && s.cordB === 1", label: 'alternative: the other way round'},
     {at: 0.8, params: {textVisibility: 'none'}, fn: "s.bracketA === 'closed' && s.bracketB === 'open'", label: 'labels hidden: the same action'},
   ],
 });
@@ -53,7 +54,7 @@ suppliedTextSuite(ID, {
 
 textFloor(ID);
 noTextOverlap(ID);
-noTextOverProps(ID, ['[data-node="a-br"]', '[data-node="b-br"]', '[data-node="a-A-head"]', '[data-node="a-B-head"]', '[data-node="b-A-head"]', '[data-node="b-B-head"]']);
+noTextOverProps(ID, ['[data-node="a-br"]', '[data-node="b-br"]', '[data-node="a-cord-a"]', '[data-node="b-cord-a"]', '[data-node="a-cord-b"]', '[data-node="b-cord-b"]', '[data-node="a-A-head"]', '[data-node="a-B-head"]', '[data-node="b-A-head"]', '[data-node="b-B-head"]']);
 seekHistory(ID);
 fill(ID, [0.05, 1], {short: 0.5});
 headFloor(ID, {count: 4, floors: Object.fromEntries(['default', 'baseline-illustrative', 'contrast-or-alternative', 'baseline-es'].flatMap(n => [[`${n}|1:1`, 55], [`${n}|16:9`, 60], [`${n}|9:16`, 60]]))});
@@ -65,7 +66,7 @@ docSize(ID, {cards: '^[ab]-ev-in$', times: [0.35, 0.7, 1]});
 docSize(ID, {cards: '^[ab]-obl\\d-in$', times: [0.35, 1], floor: 70});
 stagesStackedTall(ID, {panels: ['a-frame', 'b-frame']});
 
-test(`${ID}: no preset supplies rule, conclusion or condition wording (EN and ES)`, () => {
+test(`${ID}: no preset supplies termination-rule or conclusion wording (EN and ES)`, () => {
   for (const pr of presetsFor(ID)) {
     expect(JSON.stringify(pr.params).match(TERM_BANNED), pr.name).toBeNull();
     expect(JSON.stringify(pr.params).match(CONFIG_WORDS), pr.name).toBeNull();
@@ -348,5 +349,61 @@ test(`${ID}: long unbroken tokens (33/42/55 chars) render a full scene at every 
   }, [ID, stress]);
   console.log(`${ID} long tokens: ${out.n} frames, slowest create ${out.slow} ms, ${out.broken} broken lines seen`);
   expect(out.n).toBe(144);
+  expect(out.fails).toEqual([]);
+});
+
+// The connector cord in each room (rendered, at the hold, every preset × ratio × labels all / none): drawn exactly in the
+// room whose case is provided for, invisible in the other; its line crosses no printed text and no section card, and its
+// socket plug sits on the card's edge.
+test(`${ID}: the cord connects only in the room whose case is provided for, clear of every print (rendered)`, async ({page}) => {
+  test.setTimeout(300000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, {name: 'es-only', params: {locale: 'es'}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets, ratios]) => {
+    const def = await window.__lib.load(id);
+    const fails = [];
+    let n = 0;
+    for (const pr of presets) for (const [ratio, w, h] of ratios) for (const tv of ['all', 'none']) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      x.seek(x.durationMs);
+      const svg = x.element;
+      const p = {...def.defaultParams, ...pr.params};
+      for (const rm of ['a', 'b']) {
+        const tag = `${pr.name} ${ratio} ${tv} room ${rm}`;
+        const provided = (rm === 'a' ? p.scenarioA : p.scenarioB).state === 'provided';
+        const cord = svg.querySelector(`[data-node="${rm}-cord"]`);
+        const shown = parseFloat(cord.getAttribute('opacity') ?? '1') > 0.5 && parseFloat(cord.getAttribute('stroke-dashoffset')) < 0.01;
+        n++;
+        if (provided !== shown) fails.push(`${tag}: cord ${shown ? 'drawn' : 'missing'} with provided=${provided}`);
+        if (!shown) continue;
+        const len = cord.getTotalLength(), ctm = cord.getScreenCTM();
+        const pts = [];
+        for (let i = 0; i <= 200; i++) { const q = cord.getPointAtLength((i / 200) * len); pts.push(new DOMPoint(q.x, q.y).matrixTransform(ctm)); }
+        for (const t of svg.querySelectorAll('text')) {
+          if (t.closest('[data-layer="content-notice"]')) continue;
+          const b = t.getBoundingClientRect();
+          if (b.width && pts.some(q => q.x > b.left + 1 && q.x < b.right - 1 && q.y > b.top + 1 && q.y < b.bottom - 1)) fails.push(`${tag}: the cord crosses "${t.textContent.trim().slice(0, 20)}"`);
+        }
+        const tagChip = svg.querySelector(`[data-node="${rm}-tagg"]`);
+        if (tagChip) { const b = tagChip.getBoundingClientRect(); if (pts.some(q => q.x > b.left + 1 && q.x < b.right - 1 && q.y > b.top + 1 && q.y < b.bottom - 1)) fails.push(`${tag}: the cord crosses the tag`); }
+        for (const c of svg.querySelectorAll(`[data-node^="${rm}-obl"][data-node$="-in-sheet"]`)) {
+          const b = c.getBoundingClientRect();
+          if (pts.some(q => q.x > b.left + 3 && q.x < b.right - 3 && q.y > b.top + 3 && q.y < b.bottom - 3)) fails.push(`${tag}: the cord crosses a section card`);
+        }
+        const card = svg.querySelector(`[data-node="${rm}-ev-in-sheet"]`).getBoundingClientRect();
+        const a = svg.querySelector(`[data-node="${rm}-cord-a"] circle`).getBoundingClientRect();
+        const ax = a.left + a.width / 2, ay = a.top + a.height / 2;
+        if (!((Math.abs(ax - card.right) < 4 && ay > card.top && ay < card.bottom) || (Math.abs(ay - card.top) < 4 && ax > card.left && ax < card.right))) fails.push(`${tag}: the socket plug is not on the card's edge`);
+      }
+      x.destroy();
+      el.remove();
+    }
+    return {fails: [...new Set(fails)], n};
+  }, [ID, presets, RATIOS]);
+  expect(out.n).toBeGreaterThan(40);
   expect(out.fails).toEqual([]);
 });

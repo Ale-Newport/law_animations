@@ -43,7 +43,7 @@ const OWN_EN = {
   beforeValue: 'Return to: Point 2 (as supplied)',
   afterValue: 'Return to: Point 1 (as supplied)',
   afterIndex: 0,
-  detailGeometry: {zoom: 2.2, placement: 'auto'},
+  detailGeometry: {zoom: 2.8, placement: 'auto'},
   contextLabels: {context: 'The desk after the return (as supplied)', marker: 'Changed datum: the return point on the tag'},
 };
 const OWN_ES = {
@@ -51,7 +51,7 @@ const OWN_ES = {
   beforeValue: 'Devolver a: Punto 2 (según lo aportado)',
   afterValue: 'Devolver a: Punto 1 (según lo aportado)',
   afterIndex: 0,
-  detailGeometry: {zoom: 2.2, placement: 'auto'},
+  detailGeometry: {zoom: 2.8, placement: 'auto'},
   contextLabels: {context: 'La mesa tras la devolución (según lo aportado)', marker: 'Dato cambiado: el punto de devolución de la etiqueta'},
 };
 const EN = {...DN_EN, ...OWN_EN};
@@ -117,7 +117,7 @@ function compose(ctx, P, R, F, v) {
     band = {x: deskW + gap, y: 4, w: bandW - 4, h: DH - 8};
     if (panelH > DH) problems.push('panel-tall');
   } else {
-    const Ha = Math.max(panelH + F * 0.4, lensMinH * 1.05);
+    const Ha = Math.max(panelH + F * 0.4, lensMinH * 1.05, ctx.view.shape === 'portrait' ? DH * 0.44 : 0);
     desk = {x: 0, y: 0, w: DW, h: DH - Ha - gap};
     band = {x: 4, y: DH - Ha, w: DW - 8, h: Ha};
   }
@@ -129,7 +129,7 @@ function compose(ctx, P, R, F, v) {
   const fitA = showKey ? fitG(P.afterValue, {maxWidth: TW - F * 1.2, size: F, minSize: F, maxLines: v.relax ? 5 : 3, weight: 600}) : null;
   if ((fitB && !fitB.ok) || (fitA && !fitA.ok)) problems.push('tag-text');
   const tagH = Math.max(fitB ? fitB.height : F * 1.4, fitA ? fitA.height : F * 1.4) + F * 0.9;
-  const B = boardModel(ctx, {orient: 'row', box, F, names: P.routes.stations, origin: P.routes.origin, showText: showKey && !v.pips, target: R.target, slipN: R.notes.length, handRoom: tagH + F * 1.4, maxFw: 260, plateLines: v.pl ?? 3, reviewW: v.rw, folderMin: v.fmin});
+  const B = boardModel(ctx, {orient: 'row', box, F, names: P.routes.stations, origin: P.routes.origin, showText: showKey && !v.pips, target: R.target, slipN: R.notes.length, handRoom: tagH + F * 1.4, maxFw: 320, plateLines: v.pl ?? 3, reviewW: v.rw, folderMin: v.fmin});
   problems.push(...B.problems.filter(q => !(v.relax && (q === 'slip-small' || q === 'calendar-small'))));
   const tagY = B.lane.a.y + B.fh / 2 + F * 0.9; // top of the tag
   if (tagY + tagH > box.y + box.h + inset * 0.5) problems.push('tag-low');
@@ -164,7 +164,7 @@ const scene = {
   layout(ctx) {
     const P = localisedDn(ctx, EN, ES);
     const R = resolve(P);
-    const vs = ctx.view.shape === 'landscape' ? [0.52, 0.48, 0.56].map(dw => ({dw})) : ctx.view.shape === 'square' ? [{dw: 1}, ...[0.58, 0.56, 0.6].flatMap(dw => [4.4, 4.1].map(fmin => ({dw, side: true, pips: true, relax: true, rw: 1.2, fmin})))] : [{dw: 1}];
+    const vs = ctx.view.shape === 'landscape' ? [0.64, 0.6, 0.56, 0.52].map(dw => ({dw})) : ctx.view.shape === 'square' ? [{dw: 1}, ...[0.58, 0.56, 0.6].flatMap(dw => [4.4, 4.1].map(fmin => ({dw, side: true, pips: true, relax: true, rw: 1.2, fmin})))] : [{dw: 1}];
     const sizes = !ctx.show('key') ? [30, 26, ...SIZES] : SIZES;
     let C = null, best = null;
     outer: for (const F of sizes) for (const v of vs) {

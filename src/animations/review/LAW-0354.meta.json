@@ -1,25 +1,26 @@
 {
-  "id": "LAW-0352",
-  "slug": "review-08-inspect",
-  "title": "Return for a new examination — a lens on the routing tag: the return point is substituted, then the folder runs to the new tray",
-  "titleEs": "Devolución para nuevo examen — Inspección y cambio de un dato",
+  "id": "LAW-0354",
+  "slug": "review-09-mechanism",
+  "title": "Effects during review — from the decision card and the appeal card two lanes spring apart; markers advance on both at one pace and a filter set by the supplied datum lets the process marker pass or stops it",
+  "titleEs": "Efectos durante revisión — Mecanismo o relación explicada",
   "category": "review",
   "categoryName": "Impugnaciones y revisión",
-  "motif": "Devolución para nuevo examen",
-  "treatment": "inspect",
-  "family": "focus-and-replay",
-  "description": "The desk after the return: the route board with the folder and its review notes in the configured tray and a routing tag on a rail, joined to the folder by a cord, naming the return point (the supplied datum). A lens opens on the tag (a real enlarged copy at the same coordinates); its value is substituted by the alternative supplied value. The lens closes and only the dependent geometry follows: the old doors close, the new ones open and the folder runs along the lane to the new tray, leaving a ghost outline; a neutral changed-datum marker stays on the tag. Seeking back restores the old datum. No validity, rule or result; jurisdiction unspecified.",
+  "motif": "Efectos durante revisión",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "A plan of the mechanism: the decision card (●) and the appeal card (◆) stand together; from a port on each card's outer edge a lane springs out and curves away from the other, so the process lane and the review lane run apart and never meet, each ending in its own bay. A slatted filter gate stands across the process lane with the datum tag hanging between the lanes. The lanes draw on and a marker advances along each at the same pace; the gate enlarges and turns to the supplied datum before the ● marker arrives, which then passes (effect maintained) or stops (effect suspended according to the data supplied). Chevrons only show direction (sequence as configured). A calendar is a fixture. No suspension doctrine, dates or time limits; jurisdiction unspecified.",
   "tags": [
     "review",
-    "return for a new examination",
-    "inspect",
-    "lens",
-    "routing tag",
-    "return point",
-    "substitution",
-    "changed datum",
-    "folder",
-    "filter doors"
+    "effects during review",
+    "mechanism",
+    "parallel lanes",
+    "appeal",
+    "decision",
+    "filter gate",
+    "supplied datum",
+    "markers",
+    "chevrons",
+    "calendar"
   ],
   "durations": {
     "defaultMs": 8000,
@@ -71,11 +72,8 @@
   },
   "schemaVersion": 1,
   "assets": [
-    "src/animations/review/kits/devolucion-nuevo-examen.js",
-    "src/animations/review/kits/limites-de-revision.js",
-    "src/frameworks/lens.js",
-    "src/primitives/markers.js",
-    "src/primitives/desk.js"
+    "src/animations/review/kits/efectos-durante-revision.js",
+    "src/animations/review/kits/confirmacion-ilustrativa.js"
   ],
   "license": "Original vector artwork and code created for this project; no third-party assets.",
   "version": "1.0.0",
@@ -196,93 +194,85 @@
           "title": {
             "type": "string",
             "maxLength": 70,
-            "description": "Name of the decision (fictional, as supplied); shown in the legend, the folder label carries filler only"
+            "description": "Fictional title printed on the decision card"
+          },
+          "ref": {
+            "type": "string",
+            "maxLength": 44,
+            "description": "Reference tag printed on the decision card (fictional)"
           }
         },
         "required": [
-          "title"
+          "title",
+          "ref"
         ],
-        "description": "The decision of the initial examination carried in the folder (fictional placeholder)"
+        "description": "The decision card that advances along the process lane (fictional; placeholder content)"
       },
       "grounds": {
-        "type": "array",
-        "items": {
-          "type": "string",
-          "maxLength": 80,
-          "description": "Text of the note (as supplied)"
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "appeal": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Grounds line printed on the appeal card (as supplied)"
+          }
         },
-        "minItems": 1,
-        "maxItems": 3,
-        "description": "Review notes attached to the folder (supplied, fictional; each keyed by a notched index pip) (array replaces the previous value)"
+        "required": [
+          "appeal"
+        ],
+        "description": "The appeal card that advances along the review lane (fictional; placeholder content, never assessed)"
       },
       "routes": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "stations": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 48,
-              "description": "Name of the point"
-            },
-            "minItems": 2,
-            "maxItems": 3,
-            "description": "Points of the route, in order (fictional names, as supplied) (array replaces the previous value)"
-          },
-          "origin": {
+          "process": {
             "type": "string",
-            "maxLength": 48,
-            "description": "Name of the desk where the folder starts (fictional, as supplied)"
+            "maxLength": 80,
+            "description": "Caption of the process lane (keep \"as configured\")"
           },
-          "returnTo": {
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 2,
-            "description": "Index in `stations` of the configured return point (only its filter doors stand open)"
+          "review": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of the review lane (keep \"as configured\")"
           }
         },
         "required": [
-          "stations",
-          "origin",
-          "returnTo"
+          "process",
+          "review"
         ],
-        "description": "The supplied return route: points in order, the desk the folder starts from and the configured return point"
+        "description": "Captions of the two lanes (as configured; the lanes never cross and imply no hierarchy)"
       },
       "outcomes": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "returned": {
+          "maintained": {
             "type": "string",
             "maxLength": 90,
-            "description": "Caption when the folder lies at the configured point"
+            "description": "Tag text when the supplied datum says the effect is maintained"
           },
-          "renewed": {
+          "suspended": {
             "type": "string",
             "maxLength": 90,
-            "description": "Caption for the renewed examination (must not state an outcome)"
+            "description": "Tag text when the supplied datum says the effect is suspended"
           }
         },
         "required": [
-          "returned",
-          "renewed"
+          "maintained",
+          "suspended"
         ],
-        "description": "Descriptive state captions (never a result of the renewed examination)"
+        "description": "The two possible supplied data printed on the filter tag. The animation never infers which applies"
       },
       "labels": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "route": {
+          "filter": {
             "type": "string",
-            "maxLength": 90,
-            "description": "Caption of the return route (keep \"as supplied\")"
-          },
-          "point": {
-            "type": "string",
-            "maxLength": 70,
-            "description": "Caption of the configured return point marker"
+            "maxLength": 80,
+            "description": "Caption of the filter gate (it shows the supplied datum only)"
           },
           "key": {
             "type": "string",
@@ -291,81 +281,97 @@
           }
         },
         "required": [
-          "route",
-          "point",
+          "filter",
           "key"
         ],
         "description": "Editable captions"
       },
-      "focusTarget": {
-        "type": "string",
-        "enum": [
-          "return-point"
-        ],
-        "description": "Detail enlarged and substituted: the routing tag that names the return point"
-      },
-      "beforeValue": {
-        "type": "string",
-        "maxLength": 80,
-        "description": "Text of the routing tag before the substitution (the supplied datum)"
-      },
-      "afterValue": {
-        "type": "string",
-        "maxLength": 80,
-        "description": "Text of the routing tag after the substitution (the alternative supplied datum)"
-      },
-      "afterIndex": {
-        "type": "integer",
-        "minimum": 0,
-        "maximum": 2,
-        "description": "Index in routes.stations of the return point after the substitution (the folder and the open doors follow it)"
-      },
-      "detailGeometry": {
+      "actorLabels": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "zoom": {
-            "type": "number",
-            "minimum": 1.5,
-            "maximum": 4,
-            "description": "Preferred magnification of the lens (at least 1.5 is always kept)"
-          },
-          "placement": {
-            "type": "string",
-            "enum": [
-              "auto",
-              "right",
-              "bottom"
-            ],
-            "description": "Where the lens sits"
-          }
-        },
-        "required": [
-          "zoom",
-          "placement"
-        ],
-        "description": "Lens geometry"
-      },
-      "contextLabels": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "context": {
-            "type": "string",
-            "maxLength": 80,
-            "description": "Context caption"
-          },
-          "marker": {
+          "a": {
             "type": "string",
             "maxLength": 70,
-            "description": "Label of the changed-datum marker"
+            "description": "Caption of the decision card (source of the ● marker)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of the appeal card (source of the ◆ marker)"
           }
         },
         "required": [
-          "context",
-          "marker"
+          "a",
+          "b"
         ],
-        "description": "Labels for the context view"
+        "description": "Captions of the two source cards (legend)"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "arrows": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Caption for the chevrons (direction of travel only)"
+          },
+          "calendar": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for the calendar (a fixture only)"
+          }
+        },
+        "required": [
+          "arrows",
+          "calendar"
+        ],
+        "description": "Captions of the mechanism's objects in the legend"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "cards",
+                "arrows",
+                "filter",
+                "calendar"
+              ],
+              "description": "What the note refers to"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 100,
+              "description": "Note text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Note"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial notes shown in the hold; each is keyed to a ring on its target (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "maintained",
+          "suspended"
+        ],
+        "description": "The supplied datum (no conclusion is inferred): maintained — the gate turns open and the ● marker passes; suspended — the gate closes and the ● marker stops before it"
+      },
+      "stateCaption": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "Caption of the supplied state in the hold (empty: the built-in caption of that state)"
       }
     }
   },
@@ -387,41 +393,39 @@
     "jurisdiction": "unspecified",
     "contentNotice": true,
     "decisions": {
-      "title": "Decision of the initial examination (fictional)"
+      "title": "Decision 1 (fictional)",
+      "ref": "Ref. R-01 (fictional)"
     },
-    "grounds": [
-      "Note 1: a point to look at again (fictional)",
-      "Note 2: a document to consider (fictional)"
-    ],
+    "grounds": {
+      "appeal": "Appeal: placeholder grounds (as supplied)"
+    },
     "routes": {
-      "stations": [
-        "Point 1 · intake (fictional)",
-        "Point 2 · initial examination (fictional)",
-        "Point 3 · file room (fictional)"
-      ],
-      "origin": "Review desk (fictional)",
-      "returnTo": 1
+      "process": "Process lane: the decision card (as configured)",
+      "review": "Review lane: the appeal card (as configured)"
     },
     "outcomes": {
-      "returned": "Back at the configured point with review notes (as supplied)",
-      "renewed": "Renewed examination: not shown, no outcome"
+      "maintained": "Effect maintained (supplied datum)",
+      "suspended": "Effect suspended according to the data supplied"
     },
     "labels": {
-      "route": "Return route as configured (as supplied)",
-      "point": "Configured return point (as supplied)",
+      "filter": "Filter gate: set by the supplied datum only",
       "key": "As supplied · no conclusion drawn"
     },
-    "focusTarget": "return-point",
-    "beforeValue": "Return to: Point 2 (as supplied)",
-    "afterValue": "Return to: Point 1 (as supplied)",
-    "afterIndex": 0,
-    "detailGeometry": {
-      "zoom": 2.8,
-      "placement": "auto"
+    "actorLabels": {
+      "a": "Decision card: source of the ● marker",
+      "b": "Appeal card: source of the ◆ marker"
     },
-    "contextLabels": {
-      "context": "The desk after the return (as supplied)",
-      "marker": "Changed datum: the return point on the tag"
-    }
+    "objectLabels": {
+      "arrows": "Chevrons: direction of travel along each lane (sequence as configured, illustrative)",
+      "calendar": "Calendar (a fixture; no date marked)"
+    },
+    "annotations": [
+      {
+        "target": "filter",
+        "text": "Only the gate depends on the supplied datum; the review lane has no gate"
+      }
+    ],
+    "stateCaption": "",
+    "finalState": "maintained"
   }
 }
