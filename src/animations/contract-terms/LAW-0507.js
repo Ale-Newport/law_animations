@@ -73,7 +73,7 @@ const isStress = p => [...p.clauses, p.claim.label, p.contract.title, p.scenario
 /* ---------------------------------------------------------------------- */
 
 /** One bench's geometry in local coordinates (origin = bench top-left). */
-function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH) {
+function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH, sf = 0.55) {
   const why = [];
   const pi = promiseIndex(p);
   const prong = 50;
@@ -88,7 +88,7 @@ function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH) {
   const ch0 = bandH + 22 + rowH + 30;
   const panelH0 = bh - headerH - 8;
   const sw = clamp(bw * (stress ? 0.31 : 0.25), 205, 340);
-  const TT = slipText(ctx, p, sw, F, minF, stress, Math.max(F * 4.4, (panelH0 - 34 - 28 - 46) * 0.55));
+  const TT = slipText(ctx, p, sw, F, minF, stress, Math.max(F * 4.4, (panelH0 - 34 - 28 - 46) * sf));
   const PA = 0.3;
   TT.prongAt = PA;
   const ch = Math.max(ch0, Math.min(TT.h * 1.1, panelH0 - 96));
@@ -213,7 +213,10 @@ function geom(ctx, F, minF, side, colMode = false) {
   const R0 = F * 0.9;
   const headerFits = [p.scenarioA.label, p.scenarioB.label].map(t => (show ? fitG(t, {maxWidth: bw - R0 * 2 - 40, size: F, minSize: minF, maxLines: 2, weight: 700}) : null));
   if (headerFits.some(f => f && f.bad)) why.push('header-text');
-  const B = (vMode ? benchGeomV : benchGeom)(ctx, p, bw, bh, F, minF, stress, Math.max(0, ...headerFits.map(f => (f ? f.height : 0))));
+  const hT = Math.max(0, ...headerFits.map(f => (f ? f.height : 0)));
+  let B = null;
+  if (vMode) B = benchGeomV(ctx, p, bw, bh, F, minF, stress, hT);
+  else for (const sf of [0.85, 0.72, 0.55]) { B = benchGeom(ctx, p, bw, bh, F, minF, stress, hT, sf); if (!B.why.length) break; }
   why.push(...B.why);
   const origins = side ? [{x: m, y: m}, {x: m + bw + gap, y: m}] : [{x: m, y: m}, {x: m, y: m + bh + gap}];
   const yb = colMode ? m + Math.max(0, (D.h - 2 * m - (stripH + notesH + 14)) / 2) : m + (side ? bh : 2 * bh + gap) + 14;
