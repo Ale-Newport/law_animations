@@ -365,7 +365,7 @@ export function laneConnector(ctx, {name, G, l, kind = 'relation', disputed = fa
 /* ------------------------------------------------------------------------ */
 
 /** A lane piece: one lane on its own slab strip with its trolley at the barrier and its steps (static). */
-const PIECE = {L: 1.32, D: 0.42};
+const PIECE = {L: 0.95};
 /** Width of a lane piece relative to its height. */
 export const MINI_W = (PIECE.L + 0.14) / (CART_TOP + FIELD.LT + 0.16 + FIELD.plate);
 
@@ -384,7 +384,7 @@ export function miniField(ctx, {name, H, M, side}) {
   const q = miniGeom(H);
   const l = side === 'after' ? 'b' : 'a';
   const es = M.entries.filter(e => e.lane === l);
-  const x0 = q.xs + 0.22 * q.PH, x1 = q.xe - 0.5 * q.PH;
+  const x0 = q.xs + 0.14 * q.PH, x1 = q.xe - 0.46 * q.PH;
   const n = es.length;
   const stp = n > 1 ? (x1 - x0) / (n - 1) : 0;
   const k = Math.min(1, n > 1 ? stp / (q.itemS * 0.95) : 1);

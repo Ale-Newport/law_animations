@@ -235,7 +235,7 @@ const scene = {
           ),
           desk.frame,
         ),
-        cap ? g({name: `cap${k}`, opacity: 0, transform: T(S.x + C.hx, C.capY[i])},
+        cap ? g({name: `cap${k}`, opacity: 0, transform: T(S.x + C.hx + C.F * 0.2, C.capY[i])},
           textAt(cap, {x: 0, y: 0, fill: th.fg})) : null,
       );
     });
@@ -254,7 +254,8 @@ const scene = {
       if (C.guideChip) chipNode = chip(ctx, P.comparisonLabels.guide, {x: (C.stages[0].x + C.stages[0].w + C.stages[1].x) / 2, y: bandMid - C.guideChip.box.h / 2, anchor: 'middle', maxWidth: Math.min(ctx.design.w * 0.5, 420), size: C.F, minSize: C.F, maxLines: 2, weight: 600, stroke: gc}).node;
     } else {
       const mx = C.F * 0.7;
-      parts.push(h('path', {d: `M${r(ob[0].x)} ${r(ob[0].y + ob[0].h / 2)}H${r(mx)}V${r(ob[1].y + ob[1].h / 2)}H${r(ob[1].x)}`, fill: 'none', stroke: gc, 'stroke-width': 4, 'stroke-linejoin': 'round'}));
+      const ly = b => b.y + b.h - C.F * 0.4;
+      parts.push(h('path', {d: `M${r(ob[0].x)} ${r(ly(ob[0]))}H${r(mx)}V${r(ly(ob[1]))}H${r(ob[1].x)}`, fill: 'none', stroke: gc, 'stroke-width': 4, 'stroke-linejoin': 'round'}));
       if (C.guideChip) chipNode = chip(ctx, P.comparisonLabels.guide, {x: mx + C.F * 0.9, y: bandMid - C.guideChip.box.h / 2, anchor: 'start', maxWidth: Math.min(ctx.design.w * 0.5, 420), size: C.F, minSize: C.F, maxLines: 2, weight: 600, stroke: gc}).node;
     }
     return g({name: 'scene'},

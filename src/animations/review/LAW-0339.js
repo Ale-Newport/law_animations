@@ -147,7 +147,7 @@ const scene = {
     };
     const search = (sizes, minPx = ctx.view.shape === 'square' ? 55.5 : 60.5) => searchSa(ctx, rows, {
       sizes, minF: 16.4, minPersonPx: minPx,
-      colFracs: [0.25, 0.3, 0.35, 0.42], bandCols: [1, 2, 3], sidePanels: [[0.36, 2], [0.42, 2]], bandMax: ctx.view.shape === 'square' ? 0.68 : 0.45,
+      colFracs: ctx.view.shape === 'square' ? [] : [0.25, 0.3, 0.35, 0.42], bandCols: [1, 2, 3], sidePanels: ctx.view.shape === 'square' ? [] : [[0.36, 2], [0.42, 2]], bandMax: ctx.view.shape === 'square' ? 0.68 : 0.45,
       scales: [1], targetPx: 1e9, scoreOf: C => C.k * 300,
       compose: (box, F) => compose(box, F),
     });
@@ -207,28 +207,19 @@ const scene = {
     };
     const bA = destBox(0), bB = destBox(1);
     let path;
+    // (the link joins the two placements visibly: side by side it runs under both rooms, from each outline down
+    // through its room's floor; stacked it runs down the outside of the rooms' right walls)
+    const D = ctx.design;
     if (C.arrangement === 'row') {
-      const gx = (C.lanes[0].C.planRect.x + C.lanes[0].C.planRect.w + C.lanes[1].C.planRect.x) / 2;
-      const yA = bA.y + bA.h / 2, yB = bB.y + bB.h / 2;
-      const xA = C.lanes[0].C.planRect.x + C.lanes[0].C.planRect.w, xB = C.lanes[1].C.planRect.x;
-      path = `M${r(xA)} ${r(yA)}H${r(gx)}V${r(yB)}H${r(xB)}`;
+      const below = Math.min(D.h - 6, Math.max(...C.lanes.map(l => l.C.planRect.y + l.C.planRect.h)) + 16);
+      const xA = bA.x + bA.w / 2, xB = bB.x + bB.w / 2;
+      path = `M${r(xA)} ${r(bA.y + bA.h)}V${r(below)}H${r(xB)}V${r(bB.y + bB.h)}`;
     } else {
-      // (stacked: along the outside of the rooms' right walls, clear of B's header text; through the gap when there is
-      // no margin there)
       const right = Math.max(...C.lanes.map(l => l.C.planRect.x + l.C.planRect.w));
-      const laneR = C.lanes[0].sb.x + C.lanes[0].sb.w;
-      if (laneR - right >= 14) {
-        const gx = right + Math.min(22, (laneR - right) / 2);
-        // (above each counter, over its back edge: the line never crosses a folder, the tray or the divider)
-        const topOf = i => { const l = C.lanes[i]; return l.C.toD({x: 0, y: l.C.G.counter.y - 12}).y; };
-        const xA = bA.x + bA.w / 2, xB = bB.x + bB.w / 2;
-        path = `M${r(xA)} ${r(bA.y)}V${r(topOf(0))}H${r(gx)}V${r(topOf(1))}H${r(xB)}V${r(bB.y)}`;
-      } else {
-        const yA = C.lanes[0].C.planRect.y + C.lanes[0].C.planRect.h;
-        const gy = (yA + C.lanes[1].sb.y) / 2;
-        const xA = bA.x + bA.w / 2, xB = bB.x + bB.w / 2;
-        path = `M${r(xA)} ${r(yA)}V${r(gy)}H${r(xB)}`;
-      }
+      const gx = Math.min(D.w - 6, right + 16);
+      const topOf = i => { const l = C.lanes[i]; return l.C.toD({x: 0, y: l.C.G.counter.y - 12}).y; };
+      const xA = bA.x + bA.w / 2, xB = bB.x + bB.w / 2;
+      path = `M${r(xA)} ${r(bA.y)}V${r(topOf(0))}H${r(gx)}V${r(topOf(1))}H${r(xB)}V${r(bB.y)}`;
     }
     const guideCol = ctx.theme.accent3;
     const guide = g({name: 'guide', opacity: 0},

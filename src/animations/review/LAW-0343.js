@@ -26,7 +26,7 @@ import {topArm, deskWindow} from '../../primitives/desk.js';
 import {actorLook} from '../../primitives/people-style.js';
 import {
   ciFields, CI_EN, CI_ES, localisedCi, cardModel, cardNode, arrowMark, filterStrip, calendarNode, panelLayout, panelNode,
-  planDesk, arrowTip, cardPoint, cardTransform, laneColor, fitG, textAt, INK, R2,
+  planDesk, arrowTip, cardPoint, cardTransform, laneColor, fitG, textAt, markGlyph, INK, R2,
 } from './kits/confirmacion-ilustrativa.js';
 
 const ID = 'LAW-0343';
@@ -225,6 +225,7 @@ const scene = {
       const lane = laneColor(th, s);
       const cy = at.y + C.hh / 2;
       const kids = [h('circle', {cx: r(at.x + C.badgeR), cy: r(cy), r: r(C.badgeR), fill: lane, stroke: INK, 'stroke-width': 2.4})];
+      if (!hd.label) kids.push(g({transform: T(at.x + C.badgeR, cy)}, markGlyph(s, C.badgeR * 0.42, {fill: '#fff', stroke: lane})));
       if (hd.label) {
         kids.push(h('text', {x: r(at.x + C.badgeR), y: r(cy + C.F * 0.36), 'text-anchor': 'middle', 'font-family': "'Avenir Next', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif", 'font-size': r(C.F, 2), 'font-weight': 800, fill: '#fff'}, s.toUpperCase()));
         const tx = at.x + C.badgeR * 2 + C.F * 0.6;

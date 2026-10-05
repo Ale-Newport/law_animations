@@ -1,0 +1,224 @@
+{
+  "animationId": "LAW-0350",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Only the supplied relationships are drawn; plain relations have no arrowheads and the return itself is a supplied sequence link captioned 'as configured (illustrative)'. The return point and route are supplied; the renewed examination's sheet stays blank (not shown, no outcome). Brief fields: decisions, grounds, routes, outcomes, elements, relationships, focusElement, relationLabels and traversalOrder are editable.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Five components; the return is a supplied sequence link; the tracer runs notes → folder → doors → point → renewed; the filter doors enlarge.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a two-point route configured to the first point, three notes, only three relationships (no link to the renewed examination), the return point as focus and another traversal order.",
+      "params": {
+        "grounds": [
+          "Note A: re-read the account (fictional)",
+          "Note B: a missing annex (fictional)",
+          "Note C: a date to check (fictional)"
+        ],
+        "routes": {
+          "stations": [
+            "Desk K1 · first examination (fictional)",
+            "Desk K2 · registry (fictional)"
+          ],
+          "origin": "Review desk K (fictional)",
+          "returnTo": 0
+        },
+        "relationships": [
+          {
+            "from": "notes",
+            "to": "folder",
+            "kind": "relation",
+            "label": "clipped to the folder"
+          },
+          {
+            "from": "folder",
+            "to": "doors",
+            "kind": "sequence",
+            "label": "return as configured (illustrative)"
+          },
+          {
+            "from": "doors",
+            "to": "point",
+            "kind": "relation",
+            "label": "open only here"
+          }
+        ],
+        "focusElement": "point",
+        "traversalOrder": [
+          "folder",
+          "notes",
+          "folder",
+          "doors",
+          "point"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: long names, title, three long notes, long element captions and relation labels.",
+      "params": {
+        "decisions": {
+          "title": "Decision of the initial examination in this fictional example"
+        },
+        "grounds": [
+          "Note 1: a point of the initial decision to look at again (fictional)",
+          "Note 2: a document the reviewers ask to be considered (fictional)",
+          "Note 3: a passage of the account to be read once more (fictional)"
+        ],
+        "routes": {
+          "stations": [
+            "Point 1 · intake desk of the example (fictional)",
+            "Point 2 · initial examination desk (fictional)",
+            "Point 3 · file room of the example (fictional)"
+          ],
+          "origin": "Review desk of this fictional example (supplied)",
+          "returnTo": 1
+        },
+        "outcomes": {
+          "returned": "Back at the configured point with its review notes in this example (as supplied)",
+          "renewed": "Renewed examination: not shown in this example, no outcome is drawn"
+        },
+        "labels": {
+          "route": "Return route of this example as configured by the user (as supplied)",
+          "point": "Configured return point of this example (as supplied)",
+          "key": "As supplied · no conclusion drawn (placeholder content only)"
+        },
+        "elements": [
+          {
+            "id": "folder",
+            "label": "Folder of this example at the review desk"
+          },
+          {
+            "id": "notes",
+            "label": "Review notes of this fictional example"
+          },
+          {
+            "id": "doors",
+            "label": "Filter doors of the configured point"
+          },
+          {
+            "id": "point",
+            "label": "Configured return point of this example"
+          },
+          {
+            "id": "renewed",
+            "label": "Renewed examination of this example"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "notes",
+            "to": "folder",
+            "kind": "relation",
+            "label": "clipped to the folder in this example"
+          },
+          {
+            "from": "folder",
+            "to": "doors",
+            "kind": "sequence",
+            "label": "return as configured (illustrative only)"
+          },
+          {
+            "from": "doors",
+            "to": "point",
+            "kind": "relation",
+            "label": "open only at this point (as supplied)"
+          },
+          {
+            "from": "point",
+            "to": "renewed",
+            "kind": "relation",
+            "label": "not shown, no outcome is drawn"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {
+          "title": "Resolución del examen inicial (ficticia)"
+        },
+        "grounds": [
+          "Nota 1: un punto que mirar de nuevo (ficticia)",
+          "Nota 2: un documento que considerar (ficticia)"
+        ],
+        "routes": {
+          "stations": [
+            "Punto 1 · entrada (ficticio)",
+            "Punto 2 · examen inicial (ficticio)",
+            "Punto 3 · archivo (ficticio)"
+          ],
+          "origin": "Mesa de revisión (ficticia)",
+          "returnTo": 1
+        },
+        "outcomes": {
+          "returned": "De vuelta en el punto configurado con notas de revisión (según lo aportado)",
+          "renewed": "Examen renovado: no se muestra, sin resultado"
+        },
+        "labels": {
+          "route": "Ruta de devolución configurada (según lo aportado)",
+          "point": "Punto de devolución configurado (según lo aportado)",
+          "key": "Según lo aportado · sin conclusión"
+        },
+        "elements": [
+          {
+            "id": "folder",
+            "label": "Carpeta en la mesa de revisión"
+          },
+          {
+            "id": "notes",
+            "label": "Notas de revisión"
+          },
+          {
+            "id": "doors",
+            "label": "Puertas filtro"
+          },
+          {
+            "id": "point",
+            "label": "Punto de devolución configurado"
+          },
+          {
+            "id": "renewed",
+            "label": "Examen renovado"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "notes",
+            "to": "folder",
+            "kind": "relation",
+            "label": "sujetas a la carpeta"
+          },
+          {
+            "from": "folder",
+            "to": "doors",
+            "kind": "sequence",
+            "label": "devolución configurada (ilustrativa)"
+          },
+          {
+            "from": "doors",
+            "to": "point",
+            "kind": "relation",
+            "label": "abiertas solo aquí"
+          },
+          {
+            "from": "point",
+            "to": "renewed",
+            "kind": "relation",
+            "label": "no se muestra"
+          }
+        ],
+        "relationLabels": {
+          "relation": "vinculado según lo aportado",
+          "communication": "comunicación (según lo aportado)",
+          "sequence": "secuencia configurada (ilustrativa)",
+          "causal": "vínculo causal (aportado)"
+        }
+      }
+    }
+  ]
+}

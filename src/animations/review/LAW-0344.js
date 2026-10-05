@@ -133,7 +133,8 @@ function compose(ctx, P, F, opts) {
   const wasFit = showKey ? fitG(before, {maxWidth: 10000, size: F, minSize: F, maxLines: 1, weight: 600}) : null;
   const wasLab = showKey ? fitG(ctx.t.was, {maxWidth: 1000, size: F, minSize: F, maxLines: 1, weight: 500}) : null;
   const usedH = PL ? Math.max(desk.y + desk.h, panel.y + PL.h) : desk.y + desk.h;
-  const dyC = Math.max(0, (DH - usedH) / 2);
+  // (labels hidden on a tall frame: no panel below — the desk sits higher, leaving its lower part of the frame to the lens)
+  const dyC = Math.max(0, (DH - usedH) / 2) * (!PL && opts.band ? 0.3 : 1);
   const bandH = (wasFit ? Math.max(wasFit.height, F) + F * 0.9 : F * 1.6);
   const pref = P.detailGeometry.placement === 'auto' ? (opts.band && !opts.deskW ? 'bottom' : 'right') : P.detailGeometry.placement;
   // (the frame's short side in design units: the lens is measured against the whole frame, not the safe box)

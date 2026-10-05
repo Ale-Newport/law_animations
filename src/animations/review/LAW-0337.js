@@ -147,7 +147,7 @@ const scene = {
     if (showKey) rows.push({kind: 'state', text: P.stateCaption ? P.stateCaption : ctx.t[side === 'a' ? 'kept' : 'open'], name: 'state-tag'});
     if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
     // (a tall box may grow the room's floor further: the room keeps most of a portrait frame)
-    const optsFor = arr => ({arr, docK: DOCK[arr], person: true, sign: true, n: R.n, crop: ctx.view.shape === 'square' ? 1.2 : ctx.view.shape === 'portrait' ? 2.6 : 1.7, maxK: 125 / (100 * px)});
+    const optsFor = arr => ({arr, docK: DOCK[arr], person: true, sign: true, n: R.n, crop: ctx.view.shape === 'square' ? 1.2 : ctx.view.shape === 'portrait' ? 2.6 : 1.7, ...(R.n >= 4 ? {maxK: 160 / (100 * px)} : {})});
     const search = (arr, minPersonPx, sizes = [22.5, 21.6, 20.7, 19.8, 19.5, 18.9, 18, 17.1, 16.4]) => searchSa(ctx, rows, {
       sizes, minF: 16.4, minPersonPx,
       colFracs: [0.25, 0.3, 0.35, 0.39], bandCols: [2, 3], sidePanels: [[0.38, 2], [0.44, 2], [0.5, 2]], bandMax: ctx.view.shape === 'square' ? 0.62 : 0.5,
@@ -161,7 +161,8 @@ const scene = {
     const sc = b => (good(b) ? 1000 : 0) - 100 * b.problems.length + b.C.k * 200 + Math.min(b.personPx, 110) + b.F * px * 3;
     let best = null, arr = 'row';
     // (four pieces: the stack arrangement's turn with every piece would hurry the walk — item 19 — so the row is used)
-    const arrs = R.n >= 4 ? ['row'] : ['row', 'stack'];
+    // (a square frame stacks the counters: the room uses the frame's height instead of a thin band)
+    const arrs = R.n >= 4 ? ['row'] : ctx.view.shape === 'square' ? ['stack'] : ['row', 'stack'];
     for (const a of arrs) {
       const b = search(a, floor);
       if (!best || sc(b) > sc(best)) { best = b; arr = a; }

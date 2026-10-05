@@ -1,0 +1,85 @@
+{
+  "animationId": "LAW-0714",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). Lane A and lane B (the supplied conducts of A and of B, the affected person) are drawn at equal size and weight; the convergence piece only shows the supplied description. No fault, share, percentage, contributory-negligence doctrine, liability, amount or outcome is stated.",
+  "presets": [
+    {"name": "baseline-illustrative", "description": "Record, lane A, lane B and the convergence piece, related as supplied (plain relations).", "params": {}},
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four steps, an account put forward as an element, a sequence link from the record and a supplied causal link from lane A, traced in a different order with lane B as focus.",
+      "params": {
+        "origin": {"name": "Event Y (fictional shelf tipping)"},
+        "events": [
+          {"label": "Step 1 (supplied): A stacks boxes on a shelf", "time": "Day 1", "lane": "a"},
+          {"label": "Step 2 (supplied): B moves a ladder into the aisle", "time": "Day 1", "lane": "b"},
+          {"label": "Step 3 (supplied): A leaves the aisle", "time": "Day 2", "lane": "a"},
+          {"label": "Step 4 (supplied): B reaches for a box", "time": "Day 2", "lane": "b"}
+        ],
+        "alternatives": [{"label": "A different account of Step 4 put forward", "status": "alleged"}],
+        "losses": [{"label": "Loss described by B (no amount)"}],
+        "elements": [
+          {"id": "record", "label": "Record of the shelf tipping"},
+          {"id": "laneA", "label": "Lane A: what A did"},
+          {"id": "laneB", "label": "Lane B: what B did"},
+          {"id": "convergence", "label": "Convergence piece (enlarged)"},
+          {"id": "alternative", "label": "Account put forward (alleged)"}
+        ],
+        "relationships": [
+          {"from": "laneA", "to": "convergence", "kind": "causal"},
+          {"from": "laneB", "to": "convergence", "kind": "relation"},
+          {"from": "record", "to": "laneB", "kind": "sequence"},
+          {"from": "alternative", "to": "record", "kind": "communication"}
+        ],
+        "focusElement": "laneB",
+        "traversalOrder": ["record", "laneB", "convergence", "laneA"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Stress: near-maximum label lengths with four steps, one account and two loss items.",
+      "params": {
+        "origin": {"name": "Event Z (fictional storeroom shelving incident)"},
+        "events": [
+          {"label": "Step 1 (supplied): A pushes a loaded trolley along the aisle", "time": "Day 1 (morning)", "lane": "a"},
+          {"label": "Step 2 (supplied): B walks along the parallel aisle with a list", "time": "Day 1 (morning)", "lane": "b"},
+          {"label": "Step 3 (supplied): A turns the trolley toward the end shelf", "time": "Day 1 (later on)", "lane": "a"},
+          {"label": "Step 4 (supplied): B stops beside the same end shelf to read", "time": "Day 1 (later on)", "lane": "b"}
+        ],
+        "causalLinks": [{"lane": "a", "kind": "relation", "status": "proposed", "label": "relation as described by the owner"}],
+        "alternatives": [{"label": "A different account of where B stood was put forward by A", "status": "alleged"}],
+        "losses": [{"label": "Loss at the end shelf as described by the storeroom owner (no amount)"}, {"label": "A further damaged item was also mentioned by the owner"}],
+        "elements": [
+          {"id": "record", "label": "Record of the two conducts in the storeroom"},
+          {"id": "laneA", "label": "Lane A: the conduct of A as supplied"},
+          {"id": "laneB", "label": "Lane B: the conduct of B as supplied"},
+          {"id": "convergence", "label": "Convergence piece, lane ends (enlarged)"}
+        ],
+        "relationships": [
+          {"from": "laneA", "to": "convergence", "kind": "relation"},
+          {"from": "laneB", "to": "convergence", "kind": "relation"},
+          {"from": "record", "to": "convergence", "kind": "relation"}
+        ],
+        "relationLabels": {"relation": "related as the owner supplied it", "communication": "noted in the storeroom record", "sequence": "then, in the supplied order", "causal": "causal, as supplied by the owner"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "origin": {"name": "Evento X (ficticio)"},
+        "events": [
+          {"label": "Paso 1 (aportado): A empuja un carro por el pasillo 1", "lane": "a"},
+          {"label": "Paso 2 (aportado): B lleva un carro por el pasillo 2", "lane": "b"}
+        ],
+        "losses": [{"label": "Pérdida descrita según lo aportado (sin importe)"}],
+        "elements": [
+          {"id": "record", "label": "Registro de las dos conductas (según lo aportado)"},
+          {"id": "laneA", "label": "Carril A: conducta de A"},
+          {"id": "laneB", "label": "Carril B: conducta de B"},
+          {"id": "convergence", "label": "Pieza de convergencia (ampliada)"}
+        ],
+        "relationLabels": {"relation": "relacionado según lo aportado", "communication": "consta en el registro", "sequence": "después (según lo aportado)", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}
