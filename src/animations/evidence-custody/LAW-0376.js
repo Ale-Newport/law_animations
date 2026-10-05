@@ -180,7 +180,7 @@ function compose(ctx, P, recs, F, opt, LG, vs) {
   const ew = Math.max(G.stageBox.x + G.stageBox.w, G.tray.x + G.tray.w) - ex0, eh = Math.max(G.stageBox.y + G.stageBox.h, G.tray.y + G.tray.h) - ey0;
   const rsc = clamp(Math.min(mat.h * 0.96 / eh, mat.w * 0.96 / ew), 1, 2.2);
   const restS = G.S * rsc;
-  const stageOk = G.S >= 52 && restS >= 95;
+  const stageOk = G.S >= 52 && restS >= 88;
   const ok = (!PL || PL.ok) && G.fits && zoomOk && textOk && lensBig && stageOk;
   const minT = Math.min(size, tsz, num0 ? Math.min(...nFits.map(f => f.size)) : size);
   return {F, rsc, bench, mat, panel, PL, G, fi, slot, pw, ph, tabH, card, source, dest, zoom, size, bFit, aFit, trace, tsz, badgeR, nFits, ok, kText: 16.3 / (minT * vs),
