@@ -147,7 +147,7 @@ const scene = {
     const recMemo = new Map();
     let quant = true;
     const recordFor = (Ft0, rs) => {
-      const Ft = quant ? Math.round(Ft0 * 20) / 20 : Ft0;
+      const Ft = quant ? Math.exp(Math.round(Math.log(Ft0) / 0.03) * 0.03) : Ft0;
       const rk = `${Ft}|${rs}|${maxRecLines}`;
       if (!recMemo.has(rk)) recMemo.set(rk, recordFor0(Ft, rs));
       return recMemo.get(rk);

@@ -270,21 +270,21 @@ const scene = {
     const shortD = Math.min(ctx.view.width, ctx.view.height) / f.scale;
     const tightSide = 0.375 * shortD;
     const zoomMax = P.detailGeometry.zoom;
-    const opts = tall ? [{tall: true}] : ctx.view.shape === 'square' ? [{tall: true}, {tall: false, panel: 0.4}, {tall: false, panel: 0.46}] : [{tall: false, panel: 0.34}, {tall: false, panel: 0.4}];
+    const opts = tall0 ? [{tall: true}] : ctx.view.shape === 'square' ? [{tall: true}, {tall: false, panel: 0.4}, {tall: false, panel: 0.46}] : [{tall: false, panel: 0.34}, {tall: false, panel: 0.4}];
     // the lens: where it opens, how far the context steps back, the crop and the zoom
     const lensPlan = C => {
       const {G, k, roomRect} = C;
       const crop0 = {x: G.plate.x - 12, y: G.plate.y - 12, w: G.plate.w + 24, h: G.dock.y + G.dock.h - G.plate.y + 24};
       // (the context steps back to the frame's left edge — or its top on tall frames — as it shrinks)
-      const regionFor = sc => (tall
+      const regionFor = sc => (C.tall
         ? {x: 0, y: roomRect.h * sc + 18, w: D.w, h: D.h - (roomRect.h * sc + 18)}
         : {x: roomRect.w * sc + 18, y: 0, w: D.w - (roomRect.w * sc + 18), h: D.h});
-      const shareOf = sc => (tall ? Math.max((roomRect.h * sc * f.scale) / ctx.view.height, (roomRect.w * sc * f.scale) / ctx.view.width) : (roomRect.w * sc * f.scale) / ctx.view.width);
+      const shareOf = sc => (C.tall ? Math.max((roomRect.h * sc * f.scale) / ctx.view.height, (roomRect.w * sc * f.scale) / ctx.view.width) : (roomRect.w * sc * f.scale) / ctx.view.width);
       let sc = 1, region = regionFor(1), ok = false;
       for (const zt of [1.65, 1.56]) {
         for (let q = 1; q >= 0.3 - 1e-9; q -= 0.02) {
           if (shareOf(q) < 0.455) break;
-          if (tall && (roomRect.w * q * f.scale) / ctx.view.width < 0.8) break;
+          if (C.tall && (roomRect.w * q * f.scale) / ctx.view.width < 0.8) break;
           const rg = regionFor(q);
           sc = q; region = rg;
           const z = Math.min(zoomMax, rg.w / (crop0.w * k), rg.h / (crop0.h * k));
@@ -307,7 +307,7 @@ const scene = {
       const pl = P.detailGeometry.placement;
       const ax = pl === 'left' ? 0 : pl === 'right' ? 1 : 0.5;
       dest.x = region.x + (region.w - dest.w) * ax;
-      dest.y = tall ? region.y + (region.h - dest.h) * (pl === 'bottom' ? 1 : pl === 'top' ? 0 : 0.5) : clamp(roomRect.y + roomRect.h / 2 - dest.h / 2, region.y, region.y + region.h - dest.h);
+      dest.y = C.tall ? region.y + (region.h - dest.h) * (pl === 'bottom' ? 1 : pl === 'top' ? 0 : 0.5) : clamp(roomRect.y + roomRect.h / 2 - dest.h / 2, region.y, region.y + region.h - dest.h);
       if (Math.min(dest.w, dest.h) < 0.36 * shortD - 0.5) problems.push('lens-small');
       if (zm < 1.56) problems.push('lens-zoom');
       return {s: sc, region, Z, zm, crop, dest, problems};
