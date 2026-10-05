@@ -158,18 +158,24 @@ function compose(ctx, P, R, F, v) {
   const t = Math.max(12, F * 0.62);
   const m = Math.max(16, F * 0.9);
   const TWv = F * v.tw;
-  const SW = Math.min(v.sw, inner.w - AW - gapA - m - 12 - TWv);
+  // 16:9: the plate sits ON the sheet, right of every section title (over filler bars only), so the sheet can fill
+  // the desk while the lens crop stays narrow (titles + plate); 9:16 / 1:1: the plate stands beside the frame
+  const inside = side;
+  const SW = Math.min(v.sw, inner.w - AW - gapA - m - 12 - (inside ? 0 : TWv));
   if (SW < 240) problems.push('sheet-narrow');
   const M = sheetModel(ctx, {w: Math.max(240, SW), F, title: P.decisions.title, sections: P.decisions.sections, showText: showKey, bars: v.bars, compact: v.compact, pips: false, rowLines: 2, titleLines: 2});
   if (!M.ok) problems.push('sheet-text');
   if (M.h > inner.h + 0.5) problems.push('sheet-tall');
+  if (problems.length && !v.force) return {ok: false, problems};
   // edge plate: pinned beside the frame's right rail at the height of the focus rail (the supplied datum)
-  const tagX0 = M.w + m + 10;
-  const TW = TWv;
-  const blockW = AW + gapA + tagX0 + TW;
+  const titleW = Math.max(0, ...M.rows.map(rw => (rw.fit ? rw.fit.width : M.textW * 0.85)));
+  const tagX0 = inside ? (showKey ? M.pad + titleW + F * 0.9 : M.w * 0.48) : M.w + m + 10;
+  const TW = inside ? Math.min(TWv, M.w - M.pad * 0.6 - tagX0) : TWv;
+  if (inside && TW < Math.min(TWv, F * 8.5)) problems.push('tag-narrow');
+  const blockW = AW + gapA + (inside ? M.w + m : tagX0 + TW);
   const sx = inner.x + Math.max(0, (inner.w - blockW) / 2) + AW + gapA;
   const sy = inner.y + Math.max(0, (inner.h - M.h) / 2);
-  if (sx + tagX0 + TW > desk.x + desk.w - inset * 0.5) problems.push('tag-right');
+  if (!inside && sx + tagX0 + TW > desk.x + desk.w - inset * 0.5) problems.push('tag-right');
   const Eb = frameExtent(M, R.before.from, R.before.to, {t, margin: m});
   const Ea = frameExtent(M, R.after.from, R.after.to, {t, margin: m});
   const railB = R.lower ? Eb.yBot : Eb.yTop;
@@ -199,6 +205,8 @@ function compose(ctx, P, R, F, v) {
   const minY0 = Math.min(sy + M.rows[lo0].y - M.rowGap / 2, plateMin);
   const minY1 = Math.max(sy + M.rows[hi0].y + M.rowH + M.rowGap / 2, plateMax);
   const srcW = x1 - x0;
+  // the crop's top and bottom edges fall in the gaps between rows (the outline never strikes through a title): pick
+  // the whole-row band around the rail that gives the largest lens at >= 1.5×
   let k = Math.min(band.w / srcW, band.h / (minY1 - minY0), Math.max(1.5, P.detailGeometry.zoom));
   // taller crop (more filler rows around the rail) until the lens is a real inspection; rows only partly inside the
   // crop are copied without their titles (no supplied text is cut by the rim)
@@ -208,7 +216,18 @@ function compose(ctx, P, R, F, v) {
   if (y0 > minY0) y0 = minY0;
   if (y0 + srcH < minY1) srcH = minY1 - y0;
   const src = {x: x0, y: y0, w: srcW, h: Math.min(srcH, desk.y + desk.h - 3 - y0)};
-  k = Math.min(k, band.h / src.h);
+  // the crop's outline never runs through a title: an edge inside a title's band is nudged just outside it
+  {
+    const tTop = rw => sy + rw.y + M.rowPad - 3, tBot = rw => sy + rw.y + M.rowPad + M.textH + 4;
+    const hit = yy => M.rows.find(rw => yy > tTop(rw) - 1 && yy < tBot(rw) + 1);
+    let ya = src.y, yb = src.y + src.h;
+    const rt = hit(ya);
+    if (rt) ya = tBot(rt) + 1 <= minY0 + 0.5 ? tBot(rt) + 1 : Math.max(desk.y + 3, tTop(rt) - 1);
+    const rb = hit(yb);
+    if (rb) yb = tTop(rb) - 1 >= minY1 - 0.5 ? tTop(rb) - 1 : Math.min(desk.y + desk.h - 3, tBot(rb) + 1);
+    src.y = ya; src.h = yb - ya;
+  }
+  k = Math.min(k, band.w / src.w, band.h / src.h);
   // (the lens window has rounded corners: a row counts as inside only clear of the corner radius)
   const cr = 30 / k;
   const whole = M.rows.filter(rw => sy + rw.y >= src.y + cr && sy + rw.y + rw.h <= src.y + src.h - cr).map(rw => rw.i);
@@ -241,17 +260,18 @@ const scene = {
     const P = localisedLr(ctx, EN, ES);
     const R = resolve(P);
     const shape = ctx.view.shape;
-    const sws = shape === 'landscape' ? [360, 320, 290, 260] : shape === 'square' ? [440, 425, 410, 380, 350] : [560, 500, 440, 380];
-    const tws = shape === 'square' ? [11, 10, 9] : [12, 10, 8.5];
+    const sws = shape === 'landscape' ? [760, 680, 600, 520] : shape === 'square' ? [440, 425, 410, 395, 380, 350] : [560, 500, 440, 380];
+    const tws = shape === 'square' ? [11, 10, 9, 8.5] : shape === 'landscape' ? [10, 9, 8, 7.5] : [12, 10, 8.5];
     const variants = tws.flatMap(tw => sws.flatMap(sw => [...(shape === 'portrait' ? [{sw, tw, bars: 2}] : []), {sw, tw, bars: 1}, {sw, tw, bars: 0}, {sw, tw, bars: 0, compact: true}]));
     const sizes = !ctx.show('key') || shape === 'portrait' ? [30, 28, 26, 24.5, ...SIZES] : SIZES;
     let C = null, best = null;
     outer: for (const F of sizes) for (const v of variants) {
       const c = compose(ctx, P, R, F, v);
+      if (!best || c.problems.length < best.n) best = {n: c.problems.length, F, v};
       if (c.ok) { C = c; break outer; }
-      if (!best || c.problems.length < best.problems.length) best = c;
     }
-    C = C || best;
+    // nothing composes cleanly: the composition with the fewest problems, flagged in semantic.problems
+    C = C || compose(ctx, P, R, best.F, {...best.v, force: true});
     // (lens geometry only — its frame() needs no content; the mounted lens is built with its content in build())
     const lensGeom = makeLens(ctx, {name: 'lens', source: C.src, dest: C.dest, content: null, color: ctx.theme.accent2});
     return {P, R, C, lensGeom};
@@ -362,7 +382,7 @@ const scene = {
     const mk = seg(u, ...W.marker);
     nodes.markerw = {opacity: r(R.changed ? mk : 0, 3), transform: T(C.sx + E.x + E.w + C.F * 0.1, C.sy + rail + t / 2)};
     // legend: fades out under the opening lens, back with the after-states once it closes
-    const panelOp = clamp(1 - kOpen * 3) + clamp((kClose - 0.6) / 0.4);
+    const panelOp = clamp(1 - kOpen * 3) + clamp((kClose - 0.1) / 0.35);
     if (C.cols.length) {
       nodes.panel = {opacity: r(clamp(panelOp), 3)};
       const after = u >= W.newIn[0] ? 1 : 0;

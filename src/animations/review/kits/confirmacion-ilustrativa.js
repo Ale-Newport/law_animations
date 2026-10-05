@@ -271,6 +271,16 @@ export function cardModel(P, o) {
   const inner = w - pad * 2;
   const badgeR = F * 1.0;
   const st = o.showText;
+  // 'tall' (default): one column; 'wide': header, title and reference in a left column, reasons and result in a right
+  // column (short cards for square frames)
+  const wide = o.layout === 'wide';
+  // secondary lines (title, reasons) may be set smaller than the key lines (role, reference, result); never below the
+  // caller's floor
+  const secK = o.secK ?? 1;
+  const gc = F * 1.0;
+  const wl = wide ? (inner - gc) * (o.wideK ?? 0.6) : inner;
+  const wr = wide ? inner - gc - wl : inner;
+  const xr = wide ? pad + wl + gc : pad;
   const fits = {};
   let ok = true;
   for (const s of SIDES) {
@@ -278,11 +288,11 @@ export function cardModel(P, o) {
     const f = {};
     if (st) {
       f.role = fitG(D.role, {maxWidth: inner - badgeR * 2 - F * 0.5, size: F * 1.04, minSize: minF, maxLines: 3, weight: 700});
-      f.title = fitG(D.title, {maxWidth: inner, size: F, minSize: minF, maxLines: 2, weight: 600, family: 'serif'});
-      f.ref = fitG(D.ref, {maxWidth: inner - F * 1.4, size: F, minSize: minF, maxLines: 2, weight: 600});
-      if (o.refAlt && o.refAlt[s]) f.refAlt = fitG(o.refAlt[s], {maxWidth: inner - F * 1.4, size: F, minSize: minF, maxLines: 2, weight: 600});
-      f.grounds = fitG(P.grounds[s], {maxWidth: inner, size: F, minSize: minF, maxLines: 3, weight: 500});
-      f.result = fitG(P.outcomes[s], {maxWidth: inner - F * 1.7, size: F, minSize: minF, maxLines: 3, weight: 700});
+      f.title = fitG(D.title, {maxWidth: wl, size: F * secK, minSize: minF * secK, maxLines: wide ? 3 : 2, weight: 600, family: 'serif'});
+      f.ref = fitG(D.ref, {maxWidth: wl - F * 1.4, size: F, minSize: minF, maxLines: wide ? 3 : 2, weight: 600});
+      if (o.refAlt && o.refAlt[s]) f.refAlt = fitG(o.refAlt[s], {maxWidth: wl - F * 1.4, size: F, minSize: minF, maxLines: wide ? 3 : 2, weight: 600});
+      f.grounds = fitG(P.grounds[s], {maxWidth: wide ? wl : wr, size: F * secK, minSize: minF * secK, maxLines: wide ? 4 : 3, weight: 500});
+      f.result = fitG(P.outcomes[s], {maxWidth: wr + (wide ? 0 : pad * 0.6) - F * 1.7, size: F, minSize: minF, maxLines: wide ? 4 : 3, weight: 700});
       for (const v of Object.values(f)) if (!v.ok) ok = false;
     }
     fits[s] = f;
@@ -294,35 +304,39 @@ export function cardModel(P, o) {
   const refH = refTH + F * 0.62;
   const groundsH = hOf('grounds', F * 1.3);
   const resultTH = hOf('result', F * 1.5);
-  const bars = o.bars ?? 2;
+  const bars = wide ? 0 : o.bars ?? 2;
   const barH = Math.max(7, F * 0.3);
   const foot = o.foot ?? F * 2.0;
   let y = pad * 0.9 + F * 0.25;
-  const header = {y, h: headerH};
+  const header = {x: pad, w: inner, y, h: headerH};
   y += headerH + F * 0.45;
   const sep = y;
   y += F * 0.45;
-  const title = {y, h: titleH};
-  y += titleH + F * 0.45;
-  const ref = {y, h: refH};
-  y += refH + F * 0.5;
+  const y0 = y;
+  const title = {x: pad, w: wl, y, h: titleH};
+  y += titleH + F * (wide ? 0.3 : 0.45);
+  const ref = {x: pad, w: wl, y, h: refH};
+  y += refH + F * (wide ? 0.3 : 0.5);
   const barsY = y;
   if (bars) y += bars * barH * 1.9 + F * 0.15;
-  const grounds = {y, h: groundsH};
-  y += groundsH + F * 0.8;
-  const result = {y, h: resultTH + F * 0.9};
+  const grounds = {x: pad, w: wl, y, h: groundsH};
+  y += groundsH + F * (wide ? 0.3 : 0.8);
+  const leftEnd = y;
+  if (wide) y = y0;
+  const result = {x: wide ? xr : pad * 0.7, w: wide ? wr : w - pad * 1.4, y, h: resultTH + F * 0.9};
   y += result.h;
+  if (wide) y = Math.max(y + F * 0.3, leftEnd);
   const footY = y;
   y += foot;
   const hh = y;
   // the chip of each reference tag (as wide as its longest value)
   const refW = {};
   for (const s of SIDES) {
-    const wv = st ? Math.max(fits[s].ref.width, fits[s].refAlt ? fits[s].refAlt.width : 0) : inner * 0.55;
-    refW[s] = Math.min(inner, wv + F * 1.4);
+    const wv = st ? Math.max(fits[s].ref.width, fits[s].refAlt ? fits[s].refAlt.width : 0) : wl * 0.6;
+    refW[s] = Math.min(wl, wv + F * 1.4);
   }
   const rows = {header: header.y + header.h / 2, result: result.y + result.h / 2};
-  return {w, h: hh, F, pad, inner, badgeR, fits, header, sep, title, ref, refW, barsY, bars, barH, grounds, result, footY, foot, rows, showText: st, ok};
+  return {w, h: hh, F, pad, inner, badgeR, fits, header, sep, title, ref, refW, barsY, bars, barH, grounds, result, footY, foot, rows, showText: st, ok, wide};
 }
 
 /** The register row (card-local y of the arrow marks / the strip's centre) and its half height for a configured align. */
@@ -333,12 +347,12 @@ export function registerRow(M, align) {
 
 /** Box of a card's reference chip (card-local). */
 export function refBox(M, side) {
-  return {x: M.pad, y: M.ref.y, w: M.refW[side], h: M.ref.h};
+  return {x: M.ref.x, y: M.ref.y, w: M.refW[side], h: M.ref.h};
 }
 
 /** Box of a card's result field (card-local). */
 export function resultBox(M) {
-  return {x: M.pad * 0.7, y: M.result.y, w: M.w - M.pad * 1.4, h: M.result.h};
+  return {x: M.result.x, y: M.result.y, w: M.result.w, h: M.result.h};
 }
 
 /**
@@ -369,11 +383,12 @@ export function cardNode(ctx, M, side, o) {
   else parts.push(g({transform: T(bx, by)}, markGlyph(side, M.badgeR * 0.42, {fill: '#fff', stroke: lane})));
   const tx = M.pad + M.badgeR * 2 + F * 0.5;
   if (M.showText) parts.push(textAt(f.role, {x: tx, y: M.header.y + (M.header.h - f.role.height) / 2, fill: INK, name: `${P}-role`}));
-  else parts.push(h('rect', {x: r(tx), y: r(by - F * 0.3), width: r((M.w - tx - M.pad) * (side === 'a' ? 0.7 : 0.86)), height: r(F * 0.6), rx: r(F * 0.3), fill: INK, opacity: 0.72}));
-  parts.push(h('line', {x1: r(M.pad), x2: r(M.w - M.pad), y1: r(M.sep), y2: r(M.sep), stroke: th.paperLine, 'stroke-width': 2}));
+  else parts.push(h('rect', {x: r(tx), y: r(by - F * 0.3), width: r((M.header.x + M.header.w - tx) * (side === 'a' ? 0.7 : 0.86)), height: r(F * 0.6), rx: r(F * 0.3), fill: INK, opacity: 0.72}));
+  parts.push(h('line', {x1: r(M.header.x), x2: r(M.header.x + M.header.w), y1: r(M.sep), y2: r(M.sep), stroke: th.paperLine, 'stroke-width': 2}));
+  if (M.wide) parts.push(h('line', {x1: r(M.result.x - F * 0.5), x2: r(M.result.x - F * 0.5), y1: r(M.sep + F * 0.3), y2: r(M.footY - F * 0.2), stroke: th.paperLine, 'stroke-width': 2}));
   // title
-  if (M.showText) parts.push(textAt(f.title, {x: M.pad, y: M.title.y, fill: INK, name: `${P}-title`}));
-  else parts.push(h('rect', {x: r(M.pad), y: r(M.title.y + F * 0.15), width: r(M.inner * 0.62), height: r(F * 0.55), rx: r(F * 0.27), fill: INK, opacity: 0.6}));
+  if (M.showText) parts.push(textAt(f.title, {x: M.title.x, y: M.title.y, fill: INK, name: `${P}-title`}));
+  else parts.push(h('rect', {x: r(M.title.x), y: r(M.title.y + F * 0.15), width: r(M.title.w * 0.62), height: r(F * 0.55), rx: r(F * 0.27), fill: INK, opacity: 0.6}));
   // reference chip
   const rb = refBox(M, side);
   parts.push(g({name: `${P}-ref`},
@@ -383,12 +398,12 @@ export function cardNode(ctx, M, side, o) {
     M.showText ? null : g({name: `${P}-ref-bars`}, h('rect', {x: r(rb.x + F * 0.6), y: r(rb.y + rb.h / 2 - F * 0.2), width: r(rb.w - F * 1.2), height: r(F * 0.4), rx: r(F * 0.2), fill: SLATE, opacity: 0.55}))));
   // filler bars (simulated text only)
   for (let b = 0; b < M.bars; b++) {
-    const bw = M.inner * (b === M.bars - 1 ? 0.55 + 0.25 * ctx.rng(`${seedKey}-b`, b) : 0.86 + 0.12 * ctx.rng(`${seedKey}-b`, b));
-    parts.push(h('rect', {x: r(M.pad), y: r(M.barsY + b * M.barH * 1.9), width: r(bw), height: r(M.barH), rx: r(M.barH / 2), fill: th.paperLine}));
+    const bw = M.grounds.w * (b === M.bars - 1 ? 0.55 + 0.25 * ctx.rng(`${seedKey}-b`, b) : 0.86 + 0.12 * ctx.rng(`${seedKey}-b`, b));
+    parts.push(h('rect', {x: r(M.grounds.x), y: r(M.barsY + b * M.barH * 1.9), width: r(bw), height: r(M.barH), rx: r(M.barH / 2), fill: th.paperLine}));
   }
   // reasons line (as supplied)
-  if (M.showText) parts.push(textAt(f.grounds, {x: M.pad, y: M.grounds.y, fill: '#3d4650', name: `${P}-grounds`, italic: true}));
-  else for (let b = 0; b < 2; b++) parts.push(h('rect', {x: r(M.pad), y: r(M.grounds.y + F * 0.1 + b * F * 0.62), width: r(M.inner * (b ? 0.48 : 0.8)), height: r(F * 0.34), rx: r(F * 0.17), fill: '#8c959f', opacity: 0.6}));
+  if (M.showText) parts.push(textAt(f.grounds, {x: M.grounds.x, y: M.grounds.y, fill: '#3d4650', name: `${P}-grounds`, italic: true}));
+  else for (let b = 0; b < 2; b++) parts.push(h('rect', {x: r(M.grounds.x), y: r(M.grounds.y + F * 0.1 + b * F * 0.62), width: r(M.grounds.w * (b ? 0.48 : 0.8)), height: r(F * 0.34), rx: r(F * 0.17), fill: '#8c959f', opacity: 0.6}));
   // result field: the supplied result, printed once, never animated
   const res = resultBox(M);
   if (o.slot) {
@@ -542,6 +557,7 @@ export function legendIcon(ctx, kind, s, o = {}) {
     const side = kind === 'laneA' ? 'a' : 'b';
     return g(null, h('circle', {r: r(k * 0.72), fill: laneColor(th, side), stroke: INK, 'stroke-width': 2}), markGlyph(side, k * 0.3, {fill: '#fff', stroke: laneColor(th, side)}));
   }
+  if (kind === 'same') return h('path', {d: `M${r(-k * 0.6)} ${r(-k * 0.22)}H${r(k * 0.6)}M${r(-k * 0.6)} ${r(k * 0.22)}H${r(k * 0.6)}`, stroke: th.dark ? th.fg : INK, 'stroke-width': 3.5, 'stroke-linecap': 'round'});
   if (kind === 'guide') return h('path', {d: `M${r(-k * 0.85)} ${r(k * 0.4)}V${r(-k * 0.4)}H${r(k * 0.85)}V${r(k * 0.4)}`, fill: 'none', stroke: th.accent3, 'stroke-width': 4.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'});
   if (kind.startsWith('kind-')) {
     const kd = kind.slice(5);
@@ -712,7 +728,7 @@ export function planDesk(M, o) {
   const reg = registerRow(M, o.align);
   const sh = reg.half * 2;
   const stripW = 2 * cw + gap + 2 * (tab + F * 0.5);
-  const yA = sh + Math.max(F * (o.tight ? 0.7 : 1.1), 16);
+  const yA = o.noStripRow ? Math.max(F * 0.4, 8) : sh + Math.max(F * (o.tight ? 0.7 : 1.1), 16);
   const A = {x: lm, y: yA, deg: 0};
   const Bt = {x: lm + cw + gap, y: yA, deg: 0};
   const k = o.restK ?? 1;

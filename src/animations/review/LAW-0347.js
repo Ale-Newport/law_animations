@@ -62,9 +62,12 @@ const OWN_ES = {
   sharedFacts: ['Mismo carril: bandeja, posición, bolsillo de historial', 'Misma tarjeta A en la posición al inicio', 'Mismo participante y mismo gesto'],
   comparisonLabels: {guide: 'Solo esto difiere: qué ocupa la posición (según lo aportado)', neutral: 'Dos situaciones aportadas lado a lado · sin ganador, sin conclusión'},
 };
-const EN = {...SD_EN, ...OWN_EN};
-const ES = {...SD_ES, ...OWN_ES};
-const sceneSchema = {...sdFields, ...contrastFields()};
+const pick = o => ({decisions: o.decisions, labels: o.labels});
+const EN = {...pick(SD_EN), ...OWN_EN};
+const ES = {...pick(SD_ES), ...OWN_ES};
+// (OMITTED brief fields — see the presets note: grounds, routes and outcomes. The places and the supplied states are
+// shown physically in both scenes; the shared strip names the places once through the shared facts.)
+const sceneSchema = {decisions: sdFields.decisions, labels: sdFields.labels, ...contrastFields()};
 const defaultParams = {...EN};
 
 /* ------------------------------------------------------------------ */
@@ -77,13 +80,15 @@ function roomIn(box, F, showKey) {
   const gap = Math.max(34, F * 1.7);
   const innerW = box.w - 2 * (wall + pad) - 2 * edge;
   let cw = (innerW - 4 * ins - gap - 2 * m) / 3;
-  const RGt = s => railGeometry({cw: s, ch: s * 0.7, gap, inset: ins, margin: m});
-  // the room's height: rail + participant zone; shrink the cards when the box is short
   const s = clamp(cw / 230, 0.6, 1.05);
-  const need = c => 2 * wall + 2 * pad + RGt(c).H + 2 * edge + 22 * s + 56 * s + 10;
+  const fixed = 2 * wall + 2 * pad + 2 * m + 2 * ins + 2 * edge + 22 * s + 56 * s + 10 + 6;
+  // card height: fills the room box (between 0.62 and 1.0 of the card width)
+  const chK = clamp((box.h - 16 - fixed) / cw, 0.62, 1.2);
+  const RGt = c => railGeometry({cw: c, ch: c * chK, gap, inset: ins, margin: m});
+  const need = c => fixed - 2 * m - 2 * ins + RGt(c).H;
   while (need(cw) > box.h && cw > 40) cw -= 2;
   const RG = RGt(cw);
-  const hh = Math.min(box.h, need(cw) + 30);
+  const hh = Math.min(box.h, need(cw) + 16);
   const room = {x: box.x, y: box.y + (box.h - hh) / 2, w: box.w, h: hh};
   const table = {x: room.x + wall + pad, y: room.y + wall + pad + 6, w: room.w - 2 * (wall + pad), h: RG.H + 2 * edge};
   const rail = {x: table.x + (table.w - RG.W) / 2, y: table.y + edge};
@@ -111,16 +116,12 @@ function compose(ctx, P, F, shape) {
     left.push({icon: 'b', text: P.decisions.later, name: 'lg-b'});
   }
   if (showAll) {
-    left.push({icon: 'intake', text: P.routes.intake, name: 'lg-intake'});
     left.push({icon: 'holder', text: P.decisions.position, name: 'lg-position'});
-    left.push({icon: 'pocket', text: P.routes.history, name: 'lg-history'});
-    left.push({icon: 'note', text: P.grounds, name: 'lg-grounds'});
   }
   if (showKey) right.push({icon: 'fact', text: P.changedFact, name: 'fact', bold: true});
   if (showAll) (P.sharedFacts || []).forEach((t, i) => right.push({icon: 'dot', text: t, name: `shared${i}`}));
-  if (showKey) right.push({icon: 'stateB', text: P.outcomes.position, name: 'st-position', late: true});
-  if (showKey) right.push({icon: 'stateA', text: P.outcomes.history, name: 'st-history', late: true});
   if (showAll) right.push({icon: 'pips', text: P.labels.order, name: 'order-note'});
+  if (showKey) right.push({icon: 'ring', text: P.comparisonLabels.guide, name: 'guide', late: true, bold: true});
   const cols = stacked ? 1 : 2;
   const colW = (D.w - 2 * mx - (cols - 1) * F * 1.6) / cols;
   const iconW = F * 1.9;
@@ -131,11 +132,10 @@ function compose(ctx, P, F, shape) {
   const place = rows => { let y = 0; rows.forEach(q => { q.y = y; y += q.fit.height + F * 0.45; }); return Math.max(0, y - F * 0.45); };
   const hL = place(L1), hR = place(R1);
   // guide label and neutral note (full width, centred), then the key
-  const guide = showKey ? fitG(P.comparisonLabels.guide, {maxWidth: Math.min(D.w - 2 * mx, F * 30), size: F, minSize: F, maxLines: 2, weight: 700}) : null;
   const note = showAll ? fitG(P.comparisonLabels.neutral, {maxWidth: Math.min(D.w - 2 * mx, F * 34), size: F, minSize: F, maxLines: 2, weight: 600}) : null;
   const key = showKey ? fitG(P.labels.key, {maxWidth: D.w - 2 * mx, size: F, minSize: F, maxLines: 2, weight: 600}) : null;
-  for (const f of [guide, note, key]) if (f && !f.ok) problems.push('notes');
-  const guideH = guide ? guide.height + F * 0.9 : F * 0.6;
+  for (const f of [note, key]) if (f && !f.ok) problems.push('notes');
+  const guideH = F * 0.6;
   const stripH = Math.max(hL, hR) + (note ? F * 0.6 + note.height : 0) + (key ? F * 0.5 + key.height : 0);
   // headers
   const headW = stacked ? D.w - 2 * mx - F * 3 : (D.w - 2 * mx - gapP) / 2 - F * 3;
@@ -146,9 +146,9 @@ function compose(ctx, P, F, shape) {
     return {lab, cap, h: Math.max(F * 2.2, (lab ? lab.height : 0) + (cap ? F * 0.25 + cap.height : 0))};
   };
   const hA = head(P.scenarioA), hB = head(P.scenarioB);
-  const headH = Math.max(hA.h, hB.h) + F * 0.5;
+  const headH = Math.max(hA.h, hB.h) + F * 0.85;
   // scenes
-  const avail = D.h - 2 * my - stripH - guideH;
+  const avail = D.h - 2 * my - stripH - guideH - F * 0.6;
   let panels;
   if (!stacked) {
     const pw = (D.w - 2 * mx - gapP) / 2;
@@ -172,7 +172,7 @@ function compose(ctx, P, F, shape) {
   const stripY = guideY + guideH;
   if (stripY + stripH > D.h - my + 0.5) problems.push('strip');
   void cwMin;
-  return {problems, F, stacked, panels, rooms, heads: [hA, hB], headH, L1, R1, colW, iconW, cols, guide, note, key, guideY, stripY, hL, hR, mx};
+  return {problems, F, stacked, panels, rooms, heads: [hA, hB], headH, L1, R1, colW, iconW, cols, note, key, guideY, stripY, hL, hR, mx};
 }
 
 const scene = {
@@ -238,22 +238,6 @@ const scene = {
       parts.push(h('path', {name: `${pre}-ring`, d: roundRectPath(ps.x - 7, ps.y - 7, q.cw + q.RG.ins * 2 + 14, ps.h + 14, 14), fill: 'none', stroke: th.accent3, 'stroke-width': 5, opacity: 0}));
       parts.push(L.rigs[i].node);
     });
-    // guide label and leaders to both rings
-    if (L.guide) {
-      const D = ctx.design;
-      const gx = D.w / 2;
-      const gy = L.guideY;
-      const lead = L.rooms.map((q, i) => {
-        const ps = q.slots.position;
-        const from = {x: ps.x - 7 + 10, y: ps.y + ps.h + 7};
-        const to = {x: gx + (i ? 1 : -1) * Math.min(L.guide.width / 2, F * 3), y: gy - 2};
-        return {from, to};
-      });
-      L.leads = lead;
-      parts.push(g({name: 'guide', opacity: 0},
-        lead.map((q, i) => h('path', {name: `guide-l${i}`, d: `M${r(q.from.x)} ${r(q.from.y)}L${r(q.from.x)} ${r(Math.max(q.from.y, q.to.y - F * 0.4))}L${r(q.to.x)} ${r(q.to.y)}`, fill: 'none', stroke: th.accent3, 'stroke-width': 3, 'stroke-linejoin': 'round'})),
-        textAt(L.guide, {x: gx, y: gy, fill: th.fg, anchor: 'middle', name: 'guide-text'})));
-    }
     // shared strip
     const strip = [];
     const iconAt = (q, x, y) => {
@@ -261,6 +245,7 @@ const scene = {
       const ix = x + F * 0.75;
       if (q.icon === 'a' || q.icon === 'b' || q.icon === 'intake' || q.icon === 'holder' || q.icon === 'pocket' || q.icon === 'pips') return g({transform: T(ix, cy)}, legendIcon(ctx, q.icon, F * 1.2));
       if (q.icon === 'fact') return h('path', {d: roundRectPath(ix - F * 0.5, cy - F * 0.4, F, F * 0.8, 4), fill: 'none', stroke: th.accent3, 'stroke-width': 3, transform: ''});
+      if (q.icon === 'ring') return h('path', {d: roundRectPath(ix - F * 0.55, cy - F * 0.45, F * 1.1, F * 0.9, 5), fill: 'none', stroke: th.accent3, 'stroke-width': 3.5});
       if (q.icon === 'stateA') return h('circle', {cx: r(ix), cy: r(cy), r: r(F * 0.26), fill: th.accent2, stroke: INK, 'stroke-width': 1.5});
       if (q.icon === 'stateB') return h('circle', {cx: r(ix), cy: r(cy), r: r(F * 0.26), fill: th.accent3, stroke: INK, 'stroke-width': 1.5});
       if (q.icon === 'note') return h('path', {d: `M${r(ix - F * 0.4)} ${r(cy - F * 0.45)}H${r(ix + F * 0.25)}L${r(ix + F * 0.45)} ${r(cy - F * 0.25)}V${r(cy + F * 0.45)}H${r(ix - F * 0.4)}Z`, fill: '#fff8dc', stroke: INK, 'stroke-width': 1.5});
@@ -333,10 +318,8 @@ const scene = {
       });
       sem[side] = {cardA: R2({x: ax, y: cp.y}), cardB: isB ? R2({x: bx, y: ci.y}) : null, person: R2(pose), handL: R2(rl.hand), handR: R2(rr.hand), gripL: R2(tl), gripR: R2(tr), reached: rk < 0.01 || (rl.reached && rr.reached)};
     });
-    nodes.guide = L.guide ? {opacity: r(seg(u, ...W.guide), 3)} : undefined;
-    if (!L.guide) delete nodes.guide;
     if (L.note) nodes.note = {opacity: r(seg(u, ...W.note), 3)};
-    const st = r(seg(u, ...W.note), 3);
+    const st = r(seg(u, ...W.guide), 3);
     for (const q of [...L.L1, ...L.R1]) if (q.late) nodes[q.name] = {opacity: st};
     return {
       nodes,

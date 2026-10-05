@@ -1,0 +1,480 @@
+{
+  "id": "LAW-0343",
+  "slug": "review-06-contrast",
+  "title": "Illustrative confirmation — two identical desks; only desk B receives the supplied confirmatory card, then the same strip is laid on both",
+  "titleEs": "Confirmación ilustrativa — Comparación de dos supuestos",
+  "category": "review",
+  "categoryName": "Impugnaciones y revisión",
+  "motif": "Confirmación ilustrativa",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two complete desks of the same size (side by side on wide frames, stacked on tall ones), each with the same original decision card, filter strip, calendar and hands. The one changed fact: on desk B a hand brings the supplied confirmatory card up from the desk's edge and sets it square beside the original (the arrow marks meet); desk A receives nothing. Then, in parallel, the same strip is laid across the configured row on both desks. A guide rings the place that differs and a neutral note shows the two situations without winner, score or outcome. The printed results never change. Illustrative; jurisdiction unspecified.",
+  "tags": [
+    "review",
+    "confirmation",
+    "contrast",
+    "paired desks",
+    "one changed fact",
+    "decision cards",
+    "alignment",
+    "filter strip",
+    "no winner"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/review/kits/confirmacion-ilustrativa.js",
+    "src/primitives/desk.js",
+    "src/primitives/paper.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "decisions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "role": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Role caption printed on card A (as supplied)"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 70,
+                "description": "Fictional title printed on card A"
+              },
+              "ref": {
+                "type": "string",
+                "maxLength": 44,
+                "description": "Reference tag printed on card A (fictional)"
+              }
+            },
+            "required": [
+              "role",
+              "title",
+              "ref"
+            ],
+            "description": "Card A (fictional; placeholder content)"
+          },
+          "b": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "role": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Role caption printed on card B (as supplied)"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 70,
+                "description": "Fictional title printed on card B"
+              },
+              "ref": {
+                "type": "string",
+                "maxLength": 44,
+                "description": "Reference tag printed on card B (fictional)"
+              }
+            },
+            "required": [
+              "role",
+              "title",
+              "ref"
+            ],
+            "description": "Card B (fictional; placeholder content)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "The two decision cards (fictional; placeholder content). A is the original decision, B the confirmatory decision as supplied; both are drawn at the same size and weight"
+      },
+      "grounds": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Reasons line printed on card A (as supplied)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Reasons line printed on card B (as supplied)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "The line of reasons printed on each card, as supplied (placeholder; never assessed)"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "align": {
+            "type": "string",
+            "enum": [
+              "result",
+              "header"
+            ],
+            "description": "Row on which the two cards are aligned: the result rows or the header rows (as configured)"
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the alignment guide (keep \"as configured\")"
+          }
+        },
+        "required": [
+          "align",
+          "label"
+        ],
+        "description": "Alignment as configured: the row of the cards on which the arrow marks and the filter strip sit, and the caption of that guide"
+      },
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Result printed on card A (as supplied)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Result printed on card B (as supplied)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "The result printed on each card, as supplied. The animation never changes, compares or judges it"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description of scenario A"
+          }
+        },
+        "required": [
+          "label",
+          "caption"
+        ],
+        "description": "Scenario A (desk without the supplied card)"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description of scenario B"
+          }
+        },
+        "required": [
+          "label",
+          "caption"
+        ],
+        "description": "Scenario B (desk with the supplied confirmatory card)"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical on both desks (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide ringing the place that differs"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [
+          "guide",
+          "neutral"
+        ],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "decisions": {
+      "a": {
+        "role": "Original decision",
+        "title": "Decision 1 (fictional)",
+        "ref": "Ref. A-01 (fictional)"
+      },
+      "b": {
+        "role": "Confirmatory decision (as supplied)",
+        "title": "Decision 2 (fictional)",
+        "ref": "Ref. B-01 (fictional)"
+      }
+    },
+    "grounds": {
+      "a": "Reasons: placeholder text (as supplied)",
+      "b": "Reasons: placeholder text (as supplied)"
+    },
+    "routes": {
+      "align": "result",
+      "label": "Alignment guide over the result rows (as configured)"
+    },
+    "outcomes": {
+      "a": "Result as given (placeholder text)",
+      "b": "Result as given (placeholder text)"
+    },
+    "labels": {
+      "key": "As supplied · no conclusion drawn"
+    },
+    "scenarioA": {
+      "label": "Original decision",
+      "caption": "Only the original decision card is on the desk"
+    },
+    "scenarioB": {
+      "label": "Confirmatory decision supplied",
+      "caption": "The supplied card is set beside the original one"
+    },
+    "changedFact": "Only desk B receives the supplied confirmatory card (as supplied)",
+    "sharedFacts": [
+      "Same original decision card and printed result",
+      "Same filter strip laid across the same row",
+      "Same desk, calendar and hands"
+    ],
+    "comparisonLabels": {
+      "guide": "Only this differs",
+      "neutral": "Two supplied situations side by side: no winner, no score, no outcome"
+    }
+  }
+}

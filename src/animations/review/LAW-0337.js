@@ -35,7 +35,7 @@ import {rdFields, courierField, RD_EN, RD_ES, COURIER_EN, COURIER_ES, localisedR
 const ID = 'LAW-0337';
 const DURATION = 6000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
-const W = {plan: [0.15, 0.735], pin: [0.74, 0.78], notes: [0.75, 0.8], state: [0.76, 0.81]};
+const W = {plan: [0.15, 0.748], pin: [0.75, 0.79], notes: [0.76, 0.81], state: [0.77, 0.82]};
 const TARGETS = ['original', 'additional', 'divider', 'calendar'];
 /** Sheet size factor per arrangement (the folders and pieces are the acting objects — item 18). */
 const DOCK = {row: 1.42, stack: 1.62};
@@ -109,8 +109,10 @@ function storyPlan(G, n, kept) {
     specs.push({type: 'reach', dur: 0.014, mode: 'cover', cover: 'B'});
     specs.push({type: 'close', dur: 0.046, cover: 'B'});
     specs.push({type: 'release', dur: 0.014});
+    // (a step back under folder B: clear of the right wall)
+    specs.push({type: 'walk', to: G.poseFor(G.slotN(Math.max(0, n - 1)))});
   }
-  // (the participant then stands where it let go: in the lane, clear of the counters)
+  // (the participant then stands in the lane, clear of the counters and walls)
   return makePlan(G, start, specs, W.plan, {kind: 'b'});
 }
 
@@ -145,7 +147,7 @@ const scene = {
     if (showKey) rows.push({kind: 'state', text: P.stateCaption ? P.stateCaption : ctx.t[side === 'a' ? 'kept' : 'open'], name: 'state-tag'});
     if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
     // (a tall box may grow the room's floor further: the room keeps most of a portrait frame)
-    const optsFor = arr => ({arr, docK: DOCK[arr], person: true, sign: true, n: R.n, crop: ctx.view.shape === 'square' ? 1.2 : ctx.view.shape === 'portrait' ? 2.6 : 1.7, maxK: 150 / (100 * px)});
+    const optsFor = arr => ({arr, docK: DOCK[arr], person: true, sign: true, n: R.n, crop: ctx.view.shape === 'square' ? 1.2 : ctx.view.shape === 'portrait' ? 2.6 : 1.7, maxK: 125 / (100 * px)});
     const search = (arr, minPersonPx, sizes = [22.5, 21.6, 20.7, 19.8, 19.5, 18.9, 18, 17.1, 16.4]) => searchSa(ctx, rows, {
       sizes, minF: 16.4, minPersonPx,
       colFracs: [0.25, 0.3, 0.35, 0.39], bandCols: [2, 3], sidePanels: [[0.38, 2], [0.44, 2], [0.5, 2]], bandMax: ctx.view.shape === 'square' ? 0.62 : 0.5,

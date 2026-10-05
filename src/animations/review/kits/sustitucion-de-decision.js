@@ -31,6 +31,7 @@ import {roundRectPath} from '../../../core/geometry.js';
 import {str, obj} from '../../../schemas/fields.js';
 import {FONTS, measure} from '../../../core/text.js';
 import {shade} from '../../../primitives/paper.js';
+import {changedMarker} from '../../../primitives/markers.js';
 
 /* ------------------------------------------------------------------ */
 /* Fields, defaults, localisation                                      */
@@ -464,6 +465,7 @@ export function legendIcon(ctx, kind, s, o = {}) {
   if (kind === 'intake') return h('path', {d: roundRectPath(-k, -k * 0.7, s, k * 1.4, 4), fill: '#d9d0bd', stroke: INK, 'stroke-width': 2});
   if (kind === 'calendar') return g({transform: T(-k * 0.9, -k * 0.8)}, calendarArt(ctx, s * 0.9, s * 0.8, false));
   if (kind === 'pips') return g(null, orderPips(2, k * 0.42));
+  if (kind === 'delta') return changedMarker(ctx, {radius: k * 0.8});
   if (kind === 'thread') {
     return g(null,
       h('line', {x1: r(-k), y1: 0, x2: r(k), y2: 0, stroke: th.accent2, 'stroke-width': 4, 'stroke-linecap': 'round'}),

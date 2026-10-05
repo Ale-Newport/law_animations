@@ -172,7 +172,7 @@ test(`${ID}: labels hidden — folder A closes and the pieces end in folder B ac
   expect(out.text).toBe(0);
 });
 
-// Item 9: the status sign is empty until the sign beat (0.74), then shows only the supplied state (both states, every
+// Item 9: the status sign is empty until the sign beat (0.75), then shows only the supplied state (both states, every
 // preset × ratio × labels hidden).
 test(`${ID}: the status sign shows no state before its beat; then only the supplied one`, async ({page}) => {
   test.setTimeout(600000);
@@ -191,7 +191,7 @@ test(`${ID}: the status sign shows no state before its beat; then only the suppl
         z.seek(u * z.durationMs);
         const sw = eff(sv, node(sv, 'rm-sign-' + want)), so = eff(sv, node(sv, 'rm-sign-' + other));
         if (so > 0.01) out.push(tag + ' u=' + u.toFixed(2) + ': the other state shows');
-        if (u < 0.74 - 1e-9 && sw > 0.01) out.push(tag + ' u=' + u.toFixed(2) + ': the state shows before its beat');
+        if (u < 0.75 - 1e-9 && sw > 0.01) out.push(tag + ' u=' + u.toFixed(2) + ': the state shows before its beat');
       }
       z.seek(z.durationMs);
       if (eff(sv, node(sv, 'rm-sign-' + want)) < 0.95) out.push(tag + ': the supplied state is not on the sign at the hold');
