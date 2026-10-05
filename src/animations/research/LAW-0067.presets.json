@@ -1,0 +1,95 @@
+{
+  "animationId": "LAW-0067",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Whether a request is documented on the page or annotated as an inference is SUPPLIED by the author (mode, ¶, basis, note); the scene never decides what a page means and draws no legal consequence.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Same warehouse page in both scenes. A asks when the goods were collected (stated at ¶2: a copy strip is pulled onto the card); B asks when the goods reached Party B (not stated: ¶2 and ¶3 are flagged as the basis and an annotated-inference note is written).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different fictional source (site-meeting minutes) and a one-sentence basis. A asks who presented the floor plan (stated at ¶2); B asks whether the plan was approved, which the minutes do not state: only ¶2 is flagged as the basis and the note records that the minutes are silent on approval.",
+      "params": {
+        "sources": {
+          "library": "Minutes shelf",
+          "volume": "MIN-3",
+          "title": "Minutes of the site meeting",
+          "sentences": [
+            "The meeting opened at 10:00 on Day 12.",
+            "Party C presented the revised floor plan.",
+            "The inspection was moved to Day 15.",
+            "The minutes were circulated on Day 13."
+          ]
+        },
+        "query": {
+          "a": {"label": "Who presented the floor plan", "mode": "documented", "sentence": 2, "basis": [2], "note": ""},
+          "b": {"label": "Whether the floor plan was approved", "mode": "inference", "sentence": 2, "basis": [2], "note": "Plan presented; approval not recorded here"}
+        },
+        "citations": {"page": "p. 4", "pinpoint": "¶"},
+        "dates": {"source": "Day 12", "extracted": "Day 14"},
+        "scenarioA": {"label": "Stated in the minutes", "caption": "The requested fact is written at ¶2"},
+        "scenarioB": {"label": "Not stated in the minutes", "caption": "A note records what ¶2 does and does not say"},
+        "changedFact": "Only the request differs: who presented (A) vs whether it was approved (B)",
+        "sharedFacts": ["Same minutes", "Same card", "Same flag"],
+        "comparisonLabels": {"guide": "Changed fact: the requested fact", "neutral": "The minutes are not assessed; both entries are simply filed as they are"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long requests, note, scenario labels and captions, changed fact, shared facts and comparison labels, and long sentences.",
+      "params": {
+        "sources": {
+          "library": "Case library of the district archive",
+          "volume": "VOL-2026-117B",
+          "title": "Consolidated logistics file of the northern depot",
+          "sentences": [
+            "Order 118 for forty crates of ceramic tiles was placed by Party A on Day 2.",
+            "The regional carrier collected the goods from the northern depot on Day 3.",
+            "Party B's receiving clerk signed the delivery note at the loading bay on Day 4.",
+            "The invoice for the remaining crates was issued on Day 6 by the sales office."
+          ]
+        },
+        "query": {
+          "a": {"label": "When the regional carrier collected the goods from the depot", "mode": "documented", "sentence": 2, "basis": [2], "note": ""},
+          "b": {"label": "When the goods reached Party B's loading bay", "mode": "inference", "sentence": 2, "basis": [2, 3], "note": "Goods reached Party B's loading bay by Day 4 (inferred, not stated)"}
+        },
+        "citations": {"page": "p. 1127", "pinpoint": "¶"},
+        "dates": {"source": "Day 7 (filed)", "extracted": "Day 9 (noted)"},
+        "scenarioA": {"label": "Documented fact from the logistics file", "caption": "The consolidated page states exactly what was requested"},
+        "scenarioB": {"label": "Annotated inference with its basis", "caption": "The page does not state it; the note names the sentences it rests on"},
+        "changedFact": "Only the typed request differs: the page states the answer in scenario A but not in scenario B",
+        "sharedFacts": ["Same volume, page and wording", "Same fact card", "Same flag, pen and timing"],
+        "comparisonLabels": {"guide": "Changed fact: what the user asked the file for", "neutral": "Both entries stay on the card exactly as written; nothing is concluded from either of them"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": {
+          "library": "Biblioteca de casos",
+          "volume": "VOL-7",
+          "title": "Expediente del almacén",
+          "sentences": [
+            "La parte A hizo el pedido 118 el día 2.",
+            "El transportista recogió la mercancía el día 3.",
+            "La parte B firmó el albarán el día 4.",
+            "La factura se emitió el día 6."
+          ]
+        },
+        "query": {
+          "a": {"label": "Cuándo se recogió la mercancía", "mode": "documented", "sentence": 2, "basis": [2], "note": ""},
+          "b": {"label": "Cuándo llegó la mercancía a la parte B", "mode": "inference", "sentence": 2, "basis": [2, 3], "note": "La mercancía llegó a la parte B hacia el día 4"}
+        },
+        "dates": {"source": "Día 7", "extracted": "Día 9"},
+        "scenarioA": {"label": "Hecho documentado", "caption": "La página dice lo que se pidió"},
+        "scenarioB": {"label": "Inferencia anotada", "caption": "La página no lo dice; se escribe una nota"},
+        "changedFact": "Solo cambia la solicitud: la página lo dice en A, no en B",
+        "sharedFacts": ["Mismo volumen y página", "Misma ficha", "Mismo marcador y ritmo"],
+        "comparisonLabels": {"guide": "Hecho cambiado: lo que pidió el usuario", "neutral": "Ambas entradas quedan archivadas tal cual; no se concluye nada de ninguna"}
+      }
+    }
+  ]
+}

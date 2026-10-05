@@ -1,0 +1,64 @@
+{
+  "animationId": "LAW-0055",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: citations, dates and treatment labels are placeholders supplied by the author, not real case law. The comparison states no ranking and no outcome.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "A links three fictional resolutions to D-104 by their supplied labels; in B no label is supplied for R-33, so R-33 is placed on the card but not linked.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the changed fact is an extra resolution. B's library holds one more resolution (R-58) with a supplied label, so the magnifier finds it and it is linked; in A the same binder is not part of the result.",
+      "params": {
+        "scenarioA": {"label": "Three supplied resolutions", "caption": "Each hangs its own label on the decision"},
+        "scenarioB": {"label": "Alternative scenario", "caption": "One more resolution, R-58, is supplied"},
+        "changedFact": "Only B includes R-58 with a supplied label",
+        "sharedFacts": ["Same query", "Same library", "Same three labels"],
+        "comparisonLabels": {"guide": "Changed detail: R-58", "neutral": "Two situations side by side — no ranking and no outcome is stated"},
+        "alternative": {"kind": "extra-source", "index": 0, "extra": {"citation": "R-58", "date": "Year 6", "label": "Mentions"}}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long citations, labels, scenario captions and notes; four resolutions, the last one without a supplied label in B.",
+      "params": {
+        "query": "Decision D-104/2026 · all later resolutions that refer to it",
+        "decision": {"citation": "D-104/2026-B", "title": "Decision on the renewal of a fictional equipment lease", "date": "Year 1, month 4"},
+        "sources": [
+          {"citation": "R-2026-000021", "date": "Year 2, month 11", "label": "Cites in a footnote"},
+          {"citation": "R-2027-000033", "date": "Year 3, month 2", "label": "Discusses at length"},
+          {"citation": "R-2029-000047", "date": "Year 5, month 7", "label": "Distinguishes on the facts"},
+          {"citation": "R-2030-000058", "date": "Year 6, month 1", "label": "Mentions without discussion"}
+        ],
+        "objectLabels": {"library": "Fictional case library — later resolutions", "card": "Treatment card for decision D-104/2026-B"},
+        "scenarioA": {"label": "Every resolution carries a supplied label", "caption": "Four different labels, all drawn with the same weight and distance"},
+        "scenarioB": {"label": "Alternative scenario with one label missing", "caption": "No treatment label is supplied for resolution R-2030-000058"},
+        "changedFact": "Only the label of R-2030-000058 differs: supplied in scenario A, not supplied in scenario B",
+        "sharedFacts": ["Same search query", "Same fictional library", "Same decision D-104/2026-B", "Same first three labels"],
+        "comparisonLabels": {"guide": "Changed detail: the treatment label of R-2030-000058", "neutral": "Two illustrative situations shown side by side — no ranking, no weight and no outcome is stated"},
+        "alternative": {"kind": "no-label", "index": 3, "extra": {"citation": "R-2031-000064", "date": "Year 7", "label": "Mentions"}}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "query": "D-104 · resoluciones posteriores",
+        "decision": {"citation": "D-104", "title": "Resolución (ficticia)", "date": "Año 1"},
+        "sources": [
+          {"citation": "R-21", "date": "Año 2", "label": "Cita"},
+          {"citation": "R-33", "date": "Año 3", "label": "Comenta"},
+          {"citation": "R-47", "date": "Año 5", "label": "Distingue"}
+        ],
+        "objectLabels": {"library": "Biblioteca de casos", "card": "Ficha de tratamiento · D-104"},
+        "scenarioA": {"label": "Tratamientos distintos, sin jerarquía", "caption": "Cada resolución cuelga su propia etiqueta suministrada"},
+        "scenarioB": {"label": "Supuesto alternativo", "caption": "No se suministra etiqueta para R-33"},
+        "changedFact": "Solo cambia la etiqueta de R-33: suministrada en A, no suministrada en B",
+        "sharedFacts": ["Misma consulta", "Misma biblioteca", "Misma resolución D-104"],
+        "comparisonLabels": {"guide": "Detalle cambiado: etiqueta de R-33", "neutral": "Dos situaciones lado a lado — sin jerarquía ni desenlace"}
+      }
+    }
+  ]
+}

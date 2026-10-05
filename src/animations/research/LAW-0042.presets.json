@@ -1,0 +1,330 @@
+{
+  "animationId": "LAW-0042",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Query → words → index card per word → listed passage → volume → shelf, traversed in lookup order; the index card is the focus.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: one-word query in contextual mode — the card also lists related wording (see also) and the passages found through it; the passage strip is the focus element.",
+      "params": {
+        "query": {
+          "terms": [
+            {
+              "text": "notified",
+              "related": [
+                "notice",
+                "informed"
+              ]
+            }
+          ],
+          "mode": "contextual",
+          "placeholder": "Search the library…"
+        },
+        "elements": [
+          {
+            "id": "searchBox",
+            "label": "Search box"
+          },
+          {
+            "id": "term",
+            "label": "Query word"
+          },
+          {
+            "id": "card",
+            "label": "Index card with see-also line"
+          },
+          {
+            "id": "passage",
+            "label": "Passage found"
+          },
+          {
+            "id": "document",
+            "label": "Minutes volume"
+          },
+          {
+            "id": "library",
+            "label": "Shelf"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "searchBox",
+            "to": "term",
+            "kind": "sequence",
+            "label": "reads the word"
+          },
+          {
+            "from": "term",
+            "to": "card",
+            "kind": "sequence",
+            "label": "opens its card"
+          },
+          {
+            "from": "card",
+            "to": "passage",
+            "kind": "relation",
+            "label": "points to"
+          },
+          {
+            "from": "passage",
+            "to": "document",
+            "kind": "relation",
+            "label": "printed in"
+          },
+          {
+            "from": "document",
+            "to": "library",
+            "kind": "relation",
+            "label": "shelved on"
+          }
+        ],
+        "focusElement": "passage"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long component labels, relationship captions and passages to exercise wrapping and bounded shrinking.",
+      "params": {
+        "query": {
+          "terms": [
+            {
+              "text": "written notice",
+              "related": [
+                "notified in writing"
+              ]
+            },
+            {
+              "text": "loading dock",
+              "related": [
+                "unloading bay"
+              ]
+            }
+          ],
+          "mode": "exact",
+          "placeholder": "Search every volume in the collection…"
+        },
+        "sources": [
+          {
+            "id": "VOL-2026-0412",
+            "title": "Supply and maintenance file: correspondence of both parties",
+            "passages": [
+              "Party A sent written notice to the other party on Day 3 by registered post.",
+              "The delivery schedule for the laboratory equipment was attached to the letter.",
+              "Both parties kept a signed copy of the letter and of the schedule."
+            ]
+          },
+          {
+            "id": "VOL-2026-0520",
+            "title": "Minutes of the coordination meetings held at the warehouse",
+            "passages": [
+              "Party B was notified in writing about the change to the delivery window.",
+              "The next coordination meeting was set for Day 9 in the small meeting room.",
+              "A shipment of spare parts was delayed in transit for two days."
+            ]
+          },
+          {
+            "id": "VOL-2026-0631",
+            "title": "Warehouse log for incoming deliveries and inventory checks",
+            "passages": [
+              "Pallets were counted, weighed and labelled before storage.",
+              "Delivery confirmed at the loading dock by the receiving team.",
+              "Written notice board near the office door updated by the staff."
+            ]
+          }
+        ],
+        "dates": [
+          "Filed on project Day 4",
+          "Filed on project Day 10",
+          "Filed on project Day 12"
+        ],
+        "elements": [
+          {
+            "id": "searchBox",
+            "label": "Search box of the reading-room catalogue"
+          },
+          {
+            "id": "term",
+            "label": "Separate words and phrases of the query"
+          },
+          {
+            "id": "card",
+            "label": "Index card kept for each word (one per term)"
+          },
+          {
+            "id": "passage",
+            "label": "Passage listed on the index card"
+          },
+          {
+            "id": "document",
+            "label": "Volume that contains the passage"
+          },
+          {
+            "id": "library",
+            "label": "Shelf of the reading room collection"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "searchBox",
+            "to": "term",
+            "kind": "sequence",
+            "label": "split into words and phrases"
+          },
+          {
+            "from": "term",
+            "to": "card",
+            "kind": "sequence",
+            "label": "looked up on its own index card"
+          },
+          {
+            "from": "card",
+            "to": "passage",
+            "kind": "relation",
+            "label": "lists volume and paragraph"
+          },
+          {
+            "from": "passage",
+            "to": "document",
+            "kind": "relation",
+            "label": "is printed inside the volume"
+          },
+          {
+            "from": "document",
+            "to": "library",
+            "kind": "relation",
+            "label": "is kept on this shelf"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "query": {
+          "terms": [
+            {
+              "text": "aviso",
+              "related": [
+                "notificada",
+                "informada"
+              ]
+            },
+            {
+              "text": "entrega",
+              "related": [
+                "envío",
+                "entregado"
+              ]
+            }
+          ],
+          "mode": "exact",
+          "placeholder": "Buscar en la biblioteca…"
+        },
+        "sources": [
+          {
+            "id": "VOL-12",
+            "title": "Expediente de suministro: cartas",
+            "passages": [
+              "La parte A envió un aviso escrito el día 3.",
+              "Se adjuntó el calendario de entrega.",
+              "Ambas partes guardaron una copia."
+            ]
+          },
+          {
+            "id": "VOL-20",
+            "title": "Actas de reunión",
+            "passages": [
+              "La parte B fue notificada por correo.",
+              "La próxima reunión quedó para el día 9.",
+              "Un envío se retrasó en el transporte."
+            ]
+          },
+          {
+            "id": "VOL-31",
+            "title": "Registro del almacén",
+            "passages": [
+              "Se contaron y rotularon los palés.",
+              "Entrega confirmada en el muelle de carga.",
+              "El tablón de aviso fue actualizado."
+            ]
+          }
+        ],
+        "dates": [
+          "Día 4",
+          "Día 10",
+          "Día 12"
+        ],
+        "elements": [
+          {
+            "id": "searchBox",
+            "label": "Buscador"
+          },
+          {
+            "id": "term",
+            "label": "Términos de la consulta"
+          },
+          {
+            "id": "card",
+            "label": "Ficha (una por término)"
+          },
+          {
+            "id": "passage",
+            "label": "Pasaje que coincide"
+          },
+          {
+            "id": "document",
+            "label": "Volumen"
+          },
+          {
+            "id": "library",
+            "label": "Estante de la biblioteca"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "searchBox",
+            "to": "term",
+            "kind": "sequence",
+            "label": "separa en palabras"
+          },
+          {
+            "from": "term",
+            "to": "card",
+            "kind": "sequence",
+            "label": "se busca en"
+          },
+          {
+            "from": "card",
+            "to": "passage",
+            "kind": "relation",
+            "label": "enumera"
+          },
+          {
+            "from": "passage",
+            "to": "document",
+            "kind": "relation",
+            "label": "parte de"
+          },
+          {
+            "from": "document",
+            "to": "library",
+            "kind": "relation",
+            "label": "guardado en"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación",
+          "communication": "comunicación",
+          "sequence": "secuencia",
+          "causal": "causal (aportada)"
+        }
+      }
+    }
+  ]
+}

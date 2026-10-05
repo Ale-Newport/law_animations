@@ -1,0 +1,454 @@
+{
+  "id": "LAW-0057",
+  "slug": "research-05-story",
+  "title": "Reading a summary — the card unfolds to its passage",
+  "titleEs": "Lectura de sumario — Microescena con objetos y actores",
+  "category": "research",
+  "categoryName": "Investigación jurídica",
+  "motif": "Lectura de sumario",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "Library reading corner: a search result lights up and points to a summary card lying on a reading stand; the researcher lifts the card and the decision text folded beneath it unfolds panel by panel, only as far as the paragraph the summary points to, which is then bracketed and highlighted.",
+  "tags": [
+    "summary",
+    "sumario",
+    "headnote",
+    "library",
+    "search",
+    "index card",
+    "fanfold",
+    "passage",
+    "researcher"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/research/kits/lectura-de-sumario.js",
+    "src/animations/research/kits/lectura-de-sumario-fields.js",
+    "src/primitives/person.js",
+    "src/primitives/annotate.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "query": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "Search terms shown in the search box (fictional example)"
+      },
+      "sources": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "library": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label of the library shelf / collection"
+          },
+          "volume": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Label of the volume that holds the decision"
+          },
+          "database": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Title of the search box"
+          }
+        },
+        "required": [],
+        "description": "Source labels"
+      },
+      "citations": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "decision": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Identifier of the fictional decision (never a real citation)"
+          },
+          "paragraph": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4,
+            "description": "Paragraph the summary points to (1–4); it decides how far the text unfolds"
+          }
+        },
+        "required": [],
+        "description": "Fictional citation data"
+      },
+      "dates": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "decision": {
+            "type": "string",
+            "maxLength": 24,
+            "description": "Date printed on the decision and on its summary card"
+          }
+        },
+        "required": [],
+        "description": "Relative, fictional dates"
+      },
+      "summaryText": {
+        "type": "string",
+        "maxLength": 110,
+        "description": "Text of the summary (sumario) printed on the index card — descriptive, no holding"
+      },
+      "passageText": {
+        "type": "string",
+        "maxLength": 140,
+        "description": "Text of the passage the summary points to (fictional, descriptive)"
+      },
+      "researcher": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Display name (fictional by default)"
+          },
+          "role": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Descriptive role label (not a legal finding)"
+          },
+          "appearance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "skin": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5,
+                "description": "Skin tone index 0–5"
+              },
+              "hair": {
+                "type": "string",
+                "enum": [
+                  "short",
+                  "long",
+                  "bun",
+                  "curly",
+                  "buzz",
+                  "scarf"
+                ],
+                "description": "Hair style"
+              },
+              "hairColor": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 6,
+                "description": "Hair colour index 0–6"
+              },
+              "outfit": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7,
+                "description": "Outfit colour index 0–7"
+              },
+              "glasses": {
+                "type": "boolean",
+                "description": "Wears glasses"
+              }
+            },
+            "required": [],
+            "description": "Optional appearance overrides; defaults derive from the seed"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "description": "A fictional person or party"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reader": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for the researcher"
+          }
+        },
+        "required": [],
+        "description": "Role caption shown next to the researcher"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "card": {
+            "type": "string",
+            "maxLength": 24,
+            "description": "Header printed on the summary card"
+          },
+          "decision": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption of the unfolded decision text"
+          }
+        },
+        "required": [],
+        "description": "Labels printed on props"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "summary",
+                "passage",
+                "search",
+                "library"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "passage-linked",
+          "passage-located"
+        ],
+        "description": "State supplied by the author for the final hold (descriptive only)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "query": "notice letter Day 3",
+    "sources": {
+      "library": "Case library",
+      "volume": "Vol. 12",
+      "database": "Case search (fictional)"
+    },
+    "citations": {
+      "decision": "FD-118",
+      "paragraph": 3
+    },
+    "dates": {
+      "decision": "Day 12"
+    },
+    "summaryText": "The decision discusses the notice letter that Party A sent on Day 3.",
+    "passageText": "The panel reviewed the letter dated Day 3 and the reply sent by Party B.",
+    "researcher": {
+      "name": "Rosa Ibáñez",
+      "role": "Researcher"
+    },
+    "actorLabels": {
+      "reader": "Researcher"
+    },
+    "objectLabels": {
+      "card": "Summary",
+      "decision": "Decision text"
+    },
+    "actionProgress": 1,
+    "annotations": [
+      {
+        "target": "passage",
+        "text": "The passage the summary points to"
+      }
+    ],
+    "finalState": "passage-linked"
+  }
+}

@@ -1,0 +1,430 @@
+{
+  "id": "LAW-0068",
+  "slug": "research-07-inspect",
+  "title": "Fact extraction — inspect an entry's wording against its page",
+  "titleEs": "Extracción de hechos — Inspección y cambio de un dato",
+  "category": "research",
+  "categoryName": "Investigación jurídica",
+  "motif": "Extracción de hechos",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "Context: the open volume with its flagged sentences, the fact card with copied entries (each traced back to its sentence) and the library bay. The context dims and a lens window, placed on a spot that holds no writing (the card's blank lines, library art), enlarges the first entry and substitutes its wording; the old wording, named in a chip docked under the entry, is struck through. A plain text comparison with the page decides the dependent state (quoted with its ¶, or not written on the page: highlight removed, dashed edge, dashed trail). The lens folds back and a neutral change marker (Δ) joins the entry row; seeking back restores the old wording.",
+  "tags": [
+    "fact extraction",
+    "inspect",
+    "lens",
+    "wording",
+    "quotation",
+    "verbatim",
+    "pinpoint",
+    "index card",
+    "trail"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/research/kits/extraccion-de-hechos.js",
+    "src/frameworks/lens.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "query": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "facts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 60,
+                  "description": "Request typed by the user (short wording shown in the search box)"
+                },
+                "sentence": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 6,
+                  "description": "¶ number (1-based) of the page sentence that states this fact — supplied by the author, never computed by the scene"
+                }
+              },
+              "required": [
+                "label",
+                "sentence"
+              ],
+              "description": "A fact the user indicates in the search box"
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "description": "Requested facts (1–3), in the order they are filed on the card; each has its own marker colour (array replaces the previous value)"
+          },
+          "placeholder": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Text shown in the search field"
+          }
+        },
+        "required": [
+          "facts"
+        ],
+        "description": "Facts indicated by the user in the search box"
+      },
+      "sources": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "library": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label on the library shelf"
+          },
+          "volume": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "Volume identifier (page header and card source line)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Title printed on the page header"
+          },
+          "sentences": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Sentence"
+            },
+            "minItems": 3,
+            "maxItems": 6,
+            "description": "Numbered sentences printed on the source page (simulated, fictional) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "volume",
+          "title",
+          "sentences"
+        ],
+        "description": "The library source (fictional, simulated text)"
+      },
+      "citations": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "page": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "Page reference printed on the page header and the card, e.g. \"p. 12\""
+          },
+          "pinpoint": {
+            "type": "string",
+            "maxLength": 4,
+            "description": "Pinpoint sign printed before a sentence number on each marker, e.g. ¶"
+          }
+        },
+        "required": [],
+        "description": "How entries cite the page (fictional references only)"
+      },
+      "dates": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "type": "string",
+            "maxLength": 24,
+            "description": "Date printed on the page header"
+          },
+          "extracted": {
+            "type": "string",
+            "maxLength": 24,
+            "description": "Date printed on the card source line"
+          }
+        },
+        "required": [],
+        "description": "Relative, fictional dates"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "wording"
+        ],
+        "description": "Detail that is enlarged and substituted: the wording of the first entry on the fact card"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Wording of the first entry before the substitution (by default the copy of its sentence)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Alternative wording. Its state is a plain text comparison with the page: written there (quoted, ¶ found) or not written on the page"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "query": {
+      "facts": [
+        {
+          "label": "Who signed the delivery note",
+          "sentence": 3
+        },
+        {
+          "label": "When the goods were collected",
+          "sentence": 2
+        }
+      ],
+      "placeholder": "Facts to extract…"
+    },
+    "sources": {
+      "library": "Case library",
+      "volume": "VOL-7",
+      "title": "Warehouse file",
+      "sentences": [
+        "Order 118 was placed by Party A on Day 2.",
+        "The carrier collected the goods on Day 3.",
+        "Party B signed the delivery note on Day 4.",
+        "Two crates were stored in Bay 7.",
+        "The invoice was issued on Day 6."
+      ]
+    },
+    "citations": {
+      "page": "p. 12",
+      "pinpoint": "¶"
+    },
+    "dates": {
+      "source": "Day 7",
+      "extracted": "Day 9"
+    },
+    "focusTarget": "wording",
+    "beforeValue": "Party B signed the delivery note on Day 4.",
+    "afterValue": "Party B received the goods on Day 4.",
+    "detailGeometry": {
+      "zoom": 1.9,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Fact card after the extraction",
+      "marker": "Wording changed"
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "animationId": "LAW-0078",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All works, references and shelf marks are fictional and illustrative. Relationship kinds are supplied by the author; nothing is drawn as causal by default.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Note 12 cites a treatise at p. 88, which cites fol. 14 of a minute book (entry 3). The search locates the shelf, the shelf holds the treatise, the card records the trail; the ring traces note → intermediate → source.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the trail is checked backwards (traversal source → intermediate → note) with the source document in focus; a different fictional trail (a commentary citing a council register, entry 2); the card is related to the source instead of the note and the shelf relation is omitted.",
+      "params": {
+        "query": "Commentary on Sample Tenancies",
+        "sources": {"article": "Review of Sample Housing Studies", "intermediate": "Commentary on Sample Tenancies", "source": "Register of the Town Council"},
+        "citations": {"noteNumber": "7", "pinpoint": "p. 214", "innerNote": "19", "folio": "fol. 3", "entry": "2", "shelfMark": "C·8"},
+        "dates": {"article": "Vol. 2 · Year 9", "intermediate": "3rd ed. · Year 6", "source": "Day 4 · Year 2"},
+        "elements": [
+          {"id": "note", "label": "Note 7 in the review"},
+          {"id": "intermediate", "label": "Commentary (intermediate)"},
+          {"id": "source", "label": "Council register (source)"},
+          {"id": "search", "label": "Catalogue search"},
+          {"id": "library", "label": "Library shelf"},
+          {"id": "card", "label": "Citation-trail card"}
+        ],
+        "relationships": [
+          {"from": "note", "to": "intermediate", "kind": "sequence", "label": "cites"},
+          {"from": "intermediate", "to": "source", "kind": "sequence", "label": "cites"},
+          {"from": "search", "to": "library", "kind": "relation", "label": "locates the shelf"},
+          {"from": "card", "to": "source", "kind": "relation", "label": "records the entry"}
+        ],
+        "focusElement": "source",
+        "traversalOrder": ["source", "intermediate", "note"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long work titles and places, long element labels and long relationship captions.",
+      "params": {
+        "query": "Comparative treatise on remedies in sample harbour disputes",
+        "sources": {
+          "article": "Quarterly Journal of Sample Maritime and Commercial Studies",
+          "intermediate": "Comparative Treatise on Remedies in Sample Harbour Disputes",
+          "source": "Minute book of the Northern Harbour Board, second series"
+        },
+        "citations": {"noteNumber": "127", "pinpoint": "pp. 388–389", "innerNote": "41", "folio": "fols. 214–215", "entry": "3", "shelfMark": "HB-12·7"},
+        "dates": {"article": "Issue 17 · Year 25", "intermediate": "4th revised ed. · Year 23", "source": "Entry of Day 12 · Year 1"},
+        "elements": [
+          {"id": "note", "label": "Footnote 127 in the quarterly journal article"},
+          {"id": "intermediate", "label": "Comparative treatise (intermediate reference)"},
+          {"id": "source", "label": "Harbour board minute book (source document)"},
+          {"id": "search", "label": "Library catalogue search terminal"},
+          {"id": "library", "label": "Open-access shelf HB-12"},
+          {"id": "card", "label": "Citation-trail record card"}
+        ],
+        "relationships": [
+          {"from": "note", "to": "intermediate", "kind": "sequence", "label": "cites the treatise at pp. 388–389"},
+          {"from": "intermediate", "to": "source", "kind": "sequence", "label": "cites the minute book, fols. 214–215"},
+          {"from": "search", "to": "library", "kind": "relation", "label": "locates the shelf by shelf mark"},
+          {"from": "library", "to": "intermediate", "kind": "relation", "label": "holds the treatise"},
+          {"from": "card", "to": "note", "kind": "relation", "label": "records every stop"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "query": "Tratado de remedios de ejemplo",
+        "sources": {"article": "Revista de Estudios de Ejemplo", "intermediate": "Tratado de remedios de ejemplo", "source": "Libro de actas de la Junta del Puerto"},
+        "citations": {"noteNumber": "12", "pinpoint": "p. 88", "innerNote": "3", "folio": "fol. 14", "entry": "3", "shelfMark": "B·3"},
+        "dates": {"article": "N.º 7 · año 5", "intermediate": "2.ª ed. · año 3", "source": "Día 12 · año 1"},
+        "elements": [
+          {"id": "note", "label": "Nota del artículo"},
+          {"id": "intermediate", "label": "Referencia intermedia"},
+          {"id": "source", "label": "Documento de origen"},
+          {"id": "search", "label": "Buscador del catálogo"},
+          {"id": "library", "label": "Estante de la biblioteca"},
+          {"id": "card", "label": "Ficha del rastro"}
+        ],
+        "relationships": [
+          {"from": "note", "to": "intermediate", "kind": "sequence", "label": "cita"},
+          {"from": "intermediate", "to": "source", "kind": "sequence", "label": "cita"},
+          {"from": "search", "to": "library", "kind": "relation", "label": "localiza el estante"},
+          {"from": "library", "to": "intermediate", "kind": "relation", "label": "guarda"},
+          {"from": "card", "to": "note", "kind": "relation", "label": "registra"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}

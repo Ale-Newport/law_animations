@@ -1,0 +1,61 @@
+{
+  "animationId": "LAW-0056",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: citations, dates and treatment labels are placeholders supplied by the author. The substitution changes one datum only and infers no validity or outcome.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The lens isolates R-33's supplied label on the treatment card and substitutes 'Discusses' with the alternative 'Distinguishes'; the tag resizes to the new text.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the inspected datum is the date printed on R-47's cover (Year 5 → Year 6); the link and its label are unchanged.",
+      "params": {
+        "focusTarget": "date",
+        "focusIndex": 2,
+        "beforeValue": "Year 5",
+        "afterValue": "Year 6",
+        "detailGeometry": {"zoom": 3, "placement": "auto"},
+        "contextLabels": {"context": "Treatment card produced by the search", "marker": "Date changed"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long citations and labels with four resolutions; the substituted label is long on both sides.",
+      "params": {
+        "query": "Decision D-104/2026 · all later resolutions that refer to it",
+        "decision": {"citation": "D-104/2026-B", "title": "Decision on the renewal of a fictional equipment lease", "date": "Year 1, month 4"},
+        "sources": [
+          {"citation": "R-2026-000021", "date": "Year 2, month 11", "label": "Cites in a footnote"},
+          {"citation": "R-2027-000033", "date": "Year 3, month 2", "label": "Discusses at length"},
+          {"citation": "R-2029-000047", "date": "Year 5, month 7", "label": "Distinguishes on the facts"},
+          {"citation": "R-2030-000058", "date": "Year 6, month 1", "label": "Mentions without discussion"}
+        ],
+        "objectLabels": {"library": "Fictional case library — later resolutions", "card": "Treatment card for decision D-104/2026-B"},
+        "focusTarget": "label",
+        "focusIndex": 2,
+        "beforeValue": "Distinguishes on the facts",
+        "afterValue": "Mentions the decision without discussing it",
+        "contextLabels": {"context": "Treatment card produced by the search of the fictional library", "marker": "Supplied label replaced"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "query": "D-104 · resoluciones posteriores",
+        "decision": {"citation": "D-104", "title": "Resolución (ficticia)", "date": "Año 1"},
+        "sources": [
+          {"citation": "R-21", "date": "Año 2", "label": "Cita"},
+          {"citation": "R-33", "date": "Año 3", "label": "Comenta"},
+          {"citation": "R-47", "date": "Año 5", "label": "Distingue"}
+        ],
+        "objectLabels": {"library": "Biblioteca de casos", "card": "Ficha de tratamiento · D-104"},
+        "beforeValue": "Comenta",
+        "afterValue": "Distingue",
+        "contextLabels": {"context": "Ficha de tratamiento resultante de la búsqueda", "marker": "Etiqueta cambiada"}
+      }
+    }
+  ]
+}

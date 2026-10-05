@@ -1,0 +1,410 @@
+{
+  "id": "LAW-0064",
+  "slug": "research-06-inspect",
+  "title": "Primary source and commentary — inspect and change the side note’s pinpoint",
+  "titleEs": "Fuente primaria y comentario — Inspección y cambio de un dato",
+  "category": "research",
+  "categoryName": "Investigación jurídica",
+  "motif": "Fuente primaria y comentario",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "Reading board with a commentator’s card tied to a bracketed passage. A lens lifts a real copy of the link (bracket, thread, pinpoint tab) and substitutes one datum — by default the pinpoint ¶2 → ¶3, so the thread’s pin is re-pinned at the other passage and the old bracket stays as a dashed trace — or the attribution or date of the note. Returns to the context with a changed-datum marker; the source text never changes.",
+  "tags": [
+    "research",
+    "primary source",
+    "commentary",
+    "pinpoint",
+    "inspect",
+    "lens",
+    "before-after",
+    "substitution",
+    "thread"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/research/kits/fuente-primaria-y-comentario.js",
+    "src/frameworks/lens.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "query": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "Text shown in the catalogue search box (fictional)"
+      },
+      "sources": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sourceTitle": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Heading printed on the primary-source page"
+          },
+          "passages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 110,
+              "description": "Passage text"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Passages of the primary source, printed with ¶ numbers (simulated text) (array replaces the previous value)"
+          },
+          "commentator": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Fictional commentator named on the side note"
+          },
+          "commentaryWork": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Title of the fictional commentary the side note comes from"
+          },
+          "commentaryText": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "The commentator’s interpretation written on the side note (an attributed opinion, not a statement of law)"
+          }
+        },
+        "required": [
+          "sourceTitle",
+          "passages",
+          "commentator",
+          "commentaryWork",
+          "commentaryText"
+        ],
+        "description": "The primary source and the commentary (fictional, simulated text)"
+      },
+      "citations": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Reference printed on the source-page header and on its search result"
+          },
+          "commentary": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Reference of the commentary printed on the side note and on its search result"
+          },
+          "passage": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4,
+            "description": "Passage number (1-based) the side note is linked to — supplied by the author, never computed"
+          }
+        },
+        "required": [
+          "source",
+          "commentary",
+          "passage"
+        ],
+        "description": "Fictional references (never real citations)"
+      },
+      "dates": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Date label of the source-text version"
+          },
+          "commentary": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Date label of the commentary"
+          }
+        },
+        "required": [
+          "source",
+          "commentary"
+        ],
+        "description": "Relative, fictional dates"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "pinpoint",
+          "commentator",
+          "date"
+        ],
+        "description": "Datum of the side note that is enlarged and substituted: the pinpoint it links to, the commentator it is attributed to, or its date"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "Value shown before the substitution (for the pinpoint: the tab label, e.g. ¶2)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "Value shown after the substitution (the alternative datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Kept for compatibility: the lens always opens over the free library side of the layout so it never covers text of the context"
+          },
+          "afterPassage": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4,
+            "description": "Pinpoint only: the passage number (1-based) the after value links to; the thread and bracket move there"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry and dependent geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "query": "art. 7 notice — commentary",
+    "sources": {
+      "sourceTitle": "Art. 7 — Notices between the parties",
+      "passages": [
+        "Each party names an address for notices.",
+        "Notice is given in writing and states the date it is sent.",
+        "The sender keeps a copy of each notice."
+      ],
+      "commentator": "R. Ferrer",
+      "commentaryWork": "Notes on the Example Code",
+      "commentaryText": "Reads “in writing” here as also covering email."
+    },
+    "citations": {
+      "source": "Example Code (fictional) · art. 7",
+      "commentary": "Ferrer, Notes, p. 14",
+      "passage": 2
+    },
+    "dates": {
+      "source": "Text as of Day 1",
+      "commentary": "Written on Day 40"
+    },
+    "focusTarget": "pinpoint",
+    "beforeValue": "¶2",
+    "afterValue": "¶3",
+    "detailGeometry": {
+      "zoom": 2.2,
+      "placement": "auto",
+      "afterPassage": 3
+    },
+    "contextLabels": {
+      "context": "Side note pinned beside art. 7, tied to its passage",
+      "marker": "Datum changed"
+    }
+  }
+}

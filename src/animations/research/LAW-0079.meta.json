@@ -1,0 +1,425 @@
+{
+  "id": "LAW-0079",
+  "slug": "research-10-contrast",
+  "title": "Citation traceability — access to the original vs indirect citation",
+  "titleEs": "Trazabilidad de una cita — Comparación de dos supuestos",
+  "category": "research",
+  "categoryName": "Investigación jurídica",
+  "motif": "Trazabilidad de una cita",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical first-person library bays: the same note, the same open treatise, the same original in a closed archive box. Only one fact differs — in A the hand opens the box, lifts the original and the chain reaches its entry; in B the box stays closed and the source is recorded as cited in the treatise (dashed link, dashed card row). A close-up of each card’s third row shows the recorded difference; a neutral guide joins the two boxes; no judgement on either citation.",
+  "tags": [
+    "citation",
+    "traceability",
+    "comparison",
+    "access to the original",
+    "indirect citation",
+    "archive box",
+    "chain",
+    "side-by-side",
+    "stacked"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/research/kits/trazabilidad-de-una-cita.js",
+    "src/frameworks/paired.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "query": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "Text typed into the catalogue search (buscador); by default the work named in the note (fictional)"
+      },
+      "sources": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "article": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Citing work whose footnote starts the trail (printed in the article header and on the card)"
+          },
+          "intermediate": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Intermediate reference: the work the note cites; it cites the source in turn (cover, page header, search result, card)"
+          },
+          "source": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Source document: the original the intermediate reference cites (folio header, card)"
+          }
+        },
+        "required": [
+          "article",
+          "intermediate",
+          "source"
+        ],
+        "description": "The three works on the citation trail (fictional titles, never real works)"
+      },
+      "citations": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "noteNumber": {
+            "type": "string",
+            "maxLength": 4,
+            "description": "Footnote number in the citing article"
+          },
+          "pinpoint": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "Place in the intermediate reference cited by the note, e.g. \"p. 88\" (printed in the note and as the page number of the open page)"
+          },
+          "innerNote": {
+            "type": "string",
+            "maxLength": 4,
+            "description": "Footnote number inside the intermediate reference"
+          },
+          "folio": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "Place in the source document cited by the intermediate, e.g. \"fol. 14\" (printed in its footnote and on the folio)"
+          },
+          "entry": {
+            "type": "string",
+            "maxLength": 12,
+            "description": "Entry of the source document the trail ends on: \"1\"–\"4\" selects the numbered entry on the folio (other text is printed on the third entry)"
+          },
+          "shelfMark": {
+            "type": "string",
+            "maxLength": 10,
+            "description": "Shelf mark returned by the catalogue search and printed on the shelf plate"
+          }
+        },
+        "required": [
+          "noteNumber",
+          "pinpoint",
+          "innerNote",
+          "folio",
+          "entry",
+          "shelfMark"
+        ],
+        "description": "How each stop cites the next. Composed into the footnotes as \"<work>, <place>\"; fictional references only, never real citations"
+      },
+      "dates": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "article": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Date printed in the article header"
+          },
+          "intermediate": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Edition/date printed on the intermediate reference"
+          },
+          "source": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Date written on the source entry"
+          }
+        },
+        "required": [
+          "article",
+          "intermediate",
+          "source"
+        ],
+        "description": "Fictional, relative date labels printed on each work"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "query": "Treatise on Sample Remedies",
+    "sources": {
+      "article": "Journal of Sample Studies",
+      "intermediate": "Treatise on Sample Remedies",
+      "source": "Minute book of the Harbour Board"
+    },
+    "citations": {
+      "noteNumber": "12",
+      "pinpoint": "p. 88",
+      "innerNote": "3",
+      "folio": "fol. 14",
+      "entry": "3",
+      "shelfMark": "B·3"
+    },
+    "dates": {
+      "article": "Issue 7 · Year 5",
+      "intermediate": "2nd ed. · Year 3",
+      "source": "Day 12 · Year 1"
+    },
+    "scenarioA": {
+      "label": "Access to the original",
+      "caption": "The box is opened and the chain reaches the entry itself"
+    },
+    "scenarioB": {
+      "label": "Indirect citation",
+      "caption": "The box stays closed; the source is cited as the treatise gives it"
+    },
+    "changedFact": "Only one fact differs: whether the original itself is opened",
+    "sharedFacts": [
+      "Same note",
+      "Same treatise and page",
+      "Same cited entry"
+    ],
+    "comparisonLabels": {
+      "guide": "Changed fact: where the trail ends",
+      "neutral": "Two ways of recording the same citation — no judgement on either"
+    }
+  }
+}

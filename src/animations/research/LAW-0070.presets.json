@@ -1,0 +1,93 @@
+{
+  "animationId": "LAW-0070",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction names are invented.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Traces DOC-11, which declares the jurisdiction marked on the card (Northvale): the filter compares key and read emblem, shows = and turns the blade to the relevant tray.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the traced document declares another jurisdiction (DOC-12, Eastmere); the comparison shows ≠, the blade turns to the other tray and the traversal order ends there. The focus moves to the research card as well as the filter's key.",
+      "params": {
+        "sampleSource": 1,
+        "traversalOrder": ["card", "filter", "document", "filter", "other"],
+        "relationships": [
+          {"from": "library", "to": "document", "kind": "relation", "label": "holds"},
+          {"from": "card", "to": "filter", "kind": "communication", "label": "sets the key"},
+          {"from": "document", "to": "filter", "kind": "sequence", "label": "passes through"},
+          {"from": "filter", "to": "relevant", "kind": "sequence", "label": "same as the key"},
+          {"from": "filter", "to": "other", "kind": "sequence", "label": "different from the key"}
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long element labels, captions and names to exercise wrapping of element chips and relation labels.",
+      "params": {
+        "query": "Allocation of delivery risk and notice requirements in long-term supply and logistics contracts",
+        "jurisdictions": [{"key": "j1", "name": "Northvale-upon-Eastmere"}, {"key": "j2", "name": "Eastmere Coastal Province"}, {"key": "j3", "name": "Southholm Federal District"}],
+        "sources": [
+          {"id": "SUPPLY-2026-01", "title": "Framework supply agreement with annexes and schedules", "declares": "j1"},
+          {"id": "SUPPLY-2026-02", "title": "Logistics services contract", "declares": "j2"},
+          {"id": "SUPPLY-2026-03", "title": "Warehouse lease and annexes", "declares": "j1"},
+          {"id": "SUPPLY-2026-04", "title": "Carrier general conditions", "declares": "j3"},
+          {"id": "SUPPLY-2026-05", "title": "Purchase order master file", "declares": "j1"},
+          {"id": "SUPPLY-2026-06", "title": "Insurance certificate set", "declares": "j2"}
+        ],
+        "citations": ["Ref. 2026/01", "Ref. 2026/02", "Ref. 2026/03", "Ref. 2026/04", "Ref. 2026/05", "Ref. 2026/06"],
+        "dates": ["12 Mar 2019", "4 Jun 2020", "30 Sep 2020", "15 Jan 2021", "8 Jul 2021", "2 Dec 2021"],
+        "elements": [
+          {"id": "library", "label": "Project library of supply and logistics files"},
+          {"id": "document", "label": "Source document under examination"},
+          {"id": "card", "label": "Research card with the marked jurisdiction"},
+          {"id": "filter", "label": "Jurisdiction filter (key against declaration)"},
+          {"id": "relevant", "label": "Declares the jurisdiction marked on the card"},
+          {"id": "other", "label": "Declares a different jurisdiction than the card"}
+        ],
+        "relationships": [
+          {"from": "library", "to": "document", "kind": "relation", "label": "holds this document"},
+          {"from": "card", "to": "filter", "kind": "communication", "label": "sets the key of the filter"},
+          {"from": "document", "to": "filter", "kind": "sequence", "label": "passes through the reader"},
+          {"from": "filter", "to": "relevant", "kind": "sequence", "label": "declaration same as the key"},
+          {"from": "filter", "to": "other", "kind": "sequence", "label": "declaration differs from the key"}
+        ],
+        "relationLabels": {"relation": "plain relation (no direction)", "communication": "communication between parts", "sequence": "sequence of steps", "causal": "causal link (only as supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español (etiquetas y contenido ficticio).",
+      "params": {
+        "locale": "es",
+        "query": "Plazos de entrega en contratos de suministro",
+        "jurisdictions": [{"key": "j1", "name": "Valnorte"}, {"key": "j2", "name": "Estemar"}, {"key": "j3", "name": "Surholm"}],
+        "sources": [
+          {"id": "DOC-11", "title": "Expediente de suministro", "declares": "j1"},
+          {"id": "DOC-12", "title": "Contrato de transporte", "declares": "j2"},
+          {"id": "DOC-13", "title": "Arrendamiento de almacén", "declares": "j1"},
+          {"id": "DOC-14", "title": "Condiciones de servicio", "declares": "j3"},
+          {"id": "DOC-15", "title": "Pedidos de compra", "declares": "j1"}
+        ],
+        "dates": ["12 mar 2019", "4 jun 2020", "30 sep 2020", "15 ene 2021", "8 jul 2021"],
+        "elements": [
+          {"id": "library", "label": "Biblioteca"},
+          {"id": "document", "label": "Documento de origen"},
+          {"id": "card", "label": "Ficha de investigación"},
+          {"id": "filter", "label": "Filtro de jurisdicción"},
+          {"id": "relevant", "label": "Jurisdicción pertinente"},
+          {"id": "other", "label": "Otra jurisdicción"}
+        ],
+        "relationships": [
+          {"from": "library", "to": "document", "kind": "relation", "label": "contiene"},
+          {"from": "card", "to": "filter", "kind": "communication", "label": "fija la clave"},
+          {"from": "document", "to": "filter", "kind": "sequence", "label": "pasa por el lector"},
+          {"from": "filter", "to": "relevant", "kind": "sequence", "label": "igual que la clave"},
+          {"from": "filter", "to": "other", "kind": "sequence", "label": "distinta de la clave"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "animationId": "LAW-0065",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the sentence that states each requested fact is supplied by the author, never inferred by the scene. No legal assessment of any fact is made.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three facts indicated in the search box (who signed the delivery note, when the goods were collected, where the crates were stored) are flagged on a fictional warehouse file and pulled onto the fact card as copies with their ¶ pinpoints.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different fictional source (meeting minutes, four sentences), two requested facts, and the supplied final state 'flagged' — the flags mark the sentences on the page but nothing is pulled onto the card yet.",
+      "params": {
+        "sources": {
+          "library": "Minutes shelf",
+          "volume": "MIN-3",
+          "title": "Minutes of the site meeting",
+          "sentences": [
+            "The meeting opened at 10:00 on Day 12.",
+            "Party C presented the revised floor plan.",
+            "The inspection was moved to Day 15.",
+            "The minutes were circulated on Day 13."
+          ]
+        },
+        "query": {
+          "facts": [
+            {
+              "label": "When the inspection takes place",
+              "sentence": 3
+            },
+            {
+              "label": "Who presented the floor plan",
+              "sentence": 2
+            }
+          ],
+          "placeholder": "Facts to flag…"
+        },
+        "citations": {
+          "page": "p. 4",
+          "pinpoint": "¶"
+        },
+        "dates": {
+          "source": "Day 12",
+          "extracted": "Day 14"
+        },
+        "finalState": "flagged",
+        "annotations": [
+          {
+            "target": "page",
+            "text": "Flagged on the page; not yet copied to the card"
+          }
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long library label, volume, title, five long sentences, long requests, long object/actor labels and two annotations (in 1:1 the sentences nobody asked for are condensed to simulated lines).",
+      "params": {
+        "sources": {
+          "library": "Case library of the district archive",
+          "volume": "VOL-2026-117B",
+          "title": "Consolidated logistics file of the northern depot",
+          "sentences": [
+            "Order 118 for forty crates of ceramic tiles was placed by Party A on Day 2.",
+            "The regional carrier collected the goods from the northern depot on Day 3.",
+            "Party B's receiving clerk signed the delivery note at the loading bay on Day 4.",
+            "Two damaged crates were stored separately in Bay 7 of the northern depot.",
+            "The invoice for the remaining crates was issued on Day 6 by the sales office."
+          ]
+        },
+        "query": {
+          "facts": [
+            {
+              "label": "Who signed the delivery note at the loading bay",
+              "sentence": 3
+            },
+            {
+              "label": "When the regional carrier collected the goods",
+              "sentence": 2
+            },
+            {
+              "label": "Where the two damaged crates were stored",
+              "sentence": 4
+            }
+          ],
+          "placeholder": "Facts to extract from the file…"
+        },
+        "citations": {
+          "page": "p. 1127",
+          "pinpoint": "¶"
+        },
+        "dates": {
+          "source": "Day 7 (filed)",
+          "extracted": "Day 9 (noted)"
+        },
+        "actorLabels": {
+          "user": "Research assistant (fictional)",
+          "markers": "Index flags, one colour per request"
+        },
+        "objectLabels": {
+          "search": "Search the consolidated warehouse file",
+          "card": "Fact card for the logistics chronology"
+        },
+        "annotations": [
+          {
+            "target": "card",
+            "text": "Each copy keeps the wording of its sentence and the ¶ of the page it came from"
+          },
+          {
+            "target": "page",
+            "text": "The source page keeps its text; only highlights and notches are left"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": {
+          "library": "Biblioteca de casos",
+          "volume": "VOL-7",
+          "title": "Expediente del almacén",
+          "sentences": [
+            "La parte A hizo el pedido 118 el día 2.",
+            "El transportista recogió la mercancía el día 3.",
+            "La parte B firmó el albarán el día 4.",
+            "Se guardaron dos cajas en la nave 7.",
+            "La factura se emitió el día 6."
+          ]
+        },
+        "query": {
+          "facts": [
+            {
+              "label": "Quién firmó el albarán",
+              "sentence": 3
+            },
+            {
+              "label": "Cuándo se recogió la mercancía",
+              "sentence": 2
+            },
+            {
+              "label": "Dónde se guardaron las cajas",
+              "sentence": 4
+            }
+          ],
+          "placeholder": "Hechos que extraer…"
+        },
+        "dates": {
+          "source": "Día 7",
+          "extracted": "Día 9"
+        },
+        "actorLabels": {
+          "user": "Investigadora",
+          "markers": "Marcadores"
+        },
+        "objectLabels": {
+          "search": "Buscar en el expediente",
+          "card": "Ficha de hechos"
+        },
+        "annotations": [
+          {
+            "target": "card",
+            "text": "Copias de las frases indicadas, cada una con su ¶"
+          }
+        ]
+      }
+    }
+  ]
+}

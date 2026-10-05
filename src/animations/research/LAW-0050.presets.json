@@ -1,0 +1,99 @@
+{
+  "animationId": "LAW-0050",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the layer marked for the selected date is supplied by the author, never computed, and no relationship is drawn as causal unless supplied.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Search box, library shelf, consolidated file, three temporal layers, date flag and research card, traversed from the query to the card.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four layers with the date marked in the third one; the research starts from the card (card → search → library → file → layers → date), the search is linked to the card instead of the date, and the date flag is the focus element.",
+      "params": {
+        "query": "Example Regulation s. 4",
+        "sources": ["Regulations archive", "Official journal (fictional)"],
+        "citations": ["Example Regulation (fictional), s. 4"],
+        "dates": {"selected": "3 Mar 2021"},
+        "versions": [
+          {"label": "Version 1", "from": "from 1 Jul 2012", "text": "Records are kept for the stated period."},
+          {"label": "Version 2", "from": "from 1 Jan 2016", "text": "Records are kept in a register."},
+          {"label": "Version 3", "from": "from 1 Apr 2019", "text": "Records are kept in an e-register."},
+          {"label": "Version 4", "from": "from 1 Oct 2022", "text": "Records are kept in a shared e-register."}
+        ],
+        "selectedVersion": 2,
+        "relationships": [
+          {"from": "card", "to": "search", "kind": "communication", "label": "query copied from"},
+          {"from": "search", "to": "library", "kind": "communication", "label": "looks up"},
+          {"from": "library", "to": "document", "kind": "relation", "label": "holds"},
+          {"from": "document", "to": "layers", "kind": "relation", "label": "kept as versions"},
+          {"from": "layers", "to": "date", "kind": "sequence", "label": "cut at the date"}
+        ],
+        "focusElement": "date",
+        "traversalOrder": ["card", "search", "library", "document", "layers", "date"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long component labels, relationship captions and version labels to exercise wrapping and bounded shrinking.",
+      "params": {
+        "query": "Example Consolidation Act on Administrative Notices, article 12 bis",
+        "sources": ["Consolidated legislation and historical versions collection"],
+        "citations": ["Example Consolidation Act on Administrative Notices (fictional), article 12 bis"],
+        "dates": {"selected": "14 September 2021"},
+        "versions": [
+          {"label": "Original version", "from": "starting 1 March 2016", "text": "The notice form is filed on paper at the registry counter."},
+          {"label": "First amendment", "from": "starting 15 September 2019", "text": "The notice form is filed on paper or through the online portal."},
+          {"label": "Second amendment", "from": "starting 1 January 2023", "text": "The notice form is filed only through the online portal."}
+        ],
+        "elements": [
+          {"id": "search", "label": "Library catalogue search terminal"},
+          {"id": "library", "label": "Consolidated legislation shelves"},
+          {"id": "document", "label": "Consolidated file of the article"},
+          {"id": "layers", "label": "Temporal layers, one per version of the article"},
+          {"id": "date", "label": "Date selected by the researcher"},
+          {"id": "card", "label": "Research card with the reference"}
+        ],
+        "relationships": [
+          {"from": "search", "to": "library", "kind": "communication", "label": "looks up the shelf mark"},
+          {"from": "library", "to": "document", "kind": "relation", "label": "holds the consolidated file"},
+          {"from": "document", "to": "layers", "kind": "relation", "label": "kept as successive versions"},
+          {"from": "date", "to": "layers", "kind": "sequence", "label": "marks the layer supplied"},
+          {"from": "card", "to": "date", "kind": "relation", "label": "records the selected date"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "query": "Ley de ejemplo art. 12",
+        "sources": ["Textos consolidados", "Diario oficial (ficticio)", "Comentarios"],
+        "citations": ["Ley de ejemplo (ficticia), art. 12"],
+        "dates": {"selected": "14 jun 2021"},
+        "versions": [
+          {"label": "Versión 1", "from": "desde 1 mar 2016", "text": "El formulario se presenta en papel."},
+          {"label": "Versión 2", "from": "desde 15 sep 2019", "text": "El formulario se presenta en papel o en línea."},
+          {"label": "Versión 3", "from": "desde 1 ene 2023", "text": "El formulario se presenta en línea."}
+        ],
+        "elements": [
+          {"id": "search", "label": "Buscador"},
+          {"id": "library", "label": "Estantería"},
+          {"id": "document", "label": "Archivo consolidado"},
+          {"id": "layers", "label": "Capas temporales (una por versión)"},
+          {"id": "date", "label": "Fecha seleccionada"},
+          {"id": "card", "label": "Ficha de consulta"}
+        ],
+        "relationships": [
+          {"from": "search", "to": "library", "kind": "communication", "label": "consulta"},
+          {"from": "library", "to": "document", "kind": "relation", "label": "contiene"},
+          {"from": "document", "to": "layers", "kind": "relation", "label": "guardado en versiones"},
+          {"from": "date", "to": "layers", "kind": "sequence", "label": "marca una capa"},
+          {"from": "card", "to": "date", "kind": "relation", "label": "registra"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}

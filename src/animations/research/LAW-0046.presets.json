@@ -1,0 +1,83 @@
+{
+  "animationId": "LAW-0046",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; no real source or citation is referenced.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "A complete fictional reference decomposed into source, volume, page and paragraph; relationships drawn by kind; the tracer follows the reference from the card to the highlighted paragraph.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: an incomplete reference with no paragraph pinpoint (empty compartment, empty mark, no highlight), the volume made the focus element, and a traversal that starts at the search box and skips the card.",
+      "params": {
+        "query": "Practice Notes, 2, 57",
+        "citations": [{"source": "Practice Notes", "volume": "Vol. 2", "page": "p. 57", "paragraph": ""}],
+        "dates": ["Noted on day 4", "Edition of day 1"],
+        "focusElement": "volume",
+        "traversalOrder": ["search", "library", "volume", "page", "paragraph"],
+        "relationships": [
+          {"from": "card", "to": "search", "kind": "communication", "label": "entered as query"},
+          {"from": "search", "to": "library", "kind": "sequence", "label": "source → shelf"},
+          {"from": "library", "to": "volume", "kind": "relation", "label": "holds"},
+          {"from": "volume", "to": "page", "kind": "sequence", "label": "opens at page"},
+          {"from": "page", "to": "paragraph", "kind": "relation", "label": "no pinpoint given"}
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long source names, parts, element labels and relation captions to exercise wrapping and bounded shrinking.",
+      "params": {
+        "query": "Consolidated Casebook of Illustrative Examples for Teaching, vol. 14, p. 1127, para. 23",
+        "sources": ["Journal of Sample Studies in Comparative Procedure", "Consolidated Casebook of Illustrative Examples", "Practice Notes and Commentary"],
+        "citations": [{"source": "Consolidated Casebook of Illustrative Examples", "volume": "Volume 14 (second part)", "page": "page 1127", "paragraph": "paragraph 23"}],
+        "dates": ["Noted on day 12 (log)", "Edition of day 3 (fictional)"],
+        "pinpointRow": 4,
+        "elements": [
+          {"id": "card", "label": "Index card with the reference as noted"},
+          {"id": "search", "label": "Library catalogue search terminal"},
+          {"id": "library", "label": "Shelf of the consolidated casebook"},
+          {"id": "volume", "label": "Volume fourteen, second part"},
+          {"id": "page", "label": "Page eleven hundred twenty-seven"},
+          {"id": "paragraph", "label": "The pinpointed paragraph on that page"}
+        ],
+        "relationships": [
+          {"from": "card", "to": "search", "kind": "communication", "label": "reference entered as a search query"},
+          {"from": "search", "to": "library", "kind": "sequence", "label": "source part leads to the shelf"},
+          {"from": "library", "to": "volume", "kind": "relation", "label": "shelf holds the volume"},
+          {"from": "volume", "to": "page", "kind": "sequence", "label": "volume opens at the page"},
+          {"from": "page", "to": "paragraph", "kind": "sequence", "label": "pinpoint leads to the paragraph"}
+        ],
+        "relationLabels": {"relation": "plain relation (no direction)", "communication": "communication between parts", "sequence": "sequence of steps", "causal": "causal link (only when supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "query": "Repertorio de Ejemplos, 4, 112, ¶ 3",
+        "sources": ["Revista de Estudios de Muestra", "Repertorio de Ejemplos", "Notas Prácticas"],
+        "citations": [{"source": "Repertorio de Ejemplos", "volume": "Vol. 4", "page": "p. 112", "paragraph": "¶ 3"}],
+        "dates": ["Anotada el día 12", "Edición del día 3"],
+        "elements": [
+          {"id": "card", "label": "Ficha"},
+          {"id": "search", "label": "Buscador"},
+          {"id": "library", "label": "Estante de la biblioteca"},
+          {"id": "volume", "label": "Volumen"},
+          {"id": "page", "label": "Página"},
+          {"id": "paragraph", "label": "Párrafo"}
+        ],
+        "relationships": [
+          {"from": "card", "to": "search", "kind": "communication", "label": "se introduce como consulta"},
+          {"from": "search", "to": "library", "kind": "sequence", "label": "fuente → estante"},
+          {"from": "library", "to": "volume", "kind": "relation", "label": "contiene"},
+          {"from": "volume", "to": "page", "kind": "sequence", "label": "se abre en la página"},
+          {"from": "page", "to": "paragraph", "kind": "sequence", "label": "referencia → párrafo"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}

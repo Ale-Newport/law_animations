@@ -1,0 +1,516 @@
+{
+  "id": "LAW-0054",
+  "slug": "research-04-mechanism",
+  "title": "Case treatment — components and supplied links",
+  "titleEs": "Tratamiento de un caso — Mecanismo o relación explicada",
+  "category": "research",
+  "categoryName": "Investigación jurídica",
+  "motif": "Tratamiento de un caso",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "Exploded view: search box, library, later resolutions, the supplied labels, the decision and the treatment card, linked only by the supplied relationships (styled by kind; plain relations carry no arrowhead). A tracer follows the traversal order; the labels element enlarges and receives the supplied texts; the decision’s ports light up and the card rows are written.",
+  "tags": [
+    "case treatment",
+    "mechanism",
+    "exploded",
+    "relations",
+    "tracer",
+    "labels",
+    "library",
+    "index card"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/research/kits/tratamiento-de-un-caso.js",
+    "src/frameworks/graph.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "query": {
+        "type": "string",
+        "maxLength": 64,
+        "description": "Text typed into the search box"
+      },
+      "decision": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "citation": {
+            "type": "string",
+            "maxLength": 28,
+            "description": "Fictional citation printed on the decision"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Short title printed on the decision (wraps to two lines)"
+          },
+          "date": {
+            "type": "string",
+            "maxLength": 24,
+            "description": "Relative or fictional date printed on the decision"
+          }
+        },
+        "required": [
+          "citation"
+        ],
+        "description": "The decision whose treatment is shown (fictional)"
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "citation": {
+              "type": "string",
+              "maxLength": 28,
+              "description": "Fictional identifier printed on its spine and cover, e.g. \"R-21\" (citation)"
+            },
+            "date": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Relative or fictional date printed on its cover, e.g. \"Year 2\""
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Treatment label SUPPLIED by the author; it hangs on the thread linking this resolution to the decision. Empty = no label supplied, so no link is drawn"
+            }
+          },
+          "required": [
+            "citation",
+            "label"
+          ],
+          "description": "A later resolution (fictional) found in the library"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Later resolutions (2–4) in the order the search finds them; each carries its citation, date and supplied treatment label. Every label gets the same size, colour and distance to the decision: no hierarchy is drawn (array replaces the previous value)"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "query",
+                "library",
+                "resolutions",
+                "labels",
+                "decision",
+                "card"
+              ],
+              "description": "Component id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Component"
+        },
+        "minItems": 2,
+        "maxItems": 6,
+        "description": "Component labels; ids are fixed by the scene, labels are editable (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "query",
+                "library",
+                "resolutions",
+                "labels",
+                "decision",
+                "card"
+              ],
+              "description": "Source component id"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "query",
+                "library",
+                "resolutions",
+                "labels",
+                "decision",
+                "card"
+              ],
+              "description": "Target component id"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Caption for this relationship (defaults to the caption of its kind)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "Relationship"
+        },
+        "minItems": 1,
+        "maxItems": 8,
+        "description": "Explicit relationships between components; kind controls line style (causal only when supplied) (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "query",
+          "library",
+          "resolutions",
+          "labels",
+          "decision",
+          "card"
+        ],
+        "description": "Component enlarged while the tracer passes"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for sequence links"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Override the caption used for each relation kind"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "query",
+            "library",
+            "resolutions",
+            "labels",
+            "decision",
+            "card"
+          ],
+          "description": "Component id"
+        },
+        "minItems": 2,
+        "maxItems": 8,
+        "description": "Order in which the tracer visits components (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "query": "D-104 · later resolutions",
+    "decision": {
+      "citation": "D-104",
+      "title": "Decision (fictional)",
+      "date": "Year 1"
+    },
+    "sources": [
+      {
+        "citation": "R-21",
+        "date": "Year 2",
+        "label": "Cites"
+      },
+      {
+        "citation": "R-33",
+        "date": "Year 3",
+        "label": "Discusses"
+      },
+      {
+        "citation": "R-47",
+        "date": "Year 5",
+        "label": "Distinguishes"
+      }
+    ],
+    "elements": [
+      {
+        "id": "query",
+        "label": "Search box"
+      },
+      {
+        "id": "library",
+        "label": "Case library"
+      },
+      {
+        "id": "resolutions",
+        "label": "Later resolutions"
+      },
+      {
+        "id": "labels",
+        "label": "Supplied labels"
+      },
+      {
+        "id": "decision",
+        "label": "Decision D-104"
+      },
+      {
+        "id": "card",
+        "label": "Treatment card · D-104"
+      }
+    ],
+    "relationships": [
+      {
+        "from": "query",
+        "to": "library",
+        "kind": "communication",
+        "label": "searches"
+      },
+      {
+        "from": "library",
+        "to": "resolutions",
+        "kind": "relation",
+        "label": "holds"
+      },
+      {
+        "from": "resolutions",
+        "to": "labels",
+        "kind": "relation",
+        "label": "each carries"
+      },
+      {
+        "from": "labels",
+        "to": "decision",
+        "kind": "relation",
+        "label": "refer to"
+      },
+      {
+        "from": "decision",
+        "to": "card",
+        "kind": "sequence",
+        "label": "then recorded on"
+      }
+    ],
+    "focusElement": "labels",
+    "relationLabels": {
+      "relation": "relation",
+      "communication": "communication",
+      "sequence": "sequence",
+      "causal": "causal (supplied)"
+    },
+    "traversalOrder": [
+      "query",
+      "library",
+      "resolutions",
+      "labels",
+      "decision",
+      "card"
+    ]
+  }
+}

@@ -1,0 +1,391 @@
+{
+  "id": "LAW-0048",
+  "slug": "research-02-inspect",
+  "title": "Located citation — inspect the paragraph pinpoint",
+  "titleEs": "Cita localizada — Inspección y cambio de un dato",
+  "category": "research",
+  "categoryName": "Investigación jurídica",
+  "motif": "Cita localizada",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "A lens lifts a real enlarged copy of the pinpointed passage out of the library scene, replaces the paragraph pinpoint (old value struck but kept visible), slides the tag and highlight to the paragraph the new value designates — or removes them when no paragraph is given — and returns to the context with the new value on the card and a changed-datum marker.",
+  "tags": [
+    "citation",
+    "pinpoint",
+    "inspect",
+    "lens",
+    "paragraph",
+    "highlight",
+    "before-after",
+    "substitution"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/research/kits/cita-localizada.js",
+    "src/frameworks/lens.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "query": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "The reference as written on the index card up to the inspected pinpoint (fictional); the pinpoint itself is the before/after value"
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Shelf plate label"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Source names on the shelf plates, top shelf first (fictional) (array replaces the previous value)"
+      },
+      "citations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Source / collection name; the shelf whose plate carries the same name is the one it points to"
+            },
+            "volume": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Volume part, e.g. \"Vol. 4\" (empty = not given)"
+            },
+            "page": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Page part, e.g. \"p. 112\" (empty = not given)"
+            },
+            "paragraph": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Paragraph pinpoint, e.g. \"¶ 3\" (empty = not given)"
+            }
+          },
+          "required": [
+            "source",
+            "volume",
+            "page",
+            "paragraph"
+          ],
+          "description": "A fictional reference split into the parts that locate a passage; an empty part marks an incomplete reference"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "References: the first is decomposed and followed; a second one is printed on the card as a further note (array replaces the previous value)"
+      },
+      "dates": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "Date label"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Descriptive date labels: [0] on the index card, [1] in the page header of the document (fictional, relative) (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "paragraph"
+        ],
+        "description": "Detail that is enlarged and substituted"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Wanted magnification of the lens (reduced when the free area is smaller)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens sits: 'top' over the search panel when the lens still magnifies the detail there; otherwise (and for every other value) over the bookcase"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      },
+      "pinpointRows": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "before": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "Paragraph designated by the before value (1 = first on the page)"
+          },
+          "after": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5,
+            "description": "Paragraph designated by the after value (0 = none)"
+          }
+        },
+        "required": [
+          "before",
+          "after"
+        ],
+        "description": "Which paragraph of the drawn page each value designates (0 = no paragraph: the reference becomes incomplete)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "query": "Casebook of Examples, 4, 112,",
+    "sources": [
+      "Journal of Sample Studies",
+      "Casebook of Examples",
+      "Practice Notes"
+    ],
+    "citations": [
+      {
+        "source": "Casebook of Examples",
+        "volume": "Vol. 4",
+        "page": "p. 112",
+        "paragraph": "¶ 3"
+      }
+    ],
+    "dates": [
+      "Noted on day 12",
+      "Edition of day 3"
+    ],
+    "focusTarget": "paragraph",
+    "beforeValue": "¶ 3",
+    "afterValue": "¶ 5",
+    "pinpointRows": {
+      "before": 3,
+      "after": 5
+    },
+    "detailGeometry": {
+      "zoom": 2.8,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "The located passage on the reading board",
+      "marker": "Datum changed"
+    }
+  }
+}

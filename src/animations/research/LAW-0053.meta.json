@@ -1,0 +1,387 @@
+{
+  "id": "LAW-0053",
+  "slug": "research-04-story",
+  "title": "Case treatment — library, search and treatment card",
+  "titleEs": "Tratamiento de un caso — Microescena con objetos y actores",
+  "category": "research",
+  "categoryName": "Investigación jurídica",
+  "motif": "Tratamiento de un caso",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "A query is typed; the search box’s magnifier scans the library and each matching resolution binder flies to the treatment card, turns into its cover and is pinned; its supplied label rides a thread to the decision and hangs on it. All labels share one style and distance — no hierarchy or outcome.",
+  "tags": [
+    "case treatment",
+    "citator",
+    "library",
+    "search",
+    "index card",
+    "labels",
+    "resolutions",
+    "decision"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/research/kits/tratamiento-de-un-caso.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "query": {
+        "type": "string",
+        "maxLength": 64,
+        "description": "Text typed into the search box"
+      },
+      "decision": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "citation": {
+            "type": "string",
+            "maxLength": 28,
+            "description": "Fictional citation printed on the decision"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Short title printed on the decision (wraps to two lines)"
+          },
+          "date": {
+            "type": "string",
+            "maxLength": 24,
+            "description": "Relative or fictional date printed on the decision"
+          }
+        },
+        "required": [
+          "citation"
+        ],
+        "description": "The decision whose treatment is shown (fictional)"
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "citation": {
+              "type": "string",
+              "maxLength": 28,
+              "description": "Fictional identifier printed on its spine and cover, e.g. \"R-21\" (citation)"
+            },
+            "date": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Relative or fictional date printed on its cover, e.g. \"Year 2\""
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Treatment label SUPPLIED by the author; it hangs on the thread linking this resolution to the decision. Empty = no label supplied, so no link is drawn"
+            }
+          },
+          "required": [
+            "citation",
+            "label"
+          ],
+          "description": "A later resolution (fictional) found in the library"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Later resolutions (2–4) in the order the search finds them; each carries its citation, date and supplied treatment label. Every label gets the same size, colour and distance to the decision: no hierarchy is drawn (array replaces the previous value)"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "search": {
+            "type": "string",
+            "maxLength": 56,
+            "description": "Placeholder shown in the empty search box before the query is typed"
+          }
+        },
+        "required": [],
+        "description": "Captions of the acting objects"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "library": {
+            "type": "string",
+            "maxLength": 48,
+            "description": "Plaque on the library bookcase"
+          },
+          "card": {
+            "type": "string",
+            "maxLength": 56,
+            "description": "Heading of the treatment index card"
+          }
+        },
+        "required": [],
+        "description": "Labels printed on props"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "tag",
+                "unlabelled",
+                "decision",
+                "library",
+                "search"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "linked",
+          "placed",
+          "found"
+        ],
+        "description": "The state supplied by the author for the final hold (no legal conclusion is inferred)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "query": "D-104 · later resolutions",
+    "decision": {
+      "citation": "D-104",
+      "title": "Decision (fictional)",
+      "date": "Year 1"
+    },
+    "sources": [
+      {
+        "citation": "R-21",
+        "date": "Year 2",
+        "label": "Cites"
+      },
+      {
+        "citation": "R-33",
+        "date": "Year 3",
+        "label": "Discusses"
+      },
+      {
+        "citation": "R-47",
+        "date": "Year 5",
+        "label": "Distinguishes"
+      }
+    ],
+    "objectLabels": {
+      "library": "Case library",
+      "card": "Treatment card · D-104"
+    },
+    "actorLabels": {
+      "search": "Search the case library"
+    },
+    "actionProgress": 1,
+    "annotations": [
+      {
+        "target": "tag",
+        "text": "Each label is supplied by the author — no ranking"
+      }
+    ],
+    "finalState": "linked"
+  }
+}

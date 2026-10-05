@@ -1,0 +1,489 @@
+{
+  "id": "LAW-0071",
+  "slug": "research-08-contrast",
+  "title": "Jurisdiction check — same document, two declarations",
+  "titleEs": "Comprobación de jurisdicción — Comparación de dos supuestos",
+  "category": "research",
+  "categoryName": "Investigación jurídica",
+  "motif": "Comprobación de jurisdicción",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical checking gates run in parallel with the same document, card and gate. Only the jurisdiction the document declares differs: in A it is the one marked on the card, so the flap opens, the document passes to the \"= key\" landing and its reference is written on the card; in B it is another one, so the flap stays down and the trapdoor sets the document aside into the \"≠ key\" bin. A guide joins the two declarations; no winner or legal consequence is stated.",
+  "tags": [
+    "jurisdiction",
+    "comparison",
+    "gate",
+    "declared jurisdiction",
+    "research card",
+    "library",
+    "side-by-side",
+    "stacked"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/research/kits/comprobacion-de-jurisdiccion.js",
+    "src/animations/research/kits/comprobacion-de-jurisdiccion-gate.js",
+    "src/frameworks/paired.js",
+    "src/primitives/annotate.js",
+    "src/animations/causation/kits/place.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "query": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "Research question written on the research card and shown by the search terminal (fictional)"
+      },
+      "jurisdictions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "j1",
+                "j2",
+                "j3"
+              ],
+              "description": "Fixed key; each key keeps its own emblem shape (j1 circle, j2 triangle, j3 square) and colour"
+            },
+            "name": {
+              "type": "string",
+              "maxLength": 32,
+              "description": "Fictional jurisdiction name printed on the documents and on the research card"
+            }
+          },
+          "required": [
+            "key",
+            "name"
+          ],
+          "description": "A fictional jurisdiction as it is named on documents"
+        },
+        "minItems": 2,
+        "maxItems": 3,
+        "description": "Fictional jurisdictions that the documents may declare (2–3). The key fixes the emblem (array replaces the previous value)"
+      },
+      "relevant": {
+        "type": "string",
+        "enum": [
+          "j1",
+          "j2",
+          "j3"
+        ],
+        "description": "Key of the jurisdiction the author marks as relevant on the research card (supplied; the scene never decides which jurisdiction applies)"
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 14,
+              "description": "Identifier printed on the document"
+            },
+            "title": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Short title printed on the document (simulated)"
+            },
+            "declares": {
+              "type": "string",
+              "enum": [
+                "j1",
+                "j2",
+                "j3"
+              ],
+              "description": "Key of the jurisdiction the document itself declares (as printed on it; supplied, never inferred)"
+            }
+          },
+          "required": [
+            "id",
+            "declares"
+          ],
+          "description": "A source document kept in the library (fictional)"
+        },
+        "minItems": 3,
+        "maxItems": 6,
+        "description": "Source documents in library order (3–6). Each declares one jurisdiction (array replaces the previous value)"
+      },
+      "citations": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "Reference"
+        },
+        "minItems": 0,
+        "maxItems": 6,
+        "description": "Short fictional reference printed on each source (same order as sources) (array replaces the previous value)"
+      },
+      "dates": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 24,
+          "description": "Date"
+        },
+        "minItems": 0,
+        "maxItems": 6,
+        "description": "Date printed on each source (same order as sources; fictional) (array replaces the previous value)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      },
+      "documentIndex": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 5,
+        "description": "Index (0 = first) of the source document used in both scenes"
+      },
+      "declaredA": {
+        "type": "string",
+        "enum": [
+          "j1",
+          "j2",
+          "j3"
+        ],
+        "description": "Key of the jurisdiction the document declares in scenario A"
+      },
+      "declaredB": {
+        "type": "string",
+        "enum": [
+          "j1",
+          "j2",
+          "j3"
+        ],
+        "description": "Key of the jurisdiction the same document declares in scenario B (the only changed fact)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "query": "Delivery terms in supply contracts",
+    "jurisdictions": [
+      {
+        "key": "j1",
+        "name": "Northvale"
+      },
+      {
+        "key": "j2",
+        "name": "Eastmere"
+      },
+      {
+        "key": "j3",
+        "name": "Southholm"
+      }
+    ],
+    "relevant": "j1",
+    "sources": [
+      {
+        "id": "DOC-11",
+        "title": "Supply contract file",
+        "declares": "j1"
+      },
+      {
+        "id": "DOC-12",
+        "title": "Freight agreement",
+        "declares": "j2"
+      },
+      {
+        "id": "DOC-13",
+        "title": "Warehouse lease",
+        "declares": "j1"
+      },
+      {
+        "id": "DOC-14",
+        "title": "Service terms",
+        "declares": "j3"
+      },
+      {
+        "id": "DOC-15",
+        "title": "Purchase order set",
+        "declares": "j1"
+      }
+    ],
+    "citations": [
+      "Ref. 11-A",
+      "Ref. 12-C",
+      "Ref. 13-A",
+      "Ref. 14-B",
+      "Ref. 15-A"
+    ],
+    "dates": [
+      "12 Mar 2019",
+      "4 Jun 2020",
+      "30 Sep 2020",
+      "15 Jan 2021",
+      "8 Jul 2021"
+    ],
+    "documentIndex": 0,
+    "declaredA": "j1",
+    "declaredB": "j2",
+    "scenarioA": {
+      "label": "Relevant jurisdiction",
+      "caption": "The document declares Northvale, the jurisdiction marked on the card"
+    },
+    "scenarioB": {
+      "label": "Other jurisdiction",
+      "caption": "The same document declares Eastmere instead"
+    },
+    "changedFact": "Only one fact differs: the jurisdiction the document declares",
+    "sharedFacts": [
+      "Same document",
+      "Same research card",
+      "Same gate"
+    ],
+    "comparisonLabels": {
+      "guide": "Changed fact: the declared jurisdiction",
+      "neutral": "Two situations side by side — no legal effect or conclusion is stated"
+    }
+  }
+}

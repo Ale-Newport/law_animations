@@ -1,0 +1,124 @@
+{
+  "animationId": "LAW-0062",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (simulated text, fictional commentator, no real citation). Relationship kinds are supplied by the author; no causal link is drawn unless supplied.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Catalogue search, both shelves, source page, linked passage ¶2, pinpoint tab and commentator’s card; the marker runs from the search to the source shelf and page, down to the passage, across the gutter to the pinpoint and into the card, which enlarges its pinpoint.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different fictional rule and commentator linked to ¶3; the relationships are traced from the commentary side (search → commentaries → card → pinpoint → passage → page) and the focus is the linked passage; the shelves are drawn as a reading sequence rather than search results.",
+      "params": {
+        "query": "rule 4 filing — commentary",
+        "sources": {
+          "sourceTitle": "Rule 4 — Filing of documents",
+          "passages": [
+            "Documents are filed with the registry office.",
+            "Each document carries a filing number.",
+            "The registry records the day of filing.",
+            "A filed document may be inspected by the parties."
+          ],
+          "commentator": "M. Okoye",
+          "commentaryWork": "Registry Practice Notes",
+          "commentaryText": "Reads “records the day” as meaning the calendar day, not the hour."
+        },
+        "citations": {"source": "Sample Rules (fictional) · r. 4", "commentary": "Okoye, Practice, p. 31", "passage": 3},
+        "dates": {"source": "Text as of Day 3", "commentary": "Written on Day 90"},
+        "elements": [
+          {"id": "search", "label": "Registry catalogue"},
+          {"id": "sourceShelf", "label": "Rules"},
+          {"id": "commentaryShelf", "label": "Practice notes"},
+          {"id": "source", "label": "Rule text"},
+          {"id": "passage", "label": "Passage ¶3"},
+          {"id": "pinpoint", "label": "Pinpoint"},
+          {"id": "note", "label": "Okoye’s reading"}
+        ],
+        "relationships": [
+          {"from": "search", "to": "commentaryShelf", "kind": "communication", "label": "finds the note"},
+          {"from": "commentaryShelf", "to": "note", "kind": "sequence", "label": "read first"},
+          {"from": "pinpoint", "to": "passage", "kind": "relation", "label": "points to"},
+          {"from": "sourceShelf", "to": "source", "kind": "sequence", "label": "read next"}
+        ],
+        "focusElement": "passage",
+        "traversalOrder": ["search", "commentaryShelf", "note", "pinpoint", "passage", "source"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long element labels, long relationship captions, long commentator and interpretation, long references.",
+      "params": {
+        "query": "article 7 written notice between the parties — commentary",
+        "sources": {
+          "sourceTitle": "Article 7 — Notices, communications and addresses of the parties",
+          "passages": [
+            "Each party names in writing a postal address and an electronic address for notices.",
+            "Notice is given in writing, is signed by the sender and states the date on which it is sent.",
+            "The sender keeps a copy of every notice together with any proof of dispatch."
+          ],
+          "commentator": "Dr. Rosalind Ferrer-Villanueva",
+          "commentaryWork": "Annotated Notes on the Example Code of Obligations",
+          "commentaryText": "Reads the words “in writing” in this passage as also covering email messages that identify the sender."
+        },
+        "citations": {"source": "Example Code of Obligations (fictional) · art. 7", "commentary": "Ferrer-Villanueva, Annotated, p. 214", "passage": 2},
+        "dates": {"source": "Consolidated text as of Day 1", "commentary": "Commentary written on Day 140"},
+        "elements": [
+          {"id": "search", "label": "Library catalogue search (fictional)"},
+          {"id": "sourceShelf", "label": "Primary sources: codes and statutes"},
+          {"id": "commentaryShelf", "label": "Secondary sources: commentaries"},
+          {"id": "source", "label": "Primary source text as published"},
+          {"id": "passage", "label": "Passage the note refers to"},
+          {"id": "pinpoint", "label": "Pinpoint reference ¶2"},
+          {"id": "note", "label": "Commentator’s annotated side note"}
+        ],
+        "relationships": [
+          {"from": "search", "to": "sourceShelf", "kind": "communication", "label": "returns the primary source"},
+          {"from": "search", "to": "commentaryShelf", "kind": "communication", "label": "returns the commentary"},
+          {"from": "sourceShelf", "to": "source", "kind": "relation", "label": "shelved copy of the text"},
+          {"from": "commentaryShelf", "to": "note", "kind": "relation", "label": "shelved copy of the note"},
+          {"from": "pinpoint", "to": "passage", "kind": "relation", "label": "points to this passage"}
+        ],
+        "relationLabels": {"relation": "plain relation (no direction)", "communication": "search result returned", "sequence": "reading sequence", "causal": "causal link (as supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "query": "art. 7 aviso — comentario",
+        "sources": {
+          "sourceTitle": "Art. 7 — Avisos entre las partes",
+          "passages": [
+            "Cada parte indica una dirección para avisos.",
+            "El aviso se da por escrito e indica la fecha de envío.",
+            "Quien envía el aviso conserva una copia."
+          ],
+          "commentator": "R. Ferrer",
+          "commentaryWork": "Notas al Código de ejemplo",
+          "commentaryText": "Entiende que «por escrito» incluye aquí el correo electrónico."
+        },
+        "citations": {"source": "Código de ejemplo (ficticio) · art. 7", "commentary": "Ferrer, Notas, p. 14", "passage": 2},
+        "dates": {"source": "Texto a día 1", "commentary": "Escrito el día 40"},
+        "elements": [
+          {"id": "search", "label": "Buscador del catálogo"},
+          {"id": "sourceShelf", "label": "Textos fuente"},
+          {"id": "commentaryShelf", "label": "Comentarios"},
+          {"id": "source", "label": "Fuente primaria"},
+          {"id": "passage", "label": "Pasaje enlazado"},
+          {"id": "pinpoint", "label": "Referencia"},
+          {"id": "note", "label": "Nota del comentarista"}
+        ],
+        "relationships": [
+          {"from": "search", "to": "sourceShelf", "kind": "communication", "label": "encuentra el texto"},
+          {"from": "search", "to": "commentaryShelf", "kind": "communication", "label": "encuentra la nota"},
+          {"from": "sourceShelf", "to": "source", "kind": "relation", "label": "contiene"},
+          {"from": "commentaryShelf", "to": "note", "kind": "relation", "label": "contiene"},
+          {"from": "pinpoint", "to": "passage", "kind": "relation", "label": "remite a"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "resultado de búsqueda", "sequence": "después", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

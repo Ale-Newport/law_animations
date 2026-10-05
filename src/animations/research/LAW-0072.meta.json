@@ -1,0 +1,456 @@
+{
+  "id": "LAW-0072",
+  "slug": "research-08-inspect",
+  "title": "Jurisdiction check — inspect and change a declaration",
+  "titleEs": "Comprobación de jurisdicción — Inspección y cambio de un dato",
+  "category": "research",
+  "categoryName": "Investigación jurídica",
+  "motif": "Comprobación de jurisdicción",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "A two-compartment cabinet holds the documents the filter sorted (\"= key\" / \"≠ key\"). A lens lifts a real copy of one document's declaration; the declared name is struck and replaced by the alternative value, and only that document moves to the compartment its new declaration belongs to, leaving a dashed trace of its old slot. The lens folds back and a single \"datum changed\" marker remains. Seeking back restores the previous datum.",
+  "tags": [
+    "jurisdiction",
+    "inspect",
+    "lens",
+    "substitution",
+    "declared jurisdiction",
+    "cabinet",
+    "research card",
+    "before/after"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/research/kits/comprobacion-de-jurisdiccion.js",
+    "src/animations/causation/kits/place.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "query": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "Research question written on the research card and shown by the search terminal (fictional)"
+      },
+      "jurisdictions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "j1",
+                "j2",
+                "j3"
+              ],
+              "description": "Fixed key; each key keeps its own emblem shape (j1 circle, j2 triangle, j3 square) and colour"
+            },
+            "name": {
+              "type": "string",
+              "maxLength": 32,
+              "description": "Fictional jurisdiction name printed on the documents and on the research card"
+            }
+          },
+          "required": [
+            "key",
+            "name"
+          ],
+          "description": "A fictional jurisdiction as it is named on documents"
+        },
+        "minItems": 2,
+        "maxItems": 3,
+        "description": "Fictional jurisdictions that the documents may declare (2–3). The key fixes the emblem (array replaces the previous value)"
+      },
+      "relevant": {
+        "type": "string",
+        "enum": [
+          "j1",
+          "j2",
+          "j3"
+        ],
+        "description": "Key of the jurisdiction the author marks as relevant on the research card (supplied; the scene never decides which jurisdiction applies)"
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 14,
+              "description": "Identifier printed on the document"
+            },
+            "title": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Short title printed on the document (simulated)"
+            },
+            "declares": {
+              "type": "string",
+              "enum": [
+                "j1",
+                "j2",
+                "j3"
+              ],
+              "description": "Key of the jurisdiction the document itself declares (as printed on it; supplied, never inferred)"
+            }
+          },
+          "required": [
+            "id",
+            "declares"
+          ],
+          "description": "A source document kept in the library (fictional)"
+        },
+        "minItems": 3,
+        "maxItems": 6,
+        "description": "Source documents in library order (3–6). Each declares one jurisdiction (array replaces the previous value)"
+      },
+      "citations": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "Reference"
+        },
+        "minItems": 0,
+        "maxItems": 6,
+        "description": "Short fictional reference printed on each source (same order as sources) (array replaces the previous value)"
+      },
+      "dates": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 24,
+          "description": "Date"
+        },
+        "minItems": 0,
+        "maxItems": 6,
+        "description": "Date printed on each source (same order as sources; fictional) (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "doc-1",
+          "doc-2",
+          "doc-3",
+          "doc-4",
+          "doc-5",
+          "doc-6"
+        ],
+        "description": "Source document (doc-1 = first) whose declared jurisdiction is enlarged and substituted"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Jurisdiction name the focused document declares before the substitution (matched to the listed jurisdictions by name)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Alternative jurisdiction name (matched by name; an unlisted name gets a neutral dashed emblem)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          },
+          "relevant": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label of the compartment for the jurisdiction marked on the card"
+          },
+          "other": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label of the compartment for other jurisdictions"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "query": "Delivery terms in supply contracts",
+    "jurisdictions": [
+      {
+        "key": "j1",
+        "name": "Northvale"
+      },
+      {
+        "key": "j2",
+        "name": "Eastmere"
+      },
+      {
+        "key": "j3",
+        "name": "Southholm"
+      }
+    ],
+    "relevant": "j1",
+    "sources": [
+      {
+        "id": "DOC-11",
+        "title": "Supply contract file",
+        "declares": "j1"
+      },
+      {
+        "id": "DOC-12",
+        "title": "Freight agreement",
+        "declares": "j2"
+      },
+      {
+        "id": "DOC-13",
+        "title": "Warehouse lease",
+        "declares": "j1"
+      },
+      {
+        "id": "DOC-14",
+        "title": "Service terms",
+        "declares": "j3"
+      },
+      {
+        "id": "DOC-15",
+        "title": "Purchase order set",
+        "declares": "j1"
+      }
+    ],
+    "citations": [
+      "Ref. 11-A",
+      "Ref. 12-C",
+      "Ref. 13-A",
+      "Ref. 14-B",
+      "Ref. 15-A"
+    ],
+    "dates": [
+      "12 Mar 2019",
+      "4 Jun 2020",
+      "30 Sep 2020",
+      "15 Jan 2021",
+      "8 Jul 2021"
+    ],
+    "focusTarget": "doc-3",
+    "beforeValue": "Northvale",
+    "afterValue": "Eastmere",
+    "detailGeometry": {
+      "zoom": 2.4,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Sorted by the jurisdiction each document declares",
+      "marker": "Datum changed",
+      "relevant": "Relevant jurisdiction",
+      "other": "Other jurisdiction"
+    }
+  }
+}

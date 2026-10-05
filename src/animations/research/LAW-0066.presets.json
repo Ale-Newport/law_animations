@@ -1,0 +1,117 @@
+{
+  "animationId": "LAW-0066",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Only the relationships listed in a preset are drawn; none is causal unless the author supplies kind 'causal'.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Five parts: library bay, source page, the user's request, the index flag (hub) and the fact card. Four supplied relationships (two plain relations, one communication, one sequence); the tracer goes request → flag → page → flag → card while the flag enlarges and a copy of ¶3 rides onto the card.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different source (site-meeting minutes, ¶2 pinpointed), a fifth relationship from the card back to the page (the citation the entry keeps), a traversal that returns from the card to the page along it, and the card as the focus part.",
+      "params": {
+        "query": {"label": "Who presented the floor plan", "sentence": 2},
+        "sources": {
+          "library": "Minutes shelf",
+          "volume": "MIN-3",
+          "title": "Minutes of the site meeting",
+          "sentences": [
+            "The meeting opened at 10:00 on Day 12.",
+            "Party C presented the revised floor plan.",
+            "The inspection was moved to Day 15.",
+            "The minutes were circulated on Day 13."
+          ]
+        },
+        "citations": {"page": "p. 4", "pinpoint": "¶"},
+        "dates": {"source": "Day 12", "extracted": "Day 14"},
+        "elements": [
+          {"id": "library", "label": "Minutes shelf"},
+          {"id": "page", "label": "Minutes, p. 4"},
+          {"id": "query", "label": "Request"},
+          {"id": "marker", "label": "Flag"},
+          {"id": "card", "label": "Fact card"}
+        ],
+        "relationships": [
+          {"from": "library", "to": "page", "kind": "relation", "label": "holds the minutes"},
+          {"from": "query", "to": "marker", "kind": "communication", "label": "indicates the fact"},
+          {"from": "marker", "to": "page", "kind": "relation", "label": "pinpoints ¶2"},
+          {"from": "marker", "to": "card", "kind": "sequence", "label": "files a copy"},
+          {"from": "card", "to": "page", "kind": "relation", "label": "cites p. 4 ¶2"}
+        ],
+        "focusElement": "card",
+        "traversalOrder": ["query", "marker", "page", "marker", "card", "page"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long part labels, long relationship captions, long request and long sentences.",
+      "params": {
+        "query": {"label": "Who signed the delivery note at the loading bay", "sentence": 3},
+        "sources": {
+          "library": "Case library of the district archive",
+          "volume": "VOL-2026-117B",
+          "title": "Consolidated logistics file of the northern depot",
+          "sentences": [
+            "Order 118 for forty crates of ceramic tiles was placed by Party A on Day 2.",
+            "The regional carrier collected the goods from the northern depot on Day 3.",
+            "Party B's receiving clerk signed the delivery note at the loading bay on Day 4.",
+            "Two damaged crates were stored separately in Bay 7 of the northern depot.",
+            "The invoice for the remaining crates was issued on Day 6 by the sales office."
+          ]
+        },
+        "citations": {"page": "p. 1127", "pinpoint": "¶"},
+        "dates": {"source": "Day 7 (filed)", "extracted": "Day 9 (noted)"},
+        "elements": [
+          {"id": "library", "label": "Case library of the district archive"},
+          {"id": "page", "label": "Source page of the consolidated file"},
+          {"id": "query", "label": "Research assistant's request"},
+          {"id": "marker", "label": "Index flag, one per request"},
+          {"id": "card", "label": "Fact card of the chronology"}
+        ],
+        "relationships": [
+          {"from": "library", "to": "page", "kind": "relation", "label": "holds the consolidated volume"},
+          {"from": "query", "to": "marker", "kind": "communication", "label": "indicates which fact to extract"},
+          {"from": "marker", "to": "page", "kind": "relation", "label": "pinpoints the sentence ¶3"},
+          {"from": "marker", "to": "card", "kind": "sequence", "label": "files a copy with its ¶"}
+        ],
+        "relationLabels": {"relation": "Plain relation (no direction)", "communication": "Communication of the request", "sequence": "Sequence of the filing", "causal": "Causal link (only if supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "query": {"label": "Quién firmó el albarán", "sentence": 3},
+        "sources": {
+          "library": "Biblioteca de casos",
+          "volume": "VOL-7",
+          "title": "Expediente del almacén",
+          "sentences": [
+            "La parte A hizo el pedido 118 el día 2.",
+            "El transportista recogió la mercancía el día 3.",
+            "La parte B firmó el albarán el día 4.",
+            "Se guardaron dos cajas en la nave 7.",
+            "La factura se emitió el día 6."
+          ]
+        },
+        "dates": {"source": "Día 7", "extracted": "Día 9"},
+        "elements": [
+          {"id": "library", "label": "Biblioteca de casos"},
+          {"id": "page", "label": "Página de origen"},
+          {"id": "query", "label": "Solicitud del usuario"},
+          {"id": "marker", "label": "Marcador"},
+          {"id": "card", "label": "Ficha de hechos"}
+        ],
+        "relationships": [
+          {"from": "library", "to": "page", "kind": "relation", "label": "guarda el volumen"},
+          {"from": "query", "to": "marker", "kind": "communication", "label": "indica el hecho"},
+          {"from": "marker", "to": "page", "kind": "relation", "label": "señala el ¶3"},
+          {"from": "marker", "to": "card", "kind": "sequence", "label": "archiva una copia"}
+        ],
+        "relationLabels": {"relation": "Relación", "communication": "Comunicación", "sequence": "Secuencia", "causal": "Causal (si se aporta)"}
+      }
+    }
+  ]
+}

@@ -1,0 +1,317 @@
+{
+  "animationId": "LAW-0074",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; only the supplied relationships are drawn and no evaluation of support is made.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Traces the first supplied citation (proposition 1 ↔ source S1, p. 1): search → shelf (sequence), shelf holds the source, column and row relations meet at the cell; the gather beat adds proposition 3, which has no supplied citation.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different fictional matrix (inspection report / photo log), the search step supplied as a communication (request slip to the library desk), the tracer running in the reverse order (card → cell → source → shelf → search) and the source sheet as focus element.",
+      "params": {
+        "query": "inspection report photographs",
+        "propositions": [
+          {
+            "text": "The unit was inspected on Day 12."
+          },
+          {
+            "text": "Party B paid the second instalment."
+          },
+          {
+            "text": "Photographs of the unit were taken."
+          }
+        ],
+        "sources": [
+          {
+            "id": "R1",
+            "title": "Inspection report"
+          },
+          {
+            "id": "R2",
+            "title": "Photo log with timestamps"
+          }
+        ],
+        "dates": [
+          "Day 12",
+          "Day 12"
+        ],
+        "citations": [
+          {
+            "proposition": 0,
+            "source": 1,
+            "pinpoint": "img 4"
+          },
+          {
+            "proposition": 2,
+            "source": 1,
+            "pinpoint": "img 1–6"
+          }
+        ],
+        "elements": [
+          {
+            "id": "search",
+            "label": "Request slip"
+          },
+          {
+            "id": "library",
+            "label": "Library desk and shelf"
+          },
+          {
+            "id": "source",
+            "label": "Photo log"
+          },
+          {
+            "id": "cell",
+            "label": "Cell: row 1 × R2"
+          },
+          {
+            "id": "proposition",
+            "label": "Proposition 1"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "search",
+            "to": "library",
+            "kind": "communication",
+            "label": "request sent"
+          },
+          {
+            "from": "library",
+            "to": "source",
+            "kind": "relation",
+            "label": "holds"
+          },
+          {
+            "from": "source",
+            "to": "cell",
+            "kind": "relation",
+            "label": "column"
+          },
+          {
+            "from": "proposition",
+            "to": "cell",
+            "kind": "relation",
+            "label": "row"
+          }
+        ],
+        "focusElement": "source",
+        "traversalOrder": [
+          "proposition",
+          "cell",
+          "source",
+          "library",
+          "search"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long element and relation captions, long proposition, source title, pinpoint and query.",
+      "params": {
+        "query": "notice of delivery delay by registered post, Day 3",
+        "propositions": [
+          {
+            "text": "Party A sent a written notice of the expected delivery delay by registered post on Day 3."
+          },
+          {
+            "text": "The consignment of replacement parts reached the loading dock of the warehouse on Day 7."
+          },
+          {
+            "text": "Party B asked in writing for a replacement unit of the same model and specification."
+          }
+        ],
+        "sources": [
+          {
+            "id": "S-001",
+            "title": "Registered letter from Party A with delivery slip"
+          },
+          {
+            "id": "S-002",
+            "title": "Warehouse delivery log, loading dock B, week 2"
+          },
+          {
+            "id": "S-003",
+            "title": "Minutes of the meeting held between the parties"
+          }
+        ],
+        "dates": [
+          "Day 3 (morning)",
+          "Day 7 (afternoon)",
+          "Day 9 (10:00–11:30)"
+        ],
+        "citations": [
+          {
+            "proposition": 0,
+            "source": 0,
+            "pinpoint": "p. 1, ¶ 2"
+          },
+          {
+            "proposition": 1,
+            "source": 1,
+            "pinpoint": "entry 14–15"
+          }
+        ],
+        "elements": [
+          {
+            "id": "search",
+            "label": "Printout of the catalogue search results"
+          },
+          {
+            "id": "library",
+            "label": "Reference library, ground floor shelf"
+          },
+          {
+            "id": "source",
+            "label": "Source cited for this proposition"
+          },
+          {
+            "id": "cell",
+            "label": "Matrix cell where row and column meet"
+          },
+          {
+            "id": "proposition",
+            "label": "Index card with the proposition"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "search",
+            "to": "library",
+            "kind": "sequence",
+            "label": "points to the shelf mark"
+          },
+          {
+            "from": "library",
+            "to": "source",
+            "kind": "relation",
+            "label": "holds the volume"
+          },
+          {
+            "from": "source",
+            "to": "cell",
+            "kind": "relation",
+            "label": "column of this source"
+          },
+          {
+            "from": "proposition",
+            "to": "cell",
+            "kind": "relation",
+            "label": "row of this proposition"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "query": "aviso entrega día 3",
+        "propositions": [
+          {
+            "text": "La parte A envió un aviso escrito el día 3."
+          },
+          {
+            "text": "La mercancía llegó al muelle el día 7."
+          },
+          {
+            "text": "La parte B pidió una unidad de repuesto."
+          }
+        ],
+        "sources": [
+          {
+            "id": "F1",
+            "title": "Carta de la parte A"
+          },
+          {
+            "id": "F2",
+            "title": "Registro de entregas del almacén"
+          },
+          {
+            "id": "F3",
+            "title": "Acta de reunión"
+          }
+        ],
+        "dates": [
+          "Día 3",
+          "Día 7",
+          "Día 9"
+        ],
+        "citations": [
+          {
+            "proposition": 0,
+            "source": 0,
+            "pinpoint": "p. 1"
+          },
+          {
+            "proposition": 1,
+            "source": 1,
+            "pinpoint": "asiento 14"
+          },
+          {
+            "proposition": 1,
+            "source": 2,
+            "pinpoint": "¶ 3"
+          }
+        ],
+        "locale": "es",
+        "elements": [
+          {
+            "id": "search",
+            "label": "Resultados de búsqueda"
+          },
+          {
+            "id": "library",
+            "label": "Estante de la biblioteca"
+          },
+          {
+            "id": "source",
+            "label": "Fuente citada"
+          },
+          {
+            "id": "cell",
+            "label": "Celda de la matriz"
+          },
+          {
+            "id": "proposition",
+            "label": "Ficha de la proposición"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "search",
+            "to": "library",
+            "kind": "sequence",
+            "label": "lleva al estante"
+          },
+          {
+            "from": "library",
+            "to": "source",
+            "kind": "relation",
+            "label": "contiene"
+          },
+          {
+            "from": "source",
+            "to": "cell",
+            "kind": "relation",
+            "label": "columna"
+          },
+          {
+            "from": "proposition",
+            "to": "cell",
+            "kind": "relation",
+            "label": "fila"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación",
+          "communication": "comunicación",
+          "sequence": "secuencia",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

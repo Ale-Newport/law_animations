@@ -1,0 +1,549 @@
+{
+  "id": "LAW-0069",
+  "slug": "research-08-story",
+  "title": "Jurisdiction check — library filing-line microscene",
+  "titleEs": "Comprobación de jurisdicción — Microescena con objetos y actores",
+  "category": "research",
+  "categoryName": "Investigación jurídica",
+  "motif": "Comprobación de jurisdicción",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "A researcher lowers the research card into a search terminal; a pulse keys the reading arch. Source documents hanging on a rail leave the library bookcase one by one; the reader compares the seal each document declares with the card and only then the switch sends it to the rack \"same jurisdiction as the card\" or \"other jurisdiction\". Fictional jurisdictions; nothing is decided about which jurisdiction applies.",
+  "tags": [
+    "jurisdiction",
+    "filter",
+    "library",
+    "research card",
+    "ficha",
+    "search terminal",
+    "documents",
+    "sorting",
+    "switch",
+    "hands"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/research/kits/comprobacion-de-jurisdiccion.js",
+    "src/animations/research/kits/comprobacion-de-jurisdiccion-line.js",
+    "src/animations/causation/kits/place.js",
+    "src/primitives/person.js",
+    "src/primitives/people-style.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "query": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "Research question written on the research card and shown by the search terminal (fictional)"
+      },
+      "jurisdictions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "j1",
+                "j2",
+                "j3"
+              ],
+              "description": "Fixed key; each key keeps its own emblem shape (j1 circle, j2 triangle, j3 square) and colour"
+            },
+            "name": {
+              "type": "string",
+              "maxLength": 32,
+              "description": "Fictional jurisdiction name printed on the documents and on the research card"
+            }
+          },
+          "required": [
+            "key",
+            "name"
+          ],
+          "description": "A fictional jurisdiction as it is named on documents"
+        },
+        "minItems": 2,
+        "maxItems": 3,
+        "description": "Fictional jurisdictions that the documents may declare (2–3). The key fixes the emblem (array replaces the previous value)"
+      },
+      "relevant": {
+        "type": "string",
+        "enum": [
+          "j1",
+          "j2",
+          "j3"
+        ],
+        "description": "Key of the jurisdiction the author marks as relevant on the research card (supplied; the scene never decides which jurisdiction applies)"
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 14,
+              "description": "Identifier printed on the document"
+            },
+            "title": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Short title printed on the document (simulated)"
+            },
+            "declares": {
+              "type": "string",
+              "enum": [
+                "j1",
+                "j2",
+                "j3"
+              ],
+              "description": "Key of the jurisdiction the document itself declares (as printed on it; supplied, never inferred)"
+            }
+          },
+          "required": [
+            "id",
+            "declares"
+          ],
+          "description": "A source document kept in the library (fictional)"
+        },
+        "minItems": 3,
+        "maxItems": 6,
+        "description": "Source documents in library order (3–6). Each declares one jurisdiction (array replaces the previous value)"
+      },
+      "citations": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "Reference"
+        },
+        "minItems": 0,
+        "maxItems": 6,
+        "description": "Short fictional reference printed on each source (same order as sources) (array replaces the previous value)"
+      },
+      "dates": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 24,
+          "description": "Date"
+        },
+        "minItems": 0,
+        "maxItems": 6,
+        "description": "Date printed on each source (same order as sources; fictional) (array replaces the previous value)"
+      },
+      "researcher": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Display name (fictional by default)"
+          },
+          "role": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Descriptive role label (not a legal finding)"
+          },
+          "appearance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "skin": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5,
+                "description": "Skin tone index 0–5"
+              },
+              "hair": {
+                "type": "string",
+                "enum": [
+                  "short",
+                  "long",
+                  "bun",
+                  "curly",
+                  "buzz",
+                  "scarf"
+                ],
+                "description": "Hair style"
+              },
+              "hairColor": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 6,
+                "description": "Hair colour index 0–6"
+              },
+              "outfit": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7,
+                "description": "Outfit colour index 0–7"
+              },
+              "glasses": {
+                "type": "boolean",
+                "description": "Wears glasses"
+              }
+            },
+            "required": [],
+            "description": "Optional appearance overrides; defaults derive from the seed"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "description": "A fictional person or party"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for actor A"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for actor B"
+          }
+        },
+        "required": [],
+        "description": "Role captions shown next to each actor"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "library": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the library bookcase"
+          },
+          "filter": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the search terminal and reading arch (the filter)"
+          },
+          "relevant": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the rack for documents that declare the jurisdiction marked on the card"
+          },
+          "other": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the rack for documents that declare another jurisdiction"
+          }
+        },
+        "required": [],
+        "description": "Labels printed on props"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "library",
+                "filter",
+                "card",
+                "relevant",
+                "other"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "separated",
+          "pending"
+        ],
+        "description": "The state supplied by the author for the final hold (no legal conclusion is inferred)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "query": "Delivery terms in supply contracts",
+    "jurisdictions": [
+      {
+        "key": "j1",
+        "name": "Northvale"
+      },
+      {
+        "key": "j2",
+        "name": "Eastmere"
+      },
+      {
+        "key": "j3",
+        "name": "Southholm"
+      }
+    ],
+    "relevant": "j1",
+    "sources": [
+      {
+        "id": "DOC-11",
+        "title": "Supply contract file",
+        "declares": "j1"
+      },
+      {
+        "id": "DOC-12",
+        "title": "Freight agreement",
+        "declares": "j2"
+      },
+      {
+        "id": "DOC-13",
+        "title": "Warehouse lease",
+        "declares": "j1"
+      },
+      {
+        "id": "DOC-14",
+        "title": "Service terms",
+        "declares": "j3"
+      },
+      {
+        "id": "DOC-15",
+        "title": "Purchase order set",
+        "declares": "j1"
+      }
+    ],
+    "citations": [
+      "Ref. 11-A",
+      "Ref. 12-C",
+      "Ref. 13-A",
+      "Ref. 14-B",
+      "Ref. 15-A"
+    ],
+    "dates": [
+      "12 Mar 2019",
+      "4 Jun 2020",
+      "30 Sep 2020",
+      "15 Jan 2021",
+      "8 Jul 2021"
+    ],
+    "researcher": {
+      "name": "Lena Varga",
+      "role": "Researcher"
+    },
+    "actorLabels": {
+      "a": "Researcher"
+    },
+    "objectLabels": {
+      "library": "Library",
+      "filter": "Jurisdiction filter",
+      "relevant": "Relevant jurisdiction",
+      "other": "Other jurisdiction"
+    },
+    "actionProgress": 1,
+    "annotations": [
+      {
+        "target": "filter",
+        "text": "Compares the jurisdiction each document declares with the card"
+      }
+    ],
+    "finalState": "separated"
+  }
+}

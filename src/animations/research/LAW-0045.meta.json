@@ -1,0 +1,397 @@
+{
+  "id": "LAW-0045",
+  "slug": "research-02-story",
+  "title": "Located citation — library microscene",
+  "titleEs": "Cita localizada — Microescena con objetos y actores",
+  "category": "research",
+  "categoryName": "Investigación jurídica",
+  "motif": "Cita localizada",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "First-person library nook: the reference written on an index card is lifted into a catalogue search box and cut into four colour-coded parts; source and volume land on the shelf, the hand pulls the book, lays it on the reading board and opens it, and the page and paragraph parts land on the page and the highlighted paragraph. Incomplete references stop where they stop.",
+  "tags": [
+    "citation",
+    "reference",
+    "library",
+    "bookshelf",
+    "search box",
+    "index card",
+    "paragraph",
+    "highlight",
+    "hands"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/research/kits/cita-localizada.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "query": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "The reference as written on the index card and entered in the search box (free text, fictional)"
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Shelf plate label"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Source names on the shelf plates, top shelf first (fictional) (array replaces the previous value)"
+      },
+      "citations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Source / collection name; the shelf whose plate carries the same name is the one it points to"
+            },
+            "volume": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Volume part, e.g. \"Vol. 4\" (empty = not given)"
+            },
+            "page": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Page part, e.g. \"p. 112\" (empty = not given)"
+            },
+            "paragraph": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Paragraph pinpoint, e.g. \"¶ 3\" (empty = not given)"
+            }
+          },
+          "required": [
+            "source",
+            "volume",
+            "page",
+            "paragraph"
+          ],
+          "description": "A fictional reference split into the parts that locate a passage; an empty part marks an incomplete reference"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "References: the first is decomposed and followed; a second one is printed on the card as a further note (array replaces the previous value)"
+      },
+      "dates": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "Date label"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Descriptive date labels: [0] on the index card, [1] in the page header of the document (fictional, relative) (array replaces the previous value)"
+      },
+      "pinpointRow": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5,
+        "description": "Which paragraph of the drawn page the pinpoint marks (1 = first paragraph on the page)"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for the researcher (the hands)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label of the catalogue search box (the interlocutor)"
+          }
+        },
+        "required": [],
+        "description": "Role captions shown next to each actor"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "card": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Heading printed on the index card"
+          }
+        },
+        "required": [],
+        "description": "Labels printed on props"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "paragraph",
+                "page",
+                "volume",
+                "source",
+                "card"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "paragraph-highlighted",
+          "page-opened",
+          "volume-retrieved",
+          "shelf-identified"
+        ],
+        "description": "The state supplied by the author for the final hold (no legal conclusion is inferred)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "query": "Casebook of Examples, 4, 112, ¶ 3",
+    "sources": [
+      "Journal of Sample Studies",
+      "Casebook of Examples",
+      "Practice Notes"
+    ],
+    "citations": [
+      {
+        "source": "Casebook of Examples",
+        "volume": "Vol. 4",
+        "page": "p. 112",
+        "paragraph": "¶ 3"
+      }
+    ],
+    "dates": [
+      "Noted on day 12",
+      "Edition of day 3"
+    ],
+    "pinpointRow": 3,
+    "actorLabels": {
+      "a": "Researcher",
+      "b": "Catalogue search"
+    },
+    "objectLabels": {
+      "card": "Reference"
+    },
+    "actionProgress": 1,
+    "annotations": [
+      {
+        "target": "paragraph",
+        "text": "The pinpoint marks this paragraph"
+      }
+    ],
+    "finalState": "paragraph-highlighted"
+  }
+}

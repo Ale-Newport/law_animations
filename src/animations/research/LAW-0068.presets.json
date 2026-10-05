@@ -1,0 +1,146 @@
+{
+  "animationId": "LAW-0068",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. The dependent state is a plain text comparison of the entry's wording with the page (written there or not); it says nothing about truth, admissibility or legal relevance.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The first card entry is a copy of ¶3 ('Party B signed the delivery note on Day 4.'). Its wording is replaced by a paraphrase ('Party B received the goods on Day 4.') that is not written on the page: the copied highlight goes, the edge and the trail turn dashed and the tag reads 'Not written on the page'.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different source and the opposite direction — an entry whose wording is NOT on the page is replaced by the exact wording of ¶2, so it becomes a quotation: the highlight appears, the edge turns solid and the ¶ tab and the trail move to ¶2.",
+      "params": {
+        "sources": {
+          "library": "Minutes shelf",
+          "volume": "MIN-3",
+          "title": "Minutes of the site meeting",
+          "sentences": [
+            "The meeting opened at 10:00 on Day 12.",
+            "Party C presented the revised floor plan.",
+            "The inspection was moved to Day 15.",
+            "The minutes were circulated on Day 13."
+          ]
+        },
+        "query": {
+          "facts": [
+            {
+              "label": "Who presented the floor plan",
+              "sentence": 2
+            },
+            {
+              "label": "When the minutes were circulated",
+              "sentence": 4
+            }
+          ],
+          "placeholder": "Facts to extract…"
+        },
+        "citations": {
+          "page": "p. 4",
+          "pinpoint": "¶"
+        },
+        "dates": {
+          "source": "Day 12",
+          "extracted": "Day 14"
+        },
+        "beforeValue": "Party C showed a new plan at the meeting.",
+        "afterValue": "Party C presented the revised floor plan.",
+        "detailGeometry": {
+          "zoom": 2.2,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Fact card for the site meeting",
+          "marker": "Wording replaced"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long sentences, long before/after wordings, long context caption and marker.",
+      "params": {
+        "sources": {
+          "library": "Case library of the district archive",
+          "volume": "VOL-2026-117B",
+          "title": "Consolidated logistics file of the northern depot",
+          "sentences": [
+            "Order 118 for forty crates of ceramic tiles was placed by Party A on Day 2.",
+            "The regional carrier collected the goods from the northern depot on Day 3.",
+            "Party B's receiving clerk signed the delivery note at the loading bay on Day 4.",
+            "Two damaged crates were stored separately in Bay 7 of the northern depot.",
+            "The invoice for the remaining crates was issued on Day 6 by the sales office."
+          ]
+        },
+        "query": {
+          "facts": [
+            {
+              "label": "Who signed the delivery note at the loading bay",
+              "sentence": 3
+            },
+            {
+              "label": "When the regional carrier collected the goods",
+              "sentence": 2
+            }
+          ],
+          "placeholder": "Facts to extract from the file…"
+        },
+        "citations": {
+          "page": "p. 1127",
+          "pinpoint": "¶"
+        },
+        "dates": {
+          "source": "Day 7 (filed)",
+          "extracted": "Day 9 (noted)"
+        },
+        "beforeValue": "Party B's receiving clerk signed the delivery note at the loading bay on Day 4.",
+        "afterValue": "Party B's clerk confirmed at the loading bay that all forty crates had arrived on Day 4.",
+        "contextLabels": {
+          "context": "The fact card of the logistics chronology after the extraction",
+          "marker": "Wording of the first entry changed"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": {
+          "library": "Biblioteca de casos",
+          "volume": "VOL-7",
+          "title": "Expediente del almacén",
+          "sentences": [
+            "La parte A hizo el pedido 118 el día 2.",
+            "El transportista recogió la mercancía el día 3.",
+            "La parte B firmó el albarán el día 4.",
+            "Se guardaron dos cajas en la nave 7.",
+            "La factura se emitió el día 6."
+          ]
+        },
+        "query": {
+          "facts": [
+            {
+              "label": "Quién firmó el albarán",
+              "sentence": 3
+            },
+            {
+              "label": "Cuándo se recogió la mercancía",
+              "sentence": 2
+            }
+          ],
+          "placeholder": "Hechos que extraer…"
+        },
+        "dates": {
+          "source": "Día 7",
+          "extracted": "Día 9"
+        },
+        "beforeValue": "La parte B firmó el albarán el día 4.",
+        "afterValue": "La parte B recibió la mercancía el día 4.",
+        "contextLabels": {
+          "context": "Ficha de hechos tras la extracción",
+          "marker": "Redacción cambiada"
+        }
+      }
+    }
+  ]
+}
