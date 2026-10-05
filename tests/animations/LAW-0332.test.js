@@ -264,13 +264,16 @@ test(`${ID}: only the decision sheet and the pins change, after the new value, o
     const s0 = x.getState({bounds: false}).semantic;
     const st0 = JSON.stringify(s0.stations);
     const bb = () => { const q = box(node(svg, 'rm-doc-k')); return [q.l, q.t, q.w, q.h]; };
+    // (coordinator, review-03: the build carries the petition into the tray over u 0.05–0.15; from u 0.18 it stays put)
+    x.seek(0.18 * x.durationMs);
     const d0 = bb();
+    x.seek(0);
     const want = st => (st === 'a' ? {pin: 1, dec: 0} : {pin: 0, dec: 1});
     for (let ms = 0; ms <= x.durationMs + 1e-6; ms += 1000 / 60) {
       x.seek(ms);
       const s = x.getState({bounds: false}).semantic;
       if (JSON.stringify(s.stations) !== st0) { out.push(tag + ': a station moved'); break; }
-      if (s.contextScale === 1 && bb().some((v, i) => Math.abs(v - d0[i]) > 0.75)) { out.push(tag + ' ' + Math.round(ms) + ' ms: the petition moved ' + JSON.stringify(bb()) + ' vs ' + JSON.stringify(d0)); break; }
+      if (ms >= 0.18 * x.durationMs && s.contextScale === 1 && bb().some((v, i) => Math.abs(v - d0[i]) > 0.75)) { out.push(tag + ' ' + Math.round(ms) + ' ms: the petition moved ' + JSON.stringify(bb()) + ' vs ' + JSON.stringify(d0)); break; }
       if (ms < 0.6 * x.durationMs && s.trayState !== 'before') { out.push(tag + ': the dependent state changes before u 0.6'); break; }
       if (s.petitionPin >= 0.15 && s.decShown >= 0.15) { out.push(tag + ' ' + Math.round(ms) + ' ms: the ● pin and the decision sheet shown together'); break; }
       if (nodes(svg, /^rm-rt\\d+$/).some(e => eff(svg, e) < 0.3 * eff(svg, node(svg, 'ctx')) - 0.01) || nodes(svg, /^rm-rd\\d+$/).some(e => eff(svg, e) > 0.01)) { out.push(tag + ': the path is not drawn solid'); break; }

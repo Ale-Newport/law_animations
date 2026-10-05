@@ -347,7 +347,7 @@ function leader(ctx, L, pl) {
   const b = pl.c.box;
   const rv = L.tiles.find(t => t.status === 'review') ?? L.tiles[0];
   const tg = pl.q.target === 'contract' ? {x: L.doc.x + L.doc.w - 10, y: L.doc.y + L.headH / 2}
-    : pl.q.target === 'review' ? {x: rv.x + rv.w, y: rv.y + rv.h / 2}
+    : pl.q.target === 'review' ? {x: L.C.x + L.neck - 18, y: rv.y + rv.h / 2}
       : {x: L.C.x + L.C.w, y: L.C.y + 6};
   const from = {x: tg.x < b.x ? b.x : tg.x > b.x + b.w ? b.x + b.w : clamp(tg.x, b.x + 12, b.x + b.w - 12), y: tg.y < b.y ? b.y : tg.y > b.y + b.h ? b.y + b.h : b.y + b.h / 2};
   return g({name: `${pl.q.name}-lead`, opacity: 0},

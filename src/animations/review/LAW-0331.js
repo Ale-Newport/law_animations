@@ -248,7 +248,7 @@ const scene = {
       for (const cols of [2, 3]) arrangements.push({arr: 'col', panel: 'band', cols});
     } else {
       // (coordinator decision 2026-10-06: A stacked over B, the legend beside them — the rooms take the square's height)
-      for (const cf of [0.32, 0.35, 0.38]) arrangements.push({arr: 'col', panel: 'column', cf});
+      for (const cf of [0.3, 0.33]) arrangements.push({arr: 'col', panel: 'column', cf});
       for (const cols of [2, 3, 4]) arrangements.push({arr: 'row', panel: 'band', cols});
       // (side by side only: each room >= 0.40 of the frame width — coordinator, review-03)
     }

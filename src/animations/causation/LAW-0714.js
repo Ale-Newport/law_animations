@@ -93,8 +93,8 @@ const defaultParamsEs = {
 
 const MARGIN = 10;
 const SHAPES = {
-  landscape: {size: 26, minSize: 17, modes: ['row', 'rowcol'], rws: [420, 480, 540, 600]},
-  square: {size: 24, minSize: 17, modes: ['band', 'row', 'rowcol', 'stack'], rws: [340, 380, 420, 480, 540]},
+  landscape: {size: 26, minSize: 17, modes: ['trioS', 'trio', 'row', 'rowcol'], rws: [380, 420, 480, 540, 600]},
+  square: {size: 24, minSize: 17, modes: ['trioS', 'band', 'stack'], rws: [340, 380, 420, 480, 540]},
   portrait: {size: 25, minSize: 17, modes: ['stack', 'band'], rws: [460, 520, 620, 720, 930]},
 };
 
@@ -151,7 +151,7 @@ function relMeasures(ctx, base, size, narrowSeq, full) {
   const mk = `${size}|${narrowSeq}`;
   let m = base.memo.rel.get(mk);
   if (m) return m;
-  m = {relW: 0, seqW: 0, relHmax: 0, altRelW: 0};
+  m = {relW: 0, seqW: 0, relHmax: 0, altRelW: 0, trioW: 0};
   if (ctx.show('key') && ctx.show('all')) {
     for (const q of base.rels) {
       const c = chipG(ctx, base.relText(q), {x: 0, y: 0, maxWidth: Math.min(360, full / 2), size, maxLines: 2});
@@ -165,6 +165,8 @@ function relMeasures(ctx, base, size, narrowSeq, full) {
         // (measured as drawn: unwidowed, so a label that cannot wrap without a one-word line keeps its one-line width)
         m.seqW = Math.max(m.seqW, chipG(ctx, unwidow(base.relText(q), t0 => chipG(ctx, t0, so).fit), {...so, maxWidth: Math.min(360, full / 2)}).box.w);
       }
+      // (trio: a lane–convergence label sits on its short connector in the gap between the parts, up to three lines)
+      if (q.from === 'convergence' || q.to === 'convergence') m.trioW = Math.max(m.trioW, chipG(ctx, base.relText(q), {x: 0, y: 0, maxWidth: Math.max(size * 4.2, 90), size, maxLines: 3}).box.w);
       // (the alternative link's label may wrap to three lines beside its connector)
       if (q.from === 'alternative' || q.to === 'alternative') m.altRelW = Math.max(m.altRelW, chipG(ctx, base.relText(q), {x: 0, y: 0, maxWidth: Math.max(size * 7, 150), size, maxLines: 3}).box.w);
     }
@@ -191,9 +193,12 @@ function compose(ctx, base, cfg) {
   }
   const recW = rec ? RW + 20 : 0;
   const recH = rec ? rec.h + 14 + rec.clipH * 0.35 : 0;
-  const {relW, seqW, relHmax, altRelW} = relMeasures(ctx, base, size, Boolean(cfg.narrowSeq), full);
-  const rowish = mode === 'row' || mode === 'rowcol';
-  const gapR = rowish ? Math.max(40, relW + 50) : 40;
+  const {relW, seqW, relHmax, altRelW, trioW} = relMeasures(ctx, base, size, Boolean(cfg.narrowSeq), full);
+  // trio (wide) / trioS (square): lane A, the convergence piece and lane B in ONE row, large; the record and legend in a
+  // right-hand column (trio) or above and below the row (trioS)
+  const trio = mode === 'trio' || mode === 'trioS';
+  const rowish = mode === 'row' || mode === 'rowcol' || mode === 'trio';
+  const gapR = mode === 'trio' ? 40 : rowish ? Math.max(40, relW + 50) : 40;
   const leftW = mode === 'band' ? full - recW - 30 : 0;
   const altGap = altRelW ? altRelW + 40 : 0; // room for the alternative link's label between its chip and the record
   const altV = Math.max(24, relHmax + 30); // vertical gap between the record and an alternative chip under it
@@ -221,7 +226,7 @@ function compose(ctx, base, cfg) {
   const cAlt = meas(base.chips.alternative, Math.min(altW, 760));
   if ([cB, cA, cD, cAlt].some(c => c.bad)) return {bad: `chip${[cB, cA, cD, cAlt].map((c, i) => (c.bad ? 'BADX'[i] : '')).join('')}`};
   // band (key, notes)
-  const bandW = mode === 'rowcol' ? recW : full;
+  const bandW = mode === 'rowcol' || mode === 'trio' ? recW : full;
   const kLeft = mode === 'band' ? (cfg.kLeft || 0) : 0; // band mode: the first kLeft band chips go in the left column
   const flowBand = (w, idx) => {
     const bk = `${size}|${Math.round(w)}|${cfg.half}|${idx.join(',')}`;
@@ -257,14 +262,23 @@ function compose(ctx, base, cfg) {
   // (band mode packs tighter — gaps of 12 above the key band and 22 under the top band — so the ring pieces keep the
   // subject floor in square boxes)
   const bandGap = mode === 'band' ? 12 : 18, topGap = mode === 'band' ? 70 : 30;
-  const bandH = band.h && mode !== 'rowcol' ? band.h + bandGap : 0;
-  const bandColH = band.h && mode === 'rowcol' ? band.h + 18 : 0;
+  const colBand = mode === 'rowcol' || mode === 'trio';
+  const bandH = band.h && !colBand ? band.h + bandGap : 0;
+  const bandColH = band.h && colBand ? band.h + 18 : 0;
   // relation label height budget (one chip line)
   const relH = textOn ? Math.max(size * 1.9, relHmax + 10) : 40;
   // object height from the room left
   const unitW = OH => {
     const ow = MINI_W * OH;
     const pw = ow * 1.04;
+    if (trio) {
+      // the convergence card (2R = the piece height) between the two pieces; each gap holds its connector's label
+      const R = OH * 0.5;
+      const g0 = Math.max(OH * 0.14, (textOn && ctx.show('all') ? trioW : 0) + 28, 40);
+      const colB = Math.max(pw, cB.w), colA = Math.max(pw, cA.w);
+      const gapX = Math.max(2 * R + 2 * g0, (colB + colA) / 2 - pw + 24, cD.w + 16 - pw);
+      return {w: colB / 2 + pw + gapX + colA / 2, pw, R, gapX, ow, trio: true};
+    }
     const R = OH * (mode === 'stack' ? 0.32 : 0.42);
     const colB = stackChips ? pw : Math.max(pw, cB.w), colA = stackChips ? pw : Math.max(pw, cA.w);
     // (stack: the convergence piece stands above the pieces, so the gap only holds the link between them and its label)
@@ -273,6 +287,7 @@ function compose(ctx, base, cfg) {
   };
   const chipsH = stackChips ? cB.h + (cB.h && cA.h ? 8 : 0) + cA.h : Math.max(cB.h, cA.h);
   const zoneH = OH => {
+    if (trio) return OH + Math.max(OH * PLINTH + 14 + chipsH, OH * 0.04 + (cD.h ? cD.h + 14 : 0)) + 10;
     const R = OH * (mode === 'stack' ? 0.32 : 0.42);
     return (mode === 'band' ? 0 : 2 * R + 2 * relH + 70) + OH + OH * PLINTH + 14 + chipsH;
   };
@@ -305,7 +320,7 @@ function compose(ctx, base, cfg) {
     const colH = recH + (cAlt.h ? altV + cAlt.h : 0) + bandColH;
     if (colH > availH) return {bad: 'colH'};
   } else {
-    availH = D.h - bandH - recH - 30 - (cAlt.h ? cAlt.h + altV : 0) - relH;
+    availH = D.h - bandH - recH - 30 - (cAlt.h ? cAlt.h + altV : 0) - (trio ? 0 : relH);
     if (recW > full) return {bad: 'recW'};
   }
   // solve OH by bisection (the zone width is not linear in OH once chips dominate)
@@ -341,7 +356,7 @@ const scene = {
     const full = D.w - 2 * MARGIN;
     let zx, zy, recX = 0, recY = 0, altX = 0, altY = 0;
     const zoneWd = U.w;
-    if (L.mode === 'row' || L.mode === 'rowcol') {
+    if (L.mode === 'row' || L.mode === 'rowcol' || L.mode === 'trio') {
       const blockW = zoneWd + L.gapR + L.recW;
       // spare width goes mostly between the objects and the record (the model spans the box)
       const extra = Math.max(0, full - blockW);
@@ -354,7 +369,7 @@ const scene = {
       recX = x0 + zoneWd + L.gapR + 10; recY = top + (blockH - colH) / 2 + (L.rec ? L.rec.clipH * 0.35 : 0);
       altX = recX - 10 + (L.recW - L.cAlt.w) / 2; altY = recY - (L.rec ? L.rec.clipH * 0.35 : 0) + L.recH + L.altV;
       L.bandY = top + blockH + 18;
-      if (L.mode === 'rowcol') { L.bandX = recX - 10; L.bandW = L.recW; L.bandY = top + (blockH - colH) / 2 + L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 18; }
+      if (L.mode === 'rowcol' || L.mode === 'trio') { L.bandX = recX - 10; L.bandW = L.recW; L.bandY = top + (blockH - colH) / 2 + L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 18; }
     } else if (L.mode === 'band') {
       const B0 = L.bandGeo;
       const blockH = B0.TB + L.relH + L.topGap + L.zoneH;
@@ -368,13 +383,13 @@ const scene = {
       L.leftBandY = top + B0.altBlock + B0.topX + 2 * B0.R + 12 + B0.belowH + 20;
       L.bandY = top + blockH + spare * 0.8 + L.bandGap;
     } else {
-      const blockH = L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 30 + L.relH + L.zoneH;
+      const blockH = L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 30 + (L.mode === 'trioS' ? 0 : L.relH) + L.zoneH;
       // (spare height goes between the record and the pieces: the pieces stand at the foot of the box)
       const spareS = Math.max(0, D.h - L.bandH - blockH);
       const top = spareS * 0.15;
       recX = MARGIN + (full - L.recW) / 2 + 10; recY = top + (L.rec ? L.rec.clipH * 0.35 : 0);
       altX = recX - 10; altY = top + L.recH + L.altV;
-      zx = MARGIN + (full - zoneWd) / 2; zy = top + L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 30 + L.relH + spareS * 0.85;
+      zx = MARGIN + (full - zoneWd) / 2; zy = top + L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 30 + (L.mode === 'trioS' ? 0 : L.relH) + spareS * 0.85;
       L.bandY = top + blockH + spareS * 0.85 + 18;
     }
     // objects
@@ -382,7 +397,7 @@ const scene = {
     const colB = L.stackChips ? U.pw : Math.max(U.pw, L.cB.w);
     const bx = zx + colB / 2;
     const ax = bx + U.pw / 2 + U.gapX + U.pw / 2;
-    const floorY = zy + L.zoneH - L.chipsH - 14;
+    const floorY = U.trio ? zy + OH * (1 + PLINTH) + 10 : zy + L.zoneH - L.chipsH - 14;
     const baseY = floorY - OH * PLINTH; // plinth top = object base
     const G = {spot: miniSpot(OH)};
     L.G = G;
@@ -392,7 +407,7 @@ const scene = {
       // the after state up to the record runs clear of it
       // (the inset grown as the focus keeps clear of the content notice's pill: at most 12 units into the notice band's
       // free strip above the design box)
-      convergence: L.mode === 'band' ? L.insetAt : {x: (bx + ax) / 2, y: Math.max(zy + R, p.focusElement === 'convergence' ? 1.25 * R + 4 - 12 : 0)},
+      convergence: U.trio ? {x: (bx + ax) / 2, y: baseY - OH * 0.52} : L.mode === 'band' ? L.insetAt : {x: (bx + ax) / 2, y: Math.max(zy + R, p.focusElement === 'convergence' ? 1.25 * R + 4 - 12 : 0)},
     };
     L.floorY = floorY;
     L.boxes = {
@@ -422,7 +437,8 @@ const scene = {
       if (L.cD.w) {
         const gR = R * (p.focusElement === 'convergence' ? 1.27 : 1);
         const left = L.pos.convergence.x - gR - 12 - L.cD.w; // clear of the inset when it enlarges as the focus
-        if (L.mode === 'band' && !L.bandGeo.chipLeft) L.chipBox.convergence = chipAt(L.cD, Math.max(MARGIN, L.pos.convergence.x - L.cD.w / 2), L.pos.convergence.y + gR + 10, 'lab-convergence');
+        if (U.trio) L.chipBox.convergence = chipAt(L.cD, L.pos.convergence.x - L.cD.w / 2, L.pos.convergence.y + R + 12, 'lab-convergence');
+        else if (L.mode === 'band' && !L.bandGeo.chipLeft) L.chipBox.convergence = chipAt(L.cD, Math.max(MARGIN, L.pos.convergence.x - L.cD.w / 2), L.pos.convergence.y + gR + 10, 'lab-convergence');
         else {
           // left of the inset, else right of it; when neither side holds the chip, it is re-measured to the wider side
           // (more lines) so it never leaves the frame
@@ -532,7 +548,7 @@ const scene = {
         };
         let found = null;
         const inD = b => b.x >= 0 && b.y >= 0 && b.x + b.w <= D.w && b.y + b.h <= D.h;
-        laneB: for (const [mw, ml] of [[Math.min(360, full / 2), 2], [Math.min(240, full / 3), 3], [Math.min(180, full / 3), 4], [Math.max(L.size * 7, 150), 3]]) {
+        laneB: for (const [mw, ml] of [[Math.min(360, full / 2), 2], [Math.min(240, full / 3), 3], [Math.min(180, full / 3), 4], [Math.max(L.size * 7, 150), 3], [Math.max(L.size * 4.2, 90), 3]]) {
           for (const t0 of [0.5, 0.42, 0.58, 0.34, 0.66, 0.26, 0.74, 0.18, 0.82]) {
             for (const off of [1, -1, 0]) {
               const cand = mk(t0, off, mw, ml);

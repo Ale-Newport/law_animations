@@ -145,7 +145,7 @@ function geom(ctx, F, minF) {
   const neck = clamp(C.w * 0.12, 44, 80);
   const tileX = C.x + neck + 18, tileW = C.x + C.w - 14 - tileX;
   const gR = Math.min(14, F * 0.6);
-  const labFits = p.categories.map(c => fitG(c.label, {maxWidth: tileW - tileTextX(70) - gR * 2 - 34, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700}));
+  const labFits = p.categories.map(c => fitG(c.label, {maxWidth: tileW - tileTextX(200) - gR * 2 - 34, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700}));
   const stFits = p.categories.map(() => null), stWorst = {height: 0, bad: false};
   if ([...labFits, stWorst, head, ...clauseFits, ...tabs].some(f => f.bad)) why.push('text');
   const tileH0 = Math.max(...labFits.map(f => f.height)) + 30;

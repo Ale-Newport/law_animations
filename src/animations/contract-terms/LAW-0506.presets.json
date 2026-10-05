@@ -1,0 +1,77 @@
+{
+  "animationId": "LAW-0506",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the contract, its clause lines and the claim are generic placeholders, never real contract text or real claims. The relations are drawn only as supplied (plain lines; an arrow only for a supplied sequence or causal kind). \"Claim covered as per supplied data\" and \"Scope disputed (as supplied)\" are supplied statuses of equal weight (● and ◆ of the same area; the scope collar has the same colour and width, solid or dashed). No indemnity doctrine is stated: no duty to indemnify or pay, no decision on cover beyond the supplied datum, no amount unless supplied (always labelled hypothetical), no outcome and no jurisdiction; \"scope disputed\" stays an allegation. Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): schedules, definitions, priorities, actorLabels (no actor in this treatment) and annotations; objectLabels = the components' name tabs (elements); clauses = the supplied clause lines, promise = the line the film registers on.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Exploded contract plate, clause plate (promise on line 2 of 3), promise film and claim slip; the tracer runs contract → clause → promise → claim along plain relations; the layers assemble, the claim plugs in and a solid scope collar marks claim covered as per supplied data.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: another contract and claim with a supplied hypothetical amount, two clause lines with the promise on line 1, a supplied sequence relation from the promise to the claim, the tracer focusing on the claim, and the supplied status scope disputed: the collar is dashed — neutral, as supplied.",
+      "params": {
+        "contract": {"reference": "CT-907", "title": "Services contract (fictional)"},
+        "clauses": ["Clause 9.1 (supplied text)", "Clause 9.2 (supplied text)"],
+        "promise": 1,
+        "claim": {"label": "Claim 2 (supplied)", "amount": "2,400 units"},
+        "relationships": [
+          {"from": "contract", "to": "clause", "kind": "relation"},
+          {"from": "clause", "to": "promise", "kind": "relation"},
+          {"from": "promise", "to": "claim", "kind": "sequence"}
+        ],
+        "focusElement": "claim",
+        "finalState": "disputed"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long contract and clause headings, three long clause lines with the promise on line 3, a long claim label with a hypothetical amount, long status wording, long tab names, four relations of two kinds and a reordered traversal; the supplied status is covered as per supplied data.",
+      "params": {
+        "contract": {"reference": "CONTRACT-2026-0412", "title": "Supply contract with an indemnity clause, fictional example"},
+        "clauseTitle": "Indemnity clause, lines exactly as listed",
+        "clauses": [
+          "Clause 14.1, first line listed in the clause (supplied text)",
+          "Clause 14.2, second line listed in the clause (supplied text)",
+          "Clause 14.3, third line listed in the clause (supplied text)"
+        ],
+        "promise": 3,
+        "claim": {"label": "Claim 1, named in this fictional example (supplied)", "amount": "12,500 units"},
+        "stateLabels": {
+          "covered": "Claim covered, exactly as per the supplied data here",
+          "disputed": "Scope disputed, exactly as it was supplied in this example"
+        },
+        "elements": [
+          {"id": "contract", "label": "Contract layer (fictional)"},
+          {"id": "clause", "label": "Clause layer, as supplied"},
+          {"id": "promise", "label": "Promise of cover film"},
+          {"id": "claim", "label": "Claim slip, as supplied"}
+        ],
+        "relationships": [
+          {"from": "contract", "to": "clause", "kind": "relation"},
+          {"from": "clause", "to": "promise", "kind": "relation"},
+          {"from": "promise", "to": "claim", "kind": "relation"},
+          {"from": "contract", "to": "claim", "kind": "communication"}
+        ],
+        "relationLabels": {"relation": "Plain line: linked exactly as supplied here", "communication": "Communication exactly as supplied here", "sequence": "Sequence exactly as supplied here", "causal": "Causal link exactly as supplied here"},
+        "traversalOrder": ["claim", "promise", "clause", "contract"],
+        "focusElement": "clause",
+        "finalState": "covered"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea de base en español: contrato, cláusula (promesa en la línea 2 de 3), película de la promesa y ficha de la reclamación; el trazador recorre las relaciones simples, las capas se ensamblan, la reclamación se conecta y un collar continuo marca reclamación cubierta según los datos aportados.",
+      "params": {
+        "locale": "es",
+        "contract": {"reference": "CT-412", "title": "Contrato de suministro (ficticio)"},
+        "clauseTitle": "Cláusula de indemnidad",
+        "clauses": ["Cláusula 14.1 (texto aportado)", "Cláusula 14.2 (texto aportado)", "Cláusula 14.3 (texto aportado)"],
+        "claim": {"label": "Reclamación 1 (aportada)", "amount": ""},
+        "stateLabels": {"covered": "Reclamación cubierta según los datos aportados", "disputed": "Alcance discutido (según lo aportado)"},
+        "elements": [{"id": "contract", "label": "Contrato"}, {"id": "clause", "label": "Cláusula"}, {"id": "promise", "label": "Promesa de cobertura"}, {"id": "claim", "label": "Reclamación"}],
+        "relationLabels": {"relation": "Línea simple: enlazado según lo aportado", "communication": "Comunicación según lo aportado", "sequence": "Secuencia según lo aportado", "causal": "Vínculo causal según lo aportado"}
+      }
+    }
+  ]
+}

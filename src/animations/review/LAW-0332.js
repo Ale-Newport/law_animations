@@ -425,6 +425,8 @@ const scene = {
     const textK = sc >= 0.9999 ? 1 : clamp((L.F * L.px * sc - Math.min(floor, L.F * L.px - 0.01)) / 0.6);
     // one copy of the datum at a time: the context copy (value and glyph) leaves as the lens copy arrives, comes back after
     const ctxT = u < 0.5 ? Math.min(1 - seg(u, ...L.ctxOutW), textK) : seg(u, ...W.ctxIn);
+    // (the record's value and glyph come in as the petition is laid — the travelling sheet never passes over them)
+    const buildK = seg(u, WB.put[0], WB.release[1]);
     const lensT = clamp((open - 0.12) / 0.3);
     // the substitution, a dip hand-over: the old value dims to 0.3; at one instant it leaves the plate and enters the
     // dock as the record captioned "was", while the plate takes the new value — both come in at 0.3 and brighten
@@ -469,7 +471,7 @@ const scene = {
       covers: live ? ac.covers : [],
       rec: recState,
     });
-    const rf = L.room.frame(stFor(textK, recFor(ctxT, chip), true));
+    const rf = L.room.frame(stFor(textK, recFor(Math.min(ctxT, buildK), chip), true));
     Object.assign(nodes, rf.nodes);
     // (in the lens the dock's tray is there from the opening, empty until the substitution)
     Object.assign(nodes, L.lz.frame(stFor(lensT, recFor(lensT, 1))).nodes);

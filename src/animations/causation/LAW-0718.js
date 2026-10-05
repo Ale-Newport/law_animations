@@ -272,7 +272,7 @@ const scene = {
     const D = ctx.design;
     const MG = 10, GAP = 26;
     // spread the composition over its whole box (extra room goes into the gaps, capped)
-    const ex = Math.min(Math.max(0, A.bw - R0.w), U * 1.2), ey = Math.min(Math.max(0, A.bh - R0.h), U * 0.6) * (A.st.go.arr === 'ring' ? 1 : 0.5);
+    const ex = Math.min(Math.max(0, A.bw - R0.w), U * (items.length ? 1.2 : 2.5)), ey = Math.min(Math.max(0, A.bh - R0.h), U * 0.6) * (A.st.go.arr === 'ring' ? 1 : 0.5);
     const R = geomFor(ctx, p, M, A.size, U, A.st.go.arr, A.st.go.gx, ex, ey);
     const rw = R.w, rh = R.h;
     let ox, oy, px, py;
