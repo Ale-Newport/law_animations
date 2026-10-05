@@ -104,7 +104,7 @@ function geom(ctx, F, minF) {
   const fixed = hh + 8 + headH + 36 + cGap + pressZone + 26;
   const chFree = (S.h - fixed) / 2;
   const ch = Math.max(chMin, Math.min(chFree, cw * 0.9));
-  if (ch < chMin - 0.5 || chFree < chMin) why.push('card-h');
+  if (ch < chMin - 0.5 || chFree < chMin) why.push(`card-h:${r(chFree)}/${r(chMin)}/${r(S.h)}/${r(fixed)}`);
   const clH = Math.max(clauseBlockH(clFit, discR, 0), Math.min(ch, clauseBlockH(clFit, discR, 2)));
   const contractH = headH + Math.max(clH + 4, ch + 16) + 20;
   const C = {x: cX, y: hh + 8, w: cW, h: contractH};

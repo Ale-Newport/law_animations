@@ -13,7 +13,7 @@
  *  0.42–0.71  the layers slide, one at a time in the same order, onto the rods at the level of their listed position
  *             (the moving sheet's print is hidden while it crosses the others); each connector stays anchored to its
  *             layer and ends as a short, non-crossing line from list line k to level k.
- *  0.71–0.79  focus: a loupe frames the supplied focus layer, which enlarges slightly.
+ *  0.71–0.79  focus: a loupe settles on the level disc of the supplied focus position and its layer enlarges slightly.
  *  0.76–1.00  hold: "Priority document (as supplied)" beside level 1 and "Subordinate document, as configured" beside the
  *             last level (equal weight), the relation legend and the key "As supplied · no conclusion drawn".
  * The relation is only "listed in position k"; nothing prevails, governs or wins beyond the supplied list.
@@ -250,7 +250,7 @@ const scene = {
     // layers: z order = position (lower positions drawn later, i.e. on top) — each layer has its own group
     const zOrder = L.order.slice().reverse();
     const layers = zOrder.map(si => g({name: `lay${si}`, transform: T(L.parks[si].x, L.parks[si].y)}, layerArt(ctx, L, si, show, `art${si}`)));
-    const lp = loupe(ctx, {name: 'loupe', R: Math.min(L.ld * 0.62, 70), a: 35, handle: 60, opacity: 0});
+    const lp = loupe(ctx, {name: 'loupe', R: L.discR + 13, a: -95, handle: L.discR * 1.6, opacity: 0});
     const notes = L.placed.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node));
     const pb = L.parkBoard;
     const board = g(null,
@@ -305,10 +305,10 @@ const scene = {
     const fc = {x: L.levels[fk].x + (L.lw + L.sk) / 2, y: L.levels[fk].y - L.ld / 2};
     const sc = 1 + 0.07 * fq;
     if (fq > 0) nodes[`lay${fsi}`] = {transform: `${T(r(fc.x, 2), r(fc.y, 2))} scale(${r(sc, 4)}) ${T(r(L.levels[fk].x - fc.x, 2), r(L.levels[fk].y - fc.y, 2))}`};
-    const lr = Math.min(L.ld * 0.62, 70);
-    const lpos = {x: fc.x + L.lw * 0.3, y: fc.y};
+    const lr = L.discR + 13;
+    const lpos = {x: L.discX, y: L.levels[fk].y - L.ld / 2};
     nodes.loupe = {opacity: r(fq, 3)};
-    nodes.loupeG = {transform: T(r(lpos.x, 2), r(lpos.y - 6 * (1 - fq), 2))};
+    nodes.loupeG = {transform: T(r(lpos.x, 2), r(lpos.y - 10 * (1 - fq), 2))};
     // connectors
     let tracer = null, traced = 0;
     for (let j = 0; j < n; j++) {
@@ -366,7 +366,7 @@ export default defineAnimation({
     motif: 'Orden de documentos',
     treatment: 'mechanism',
     family: 'spatial-mechanism',
-    description: 'An exploded assembly: the contract card "CT-208 · Services contract (fictional)" with its supplied order list, an empty rack of guide rods on the contract\'s base plate with a numbered disc for each level, and the annex layers parked apart in their supplied numbering. A tracer walks the list in the supplied traversal order and draws a plain connector (no arrowhead) from each list line to the layer it names; the layers then slide onto the rods at the level of their listed position while the connectors stay anchored to their edges, ending as short non-crossing lines from line k to level k. A loupe frames the supplied focus layer, which enlarges slightly. The hold shows "Priority document (as supplied)" beside level 1 and "Subordinate document, as configured" beside the last level with equal weight, the relation legend and the key "As supplied · no conclusion drawn". Nothing prevails or governs beyond the supplied list.',
+    description: 'An exploded assembly: the contract card "CT-208 · Services contract (fictional)" with its supplied order list, an empty rack of guide rods on the contract\'s base plate with a numbered disc for each level, and the annex layers parked apart in their supplied numbering. A tracer walks the list in the supplied traversal order and draws a plain connector (no arrowhead) from each list line to the layer it names; the layers then slide onto the rods at the level of their listed position while the connectors stay anchored to their edges, ending as short non-crossing lines from line k to level k. A loupe settles on the level disc of the supplied focus position and that layer enlarges slightly. The hold shows "Priority document (as supplied)" beside level 1 and "Subordinate document, as configured" beside the last level with equal weight, the relation legend and the key "As supplied · no conclusion drawn". Nothing prevails or governs beyond the supplied list.',
     tags: ['order of documents', 'priority clause', 'annexes', 'schedules', 'layers', 'capas', 'exploded view', 'rack', 'connectors', 'relation', 'tracer', 'loupe', 'focus', 'as supplied'],
     defaultDurationMs: DURATION,
     assets: ['src/animations/contract-terms/kits/orden-documentos.js', 'src/primitives/annotate.js'],
