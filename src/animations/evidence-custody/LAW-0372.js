@@ -237,7 +237,7 @@ function lensParts(ctx, L) {
         h('rect', {name: 'lv-ring', x: r(R.x0 - R.h * 0.08), y: r(R.top), width: r(R.x1 - R.x0 + R.h * 0.16), height: r(R.h), rx: r(6 / C.zoom + 2), fill: 'none', stroke: th.accent2, 'stroke-width': r(4 / C.zoom, 2), opacity: 0}),
         changedMarker(ctx, {name: 'lv-mark', x: R.x1 - 20 / C.zoom, y: R.top + R.h * 0.06 + (C.LT.f ? C.LT.f * 0.6 : 10 / C.zoom), radius: 17 / C.zoom, opacity: 0}),
       );
-      return lens(ctx, {name: 'lens', source: C.source, dest: C.dest, frame: {x: 0, y: 0, w: ctx.design.w, h: ctx.design.h}, content, color: th.accent2});
+      return lens(ctx, {name: 'lens', source: C.source, dest: C.dest, frame: C.LG.area, content, color: th.accent2});
   }
 }
 

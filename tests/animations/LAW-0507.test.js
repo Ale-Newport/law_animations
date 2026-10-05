@@ -10,7 +10,7 @@
 // Legal content: no indemnity doctrine (bannedWords), no jurisdiction, no winner or outcome; equal weight (same jaw,
 // colour and stroke; A/B badges in their lane colours).
 // Windows (LAW-0507.js): roll 0.15–0.36 · seat 0.36–0.42 · jaw (identical) 0.42–0.52 · change 0.52–0.62 · span 0.58–0.66
-// · guide 0.64–0.72 · note 0.70–0.78.
+// · guide 0.64–0.72 · neutral note shown throughout.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite, identicalBeforeChange} from '../harness/supplied-text.js';
@@ -22,7 +22,7 @@ const P = name => presetsFor(ID).find(q => q.name === name).params;
 contractSuite(ID, {
   continuity: ['slipTip', 'jawA', 'jawB'],
   semantic: [
-    {at: 0, fn: "!s.seated && s.identical && s.guideShown === 0 && s.noteShown === 0", label: 'rest: the two benches are identical'},
+    {at: 0, fn: "!s.seated && s.identical && s.guideShown === 0 && s.noteShown === 1", label: 'rest: the two benches are identical; the neutral note is shown throughout'},
     {at: 0.3, fn: "!s.seated && s.identical", label: 'the slips roll identically'},
     {at: 0.45, fn: "s.seated && s.connected && s.identical", label: 'both prongs seated; still identical'},
     {at: 0.7, fn: "s.closedA && s.heldApartB && s.jawGapA <= 3 && s.jawGapB >= 30", label: 'after the change: A closed on the claim, B held apart'},

@@ -169,8 +169,9 @@ function geom(ctx, F, minF, placementPref) {
   if (zoom < 1.5) why.push('zoom-too-small');
   const rg = best ? best.rg : {x: m, y: m, w: 100, h: 100};
   const dest = {w: src.w * zoom, h: src.h * zoom};
-  dest.x = rg.x + (rg.w - dest.w) / 2;
-  dest.y = rg.y + (rg.h - dest.h) / 2;
+  // (aligned to the region's outer edge, so the window covers whole lines of the context instead of cutting through them)
+  dest.x = rg.k === 'left' ? rg.x : rg.x + (rg.w - dest.w) / 2;
+  dest.y = rg.k === 'top' ? rg.y : rg.k === 'bottom' ? rg.y + rg.h - dest.h : rg.y + (rg.h - dest.h) / 2;
   // reading lens: rests on the shelf below the board, then over the tag
   const shelfY = board.y + board.h + ledgeH;
   const lensRest = {centre: {x: stand.x + 26 + lupaDim.lh * 0.3 + lupaDim.hl + lupaDim.lw / 2, y: shelfY + shelfH / 2 - 6}, a: 0};
