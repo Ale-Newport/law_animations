@@ -118,7 +118,7 @@ function bandItems(ctx, p, M) {
   out.push({key: 'laneA', icon: 'laneA', text: p.objectLabels.laneA || t.laneA, when: 'legend'});
   out.push({key: 'laneB', icon: 'laneB', text: p.objectLabels.laneB || t.laneB, when: 'legend'});
   out.push({key: 'object', icon: 'event', text: `${p.origin.name} · ${t.lanes}`, when: 'legend'});
-  if (p.losses[1]) out.push({key: 'loss1', icon: 'loss', text: `${t.alsoNoted.replace(/ /g, '\u00a0')}: ${p.losses[1].label}`, when: 'legend'});
+  if (p.losses[1]) out.push({key: 'loss1', icon: 'loss', text: `${t.alsoNoted}: ${p.losses[1].label}`, when: 'legend'});
   M.alternatives.forEach((a, j) => out.push({key: `alt${j}`, icon: 'alt', text: altText(ctx, a), when: 'legend'}));
   linkNotes(ctx, M).forEach(l => out.push({...l, when: 'legend'}));
   if (allOn && p.actorLabels.a) out.push({key: 'actA', icon: 'laneA', text: p.actorLabels.a, when: 'legend'});
