@@ -56,7 +56,7 @@ const defaultParams = {
   ...strip(CONTENT),
   scenarioA: {label: 'Claim covered as per supplied data'},
   scenarioB: {label: 'Scope disputed (as supplied)'},
-  comparisonLabels: {guide: 'Only the supplied scope status differs', neutral: 'Same contract, same claim, same connection · statuses as supplied · no outcome drawn', shared: 'Clause lines (shared)'},
+  comparisonLabels: {guide: 'Only the supplied scope status differs', neutral: 'Same contract, same claim, same connection · statuses as supplied · no conclusion drawn', shared: 'Clause lines (shared)'},
   actionProgress: 1,
 };
 const defaultParamsEs = {
