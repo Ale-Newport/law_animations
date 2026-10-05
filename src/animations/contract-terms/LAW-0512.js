@@ -99,7 +99,7 @@ function geom(ctx, F, minF) {
     if (sheet.h - headH - bh < 20) why.push('sheet');
     KINDS.forEach((k, i) => blocks.push({kind: k, x: 18 + i * (blockW + 22), y: headH + (sheet.h - headH - bh) / 2, w: blockW, h: bh, fit: fits[k]}));
   }
-  const pw = hz ? A.w * 0.3 : (A.w - 30) / 2;
+  const pw = hz ? A.w * 0.3 : (A.w - 30) / 2 * (ctx.view.shape === 'square' ? 0.8 : 1);
   const pfMax = hz ? pw - plaqueTextX(pR) - 22 : pw - 40;
   const pf = s => fitG(s, {maxWidth: pfMax, size: F * 1.05, minSize: minF, maxLines: stress ? 3 : 2, weight: 800});
   const pFits = {law: pf(p.destinations.law), forum: pf(p.destinations.forum)};
@@ -115,7 +115,7 @@ function geom(ctx, F, minF) {
   } else {
     const py = A.y + A.h - ph - 8;
     plq.law = {x: A.x, y: py, w: pw, h: ph};
-    plq.forum = {x: A.x + pw + 30, y: py, w: pw, h: ph};
+    plq.forum = {x: A.x + A.w - pw, y: py, w: pw, h: ph};
   }
   // tabs + dials (already slid out), needles aimed at their ports, sight lines
   const dials = blocks.map(b => {

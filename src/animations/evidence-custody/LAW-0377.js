@@ -131,11 +131,11 @@ const scene = {
       cells: G.cells.map(c => ({x: X(c.cx), y: Y(c.cy)})),
     };
     const bb = C.bench.y + C.bench.h;
-    const armW = Math.max(30, Math.min(54, G.S * 0.3));
+    const armW = Math.max(28, Math.min(50, G.S * 0.26));
     const rackMid = X(G.rackX + G.rackW / 2);
     const bagMid = G.bag ? X(G.bag.x + G.bag.w / 2) : rackMid;
-    const shoulder = {x: clamp((rackMid + bagMid) / 2 + G.S * 0.4, C.bench.x + 60, C.bench.x + C.bench.w - 60), y: bb + Math.max(60, C.bench.h * 0.08)};
-    world.rest = {x: shoulder.x - armW * 0.4, y: bb - armW * 1.0};
+    const shoulder = {x: clamp(Math.min(rackMid, bagMid + G.S * 0.6), C.bench.x + 60, C.bench.x + C.bench.w - 60), y: bb + Math.max(60, C.bench.h * 0.08)};
+    world.rest = {x: shoulder.x + armW * 0.6, y: bb - armW * 1.0};
     const W = itemWindows(n, ACT[0], ACT[1], 0.06);
     const L0 = {P, n, W, world, G, linked};
     let far = 0;
@@ -178,7 +178,7 @@ const scene = {
     const {C, G, P} = L;
     const s = plan(L, u);
     const nodes = stationProps(G, L.N, {prefix: 'st', ox: C.ox, oy: C.oy}, s.items);
-    const pa = L.arm.pose(L.shoulder, s.hand, -1);
+    const pa = L.arm.pose(L.shoulder, s.hand, 1);
     Object.assign(nodes, pa.nodes);
     const done = P.actionProgress >= 1;
     const noteK = done ? seg(u, ...W_NOTES) : 0;

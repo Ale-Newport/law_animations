@@ -168,7 +168,7 @@ function compose(ctx, P, recs, F, opt, LG) {
       for (const o of placed) if (overlaps(box, o, 4)) pen += 50;
       if (pen < bestPen) { bestPen = pen; best = box; }
     }
-    if (bestPen >= 30) ok = false;
+    if (bestPen >= 50) ok = false;
     placed.push(best);
     chips[id] = {box: best, fit: f};
   }

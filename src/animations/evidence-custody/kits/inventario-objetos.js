@@ -185,7 +185,7 @@ export function stationGeom(o) {
   const tagH = Math.max(30, S * 0.42);
   const tagW = Math.max(S * 0.95, tagH * 2.3);
   const tagZone = tagW * 0.86 + S * 0.08;
-  const linkGap = Math.max(36, S * 0.34);
+  const linkGap = Math.max(56, S * 0.62);
   const clipTop = Math.max(26, S * 0.28); // clipboard clip above the first row band
   // bag
   let bag = null, B = null, bagSlots = [];
@@ -267,7 +267,7 @@ export function fitSheet(G, texts, F, title) {
  */
 export function fitStation(box, o) {
   let best = null;
-  for (const frac of o.sheetFrac || [0.34, 0.42, 0.5]) {
+  for (const frac of o.sheetFrac || [0.32, 0.4, 0.48, 0.56]) {
     let hi = 260, lo = 40;
     // geometry scales linearly in S except the sheet width; binary search the largest S that fits
     const tryS = S => {
