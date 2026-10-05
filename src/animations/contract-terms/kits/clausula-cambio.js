@@ -147,12 +147,12 @@ export const clauseBlockH = (fit, R, fillerLines = 2) => 16 + Math.max(R * 2, fi
  * Tab positions on the amendment sheet's edge: 'top' (tabs stand up from the top edge) or 'right' (they stick out to
  * the right). Returns [{x, y, w, h}] in sheet-local coordinates (tab rectangles), plus the contact point of the press.
  */
-export function tabSlots(n, sw, sh, edge) {
+export function tabSlots(n, sw, sh, edge, rev = false) {
   const t = clamp((edge === 'top' ? sw : sh) * 0.5 / n, 18, 40);
   const out = [];
   for (let k = 0; k < n; k++) {
     if (edge === 'top') {
-      const cx = sw * (0.34 + 0.56 * (k + 0.5) / n);
+      const cx = rev ? sw * (0.9 - 0.56 * (k + 0.5) / n) : sw * (0.34 + 0.56 * (k + 0.5) / n);
       out.push({x: cx - t / 2, y: -16, w: t, h: 22, cx, cy: 0});
     } else {
       const cy = sh * (0.24 + 0.62 * (k + 0.5) / n);
@@ -172,7 +172,7 @@ export function amendmentSheet(ctx, o) {
   const th = ctx.theme;
   const {w, h: hh} = o;
   const ear = Math.min(26, w * 0.12);
-  const tabs = tabSlots(o.n, w, hh, o.edge);
+  const tabs = tabSlots(o.n, w, hh, o.edge, o.rev);
   const sig = o.sig !== false;
   const labelY = o.headH + (hh - o.headH - (sig ? 34 : 4) - o.fit.height) / 2;
   return g({name: o.name},

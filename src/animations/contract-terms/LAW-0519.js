@@ -57,7 +57,7 @@ function geom(ctx, F, minF) {
   const p = ctx.params;
   const D = ctx.design;
   const shape = ctx.view.shape;
-  const side = shape === 'landscape';
+  const side = shape !== 'portrait';
   const show = ctx.show('all'), showKey = ctx.show('key');
   const stress = isStress(p);
   const why = [];
@@ -69,7 +69,7 @@ function geom(ctx, F, minF) {
   if (show) p.annotations.forEach((an, i) => notes.push({name: `ann${i}`, kind: 'ann', text: an.text}));
   const ns = notesStrip(ctx, notes, F, minF);
   // shared step legend (drawn once): pips + supplied step text
-  const legCols = show ? (side ? n : 2) : 0;
+  const legCols = show ? (side || shape === 'square' ? n : 2) : 0;
   const pipR = clamp(F * 0.3, 6, 9);
   const legW = legCols ? (D.w - pad * 2 - 12 * (legCols - 1)) / legCols : 0;
   const legFits = show ? p.steps.map((s, i) => fitG(s, {maxWidth: legW - 30 - pipR * 2.8 * (i + 1), size: F, minSize: minF, maxLines: 3, weight: 700})) : [];
@@ -86,45 +86,51 @@ function geom(ctx, F, minF) {
   const capFits = ['a', 'b'].map(k => fitG(p.scenarioLabels[k], {maxWidth: S.w - badgeR * 2 - 24, size: F, minSize: minF, maxLines: stress ? 2 : 1, weight: 800}));
   const hh = Math.max(badgeR * 2, Math.max(capFits[0].height, capFits[1].height)) + 10;
   const discR = clamp(F * 0.95, 18, 26);
-  // board: contract top-right, side spot top-left, track row below
-  const slotW = S.w / (n + 1);
-  const cw = Math.min(slotW - 26, S.w * 0.3, 260);
-  const cHead = clamp(F * 1.2, 24, 32);
+  // board: the contract at the top right (split: clause left, attach spot right; stack on narrow boards: clause above
+  // the attach spot), the beside spot at its left, the track below: a bed from the start tray to the right end, with
+  // one small station (gantry + press) per step; the card pauses so that the press of station k meets its tab k
+  const cHead = clamp(F * 1.05, 22, 30);
+  const stackC = S.w < 700;
+  const cw = Math.min(S.w * (stackC ? 0.37 : 0.36), 300);
   const propFit = fitG(p.proposal, {maxWidth: cw - 18, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 800});
-  const chMin = cHead + 12 + propFit.height + 14;
-  const cX = S.w * 0.36, cW = S.w - cX;
+  const chMin = cHead + 10 + propFit.height + 10;
+  const cX = stackC ? cw + 26 : S.w * 0.36, cW = S.w - cX;
   const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: cW - 74, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 800});
   const headH = head.height + 22;
-  const clW = cW * 0.5 - 24;
+  const clW = stackC ? cW - 32 : cW * 0.5 - 24;
   const clFit = fitG(p.clause, {maxWidth: clW - 18 - discR * 2 - 14 - 12, size: F, minSize: minF, maxLines: 3, weight: 700});
-  const sq = shape === 'square';
-  const pressZone = sq ? 58 : 74;
-  const cGap = sq ? 14 : 22;
-  // vertical budget: header, contract (head + max(clause, card)), gap, press zone, card, rail
-  const fixed = hh + 8 + headH + 36 + cGap + pressZone + 26;
+  const clH0 = clauseBlockH(clFit, discR, stackC ? 0 : 0);
+  const pressZone = 70, cGap = 22;
+  const fixed = hh + 8 + headH + 36 + cGap + pressZone + 26 + (stackC ? clH0 + 14 : 0);
   const chFree = (S.h - fixed) / 2;
-  const ch = Math.max(chMin, Math.min(chFree, cw * 0.9));
-  if (ch < chMin - 0.5 || chFree < chMin) why.push(`card-h:${r(chFree)}/${r(chMin)}/${r(S.h)}/${r(fixed)}`);
-  const clH = Math.max(clauseBlockH(clFit, discR, 0), Math.min(ch, clauseBlockH(clFit, discR, 2)));
-  const contractH = headH + Math.max(clH + 4, ch + 16) + 20;
-  const C = {x: cX, y: hh + 8, w: cW, h: contractH};
+  const ch = Math.max(chMin, Math.min(chFree, cw * 0.72));
+  if (chFree < chMin) why.push('card-h');
+  const clH = stackC ? clH0 : Math.max(clH0, Math.min(ch, clauseBlockH(clFit, discR, 2)));
+  const C = {x: cX, y: hh + 8, w: cW, h: stackC ? headH + clH + 14 + ch + 36 : headH + Math.max(clH + 4, ch + 16) + 20};
   const clause = {x: 16, y: headH + 12, w: clW, h: clH, fit: clFit};
-  const attach = {x: C.x + cW * 0.5 + (cW * 0.5 - cw) / 2, y: C.y + headH + 22};
-  const besideSpot = {x: (cX - cw) / 2 - 4, y: attach.y};
+  const attach = stackC ? {x: C.x + (cW - cw) / 2, y: C.y + headH + 12 + clH + 26} : {x: C.x + cW * 0.5 + (cW * 0.5 - cw) / 2, y: C.y + headH + 22};
+  const besideSpot = {x: Math.max(6, (cX - cw) / 2 - 4), y: attach.y};
+  if (besideSpot.x + cw > cX - 8) why.push('beside');
   const trackY = C.y + C.h + cGap;
   const padY = trackY + pressZone;
-  const stops = Array.from({length: n + 1}, (_, i) => ({x: i * slotW + (slotW - cw) / 2, y: padY}));
   const railY = padY + ch + 16;
   if (railY + 10 > S.h + 2) why.push('board-h');
-  const tabs = tabSlots(n, cw, ch, 'top');
+  const edge = 'top';
+  const tabs = tabSlots(n, cw, ch, edge, true);
+  const trayStop = {x: 10, y: padY};
+  const step = (S.w - cw - 20) / n;
+  const stops = [trayStop, ...Array.from({length: n}, (_, k) => ({x: 10 + (k + 1) * step, y: padY}))];
   const stations = Array.from({length: n}, (_, k) => {
-    const s = stops[k + 1], t = tabs[k];
-    const hw = t.w + 30, hgt = 44;
-    const contact = {x: s.x + t.cx, y: s.y - hgt / 2 + 9};
-    return {k, x: (k + 1) * slotW + 6, w: slotW - 12, head: {w: hw, h: hgt}, contact, rest: {x: contact.x, y: trackY + hgt / 2 + 6}};
+    const st = stops[k + 1], t = tabs[k];
+    const hw = t.w + 26, hgt = 44;
+    const contact = {x: st.x + t.cx, y: st.y - hgt / 2 + 9};
+    return {k, x: contact.x - hw / 2 - 10, w: hw + 20, head: {w: hw, h: hgt}, contact, rest: {x: contact.x, y: trackY + hgt / 2 + 6}};
   });
   if (stations.some(st => st.contact.y - st.rest.y < 16)) why.push('press');
-  const rail = [{x: stops[0].x + cw / 2, y: railY}, {x: Math.min(S.w - 10, stops[n].x + cw + 10), y: railY}, {x: Math.min(S.w - 10, stops[n].x + cw + 10), y: C.y + C.h - 8}];
+  if (stations[0].x < trayStop.x + cw + 22) why.push('station-over-tray');
+  for (let k = 1; k < n; k++) if (stations[k].x < stations[k - 1].x + stations[k - 1].w + 2) why.push('stations');
+  const rail = [{x: trayStop.x + cw / 2, y: railY}, {x: Math.min(S.w - 8, stops[n].x + cw + 4), y: railY}, {x: Math.min(S.w - 8, stops[n].x + cw + 4), y: C.y + C.h - 8}];
+  const bed = {x: trayStop.x + cw + 18, y: padY - 8, w: stops[n].x + cw + 8 - (trayStop.x + cw + 18), h: ch + 16};
   const railLen = rail.reduce((a, q, i) => (i ? a + Math.hypot(q.x - rail[i - 1].x, q.y - rail[i - 1].y) : 0), 0);
   // legend placement
   let legend = null;
@@ -134,8 +140,8 @@ function geom(ctx, F, minF) {
   }
   const {pl, bad} = ns.place();
   if (bad) why.push('note-text');
-  if ([...capFits, head, clFit, propFit, ...legFits].some(f => f.bad)) why.push('text');
-  return {ok: !why.length, why, F, minF, n, side, sc, badgeR, capFits, hh, discR, slotW, cw, ch, cHead, propFit, C, head, headH, clause, attach, besideSpot, trackY, padY, stops, railY, tabs, stations, rail, railLen, legend, pipR, notesPl: pl};
+  [['capA', capFits[0]], ['capB', capFits[1]], ['head', head], ['clause', clFit], ['proposal', propFit], ...legFits.map((f, i) => [`leg${i}`, f])].forEach(([k, f]) => { if (f.bad) why.push(`text-${k}`); });
+  return {ok: !why.length, why, F, minF, n, side, bed, edge, sc, badgeR, capFits, hh, discR, cw, ch, cHead, propFit, C, head, headH, clause, attach, besideSpot, trackY, padY, stops, railY, tabs, stations, rail, railLen, legend, pipR, notesPl: pl};
 }
 
 const routeOf = (p, P) => (P === 'a' ? p.routeA : p.routeB);
@@ -167,19 +173,19 @@ const scene = {
         h('path', {d: railD, fill: 'none', stroke: '#cfc6b4', 'stroke-width': 12, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}),
         h('path', {name: `${P}-rail`, d: railD, fill: 'none', stroke: th.accent2, 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-dasharray': `${r(L.railLen + 2)} ${r(L.railLen + 30)}`, 'stroke-dashoffset': r(L.railLen + 2)}),
         g({transform: T(s0.x, s0.y)}, trayBack(ctx, L.cw, L.ch)),
-        // stations
+        // track bed and stations
+        h('path', {d: roundRectPath(L.bed.x, L.bed.y, L.bed.w, L.bed.h, 10), fill: '#f2ede3', stroke: '#c9bfab', 'stroke-width': 2}),
         L.stations.map(st => {
-          const s = L.stops[st.k + 1];
           const gx0 = st.x + 4, gx1 = st.x + st.w - 4;
           return g(null,
-            h('path', {d: roundRectPath(s.x - 7, s.y - 7, L.cw + 14, L.ch + 14, 10), fill: '#f2ede3', stroke: '#c9bfab', 'stroke-width': 2}),
-            h('path', {d: `M${r(gx0)} ${r(L.trackY)}V${r(L.railY)}M${r(gx1)} ${r(L.trackY)}V${r(L.railY)}`, stroke: '#8a919a', 'stroke-width': 7, 'stroke-linecap': 'round'}),
+            h('path', {d: `M${r(gx0)} ${r(L.trackY)}V${r(L.padY - 12)}M${r(gx1)} ${r(L.trackY)}V${r(L.padY - 12)}`, stroke: '#8a919a', 'stroke-width': 7, 'stroke-linecap': 'round'}),
             h('path', {d: roundRectPath(gx0 - 5, L.trackY - 7, gx1 - gx0 + 10, 15, 5), fill: '#6c747d', stroke: INK, 'stroke-width': 2}),
-            h('circle', {name: `${P}-lamp${st.k}`, cx: r((gx0 + gx1) / 2 + (st.contact.x > (gx0 + gx1) / 2 ? -30 : 30)), cy: r(L.trackY), r: 7, fill: th.accent2, stroke: INK, 'stroke-width': 1.4, opacity: 0}),
+            h('circle', {cx: r((gx0 + gx1) / 2), cy: r(L.trackY - 16), r: 7, fill: '#d9dde1', stroke: INK, 'stroke-width': 1.4}),
+            h('circle', {name: `${P}-lamp${st.k}`, cx: r((gx0 + gx1) / 2), cy: r(L.trackY - 16), r: 7, fill: th.accent2, stroke: INK, 'stroke-width': 1.4, opacity: 0}),
           );
         }),
         // the proposal card
-        g({name: `${P}-card`, transform: T(s0.x, s0.y)}, amendmentSheet(ctx, {w: L.cw, h: L.ch, fit: L.propFit, showText: show, name: `${P}-am`, n: L.n, edge: 'top', headH: L.cHead, sig: false})),
+        g({name: `${P}-card`, transform: T(s0.x, s0.y)}, amendmentSheet(ctx, {w: L.cw, h: L.ch, fit: L.propFit, showText: show, name: `${P}-am`, n: L.n, edge: L.edge, headH: L.cHead, sig: false, rev: true})),
         g({transform: T(s0.x, s0.y)}, trayLip(ctx, L.cw, L.ch)),
         // presses (over the card)
         L.stations.map(st => g({name: `${P}-press${st.k}`, transform: T(st.rest.x, st.rest.y)},

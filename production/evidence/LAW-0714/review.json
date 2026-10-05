@@ -164,11 +164,25 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "pass",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "evidence sheets 16:9/9:16/1:1 baseline plus own 1:1 --safe strips for default, baseline-illustrative, baseline-es and long-labels-stress viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0714/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0714/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0714/sheet-1x1-baseline.png"
+    ],
+    "findings": [
+      "1:1 qa sheet matches own shot.mjs --safe renders (default = baseline-illustrative, same layout/scale; sheet only differs in cell size) - no discrepancy",
+      "1:1 row layout now used for default, es and stress; row + record/legend strip span the safe box height with no empty band; pedestals ~21%, card ~25-30% of safe width",
+      "16:9 row layout fills safe box; 9:16 band layout acceptable",
+      "Equal neutral 'related as supplied' links for both lanes; no conclusion drawn",
+      "Minor: key pieces still modest at 1:1; legend text small"
+    ],
+    "sourceHash": "f0089d11d541c6d76f1c2fb2d5a156148980a952a45e3c65cc4de0fb03804b07",
+    "renderFingerprint": "9dfcab76badd6b7ba9e3b35db868eace21df908ca298dbf6f6aca78ca384970c",
+    "reviewedAt": "2026-10-05T23:39:10.674Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -185,29 +199,9 @@
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.12,0.35,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0714/thumb.png",
   "captureErrors": [],
-  "previousVisualReview": {
-    "status": "fail",
-    "reviewer": "claude subagent (independent reviewer, session 2)",
-    "method": "all contact sheets (16:9 baseline/alternative/long-labels/es, 9:16, 1:1) and 1:1 labels-hidden frame strip with safe box viewed as images; no real-time playback",
-    "live": null,
-    "artifacts": [
-      "production/evidence/LAW-0714/sheet-16x9-baseline.png",
-      "production/evidence/LAW-0714/sheet-16x9-alternative.png",
-      "production/evidence/LAW-0714/sheet-16x9-long-labels.png",
-      "production/evidence/LAW-0714/sheet-16x9-es.png",
-      "production/evidence/LAW-0714/sheet-9x16-baseline.png",
-      "production/evidence/LAW-0714/sheet-1x1-baseline.png"
-    ],
-    "findings": [
-      "16:9 restructure works: row lane A - convergence card - lane B with numbered connectors and record strip fills the safe box; pieces ~23%, card ~22% (grows in trace) - acceptable",
-      "Legal wording equal for both lanes; neutral",
-      "1:1 (baseline sheet and labels-hidden strip): row + record strip occupy only the top ~75% of the safe box; ~20-25% empty band at the bottom inside the safe box; lane pieces ~18-20% and card ~20-27% of safe width. Scale the row up into the free height (e.g. pieces ~28%, card ~35%) or put the record strip below a taller row",
-      "1:1 t=0.05: both lane pieces start overlapped in the centre over empty pedestals (separate phase) - ok as start but reads cluttered",
-      "9:16 still uses the older band layout (acceptable fill)"
-    ],
-    "sourceHash": "0d3c4a613068488879a93286469f81765d0e3d545517776736a5204e85f1ddd2",
-    "renderFingerprint": "7741f1a930b8fd0ff9650c32ef09f21d722478f17e58d583aa71a53a3718bd97",
-    "reviewedAt": "2026-10-05T23:28:09.798Z",
-    "invalidated": "source changed and rendered output differs from what was reviewed"
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
   }
 }

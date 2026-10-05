@@ -16,7 +16,7 @@
  *  0.81–0.87  a scope collar slides over the joint: solid for "claim covered as per supplied data" (●), dashed for
  *             "scope disputed (as supplied)" (◆) — same colour and width.
  *  0.87–1.00  hold: the supplied status joins the relation legend and the key "As supplied · no conclusion drawn"
- *             (legend and key are shown from 0.16).
+ *             (legend and key are shown throughout).
  * No indemnity doctrine: no duty to indemnify or pay, no decision on cover beyond the supplied datum, no amount
  * unless supplied (labelled hypothetical), no jurisdiction.
  * @module animations/contract-terms/LAW-0506
@@ -38,7 +38,7 @@ import {
 const ID = 'LAW-0506';
 const DURATION = 7000;
 const BEATS = {rest: [0, 0.18], action: [0.18, 0.6], complete: [0.6, 0.87], hold: [0.87, 1]};
-const W = {explode: [0.03, 0.17], tabsIn: [0.12, 0.18], legend: [0.16, 0.22], trace: [0.18, 0.56], tabsOut: [0.56, 0.6], plates: [0.6, 0.72], slip: [0.72, 0.81], collar: [0.81, 0.87], final: [0.87, 0.91]};
+const W = {explode: [0.03, 0.17], tabsIn: [0.12, 0.18], trace: [0.18, 0.56], tabsOut: [0.56, 0.6], plates: [0.6, 0.72], slip: [0.72, 0.81], collar: [0.81, 0.87], final: [0.87, 0.91]};
 const IDS = ['contract', 'clause', 'promise', 'claim'];
 const KINDS = ['relation', 'communication', 'sequence', 'causal'];
 
@@ -186,7 +186,7 @@ function notesLayout(ctx, panel, stress) {
   if (show) kinds.forEach(k => notes.push({name: `legend-${k}`, kind: 'legend', k, text: p.relationLabels[k] || k}));
   if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
   if (show) notes.push({name: 'final', kind: 'final', text: p.stateLabels[p.finalState], worst: worstState(p)});
-  const nF = (stress ? 19 : 23) / upx, minN = (stress ? 16.6 : 19.8) / upx;
+  const nF = (stress ? 20 : 27) / upx, minN = (stress ? 16.6 : 19.8) / upx;
   const gap = 14;
   const why = [];
   const chipOf = (q, x, yy, w, text) => chipG(ctx, text ?? q.text, {x, y: yy, anchor: 'middle', maxWidth: w, size: q.kind === 'key' ? nF * 0.92 : nF,
@@ -207,11 +207,18 @@ function notesLayout(ctx, panel, stress) {
     notes.forEach((q, i) => { const c = chipOf(q, cx, y, Wp); if (c.bad) why.push('note-text'); placed.push({q, c}); y += hs[i] + gap; });
     AB = box(m, m, D.w - 2 * m - Wp - 30, D.h - 2 * m);
   } else {
-    const Wp = D.w - 2 * m;
-    const hs = notes.map(q => chipOf(q, 0, 0, Wp, q.worst).box.h);
-    const total = hs.reduce((s, v) => s + v + gap, -gap);
-    let y = D.h - m - total;
-    notes.forEach((q, i) => { const c = chipOf(q, D.w / 2, y, Wp); if (c.bad) why.push('note-text'); placed.push({q, c}); y += hs[i] + gap; });
+    // one centred column, or two side by side when one would eat too much height
+    const one = notes.map(q => chipOf(q, 0, 0, D.w - 2 * m, q.worst).box.h).reduce((s0, v) => s0 + v + gap, -gap);
+    const two = notes.length > 1 && one > D.h * 0.16;
+    const cols = two ? [notes.slice(0, Math.ceil(notes.length / 2)), notes.slice(Math.ceil(notes.length / 2))] : [notes];
+    const Wp = two ? (D.w - 2 * m - 24) / 2 : D.w - 2 * m;
+    const colH = list0 => list0.reduce((s0, q) => s0 + chipOf(q, 0, 0, Wp, q.worst).box.h + gap, -gap);
+    const total = Math.max(...cols.map(colH));
+    cols.forEach((list0, ci) => {
+      const cx = two ? m + Wp / 2 + ci * (Wp + 24) : D.w / 2;
+      let y = D.h - m - total;
+      for (const q of list0) { const c = chipOf(q, cx, y, Wp); if (c.bad) why.push('note-text'); placed.push({q, c}); y += chipOf(q, 0, 0, Wp, q.worst).box.h + gap; }
+    });
     AB = box(m, m, D.w - 2 * m, D.h - 2 * m - total - 26);
     if (AB.h < D.h * 0.5) why.push('notes-too-tall');
   }
@@ -229,9 +236,13 @@ function model(ctx, F, Pw, mode, AB, stress, show) {
   const pi = promiseIndex(p);
   const te = 0.6 * F, padX = 1.7 * F, prong = 2.1 * F, ox = 1.5 * F;
   const side = mode === 'side' ? 'left' : 'top';
-  const slipW = (stress ? 12.5 : 10.5) * F;
   const gut = mode === 'side' ? 3.2 * F : 2.6 * F;
   const rowX = padX - 10, rowW = Pw - padX - gut + 10;
+  const fx0 = rowX - 12, frameW = rowW + 12;
+  const xg = rowX + rowW + 1.1 * F; // ('below') the rail's gutter
+  const fw = mode === 'side' ? Pw - 8 - fx0 : xg + 0.8 * F - fx0;
+  // the claim slip: as wide as the film beside the stack ('side'); about two thirds of the plate below it ('below')
+  const slipW = mode === 'side' ? Math.max(fw, (stress ? 12.5 : 10.5) * F) : Math.max(Pw * 0.62, (stress ? 12.5 : 10.5) * F);
   const ml = stress ? 4 : 3;
   const title = fitG(p.clauseTitle, {maxWidth: Pw - padX - 2.6 * F, size: F, minSize: F * 0.92, maxLines: 3, weight: 700});
   const rowFits = p.clauses.map(c => fitG(c, {maxWidth: rowW - 30, size: F, minSize: F * 0.92, maxLines: ml, weight: 600}));
@@ -244,13 +255,14 @@ function model(ctx, F, Pw, mode, AB, stress, show) {
   const nR = natRows.length, gap0 = 0.5 * F;
   const bottomPad = mode === 'side' ? 1.0 * F : 2.7 * F;
   const PhNat = rowsTop + natRows.reduce((s, v) => s + v, 0) + gap0 * (nR - 1) + bottomPad;
-  const TT = slipText(ctx, p, slipW, F, F * 0.92, stress, mode === 'side' ? 0 : 0);
-  if (TT.bad) why.push('slip-text');
+  const SF = mode === 'side' ? F * 1.2 : F * 1.1; // the claim's label reads large on its card
+  const TT0 = slipText(ctx, p, slipW, SF, F * 0.92, stress, 0);
+  if (TT0.bad) why.push('slip-text');
   const asp = AB.w / AB.h;
   // the plate grows (taller rows, wider gaps) until the assembled, plugged mechanism has the art box's proportions
   let Ph;
-  if (mode === 'side') Ph = Math.max(PhNat, Math.min(PhNat * 1.9, (ox + Pw + 4 + prong + slipW) / asp - oy - te - 14));
-  else Ph = Math.max(PhNat, Math.min(PhNat * 1.9, (ox + Pw + te + 10) / asp - oy - 4 - prong - TT.h - 14));
+  if (mode === 'side') Ph = Math.max(PhNat, Math.min(PhNat * 2, (ox + Pw + 4 + prong + slipW + 10) / asp - oy - te - 24));
+  else Ph = Math.max(PhNat, Math.min(PhNat * 1.9, (ox + Pw + te + 10) / asp - oy - 4 - prong - Math.max(TT0.h, 5 * F) - 24));
   const spare = Ph - PhNat;
   const grow = Math.min(spare * 0.45 / nR, 1.4 * F);
   const gapR = gap0 + (spare - grow * nR) / (nR + 0.6);
@@ -258,26 +270,19 @@ function model(ctx, F, Pw, mode, AB, stress, show) {
   const rows = rowFits.map((fit, i) => { const row = {y: yy, h: natRows[i] + grow, fit}; yy += row.h + gapR; return row; });
   const prow = rows[pi], cy = prow.y + prow.h / 2;
   const Hc = Ph * 0.9 + oy;
-  // socket, rails, film
-  let sockL, railD, fx0, fw, filmRail;
-  const fy0 = prow.y - 12, fh = prow.h + 24, frameW = rowW + 12;
-  fx0 = rowX - 12;
+  const fy0 = prow.y - 12, fh = prow.h + 24;
+  let sockL, railD, filmRail;
   if (mode === 'side') {
     sockL = {x: Pw, y: cy};
     railD = `M${r(rowX + rowW)} ${r(cy)}H${r(Pw - 34)}`;
-    fw = Pw - 8 - fx0;
     filmRail = `M${r(6 + frameW)} ${r(fh / 2)}H${r(fw - 8)}`;
   } else {
-    const xg = rowX + rowW + 1.1 * F;
     const sx = Pw - slipW / 2 - 0.4 * F;
     sockL = {x: sx, y: Ph};
     railD = `M${r(rowX + rowW)} ${r(cy)}H${r(xg)}V${r(Ph - 1.15 * F)}H${r(sx)}V${r(Ph - 34)}`;
-    fw = xg + 0.8 * F - fx0;
     filmRail = `M${r(6 + frameW)} ${r(fh / 2)}H${r(xg - fx0)}V${r(fh - 4)}`;
   }
   const claimAsm = mode === 'side' ? {x: sockL.x + 4, y: sockL.y} : {x: sockL.x, y: sockL.y + 4};
-  const sb = slipBox(TT, side, prong);
-  const claimLocal = side === 'left' ? box(0, sb.y, prong + sb.w + 10, sb.h + 12) : box(sb.x, 0, sb.w + 10, prong + sb.h + 12);
   // tabs
   const TF = F;
   const label = id => (p.elements.find(e => e.id === id) || {label: ''}).label;
@@ -285,67 +290,85 @@ function model(ctx, F, Pw, mode, AB, stress, show) {
   if (IDS.some(id => tabFits[id] && tabFits[id].bad)) why.push('tab-text');
   const tabW = id => (show && tabFits[id] ? tabFits[id].width : TF * 4) + 30;
   const tabH = (show && tabFits.contract ? tabFits.contract.height : TF * 1.18) + 14;
+  const ey = tabH + 0.9 * F;
+  // exploded offsets along the depth axis (contract back; the film and the claim forward)
+  const off = {contract: {x: -(mode === 'side' ? 2.2 : 1.4) * F, y: -ey}, clause: {x: 0, y: 0}, promise: {x: 0, y: 0}, claim: {x: 0, y: 0}};
+  let TT, rest, filmAbove = true;
+  if (mode === 'side') {
+    // exploded: a right-hand column beside the stack — the film (lifted off its line) and the claim slip, each with its tab
+    const cx = 3 * F;
+    const top = -oy - ey - tabH - 3, bot = Ph + te;
+    const filmLeft = Pw + 4 + cx + prong;
+    const gapC = 0.8 * F;
+    // film on top: the claim body runs from under the film to the plate's bottom
+    const bt1 = top + tabH + 3 + fh + gapC + tabH + 3;
+    const h1 = bot - bt1;
+    // film below: the claim body from the top down to above the film
+    const bt2 = top + tabH + 3;
+    const h2 = bot - fh - gapC - tabH - 3 - bt2;
+    const okAt = (bt, hh) => hh >= TT0.h && cy > bt + hh * 0.18 && cy < bt + hh * 0.82;
+    let bt, hh;
+    if (okAt(bt1, h1)) { bt = bt1; hh = h1; } else if (okAt(bt2, h2)) { bt = bt2; hh = h2; filmAbove = false; } else { hh = Math.max(TT0.h, Ph * 0.6); bt = cy - hh / 2; filmAbove = cy > Ph / 2; }
+    TT = slipText(ctx, p, slipW, SF, F * 0.92, stress, hh);
+    TT.prongAt = clamp((cy - bt) / TT.h, 0.12, 0.88);
+    const sbT = slipBox(TT, side, prong);
+    const bodyTop = cy + sbT.y, bodyBot = bodyTop + TT.h;
+    off.claim = {x: cx, y: 0};
+    const fyE = filmAbove ? bodyTop - tabH - 3 - gapC - fh : bodyBot + gapC + tabH + 3;
+    off.promise = {x: filmLeft - fx0, y: fyE - fy0};
+    rest = {x: 1.2 * F, y: 0};
+  } else {
+    TT = slipText(ctx, p, slipW, SF, F * 0.92, stress, Math.max(TT0.h, 5.2 * F));
+    rest = {x: 0, y: 1.5 * F};
+  }
+  const sb = slipBox(TT, side, prong);
+  const claimLocal = side === 'left' ? box(0, sb.y, prong + sb.w + 10, sb.h + 12) : box(sb.x, 0, sb.w + 10, prong + sb.h + 12);
   const tabL = {
-    contract: {x: F, y: -tabH - 3},
+    contract: {x: Wc - tabW('contract') - 1.6 * F, y: -tabH - 3},
     clause: {x: Pw - tabW('clause') - F, y: -tabH - 3},
-    promise: {x: 0.8 * F, y: fh + 3},
+    promise: mode === 'side' ? {x: 0.6 * F, y: -tabH - 3} : {x: fw - tabW('promise') - 0.6 * F, y: fh + 3},
     claim: side === 'left' ? {x: prong + 10, y: sb.y - tabH - 3} : {x: sb.x - tabW('claim') - 12, y: prong + 12},
   };
-  // the parts' boxes at their assembled origins
   const org = {contract: {x: -ox, y: -oy}, clause: {x: 0, y: 0}, promise: {x: fx0, y: fy0}, claim: claimAsm};
   const local = {contract: box(0, 0, Wc + te + 10, Hc + te + 14), clause: box(0, 0, Pw + te + 10 + (mode === 'side' ? 6 : 0), Ph + te + 14 + (mode === 'side' ? 0 : 6)), promise: box(0, 0, fw + 6, fh + 6), claim: claimLocal};
-  // exploded offsets along the depth axis (contract back, film and claim forward)
-  const ey = tabH + 0.9 * F;
-  const off = {
-    contract: {x: -(mode === 'side' ? 2.4 : 1.4) * F, y: -ey},
-    clause: {x: 0, y: 0},
-    promise: {x: (mode === 'side' ? 1.6 : 0.9) * F, y: Ph + te + 0.9 * F - fy0},
-    claim: mode === 'side' ? {x: 3.6 * F, y: 0} : {x: 0, y: 0},
-  };
-  const rest = mode === 'side' ? {x: 1.5 * F, y: 0} : {x: 0, y: 1.5 * F};
-  const filmBottomExp = () => fy0 + off.promise.y + fh + 6 + tabH + 3;
-  if (mode === 'below') off.claim.y = filmBottomExp() + 0.8 * F - claimAsm.y;
+  if (mode === 'below') {
+    off.promise = {x: 0.9 * F, y: Ph + te + 0.9 * F - fy0};
+    off.claim = {x: 0, y: fy0 + off.promise.y + fh + 6 + tabH + 3 + 0.8 * F - claimAsm.y};
+  }
   const bboxAt = (o, tabK, claimO) => {
     const bs = IDS.map(id => { const at = add(org[id], id === 'claim' ? claimO : o[id]); const b = local[id]; return box(at.x + b.x, at.y + b.y, b.w, b.h); });
     if (tabK > 0) for (const id of IDS) {
       const at = add(org[id], id === 'claim' ? claimO : o[id]);
       const tl = tabL[id];
-      // the tab's box, grown out of its edge of the part as the tabs come in
       const full = box(at.x + tl.x, at.y + tl.y, tabW(id), tabH);
       bs.push(box(full.x, full.y + (tl.y < 0 ? full.h * (1 - tabK) : 0), full.w, full.h * tabK));
     }
     const u0 = union(bs);
-    const pad = 10 + 26 * tabK;
+    const pad = 10 + 16 * tabK;
     return box(u0.x - pad, u0.y - pad, u0.w + 2 * pad, u0.h + 2 * pad);
   };
-  // balance the exploded view to the art box's proportions
-  let E = bboxAt(off, 1, off.claim);
-  const ratio = E.w / E.h;
-  if (ratio < asp) {
-    const extra = Math.min(asp * E.h - E.w, 14 * F);
-    if (mode === 'side') { off.claim.x += extra * 0.65; off.contract.x -= extra * 0.35; off.promise.x += extra * 0.3; }
-    else { off.contract.x -= extra * 0.5; off.promise.x += extra * 0.25; off.claim.x += Math.min(extra * 0.5, Math.max(0, -sb.x - tabW('claim') - 12 - 0)); }
-  } else {
-    const extra = Math.min(E.w / asp - E.h, 8 * F);
-    if (mode === 'side') { off.contract.y -= extra * 0.5; off.promise.y += extra * 0.5; }
-    else { off.contract.y -= extra * 0.34; off.promise.y += extra * 0.33; off.claim.y += extra * 0.66; }
+  if (mode === 'below') {
+    // balance the exploded view to the art box's proportions
+    const E0 = bboxAt(off, 1, off.claim);
+    if (E0.w / E0.h < asp) { const extra = Math.min(asp * E0.h - E0.w, 6 * F); off.contract.x -= extra * 0.5; off.promise.x += extra * 0.5; }
   }
-  E = bboxAt(off, 1, off.claim);
+  const E = bboxAt(off, 1, off.claim);
   const zero = {contract: {x: 0, y: 0}, clause: {x: 0, y: 0}, promise: {x: 0, y: 0}};
   const Aplug = bboxAt(zero, 0, {x: 0, y: 0});
   const Arest = bboxAt(zero, 0, rest);
   const camE = fitCam(AB, E), camA = fitCam(AB, Aplug);
   const fillOf = (b, c) => Math.min(b.w * c.Z / AB.w, b.h * c.Z / AB.h);
   const minSize = Math.min(head.size, title.size, ...rowFits.map(f => f.size), TT.label.size, ...(TT.amount ? [TT.amount.size] : []), ...IDS.map(id => (tabFits[id] ? tabFits[id].size : F)));
-  // the slip may not run into the film or its tab in the exploded view
+  // in the exploded view the slip (and its tab) may not run into the film (and its tab)
   const at = id => add(org[id], off[id]);
-  const filmB = box(at('promise').x, at('promise').y, fw + 6, fh + tabH + 10);
-  const cl = add(org.claim, off.claim);
-  const claimB = box(cl.x + claimLocal.x, cl.y + claimLocal.y - (side === 'left' ? tabH + 4 : 0), claimLocal.w + (side === 'top' ? 0 : 0), claimLocal.h + (side === 'left' ? tabH + 4 : 0));
-  if (overlaps(filmB, claimB, 8)) why.push('slip-meets-film');
+  const fA = at('promise');
+  const filmB = mode === 'side' ? box(fA.x, fA.y - tabH - 3, fw + 6, fh + tabH + 9) : box(fA.x, fA.y, fw + 6, fh + tabH + 10);
+  const cl = at('claim');
+  const claimB = side === 'left' ? box(cl.x + claimLocal.x, cl.y + claimLocal.y - tabH - 4, claimLocal.w, claimLocal.h + tabH + 4) : box(Math.min(cl.x + claimLocal.x, cl.x + tabL.claim.x), cl.y, claimLocal.w + tabW('claim') + 12, claimLocal.h);
+  if (overlaps(filmB, claimB, 4)) why.push('slip-meets-film');
   return {
     ok: !why.length, why, F, TF, Pw, Ph, Wc, Hc, band, oy, ox, te, padX, prong, side, mode, slipW, TT, sb, head, title, titleY, rows, rowX, rowW, pi,
-    sockL, railD, fx0, fy0, fw, fh, frameW, filmRail, claimAsm, tabFits, tabL, tabH, tabW: Object.fromEntries(IDS.map(id => [id, tabW(id)])), org, local, off, rest,
+    sockL, railD, fx0, fy0, fw, fh, frameW, filmRail, claimAsm, tabFits, tabL, tabH, tabW: Object.fromEntries(IDS.map(id => [id, tabW(id)])), org, local, off, rest, filmAbove,
     bboxAt, E, Aplug, Arest, camE, camA, fillE: fillOf(E, camE), fillA: fillOf(Aplug, camA), fillR: fillOf(Arest, fitCam(AB, Arest)), minSize,
   };
 }
@@ -354,15 +377,22 @@ function geom(ctx, fpx, mode, panel) {
   const upx = unitPx(ctx);
   const stress = isStress(ctx.params);
   const show = ctx.show('all');
-  const floorPx = stress ? 16.4 : 19.8;
+  const floorPx = stress ? 16.2 : 19.8;
   const F = fpx / upx;
   const N = notesLayout(ctx, panel, stress);
   let best = null;
-  for (const k of [14, 16.5, 19, 22, 25, 29]) {
+  // candidate plate widths: the one that sets the longest supplied line on one line, a little wider, and a fixed range
+  const p = ctx.params;
+  const nat = Math.max(...p.clauses.map(c => fitG(c, {maxWidth: 1e5, size: F, minSize: F, maxLines: 1, weight: 600}).width)) + 1.7 * F + (mode === 'side' ? 3.2 : 2.6) * F + 24;
+  const ks = [...new Set([nat / F, nat * 1.12 / F, 14, 17, 20, 24, 28].map(k => clamp(k, 13, 30)))];
+  for (const k of ks) {
     const M = model(ctx, F, k * F, mode, N.AB, stress, show);
     const px = M.minSize * M.camE.Z * upx;
     const fillMin = Math.min(M.fillE, M.fillA, M.fillR);
-    const score = (M.ok ? 0 : -1000) + (px >= floorPx ? 0 : -100) + Math.min(fillMin, 0.92) * 40 + Math.min(px, 30);
+    // prefer readable plates: few wrapped lines, then fill, then type size
+    const wraps = [M.head, M.title, ...M.rows.map(q => q.fit)].reduce((s0, q) => s0 + (q.lines ? q.lines.length - 1 : 0), 0);
+    const score = (M.ok ? 0 : -1000) + (px >= floorPx ? 0 : -100) + Math.min(fillMin, 0.92) * 40 + Math.min(px, 28) - 1.2 * wraps;
+    if (globalThis.DBG506 > 1) console.log('  k', r(k, 1), M.why.join(','), px.toFixed(1), fillMin.toFixed(2), wraps, JSON.stringify(M.E), JSON.stringify(M.Aplug));
     if (!best || score > best.score) best = {...M, score, px, fillMin};
   }
   const why = [...N.why, ...best.why];
@@ -376,12 +406,13 @@ const scene = {
     const p = ctx.params;
     const shape = ctx.view.shape;
     const stress = isStress(p);
-    const opts = shape === 'portrait' ? [['below', 'bottom']] : shape === 'square' ? [['below', 'right'], ['side', 'bottom'], ['side', 'right']] : [['side', 'right']];
+    const opts = shape === 'portrait' ? [['below', 'bottom']] : shape === 'square' ? [['side', 'bottom'], ['below', 'right'], ['side', 'right']] : [['side', 'right']];
     let L = null, firstOk = null;
     search: for (const fpx of stress ? [22, 20.5, 19, 18] : [26, 25, 24, 23, 22]) {
       for (const [mode, panel] of opts) {
         const c = geom(ctx, fpx, mode, panel);
-        if (!L || (c.ok && (!L.ok || c.fillMin > L.fillMin + 0.04))) L = c;
+        if (globalThis.DBG506) console.log(fpx, mode, panel, c.why.join(','), c.px.toFixed(1), c.fillMin.toFixed(2), r(c.Pw / c.F, 1), JSON.stringify(c.AB));
+        if (!L || (c.ok && (!L.ok || c.score > L.score + 2))) L = c;
         if (c.ok && !firstOk) firstOk = c;
       }
       if (L.ok) break search;
@@ -395,9 +426,11 @@ const scene = {
       const sh = (id, s) => Math.min(Math.abs(ux) > 1e-6 ? (L.tabW[id] / 2 + 6) / Math.abs(ux) : 1e9, Math.abs(uy) > 1e-6 ? (L.tabH / 2 + 6) / Math.abs(uy) : 1e9, len0 * 0.35) * s;
       const f = {x: A0.x + ux * sh(a0, 1), y: A0.y + uy * sh(a0, 1)};
       const t = {x: B0.x - ux * sh(b0, 1), y: B0.y - uy * sh(b0, 1)};
+      // bow away from the clause plate's centre (round the parts, not across their text)
       let nx = -uy, ny = ux;
-      if (nx + ny < 0) { nx = -nx; ny = -ny; }
-      const bow = Math.min(30, len0 * 0.12);
+      const mx = (f.x + t.x) / 2 - L.Pw / 2, my = (f.y + t.y) / 2 - L.Ph / 2;
+      if (nx * mx + ny * my < 0) { nx = -nx; ny = -ny; }
+      const bow = Math.min(50, len0 * 0.22);
       return {from: f, to: t, c1: {x: lerp(f.x, t.x, 0.3) + nx * bow, y: lerp(f.y, t.y, 0.3) + ny * bow}, c2: {x: lerp(f.x, t.x, 0.7) + nx * bow, y: lerp(f.y, t.y, 0.7) + ny * bow}};
     };
     const order = p.traversalOrder;
@@ -520,7 +553,7 @@ const scene = {
     const cf = L.mode === 'side' ? {x: 0, y: -3 * L.F} : {x: -3 * L.F, y: 0};
     nodes.collarG = {transform: T(r(K.x + cf.x * (1 - cE), 2), r(K.y + cf.y * (1 - cE), 2))};
     nodes.collar = {opacity: r(clamp(cq * 3), 3)};
-    const legO = seg(u, ...W.legend), fin = done ? seg(u, ...W.final) : 0;
+    const legO = 1, fin = done ? seg(u, ...W.final) : 0;
     for (const pl of L.placed) nodes[`${pl.q.name}-g`] = {opacity: r(pl.q.kind === 'final' ? fin : legO, 3)};
     const beat = u < BEATS.rest[1] ? 'rest' : u < BEATS.action[1] ? 'action' : u < BEATS.complete[1] ? 'complete' : 'hold';
     const S = q => ({x: r(cam.tx + cam.Z * q.x), y: r(cam.ty + cam.Z * q.y)});

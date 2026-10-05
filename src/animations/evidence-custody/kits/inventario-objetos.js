@@ -174,6 +174,7 @@ export const LINK = '#4f5b66';
  * @param {{n:number, S:number, sheetW:number, bagMode:'left'|'top', noBag?:boolean}} o
  */
 export function stationGeom(o) {
+  if (o.orient === 'h') return stationGeomH(o);
   const {n, S, bagMode} = o;
   const C = S * 1.24;                // cell size
   const gC = Math.max(8, S * 0.13);  // gap between cells
@@ -241,7 +242,60 @@ export function rowText(P, i) {
  * Fit the sheet rows for a geometry: every row text inside its band (≤ 3 lines), at size F.
  * @returns {{ok:boolean, fits:Array<any>, title:any}}
  */
+/**
+ * Horizontal station: the rack is one row of cells; each tag hangs below its cell and the inventory list is a ledger
+ * strip below the rack whose entry slots sit directly under their cells (links run straight down). The bag lies to the
+ * left. Used where the station box is wide and short (stacked contrast scenes, square / tall frames).
+ * @param {{n:number, S:number, sheetTextH?:number, noBag?:boolean, tagTextW?:number}} o
+ */
+export function stationGeomH(o) {
+  const {n, S} = o;
+  const C = S * 1.24, gC = Math.max(8, S * 0.13), p = Math.max(10, S * 0.12);
+  const pitch = C + gC;
+  const rackW = n * C + (n - 1) * gC + p * 2, rackH = C + p * 2;
+  const tagH = Math.max(30, S * 0.42);
+  const tagW = Math.max(S * 0.95, tagH * 2.3, (o.tagTextW || 0) / 0.6);
+  const chainL = Math.max(14, S * 0.16);
+  const tagZone = chainL * 0.6 + tagH * 0.95;
+  const linkGap = Math.max(24, S * 0.24);
+  const clipTop = Math.max(18, S * 0.18);
+  let B = null, bagSlots = [];
+  if (!o.noBag) {
+    const cols = 2, rowsN = Math.ceil(n / cols);
+    const innerW = cols * S * 0.86 + S * 0.12, innerH = (rowsN - 1) * S * 0.62 + S * 0.86;
+    B = bagModel(innerW / 0.84, innerH / 0.534);
+    bagSlots = Array.from({length: n}, (_, i) => ({x: B.inner.x + S * 0.06 + S * 0.43 + (i % 2) * S * 0.86 + (Math.floor(i / 2) % 2 ? S * 0.1 : 0), y: B.inner.y + S * 0.43 + Math.floor(i / 2) * S * 0.62}));
+  }
+  const bagGap = Math.max(26, S * 0.3);
+  const rackX = o.noBag ? 0 : B.w + bagGap, rackY = 0;
+  const cells = Array.from({length: n}, (_, i) => {
+    const x = rackX + p + i * pitch, y = rackY + p;
+    return {x, y, w: C, h: C, cx: x + C / 2, cy: y + C / 2, eyelet: {x: x + C * 0.16, y: y + C + p * 0.5}};
+  });
+  const tags = cells.map(c => ({hole: {x: c.eyelet.x + chainL * 0.25, y: c.eyelet.y + chainL * 0.6 + tagH * 0.3}, angle: 4}));
+  const badgeZone = Math.max(26, S * 0.24);
+  const sheetY = rackY + rackH + tagZone + linkGap;
+  const sheet = {x: rackX, y: sheetY, w: rackW, h: clipTop + badgeZone + (o.sheetTextH || 0) + 12};
+  const rows = cells.map(c => ({x: c.x - gC / 2, w: pitch, y: sheetY + clipTop + badgeZone * 0.5, top: sheetY + clipTop, h: sheet.h - clipTop, badge: {x: c.cx, y: sheetY + clipTop + badgeZone * 0.5}, textY: sheetY + clipTop + badgeZone + 4}));
+  const H0 = sheet.y + sheet.h;
+  const bagY = o.noBag ? 0 : Math.max(0, (H0 - B.h) / 2);
+  const W = rackX + rackW, H = Math.max(H0, o.noBag ? 0 : bagY + B.h);
+  return {orient: 'h', tagTextW: o.tagTextW || 0, n, S, C, gC, p, pitch, rackW, rackH, rackX, rackY, tagH, tagW, tagZone, linkGap, clipTop, cells, sheet, rows, W, H, B,
+    bag: o.noBag ? null : {x: 0, y: bagY, w: B.w, h: B.h}, slots: bagSlots.map(sl => ({x: sl.x, y: bagY + sl.y})), tags, chainL, bagMode: 'left', tagFitsCell: tagW <= pitch * 0.96};
+}
+
 export function fitSheet(G, texts, F, title) {
+  if (G.orient === 'h') {
+    const tw = G.pitch - 18;
+    let ok = tw > F * 3.2 && G.tagFitsCell;
+    const fits = texts.map(t => {
+      if (!t) return null;
+      const f = fitG(t, {maxWidth: tw, size: F, minSize: F, maxLines: 4, weight: 500});
+      if (!f.ok) ok = false;
+      return f;
+    });
+    return {ok, fits, title: null, badge: Math.max(F * 1.4, 26), tw, textH: Math.max(0, ...fits.filter(Boolean).map(f => f.height))};
+  }
   const badge = G.sheet.w * 0 + Math.max(F * 1.6, 30);
   const tw = G.sheet.w - badge - F * 1.4;
   let ok = tw > F * 4;
@@ -266,12 +320,18 @@ export function fitSheet(G, texts, F, title) {
  */
 export function fitStation(box, o) {
   let best = null;
-  for (const frac of o.sheetFrac || [0.32, 0.4, 0.48, 0.56]) {
+  for (const frac of (o.orient === 'h' ? [0] : o.sheetFrac || [0.32, 0.4, 0.48, 0.56])) {
     let hi = o.maxS ?? 260, lo = o.minS ?? 40;
     // geometry scales linearly in S except the sheet width; binary search the largest S that fits
     const tryS = S => {
       const sheetW = Math.max(box.w * frac, 0);
-      const G = stationGeom({n: o.n, S, sheetW, bagMode: o.bagMode, noBag: o.noBag, tagTextW: o.tagTextW ? o.tagTextW(Math.max(17, Math.min(o.F, Math.max(30, S * 0.42) * 0.5))) : 0});
+      const ttw = o.tagTextW ? o.tagTextW(Math.max(17, Math.min(o.F, Math.max(30, S * 0.42) * 0.5))) : 0;
+      let G = stationGeom({n: o.n, S, sheetW, bagMode: o.bagMode, noBag: o.noBag, tagTextW: ttw, orient: o.orient});
+      if (o.orient === 'h') {
+        const SF0 = fitSheet(G, o.texts, o.F, null);
+        if (!SF0.ok) return null;
+        G = stationGeom({n: o.n, S, noBag: o.noBag, tagTextW: ttw, orient: 'h', sheetTextH: SF0.textH});
+      }
       if (G.W > box.w + 0.5 || G.H > box.h + 0.5) return null;
       if (o.tagText && G.tagH < o.F * 1.45) return null;
       const SF = fitSheet(G, o.texts, o.F, o.title);
@@ -289,7 +349,7 @@ export function fitStation(box, o) {
       // give the sheet the width left over (bounded), so rows wrap less and the station spans its box
       const G0 = found.G;
       const extra = box.w - G0.W;
-      if (extra > 4 && !o.noExpand) {
+      if (extra > 4 && !o.noExpand && o.orient !== 'h') {
         const sheetW = Math.min(G0.sheet.w + extra, Math.max(G0.sheet.w, G0.S * 4.2));
         const G = stationGeom({n: o.n, S: G0.S, sheetW, bagMode: o.bagMode, noBag: o.noBag, tagTextW: G0.tagTextW});
         const SF = fitSheet(G, o.texts, o.F, o.title);
@@ -313,6 +373,8 @@ export function fitStation(box, o) {
  * @param {ReturnType<typeof stationGeom>} G
  * @param {{prefix:string, ox:number, oy:number, kinds:string[], SF:any, rowsLinked:boolean[], tagTexts:(string|null)[], tagFits?:any[], showText:boolean, noBag?:boolean, tagWritable?:boolean[]}} o
  */
+const N0badge = (o, G) => Math.min(o.SF.badge * 0.42, G.pitch * 0.2);
+
 export function stationNodes(ctx, G, o) {
   const P = o.prefix;
   const th = ctx.theme;
@@ -338,9 +400,24 @@ export function stationNodes(ctx, G, o) {
     h('path', {d: roundRectPath(X(sh.x) + 8, Y(sh.y) + G.clipTop * 0.55, sh.w - 16, sh.h - G.clipTop * 0.55 - 8, 6), fill: SHEET, stroke: shade(SHEET, -0.25), 'stroke-width': 1.5}),
     h('path', {d: roundRectPath(X(sh.x + sh.w * 0.3), Y(sh.y) - 4, sh.w * 0.4, G.clipTop * 0.8, 8), fill: '#9ea5ab', stroke: INK, 'stroke-width': 2}),
   ];
-  const badgeR = Math.min(o.SF.badge * 0.42, G.pitch * 0.2);
+  const badgeR = N0badge(o, G);
   const rowNodes = [];
   G.rows.forEach((rw, i) => {
+    if (G.orient === 'h') {
+      if (i < G.n - 1) sheetParts.push(h('line', {x1: r(X(rw.x + rw.w)), x2: r(X(rw.x + rw.w)), y1: r(Y(rw.top) + 6), y2: r(Y(sh.y + sh.h) - 14), stroke: RULE, 'stroke-width': 2}));
+      const fitH = o.SF.fits[i];
+      const partsH = [];
+      const bxh = X(rw.badge.x), byh = Y(rw.badge.y);
+      if (fitH) {
+        partsH.push(h('circle', {cx: r(bxh), cy: r(byh), r: r(badgeR), fill: '#fff', stroke: LINK, 'stroke-width': 2.4}));
+        partsH.push(h('circle', {cx: r(bxh), cy: r(byh), r: r(badgeR * 0.38), fill: LINK}));
+        const tx = X(rw.x) + 9;
+        if (o.showText) partsH.push(textAt(fitH, {x: tx, y: Y(rw.textY), fill: INK}));
+        else fitH.lines.forEach((_, k) => partsH.push(h('path', {d: scribble(ctx, `${P}-row${i}-${k}`, tx, tx + Math.min(o.SF.tw, fitH.width) * (k === fitH.lines.length - 1 ? 0.8 : 1), Y(rw.textY) + fitH.size * 0.62 + k * fitH.lineHeight, fitH.size * 0.32), fill: 'none', stroke: WRITE_INK, 'stroke-width': 2.2, 'stroke-linecap': 'round'})));
+      }
+      rowNodes.push(g({name: `${P}-row${i}`}, partsH));
+      return;
+    }
     const y0 = Y(rw.top + rw.h);
     if (i < G.n - 1) sheetParts.push(h('line', {x1: r(X(sh.x) + 18), x2: r(X(sh.x + sh.w) - 18), y1: r(y0), y2: r(y0), stroke: RULE, 'stroke-width': 2}));
     const bx = X(sh.x) + 14 + badgeR, by = Y(rw.y);
@@ -395,6 +472,10 @@ export function stationNodes(ctx, G, o) {
     const t = G.tags[i];
     const a = (t.angle * Math.PI) / 180;
     const tip = {x: X(t.hole.x) + Math.cos(a) * (TG.x1 + 4), y: Y(t.hole.y) + Math.sin(a) * (TG.x1 + 4)};
+    if (G.orient === 'h') {
+      const from = {x: X(t.hole.x) + TG.w * 0.45, y: Y(t.hole.y) + G.tagH * 0.52};
+      return linkLine(`${P}-ln${i}`, from, {x: X(G.rows[i].badge.x), y: Y(G.rows[i].badge.y) - N0badge(o, G)}, Math.max(4, S * 0.045), true);
+    }
     const bx = X(sh.x) + 14, by = Y(G.rows[i].y);
     return linkLine(`${P}-ln${i}`, tip, {x: bx, y: by}, Math.max(4, S * 0.045));
   });
@@ -618,9 +699,9 @@ export function listIcon(s) {
  * Plain relation line (no arrowhead): a light cord with a dark outline and round end dots, drawn on with
  * stroke-dashoffset. Readable on the dark mat and on the paper sheet.
  */
-export function linkLine(name, a, b, w) {
-  const mx = (a.x + b.x) / 2;
-  const d = `M${r(a.x)} ${r(a.y)}C${r(mx)} ${r(a.y)} ${r(mx)} ${r(b.y)} ${r(b.x)} ${r(b.y)}`;
+export function linkLine(name, a, b, w, vertical = false) {
+  const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+  const d = vertical ? `M${r(a.x)} ${r(a.y)}C${r(a.x)} ${r(my)} ${r(b.x)} ${r(my)} ${r(b.x)} ${r(b.y)}` : `M${r(a.x)} ${r(a.y)}C${r(mx)} ${r(a.y)} ${r(mx)} ${r(b.y)} ${r(b.x)} ${r(b.y)}`;
   const total = Math.hypot(b.x - a.x, b.y - a.y) * 1.08 + 4;
   const node = g({name},
     h('path', {name: `${name}-o`, d, fill: 'none', stroke: INK, 'stroke-width': r(w + 4, 2), 'stroke-linecap': 'round', 'stroke-dasharray': `${r(total)} ${r(total + 20)}`, 'stroke-dashoffset': r(total)}),

@@ -89,14 +89,13 @@ function stripRows(ctx, P, k) {
   const showKey = ctx.show('key'), showAll = ctx.show('all');
   const rows = [];
   if (showKey) rows.push({kind: 'heading', text: P.changedFact, name: 'changed'});
-  if (showAll && P.scenarioA.caption) rows.push({kind: 'item', icon: 'row-filled', text: `A: ${P.scenarioA.caption}`, name: 'capA'});
-  if (showAll && P.scenarioB.caption) rows.push({kind: 'item', icon: 'row-blank', text: `B: ${P.scenarioB.caption}`, name: 'capB'});
+  const caps = [P.scenarioA.caption && `A: ${P.scenarioA.caption}`, P.scenarioB.caption && `B: ${P.scenarioB.caption}`].filter(Boolean);
+  if (showAll && caps.length) rows.push({kind: 'item', icon: 'row-filled', text: caps.join(' · '), name: 'caps'});
   if (showKey) rows.push({kind: 'item', icon: 'ring', color: ctx.theme.accent3, text: P.comparisonLabels.guide, name: 'guide-row'});
   // compact: shared content is drawn once, one row per field (items, custodians, times)
   if (showAll) rows.push({kind: 'item', icon: `item-${P.items[k].kind}`, text: P.items.map((it, i) => (i === k ? `${it.id} (B: ${P.labels.noEntry})` : it.id)).join(' · '), name: 'lg-items'});
-  if (showAll) P.sharedFacts.forEach((f, i) => rows.push({kind: 'item', icon: 'row-filled', text: f, name: `shared${i}`}));
-  if (showAll) rows.push({kind: 'item', icon: 'glove', text: P.custodians.map(c => `${c.name} (${c.role})`).join(' · '), name: 'lg-cus'});
-  if (showAll) rows.push({kind: 'item', icon: 'clock', text: P.timestamps.map(t => `${t.label} ${t.time}`).join(' · '), name: 'lg-time'});
+  if (showAll && P.sharedFacts.length) rows.push({kind: 'item', icon: 'row-filled', text: P.sharedFacts.join(' · '), name: 'shared'});
+  if (showAll) rows.push({kind: 'item', icon: 'glove', text: [...P.custodians.map(c => `${c.name} (${c.role})`), ...P.timestamps.map(t => `${t.label} ${t.time}`)].join(' · '), name: 'lg-cus'});
   if (showKey) rows.push({kind: 'state', text: P.comparisonLabels.neutral, name: 'neutral'});
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
   return rows;
@@ -111,7 +110,16 @@ function columns(ctx, rows, cols, colW, F) {
     const half = all.h / cols;
     let idx = all.rows.findIndex(rw => rw.y + rw.h > half);
     idx = Math.max(1, Math.min(rows.length - 1, idx + 1));
-    PLs = [panelLayout(ctx, rows.slice(0, idx), {w: colW, F, maxLines: 6}), panelLayout(ctx, rows.slice(idx), {w: colW, F, maxLines: 6})];
+    // balanced split into `cols` columns
+    PLs = [];
+    let start = 0;
+    for (let c = 0; c < cols; c++) {
+      const target = (all.h * (c + 1)) / cols;
+      let end = c === cols - 1 ? rows.length : Math.max(start + 1, all.rows.findIndex(rw => rw.y + rw.h > target) + 1);
+      end = Math.min(rows.length - (cols - 1 - c), Math.max(start + 1, end));
+      if (end > start) PLs.push(panelLayout(ctx, rows.slice(start, end), {w: colW, F, maxLines: 6}));
+      start = end;
+    }
   }
   return {cols: PLs, h: Math.max(...PLs.map(q => q.h)), ok: PLs.every(q => q.ok), colW};
 }
@@ -121,15 +129,17 @@ function compose(ctx, P, k) {
   const shape = ctx.view.shape;
   const n = P.items.length;
   const tA = rowTexts(P, k, 'A'), tB = rowTexts(P, k, 'B');
+  // stacked stations (one above the other) use the horizontal station (rack row, list slots under the cells);
+  // side-by-side stations use the vertical one. The shared strip is drawn once.
   const opts = shape === 'portrait'
-    ? [{arr: 'column', strip: 'below', cols: 1}, {arr: 'column', strip: 'below', cols: 2}]
+    ? [{arr: 'column', strip: 'below', cols: 2}, {arr: 'column', strip: 'below', cols: 1}]
     : shape === 'square'
-      ? [{arr: 'row', strip: 'below', cols: 2}, {arr: 'row', strip: 'below', cols: 1}, {arr: 'column', strip: 'side', pw: 0.36}, {arr: 'row', strip: 'side', pw: 0.3}, {arr: 'column', strip: 'side', pw: 0.3}, {arr: 'column', strip: 'below', cols: 2}]
-      : [{arr: 'row', strip: 'below', cols: 2}, {arr: 'row', strip: 'side', pw: 0.24}, {arr: 'row', strip: 'side', pw: 0.3}];
+      ? [{arr: 'column', strip: 'below', cols: 2}, {arr: 'column', strip: 'below', cols: 3}, {arr: 'column', strip: 'side', pw: 0.3}, {arr: 'row', strip: 'below', cols: 2}, {arr: 'row', strip: 'below', cols: 3}]
+      : [{arr: 'row', strip: 'below', cols: 3}, {arr: 'row', strip: 'side', pw: 0.24}, {arr: 'column', strip: 'side', pw: 0.26}, {arr: 'column', strip: 'side', pw: 0.32}];
   let best = null, bestScore = -1, fallback = null;
   for (const F of F_SIZES) {
     const rows = stripRows(ctx, P, k);
-    const headerH = ctx.show('key') ? Math.max(F * 2.6, 56) : 40;
+    const headerH = ctx.show('key') ? Math.max(F * 2.1, 46) : 34;
     for (const opt of opts) {
       const gap = F * 1.1;
       let area = {x: 0, y: 0, w: DW, h: DH}, strip = null, PL = null;
@@ -156,10 +166,10 @@ function compose(ctx, P, k) {
       const b0 = benches[0];
       const inset = Math.max(12, Math.min(b0.w, b0.h) * 0.035);
       const pad = inset + 10;
-      const box = {w: b0.w - pad * 2, h: b0.h - pad * 2 - Math.min(40, b0.h * 0.06)};
+      const box = {w: b0.w - pad * 2, h: b0.h - pad * 2 - Math.min(30, b0.h * 0.05)};
       let st = null;
-      for (const bagMode of ['left', 'top']) {
-        const sA = fitStation(box, {n, texts: tA, F, bagMode, title: null, tagText: ctx.show('key'), sheetFrac: [0.34, 0.44, 0.54, 0.62], minS: 26, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...P.records.map(rw => rw.field).map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null});
+      for (const [bagMode, orient] of [['left', 'v'], ['top', 'v'], ['left', 'h']]) {
+        const sA = fitStation(box, {n, texts: tA, F, bagMode, orient, title: null, tagText: ctx.show('key'), sheetFrac: [0.34, 0.44, 0.54, 0.62], minS: 26, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...P.records.map(rw => rw.field).map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null});
         if (!sA) continue;
         // B uses the same S and sheet width as A (identical scale); only its row texts differ
         if (!st || sA.G.S > st.G.S) st = sA;
@@ -207,8 +217,12 @@ const scene = {
       const bb = bench.y + bench.h;
       const armW = Math.max(24, Math.min(46, G.S * 0.26));
       const rackMid = X(G.rackX + G.rackW / 2), bagMid = X(G.bag.x + G.bag.w / 2);
-      const shoulder = {x: clamp(G.bagMode === 'left' ? (rackMid + bagMid) / 2 : rackMid + G.S * 0.3, bench.x + 40, bench.x + bench.w - 40), y: bb + Math.max(50, bench.h * 0.08)};
-      world.rest = {x: shoulder.x + armW * 0.3, y: bb - armW * 1.6};
+      // horizontal stations keep their list along the bench's lower edge, so the arm enters from the upper edge
+      const fromTop = G.orient === 'h';
+      const shoulder = fromTop
+        ? {x: clamp((rackMid + bagMid) / 2, bench.x + 40, bench.x + bench.w - 40), y: bench.y - Math.max(50, bench.h * 0.1)}
+        : {x: clamp(G.bagMode === 'left' ? (rackMid + bagMid) / 2 : rackMid + G.S * 0.3, bench.x + 40, bench.x + bench.w - 40), y: bb + Math.max(50, bench.h * 0.08)};
+      world.rest = fromTop ? {x: shoulder.x + armW * 0.3, y: bench.y + armW * 1.4} : {x: shoulder.x + armW * 0.3, y: bb - armW * 1.6};
       const N = stationNodes(ctx, G, {prefix: pref, ox, oy, kinds: P.items.map(it => it.kind), SF: si === 0 ? SFA : SFB, tagFits: tagFits(linked), showText: ctx.show('key'), tagWritable: linked});
       return {bench, ox, oy, linked, pref, world, shoulder, armW, N};
     });
@@ -225,11 +239,12 @@ const scene = {
     // guide rings: the changed cell + tag + row space band, in both stations
     const guide = sides.map(sd => {
       const c = G.cells[k];
+      if (G.orient === 'h') return {x: sd.ox + c.x - G.gC / 2 - 2, y: sd.oy + c.y - 10, w: G.pitch + 4, h: G.sheet.y + G.sheet.h - c.y + 18};
       const x0 = sd.ox + c.x - 10, x1 = sd.ox + G.sheet.x + G.sheet.w + 8;
       const y0 = sd.oy + c.y - G.gC / 2 - 4, y1 = sd.oy + c.y + c.h + G.gC / 2 + 4;
       return {x: x0, y: y0, w: x1 - x0, h: y1 - y0};
     });
-    const rowRing = sides.map(sd => ({x: sd.ox + G.sheet.x + 6, y: sd.oy + G.rows[k].top + 2, w: G.sheet.w - 12, h: G.rows[k].h - 4}));
+    const rowRing = sides.map(sd => G.orient === 'h' ? {x: sd.ox + G.rows[k].x + 4, y: sd.oy + G.rows[k].top + 2, w: G.rows[k].w - 8, h: G.rows[k].h - 10} : ({x: sd.ox + G.sheet.x + 6, y: sd.oy + G.rows[k].top + 2, w: G.sheet.w - 12, h: G.rows[k].h - 4}));
     let guideFit = null;
     if (ctx.show('key')) {
       guideFit = fitG(P.comparisonLabels.guide, {maxWidth: Math.min(C.benches[0].w * 0.9, 520), size: Math.min(C.F, 22), minSize: 16, maxLines: 2, weight: 700});
