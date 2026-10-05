@@ -185,7 +185,7 @@ const scene = {
     const kinds = [...new Set(P.relationships.map(rl => rl.kind))];
     const rows = legendRows(ctx, P, recs, kinds);
     const opts = shape === 'portrait' ? [{mode: 'below', cols: 1}, {mode: 'below', cols: 2}]
-      : shape === 'square' ? [{mode: 'side', pw: 0.3}, {mode: 'side', pw: 0.36}, {mode: 'below', cols: 2}]
+      : shape === 'square' ? [{mode: 'side', pw: 0.3}, {mode: 'side', pw: 0.36}, {mode: 'side', pw: 0.42}, {mode: 'below', cols: 2}]
         : [{mode: 'side', pw: 0.22}, {mode: 'side', pw: 0.26}, {mode: 'side', pw: 0.3}];
     const sts = [{tray: 'right', trayFrac: 0.3, approach: 'down'}, {tray: 'right', trayFrac: 0.36, approach: 'down'}, {tray: 'top', trayFrac: 0.28, approach: 'down'}, {tray: 'right', trayFrac: 0.3, approach: 'left'}];
     let C = null, best = null, bestScore = -1, firstOk = -1;
@@ -251,7 +251,11 @@ const scene = {
     const prints = ['scene', 'object'].map((t, i) => g({name: `pm${i}`}, g({name: `el-${i ? 'detail' : 'overview'}-s`}, printArt(ctx, G, G.fields[t], {name: `mp${i}`, pw, ph, index: i, rows: L.recs, ruler: true, numberText: ctx.show('key') ? String(i + 1) : null}))));
     const chips = EL.filter(id => C.chips[id]).map(id => {
       const ch = C.chips[id];
+      const cc = {x: ch.box.x + ch.box.w / 2, y: ch.box.y + ch.box.h / 2};
+      const la = edgeAnchor(ch.box, L.ctr[id], 0), lb = edgeAnchor(C.B[id], cc, 2);
+      const lead = Math.hypot(la.x - lb.x, la.y - lb.y) > 10 ? h('path', {d: `M${r(la.x)} ${r(la.y)}L${r(lb.x)} ${r(lb.y)}`, stroke: '#f4f1ea', 'stroke-width': 2, 'stroke-dasharray': '4 4'}) : null;
       return g({name: `chip-${id}`, opacity: 0},
+        lead,
         h('path', {d: roundRectPath(ch.box.x, ch.box.y, ch.box.w, ch.box.h, 8), fill: th.card, stroke: INK, 'stroke-width': 1.6, opacity: 0.95}),
         textAt(ch.fit, {x: ch.box.x + C.F * 0.45, y: ch.box.y + C.F * 0.25, fill: INK}));
     });

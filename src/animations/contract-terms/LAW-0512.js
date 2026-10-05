@@ -130,7 +130,7 @@ function geom(ctx, F, minF) {
   // lens source: the changed plaque (+ ornament and the line end), whole fields only
   const P = plq[ck];
   const m = 26;
-  const src = hz ? {x: P.x - 22, y: P.y - top - m, w: P.w + 22 + Math.min(10, D.w - (P.x + P.w) - 2), h: P.h + top + 2 * m} : {x: P.x - m * 0.6, y: P.y - top - 70, w: P.w + m * 1.2, h: P.h + top + 70 + m * 0.6};
+  const src = hz ? {x: P.x - 22, y: P.y - top - m, w: P.w + 22 + Math.min(10, D.w - (P.x + P.w) - 2), h: P.h + top + 2 * m} : {x: P.x - m * 0.6, y: P.y - top - 40, w: P.w + m * 1.2, h: P.h + top + 40 + m * 0.6};
   src.w = Math.min(src.w, D.w - src.x - 1);
   const wasSize0 = Math.max((stress ? 16.4 : 19.8) / unitPx(ctx) / 1.5, F * 0.6);
   const wasFit = fitG(`${ctx.t.was}: ${p.destinations[ck]}`, {maxWidth: P.w - 30, size: wasSize0, minSize: wasSize0, maxLines: 2, weight: 600});
