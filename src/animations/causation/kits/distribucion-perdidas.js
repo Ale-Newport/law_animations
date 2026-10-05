@@ -472,11 +472,12 @@ export function arrangeScene(ctx, o) {
       const pws = mode === 'side' ? (o.sideWs ?? [0.3, 0.36, 0.42, 0.5]).map(f => Math.round(full * f)) : [full];
       for (const pw of pws) {
         const panel = o.items.length ? panelFlow(ctx, o.items, size, pw, o.memo, {center: mode !== 'side'}) : {placed: [], h: 0, bad: false};
-        if (panel.bad) continue;
+        if (panel.bad) { if (globalThis.__dpdbg) globalThis.__dpdbg.push(`${size}/${mode}/${pw}:bad`); continue; }
         let bw, bh;
         if (mode === 'side') { if (panel.h > fullH) continue; bw = full - pw - GAP; bh = fullH; } else { bw = full; bh = fullH - (panel.h ? panel.h + GAP : 0); }
         if (bw < 100 || bh < 100) continue;
         const S = maxScale(s => { const d = st.dims(s); return d.w <= bw && d.h <= bh; }, 40, o.sMax ?? 2000);
+        if (globalThis.__dpdbg) globalThis.__dpdbg.push(`${size}/${mode}/${pw}:S${Math.round(S)} ph${Math.round(panel.h)}`);
         if (!S) continue;
         if (!best || S > best.S + 1e-6) best = {size, mode, S, pw, panel, bw, bh};
       }

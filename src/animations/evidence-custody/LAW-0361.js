@@ -167,16 +167,17 @@ const scene = {
     const opts = shape === 'portrait' ? [{mode: 'below', cols: 1}, {mode: 'below', cols: 2}]
       : shape === 'square' ? [{mode: 'side', pw: 0.42}, {mode: 'side', pw: 0.48}, {mode: 'below', cols: 2}]
         : [{mode: 'side', pw: 0.32}, {mode: 'side', pw: 0.36}, {mode: 'side', pw: 0.4}];
-    let C = null;
+    // score = object size, discounted for smaller text (larger scene first, text never below the floor)
+    let C = null, best = null, bestScore = -1;
     for (const F of SIZES) {
-      let best = null;
       for (const opt of opts) {
         const c = compose(ctx, P, recs, rows, F, opt);
-        if (c.ok && (!best || c.G.S > best.G.S)) best = c;
+        const score = c.G.S * Math.sqrt(F / 24) * (F < 19.5 ? 0.7 : 1);
+        if (c.ok && score > bestScore) { best = c; bestScore = score; }
         if (!C || c.problems.length < C.problems.length) C = c;
       }
-      if (best) { C = best; break; }
     }
+    if (best) C = best;
     // arms: shoulders below the bench's lower edge
     const G = C.G;
     const bb = C.bench.y + C.bench.h;

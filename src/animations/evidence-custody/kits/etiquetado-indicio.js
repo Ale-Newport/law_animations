@@ -54,33 +54,39 @@ export function recordLine(rw, blank) {
 export function stageModel(box, o) {
   const wide = box.w / box.h > 1.12;
   const k = o.scale ?? 1;
-  const S = (wide ? Math.min(box.w * 0.2, box.h * 0.29) : Math.min(box.w * 0.37, box.h * 0.23)) * k;
+  const hangAngle = o.kind === 'cup' ? 80 : o.kind === 'box' ? 70 : 55; // degrees: chain direction (anchor -> hole) once released
+  const tagAngle = o.kind === 'cup' ? 68 : o.kind === 'box' ? 55 : 35; // the tag's own angle when clipped and released
+  // extent of object + hanging tag for S = 1 (everything scales linearly with S)
+  const ext = s => {
+    const M = objectModel(o.kind, s);
+    const TG = tagModel({w: s * 1.28, h: s * 0.66, rows: o.rows});
+    const ha = (hangAngle * Math.PI) / 180, ta = (tagAngle * Math.PI) / 180;
+    const hx = M.anchor.x + Math.cos(ha) * s * 0.34, hy = M.anchor.y + Math.sin(ha) * s * 0.34;
+    const pts = [[TG.x0, -TG.h / 2], [TG.x1, -TG.h / 2], [TG.x1, TG.h / 2], [TG.x0, TG.h / 2]].map(([x, y]) => ({x: hx + x * Math.cos(ta) - y * Math.sin(ta), y: hy + x * Math.sin(ta) + y * Math.cos(ta)}));
+    return {minX: Math.min(-M.w / 2, ...pts.map(p => p.x)), maxX: Math.max(M.w / 2, ...pts.map(p => p.x)), minY: Math.min(-M.h / 2, ...pts.map(p => p.y)), maxY: Math.max(M.h / 2, ...pts.map(p => p.y))};
+  };
+  const e1 = ext(1);
+  const bhR = Math.max(2.8, (e1.maxY - e1.minY) / 0.534 + 0.08);
+  const bwR = Math.max(1.9, (e1.maxX - e1.minX) / 0.84 + 0.08);
+  const S = (wide ? Math.min(box.w * 0.2, box.h * 0.29, box.h * 0.9 / bhR) : Math.min(box.w * 0.37, box.h * 0.23, box.h * 0.6 / bhR, box.w * 0.8 / bwR)) * k;
   const M = objectModel(o.kind, S);
   const TG = tagModel({w: S * 1.28, h: S * 0.66, rows: o.rows});
-  const B = bagModel(S * 1.9, S * 2.8);
+  const B = bagModel(S * bwR, S * bhR);
   let obj0, tagHole0, bag;
   if (wide) {
     bag = {x: box.x + box.w * 0.95 - B.w, y: box.y + (box.h - B.h) / 2};
     obj0 = {x: box.x + box.w * 0.24, y: box.y + box.h * 0.3};
     tagHole0 = {x: box.x + box.w * 0.12, y: box.y + box.h * 0.72};
   } else {
-    bag = {x: box.x + (box.w - B.w) / 2 + box.w * 0.12, y: box.y + box.h * 0.975 - B.h};
+    bag = {x: box.x + Math.min(box.w - B.w - box.w * 0.03, (box.w - B.w) / 2 + box.w * 0.12), y: box.y + box.h * 0.975 - B.h};
     obj0 = {x: box.x + box.w * 0.3, y: box.y + box.h * 0.15};
     tagHole0 = {x: box.x + box.w * 0.08 + TG.h * 0.3, y: box.y + box.h * 0.36};
   }
   const chainL = S * 0.34;
-  const hangAngle = 55; // degrees: rest direction of the chain (anchor -> hole) once released
-  const tagAngle = 35; // the tag's own angle when it is clipped and released
-  // object resting place inside the bag: the union of object + hanging tag is centred in the inner film
-  const ha = (hangAngle * Math.PI) / 180, ta = (tagAngle * Math.PI) / 180;
-  const ax = M.anchor.x, ay = M.anchor.y;
-  const hx = ax + Math.cos(ha) * chainL, hy = ay + Math.sin(ha) * chainL;
-  const tagPts = [[TG.x0, -TG.h / 2], [TG.x1, -TG.h / 2], [TG.x1, TG.h / 2], [TG.x0, TG.h / 2]].map(([x, y]) => ({x: hx + x * Math.cos(ta) - y * Math.sin(ta), y: hy + x * Math.sin(ta) + y * Math.cos(ta)}));
-  const minX = Math.min(-M.w / 2, ...tagPts.map(p => p.x)), maxX = Math.max(M.w / 2, ...tagPts.map(p => p.x));
-  const minY = Math.min(-M.h / 2, ...tagPts.map(p => p.y)), maxY = Math.max(M.h / 2, ...tagPts.map(p => p.y));
+  const e = ext(S);
   const I = B.inner;
-  const objIn = {x: bag.x + I.x + (I.w - (maxX - minX)) / 2 - minX, y: bag.y + I.y + Math.max(0, (I.h - (maxY - minY)) / 2) - minY};
-  const fitsBag = maxX - minX <= I.w + 2 && maxY - minY <= I.h + B.h * 0.08;
+  const objIn = {x: bag.x + I.x + (I.w - (e.maxX - e.minX)) / 2 - e.minX, y: bag.y + I.y + Math.max(0, (I.h - (e.maxY - e.minY)) / 2) - e.minY};
+  const fitsBag = e.maxX - e.minX <= I.w + 2 && e.maxY - e.minY <= I.h + 2;
   return {wide, S, M, TG, B, bag, obj0, objIn, tagHole0, chainL, hangAngle, tagAngle, tableAngle: -10, fitsBag, box};
 }
 
