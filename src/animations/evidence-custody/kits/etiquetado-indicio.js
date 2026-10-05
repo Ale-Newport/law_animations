@@ -54,8 +54,9 @@ export function recordLine(rw, blank) {
 export function stageModel(box, o) {
   const wide = box.w / box.h > 1.12;
   const k = o.scale ?? 1;
-  const hangAngle = o.hangAngle ?? (o.kind === 'cup' ? 80 : o.kind === 'box' ? 70 : 55); // degrees: chain direction (anchor -> hole) once released
-  const tagAngle = o.tagAngle ?? (o.kind === 'cup' ? 68 : o.kind === 'box' ? 55 : 35); // the tag's own angle when clipped and released
+  const FL = o.flat ? {key: [30, 12], cup: [60, 30], box: [45, 20]}[o.kind] : null; // short benches: a shallower hang keeps the bag low
+  const hangAngle = o.hangAngle ?? (FL ? FL[0] : null) ?? (o.kind === 'cup' ? 80 : o.kind === 'box' ? 70 : 55); // degrees: chain direction (anchor -> hole) once released
+  const tagAngle = o.tagAngle ?? (FL ? FL[1] : null) ?? (o.kind === 'cup' ? 68 : o.kind === 'box' ? 55 : 35); // the tag's own angle when clipped and released
   // extent of object + hanging tag for S = 1 (everything scales linearly with S)
   const ext = s => {
     const M = objectModel(o.kind, s);
@@ -66,9 +67,9 @@ export function stageModel(box, o) {
     return {minX: Math.min(-M.w / 2, ...pts.map(p => p.x)), maxX: Math.max(M.w / 2, ...pts.map(p => p.x)), minY: Math.min(-M.h / 2, ...pts.map(p => p.y)), maxY: Math.max(M.h / 2, ...pts.map(p => p.y))};
   };
   const e1 = ext(1);
-  const bhR = Math.max(2.8, (e1.maxY - e1.minY) / 0.534 + 0.08);
+  const bhR = Math.max(o.flat ? 2.0 : 2.8, (e1.maxY - e1.minY) / 0.534 + 0.08);
   const bwR = Math.max(1.9, (e1.maxX - e1.minX) / 0.84 + 0.08);
-  const S = (wide ? Math.min(box.w * 0.2, box.h * 0.29, box.h * 0.9 / bhR) : Math.min(box.w * 0.37, box.h * 0.23, box.h * 0.6 / bhR, box.w * 0.8 / bwR)) * k;
+  const S = (wide ? (o.flat ? Math.min(box.w * 0.22, box.h * 0.42, box.h * 0.9 / bhR, box.w * 0.46 / bwR) : Math.min(box.w * 0.2, box.h * 0.29, box.h * 0.9 / bhR)) : Math.min(box.w * 0.37, box.h * 0.23, box.h * 0.6 / bhR, box.w * 0.8 / bwR)) * k;
   const M = objectModel(o.kind, S);
   const TG = tagModel({w: S * 1.28 * (o.tagScale ?? 1) * (o.tagLong ?? 1), h: S * 0.66 * (o.tagScale ?? 1), rows: o.rows});
   const B = bagModel(S * bwR, S * bhR);

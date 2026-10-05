@@ -33,7 +33,8 @@ contractSuite(ID, {
 
 ratioChecks(ID, 'lens is a real inspection; one datum place', [
   {at: [0.4, 0.6], fn: 's.zoom >= 1.5', label: 'magnification ≥ 1.5×'},
-  {dom: "(() => { const r = svg.querySelector('[data-node=\"lens-border\"]').getBoundingClientRect(); const R = svg.getBoundingClientRect(); return Math.min(r.width, r.height) / Math.min(R.width, R.height) >= 0.35; })()", at: [0.5], label: 'lens smaller side ≥ 35 % of the frame short side'},
+  // (rendered lens box against the rendered frame: the viewBox may be letterboxed inside the test slot)
+  {dom: "(() => { const r = svg.querySelector('[data-node=\"lens-border\"]').getBoundingClientRect(); const R = svg.getBoundingClientRect(); const vb = svg.viewBox.baseVal; const k = Math.min(R.width / vb.width, R.height / vb.height); return Math.min(r.width, r.height) / (k * Math.min(vb.width, vb.height)) >= 0.35; })()", at: [0.5], label: 'lens smaller side ≥ 35 % of the frame short side'},
   {at: times(0.2, 0.84, 0.01), fn: '!(s.copyShown >= 0.15 && s.contextDatum >= 0.15)', label: 'never two legible copies of the datum'},
   {at: [1], fn: 's.layoutOk', label: 'layout fits'},
 ]);

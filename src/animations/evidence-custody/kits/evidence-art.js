@@ -348,6 +348,25 @@ export function scribble(ctx, key, x0, x1, y, amp) {
   return d;
 }
 
+/** Sampled points of the same scribble (for a pen tip that follows the ink exactly; arc-length matches pathLength). */
+export function scribblePoints(ctx, key, x0, x1, y, amp, per = 8) {
+  const n = Math.max(3, Math.round((x1 - x0) / (amp * 1.6)));
+  const pts = [{x: x0, y}];
+  let px = x0, py = y;
+  for (let i = 0; i < n; i++) {
+    const xa = x0 + ((i + 0.5) / n) * (x1 - x0);
+    const xb = x0 + ((i + 1) / n) * (x1 - x0);
+    const up = amp * (0.6 + ctx.rng(`${key}-a`, i) * 0.6);
+    const ya = y - up, yb = y - (ctx.rng(`${key}-b`, i) - 0.3) * amp * 0.5;
+    for (let s = 1; s <= per; s++) {
+      const t2 = s / per, m = 1 - t2;
+      pts.push({x: m * m * px + 2 * m * t2 * xa + t2 * t2 * xb, y: m * m * py + 2 * m * t2 * ya + t2 * t2 * yb});
+    }
+    px = xb; py = yb;
+  }
+  return pts;
+}
+
 /**
  * Tag art. Rows: [{filled, len?}] — each row is a field stub + value line; a filled row carries an ink scribble whose
  * drawing can be animated through `${prefix}-w${i}` (stroke-dashoffset, see `tagWriteProps`).

@@ -3,15 +3,15 @@
  *
  * Storyboard (top-down light table; transparent layers — capas — whose printed half-frames join):
  *  0.00–0.18  separated: on a glowing light table lies the contract sheet ("CT-731 · Contract (fictional)",
- *             "Termination clause", its supplied sections and an empty band below them). Beside it (left and right
- *             wings in 16:9 and 1:1; above it in 9:16) wait two transparent layers: "Circumstance 1 (supplied)"
- *             (amber) and "Communication 1 (supplied)" (blue). Each carries one printed half-frame — "[" on the
- *             circumstance layer, "]" on the communication layer — at the height of the supplied target. A
- *             magnifier rests on the table.
- *  0.18–0.43  the only relation drawn is the supplied one: the circumstance layer slides onto the sheet and registers,
- *             then the communication layer; their half-frames close into one outline around the supplied section
- *             (provided for) — or around the empty band below the sections (not described: no section is outlined,
- *             nothing else changes). No arrows (a plain relation, not a cause).
+ *             "Termination clause", its supplied sections and an empty band below them). Two transparent layers —
+ *             "Circumstance 1 (supplied)" (amber, left half) and "Communication 1 (supplied)" (blue, right half) — are
+ *             hinged with tape along the sheet's top edge and folded back, so each shows as a short band above the sheet.
+ *             Each carries one printed half-frame — "[" on the circumstance layer, "]" on the communication layer — at the
+ *             height of the supplied target. A magnifier rests beside the table.
+ *  0.18–0.43  the only relation drawn is the supplied one: the circumstance layer turns down about its hinge and
+ *             registers, then the communication layer; their half-frames close into one outline around the supplied
+ *             section (provided for) — or around the empty band below the sections (not described: no section is
+ *             outlined, nothing else changes). No arrows (a plain relation, not a cause).
  *  0.43–0.75  tracer: the magnifier travels the traversal order (default: circumstance tab → joined outline →
  *             communication tab), enlarging what lies under its glass (a real 1.7× copy) and dwelling on the focus
  *             element; then it is parked back on the table, clear of all text.
@@ -175,7 +175,7 @@ const scene = {
     const upx = unitPx(ctx);
     const stress = isStress(p);
     const minF = (stress ? 16.6 : 20) / upx;
-    const modes = ctx.view.shape === 'portrait' ? ['top'] : ['side', 'top'];
+    const modes = ctx.view.shape === 'portrait' ? ['top'] : ['side', 'top']; // (notes right of the table, or below it)
     let L = null;
     search: for (const fpx of stress ? [21, 19.5, 18, 17] : [25, 23, 21.5]) for (const mode of modes) {
       L = geom(ctx, fpx / upx, minF, mode);
@@ -370,7 +370,7 @@ export default defineAnimation({
     motif: 'Cláusula de terminación',
     treatment: 'mechanism',
     family: 'spatial-mechanism',
-    description: 'Top-down light table: the contract sheet with the heading "Termination clause", its supplied sections and an empty band below them. Two transparent layers — "Circumstance 1 (supplied)" and "Communication 1 (supplied)" — slide in from beside the sheet and register; their printed half-frames close into one outline around the supplied section (provided for) or around the empty band (not described). The only relation shown is the supplied one, drawn without arrows. A magnifier then travels the traversal order, enlarging what lies under its glass, and is parked. The hold shows the supplied case (● or ◆, drawn alike) and the key "As supplied · no conclusion drawn". No termination doctrine, no notice period, no validity judgement.',
+    description: 'Top-down light table: the contract sheet with the heading "Termination clause", its supplied sections and an empty band below them. Two transparent layers hinged along the sheet\'s top edge — "Circumstance 1 (supplied)" and "Communication 1 (supplied)" — turn down one after the other and register; their printed half-frames close into one outline around the supplied section (provided for) or around the empty band (not described). The only relation shown is the supplied one, drawn without arrows. A magnifier then travels the traversal order, enlarging what lies under its glass, and is parked. The hold shows the supplied case (● or ◆, drawn alike) and the key "As supplied · no conclusion drawn". No termination doctrine, no notice period, no validity judgement.',
     tags: ['termination clause', 'section', 'communication', 'circumstance', 'layers', 'light table', 'magnifier', 'tracer', 'contract', 'equal weight', 'mechanism'],
     defaultDurationMs: DURATION,
     assets: ['src/animations/contract-terms/kits/terminacion-comunicaciones.js', 'src/primitives/annotate.js'],

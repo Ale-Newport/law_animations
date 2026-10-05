@@ -22,9 +22,10 @@ import {h, g} from '../../core/svg.js';
 import {seg, clamp, lerp, ease, r} from '../../core/time.js';
 import {str, int, list, obj} from '../../schemas/fields.js';
 import {T} from '../../core/transform.js';
+import {polyline} from '../../core/geometry.js';
 import {pen} from '../../primitives/paper.js';
 import {
-  ecFields, EC_EN, EC_ES, localised, benchNode, gloveArm, panelLayout, panelNode, R2, pathAt, fitG, textAt,
+  ecFields, EC_EN, EC_ES, localised, benchNode, gloveArm, panelLayout, panelNode, R2, pathAt, fitG, textAt, scribblePoints,
 } from './kits/evidence-art.js';
 import {
   EI_LABELS_EN, EI_LABELS_ES, eiLabelFields, resolveRecords, stageModel, stageNodes, stageProps, local, actionPose,
@@ -113,11 +114,13 @@ function compose(ctx, P, recs, ci, F, opt) {
   const gapP = F * 1.1;
   let PLs = [], ph = 0;
   const cols = opt.cols;
-  const colW = (DW - 8 - (cols - 1) * F * 1.2) / cols;
-  if (rows.length) { PLs = splitCols(ctx, rows, colW, F, cols); ph = Math.max(...PLs.map(q => q.h)); }
+  const side = opt.pw && rows.length ? DW * opt.pw : 0; // panel in a right-hand column (stacked benches at 1:1)
+  const colW = side ? side : (DW - 8 - (cols - 1) * F * 1.2) / cols;
+  if (rows.length) { PLs = splitCols(ctx, rows, colW, F, side ? 1 : cols); ph = Math.max(...PLs.map(q => q.h)); }
+  const SW = DW - (side ? side + F * 1.2 : 0);
   const showKey = ctx.show('key'), showAll = ctx.show('all');
   const badgeR = F * 0.95;
-  const hw = (opt.arr === 'row' ? (DW - F * 1.4) / 2 : DW) - badgeR * 2 - F * 0.8;
+  const hw = (opt.arr === 'row' ? (SW - F * 1.4) / 2 : SW) - badgeR * 2 - F * 0.8;
   const heads = [P.scenarioA, P.scenarioB].map(sc => {
     const lab = showKey ? fitG(sc.label, {maxWidth: hw, size: F * 1.08, minSize: F, maxLines: 1, weight: 700}) : null;
     const cap = showAll && sc.caption ? fitG(sc.caption, {maxWidth: hw, size: F, minSize: F, maxLines: 2, weight: 500}) : null;
@@ -126,22 +129,23 @@ function compose(ctx, P, recs, ci, F, opt) {
   const headOk = heads.every(hd => (!hd.lab || hd.lab.ok) && (!hd.cap || hd.cap.ok));
   const headH = Math.max(badgeR * 2 + 8, ...heads.map(hd => (hd.lab ? hd.lab.height : 0) + (hd.cap ? hd.cap.height + F * 0.25 : 0) + 10));
   const gap = opt.arr === 'row' ? F * 1.4 : F * 0.9;
-  const avH = DH - (ph ? ph + gapP : 0);
+  const avH = side ? DH : DH - (ph ? ph + gapP : 0);
   let stage;
   if (opt.arr === 'row') {
-    const sw = (DW - gap) / 2;
+    const sw = (SW - gap) / 2;
     stage = {w: sw, h: avH - headH};
   } else {
-    stage = {w: DW, h: (avH - gap) / 2 - headH};
+    stage = {w: SW, h: (avH - gap) / 2 - headH};
   }
   const benches = [0, 1].map(i => opt.arr === 'row'
     ? {x: i * (stage.w + gap), y: headH, w: stage.w, h: stage.h, headY: 0}
     : {x: 0, y: i * (stage.h + headH + gap) + headH, w: stage.w, h: stage.h, headY: i * (stage.h + headH + gap)});
   const inset = Math.max(12, Math.min(stage.w, stage.h) * 0.035);
   const mat = b => ({x: b.x + inset, y: b.y + inset, w: b.w - inset * 2, h: b.h - inset * 2});
-  const G = benches.map(b => stageModel(mat(b), {kind: P.items[0].kind, rows: recs.length}));
-  const ok = PLs.every(q => q.ok) && headOk && stage.h > 220 && G[0].fitsBag;
-  return {F, rows, PLs, ph, colW, headH, heads, badgeR, benches, stage, G, panelY: DH - ph, ok, arr: opt.arr,
+  const G = benches.map(b => stageModel(mat(b), {kind: P.items[0].kind, rows: recs.length, flat: true}));
+  const panelOk = !side || ph <= DH;
+  const ok = panelOk && PLs.every(q => q.ok) && headOk && stage.h > 220 && G[0].fitsBag;
+  return {F, rows, PLs, ph, colW, headH, heads, badgeR, benches, stage, G, panelY: side ? Math.max(0, (DH - ph) / 2) : DH - ph, panelX: side ? DW - side : null, ok, arr: opt.arr,
     problems: [!PLs.every(q => q.ok) && 'panel-text', stage.h <= 220 && 'stage-small', !G[0].fitsBag && 'bag-fit'].filter(Boolean)};
 }
 
@@ -152,11 +156,19 @@ function penState(L, i, u) {
   const n = L.recs.length;
   const skip = i === 1 ? L.ci : -1;
   const TG = G.TG;
-  const rowLine = k => {
-    const xs = TG.rx0 + TG.stub + 8;
-    const len = clamp(L.lens[k], 0.3, 1);
-    return [local({x: xs, y: TG.rows[k].y}, G.tagHole0, G.tableAngle), local({x: xs + (TG.rx1 - xs - 4) * len, y: TG.rows[k].y}, G.tagHole0, G.tableAngle)];
+  // the pen tip follows the very scribble the tag draws (same seed, same geometry), so ink appears under the nib
+  const rowPath = k => {
+    const ck = `${i}-${k}`;
+    if (!L.rowCache[ck]) {
+      const xs = TG.rx0 + TG.stub + 8;
+      const len = clamp(L.lens[k], 0.3, 1);
+      const R = TG.rows[k];
+      const pts = scribblePoints(L.ctx, `ei-contrast-${k}`, xs, xs + (TG.rx1 - xs - 4) * len, R.y, Math.min(R.h * 0.4, TG.h * 0.09));
+      L.rowCache[ck] = polyline(pts.map(q => local(q, G.tagHole0, G.tableAngle)));
+    }
+    return L.rowCache[ck];
   };
+  const rowLine = k => [rowPath(k).at(0), rowPath(k).at(1)];
   const write = Array(n).fill(0);
   let tip = Pn.park, lifted = true, held = false;
   if (u >= W.toPen[1] && u < W.penBack[0]) {
@@ -167,7 +179,7 @@ function penState(L, i, u) {
     for (let q = 0; q < n; q++) write[q] = q === skip ? 0 : q < ri ? 1 : q > ri ? 0 : clamp(f / 0.78);
     const [a, b] = rowLine(ri);
     if (u < W.write[0]) { tip = rowLine(0)[0]; }
-    else if (f <= 0.78) { tip = {x: lerp(a.x, b.x, f / 0.78), y: lerp(a.y, b.y, f / 0.78)}; lifted = ri === skip; }
+    else if (f <= 0.78) { const q = rowPath(ri).at(f / 0.78); tip = {x: q.x, y: q.y}; lifted = ri === skip; }
     else {
       const nxt = ri + 1 < n ? rowLine(ri + 1)[0] : b;
       const t = ease.inOutCubic((f - 0.78) / 0.22);
@@ -208,7 +220,7 @@ const scene = {
     const ci = Math.min(recs.length - 1, P.changedRecord);
     const shape = ctx.view.shape;
     const opts = shape === 'portrait' ? [{arr: 'col', cols: 1}, {arr: 'col', cols: 2}]
-      : shape === 'square' ? [{arr: 'col', cols: 2}, {arr: 'row', cols: 2}, {arr: 'row', cols: 1}]
+      : shape === 'square' ? [{arr: 'col', cols: 1, pw: 0.36}, {arr: 'col', cols: 1, pw: 0.42}, {arr: 'col', cols: 2}, {arr: 'row', cols: 2}]
         : [{arr: 'row', cols: 2}, {arr: 'row', cols: 3}];
     let C = null, best = null, bestScore = -1;
     for (const F of SIZES) for (const opt of opts) {
@@ -237,7 +249,7 @@ const scene = {
       const pn = pen(ctx, {name: `pen${i}`, length: len});
       pens.push({node: pn.node, grip: pn.grip, angle, park, parkGrip: {x: park.x + Math.cos(a) * pn.grip, y: park.y + Math.sin(a) * pn.grip}});
     });
-    const L0 = {P, recs, ci, C, pens, lens};
+    const L0 = {P, recs, ci, C, pens, lens, rowCache: {}, ctx};
     let far = 0;
     for (let i = 0; i < 2; i++) for (let k = 0; k <= 80; k++) {
       const s = benchPose(L0, i, k / 80);
@@ -286,7 +298,7 @@ const scene = {
       h('rect', {name: 'guide-a', fill: 'none', stroke: th.accent, 'stroke-width': 3.5, rx: 6}),
       h('rect', {name: 'guide-b', fill: 'none', stroke: th.accent, 'stroke-width': 3.5, rx: 6}),
     ));
-    L.C.PLs.forEach((PLc, i) => parts.push(g({name: `info${i}`, transform: T(4 + i * (C.colW + C.F * 1.2), C.panelY)}, panelNode(ctx, PLc))));
+    L.C.PLs.forEach((PLc, i) => parts.push(g({name: `info${i}`, transform: T(C.panelX ?? 4 + i * (C.colW + C.F * 1.2), C.panelY)}, panelNode(ctx, PLc))));
     return g({name: 'scene'}, parts);
   },
   frame(ctx, L, u) {

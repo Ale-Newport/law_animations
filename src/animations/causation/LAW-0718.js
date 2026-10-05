@@ -172,7 +172,8 @@ function geomFor(ctx, p, M, size, U, arr, gx0, ex = 0, ey = 0) {
   for (const id of IDS) parts[id] = {w: dims[id][0] * U, h: dims[id][1] * U, chipH: ch[id].nh + (ch[id].sh ? ch[id].sh + 6 : 0) + 10, chipW: Math.max(ch[id].nw, ch[id].sw)};
   const cellW = id => Math.max(parts[id].w, parts[id].chipW);
   const cellH = id => parts[id].h + parts[id].chipH;
-  const gy0 = Math.max(0.12 * U, size * 2.6);
+  // (the gaps between rows hold relation chips: up to three lines)
+  const gy0 = Math.max(0.12 * U, size * (arr === 'diamond' ? 4.2 : 2.6));
   const gx = gx0 + ex, gy = gy0 + ey;
   const boxes = {};
   let w, hh;
@@ -303,7 +304,7 @@ const scene = {
         const P0 = c.at(tt), P1 = c.at(Math.min(1, tt + 0.02));
         const dx = P1.x - P0.x, dy = P1.y - P0.y, L0 = Math.hypot(dx, dy) || 1;
         const nx = -dy / L0, ny = dx / L0;
-        for (let d = 0; d <= 420; d += 12) for (const sgn of d ? [1, -1] : [1]) cands.push({P0, d: sgn * d, b: {x: P0.x + nx * sgn * d - bw / 2, y: P0.y + ny * sgn * d - bh / 2, w: bw, h: bh}});
+        for (let d = 0; d <= 200; d += 10) for (const sgn of d ? [1, -1] : [1]) cands.push({P0, d: sgn * d, b: {x: P0.x + nx * sgn * d - bw / 2, y: P0.y + ny * sgn * d - bh / 2, w: bw, h: bh}});
       }
       const ov = (a, b) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x) + 6) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y) + 6);
       let best = null, bestOv = Infinity;
