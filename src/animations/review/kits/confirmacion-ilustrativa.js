@@ -278,7 +278,7 @@ export function cardModel(P, o) {
   // caller's floor
   const secK = o.secK ?? 1;
   const gc = F * 1.0;
-  const wl = wide ? (inner - gc) * (o.wideK ?? 0.6) : inner;
+  const wl = wide ? (inner - gc) * (o.wideK ?? 0.65) : inner;
   const wr = wide ? inner - gc - wl : inner;
   const xr = wide ? pad + wl + gc : pad;
   const fits = {};
@@ -723,7 +723,7 @@ export function planDesk(M, o) {
   const F = o.F;
   const cw = M.w, ch = M.h;
   const tab = Math.max(F * 1.5, 24);
-  const lm = tab + F * 0.5 + Math.max(F * 1.4, 26);
+  const lm = tab + F * 0.5 + (o.noStripRow ? 4 : Math.max(F * 1.4, 26));
   const gap = Math.max(F * (o.tight ? 2.6 : 3.2), 50);
   const reg = registerRow(M, o.align);
   const sh = reg.half * 2;
@@ -739,7 +739,7 @@ export function planDesk(M, o) {
   const strip = {w: stripW, h: sh, tab, x: lm - tab - F * 0.5, yRest: 0, yLaid: yA + reg.y - reg.half};
   const bs = cardBounds(Bs, M);
   const calW = F * (o.calK ?? 3.8), calH = calW * 0.84;
-  const rm = F * 0.8, bm = F * 0.8;
+  const rm = F * (o.noStripRow ? 0.3 : 0.8), bm = F * (o.noStripRow ? 0.3 : 0.8);
   const right0 = Math.max(strip.x + stripW, Bt.x + cw, bs.x + bs.w);
   const bottom0 = Math.max(yA + ch, bs.y + bs.h);
   let cal = null;

@@ -1,0 +1,1538 @@
+{
+  "animationId": "LAW-0346",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0346",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "decisions.position"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: separate: the cards lie in their places; nothing is linked yet @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "lift": 0,
+          "linksDrawn": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "links": [
+            {
+              "from": "later",
+              "to": "intake",
+              "kind": "relation",
+              "a": {
+                "x": 392.38,
+                "y": 234.18
+              },
+              "b": {
+                "x": 446.69,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "later",
+              "to": "position",
+              "kind": "sequence",
+              "a": {
+                "x": 746.57,
+                "y": 234.18
+              },
+              "b": {
+                "x": 692.26,
+                "y": 336.59
+              },
+              "arrow": true
+            },
+            {
+              "from": "initial",
+              "to": "position",
+              "kind": "relation",
+              "a": {
+                "x": 943.85,
+                "y": 234.18
+              },
+              "b": {
+                "x": 998.17,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "initial",
+              "to": "history",
+              "kind": "sequence",
+              "a": {
+                "x": 1298.04,
+                "y": 234.18
+              },
+              "b": {
+                "x": 1243.73,
+                "y": 333.59
+              },
+              "arrow": true
+            }
+          ],
+          "boxes": {
+            "intake": {
+              "x": 122.78,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "position": {
+              "x": 674.26,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "history": {
+              "x": 1225.73,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "later": {
+              "x": 374.38,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            },
+            "initial": {
+              "x": 925.85,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            }
+          },
+          "tracer": null,
+          "tracerT": 0,
+          "visited": [
+            "intake"
+          ],
+          "visitOrder": [
+            "intake",
+            "later",
+            "position",
+            "initial",
+            "history"
+          ],
+          "focus": "position",
+          "focusScale": 1,
+          "cardB": {
+            "x": 165.36,
+            "y": 359.26
+          },
+          "cardA": {
+            "x": 716.84,
+            "y": 359.26
+          },
+          "tokenB": {
+            "x": 293.74,
+            "y": 416.77
+          },
+          "tokenA": {
+            "x": 845.21,
+            "y": 416.77
+          },
+          "positionHolds": "a",
+          "historyHolds": null,
+          "cardText": 0,
+          "states": 0,
+          "textPx": 26,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: the cards have risen to the upper tier before any relationship is drawn @0.17",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "lift": 1,
+          "linksDrawn": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "links": [
+            {
+              "from": "later",
+              "to": "intake",
+              "kind": "relation",
+              "a": {
+                "x": 392.38,
+                "y": 234.18
+              },
+              "b": {
+                "x": 446.69,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "later",
+              "to": "position",
+              "kind": "sequence",
+              "a": {
+                "x": 746.57,
+                "y": 234.18
+              },
+              "b": {
+                "x": 692.26,
+                "y": 336.59
+              },
+              "arrow": true
+            },
+            {
+              "from": "initial",
+              "to": "position",
+              "kind": "relation",
+              "a": {
+                "x": 943.85,
+                "y": 234.18
+              },
+              "b": {
+                "x": 998.17,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "initial",
+              "to": "history",
+              "kind": "sequence",
+              "a": {
+                "x": 1298.04,
+                "y": 234.18
+              },
+              "b": {
+                "x": 1243.73,
+                "y": 333.59
+              },
+              "arrow": true
+            }
+          ],
+          "boxes": {
+            "intake": {
+              "x": 122.78,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "position": {
+              "x": 674.26,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "history": {
+              "x": 1225.73,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "later": {
+              "x": 374.38,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            },
+            "initial": {
+              "x": 925.85,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            }
+          },
+          "tracer": null,
+          "tracerT": 0,
+          "visited": [
+            "intake"
+          ],
+          "visitOrder": [
+            "intake",
+            "later",
+            "position",
+            "initial",
+            "history"
+          ],
+          "focus": "position",
+          "focusScale": 1,
+          "cardB": {
+            "x": 374.38,
+            "y": 53.38
+          },
+          "cardA": {
+            "x": 925.85,
+            "y": 53.38
+          },
+          "tokenB": {
+            "x": 293.74,
+            "y": 416.77
+          },
+          "tokenA": {
+            "x": 845.21,
+            "y": 416.77
+          },
+          "positionHolds": "a",
+          "historyHolds": null,
+          "cardText": 1,
+          "states": 0,
+          "textPx": 26,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: only the supplied relationships are drawn, before the tracer and the change @0.44",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lift": 1,
+          "linksDrawn": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "links": [
+            {
+              "from": "later",
+              "to": "intake",
+              "kind": "relation",
+              "a": {
+                "x": 392.38,
+                "y": 234.18
+              },
+              "b": {
+                "x": 446.69,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "later",
+              "to": "position",
+              "kind": "sequence",
+              "a": {
+                "x": 746.57,
+                "y": 234.18
+              },
+              "b": {
+                "x": 692.26,
+                "y": 336.59
+              },
+              "arrow": true
+            },
+            {
+              "from": "initial",
+              "to": "position",
+              "kind": "relation",
+              "a": {
+                "x": 943.85,
+                "y": 234.18
+              },
+              "b": {
+                "x": 998.17,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "initial",
+              "to": "history",
+              "kind": "sequence",
+              "a": {
+                "x": 1298.04,
+                "y": 234.18
+              },
+              "b": {
+                "x": 1243.73,
+                "y": 333.59
+              },
+              "arrow": true
+            }
+          ],
+          "boxes": {
+            "intake": {
+              "x": 122.78,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "position": {
+              "x": 674.26,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "history": {
+              "x": 1225.73,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "later": {
+              "x": 374.38,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            },
+            "initial": {
+              "x": 925.85,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            }
+          },
+          "tracer": {
+            "x": 360.86,
+            "y": 349.59
+          },
+          "tracerT": 0,
+          "visited": [
+            "intake"
+          ],
+          "visitOrder": [
+            "intake",
+            "later",
+            "position",
+            "initial",
+            "history"
+          ],
+          "focus": "position",
+          "focusScale": 1,
+          "cardB": {
+            "x": 374.38,
+            "y": 53.38
+          },
+          "cardA": {
+            "x": 925.85,
+            "y": 53.38
+          },
+          "tokenB": {
+            "x": 293.74,
+            "y": 416.77
+          },
+          "tokenA": {
+            "x": 845.21,
+            "y": 416.77
+          },
+          "positionHolds": "a",
+          "historyHolds": null,
+          "cardText": 1,
+          "states": 0,
+          "textPx": 26,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: a plain relation has no head; sequence / causal have one (causal only as supplied) @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lift": 1,
+          "linksDrawn": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "links": [
+            {
+              "from": "later",
+              "to": "intake",
+              "kind": "relation",
+              "a": {
+                "x": 392.38,
+                "y": 234.18
+              },
+              "b": {
+                "x": 446.69,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "later",
+              "to": "position",
+              "kind": "sequence",
+              "a": {
+                "x": 746.57,
+                "y": 234.18
+              },
+              "b": {
+                "x": 692.26,
+                "y": 336.59
+              },
+              "arrow": true
+            },
+            {
+              "from": "initial",
+              "to": "position",
+              "kind": "relation",
+              "a": {
+                "x": 943.85,
+                "y": 234.18
+              },
+              "b": {
+                "x": 998.17,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "initial",
+              "to": "history",
+              "kind": "sequence",
+              "a": {
+                "x": 1298.04,
+                "y": 234.18
+              },
+              "b": {
+                "x": 1243.73,
+                "y": 333.59
+              },
+              "arrow": true
+            }
+          ],
+          "boxes": {
+            "intake": {
+              "x": 122.78,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "position": {
+              "x": 674.26,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "history": {
+              "x": 1225.73,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "later": {
+              "x": 374.38,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            },
+            "initial": {
+              "x": 925.85,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            }
+          },
+          "tracer": {
+            "x": 499.87,
+            "y": 234.18
+          },
+          "tracerT": 0.2,
+          "visited": [
+            "intake",
+            "later"
+          ],
+          "visitOrder": [
+            "intake",
+            "later",
+            "position",
+            "initial",
+            "history"
+          ],
+          "focus": "position",
+          "focusScale": 1,
+          "cardB": {
+            "x": 374.38,
+            "y": 53.38
+          },
+          "cardA": {
+            "x": 925.85,
+            "y": 53.38
+          },
+          "tokenB": {
+            "x": 293.74,
+            "y": 416.77
+          },
+          "tokenA": {
+            "x": 845.21,
+            "y": 416.77
+          },
+          "positionHolds": "a",
+          "historyHolds": null,
+          "cardText": 1,
+          "states": 0,
+          "textPx": 26,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: the part that changes: the ◆ token in the position, the ● token in the history pocket @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lift": 1,
+          "linksDrawn": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "links": [
+            {
+              "from": "later",
+              "to": "intake",
+              "kind": "relation",
+              "a": {
+                "x": 392.38,
+                "y": 234.18
+              },
+              "b": {
+                "x": 446.69,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "later",
+              "to": "position",
+              "kind": "sequence",
+              "a": {
+                "x": 746.57,
+                "y": 234.18
+              },
+              "b": {
+                "x": 692.26,
+                "y": 336.59
+              },
+              "arrow": true
+            },
+            {
+              "from": "initial",
+              "to": "position",
+              "kind": "relation",
+              "a": {
+                "x": 943.85,
+                "y": 234.18
+              },
+              "b": {
+                "x": 998.17,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "initial",
+              "to": "history",
+              "kind": "sequence",
+              "a": {
+                "x": 1298.04,
+                "y": 234.18
+              },
+              "b": {
+                "x": 1243.73,
+                "y": 333.59
+              },
+              "arrow": true
+            }
+          ],
+          "boxes": {
+            "intake": {
+              "x": 122.78,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "position": {
+              "x": 674.26,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "history": {
+              "x": 1225.73,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "later": {
+              "x": 374.38,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            },
+            "initial": {
+              "x": 925.85,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            }
+          },
+          "tracer": {
+            "x": 1200.61,
+            "y": 234.18
+          },
+          "tracerT": 0.8667,
+          "visited": [
+            "intake",
+            "later",
+            "position",
+            "initial"
+          ],
+          "visitOrder": [
+            "intake",
+            "later",
+            "position",
+            "initial",
+            "history"
+          ],
+          "focus": "position",
+          "focusScale": 1,
+          "cardB": {
+            "x": 374.38,
+            "y": 53.38
+          },
+          "cardA": {
+            "x": 925.85,
+            "y": 53.38
+          },
+          "tokenB": {
+            "x": 845.21,
+            "y": 416.77
+          },
+          "tokenA": {
+            "x": 1396.69,
+            "y": 416.77
+          },
+          "positionHolds": "b",
+          "historyHolds": "a",
+          "cardText": 1,
+          "states": 0,
+          "textPx": 26,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: assembled, every component visited in the supplied order, states shown; the composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "assembled",
+          "lift": 1,
+          "linksDrawn": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "links": [
+            {
+              "from": "later",
+              "to": "intake",
+              "kind": "relation",
+              "a": {
+                "x": 392.38,
+                "y": 234.18
+              },
+              "b": {
+                "x": 446.69,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "later",
+              "to": "position",
+              "kind": "sequence",
+              "a": {
+                "x": 746.57,
+                "y": 234.18
+              },
+              "b": {
+                "x": 692.26,
+                "y": 336.59
+              },
+              "arrow": true
+            },
+            {
+              "from": "initial",
+              "to": "position",
+              "kind": "relation",
+              "a": {
+                "x": 943.85,
+                "y": 234.18
+              },
+              "b": {
+                "x": 998.17,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "initial",
+              "to": "history",
+              "kind": "sequence",
+              "a": {
+                "x": 1298.04,
+                "y": 234.18
+              },
+              "b": {
+                "x": 1243.73,
+                "y": 333.59
+              },
+              "arrow": true
+            }
+          ],
+          "boxes": {
+            "intake": {
+              "x": 122.78,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "position": {
+              "x": 674.26,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "history": {
+              "x": 1225.73,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "later": {
+              "x": 374.38,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            },
+            "initial": {
+              "x": 925.85,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            }
+          },
+          "tracer": null,
+          "tracerT": 1,
+          "visited": [
+            "intake",
+            "later",
+            "position",
+            "initial",
+            "history"
+          ],
+          "visitOrder": [
+            "intake",
+            "later",
+            "position",
+            "initial",
+            "history"
+          ],
+          "focus": "position",
+          "focusScale": 1,
+          "cardB": {
+            "x": 374.38,
+            "y": 53.38
+          },
+          "cardA": {
+            "x": 925.85,
+            "y": 53.38
+          },
+          "tokenB": {
+            "x": 845.21,
+            "y": 416.77
+          },
+          "tokenA": {
+            "x": 1396.69,
+            "y": 416.77
+          },
+          "positionHolds": "b",
+          "historyHolds": "a",
+          "cardText": 1,
+          "states": 1,
+          "textPx": 26,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: the tracer follows the supplied traversal order @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lift": 1,
+          "linksDrawn": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "links": [
+            {
+              "from": "later",
+              "to": "intake",
+              "kind": "relation",
+              "a": {
+                "x": 392.38,
+                "y": 234.18
+              },
+              "b": {
+                "x": 446.69,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "later",
+              "to": "position",
+              "kind": "sequence",
+              "a": {
+                "x": 746.57,
+                "y": 234.18
+              },
+              "b": {
+                "x": 692.26,
+                "y": 336.59
+              },
+              "arrow": true
+            },
+            {
+              "from": "initial",
+              "to": "position",
+              "kind": "relation",
+              "a": {
+                "x": 943.85,
+                "y": 234.18
+              },
+              "b": {
+                "x": 998.17,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "initial",
+              "to": "history",
+              "kind": "sequence",
+              "a": {
+                "x": 1298.04,
+                "y": 234.18
+              },
+              "b": {
+                "x": 1243.73,
+                "y": 333.59
+              },
+              "arrow": true
+            }
+          ],
+          "boxes": {
+            "intake": {
+              "x": 122.78,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "position": {
+              "x": 674.26,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "history": {
+              "x": 1225.73,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "later": {
+              "x": 374.38,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            },
+            "initial": {
+              "x": 925.85,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            }
+          },
+          "tracer": {
+            "x": 850.65,
+            "y": 349.59
+          },
+          "tracerT": 0.5333,
+          "visited": [
+            "intake",
+            "later",
+            "position"
+          ],
+          "visitOrder": [
+            "intake",
+            "later",
+            "position",
+            "initial",
+            "history"
+          ],
+          "focus": "position",
+          "focusScale": 1.004,
+          "cardB": {
+            "x": 374.38,
+            "y": 53.38
+          },
+          "cardA": {
+            "x": 925.85,
+            "y": 53.38
+          },
+          "tokenB": {
+            "x": 431.61,
+            "y": 416.77
+          },
+          "tokenA": {
+            "x": 845.21,
+            "y": 416.77
+          },
+          "positionHolds": "changing",
+          "historyHolds": null,
+          "cardText": 1,
+          "states": 0,
+          "textPx": 26,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: another supplied order is followed as supplied @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "assembled",
+          "lift": 1,
+          "linksDrawn": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "links": [
+            {
+              "from": "later",
+              "to": "intake",
+              "kind": "relation",
+              "a": {
+                "x": 392.38,
+                "y": 234.18
+              },
+              "b": {
+                "x": 446.69,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "later",
+              "to": "position",
+              "kind": "sequence",
+              "a": {
+                "x": 746.57,
+                "y": 234.18
+              },
+              "b": {
+                "x": 692.26,
+                "y": 336.59
+              },
+              "arrow": true
+            },
+            {
+              "from": "initial",
+              "to": "position",
+              "kind": "relation",
+              "a": {
+                "x": 943.85,
+                "y": 234.18
+              },
+              "b": {
+                "x": 998.17,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "initial",
+              "to": "history",
+              "kind": "sequence",
+              "a": {
+                "x": 1298.04,
+                "y": 234.18
+              },
+              "b": {
+                "x": 1243.73,
+                "y": 333.59
+              },
+              "arrow": true
+            }
+          ],
+          "boxes": {
+            "intake": {
+              "x": 122.78,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "position": {
+              "x": 674.26,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "history": {
+              "x": 1225.73,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "later": {
+              "x": 374.38,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            },
+            "initial": {
+              "x": 925.85,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            }
+          },
+          "tracer": null,
+          "tracerT": 1,
+          "visited": [
+            "history",
+            "initial",
+            "position",
+            "later",
+            "intake"
+          ],
+          "visitOrder": [
+            "history",
+            "initial",
+            "position",
+            "later",
+            "intake"
+          ],
+          "focus": "position",
+          "focusScale": 1,
+          "cardB": {
+            "x": 374.38,
+            "y": 53.38
+          },
+          "cardA": {
+            "x": 925.85,
+            "y": 53.38
+          },
+          "tokenB": {
+            "x": 845.21,
+            "y": 416.77
+          },
+          "tokenA": {
+            "x": 1396.69,
+            "y": 416.77
+          },
+          "positionHolds": "b",
+          "historyHolds": "a",
+          "cardText": 1,
+          "states": 1,
+          "textPx": 26,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: a causal link is drawn only when it is supplied @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "assembled",
+          "lift": 1,
+          "linksDrawn": [
+            1
+          ],
+          "links": [
+            {
+              "from": "later",
+              "to": "position",
+              "kind": "causal",
+              "a": {
+                "x": 746.57,
+                "y": 234.18
+              },
+              "b": {
+                "x": 692.26,
+                "y": 336.59
+              },
+              "arrow": true
+            }
+          ],
+          "boxes": {
+            "intake": {
+              "x": 122.78,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "position": {
+              "x": 674.26,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "history": {
+              "x": 1225.73,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "later": {
+              "x": 374.38,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            },
+            "initial": {
+              "x": 925.85,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            }
+          },
+          "tracer": null,
+          "tracerT": 1,
+          "visited": [
+            "intake",
+            "later",
+            "position",
+            "initial",
+            "history"
+          ],
+          "visitOrder": [
+            "intake",
+            "later",
+            "position",
+            "initial",
+            "history"
+          ],
+          "focus": "position",
+          "focusScale": 1,
+          "cardB": {
+            "x": 374.38,
+            "y": 53.38
+          },
+          "cardA": {
+            "x": 925.85,
+            "y": 53.38
+          },
+          "tokenB": {
+            "x": 845.21,
+            "y": 416.77
+          },
+          "tokenA": {
+            "x": 1396.69,
+            "y": 416.77
+          },
+          "positionHolds": "b",
+          "historyHolds": "a",
+          "cardText": 1,
+          "states": 1,
+          "textPx": 26,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the earlier state exactly @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relations",
+          "lift": 1,
+          "linksDrawn": [
+            1,
+            0.92,
+            0,
+            0
+          ],
+          "links": [
+            {
+              "from": "later",
+              "to": "intake",
+              "kind": "relation",
+              "a": {
+                "x": 392.38,
+                "y": 234.18
+              },
+              "b": {
+                "x": 446.69,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "later",
+              "to": "position",
+              "kind": "sequence",
+              "a": {
+                "x": 746.57,
+                "y": 234.18
+              },
+              "b": {
+                "x": 692.26,
+                "y": 336.59
+              },
+              "arrow": true
+            },
+            {
+              "from": "initial",
+              "to": "position",
+              "kind": "relation",
+              "a": {
+                "x": 943.85,
+                "y": 234.18
+              },
+              "b": {
+                "x": 998.17,
+                "y": 340.59
+              },
+              "arrow": false
+            },
+            {
+              "from": "initial",
+              "to": "history",
+              "kind": "sequence",
+              "a": {
+                "x": 1298.04,
+                "y": 234.18
+              },
+              "b": {
+                "x": 1243.73,
+                "y": 333.59
+              },
+              "arrow": true
+            }
+          ],
+          "boxes": {
+            "intake": {
+              "x": 122.78,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "position": {
+              "x": 674.26,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "history": {
+              "x": 1225.73,
+              "y": 355.59,
+              "w": 341.91,
+              "h": 122.36
+            },
+            "later": {
+              "x": 374.38,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            },
+            "initial": {
+              "x": 925.85,
+              "y": 53.38,
+              "w": 390.19,
+              "h": 174.81
+            }
+          },
+          "tracer": null,
+          "tracerT": 0,
+          "visited": [
+            "intake"
+          ],
+          "visitOrder": [
+            "intake",
+            "later",
+            "position",
+            "initial",
+            "history"
+          ],
+          "focus": "position",
+          "focusScale": 1,
+          "cardB": {
+            "x": 374.38,
+            "y": 53.38
+          },
+          "cardA": {
+            "x": 925.85,
+            "y": 53.38
+          },
+          "tokenB": {
+            "x": 293.74,
+            "y": 416.77
+          },
+          "tokenA": {
+            "x": 845.21,
+            "y": 416.77
+          },
+          "positionHolds": "a",
+          "historyHolds": null,
+          "cardText": 1,
+          "states": 0,
+          "textPx": 26,
+          "problems": []
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}
