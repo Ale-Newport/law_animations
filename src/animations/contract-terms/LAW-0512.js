@@ -105,7 +105,7 @@ function geom(ctx, F, minF) {
   const pFits = {law: pf(p.destinations.law), forum: pf(p.destinations.forum)};
   const afterFit = pf(p.afterValue);
   const big = [pFits.law, pFits.forum, afterFit].reduce((a, b) => (b.height > a.height ? b : a));
-  const ph = hz ? Math.max(big.height, pR * 2) + 64 : stackedPlaqueH(pR, big);
+  const ph = hz ? Math.max(big.height, pR * 2) + 110 : stackedPlaqueH(pR, big);
   const top = plaqueTop(pw);
   const plq = {};
   if (hz) {
@@ -130,7 +130,7 @@ function geom(ctx, F, minF) {
   // lens source: the changed plaque (+ ornament and the line end), whole fields only
   const P = plq[ck];
   const m = 26;
-  const src = hz ? {x: P.x - 60, y: P.y - top - m, w: P.w + 60 + Math.min(m, D.w - (P.x + P.w) - 2), h: P.h + top + 2 * m} : {x: P.x - m * 0.6, y: P.y - top - 70, w: P.w + m * 1.2, h: P.h + top + 70 + m * 0.6};
+  const src = hz ? {x: P.x - 22, y: P.y - top - m, w: P.w + 22 + Math.min(10, D.w - (P.x + P.w) - 2), h: P.h + top + 2 * m} : {x: P.x - m * 0.6, y: P.y - top - 70, w: P.w + m * 1.2, h: P.h + top + 70 + m * 0.6};
   src.w = Math.min(src.w, D.w - src.x - 1);
   const wasSize0 = Math.max((stress ? 16.4 : 19.8) / unitPx(ctx) / 1.5, F * 0.6);
   const wasFit = fitG(`${ctx.t.was}: ${p.destinations[ck]}`, {maxWidth: P.w - 30, size: wasSize0, minSize: wasSize0, maxLines: 2, weight: 600});
@@ -138,7 +138,7 @@ function geom(ctx, F, minF) {
   src.h = P.y + P.h + wasH + 6 - src.y;
   let lensArea, step = null;
   if (hz) {
-    step = {cs: 0.44, ax: pad, ay: D.h / 2};
+    step = {cs: 0.4, ax: pad, ay: D.h / 2};
     const x0 = pad + (D.w - 2 * pad) * step.cs + 40;
     lensArea = {x: x0, y: pad, w: D.w - pad - x0, h: A.y + A.h - pad};
   } else {
@@ -207,22 +207,25 @@ const scene = {
     );
     const lensContent = g(null, plaqueNode(ck, 'l', showAll), L.dials.filter(d => d.kind === ck).map(d => h('circle', {cx: r(d.port.x), cy: r(d.port.y), r: 9, fill: '#fff', stroke: laneColor(ctx, d.kind), 'stroke-width': 4})),
       g({name: 'l-was', opacity: 0}, showAll ? wasChip(ctx, L, p) : null));
-    const lz = lens(ctx, {name: 'lens', source: L.src, dest: L.dest, content: lensContent, frame: {x: 0, y: 0, w: ctx.design.w, h: ctx.design.h}, color: th.accent2});
+    const lz = lens(ctx, {name: 'lens', source: L.src, dest: L.dest, content: lensContent, color: th.accent2});
+    const Dd = ctx.design, S0 = L.src;
+    const dimmer = L.step ? null : h('path', {name: 'dimmer', d: `M0 0h${r(Dd.w)}v${r(Dd.h)}h${r(-Dd.w)}Z M${r(S0.x)} ${r(S0.y)}v${r(S0.h)}h${r(S0.w)}v${r(-S0.h)}Z`, 'fill-rule': 'evenodd', fill: th.dark ? '#000' : '#1f2328', opacity: 0});
     const Q = L.plq[ck];
     const marker = changedMarker(ctx, {name: 'marker', x: Q.x + Q.w - 4, y: Q.y + 4, radius: 18, opacity: 0});
     const notes = L.notesPl ? L.notesPl.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node)) : [];
     const ghost = L.step ? g({name: 'ghost', opacity: 0}, content('g', false)) : null;
     const srcS = L.step ? h('rect', {name: 'srcS', rx: 8, fill: 'none', stroke: th.accent2, 'stroke-width': 4, opacity: 0}) : null;
-    return g({name: 'scene'}, g({name: 'ctx'}, g({name: 'creal'}, content('c', showAll)), ghost), srcS, marker, g({'data-occludes': 1}, lz.node), notes);
+    return g({name: 'scene'}, g({name: 'ctx'}, g({name: 'creal'}, content('c', showAll)), ghost), srcS, dimmer, marker, g({'data-occludes': 1}, lz.node), notes);
   },
   frame(ctx, L, u) {
     const p = ctx.params;
     const nodes = {};
-    const lz = lens(ctx, {name: 'lens', source: L.src, dest: L.dest, content: null, frame: {x: 0, y: 0, w: ctx.design.w, h: ctx.design.h}});
+    const lz = lens(ctx, {name: 'lens', source: L.src, dest: L.dest, content: null});
     const open = ease.inOutCubic(seg(u, ...W.open));
     const close = ease.inOutCubic(seg(u, ...W.close));
     const pq = u < W.close[0] ? open : 1 - close;
     Object.assign(nodes, lz.frame(pq, pq));
+    if (!L.step) nodes.dimmer = {opacity: r(0.42 * pq, 3)};
     const copy = clamp((pq - 0.22) / 0.2);
     nodes['lens-content'] = {...nodes['lens-content'], opacity: r(copy, 3)};
     const outQ = seg(u, ...W.out), inQ = seg(u, ...W.in);
@@ -254,7 +257,7 @@ const scene = {
       nodes.ghost = {opacity: r(1 - tq, 3)};
       const S2 = L.src, X = v => st.ax + (v - st.ax) * sc, Y = v => st.ay + (v - st.ay) * sc;
       nodes.srcS = {x: r(X(S2.x)), y: r(Y(S2.y)), width: r(S2.w * sc), height: r(S2.h * sc), opacity: pq > 0.05 ? 1 : 0};
-      for (const nm of ['lens-src', 'lens-coneA', 'lens-coneB', 'lens-dim']) if (nodes[nm]) nodes[nm] = {...nodes[nm], opacity: 0};
+      for (const nm of ['lens-src', 'lens-coneA', 'lens-coneB']) if (nodes[nm]) nodes[nm] = {...nodes[nm], opacity: 0};
     } else nodes.ctx = {transform: 'translate(0 0)'};
     const noteO = seg(u, ...W.notes), keyO = seg(u, ...W.key);
     if (L.notesPl) for (const pl of L.notesPl) nodes[`${pl.q.name}-g`] = {opacity: r(pl.q.kind === 'key' ? keyO : noteO, 3)};

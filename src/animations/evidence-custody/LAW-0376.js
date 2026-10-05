@@ -176,10 +176,15 @@ function compose(ctx, P, recs, F, opt, LG, vs) {
   const zoomOk = zoom >= P.detailGeometry.zoom - 1e-6 && zoom >= 1.5;
   const k = Math.min(ctx.view.width, ctx.view.height);
   const lensBig = Math.min(dest.w, dest.h) * vs * k / 1080 >= 0.355 * k;
-  const ok = (!PL || PL.ok) && G.fits && zoomOk && textOk && lensBig && G.S >= 70;
+  const ex0 = Math.min(G.stageBox.x, G.tray.x), ey0 = Math.min(G.stageBox.y, G.tray.y);
+  const ew = Math.max(G.stageBox.x + G.stageBox.w, G.tray.x + G.tray.w) - ex0, eh = Math.max(G.stageBox.y + G.stageBox.h, G.tray.y + G.tray.h) - ey0;
+  const rsc = clamp(Math.min(mat.h * 0.96 / eh, mat.w * 0.96 / ew), 1, 2.2);
+  const restS = G.S * rsc;
+  const stageOk = G.S >= 52 && restS >= 95;
+  const ok = (!PL || PL.ok) && G.fits && zoomOk && textOk && lensBig && stageOk;
   const minT = Math.min(size, tsz, num0 ? Math.min(...nFits.map(f => f.size)) : size);
-  return {F, bench, mat, panel, PL, G, fi, slot, pw, ph, tabH, card, source, dest, zoom, size, bFit, aFit, trace, tsz, badgeR, nFits, ok, kText: 16.3 / (minT * vs),
-    problems: [PL && !PL.ok && 'panel-text', !zoomOk && 'zoom', !textOk && 'lens-text', !lensBig && 'lens-small', G.S < 70 && 'stage-small'].filter(Boolean)};
+  return {F, rsc, bench, mat, panel, PL, G, fi, slot, pw, ph, tabH, card, source, dest, zoom, size, bFit, aFit, trace, tsz, badgeR, nFits, ok, kText: 16.3 / (minT * vs),
+    problems: [PL && !PL.ok && 'panel-text', !zoomOk && 'zoom', !textOk && 'lens-text', !lensBig && 'lens-small', !stageOk && 'stage-small'].filter(Boolean)};
 }
 
 /** Tab (caption strip) under a print, local origin = the print card's top-left. */
@@ -217,19 +222,15 @@ function sceneParts(ctx, L) {
   const lvBefore = num0 ? numNode(C.nFits[0], 'lv-before', 1) : g({name: 'lv-before'}, hasB ? valB : null);
   const lvAfter = num0 ? numNode(C.nFits[1], 'lv-after', 0) : g({name: 'lv-after', opacity: 0}, hasA ? valA : null);
   const lvTrace = g({name: 'lv-trace', opacity: 0}, showText ? textAt(C.trace, {x: x0, y: num0 ? vy : vy + size * 1.15, fill: th.fgSoft, italic: true}) : null);
-  const card = g(null,
-    tabArt(L, {}),
-    g({transform: T(slot.x + pw / 2, slot.y + ph / 2)}, printArt(ctx, G, F0, {name: 'lzp', pw, ph, index: C.fi, rows: L.recs, ruler: true, numberText: null})),
-  );
   const content = g(null,
     h('rect', {x: r(C.source.x - 40), y: r(C.source.y - 40), width: r(C.source.w + 80), height: r(C.source.h + 80), fill: '#e8e4da'}),
     g({transform: T(slot.x, slot.y)}, tabArt(L, {})),
-    g({transform: T(slot.x + pw / 2, slot.y + ph / 2)}, printArt(ctx, G, F0, {name: 'lzp', pw, ph, index: C.fi, rows: L.recs, ruler: true, numberText: null})),
+    g({transform: T(slot.x + pw / 2, slot.y + ph / 2)}, printArt(ctx, G, F0, {name: 'lzp', pw, ph, index: C.fi, rows: L.recs, ruler: true, numberText: showText && !num0 ? String(C.fi + 1) : null})),
     g({name: 'lv-text'}, lvBefore, lvAfter, lvTrace),
     h('rect', {name: 'lv-ring', x: r(num0 ? bx - C.badgeR - 8 : x0 - pw * 0.03), y: r(num0 ? by - C.badgeR : vy), width: 4, height: r(num0 ? C.badgeR * 2 : size * 1.2), rx: 2, fill: th.accent2, opacity: 0}),
   );
   const Lz = lens(ctx, {name: 'lens', source: C.source, dest: C.dest, frame: C.bench, content, color: th.accent2});
-  return {Lz, card, bx, by, x0, vy};
+  return {Lz, bx, by, x0, vy};
 }
 
 const scene = {
@@ -247,13 +248,13 @@ const scene = {
     const lg = new Map();
     for (const [fi, F] of SIZES.entries()) {
       if (firstOk >= 0 && fi > firstOk + 2) break;
-      for (const o0 of opts) for (const split of [0.62, 0.55, 0.48]) for (const tr of [{tray: 'right', trayFrac: 0.34}, {tray: 'top', trayFrac: 0.3}]) {
+      for (const o0 of opts) for (const split of [0.62, 0.55, 0.48, 0.42, 0.36]) for (const tr of [{tray: 'right', trayFrac: 0.34}, {tray: 'top', trayFrac: 0.3}]) {
         const key = `${F}|${JSON.stringify(o0)}`;
         if (!lg.has(key)) lg.set(key, legendFor(ctx, rowsL, F, o0));
         const LG = lg.get(key);
         if (LG.PL && !LG.PL.ok && C) continue;
         const c = compose(ctx, P, recs, F, {...o0, split, ...tr}, LG, vs);
-        const score = c.G.S * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * Math.min(1.3, c.zoom / 2);
+        const score = c.G.S * Math.sqrt(c.rsc) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * Math.min(1.3, c.zoom / 2);
         if (c.ok && firstOk < 0 && F >= 19.5) firstOk = fi;
         if (c.ok && score > bestScore) { best = c; bestScore = score; }
         if (!C || c.problems.length < C.problems.length) C = c;

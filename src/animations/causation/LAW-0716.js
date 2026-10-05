@@ -119,9 +119,9 @@ function applyStatic(node, rec) {
   return node;
 }
 const SHAPES = {
-  landscape: {size: 26, minSize: 17, arr: ['side', 'stack']},
+  landscape: {size: 26, minSize: 17, arr: ['side', 'stack', 'stack2']},
   square: {size: 24, minSize: 17, arr: ['stack', 'stack2', 'side']},
-  portrait: {size: 25, minSize: 17, arr: ['stack']},
+  portrait: {size: 30, minSize: 17, arr: ['stack']},
 };
 const RW_ = fieldW();
 
@@ -433,7 +433,8 @@ const scene = {
       zx = MARGIN + (full - L.zW) / 2;
       F = top + L.zH - 16;
       const lowH = L.arr === 'stack2' ? L.band.h : L.split ? Math.max(L.recH, L.band.h) : L.recH + (L.band.h ? 16 + L.band.h : 0);
-      const lowTop = Math.max(top + L.zH + 30, Dv.h - lowH);
+      // (portrait: the record block closes up under the context — the spare height goes mostly below it)
+      const lowTop = ctx.view.shape === 'portrait' ? Math.min(Dv.h - lowH, top + L.zH + 30 + Math.max(0, Dv.h - lowH - top - L.zH - 30) * 0.3) : Math.max(top + L.zH + 30, Dv.h - lowH);
       recY = lowTop + L.rec.clipH * 0.35;
       if (L.arr === 'stack2') {
         recX = zx + L.recX; recY = F + L.recY;

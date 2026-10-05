@@ -302,7 +302,7 @@ const scene = {
       }
     }
     L.fallback = !pick;
-    L.why = why.filter(w0 => (globalThis.WHY ? new RegExp(globalThis.WHY) : /@17:/).test(w0)).slice(0, 40);
+    L.why = why.filter(w0 => /@17:/.test(w0)).slice(0, 40);
     L.M = M;
     const full = Dv.w - 2 * MARGIN;
     const PH = L.PH;
