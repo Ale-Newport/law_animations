@@ -289,7 +289,7 @@ export function fitStation(box, o) {
       // give the sheet the width left over (bounded), so rows wrap less and the station spans its box
       const G0 = found.G;
       const extra = box.w - G0.W;
-      if (extra > 4) {
+      if (extra > 4 && !o.noExpand) {
         const sheetW = Math.min(G0.sheet.w + extra, Math.max(G0.sheet.w, G0.S * 4.2));
         const G = stationGeom({n: o.n, S: G0.S, sheetW, bagMode: o.bagMode, noBag: o.noBag});
         const SF = fitSheet(G, o.texts, o.F, o.title);
@@ -544,7 +544,7 @@ export function composeScene(ctx, o, panelLayoutFn) {
       const inset = Math.max(14, Math.min(bench.w, bench.h) * 0.035);
       const pad = inset + (o.benchPad ?? 16);
       const box = {x: bench.x + pad, y: bench.y + pad, w: bench.w - pad * 2, h: bench.h - pad * 2 - (o.armRoom ? Math.min(60, bench.h * 0.06) : 0)};
-      const st = fitStation(box, {n: o.n, texts: o.texts, F, bagMode: opt.bag, noBag: o.noBag, title: o.title, tagText: o.tagText});
+      const st = fitStation(box, {n: o.n, texts: o.texts, F, bagMode: opt.bag, noBag: o.noBag, title: o.title, tagText: o.tagText, noExpand: o.noExpand, sheetFrac: o.sheetFrac});
       const c = {F, opt, bench, panel, PL, st, box};
       c.ok = Boolean(st) && (!PL || PL.ok);
       c.problems = [!st && 'station-fit', PL && !PL.ok && 'panel-text'].filter(Boolean);
