@@ -582,7 +582,7 @@ const scene = {
     const why = [];
     const hMin = ctx.view.shape === 'portrait' ? 150 : 110;
     const v0 = ctx.view, fs0 = Math.min(v0.content.w / ctx.design.w, v0.content.h / ctx.design.h);
-    const subj = q => q.OH * (1.02 + PLINTH) * fs0 >= 0.208 * v0.height;
+    const subj = q => q.OH * 1.32 * fs0 >= 0.205 * v0.height;
     // (the narrow lane-to-lane label width only matters when a lane A – lane B relation is supplied)
     const hasSeq = base.rels.some(q => (q.from === 'laneA' && q.to === 'laneB') || (q.from === 'laneB' && q.to === 'laneA'));
     for (let size = SH.size; size >= SH.minSize - 1e-9; size -= 1) {

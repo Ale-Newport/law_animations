@@ -183,7 +183,7 @@ function compose(ctx, P, F, shape) {
   const stripY = side ? Math.max(my, (D.h - stripH) / 2) : guideY + guideH;
   if (!side && stripY + stripH > D.h - my + 0.5) problems.push('strip');
   void cwMin;
-  return {stripX, side, problems, F, stacked, panels, rooms, heads: [hA, hB], headH, L1, R1, R2, colW, iconW, cols, note, key, noteCol, guideY, stripY, hL, hR, mx};
+  return {stripH, my, stripX, side, problems, F, stacked, panels, rooms, heads: [hA, hB], headH, L1, R1, R2, colW, iconW, cols, note, key, noteCol, guideY, stripY, hL, hR, mx};
 }
 
 const scene = {
@@ -204,6 +204,13 @@ const scene = {
     L.CM = L.rooms.map(q => cardModel(ctx, {w: q.cw, F: Math.min(q.cw * 0.12, q.RG.ch / 6.2), a: '', b: '', showText: false, fixH: q.RG.ch, bars: 2}));
     L.looks = [actorLook(ctx, {appearance: {outfit: 0}}, 0), actorLook(ctx, {appearance: {outfit: 0}}, 0)];
     L.rigs = ['ra-p0', 'rb-p0'].map((name, i) => planPerson(ctx, {name, look: L.looks[i]}));
+    // scale the whole composition up into any free space of the design box (it then spans the safe box)
+    const D = ctx.design;
+    const bx0 = Math.min(...L.panels.map(q => q.x)), by0 = Math.min(...L.panels.map(q => q.headY));
+    const bx1 = Math.max(...L.rooms.map(q => q.room.x + q.room.w), L.stripX + (L.stacked ? L.colW : L.colW * 3 + L.F * 3.2));
+    const by1 = Math.max(...L.rooms.map(q => q.room.y + q.room.h), L.stripY + L.stripH);
+    const kf = Math.min(1.6, (D.w - 8) / (bx1 - bx0), (D.h - 8) / (by1 - by0));
+    L.fit = kf > 1.01 ? {k: kf, tx: (D.w - (bx1 - bx0) * kf) / 2 - bx0 * kf, ty: (D.h - (by1 - by0) * kf) / 2 - by0 * kf} : null;
     return L;
   },
   build(ctx, L) {
@@ -277,7 +284,7 @@ const scene = {
       strip.push(g({name: 'key'}, h('line', {x1: r(nx), x2: r(nx + Math.max(L.key.width, F * 6)), y1: r(ky - F * 0.25), y2: r(ky - F * 0.25), stroke: th.fgSoft, 'stroke-width': 1.5, opacity: 0.6}), textAt(L.key, {x: nx, y: ky, fill: th.fg, italic: true})));
     }
     parts.push(g({name: 'strip'}, strip));
-    return g(null, parts);
+    return L.fit ? g({transform: `translate(${r(L.fit.tx)} ${r(L.fit.ty)}) scale(${r(L.fit.k, 4)})`}, parts) : g(null, parts);
   },
   frame(ctx, L, u) {
     const nodes = {};
