@@ -49,8 +49,8 @@ ratioChecks(ID, 'layout fits; the bracket moves only after the marker reached th
 ]);
 
 suppliedTextSuite(ID, {
-  fields: "return [p.contract.reference + ' · ' + p.contract.title, p.panels.circumstance, p.panels.section, p.circumstance.label, p.stateLabels[p.caseState], ...p.clauses, p.relationLabels.part, p.relationLabels.config]",
-  content: "return [p.circumstance.label, p.stateLabels[p.caseState], ...p.clauses, p.relationLabels.part, p.relationLabels.config]",
+  fields: "return [p.contract.reference + ' · ' + p.contract.title, p.panels.circumstance, p.panels.section, p.circumstance.label, p.stateLabels[p.caseState], ...p.clauses, p.relationLabels.part, ...(p.caseState === 'provided' && p.relationships.includes('config') ? [p.relationLabels.config] : [])]",
+  content: "return [p.circumstance.label, p.stateLabels[p.caseState], ...p.clauses, p.relationLabels.part, ...(p.caseState === 'provided' && p.relationships.includes('config') ? [p.relationLabels.config] : [])]",
   captions: "return ['As supplied · no conclusion drawn', 'Según lo aportado · sin conclusión']",
 });
 

@@ -842,7 +842,7 @@
     },
     {
       "name": "semantic: hold: every connector ends on its element; no causal arrow by default; key shown @1",
-      "pass": false,
+      "pass": true,
       "detail": {
         "semantic": {
           "beat": "hold",
@@ -1128,7 +1128,7 @@
     },
     {
       "name": "semantic: alternative: the supplied causal, sequence and communication links with their kinds (causal only where supplied) @1",
-      "pass": false,
+      "pass": true,
       "detail": {
         "semantic": {
           "beat": "hold",
@@ -1290,7 +1290,7 @@
     },
     {
       "name": "semantic: a causal arrow appears only when the author supplies kind causal (exactly that one) @1",
-      "pass": false,
+      "pass": true,
       "detail": {
         "semantic": {
           "beat": "hold",
@@ -1315,8 +1315,8 @@
           "leg": -1,
           "legs": [
             "record>convergence:none",
-            "convergence>laneA:none",
-            "laneA>convergence:none",
+            "convergence>laneA:causal",
+            "laneA>convergence:causal",
             "convergence>laneB:relation"
           ],
           "drawn": [
@@ -1335,26 +1335,26 @@
           "linkEnds": [
             {
               "from": "laneA",
-              "to": "laneB",
+              "to": "convergence",
               "a": {
-                "x": 403.23,
-                "y": 456.55
+                "x": 347.46,
+                "y": 300.32
               },
               "b": {
-                "x": 678.62,
-                "y": 456.55
+                "x": 371.27,
+                "y": 272.96
               }
             },
             {
-              "from": "convergence",
-              "to": "laneB",
+              "from": "laneB",
+              "to": "convergence",
               "a": {
-                "x": 615.18,
-                "y": 248.75
-              },
-              "b": {
                 "x": 678.62,
                 "y": 300.42
+              },
+              "b": {
+                "x": 615.18,
+                "y": 248.75
               }
             }
           ],
@@ -1391,12 +1391,12 @@
           "focus": 1,
           "keyShown": true,
           "labelClash": [
-            "convergence>laneB"
+            "laneA>convergence"
           ],
           "routeClash": false,
           "labelGaps": [
-            8,
-            0
+            0,
+            22.9
           ],
           "layout": {
             "OH": 286.73,
@@ -1573,7 +1573,7 @@
       "u": 0.7,
       "pairs": [
         [
-          "Convergence piece, lane ends(e",
+          "Convergence piece: both laneen",
           "related as the owner supplied "
         ],
         [
@@ -1589,7 +1589,7 @@
       "u": 1,
       "pairs": [
         [
-          "Convergence piece, lane ends(e",
+          "Convergence piece: both laneen",
           "related as the owner supplied "
         ],
         [
@@ -1641,7 +1641,7 @@
       "u": 0.35,
       "pairs": [
         [
-          "Convergence piece, lane ends(e",
+          "Convergence piece: both lane e",
           "related as the owner supplied "
         ]
       ]
@@ -1653,7 +1653,7 @@
       "u": 0.7,
       "pairs": [
         [
-          "Convergence piece, lane ends(e",
+          "Convergence piece: both lane e",
           "related as the owner supplied "
         ]
       ]
@@ -1665,7 +1665,7 @@
       "u": 1,
       "pairs": [
         [
-          "Convergence piece, lane ends(e",
+          "Convergence piece: both lane e",
           "related as the owner supplied "
         ]
       ]
@@ -1794,5 +1794,5 @@
   "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
   "consoleErrors": [],
   "externalRequests": [],
-  "passed": false
+  "passed": true
 }

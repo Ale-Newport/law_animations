@@ -190,11 +190,12 @@ const scene = {
     const P = localisedDn(ctx, EN, ES);
     const R = resolveDn(P);
     const shape = ctx.view.shape;
-    const vs = shape === 'landscape' ? [4].flatMap(sc => [0.24, 0.3].map(ez => ({arr: 'row', ez, sc})))
+    const vs = shape === 'landscape' ? [3, 4].flatMap(sc => [0.24, 0.3].map(ez => ({arr: 'row', ez, sc})))
       : shape === 'portrait' ? [0.24, 0.3].flatMap(ez => [3, 2].map(sc => ({arr: 'column', ez, sc})))
         : [0.18, 0.14].flatMap(ez => [3, 4].map(pl => ({arr: 'row', ez, sc: 2, pl})));
     let C = null, best = null;
-    outer: for (const F of SIZES) for (const v of vs) {
+    // (the boards are the subject: text starts at 20.5 so the strip stays compact and the boards get the height)
+    outer: for (const F of SIZES.filter(f => f <= 20.5)) for (const v of vs) {
       const c = compose(ctx, P, R, F, v);
       if (c.ok) { C = c; break outer; }
       if (!best || c.problems.length < best.problems.length) best = c;
