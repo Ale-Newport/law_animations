@@ -149,7 +149,7 @@ function compose(ctx, P, F, v) {
   if (!TM.ok) problems.push('tag-text');
   const planFor = (cw, mk = 0.3) => {
     const M = cardModel(P, {w: cw, F, showText: showKey && !v.list, compact: v.list, minK: mk});
-    return {M, B: boardPlan(M, TM, {F, orient: v.orient, tagTop: H, calEnd: false, compact: v.list})};
+    return {M, B: boardPlan(M, TM, {F, orient: v.orient, tagTop: H && !v.side, calEnd: false, compact: v.list})};
   };
   const fits = q => q.B.w <= inner.w + 0.5 && q.B.h <= inner.h + 0.5 && q.M.ok;
   const lo = v.list ? F * 4.6 : F * 8.6;
@@ -162,13 +162,14 @@ function compose(ctx, P, F, v) {
   }
   // (then the tallest card height that still fits: the board uses the free height)
   if (H && fits(best)) for (const mk of [1.3, 1.0, 0.8, 0.6, 0.45]) { const q = planFor(best.M.w, mk); if (fits(q)) { best = q; break; } }
+  if (globalThis.DBG && v.side) console.log('  B', Math.round(best.B.w), Math.round(best.B.h), 'inner', Math.round(inner.w), Math.round(inner.h), 'M', Math.round(best.M.w), Math.round(best.M.h), 'TM', Math.round(TM.h));
   let {M, B} = best;
  
   if (!fits(best)) problems.push('board');
   if (!M.ok) problems.push('card-text');
   if (!B.ok) problems.push('tag-calendar');
   const extra = (H ? inner.w - B.w : inner.h - B.h) - F * 0.5;
-  if (fits(best) && extra > 0) B = boardPlan(M, TM, {F, orient: v.orient, tagTop: H, calEnd: false, compact: v.list, travel: B.travel + extra * 0.5, run: B.run + extra * 0.5});
+  if (fits(best) && extra > 0) B = boardPlan(M, TM, {F, orient: v.orient, tagTop: H && !v.side, calEnd: false, compact: v.list, travel: B.travel + extra * 0.5, run: B.run + extra * 0.5});
   // the plates hug their boards (same size in A and B); the whole is centred vertically
   const plateW = sceneW, plateH = B.h + m * 2;
   const sceneH = headH + plateH;
