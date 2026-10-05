@@ -127,8 +127,10 @@ function geom(ctx, F, minF) {
   // stacked (start) position: the middle sheet's place
   // the registered stack at the start: one sheet footprint (layer 3's size), enlarged to fill the free box
   const top0 = pad + tabH + 10, bot0 = (notesBox.h ? notesBox.y - 20 : D.h - pad);
-  const s0 = Math.max(1, Math.min((D.w - pad * 2 - 30) / S.w, (bot0 - top0) / S.h) * 0.96);
-  const stack = {x: (D.w - S.w * s0) / 2, y: top0 + (bot0 - top0 - S.h * s0) / 2, s: s0};
+  const SZ = [S0 ?? S, S2 ?? S, S];
+  const mw = Math.max(...SZ.map(z => z.w)), mh = Math.max(...SZ.map(z => z.h));
+  const s0 = Math.min(Math.max(1, Math.min((D.w - pad * 2 - 30) / S.w, (bot0 - top0) / S.h) * 0.96), (D.w - pad * 2 - 30) / mw, (bot0 - top0 - 20) / mh);
+  const stack = {s: s0, xs: SZ.map(z => (D.w - z.w * s0) / 2), ys: SZ.map(z => top0 + (bot0 - top0 - z.h * s0) / 2)};
   // layer 1: contract heading + clause lines
   const padX = 30;
   const head = fitG(`${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`, {maxWidth: S0.w - padX * 2, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 800});
@@ -256,9 +258,11 @@ const scene = {
       h('circle', {cx: r(q.a.x), cy: r(q.a.y), r: 6.5, fill: th.accent2, stroke: '#fff', 'stroke-width': 2}),
       h('circle', {name: `rel${q.i}-e`, cx: r(q.b.x), cy: r(q.b.y), r: 6.5, fill: th.accent2, stroke: '#fff', 'stroke-width': 2, opacity: 0}),
     ));
-    const bead = g({name: 'bead', opacity: 0},
-      h('circle', {cx: 0, cy: 0, r: 20, fill: th.accent, opacity: 0.25}),
-      h('circle', {cx: 0, cy: 0, r: 11, fill: th.accent, stroke: '#fff', 'stroke-width': 3}));
+    const br = Math.max(11, 13 / L.upx);
+    const trail = [3, 2, 1].map(k => h('circle', {name: `trail${k}`, cx: 0, cy: 0, r: r(br * (1 - k * 0.15)), fill: th.accent, opacity: 0}));
+    const bead = g(null, trail, g({name: 'bead', opacity: 0},
+      h('circle', {cx: 0, cy: 0, r: r(br * 1.9), fill: th.accent, opacity: 0.22}),
+      h('circle', {cx: 0, cy: 0, r: r(br), fill: th.accent, stroke: '#fff', 'stroke-width': 3.5})));
     const notes = L.notesPl ? L.notesPl.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node)) : [];
     // stacking order: layer 3 at the bottom, then 2, then 1 (as in the registered stack)
     // the diagonal rail the layers slide along (from layer 1's place to layer 3's place)
@@ -285,27 +289,32 @@ const scene = {
     const p = ctx.params;
     const nodes = {};
     const q = ease.inOutCubic(seg(u, ...W.explode));
-    const at = i => ({x: lerp(L.stack.x + (i - 1) * 10, L.pos[i].x, q), y: lerp(L.stack.y + (i - 1) * 10, L.pos[i].y, q)});
+    const at = i => ({x: lerp(L.stack.xs[i] + (i - 1) * 10, L.pos[i].x, q), y: lerp(L.stack.ys[i] + (i - 1) * 10, L.pos[i].y, q)});
     const sc = lerp(L.stack.s, 1, q);
     const P = [0, 1, 2].map(at);
     // focus enlargement
     const fe = p.focusElement;
     const order = p.traversalOrder;
-    const tq = seg(u, ...W.trace);
     const segs = [];
     const pts = order.map(id => L.stops[id]);
     order.forEach((id, i) => { if (i > 0) segs.push({kind: 'move', from: pts[i - 1], to: pts[i], w: 1}); segs.push({kind: 'dwell', id, at: pts[i], w: id === fe ? 2.4 : 1}); });
     const total = segs.reduce((a, s) => a + s.w, 0);
-    let acc = 0, bead = pts[0], dwellId = null, dwellQ = 0, moving = false;
-    for (const s of segs) {
-      const s0 = acc / total, s1 = (acc + s.w) / total;
-      if (tq <= s1 || s === segs[segs.length - 1]) {
-        const lq = clamp((tq - s0) / (s1 - s0));
-        if (s.kind === 'move') { const e = ease.inOutSine(lq); bead = {x: lerp(s.from.x, s.to.x, e), y: lerp(s.from.y, s.to.y, e)}; moving = u > W.trace[0] && u < W.trace[1]; } else { bead = s.at; dwellId = u > W.trace[0] && u < W.trace[1] ? s.id : null; dwellQ = lq; }
-        break;
+    const beadAt = uu => {
+      const tq = seg(uu, ...W.trace);
+      let acc = 0, pos = pts[0], dId = null, dQ = 0, mv = false;
+      for (const s of segs) {
+        const s0 = acc / total, s1 = (acc + s.w) / total;
+        if (tq <= s1 || s === segs[segs.length - 1]) {
+          const lq = clamp((tq - s0) / (s1 - s0));
+          if (s.kind === 'move') { const e = ease.inOutSine(lq); pos = {x: lerp(s.from.x, s.to.x, e), y: lerp(s.from.y, s.to.y, e)}; mv = uu > W.trace[0] && uu < W.trace[1]; } else { pos = s.at; dId = uu > W.trace[0] && uu < W.trace[1] ? s.id : null; dQ = lq; }
+          break;
+        }
+        acc += s.w;
       }
-      acc += s.w;
-    }
+      return {pos, dId, dQ, mv};
+    };
+    const B0 = beadAt(u);
+    const bead = B0.pos, dwellId = B0.dId, dwellQ = B0.dQ, moving = B0.mv;
     const grow = dwellId === fe ? Math.sin(Math.PI * dwellQ) * 0.14 : 0;
     const zoomAbout = (c, k) => `translate(${r(c.x, 2)} ${r(c.y, 2)}) scale(${r(1 + k, 4)}) translate(${r(-c.x, 2)} ${r(-c.y, 2)})`;
     const loc = (id, i) => ({x: L.stops[id].x - L.pos[i].x, y: L.stops[id].y - L.pos[i].y});
@@ -331,6 +340,7 @@ const scene = {
     });
     const beadOn = u > W.trace[0] && u < W.trace[1] + 0.01;
     nodes.bead = {opacity: beadOn ? 1 : 0, transform: T(r(bead.x, 2), r(bead.y, 2))};
+    for (let k = 1; k <= 3; k++) { const q2 = beadAt(Math.max(W.trace[0], u - k * 0.007)).pos; nodes[`trail${k}`] = {opacity: beadOn ? r(0.5 - k * 0.12, 3) : 0, transform: T(r(q2.x, 2), r(q2.y, 2))}; }
     L.tiles.forEach((_, i) => { nodes[`st${i}`] = {opacity: r(seg(u, W.status[0] + i * 0.01, W.status[0] + i * 0.01 + 0.035), 3)}; });
     const keyO = seg(u, ...W.key), noteO = seg(u, ...W.notes);
     if (L.notesPl) for (const pl of L.notesPl) nodes[`${pl.q.name}-g`] = {opacity: r(pl.q.kind === 'key' ? keyO : pl.q.kind === 'leg' ? seg(u, ...W.status) : noteO, 3)};

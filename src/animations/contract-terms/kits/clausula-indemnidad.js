@@ -205,7 +205,7 @@ export function socketArt(ctx, name, dir, s = 1) {
 
 /** Text and size of a claim slip of width w. */
 export function slipText(ctx, p, w, F, minF, stress, minH = 0) {
-  const label = fitG(p.claim.label, {maxWidth: w - 52, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700});
+  const label = fitG(p.claim.label, {maxWidth: w - 52, size: F, minSize: minF, maxLines: stress ? 4 : 2, weight: 700});
   const at = amountText(ctx, p);
   const amount = at ? fitG(at, {maxWidth: w - 52, size: F * 0.92, minSize: Math.min(minF, F * 0.92), maxLines: 3, weight: 600}) : null;
   const stub = Math.max(34, F * 1.25);
@@ -225,7 +225,7 @@ export function claimSlip(ctx, o) {
   const {w, h: hh, stub} = o.T;
   const pr = o.prong;
   const bx = o.side === 'left' ? pr : -w / 2;
-  const by = o.side === 'left' ? -hh / 2 : pr;
+  const by = o.side === 'left' ? -hh * (o.T.prongAt ?? 0.5) : pr;
   const tint = o.tint ?? '#f3d7c4';
   const dots = [];
   for (let x = bx + 14; x < bx + w - 10; x += 16) dots.push(h('circle', {cx: r(x), cy: r(by + stub), r: 2.4, fill: '#b49a86'}));
@@ -259,7 +259,7 @@ export function claimSlip(ctx, o) {
   return g({name: o.name}, parts);
 }
 /** The slip body box relative to the prong tip. */
-export const slipBox = (T0, side, prong) => (side === 'left' ? {x: prong, y: -T0.h / 2, w: T0.w, h: T0.h} : {x: -T0.w / 2, y: prong, w: T0.w, h: T0.h});
+export const slipBox = (T0, side, prong) => (side === 'left' ? {x: prong, y: -T0.h * (T0.prongAt ?? 0.5), w: T0.w, h: T0.h} : {x: -T0.w / 2, y: prong, w: T0.w, h: T0.h});
 
 /* ------------------------------------------------------------------------ */
 /* The reading lens (lupa)                                                    */

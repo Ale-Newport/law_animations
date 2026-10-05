@@ -80,27 +80,39 @@ function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH) {
   const headerH = Math.max(headerTextH, F * 1.6) + 22;
   const pad = 22;
   const panel = {x: 0, y: headerH + 8, w: bw, h: bh - headerH - 8};
-  const cw = clamp(bw * (bw > 1000 ? 0.47 : 0.44), 260, 580);
-  const head = fitG(`${p.contract.reference} · ${p.clauseTitle}`, {maxWidth: cw - 40, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700});
+  const cw = clamp(bw * (bw > 1000 ? 0.34 : bw < 820 ? 0.42 : 0.39), 250, 520);
+  const head = fitG(p.contract.reference, {maxWidth: cw - 40, size: F, minSize: minF, maxLines: 2, weight: 700});
   const rowFit = fitG(p.clauses[pi], {maxWidth: cw - 70, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600});
   const bandH = head.height + F * 0.8;
   const rowH = rowFit.height + F * 0.95;
-  const ch = bandH + 22 + rowH + 30;
-  const sw = clamp(bw * 0.29, 210, 340);
-  const TT = slipText(ctx, p, sw, F, minF, stress, Math.max(ch * 0.8, F * 4.4));
+  const ch0 = bandH + 22 + rowH + 30;
+  const panelH0 = bh - headerH - 8;
+  const sw = clamp(bw * 0.25, 205, 340);
+  const TT = slipText(ctx, p, sw, F, minF, stress, Math.max(F * 4.4, (panelH0 - 34 - 28 - 46) * 0.55));
+  const PA = 0.3;
+  TT.prongAt = PA;
+  const ch = Math.max(ch0, Math.min(TT.h * 1.1, panelH0 - 96));
   if (head.bad || rowFit.bad || TT.bad) why.push('bench-text');
   const beamGap = 34, trackH = 18;
   const stackH = beamGap + TT.h + trackH + 10;
-  const contentH = Math.max(ch + 40, stackH + 30);
-  if (contentH > panel.h - 16) why.push('bench-too-short');
-  const cy = panel.y + 16 + (panel.h - 16) / 2; // slip centre / promise row centre
-  const card = {x: pad, y: cy - (bandH + 22 + rowH / 2), w: cw, h: ch};
-  const row = {x: card.x + 20, y: card.y + bandH + 22, w: cw - 30, h: rowH};
+  void stackH;
+  // slip centre = promise row centre: centred in the panel, lowered if the card's head band needs room above the row
+  const cyMin = Math.max(panel.y + 40 + bandH + 14 + rowH / 2, panel.y + 12 + beamGap + 16 + TT.h * PA);
+  const cyMax = panel.y + panel.h - 10 - trackH - 10 - TT.h * (1 - PA);
+  const cy = clamp(panel.y + 16 + (panel.h - 16) / 2, cyMin, Math.max(cyMin, cyMax));
+  if (cyMin > cyMax + 0.5) why.push('bench-too-short');
+  const top = panel.y + 36, bot = panel.y + panel.h - 8;
+  const chh = Math.min(ch, bot - top);
+  const card = {x: pad, y: clamp(cy - chh / 2, top, bot - chh), w: cw, h: chh};
+  const row = {x: card.x + 20, y: cy - rowH / 2, w: cw - 30, h: rowH};
+  if (row.y < card.y + bandH + 14) { const d = card.y - (row.y - bandH - 14); card.y -= d; }
+  if (card.y + card.h < row.y + rowH + 16) card.h = row.y + rowH + 16 - card.y;
+  if (card.y - 30 < panel.y + 4 || card.y + card.h > panel.y + panel.h - 6) why.push('card-off-panel');
   const sock = {x: card.x + cw, y: cy};
   const dock = {x: sock.x + 4, y: cy};
   const sb = slipBox(TT, 'left', prong);
-  const beamY = cy - TT.h / 2 - beamGap / 2 - 6;
-  const trackY = cy + TT.h / 2 + 4;
+  const beamY = cy - TT.h * PA - beamGap / 2 - 6;
+  const trackY = cy + TT.h * (1 - PA) + 4;
   const right = bw - pad;
   const jawW = 22;
   const restTip = {x: right - jawW - 26 - sw - prong, y: cy};
@@ -115,7 +127,7 @@ function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH) {
   return {why, prong, headerH, panel, card, row, head, rowFit, bandH, rowH, TT, sb, sock, dock, restTip, beamY, trackY, jawW, jawPark, jawClosed, jawOpen, jawMid, slipFar, right, cy, pad};
 }
 
-function geom(ctx, F, minF, side) {
+function geom(ctx, F, minF, side, colMode = false) {
   const p = ctx.params;
   const D = ctx.design;
   const show = ctx.show('all'), showKey = ctx.show('key');
@@ -123,9 +135,12 @@ function geom(ctx, F, minF, side) {
   const why = [];
   const m = 26;
   // bottom band: shared clause strip (once, chips flowing in rows), guide chip, neutral note
-  const fullW = D.w - 2 * m;
-  const sharedHead = show && p.comparisonLabels.shared ? fitG(p.comparisonLabels.shared, {maxWidth: fullW - 30, size: F, minSize: minF, maxLines: 1, weight: 700}) : null;
-  const shared = show ? p.clauses.map((c, i) => ({i, fit: fitG(c, {maxWidth: fullW - 80, size: F, minSize: minF, maxLines: 2, weight: 600})})) : [];
+  const colW = colMode ? clamp(D.w * 0.27, 300, 400) : 0;
+  const fullW = colMode ? colW : D.w - 2 * m;
+  const sharedText = [p.comparisonLabels.shared, `${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`].filter(Boolean).join(' — ');
+  const sharedHead = show ? fitG(sharedText, {maxWidth: fullW - 30, size: F, minSize: minF, maxLines: colMode ? (stress ? 7 : 5) : (stress ? 3 : 2), weight: 700}) : null;
+  if (sharedHead && sharedHead.bad) why.push('shared-head');
+  const shared = show ? p.clauses.map((c, i) => ({i, fit: fitG(c, {maxWidth: fullW - 80, size: F, minSize: minF, maxLines: colMode && stress ? 4 : colMode ? 3 : 2, weight: 600})})) : [];
   if (shared.some(s0 => s0.fit.bad)) why.push('shared-text');
   let stripH = 0;
   if (shared.length) {
@@ -138,18 +153,20 @@ function geom(ctx, F, minF, side) {
     }
     stripH = y + rowH + 18;
   }
-  const guideFit0 = show && p.comparisonLabels.guide ? fitG(p.comparisonLabels.guide, {maxWidth: fullW * 0.42 - 40, size: F, minSize: minF, maxLines: 2, weight: 700}) : null;
-  const noteFit0 = showKey && p.comparisonLabels.neutral ? fitG(p.comparisonLabels.neutral, {maxWidth: fullW - (guideFit0 ? guideFit0.width + 80 : 0) - 40, size: F, minSize: minF, maxLines: 2, weight: 500}) : null;
-  const beside = !guideFit0 || !noteFit0 || (!guideFit0.bad && !noteFit0.bad);
-  const guideFit = beside ? guideFit0 : fitG(p.comparisonLabels.guide, {maxWidth: fullW - 40, size: F, minSize: minF, maxLines: 2, weight: 700});
-  const noteFit = beside ? noteFit0 : fitG(p.comparisonLabels.neutral, {maxWidth: fullW - 40, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 500});
+  const nLines = colMode ? (stress ? 9 : 6) : 2;
+  const guideFit0 = show && p.comparisonLabels.guide ? fitG(p.comparisonLabels.guide, {maxWidth: (colMode ? fullW : fullW * 0.42) - 40, size: F, minSize: minF, maxLines: colMode ? 4 : 2, weight: 700}) : null;
+  const noteFit0 = showKey && p.comparisonLabels.neutral ? fitG(p.comparisonLabels.neutral, {maxWidth: (colMode ? fullW : fullW - (guideFit0 ? guideFit0.width + 80 : 0)) - 40, size: F, minSize: minF, maxLines: nLines, weight: 500}) : null;
+  const beside = !colMode && (!guideFit0 || !noteFit0 || (!guideFit0.bad && !noteFit0.bad));
+  const guideFit = beside || colMode ? guideFit0 : fitG(p.comparisonLabels.guide, {maxWidth: fullW - 40, size: F, minSize: minF, maxLines: 2, weight: 700});
+  const noteFit = beside || colMode ? noteFit0 : fitG(p.comparisonLabels.neutral, {maxWidth: fullW - 40, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 500});
   if ((guideFit && guideFit.bad) || (noteFit && noteFit.bad)) why.push('note-text');
   const gH = guideFit ? guideFit.height + 22 : 0, nH = noteFit ? noteFit.height + 22 : 0;
   const notesH = beside ? Math.max(gH, nH) : gH + (gH && nH ? 12 : 0) + nH;
-  const bottomH = stripH + (notesH ? notesH + 14 : 0);
+  const bottomH = colMode ? 0 : stripH + (notesH ? notesH + 14 : 0);
+  if (colMode && stripH + notesH + 14 > D.h - 2 * m) why.push('column-too-tall');
   const gap = side ? 40 : 26;
   const availH = D.h - 2 * m - bottomH;
-  const bw = side ? (D.w - 2 * m - gap) / 2 : D.w - 2 * m;
+  const bw = side ? (D.w - 2 * m - gap) / 2 : D.w - 2 * m - (colMode ? colW + 30 : 0);
   const bh = side ? availH : (availH - gap) / 2;
   const R0 = F * 0.9;
   const headerFits = [p.scenarioA.label, p.scenarioB.label].map(t => (show ? fitG(t, {maxWidth: bw - R0 * 2 - 40, size: F, minSize: minF, maxLines: 2, weight: 700}) : null));
@@ -157,8 +174,9 @@ function geom(ctx, F, minF, side) {
   const B = benchGeom(ctx, p, bw, bh, F, minF, stress, Math.max(0, ...headerFits.map(f => (f ? f.height : 0))));
   why.push(...B.why);
   const origins = side ? [{x: m, y: m}, {x: m + bw + gap, y: m}] : [{x: m, y: m}, {x: m, y: m + bh + gap}];
-  const yb = m + (side ? bh : 2 * bh + gap) + 14;
-  return {ok: !why.length, why, F, minF, side, bw, bh, B, origins, headerFits, shared, sharedHead, stripH, guideFit, noteFit, gH, nH, yb, m, gap, stress, beside};
+  const yb = colMode ? m + Math.max(0, (D.h - 2 * m - (stripH + notesH + 14)) / 2) : m + (side ? bh : 2 * bh + gap) + 14;
+  const xb = colMode ? D.w - m - colW : m;
+  return {ok: !why.length, why, F, minF, side, bw, bh, B, origins, headerFits, shared, sharedHead, stripH, guideFit, noteFit, gH, nH, yb, xb, colW, colMode, m, gap, stress, beside};
 }
 
 /* ---------------------------------------------------------------------- */
@@ -214,10 +232,10 @@ const scene = {
     const upx = unitPx(ctx);
     const stress = isStress(p);
     const minF = (stress ? 16.6 : 20) / upx;
-    const sides = ctx.view.shape === 'landscape' ? [true, false] : [false];
+    const modes = ctx.view.shape === 'landscape' ? [[true, false], [false, false]] : ctx.view.shape === 'square' ? [[false, true], [false, false]] : [[false, false]];
     let L = null;
-    search: for (const fpx of stress ? [23, 21, 19.5, 18, 17] : [28, 26.5, 25, 23, 21.5, 20.5]) for (const sd of sides) {
-      L = geom(ctx, fpx / upx, minF, sd);
+    search: for (const fpx of stress ? [23, 21, 19.5, 18, 17] : [28, 26.5, 25, 23, 21.5, 20.5]) for (const [sd, cm] of modes) {
+      L = geom(ctx, fpx / upx, minF, sd, cm);
       if (L.ok) break search;
     }
     L.upx = upx;
@@ -273,9 +291,9 @@ const scene = {
     let y = L.yb;
     if (L.shared.length) {
       const items = [];
-      if (L.sharedHead) items.push(txt(L.sharedHead, {x: L.m + 6, y, fill: th.fg}));
+      if (L.sharedHead) items.push(txt(L.sharedHead, {x: L.xb + 6, y, fill: th.fg}));
       for (const q of L.shared) {
-        const x0 = L.m + q.x, y0 = y + q.y;
+        const x0 = L.xb + q.x, y0 = y + q.y;
         const pr = q.i === promiseIndex(ctx.params);
         items.push(h('path', {d: roundRectPath(x0, y0, q.w, q.h, 9), fill: pr ? '#fff4d6' : '#ffffff', stroke: pr ? '#b79a55' : INK, 'stroke-width': pr ? 2.4 : 1.8}));
         if (pr) items.push(g({transform: `translate(${r(x0 + q.w - 14)} ${r(y0 + q.h / 2)}) scale(0.42)`}, socketArt(ctx, undefined, 'right', 1)));
@@ -287,11 +305,11 @@ const scene = {
     L._notesY = y;
     if (L.guideFit) {
       const w = L.guideFit.width + 40, hh = L.guideFit.height + 22;
-      bottom.push(g({name: 'guideChip', opacity: 0}, h('path', {d: roundRectPath(L.m, y, w, hh, 12), fill: '#fff', stroke: th.accent, 'stroke-width': 4}), txt(L.guideFit, {x: L.m + 20, y: y + 11, fill: INK})));
+      bottom.push(g({name: 'guideChip', opacity: 0}, h('path', {d: roundRectPath(L.xb, y, w, hh, 12), fill: '#fff', stroke: th.accent, 'stroke-width': 4}), txt(L.guideFit, {x: L.xb + 20, y: y + 11, fill: INK})));
     }
     if (L.noteFit) {
       const w = L.noteFit.width + 40, hh = L.noteFit.height + 22;
-      const nx = L.beside && L.guideFit ? L.m + L.guideFit.width + 80 : L.m;
+      const nx = L.beside && L.guideFit ? L.xb + L.guideFit.width + 80 : L.xb;
       const ny = L.beside || !L.guideFit ? y : y + L.gH + 12;
       bottom.push(g({name: 'noteChip', opacity: 0}, h('path', {d: roundRectPath(nx, ny, w, hh, 12), fill: th.card, stroke: INK, 'stroke-width': 2}), txt(L.noteFit, {x: nx + 20, y: ny + 11, fill: INK})));
     }
@@ -315,8 +333,8 @@ const scene = {
     const looks = [];
     for (let k = 0; k < 2; k++) {
       const P = k === 0 ? 'a-' : 'b-';
-      nodes[`${P}slipG`] = {transform: T(r(tip.x, 2), r(tip.y - B.TT.h / 2, 2))};
-      nodes[`${P}slip`] = {transform: T(0, r(B.TT.h / 2, 2))};
+      nodes[`${P}slipG`] = {transform: T(r(tip.x, 2), r(tip.y - B.TT.h * B.TT.prongAt, 2))};
+      nodes[`${P}slip`] = {transform: T(0, r(B.TT.h * B.TT.prongAt, 2))};
       nodes[`${P}sock-ring`] = {opacity: seated ? 1 : 0};
       nodes[`${P}lit`] = {opacity: seated ? 1 : 0};
       const jx = jawX(k);

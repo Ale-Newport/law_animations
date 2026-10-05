@@ -31,7 +31,7 @@ contractSuite(ID, {
     {at: 0.4, fn: "s.holder === 'b' && s.moving === 'b'", label: 'B carries the bag to B\'s desk'},
     {at: 0.5, fn: "s.atB && s.writingA === false && s.writtenB.every(v => v === 0)", label: 'the bag is on B\'s desk before any row of sheet B is written'},
     {at: 0.5, fn: 's.writtenA.some(v => v > 0) && s.writtenA.some(v => v < 1)', label: 'A writes sheet A after the hand-off'},
-    {at: 0.64, fn: 's.writtenA.every(v => v === 1) && s.writtenB.some(v => v > 0 && v < 1)', label: 'then B writes sheet B (separate records)'},
+    {at: 0.61, fn: 's.writtenA.every(v => v === 1) && s.writtenB.some(v => v > 0 && v < 1)', label: 'then B writes sheet B (separate records)'},
     {at: 1, fn: "s.atB && s.writtenA.every(v => v === 1) && s.writtenB.every(v => v === 1) && s.gapRing === 0 && s.allReached && s.problems.length === 0", label: 'hold: recorded — both sheets carry their rows; composition fits'},
     {at: 1, params: {finalState: 'gap'}, fn: 's.atB && s.writtenA.every(v => v === 1) && s.rowsB.every(v => v === false) && s.writtenB.every(v => v === 0) && s.gapRing === 1', label: 'gap: sheet B stays without entry and its blank rows are ringed'},
     {at: 0.7, params: {finalState: 'gap'}, fn: 's.gapRing === 0 && s.writingB === false', label: 'gap: nothing is marked before the hold; B\'s pen never writes'},

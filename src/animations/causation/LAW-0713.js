@@ -476,8 +476,8 @@ const scene = {
       L.listTop = top;
     } else if (L.mode === 'tall') {
       const blockH = L.stageH + (L.B.h ? 16 + L.B.h : 0);
-      // (labels hidden: the slab stands at the foot of the box)
-      const top = Math.max(0, (Dv.h - blockH) * (ctx.show('key') ? 0.75 : 1));
+      // (labels hidden: the slab stands at the foot of the box; square boxes: centred)
+      const top = Math.max(0, (Dv.h - blockH) * (ctx.show('key') ? 0.75 : ctx.view.shape === 'square' ? 0.5 : 1));
       F = top + L.stageH - 16;
       cx = MARGIN + 10;
       const colX = MARGIN + full - L.recW;
@@ -495,7 +495,7 @@ const scene = {
       L.recGap = 30 + extra * spread;
       const blockH = Math.max(L.stageH, colH) + (L.B.h ? 16 + L.B.h : 0);
       // (labels hidden: the block stands at the foot of the box, so the slab reaches down the frame)
-      const top = Math.max(0, (Dv.h - blockH) * (ctx.show('key') ? 0.75 : 1));
+      const top = Math.max(0, (Dv.h - blockH) * (ctx.show('key') ? 0.75 : ctx.view.shape === 'square' ? 0.5 : 1));
       F = top + Math.max(L.stageH, colH) - 16;
       cx = x0 + 10;
       recX = x0 + L.stageW + L.recGap + 10;

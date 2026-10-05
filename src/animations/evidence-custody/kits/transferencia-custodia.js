@@ -156,7 +156,7 @@ export function tcStage(box, orient, o) {
     if (w > wMax) { w = wMax; hh = w / aspect; }
     return {w, h: hh};
   };
-  const bagSz = fitBox(Za * 0.92, laneB * 0.96, 0.78);
+  const bagSz = fitBox(Za * 0.92, laneB * 0.96, H ? 0.78 : 1);
   const logSz = fitBox(Za * 0.86, laneB * 0.9, 0.82);
   const bagLane = pad + laneB / 2 + pad * 0.2;
   const logLane = Lb - pad - laneB / 2 - pad * 0.2;
@@ -176,8 +176,8 @@ export function tcStage(box, orient, o) {
   const inset = along(bagSz) * 0.16;
   const gripOff = {a: {x: -ax.x * (along(bagSz) - inset), y: -ax.y * (along(bagSz) - inset)}, b: {x: ax.x * (along(bagSz) - inset), y: ax.y * (along(bagSz) - inset)}};
   const rest = {
-    a: {carry: map(aZ0 + hr * 0.6, Lb / 2 - sh * 1.05), pen: null},
-    b: {carry: map(La - aZ0 - hr * 0.6, Lb / 2 - sh * 1.05), pen: null},
+    a: {carry: map(aZ0 + hr * 1.3, Lb / 2 - sh * 0.95), pen: null},
+    b: {carry: map(La - aZ0 - hr * 1.3, Lb / 2 - sh * 0.95), pen: null},
   };
   const desks = {
     a: H ? {x: box.x + aZ0 - hr * 0.3, y: box.y + pad * 0.5, w: deskEnd - aZ0 + hr * 0.3, h: Lb - pad} : {x: box.x + pad * 0.5, y: box.y + aZ0 - hr * 0.3, w: Lb - pad, h: deskEnd - aZ0 + hr * 0.3},
@@ -193,14 +193,14 @@ export function tcStage(box, orient, o) {
 }
 
 /** Clipboard sheet model (world). Rows: [{y, x0, x1, stubX}] in world coordinates. */
-export function sheetModel(L, n) {
-  const clipH = L.h * 0.08;
+export function sheetModel(L, n, o = {}) {
+  const clipH = o.clipH ?? L.h * 0.08;
   const px = L.x + L.w * 0.07, pw = L.w * 0.86;
   const py = L.y + clipH * 0.9, ph = L.h - clipH * 0.9 - L.h * 0.04;
-  const head = {x: px, y: py, w: pw, h: ph * 0.2};
-  const ry0 = py + ph * 0.26, ry1 = py + ph * 0.94;
+  const head = {x: px, y: py, w: pw, h: o.headH ?? ph * 0.2};
+  const ry0 = py + head.h + ph * 0.06, ry1 = py + ph * 0.96;
   const N = Math.max(1, n);
-  const pitch = (ry1 - ry0) / Math.max(3, N);
+  const pitch = (ry1 - ry0) / Math.max(o.minRows ?? 3, N);
   const rows = Array.from({length: n}, (_, i) => {
     const y = ry0 + pitch * (i + 0.72);
     return {y, top: ry0 + pitch * i, h: pitch, x0: px + pw * 0.06, stubX: px + pw * 0.06 + pw * 0.24, x1: px + pw * 0.94};
@@ -283,14 +283,18 @@ export function sheetArt(ctx, SM, key, rows, o) {
   const br = hd.h * 0.36;
   parts.push(h('path', {d: roundRectPath(hd.x + 4, hd.y + hd.h * 0.12, hd.w - 8, hd.h * 0.76, 6), fill: shade(LANE[key], 0.62), stroke: LANE[key], 'stroke-width': 2}));
   parts.push(g({transform: T(hd.x + 8 + br * 1.3, hd.y + hd.h / 2)}, badge(key, br)));
-  if (o.headText) parts.push(textAt(o.headText, {x: hd.x + 12 + br * 2.7, y: hd.y + hd.h / 2 - o.headText.height / 2, fill: INK}));
+  const txt = [];
+  if (o.headText) txt.push(textAt(o.headText, {x: hd.x + 12 + br * 2.7, y: hd.y + hd.h / 2 - o.headText.height / 2, fill: INK}));
   else parts.push(h('path', {d: `M${r(hd.x + 12 + br * 2.8)} ${r(hd.y + hd.h / 2)}h${r(hd.w * 0.45)}`, stroke: shade(LANE[key], -0.2), 'stroke-width': r(Math.max(3, hd.h * 0.14), 2), 'stroke-linecap': 'round'}));
   rows.forEach((rw, i) => {
     const R = SM.rows[i];
     const t = o.texts && o.texts[i];
     if (t) {
-      parts.push(textAt(t.fieldFit, {x: R.x0, y: R.y - t.fieldFit.height - R.h * 0.08, fill: '#5b5b55'}));
-      parts.push(h('line', {x1: r(R.x0), x2: r(R.x1), y1: r(R.y + 2), y2: r(R.y + 2), stroke: '#b9c2c8', 'stroke-width': 1.6}));
+      // printed row: field name (small caps line) above, value on the write line
+      const vy = R.top + R.h - t.valueFit.height - R.h * 0.1;
+      txt.push(textAt(t.fieldFit, {x: R.x0, y: R.top + R.h * 0.06, fill: '#5b5b55'}));
+      parts.push(h('line', {x1: r(R.x0), x2: r(R.x1), y1: r(R.top + R.h - R.h * 0.04), y2: r(R.top + R.h - R.h * 0.04), stroke: '#b9c2c8', 'stroke-width': 1.6}));
+      txt.push(g({name: `${P}-v${i}`}, textAt(t.valueFit, {x: R.x0 + R.h * 0.1, y: vy, fill: rw.filled ? WRITE_INK : '#6b6f73', italic: !rw.filled})));
       return;
     }
     parts.push(h('path', {d: `M${r(R.x0)} ${r(R.y)}H${r(R.stubX - R.h * 0.12)}`, stroke: '#8a8f94', 'stroke-width': r(Math.max(2.4, R.h * 0.13), 2), 'stroke-linecap': 'round'}));
@@ -301,6 +305,7 @@ export function sheetArt(ctx, SM, key, rows, o) {
       parts.push(h('path', {name: `${P}-w${i}`, d, fill: 'none', stroke: WRITE_INK, 'stroke-width': r(Math.max(2, R.h * 0.075), 2), 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 100, 'stroke-dasharray': '100 102', 'stroke-dashoffset': 100}));
     }
   });
+  if (txt.length) parts.push(g({name: `${P}-txt`}, txt));
   return g({name: o.name}, parts);
 }
 
@@ -323,7 +328,7 @@ export function badge(key, rr) {
 }
 
 /** The carried unit: bag (back), object, bag film (front), tag on the bag and the chain to the eyelet. Local origin = bag centre. */
-export function bagUnit(ctx, G, prefix) {
+export function bagUnit(ctx, G, prefix, o = {}) {
   const B = G.B;
   const ox = -B.w / 2, oy = -B.h / 2;
   const objC = {x: ox + B.inner.x + B.inner.w / 2, y: oy + B.inner.y + B.inner.h * 0.45};
@@ -339,11 +344,11 @@ export function bagUnit(ctx, G, prefix) {
     g({transform: T(ox, oy)}, bagFront(ctx, B, {})),
     h('circle', {cx: r(eyelet.x), cy: r(eyelet.y), r: r(G.S * 0.03), fill: METAL, stroke: INK, 'stroke-width': 1.6}),
     h('circle', {cx: r(eyelet.x), cy: r(eyelet.y), r: r(G.S * 0.012), fill: METAL_DARK}),
-    g({transform: T(tagHole.x, tagHole.y, -6)}, tagArt(ctx, TM, {prefix: `${prefix}-tag`, rows: tagRows, seedKey: `${prefix}-tag`})),
-    chain,
+    o.noTag ? null : g({transform: T(tagHole.x, tagHole.y, -6)}, tagArt(ctx, TM, {prefix: `${prefix}-tag`, rows: tagRows, seedKey: `${prefix}-tag`})),
+    o.noTag ? null : chain,
   );
   const sag = G.S * 0.12;
-  const props = chainProps(`${prefix}-chain`, chainA, {x: chainB.x, y: chainB.y}, sag);
+  const props = o.noTag ? {} : chainProps(`${prefix}-chain`, chainA, {x: chainB.x, y: chainB.y}, sag);
   return {node, props, objC, eyelet, tagHole};
 }
 
@@ -375,7 +380,30 @@ export function tcIcon(ctx, kind, s, o = {}) {
   return legendIcon(ctx, kind, s, o);
 }
 
-/** Legend panel node using this motif's icons (rows from evidence-art `panelLayout`). */
+/**
+ * Compact legend layout (like evidence-art `panelLayout`, with a tighter row gap so the hand-off stage keeps its
+ * share of the frame). Rows: {kind:'heading'|'item'|'state'|'key', icon?, text, name, color?}.
+ */
+export function tcPanelLayout(ctx, rows, o) {
+  const {w, F} = o;
+  const iconW = F * 1.9;
+  const gap = F * (o.gap ?? 0.34);
+  let y = 0;
+  let ok = true;
+  const out = rows.map(row => {
+    const tw = row.kind === 'state' || row.kind === 'key' ? w - F * 1.2 : w - iconW;
+    const fit = fitG(row.text, {maxWidth: tw, size: F, minSize: F, maxLines: o.maxLines ?? 4, weight: row.kind === 'heading' ? 700 : row.kind === 'key' ? 600 : 500});
+    if (!fit.ok) ok = false;
+    const pad = row.kind === 'state' ? F * 0.4 : 0;
+    const hh = Math.max(fit.height, row.icon ? F * 1.1 : 0) + pad * 2;
+    const item = {...row, fit, y: y + (row.kind === 'key' ? F * 0.3 : 0), h: hh, pad, iconW, tw};
+    y += hh + gap + (row.kind === 'key' ? F * 0.3 : 0);
+    return item;
+  });
+  return {rows: out, h: Math.max(0, y - gap), w, F, ok};
+}
+
+/** Legend panel node using this motif's icons (rows from `tcPanelLayout`). */
 export function tcPanelNode(ctx, PL) {
   const th = ctx.theme;
   const F = PL.F;

@@ -26,10 +26,10 @@ import {roundRectPath} from '../../core/geometry.js';
 import {seg, clamp, lerp, r} from '../../core/time.js';
 import {str, num, list, obj, oneOf} from '../../schemas/fields.js';
 import {T} from '../../core/transform.js';
-import {localised, panelLayout, ringRect, noteColors, R2} from './kits/evidence-art.js';
+import {localised, ringRect, noteColors, R2} from './kits/evidence-art.js';
 import {
   TC_EN, TC_ES, tcFields, tcLogs, tcRecordLine, tcStage, tcPose, tcArms, bagUnit, tcSceneNodes, tcFrameNodes,
-  tcWriteProps, tcPanelNode,
+  tcWriteProps, tcPanelNode, tcPanelLayout as panelLayout,
 } from './kits/transferencia-custodia.js';
 
 const ID = 'LAW-0369';
@@ -105,11 +105,10 @@ function legendRows(ctx, P, rows) {
   const it = P.items[0];
   if (showKey) out.push({kind: 'heading', icon: `object-${it.kind}`, text: `${it.id} — ${it.label}`, name: 'lg-item'});
   if (showKey) P.custodians.forEach((c, i) => out.push({kind: 'item', icon: i === 0 ? 'cus-a' : 'cus-b', text: `${i === 0 ? 'A' : 'B'} · ${c.name} · ${c.role}`, name: `lg-cus${i}`}));
-  if (showKey) for (const key of ['a', 'b']) rows[key].forEach((rw, i) => out.push({kind: 'item', icon: rw.filled ? `log-${key}` : 'blank-row', text: `${key === 'a' ? P.labels.logA : P.labels.logB} · ${tcRecordLine(rw, P.labels.blank)}`, name: `lg-rec-${key}${i}`}));
+  if (showKey) for (const key of ['a', 'b']) if (rows[key].length) out.push({kind: 'item', icon: rows[key].some(rw => rw.filled) ? `log-${key}` : 'blank-row', text: `${key === 'a' ? P.labels.logA : P.labels.logB} · ${rows[key].map(rw => tcRecordLine(rw, P.labels.blank)).join(' · ')}`, name: `lg-rec-${key}`});
   if (showAll) P.timestamps.forEach((t, i) => out.push({kind: 'item', icon: 'clock', text: `${t.label} · ${t.time}`, name: `lg-time${i}`}));
   if (showAll) out.push({kind: 'item', icon: 'bag', text: P.objectLabels.bag, name: 'lg-bag'});
-  if (showAll) out.push({kind: 'item', icon: 'tag', text: P.objectLabels.tag, name: 'lg-tag'});
-  if (showAll) out.push({kind: 'item', icon: 'chain', text: P.objectLabels.chain, name: 'lg-chain'});
+  if (showAll) out.push({kind: 'item', icon: 'tag', text: `${P.objectLabels.tag} · ${P.objectLabels.chain}`, name: 'lg-tag'});
   if (showAll) out.push({kind: 'item', icon: 'counter', text: P.objectLabels.counter, name: 'lg-counter'});
   if (showAll) out.push({kind: 'item', icon: 'glove', text: P.actorLabels.a, name: 'lg-hands-a'});
   if (showAll) out.push({kind: 'item', icon: 'glove', text: P.actorLabels.b, name: 'lg-hands-b'});
@@ -169,7 +168,7 @@ const scene = {
     const lrows = legendRows(ctx, P, rows);
     const shape = ctx.view.shape;
     const opts = shape === 'portrait' ? [{mode: 'below', cols: 1, orient: 'v'}, {mode: 'below', cols: 2, orient: 'v'}, {mode: 'below', cols: 1, orient: 'h'}, {mode: 'below', cols: 2, orient: 'h'}]
-      : shape === 'square' ? [{mode: 'side', pw: 0.34, orient: 'h'}, {mode: 'side', pw: 0.38, orient: 'h'}, {mode: 'side', pw: 0.42, orient: 'h'}, {mode: 'side', pw: 0.38, orient: 'v'}, {mode: 'below', cols: 2, orient: 'h'}]
+      : shape === 'square' ? [{mode: 'side', pw: 0.34, orient: 'h'}, {mode: 'side', pw: 0.38, orient: 'h'}, {mode: 'side', pw: 0.42, orient: 'h'}, {mode: 'side', pw: 0.34, orient: 'v'}, {mode: 'side', pw: 0.38, orient: 'v'}, {mode: 'side', pw: 0.42, orient: 'v'}, {mode: 'side', pw: 0.5, orient: 'v'}, {mode: 'side', pw: 0.56, orient: 'v'}, {mode: 'below', cols: 2, orient: 'h'}]
         : [{mode: 'side', pw: 0.28, orient: 'h'}, {mode: 'side', pw: 0.32, orient: 'h'}, {mode: 'side', pw: 0.36, orient: 'h'}, {mode: 'side', pw: 0.4, orient: 'h'}];
     let C = null, best = null, bestScore = -1;
     for (const F of SIZES) for (const opt of opts) {

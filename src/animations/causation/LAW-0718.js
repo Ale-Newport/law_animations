@@ -95,14 +95,14 @@ const defaultParamsEs = {
 };
 
 const SHAPES = {
-  landscape: {sizes: [26, 16], modes: ['side', 'below'], sideWs: [0.2, 0.24, 0.28, 0.32, 0.38], arr: ['ring']},
-  square: {sizes: [24, 16], modes: ['side', 'below'], sideWs: [0.28, 0.32, 0.38, 0.45], arr: ['ring', 'diamond']},
-  portrait: {sizes: [25, 16], modes: ['below'], sideWs: [], arr: ['diamond', 'ring']},
+  landscape: {sizes: [22, 16], modes: ['side', 'below'], sideWs: [0.2, 0.24, 0.28, 0.32, 0.38], arr: ['diamond', 'ring']},
+  square: {sizes: [24, 16], modes: ['side', 'below'], sideWs: [0.26, 0.3, 0.34, 0.38, 0.42], arr: ['diamond']},
+  portrait: {sizes: [25, 16], modes: ['side', 'below'], sideWs: [0.26, 0.3, 0.34, 0.38, 0.42], arr: ['diamond']},
 };
 
 /** Part sizes (× U). */
 const PART = {loss: {w: 1, h: 0.5}, barriers: {w: 0.8, h: 0.85}, connectors: {w: 0.8, h: 0.85}, events: null};
-const evW = n => Math.max(0.8, 0.34 * n);
+const evW = n => Math.max(1, 0.46 * n);
 const partWH = (id, n) => (id === 'events' ? {w: evW(n), h: 0.42} : PART[id]);
 
 function panelItems(ctx, p, M) {
@@ -110,10 +110,12 @@ function panelItems(ctx, p, M) {
   if (!ctx.show('key')) return [];
   const out = [];
   // the two supplied allocations: identical chips (their values are the events' state chip)
-  out.push({key: 'alloc-a', icon: 'alloc', side: 'a', text: `A · ${p.allocationLabels.a} · ${t.ticksA}`, when: 'legend'});
-  out.push({key: 'alloc-b', icon: 'alloc', side: 'b', text: `B · ${p.allocationLabels.b} · ${t.ticksB}`, when: 'legend'});
+  const inP = namesInPanel(ctx);
+  // (names in the panel: compact wording — the ● / ◆ glyph of each allocation chip matches the bar's ticks)
+  out.push({key: 'alloc-a', icon: 'alloc', side: 'a', text: inP ? `A · ${p.allocationLabels.a}` : `A · ${p.allocationLabels.a} · ${t.ticksA}`, when: 'legend'});
+  out.push({key: 'alloc-b', icon: 'alloc', side: 'b', text: inP ? `B · ${p.allocationLabels.b}` : `B · ${p.allocationLabels.b} · ${t.ticksB}`, when: 'legend'});
   p.events.forEach((e, i) => out.push({key: `ev${i}`, icon: 'tray', i, text: e.label, when: 'legend'}));
-  out.push({key: 'bar', icon: 'bar', text: `${p.losses[0].label}: ${t.total}`, when: 'legend'});
+  if (!inP) out.push({key: 'bar', icon: 'bar', text: `${p.losses[0].label}: ${t.total}`, when: 'legend'});
   if (p.losses[1]) out.push({key: 'loss1', icon: 'note', text: `${t.alsoNoted}: ${p.losses[1].label}`, when: 'legend'});
   M.alternatives.forEach((a, j) => out.push({key: `alt${j}`, icon: 'alt', text: altText(ctx, a), when: 'legend'}));
   linkNotes(ctx, M).forEach(l => out.push({...l, when: 'legend'}));
@@ -121,7 +123,7 @@ function panelItems(ctx, p, M) {
   const late = [{key: 'key', text: t.key, when: 'key'}];
   if (namesInPanel(ctx)) {
     late.push({key: 'state', icon: 'status', text: stateText(ctx, p, M), when: 'state'});
-    IDS.forEach(id => { const el = p.elements.find(e => e.id === id); late.push({key: `name-${id}`, ...PART_ICON[id], text: el ? el.label : id, when: 'names'}); });
+    IDS.forEach(id => { const el = p.elements.find(e => e.id === id); const nm = el ? el.label : id; late.push({key: `name-${id}`, ...PART_ICON[id], text: id === 'loss' ? `${nm} · ${p.losses[0].label}` : nm, when: id === 'loss' ? 'legend' : 'names'}); });
   }
   return [...late, ...out];
 }
@@ -181,8 +183,8 @@ function partChips(ctx, p, M, size, U, arr = 'ring') {
 function geomFor(ctx, p, M, size, U, arr, gx0, ex = 0, ey = 0) {
   const ch = partChips(ctx, p, M, size, U, arr);
   const dims = arr === 'ring'
-    ? {loss: [1, 0.5], barriers: [0.8, 0.85], connectors: [0.8, 0.85], events: [Math.max(0.8, 0.34 * M.n), 0.75]}
-    : {loss: [1, 0.4], barriers: [0.46, 0.52], connectors: [0.46, 0.52], events: [Math.min(1, Math.max(0.7, 0.32 * M.n)), 0.5]};
+    ? {loss: [1, 0.5], barriers: [0.8, 0.85], connectors: [0.8, 0.85], events: [Math.max(1, 0.46 * M.n), 0.85]}
+    : {loss: [1.2, 0.36], barriers: [0.5, 0.5], connectors: [0.5, 0.5], events: [1.7, 0.5]};
   const parts = {};
   for (const id of IDS) parts[id] = {w: dims[id][0] * U, h: dims[id][1] * U, chipH: ch[id].nh + (ch[id].sh ? ch[id].sh + 6 : 0) + 10, chipW: Math.max(ch[id].nw, ch[id].sw)};
   const cellW = id => Math.max(parts[id].w, parts[id].chipW);
@@ -212,16 +214,26 @@ function geomFor(ctx, p, M, size, U, arr, gx0, ex = 0, ey = 0) {
   return {ch, parts, boxes, w, h: hh, gx, gy, bad: IDS.some(id => ch[id].bad)};
 }
 
+/** All supplied boundaries (A and B), sorted, duplicates merged. */
+function lossCuts(M) {
+  const all = [...cum(M.fA).slice(1, -1), ...cum(M.fB).slice(1, -1)].sort((a, b) => a - b);
+  return all.filter((c, i) => i === 0 || c - all[i - 1] > 1e-6);
+}
+
 /** Art of each part in local coordinates (origin = the part's box top-left), size w × h. */
 function partArt(ctx, id, M, wb, hb, P) {
   const th = ctx.theme;
   const n = M.n;
   if (id === 'loss') {
+    // the bar is drawn as its pieces between ALL supplied boundaries (A and B alike, so neither allocation shapes it);
+    // the frame pulls them apart along the boundaries while traced and closes them again in the gather
     const t = hb * 0.36, len = wb * 0.92, x0 = (wb - len) / 2, my = hb / 2;
     const tick = hb * 0.32, ms = Math.max(12, hb * 0.16);
     const ca = cum(M.fA).slice(1, -1), cb = cum(M.fB).slice(1, -1);
+    const cuts = lossCuts(M);
+    const edges = [0, ...cuts, 1];
     return g(null,
-      g({transform: T(wb / 2, my)}, pieceArt(ctx, {w: len, t})),
+      edges.slice(1).map((e, i) => g({name: `${P}p${i}`}, g({transform: T(x0 + (edges[i] + e) / 2 * len, my)}, pieceArt(ctx, {w: (e - edges[i]) * len, t})))),
       ca.map((c, j) => g({name: `${P}tA${j}`}, h('path', {d: `M${r(x0 + c * len)} ${r(my - t / 2 + 2)}V${r(my - t / 2 - tick + ms / 2)}`, stroke: th.ink, 'stroke-width': 3}), sideMark(ctx, {cx: x0 + c * len, cy: my - t / 2 - tick + ms * 0.1, s: ms, side: 'a'}))),
       cb.map((c, j) => g({name: `${P}tB${j}`}, h('path', {d: `M${r(x0 + c * len)} ${r(my + t / 2 - 2)}V${r(my + t / 2 + tick - ms / 2)}`, stroke: th.ink, 'stroke-width': 3}), sideMark(ctx, {cx: x0 + c * len, cy: my + t / 2 + tick - ms * 0.1, s: ms, side: 'b'}))),
     );
@@ -413,6 +425,15 @@ const scene = {
       if (L.labs[i]) nodes[`rlabg${i}`] = {opacity: r(clamp((pr - 0.6) / 0.4), 3)};
     });
     nodes.tracer = {transform: T(tp.x, tp.y), opacity: tr > 0 && tr < 1 ? 1 : 0};
+    // the split: the bar's pieces part along the supplied boundaries (0.46–0.56), then close again (0.75–0.82)
+    const cuts = lossCuts(L.M), np = cuts.length + 1;
+    const spl = ease.inOutCubic(seg(u, 0.46, 0.56)) * (1 - ease.inOutCubic(seg(u, ...W.gather)));
+    const gapPx = L.boxes.loss.w * 0.035 * spl;
+    for (let i = 0; i < np; i++) nodes[`loss-p${i}`] = {transform: T((i - (np - 1) / 2) * gapPx, 0)};
+    const tickOff = c => { const b = cuts.findIndex(q => Math.abs(q - c) < 1e-6); return (b + 0.5 - (np - 1) / 2) * gapPx; };
+    cum(L.M.fA).slice(1, -1).forEach((c, j) => { nodes[`loss-tA${j}`] = {transform: T(tickOff(c), 0)}; });
+    cum(L.M.fB).slice(1, -1).forEach((c, j) => { nodes[`loss-tB${j}`] = {transform: T(tickOff(c), 0)}; });
+    sem.split = r(spl, 3);
     const lg = seg(u, ...W.legend);
     for (const b of L.bandNodes) nodes[`band-${b.key}`] = {opacity: r(b.when === 'legend' ? lg : seg(u, ...W[b.when]), 3)};
     Object.assign(sem, {

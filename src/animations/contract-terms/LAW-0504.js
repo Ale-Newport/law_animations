@@ -36,7 +36,7 @@ import {
 const ID = 'LAW-0504';
 const DURATION = 6500;
 const BEATS = {context: [0, 0.18], isolate: [0.18, 0.36], substitute: [0.36, 0.68], ret: [0.68, 0.8], hold: [0.8, 1]};
-const W = {open: [0.18, 0.32], out: [0.36, 0.44], was: [0.42, 0.47], in: [0.46, 0.53], retract: [0.55, 0.6], draw: [0.6, 0.67], close: [0.69, 0.79], ctxIn: [0.785, 0.81], marker: [0.79, 0.82], notes: [0.81, 0.85], key: [0.82, 0.86]};
+const W = {open: [0.18, 0.32], out: [0.4, 0.447], was: [0.46, 0.5], in: [0.443, 0.49], retract: [0.55, 0.6], draw: [0.6, 0.67], close: [0.69, 0.79], ctxIn: [0.785, 0.81], marker: [0.79, 0.82], notes: [0.81, 0.85], key: [0.82, 0.86]};
 
 const STRINGS = {
   en: {key: 'As supplied · no conclusion drawn', was: 'was', wasNote: '{x}: was {v}'},
@@ -85,7 +85,7 @@ function geom(ctx, F, minF, tw) {
   const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: Math.max(F * 0.95, minF), minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: '#ffffff'});
   // context sheet
   let sheet, notesBox, lensArea;
-  const ctxW = tall || sq ? D.w - pad * 2 : D.w * (sqShape ? 0.42 : 0.37);
+  const ctxW = tall || sq ? D.w - pad * 2 : D.w * (sqShape ? 0.42 : 0.5);
   const gR = Math.min(14, F * 0.6);
   // tile text widths (independent of the tile height)
   const textMax0 = ctxW - 52 - clamp((ctxW - 52) * 0.12, 44, 80) - 20 - 16 - 98 - gR * 2 - 18;
@@ -115,7 +115,7 @@ function geom(ctx, F, minF, tw) {
     lensArea = {x: sheet.x + sheet.w + 30, y: pad, w: notesW, h: notesBox.y - 20 - pad};
   }
   const C = {x: sheet.x + 26, y: sheet.y + headH + 14, w: sheet.w - 52, h: sheet.h - headH - 34};
-  const tileH = Math.max(tileH0, Math.min(tileH0 * (sq || tall ? 1 : 1.25), (C.h - 20 - (n - 1) * 90) / n));
+  const tileH = Math.max(tileH0, Math.min(tileH0 * 1, (C.h - 20 - (n - 1) * 90) / n));
   const neck = clamp(C.w * 0.12, 44, sq ? 56 : 80);
   const tileX = C.x + neck + 20, tileW = C.x + C.w - 16 - tileX;
   const free = C.h - 20 - n * tileH;
@@ -145,7 +145,7 @@ function geom(ctx, F, minF, tw) {
   }
   const restArea = lensArea;
   // square: the context steps aside (scales to CS about its left edge) while the lens is open; the lens takes the rest
-  const step = sqShape ? {cs: 0.5, ax: pad, ay: D.h / 2} : null;
+  const step = sqShape ? {cs: 0.36, ax: pad, ay: D.h / 2} : !tall ? {cs: 0.42, ax: pad, ay: D.h / 2} : null;
   if (step) { const x0 = pad + ctxW * step.cs + 34; lensArea = {x: x0, y: pad, w: D.w - pad - x0, h: D.h - pad * 2}; }
   const k = Math.min(lensArea.w / src.w, lensArea.h / src.h, 3);
   if (k < 1.5) why.push(`lens-small`);
@@ -157,7 +157,7 @@ function geom(ctx, F, minF, tw) {
   // landscape: the contract lies on the right (the lens opens over it, the contract dimmed beneath)
   let docBox = null, docL = null;
   if (!tall && !sq) {
-    const dw = Math.min(restArea.w * 0.86, 760);
+    const dw = Math.min(restArea.w * 0.94, 980);
     docBox = {x: restArea.x + (restArea.w - dw) / 2, y: restArea.y + 40, w: dw, h: restArea.h - 50};
     const padX = 44;
     const dh = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: dw - padX - 20, size: F, minSize: minF, maxLines: 3, weight: 700});
@@ -190,7 +190,7 @@ const scene = {
     const stress = isStress(p);
     const minF = (stress ? 16.6 : 20) / upx;
     let L = null;
-    search: for (const fpx of stress ? [20, 18.5, 17.5, 16.8] : [25, 23, 21.5, 20.2]) for (const tw of [8, 9.5, 11, 12.5, 16]) { L = geom(ctx, fpx / upx, minF, tw); if (L.ok) break search; }
+    search: for (const fpx of stress ? [20, 18.5, 17.5, 16.8] : [25, 23, 21.5, 20.2]) for (const tw of ctx.view.shape === 'landscape' ? [16, 12.5, 11, 9.5, 8] : ctx.view.shape === 'square' ? [6.5, 8, 9.5, 11] : [8, 9.5, 11, 12.5, 16]) { L = geom(ctx, fpx / upx, minF, tw); if (L.ok) break search; }
     L.upx = upx;
     return L;
   },
@@ -249,7 +249,7 @@ const scene = {
     nodes['lens-content'] = {...nodes['lens-content'], opacity: r(copy, 3)};
     const outQ = seg(u, ...W.out), inQ = seg(u, ...W.in);
     const sub = inQ > 0;
-    nodes['l-before'] = {opacity: r(1 - outQ, 3), transform: `translate(${r(outQ * 24, 2)} 0)`};
+    nodes['l-before'] = {opacity: r(1 - outQ, 3), transform: 'translate(0 0)'};
     nodes['l-after'] = {opacity: r(inQ, 3)};
     nodes['l-was'] = {opacity: r(seg(u, ...W.was) * (1 - seg(u, W.close[0] - 0.02, W.close[0])), 3)};
     const ctxDatum = u < W.open[0] ? 1 : u < W.close[0] ? clamp(1 - copy * 8) : 0;
