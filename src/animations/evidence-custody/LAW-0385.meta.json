@@ -1,0 +1,624 @@
+{
+  "id": "LAW-0385",
+  "slug": "evidence-custody-07-story",
+  "title": "Fingerprint comparison — gloved hands slide a lifted card under a reference card on a light box and move a reading frame along their two symbolic chains, linking each segment pair in turn",
+  "titleEs": "Comparación de huellas digitales — Microescena con objetos y actores",
+  "category": "evidence-custody",
+  "categoryName": "Recogida y custodia de pruebas",
+  "motif": "Comparación de huellas digitales",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "A comparison station on the evidence bench: a light box with two card rows; the reference card (slate strip) with its symbolic chain of glyph tiles in the upper row; the lifted card (manila strip) lying askew on the mat; the fictional object in its open bag with its tag on a ball chain; a parked reading frame. The left hand slides the lifted card into the lower row so both chains line up; the right hand moves the reading frame segment by segment, and each pair is linked once the frame sits on it: a plain bridge where the supplied symbols are equal, two open stubs where they differ. Supplied state: every pair compared, or the last pair left uncompared. The chains are symbolic; nothing about identity, reliability or outcome; fictional; jurisdiction unspecified.",
+  "tags": [
+    "evidence",
+    "custody",
+    "fingerprint",
+    "comparison",
+    "light box",
+    "print card",
+    "symbolic chain",
+    "segments",
+    "reading frame",
+    "gloves",
+    "tag",
+    "bag"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/evidence-custody/kits/evidence-art.js",
+    "src/animations/evidence-custody/kits/comparacion-huellas.js",
+    "src/primitives/desk.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Item reference printed in the legend (fictional)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 70,
+              "description": "Short description of the item (fictional)"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "key",
+                "cup",
+                "box"
+              ],
+              "description": "Drawn object: key, cup or box"
+            }
+          },
+          "required": [
+            "id",
+            "label",
+            "kind"
+          ],
+          "description": "Item"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "The item handled in the scene (fictional). kind picks the drawn object (array replaces the previous value)"
+      },
+      "custodians": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Name (fictional)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Descriptive role (not a legal finding)"
+            }
+          },
+          "required": [
+            "name",
+            "role"
+          ],
+          "description": "Custodian"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "People who handle the item (fictional; descriptive roles only). The first one wears the gloves shown (array replaces the previous value)"
+      },
+      "timestamps": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "What the time refers to"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Time as supplied (illustrative)"
+            }
+          },
+          "required": [
+            "label",
+            "time"
+          ],
+          "description": "Timestamp"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Times noted by the author (illustrative; no time limit is implied) (array replaces the previous value)"
+      },
+      "records": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Field name printed on the tag"
+            },
+            "value": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Value written in the row (empty = left blank)"
+            }
+          },
+          "required": [
+            "field",
+            "value"
+          ],
+          "description": "Record row"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Rows written on the tag, top to bottom. An empty value leaves that row blank (as supplied) (array replaces the previous value)"
+      },
+      "segments": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "a": {
+              "type": "string",
+              "enum": [
+                "arc",
+                "loop",
+                "fork",
+                "dot",
+                "end"
+              ],
+              "description": "Symbol on the lifted chain"
+            },
+            "b": {
+              "type": "string",
+              "enum": [
+                "arc",
+                "loop",
+                "fork",
+                "dot",
+                "end"
+              ],
+              "description": "Symbol on the reference chain"
+            }
+          },
+          "required": [
+            "a",
+            "b"
+          ],
+          "description": "Segment pair"
+        },
+        "minItems": 3,
+        "maxItems": 6,
+        "description": "Segment pairs of the two symbolic chains, left to right: a = symbol on the lifted card's chain, b = symbol on the reference card's chain (equal symbols are bridged, differing ones left open — as supplied) (array replaces the previous value)"
+      },
+      "cards": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of the lifted card (chain on the lower row)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of the reference card (chain on the upper row)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Captions of the two print cards (fictional)"
+      },
+      "matchLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "same": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for a pair with equal values (bridge)"
+          },
+          "differ": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for a pair with differing values (open stubs)"
+          }
+        },
+        "required": [
+          "same",
+          "differ"
+        ],
+        "description": "Captions of the two pair states (descriptive only)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          },
+          "blank": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Text shown for a tag row the author left blank"
+          }
+        },
+        "required": [
+          "key",
+          "blank"
+        ],
+        "description": "Editable captions"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for the gloved hands (generic)"
+          }
+        },
+        "required": [
+          "a"
+        ],
+        "description": "Caption of the actor (legend)"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "lightbox": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for the light box"
+          },
+          "reader": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for the reading frame"
+          },
+          "tag": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for the tag and its chain"
+          },
+          "bag": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for the evidence bag"
+          }
+        },
+        "required": [
+          "lightbox",
+          "reader",
+          "tag",
+          "bag"
+        ],
+        "description": "Captions of the props in the legend"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "object",
+                "cards",
+                "pairs",
+                "reader"
+              ],
+              "description": "What the note refers to"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "Note text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Note"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial notes shown in the hold; each is keyed to a ring on its target (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "compared",
+          "pending"
+        ],
+        "description": "The state supplied by the author (no conclusion is inferred): compared — every segment pair is compared; pending — the last pair is left uncompared"
+      },
+      "stateCaption": {
+        "type": "string",
+        "maxLength": 130,
+        "description": "Caption of the supplied state in the hold (empty: the built-in caption of that state)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "items": [
+      {
+        "id": "Item E-07 (fictional)",
+        "label": "Drinking mug left on a counter (fictional)",
+        "kind": "cup"
+      }
+    ],
+    "custodians": [
+      {
+        "name": "L. Moreau (fictional)",
+        "role": "Person comparing the cards"
+      }
+    ],
+    "timestamps": [
+      {
+        "label": "Print lifted",
+        "time": "11:20 (illustrative)"
+      },
+      {
+        "label": "Comparison noted",
+        "time": "11:48 (illustrative)"
+      }
+    ],
+    "records": [
+      {
+        "field": "Item no.",
+        "value": "E-07"
+      },
+      {
+        "field": "Description",
+        "value": "Drinking mug"
+      },
+      {
+        "field": "Lifted by",
+        "value": "L. Moreau"
+      },
+      {
+        "field": "Card",
+        "value": "Lift 1"
+      }
+    ],
+    "segments": [
+      {
+        "a": "arc",
+        "b": "arc"
+      },
+      {
+        "a": "fork",
+        "b": "fork"
+      },
+      {
+        "a": "loop",
+        "b": "loop"
+      },
+      {
+        "a": "end",
+        "b": "dot"
+      },
+      {
+        "a": "dot",
+        "b": "dot"
+      }
+    ],
+    "cards": {
+      "a": "Lifted card · print lifted from the mug (fictional)",
+      "b": "Reference card (fictional)"
+    },
+    "matchLabels": {
+      "same": "Bridge: both symbols supplied as the same",
+      "differ": "Open stubs: symbols supplied as different (illustrative)"
+    },
+    "labels": {
+      "key": "As supplied · no conclusion drawn",
+      "blank": "(left blank, as supplied)"
+    },
+    "actorLabels": {
+      "a": "Gloved hands of the person comparing (fictional, generic)"
+    },
+    "objectLabels": {
+      "lightbox": "Light box with two card rows",
+      "reader": "Reading frame slid pair by pair",
+      "tag": "Tag on a ball chain",
+      "bag": "Open evidence bag"
+    },
+    "annotations": [
+      {
+        "target": "pairs",
+        "text": "Each pair is linked only once the frame sits on it"
+      }
+    ],
+    "stateCaption": "",
+    "actionProgress": 1,
+    "finalState": "compared"
+  }
+}

@@ -34,7 +34,7 @@ import {
 
 const ID = 'LAW-0380';
 const DURATION = 8000;
-const W = {stepOut: [0.1, 0.2], stepBack: [0.85, 0.91], open: [0.2, 0.32], lift: [0.45, 0.51], unlink: [0.46, 0.54], trace: [0.5, 0.56], write: [0.54, 0.62], relink: [0.58, 0.68], close: [0.75, 0.85], marker: [0.89, 0.94]};
+const W = {stepOut: [0.1, 0.24], stepBack: [0.85, 0.91], open: [0.16, 0.3], lift: [0.45, 0.51], unlink: [0.46, 0.54], trace: [0.5, 0.56], write: [0.54, 0.62], relink: [0.58, 0.68], close: [0.75, 0.85], marker: [0.89, 0.94]};
 
 const OWN_EN = {
   labels: IO_LABELS_EN,
@@ -135,7 +135,8 @@ const scene = {
     // while stepped aside the context's list text and small tag references fade to a dim backdrop (the lens holds the
     // detail); only the focus tag's reference stays legible until the lens takes it over, so it bounds the scale
     const fbSize = Math.max(17, Math.min(C.F, G.tagH * 0.5));
-    const sMin = ctx.show('key') ? Math.min(1, Math.max(0.5, 17 / fbSize)) : 0.45;
+    // the focus reference is handed to the lens early in the step (u = 0.16), so the context may shrink to 0.5
+    const sMin = ctx.show('key') ? 0.5 : 0.45;
     const sc = Math.min(1, Math.max(sMin, Math.min(reg.w / B0.w, reg.h / B0.h)));
     const step = {s: sc, x: reg.x - B0.x * sc + (tallF ? (reg.w - B0.w * sc) / 2 : 0), y: reg.y - B0.y * sc + (tallF ? 0 : (reg.h - B0.h * sc) / 2)};
     const srcRest = src;
@@ -202,7 +203,7 @@ const scene = {
       textAt(traceF, {x: tx0, y: ty0, fill: '#4a4f55', italic: true})] : null);
     const lensContent = g(null,
       h('rect', {x: L.src.x - 400, y: L.src.y - 400, width: L.src.w + 800, height: L.src.h + 800, fill: '#3f6b5a'}),
-      g({transform: T(L.step.x, L.step.y, 0, L.step.s)}, L.NL.rack, L.NL.sheet, L.NL.placed, L.NL.tags, L.NL.links, focusLayer('lz'), trace));
+      g({name: 'lz-stepg', transform: T(L.step.x, L.step.y, 0, L.step.s)}, L.NL.rack, L.NL.sheet, L.NL.placed, L.NL.tags, L.NL.links, focusLayer('lz'), trace));
     L.lensObj = lens(ctx, {name: 'lens', source: L.src, dest: L.dest, content: lensContent, frame: {x: 0, y: 0, w: ctx.design.w, h: ctx.design.h}});
     const panels = C.PL ? C.PL.cols.map((PLc, i) => g({name: `panel${i}`, transform: T(C.panel.x + i * (C.PL.colW + C.F * 1.2), C.panel.y)}, legendNodes(ctx, PLc))) : [];
     const lensNode = L.lensObj.node;
@@ -246,9 +247,15 @@ const scene = {
     nodes['lz-tagx'] = {opacity: r(lensOpen ? written : 0, 3)};
     nodes['st-tagx'] = {opacity: shown === 'after' && !lensOpen ? 1 : 0};
     nodes['lz-trace'] = {opacity: r(seg(u, ...W.trace), 3)};
-    Object.assign(nodes, L.lensObj.frame(open, open));
     const stepK = ease.inOutCubic(seg(u, ...W.stepOut)) * (1 - ease.inOutCubic(seg(u, ...W.stepBack)));
     const sk = lerp(1, L.step.s, stepK);
+    // the lens opens while the context is still stepping aside: its source rectangle and its copy follow the
+    // context's current transform, so the enlarged copy always matches the region it comes from
+    const cx0 = L.step.x * stepK, cy0 = L.step.y * stepK;
+    const SR = L.srcRest;
+    const srcCur = {x: cx0 + SR.x * sk, y: cy0 + SR.y * sk, w: SR.w * sk, h: SR.h * sk};
+    Object.assign(nodes, lens(ctx, {name: 'lens', source: srcCur, dest: L.dest, content: null, frame: {x: 0, y: 0, w: ctx.design.w, h: ctx.design.h}}).frame(open, open));
+    nodes['lz-stepg'] = {transform: T(cx0, cy0, 0, sk)};
     nodes.ctxg = {transform: T(L.step.x * stepK, L.step.y * stepK, 0, sk)};
     // the small cell-tag references would fall under 16 px while stepped: they fade out and back (rows keep them)
     for (let i = 0; i < n; i++) {

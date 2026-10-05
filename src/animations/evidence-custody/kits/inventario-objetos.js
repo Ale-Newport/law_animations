@@ -261,7 +261,7 @@ export function stationGeomH(o) {
   const clipTop = 10;
   // the bag lies in one row beside the rack (two rows from 4 objects on)
   let B = null, bagSlots = [];
-  const bcols = n <= 3 ? n : Math.ceil(n / 2);
+  const bcols = o.bagCols || (n <= 3 ? n : Math.ceil(n / 2));
   if (!o.noBag) {
     const rowsN = Math.ceil(n / bcols);
     const innerW = bcols * S * 0.86 + S * 0.12, innerH = (rowsN - 1) * S * 0.62 + S * 0.86;
@@ -279,13 +279,17 @@ export function stationGeomH(o) {
   const bR = Math.max(11, S * 0.11);
   const W = rackX + rackW;
   // the ledger strip runs under the whole station (bag included), so every entry slot is wider than a cell
-  const sheetY = Math.max(rackY + rackH + tagZone + linkGap, o.noBag ? 0 : B.h + bagGap * 0.6);
-  const sheet = {x: 0, y: sheetY, w: W, h: clipTop + badgeZone + Math.max(o.sheetTextH || 0, bR * 2) + 14};
-  const slotW = W / n;
-  const rows = cells.map((c, i) => ({x: i * slotW, w: slotW, y: sheetY + clipTop + badgeZone * 0.5, top: sheetY + clipTop, h: sheet.h - clipTop, badge: {x: i * slotW + 10 + bR, y: sheetY + clipTop + badgeZone + 4 + bR}, bR, textX: i * slotW + 18 + bR * 2, textY: sheetY + clipTop + badgeZone + 4}));
-  const H = sheet.y + sheet.h;
-  const bagY = 0;
-  return {orient: 'h', noClip: true, slotW, tagTextW: o.tagTextW || 0, n, S, C, gC, p, pitch, rackW, rackH, rackX, rackY, tagH, tagW, tagZone, linkGap, clipTop, cells, sheet, rows, W, H, B,
+  // underRack: the ledger sits under the rack only and the (two-column) bag spans the station's full height
+  const under = Boolean(o.underRack);
+  const sheetY = under ? rackY + rackH + tagZone + linkGap : Math.max(rackY + rackH + tagZone + linkGap, o.noBag ? 0 : B.h + bagGap * 0.6);
+  const sx0 = under ? rackX : 0, sw = under ? rackW : W;
+  const sheet = {x: sx0, y: sheetY, w: sw, h: clipTop + badgeZone + Math.max(o.sheetTextH || 0, bR * 2) + 14};
+  const slotW = sw / n;
+  const rows = cells.map((c, i) => ({x: sx0 + i * slotW, w: slotW, y: sheetY + clipTop + badgeZone * 0.5, top: sheetY + clipTop, h: sheet.h - clipTop, badge: {x: sx0 + i * slotW + 10 + bR, y: sheetY + clipTop + badgeZone + 4 + bR}, bR, textX: sx0 + i * slotW + 18 + bR * 2, textY: sheetY + clipTop + badgeZone + 4}));
+  let H = sheet.y + sheet.h;
+  const bagY = under && !o.noBag ? Math.max(0, (H - B.h) / 2) : 0;
+  if (!o.noBag) H = Math.max(H, bagY + B.h);
+  return {bagCols: o.bagCols, orient: 'h', noClip: true, slotW, tagTextW: o.tagTextW || 0, n, S, C, gC, p, pitch, rackW, rackH, rackX, rackY, tagH, tagW, tagZone, linkGap, clipTop, cells, sheet, rows, W, H, B,
     bag: o.noBag ? null : {x: 0, y: bagY, w: B.w, h: B.h}, slots: bagSlots.map(sl => ({x: sl.x, y: bagY + sl.y})), tags, chainL, bagMode: 'left', tagFitsCell: tagW <= pitch * 0.96};
 }
 
@@ -331,11 +335,11 @@ export function fitStation(box, o) {
     const tryS = S => {
       const sheetW = Math.max(box.w * frac, 0);
       const ttw = o.tagTextW ? o.tagTextW(Math.max(17, Math.min(o.F, Math.max(30, S * 0.42) * 0.5))) : 0;
-      let G = stationGeom({n: o.n, S, sheetW, bagMode: o.bagMode, noBag: o.noBag, tagTextW: ttw, orient: o.orient});
+      let G = stationGeom({n: o.n, S, sheetW, bagMode: o.bagMode, noBag: o.noBag, tagTextW: ttw, orient: o.orient, bagCols: o.bagCols, underRack: o.underRack});
       if (o.orient === 'h') {
         const SF0 = fitSheet(G, o.texts, o.F, null);
         if (!SF0.ok) return null;
-        G = stationGeom({n: o.n, S, noBag: o.noBag, tagTextW: ttw, orient: 'h', sheetTextH: SF0.textH});
+        G = stationGeom({n: o.n, S, noBag: o.noBag, tagTextW: ttw, orient: 'h', sheetTextH: SF0.textH, bagCols: o.bagCols, underRack: o.underRack});
       }
       if (G.W > box.w + 0.5 || G.H > box.h + 0.5) return null;
       if (o.tagText && G.tagH < o.F * 1.45) return null;
@@ -364,7 +368,7 @@ export function fitStation(box, o) {
     }
     if (found && o.orient === 'h' && box.h - found.G.H > 8) {
       const G0 = found.G;
-      const G = stationGeom({n: o.n, S: G0.S, noBag: o.noBag, tagTextW: G0.tagTextW, orient: 'h', sheetTextH: found.SF.textH, extraGap: Math.min(G0.S * 1.2, (box.h - G0.H) * 0.8)});
+      const G = stationGeom({n: o.n, S: G0.S, noBag: o.noBag, tagTextW: G0.tagTextW, orient: 'h', bagCols: o.bagCols, underRack: o.underRack, sheetTextH: found.SF.textH, extraGap: Math.min(G0.S * 1.2, (box.h - G0.H) * 0.8)});
       if (G.H <= box.h + 0.5) found = {G, SF: found.SF};
     }
     if (found && (!best || found.G.S > best.G.S)) best = found;

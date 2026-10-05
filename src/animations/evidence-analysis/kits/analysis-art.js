@@ -420,7 +420,7 @@ export function panelLayout(ctx, rows, o) {
   const out = rows.map(row => {
     const fs = row.caption ? Math.max(16, Math.min(F, F * 0.84)) : F;
     const tw = row.kind === 'state' || row.kind === 'key' ? w - F * 1.2 : w - iconW;
-    const fit = fitG(row.text, {maxWidth: tw, size: fs, minSize: fs, maxLines: o.maxLines ?? 3, weight: row.kind === 'heading' ? 700 : row.kind === 'key' ? 600 : 500});
+    const fit = fitG(row.text, {maxWidth: tw, size: fs, minSize: fs, maxLines: row.maxLines ?? o.maxLines ?? 3, weight: row.kind === 'heading' ? 700 : row.kind === 'key' ? 600 : 500});
     if (!fit.ok) ok = false;
     const pad = row.kind === 'state' ? F * 0.45 : 0;
     const hh = Math.max(fit.height, row.icon ? fs * 1.25 : 0) + pad * 2;

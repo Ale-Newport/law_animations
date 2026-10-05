@@ -146,6 +146,11 @@ export function fcStage(box, o) {
     const W = o.reader === false ? lbx + LBw : rx + U.rw / 2 + 0.05;
     const H = LBh + (o.cardRest ? restDy - U.pad + 0.35 : 0);
     lay = {W, H: Math.max(H, zoneH + 0.2), zone: {x: 0, y: 0}, lb: {x: lbx, y: 0}, park: {x: rx, y: Math.min(LBh, H) / 2 + 0.1, a: 0}};
+  } else if (o.arrangement === 'wideLow') {
+    const lbx = zoneW + 0.55;
+    const W = lbx + LBw;
+    const H = LBh + Math.max(o.cardRest ? restDy - U.pad + 0.35 : 0, U.rw + 0.5);
+    lay = {W, H, zone: {x: 0, y: 0}, lb: {x: lbx, y: 0}, park: {x: W - readerLen / 2 - 0.1 + U.handle / 2, y: LBh + 0.25 + U.rw / 2, a: -90}};
   } else {
     const topH = zoneH + 0.35;
     const W = Math.max(LBw, zoneW + (o.reader === false ? 0 : 0.6 + readerLen));
@@ -481,6 +486,15 @@ export function fcLegendFor(ctx, rows, F, opt) {
     return {area: {x: 0, y: 0, w: DW, h: DH - ph - gap}, panel: {x: 4, y: DH - ph}, PL: {cols: PLs, h: ph, ok: PLs.every(q => q.ok) && ph < DH * 0.62, colW, F}};
   }
   const PW = DW * opt.pw;
+  if (opt.cols === 2) {
+    const colW = (PW - F * 1.2) / 2;
+    let best = null;
+    for (let i = 1; i < rows.length; i++) {
+      const a = panelLayout(ctx, rows.slice(0, i), {w: colW, F}), b = panelLayout(ctx, rows.slice(i), {w: colW, F});
+      if (!best || Math.max(a.h, b.h) < best.h) best = {h: Math.max(a.h, b.h), cols: [a, b]};
+    }
+    return {area: {x: 0, y: 0, w: DW - PW - gap, h: DH}, panel: {x: DW - PW, y: Math.max(0, (DH - best.h) / 2)}, PL: {cols: best.cols, h: best.h, ok: best.cols.every(q => q.ok) && best.h <= DH, colW, F}};
+  }
   const one = panelLayout(ctx, rows, {w: PW, F});
   return {area: {x: 0, y: 0, w: DW - PW - gap, h: DH}, panel: {x: DW - PW, y: Math.max(0, (DH - one.h) / 2)}, PL: {cols: [one], h: one.h, ok: one.ok && one.h <= DH, colW: PW, F}};
 }

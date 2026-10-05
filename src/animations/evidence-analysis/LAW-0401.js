@@ -101,16 +101,21 @@ const defaultParams = {...EN, actionProgress: 1, finalState: 'linked'};
 
 /* ------------------------------------------------------------------ */
 
-function legendRows(ctx, P, links, looks, actorLooks, claimsInLegend) {
+function legendRows(ctx, P, links, looks, actorLooks, claimsInLegend, compact = false) {
   const showKey = ctx.show('key'), showAll = ctx.show('all');
   const notes = noteColors(ctx.theme);
   const rows = contentRows(ctx, P, links, {looks, claims: claimsInLegend});
   if (showAll) {
-    rows.push({kind: 'item', icon: 'person', look: actorLooks[0], text: P.actorLabels.a, name: 'lg-wit', caption: true});
-    rows.push({kind: 'item', icon: 'person', look: actorLooks[1], text: P.actorLabels.b, name: 'lg-an', caption: true});
-    rows.push({kind: 'item', icon: 'board', text: P.objectLabels.board, name: 'lg-board', caption: true});
-    rows.push({kind: 'item', icon: 'line-direct', text: P.objectLabels.thread, name: 'lg-thread', caption: true});
-    rows.push({kind: 'item', icon: 'lens', text: P.objectLabels.magnifier, name: 'lg-mag', caption: true});
+    if (compact) {
+      rows.push({kind: 'item', icon: 'person', look: actorLooks[0], text: `${P.actorLabels.a} · ${P.actorLabels.b}`, name: 'lg-actors', caption: true, maxLines: 6});
+      rows.push({kind: 'item', icon: 'board', text: `${P.objectLabels.board} · ${P.objectLabels.thread} · ${P.objectLabels.magnifier}`, name: 'lg-objects', caption: true, maxLines: 7});
+    } else {
+      rows.push({kind: 'item', icon: 'person', look: actorLooks[0], text: P.actorLabels.a, name: 'lg-wit', caption: true});
+      rows.push({kind: 'item', icon: 'person', look: actorLooks[1], text: P.actorLabels.b, name: 'lg-an', caption: true});
+      rows.push({kind: 'item', icon: 'board', text: P.objectLabels.board, name: 'lg-board', caption: true});
+      rows.push({kind: 'item', icon: 'line-direct', text: P.objectLabels.thread, name: 'lg-thread', caption: true});
+      rows.push({kind: 'item', icon: 'lens', text: P.objectLabels.magnifier, name: 'lg-mag', caption: true});
+    }
     P.annotations.forEach((a, i) => rows.push({kind: 'item', icon: 'ring', color: notes[i % 2], text: a.text, name: `note${i}`}));
   }
   if (showKey) rows.push({kind: 'state', text: P.stateCaption || ctx.t[P.finalState], name: 'state-tag'});
@@ -157,7 +162,7 @@ function stageModel(ctx, P, links, S, cand) {
   const tableX = tall ? S.x + S.w - tableW - 6 : Math.max(ax0 + 60 * k, board.x - tableW * 0.18);
   const table = {x: tableX, y: tableTop, w: tableW, h: 18};
   const lying = {};
-  tableItems.forEach((j, q) => { lying[j] = {x: table.x + 20 + slotW * (q + 0.5) - BL.tw * 0.2, y: tableTop - 2}; });
+  tableItems.forEach((j, q) => { lying[j] = {x: table.x + 20 + slotW * (q + 0.5) - BL.tw * 0.2, y: tableTop - 2 - (BL.eh * LIE) / 2}; });
   // magnifier: on the ledge (wide) or at the table's right end (tall)
   const magR = clamp(BL.ew * 0.24, 18, 34);
   const ledgeY = board.y + board.h;
@@ -169,7 +174,7 @@ function stageModel(ctx, P, links, S, cand) {
 
 const shoulderAt = (M, ax, f) => ({x: ax + f * SHOULDER.x * M.k, y: M.floor + SHOULDER.y * M.k});
 const restHand = (M, ax, f) => ({x: ax + f * 22 * M.k, y: M.floor - 156 * M.k});
-const carryHand = (M, ax, f) => ({x: ax + f * (52 * M.k + M.BL.ew * 0.55), y: M.floor - 215 * M.k});
+const carryHand = (M, ax, f) => ({x: ax + f * (58 * M.k + M.BL.ew * 0.6), y: M.floor - 205 * M.k});
 
 /** Standing x so that target t is comfortably within reach of the near hand (facing +1). */
 function standFor(M, t) {
@@ -193,7 +198,7 @@ function buildScript(M, P, links) {
   let f = M.wIdx >= 0 ? -1 : 1;
   const startF = f;
   const order = M.wIdx >= 0 ? [M.wIdx, ...M.tableItems] : M.tableItems.slice();
-  const slotGrip = j => ({x: BL.evid[j].x + BL.ew / 2, y: BL.evid[j].y + BL.eh});
+  const slotGrip = j => ({x: BL.evid[j].x + BL.ew / 2, y: BL.evid[j].y + BL.eh / 2});
   const walk = (to, carry) => {
     const d = Math.abs(to - ax);
     if (d < 2) return;
@@ -249,7 +254,7 @@ function poseAt(L, u) {
   let handW = null; // witness near hand target
   let held = null; // {card j} or {thread n}
   let phase = 'rest';
-  const wChest = {x: M.wx + 50 * M.k + BL.ew * 0.55, y: M.floor - 215 * M.k};
+  const wChest = {x: M.wx + 56 * M.k + BL.ew * 0.6, y: M.floor - 205 * M.k};
   const wRest = restHand(M, M.wx, 1);
   const handoffPt = {x: (M.wx + M.ax0) / 2 + (M.wx < M.ax0 ? 0 : 0), y: M.floor - 225 * M.k};
   if (M.wIdx >= 0) handW = wChest;
@@ -382,11 +387,13 @@ function finishModel(ctx, P, links, M) {
   const problems = [];
   const cBot = Math.max(...BL.claims.map(C => C.y + C.h)), eTop = Math.min(...BL.evid.map(E => E.y));
   if (eTop - cBot < Math.max(50, BL.eh * 0.45)) problems.push('board-fit');
+  // the analyst's head stays below the claim cards while working at the board (claim text never covered)
+  if (!M.tall && M.floor - 418 * M.k < cBot + 8) problems.push('head-over-claims');
   // reach: dangle ends and pin targets must be reachable from some standing place
   const R = REACH * M.k * 0.95;
   const okT = t => Math.abs(t.y - sy) < R;
   for (const E of M.ends) if (!okT(E.d) || !okT(E.e)) problems.push('reach');
-  for (const E of BL.evid) if (!okT({x: 0, y: E.y + BL.eh})) problems.push('reach');
+  for (const E of BL.evid) if (!okT({x: 0, y: E.y + BL.eh / 2})) problems.push('reach');
   // the board must not run below the table top / people stay inside the stage
   if (M.tall && M.board.y + M.board.h > M.table.y - 20) problems.push('table');
   // head room: the witness's head must not cover an evidence slot on tall frames
@@ -402,10 +409,11 @@ const scene = {
     const links = resolveLinks(P);
     const looks = P.evidence.map((e, j) => actorLook(ctx, null, 2 + j));
     const actorLooks = [actorLook(ctx, null, 0), actorLook(ctx, null, 1)];
-    const rowsBy = {true: legendRows(ctx, P, links, looks, actorLooks, false), false: legendRows(ctx, P, links, looks, actorLooks, true)};
+    const compact = ctx.view.shape === 'square';
+    const rowsBy = {true: legendRows(ctx, P, links, looks, actorLooks, false, compact), false: legendRows(ctx, P, links, looks, actorLooks, true, compact)};
     const shape = ctx.view.shape;
     const opts = shape === 'portrait' ? [{mode: 'below', cols: 1}, {mode: 'below', cols: 2}, {mode: 'below', cols: 3}]
-      : shape === 'square' ? [{mode: 'below', cols: 2}, {mode: 'below', cols: 3}]
+      : shape === 'square' ? [{mode: 'below', cols: 2}, {mode: 'below', cols: 3}, {mode: 'side', pw: 0.36}, {mode: 'side', pw: 0.4}]
         : [{mode: 'side', pw: 0.28}, {mode: 'side', pw: 0.32}, {mode: 'side', pw: 0.36}];
     const tallC = [{arr: 'tall', kf: 0.36, bb: 0.6}, {arr: 'tall', kf: 0.4, bb: 0.62}, {arr: 'tall', kf: 0.44, bb: 0.64}, {arr: 'tall', kf: 0.32, bb: 0.6}];
     const wideC = [];
@@ -427,7 +435,7 @@ const scene = {
           c.problems.push(...extra);
           c.ok = c.problems.length === 0;
           c.ids = ids;
-          const score = c.M.k * Math.sqrt(c.M.BL.ew) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * (cot ? 1.15 : 1);
+          const score = Math.sqrt(c.M.k) * Math.pow(c.M.BL.ew, 0.75) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * (cot ? 1.15 : 1);
           if (c.ok && firstOk < 0 && F >= 19.5) firstOk = si;
           if (c.ok && score > bestScore) { best = c; bestScore = score; }
           if (!C || !C.M || c.problems.length < C.problems.length) C = c;
@@ -505,10 +513,10 @@ const scene = {
       let G, sy = 1, sxc = 1;
       if (cs.holder === 'witness') G = wHand;
       else if (cs.holder === 'analyst') { G = aHand; sy = cs.lift != null ? lerp(LIE, 1, cs.lift) : 1; sxc = s.sx; }
-      else if (cs.holder === 'board') G = {x: BL.evid[j].x + BL.ew / 2, y: BL.evid[j].y + BL.eh};
+      else if (cs.holder === 'board') G = {x: BL.evid[j].x + BL.ew / 2, y: BL.evid[j].y + BL.eh / 2};
       else { G = M.lying[j]; sy = LIE; }
       grips.push(G);
-      nodes[`cd-e${j}`] = {transform: `translate(${r(G.x - (BL.ew / 2) * sxc)} ${r(G.y - BL.eh * sy)}) scale(${r(sxc, 4)} ${r(sy, 4)})`};
+      nodes[`cd-e${j}`] = {transform: `translate(${r(G.x - (BL.ew / 2) * sxc)} ${r(G.y - (BL.eh / 2) * sy)}) scale(${r(sxc, 4)} ${r(sy, 4)})`};
       nodes[`cd-e${j}-pin`] = {opacity: r(cs.holder === 'board' ? 1 : cs.pin ?? 0, 3)};
     });
     // threads

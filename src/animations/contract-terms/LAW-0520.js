@@ -80,29 +80,38 @@ function geom(ctx, F, minF) {
   // step aside: landscape / square → context to the left half, lens at the right; portrait → context to the top half
   const upx = unitPx(ctx);
   const need = (0.375 * 1080) / upx; // lens smaller side (units) for ≥ 35 % of the frame's short side
-  const opt = top => {
-    if (top) {
-      const cs = shape === 'square' ? 0.47 : 0.5;
-      const y0 = A.y + A.h * cs + 14;
-      return {step: {cs, ax: D.w / 2, ay: A.y}, area: {x: pad, y: y0, w: D.w - pad * 2, h: A.y + A.h - y0}};
-    }
-    const cs = shape === 'square' ? 0.47 : 0.5;
-    const x0 = A.x + A.w * cs + 36;
-    return {step: {cs, ax: A.x, ay: A.y + A.h / 2}, area: {x: x0, y: A.y, w: D.w - pad - x0, h: A.h}};
-  };
-  let {step, area} = opt(shape === 'portrait');
-  if (shape === 'square' && Math.min(area.w / (P.w + 28), 3) < 1.5) ({step, area} = opt(true));
+  // portrait: the context steps up (top-centre anchor) and the lens opens below it; landscape / square: the context
+  // steps back to the top-left corner and the lens opens in the lower-right region (diagonal staging fills the box)
+  let step, area, corner = false;
+  if (shape === 'portrait') {
+    const cs = 0.56;
+    step = {cs, ax: D.w / 2, ay: A.y};
+    const y0 = A.y + A.h * 0.56 + 10;
+    area = {x: pad, y: y0, w: D.w - pad * 2, h: A.y + A.h - y0};
+  } else if (shape === 'square') {
+    const cs = 0.47;
+    step = {cs, ax: A.x, ay: A.y + A.h / 2};
+    const x0 = A.x + A.w * cs + 30;
+    area = {x: x0, y: A.y, w: D.w - pad - x0, h: A.h};
+  } else {
+    const cs = 0.62;
+    step = {cs, ax: A.x, ay: A.y};
+    const x0 = A.x + A.w * (shape === 'square' ? 0.22 : 0.4);
+    const y0 = A.y + A.h * (shape === 'square' ? 0.4 : 0.36);
+    area = {x: x0, y: y0, w: D.w - pad - x0, h: A.y + A.h - y0};
+    corner = true;
+  }
   const wasSize = Math.max((stress ? 16.4 : 19.8) / upx, F * 0.6);
   const wasFit0 = fitG(`${ctx.t.was}: ${p.steps[ck]}`, {maxWidth: P.w - 20, size: wasSize / 1.5, minSize: wasSize / 1.5, maxLines: 3, weight: 600});
   const wasH = wasFit0.height + 14;
   const srcW = P.w + 28;
   const baseH = P.h + 24 + wasH + 10;
-  const k = Math.min(area.w / srcW, (area.h * 0.97) / baseH, 4.5);
-  const srcH = Math.min(Math.max(baseH, need / k, (area.h * 0.9) / k), area.h / k);
-  const src = {x: P.x - 14, y: P.y - 12 - Math.max(0, (srcH - baseH) / 2), w: srcW, h: srcH};
+  const k = shape === 'square' ? Math.min(area.w / srcW, 3) : Math.min(area.w / srcW, (area.h * 0.97) / baseH, 4.5);
+  const srcH = Math.min(Math.max(baseH, need / k), area.h / k);
+  const src = {x: P.x - 14, y: shape === 'square' ? P.y - 12 : P.y - 12 - Math.max(0, (srcH - baseH) / 2), w: srcW, h: srcH};
   const dest = {w: src.w * k, h: src.h * k};
-  dest.x = area.x + (area.w - dest.w) / 2;
-  dest.y = area.y + (area.h - dest.h) / 2;
+  dest.x = corner ? area.x + area.w - dest.w : area.x + (area.w - dest.w) / 2;
+  dest.y = corner ? area.y + area.h - dest.h : area.y + (area.h - dest.h) / 2;
   if (k < 1.5) why.push('lens-small');
   if (Math.min(dest.w, dest.h) < need * 0.94) why.push('lens-px');
   const {pl, bad} = ns.place();
@@ -155,7 +164,8 @@ const scene = {
       );
     };
     // lens content: a copy of the plate (same coordinates) with its labels, ring and the "was" trace
-    const plateCopy = stationNode(ctx, L, st, 'l-', showAll, {lampOn: true, noText: true}).plate;
+    const stCopy = stationNode(ctx, L, st, 'l-', showAll, {lampOn: true, noText: true});
+    const plateCopy = g(null, stCopy.under, stCopy.plate, stCopy.press);
     const wasChip = showAll ? chipG(ctx, `${ctx.t.was}: ${p.steps[ck]}`, {x: P.x + 6, y: P.y + P.h + 8, maxWidth: P.w - 8, size: L.wasSize / 1.5, minSize: L.wasSize / 1.5, padY: 3, maxLines: 3, weight: 600, fill: '#ffffff'}).node : null;
     const lensContent = g(null, plateCopy, labels('l', showAll), ring('l'), g({name: 'l-was', opacity: 0}, wasChip));
     const lz = lens(ctx, {name: 'lens', source: L.src, dest: L.dest, content: lensContent, color: th.accent2});

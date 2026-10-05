@@ -121,7 +121,11 @@ function compose(ctx, P, recs, fi, F, LG, opt, vs) {
   const hole = G.tagFinal;
   const pad = T0.h * 0.16;
   const traceH = T0.h * 0.42;
-  const source = {x: hole.x + T0.x0 - pad, y: hole.y - T0.h / 2 - pad, w: T0.w + pad * 2, h: T0.h + pad * 2 + traceH};
+  // crop: the copy device (with its block map), its chain and its whole tag, plus room for the trace line
+  const devTop = G.copySpot.y - G.M.h / 2 - pad;
+  const sx0 = Math.min(hole.x + T0.x0, G.copySpot.x - G.M.w / 2) - pad, sx1 = Math.max(hole.x + T0.x1, G.copySpot.x + G.M.w / 2) + pad;
+  const source = {x: sx0, y: devTop, w: sx1 - sx0, h: hole.y + T0.h / 2 + pad + traceH - devTop};
+  if (source.w < source.h) { const d = source.h - source.w; source.x -= d / 2; source.w = source.h; }
   const zoom = Math.min(zoneLens.w * 0.96 / source.w, zoneLens.h * 0.96 / source.h);
   const dest = {w: source.w * zoom, h: source.h * zoom};
   dest.x = zoneLens.x + (zoneLens.w - dest.w) / 2; dest.y = zoneLens.y + (zoneLens.h - dest.h) / 2;
@@ -165,6 +169,8 @@ function lensParts(ctx, L) {
     showText ? textAt(fitv, {x: vx, y: vy, fill: WRITE_INK}) : h('path', {d: scribble(ctx, `lz-${name}`, vx, vx + (hole.x + T0.rx1 - vx) * len, hole.y + R.y, T0.pitch * 0.3), fill: 'none', stroke: WRITE_INK, 'stroke-width': 2}));
   const content = g(null,
     h('rect', {x: r(C.source.x - 40), y: r(C.source.y - 40), width: r(C.source.w + 80), height: r(C.source.h + 80), fill: '#3f6b5a'}),
+    g({transform: `translate(${r(G.copySpot.x)} ${r(G.copySpot.y)})`}, deviceArt(ctx, G.M, {prefix: 'lzc', role: 'copy', filled: true})),
+    h('path', {d: `M${r(G.eyeOf(G.copySpot).x)} ${r(G.eyeOf(G.copySpot).y)}L${r(hole.x)} ${r(hole.y)}`, stroke: '#9ea5ab', 'stroke-width': r(Math.max(4, G.S * 0.04)), 'stroke-linecap': 'round', 'stroke-dasharray': `0.01 ${r(Math.max(5, G.S * 0.05))}`}),
     g({transform: tagT(hole)}, tagArt(ctx, T0, {prefix: 'lzt', rows: rowsArt, texts: showText ? C.texts : null, valueX: C.valueX, seedKey: 'dc-copy'})),
     g({name: 'lv-text'},
       P.beforeValue.trim() ? val(C.bFit, 'lv-before', 1, 0.55) : g({name: 'lv-before'}),
@@ -188,11 +194,11 @@ const scene = {
     const shape = ctx.view.shape;
     const vs = Math.min(ctx.view.content.w / ctx.design.w, ctx.view.content.h / ctx.design.h) * 1080 / Math.min(ctx.view.width, ctx.view.height);
     const opts = shape === 'portrait' ? [{mode: 'below', cols: 1}, {mode: 'below', cols: 2}]
-      : shape === 'square' ? [{mode: 'side', pw: 0.34}, {mode: 'side', pw: 0.4}, {mode: 'below', cols: 2}]
+      : shape === 'square' ? [{mode: 'side', pw: 0.24}, {mode: 'side', pw: 0.28}, {mode: 'side', pw: 0.34}, {mode: 'side', pw: 0.4}, {mode: 'below', cols: 2}]
         : [{mode: 'side', pw: 0.24}, {mode: 'side', pw: 0.28}, {mode: 'side', pw: 0.32}];
     const confs = [];
-    for (const split of [0.62, 0.56, 0.5]) for (const stage of ['h', 'v']) confs.push({orient: 'h', split, stage});
-    for (const split of [0.6, 0.54, 0.48]) for (const stage of ['h', 'v']) confs.push({orient: 'v', split, stage});
+    for (const split of [0.62, 0.56, 0.5, 0.44, 0.4]) for (const stage of ['h', 'v']) confs.push({orient: 'h', split, stage});
+    for (const split of [0.6, 0.54, 0.48, 0.42]) for (const stage of ['h', 'v']) confs.push({orient: 'v', split, stage});
     const rowsL = legendRows(ctx, P, recs, fi);
     let C = null, best = null, bestScore = -1, firstOk = -1;
     for (const [fj, F] of SIZES.entries()) {
