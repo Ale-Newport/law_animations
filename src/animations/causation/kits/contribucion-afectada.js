@@ -244,6 +244,36 @@ export function fieldGeom(left, floorY, PH) {
   };
 }
 
+/** Single-lane board (contrast): one lane, the event pad in line at its end. Height × PH. */
+const ONE = {above: Math.max(CART_TOP, ACTOR_H) + 0.04, below: FIELD.LT + 0.03 + FIELD.item + 0.08};
+export const field1H = () => ONE.above + ONE.below + FIELD.plate + 0.02;
+/**
+ * Geometry of a single-lane board for lane `lane` (same API as fieldGeom; laneY returns the one lane for both keys):
+ * the lane, its steps in front of it, and the event pad on the lane line at its end. `lanes` = the lanes slabArt draws.
+ */
+export function fieldGeom1(left, floorY, PH, lane) {
+  const F = FIELD;
+  const y0 = floorY - (ONE.below + F.plate + 0.02) * PH;
+  const xs = left + (F.side + F.lead) * PH, xe = xs + F.laneL * PH;
+  const padR = F.ev * PH;
+  const px = xe + (F.conn + F.ev) * PH, py = y0;
+  const top = y0 - ONE.above * PH;
+  const plateY = y0 - (F.LT + F.marg) * PH;
+  return {
+    PH, cy: y0, K: F.K, xs, xe, xb: xe - 0.07 * PH, px, py, padR, yA: y0, yB: y0, laneY: () => y0, lanes: [lane],
+    LT: F.LT * PH, itemS: F.item * PH, plateT: F.plate * PH, headS: F.head * PH, cartW: F.cartW * PH,
+    at: (l, x) => ({x, y: y0}),
+    cartX: f => lerp(xs + 0.16 * PH, xe - 0.4 * PH, f),
+    actorX: cx => cx - (F.cartW * 0.5 + 0.19) * PH,
+    stand: () => y0 + (F.LT + 0.03 + F.item) * PH,
+    conn: () => ({from: {x: xe, y: y0}, to: {x: px - padR * 0.82, y: y0}}),
+    floorY, x0: left, x1: left + fieldW() * PH, top,
+    slabTop: plateY, slabBot: y0 + ONE.below * PH,
+    bracketY: y0, braceX: px + padR + 0.07 * PH,
+    plateBox: {x: left + F.side * PH, y: plateY, w: (fieldW() - 2 * F.side) * PH, h: (F.LT + F.marg + ONE.below) * PH + F.plate * PH},
+  };
+}
+
 /**
  * Step places: each lane's steps stand in front of it (below its strip), spread evenly along [xs + 0.3, xe − 0.36] (× PH) in the supplied
  * order; `skip` = indices left out (posed by the entry). Objects shrink only when a lane holds many steps.
@@ -370,7 +400,7 @@ export function slabArt(ctx, {name, G}) {
   return g({name},
     h('path', {d: roundRectPath(b.x, b.y + G.plateT, b.w, top, 10), fill: SLAB_SIDE, stroke: th.ink, 'stroke-width': 2.5}),
     h('path', {d: roundRectPath(b.x, b.y, b.w, top, 10), fill: SLAB, stroke: th.ink, 'stroke-width': 2.5}),
-    lane('a'), lane('b'),
+    (G.lanes || ['a', 'b']).map(l => lane(l)),
   );
 }
 

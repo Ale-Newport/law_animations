@@ -1,11 +1,12 @@
 /**
  * LAW-0715 — Contribución de la persona afectada · contrast
  *
- * Storyboard (two complete lane scenes of equal size and timing; only WHICH
- * supplied conduct runs differs):
- *  0.00–0.17 base      Two identical scenes, A and B: the same slab, the same
- *                      two lanes, barriers, event pad and supplied steps, both
- *                      trolleys parked at their lane starts. Header chips "● A ·
+ * Storyboard (two single-lane boards of equal size and timing — board A shows
+ * lane A alone, board B shows lane B alone, each running to the same event pad;
+ * only WHICH supplied conduct runs differs):
+ *  0.00–0.17 base      Two boards of identical build, A and B: the same slab,
+ *                      barrier, event pad at the lane's end, an actor with a
+ *                      parked trolley; each lane's own supplied steps. Header chips "● A ·
  *                      Conduct of A · as supplied" and "◆ B · Conduct of B · the
  *                      affected person, as supplied" (equal chips, same colour).
  *                      At the change beat each head's text swaps in sequence
@@ -39,7 +40,7 @@ import {contrastFields} from '../../schemas/fields.js';
 import {textBlock} from '../../primitives/annotate.js';
 import {
   caFields, CA_STRINGS, CA_DEFAULTS, CA_ES_DEFAULTS, resolveCA, entryText, linkNotes, altText, glueN as gp, unwidow,
-  CART_TOP, fieldGeom, fieldW, fieldH, itemPlaces, slabArt, cartArt, actorArt, eventArt, itemArt, laneBarrier, floorArt,
+  CART_TOP, fieldGeom1, field1H, fieldW, itemPlaces, slabArt, cartArt, actorArt, eventArt, itemArt, laneBarrier, floorArt,
   iconChip, flowRows, fitG, chipG, sideMark,
   clamp, ease, lerp, r, seg, localizeScene,
 } from './kits/contribucion-afectada.js';
@@ -89,7 +90,7 @@ const SHAPES = {
   square: {size: 24, minSize: 17, arr: ['column', 'textcol', 'row']},
   portrait: {size: 25, minSize: 17, arr: ['column']},
 };
-const RW_ = fieldW(), RH_ = fieldH();
+const RW_ = fieldW(), RH_ = field1H();
 
 
 
@@ -320,11 +321,12 @@ const scene = {
       const mw = RW_ * PH;
       const mx0 = x0 + Math.max(0, (L.laneW - mw - L.gcW) / 2);
       const F = y0 + L.laneH - 16;
-      const G = fieldGeom(mx0, F, PH);
-      const head = L.headSide ? hd.build(G.x1 + 24, G.top + 2, i ? 'hB' : 'hA') : hd.build(x0 + (L.laneW - hd.w) / 2, y0, i ? 'hB' : 'hA');
-      // the running lane of this scene: lane a in A, lane b in B (the one contrasted fact)
+      // the running lane of this scene: lane a in A, lane b in B (the one contrasted fact) — each board shows that lane
+      // alone, large, running to the same event pad
       const run = i ? 'b' : 'a';
-      return {i, x0, y0, head, F, G, mx0, run, places: itemPlaces(G, M), actors: ['a', 'b'].map((l, j) => actorArt(ctx, {name: `ac${i ? 'B' : 'A'}${l}`, idx: j}))};
+      const G = fieldGeom1(mx0, F, PH, run);
+      const head = L.headSide ? hd.build(G.x1 + 24, G.top + 2, i ? 'hB' : 'hA') : hd.build(x0 + (L.laneW - hd.w) / 2, y0, i ? 'hB' : 'hA');
+      return {i, x0, y0, head, F, G, mx0, run, places: itemPlaces(G, M).filter(q => q.lane === run), actor: actorArt(ctx, {name: `ac${i ? 'B' : 'A'}${run}`, idx: run === 'a' ? 0 : 1})};
     });
     const [, lb] = L.lanes;
     // B's bracket spans its running trolley's path, just above the trolley's flag
@@ -388,10 +390,10 @@ const scene = {
       const stand = [
         {y: G.py, node: g({transform: T(G.px, G.py)}, eventArt(ctx, {R: G.padR}))},
         ...ln.places.map(q => ({y: q.y, node: g({transform: T(q.x, q.y)}, itemArt(ctx, {i: q.i, s: q.s}))})),
-        ...['a', 'b'].map(l => ({y: G.laneY(l) + 0.01, node: g({transform: T(G.xb, G.laneY(l))}, laneBarrier(ctx, {name: `lb${n}${l}`, G}))})),
-        ...['a', 'b'].map(l => ({y: G.laneY(l) + 0.02, node: g({name: `cart${n}${l}`, transform: T(G.cartX(0), G.laneY(l))}, cartArt(ctx, {name: `ct${n}${l}`, PH: G.PH, side: l}))})),
-        // the actors (equal size): in each scene only the one of the running lane walks
-        ...['a', 'b'].map((l, i) => ({y: G.laneY(l) + 0.015, node: g({name: `actor${n}${l}`}, ln.actors[i].node)})),
+        {y: G.cy + 0.01, node: g({transform: T(G.xb, G.cy)}, laneBarrier(ctx, {name: `lb${n}${ln.run}`, G}))},
+        {y: G.cy + 0.02, node: g({name: `cart${n}${ln.run}`, transform: T(G.cartX(0), G.cy)}, cartArt(ctx, {name: `ct${n}${ln.run}`, PH: G.PH, side: ln.run}))},
+        // the actor of this board's lane (equal size in both boards)
+        {y: G.cy + 0.015, node: g({name: `actor${n}${ln.run}`}, ln.actor.node)},
       ].sort((a, b) => a.y - b.y);
       return g({name: `lane${n}`},
         floorArt(ctx, {name: `floor${n}`, x0: ln.x0 + 6, x1: ln.x0 + L.laneW - 6, floorY: ln.F}),
@@ -439,8 +441,8 @@ const scene = {
       const G = ln.G;
       // the same roll, at the same time and speed, only on this scene's running lane; the other trolley stays parked
       const xs = {a: G.cartX(ln.run === 'a' ? f : 0), b: G.cartX(ln.run === 'b' ? f : 0)};
-      for (const l of ['a', 'b']) nodes[`cart${n}${l}`] = {transform: T(xs[l], G.laneY(l))};
-      ['a', 'b'].forEach((l, j) => { const fr = ln.actors[j].frame(xs[l], G.laneY(l), G.PH, l === ln.run ? f * 18 : 0); Object.assign(nodes, fr.nodes); if (!fr.reached) allReached = false; });
+      nodes[`cart${n}${ln.run}`] = {transform: T(xs[ln.run], G.cy)};
+      { const fr = ln.actor.frame(xs[ln.run], G.cy, G.PH, f * 18); Object.assign(nodes, fr.nodes); if (!fr.reached) allReached = false; }
       pos[n] = {a: {x: r(xs.a), y: r(G.yA)}, b: {x: r(xs.b), y: r(G.yB)}};
       nodes[`stop${n}-art`] = {opacity: st > 0 ? 1 : 0};
       nodes[`stop${n}`] = {transform: T(G.cartX(0), G.laneY(ln.run) - (1 - st) * G.PH * 0.1)};
@@ -480,14 +482,14 @@ export default defineAnimation({
   metadata: makeMetadata({
     id: ID,
     slug: 'causation-09-contrast',
-    title: 'Affected person\'s contribution — two identical lane scenes that differ only in which supplied conduct runs: lane A in A, lane B in B',
+    title: 'Affected person\'s contribution — two single-lane boards of identical build that differ only in which supplied conduct runs: lane A in A, lane B in B',
     titleEs: 'Contribución de la persona afectada — Comparación de dos supuestos',
     category: 'causation',
     categoryName: 'Causalidad y daño',
     motif: 'Contribución de la persona afectada',
     treatment: 'contrast',
     family: 'paired-comparison',
-    description: 'Two identical fictional lane scenes, A (conduct of A, ●) and B (conduct of B, the affected person, ◆): the same slab, lanes, barriers, event and supplied steps, both trolleys parked. One localized change each: a ● start pad under A\'s lane-A trolley, a ◆ pad under B\'s lane-B trolley. The same roll then runs in both at the same time and speed — lane A in A, lane B in B — and stops at the barrier. A guide line and a bracket mark the one difference. Shared facts drawn once. No winner, no conclusion; nothing is weighed, shared out or decided.',
+    description: 'Two fictional single-lane boards of identical build, A (conduct of A, ●) and B (conduct of B, the affected person, ◆): each shows its own lane alone, large, with the same slab, barrier and event pad at the lane\'s end, an actor and a parked trolley. One localized change each: a ● start pad and outline on A\'s lane, a ◆ pad and outline on B\'s lane. The same roll then runs in both at the same time and speed and stops at the barrier. A guide line and a bracket mark the one difference. Shared facts drawn once. No winner, no conclusion; nothing is weighed, shared out or decided.',
     tags: ['causation', 'affected person', 'contrast', 'parallel lanes', 'two conducts', 'equal weight', 'as supplied'],
     defaultDurationMs: DURATION,
     assets: ['src/animations/causation/kits/contribucion-afectada.js', 'src/animations/causation/kits/dano-material.js', 'src/animations/causation/kits/prueba-contrafactual.js', 'src/animations/causation/kits/causal-chain.js'],

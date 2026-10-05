@@ -1,5 +1,5 @@
 // LAW-0715 — Contribución de la persona afectada · contrast. Contract battery + ID-specific checks.
-// acceptanceCheck (brief): both scenes exist (two complete lane scenes of equal size), exactly the indicated fact
+// acceptanceCheck (brief): both scenes exist (two single-lane boards of identical build and equal size: board A shows lane A, board B lane B, each with the same event pad), exactly the indicated fact
 // changes (only WHICH supplied conduct runs: A's ● start pad and lane-A trolley, B's ◆ start pad and lane-B trolley)
 // and no legal consequence is invented to complete the contrast (a neutral note and the key; no winner, no conclusion;
 // nothing reaches the event).
@@ -7,7 +7,7 @@
 // pads 0.20–0.34 · changed-fact chip 0.22–0.30 · roll 0.42–0.66 (same time and speed in both scenes) · guide line
 // 0.77–0.81 · bracket and guide chip 0.79–0.84 · neutral note 0.82–0.87 · key 0.84–0.89.
 // Legal (causation-09 brief, VERY high risk): no apportionment, fault, shares, percentages or contributory-negligence
-// doctrine; A and B, both pads and all trolleys have identical stroke, colour and weight.
+// doctrine; A and B, both pads and both trolleys have identical stroke, colour and weight.
 // Brief customizable fields: none omitted (events, causalLinks, alternatives, losses + the contrast fields); 'origin'
 // added.
 // coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20): long-labels-stress capped to no account
@@ -25,7 +25,7 @@ const P = name => presetsFor(ID).find(q => q.name === name).params;
 contractSuite(ID, {
   continuity: ['cartAa', 'cartBb'],
   semantic: [
-    {at: 0.1, fn: "s.beat === 'base' && s.stops === 0 && s.roll === 0 && s.cartAa.x === s.cartAb.x && s.cartBa.x === s.cartBb.x", label: 'base: two identical scenes, every trolley parked; no pad yet'},
+    {at: 0.1, fn: "s.beat === 'base' && s.stops === 0 && s.roll === 0 && s.cartAa.x === s.cartAb.x && s.cartBa.x === s.cartBb.x", label: 'base: both boards at rest, every trolley parked; no pad yet'},
     {at: 0.38, fn: 's.stops === 1 && s.roll === 0', label: 'change: the pads are in place before anything moves'},
     {at: 0.54, fn: 's.roll > 0 && s.roll < 1 && s.lookA.a === s.lookB.b && s.lookA.b === 0 && s.lookB.a === 0', label: 'the same roll runs in parallel: lane A in A, lane B in B, at the same place on their lanes'},
     {at: 1, fn: "s.guideShown && s.keyShown && s.runA === 'a' && s.runB === 'b' && s.lookA.a === s.lookB.b && s.lookA.b === 0 && s.lookB.a === 0", label: 'hold: guide line, bracket, neutral note and key; only which conduct ran differs'},
@@ -45,7 +45,7 @@ ratioChecks(ID, 'rendered: inside the frame, no card over foreign text, equal we
   {at: [0.3, 0.6, 1], dom: CARDS_CLEAR, tv: ['all'], label: 'no chip or card covers a text it does not own'},
   {at: [1], dom: equalWeight(['stopA', 'stopB']), label: 'the ● and ◆ start pads have identical weight, both solid'},
   {at: [1], dom: equalWeight(['cartAa', 'cartBb']), label: 'the two running trolleys are identical'},
-  {at: [1], dom: equalWeight(['cartAa', 'cartAb']), label: 'the ● and ◆ trolleys have identical weight'},
+  // (single-lane boards: each board draws only its own running trolley, so the A–B pair above is the ● vs ◆ trolley check)
   {at: [1], tv: ['all'], dom: equalWeight(['hA', 'hB']), label: 'the A and B heads have identical weight'},
 ]);
 

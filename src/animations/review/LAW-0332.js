@@ -425,8 +425,6 @@ const scene = {
     const textK = sc >= 0.9999 ? 1 : clamp((L.F * L.px * sc - Math.min(floor, L.F * L.px - 0.01)) / 0.6);
     // one copy of the datum at a time: the context copy (value and glyph) leaves as the lens copy arrives, comes back after
     const ctxT = u < 0.5 ? Math.min(1 - seg(u, ...L.ctxOutW), textK) : seg(u, ...W.ctxIn);
-    // (the record's value and glyph come in as the petition is laid — the travelling sheet never passes over them)
-    const buildK = seg(u, WB.put[0], WB.release[1]);
     const lensT = clamp((open - 0.12) / 0.3);
     // the substitution, a dip hand-over: the old value dims to 0.3; at one instant it leaves the plate and enters the
     // dock as the record captioned "was", while the plate takes the new value — both come in at 0.3 and brighten
@@ -457,22 +455,24 @@ const scene = {
     const o1 = 1 - clamp(cue * 2), i1 = clamp(cue * 2 - 1);
     const A0 = stateLook(L.before), A1 = stateLook(L.after);
     const mix = key => (A0[key] && !A1[key] ? o1 : !A0[key] && A1[key] ? i1 : A0[key]);
-    // (the build, coordinator review-03: the petition leaves the first tray, travels along the configured path — dipping
-    // into each tray it passes — and is laid in the prior-examination tray; the record plate already shows the supplied
+    // (the build, coordinator review-03: the petition leaves the first tray, slides along the row of trays (the path's
+    // order: the sheet keeps the trays' height, clear of the board below) and is laid in the prior-examination tray; the record plate already shows the supplied
     // state. No participant is drawn: a courier's lane would push the 1:1 composition below its text floor)
     const ac = saAction(G, WB, u, {mode: 'carry'});
     const stFor = (textk, recState, live = false) => ({
       textK: textk,
       route: {solid: 1},
-      doc: live ? {x: ac.doc.x, y: ac.doc.y, s: ac.doc.s, op: 1} : {x: L.last.x, y: L.last.y, s: 1, op: 1},
+      doc: live ? {x: ac.doc.x, y: L.last.y, s: ac.doc.s, op: 1} : {x: L.last.x, y: L.last.y, s: 1, op: 1},
       ...(live ? {person: ac.person, reach: ac.reach} : {}),
       pin: {a: mix('pinA')},
       dec: {op: mix('dec'), s: lerp(1.12, 1, mix('dec')), pin: {b: mix('dec')}},
       covers: live ? ac.covers : [],
       rec: recState,
     });
-    const rf = L.room.frame(stFor(textK, recFor(Math.min(ctxT, buildK), chip), true));
+    const rf = L.room.frame(stFor(textK, recFor(ctxT, chip), true));
     Object.assign(nodes, rf.nodes);
+    // (while the travelling sheet passes a step disc the whole disc fades with its number — never an empty circle)
+    G.discs.forEach((_, j) => { const n = nodes[`rm-step${j}-n`]; if (!n) return; nodes[`rm-step${j}`] = {opacity: n.opacity}; nodes[`rm-step${j}-n`] = {opacity: 1}; });
     // (in the lens the dock's tray is there from the opening, empty until the substitution)
     Object.assign(nodes, L.lz.frame(stFor(lensT, recFor(lensT, 1))).nodes);
     const fr = seg(u, ...W.frame) * (1 - seg(u, ...W.frameOut));

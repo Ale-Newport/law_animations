@@ -1,0 +1,92 @@
+{
+  "animationId": "LAW-0369",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. The state is drawn exactly as supplied: 'gap' only leaves sheet B without entry and marks its blank rows; nothing is said about what a documentary gap means, and no chain-of-custody doctrine is drawn. Times are illustrative and imply no time limit. Editable brief fields: items, custodians, timestamps, records, actorLabels, objectLabels, actionProgress, annotations, finalState.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "A sealed bag with a wooden box passes from A to B across the counter tray; A writes sheet A, B writes sheet B (as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a mug in the bag, three rows on sheet A, and the supplied documentary gap — sheet B is left without entry (finalState gap), its blank rows marked by a neutral ring.",
+      "params": {
+        "items": [{"id": "Item M-07 (fictional)", "label": "Ceramic mug in a sealed bag (fictional)", "kind": "cup"}],
+        "custodians": [
+          {"name": "T. Varga (fictional)", "role": "Person handing the bag over"},
+          {"name": "S. Haddad (fictional)", "role": "Person receiving the bag"}
+        ],
+        "timestamps": [{"label": "Bag handed over", "time": "15:40 (illustrative)"}],
+        "records": [
+          {"log": "a", "field": "Handed over by", "value": "T. Varga"},
+          {"log": "a", "field": "Handed to", "value": "S. Haddad"},
+          {"log": "a", "field": "Time", "value": "15:40"},
+          {"log": "b", "field": "Received by", "value": "S. Haddad"},
+          {"log": "b", "field": "Time", "value": "15:40"}
+        ],
+        "annotations": [{"target": "logB", "text": "Sheet B has no entry for this hand-off (as supplied)"}],
+        "finalState": "gap"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: six long rows (three per sheet), three timestamps, long captions, two notes and a long state caption; a key.",
+      "params": {
+        "items": [{"id": "Item K-0412 (fictional)", "label": "Brass door key with a ring, in a sealed bag (fictional)", "kind": "key"}],
+        "custodians": [
+          {"name": "Alexandra Okonkwo-Lindqvist (fictional)", "role": "Person handing the bag over in this example"},
+          {"name": "Maximilian Ferreira-Castellanos (fictional)", "role": "Person receiving the bag in this example"}
+        ],
+        "timestamps": [
+          {"label": "Bag placed on the counter tray (example)", "time": "09:41 (illustrative)"},
+          {"label": "Bag taken from the counter tray", "time": "09:42 (illustrative)"},
+          {"label": "Both record sheets put away", "time": "09:50 (illustrative)"}
+        ],
+        "records": [
+          {"log": "a", "field": "Handed over by", "value": "A. Okonkwo-Lindqvist"},
+          {"log": "a", "field": "Handed to", "value": "M. Ferreira-Castellanos"},
+          {"log": "a", "field": "Time noted", "value": "09:41 (illustrative)"},
+          {"log": "b", "field": "Received by", "value": "M. Ferreira-Castellanos"},
+          {"log": "b", "field": "Received from", "value": "A. Okonkwo-Lindqvist"},
+          {"log": "b", "field": "Time noted", "value": "09:42 (illustrative)"}
+        ],
+        "labels": {"key": "As supplied · no conclusion drawn (placeholder content only)", "blank": "(left blank in this example, as supplied)", "logA": "Record sheet A", "logB": "Record sheet B"},
+        "actorLabels": {"a": "Hands of A: carry the bag onto the tray, then write record sheet A", "b": "Hands of B: take the bag from the tray, then write record sheet B"},
+        "objectLabels": {
+          "bag": "Sealed evidence bag holding the object (fictional)",
+          "tag": "Manila tag lying on the bag with two rows",
+          "chain": "Ball chain joining the tag to the bag eyelet",
+          "counter": "Counter between the desks with the hand-off tray"
+        },
+        "annotations": [
+          {"target": "tray", "text": "Both hands hold the bag on the counter tray at the same time"},
+          {"target": "logA", "text": "Each custodian writes only on their own record sheet"}
+        ],
+        "stateCaption": "The bag lies on the desk of B; record sheet A and record sheet B each carry their own entry in this fictional example (as supplied)"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "items": [{"id": "Indicio E-05 (ficticio)", "label": "Llave de latón en bolsa cerrada (ficticia)", "kind": "key"}],
+        "custodians": [
+          {"name": "J. Ferraz (ficticia)", "role": "Persona que entrega la bolsa"},
+          {"name": "C. Ibarra (ficticia)", "role": "Persona que recibe la bolsa"}
+        ],
+        "timestamps": [{"label": "Bolsa entregada", "time": "11:20 (ilustrativo)"}, {"label": "Bolsa recibida", "time": "11:21 (ilustrativo)"}],
+        "records": [
+          {"log": "a", "field": "Entregado por", "value": "J. Ferraz"},
+          {"log": "a", "field": "Hora", "value": "11:20"},
+          {"log": "b", "field": "Recibido por", "value": "C. Ibarra"},
+          {"log": "b", "field": "Hora", "value": "11:21"}
+        ],
+        "labels": {"key": "Según lo aportado · sin conclusión", "blank": "(en blanco, según lo aportado)", "logA": "Hoja A", "logB": "Hoja B"},
+        "actorLabels": {"a": "Manos de A: llevan la bolsa a la bandeja y escriben la hoja A", "b": "Manos de B: toman la bolsa en la bandeja y escriben la hoja B"},
+        "objectLabels": {"bag": "Bolsa de pruebas cerrada con el objeto", "tag": "Etiqueta sobre la bolsa", "chain": "Cadena de bolas de la etiqueta a la bolsa", "counter": "Mostrador con la bandeja de entrega"},
+        "annotations": [{"target": "tray", "text": "Las dos manos sujetan la bolsa en la bandeja"}]
+      }
+    }
+  ]
+}

@@ -228,6 +228,8 @@ const scene = {
       if (C.planRect.h / frameHD < (shape === 'landscape' ? 0.225 : 0.205)) problems.push('subject-short');
       // (item 18: side by side, each room keeps >= 0.40 of the frame's width)
       if (arr === 'row' && shape === 'landscape' && C.planRect.w / frameWD < 0.4) problems.push('room-narrow');
+      // (coordinator decision 2026-10-06: stacked at 1:1, each room keeps >= 0.56 of the frame's width)
+      if (arr === 'col' && shape === 'square' && C.planRect.w / frameWD < 0.56) problems.push('room-narrow');
       const shift = arr === 'row' ? {x: roomsW + rgap, y: 0} : {x: 0, y: roomH + hd.h + chan + gap};
       return {C, problems, hd, box, shift, roomsW, roomH, chan, side, arr, area, scale};
     };

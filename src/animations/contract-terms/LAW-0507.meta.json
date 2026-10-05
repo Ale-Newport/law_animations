@@ -1,0 +1,359 @@
+{
+  "id": "LAW-0507",
+  "slug": "contract-terms-07-contrast",
+  "title": "Indemnity clause, without doctrine — two identical benches: the claim plugs into the promise socket; a caliper closes on it in A and is held apart in B, as supplied",
+  "titleEs": "Cláusula de indemnidad — Contraste de escenarios emparejados",
+  "category": "contract-terms",
+  "categoryName": "Contenido y cláusulas",
+  "motif": "Cláusula de indemnidad",
+  "treatment": "contrast",
+  "family": "paired-scenes",
+  "description": "Two identical pegboard benches (side by side on wide frames, stacked on tall ones). On each hangs the clause card \"CT-412 · Indemnity clause\" with the supplied promise line and a brass socket; the claim slip rolls along its track and its prong seats in the socket, identically in both. A brass caliper then closes: in A (\"Claim covered as per supplied data\") the sliding jaw closes on the far edge of the claim (●); in B (\"Scope disputed (as supplied)\") it is held apart and the open span is drawn dashed (◆) — same jaw, colour and stroke. A guide outlines both sliding jaws (\"Only the supplied scope status differs\"); the supplied clause lines are drawn once in a shared strip; the neutral note says statuses are as supplied and no outcome is drawn. No indemnity doctrine.",
+  "tags": [
+    "indemnity clause",
+    "claim",
+    "promise of cover",
+    "contrast",
+    "paired benches",
+    "caliper",
+    "scope",
+    "socket",
+    "prong",
+    "equal weight",
+    "as supplied",
+    "no outcome"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/contract-terms/kits/clausula-indemnidad.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "contract": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Reference printed on the contract (fictional)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Heading of the contract, as supplied (generic, e.g. \"Supply contract (fictional)\")"
+          }
+        },
+        "required": [
+          "reference",
+          "title"
+        ],
+        "description": "The contract sheet"
+      },
+      "clauseTitle": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "Heading of the clause, as supplied (e.g. \"Indemnity clause\")"
+      },
+      "clauses": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Clause line, as supplied"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Lines of the supplied clause text (generic, fictional placeholders such as \"Clause 14.2 (supplied text)\"; never real contract text) (array replaces the previous value)"
+      },
+      "promise": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 3,
+        "description": "The supplied clause line that holds the promise of cover the claim is connected to (1 = first; clamped to the list)"
+      },
+      "claim": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label printed on the claim slip (e.g. \"Claim 1 (supplied)\")"
+          },
+          "amount": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Optional amount, drawn only when supplied and always after the words \"Hypothetical amount\" (e.g. \"1,000 units\"); empty = no amount"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "The supplied claim (a generic, fictional placeholder)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Header of scenario A, as supplied"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A (its supplied status: the caliper closes on the claim)"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Header of scenario B, as supplied (stays an allegation: nothing is decided)"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B (its supplied status: the caliper is held apart, the open span dashed)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label of the guide that outlines the one differing detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          },
+          "shared": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Heading of the shared strip of clause lines"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "contract": {
+      "reference": "CT-412",
+      "title": "Supply contract (fictional)"
+    },
+    "clauseTitle": "Indemnity clause",
+    "clauses": [
+      "Clause 14.1 (supplied text)",
+      "Clause 14.2 (supplied text)",
+      "Clause 14.3 (supplied text)"
+    ],
+    "promise": 2,
+    "claim": {
+      "label": "Claim 1 (supplied)",
+      "amount": ""
+    },
+    "scenarioA": {
+      "label": "Claim covered as per supplied data"
+    },
+    "scenarioB": {
+      "label": "Scope disputed (as supplied)"
+    },
+    "comparisonLabels": {
+      "guide": "Only the supplied scope status differs",
+      "neutral": "Same contract, same claim, same connection · statuses as supplied · no outcome drawn",
+      "shared": "Clause lines (shared)"
+    },
+    "actionProgress": 1
+  }
+}

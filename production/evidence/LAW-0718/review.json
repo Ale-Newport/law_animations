@@ -163,11 +163,27 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0718/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0718/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0718/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0718/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0718/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0718/sheet-16x9-es.png"
+    ],
+    "findings": [
+      "1:1 all times: event trays ~32px wide each in a ~440px safe box (~7%), tray row ~25% of box width; exploded parts cluster in left ~55% with small objects - scale the exploded assembly up (trays >=15% of safe width) and stack the legend below or narrower",
+      "16:9 all times: trays ~25px in 520px cell, bar/blades/rails ~60-90px; art occupies left ~45% while legend column is long - enlarge parts",
+      "Mechanism reads only weakly: arrows 'then, as supplied' link parts but nothing physically performs the split; consider a ghost re-assembly at gather",
+      "Content neutral; tests 22/22 pass"
+    ],
+    "sourceHash": "97ed4f9c83345fa29a3bfb4563d259c0ffb8bf979ed16673416b9e7f8da69fb7",
+    "renderFingerprint": "c08ee43a22c1f75f5320f4ebc436939d4c540b3132d8caded0f3fe8fc51ccb79",
+    "reviewedAt": "2026-10-05T22:22:19.871Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -183,5 +199,10 @@
   "renderFingerprint": "c08ee43a22c1f75f5320f4ebc436939d4c540b3132d8caded0f3fe8fc51ccb79",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.12,0.35,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0718/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }
