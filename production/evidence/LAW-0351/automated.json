@@ -1,0 +1,450 @@
+{
+  "animationId": "LAW-0351",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0351",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": false,
+      "detail": [
+        {
+          "preset": "default",
+          "ratio": "1:1",
+          "u": 1,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "The folder reaches the point for the fir @63,563,422x46"
+          ]
+        },
+        {
+          "preset": "baseline-illustrative",
+          "ratio": "1:1",
+          "u": 1,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "The folder reaches the point for the fir @63,563,422x46"
+          ]
+        },
+        {
+          "preset": "contrast-or-alternative",
+          "ratio": "1:1",
+          "u": 1,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "The folder reaches the point for the fir @63,587,390x42"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "decisions.title"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: identical boards, no folder yet @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": {
+            "shown": false
+          },
+          "lookB": {
+            "shown": false
+          },
+          "folderA": {
+            "x": -115.07,
+            "y": 360.16
+          },
+          "folderB": {
+            "x": 1828.5,
+            "y": 213.16
+          },
+          "slipB": {
+            "x": 1874.53,
+            "y": 192.3
+          },
+          "inTargetA": false,
+          "inTargetB": false,
+          "target": 1,
+          "guide": 0,
+          "states": 0,
+          "run": 0,
+          "stages": [
+            {
+              "x": 0,
+              "y": 54.05,
+              "w": 826.81,
+              "h": 385.87
+            },
+            {
+              "x": 863.61,
+              "y": 54.05,
+              "w": 826.81,
+              "h": 385.87
+            }
+          ],
+          "arrangement": "row",
+          "problems": [],
+          "textPx": 23
+        }
+      }
+    },
+    {
+      "name": "semantic: the change beat brings in the one difference @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "lookA": {
+            "shown": true,
+            "folder": {
+              "x": 93.03,
+              "y": 306.11
+            },
+            "notes": false,
+            "route": "from-entry"
+          },
+          "lookB": {
+            "shown": true,
+            "folder": {
+              "x": 708.81,
+              "y": 159.11
+            },
+            "notes": true,
+            "route": "from-review"
+          },
+          "folderA": {
+            "x": 93.03,
+            "y": 360.16
+          },
+          "folderB": {
+            "x": 1572.42,
+            "y": 213.16
+          },
+          "slipB": {
+            "x": 1618.45,
+            "y": 192.3
+          },
+          "inTargetA": false,
+          "inTargetB": false,
+          "target": 1,
+          "guide": 0,
+          "states": 0,
+          "run": 0,
+          "stages": [
+            {
+              "x": 0,
+              "y": 54.05,
+              "w": 826.81,
+              "h": 385.87
+            },
+            {
+              "x": 863.61,
+              "y": 54.05,
+              "w": 826.81,
+              "h": 385.87
+            }
+          ],
+          "arrangement": "row",
+          "problems": [],
+          "textPx": 23
+        }
+      }
+    },
+    {
+      "name": "semantic: both run in parallel with the same timing @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "lookA": {
+            "shown": true,
+            "folder": {
+              "x": 286.89,
+              "y": 306.11
+            },
+            "notes": false,
+            "route": "from-entry"
+          },
+          "lookB": {
+            "shown": true,
+            "folder": {
+              "x": 572.42,
+              "y": 306.11
+            },
+            "notes": true,
+            "route": "from-review"
+          },
+          "folderA": {
+            "x": 286.89,
+            "y": 360.16
+          },
+          "folderB": {
+            "x": 1436.04,
+            "y": 360.16
+          },
+          "slipB": {
+            "x": 1482.06,
+            "y": 339.29
+          },
+          "inTargetA": false,
+          "inTargetB": false,
+          "target": 1,
+          "guide": 0,
+          "states": 0,
+          "run": 0.325,
+          "stages": [
+            {
+              "x": 0,
+              "y": 54.05,
+              "w": 826.81,
+              "h": 385.87
+            },
+            {
+              "x": 863.61,
+              "y": 54.05,
+              "w": 826.81,
+              "h": 385.87
+            }
+          ],
+          "arrangement": "row",
+          "problems": [],
+          "textPx": 23
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: both folders in the same configured tray; guide shown; composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "shown": true,
+            "folder": {
+              "x": 358.05,
+              "y": 159.11
+            },
+            "notes": false,
+            "route": "from-entry"
+          },
+          "lookB": {
+            "shown": true,
+            "folder": {
+              "x": 358.05,
+              "y": 159.11
+            },
+            "notes": true,
+            "route": "from-review"
+          },
+          "folderA": {
+            "x": 358.05,
+            "y": 213.16
+          },
+          "folderB": {
+            "x": 1221.67,
+            "y": 213.16
+          },
+          "slipB": {
+            "x": 1267.69,
+            "y": 192.3
+          },
+          "inTargetA": true,
+          "inTargetB": true,
+          "target": 1,
+          "guide": 1,
+          "states": 1,
+          "run": 1,
+          "stages": [
+            {
+              "x": 0,
+              "y": 54.05,
+              "w": 826.81,
+              "h": 385.87
+            },
+            {
+              "x": 863.61,
+              "y": 54.05,
+              "w": 826.81,
+              "h": 385.87
+            }
+          ],
+          "arrangement": "row",
+          "problems": [],
+          "textPx": 23
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the base @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": {
+            "shown": false
+          },
+          "lookB": {
+            "shown": false
+          },
+          "folderA": {
+            "x": -115.07,
+            "y": 360.16
+          },
+          "folderB": {
+            "x": 1828.5,
+            "y": 213.16
+          },
+          "slipB": {
+            "x": 1874.53,
+            "y": 192.3
+          },
+          "inTargetA": false,
+          "inTargetB": false,
+          "target": 1,
+          "guide": 0,
+          "states": 0,
+          "run": 0,
+          "stages": [
+            {
+              "x": 0,
+              "y": 54.05,
+              "w": 826.81,
+              "h": 385.87
+            },
+            {
+              "x": 863.61,
+              "y": 54.05,
+              "w": 826.81,
+              "h": 385.87
+            }
+          ],
+          "arrangement": "row",
+          "problems": [],
+          "textPx": 23
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

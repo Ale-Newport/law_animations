@@ -282,8 +282,7 @@ const scene = {
     const gk = seg(u, ...W.guide);
     nodes.guide = {opacity: r(gk, 3)};
     const st = seg(u, ...W.states);
-    nodes.capA = {opacity: r(st, 3)};
-    nodes.capB = {opacity: r(st, 3)};
+    if (C.caps[0]) { nodes.capA = {opacity: r(st, 3)}; nodes.capB = {opacity: r(st, 3)}; }
     if (C.strip) for (const col of C.strip.cols) for (const rw of col.PL.rows) if (rw.name === 'sh-neutral') nodes[rw.name] = {opacity: r(seg(u, ...W.notes), 3)};
     const beat = u < BEATS.base[1] ? 'base' : u < BEATS.change[1] ? 'change' : u < BEATS.parallel[1] ? 'parallel' : 'guide';
     const S = B.slots[0];
