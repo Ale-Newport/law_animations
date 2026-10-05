@@ -33,3 +33,8 @@ You did NOT build these; do not edit source files.
 3. Per ID check: the brief's concrete action is physically shown; composition distinct from the other three; hands/props attached, no teleports; clean layering; legible text inside the frame not covering actors; real re-layout in portrait/square; readable final hold; labels-hidden still reads; neutral legal content. Flag clones.
 4. 'pass' only at the quality of the accepted reference motifs; else 'fail' with concrete, actionable defects (ID, ratio, time, element, fix).
 5. When told this is a FINAL review: for each ID you pass whose automatedChecks.status is 'pass', run `node scripts/review.mjs --id <ID> --status pass --reviewer "claude subagent (independent reviewer, session 2)" --method "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback" --artifacts <sheet file names you viewed> --findings "<observations separated by |>" --content-ok`. For failed IDs run it with `--status fail` and the defects as findings. Report per ID: verdict, images viewed, defects, reviewRecorded.
+
+## Lessons from session-2 reviews
+- Builders reported "all tests pass" while single-file runs failed (size floors, cold-create budget). Before reporting, run EACH of your test files alone with `--workers=1` and paste the pass/fail counts into your report. Never lower a threshold to make a test pass.
+- Every valid parameter combination must render a real scene at every ratio (an empty group on `no-layout-fits` is a fail): test 1..max of each array field at 16:9, 9:16 and 1:1.
+- Use free space: reviewers fail stress layouts that leave a 15–20 % empty band while key objects fall under the size floors.

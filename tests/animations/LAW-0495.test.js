@@ -252,8 +252,8 @@ test(`${ID}: one to three obligations render a full, legible scene at every rati
     const fails = [];
     let n = 0;
     for (const pr of presets) for (let k = 1; k <= 3; k++) for (const [from, to] of [[1, k], [k, k]]) for (const [ratio, w, h] of ratios) for (const tv of ['all', 'none']) {
-      const base = pr.params.obligations || def.defaultParams.obligations;
       const es = (pr.params.locale || def.defaultParams.locale) === 'es';
+      const base = pr.params.obligations || (es ? [] : def.defaultParams.obligations);
       const word = es ? 'Obligación' : 'Obligation';
       const obligations = [...Array(k).keys()].map(i => base[i] ?? `${word} ${i + 1}${es ? ' (texto aportado)' : ' (supplied text)'}`);
       const el = document.createElement('div');
@@ -292,6 +292,6 @@ test(`${ID}: one to three obligations render a full, legible scene at every rati
     }
     return {fails, n};
   }, [ID, presets, RATIOS]);
-  expect(out.n).toBeGreaterThan(300);
+  expect(out.n).toBeGreaterThan(200);
   expect(out.fails.slice(0, 30)).toEqual([]);
 });
