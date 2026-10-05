@@ -141,7 +141,7 @@ function geom(ctx, F, minF, arrangement) {
   // list card, tray, feeder (local x)
   const discR = F * 0.9;
   const lcW = discR * 2 + chipS + 46;
-  const fw = clamp((pw - lcW - 3 * 26 - 34) / 2, 120, 330);
+  const fw = clamp((pw - lcW - 56 - 60 - 14) / 2, 120, 330);
   const trayX = lcW + 26 + 30, feedX = trayX + fw + 34 + 26;
   if (feedX + fw > pw + 0.5) why.push('panel-width');
   const tierH = (stage.h - 24) / n;
@@ -259,7 +259,7 @@ const scene = {
       );
       void lcChipX;
       return g({name: `${which}-panel`, transform: T(P.x, P.y)}, stageArt(ctx, L, P, which, show), low, chips, high, guide,
-        g({name: `${which}-loupeG`}, loupe(ctx, {name: `${which}-loupe`, R: L.chipS * 0.8, a: 45, handle: L.chipS * 0.9})));
+        g({name: `${which}-loupeG`, opacity: 0}, loupe(ctx, {name: `${which}-loupe`, R: L.chipS * 0.8, a: 45, handle: L.chipS * 0.9})));
     });
     // shared strip
     const lg = L.legend;
@@ -307,10 +307,12 @@ const scene = {
       chipsLook.push({si: L.O.f, x: r(FP.x), y: r(FP.y)});
       // loupe: over the waiting chip (identical), away after the change
       const rq = ease.inOutSine(seg(a, ...W.read)), oq = ease.inOutSine(seg(a, ...W.loupeOut));
-      const lRest = {x: L.lcW + L.chipS * 0.5, y: L.stage.y + L.stage.h - L.chipS * 1.2};
+      // (the loupe drifts in over the waiting chip, then lifts away; it is not drawn at rest or in the hold)
       const lRead = {x: fPre.x + L.chipS / 2, y: fPre.y + L.chipS / 2};
+      const lRest = {x: lRead.x + L.chipS * 0.8, y: lRead.y + L.chipS * 1.6};
       const LP = oq > 0 ? {x: lerp(lRead.x, lRest.x, oq), y: lerp(lRead.y, lRest.y, oq)} : {x: lerp(lRest.x, lRead.x, rq), y: lerp(lRest.y, lRead.y, rq)};
-      nodes[`${which}-loupeG`] = {transform: T(r(LP.x, 2), r(LP.y, 2)), opacity: r(oq >= 1 ? 0 : 1, 3)};
+      const lO = oq > 0 ? 1 - oq : clamp(rq * 3);
+      nodes[`${which}-loupeG`] = {transform: T(r(LP.x, 2), r(LP.y, 2)), opacity: r(lO, 3)};
       // folders: tier by tier from the top (identical timing in A and B)
       const span = (W.fill[1] - W.fill[0]) / n;
       let seated = 0;
@@ -329,7 +331,7 @@ const scene = {
       }
       const gq = seg(a, ...W.guide);
       nodes[`${which}-guide`] = {opacity: r(gq, 3)};
-      looks[which] = {chips: chipsLook.sort((x, y) => x.si - y.si), folders: foldLook.sort((x, y) => x.si - y.si), loupe: P2(LP), guide: r(gq, 3)};
+      looks[which] = {chips: chipsLook.sort((x, y) => x.si - y.si), folders: foldLook.sort((x, y) => x.si - y.si), loupe: P2(LP), loupeO: r(lO, 3), guide: r(gq, 3)};
       facts[which] = {seated, tierOfChanged: ord.indexOf(L.O.f), order: ord, folderChanged: foldLook.find(f => f.si === L.O.f)};
     }
     for (const pl of L.placedNotes) if (pl.q.kind === 'guide') nodes[`${pl.q.name}-g`] = {opacity: r(seg(a, ...W.guide), 3)};

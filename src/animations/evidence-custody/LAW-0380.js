@@ -20,7 +20,7 @@ import {defineAnimation} from '../../core/define.js';
 import {measure} from '../../core/text.js';
 import {makeMetadata} from '../../core/meta.js';
 import {h, g} from '../../core/svg.js';
-import {seg, clamp, r, ease} from '../../core/time.js';
+import {seg, clamp, r, ease, lerp} from '../../core/time.js';
 import {str, int, obj, num, oneOf} from '../../schemas/fields.js';
 import {T} from '../../core/transform.js';
 import {lens} from '../../frameworks/lens.js';
@@ -33,7 +33,7 @@ import {
 
 const ID = 'LAW-0380';
 const DURATION = 8000;
-const W = {open: [0.2, 0.32], lift: [0.45, 0.51], unlink: [0.46, 0.54], trace: [0.5, 0.56], write: [0.54, 0.62], relink: [0.58, 0.68], close: [0.75, 0.85], marker: [0.86, 0.92]};
+const W = {stepOut: [0.1, 0.2], stepBack: [0.85, 0.91], open: [0.2, 0.32], lift: [0.45, 0.51], unlink: [0.46, 0.54], trace: [0.5, 0.56], write: [0.54, 0.62], relink: [0.58, 0.68], close: [0.75, 0.85], marker: [0.89, 0.94]};
 
 const OWN_EN = {
   labels: IO_LABELS_EN,
@@ -104,8 +104,7 @@ const scene = {
     // the station and legend are composed in a reduced design box so the lens always has a free side (right on wide
     // and square frames, bottom on tall ones); the lens may still overlap the dimmed legend
     const tallF = ctx.view.shape === 'portrait';
-    const cctx = {...ctx, design: tallF ? {w: ctx.design.w, h: ctx.design.h * 0.66} : {w: ctx.design.w * (ctx.view.shape === "square" ? 0.8 : 0.7), h: ctx.design.h}};
-    const C = composeScene(cctx, {n, texts, title: null, rows: () => legendRows(ctx, P, k, after), noBag: true, tagText: ctx.show('key'), noExpand: true, sheetFrac: [0.4, 0.5, 0.6], minS: 30, maxS: tallF ? 115 : 170, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...[...P.records.map(rw => rw.field), P.beforeValue, P.afterValue].map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null}, panelLayout);
+    const C = composeScene(ctx, {n, texts, title: null, rows: () => legendRows(ctx, P, k, after), noBag: true, tagText: ctx.show('key'), noExpand: true, sheetFrac: [0.4, 0.5, 0.6], minS: 30, maxS: 170, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...[...P.records.map(rw => rw.field), P.beforeValue, P.afterValue].map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null}, panelLayout);
     const G = C.st.G, SF = C.st.SF;
     const X = v => C.ox + v, Y = v => C.oy + v;
     const linked = P.items.map((_, i) => i !== k && Boolean(texts[i]));
@@ -125,9 +124,18 @@ const scene = {
     // two whole row bands (the focus row and a neighbour) so the lens is tall enough to be a real inspection window
     const k2 = k + 1 < n ? k + 1 : k - 1;
     const r0 = Math.max(0, Math.min(k, k2)), r1 = Math.max(k, k2, 0);
-    const src = {x: sx0, y: Y(G.rows[r0].top), w: X(G.sheet.x) + 14 + N.badgeR * 2 + 6 - sx0, h: G.rows[r1].top + G.rows[r1].h - G.rows[r0].top};
+    let src = {x: sx0, y: Y(G.rows[r0].top), w: X(G.sheet.x) + 14 + N.badgeR * 2 + 6 - sx0, h: G.rows[r1].top + G.rows[r1].h - G.rows[r0].top};
     const {w: DW, h: DH} = ctx.design;
     const gap = 18;
+    // while the lens is open the context steps aside (scaled about its corner into one part of the frame); at rest
+    // and in the hold it fills its full composition. Its text never drops below ~17.5 px.
+    const B0 = C.bench;
+    const reg = tallF ? {x: 0, y: 0, w: DW, h: DH * 0.5} : {x: 0, y: 0, w: DW * 0.56, h: DH};
+    const sMin = Math.min(1, 17.5 / C.F);
+    const sc = Math.min(1, Math.max(sMin, Math.min(reg.w / B0.w, reg.h / B0.h)));
+    const step = {s: sc, x: reg.x - B0.x * sc + (tallF ? (reg.w - B0.w * sc) / 2 : 0), y: reg.y - B0.y * sc + (tallF ? 0 : (reg.h - B0.h * sc) / 2)};
+    const srcRest = src;
+    src = {x: step.x + srcRest.x * sc, y: step.y + srcRest.y * sc, w: srcRest.w * sc, h: srcRest.h * sc};
     // lens floor in design units: smaller side >= 36 % of the FRAME's short side (rendered px)
     const kpx = Math.min(ctx.view.content.w / DW, ctx.view.content.h / DH);
     const need = (0.36 * Math.min(ctx.view.width, ctx.view.height)) / kpx;
@@ -156,7 +164,7 @@ const scene = {
     if (overlaps(dest, src)) problems.push('lens-over-source');
     if (fb && fb.size * zoom < 16) problems.push('lens-text');
     const marker = {x: X(t.hole.x) + Math.cos(a) * TG.x1, y: Y(t.hole.y) - G.tagH * 0.75};
-    return {P, n, k, C, G, SF, N, NL, fb, fa, tip, badge, before, after, src, dest, zoom, problems, marker, place: bestP};
+    return {tagSmall: sc * 17 < 16.5 || sc < 0.98, P, n, k, C, G, SF, N, NL, fb, fa, tip, badge, before, after, src, srcRest, step, dest, zoom, problems, marker, place: bestP};
   },
   build(ctx, L) {
     const {C, G, P, k} = L;
@@ -174,20 +182,27 @@ const scene = {
       return parts;
     };
     // the before trace (lens only): small text under the tag
-    const traceF = ctx.show('key') ? fitG(`${P.beforeLabel}: ${P.beforeValue}`, {maxWidth: 400, size: Math.max(8, 17 / L.zoom), minSize: 7, maxLines: 1, weight: 500}) : null;
-    const trace = g({name: 'lz-trace', opacity: 0}, traceF ? textAt(traceF, {x: C.ox + t.hole.x - G.tagH * 0.2, y: C.oy + t.hole.y + G.tagH * 0.85, fill: th.fgSoft || '#555', italic: true}) : null);
+    // the before trace (lens only): a small paper chip under the tag, sized to read at >= 19 px inside the lens
+    const kz = L.step.s * L.zoom;
+    const traceF = ctx.show('key') ? fitG(`${P.beforeLabel}: ${P.beforeValue}`, {maxWidth: 1000, size: 20 / kz, minSize: 20 / kz, maxLines: 1, weight: 600}) : null;
+    const tx0 = C.ox + t.hole.x - G.tagH * 0.2, ty0 = C.oy + t.hole.y + G.tagH * 0.62;
+    const trace = g({name: 'lz-trace', opacity: 0}, traceF ? [
+      h('rect', {x: r(tx0 - 6 / kz), y: r(ty0 - 4 / kz), width: r(traceF.width + 12 / kz), height: r(traceF.height + 8 / kz), rx: r(6 / kz), fill: '#fbfaf6', stroke: INK, 'stroke-width': r(1.5 / kz, 3)}),
+      textAt(traceF, {x: tx0, y: ty0, fill: '#4a4f55', italic: true})] : null);
     const lensContent = g(null,
       h('rect', {x: L.src.x - 400, y: L.src.y - 400, width: L.src.w + 800, height: L.src.h + 800, fill: '#3f6b5a'}),
-      L.NL.rack, L.NL.sheet, L.NL.placed, L.NL.tags, L.NL.links, focusLayer('lz'), trace);
+      g({transform: T(L.step.x, L.step.y, 0, L.step.s)}, L.NL.rack, L.NL.sheet, L.NL.placed, L.NL.tags, L.NL.links, focusLayer('lz'), trace));
     L.lensObj = lens(ctx, {name: 'lens', source: L.src, dest: L.dest, content: lensContent, frame: {x: 0, y: 0, w: ctx.design.w, h: ctx.design.h}});
     const panels = C.PL ? C.PL.cols.map((PLc, i) => g({name: `panel${i}`, transform: T(C.panel.x + i * (C.PL.colW + C.F * 1.2), C.panel.y)}, legendNodes(ctx, PLc))) : [];
     const lensNode = L.lensObj.node;
     lensNode.attrs['data-occludes'] = 1;
     return g({name: 'scene'},
-      bench.surface,
-      g({'clip-path': bench.clip}, L.N.rack, L.N.sheet, L.N.placed, L.N.tags, L.N.links, focusLayer('st')),
-      bench.frame,
-      changedMarker(ctx, {name: 'marker', x: L.marker.x, y: L.marker.y, radius: Math.max(16, G.S * 0.16), opacity: 0}),
+      g({name: 'ctxg'},
+        bench.surface,
+        g({'clip-path': bench.clip}, L.N.rack, L.N.sheet, L.N.placed, L.N.tags, L.N.links, focusLayer('st')),
+        bench.frame,
+        changedMarker(ctx, {name: 'marker', x: L.marker.x, y: L.marker.y, radius: Math.max(16, G.S * 0.16), opacity: 0}),
+      ),
       panels,
       lensNode,
     );
@@ -219,6 +234,11 @@ const scene = {
     nodes['lz-va'] = {opacity: r(lensA, 3)};
     nodes['lz-trace'] = {opacity: r(seg(u, ...W.trace), 3)};
     Object.assign(nodes, L.lensObj.frame(open, open));
+    const stepK = ease.inOutCubic(seg(u, ...W.stepOut)) * (1 - ease.inOutCubic(seg(u, ...W.stepBack)));
+    const sk = lerp(1, L.step.s, stepK);
+    nodes.ctxg = {transform: T(L.step.x * stepK, L.step.y * stepK, 0, sk)};
+    // the small cell-tag references would fall under 16 px while stepped: they fade out and back (rows keep them)
+    for (let i = 0; i < n; i++) if (i !== k && L.tagSmall) nodes[`st-tt${i}`] = {opacity: r(1 - stepK, 3)};
     const mk = seg(u, ...W.marker);
     nodes.marker = {opacity: r(mk, 3)};
     if (L.C.PL) for (const col of L.C.PL.cols) for (const row of col.rows) if (row.name === 'state-tag') nodes[row.name] = {opacity: r(mk, 3)};

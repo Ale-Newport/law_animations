@@ -132,12 +132,12 @@ function compose(ctx, P) {
         }
       }
       const sl = slots(opt.tall);
-      const gx = Math.max(170, area.w * 0.14), gy = Math.max(84, area.h * 0.1);
+      const gx = Math.max(120, area.w * 0.09), gy = Math.max(60, area.h * 0.07);
       const capH = ctx.show('key') ? F * 1.2 * 2 + 8 : 0;
       const cw = (area.w - gx * (sl.cols - 1)) / sl.cols;
       const ch = (area.h - gy * (sl.rows - 1)) / sl.rows - capH;
-      const B = Math.min(cw, ch * 1.45);
-      const bh = Math.min(ch, B / 1.25);
+      const B = Math.min(cw, ch * 1.6);
+      const bh = Math.min(ch, B / 1.15);
       let ok = (!PL || PL.ok) && B > 90 && bh > 70;
       const caps = {};
       if (ctx.show('key')) for (const id of present) {
@@ -163,7 +163,9 @@ function compose(ctx, P) {
 }
 
 /** Artwork of one part, fitted into box b (local origin = box centre). */
-function partArt(ctx, id, b, P, F, showText) {
+function partArt(ctx, id, b0, P, F, showText) {
+  // art fills 84 % of its box, so the focus enlargement (x1.16) never reaches the caption below
+  const b = {w: b0.w * 0.84, h: b0.h * 0.84};
   const s = Math.min(b.w, b.h * 1.25);
   if (id === 'bag') {
     const B = bagModel(b.h * 0.72, b.h * 0.92);
@@ -223,6 +225,13 @@ const scene = {
     // parts and fell under 16 px in square frames); each line keeps its kind's style
     const graph = relationGraph({...ctx, show: () => false}, {name: 'gr', elements: els, relationships: rels, relationLabels: P.relationLabels, obstacles, bounds: C.area, separateLabels: true, chipSize: Math.min(C.F, 22), chipMax: Math.max(160, C.B * 1.1)});
     const order = P.traversalOrder.filter(id => els[id]);
+    // thicker strokes for every connector (the shared connector draws 3 px lines): widen the line and its head
+    const widen = nd => { if (!nd || typeof nd !== 'object') return; const nm = nd.attrs && nd.attrs.name;
+      if (nm && /-line$/.test(nm)) nd.attrs['stroke-width'] = (nd.attrs['stroke-width'] || 3) * 2;
+      if (nm && /-head$/.test(nm)) nd.attrs.transform = `${nd.attrs.transform} scale(1.7)`;
+      if (nm && /-dot[AB]$/.test(nm)) nd.attrs.r = (nd.attrs.r || 5) * 1.8;
+      (nd.children || []).forEach(widen); };
+    widen(graph.node);
     const route = order.length > 1 ? graph.route(order) : null;
     const cx = C.area.x + C.area.w / 2, cy = C.area.y + C.area.h / 2;
     const start = id => ({x: cx + (C.boxes[id].x + C.B / 2 - cx) * 0.3, y: cy + (C.boxes[id].y + C.bh / 2 - cy) * 0.3});

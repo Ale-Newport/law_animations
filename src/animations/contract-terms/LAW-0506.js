@@ -243,21 +243,22 @@ function model(ctx, F, Pw, mode, AB, stress, show) {
   const fw = mode === 'side' ? Pw - 8 - fx0 : xg + 0.8 * F - fx0;
   // the claim slip: as wide as the film beside the stack ('side'); about two thirds of the plate below it ('below')
   const slipW = mode === 'side' ? Math.max(fw, (stress ? 12.5 : 10.5) * F) : Math.max(Pw * 0.62, (stress ? 12.5 : 10.5) * F);
-  const ml = stress ? 4 : 3;
+  const ml = stress ? 5 : 3;
   const title = fitG(p.clauseTitle, {maxWidth: Pw - padX - 2.6 * F, size: F, minSize: F * 0.92, maxLines: 3, weight: 700});
   const rowFits = p.clauses.map(c => fitG(c, {maxWidth: rowW - 30, size: F, minSize: F * 0.92, maxLines: ml, weight: 600}));
   const TF = F;
   const label = id => (p.elements.find(e => e.id === id) || {label: ''}).label;
-  const tabFits = Object.fromEntries(IDS.map(id => [id, show && label(id) ? fitG(label(id), {maxWidth: Math.max(8 * F, Math.min(Pw * 0.7, 18 * F)), size: TF, minSize: TF * 0.92, maxLines: 1, weight: 700}) : null]));
+  const tabFits = Object.fromEntries(IDS.map(id => [id, show && label(id) ? fitG(label(id), {maxWidth: Math.max(8 * F, Math.min(Pw * 0.85, 18 * F)), size: TF, minSize: TF * 0.92, maxLines: 1, weight: 700}) : null]));
   if (IDS.some(id => tabFits[id] && tabFits[id].bad)) why.push('tab-text');
   const tabW = id => (show && tabFits[id] ? tabFits[id].width : TF * 4) + 30;
   const tabH = (show && tabFits.contract ? tabFits.contract.height : TF * 1.18) + 14;
   // the contract sheet stops short of the clause plate's name tab, so in the exploded view the relation from the
   // contract's tab to the clause's tab runs past the contract's head band instead of across it
   const exC = (mode === 'side' ? 2.2 : 1.4) * F;
-  const Wc = clamp(Pw + ox + exC - tabW('clause') - 2.2 * F, Math.min(Pw * 0.6, Pw + ox - 0.8 * F), Pw + ox - 0.8 * F);
-  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: Wc - 2.6 * F, size: F, minSize: F * 0.92, maxLines: ml, weight: 700});
+  const Wc = clamp(Pw + ox + exC - tabW('clause') - 2.2 * F, Math.min(Pw * 0.8, Pw + ox - 0.8 * F), Pw + ox - 0.8 * F);
+  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: Wc - 2.6 * F, size: F, minSize: F * 0.92, maxLines: ml + 1, weight: 700});
   if (title.bad || head.bad || rowFits.some(f => f.bad)) why.push('plate-text');
+  if (globalThis.DBG506 > 2) console.log('   bad', title.bad, head.bad, rowFits.map(q => q.bad), r(Wc / F, 1), r(Pw / F, 1));
   const band = head.height + 0.9 * F, oy = band + 0.45 * F;
   const titleY = 0.85 * F, rowsTop = titleY + title.height + 16 + 0.7 * F;
   const natRows = rowFits.map(f => f.height + 0.95 * F);
@@ -421,6 +422,16 @@ const scene = {
       if (L.ok) break search;
     }
     // relations and the tracer route between the tabs of the exploded parts (anchored to their edges)
+    const atE = id => add(L.org[id], L.off[id]);
+    {
+      const K = atE('clause'), C = atE('contract'), cl = atE('claim');
+      const last = L.rows[L.rows.length - 1];
+      L.textBoxes = [
+        box(K.x + L.rowX - 6, K.y + L.titleY - 10, L.Pw - L.rowX - 0.4 * L.F, last.y + last.h - L.titleY + 16),
+        box(C.x + 2, C.y + 2, L.Wc - 4, L.band - 4),
+        L.side === 'left' ? box(cl.x + L.sb.x + 10, cl.y + L.sb.y + L.TT.stub, L.TT.w - 20, L.TT.textH - L.TT.stub + 10) : box(cl.x + L.sb.x + 10, cl.y + L.sb.y + L.TT.stub, L.TT.w - 20, L.TT.textH - L.TT.stub + 10),
+      ];
+    }
     const tabC = id => { const at = add(L.org[id], L.off[id]); return {x: at.x + L.tabL[id].x + L.tabW[id] / 2, y: at.y + L.tabL[id].y + L.tabH / 2}; };
     L.routeOf = (a0, b0) => {
       const A0 = tabC(a0), B0 = tabC(b0);
@@ -429,17 +440,36 @@ const scene = {
       const sh = (id, s) => Math.min(Math.abs(ux) > 1e-6 ? (L.tabW[id] / 2 + 6) / Math.abs(ux) : 1e9, Math.abs(uy) > 1e-6 ? (L.tabH / 2 + 6) / Math.abs(uy) : 1e9, len0 * 0.35) * s;
       const f = {x: A0.x + ux * sh(a0, 1), y: A0.y + uy * sh(a0, 1)};
       const t = {x: B0.x - ux * sh(b0, 1), y: B0.y - uy * sh(b0, 1)};
-      // bow away from the clause plate's centre (round the parts, not across their text)
-      let nx = -uy, ny = ux;
-      const mx = (f.x + t.x) / 2 - L.Pw / 2, my = (f.y + t.y) / 2 - L.Ph / 2;
-      if (nx * mx + ny * my < 0) { nx = -nx; ny = -ny; }
-      const bow = Math.min(50, len0 * 0.22);
-      return {from: f, to: t, c1: {x: lerp(f.x, t.x, 0.3) + nx * bow, y: lerp(f.y, t.y, 0.3) + ny * bow}, c2: {x: lerp(f.x, t.x, 0.7) + nx * bow, y: lerp(f.y, t.y, 0.7) + ny * bow}};
+      // the curve may not cross supplied text (the plates' text blocks, the slip's label, other tabs): try bows of
+      // growing size on either side, then a detour round the clause plate's right or left edge; keep the clearest
+      const inside = (q, b) => q.x > b.x && q.x < b.x + b.w && q.y > b.y && q.y < b.y + b.h;
+      const others = IDS.filter(id => id !== a0 && id !== b0).map(id => { const c = tabC(id); return box(c.x - L.tabW[id] / 2 - 4, c.y - L.tabH / 2 - 4, L.tabW[id] + 8, L.tabH + 8); });
+      const obst = [...L.textBoxes, ...others];
+      const hits = (c1, c2) => { let n0 = 0; for (let i = 1; i < 24; i++) { const q = cubicAt(f, c1, c2, t, i / 24); if (obst.some(b => inside(q, b))) n0++; } return n0; };
+      const nx = -uy, ny = ux;
+      const cands = [];
+      for (const bow of [0, 0.22, 0.45, 0.8]) for (const sg of [1, -1]) {
+        const k = Math.min(bow * len0, 260) * sg;
+        cands.push({c1: {x: lerp(f.x, t.x, 0.3) + nx * k, y: lerp(f.y, t.y, 0.3) + ny * k}, c2: {x: lerp(f.x, t.x, 0.7) + nx * k, y: lerp(f.y, t.y, 0.7) + ny * k}});
+      }
+      for (const xs of [L.Pw + L.te + 4.2 * L.F, -L.ox - 4.2 * L.F]) cands.push({c1: {x: xs, y: f.y}, c2: {x: xs, y: t.y}});
+      let best = null;
+      for (const c of cands) { const n0 = hits(c.c1, c.c2); if (!best || n0 < best.n) best = {...c, n: n0}; if (n0 === 0) break; }
+      return {from: f, to: t, c1: best.c1, c2: best.c2, hits: best.n};
     };
+    // a route box (for the camera): the hull of its control polygon
+    L.routeBox = rt => union([rt.from, rt.c1, rt.c2, rt.to].map(q => box(q.x, q.y, 0, 0)));
     const order = p.traversalOrder;
     L.legs = [];
     for (let i = 0; i < order.length - 1; i++) if (order[i] !== order[i + 1]) L.legs.push({a: order[i], b: order[i + 1], route: L.routeOf(order[i], order[i + 1])});
     L.rels = p.relationships.filter(q => q.from !== q.to).map((q, i) => ({...q, i, route: L.routeOf(q.from, q.to)}));
+    // the camera also keeps the relation curves (exploded view) in the art box
+    const rb = union([...L.legs.map(l => L.routeBox(l.route)), ...L.rels.map(q => L.routeBox(q.route))].concat(L.legs.length + L.rels.length ? [] : [L.E]));
+    const base = L.bboxAt;
+    L.bboxAt = (o, k, c) => { const b = base(o, k, c); if (k <= 0) return b; const u0 = union([b, box(rb.x - 24, rb.y - 24, rb.w + 48, rb.h + 48)]); return box(lerp(b.x, u0.x, k), lerp(b.y, u0.y, k), lerp(b.w, u0.w, k), lerp(b.h, u0.h, k)); };
+    L.px = L.minSize * fitCam(L.AB, L.bboxAt(L.off, 1, L.off.claim)).Z * L.upx;
+    if (L.px < (stress ? 16.05 : 19.6) && L.ok) { L.ok = false; L.why = [...L.why, 'text-floor-routes']; }
+    L.routeHits = [...L.legs, ...L.rels].reduce((s0, q) => s0 + q.route.hits, 0);
     void stress;
     return L;
   },
@@ -568,7 +598,7 @@ const scene = {
         collar: r(cq, 3), collarOn: cq >= 1, collarStyle: p.finalState === 'disputed' ? 'dashed' : 'solid', finalState: p.finalState,
         filmRegistered: spread === 0, contract: S(P.contract), clause: S(P.clause), promise: S(P.promise),
         tabsShown: r(tabsO, 3), relations: L.rels.length, finalShown: r(fin, 3), keyShown: r(legO, 3), mode: L.mode, panel: L.panel,
-        arrangement: 'depth', textPx: r(L.px, 2), layoutOk: L.ok, why: L.why.join(','), problems: L.ok ? [] : L.why,
+        arrangement: 'depth', textPx: r(L.px, 2), routeHits: L.routeHits, layoutOk: L.ok, why: L.why.join(','), problems: L.ok ? [] : L.why,
         actionCapped: p.actionProgress < 1 && u > capU, DBG: {Pw: r(L.Pw), Ph: r(L.Ph), F: r(L.F), AB: L.AB, A: L.Aplug, E: L.E, fills: [L.fillE, L.fillA, L.fillR], TTh: L.TT.h},
       },
     };
