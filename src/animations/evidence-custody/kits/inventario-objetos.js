@@ -26,7 +26,6 @@ import {clamp, r, seg, ease} from '../../../core/time.js';
 import {roundRectPath} from '../../../core/geometry.js';
 import {str, list, obj, oneOf} from '../../../schemas/fields.js';
 import {shade} from '../../../primitives/paper.js';
-import {connector} from '../../../primitives/annotate.js';
 import {
   objectModel, objectArt, tagModel, tagArt, chainD, bagModel, bagBack, bagFront, fitG, textAt,
   INK, WRITE_INK, scribble, ecFields, pathAt, legendIcon,
@@ -286,6 +285,17 @@ export function fitStation(box, o) {
       if (res) { found = res; lo = mid; } else hi = mid;
     }
     if (!found) { const res = tryS(lo); if (res) found = res; }
+    if (found) {
+      // give the sheet the width left over (bounded), so rows wrap less and the station spans its box
+      const G0 = found.G;
+      const extra = box.w - G0.W;
+      if (extra > 4) {
+        const sheetW = Math.min(G0.sheet.w + extra, Math.max(G0.sheet.w, G0.S * 4.2));
+        const G = stationGeom({n: o.n, S: G0.S, sheetW, bagMode: o.bagMode, noBag: o.noBag});
+        const SF = fitSheet(G, o.texts, o.F, o.title);
+        if (SF.ok && G.W <= box.w + 0.5) found = {G, SF};
+      }
+    }
     if (found && (!best || found.G.S > best.G.S)) best = found;
   }
   return best;
@@ -386,7 +396,7 @@ export function stationNodes(ctx, G, o) {
     const a = (t.angle * Math.PI) / 180;
     const tip = {x: X(t.hole.x) + Math.cos(a) * (TG.x1 + 4), y: Y(t.hole.y) + Math.sin(a) * (TG.x1 + 4)};
     const bx = X(sh.x) + 14, by = Y(G.rows[i].y);
-    return connector(ctx, {name: `${P}-ln${i}`, from: tip, to: {x: bx, y: by}, kind: 'relation', bend: 0.04, color: LINK});
+    return linkLine(`${P}-ln${i}`, tip, {x: bx, y: by}, Math.max(4, S * 0.045));
   });
   return {
     rack: g({name: `${P}-rack`}, rackParts),
@@ -597,4 +607,31 @@ export function listIcon(s) {
     h('rect', {x: r(-s * 0.26), y: r(-s * 0.34), width: r(s * 0.52), height: r(s * 0.72), fill: SHEET}),
     h('path', {d: `M${r(-s * 0.18)} ${r(-s * 0.16)}h${r(s * 0.36)}M${r(-s * 0.18)} ${r(0)}h${r(s * 0.36)}M${r(-s * 0.18)} ${r(s * 0.16)}h${r(s * 0.28)}`, stroke: RULE, 'stroke-width': 2}),
   );
+}
+
+/**
+ * Plain relation line (no arrowhead): a light cord with a dark outline and round end dots, drawn on with
+ * stroke-dashoffset. Readable on the dark mat and on the paper sheet.
+ */
+export function linkLine(name, a, b, w) {
+  const mx = (a.x + b.x) / 2;
+  const d = `M${r(a.x)} ${r(a.y)}C${r(mx)} ${r(a.y)} ${r(mx)} ${r(b.y)} ${r(b.x)} ${r(b.y)}`;
+  const total = Math.hypot(b.x - a.x, b.y - a.y) * 1.08 + 4;
+  const node = g({name},
+    h('path', {name: `${name}-o`, d, fill: 'none', stroke: INK, 'stroke-width': r(w + 4, 2), 'stroke-linecap': 'round', 'stroke-dasharray': `${r(total)} ${r(total + 20)}`, 'stroke-dashoffset': r(total)}),
+    h('path', {name: `${name}-line`, d, fill: 'none', stroke: '#f6f1e2', 'stroke-width': r(w, 2), 'stroke-linecap': 'round', 'stroke-dasharray': `${r(total)} ${r(total + 20)}`, 'stroke-dashoffset': r(total)}),
+    h('circle', {name: `${name}-dotA`, cx: r(a.x), cy: r(a.y), r: r(w * 1.1, 2), fill: LINK, stroke: INK, 'stroke-width': 1.5, opacity: 0}),
+    h('circle', {name: `${name}-dotB`, cx: r(b.x), cy: r(b.y), r: r(w * 1.1, 2), fill: LINK, stroke: INK, 'stroke-width': 1.5, opacity: 0}),
+  );
+  const frame = (p, opacity = 1) => {
+    const off = r(total * (1 - clamp(p)));
+    return {
+      [name]: {opacity},
+      [`${name}-o`]: {'stroke-dashoffset': off},
+      [`${name}-line`]: {'stroke-dashoffset': off},
+      [`${name}-dotA`]: {opacity: p > 0 ? 1 : 0},
+      [`${name}-dotB`]: {opacity: p >= 0.985 ? 1 : 0},
+    };
+  };
+  return {node, frame, from: a, to: b};
 }

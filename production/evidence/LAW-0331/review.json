@@ -180,11 +180,31 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "pass",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative 16:9 and 9:16, long-labels, es) plus --safe 1:1 strip and labels-hidden viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0331/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0331/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0331/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0331/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0331/sheet-9x16-alternative.png",
+      "production/evidence/LAW-0331/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0331/sheet-16x9-es.png",
+      "production/scratch/rev3-review-03/r4-safe-0331.png",
+      "production/scratch/rev3-review-03/r4-nolabel-0331.png"
+    ],
+    "findings": [
+      "Tests 42/42 alone (cold create worst 496 ms); qa pass, no warnings",
+      "1:1 now stacks A over B with a side legend; art plus legend span the safe box (rooms ~85% of safe height); the same petition is carried into tray B in both identical rooms, and the only difference is the supplied state",
+      "Labels-hidden reads (stacked rooms, circle vs diamond badge, bracket at the guide)",
+      "16:9, 9:16, alternative, stress and es read well; neutral, as-supplied wording",
+      "Minor: at 1:1 the petition is ~45 px at 1080 (bound by height); acceptable for a two-room comparison"
+    ],
+    "sourceHash": "9dbec545ae74a86f93e0dd42c9de784da2e29e5f6f2b27e40a4760590319b39d",
+    "renderFingerprint": "c80d4cd3b5a891ed25050d621b16e8495359322386addd2e567113a1cd00d580",
+    "reviewedAt": "2026-10-05T23:07:32.955Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -201,5 +221,10 @@
   "renderFingerprint": "c80d4cd3b5a891ed25050d621b16e8495359322386addd2e567113a1cd00d580",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.3,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0331/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

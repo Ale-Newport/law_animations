@@ -1,0 +1,1251 @@
+{
+  "animationId": "LAW-0374",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0374",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "items.0.label"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "16:9",
+          "k": "print0",
+          "f": 39,
+          "d": 100
+        },
+        {
+          "ratio": "16:9",
+          "k": "print0",
+          "f": 40,
+          "d": 92
+        },
+        {
+          "ratio": "16:9",
+          "k": "print1",
+          "f": 68,
+          "d": 98
+        },
+        {
+          "ratio": "16:9",
+          "k": "print1",
+          "f": 69,
+          "d": 117
+        },
+        {
+          "ratio": "16:9",
+          "k": "print1",
+          "f": 70,
+          "d": 92
+        }
+      ]
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: start: no prints, no relations @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "assemble",
+          "cam": {
+            "x": 248.18,
+            "y": 528.07
+          },
+          "camAngle": 32.75,
+          "tracer": {
+            "x": 412.78,
+            "y": 469.36
+          },
+          "tracerAt": "camera",
+          "leg": 0,
+          "focus": "detail",
+          "focusScale": 1,
+          "prints": [
+            "none",
+            "none"
+          ],
+          "print0": {
+            "x": 432.85,
+            "y": 253.21
+          },
+          "print1": {
+            "x": 412.78,
+            "y": 270.96
+          },
+          "wedge": 0,
+          "flash": 0,
+          "connectors": [
+            {
+              "from": "camera",
+              "to": "overview",
+              "kind": "relation",
+              "a": {
+                "x": 488.87,
+                "y": 434.96
+              },
+              "b": {
+                "x": 811.46,
+                "y": 289.12
+              }
+            },
+            {
+              "from": "camera",
+              "to": "detail",
+              "kind": "relation",
+              "a": {
+                "x": 488.87,
+                "y": 476.59
+              },
+              "b": {
+                "x": 811.46,
+                "y": 507.23
+              }
+            },
+            {
+              "from": "overview",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 228.36
+              },
+              "b": {
+                "x": 497.85,
+                "y": 253.53
+              }
+            },
+            {
+              "from": "detail",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 445.17
+              },
+              "b": {
+                "x": 497.85,
+                "y": 296.29
+              }
+            },
+            {
+              "from": "detail",
+              "to": "scale",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 457.21
+              },
+              "b": {
+                "x": 460.92,
+                "y": 316.62
+              }
+            },
+            {
+              "from": "object",
+              "to": "chain",
+              "kind": "relation",
+              "a": {
+                "x": 497.85,
+                "y": 226.21
+              },
+              "b": {
+                "x": 472.22,
+                "y": 237.36
+              }
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "a": {
+                "x": 554.05,
+                "y": 200.17
+              },
+              "b": {
+                "x": 513.97,
+                "y": 219.17
+              }
+            },
+            {
+              "from": "object",
+              "to": "bag",
+              "kind": "relation",
+              "a": {
+                "x": 343.76,
+                "y": 260.32
+              },
+              "b": {
+                "x": 293.92,
+                "y": 260.72
+              }
+            }
+          ],
+          "drawn": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "arrows": [],
+          "order": [
+            "camera",
+            "overview",
+            "object",
+            "detail",
+            "scale"
+          ],
+          "problems": [],
+          "textPx": 24,
+          "S": 160.6,
+          "fields": [
+            602.2,
+            260.1
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the overview print exists only after the first exposure @0.09",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "assemble",
+          "cam": {
+            "x": 432.85,
+            "y": 600.33
+          },
+          "camAngle": 0,
+          "tracer": {
+            "x": 412.78,
+            "y": 469.36
+          },
+          "tracerAt": "camera",
+          "leg": 0,
+          "focus": "detail",
+          "focusScale": 1,
+          "prints": [
+            "flying",
+            "none"
+          ],
+          "print0": {
+            "x": 603.51,
+            "y": 207.72
+          },
+          "print1": {
+            "x": 412.78,
+            "y": 270.96
+          },
+          "wedge": 1,
+          "flash": 0,
+          "connectors": [
+            {
+              "from": "camera",
+              "to": "overview",
+              "kind": "relation",
+              "a": {
+                "x": 488.87,
+                "y": 434.96
+              },
+              "b": {
+                "x": 811.46,
+                "y": 289.12
+              }
+            },
+            {
+              "from": "camera",
+              "to": "detail",
+              "kind": "relation",
+              "a": {
+                "x": 488.87,
+                "y": 476.59
+              },
+              "b": {
+                "x": 811.46,
+                "y": 507.23
+              }
+            },
+            {
+              "from": "overview",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 228.36
+              },
+              "b": {
+                "x": 497.85,
+                "y": 253.53
+              }
+            },
+            {
+              "from": "detail",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 445.17
+              },
+              "b": {
+                "x": 497.85,
+                "y": 296.29
+              }
+            },
+            {
+              "from": "detail",
+              "to": "scale",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 457.21
+              },
+              "b": {
+                "x": 460.92,
+                "y": 316.62
+              }
+            },
+            {
+              "from": "object",
+              "to": "chain",
+              "kind": "relation",
+              "a": {
+                "x": 497.85,
+                "y": 226.21
+              },
+              "b": {
+                "x": 472.22,
+                "y": 237.36
+              }
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "a": {
+                "x": 554.05,
+                "y": 200.17
+              },
+              "b": {
+                "x": 513.97,
+                "y": 219.17
+              }
+            },
+            {
+              "from": "object",
+              "to": "bag",
+              "kind": "relation",
+              "a": {
+                "x": 343.76,
+                "y": 260.32
+              },
+              "b": {
+                "x": 293.92,
+                "y": 260.72
+              }
+            }
+          ],
+          "drawn": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "arrows": [],
+          "order": [
+            "camera",
+            "overview",
+            "object",
+            "detail",
+            "scale"
+          ],
+          "problems": [],
+          "textPx": 24,
+          "S": 160.6,
+          "fields": [
+            602.2,
+            260.1
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: both prints placed; overview field wider than detail field @0.2",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "relate",
+          "cam": {
+            "x": 412.78,
+            "y": 469.36
+          },
+          "camAngle": 0,
+          "tracer": {
+            "x": 412.78,
+            "y": 469.36
+          },
+          "tracerAt": "camera",
+          "leg": 0,
+          "focus": "detail",
+          "focusScale": 1,
+          "prints": [
+            "placed",
+            "placed"
+          ],
+          "print0": {
+            "x": 974.86,
+            "y": 215.25
+          },
+          "print1": {
+            "x": 974.86,
+            "y": 522.75
+          },
+          "wedge": 0.333,
+          "flash": 0,
+          "connectors": [
+            {
+              "from": "camera",
+              "to": "overview",
+              "kind": "relation",
+              "a": {
+                "x": 488.87,
+                "y": 434.96
+              },
+              "b": {
+                "x": 811.46,
+                "y": 289.12
+              }
+            },
+            {
+              "from": "camera",
+              "to": "detail",
+              "kind": "relation",
+              "a": {
+                "x": 488.87,
+                "y": 476.59
+              },
+              "b": {
+                "x": 811.46,
+                "y": 507.23
+              }
+            },
+            {
+              "from": "overview",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 228.36
+              },
+              "b": {
+                "x": 497.85,
+                "y": 253.53
+              }
+            },
+            {
+              "from": "detail",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 445.17
+              },
+              "b": {
+                "x": 497.85,
+                "y": 296.29
+              }
+            },
+            {
+              "from": "detail",
+              "to": "scale",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 457.21
+              },
+              "b": {
+                "x": 460.92,
+                "y": 316.62
+              }
+            },
+            {
+              "from": "object",
+              "to": "chain",
+              "kind": "relation",
+              "a": {
+                "x": 497.85,
+                "y": 226.21
+              },
+              "b": {
+                "x": 472.22,
+                "y": 237.36
+              }
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "a": {
+                "x": 554.05,
+                "y": 200.17
+              },
+              "b": {
+                "x": 513.97,
+                "y": 219.17
+              }
+            },
+            {
+              "from": "object",
+              "to": "bag",
+              "kind": "relation",
+              "a": {
+                "x": 343.76,
+                "y": 260.32
+              },
+              "b": {
+                "x": 293.92,
+                "y": 260.72
+              }
+            }
+          ],
+          "drawn": [
+            0.392,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "arrows": [],
+          "order": [
+            "camera",
+            "overview",
+            "object",
+            "detail",
+            "scale"
+          ],
+          "problems": [],
+          "textPx": 24,
+          "S": 160.6,
+          "fields": [
+            602.2,
+            260.1
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: relations are drawn one after another @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "relate",
+          "cam": {
+            "x": 412.78,
+            "y": 469.36
+          },
+          "camAngle": 0,
+          "tracer": {
+            "x": 412.78,
+            "y": 469.36
+          },
+          "tracerAt": "camera",
+          "leg": 0,
+          "focus": "detail",
+          "focusScale": 1,
+          "prints": [
+            "placed",
+            "placed"
+          ],
+          "print0": {
+            "x": 974.86,
+            "y": 215.25
+          },
+          "print1": {
+            "x": 974.86,
+            "y": 522.75
+          },
+          "wedge": 0,
+          "flash": 0,
+          "connectors": [
+            {
+              "from": "camera",
+              "to": "overview",
+              "kind": "relation",
+              "a": {
+                "x": 488.87,
+                "y": 434.96
+              },
+              "b": {
+                "x": 811.46,
+                "y": 289.12
+              }
+            },
+            {
+              "from": "camera",
+              "to": "detail",
+              "kind": "relation",
+              "a": {
+                "x": 488.87,
+                "y": 476.59
+              },
+              "b": {
+                "x": 811.46,
+                "y": 507.23
+              }
+            },
+            {
+              "from": "overview",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 228.36
+              },
+              "b": {
+                "x": 497.85,
+                "y": 253.53
+              }
+            },
+            {
+              "from": "detail",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 445.17
+              },
+              "b": {
+                "x": 497.85,
+                "y": 296.29
+              }
+            },
+            {
+              "from": "detail",
+              "to": "scale",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 457.21
+              },
+              "b": {
+                "x": 460.92,
+                "y": 316.62
+              }
+            },
+            {
+              "from": "object",
+              "to": "chain",
+              "kind": "relation",
+              "a": {
+                "x": 497.85,
+                "y": 226.21
+              },
+              "b": {
+                "x": 472.22,
+                "y": 237.36
+              }
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "a": {
+                "x": 554.05,
+                "y": 200.17
+              },
+              "b": {
+                "x": 513.97,
+                "y": 219.17
+              }
+            },
+            {
+              "from": "object",
+              "to": "bag",
+              "kind": "relation",
+              "a": {
+                "x": 343.76,
+                "y": 260.32
+              },
+              "b": {
+                "x": 293.92,
+                "y": 260.72
+              }
+            }
+          ],
+          "drawn": [
+            1,
+            1,
+            1,
+            0.784,
+            0,
+            0,
+            0,
+            0
+          ],
+          "arrows": [],
+          "order": [
+            "camera",
+            "overview",
+            "object",
+            "detail",
+            "scale"
+          ],
+          "problems": [],
+          "textPx": 24,
+          "S": 160.6,
+          "fields": [
+            602.2,
+            260.1
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the tracer runs and the focus component enlarges @0.46",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "trace",
+          "cam": {
+            "x": 412.78,
+            "y": 469.36
+          },
+          "camAngle": 0,
+          "tracer": {
+            "x": 596.25,
+            "y": 416.09
+          },
+          "tracerAt": "camera",
+          "leg": 0,
+          "focus": "detail",
+          "focusScale": 1.07,
+          "prints": [
+            "placed",
+            "placed"
+          ],
+          "print0": {
+            "x": 974.86,
+            "y": 215.25
+          },
+          "print1": {
+            "x": 974.86,
+            "y": 522.75
+          },
+          "wedge": 0,
+          "flash": 0,
+          "connectors": [
+            {
+              "from": "camera",
+              "to": "overview",
+              "kind": "relation",
+              "a": {
+                "x": 488.87,
+                "y": 434.96
+              },
+              "b": {
+                "x": 811.46,
+                "y": 289.12
+              }
+            },
+            {
+              "from": "camera",
+              "to": "detail",
+              "kind": "relation",
+              "a": {
+                "x": 488.87,
+                "y": 476.59
+              },
+              "b": {
+                "x": 811.46,
+                "y": 507.23
+              }
+            },
+            {
+              "from": "overview",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 228.36
+              },
+              "b": {
+                "x": 497.85,
+                "y": 253.53
+              }
+            },
+            {
+              "from": "detail",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 445.17
+              },
+              "b": {
+                "x": 497.85,
+                "y": 296.29
+              }
+            },
+            {
+              "from": "detail",
+              "to": "scale",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 457.21
+              },
+              "b": {
+                "x": 460.92,
+                "y": 316.62
+              }
+            },
+            {
+              "from": "object",
+              "to": "chain",
+              "kind": "relation",
+              "a": {
+                "x": 497.85,
+                "y": 226.21
+              },
+              "b": {
+                "x": 472.22,
+                "y": 237.36
+              }
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "a": {
+                "x": 554.05,
+                "y": 200.17
+              },
+              "b": {
+                "x": 513.97,
+                "y": 219.17
+              }
+            },
+            {
+              "from": "object",
+              "to": "bag",
+              "kind": "relation",
+              "a": {
+                "x": 343.76,
+                "y": 260.32
+              },
+              "b": {
+                "x": 293.92,
+                "y": 260.72
+              }
+            }
+          ],
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "arrows": [],
+          "order": [
+            "camera",
+            "overview",
+            "object",
+            "detail",
+            "scale"
+          ],
+          "problems": [],
+          "textPx": 24,
+          "S": 160.6,
+          "fields": [
+            602.2,
+            260.1
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: every supplied relation drawn, plain relations without arrows; composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "hold",
+          "cam": {
+            "x": 412.78,
+            "y": 469.36
+          },
+          "camAngle": 0,
+          "tracer": {
+            "x": 387.08,
+            "y": 287.01
+          },
+          "tracerAt": "scale",
+          "leg": 3,
+          "focus": "detail",
+          "focusScale": 1,
+          "prints": [
+            "placed",
+            "placed"
+          ],
+          "print0": {
+            "x": 974.86,
+            "y": 215.25
+          },
+          "print1": {
+            "x": 974.86,
+            "y": 522.75
+          },
+          "wedge": 0,
+          "flash": 0,
+          "connectors": [
+            {
+              "from": "camera",
+              "to": "overview",
+              "kind": "relation",
+              "a": {
+                "x": 488.87,
+                "y": 434.96
+              },
+              "b": {
+                "x": 811.46,
+                "y": 289.12
+              }
+            },
+            {
+              "from": "camera",
+              "to": "detail",
+              "kind": "relation",
+              "a": {
+                "x": 488.87,
+                "y": 476.59
+              },
+              "b": {
+                "x": 811.46,
+                "y": 507.23
+              }
+            },
+            {
+              "from": "overview",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 228.36
+              },
+              "b": {
+                "x": 497.85,
+                "y": 253.53
+              }
+            },
+            {
+              "from": "detail",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 445.17
+              },
+              "b": {
+                "x": 497.85,
+                "y": 296.29
+              }
+            },
+            {
+              "from": "detail",
+              "to": "scale",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 457.21
+              },
+              "b": {
+                "x": 460.92,
+                "y": 316.62
+              }
+            },
+            {
+              "from": "object",
+              "to": "chain",
+              "kind": "relation",
+              "a": {
+                "x": 497.85,
+                "y": 226.21
+              },
+              "b": {
+                "x": 472.22,
+                "y": 237.36
+              }
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "a": {
+                "x": 554.05,
+                "y": 200.17
+              },
+              "b": {
+                "x": 513.97,
+                "y": 219.17
+              }
+            },
+            {
+              "from": "object",
+              "to": "bag",
+              "kind": "relation",
+              "a": {
+                "x": 343.76,
+                "y": 260.32
+              },
+              "b": {
+                "x": 293.92,
+                "y": 260.72
+              }
+            }
+          ],
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "arrows": [],
+          "order": [
+            "camera",
+            "overview",
+            "object",
+            "detail",
+            "scale"
+          ],
+          "problems": [],
+          "textPx": 24,
+          "S": 160.6,
+          "fields": [
+            602.2,
+            260.1
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: a causal arrow only when supplied @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "hold",
+          "cam": {
+            "x": 412.78,
+            "y": 469.36
+          },
+          "camAngle": 0,
+          "tracer": {
+            "x": 387.08,
+            "y": 287.01
+          },
+          "tracerAt": "scale",
+          "leg": 3,
+          "focus": "detail",
+          "focusScale": 1,
+          "prints": [
+            "placed",
+            "placed"
+          ],
+          "print0": {
+            "x": 974.86,
+            "y": 215.25
+          },
+          "print1": {
+            "x": 974.86,
+            "y": 522.75
+          },
+          "wedge": 0,
+          "flash": 0,
+          "connectors": [
+            {
+              "from": "camera",
+              "to": "overview",
+              "kind": "causal",
+              "a": {
+                "x": 488.87,
+                "y": 434.96
+              },
+              "b": {
+                "x": 805.46,
+                "y": 291.83
+              }
+            },
+            {
+              "from": "overview",
+              "to": "object",
+              "kind": "relation",
+              "a": {
+                "x": 811.46,
+                "y": 228.36
+              },
+              "b": {
+                "x": 497.85,
+                "y": 253.53
+              }
+            }
+          ],
+          "drawn": [
+            1,
+            1
+          ],
+          "arrows": [
+            "causal"
+          ],
+          "order": [
+            "camera",
+            "overview",
+            "object",
+            "detail",
+            "scale"
+          ],
+          "problems": [],
+          "textPx": 24,
+          "S": 160.6,
+          "fields": [
+            602.2,
+            260.1
+          ]
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

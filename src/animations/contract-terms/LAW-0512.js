@@ -142,7 +142,7 @@ function geom(ctx, F, minF) {
     const x0 = pad + (D.w - 2 * pad) * step.cs + 40;
     lensArea = {x: x0, y: pad, w: D.w - pad - x0, h: A.y + A.h - pad};
   } else {
-    const cs = ctx.view.shape === 'square' ? 0.3 : 0.42;
+    const cs = ctx.view.shape === 'square' ? (stress ? 0.26 : 0.3) : 0.42;
     step = {cs, ax: D.w / 2, ay: pad};
     const y0 = pad + (D.h - 2 * pad) * cs + 34;
     lensArea = {x: pad, y: y0, w: D.w - pad * 2, h: A.y + A.h - y0};
