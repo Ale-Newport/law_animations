@@ -35,8 +35,8 @@ const ID = 'LAW-0359';
 const DURATION = 7500;
 const BEATS = {base: [0, 0.17], change: [0.17, 0.4], parallel: [0.4, 0.77], guide: [0.77, 1]};
 const W = {
-  fHop: [0.17, 0.21], fTrace: [0.21, 0.34], fBack: [0.34, 0.39], fClip: [0.19, 0.33],
-  sPuck: [0.43, 0.66], sBack: [0.66, 0.73], sClips: [0.43, 0.73], guide: [0.77, 0.82], note: [0.8, 0.85],
+  fHop: [0.17, 0.22], fTrace: [0.22, 0.34], fBack: [0.34, 0.4], fClip: [0.17, 0.36],
+  sPuck: [0.43, 0.65], sBack: [0.65, 0.74], sClips: [0.43, 0.68], guide: [0.77, 0.82], note: [0.8, 0.85],
 };
 const SIZES = [26, 25, 24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 
@@ -147,9 +147,11 @@ function compose(ctx, P, F, opts) {
   const mI = Math.max(10, F * 0.5);
   const pF = Math.max(10, F * 0.5) + F * 0.4;
   const mapW = sw - 2 * mI - 2 * pF;
-  const mapHmax = deskH - 2 * mI - tabH - 2 * pF;
+  // (a band along the desk's lower edge where the two hands rest)
+  const restBand = Math.max((opts.compact && showKey ? F * 0.62 : F) * 2, 30);
+  const mapHmax = deskH - 2 * mI - tabH - 2 * pF - restBand;
   const pendIdx = P.routes.map((rt, i) => i).filter(i => i === fi || P.routes[i].state === 'pending');
-  const slots = pendIdx.length + 1;
+  const slots = pendIdx.length;
   const orient = opts.orient;
   let OM, EM, plan;
   // (compact desks: the cards carry no text, so the map's geometry may be drawn at a smaller unit)
@@ -186,37 +188,54 @@ function compose(ctx, P, F, opts) {
     return {folder, pl};
   });
   // the desks are as tall as their folder needs (both the same); the pair is centred in its stage
-  const dh = Math.min(deskH, 2 * mI + tabH + plan.needH + 2 * pF);
+  const dh = Math.min(deskH, 2 * mI + tabH + plan.needH + 2 * pF + restBand);
   const problems = [!fits && 'map', !OM.ok && 'origin-text', !EM.ok && 'end-text', !plan.ok && plan.problems.join('+'), PL && !PL.ok && 'panel-text', hdr.some(x => !x.ok) && 'header-text', tabFit && !tabFit.ok && 'tab-text'].filter(Boolean);
-  return {compact: !!opts.compact && showKey, F, arr, PL, panel, hdr, hh, heads, desks, dh, D, OM, EM, plan, fi, pendIdx, tabFit, tabH, tabW, sw, badgeR, pairGap, orient, deskH, ok: !problems.length, problems};
+  return {restBand, G, compact: !!opts.compact && showKey, F, arr, PL, panel, hdr, hh, heads, desks, dh, D, OM, EM, plan, fi, pendIdx, tabFit, tabH, tabW, sw, badgeR, pairGap, orient, deskH, ok: !problems.length, problems};
 }
 
-/** Pose of the shared objects on one desk at time u: puck position, ink per route, clip per slot. */
+/** Hand path for a list of clip jobs ({k, to, a, b}); returns the hand point, clip poses and the held clip. */
+function clipJobs(C, jobs, u, clips, laid) {
+  const pl = C.D[0].pl;
+  const e = ease.inOutCubic;
+  const grip = q => ({x: q.x + C.grip.x * (q.s || 1), y: q.y + C.grip.y * (q.s || 1)});
+  let p = C.restL, held = -1, prev = C.restL;
+  for (let j = 0; j < jobs.length; j++) {
+    const jb = jobs[j], s0 = jb.b - jb.a;
+    const t1 = jb.a + s0 * 0.3, t2 = jb.a + s0 * 0.85;
+    const slot = pl.slotsAt[jb.k], tgt = jb.to;
+    if (u < jb.a) { break; }
+    if (u < t1) { const k = e(seg(u, jb.a, t1)); const g0 = grip(slot); p = {x: lerp(prev.x, g0.x, k), y: lerp(prev.y, g0.y, k)}; return {p, held}; }
+    if (u < t2) { const k = e(seg(u, t1, t2)); clips[jb.k] = {x: lerp(slot.x, tgt.x, k), y: lerp(slot.y, tgt.y, k), s: 1 + 0.06 * Math.sin(Math.PI * k)}; return {p: grip(clips[jb.k]), held: jb.k}; }
+    clips[jb.k] = {...tgt}; laid[jb.ri] = 1;
+    const end = grip(tgt);
+    const next = jobs[j + 1];
+    const backEnd = next && next.a - jb.b < 0.02 ? null : Math.min(jb.b + 0.06, next ? next.a : 1);
+    if (u < jb.b) return {p: end, held};
+    if (backEnd === null) { prev = end; continue; }
+    if (u < backEnd) { const k = e(seg(u, jb.b, backEnd)); return {p: {x: lerp(end.x, C.restL.x, k), y: lerp(end.y, C.restL.y, k)}, held}; }
+    prev = C.restL; p = C.restL;
+  }
+  return {p, held};
+}
+
+/** Pose of one desk at time u (desk-0 coordinates): puck in the right hand, clips and the left hand, inks. */
 function deskState(C, P, side, u) {
   const pl = C.D[0].pl;
   const slots = pl.slotsAt;
-  const park = slots[slots.length - 1];
+  const park = C.restR;
   const fi = C.fi;
   const routes = deskRoutes(P, fi, side);
   const ink = routes.map(() => 0), laid = routes.map(() => 0);
   const clips = C.pendIdx.map((ri, k) => ({...slots[k]}));
-  let puck = {...park}, lift = 0, puckPhase = 'parked';
+  let puck = {...park}, lift = 0, puckPhase = 'rest';
   const e = ease.inOutCubic;
-  // the changed fact
   const frt = pl.routes[fi];
   if (side === 'a') {
     if (u >= W.fHop[0] && u < W.fHop[1]) { const k = e(seg(u, ...W.fHop)); puck = {x: lerp(park.x, frt.pts[0].x, k), y: lerp(park.y, frt.pts[0].y, k)}; lift = Math.sin(Math.PI * k); puckPhase = 'hop'; }
     else if (u >= W.fTrace[0] && u < W.fTrace[1]) { const k = ease.inOutSine(seg(u, ...W.fTrace)); ink[fi] = k; const q = frt.poly.at(k); puck = {x: q.x, y: q.y}; puckPhase = 'trace'; }
     else if (u >= W.fTrace[1] && u < W.fBack[1]) { const k = e(seg(u, ...W.fBack)); const end = frt.pts[frt.pts.length - 1]; puck = {x: lerp(end.x, park.x, k), y: lerp(end.y, park.y, k)}; lift = Math.sin(Math.PI * k); puckPhase = 'back'; }
     if (u >= W.fTrace[1]) ink[fi] = 1;
-  } else {
-    const k = C.pendIdx.indexOf(fi);
-    const kk = e(seg(u, ...W.fClip));
-    const tgt = pl.routes[fi].clipC;
-    clips[k] = {x: lerp(slots[k].x, tgt.x, kk), y: lerp(slots[k].y, tgt.y, kk), s: 1 + 0.06 * Math.sin(Math.PI * kk)};
-    if (kk >= 1) laid[fi] = 1;
   }
-  // the shared routes (identical on both desks)
   const conc = routes.map((rt, i) => i).filter(i => i !== fi && routes[i].state === 'concluded');
   const pend = routes.map((rt, i) => i).filter(i => i !== fi && routes[i].state === 'pending');
   if (conc.length && u >= W.sPuck[0]) {
@@ -229,19 +248,17 @@ function deskState(C, P, side, u) {
       else if (!placed && u < b) { const k = ease.inOutSine(seg(u, hopEnd, b)); ink[i] = k; const q = rt.poly.at(k); puck = {x: q.x, y: q.y}; puckPhase = 'trace'; placed = true; }
       else if (!placed) { ink[i] = 1; prev = rt.pts[rt.pts.length - 1]; }
     }
-    if (!placed) { const k = e(seg(u, ...W.sBack)); puck = {x: lerp(prev.x, park.x, k), y: lerp(prev.y, park.y, k)}; lift = Math.sin(Math.PI * k); puckPhase = k >= 1 ? 'parked' : 'back'; }
+    if (!placed) { const k = e(seg(u, ...W.sBack)); puck = {x: lerp(prev.x, park.x, k), y: lerp(prev.y, park.y, k)}; lift = Math.sin(Math.PI * k); puckPhase = k >= 1 ? 'rest' : 'back'; }
   }
-  if (pend.length && u >= W.sClips[0]) {
+  // left hand: (desk B only) the focus clip in the change beat, then the shared clips on both desks
+  const jobs = [];
+  if (side === 'b') jobs.push({k: C.pendIdx.indexOf(fi), ri: fi, to: pl.routes[fi].clipC, a: W.fClip[0], b: W.fClip[1]});
+  if (pend.length) {
     const span = (W.sClips[1] - W.sClips[0]) / pend.length;
-    pend.forEach((i, j) => {
-      const k = C.pendIdx.indexOf(i);
-      const kk = e(seg(u, W.sClips[0] + j * span, W.sClips[0] + (j + 0.85) * span));
-      const tgt = pl.routes[i].clipC;
-      clips[k] = {x: lerp(slots[k].x, tgt.x, kk), y: lerp(slots[k].y, tgt.y, kk), s: 1 + 0.06 * Math.sin(Math.PI * kk)};
-      if (kk >= 1) laid[i] = 1;
-    });
+    pend.forEach((i, j) => jobs.push({k: C.pendIdx.indexOf(i), ri: i, to: pl.routes[i].clipC, a: W.sClips[0] + j * span, b: W.sClips[0] + (j + 1) * span}));
   }
-  return {puck, lift, puckPhase, ink, laid, clips, routes};
+  const LH = clipJobs(C, jobs, u, clips, laid);
+  return {puck, lift, puckPhase, ink, laid, clips, routes, handL: LH.p, held: LH.held};
 }
 
 const scene = {

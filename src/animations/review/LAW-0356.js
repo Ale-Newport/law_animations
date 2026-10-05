@@ -112,7 +112,7 @@ function compose(ctx, P, F, v, pxu) {
   if (!showKey) TM = {w: F * 7, h: F * 2.2, pad: F * 0.5, fits: [], ok: true, F};
   if (!TM.ok) problems.push('tag-text');
   const planFor = cw => {
-    const M = cardModel(P, {w: cw, F, showText: showKey});
+    const M = cardModel(P, {w: cw, F, showText: showKey, minK: v.minK});
     return {M, B: boardPlan(M, TM, {F, orient: 'h'})};
   };
   const fits = q => q.B.w <= inner.w + 0.5 && q.B.h <= inner.h + 0.5 && q.M.ok;
@@ -174,7 +174,7 @@ const scene = {
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [34, 30, 27, ...SIZES] : SIZES).map(x => x / pxu);
     let C = null, best = null;
-    outer: for (const F of sizes) for (const v of vs) {
+    outer: for (const F of sizes) for (const v of vs.flatMap(x => [0.8, 0.6, 0.45, 0.3].map(mk => ({...x, minK: mk})))) {
       const c = compose(ctx, P, F, v, pxu);
      
       if (c.ok) { C = c; break outer; }

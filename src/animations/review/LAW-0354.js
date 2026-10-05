@@ -204,11 +204,11 @@ function compose(ctx, P, F, opts) {
   const box = {x: plate.x + m, y: plate.y + m, w: plate.w - m * 2, h: plate.h - m * 2};
   const TM = tagModel(P, {w: F * (H ? 14 : 12.5), F, maxLines: H ? 5 : 6});
   // the widest card that keeps the cards' column within the plate (scan; the plan reports what does not fit)
-  const lo = F * 8.6, hi = Math.max(lo, Math.min(F * 15, H ? box.w * 0.3 : box.w * 0.46));
+  const lo = F * 8.6, hi = Math.max(lo, Math.min(F * 18, H ? box.w * 0.34 : box.w * 0.46));
   let best = null;
   for (let k = 0; k <= 6; k++) {
     const cw = hi - ((hi - lo) * k) / 6;
-    const M = cardModel(P, {w: cw, F, showText: showKey});
+    const M = cardModel(P, {w: cw, F, showText: showKey, minK: 0.5});
     const G = planMech(P, M, TM, box, F, H);
     const q = {M, G, bad: G.problems.length + (M.ok ? 0 : 1)};
     if (!best || q.bad < best.bad) best = q;

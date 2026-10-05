@@ -143,12 +143,12 @@ function compose(ctx, P, F, v) {
   for (const k of H ? [12, 15] : [7.5, 9, 10.5]) { TM = tagModel(P, {w: F * k, F, maxLines: H ? 4 : 7}); if (TM.ok) break; }
   if (!TM.ok) problems.push('tag-text');
   const planFor = cw => {
-    const M = cardModel(P, {w: cw, F, showText: showKey && !v.list, compact: v.list, minK: 0.3});
+    const M = cardModel(P, {w: cw, F, showText: showKey && !v.list, compact: v.list, minK: v.minK});
     return {M, B: boardPlan(M, TM, {F, orient: v.orient, tagTop: H, calEnd: false, compact: v.list})};
   };
   const fits = q => q.B.w <= inner.w + 0.5 && q.B.h <= inner.h + 0.5 && q.M.ok;
   const lo = v.list ? F * 4.6 : F * 8.6;
-  const hi = Math.max(lo, Math.min(F * (H ? 16 : 10), H ? inner.w * 0.3 : inner.w * 0.3));
+  const hi = Math.max(lo, Math.min(F * (H ? 16 : 13), H ? inner.w * 0.3 : inner.w * 0.36));
   let best = null;
   for (let k = 0; k <= 8; k++) {
     const q = planFor(hi - ((hi - lo) * k) / 8);
@@ -183,12 +183,12 @@ const scene = {
     const shape = ctx.view.shape;
     const showKey = ctx.show('key');
     const vs = shape === 'portrait' ? [{arr: 'column', orient: 'h'}, {arr: 'column', orient: 'h', stripCols: 2}, {arr: 'column', orient: 'h', list: true, stripCols: 2}]
-      : shape === 'square' ? [{arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3, tight: true}, {arr: 'row', orient: 'v', list: true}, {arr: 'row', orient: 'v', list: true, tight: true}, {arr: 'column', orient: 'h', list: true, stripCols: 2, tight: true}]
+      : shape === 'square' ? [{arr: 'column', orient: 'h', list: true, stripCols: 3, tight: true}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3, tight: true}, {arr: 'row', orient: 'v', list: true}, {arr: 'row', orient: 'v', list: true, tight: true}, {arr: 'column', orient: 'h', list: true, stripCols: 2, tight: true}]
         : [{arr: 'row', orient: 'v', cols: 1, stripCols: 3}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3, tight: true}, {arr: 'row', orient: 'h', list: true}];
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [36, 32, 28, ...SIZES] : SIZES).map(x => x / pxu);
     let C = null, best = null;
-    outer: for (const F of sizes) for (const v of vs) {
+    outer: for (const F of sizes) for (const v of vs.flatMap(x => [0.8, 0.6, 0.45, 0.3].map(mk => ({...x, minK: mk})))) {
       const c = compose(ctx, P, F, v);
      
       if (c.ok) { C = c; break outer; }

@@ -202,11 +202,11 @@ const scene = {
     const P = localisedDn(ctx, EN, ES);
     const R = resolveDn(P);
     const shape = ctx.view.shape;
-    const rowV = [0.14, 0.18, 0.24, 0.3].flatMap(ez => [3, 4].map(pl => ({arr: 'row', ez, pl})));
+    const rowV = [0.14, 0.18, 0.24, 0.3].flatMap(ez => [3, 4].flatMap(pl => [1.1, 0.9].map(rw => ({arr: 'row', ez, pl, rw}))));
     const colV = [0.14, 0.24, 0.3].flatMap(ez => [3, 4].map(pl => ({arr: 'column', ez, pl})));
-    const vs = shape === 'landscape' ? [3, 4].flatMap(sc => rowV.map(x => ({...x, sc})))
+    const vs = shape === 'landscape' ? [...[3, 4].flatMap(sc => rowV.map(x => ({...x, sc}))), ...[0.2, 0.24].flatMap(side => rowV.map(x => ({...x, side})))]
       : shape === 'portrait' ? [3, 2].flatMap(sc => colV.map(x => ({...x, sc})))
-        : [...[3, 2].flatMap(sc => colV.map(x => ({...x, sc}))), ...[0.3, 0.36].flatMap(side => colV.map(x => ({...x, side}))), ...rowV.map(x => ({...x, sc: 2}))];
+        : [...[3, 2].flatMap(sc => colV.map(x => ({...x, sc}))), ...[0.3, 0.36].flatMap(side => colV.map(x => ({...x, side}))), ...[2, 3].flatMap(sc => rowV.map(x => ({...x, sc})))];
     let C = null, best = null;
     // the boards are the subject: among the sizes that compose, keep the composition with the largest folder (weighted
     // mildly by the text size); text starts at 20.5 so the strip stays compact

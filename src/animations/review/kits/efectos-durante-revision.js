@@ -155,6 +155,10 @@ export function cardNode(ctx, M, kind, o = {}) {
     } else {
       parts.push(textAt(M.app.gr, {name: `${o.prefix}-t0`, x: pad, y: y0, fill: INK}));
     }
+    // (a taller card than its text: placeholder filler lines below the text, never over it)
+    const used = y0 + (kind === 0 ? M.dec.h : M.app.h) + F * 0.5;
+    const bh = Math.max(6, F * 0.36);
+    for (let y = used; y + bh <= hh - pad; y += bh * 2.4) parts.push(h('rect', {x: r(pad), y: r(y), width: r((w - pad * 2) * (y + bh * 2.4 > hh - pad ? 0.55 : 0.9)), height: r(bh), rx: r(bh / 2), fill: shade(SLATE, 0.66)}));
   } else {
     const n = 3;
     const bh = Math.max(6, F * 0.42);

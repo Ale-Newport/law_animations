@@ -119,7 +119,7 @@ function compose(ctx, P, F, opts) {
     : {x: desk.x + mHand, y: desk.y + mSide, w: desk.w - mHand * 2, h: desk.h - mSide * 2};
   const tagW = F * (H ? 16 : 12);
   const planFor = cw => {
-    const M = cardModel(P, {w: cw, F, showText: showKey});
+    const M = cardModel(P, {w: cw, F, showText: showKey, minK: H ? opts.minK : 0.3});
     const TM = tagModel(P, {w: tagW, F, maxLines: H ? 5 : 6});
     return {M, TM, B: boardPlan(M, TM, {F, orient})};
   };
@@ -150,13 +150,14 @@ function compose(ctx, P, F, opts) {
   // hands: grips on the outer edge of each card; shoulders outside the desk, tracking the hand along the lane
   const deskB = desk.y + desk.h, deskR = desk.x + desk.w;
   const sOff = Math.max(100, F * 4.5);
-  const grip = H ? [{x: F * 1.3, y: F * 0.55}, {x: F * 1.3, y: M.h - F * 0.55}] : [{x: F * 0.55, y: F * 1.3}, {x: M.w - F * 0.55, y: F * 1.3}];
+  // (the hands push from behind each card's trailing edge: they never cover its text)
+  const grip = H ? [{x: -F * 0.45, y: Math.min(M.h * 0.4, F * 1.4)}, {x: -F * 0.45, y: M.h - Math.min(M.h * 0.4, F * 1.4)}] : [{x: Math.min(M.w * 0.4, F * 1.4), y: -F * 0.45}, {x: M.w - Math.min(M.w * 0.4, F * 1.4), y: -F * 0.45}];
   const at = (i, t) => { const p = B.pos(i, t); return {x: p.x + ox, y: p.y + oy}; };
   const gripAt = (i, t) => { const p = at(i, t); return {x: p.x + grip[i].x, y: p.y + grip[i].y}; };
   const lead = F * 2.2;
   const rest = H ? [{x: gripAt(0, B.tStart).x - lead, y: desk.y + mHand * 0.42}, {x: gripAt(1, B.tStart).x - lead, y: deskB - mHand * 0.42}]
     : [{x: desk.x + mHand * 0.42, y: gripAt(0, B.tStart).y - lead}, {x: deskR - mHand * 0.42, y: gripAt(1, B.tStart).y - lead}];
-  const shoulderFor = (i, hand) => (H ? {x: hand.x + F * 2.4, y: i === 0 ? desk.y - sOff : deskB + sOff} : {x: i === 0 ? desk.x - sOff : deskR + sOff, y: hand.y + F * 2.4});
+  const shoulderFor = (i, hand) => (H ? {x: hand.x - F * 2.4, y: i === 0 ? desk.y - sOff : deskB + sOff} : {x: i === 0 ? desk.x - sOff : deskR + sOff, y: hand.y - F * 2.4});
   const far = Math.max(...[0, 1].flatMap(i => [gripAt(i, B.tStart), gripAt(i, B.tEnd), rest[i]].map(p => { const s = shoulderFor(i, p); return Math.hypot(p.x - s.x, p.y - s.y); })));
   const armLen = far * 0.5 + 24;
   const armW = clamp(F * 2, 36, 52);
@@ -178,7 +179,7 @@ const scene = {
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
     let C = null;
     outer: for (const F of sizes) {
-      for (const a of arrangements) {
+      for (const a of arrangements.flatMap(x => [0.8, 0.6, 0.45, 0.3].map(mk => ({...x, minK: mk})))) {
         const c = compose(ctx, P, F, a);
         if (c.ok) { C = c; break outer; }
         if (!C || c.problems.length < C.problems.length) C = c;
