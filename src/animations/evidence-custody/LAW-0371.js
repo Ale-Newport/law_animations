@@ -248,9 +248,10 @@ const scene = {
       ea.y = Math.min(ea.y, C.boxes[0].y + C.boxes[0].h - 2); eb.y = Math.min(eb.y, C.boxes[1].y + C.boxes[1].h - 2);
       bend.y = Math.min(bend.y, C.boxes[0].y + C.boxes[0].h + C.F * 0.9);
     } else {
-      // stacked: from the right edges, arcing to the right of the rooms
-      ea = {x: ba.x + ba.w, y: ba.y + ba.h / 2}; eb = {x: bb.x + bb.w, y: bb.y + bb.h / 2};
-      bend = {x: Math.min(C.boxes[0].x + C.boxes[0].w + C.F * 1.5, ctx.design.w - 4), y: (ea.y + eb.y) / 2};
+      // stacked: straight down from the upper outline's bottom edge to the lower outline's top edge (the sheets sit
+      // at the same x in both rooms), crossing only the gap between the rooms
+      ea = {x: ba.x + ba.w / 2, y: ba.y + ba.h}; eb = {x: bb.x + bb.w / 2, y: bb.y};
+      bend = {x: (ea.x + eb.x) / 2, y: (ea.y + eb.y) / 2};
     }
     const lenG = Math.hypot(bend.x - ea.x, bend.y - ea.y) + Math.hypot(eb.x - bend.x, eb.y - bend.y);
     nodes.guide = {opacity: r(Math.min(1, gk * 3), 3)};
