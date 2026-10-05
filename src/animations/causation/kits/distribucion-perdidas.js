@@ -376,20 +376,23 @@ export const ST = {t: 0.15, rail: 0.028, bladeH: 0.22, bladeW: 0.045, gapTop: 0.
  * row height (px, under the floor; 0 = none). `drop` (× S) is the height of the guide-rail zone (>= ST.drop).
  * Origin = stage top-left. Trays fixed; `restX(f)` / `spreadX(f)` give segment centres for a fraction list.
  */
-export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, drop = ST.drop} = {}) {
+export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, drop, compact = false, stagger = false} = {}) {
   const t = ST.t * S;
+  const dropMin = compact ? 0.12 : ST.drop;
+  const bladeH = (compact ? 0.17 : ST.bladeH) * S;
   const railY = ST.rail * S * 1.6;
   const bladeTopRest = railY + ST.rail * S;
-  const barTop = bladeTopRest + ST.bladeH * S + ST.gapTop * S;
+  const barTop = bladeTopRest + bladeH + ST.gapTop * S;
   const barMid = barTop + t / 2;
   const shelfY = barTop + t;
-  const trayTop = shelfY + ST.shelf * S + Math.max(ST.drop, drop) * S;
+  const trayTop = shelfY + ST.shelf * S + Math.max(dropMin, drop ?? dropMin) * S;
   const td = ST.td * t;
   const pedH = ST.ped * S;
   const floorY = trayTop + td + 4 + pedH;
   const tws = fmax.map(f => f * S + 0.07 * S);
   const gap = ST.trayGap * S;
-  const slot = tws.map((tw, i) => Math.max(tw, (chipWs[i] ?? 0) + 6));
+  // (staggered value chips alternate between two rows, so a slot only needs about half its chip's width)
+  const slot = tws.map((tw, i) => Math.max(tw, ((chipWs[i] ?? 0) + 6) * (stagger ? 0.56 : 1)));
   const rowW = slot.reduce((a, b) => a + b, 0) + gap * (n - 1);
   const spreadW = S + (n - 1) * ST.spread * S;
   const shelfW = spreadW + 2 * ST.side * S;
@@ -399,7 +402,7 @@ export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, dro
   const trayX = [];
   let x = cx - rowW / 2;
   slot.forEach(sw => { trayX.push(x + sw / 2); x += sw + gap; });
-  const H = floorY + ST.floor + (chipH ? chipGap + chipH : 0);
+  const H = floorY + ST.floor + (chipH ? chipGap + chipH * (stagger ? 2 : 1) + (stagger ? 6 : 0) : 0);
   const restX = f => { const c = cum(f); return f.map((q, i) => bx0 + (c[i] + q / 2) * S); };
   const spreadX = f => restX(f).map((x0, i) => x0 + (i - (n - 1) / 2) * ST.spread * S);
   // blade j sits on boundary j (between segment j and j+1): at rest on the cut, after the spread in the gap's centre
@@ -408,8 +411,9 @@ export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, dro
   return {
     S, n, t, W, H, cx, bx0, railY, bladeTopRest, barTop, barMid, shelfY, trayTop, td, pedH, floorY, tws, slot, trayX, gap,
     shelfX0: cx - shelfW / 2, shelfX1: cx + shelfW / 2, rowW,
-    bladeW: ST.bladeW * S, bladeH: ST.bladeH * S,
-    bladeRestY: bladeTopRest + ST.bladeH * S, bladeCutY: barTop + t + 2,
+    bladeW: ST.bladeW * S, bladeH,
+    bladeRestY: bladeTopRest + bladeH, dropMin, stagger,
+    chipRowY: i => floorY + ST.floor + chipGap + (stagger && i % 2 ? chipH + 6 : 0), bladeCutY: barTop + t + 2,
     chipY: floorY + ST.floor + chipGap,
     restX, spreadX, cutX, gapX,
     landY: trayTop + td - t / 2,
@@ -417,8 +421,8 @@ export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, dro
 }
 
 /** Extra guide-rail height (× S) that makes a stage of scale S exactly fill height bh (capped). */
-export function fillDrop(S, bh, H0, cap = 0.55) {
-  return clamp(ST.drop + (bh - H0) / S, ST.drop, cap);
+export function fillDrop(G, bh, cap = 0.55) {
+  return clamp(G.dropMin + (bh - G.H) / G.S, G.dropMin, cap);
 }
 
 /** Where segment i is at "drop progress" q (0 = spread on the shelf, 1 = in its tray). */
@@ -465,21 +469,19 @@ export function arrangeScene(ctx, o) {
   const full = D.w - 2 * M, fullH = D.h - 2 * M;
   const cands = [];
   for (let size = o.sizes[0]; size >= o.sizes[1] - 1e-9; size -= 1) {
-    const st = o.stage(size);
-    if (!st || st.bad) continue;
+    const sts = [].concat(o.stage(size) || []).filter(q => !q.bad);
     let best = null;
-    for (const mode of o.modes) {
+    for (const st of sts) for (const mode of o.modes) {
       const pws = mode === 'side' ? (o.sideWs ?? [0.3, 0.36, 0.42, 0.5]).map(f => Math.round(full * f)) : [full];
       for (const pw of pws) {
         const panel = o.items.length ? panelFlow(ctx, o.items, size, pw, o.memo, {center: mode !== 'side'}) : {placed: [], h: 0, bad: false};
-        if (panel.bad) { if (globalThis.__dpdbg) globalThis.__dpdbg.push(`${size}/${mode}/${pw}:bad`); continue; }
+        if (panel.bad) continue;
         let bw, bh;
         if (mode === 'side') { if (panel.h > fullH) continue; bw = full - pw - GAP; bh = fullH; } else { bw = full; bh = fullH - (panel.h ? panel.h + GAP : 0); }
         if (bw < 100 || bh < 100) continue;
         const S = maxScale(s => { const d = st.dims(s); return d.w <= bw && d.h <= bh; }, 40, o.sMax ?? 2000);
-        if (globalThis.__dpdbg) globalThis.__dpdbg.push(`${size}/${mode}/${pw}:S${Math.round(S)} ph${Math.round(panel.h)}`);
         if (!S) continue;
-        if (!best || S > best.S + 1e-6) best = {size, mode, S, pw, panel, bw, bh};
+        if (!best || S > best.S + 1e-6) best = {size, mode, S, pw, panel, bw, bh, st};
       }
     }
     if (best) cands.push(best);

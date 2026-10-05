@@ -86,7 +86,7 @@ const strings = {
 };
 
 const SHAPES = {
-  landscape: {sizes: [26, 17], modes: ['side', 'below'], sideWs: [0.3, 0.36, 0.42, 0.5]},
+  landscape: {sizes: [26, 16], modes: ['side', 'below'], sideWs: [0.3, 0.36, 0.42, 0.5, 0.58]},
   square: {sizes: [24, 16], modes: ['below', 'side'], sideWs: [0.36, 0.42, 0.5]},
   portrait: {sizes: [25, 16], modes: ['below'], sideWs: []},
 };
@@ -136,7 +136,11 @@ const scene = {
       const bad = cs.some(c => c.bad);
       const chipWs = cs.map(c => c.w);
       const chipH = cs.length ? Math.max(...cs.map(c => c.h)) : 0;
-      st = {bad, chipWs, chipH, dims: S => { const G = stageGeom(S, M.n, f, {chipWs, chipH}); return {w: G.W, h: G.H}; }};
+      // stage variants: regular, compact (shorter rail zone) and staggered value chips (two rows)
+      st = [false, true].flatMap(compact => [false, true].map(stagger => {
+        const go = {chipWs, chipH, compact, stagger: stagger && cs.length > 0};
+        return {bad, go, dims: S => { const G = stageGeom(S, M.n, f, go); return {w: G.W, h: G.H}; }};
+      }));
       stageMemo.set(size, st);
       return st;
     };
@@ -146,13 +150,12 @@ const scene = {
       // last resort (never throws): the smallest size, the panel below, whatever stage remains
       problems.push('no-layout-fits');
       const size = SH.sizes[1];
-      const st = stage(size);
-      A = {size, mode: 'below', S: 120, pw: ctx.design.w - 20, panel: {placed: [], h: 0}, st};
+      A = {size, mode: 'below', S: 120, pw: ctx.design.w - 20, panel: {placed: [], h: 0}, st: stage(size)[0]};
     }
-    const st = stage(A.size);
-    const G0 = stageGeom(A.S, M.n, f, {chipWs: st.chipWs, chipH: st.chipH});
+    const go = A.st ? A.st.go : stage(A.size)[0].go;
+    const G0 = stageGeom(A.S, M.n, f, go);
     // the guide-rail zone grows so the stage fills its box's height
-    const G = stageGeom(A.S, M.n, f, {chipWs: st.chipWs, chipH: st.chipH, drop: A.bh ? fillDrop(A.S, A.bh, G0.H) : undefined});
+    const G = stageGeom(A.S, M.n, f, {...go, drop: A.bh ? fillDrop(G0, A.bh) : undefined});
     const D = ctx.design;
     const MG = 10, GAP = 26;
     let ox, oy, px, py;
@@ -173,7 +176,7 @@ const scene = {
     }
     const bandNodes = placePanel(ctx, A.panel, px, py, it => (it.key === 'status' ? {fill: ctx.theme.accent2Soft, stroke: ctx.theme.accent2} : {}));
     // value chips under each tray (centred, kept inside their tray's column)
-    const chips = showVals ? G.trayX.map((tx, i) => valueChip(ctx, vtext[i], {x: ox + tx, y: oy + G.chipY, size: A.size, mw: G.slot[i] + G.gap * 0.8, name: `val${i}`})) : [];
+    const chips = showVals ? G.trayX.map((tx, i) => valueChip(ctx, vtext[i], {x: ox + tx, y: oy + G.chipRowY(i), size: A.size, mw: G.stagger ? 360 : G.slot[i] + G.gap * 0.8, name: `val${i}`})) : [];
     // the label printed on the bar at rest (only when it fits on one line inside the bar)
     let barLabel = null;
     if (ctx.show('key')) {
