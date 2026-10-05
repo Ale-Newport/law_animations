@@ -234,7 +234,7 @@ export function trayBack(ctx, {tw, td, ph, i}) {
   const pw = tw * 0.62;
   return g(null,
     h('path', {d: roundRectPath(-pw / 2, td, pw, ph, 4), fill: th.paperShade, stroke: th.ink, 'stroke-width': 2.5}),
-    h('path', {d: roundRectPath(-tw / 2, -td * 0.15, tw, td * 1.15, 5), fill: eventTint(th, i), stroke: th.ink, 'stroke-width': 2.5, opacity: 0.55}),
+    h('path', {d: roundRectPath(-tw / 2, -td * 0.25, tw, td * 1.25, 5), fill: eventTint(th, i), stroke: th.ink, 'stroke-width': 2.5, opacity: 0.6}),
   );
 }
 export function trayFront(ctx, {tw, td, ph, i, numText}) {
@@ -243,7 +243,7 @@ export function trayFront(ctx, {tw, td, ph, i, numText}) {
   const fs = Math.max(17, Math.min(ph * 0.34, tw * 0.2) * 1.1);
   const R = fs / 1.1;
   return g(null,
-    h('path', {d: `M${r(-tw / 2)} ${r(td * 0.35)}H${r(tw / 2)}V${r(td)}Q${r(tw / 2)} ${r(td + 4)} ${r(tw / 2 - 4)} ${r(td + 4)}H${r(-tw / 2 + 4)}Q${r(-tw / 2)} ${r(td + 4)} ${r(-tw / 2)} ${r(td)}Z`, fill: eventTint(th, i), stroke: th.ink, 'stroke-width': 2.5}),
+    h('path', {d: `M${r(-tw / 2)} ${r(td * 0.3)}H${r(tw / 2)}V${r(td)}Q${r(tw / 2)} ${r(td + 4)} ${r(tw / 2 - 4)} ${r(td + 4)}H${r(-tw / 2 + 4)}Q${r(-tw / 2)} ${r(td + 4)} ${r(-tw / 2)} ${r(td)}Z`, fill: eventTint(th, i), stroke: th.ink, 'stroke-width': 2.5}),
     h('circle', {cx: 0, cy: r(td + 4 + ph * 0.5), r: r(R), fill: eventInk(th, i), stroke: th.ink, 'stroke-width': 2}),
     numText ? h('text', {x: 0, y: r(td + 4 + ph * 0.5 + R * 0.38), 'text-anchor': 'middle', 'font-size': r(fs), 'font-weight': 800, 'font-family': "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif", fill: '#fff'}, numText) : null,
   );
@@ -368,28 +368,29 @@ export function valueChipSize(ctx, text, size, mw) {
 /* ------------------------------------------------------------------------ */
 
 /** Proportions (× S, the bar length). */
-export const ST = {t: 0.12, rail: 0.028, bladeH: 0.2, bladeW: 0.04, gapTop: 0.03, shelf: 0.035, drop: 0.26, td: 0.11, ped: 0.12, floor: 14, spread: 0.06, trayGap: 0.05, side: 0.08};
+export const ST = {t: 0.15, rail: 0.028, bladeH: 0.22, bladeW: 0.045, gapTop: 0.03, shelf: 0.035, drop: 0.22, td: 0.55, ped: 0.13, floor: 14, spread: 0.06, trayGap: 0.05, side: 0.08};
 
 /**
  * Stage geometry for bar length S, n events, the per-event largest fraction (over the allocations this stage can show)
- * `fmax`, a minimum tray width (px) and the value-chip row height (px, under the floor; 0 = none).
- * Origin = stage top-left. Returns positions; trays fixed; `restX(f)` / `spreadX(f)` give segment centres for a
- * fraction list.
+ * `fmax`, the value-chip widths (px; a chip may be wider than its tray: the slots are spaced for both) and the value-chip
+ * row height (px, under the floor; 0 = none). `drop` (× S) is the height of the guide-rail zone (>= ST.drop).
+ * Origin = stage top-left. Trays fixed; `restX(f)` / `spreadX(f)` give segment centres for a fraction list.
  */
-export function stageGeom(S, n, fmax, {minTray = 0, chipH = 0, chipGap = 10, wide = 1} = {}) {
+export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, drop = ST.drop} = {}) {
   const t = ST.t * S;
   const railY = ST.rail * S * 1.6;
   const bladeTopRest = railY + ST.rail * S;
   const barTop = bladeTopRest + ST.bladeH * S + ST.gapTop * S;
   const barMid = barTop + t / 2;
   const shelfY = barTop + t;
-  const trayTop = shelfY + ST.shelf * S + ST.drop * S;
-  const td = Math.max(t * 0.92, ST.td * S);
+  const trayTop = shelfY + ST.shelf * S + Math.max(ST.drop, drop) * S;
+  const td = ST.td * t;
   const pedH = ST.ped * S;
   const floorY = trayTop + td + 4 + pedH;
-  const tws = fmax.map(f => Math.max(f * S + 0.07 * S, minTray));
-  const gap = ST.trayGap * S * wide;
-  const rowW = tws.reduce((a, b) => a + b, 0) + gap * (n - 1);
+  const tws = fmax.map(f => f * S + 0.07 * S);
+  const gap = ST.trayGap * S;
+  const slot = tws.map((tw, i) => Math.max(tw, (chipWs[i] ?? 0) + 6));
+  const rowW = slot.reduce((a, b) => a + b, 0) + gap * (n - 1);
   const spreadW = S + (n - 1) * ST.spread * S;
   const shelfW = spreadW + 2 * ST.side * S;
   const W = Math.max(rowW, shelfW) + 8;
@@ -397,7 +398,7 @@ export function stageGeom(S, n, fmax, {minTray = 0, chipH = 0, chipGap = 10, wid
   const bx0 = cx - S / 2;
   const trayX = [];
   let x = cx - rowW / 2;
-  tws.forEach(tw => { trayX.push(x + tw / 2); x += tw + gap; });
+  slot.forEach(sw => { trayX.push(x + sw / 2); x += sw + gap; });
   const H = floorY + ST.floor + (chipH ? chipGap + chipH : 0);
   const restX = f => { const c = cum(f); return f.map((q, i) => bx0 + (c[i] + q / 2) * S); };
   const spreadX = f => restX(f).map((x0, i) => x0 + (i - (n - 1) / 2) * ST.spread * S);
@@ -405,14 +406,19 @@ export function stageGeom(S, n, fmax, {minTray = 0, chipH = 0, chipGap = 10, wid
   const cutX = f => cum(f).slice(1, -1).map(c => bx0 + c * S);
   const gapX = f => { const c = cum(f); return c.slice(1, -1).map((cc, j) => bx0 + cc * S + (j + 0.5 - (n - 1) / 2) * ST.spread * S); };
   return {
-    S, n, t, W, H, cx, bx0, railY, bladeTopRest, barTop, barMid, shelfY, trayTop, td, pedH, floorY, tws, trayX, gap,
+    S, n, t, W, H, cx, bx0, railY, bladeTopRest, barTop, barMid, shelfY, trayTop, td, pedH, floorY, tws, slot, trayX, gap,
     shelfX0: cx - shelfW / 2, shelfX1: cx + shelfW / 2, rowW,
     bladeW: ST.bladeW * S, bladeH: ST.bladeH * S,
     bladeRestY: bladeTopRest + ST.bladeH * S, bladeCutY: barTop + t + 2,
     chipY: floorY + ST.floor + chipGap,
     restX, spreadX, cutX, gapX,
-    landY: trayTop + td - t / 2 - 2,
+    landY: trayTop + td - t / 2,
   };
+}
+
+/** Extra guide-rail height (× S) that makes a stage of scale S exactly fill height bh (capped). */
+export function fillDrop(S, bh, H0, cap = 0.55) {
+  return clamp(ST.drop + (bh - H0) / S, ST.drop, cap);
 }
 
 /** Where segment i is at "drop progress" q (0 = spread on the shelf, 1 = in its tray). */
@@ -478,9 +484,13 @@ export function arrangeScene(ctx, o) {
     if (best) cands.push(best);
   }
   if (!cands.length) return null;
-  const Sbest = Math.max(...cands.map(c => c.S));
+  // text at >= 20 (the 19.5 px baseline floor) whenever any arrangement allows it; then the largest text whose stage
+  // stays >= keep of the largest stage found
+  const c20 = cands.filter(c => c.size >= 20 - 1e-9);
+  const pool = c20.length && Math.max(...c20.map(c => c.S)) >= (o.keep20 ?? 0.7) * Math.max(...cands.map(c => c.S)) ? c20 : cands;
+  const Sbest = Math.max(...pool.map(c => c.S));
   const keep = o.keep ?? 0.88;
-  const ok = cands.filter(c => c.S >= keep * Sbest - 1e-6);
+  const ok = pool.filter(c => c.S >= keep * Sbest - 1e-6);
   return ok.sort((a, b) => b.size - a.size)[0];
 }
 

@@ -1,6 +1,6 @@
 # Session handoff — law animation library
 
-_Last updated: 2026-10-04 (session 1, checkpoint 12 — after the weekly usage limit stopped all agents on 2026-09-27)_
+_Last updated: 2026-10-06 (session 2 checkpoint; previous: 2026-10-04 session 1, checkpoint 12 — after the weekly usage limit stopped all agents on 2026-09-27)_
 
 ## Real counts (from `node scripts/accept.mjs --all` at this checkpoint)
 | status | count | IDs |
@@ -29,6 +29,13 @@ LAW-0072 was repaired in round 8 by a single fixer agent plus a separate indepen
 - `production/scratch/` (gitignored) from session 1 is NOT in this container; review evidence lists in progress.json that point there are historical.
 - Agents are launched with the Agent tool (no Workflow); shared rules for builders/reviewers live in production/workflows/AGENT_RULES.md. Per motif: builder → independent FINAL reviewer (records review) → fixer + re-review while failing.
 - Wave 1 (2026-10-05): final reviews of causation-08 (0709..0712), review-03 r2 (0329..0331), contract-terms-04 (0493..0496); builds of review-04 (0333..0336) and review-05 (0337..0340).
+
+### Session 2 checkpoint (2026-10-05/06)
+- `accept.mjs --all`: 439 accepted, 6 automated_pass, 11 implemented, 2 in_progress, 1542 planned.
+- Completed & accepted this session: causation-08 (0709..0712), contract-terms-04 (0493..0496), review-04 (0333..0336), review-05 (0337..0340), review-06 (0341..0344; 0343 1:1 key text ≥18 px by coordinator decision, precedent 0211), review-08 (0349..0352; gated kit option matBelow), review-09 (0353..0356), review-10 (0357..0360), review-07 0345..0347.
+- In flight: review-03 0329/0331/0332 (final review running; 0332 failed its own test on this Linux container — slow cold create, disc gap — fixed and needs re-review), review-07 0348 (labels-hidden crop fix), contract-terms-05 0497..0500 (final review running; forked from contract-terms-04 kit — clone risk judged by reviewer), causation-09 0713..0716 (builder continuing; 0715/0716 not yet built), causation-10 0717..0720 (building), evidence-custody-01 0361..0364 (building; first motif of the category).
+- Lessons (also in production/workflows/AGENT_RULES.md): builders over-report passing tests; most common reviewer fail is poor fill / tiny objects; judge fill inside the dashed safe box (bottom 20 % caption band reserved); reviewers must list only sheets they opened.
+- Known debt: contract-terms-04 kit long-word last-resort breaks mid-syllable; 0705 and others still contain `globalThis.__dbg` hooks (accepted, cleanup); review kits duplicate fitting helpers.
 
 ## How to continue (another session can start here)
 1. `node scripts/accept.mjs --all` — authoritative statuses.

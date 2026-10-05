@@ -35,7 +35,7 @@ import {T} from '../../core/transform.js';
 import {str, num, obj, list, oneOf, annotation} from '../../schemas/fields.js';
 import {
   dpFields, DP_STRINGS, DP_DEFAULTS, DP_ES_DEFAULTS, resolveDP, linkNotes, altText, allocText, valueText,
-  stageGeom, stageArt, pieceArt, bladeArt, dropPos, valueChip, valueChipSize, arrangeScene, placePanel, fitG,
+  stageGeom, stageArt, pieceArt, bladeArt, dropPos, valueChip, valueChipSize, arrangeScene, placePanel, fitG, fillDrop,
   clamp, ease, lerp, r, seg, localizeScene,
 } from './kits/distribucion-perdidas.js';
 import {textBlock} from '../../primitives/annotate.js';
@@ -134,9 +134,9 @@ const scene = {
       if (st) return st;
       const cs = showVals ? vtext.map(tx => valueChipSize(ctx, tx, size, 360)) : [];
       const bad = cs.some(c => c.bad);
-      const minTray = cs.length ? Math.max(...cs.map(c => c.w)) + 8 : 0;
+      const chipWs = cs.map(c => c.w);
       const chipH = cs.length ? Math.max(...cs.map(c => c.h)) : 0;
-      st = {bad, minTray, chipH, dims: S => { const G = stageGeom(S, M.n, f, {minTray, chipH}); return {w: G.W, h: G.H}; }};
+      st = {bad, chipWs, chipH, dims: S => { const G = stageGeom(S, M.n, f, {chipWs, chipH}); return {w: G.W, h: G.H}; }};
       stageMemo.set(size, st);
       return st;
     };
@@ -150,7 +150,9 @@ const scene = {
       A = {size, mode: 'below', S: 120, pw: ctx.design.w - 20, panel: {placed: [], h: 0}, st};
     }
     const st = stage(A.size);
-    const G = stageGeom(A.S, M.n, f, {minTray: st.minTray, chipH: st.chipH});
+    const G0 = stageGeom(A.S, M.n, f, {chipWs: st.chipWs, chipH: st.chipH});
+    // the guide-rail zone grows so the stage fills its box's height
+    const G = stageGeom(A.S, M.n, f, {chipWs: st.chipWs, chipH: st.chipH, drop: A.bh ? fillDrop(A.S, A.bh, G0.H) : undefined});
     const D = ctx.design;
     const MG = 10, GAP = 26;
     let ox, oy, px, py;
@@ -171,7 +173,7 @@ const scene = {
     }
     const bandNodes = placePanel(ctx, A.panel, px, py, it => (it.key === 'status' ? {fill: ctx.theme.accent2Soft, stroke: ctx.theme.accent2} : {}));
     // value chips under each tray (centred, kept inside their tray's column)
-    const chips = showVals ? G.trayX.map((tx, i) => valueChip(ctx, vtext[i], {x: ox + tx, y: oy + G.chipY, size: A.size, mw: G.tws[i] + G.gap * 0.8, name: `val${i}`})) : [];
+    const chips = showVals ? G.trayX.map((tx, i) => valueChip(ctx, vtext[i], {x: ox + tx, y: oy + G.chipY, size: A.size, mw: G.slot[i] + G.gap * 0.8, name: `val${i}`})) : [];
     // the label printed on the bar at rest (only when it fits on one line inside the bar)
     let barLabel = null;
     if (ctx.show('key')) {
