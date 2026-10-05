@@ -20,7 +20,7 @@ import {
 import {textLinesVisibleTest, subjectFrameTest} from './exposicion-inicial-checks.js';
 
 const ID = 'LAW-0348';
-const ES_WORDS = ['Position', 'board', 'fictional', 'Initial', 'Later', 'supplied', 'placeholder', 'card', 'Card', 'Order', 'conclusion', 'Changed', 'registry', 'table', 'record', 'plate', 'was', 'result'];
+const ES_WORDS = ['Position', 'board', 'fictional', 'Initial', 'Later', 'supplied', 'placeholder', 'card', 'Card', 'Order', 'conclusion', 'Changed', 'registry', 'table', 'record', 'label', 'was', 'result'];
 const BANNED = /(\bvalid|v[aá]lid|invalid|\bwrong|incorrect|\berror|err[oó]ne|correct[oa]?\b|\bright\b|better|mejor|peor|\bworse|winner|ganador|\bwins?\b|\bloses?\b|pierde|verdict|veredicto|\bfallo\b|judgment|judgement|\bruling|sentenci|revers|revoca|confirm|upheld|uphold|overrul|anul|annul|nulidad|\bvoid\b|appeal|apelaci|recurs|casaci|\bcourt\b|tribunal|\bjudge|\bjuez|magistrad|superior|inferior|hierarch|jerarqu|\bplazo|deadline|time limit|\bdue\b|\bmust\b|\bdebe|required|obligatori|binding|vinculante|\bfirme\b|\bfinal\b|definitiv|\blaw\b|\bley\b|guilt|culpab|liab|responsab)/i;
 const AT_CARDS = [0.1, 1];
 const PAIRS = [['rm-a-body', 'rm-b-body']];
@@ -81,9 +81,9 @@ test(`${ID}: rendered lens: smaller side, magnification vs rest (plate and text)
       if (hit(C, L, 1)) out.push(tag + ' u=' + u + ': the lens overlaps the context room');
       const cw = C.w / fw, ch = C.h / fh;
       if (h > w * 1.2) {
-        const span = (Math.max(C.b, L.b) - Math.min(C.t, L.t)) / fh;
+        const span = (Math.max(C.r, L.r) - Math.min(C.l, L.l)) / fw;
         if (Math.max(cw, ch) < 0.45) out.push(tag + ' u=' + u + ': context ' + cw.toFixed(2) + ' × ' + ch.toFixed(2));
-        if (span < 0.6) out.push(tag + ' u=' + u + ': context + lens span ' + span.toFixed(2));
+        if (span < 0.8) out.push(tag + ' u=' + u + ': context + lens span ' + span.toFixed(2));
       } else if (cw < 0.45) out.push(tag + ' u=' + u + ': context ' + cw.toFixed(3) + ' of the frame width');
       for (const nm of ['lz-rec', 'lz-dock']) { const b = box(node(svg, nm)); if (b.l < L.l - 1 || b.r > L.r + 1 || b.t < L.t - 1 || b.b > L.b + 1) out.push(tag + ' u=' + u + ': ' + nm + ' is cut by the lens rim'); }
     }

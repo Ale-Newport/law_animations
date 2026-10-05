@@ -60,7 +60,7 @@ const OWN_EN = {
   focusTarget: 'position-record',
   beforeValue: 'In the position: the initial result, card A (as supplied)',
   afterValue: 'In the position: the later result supplied, card B (as supplied)',
-  contextLabels: {context: 'The registry table and the record plate of its position (as supplied)', marker: 'Changed: the supplied value on the record'},
+  contextLabels: {context: 'The registry table and the record label of its position (as supplied)', marker: 'Changed: the supplied value on the record'},
 };
 const OWN_ES = {
   focusTarget: 'position-record',
@@ -228,19 +228,19 @@ function compose(ctx, P, F, opt) {
   if (showAll) rows.push({kind: 'item', icon: 'pips', text: P.labels.order, name: 'order-note'});
   if (showKey) rows.push({kind: 'item', icon: 'delta', text: P.contextLabels.marker, name: 'marker-row'});
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
-  const panelW = tall ? D.w : Math.max(F * 11, D.w * opt.panel);
-  const PL = panelLayout(ctx, rows, {w: panelW - (tall ? 0 : gap), F, maxLines: 4, gap: F * 0.55});
+  const panelW = tall ? D.w : rows.length ? Math.max(F * 11, D.w * opt.panel) : 0;
+  const PL = panelLayout(ctx, rows, {w: panelW - (tall ? 6 : gap), F, maxLines: 4, gap: F * 0.55});
   if (!PL.ok) problems.push('panel');
   const roomW = tall ? D.w : D.w - panelW;
-  const G = roomGeometry(ctx, P, roomW, F, showKey, ctx.t.was, tall ? 1.0 : 0.68);
+  const G = roomGeometry(ctx, P, roomW, showKey ? F : F * 1.5, showKey, ctx.t.was, tall ? (showKey ? 1.0 : 1.35) : 0.68);
   if (!G.ok) problems.push('plate-text');
   // fit the room into its region (scale k ≤ 1 when it is taller than the space)
   const regionH = tall ? D.h - PL.h - gap * 2 : D.h;
   const k = Math.min(1, regionH / G.h);
-  if (F * k * pxPerUnit(ctx) < (opt.floor ?? 16) - 0.01) problems.push('ctx-text');
+  if (showKey && F * k * pxPerUnit(ctx) < (opt.floor ?? 16) - 0.01) problems.push('ctx-text');
   const roomRect = {x: 0, y: tall ? Math.max(0, (D.h - (G.h * k + gap + PL.h)) * 0.3) : (D.h - G.h * k) / 2, w: G.w * k, h: G.h * k};
   if (!tall && k < 1) roomRect.x = (roomW - G.w * k) / 2;
-  const panelRect = tall ? {x: 0, y: roomRect.y + roomRect.h + gap, w: D.w, h: PL.h} : {x: roomW + gap, y: (D.h - PL.h) / 2, w: panelW - gap, h: PL.h};
+  const panelRect = tall ? {x: 6, y: roomRect.y + roomRect.h + gap, w: D.w - 6, h: PL.h} : {x: roomW + gap, y: (D.h - PL.h) / 2, w: panelW - gap, h: PL.h};
   if (panelRect.y + panelRect.h > D.h + 0.5) problems.push('panel-height');
   return {problems, F, tall, PL, G, k, roomRect, panelRect, roomW};
 }

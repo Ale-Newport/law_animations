@@ -50,13 +50,11 @@ const OWN_EN = {
   actorLabels: {a: 'Hands of a clerk (fictional, generic)'},
   objectLabels: {filter: 'Filter doors: only those of the configured point stand open', calendar: 'Desk calendar (no date marked)'},
   annotations: [{target: 'doors', text: 'The open doors only show the supplied route'}],
-  stateCaption: '',
 };
 const OWN_ES = {
   actorLabels: {a: 'Manos de un auxiliar (ficticias, genéricas)'},
   objectLabels: {filter: 'Puertas filtro: solo las del punto configurado están abiertas', calendar: 'Calendario de mesa (sin fechas marcadas)'},
   annotations: [{target: 'doors', text: 'Las puertas abiertas solo muestran la ruta aportada'}],
-  stateCaption: '',
 };
 const EN = {...DN_EN, ...OWN_EN};
 const ES = {...DN_ES, ...OWN_ES};
@@ -73,8 +71,7 @@ const sceneSchema = {
     target: oneOf('What the note refers to', TARGETS),
     text: str('Note text', 90),
   }, ['target', 'text']), 0, 2),
-  finalState: oneOf('The state supplied by the author (no conclusion is inferred): returned — the folder lies in the configured tray; pending — the folder stays on the review mat', ['returned', 'pending']),
-  stateCaption: str('Caption of the supplied state in the hold (empty: outcomes.returned, or the built-in pending caption)', 110),
+  finalState: oneOf('The state supplied by the author (no conclusion is inferred): returned — the folder lies in the configured tray (caption: outcomes.returned); pending — the folder stays on the review mat (built-in caption)', ['returned', 'pending']),
 };
 
 const defaultParams = {...EN, actionProgress: 1, finalState: 'returned'};
@@ -92,7 +89,7 @@ function legendRows(ctx, P, R) {
   if (showAll) rows.push({kind: 'item', icon: 'calendar', text: P.objectLabels.calendar, name: 'lg-calendar'});
   if (showAll) rows.push({kind: 'item', icon: 'hand', text: P.actorLabels.a, name: 'lg-hand'});
   if (showAll) P.annotations.forEach((a, i) => rows.push({kind: 'item', icon: 'ring', color: notes[i % 2], text: a.text, name: `note${i}`}));
-  if (showKey) rows.push({kind: 'state', text: P.stateCaption || (P.finalState === 'returned' ? P.outcomes.returned : ctx.t.pending), name: 'state-tag'});
+  if (showKey) rows.push({kind: 'state', text: P.finalState === 'returned' ? P.outcomes.returned : ctx.t.pending, name: 'state-tag'});
   if (showKey) rows.push({kind: 'item', icon: 'blank', text: P.outcomes.renewed, name: 'lg-renewed'});
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
   return rows;
