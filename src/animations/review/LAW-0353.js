@@ -118,8 +118,8 @@ function compose(ctx, P, F, opts) {
   const inner = H ? {x: desk.x + mSide, y: desk.y + mHand, w: desk.w - mSide * 2, h: desk.h - mHand * 2}
     : {x: desk.x + mHand, y: desk.y + mSide, w: desk.w - mHand * 2, h: desk.h - mSide * 2};
   const tagW = F * (H ? 16 : 12);
-  const planFor = cw => {
-    const M = cardModel(P, {w: cw, F, showText: showKey, minK: H ? opts.minK : 0.3});
+  const planFor = (cw, mk = 0.3) => {
+    const M = cardModel(P, {w: cw, F, showText: showKey, minK: mk});
     const TM = tagModel(P, {w: tagW, F, maxLines: H ? 5 : 6});
     return {M, TM, B: boardPlan(M, TM, {F, orient})};
   };
@@ -132,6 +132,8 @@ function compose(ctx, P, F, opts) {
     if (fits(q)) { best = q; break; }
     if (!best) best = q;
   }
+  // (then the tallest card height that still fits: the board uses the free height)
+  if (H && fits(best)) for (const mk of [1.3, 1.0, 0.8, 0.6, 0.45]) { const q = planFor(best.M.w, mk); if (fits(q)) { best = q; break; } }
   let {M, TM, B} = best;
   // stretch the lanes along their axis to use the free length (more travel before the gate and more run after it)
   const extra = (H ? inner.w - B.w : inner.h - B.h) - F;
@@ -179,7 +181,7 @@ const scene = {
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
     let C = null;
     outer: for (const F of sizes) {
-      for (const a of arrangements.flatMap(x => [1.3, 1.0, 0.8, 0.6, 0.45, 0.3].map(mk => ({...x, minK: mk})))) {
+      for (const a of arrangements.flatMap(x => [0.3].map(mk => ({...x, minK: mk})))) {
         const c = compose(ctx, P, F, a);
         if (c.ok) { C = c; break outer; }
         if (!C || c.problems.length < C.problems.length) C = c;

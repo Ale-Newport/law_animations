@@ -193,7 +193,7 @@ const scene = {
         minCh: 71 / upx, minChE: mc,
       });
       const srcOf = G => ({x: G.slot.x - G.cwE / 2 - G.tabW - pad, y: G.slot.y - G.chE / 2 - 5 - pad, w: G.cwE + G.tabW + 5 + pad * 2, h: G.chE + 10 + pad * 2});
-      for (let tries = 0; tries < 3; tries++) {
+      for (let tries = 0; tries < 6; tries++) {
         let L1 = stageAt(minChE);
         // (a taller card that no longer fits: the tallest card between the last one that did and the one asked for)
         if (!L1.ok && Lc) {
@@ -228,7 +228,7 @@ const scene = {
         const need = (shortU * 1.03) / zoom - src.h;
         const G = Lc.G, Bd = G.board;
         const down = Math.max(0, Bd.y + Bd.h - 3 - (src.y + src.h));
-        const up = Math.max(0, src.y - (show ? G.panelE.y + G.colHH + 2 : Bd.y + 3));
+        const up = Math.max(0, src.y - (show && oblText ? G.panelE.y + G.colHH + 2 : Bd.y + 3));
         if (up + down < need) continue;
         const upA = Math.min(up, need - Math.min(down, need / 2));
         src.y -= upA; src.h += need;

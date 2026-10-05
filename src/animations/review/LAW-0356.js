@@ -174,7 +174,7 @@ const scene = {
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [34, 30, 27, ...SIZES] : SIZES).map(x => x / pxu);
     let C = null, best = null;
-    outer: for (const F of sizes) for (const v of vs.flatMap(x => [1.3, 1.0, 0.8, 0.6, 0.45, 0.3].map(mk => ({...x, minK: mk})))) {
+    outer: for (const F of sizes) for (const v of vs.flatMap(x => [1.1, 0.7, 0.3].map(mk => ({...x, minK: mk})))) {
       const c = compose(ctx, P, F, v, pxu);
      
       if (c.ok) { C = c; break outer; }

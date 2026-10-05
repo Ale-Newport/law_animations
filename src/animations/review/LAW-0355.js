@@ -142,8 +142,8 @@ function compose(ctx, P, F, v) {
   let TM = null;
   for (const k of H ? [12, 15] : [7.5, 9, 10.5]) { TM = tagModel(P, {w: F * k, F, maxLines: H ? 4 : 7}); if (TM.ok) break; }
   if (!TM.ok) problems.push('tag-text');
-  const planFor = cw => {
-    const M = cardModel(P, {w: cw, F, showText: showKey && !v.list, compact: v.list, minK: H ? v.minK : 0.3});
+  const planFor = (cw, mk = 0.3) => {
+    const M = cardModel(P, {w: cw, F, showText: showKey && !v.list, compact: v.list, minK: mk});
     return {M, B: boardPlan(M, TM, {F, orient: v.orient, tagTop: H, calEnd: false, compact: v.list})};
   };
   const fits = q => q.B.w <= inner.w + 0.5 && q.B.h <= inner.h + 0.5 && q.M.ok;
@@ -155,6 +155,8 @@ function compose(ctx, P, F, v) {
     if (fits(q)) { best = q; break; }
     if (!best) best = q;
   }
+  // (then the tallest card height that still fits: the board uses the free height)
+  if (H && fits(best)) for (const mk of [1.3, 1.0, 0.8, 0.6, 0.45]) { const q = planFor(best.M.w, mk); if (fits(q)) { best = q; break; } }
   let {M, B} = best;
  
   if (!fits(best)) problems.push('board');
@@ -188,7 +190,7 @@ const scene = {
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [36, 32, 28, ...SIZES] : SIZES).map(x => x / pxu);
     let C = null, best = null;
-    outer: for (const F of sizes) for (const v of vs.flatMap(x => [1.3, 1.0, 0.8, 0.6, 0.45, 0.3].map(mk => ({...x, minK: mk})))) {
+    outer: for (const F of sizes) for (const v of vs.flatMap(x => [0.3].map(mk => ({...x, minK: mk})))) {
       const c = compose(ctx, P, F, v);
      
       if (c.ok) { C = c; break outer; }

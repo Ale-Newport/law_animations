@@ -126,15 +126,17 @@ function compose(ctx, P, F, shape) {
   if (showAll) (P.sharedFacts || []).forEach((t, i) => right.push({icon: 'dot', text: t, name: `shared${i}`}));
   if (showAll) right.push({icon: 'pips', text: P.labels.order, name: 'order-note'});
   if (showKey) right.push({icon: 'ring', text: P.comparisonLabels.guide, name: 'guide', late: true, bold: true});
-  const cols = stacked ? 1 : 2;
+  const cols = stacked ? 1 : 3;
   const colW = side ? D.w - mx - stripX : (D.w - 2 * mx - (cols - 1) * F * 1.6) / cols;
   const iconW = F * 1.9;
   const fitRows = rows => rows.map(q => ({...q, fit: fitG(q.text, {maxWidth: colW - iconW, size: F, minSize: F, maxLines: 3, weight: q.bold ? 700 : 500})}));
   let L1 = fitRows(left), R1 = fitRows(right);
+  let R2 = [];
   if (stacked) { L1 = [...L1, ...R1]; R1 = []; }
-  [...L1, ...R1].forEach(q => { if (!q.fit.ok) problems.push(`row-${q.name}`); });
+  else { const cut = Math.ceil(R1.length / 2); R2 = R1.slice(cut); R1 = R1.slice(0, cut); }
+  [...L1, ...R1, ...R2].forEach(q => { if (!q.fit.ok) problems.push(`row-${q.name}`); });
   const place = rows => { let y = 0; rows.forEach(q => { q.y = y; y += q.fit.height + F * 0.45; }); return Math.max(0, y - F * 0.45); };
-  const hL = place(L1), hR = place(R1);
+  const hL = place(L1), hR = Math.max(place(R1), place(R2));
   // guide label and neutral note (full width, centred), then the key
   // the neutral note and the key go under the shorter column (side by side) or under the single column
   const noteW = side ? colW : stacked ? Math.min(D.w - 2 * mx, F * 34) : colW;
@@ -143,7 +145,7 @@ function compose(ctx, P, F, shape) {
   for (const f of [note, key]) if (f && !f.ok) problems.push('notes');
   const guideH = F * 0.6;
   const notesH = (note ? F * 0.6 + note.height : 0) + (key ? F * 0.5 + key.height : 0);
-  const noteCol = stacked ? 0 : hL <= hR ? 0 : 1;
+  const noteCol = 0;
   const stripH = stacked ? Math.max(hL, hR) + notesH : Math.max(noteCol === 0 ? hL + notesH : hL, noteCol === 1 ? hR + notesH : hR);
   // headers
   const headW = stacked ? sceneW - F * 3 : (D.w - 2 * mx - gapP) / 2 - F * 3;
@@ -181,7 +183,7 @@ function compose(ctx, P, F, shape) {
   const stripY = side ? Math.max(my, (D.h - stripH) / 2) : guideY + guideH;
   if (!side && stripY + stripH > D.h - my + 0.5) problems.push('strip');
   void cwMin;
-  return {stripX, side, problems, F, stacked, panels, rooms, heads: [hA, hB], headH, L1, R1, colW, iconW, cols, note, key, noteCol, guideY, stripY, hL, hR, mx};
+  return {stripX, side, problems, F, stacked, panels, rooms, heads: [hA, hB], headH, L1, R1, R2, colW, iconW, cols, note, key, noteCol, guideY, stripY, hL, hR, mx};
 }
 
 const scene = {
@@ -260,7 +262,7 @@ const scene = {
       if (q.icon === 'note') return h('path', {d: `M${r(ix - F * 0.4)} ${r(cy - F * 0.45)}H${r(ix + F * 0.25)}L${r(ix + F * 0.45)} ${r(cy - F * 0.25)}V${r(cy + F * 0.45)}H${r(ix - F * 0.4)}Z`, fill: '#fff8dc', stroke: INK, 'stroke-width': 1.5});
       return h('circle', {cx: r(ix), cy: r(cy), r: r(F * 0.16), fill: th.fgSoft});
     };
-    [L.L1, L.R1].forEach((rows, c) => {
+    [L.L1, L.R1, L.R2].forEach((rows, c) => {
       const x0 = L.stripX + c * (L.colW + F * 1.6);
       for (const q of rows) {
         const y = L.stripY + q.y;
@@ -330,7 +332,7 @@ const scene = {
     });
     if (L.note) nodes.note = {opacity: r(seg(u, ...W.note), 3)};
     const st = r(seg(u, ...W.guide), 3);
-    for (const q of [...L.L1, ...L.R1]) if (q.late) nodes[q.name] = {opacity: st};
+    for (const q of [...L.L1, ...L.R1, ...L.R2]) if (q.late) nodes[q.name] = {opacity: st};
     return {
       nodes,
       semantic: {
