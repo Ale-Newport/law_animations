@@ -30,7 +30,7 @@ import {
   ecFields, localised, benchNode, gloveArm, panelLayout, ringRect, noteColors, R2,
 } from './kits/evidence-art.js';
 import {
-  EP_EN, EP_ES, epFields, epRecords, epRecordLine, sealStage, sealPose, sealNodes, sealProps, slitAt, numberFit,
+  EP_EN, EP_ES, epFields, epRecords, epRecordLine, sealStage, sealPose, sealNodes, sealProps, markerAt, numberFit,
   epPanelNode,
 } from './kits/embalaje-prueba.js';
 
@@ -238,8 +238,7 @@ const scene = {
     const alt = done && P.finalState === 'altered';
     const slitK = alt ? seg(u, ...W.slit) : 0;
     const mkK = alt ? seg(u, ...W.marker) : 0;
-    const sl = slitAt(G, s.stripC, s.stripA, s.stripSc);
-    const mkAt = {x: sl.x + G.S * 0.05, y: sl.y - G.SM.h * 0.5 - G.S * 0.17};
+    const mkAt = markerAt(G, s.stripC, s.stripA, s.stripSc);
     const nodes = sealProps('st', G, s, {slit: slitK, marker: mkK, markerAt: mkAt});
     const pr = L.armR.pose(C.shoulderR, s.handR, -1);
     const pl = L.armL.pose(C.shoulderL, s.handL, 1);

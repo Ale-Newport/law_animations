@@ -445,6 +445,11 @@ export function slitAt(G, c, a, sc = 1) {
   return local({x: G.SM.slitX, y: 0}, c, a, sc);
 }
 
+/** Where the Δ marker of a marked alteration sits: just beside the slit, on the strip's upper side (rides with it). */
+export function markerAt(G, c, a, sc = 1) {
+  return local({x: G.SM.slitX + G.S * 0.05, y: -(G.SM.h / 2 + G.S * 0.17)}, c, a, sc);
+}
+
 /* ------------------------------------------------------------------ */
 /* Legend                                                              */
 /* ------------------------------------------------------------------ */
