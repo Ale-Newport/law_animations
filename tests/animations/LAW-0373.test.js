@@ -47,6 +47,7 @@ suppliedTextSuite(ID, {
 });
 
 ratioChecks(ID, 'props held while moved, hands within reach, composition fits', [
+  {at: [1], presets: ['baseline-es'], tv: ['all'], fn: 's.textPx >= 19.5', label: 'baseline-es keeps text at >= 19.5 px (baseline floor) in every ratio'},
   {at: times(0.15, 0.8, 0.01), fn: 's.allReached', label: 'the hands stay within reach'},
   {at: times(0.2, 0.28, 0.01), fn: 'Math.hypot(s.handR.x - s.rulerGrip.x, s.handR.y - s.rulerGrip.y) < 2', label: 'the scale moves only in the right hand'},
   {at: times(0.25, 0.73, 0.01), fn: 'Math.hypot(s.handL.x - s.camGrip.x, s.handL.y - s.camGrip.y) < 2', label: 'the camera moves only with the left hand on its handle'},

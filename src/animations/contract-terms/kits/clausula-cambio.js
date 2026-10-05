@@ -173,7 +173,8 @@ export function amendmentSheet(ctx, o) {
   const {w, h: hh} = o;
   const ear = Math.min(26, w * 0.12);
   const tabs = tabSlots(o.n, w, hh, o.edge);
-  const labelY = o.headH + (hh - o.headH - 34 - o.fit.height) / 2;
+  const sig = o.sig !== false;
+  const labelY = o.headH + (hh - o.headH - (sig ? 34 : 4) - o.fit.height) / 2;
   return g({name: o.name},
     tabs.map((t, k) => g({name: `${o.name}-tab${k}`, opacity: 0},
       h('path', {d: roundRectPath(t.x, t.y, t.w, t.h, 5), fill: th.accent2, stroke: INK, 'stroke-width': 2}),
@@ -189,7 +190,7 @@ export function amendmentSheet(ctx, o) {
     o.showText
       ? txt(o.fit, {x: w / 2, y: labelY, anchor: 'middle', fill: INK})
       : h('path', {d: `M${r(w * 0.2)} ${r(labelY + o.fit.height / 2)}H${r(w * 0.8)}`, stroke: '#b9c7d6', 'stroke-width': 10, 'stroke-linecap': 'round'}),
-    h('path', {d: `M${r(w * 0.1)} ${r(hh - 18)}H${r(w * 0.42)}M${r(w * 0.52)} ${r(hh - 18)}H${r(w * 0.8)}`, stroke: '#9aa7b4', 'stroke-width': 2.4, 'stroke-linecap': 'round'}),
+    sig ? h('path', {d: `M${r(w * 0.1)} ${r(hh - 18)}H${r(w * 0.42)}M${r(w * 0.52)} ${r(hh - 18)}H${r(w * 0.8)}`, stroke: '#9aa7b4', 'stroke-width': 2.4, 'stroke-linecap': 'round'}) : null,
   );
 }
 /** Smallest sheet height for a fitted label. */
@@ -374,7 +375,8 @@ export function trackGeom(ctx, A, F, minF, p, o = {}) {
     const loupeRest = {x: A.x + slotW * 0.6, y: A.y + LR * 1.5};
     Object.assign(G, {C, head, headH, clause: cl, attachArea: {x: attach.x - C.x - 8, y: attach.y - C.y - 8, w: sw + 16, h: sh + 16}, slotW, sw, sh, sheetHeadH, propFit, stepFits, padY, railY, stops, attach, stations, LR, loupeRest, edge: 'top', plateH});
     const last = stops[n];
-    G.rail = [{x: C.x + cl.x + cl.w * 0.5, y: C.y + 2}, {x: C.x + cl.x + cl.w * 0.5, y: railY}, {x: stops[0].x + sw / 2, y: railY}];
+    const rx = Math.min(last.x + sw / 2, C.x + C.w - 40);
+    G.rail = [{x: C.x + cl.x + cl.w - 4, y: C.y + cl.y + 30}, {x: rx, y: C.y + cl.y + 30}, {x: rx, y: railY}, {x: stops[0].x + sw / 2, y: railY}];
     G.lastLeg = [{x: last.x, y: last.y}, {x: last.x, y: railY + 10}, {x: attach.x, y: attach.y}];
   } else {
     const C0h = A.h * (stress ? 0.27 : 0.29);
@@ -520,3 +522,51 @@ export function railNode(ctx, G, pre, lit = 0) {
   );
 }
 export const railFrame = (pre, G, q) => ({[`${pre}rail-lit`]: {'stroke-dashoffset': r((G.railLen + 2) * (1 - clamp(q)))}});
+
+/* ------------------------------------------------------------------------ */
+/* Oblique (exploded-layer) art for the mechanism                           */
+/* ------------------------------------------------------------------------ */
+
+/** Top-face polygon of an oblique footprint: front-left (x, y), width w, depth offset (ox, -oy). */
+export const facePts = (x, y, w, ox, oy) => [{x, y}, {x: x + w, y}, {x: x + w + ox, y: y - oy}, {x: x + ox, y: y - oy}];
+export const ptsD = pts => pts.map((q, i) => `${i ? 'L' : 'M'}${r(q.x)} ${r(q.y)}`).join('') + 'Z';
+
+/**
+ * Oblique slab (box seen from the front-top): top face, front face (height th), right side face. Origin = front-left
+ * corner of the top face. Returns the group; the front face is a plain band where the caller may print text.
+ */
+export function obliqueSlab(o) {
+  const {w, ox, oy, th} = o;
+  const top = facePts(0, 0, w, ox, oy);
+  return g({name: o.name},
+    h('path', {d: ptsD([{x: 8, y: 14}, {x: w + 8, y: 14}, {x: w + ox + 8, y: 14 - oy}, {x: w + ox + 8, y: th + 14 - oy}, {x: w + 8, y: th + 14}, {x: 8, y: th + 14}]), fill: o.shadow}),
+    h('path', {d: ptsD([{x: w, y: 0}, {x: w + ox, y: -oy}, {x: w + ox, y: th - oy}, {x: w, y: th}]), fill: o.side, stroke: INK, 'stroke-width': 2.2, 'stroke-linejoin': 'round'}),
+    h('path', {d: ptsD([{x: 0, y: 0}, {x: w, y: 0}, {x: w, y: th}, {x: 0, y: th}]), fill: o.front, stroke: INK, 'stroke-width': 2.4, 'stroke-linejoin': 'round'}),
+    h('path', {d: ptsD(top), fill: o.top, stroke: INK, 'stroke-width': 2.4, 'stroke-linejoin': 'round'}),
+    o.lines ? h('path', {d: o.lines, stroke: o.lineColor ?? '#e6dfcf', 'stroke-width': 4, 'stroke-linecap': 'round'}) : null,
+  );
+}
+
+/**
+ * Gate ring of one step (an oblique frame the amendment layer passes through), split into the part behind the layer
+ * (`back`) and the part in front (`front`). Origin = front-left corner of the inner opening; the ring is `bw` wide.
+ */
+export function gateRing(ctx, o) {
+  const {w, ox, oy, bw} = o;
+  const outer = facePts(-bw, bw * 0.6, w + bw * 2, ox + bw * 0.4, oy + bw * 1.2);
+  const inner = facePts(0, 0, w, ox, oy);
+  const ring = ptsD(outer) + ptsD(inner);
+  const frontStrip = ptsD([outer[0], outer[1], inner[1], inner[0]]);
+  const fill = o.fill ?? '#c7ced6';
+  return {
+    back: g(null,
+      h('path', {d: ring, 'fill-rule': 'evenodd', fill, stroke: INK, 'stroke-width': 2, 'stroke-linejoin': 'round'}),
+      h('path', {name: o.litName ? `${o.litName}-b` : undefined, d: ring, 'fill-rule': 'evenodd', fill: ctx.theme.accent2, opacity: 0}),
+    ),
+    front: g(null,
+      h('path', {d: frontStrip, fill: shade(fill, 0.08), stroke: INK, 'stroke-width': 2, 'stroke-linejoin': 'round'}),
+      h('path', {name: o.litName ? `${o.litName}-f` : undefined, d: frontStrip, fill: ctx.theme.accent2, opacity: 0}),
+      o.pips ? pips(o.pips, w / 2, bw * 0.3, Math.min(bw * 0.28, 6), '#ffffff') : null,
+    ),
+  };
+}

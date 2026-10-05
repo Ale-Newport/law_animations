@@ -159,7 +159,7 @@ function compose(ctx, P, k) {
       const box = {w: b0.w - pad * 2, h: b0.h - pad * 2 - Math.min(40, b0.h * 0.06)};
       let st = null;
       for (const bagMode of ['left', 'top']) {
-        const sA = fitStation(box, {n, texts: tA, F, bagMode, title: null, tagText: ctx.show('key'), sheetFrac: [0.34, 0.44, 0.54, 0.62], minS: 26, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...P.records.map(rw => rw.field).map(t => measure(String(t || ''), Math.max(16, sz), 700)))) : null});
+        const sA = fitStation(box, {n, texts: tA, F, bagMode, title: null, tagText: ctx.show('key'), sheetFrac: [0.34, 0.44, 0.54, 0.62], minS: 26, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...P.records.map(rw => rw.field).map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null});
         if (!sA) continue;
         // B uses the same S and sheet width as A (identical scale); only its row texts differ
         if (!st || sA.G.S > st.G.S) st = sA;
@@ -194,7 +194,7 @@ const scene = {
     const linkedB = linkedA.map((v, i) => (i === k ? false : v));
     const tagFits = linked => P.items.map((_, i) => {
       if (!ctx.show('key') || !linked[i]) return null;
-      const f = fitG(P.records[i].field, {maxWidth: G.tagW * 0.62, size: Math.min(C.F, G.tagH * 0.5), minSize: 16, maxLines: 1, weight: 700});
+      const f = fitG(P.records[i].field, {maxWidth: G.tagW * 0.62, size: Math.max(17, Math.min(C.F, G.tagH * 0.5)), minSize: 17, maxLines: 1, weight: 700});
       return f.ok ? f : null;
     });
     const sides = [0, 1].map(si => {

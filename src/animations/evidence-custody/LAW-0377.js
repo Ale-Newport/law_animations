@@ -94,10 +94,8 @@ function legendRows(ctx, P) {
   const rows = [];
   if (showKey) P.items.forEach((it, i) => rows.push({kind: 'item', icon: `item-${it.kind}`, text: `${it.id} — ${it.label}${entryOf(P, i) ? '' : ` · ${P.labels.noEntry}`}`, name: `lg-item${i}`}));
   if (showAll) P.custodians.forEach((c, i) => rows.push({kind: 'item', icon: i === 0 ? 'glove' : 'custodian', text: `${c.name} · ${c.role}`, name: `lg-cus${i}`}));
-  if (showAll) P.timestamps.forEach((t, i) => rows.push({kind: 'item', icon: 'clock', text: `${t.label} · ${t.time}`, name: `lg-time${i}`}));
-  if (showAll) rows.push({kind: 'item', icon: 'bag', text: P.objectLabels.bag, name: 'lg-bag'});
-  if (showAll) rows.push({kind: 'item', icon: 'rack', text: P.objectLabels.rack, name: 'lg-rack'});
-  if (showAll) rows.push({kind: 'item', icon: 'glove', text: P.actorLabels.a, name: 'lg-hand'});
+  if (showAll) rows.push({kind: 'item', icon: 'clock', text: P.timestamps.map(t => `${t.label} ${t.time}`).join(' · '), name: 'lg-time'});
+  if (showAll) rows.push({kind: 'item', icon: 'bag', text: `${P.objectLabels.bag} · ${P.objectLabels.rack} · ${P.actorLabels.a}`, name: 'lg-props'});
   if (showAll) P.annotations.forEach((a, i) => rows.push({kind: 'item', icon: 'ring', color: notes[i % 2], text: a.text, name: `note${i}`}));
   if (showKey) rows.push({kind: 'state', text: P.stateCaption || ctx.t[P.finalState], name: 'state-tag'});
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
@@ -119,13 +117,13 @@ const scene = {
     const P = localised(ctx, EN, ES);
     const n = P.items.length;
     const texts = P.items.map((_, i) => rowText(P, i));
-    const C = composeScene(ctx, {n, texts, title: ctx.show('key') ? P.objectLabels.list : null, rows: () => legendRows(ctx, P), tagText: ctx.show('key'), armRoom: true, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...P.records.map(rw => rw.field).map(t => measure(String(t || ''), Math.max(16, sz), 700)))) : null}, panelLayout);
+    const C = composeScene(ctx, {n, texts, title: ctx.show('key') ? P.objectLabels.list : null, rows: () => legendRows(ctx, P), tagText: ctx.show('key'), armRoom: true, minS: 34, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...P.records.map(rw => rw.field).map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null}, panelLayout);
     // panel layouts were computed per F inside composeScene; recompute for the chosen F
     const G = C.st.G, SF = C.st.SF;
     const linked = P.items.map((_, i) => Boolean(entryOf(P, i)));
     const tagFits = P.items.map((_, i) => {
       if (!ctx.show('key') || !linked[i]) return null;
-      const f = fitG(P.records[i].field, {maxWidth: G.tagW * 0.62, size: Math.min(C.F, G.tagH * 0.5), minSize: 16, maxLines: 1, weight: 700});
+      const f = fitG(P.records[i].field, {maxWidth: G.tagW * 0.62, size: Math.max(17, Math.min(C.F, G.tagH * 0.5)), minSize: 17, maxLines: 1, weight: 700});
       return f.ok ? f : null;
     });
     const X = v => C.ox + v, Y = v => C.oy + v;

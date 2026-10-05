@@ -5,7 +5,7 @@
 // the previous datum exactly.
 // Windows (u, 8 s): context 0–0.20 (bench steps aside 0.10–0.19) · lens opens 0.20–0.32 (context copy hidden from
 // 0.20) · ring 0.34–0.40 · old value lifts 0.45–0.51 · trace 0.50–0.56 · new value 0.54–0.62 · still 0.62–0.75 · lens
-// closes 0.75–0.85 · context after-state from 0.85 · Δ 0.86–0.92 · legend 0.85–0.90 · bench back 0.85–0.93.
+// closes 0.75–0.81 · context after-state from 0.81 · Δ 0.82–0.88 · legend 0.81–0.86 · bench back 0.81–0.90.
 // Coordinator decision (2026-10-05, coordinator message to the evidence-custody-04 builder, under the standing rule
 // 2026-09-26 / AUTHORING item 20): long-labels-stress lengths/counts are capped to the longest values that keep 1:1 at its
 // floors with text >= 16 px; every field stays at least as long as baseline and counts stay >= baseline.
@@ -37,9 +37,10 @@ suppliedTextSuite(ID, {
 });
 
 ratioChecks(ID, 'real magnification; one copy of the datum at a time; composition fits', [
+  {at: [1], presets: ['baseline-es'], tv: ['all'], fn: 's.textPx >= 19.5', label: 'baseline-es keeps text at >= 19.5 px (baseline floor) in every ratio'},
   {at: [1], fn: 's.problems.length === 0', label: 'a composition fits'},
   {at: [0.4], fn: 's.zoom >= 1.5 && s.dest.w >= s.source.w * 1.5', label: 'the lens magnifies >= 1.5x'},
-  {at: times(0.2, 0.849, 0.01), fn: 's.ctxBefore === 0 && s.ctxAfter === 0', label: 'while the lens is open the context copy of the datum is hidden'},
+  {at: times(0.2, 0.809, 0.01), fn: 's.ctxBefore === 0 && s.ctxAfter === 0', label: 'while the lens is open the context copy of the datum is hidden'},
   {at: times(0.62, 0.75, 0.01), fn: 's.lensAfter === 1 && s.lensBefore === 0', label: 'the new value is readable and still for >= ~1 s'},
   {at: [0.4], dom: "(() => { const el = svg.querySelector('[data-node=lens-border]'); const b = el.getBBox(); const m = svg.getScreenCTM().inverse().multiply(el.getScreenCTM()); const vb = svg.viewBox.baseVal; return Math.min(b.width * m.a, b.height * m.d) / Math.min(vb.width, vb.height) >= 0.35; })()", label: 'the lens is a real inspection window (smaller side >= 35 % of the frame short side)'},
 ]);

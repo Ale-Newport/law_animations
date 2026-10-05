@@ -138,6 +138,15 @@ function legendFor(ctx, rows, F, opt) {
       }
       if (best) PLs = best.cols;
     }
+    if (cols === 3 && rows.length >= 3) {
+      let best3 = null;
+      for (let i = 1; i < rows.length - 1; i++) for (let j = i + 1; j < rows.length; j++) {
+        const ps = [rows.slice(0, i), rows.slice(i, j), rows.slice(j)].map(rr => panelLayout(ctx, rr, {w: colW, F}));
+        const hh = Math.max(...ps.map(q => q.h));
+        if (!best3 || hh < best3.h) best3 = {h: hh, cols: ps};
+      }
+      PLs = best3.cols;
+    }
     const ph = Math.max(...PLs.map(q => q.h));
     return {bench: {x: 0, y: 0, w: DW, h: DH - ph - gap}, panel: {x: 4, y: DH - ph}, PL: {cols: PLs, h: ph, ok: PLs.every(q => q.ok), colW}};
   }
@@ -149,8 +158,9 @@ function legendFor(ctx, rows, F, opt) {
 function compose(ctx, P, recs, LG, st) {
   const {bench, PL} = LG;
   const inset = Math.max(14, Math.min(bench.w, bench.h) * 0.035);
-  const mat = {x: bench.x + inset * 1.6, y: bench.y + inset * 1.6, w: bench.w - inset * 3.2, h: bench.h - inset * 3.2};
-  const G = bench.h > 200 && bench.w > 200 ? rfStage(mat, {kind: P.items[0].kind, targets: P.views.map(v => v.target), slots: P.views.length, rows: recs.length, ...st}) : null;
+  const mat = {x: bench.x + inset, y: bench.y + inset, w: bench.w - inset * 2, h: bench.h - inset * 2};
+  let G = bench.h > 200 && bench.w > 200 ? rfStage(mat, {kind: P.items[0].kind, targets: P.views.map(v => v.target), slots: P.views.length, rows: recs.length, ...st}) : null;
+  if (G && st.tray === 'top' && G.tray.pw < G.S * 1.2) G = rfStage(mat, {kind: P.items[0].kind, targets: P.views.map(v => v.target), slots: P.views.length, rows: recs.length, ...st, sCap: G.tray.pw / 1.2});
   const printOk = G && G.tray.pw >= G.S * 1.2;
   const ok = (!PL || PL.ok) && G && G.fits && G.S >= 95 && printOk;
   return {bench, mat, panel: LG.panel, PL, G, ok, problems: [PL && !PL.ok && 'panel-text', (!G || !G.fits) && 'stage-fit', (!G || G.S < 95) && 'stage-small', G && !printOk && 'print-small'].filter(Boolean)};
@@ -173,11 +183,11 @@ const scene = {
     const rows = legendRows(ctx, P, recs);
     const shape = ctx.view.shape;
     const opts = shape === 'portrait' ? [{mode: 'below', cols: 1}, {mode: 'below', cols: 2}]
-      : shape === 'square' ? [{mode: 'side', pw: 0.4}, {mode: 'side', pw: 0.46}, {mode: 'side', pw: 0.52}, {mode: 'below', cols: 2}]
+      : shape === 'square' ? [{mode: 'side', pw: 0.4}, {mode: 'side', pw: 0.46}, {mode: 'side', pw: 0.52}, {mode: 'below', cols: 2}, {mode: 'below', cols: 3}]
         : [{mode: 'side', pw: 0.26}, {mode: 'side', pw: 0.3}, {mode: 'side', pw: 0.35}];
     const stages = shape === 'landscape'
       ? [0.26, 0.3, 0.34].flatMap(f => [{tray: 'right', trayFrac: f, approach: 'left'}, {tray: 'right', trayFrac: f, approach: 'down'}])
-      : [{tray: 'right', trayFrac: 0.3, approach: 'down'}, {tray: 'right', trayFrac: 0.36, approach: 'down'}, {tray: 'top', trayFrac: 0.24, approach: 'down'}, {tray: 'top', trayFrac: 0.3, approach: 'down'}, {tray: 'top', trayFrac: 0.36, approach: 'down'}, {tray: 'top', trayFrac: 0.42, approach: 'down'}];
+      : [{tray: 'right', trayFrac: 0.3, approach: 'down'}, {tray: 'right', trayFrac: 0.36, approach: 'down'}, {tray: 'top', trayFrac: 0.24, approach: 'down'}, {tray: 'top', trayFrac: 0.3, approach: 'down'}, {tray: 'top', trayFrac: 0.36, approach: 'down'}, {tray: 'top', trayFrac: 0.42, approach: 'down'}, {tray: 'right', trayFrac: 0.3, approach: 'left'}, {tray: 'right', trayFrac: 0.36, approach: 'left', trayCols: 2}, {tray: 'right', trayFrac: 0.42, approach: 'down', trayCols: 2}];
     let C = null, best = null, bestScore = -1, firstOk = -1;
     for (const [fi, F] of SIZES.entries()) {
       if (firstOk >= 0 && fi > firstOk + 2) break;

@@ -35,7 +35,7 @@ import {
 
 const ID = 'LAW-0376';
 const DURATION = 8000;
-const W = {aside: [0.1, 0.19], open: [0.2, 0.32], ring: [0.34, 0.4], fadeOld: [0.45, 0.51], trace: [0.5, 0.56], writeNew: [0.54, 0.62], close: [0.75, 0.85], back: [0.85, 0.93], marker: [0.86, 0.92], legend: [0.85, 0.9]};
+const W = {aside: [0.1, 0.19], open: [0.2, 0.32], ring: [0.34, 0.4], fadeOld: [0.45, 0.51], trace: [0.5, 0.56], writeNew: [0.54, 0.62], close: [0.75, 0.81], back: [0.81, 0.9], marker: [0.82, 0.88], legend: [0.81, 0.86]};
 const SIZES = [24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 const FONT = "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif";
 
@@ -261,7 +261,7 @@ const scene = {
     const lg = new Map();
     for (const [fi, F] of SIZES.entries()) {
       if (firstOk >= 0 && fi > firstOk + 1) break;
-      for (const o0 of opts) for (const [orient, split] of [['h', 0.62], ['h', 0.55], ['h', 0.48], ['v', 0.48], ['v', 0.42], ['v', 0.36]]) for (const tr of [{tray: 'right', trayFrac: 0.34}, {tray: 'right', trayFrac: 0.26, approach: 'left'}]) {
+      for (const o0 of opts) for (const [orient, split] of [['h', 0.62], ['h', 0.55], ['h', 0.48], ['v', 0.48], ['v', 0.42], ['v', 0.36]]) for (const tr of shape === 'portrait' ? [{tray: 'right', trayFrac: 0.34}, {tray: 'top', trayFrac: 0.3}, {tray: 'top', trayFrac: 0.24}] : [{tray: 'right', trayFrac: 0.34}, {tray: 'right', trayFrac: 0.26, approach: 'left'}]) {
         const key = `${F}|${JSON.stringify(o0)}`;
         if (!lg.has(key)) lg.set(key, legendFor(ctx, rowsL, F, o0));
         const LG = lg.get(key);
@@ -312,7 +312,7 @@ const scene = {
     const s0 = G.tray.slots[C.fi];
     const mR = Math.max(16, G.S * 0.12);
     // beside the caption tab, on the side away from the threads (right when there is room, else below the tab)
-    const mk = s0.x + pw + mR * 2.4 <= C.mat.x + C.mat.w ? {x: s0.x + pw + mR * 1.3, y: s0.y + ph + C.tabH * 0.5}
+    const mk = s0.x + pw + mR * 3.4 <= C.mat.x + C.mat.w ? {x: s0.x + pw + mR * 1.4, y: s0.y + ph + C.tabH * 0.5}
       : {x: s0.x + pw - mR * 1.2, y: s0.y + ph + C.tabH + mR * 1.15};
     return g({name: 'scene'},
       bench.surface,

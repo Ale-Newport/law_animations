@@ -271,7 +271,7 @@ export function fitStation(box, o) {
     // geometry scales linearly in S except the sheet width; binary search the largest S that fits
     const tryS = S => {
       const sheetW = Math.max(box.w * frac, 0);
-      const G = stationGeom({n: o.n, S, sheetW, bagMode: o.bagMode, noBag: o.noBag, tagTextW: o.tagTextW ? o.tagTextW(Math.min(o.F, Math.max(30, S * 0.42) * 0.5)) : 0});
+      const G = stationGeom({n: o.n, S, sheetW, bagMode: o.bagMode, noBag: o.noBag, tagTextW: o.tagTextW ? o.tagTextW(Math.max(17, Math.min(o.F, Math.max(30, S * 0.42) * 0.5))) : 0});
       if (G.W > box.w + 0.5 || G.H > box.h + 0.5) return null;
       if (o.tagText && G.tagH < o.F * 1.45) return null;
       const SF = fitSheet(G, o.texts, o.F, o.title);
@@ -514,7 +514,7 @@ export function composeScene(ctx, o, panelLayoutFn) {
   const opts = o.opts || (shape === 'portrait'
     ? [{legend: 'below', cols: 1, bag: 'top'}, {legend: 'below', cols: 2, bag: 'top'}, {legend: 'below', cols: 1, bag: 'left'}, {legend: 'below', cols: 2, bag: 'left'}]
     : shape === 'square'
-      ? [{legend: 'side', pw: 0.36, bag: 'top'}, {legend: 'side', pw: 0.42, bag: 'top'}, {legend: 'below', cols: 2, bag: 'left'}, {legend: 'side', pw: 0.36, bag: 'left'}]
+      ? [{legend: 'side', pw: 0.36, bag: 'top'}, {legend: 'side', pw: 0.42, bag: 'top'}, {legend: 'below', cols: 2, bag: 'left'}, {legend: 'side', pw: 0.36, bag: 'left'}, {legend: 'below', cols: 2, bag: 'top'}, {legend: 'side', pw: 0.3, bag: 'top'}]
       : [{legend: 'side', pw: 0.27, bag: 'left'}, {legend: 'side', pw: 0.32, bag: 'left'}, {legend: 'side', pw: 0.3, bag: 'top'}]);
   let best = null, bestScore = -1, fallback = null;
   for (const F of F_SIZES) {
@@ -526,13 +526,13 @@ export function composeScene(ctx, o, panelLayoutFn) {
       else if (opt.legend === 'below') {
         const cols = opt.cols || 1;
         const colW = (DW - 8 - (cols - 1) * F * 1.2) / cols;
-        const all = panelLayoutFn(ctx, rows, {w: colW, F});
+        const all = panelLayoutFn(ctx, rows, {w: colW, F, maxLines: 7});
         let PLs = [all];
         if (cols === 2 && rows.length > 1) {
           const half = all.h / 2;
           let idx = all.rows.findIndex(rw => rw.y + rw.h > half);
           idx = Math.max(1, Math.min(rows.length - 1, idx + 1));
-          PLs = [panelLayoutFn(ctx, rows.slice(0, idx), {w: colW, F}), panelLayoutFn(ctx, rows.slice(idx), {w: colW, F})];
+          PLs = [panelLayoutFn(ctx, rows.slice(0, idx), {w: colW, F, maxLines: 7}), panelLayoutFn(ctx, rows.slice(idx), {w: colW, F, maxLines: 7})];
         }
         const ph = Math.max(...PLs.map(q => q.h));
         PL = {cols: PLs, h: ph, ok: PLs.every(q => q.ok), colW};
@@ -540,7 +540,7 @@ export function composeScene(ctx, o, panelLayoutFn) {
         panel = {x: 4, y: DH - ph};
       } else {
         const PW = DW * opt.pw;
-        const one = panelLayoutFn(ctx, rows, {w: PW, F});
+        const one = panelLayoutFn(ctx, rows, {w: PW, F, maxLines: 7});
         PL = {cols: [one], h: one.h, ok: one.ok && one.h <= DH, colW: PW};
         bench = {x: 0, y: 0, w: DW - PW - gap, h: DH};
         panel = {x: DW - PW, y: Math.max(0, (DH - one.h) / 2)};

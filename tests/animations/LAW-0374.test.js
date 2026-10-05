@@ -32,6 +32,7 @@ suppliedTextSuite(ID, {
 });
 
 ratioChecks(ID, 'composition fits; connectors anchored at component edges', [
+  {at: [1], presets: ['baseline-es'], tv: ['all'], fn: 's.textPx >= 19.5', label: 'baseline-es keeps text at >= 19.5 px (baseline floor) in every ratio'},
   {at: [1], fn: 's.problems.length === 0', label: 'a composition fits'},
   {at: [1], fn: 's.connectors.every(c => Math.hypot(c.a.x - c.b.x, c.a.y - c.b.y) > 20)', label: 'every connector has a readable length'},
 ]);

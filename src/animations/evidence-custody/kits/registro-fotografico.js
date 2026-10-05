@@ -202,17 +202,19 @@ export function rfStage(B, o) {
     S = Math.min(zw / bb.w, B.h / bb.h);
     zone = {x: side === 'right' ? B.x : B.x + tw + B.w * gapT, y: B.y, w: zw, h: B.h};
     const sg = o.slotGap ?? 0.05;
-    const pw = Math.min(tw * 0.86, ((B.h * 0.94 - (n - 1) * B.h * sg) / n) * PRINT_AR);
+    const tc = Math.min(n, o.trayCols || 1), tr = Math.ceil(n / tc), cg = B.w * 0.015;
+    const pw = Math.min(((tw - (tc - 1) * cg) / tc) * 0.88, ((B.h * 0.94 - (tr - 1) * B.h * sg) / tr) * PRINT_AR);
     const ph = pw / PRINT_AR;
     // pack: stage and board side by side as one centred group
-    const tu = Math.min(tw, pw / 0.86), gapW = B.w * gapT;
+    const tu = Math.min(tw, (tc * pw + (tc - 1) * cg) / 0.88), gapW = B.w * gapT;
     const total = bb.w * S + gapW + tu;
     const gx = B.x + Math.max(0, (B.w - total) / 2);
     zone = side === 'right' ? {x: gx, y: B.y, w: bb.w * S, h: B.h} : {x: gx + tu + gapW, y: B.y, w: bb.w * S, h: B.h};
     const tx = side === 'right' ? gx + bb.w * S + gapW : gx;
+    const totH = tr * ph + (tr - 1) * B.h * sg, totW = tc * pw + (tc - 1) * cg;
     tray = {x: tx, y: B.y, w: tu, h: B.h, pw, ph, slots: Array.from({length: n}, (_, i) => {
-      const tot = n * ph + (n - 1) * B.h * sg;
-      return {x: tx + (tu - pw) / 2, y: B.y + (B.h - tot) / 2 + i * (ph + B.h * sg), w: pw, h: ph};
+      const row = Math.floor(i / tc), col = i % tc;
+      return {x: tx + (tu - totW) / 2 + col * (pw + cg), y: B.y + (B.h - totH) / 2 + row * (ph + B.h * sg), w: pw, h: ph};
     })};
   } else {
     const th = B.h * o.trayFrac;
@@ -227,6 +229,7 @@ export function rfStage(B, o) {
       return {x: B.x + (B.w - tot) / 2 + i * (pw + B.w * 0.03), y: ty + (th - ph) / 2, w: pw, h: ph};
     })};
   }
+  if (o.sCap && S > o.sCap) S = o.sCap;
   const ox = zone.x + (zone.w - bb.w * S) / 2 - bb.x * S;
   const oy = zone.y + (zone.h - bb.h * S) / 2 - bb.y * S;
   const W = p => ({x: ox + p.x * S, y: oy + p.y * S});
