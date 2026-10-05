@@ -40,18 +40,20 @@ const SIZES = [24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 const DATA = ['maintained', 'suspended'];
 
 const OWN_EN = {
-  scenarioA: {label: 'A · Effect maintained (supplied datum)', caption: ''},
-  scenarioB: {label: 'B · Effect suspended according to the data supplied', caption: ''},
+  scenarioA: {label: 'A · Effect maintained (datum)', caption: ''},
+  scenarioB: {label: 'B · Effect suspended (per data)', caption: ''},
+  routes: {process: 'Process lane (as configured)', review: 'Review lane (as configured)'},
   changedFact: 'Only the supplied datum on the tag differs',
-  sharedFacts: ['Same decision card and appeal card', 'Same lanes, gate and calendar'],
+  sharedFacts: ['Same cards, lanes, gate and calendar'],
   objectLabels: {arrows: 'Chevrons: direction of travel in each lane', calendar: 'Calendar (a fixture; no date marked)'},
   comparisonLabels: {guide: 'only this differs', neutral: 'Two supplied situations side by side: no winner, no outcome'},
 };
 const OWN_ES = {
-  scenarioA: {label: 'A · Efecto mantenido (dato aportado)', caption: ''},
-  scenarioB: {label: 'B · Efecto suspendido según los datos aportados', caption: ''},
+  scenarioA: {label: 'A · Efecto mantenido (dato)', caption: ''},
+  scenarioB: {label: 'B · Efecto suspendido según datos', caption: ''},
+  routes: {process: 'Carril del proceso (según lo configurado)', review: 'Carril del recurso (según lo configurado)'},
   changedFact: 'Solo cambia el dato aportado en la etiqueta',
-  sharedFacts: ['Misma resolución y mismo recurso', 'Mismos carriles, filtro y calendario'],
+  sharedFacts: ['Mismas tarjetas, carriles, filtro y calendario'],
   objectLabels: {arrows: 'Chevrones: sentido de avance en cada carril', calendar: 'Calendario (accesorio; sin fechas marcadas)'},
   comparisonLabels: {guide: 'solo esto cambia', neutral: 'Dos situaciones aportadas lado a lado: sin ganador ni resultado'},
 };
@@ -72,6 +74,11 @@ const sceneSchema = {
 };
 
 const defaultParams = {...EN};
+
+/** Height of the guide's chip (0 when notes are hidden). */
+function guideChipH(ctx, P, F, DW, showAll) {
+  return showAll ? chip(ctx, P.comparisonLabels.guide, {x: 0, y: 0, anchor: 'middle', maxWidth: Math.min(DW * 0.4, 360), size: F, minSize: F, maxLines: 2, weight: 600}).box.h : 0;
+}
 
 function compose(ctx, P, F, v) {
   const {w: DW, h: DH} = ctx.design;
@@ -111,7 +118,7 @@ function compose(ctx, P, F, v) {
       if (!L1.ok) problems.push('strip-text');
     }
   }
-  const stripH = strip ? strip.h + F * 0.9 : 0;
+  const stripH = (strip ? strip.h + F * 0.9 : 0) + (row && !H && guideChipH(ctx, P, F, DW, showAll) ? guideChipH(ctx, P, F, DW, showAll) + F * 0.5 : 0);
   // scenes
   const gapS = F * 1.6;
   const sceneW = row ? (DW - gapS) / 2 : DW;
@@ -119,23 +126,25 @@ function compose(ctx, P, F, v) {
   const guideChip = showAll ? chip(ctx, P.comparisonLabels.guide, {x: 0, y: 0, anchor: 'middle', maxWidth: Math.min(DW * 0.4, 360), size: F, minSize: F, maxLines: 2, weight: 600}) : null;
   if (guideChip && guideChip.fit.truncated) problems.push('guide-text');
   const chipH = guideChip ? guideChip.box.h : 0;
+  const headW = sceneW - badgeR * 2 - F - (row ? 0 : F * 1.6); // (column: the guide runs down the right margin)
   const heads = [P.scenarioA, P.scenarioB].map(sc => {
-    const lab = showKey ? fitG(sc.label, {maxWidth: sceneW - badgeR * 2 - F, size: F * 1.05, minSize: F, maxLines: 2, weight: 700}) : null;
-    const cap = showAll && sc.caption ? fitG(sc.caption, {maxWidth: sceneW - badgeR * 2 - F, size: F, maxLines: 2, weight: 500}) : null;
+    const lab = showKey ? fitG(sc.label, {maxWidth: headW, size: F * 1.05, minSize: F, maxLines: 2, weight: 700}) : null;
+    const cap = showAll && sc.caption ? fitG(sc.caption, {maxWidth: headW, size: F, maxLines: 2, weight: 500}) : null;
     if ((lab && !lab.ok) || (cap && !cap.ok)) problems.push('header-text');
     return {lab, cap, h: Math.max(badgeR * 2, (lab ? lab.height : 0) + (cap ? cap.height + F * 0.25 : 0)) + F * 0.45};
   });
   const headH = Math.max(heads[0].h, heads[1].h);
   const midBand = row ? 0 : Math.max(F * 0.8, chipH + F * 0.4); // (column: the guide's chip sits between the scenes)
-  const m = Math.max(F * 0.7, 12);
+  const m = v.tight ? Math.max(F * 0.45, 9) : Math.max(F * 0.7, 12);
   const availH = row ? DH - stripH - headH : (DH - stripH - midBand) / 2 - headH;
   const inner = {w: sceneW - m * 2, h: availH - m * 2};
-  const tagW = F * (H ? 15 : 8.5);
-  const TM = tagModel(P, {w: tagW, F, maxLines: H ? 3 : 6});
+  // (the narrowest tag that holds both data texts: a narrow tag keeps the middle column of a 'v' board slim)
+  let TM = null;
+  for (const k of H ? [12, 15] : [7.5, 9, 10.5]) { TM = tagModel(P, {w: F * k, F, maxLines: H ? 4 : 7}); if (TM.ok) break; }
   if (!TM.ok) problems.push('tag-text');
   const planFor = cw => {
     const M = cardModel(P, {w: cw, F, showText: showKey && !v.list, compact: v.list, minK: 0.3});
-    return {M, B: boardPlan(M, TM, {F, orient: v.orient, tagTop: H, calEnd: !H})};
+    return {M, B: boardPlan(M, TM, {F, orient: v.orient, tagTop: H, calEnd: false, compact: v.list})};
   };
   const fits = q => q.B.w <= inner.w + 0.5 && q.B.h <= inner.h + 0.5 && q.M.ok;
   const lo = v.list ? F * 4.6 : F * 8.6;
@@ -147,11 +156,12 @@ function compose(ctx, P, F, v) {
     if (!best) best = q;
   }
   let {M, B} = best;
+  if (globalThis.DBG) console.log('  B', Math.round(B.w), Math.round(B.h), 'inner', Math.round(inner.w), Math.round(inner.h), 'M', Math.round(M.w), Math.round(M.h), 'strip', Math.round(stripH), 'head', Math.round(headH));
   if (!fits(best)) problems.push('board');
   if (!M.ok) problems.push('card-text');
   if (!B.ok) problems.push('tag-calendar');
   const extra = (H ? inner.w - B.w : inner.h - B.h) - F * 0.5;
-  if (fits(best) && extra > 0) B = boardPlan(M, TM, {F, orient: v.orient, tagTop: H, calEnd: !H, travel: B.travel + extra * 0.5, run: B.run + extra * 0.5});
+  if (fits(best) && extra > 0) B = boardPlan(M, TM, {F, orient: v.orient, tagTop: H, calEnd: false, compact: v.list, travel: B.travel + extra * 0.5, run: B.run + extra * 0.5});
   // the plates hug their boards (same size in A and B); the whole is centred vertically
   const plateW = sceneW, plateH = B.h + m * 2;
   const sceneH = headH + plateH;
@@ -173,8 +183,8 @@ const scene = {
     const shape = ctx.view.shape;
     const showKey = ctx.show('key');
     const vs = shape === 'portrait' ? [{arr: 'column', orient: 'h'}, {arr: 'column', orient: 'h', stripCols: 2}, {arr: 'column', orient: 'h', list: true, stripCols: 2}]
-      : shape === 'square' ? [{arr: 'row', orient: 'v', list: true}, {arr: 'row', orient: 'v', list: true, tight: true}, {arr: 'column', orient: 'h', list: true, stripCols: 2, tight: true}]
-        : [{arr: 'row', orient: 'h'}, {arr: 'row', orient: 'h', tight: true}, {arr: 'row', orient: 'h', list: true}];
+      : shape === 'square' ? [{arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3, tight: true}, {arr: 'row', orient: 'v', list: true}, {arr: 'row', orient: 'v', list: true, tight: true}, {arr: 'column', orient: 'h', list: true, stripCols: 2, tight: true}]
+        : [{arr: 'row', orient: 'v', cols: 1, stripCols: 3}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3, tight: true}, {arr: 'row', orient: 'h', list: true}];
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [36, 32, 28, ...SIZES] : SIZES).map(x => x / pxu);
     let C = null, best = null;
@@ -222,14 +232,25 @@ const scene = {
     });
     const parts = ol.map(o => h('rect', {x: r(o.x), y: r(o.y), width: r(o.w), height: r(o.h), rx: 12, fill: 'none', stroke: gc, 'stroke-width': 5}));
     let chipNode = null;
-    if (C.row) {
+    const chipAt = (x, y, anchor) => (C.guideChip ? chip(ctx, P.comparisonLabels.guide, {x, y: y - C.chipH / 2, anchor, maxWidth: Math.min(ctx.design.w * 0.4, 360), size: C.F, minSize: C.F, maxLines: 2, weight: 600, stroke: gc}).node : null);
+    const line = d => parts.push(h('path', {d, fill: 'none', stroke: gc, 'stroke-width': 4, 'stroke-linejoin': 'round'}));
+    if (C.row && C.H) {
+      // side by side, tags above the gates: one straight line between the two outlines, through the empty top bands
       const y = ol[0].t.y + ol[0].t.h / 2;
-      parts.push(h('path', {d: `M${r(ol[0].x + ol[0].w)} ${r(y)}H${r(ol[1].x)}`, fill: 'none', stroke: gc, 'stroke-width': 4}));
-      if (C.guideChip) chipNode = chip(ctx, P.comparisonLabels.guide, {x: (ol[0].x + ol[0].w + ol[1].x) / 2, y: y - C.chipH / 2, anchor: 'middle', maxWidth: Math.min(ctx.design.w * 0.4, 360), size: C.F, minSize: C.F, maxLines: 2, weight: 600, stroke: gc}).node;
+      line(`M${r(ol[0].x + ol[0].w)} ${r(y)}H${r(ol[1].x)}`);
+      chipNode = chipAt((ol[0].x + ol[0].w + ol[1].x) / 2, y, 'middle');
+    } else if (C.row) {
+      // side by side, vertical lanes: down each middle column, under the plates, joined below them (chip between)
+      const yb = C.stages[0].y + C.stages[0].h + C.F * 0.25 + C.chipH / 2;
+      const xa = ol[0].x + ol[0].w / 2 + C.F * 0.6, xb = ol[1].x + ol[1].w / 2 + C.F * 0.6;
+      line(`M${r(xa)} ${r(ol[0].y + ol[0].h)}V${r(yb)}H${r(xb)}V${r(ol[1].y + ol[1].h)}`);
+      chipNode = chipAt((xa + xb) / 2, yb, 'middle');
     } else {
-      const x = ol[0].x + ol[0].w - C.F * 1.2;
-      parts.push(h('path', {d: `M${r(x)} ${r(ol[0].y + ol[0].h)}V${r(ol[1].y)}`, fill: 'none', stroke: gc, 'stroke-width': 4}));
-      if (C.guideChip) chipNode = chip(ctx, P.comparisonLabels.guide, {x: x + C.F * 0.6, y: C.stages[1].headY - C.midBand / 2 - C.chipH / 2, anchor: 'start', maxWidth: Math.min(ctx.design.w * 0.4, 360), size: C.F, minSize: C.F, maxLines: 2, weight: 600, stroke: gc}).node;
+      // stacked: out of A's top band to the right margin, down past A's lane ends, into B's top band
+      const xr = C.stages[0].x + C.stages[0].w - C.m * 0.5;
+      const ya = ol[0].t.y + ol[0].t.h / 2, yb = ol[1].t.y + ol[1].t.h / 2;
+      line(`M${r(ol[0].x + ol[0].w)} ${r(ya)}H${r(xr)}V${r(yb)}H${r(ol[1].x + ol[1].w)}`);
+      chipNode = chipAt(xr - C.F * 0.5, C.stages[1].headY - C.midBand / 2, 'end');
     }
     return g({name: 'scene'},
       C.stages.map(nodesFor),

@@ -1,0 +1,70 @@
+{
+  "animationId": "LAW-0359",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Two identical desks show the same case file; the only difference is the supplied state of the focus route (concluded on desk A, pending a check on desk B). The other routes are marked identically on both desks with their supplied states. The guide and the neutral note name no winner, score or outcome; no finality doctrine, and nothing says whether any route is closed or available. Brief fields: decisions, grounds, routes, outcomes, scenarioA, scenarioB, changedFact, sharedFacts and comparisonLabels are editable (plus focusRoute).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three routes; route 1 is the focus (concluded on A, pending a check on B); route 2 is traced and route 3 clipped on both desks.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: two routes with route 2 as the focus (the LOWER track differs), route 1 supplied as pending a check on both desks, other fictional resolutions and two shared facts.",
+      "params": {
+        "decisions": {"title": "Resolution K-7 (fictional)", "ref": "Ref. K-700 (fictional)"},
+        "grounds": "Grounds of K-7: placeholder lines (as supplied)",
+        "routes": [
+          {"label": "Route A (as supplied)", "state": "pending", "end": "Not yet checked in this file"},
+          {"label": "Route B (as supplied)", "state": "concluded", "end": "End entry of route B (as supplied)"}
+        ],
+        "focusRoute": 2,
+        "labels": {"file": "Case file K-700 (fictional)", "key": "As supplied · no conclusion drawn"},
+        "scenarioA": {"label": "Route B supplied as concluded", "caption": "The puck traces route B to its end card"},
+        "scenarioB": {"label": "Route B supplied as pending a check", "caption": "A filter clip is laid across route B"},
+        "changedFact": "Only the supplied state of route B differs (as supplied)",
+        "sharedFacts": ["Same starting resolution K-7", "Route A clipped the same way on both desks"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths: long title, reference, grounds, route labels, end entries, scenario labels and captions, four shared facts and long guide and neutral notes.",
+      "params": {
+        "decisions": {"title": "Starting resolution of this fictional example file", "ref": "Ref. X-100 of this example (fictional)"},
+        "grounds": "Grounds printed on the starting resolution: placeholder text of this example (as supplied)",
+        "routes": [
+          {"label": "First route of this fictional example", "state": "concluded", "end": "End entry of the first route of this fictional example (as supplied)"},
+          {"label": "Second route of this fictional example", "state": "concluded", "end": "Resolution R-3 recorded at the end of this route (fictional example)"},
+          {"label": "Third route of this fictional example", "state": "pending", "end": "Not yet checked in this file; shown as pending a check (as supplied)"}
+        ],
+        "outcomes": {"concluded": "Route concluded in this fictional example (as supplied)", "pending": "Way pending a check in this fictional example (as supplied)"},
+        "labels": {"file": "Case file X-100 of this example (fictional)", "key": "As supplied · no conclusion drawn (placeholder content only)"},
+        "scenarioA": {"label": "The first route supplied as concluded in this example", "caption": "The puck traces the first route to its end card in this example"},
+        "scenarioB": {"label": "The first route supplied as pending a check in this example", "caption": "A filter clip is laid across the first route in this example"},
+        "changedFact": "Only the supplied state of the first route differs between the two desks of this fictional example (as supplied)",
+        "sharedFacts": ["Same starting resolution and same routes in this example", "The second route traced the same way on both desks", "The third route clipped the same way on both desks", "Same file, tray, puck and calendar on both desks"],
+        "comparisonLabels": {"guide": "Only this route differs between the two desks", "neutral": "Two supplied situations of this fictional example side by side: no winner, no score, no outcome"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {"title": "Resolución R-1 (ficticia)", "ref": "Ref. X-100 (ficticia)"},
+        "grounds": "Fundamentos: texto provisional (según lo aportado)",
+        "routes": [
+          {"label": "Ruta 1 (según lo aportado)", "state": "concluded", "end": "Entrada final de la ruta 1 (según lo aportado)"},
+          {"label": "Ruta 2 (según lo aportado)", "state": "concluded", "end": "Resolución R-3 registrada (ficticia)"},
+          {"label": "Ruta 3 (según lo aportado)", "state": "pending", "end": "Aún sin comprobar en este expediente"}
+        ],
+        "outcomes": {"concluded": "Ruta concluida (según lo aportado)", "pending": "Vía pendiente de comprobar (según lo aportado)"},
+        "labels": {"file": "Expediente X-100 (ficticio)", "key": "Según lo aportado · sin conclusión"},
+        "scenarioA": {"label": "Ruta 1 aportada como concluida", "caption": "La ficha traza la ruta 1 hasta su tarjeta final"},
+        "scenarioB": {"label": "Ruta 1 aportada como pendiente de comprobar", "caption": "Se coloca una pinza filtro sobre la ruta 1"},
+        "changedFact": "Solo cambia el estado aportado de la ruta 1 (según lo aportado)",
+        "sharedFacts": ["La misma resolución de partida y las mismas rutas", "Las rutas 2 y 3 se marcan igual en ambas mesas", "El mismo expediente, bandeja y calendario"],
+        "comparisonLabels": {"guide": "Solo esto cambia", "neutral": "Dos situaciones aportadas lado a lado: sin ganador, sin puntuación, sin resultado"}
+      }
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "animationId": "LAW-0358",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. The parts of a case file's route map are taken apart: the starting resolution, the end card of each supplied route, the filter clip and the calendar (a fixture only). Only the supplied relationships are drawn; a plain relation has no arrowhead and nothing is causal unless supplied. Each end card finally shows the state it was supplied with; no finality doctrine, and nothing says whether a route is closed or available. Brief fields: decisions, grounds, routes, outcomes, elements, relationships, focusElement, relationLabels and traversalOrder are editable.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three routes (one concluded, two pending a check); plain relations from the starting resolution to every end card and from the two pending cards to the filter clip; the marker visits origin, route 1, origin, route 2, the filter clip and route 3; the filter clip is enlarged.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: two routes (the first pending a check, the second concluded), a supplied SEQUENCE link from the starting resolution to the concluded card (drawn with its arrowhead and the caption 'sequence as configured'), the filter related to the first card only, no calendar, the marker starting at the filter clip and the starting resolution enlarged.",
+      "params": {
+        "decisions": {"title": "Resolution K-7 (fictional)", "ref": "Ref. K-700 (fictional)"},
+        "grounds": "Grounds of K-7: placeholder lines (as supplied)",
+        "routes": [
+          {"label": "Route A (as supplied)", "state": "pending", "end": "Not yet checked in this file"},
+          {"label": "Route B (as supplied)", "state": "concluded", "end": "Resolution K-9 recorded (fictional)"}
+        ],
+        "elements": [
+          {"id": "origin", "label": "Starting resolution K-7 (as supplied)"},
+          {"id": "end1", "label": "End card of route A"},
+          {"id": "end2", "label": "End card of route B"},
+          {"id": "filter", "label": "Filter clip: marks way A as pending a check"}
+        ],
+        "relationships": [
+          {"from": "origin", "to": "end1", "kind": "relation"},
+          {"from": "origin", "to": "end2", "kind": "sequence"},
+          {"from": "end1", "to": "filter", "kind": "relation"}
+        ],
+        "focusElement": "origin",
+        "traversalOrder": ["filter", "end1", "origin", "end2"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths: long title, reference, grounds, route labels, end entries, part labels and captions, with a supplied communication link.",
+      "params": {
+        "decisions": {"title": "Starting resolution of this fictional example file", "ref": "Ref. X-100 of this example (fictional)"},
+        "grounds": "Grounds printed on the starting resolution: placeholder text of this example (as supplied)",
+        "routes": [
+          {"label": "First route of this fictional example", "state": "concluded", "end": "Resolution R-2 recorded at the end of this route (fictional example)"},
+          {"label": "Second route of this fictional example", "state": "pending", "end": "Not yet checked in this file; shown as pending a check (as supplied)"},
+          {"label": "Third route of this fictional example", "state": "pending", "end": "Not yet checked in this file; shown as pending a check (as supplied)"}
+        ],
+        "outcomes": {"concluded": "Route concluded in this fictional example (as supplied)", "pending": "Way pending a check in this fictional example (as supplied)"},
+        "labels": {"file": "Case file X-100 of this example (fictional)", "key": "As supplied · no conclusion drawn (placeholder content only)"},
+        "elements": [
+          {"id": "origin", "label": "Starting resolution of this fictional example (as supplied)"},
+          {"id": "end1", "label": "End card of the first route of this fictional example"},
+          {"id": "end2", "label": "End card of the second route of this fictional example"},
+          {"id": "end3", "label": "End card of the third route of this fictional example"},
+          {"id": "filter", "label": "Filter clip: marks a way as pending a check (as supplied)"},
+          {"id": "calendar", "label": "Calendar, a fixture of the file (no date is marked)"}
+        ],
+        "relationships": [
+          {"from": "origin", "to": "end1", "kind": "relation"},
+          {"from": "origin", "to": "end2", "kind": "relation"},
+          {"from": "origin", "to": "end3", "kind": "communication"},
+          {"from": "end2", "to": "filter", "kind": "relation"},
+          {"from": "end3", "to": "filter", "kind": "relation"}
+        ],
+        "relationLabels": {"relation": "Linked as supplied in this example (no direction)", "communication": "Communication as supplied in this example", "sequence": "Sequence as configured in this example (illustrative)", "causal": "Causal link as supplied in this example"},
+        "stateCaption": "Origin, routes and the state each was supplied with in this example; nothing else is concluded"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {"title": "Resolución R-1 (ficticia)", "ref": "Ref. X-100 (ficticia)"},
+        "grounds": "Fundamentos: texto provisional (según lo aportado)",
+        "routes": [
+          {"label": "Ruta 1 (según lo aportado)", "state": "concluded", "end": "Resolución R-2 registrada (ficticia)"},
+          {"label": "Ruta 2 (según lo aportado)", "state": "pending", "end": "Aún sin comprobar en este expediente"},
+          {"label": "Ruta 3 (según lo aportado)", "state": "pending", "end": "Aún sin comprobar en este expediente"}
+        ],
+        "outcomes": {"concluded": "Ruta concluida (según lo aportado)", "pending": "Vía pendiente de comprobar (según lo aportado)"},
+        "labels": {"file": "Expediente X-100 (ficticio)", "key": "Según lo aportado · sin conclusión"},
+        "elements": [
+          {"id": "origin", "label": "Resolución de partida (según lo aportado)"},
+          {"id": "end1", "label": "Tarjeta final de la ruta 1"},
+          {"id": "end2", "label": "Tarjeta final de la ruta 2"},
+          {"id": "end3", "label": "Tarjeta final de la ruta 3"},
+          {"id": "filter", "label": "Pinza filtro: marca una vía pendiente de comprobar"},
+          {"id": "calendar", "label": "Calendario (elemento fijo; sin fechas marcadas)"}
+        ],
+        "relationLabels": {"relation": "Vinculados según lo aportado (sin dirección)", "communication": "Comunicación según lo aportado", "sequence": "Secuencia según lo configurado (ilustrativa)", "causal": "Vínculo causal según lo aportado"}
+      }
+    }
+  ]
+}

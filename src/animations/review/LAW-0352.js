@@ -117,7 +117,8 @@ function compose(ctx, P, R, F, v) {
     band = {x: deskW + gap, y: 4, w: bandW - 4, h: DH - 8};
     if (panelH > DH) problems.push('panel-tall');
   } else {
-    const Ha = Math.max(panelH + F * 0.4, lensMinH * 1.05, ctx.view.shape === 'portrait' ? DH * 0.44 : 0);
+    // (1:1 step-back: the desk fills the square at context and hold; while the lens is open it steps back to a corner)
+    const Ha = v.step ? panelH + F * 0.4 : Math.max(panelH + F * 0.4, lensMinH * 1.05, ctx.view.shape === 'portrait' ? DH * 0.44 : 0);
     desk = {x: 0, y: 0, w: DW, h: DH - Ha - gap};
     band = {x: 4, y: DH - Ha, w: DW - 8, h: Ha};
   }
@@ -139,6 +140,19 @@ function compose(ctx, P, R, F, v) {
   // lens source: the tag (at its place before the substitution), its cord stub and the lane above it
   const t0x = tagX(S0.rest.x);
   let src = {x: t0x - F * 0.8, y: B.lane.a.y - B.lane.w * 0.8, w: TW + F * 1.6, h: tagY + tagH + F * 0.6 - (B.lane.a.y - B.lane.w * 0.8)};
+  if (v.step) {
+    // the context steps back to scale sK at the top-left; the lens grows in the freed space (zoom measured at rest)
+    const sK = 0.52;
+    const Lb = {x: 4, y: desk.h * sK + gap, w: DW - 8, h: DH - desk.h * sK - gap - 4};
+    const sw = {x: src.x * sK, y: src.y * sK, w: src.w * sK, h: src.h * sK};
+    const kS = Math.min(Lb.w / sw.w, Lb.h / sw.h, Math.max(1.5, P.detailGeometry.zoom) / sK);
+    if (kS * sK < 1.5 - 1e-6) problems.push('lens-zoom');
+    const dest = {w: sw.w * kS, h: sw.h * kS};
+    dest.x = Lb.x + (Lb.w - dest.w) / 2; dest.y = Lb.y + (Lb.h - dest.h) / 2;
+    if (Math.min(dest.w, dest.h) < shortD * 0.343) problems.push('lens-small');
+    if (problems.length && !v.force) return {ok: false, problems};
+    return {F, pips: !!v.pips, step: true, sK, lsrc: sw, desk, band, side, cols, panelH, box, B, TW, tagH, tagY, tagX, fitB, fitA, path, src, dest, k: kS * sK, shortD, ok: !problems.length, problems};
+  }
   let k = Math.min(band.w / src.w, band.h / src.h, Math.max(1.5, P.detailGeometry.zoom));
   // a real inspection: grow the crop around the tag (more desk) until the lens is large enough
   if (Math.min(src.w, src.h) * k < lensMinH) {
@@ -164,7 +178,7 @@ const scene = {
   layout(ctx) {
     const P = localisedDn(ctx, EN, ES);
     const R = resolve(P);
-    const vs = ctx.view.shape === 'landscape' ? [0.64, 0.6, 0.56, 0.52].map(dw => ({dw})) : ctx.view.shape === 'square' ? [{dw: 1}, ...[0.58, 0.56, 0.6].flatMap(dw => [4.4, 4.1].map(fmin => ({dw, side: true, pips: true, relax: true, rw: 1.2, fmin})))] : [{dw: 1}];
+    const vs = ctx.view.shape === 'landscape' ? [0.64, 0.6, 0.56, 0.52].map(dw => ({dw})) : ctx.view.shape === 'square' ? [{dw: 1, step: true}, {dw: 1}, ...[0.58, 0.56, 0.6].flatMap(dw => [4.4, 4.1].map(fmin => ({dw, side: true, pips: true, relax: true, rw: 1.2, fmin})))] : [{dw: 1}];
     const sizes = !ctx.show('key') ? [30, 26, ...SIZES] : SIZES;
     let C = null, best = null;
     outer: for (const F of sizes) for (const v of vs) {
@@ -173,7 +187,7 @@ const scene = {
       if (c.ok) { C = c; break outer; }
     }
     C = C || compose(ctx, P, R, best.F, {...best.v, force: true});
-    const lensGeom = makeLens(ctx, {name: 'lens', source: C.src, dest: C.dest, content: null, color: ctx.theme.accent2});
+    const lensGeom = makeLens(ctx, {name: 'lens', source: C.lsrc || C.src, dest: C.dest, content: null, color: ctx.theme.accent2});
     return {P, R, C, lensGeom};
   },
   build(ctx, L) {
@@ -191,7 +205,7 @@ const scene = {
     const rail = h('rect', {x: r(C.box.x), y: r(C.tagY - 4), width: r(C.box.w), height: 8, rx: 4, fill: SLATE, opacity: 0.55});
     const showKey = ctx.show('key');
     const slots = B.slots.map(s => g(null,
-      g({transform: T(s.plate.x, s.plate.y)}, plateArt(ctx, {w: s.plate.w, h: s.plate.h, F: C.F, fit: s.plate.fit, pin: false}),
+      g({transform: T(s.plate.x, s.plate.y)}, plateArt(ctx, {w: s.plate.w, h: s.plate.h, F: C.F, fit: s.plate.fit, pin: false, textName: s.plate.fit ? `ptxt${s.i}` : undefined}),
         C.pips && s.station ? h('rect', {x: r(C.F * 0.3), y: 3, width: r(s.plate.w - C.F * 0.6), height: r(s.plate.h - 6), rx: 8, fill: th.card}) : null,
         C.pips && s.station ? g({transform: T(s.plate.w / 2, s.plate.h / 2)}, indexPip(s.i, s.plate.h * 0.36)) : null),
       g({transform: T(s.tray.x, s.tray.y)}, s.station ? trayArt(ctx, {w: s.tray.w, h: s.tray.h, mouth: 'bottom'}) : matArt(ctx, {w: s.tray.w, h: s.tray.h})),
@@ -207,7 +221,7 @@ const scene = {
       h('line', {name: 'lcord', stroke: INK, 'stroke-width': 2.5}),
       g({name: 'ltagw'}, tag('ltag', C.fitB, C.fitA)),
     );
-    const L2 = makeLens(ctx, {name: 'lens', source: C.src, dest: C.dest, content: lensContent, color: th.accent2});
+    const L2 = makeLens(ctx, {name: 'lens', source: C.lsrc || C.src, dest: C.dest, content: C.step ? g({transform: `scale(${C.sK})`}, lensContent) : lensContent, color: th.accent2});
     void showKey;
     return g({name: 'scene'},
       g({name: 'context'},
@@ -235,12 +249,22 @@ const scene = {
     const {C, R} = L;
     const B = C.B;
     const nodes = {};
-    const kOpen = ease.inOutCubic(seg(u, ...W.open));
+    // (1:1 step-back: the lens opens while the context steps back, and closes while it comes forward)
+    const kOpen = ease.inOutCubic(C.step ? seg(u, 0.16, 0.26) : seg(u, ...W.open));
     const kClose = ease.inOutCubic(seg(u, ...W.close));
     const p = kOpen * (1 - kClose);
     Object.assign(nodes, L.lensGeom.frame(p, 0));
-    const lensVis = clamp((p - 0.86) / 0.1);
+    // (step-back: the lens grows in free space, away from its source, so it is shown early; its copy's text only from
+    // 45 % open, when it renders above the size floor)
+    const lensVis = C.step ? clamp((p - 0.3) / 0.15) : clamp((p - 0.86) / 0.1);
+    const lensText = C.step ? (p >= 0.45 ? 1 : 0) : 1;
     nodes.lens = {opacity: r(lensVis, 3)};
+    let ctxS = 1;
+    if (C.step) {
+      const back = ease.inOutCubic(seg(u, 0.17, 0.27)), fwd = ease.inOutCubic(seg(u, 0.64, 0.68));
+      ctxS = 1 - (1 - C.sK) * (back - fwd);
+    }
+    nodes.context = {transform: `scale(${r(ctxS, 4)})`};
     const kOld = seg(u, ...W.oldOut), kNew = seg(u, ...W.newIn);
     const kMove = R.changed ? ease.inOutCubic(seg(u, ...W.move)) : 0;
     const kDoor = R.changed ? ease.inOutCubic(seg(u, ...W.doors)) : 0;
@@ -260,12 +284,15 @@ const scene = {
     nodes.ghost = {opacity: r(R.changed ? clamp(kMove * 3) : 0, 3)};
     const lensHolds = lensVis > 0;
     const oldOp = 1 - kOld, newOp = kNew;
-    nodes['ltag-b'] = {opacity: r(oldOp, 3), transform: T(0, -C.F * 0.8 * kOld)};
-    nodes['ltag-a'] = {opacity: r(newOp, 3), transform: T(0, 0)};
+    nodes['ltag-b'] = {opacity: r(oldOp * lensText, 3), transform: T(0, -C.F * 0.8 * kOld)};
+    nodes['ltag-a'] = {opacity: r(newOp * lensText, 3), transform: T(0, 0)};
+    // context text hides while the context is stepped back (it would render under the size floor)
+    const small = ctxS < 0.95;
+    for (const sl of B.slots) if (sl.plate.fit) nodes[`ptxt${sl.i}`] = {opacity: small ? 0 : 1};
     // the context tag is blank while the lens holds the datum (between open and close it shows nothing)
     const hiding = 0;
-    const ctxOld = !lensHolds && !hiding && u < W.newIn[0] ? 1 : 0;
-    const ctxNew = !lensHolds && !hiding && u >= W.newIn[0] ? 1 : 0;
+    const ctxOld = !lensHolds && !hiding && !small && u < W.newIn[0] ? 1 : 0;
+    const ctxNew = !lensHolds && !hiding && !small && u >= W.newIn[0] ? 1 : 0;
     nodes['ctag-b'] = {opacity: ctxOld, transform: T(0, 0)};
     nodes['ctag-a'] = {opacity: ctxNew, transform: T(0, 0)};
     const mk = seg(u, ...W.marker);
@@ -290,9 +317,9 @@ const scene = {
         dest: {x: r(C.dest.x), y: r(C.dest.y), w: r(C.dest.w), h: r(C.dest.h)},
         tag: R2(tagW), lensTag: lensHolds ? R2({x: C.dest.x + (tagW.x - C.src.x) * C.k, y: C.dest.y + (tagW.y - C.src.y) * C.k}) : null,
         folderC: R2(f), atBefore: atRest(R.target), atAfter: atRest(R.after), move: r(kMove, 3),
-        datumInLens: lensHolds, ctxOld, ctxNew, lensOld: r(lensHolds ? oldOp : 0, 3), lensNew: r(lensHolds ? newOp : 0, 3),
+        datumInLens: lensHolds, ctxOld, ctxNew, lensOld: r(lensHolds ? oldOp * lensText : 0, 3), lensNew: r(lensHolds ? newOp * lensText : 0, 3),
         ghost: r(R.changed ? clamp(kMove * 3) : 0, 3), marker: r(mk, 3), changed: R.changed,
-        before: R.target, after: R.after, panel: r(clamp(panelOp), 3),
+        before: R.target, after: R.after, panel: r(clamp(panelOp), 3), contextScale: r(ctxS, 4),
         problems: C.problems, textPx: r(C.F, 1),
         desk: {x: r(C.desk.x), y: r(C.desk.y), w: r(C.desk.w), h: r(C.desk.h)},
       },

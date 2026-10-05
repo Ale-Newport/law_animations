@@ -1,0 +1,394 @@
+{
+  "id": "LAW-0356",
+  "slug": "review-09-inspect",
+  "title": "Effects during review — a lens enlarges the filter gate and its tag; one supplied datum is substituted and the gate turns with it before the board returns with a changed-datum marker",
+  "titleEs": "Efectos durante revisión — Inspección y cambio de un dato",
+  "category": "review",
+  "categoryName": "Impugnaciones y revisión",
+  "motif": "Efectos durante revisión",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The two-lane board at the moment the decision card reaches the filter gate (the appeal card already in its bay). A lens opens beside the board with a real enlarged copy of the gate, its tag and the lit chevrons past it; while the lens holds the tag, the context tag is blank. One supplied datum is substituted on the tag (by default \"effect maintained\" → \"effect suspended according to the data supplied\"); then the slats turn closed and the chevrons go grey — the local consequence. The lens closes; the context shows the new datum with a neutral Δ marker, and the legend keeps the previous datum traceable. Seeking back restores the old datum. No doctrine, dates or time limits; jurisdiction unspecified.",
+  "tags": [
+    "review",
+    "effects during review",
+    "inspect",
+    "lens",
+    "filter gate",
+    "supplied datum",
+    "substitution",
+    "changed marker",
+    "parallel lanes"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/review/kits/efectos-durante-revision.js",
+    "src/animations/review/kits/confirmacion-ilustrativa.js",
+    "src/frameworks/lens.js",
+    "src/primitives/markers.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "decisions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Fictional title printed on the decision card"
+          },
+          "ref": {
+            "type": "string",
+            "maxLength": 44,
+            "description": "Reference tag printed on the decision card (fictional)"
+          }
+        },
+        "required": [
+          "title",
+          "ref"
+        ],
+        "description": "The decision card that advances along the process lane (fictional; placeholder content)"
+      },
+      "grounds": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "appeal": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Grounds line printed on the appeal card (as supplied)"
+          }
+        },
+        "required": [
+          "appeal"
+        ],
+        "description": "The appeal card that advances along the review lane (fictional; placeholder content, never assessed)"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "process": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of the process lane (keep \"as configured\")"
+          },
+          "review": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of the review lane (keep \"as configured\")"
+          }
+        },
+        "required": [
+          "process",
+          "review"
+        ],
+        "description": "Captions of the two lanes (as configured; the lanes never cross and imply no hierarchy)"
+      },
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "maintained": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Tag text when the supplied datum says the effect is maintained"
+          },
+          "suspended": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Tag text when the supplied datum says the effect is suspended"
+          }
+        },
+        "required": [
+          "maintained",
+          "suspended"
+        ],
+        "description": "The two possible supplied data printed on the filter tag. The animation never infers which applies"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "filter": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of the filter gate (it shows the supplied datum only)"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "filter",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "arrows": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption for the chevrons past the gate"
+          },
+          "calendar": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for the calendar (a fixture only)"
+          }
+        },
+        "required": [
+          "arrows",
+          "calendar"
+        ],
+        "description": "Captions of the board's objects in the legend"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Caption of the context (the board at that moment)"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of the changed-datum marker"
+          },
+          "previous": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the previous datum kept traceable in the legend"
+          }
+        },
+        "required": [
+          "context",
+          "marker",
+          "previous"
+        ],
+        "description": "Labels of the inspection"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "maintained",
+          "suspended"
+        ],
+        "description": "The datum after the substitution (as supplied). The datum before is the other one: maintained → suspended or suspended → maintained"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "decisions": {
+      "title": "Decision 1 (fictional)",
+      "ref": "Ref. R-01 (fictional)"
+    },
+    "grounds": {
+      "appeal": "Appeal: placeholder grounds (as supplied)"
+    },
+    "routes": {
+      "process": "Process lane: the decision card (as configured)",
+      "review": "Review lane: the appeal card (as configured)"
+    },
+    "outcomes": {
+      "maintained": "Effect maintained (supplied datum)",
+      "suspended": "Effect suspended according to the data supplied"
+    },
+    "labels": {
+      "filter": "Filter gate: set by the supplied datum only",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "objectLabels": {
+      "arrows": "Chevrons past the gate: lit while the datum lets the card pass",
+      "calendar": "Calendar (a fixture; no date marked)"
+    },
+    "contextLabels": {
+      "context": "The board when the decision card reaches the gate (as supplied)",
+      "marker": "Δ Changed datum: the tag on the filter gate",
+      "previous": "Previous datum"
+    },
+    "finalState": "suspended"
+  }
+}

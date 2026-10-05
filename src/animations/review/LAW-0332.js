@@ -41,6 +41,7 @@ import {h, g} from '../../core/svg.js';
 import {T, scaleAbout} from '../../core/transform.js';
 import {seg, clamp, ease, lerp, r} from '../../core/time.js';
 import {fitDesign} from '../../core/layout.js';
+import {measure} from '../../core/text.js';
 import {str, num, obj, oneOf} from '../../schemas/fields.js';
 import {changedMarker} from '../../primitives/markers.js';
 import {pxPerUnit, overlaps} from '../hearings/kits/apertura-audiencia.js';
@@ -144,21 +145,35 @@ const scene = {
     const gap = 16;
     const zoomMax = P.detailGeometry.zoom;
     // ---- the record's fits (template units) at a plate text multiple rs
+    // (fix-review-03, cold create: while the layout is searched, the record is wrapped exactly only once per plate size
+    // and 10 % band of text sizes, and scaled to the size asked for — text widths scale with the size; the chosen
+    // composition is then composed again with the exact record)
+    let approx = true;
     const recMemo = new Map();
-    let quant = true;
-    const recordFor = (Ft0, rs) => {
-      const Ft = quant ? Math.exp(Math.round(Math.log(Ft0) / 0.03) * 0.03) : Ft0;
-      const rk = `${Ft}|${rs}|${maxRecLines}`;
-      if (!recMemo.has(rk)) recMemo.set(rk, recordFor0(Ft, rs));
-      return recMemo.get(rk);
+    const scaleFit = (f, q) => (f ? {...f, width: f.width * q, height: f.height * q, size: f.size * q} : f);
+    const recordFor = (Ft, rs) => {
+      if (!approx || !showKey) return recordFor0(Ft, rs);
+      const Fr = Math.exp(Math.round(Math.log(Ft) / 0.5) * 0.5);
+      const key = `${Fr}|${rs}|${maxRecLines}`;
+      if (!recMemo.has(key)) recMemo.set(key, recordFor0(Fr, rs));
+      const R0 = recMemo.get(key), q = Ft / Fr;
+      const fits = {before: scaleFit(R0.fits.before, q), after: scaleFit(R0.fits.after, q)};
+      const dockFits = {was: scaleFit(R0.dockFits.was, q), rec: scaleFit(R0.dockFits.rec, q)};
+      return {fits, dockFits, layout: recordLayout(fits, dockFits, Math.max(16, Ft * rs * 0.46)), rs};
     };
     const recordFor0 = (Ft, rs) => {
       if (!showKey) return {fits: null, dockFits: null, layout: recordLayout(null, null, Math.max(26, 22)), rs};
       const pick = text => {
         let best = null;
+        // (fix-review-03, cold create: the words alone, without spaces, are a lower bound of the width the lines take — a
+        // width at which they cannot fit in five lines is certainly truncated, and one at which they cannot fit in the
+        // allowed lines can only be the fallback, so neither is wrapped)
+        const sz = Ft * rs;
+        const words = text.split(/[\s\u00a0]+/).filter(Boolean).reduce((a, w) => a + measure(w, sz, 600, 'sans'), 0) * 0.98;
         // (a compact block — the narrowest wrap with no one-word line, at most four lines —: the plate is near square, so
         // its enlarged copy fills the lens with text)
         for (const q of [5, 6, 7, 8, 9, 10, 11, 12, 12.75, 13.5, 14.25, 15, 16.5, 19]) {
+          if (words > 5 * sz * q || (best && words > maxRecLines * sz * q)) continue;
           const ft = fitSa(text, {maxWidth: Ft * rs * q, size: Ft * rs, minSize: Ft * rs, maxLines: 5, weight: 600, widow: false});
           if (ft.truncated) continue;
           if (!best) best = ft;
@@ -242,10 +257,10 @@ const scene = {
     // (first the board kept within the row of bodies; only when nothing composes that way may it be wider)
     let boardCheck = true;
     const compose1 = (box, F, scale, rs, names) => {
-      let rec = null; const ta=performance.now();
-      const C = composeSa(ctx, P, R, box, F, {scale, text: showKey, names, numbers: showKey, courier: false, untangle: {clearPx: ctx.view.shape === 'square' ? 16 : 18}, docK: R.n >= 4 && ctx.view.shape === 'square' ? 0.95 : R.n <= 2 ? 1.9 : 1.35, gap: R.n <= 2 ? 150 : 70, crop: 1.1, spread: 1.8, deepen: ctx.view.shape === 'portrait' ? 3.5 : 0,
-        board: Ft => { const tr=performance.now(); rec = recordFor(Ft || F, rs); globalThis.__r=(globalThis.__r||0)+performance.now()-tr; return {w: rec.layout.w, h: rec.layout.h}; }});
-      C.rec = rec; globalThis.__a=(globalThis.__a||0)+performance.now()-ta; globalThis.__c1=(globalThis.__c1||0)+1; const tb=performance.now();
+      let rec = null;
+      const C = composeSa(ctx, P, R, box, F, {scale, text: showKey, names, numbers: showKey, courier: false, untangle: {clearPx: ctx.view.shape === 'square' ? (R.n >= 4 ? 17.5 : 16) : 18}, docK: R.n >= 4 && ctx.view.shape === 'square' ? 0.95 : R.n <= 2 ? 1.9 : 1.35, gap: R.n <= 2 ? 150 : 70, crop: 1.1, spread: 1.8, deepen: ctx.view.shape === 'portrait' ? 3.5 : 0,
+        ...(approx && showKey ? {fitsBand: true} : {}), board: Ft => { rec = recordFor(Ft || F, rs); return {w: rec.layout.w, h: rec.layout.h}; }});
+      C.rec = rec;
       C.refsSize = rs;
       // (the record's board never outgrows the row of bodies: the context stays a scene of bodies and route, not a plate)
       if (boardCheck && C.G.board && C.G.board.w > C.G.rowW * 1.02 + 40) C.problems.push('board-wide');
@@ -270,22 +285,36 @@ const scene = {
         C.lensText = tA / (LP.crop.w * LP.crop.h);
         if (C.lensText < lensTextMin) C.problems.push('lens-text');
       }
-      C.lens = LP; globalThis.__b=(globalThis.__b||0)+performance.now()-tb;
+      C.lens = LP;
       return C;
     };
-    let NC=0, T0=performance.now();
+    // (fix-review-03, cold create: a box no larger than one that already composed without problems in the same pass
+    // (same names, record lines, plate sizes and limits), at a text size no larger, can only give a smaller room and
+    // smaller text — it could never score better, so it is not composed. It stands in as composable, so the size search
+    // still climbs to the larger text sizes, but it scores far below every real composition)
+    const composed = [];
     const composeFor = names => (box, F, scale) => {
+      const state = [names, maxRecLines, tryFlip, boardCheck, lensTextMin, (showKey ? rsList : [1]).join()].join('|');
       const key = [box.x, box.y, box.w, box.h, F, scale, names, maxRecLines, tryFlip, (showKey ? rsList : [1]).join()].map(v => (typeof v === 'number' ? v.toFixed(4) : v)).join('|');
       if (memo.has(key)) return memo.get(key);
+      const dom = composed.find(q => !q.tiny && q.state === state && q.scale === scale && q.box.w >= box.w - 0.01 && q.box.h >= box.h - 0.01 && q.F >= F - 1e-6);
+      if (dom) { const Cd = {...dom.C, problems: [], dominated: true}; memo.set(key, Cd); return Cd; }
+      // (and a box no larger than one where every plate size was already too small for its room ('room-tiny'), at a text
+      // size no smaller, is too small as well)
+      const tiny = composed.find(q => q.tiny && q.state === state && q.scale === scale && q.box.w >= box.w - 0.01 && q.box.h >= box.h - 0.01 && q.F <= F + 1e-6);
+      if (tiny) { const Ct = {...tiny.C, problems: [...tiny.C.problems]}; memo.set(key, Ct); return Ct; }
+      let allTiny = true;
       let C = null;
       for (const rs of showKey ? rsList : [1]) {
-        NC++; C = compose1(box, F, scale, rs, names);
+        C = compose1(box, F, scale, rs, names);
+        if (!C.problems.includes('room-tiny')) allTiny = false;
         if (!C.problems.length) break;
       }
       memo.set(key, C);
+      if (!C.problems.length || allTiny) composed.push({state, scale, box, F, C, tiny: allTiny});
       return C;
     };
-    const opts = names => ({sizes: [22.5, 21.6, 20.7, 19.8, 19.5, 18.9, 18, 17.1, 16.4], minF: 16.4, colFracs: [0.25, 0.3, 0.35, 0.39, 0.44], bandCols: [2, 3, 4], sidePanels: ctx.view.shape === 'square' ? [[0.5, 2], [0.56, 2]] : [[0.44, 2]], scales: [1], compose: composeFor(names)});
+    const opts = names => ({sizes: [22.5, 21.6, 20.7, 19.8, 19.5, 18.9, 18, 17.1, 16.4], minF: 16.4, colFracs: [0.25, 0.3, 0.35, 0.39, 0.44], bandCols: [2, 3, 4], sidePanels: ctx.view.shape === 'square' ? [[0.5, 2], [0.56, 2]] : [[0.44, 2]], scales: [1], scoreOf: C => (C.dominated ? -1e6 : 0), compose: composeFor(names)});
     const good = b => !b.problems.length && b.F * px >= 19.5 - 1e-6;
     // (four bodies: their names go to the panel, keyed to letters, from the start)
     let names = R.n >= 4 && showKey ? 'letters' : 'room';
@@ -311,9 +340,8 @@ const scene = {
       const b4 = searchSa(ctx, rowsFor(names), opts(names));
       if (b4.problems.length < best.problems.length || (!b4.problems.length && best.problems.length)) { best = b4; textLimit = true; }
     }
-    console.log('PROBE', recMemo.size, 'rec', Math.round(globalThis.__r), globalThis.__c1, Math.round(globalThis.__a), Math.round(globalThis.__b), NC, Math.round(performance.now()-T0), rsList.join(), maxRecLines, lensTextMin, best.problems.join('+'));
-    quant = false;
-    { const Cx = compose1(best.roomBox, best.F, best.scale, best.C.refsSize, names); if (Cx.problems.length <= best.C.problems.length) best = {...best, C: Cx}; }
+    approx = false;
+    if (showKey) best = {...best, C: compose1(best.roomBox, best.F, best.scale, best.C.refsSize, names)};
     const {F, C, lay} = best;
     const G = C.G, k = C.k;
     const {dest, crop, Z, zm, s, anchor, wide} = C.lens;

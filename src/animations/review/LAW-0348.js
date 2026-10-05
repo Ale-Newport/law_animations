@@ -243,7 +243,7 @@ function compose(ctx, P, F, opt) {
   // (labels hidden on wide frames: no panel; the room stands centred, leaving the lens its space when it steps back)
   // (labels hidden: no panel; the room stands centred and a little wider, its cards taller, so the scene fills the frame)
   const roomW = tall ? D.w : rows.length ? D.w - panelW : D.w * (ctx.view.shape === 'square' ? 0.75 : 0.68);
-  const chK = tall ? (rows.length ? 1.0 : 1.7) : rows.length ? 0.68 : ctx.view.shape === 'square' ? 1.15 : 0.8;
+  const chK = tall ? (rows.length ? 1.4 : 1.7) : rows.length ? 0.68 : ctx.view.shape === 'square' ? 1.15 : 0.8;
   const G = roomGeometry(ctx, P, roomW, F, showKey, ctx.t.was, chK);
   if (!G.ok) problems.push('plate-text');
   // fit the room into its region (scale k ≤ 1 when it is taller than the space)
@@ -281,13 +281,14 @@ const scene = {
         : {x: roomRect.w * sc + 18, y: 0, w: D.w - (roomRect.w * sc + 18), h: D.h});
       const shareOf = sc => (C.tall ? Math.max((roomRect.h * sc * f.scale) / ctx.view.height, (roomRect.w * sc * f.scale) / ctx.view.width) : (roomRect.w * sc * f.scale) / ctx.view.width);
       let sc = 1, region = regionFor(1), ok = false;
-      for (const zt of [1.65, 1.56]) {
+      for (const zt of [2.3, 2, 1.8, 1.65, 1.56]) {
         for (let q = 1; q >= 0.3 - 1e-9; q -= 0.02) {
           if (shareOf(q) < 0.455) break;
-          if (C.tall && (roomRect.w * q * f.scale) / ctx.view.width < 0.8) break;
           const rg = regionFor(q);
-          sc = q; region = rg;
           const z = Math.min(zoomMax, rg.w / (crop0.w * k), rg.h / (crop0.h * k));
+          // (stacked: context + lens must span >= 0.8 of the frame width — the context's width or the lens's)
+          if (C.tall && Math.max(roomRect.w * q, crop0.w * k * z) * f.scale / ctx.view.width < 0.8) continue;
+          sc = q; region = rg;
           if (z >= zt && Math.min(rg.w, rg.h) >= tightSide) { ok = true; break; }
         }
         if (ok) break;

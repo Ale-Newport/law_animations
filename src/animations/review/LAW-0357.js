@@ -127,7 +127,7 @@ function compose(ctx, P, F, opts) {
   let OM, EM, plan;
   if (orient === 'h') {
     const gapM = Math.max(F * 7, mapW * 0.16);
-    const tot = Math.min(F * 34, mapW - gapM);
+    const tot = Math.min(F * 42, mapW - gapM);
     if (tot < F * 16) return {F, ok: false, problems: ['map-width']};
     // the split between the starting resolution and the end cards: even first, then whichever side needs room
     for (const k of [0.47, 0.52, 0.42, 0.57]) {

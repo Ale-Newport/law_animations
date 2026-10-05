@@ -228,6 +228,7 @@ export function endNode(ctx, M, i, route, o) {
     g({transform: T(bx, by)}, markGlyph(stateGlyph(route.state), M.badgeR * 0.42, {fill: '#fff', stroke: sc}))));
   const tx = M.pad + M.badgeR * 2 + F * 0.5;
   if (M.showText) parts.push(textAt(f.label, {x: tx, y: M.header.y + (M.header.h - f.label.height) / 2, fill: INK, name: `${P}-label`}));
+  else if (o.num) parts.push(h('text', {name: `${P}-num`, x: r(tx), y: r(by + o.num.size * 0.36), 'font-family': FONTS.sans, 'font-size': r(o.num.size, 2), 'font-weight': 800, fill: INK}, o.num.text));
   else parts.push(h('rect', {x: r(tx), y: r(by - F * 0.28), width: r((M.w - M.pad - tx) * 0.75), height: r(F * 0.56), rx: r(F * 0.28), fill: INK, opacity: 0.7}));
   parts.push(h('line', {x1: r(M.pad), x2: r(M.w - M.pad), y1: r(M.sep), y2: r(M.sep), stroke: th.paperLine, 'stroke-width': 2}));
   if (M.showText) {
@@ -245,8 +246,8 @@ export function endNode(ctx, M, i, route, o) {
 
 /** Track width, filter-clip size and puck radius for a text size F. */
 export function trackDims(F) {
-  const tw = clamp(F * 0.95, 15, 28);
-  return {tw, along: Math.max(F * 1.5, 22), across: tw * 2.9, puck: Math.max(F * 0.8, 13)};
+  const tw = clamp(F * 0.95, 11, 28);
+  return {tw, along: Math.max(F * 1.5, 16), across: tw * 2.9, puck: Math.max(F * 0.8, 11)};
 }
 
 /**
@@ -286,7 +287,7 @@ export function mapPlan(P, OM, EM, o) {
     O = {x: 0, y: oy, w: ow, h: oh};
     const ey0 = (H - colH) / 2;
     for (let i = 0; i < n; i++) E.push({x: ow + o.gap, y: ey0 + i * (eh + gx), w: ew, h: eh});
-    pg = Math.min(F * 1.9, (oh - F * 1.4) / Math.max(1, n - 1));
+    pg = Math.min(Math.max(F * 1.9, tw * 1.7), (oh - F * 1.4) / Math.max(1, n - 1));
     const xm = ow + o.gap * 0.36;
     for (let i = 0; i < n; i++) {
       const py = O.y + oh / 2 + (i - (n - 1) / 2) * pg;
@@ -312,7 +313,7 @@ export function mapPlan(P, OM, EM, o) {
     O = {x: (W - ow) / 2, y: (topH - oh) / 2, w: ow, h: oh};
     const ex0 = (W - rowW) / 2;
     for (let i = 0; i < n; i++) E.push({x: ex0 + i * (ew + gx), y: topH + o.gap, w: ew, h: eh});
-    pg = Math.min(F * 1.9, (ow - F * 1.4) / Math.max(1, n - 1));
+    pg = Math.min(Math.max(F * 1.9, tw * 1.7), (ow - F * 1.4) / Math.max(1, n - 1));
     const ym = O.y + oh + (E[0].y - (O.y + oh)) * 0.36;
     for (let i = 0; i < n; i++) {
       const px = O.x + ow / 2 + (i - (n - 1) / 2) * pg;

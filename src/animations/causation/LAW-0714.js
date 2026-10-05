@@ -12,7 +12,7 @@
  *                      steps in the supplied order) slides out to its place.
  *  0.18–0.43 relate    Only the supplied relationships are drawn, one after
  *                      another, each with its kind: lane A — convergence, lane
- *                      B — convergence, record — convergence (plain relations,
+ *                      B — convergence (plain relations, drawn alike;
  *                      no arrowhead; a causal arrow only when the author supplies
  *                      kind "causal"; the default model has none).
  *  0.43–0.75 trace     A tracer runs through the supplied traversal order along
@@ -49,6 +49,8 @@ const DURATION = 7000;
 const BEATS = {separate: [0, 0.18], relate: [0.18, 0.43], trace: [0.43, 0.75], hold: [0.75, 1]};
 const W = {split: [0.01, 0.14], labels: [0.12, 0.19], relate: [0.19, 0.42], trace: [0.46, 0.73], focusIn: [0.45, 0.52], focusOut: [0.74, 0.8], band: [0, 0.04], key: [0.78, 0.84]};
 const IDS = ['record', 'laneA', 'laneB', 'convergence', 'alternative'];
+// plinth height (× the piece height): low plinths, so the lane pieces themselves dominate
+const PLINTH = 0.2;
 
 const strings = {
   en: {...CA_STRINGS.en, convergence: 'Convergence piece: lane ends and connectors (enlarged)', alternative: 'Put forward', relation: 'related (as supplied)', communication: 'noted in the record', sequence: 'then (as supplied)', causal: 'causal (as supplied)'},
@@ -71,11 +73,10 @@ const defaultParams = {
   relationships: [
     {from: 'laneA', to: 'convergence', kind: 'relation'},
     {from: 'laneB', to: 'convergence', kind: 'relation'},
-    {from: 'record', to: 'convergence', kind: 'relation'},
   ],
   focusElement: 'convergence',
   relationLabels: {relation: 'related as supplied', communication: 'noted in the record', sequence: 'then (as supplied)', causal: 'causal (as supplied)'},
-  traversalOrder: ['record', 'convergence', 'laneA', 'convergence', 'laneB'],
+  traversalOrder: ['laneA', 'convergence', 'laneB'],
 };
 
 // Spanish versions of the default content, used with locale "es" for fields left at their English default
@@ -274,7 +275,7 @@ function compose(ctx, base, cfg) {
   const chipsH = stackChips ? cB.h + (cB.h && cA.h ? 8 : 0) + cA.h : Math.max(cB.h, cA.h);
   const zoneH = OH => {
     const R = OH * (mode === 'stack' ? 0.32 : 0.42);
-    return (mode === 'band' ? 0 : 2 * R + relH + 30) + OH + OH * 0.3 + 14 + chipsH;
+    return (mode === 'band' ? 0 : 2 * R + relH + 30) + OH + OH * PLINTH + 14 + chipsH;
   };
   let availH;
   let bandGeo = null;
@@ -369,11 +370,13 @@ const scene = {
       L.bandY = top + blockH + spare * 0.8 + L.bandGap;
     } else {
       const blockH = L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 30 + L.relH + L.zoneH;
-      const top = Math.max(0, (D.h - L.bandH - blockH) / 2);
+      // (spare height goes between the record and the pieces: the pieces stand at the foot of the box)
+      const spareS = Math.max(0, D.h - L.bandH - blockH);
+      const top = spareS * 0.15;
       recX = MARGIN + (full - L.recW) / 2 + 10; recY = top + (L.rec ? L.rec.clipH * 0.35 : 0);
       altX = recX - 10; altY = top + L.recH + L.altV;
-      zx = MARGIN + (full - zoneWd) / 2; zy = top + L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 30 + L.relH;
-      L.bandY = top + blockH + 18;
+      zx = MARGIN + (full - zoneWd) / 2; zy = top + L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 30 + L.relH + spareS * 0.85;
+      L.bandY = top + blockH + spareS * 0.85 + 18;
     }
     // objects
     const R = L.Rin;
@@ -381,7 +384,7 @@ const scene = {
     const bx = zx + colB / 2;
     const ax = bx + U.pw / 2 + U.gapX + U.pw / 2;
     const floorY = zy + L.zoneH - L.chipsH - 14;
-    const baseY = floorY - OH * 0.3; // plinth top = object base
+    const baseY = floorY - OH * PLINTH; // plinth top = object base
     const G = {spot: miniSpot(OH)};
     L.G = G;
     L.pos = {
@@ -621,7 +624,7 @@ const scene = {
     const OH = L.OH;
     const U = L.unitW;
     const stand = (id, x) => g({name: `st-${id}`},
-      plinthArt(ctx, {x: x - U.pw / 2, top: L.floorY - OH * 0.3, w: U.pw, floorY: L.floorY}));
+      plinthArt(ctx, {x: x - U.pw / 2, top: L.floorY - OH * PLINTH, w: U.pw, floorY: L.floorY}));
     const pb = L.pos.laneA, pa = L.pos.laneB, pd = L.pos.convergence;
     // the convergence piece: the strip between the two supplied levels, lifted out of the laneB panel and enlarged
     const R = L.Rin;

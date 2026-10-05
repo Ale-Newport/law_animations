@@ -72,12 +72,12 @@ const defaultParams = {
   beforeValue: 'provided',
   afterValue: 'undescribed',
   detailGeometry: {zoom: 2.4, placement: 'auto'},
-  contextLabels: {context: 'Communication card and connected section, as supplied', marker: 'Changed: the supplied case of communication 1'},
+  contextLabels: {context: 'Communication card, connector and sections, as supplied', marker: 'Changed: the supplied case of communication 1'},
 };
 
 const defaultParamsEs = {
   ...DEFAULT_CONTENT_ES,
-  contextLabels: {context: 'Tarjeta de la comunicación y apartado conectado, según lo aportado', marker: 'Cambio: el supuesto aportado de la comunicación 1'},
+  contextLabels: {context: 'Tarjeta de la comunicación, conector y apartados, según lo aportado', marker: 'Cambio: el supuesto aportado de la comunicación 1'},
 };
 
 function unitPx(ctx) {
@@ -381,7 +381,7 @@ const scene = {
  */
 function lensPrint(p, G, F, zoom, upx) {
   const padIn = G.ME.padX;
-  for (const kf of [3.2, 3, 2.8, 2.6, 2.4, 2.2, 2, 1.85, 1.7, 1.55, 1.4, 1.3, 1.2, 1.1, 1.02]) {
+  for (const kf of [3.8, 3.6, 3.4, 3.2, 3, 2.8, 2.6, 2.4, 2.2, 2, 1.85, 1.7, 1.55, 1.4, 1.3, 1.2, 1.1, 1.02]) {
     const sz = (F * kf) / zoom;
     const padX = Math.max(padIn, sz * 0.6), padY = sz * 0.5, gz = sz * 1.15;
     const tw = G.cwE - 2 * padX;

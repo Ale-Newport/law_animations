@@ -226,7 +226,7 @@ export function gateArt(ctx, o) {
     slats,
     h('rect', {x: r(-thk / 2), y: r(-sp / 2), width: r(thk), height: r(post), rx: 4, fill: SLATE, stroke: INK, 'stroke-width': 2.2}),
     h('rect', {x: r(-thk / 2), y: r(sp / 2 - post), width: r(thk), height: r(post), rx: 4, fill: SLATE, stroke: INK, 'stroke-width': 2.2}),
-    g({name: `${o.prefix}-pause`, opacity: 0, transform: T(0, -sp / 2 - pr * 0.2)},
+    g({name: `${o.prefix}-pause`, opacity: 0, transform: T(0, (o.pauseSide ?? -1) * (sp / 2 + pr * 0.2))},
       h('circle', {r: r(pr), fill: '#fff', stroke: INK, 'stroke-width': 2.4}),
       h('rect', {x: r(-pr * 0.42), y: r(-pr * 0.45), width: r(pr * 0.28), height: r(pr * 0.9), rx: 1.5, fill: INK}),
       h('rect', {x: r(pr * 0.14), y: r(-pr * 0.45), width: r(pr * 0.28), height: r(pr * 0.9), rx: 1.5, fill: INK})),
@@ -292,14 +292,14 @@ export function boardPlan(M, TM, o) {
   const along = H ? M.w : M.h, across = H ? M.h : M.w;
   const pad = Math.max(10, F * 0.6);
   const wd = across + pad * 2;
-  const disc = Math.min(wd * 0.5, F * 2.4);
+  const disc = Math.min(wd * 0.5, F * (o.compact ? 1.8 : 2.4));
   const tStart = pad + disc + pad;
-  const travel = o.travel ?? Math.max(along * 0.3, F * 3.5);
+  const travel = o.travel ?? Math.max(along * 0.3, F * (o.compact ? 2.4 : 3.5));
   const tWait = tStart + travel;
-  const gThk = Math.max(F * 2.1, 34);
-  const gapS = Math.max(F * 0.7, 12);
+  const gThk = Math.max(F * (o.compact ? 1.8 : 2.1), 30);
+  const gapS = Math.max(F * (o.compact ? 0.5 : 0.7), 10);
   const gT = tWait + along + gapS + gThk / 2;
-  const run = o.run ?? Math.max(along * 0.3, F * 4.5);
+  const run = o.run ?? Math.max(along * 0.3, F * (o.compact ? 3 : 4.5));
   const tEnd = gT + gThk / 2 + gapS + run;
   const len = tEnd + along + pad;
   const calW = F * 3.4, calH = calW * 0.86;
@@ -324,6 +324,7 @@ export function boardPlan(M, TM, o) {
     lanes = [{x: 0, y: 0, w: wd, h: len}, {x: wd + mid, y: 0, w: wd, h: len}];
     tag = {x: wd + mg, y: clamp(gT - TM.h * 0.3, 0, len - TM.h), w: TM.w, h: TM.h};
     cal = showCal ? {x: wd + mid / 2 - calW / 2, y: o.calEnd ? len - calH - pad : tStart, w: calW, h: calH} : null;
+    if (cal && o.calEnd && overlaps(tag, cal, F * 0.4)) cal = {...cal, y: tStart};
   }
   const tagCal = cal && overlaps(tag, cal, F * 0.4);
   const W = H ? len : wd * 2 + mid, Hh = H ? top + wd * 2 + mid : len;
@@ -357,7 +358,7 @@ export function boardNodes(ctx, B, TM, o) {
     const art = laneArt(ctx, {prefix: `${p}-lane${i}`, i, len: B.len, wd: B.wd, F: B.F, chev: i === 0 ? B.procDim : B.rev, lit: i === 0 ? B.lit : [], disc: B.disc, endT: B.tEnd, along: B.along, pad: B.pad});
     return g({transform: B.H ? T(L.x, L.y) : `${T(L.x + L.w, L.y)} rotate(90)`}, art);
   };
-  const gate = g({transform: T(B.gate.cx, B.gate.cy, B.gate.rot)}, gateArt(ctx, {prefix: `${p}-gate`, thk: B.gThk, sp: B.gateSpan, F: B.F}));
+  const gate = g({transform: T(B.gate.cx, B.gate.cy, B.gate.rot)}, gateArt(ctx, {prefix: `${p}-gate`, thk: B.gThk, sp: B.gateSpan, F: B.F, pauseSide: !B.H || B.top > 0 ? 1 : -1}));
   const leader = (() => {
     const t = B.tag;
     const gb = B.gateBox;

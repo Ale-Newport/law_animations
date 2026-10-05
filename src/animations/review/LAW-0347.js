@@ -96,7 +96,7 @@ function roomIn(box, F, showKey) {
   const cards = {intake: toD(RG.cards.intake), position: toD(RG.cards.position), history: toD(RG.cards.history)};
   const slots = {intake: toD(RG.intake), position: toD(RG.position), history: toD(RG.history)};
   const front = table.y + table.h;
-  const personY = front + 22 * s;
+  const personY = front + 14 * s;
   void showKey;
   return {room, wall, table, rail, RG, cards, slots, front, personY, s, cw, fits: need(cw) <= box.h + 0.5};
 }

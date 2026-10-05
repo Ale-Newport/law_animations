@@ -30,7 +30,7 @@ contractSuite(ID, {
     {at: 0.17, fn: 's.lift === 1 && s.cardText === 1 && s.linksDrawn.every(v => v === 0)', label: 'the cards have risen to the upper tier before any relationship is drawn'},
     {at: 0.44, fn: 's.linksDrawn.every(v => v === 1) && s.positionHolds === \'a\'', label: 'only the supplied relationships are drawn, before the tracer and the change'},
     {at: 0.5, fn: "s.links.every(k => k.kind === 'relation' ? !k.arrow : k.kind === 'sequence' || k.kind === 'causal' ? k.arrow : true)", label: 'a plain relation has no head; sequence / causal have one (causal only as supplied)'},
-    {at: 0.7, fn: "s.positionHolds === 'b' && s.historyHolds === 'a'", label: 'the part that changes: the ◆ token in the position, the ● token in the history pocket'},
+    {at: 0.74, fn: "s.positionHolds === 'b' && s.historyHolds === 'a'", label: 'the part that changes: the ◆ token in the position, the ● token in the history pocket'},
     {at: 1, fn: "s.beat === 'assembled' && s.states === 1 && s.visited.join() === s.visitOrder.join() && s.problems.length === 0", label: 'hold: assembled, every component visited in the supplied order, states shown; the composition fits'},
     {at: 0.6, fn: "s.visitOrder.join() === ['intake', 'later', 'position', 'initial', 'history'].join()", label: 'the tracer follows the supplied traversal order'},
     {at: 1, params: {traversalOrder: ['history', 'initial', 'position', 'later', 'intake']}, fn: "s.visitOrder.join() === 'history,initial,position,later,intake'", label: 'another supplied order is followed as supplied'},

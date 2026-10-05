@@ -143,18 +143,18 @@ function compose(ctx, P, F, opt) {
   const Fg = (showKey ? F : F * 1.45) * (opt.grow ?? 1);
   if (!tall) {
     colW = (D.w - 2 * mx) / 3;
-    plateW = Math.min(colW * 0.7, Fg * 14);
-    cw = Math.min(colW * 0.9, Fg * opt.cwMax);
+    plateW = Math.min(colW * 0.66, Fg * 14);
+    cw = Math.min(colW * 0.86, Fg * opt.cwMax);
   } else {
     colW = D.w - 2 * mx;
-    plateW = Math.min(colW * (showKey ? 0.4 : 0.44), Fg * 13);
-    cw = Math.min(colW * 0.48, Fg * opt.cwMax);
+    plateW = Math.min(colW * (showKey ? 0.33 : 0.36), Fg * 13);
+    cw = Math.min(colW * 0.42, Fg * opt.cwMax);
   }
   const CM = cardModel(ctx, {w: cw, F, minF: F, maxLines: opt.cardLines, a: P.decisions.initial, b: P.decisions.later, showText: showKey, minH: showKey ? F * 4.5 * (opt.grow ?? 1) : cw * 0.75});
   if (!CM.ok) problems.push('card-text');
   plateH = Math.max(Fg * 3.8, Math.min(CM.h * 0.7, plateW * 0.6));
   // captions: element label (bold) + description (+ grounds) + reserved state
-  const capW = tall ? Math.max(plateW, F * 9) : colW - 24;
+  const capW = tall ? plateW : colW - 24;
   const desc = {intake: P.routes.intake, position: P.decisions.position, history: P.routes.history};
   const states = {position: P.outcomes.position, history: P.outcomes.history};
   const caps = {};
@@ -306,7 +306,10 @@ const scene = {
     const gq = 22;
     const vpt = id => {
       const b = B[id];
-      if (tall) return isCard(id) ? {x: b.x - gq, y: b.y + b.h / 2} : {x: b.x + b.w + gq, y: b.y + b.h / 2};
+      if (tall) {
+        const cx = Math.max(Math.min(B.later.x, B.initial.x) - 30, B.intake.x + B.intake.w + gq);
+        return isCard(id) ? {x: cx, y: b.y + b.h * 0.62} : {x: Math.max(b.x + b.w + gq, Math.min(b.x + b.w + gq, cx)), y: b.y + b.h / 2};
+      }
       return isCard(id) ? {x: b.x + b.w / 2, y: b.y + b.h + gq} : {x: b.x + b.w / 2, y: b.y - gq - 12};
     };
     const pts = order.map(vpt);

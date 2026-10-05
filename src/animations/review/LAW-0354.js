@@ -315,7 +315,7 @@ const scene = {
       g({name: 'cardD', transform: T(G.cards[0].x, G.cards[0].y)}, cardNode(ctx, M, 0, {prefix: 'cardD-art'})),
       g({name: 'cardA', transform: T(G.cards[1].x, G.cards[1].y)}, cardNode(ctx, M, 1, {prefix: 'cardA-art'})),
       token(1), token(0),
-      g({name: 'gatef', transform: T(G.gate.x, G.gate.y, G.gate.rot)}, gateArt(ctx, {prefix: 'gate', thk: G.gThk, sp: G.gSpan, F: C.F})),
+      g({name: 'gatef', transform: T(G.gate.x, G.gate.y, G.gate.rot)}, gateArt(ctx, {prefix: 'gate', thk: G.gThk, sp: G.gSpan, F: C.F, pauseSide: G.H ? -1 : 1})),
       g({name: 'rings', opacity: 0}, L.rings),
       C.PL ? g({name: 'panel', transform: T(C.panel.x, C.panel.y)}, panelNode(ctx, C.PL)) : null,
     );

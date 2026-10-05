@@ -867,6 +867,16 @@ export function composeSa(ctx, P, R, box, F, o = {}) {
   const withText = o.text !== false;
   let dkNow = o.depthK || 1;
   let gapNow = o.gap;
+  const geoFits = (Ft, maxL) => {
+    let pick = null, first = null;
+    for (const q of [5.5, 6.5, 7.5, 8.5, 9.5, 11, 12.5, 14, 16, 18.5, 21]) {
+      const fits = R.bodies.map(b => fitSa(b.label, {maxWidth: Ft * q, size: Ft, minSize: Ft, maxLines: 6, weight: 600}));
+      if (fits.some(f => f.truncated)) continue;
+      if (!first) first = fits;
+      if (fits.every(f => f.lines.length <= maxL && !hasLoneWord(f))) { pick = fits; break; }
+    }
+    return pick || first || R.bodies.map(b => fitSa(b.label, {maxWidth: Ft * 21, size: Ft, minSize: Ft, maxLines: 6, weight: 600}));
+  };
   const geoAt = (W, H, k) => {
     const Ft = F / k;
     let nameFits = null;
@@ -875,8 +885,15 @@ export function composeSa(ctx, P, R, box, F, o = {}) {
       // (memoised per resolved content within one layout: the search tries many boxes at the same text sizes)
       const memo = FITS.get(R) || new Map();
       FITS.set(R, memo);
-      const key = `${Ft.toFixed(4)}|${maxL}`;
-      if (memo.has(key)) nameFits = memo.get(key);
+      // (opt-in fitsBand — LAW-0332, cold create: while a layout is searched, the names are wrapped exactly once per 10 %
+      // band of text sizes and scaled to the size asked for; the chosen composition is composed again without it)
+      const Fb = o.fitsBand ? Math.exp(Math.round(Math.log(Ft) / 0.06) * 0.06) : Ft;
+      const key = `${o.fitsBand ? 'b' : ''}${Fb.toFixed(4)}|${maxL}`;
+      if (o.fitsBand) {
+        if (!memo.has(key)) memo.set(key, geoFits(Fb, maxL));
+        const q = Ft / Fb;
+        nameFits = memo.get(key).map(f => ({...f, width: f.width * q, height: f.height * q, size: f.size * q}));
+      } else if (memo.has(key)) nameFits = memo.get(key);
       else {
       // (one width for every station — the same size —: the narrowest that keeps each name within maxL lines with no
       // one-word line; the stations are as wide as the longest name needs)

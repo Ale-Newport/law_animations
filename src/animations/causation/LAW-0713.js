@@ -236,7 +236,8 @@ function composeList(ctx, base, size, hMin) {
   const textOn = ctx.show('key');
   // legend rows first (shown from the first frame, directly under the record), then the late rows (status, notes, key)
   const late = base.band.filter(b => b.when !== 'legend'), legend = base.band.filter(b => b.when === 'legend');
-  const items = [...legend, ...late];
+  // (the late rows come first in the column: at rest the rows that are already shown reach the foot of the box)
+  const items = [...late, ...legend];
   const phMax = Math.min((full - 330) / RW_, (D.h - 16) / RH_);
   for (let PH = Math.floor(phMax); PH >= hMin; PH -= 2) {
     const stageW = RW_ * PH + 20;
@@ -462,7 +463,7 @@ const scene = {
     const colH = (L.A && L.A.h ? L.A.h + 20 : 0) + L.recH;
     if (L.mode === 'list') {
       const bottom = Math.max(L.stageH, L.colH, L.list.placed.length ? L.list.bottom : 0);
-      const top = Math.max(0, (Dv.h - bottom) / 2);
+      const top = Math.max(0, (Dv.h - bottom) * 0.75);
       F = top + L.stageH - 16;
       cx = MARGIN + 10;
       L.colX = MARGIN + full - L.recW;
@@ -473,7 +474,7 @@ const scene = {
     } else if (L.mode === 'tall') {
       const blockH = L.stageH + (L.B.h ? 16 + L.B.h : 0);
       // (labels hidden: the slab stands at the foot of the box)
-      const top = Math.max(0, (Dv.h - blockH) * (ctx.show('key') ? 0.5 : 1));
+      const top = Math.max(0, (Dv.h - blockH) * (ctx.show('key') ? 0.75 : 1));
       F = top + L.stageH - 16;
       cx = MARGIN + 10;
       const colX = MARGIN + full - L.recW;
@@ -491,7 +492,7 @@ const scene = {
       L.recGap = 30 + extra * spread;
       const blockH = Math.max(L.stageH, colH) + (L.B.h ? 16 + L.B.h : 0);
       // (labels hidden: the block stands at the foot of the box, so the slab reaches down the frame)
-      const top = Math.max(0, (Dv.h - blockH) * (ctx.show('key') ? 0.5 : 1));
+      const top = Math.max(0, (Dv.h - blockH) * (ctx.show('key') ? 0.75 : 1));
       F = top + Math.max(L.stageH, colH) - 16;
       cx = x0 + 10;
       recX = x0 + L.stageW + L.recGap + 10;

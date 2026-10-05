@@ -1,0 +1,56 @@
+{
+  "animationId": "LAW-0360",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. The case file is shown in the state its routes were marked with (as supplied); a lens enlarges one route's end card and the last leg of its track, and only the end entry printed on that card is substituted by the supplied alternative. No track, clip, badge or state changes; no finality doctrine, and nothing says whether any route is closed or available. Brief fields: decisions, grounds, routes, outcomes, focusTarget, beforeValue, afterValue, detailGeometry and contextLabels are editable.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three routes; the lens opens on route 1 (concluded: ink and arrows, ●) and its end entry 'Resolution R-2 recorded' is substituted by 'Resolution R-2b recorded'.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the lens opens on route 2, a way supplied as pending a check (its clip lies inside the crop), its entry 'Not yet checked in this file' is substituted by another supplied entry, and the lens is asked to open below the desk.",
+      "params": {
+        "focusTarget": "route2",
+        "afterValue": "Check requested in this file (fictional)",
+        "detailGeometry": {"zoom": 2.2, "placement": "bottom"},
+        "contextLabels": {"context": "The case file after its routes were marked (as supplied)", "marker": "Changed: the end entry of route 2 only"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths: long title, reference, grounds, route labels, end entries, alternative entry and captions.",
+      "params": {
+        "decisions": {"title": "Starting resolution of this fictional example file", "ref": "Ref. X-100 of this example (fictional)"},
+        "grounds": "Grounds printed on the starting resolution: placeholder text of this example (as supplied)",
+        "routes": [
+          {"label": "First route of this fictional example", "state": "concluded", "end": "Resolution R-2 recorded at the end of this route (fictional example)"},
+          {"label": "Second route of this fictional example", "state": "pending", "end": "Not yet checked in this file; shown as pending a check (as supplied)"},
+          {"label": "Third route of this fictional example", "state": "pending", "end": "Not yet checked in this file; shown as pending a check (as supplied)"}
+        ],
+        "outcomes": {"concluded": "Route concluded in this fictional example (as supplied)", "pending": "Way pending a check in this fictional example (as supplied)"},
+        "labels": {"file": "Case file X-100 of this example (fictional)", "key": "As supplied · no conclusion drawn (placeholder content only)"},
+        "afterValue": "Resolution R-2b recorded at the end of this route (fictional example)",
+        "contextLabels": {"context": "The case file of this fictional example after its routes were marked (as supplied)", "marker": "Changed: only the end entry of the first route"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {"title": "Resolución R-1 (ficticia)", "ref": "Ref. X-100 (ficticia)"},
+        "grounds": "Fundamentos: texto provisional (según lo aportado)",
+        "routes": [
+          {"label": "Ruta 1 (según lo aportado)", "state": "concluded", "end": "Resolución R-2 registrada (ficticia)"},
+          {"label": "Ruta 2 (según lo aportado)", "state": "pending", "end": "Aún sin comprobar en este expediente"},
+          {"label": "Ruta 3 (según lo aportado)", "state": "pending", "end": "Aún sin comprobar en este expediente"}
+        ],
+        "outcomes": {"concluded": "Ruta concluida (según lo aportado)", "pending": "Vía pendiente de comprobar (según lo aportado)"},
+        "labels": {"file": "Expediente X-100 (ficticio)", "key": "Según lo aportado · sin conclusión"},
+        "afterValue": "Resolución R-2b registrada (ficticia)",
+        "contextLabels": {"context": "El expediente tras marcar sus rutas (según lo aportado)", "marker": "Cambia: solo la entrada final de una ruta"}
+      }
+    }
+  ]
+}

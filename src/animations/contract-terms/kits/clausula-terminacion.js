@@ -443,7 +443,7 @@ export const motifFields = {
     title: str('Heading of the contract, as supplied (generic, e.g. "Contract (fictional)")', 80),
   }, ['reference', 'title']),
   panels: obj('Headings of the two panels, as supplied', {
-    circumstance: str('Heading of the circumstances panel (e.g. "Circumstances and communications")', 50),
+    circumstance: str('Heading of the circumstances panel (e.g. "Facts and communications")', 50),
     section: str('Heading of the clause panel (e.g. "Termination clause")', 50),
   }, ['circumstance', 'section']),
   circumstance: obj('The supplied circumstance or communication (a generic, fictional placeholder; never a real notice)', {
@@ -463,7 +463,7 @@ export const motifFields = {
 export const DEFAULT_CONTENT = {
   parties: [{name: 'Lucía Ferrer', role: 'Party A'}, {name: 'Tomás Ibarra', role: 'Party B'}],
   contract: {reference: 'CT-523', title: 'Contract (fictional)'},
-  panels: {circumstance: 'Circumstances and communications', section: 'Termination clause'},
+  panels: {circumstance: 'Facts and communications', section: 'Termination clause'},
   circumstance: {label: 'Communication 1 (supplied)'},
   stateLabels: {provided: 'Case provided for (as supplied)', undescribed: 'Case not described (as supplied)'},
   clauses: ['Section 1 (supplied text)', 'Section 2 (supplied text)', 'Section 3 (supplied text)'],
@@ -474,7 +474,7 @@ export const DEFAULT_CONTENT = {
 export const DEFAULT_CONTENT_ES = {
   parties: [{name: 'Lucía Ferrer', role: 'Parte A'}, {name: 'Tomás Ibarra', role: 'Parte B'}],
   contract: {reference: 'CT-523', title: 'Contrato (ficticio)'},
-  panels: {circumstance: 'Circunstancias y comunicaciones', section: 'Cláusula de terminación'},
+  panels: {circumstance: 'Hechos y comunicaciones', section: 'Cláusula de terminación'},
   circumstance: {label: 'Comunicación 1 (aportada)'},
   stateLabels: {provided: 'Supuesto previsto (según lo aportado)', undescribed: 'Supuesto no descrito (según lo aportado)'},
   clauses: ['Apartado 1 (texto aportado)', 'Apartado 2 (texto aportado)', 'Apartado 3 (texto aportado)'],
@@ -697,7 +697,7 @@ export function stageGeom(ctx, o) {
   const MO = measureObl(p.clauses, F, cwO, oblText, tight);
   if (!ME || !MO) return null;
   const chE = Math.max(ME.ch, o.minChE ?? 0), chO = Math.max(MO.ch, o.minCh ?? 0);
-  const headFits = show && o.headings !== false ? [fitG(p.panels.circumstance, {maxWidth: We - 2 * ci - (stack && !o.eventFullWidth ? 2 * (arm + gapC + F * 0.3) : 0), size: F, maxLines: 2, weight: 700, strict: true}), fitG(p.panels.section, {maxWidth: Wt - 2 * ci, size: F, maxLines: 2, weight: 700, strict: true})] : [null, null];
+  const headFits = show && o.headings !== false ? [fitG(p.panels.circumstance, {maxWidth: We - 2 * ci - (stack ? 2 * (arm + gapC + F * 0.3) : 0), size: F, maxLines: 2, weight: 700, strict: true}), fitG(p.panels.section, {maxWidth: Wt - 2 * ci, size: F, maxLines: 2, weight: 700, strict: true})] : [null, null];
   if (headFits.some(f => f && f.bad)) return null;
   const colHH = headFits[0] ? Math.max(...headFits.map(f => f.height)) + F * (tight ? 0.5 : 0.7) : F * 1.2;
   const headFit = show && o.headText !== false ? fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: BW - 2 * m - F, size: F, maxLines: 3, weight: 700}) : null;
@@ -1054,9 +1054,12 @@ export function cordGeom(G, card = G.slot) {
     const b = {x: bx, y: G.B.top};
     return {d: `M${r(b.x)} ${r(b.y)}V${r(ya)}H${r(gx)}V${r(a.y)}H${r(a.x)}`, a, b};
   }
-  if (bx > cr + F * 0.25) {
+  // (stacked: the descent runs outside the circumstances panel — in the margin between its right edge and the board's —
+  // so it never crosses the panel's heading; then left into the card's right edge)
+  const pr = G.panelE.x + G.panelE.w, xv = Math.max(bx, pr + (G.board.x + G.board.w - pr) / 2);
+  if (xv > cr + F * 0.25 && G.board.x + G.board.w - pr >= 6) {
     const a = {x: cr, y: card.y}, b = {x: bx, y: bBot};
-    return {d: `M${r(b.x)} ${r(b.y)}V${r(a.y)}H${r(a.x)}`, a, b};
+    return {d: `M${r(b.x)} ${r(b.y)}H${r(xv)}V${r(a.y)}H${r(a.x)}`, a, b};
   }
   // (a card under the whole board width: the socket on its top edge near its right end — right of any tag centred over
   // the card —, reached from the spine foot by a short run in the gap under the clause panel)

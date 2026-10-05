@@ -93,7 +93,7 @@ export const CA_STRINGS = {
 };
 
 /** Keep short parentheticals ("(as supplied)") on one line: their inner spaces become U+00A0 (glue-aware fitting). */
-export const gp = text => String(text ?? '').replace(/\(([^()]{1,34})\)/g, (m, q) => `(${q.replace(/ /g, ' ')})`);
+export const gp = text => String(text ?? '').replace(/\(([^()]{1,34})\)/g, (m, q) => `(${q.replace(/ /g, '\u00a0')})`);
 
 /** Keep a number or a lane letter with its word ("Step 3", "lane A"), "·" with the word before it. */
 export const glueN = text => gp(String(text ?? '').replace(/([\p{L}:]+) (\d+|[AB])(?![\p{L}])/gu, '$1 $2').replace(/ · /g, ' · '));
@@ -109,10 +109,10 @@ export function unwidow(text, fitOf) {
     const f = fitOf(t);
     const lines = f.lines.map(l => l.replace(/…$/, '').trim());
     if (lines.length < 2) return t;
-    const bad = lines.findIndex(l => !/[  ]/.test(l));
+    const bad = lines.findIndex(l => !/[ \u00a0]/.test(l));
     if (bad < 0) return t;
-    const parts = t.split(/([  ]+)/);
-    const nWords = l => l.split(/[  ]+/).filter(Boolean).length;
+    const parts = t.split(/([ \u00a0]+)/);
+    const nWords = l => l.split(/[ \u00a0]+/).filter(Boolean).length;
     const k = lines.slice(0, bad).reduce((q, l) => q + nWords(l), 0);
     const tryAt = idx => { if (idx < 1 || idx >= parts.length) return null; const q = parts.slice(); q[idx] = ' '; return q.join(''); };
     const cands = (bad > 0 ? [2 * k - 1, 2 * k + 2 * nWords(lines[bad]) - 1] : [2 * k + 1]).map(tryAt).filter(Boolean);
@@ -123,7 +123,7 @@ export function unwidow(text, fitOf) {
 }
 
 /** Short supplied time label kept whole. */
-export const nb = s => (String(s).length <= 16 ? String(s).replace(/ /g, ' ') : String(s));
+export const nb = s => (String(s).length <= 16 ? String(s).replace(/ /g, '\u00a0') : String(s));
 
 /** Record / band text of a step. */
 export function entryText(e) {
@@ -366,7 +366,7 @@ export function laneConnector(ctx, {name, G, l, kind = 'relation', disputed = fa
 /* ------------------------------------------------------------------------ */
 
 /** A lane piece: one lane on its own slab strip with its trolley at the barrier and its steps (static). */
-const PIECE = {L: 0.95};
+const PIECE = {L: 0.78};
 /** Width of a lane piece relative to its height. */
 export const MINI_W = (PIECE.L + 0.14) / (CART_TOP + FIELD.LT + 0.16 + FIELD.plate);
 
@@ -385,7 +385,7 @@ export function miniField(ctx, {name, H, M, side}) {
   const q = miniGeom(H);
   const l = side === 'after' ? 'b' : 'a';
   const es = M.entries.filter(e => e.lane === l);
-  const x0 = q.xs + 0.14 * q.PH, x1 = q.xe - 0.46 * q.PH;
+  const x0 = q.xs + 0.12 * q.PH, x1 = q.xe - 0.44 * q.PH;
   const n = es.length;
   const stp = n > 1 ? (x1 - x0) / (n - 1) : 0;
   const k = Math.min(1, n > 1 ? stp / (q.itemS * 0.95) : 1);
