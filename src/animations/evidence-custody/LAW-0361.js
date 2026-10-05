@@ -24,11 +24,11 @@ import {seg, clamp, lerp, ease, r} from '../../core/time.js';
 import {str, num, list, obj, oneOf} from '../../schemas/fields.js';
 import {T} from '../../core/transform.js';
 import {
-  ecFields, EC_EN, EC_ES, localised, benchNode, gloveArm, panelLayout, panelNode, ringRect, noteColors, R2, pathAt,
+  ecFields, EC_EN, EC_ES, localised, benchNode, gloveArm, panelLayout, panelNode, ringRect, noteColors, R2,
 } from './kits/evidence-art.js';
 import {
-  EI_LABELS_EN, EI_LABELS_ES, eiLabelFields, resolveRecords, recordLine, stageModel, stageNodes, stageProps, tagGrip,
-  objGrip, local, hang, velocity, anchorAt, looseEnd,
+  EI_LABELS_EN, EI_LABELS_ES, eiLabelFields, resolveRecords, recordLine, stageModel, stageNodes, stageProps,
+  local, actionPose,
 } from './kits/etiquetado-indicio.js';
 
 const ID = 'LAW-0361';
@@ -149,66 +149,12 @@ function compose(ctx, P, recs, rows, F, opt) {
 
 /** Every pose of the scene at time u (pure). */
 function poseAt(L, u) {
-  const {G, C} = L;
   const P = L.P;
-  const st = P.finalState;
   const capU = lerp(W.reachTag[0], W.back[1], clamp(P.actionProgress));
   const ua = P.actionProgress >= 1 ? u : Math.min(u, capU);
-  const doTag = st !== 'pending';
-  const doBag = st === 'bagged';
-  const on = (w, flag = true) => (flag ? seg(ua, ...w) : 0);
-  // object path (centre) and lift
-  const objPath = uu => pathAt([[W.carry[0], G.obj0], [W.carry[1], G.objIn]], doBag ? uu : 0);
-  const objPos = objPath(ua);
-  const lift = doBag ? ease.inOutCubic(on(W.lift)) * (1 - ease.inOutCubic(on(W.lower))) : 0;
-  const inside = doBag && on(W.lower) >= 1;
-  const anchor0 = anchorAt(G, G.obj0, 0);
-  const anchor = anchorAt(G, objPos, lift);
-  // tag: lying → carried by the hand to the clip position → released and hanging from the anchor
-  const ha = (G.hangAngle * Math.PI) / 180;
-  const clipHole = {x: anchor0.x + Math.cos(ha) * G.chainL, y: anchor0.y + Math.sin(ha) * G.chainL};
-  const kCarryTag = ease.inOutCubic(on(W.carryTag, doTag));
-  const kClip = ease.inOutCubic(on(W.clip, doTag));
-  const released = doTag && on(W.release) > 0;
-  let hole, tagAngle;
-  if (!released) {
-    hole = {x: lerp(G.tagHole0.x, clipHole.x, kCarryTag), y: lerp(G.tagHole0.y, clipHole.y, kCarryTag)};
-    tagAngle = lerp(G.tableAngle, G.tagAngle, kCarryTag);
-  } else {
-    const vel = velocity(uu => anchorAt(G, objPath(Math.min(uu, ua)), 0), ua);
-    const hs = hang(anchor, vel, G.hangAngle, G.chainL);
-    hole = hs.hole;
-    tagAngle = G.tagAngle + (hs.dirDeg - G.hangAngle);
-  }
-  const tagLift = doTag ? Math.sin(Math.PI * clamp((ua - W.carryTag[0]) / (W.release[1] - W.carryTag[0]))) * (ua < W.release[1] ? 1 : 0) : 0;
-  const loose = local(looseEnd(G), hole, tagAngle);
-  const attached = doTag && kClip >= 1;
-  const chainEnd = attached ? anchor : {x: lerp(loose.x, anchor.x, kClip), y: lerp(loose.y, anchor.y, kClip)};
-  const clasp = doTag ? clamp((on(W.clip) - 0.75) / 0.25) : 0;
-  // hands
-  const tagG = local(tagGrip(G.TG), hole, tagAngle);
-  const sc = 1 + lift * 0.06;
-  const og = objGrip(G.M);
-  const objG = {x: objPos.x + og.x * sc, y: objPos.y + og.y * sc};
-  const steadyP = {x: G.obj0.x + (G.M.kind === 'key' ? G.S * 0.34 : -G.S * 0.22), y: G.obj0.y};
-  const kReach = ease.inOutCubic(on(W.reachTag, doTag));
-  const kToObj = ease.inOutCubic(on(W.toObj, doBag));
-  const kBack = doBag ? ease.inOutCubic(on(W.back)) : ease.inOutCubic(on(W.toObj, doTag));
-  const mix = (a, b, k) => ({x: lerp(a.x, b.x, k), y: lerp(a.y, b.y, k)});
-  let handR;
-  let phase = 'rest';
-  if (!doTag || ua < W.reachTag[0]) { handR = C.restR; phase = 'rest'; }
-  else if (ua < W.reachTag[1]) { handR = mix(C.restR, tagG, kReach); phase = 'reach-tag'; }
-  else if (ua < W.release[1]) { handR = tagG; phase = ua < W.carryTag[1] ? 'carry-tag' : ua < W.clip[1] ? 'clip' : 'release'; }
-  else if (!doBag) { const rel = local(tagGrip(G.TG), clipHole, G.tagAngle); handR = mix(rel, C.restR, kBack); phase = kBack >= 1 ? 'tagged' : 'return'; }
-  else if (ua < W.toObj[1]) { const rel = local(tagGrip(G.TG), clipHole, G.tagAngle); handR = mix(rel, objG, kToObj); phase = 'to-object'; }
-  else if (ua < W.back[0]) { handR = objG; phase = ua < W.lift[1] ? 'lift' : ua < W.carry[1] ? 'carry' : 'lower'; }
-  else { handR = mix(objG, C.restR, kBack); phase = kBack >= 1 ? 'bagged' : 'return'; }
-  const kSIn = ease.inOutCubic(on(W.steadyIn, doTag)), kSOut = ease.inOutCubic(on(W.steadyOut, doTag));
-  const handL = kSOut > 0 ? mix(steadyP, C.restL, kSOut) : mix(C.restL, steadyP, kSIn);
-  return {ua, objPos, lift, inside, anchor, hole, tagAngle, tagLift, chainEnd, clasp, attached, released, handR, handL, tagG, objG, steadyP, phase,
-    holdingTag: doTag && ua >= W.reachTag[1] && ua < W.release[1], holdingObj: doBag && ua >= W.toObj[1] && ua < W.back[0],
-    steadying: doTag && ua >= W.steadyIn[1] && ua < W.steadyOut[0], capped: P.actionProgress < 1 && u > capU};
+  const s = actionPose(L.G, L.C, W, ua, {doTag: P.finalState !== 'pending', doBag: P.finalState === 'bagged'});
+  s.capped = P.actionProgress < 1 && u > capU;
+  return s;
 }
 
 const scene = {
