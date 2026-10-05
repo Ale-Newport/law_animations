@@ -76,12 +76,12 @@ const defaultParams = {...EN};
 
 /** One scene's geometry inside a panel box (design units). */
 function roomIn(box, F, showKey) {
-  const wall = 14, pad = 14, ins = 9, m = 9, edge = 8;
+  const wall = 14, pad = 6, ins = 9, m = 9, edge = 8;
   const gap = Math.max(34, F * 1.7);
   const innerW = box.w - 2 * (wall + pad) - 2 * edge;
   let cw = (innerW - 4 * ins - gap - 2 * m) / 3;
   const s = clamp(cw / 230, 0.6, 1.05);
-  const fixed = 2 * wall + 2 * pad + 2 * m + 2 * ins + 2 * edge + 22 * s + 56 * s + 10 + 6;
+  const fixed = 2 * wall + 2 * pad + 2 * m + 2 * ins + 2 * edge + 14 * s + 52 * s + 4;
   // card height: fills the room box (between 0.62 and 1.0 of the card width)
   const chK = clamp((box.h - 16 - fixed) / cw, 0.62, 1.9);
   const RGt = c => railGeometry({cw: c, ch: c * chK, gap, inset: ins, margin: m});

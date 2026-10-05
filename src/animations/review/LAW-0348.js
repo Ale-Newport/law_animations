@@ -19,9 +19,9 @@
  *             captioned "was" as the supplied AFTER value comes in (never struck,
  *             never marked as wrong); the glyph changes ● → ◆ and the pips from
  *             one dot to two (labels hidden: only these marks show the change).
- *             Only the dependent state follows, in the context, after the new
- *             value is legible: card B slides into the position and pushes card
- *             A into the history pocket, where A stays visible.
+ *             The lens closes; only then, at full emphasis in the context, the
+ *             dependent state follows: card B slides into the position and pushes
+ *             card A into the history pocket, where A stays visible.
  *  0.75–1.00  return: the lens closes onto the context with the new value, the
  *             old value docked (traceable) and a neutral changed-datum marker
  *             (Δ). Seeking back restores the old datum exactly.
@@ -50,7 +50,7 @@ const ID = 'LAW-0348';
 const DURATION = 8000;
 const W = {
   frame: [0.18, 0.205], panelOut: [0.185, 0.205], ctxOut: [0.205, 0.209], back: [0.209, 0.224], open: [0.212, 0.24],
-  move: [0.48, 0.55], was: [0.54, 0.555], newIn: [0.555, 0.585], marks: [0.5, 0.585], cue: [0.6, 0.68],
+  move: [0.48, 0.55], was: [0.54, 0.555], newIn: [0.555, 0.585], marks: [0.5, 0.585], cue: [0.765, 0.835],
   close: [0.728, 0.744], forward: [0.744, 0.758], ctxIn: [0.758, 0.761], frameOut: [0.735, 0.75], panelIn: [0.744, 0.762], marker: [0.8, 0.83],
 };
 const SIZES = [24, 23, 22, 21, 20.5, 19.5, 18.5, 17.5, 16.5, 16];
@@ -238,12 +238,12 @@ function compose(ctx, P, F, opt) {
   if (showKey) rows.push({kind: 'item', icon: 'delta', text: P.contextLabels.marker, name: 'marker-row'});
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
   const panelW = tall ? D.w : Math.max(F * 11, D.w * opt.panel);
-  const PL = panelLayout(ctx, rows, {w: panelW - (tall ? 6 : gap), F, maxLines: 4, gap: F * 0.55});
+  const PL = panelLayout(ctx, rows, {w: panelW - (tall ? 6 : gap), F: tall ? F * 1.2 : F, maxLines: 4, gap: F * 0.55});
   if (!PL.ok) problems.push('panel');
   // (labels hidden on wide frames: no panel; the room stands centred, leaving the lens its space when it steps back)
   // (labels hidden: no panel; the room stands centred and a little wider, its cards taller, so the scene fills the frame)
   const roomW = tall ? D.w : rows.length ? D.w - panelW : D.w * (ctx.view.shape === 'square' ? 0.75 : 0.68);
-  const chK = tall ? (rows.length ? 1.4 : 1.7) : rows.length ? 0.68 : ctx.view.shape === 'square' ? 1.15 : 0.8;
+  const chK = tall ? (rows.length ? 1.4 : 1.7) : rows.length ? (ctx.view.shape === 'square' ? 0.95 : 0.68) : ctx.view.shape === 'square' ? 1.15 : 0.8;
   const G = roomGeometry(ctx, P, roomW, F, showKey, ctx.t.was, chK);
   if (!G.ok) problems.push('plate-text');
   // fit the room into its region (scale k ≤ 1 when it is taller than the space)
@@ -354,6 +354,15 @@ const scene = {
     L.openW = [W.open[0] + shiftW, Math.max(W.open[1], W.open[0] + shiftW + 0.02)];
     L.ctxOutW = [W.ctxOut[0] + 0.004 + shiftW, W.ctxOut[1] + 0.004 + shiftW];
     L.panelOutW = [Math.max(W.panelOut[0], L.openW[0] - 0.018), L.openW[0]];
+    // scale the whole composition (context, panel and lens window) up into any free space of the design box
+    {
+      const D = ctx.design;
+      const bs = [roomRect, L.panelRect, {x: dest.x - 4, y: dest.y - 4, w: dest.w + 14, h: dest.h + 18}];
+      const x0 = Math.min(...bs.map(b => b.x)), y0 = Math.min(...bs.map(b => b.y));
+      const x1 = Math.max(...bs.map(b => b.x + b.w)), y1 = Math.max(...bs.map(b => b.y + b.h));
+      const kf = Math.min(1.5, (D.w - 8) / (x1 - x0), (D.h - 8) / (y1 - y0));
+      L.fit = kf > 1.01 ? {k: kf, tx: (D.w - (x1 - x0) * kf) / 2 - x0 * kf, ty: (D.h - (y1 - y0) * kf) / 2 - y0 * kf} : null;
+    }
     return L;
   },
   build(ctx, L) {
@@ -362,7 +371,7 @@ const scene = {
     const d = L.lens.dest;
     const crop = L.lens.crop;
     const Z = L.lens.Z;
-    return g(null,
+    return g(L.fit ? {transform: `translate(${r(L.fit.tx)} ${r(L.fit.ty)}) scale(${r(L.fit.k, 4)})`} : null,
       g({name: 'ctx', transform: 'translate(0 0) scale(1)'},
         g({name: 'plan', transform: `${T(roomRect.x, roomRect.y)} scale(${r(k, 5)})`}, roomNode(ctx, G, 'rm')),
         h('rect', {name: 'src-frame', x: r(L.srcD.x), y: r(L.srcD.y), width: r(L.srcD.w), height: r(L.srcD.h), rx: 12, fill: 'none', stroke: th.accent2, 'stroke-width': 4, opacity: 0}),

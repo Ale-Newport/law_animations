@@ -153,13 +153,13 @@ function compose(ctx, P, F, opts) {
   const deskB = desk.y + desk.h, deskR = desk.x + desk.w;
   const sOff = Math.max(100, F * 4.5);
   // (the hands push from behind each card's trailing edge: they never cover its text)
-  const grip = H ? [{x: -F * 1.1, y: M.h * 0.6}, {x: -F * 1.1, y: M.h * 0.4}] : [{x: M.w * 0.6, y: -F * 1.1}, {x: M.w * 0.4, y: -F * 1.1}];
+  const grip = H ? [{x: -F * 2.4, y: M.h * 0.75}, {x: -F * 2.4, y: M.h * 0.25}] : [{x: M.w * 0.75, y: -F * 2.4}, {x: M.w * 0.25, y: -F * 2.4}];
   const at = (i, t) => { const p = B.pos(i, t); return {x: p.x + ox, y: p.y + oy}; };
   const gripAt = (i, t) => { const p = at(i, t); return {x: p.x + grip[i].x, y: p.y + grip[i].y}; };
   const lead = F * 2.2;
   const rest = H ? [{x: gripAt(0, B.tStart).x - lead, y: desk.y + mHand * 0.42}, {x: gripAt(1, B.tStart).x - lead, y: deskB - mHand * 0.42}]
     : [{x: desk.x + mHand * 0.42, y: gripAt(0, B.tStart).y - lead}, {x: deskR - mHand * 0.42, y: gripAt(1, B.tStart).y - lead}];
-  const shoulderFor = (i, hand) => (H ? {x: hand.x - F * 2.4, y: i === 0 ? desk.y - sOff : deskB + sOff} : {x: i === 0 ? desk.x - sOff : deskR + sOff, y: hand.y - F * 2.4});
+  const shoulderFor = (i, hand) => (H ? {x: hand.x - F * 0.6, y: i === 0 ? desk.y - sOff : deskB + sOff} : {x: i === 0 ? desk.x - sOff : deskR + sOff, y: hand.y - F * 0.6});
   const far = Math.max(...[0, 1].flatMap(i => [gripAt(i, B.tStart), gripAt(i, B.tEnd), rest[i]].map(p => { const s = shoulderFor(i, p); return Math.hypot(p.x - s.x, p.y - s.y); })));
   const armLen = far * 0.5 + 24;
   const armW = clamp(F * 2, 36, 52);

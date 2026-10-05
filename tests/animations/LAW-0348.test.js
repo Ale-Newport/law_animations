@@ -32,11 +32,12 @@ contractSuite(ID, {
     {at: 0.4, fn: 's.lensOpen === 1 && s.zoomVsRest >= 1.5 && s.ctxCopy === 0 && s.lensCopy === 1 && !s.bothCopies && s.panel === 0', label: 'isolate: a real enlargement (>= 1.5x) holds the datum; the context copy is hidden; the panel is out'},
     {at: 0.5, fn: "s.datum === 'changing' && s.strike === 0 && s.docked > 0 && s.cards === 'before'", label: 'substitute: the old value moves, unchanged and never struck, towards the dock first'},
     {at: 0.59, fn: "s.datum === 'after' && s.docked === 1 && s.newShown === 1 && s.cards === 'before'", label: 'the new value comes before its dependent state changes'},
-    {at: 0.7, fn: "s.cards === 'after' && s.lensOpen === 1", label: 'then only the dependent state follows: card B in the position, card A in the history pocket'},
+    {at: 0.7, fn: "s.cards === 'before' && s.lensOpen === 1", label: 'while the lens holds the new value nothing else has changed yet'},
+    {at: 0.86, fn: "s.cards === 'after' && s.lensOpen === 0 && s.contextScale === 1", label: 'then, at full emphasis in the context, only the dependent state follows: card B in the position, card A in the history pocket'},
     {at: 0.82, fn: "s.lensOpen === 0 && s.contextScale === 1 && s.ctxCopy === 1 && s.datum === 'after'", label: 'return: the lens has closed onto the updated context at full size'},
     {at: 1, fn: "s.markerShown === 1 && s.datum === 'after' && s.docked === 1 && s.panel === 1 && s.strike === 0 && s.problems.length === 0", label: 'hold: new value, old value docked (traceable), marker; the composition fits'},
     {at: 0.3, fn: "s.datum === 'before' && s.docked === 0 && s.cards === 'before'", label: 'seeking back restores the previous datum exactly'},
-    {at: 0.7, params: {textVisibility: 'none'}, fn: "s.cards === 'after' && s.lensOpen === 1", label: 'labels hidden: the same localised change'},
+    {at: 0.86, params: {textVisibility: 'none'}, fn: "s.cards === 'after' && s.lensOpen === 0", label: 'labels hidden: the same localised change'},
   ],
 });
 

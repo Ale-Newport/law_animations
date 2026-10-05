@@ -152,7 +152,7 @@ function compose(ctx, P, F, opt) {
   }
   const CM = cardModel(ctx, {w: cw, F, minF: F, maxLines: opt.cardLines, a: P.decisions.initial, b: P.decisions.later, showText: showKey, minH: showKey ? F * 4.5 * (opt.grow ?? 1) : cw * 0.75});
   if (!CM.ok) problems.push('card-text');
-  plateH = Math.max(Fg * 3.8, Math.min(CM.h * 0.7, plateW * 0.6));
+  plateH = Math.max(Fg * 3.8, Math.min(CM.h * 0.95, plateW * 0.62));
   // captions: element label (bold) + description (+ grounds) + reserved state
   const capW = tall ? plateW : colW - 24;
   const desc = {intake: P.routes.intake, position: P.decisions.position, history: P.routes.history};
@@ -330,6 +330,18 @@ const scene = {
     L.startB = startOf(B.later);
     L.startA = startOf(B.initial);
     L.tokS = Math.min(L.plateH * 0.62, L.plateW * 0.5);
+    // scale the whole model up into any free space of the design box (so it spans the safe box)
+    {
+      const D = ctx.design;
+      const xs = [], ys = [];
+      for (const [id, b] of Object.entries(B)) { xs.push(b.x, b.x + b.w); ys.push(b.y - (id === 'later' || id === 'initial' ? L.cardCapH : 14), b.y + b.h); }
+      for (const id of ['intake', 'position', 'history']) { xs.push(L.capAt[id].x, L.capAt[id].x + L.caps[id].w); ys.push(L.capAt[id].y + L.caps[id].h); }
+      if (L.leg.length) { xs.push(18, 18 + L.legCols * L.legColW); ys.push(L.legY + L.legH); }
+      if (tall) xs.push(B.intake.x - L.tokS * 1.5);
+      const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+      const kf = Math.min(1.6, (D.w - 8) / (x1 - x0), (D.h - 8) / (y1 - y0));
+      L.fit = kf > 1.01 ? {k: kf, tx: (D.w - (x1 - x0) * kf) / 2 - x0 * kf, ty: (D.h - (y1 - y0) * kf) / 2 - y0 * kf} : null;
+    }
     return L;
   },
   build(ctx, L) {
@@ -428,7 +440,7 @@ const scene = {
     }
     parts.push(g({name: 'legend'}, lg));
     void D;
-    return g(null, parts);
+    return L.fit ? g({transform: `translate(${r(L.fit.tx)} ${r(L.fit.ty)}) scale(${r(L.fit.k, 4)})`}, parts) : g(null, parts);
   },
   frame(ctx, L, u) {
     const nodes = {};

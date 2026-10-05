@@ -77,6 +77,9 @@ const defaultParams = {
 
 const defaultParamsEs = {
   ...DEFAULT_CONTENT_ES,
+  // (the inspected card's panel heading kept to one short phrase of the brief — «comunicaciones dadas» —: at 1:1 the
+  // two-line «Circunstancias y comunicaciones» leaves the lens crop no room above the card without crossing it)
+  panels: {circumstance: 'Comunicaciones dadas', section: 'Cláusula de terminación'},
   contextLabels: {context: 'Tarjeta de la comunicación, conector y apartados, según lo aportado', marker: 'Cambio: el supuesto aportado de la comunicación 1'},
 };
 

@@ -9,6 +9,9 @@
 // doctrine; both lane pieces have identical size and weight; the convergence is a supplied description only.
 // Brief customizable fields: none omitted (events, causalLinks, alternatives, losses + the mechanism fields); 'origin'
 // added.
+// coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20): the long-labels-stress COUNTS are capped
+// (four steps, no account, one loss item, no connector label; baseline 2 / 0 / 1 / 0). Rendered at 1080p (2026-10-05):
+// full counts → 1:1 subject 0.165; one loss, no label → 0.182; also no account → 0.215. Details in the presets note.
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
 import {ratioChecks} from '../harness/ratio-checks.js';
