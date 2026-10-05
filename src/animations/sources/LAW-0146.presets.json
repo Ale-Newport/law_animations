@@ -1,0 +1,99 @@
+{
+  "animationId": "LAW-0146",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All texts, provisions, levels and readings are fictional placeholders; jurisdiction unspecified. Relationships are drawn only as supplied (causal only when supplied); the link state is supplied, never inferred; no instrument is shown to be valid, lawful or binding and the hierarchy is only displayed.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The instrument and the enabling document are pulled apart into their parts; plain relations (contains, refers to, placed as supplied) and one communication (a proposed reading) are drawn; a small lens traces instrument → clause → passage → document → hierarchy and the passage enlarges; the cord's tag shows 'authorization supplied'.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: different fictional texts, the supplied link state 'authorization to be checked' (open clip, pencil outline on the passage), a relationship supplied as a sequence (the clause is read before the passage), the tracer starting from the hierarchy and the reference clause as focus.",
+      "params": {
+        "sources": [{"id": "R2", "title": "Rulebook 2 (fictional)", "provision": "Rule 7"}, {"id": "N5", "title": "Notice order 5 (fictional)", "provision": "Opening words"}],
+        "passages": [
+          {"text": "The committee may issue a notice order on meeting dates.", "phrase": "issue a notice order"},
+          {"text": "This order is issued with reference to Rulebook 2 · Rule 7.", "phrase": "Rulebook 2 · Rule 7"}
+        ],
+        "hierarchy": {"levels": ["Level 1 (user-supplied)", "Level 2 (user-supplied)"], "placement": [0, 0], "caption": "Same level, as supplied"},
+        "interpretations": [{"by": "Guide D (fictional)", "text": "Reads Rule 7 as limited to meeting dates"}],
+        "relationships": [
+          {"from": "document", "to": "article", "kind": "relation", "label": "contains"},
+          {"from": "instrument", "to": "reference", "kind": "relation", "label": "contains"},
+          {"from": "reference", "to": "article", "kind": "relation", "label": "refers to"},
+          {"from": "hierarchy", "to": "document", "kind": "relation", "label": "placed as supplied"},
+          {"from": "hierarchy", "to": "instrument", "kind": "relation", "label": "placed as supplied"},
+          {"from": "reading", "to": "article", "kind": "sequence", "label": "read after the passage"}
+        ],
+        "focusElement": "reference",
+        "traversalOrder": ["hierarchy", "instrument", "reference", "article", "reading"],
+        "linkState": "authorization-to-be-checked"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long titles, provisions, wording, level labels, component captions, relation captions and reading to exercise wrapping and bounded shrinking.",
+      "params": {
+        "sources": [
+          {"id": "T1-a", "title": "Consolidated Illustrative Enabling Text on Notices (fictional)", "provision": "Article 12, paragraph 3"},
+          {"id": "I3-b", "title": "Illustrative Instrument No. 3 on Notice Rules (fictional)", "provision": "Basis clause, second recital"}
+        ],
+        "hierarchy": {"levels": ["Level one as supplied by the author", "Level two as supplied by the author", "Level three as supplied"], "placement": [0, 1], "caption": "Ordering entered by the author, displayed only"},
+        "passages": [
+          {"text": "The board may set detailed rules on the form and timing of notices to members in a separate written instrument adopted later.", "phrase": "detailed rules on the form and timing of notices"},
+          {"text": "This illustrative instrument states that it is made under the power described in Text 1 · Article 12, paragraph 3 (fictional).", "phrase": "Text 1 · Article 12, paragraph 3"}
+        ],
+        "interpretations": [{"by": "Commentary on the illustrative enabling text (fictional)", "text": "Reads Article 12, paragraph 3 as covering the form of notices but not their timing"}],
+        "elements": [
+          {"id": "document", "label": "Enabling document as supplied"},
+          {"id": "article", "label": "Enabling passage pulled out of it"},
+          {"id": "instrument", "label": "Instrument that refers to it"},
+          {"id": "reference", "label": "Reference clause pulled out of it"},
+          {"id": "hierarchy", "label": "Editable hierarchy (user-supplied)"},
+          {"id": "reading", "label": "Reading attributed to a commentary"}
+        ],
+        "relationships": [
+          {"from": "document", "to": "article", "kind": "relation", "label": "contains this passage"},
+          {"from": "instrument", "to": "reference", "kind": "relation", "label": "contains this clause"},
+          {"from": "reference", "to": "article", "kind": "relation", "label": "refers to the enabling passage"},
+          {"from": "hierarchy", "to": "document", "kind": "relation", "label": "placed on a level as supplied"},
+          {"from": "hierarchy", "to": "instrument", "kind": "relation", "label": "placed on a level as supplied"},
+          {"from": "reading", "to": "article", "kind": "communication", "label": "proposes a reading of it"}
+        ],
+        "relationLabels": {"relation": "relation (no direction implied)", "communication": "communication (message sent)", "sequence": "sequence (order of steps)", "causal": "causal (only when supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"id": "T1", "title": "Texto 1 (ficticio)", "provision": "Art. 12"}, {"id": "I3", "title": "Instrumento 3 (ficticio)", "provision": "Cláusula de base"}],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)", "Nivel 2 (aportado)"], "placement": [0, 1], "caption": "Orden aportado, no se aplica"},
+        "passages": [
+          {"text": "La junta puede fijar reglas detalladas sobre avisos en un instrumento separado.", "phrase": "reglas detalladas sobre avisos"},
+          {"text": "Este instrumento se dicta con la facultad descrita en Texto 1 · Art. 12.", "phrase": "Texto 1 · Art. 12"}
+        ],
+        "interpretations": [{"by": "Comentario C (ficticio)", "text": "Lee el Art. 12 como limitado a avisos"}],
+        "elements": [
+          {"id": "document", "label": "Documento habilitante"},
+          {"id": "article", "label": "Pasaje habilitante"},
+          {"id": "instrument", "label": "Instrumento"},
+          {"id": "reference", "label": "Cláusula de referencia"},
+          {"id": "hierarchy", "label": "Jerarquía editable"},
+          {"id": "reading", "label": "Lectura atribuida"}
+        ],
+        "relationships": [
+          {"from": "document", "to": "article", "kind": "relation", "label": "contiene"},
+          {"from": "instrument", "to": "reference", "kind": "relation", "label": "contiene"},
+          {"from": "reference", "to": "article", "kind": "relation", "label": "remite a"},
+          {"from": "hierarchy", "to": "document", "kind": "relation", "label": "situado según lo aportado"},
+          {"from": "hierarchy", "to": "instrument", "kind": "relation", "label": "situado según lo aportado"},
+          {"from": "reading", "to": "article", "kind": "communication", "label": "propone una lectura"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

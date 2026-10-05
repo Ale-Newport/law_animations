@@ -1,0 +1,442 @@
+{
+  "id": "LAW-0152",
+  "slug": "sources-08-inspect",
+  "title": "Cross-reference between articles — inspect and replace the printed phrase",
+  "titleEs": "Remisión entre artículos — Inspección y cambio de un dato",
+  "category": "sources",
+  "categoryName": "Fuentes e interpretación",
+  "motif": "Remisión entre artículos",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The desk shrinks to a miniature while a window enlarges the cross-reference phrase printed in a fictional article. The old phrase is struck and lifted into a change card; the supplied new phrase is inked in and only the dependent geometry updates: the old trail and ring become ghosts, the flag hops to the newly referenced article and a new trail is drawn. The desk returns with a Δ marker; nothing is concluded.",
+  "tags": [
+    "cross-reference",
+    "remisión",
+    "inspect",
+    "magnifier",
+    "lupa",
+    "datum change",
+    "page flag",
+    "article",
+    "book"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/sources/kits/remision-entre-articulos.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js",
+    "src/primitives/markers.js",
+    "src/primitives/paper.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Title of the volume, e.g. \"Text 1 (fictional)\""
+            }
+          },
+          "required": [
+            "title"
+          ],
+          "description": "Source text (fictional placeholder)"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "The bound volume (fictional placeholder); its title is printed as the running head of the first page (array replaces the previous value)"
+      },
+      "hierarchy": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Division label"
+            },
+            "minItems": 2,
+            "maxItems": 2,
+            "description": "Division labels, one per page (user-supplied) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "levels"
+        ],
+        "description": "Editable hierarchy: user-supplied divisions of the volume, drawn as the index tabs of its two pages (first page first). Displayed only; the order states no rule, priority or outcome"
+      },
+      "passages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ref": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Reference printed as the article heading, e.g. \"Text 1 · Art. 4 (fictional)\""
+            },
+            "cue": {
+              "type": "string",
+              "maxLength": 70,
+              "description": "Cross-reference phrase printed in the article, as supplied (empty = the article prints none)"
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Division (page) that holds the article: 0 = first page, 1 = second page"
+            }
+          },
+          "required": [
+            "ref",
+            "cue",
+            "level"
+          ],
+          "description": "Article (fictional)"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Articles printed in the volume (simulated wording). Each may print a cross-reference phrase exactly as supplied; the scene never reads, interprets or resolves it (array replaces the previous value)"
+      },
+      "interpretations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "by": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Fictional source of the reading"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "The reading as proposed (descriptive)"
+            }
+          },
+          "required": [
+            "by",
+            "text"
+          ],
+          "description": "Attributed reading"
+        },
+        "minItems": 0,
+        "maxItems": 1,
+        "description": "Readings of the reference attributed to a fictional source; drawn as an attributed note, never applied or endorsed (array replaces the previous value)"
+      },
+      "path": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Article index (0-based)"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "The supplied reference path BEFORE the change. The phrase of its last referring article is the focus: it prints beforeValue (its passages[i].cue is replaced by beforeValue / afterValue). The supplied reference path: indices of the articles the marker visits, in order. Two entries = a direct reference, three or four = a chain of references. Nothing is inferred from the cue wording (array replaces the previous value)"
+      },
+      "afterTarget": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 3,
+        "description": "Index of the article the new phrase (afterValue) refers to, as supplied: the last hop is re-routed to it. Nothing is inferred from the wording"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "reference-phrase"
+        ],
+        "description": "Detail that is enlarged and substituted"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "sources": [
+      {
+        "title": "Text 1 (fictional)"
+      }
+    ],
+    "hierarchy": {
+      "levels": [
+        "Part 1 (user-supplied)",
+        "Part 2 (user-supplied)"
+      ]
+    },
+    "passages": [
+      {
+        "ref": "Text 1 · Art. 4 (fictional)",
+        "cue": "as set out in Art. 9",
+        "level": 0
+      },
+      {
+        "ref": "Art. 6 (fictional)",
+        "cue": "",
+        "level": 0
+      },
+      {
+        "ref": "Art. 9 (fictional)",
+        "cue": "",
+        "level": 1
+      },
+      {
+        "ref": "Art. 12 (fictional)",
+        "cue": "",
+        "level": 1
+      }
+    ],
+    "interpretations": [],
+    "path": [
+      0,
+      2
+    ],
+    "afterTarget": 3,
+    "focusTarget": "reference-phrase",
+    "beforeValue": "as set out in Art. 9",
+    "afterValue": "as set out in Art. 12",
+    "detailGeometry": {
+      "zoom": 2.4,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "State after the marker jumped (as supplied)",
+      "marker": "Datum changed"
+    }
+  }
+}

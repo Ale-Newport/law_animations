@@ -1,0 +1,169 @@
+{
+  "animationId": "LAW-0150",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). Only the supplied relationships are drawn; 'refers to' is a sequence link, never causation, and no conclusion is drawn.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Chain of references: Art. 4 (Part 1) refers to Art. 9 (Part 2), which refers to Art. 12 (Part 2). The flag travels provision → intermediate article → referenced text; the intermediate article is the focus.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a direct reference. Only two leaves (Art. 4 in Part 1, Art. 9 in Part 2) and a single 'refers to' link; the flag makes one leg and the referenced text is the focus.",
+      "params": {
+        "passages": [
+          {
+            "ref": "Text 1 · Art. 4 (fictional)",
+            "cue": "as set out in Art. 9",
+            "level": 0
+          },
+          {
+            "ref": "Art. 9 (fictional)",
+            "cue": "",
+            "level": 1
+          }
+        ],
+        "relationships": [
+          {
+            "from": "volume",
+            "to": "provision",
+            "kind": "relation"
+          },
+          {
+            "from": "provision",
+            "to": "referenced",
+            "kind": "sequence"
+          }
+        ],
+        "focusElement": "referenced",
+        "traversalOrder": [
+          "provision",
+          "referenced"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long volume title, division labels, article references, phrases, element labels, relation labels and an attributed reading, to exercise wrapping and label placement.",
+      "params": {
+        "sources": [
+          {
+            "title": "Text 1: Consolidated Register Rules, annotated (fictional)"
+          }
+        ],
+        "hierarchy": {
+          "levels": [
+            "Part 1 — general provisions (user-supplied)",
+            "Part 2 — annexed provisions (user-supplied)"
+          ]
+        },
+        "passages": [
+          {
+            "ref": "Text 1 · Article 4, paragraph 2 (fictional wording)",
+            "cue": "as set out in Article 9, paragraph 1, of this text",
+            "level": 0
+          },
+          {
+            "ref": "Article 9, paragraph 1 (fictional wording)",
+            "cue": "see also Article 12, paragraph 3, of this text",
+            "level": 1
+          },
+          {
+            "ref": "Article 12, paragraph 3 (fictional wording)",
+            "cue": "",
+            "level": 1
+          }
+        ],
+        "interpretations": [
+          {
+            "by": "Commentary 1 (fictional, second edition)",
+            "text": "Reads the phrase in Article 4 as pointing to Article 9 of the same volume"
+          }
+        ],
+        "elements": [
+          {
+            "id": "volume",
+            "label": "Bound volume holding every article"
+          },
+          {
+            "id": "provision",
+            "label": "Referring provision where the path starts"
+          },
+          {
+            "id": "relay",
+            "label": "Intermediate article that refers onward"
+          },
+          {
+            "id": "referenced",
+            "label": "Referenced text at the end of the path"
+          }
+        ],
+        "relationLabels": {
+          "relation": "printed in this volume",
+          "communication": "communication",
+          "sequence": "refers to (as supplied)",
+          "causal": "causal (as supplied)"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [
+          {
+            "title": "Texto 1 (ficticio)"
+          }
+        ],
+        "hierarchy": {
+          "levels": [
+            "Parte 1 (aportada)",
+            "Parte 2 (aportada)"
+          ]
+        },
+        "passages": [
+          {
+            "ref": "Texto 1 · Art. 4 (ficticio)",
+            "cue": "según lo previsto en el art. 9",
+            "level": 0
+          },
+          {
+            "ref": "Art. 9 (ficticio)",
+            "cue": "véase el art. 12",
+            "level": 1
+          },
+          {
+            "ref": "Art. 12 (ficticio)",
+            "cue": "",
+            "level": 1
+          }
+        ],
+        "elements": [
+          {
+            "id": "volume",
+            "label": "Volumen encuadernado"
+          },
+          {
+            "id": "provision",
+            "label": "Disposición que remite"
+          },
+          {
+            "id": "relay",
+            "label": "Artículo intermedio"
+          },
+          {
+            "id": "referenced",
+            "label": "Texto remitido"
+          }
+        ],
+        "relationLabels": {
+          "relation": "impreso en",
+          "communication": "comunicación",
+          "sequence": "remite a",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

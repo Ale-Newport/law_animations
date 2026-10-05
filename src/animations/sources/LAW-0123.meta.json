@@ -1,0 +1,501 @@
+{
+  "id": "LAW-0123",
+  "slug": "sources-01-contrast",
+  "title": "Text and context — isolated vs contextual reading",
+  "titleEs": "Texto y contexto — Comparación de dos supuestos",
+  "category": "sources",
+  "categoryName": "Fuentes e interpretación",
+  "motif": "Texto y contexto",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two complete reading desks (same book, article, rack, magnifier and timing), side by side on wide frames and stacked on square and tall ones. Only the reading scope differs: in A the lens stays raised on the key word; in B it is lowered, swept over the other occurrences of the word and laid down, and the book is tied to its row on the author’s rack. The identical supplied wording is printed once on a shared strip; each lane shows its attributed reading; a guide joins the lanes; no reading is marked correct.",
+  "tags": [
+    "text",
+    "context",
+    "comparison",
+    "isolated reading",
+    "contextual reading",
+    "magnifier",
+    "book",
+    "article",
+    "editable hierarchy",
+    "paired"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/sources/kits/texto-y-contexto.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 32,
+              "description": "Neutral identifier printed on the plate/spine, e.g. \"Source A\""
+            },
+            "title": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Fictional title printed on the left page, e.g. \"Text 1 (fictional)\""
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Row of the supplied ordering this source is placed on (0 = first row). The placement is the author’s; no ordering rule is applied"
+            }
+          },
+          "required": [
+            "name",
+            "title",
+            "level"
+          ],
+          "description": "Source"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Sources kept on the rack (fictional, neutral identifiers). The FIRST source is the book that is read: it lies open on the desk and leaves an empty slot in its row (array replaces the previous value)"
+      },
+      "hierarchy": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 56,
+              "description": "Row label"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Row labels, first to last (user-supplied) (array replaces the previous value)"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption printed on the rack"
+          }
+        },
+        "required": [
+          "levels"
+        ],
+        "description": "Editable hierarchy: an ordering of sources SUPPLIED by the author, drawn as the rows of a rack. Labels are neutral placeholders; nothing prevails and no rule is derived from the order"
+      },
+      "passages": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "heading": {
+            "type": "string",
+            "maxLength": 56,
+            "description": "Article heading, e.g. \"Text 1 · Art. 4 (fictional)\""
+          },
+          "lines": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 110,
+              "description": "Passage"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Passages of the article (simulated wording) (array replaces the previous value)"
+          },
+          "word": {
+            "type": "string",
+            "maxLength": 24,
+            "description": "Key word that is enlarged and put back. Its other occurrences are found in the supplied passages (whole-word, case- and accent-insensitive)"
+          },
+          "wordPassage": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Passage (0-based) whose occurrence of the key word is enlarged"
+          }
+        },
+        "required": [
+          "heading",
+          "lines",
+          "word"
+        ],
+        "description": "The article that is read (simulated, fictional clause wording)"
+      },
+      "interpretations": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "isolated": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "maxLength": 80,
+                "description": "The reading as supplied (quoted, attributed; never marked correct)"
+              },
+              "by": {
+                "type": "string",
+                "maxLength": 44,
+                "description": "Fictional source the reading is attributed to"
+              }
+            },
+            "required": [
+              "text",
+              "by"
+            ],
+            "description": "Reading proposed for the word read on its own"
+          },
+          "contextual": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "maxLength": 80,
+                "description": "The reading as supplied (quoted, attributed; never marked correct)"
+              },
+              "by": {
+                "type": "string",
+                "maxLength": 44,
+                "description": "Fictional source the reading is attributed to"
+              }
+            },
+            "required": [
+              "text",
+              "by"
+            ],
+            "description": "Reading proposed for the word read within the whole article"
+          }
+        },
+        "required": [
+          "isolated",
+          "contextual"
+        ],
+        "description": "Readings attributed to their (fictional) sources; shown as “reading proposed”, never endorsed, ranked or resolved"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "sources": [
+      {
+        "name": "Source A",
+        "title": "Text 1 (fictional)",
+        "level": 1
+      },
+      {
+        "name": "Source B",
+        "title": "Text 2 (fictional)",
+        "level": 0
+      },
+      {
+        "name": "Source C",
+        "title": "Text 3 (fictional)",
+        "level": 2
+      }
+    ],
+    "hierarchy": {
+      "levels": [
+        "Level 1 (user-supplied)",
+        "Level 2 (user-supplied)",
+        "Level 3 (user-supplied)"
+      ],
+      "caption": "Ordering supplied by the author"
+    },
+    "passages": {
+      "heading": "Text 1 · Art. 4 (fictional)",
+      "lines": [
+        "Each unit keeps a register of entries.",
+        "In this article, a unit is a room listed in Text 2.",
+        "The register stays at the entrance of the unit."
+      ],
+      "word": "unit",
+      "wordPassage": 0
+    },
+    "interpretations": {
+      "isolated": {
+        "text": "“unit” as any single item",
+        "by": "Commentary 1 (fictional)"
+      },
+      "contextual": {
+        "text": "“unit” as a room listed in Text 2",
+        "by": "Commentary 2 (fictional)"
+      }
+    },
+    "scenarioA": {
+      "label": "Isolated reading",
+      "caption": "The key word is read on its own"
+    },
+    "scenarioB": {
+      "label": "Contextual reading",
+      "caption": "The key word is read within the whole article"
+    },
+    "changedFact": "reading scope: the word alone / the whole article",
+    "sharedFacts": [
+      "Same article and key word",
+      "Same book and rack order",
+      "Same magnifier and timing"
+    ],
+    "comparisonLabels": {
+      "guide": "Only this differs",
+      "neutral": "Two readings shown side by side; neither is marked correct"
+    }
+  }
+}

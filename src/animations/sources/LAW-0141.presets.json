@@ -1,0 +1,64 @@
+{
+  "animationId": "LAW-0141",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified); zones are neutral abstract areas with fictional names, placements are supplied data compared verbatim, and no legal consequence is inferred.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional Text 1 in the Level 1 compartment; its slip places the text on Zone Alder. Three fact pawns: two are set in Zone Alder (same zone as the text), one in Zone Birch (another zone), which the magnifier then reads.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: three zones; the user-supplied order of the organiser is swapped (Text 1 in the second compartment); the slip places the text on Zone Cedar; one fact is supplied in Zone Cedar and two in the other zones; a reading attributed to a fictional commentary is pinned by the boundary without being applied.",
+      "params": {
+        "hierarchy": {"levels": ["Level 1 (user-supplied)", "Level 2 (user-supplied)"], "placement": [1, 0]},
+        "zones": [{"name": "Zone Alder (fictional)"}, {"name": "Zone Birch (fictional)"}, {"name": "Zone Cedar (fictional)"}],
+        "passages": [{"ref": "Text 1 · Art. 9 (fictional)", "heading": "Area of the text (simulated)", "zone": "Zone Cedar (fictional)"}],
+        "facts": [
+          {"label": "Repair of a fence", "zone": "Zone Alder (fictional)"},
+          {"label": "Hire of a hall", "zone": "Zone Cedar (fictional)"},
+          {"label": "Loan of a tractor", "zone": "Zone Birch (fictional)"}
+        ],
+        "interpretations": [{"by": "Commentary 1 (fictional)", "text": "Proposes reading the border tiles as part of both zones"}],
+        "annotations": [{"target": "fact", "text": "This pawn was supplied in another zone"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long titles, level labels, zone names, slip texts, fact labels and notes (three zones, three facts) to exercise wrapping and bounded shrinking.",
+      "params": {
+        "sources": [{"title": "Consolidated Illustrative Text Number One (fictional)", "note": "Simulated wording for teaching use"}, {"title": "Supplementary Illustrative Text Two (fictional)", "note": "Simulated wording for teaching"}],
+        "hierarchy": {"levels": ["First level as supplied by the author", "Second level as supplied by the author"], "placement": [0, 1]},
+        "zones": [{"name": "Alder coastal district zone (fictional)"}, {"name": "Birch inland district zone (fictional)"}, {"name": "Cedar river valley zone (fictional)"}],
+        "passages": [{"ref": "Consolidated Text 1 · Article 4 (fictional)", "heading": "Territorial scope of the text (simulated wording)", "zone": "Alder coastal district zone (fictional)"}],
+        "facts": [
+          {"label": "Delivery of a parcel to a workshop", "zone": "Alder coastal district zone (fictional)"},
+          {"label": "Meeting of two parties at a market", "zone": "Birch inland district zone (fictional)"},
+          {"label": "Sale of a second-hand bicycle", "zone": "Cedar river valley zone (fictional)"}
+        ],
+        "actorLabels": {"a": "Reader consulting the text"},
+        "objectLabels": {"dish": "Facts supplied (fictional)"},
+        "annotations": [{"target": "article", "text": "The slip names the zone where the author places the text"}]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"title": "Texto 1 (ficticio)", "note": "Redacción simulada"}, {"title": "Texto 2 (ficticio)", "note": "Redacción simulada"}],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)", "Nivel 2 (aportado)"], "placement": [0, 1]},
+        "zones": [{"name": "Zona Aliso (ficticia)"}, {"name": "Zona Abedul (ficticia)"}],
+        "passages": [{"ref": "Texto 1 · Art. 4 (ficticio)", "heading": "Ámbito territorial (simulado)", "zone": "Zona Aliso (ficticia)"}],
+        "facts": [
+          {"label": "Entrega de un paquete", "zone": "Zona Aliso (ficticia)"},
+          {"label": "Reunión de dos partes", "zone": "Zona Abedul (ficticia)"},
+          {"label": "Venta de una bicicleta", "zone": "Zona Aliso (ficticia)"}
+        ],
+        "actorLabels": {"a": "Lectora"},
+        "objectLabels": {"dish": "Hechos (ficticios)"},
+        "annotations": [{"target": "article", "text": "La ficha indica la zona donde se sitúa el texto"}]
+      }
+    }
+  ]
+}

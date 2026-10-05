@@ -1,0 +1,640 @@
+{
+  "id": "LAW-0142",
+  "slug": "sources-06-mechanism",
+  "title": "Territorial scope — the placement taken apart in layers",
+  "titleEs": "Ámbito territorial — Mecanismo o relación explicada",
+  "category": "sources",
+  "categoryName": "Fuentes e interpretación",
+  "motif": "Ámbito territorial",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "Exploded view: three sheets seen at an angle lift apart — the neutral zone board, the translucent sheet with the area where the text is placed, and the layer of numbered fact pawns — beside the editable hierarchy, the book, the article slip and the magnifier. Only the supplied relationships are drawn (plain relations without arrows), a tracer follows the supplied order and the focus part swells; at the end the sheet and the pawns drop onto the board and the combined placement stays visible, as supplied, with no conclusion drawn.",
+  "tags": [
+    "territorial scope",
+    "zones",
+    "mechanism",
+    "layers",
+    "exploded view",
+    "relations",
+    "tracer",
+    "board",
+    "article",
+    "editable hierarchy"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/sources/kits/ambito-territorial.js",
+    "src/animations/sources/kits/ambito-material.js",
+    "src/frameworks/graph.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Title printed on the cover label, e.g. \"Text 1 (fictional)\""
+            },
+            "note": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Short descriptive line printed under the title (e.g. \"simulated wording\")"
+            }
+          },
+          "required": [
+            "title"
+          ],
+          "description": "Source text (fictional placeholder)"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Fictional source texts drawn as closed books in the hierarchy organiser: [0] holds the article slip (the anchor); [1] (optional) is a second text (array replaces the previous value)"
+      },
+      "hierarchy": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Level label"
+            },
+            "minItems": 1,
+            "maxItems": 2,
+            "description": "Compartment labels, first level first (user-supplied) (array replaces the previous value)"
+          },
+          "placement": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Level index"
+            },
+            "minItems": 1,
+            "maxItems": 2,
+            "description": "Compartment index (0 = first level) of each source, in source order (user-supplied) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "levels",
+          "placement"
+        ],
+        "description": "Editable hierarchy: user-supplied level labels on the compartments of the organiser holding the books. Display only: the order states no rule, priority or outcome"
+      },
+      "passages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ref": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Reference printed on the slip, e.g. \"Text 1 · Art. 4 (fictional)\""
+            },
+            "heading": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Heading of the article (simulated wording)"
+            },
+            "zone": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Zone where the text is placed, as supplied (it is laid on the board only when it matches a zone name)"
+            }
+          },
+          "required": [
+            "ref",
+            "heading",
+            "zone"
+          ],
+          "description": "Passage (simulated)"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "The article slip kept in Text 1: reference, heading and the zone where the author places the text (compared verbatim, case-insensitive, with the zone names) (array replaces the previous value)"
+      },
+      "zones": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Zone name printed on its plaque"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "Zone (fictional)"
+        },
+        "minItems": 2,
+        "maxItems": 3,
+        "description": "Neutral abstract zones of the board (fictional names; no real place, map or border) (array replaces the previous value)"
+      },
+      "facts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Fact label printed on the token tag"
+            },
+            "zone": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Zone where the fact is placed, as supplied"
+            }
+          },
+          "required": [
+            "label",
+            "zone"
+          ],
+          "description": "Fact (fictional)"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Facts drawn as numbered tokens, each placed in the zone supplied for it (compared verbatim, case-insensitive, with the zone names) (array replaces the previous value)"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "hierarchy",
+                "source",
+                "article",
+                "text",
+                "zones",
+                "facts",
+                "reading"
+              ],
+              "description": "Component id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Component"
+        },
+        "minItems": 2,
+        "maxItems": 7,
+        "description": "Component labels; ids are fixed by the scene, labels are editable (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "hierarchy",
+                "source",
+                "article",
+                "text",
+                "zones",
+                "facts",
+                "reading"
+              ],
+              "description": "Source component id"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "hierarchy",
+                "source",
+                "article",
+                "text",
+                "zones",
+                "facts",
+                "reading"
+              ],
+              "description": "Target component id"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Optional caption of this relationship (defaults to the caption of its kind)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "Relationship"
+        },
+        "minItems": 1,
+        "maxItems": 8,
+        "description": "Explicit relationships between components; kind controls line style (causal only when supplied) (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "hierarchy",
+          "source",
+          "article",
+          "text",
+          "zones",
+          "facts",
+          "reading"
+        ],
+        "description": "Component enlarged while the tracer passes"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for sequence links"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Override the caption used for each relation kind"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "hierarchy",
+            "source",
+            "article",
+            "text",
+            "zones",
+            "facts",
+            "reading"
+          ],
+          "description": "Component id"
+        },
+        "minItems": 2,
+        "maxItems": 8,
+        "description": "Order in which the tracer visits components (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "sources": [
+      {
+        "title": "Text 1 (fictional)",
+        "note": "Simulated wording"
+      },
+      {
+        "title": "Text 2 (fictional)",
+        "note": "Simulated wording"
+      }
+    ],
+    "hierarchy": {
+      "levels": [
+        "Level 1 (user-supplied)",
+        "Level 2 (user-supplied)"
+      ],
+      "placement": [
+        0,
+        1
+      ]
+    },
+    "passages": [
+      {
+        "ref": "Text 1 · Art. 4 (fictional)",
+        "heading": "Territorial scope (simulated)",
+        "zone": "Zone Alder (fictional)"
+      }
+    ],
+    "zones": [
+      {
+        "name": "Zone Alder (fictional)"
+      },
+      {
+        "name": "Zone Birch (fictional)"
+      }
+    ],
+    "facts": [
+      {
+        "label": "Delivery of a parcel",
+        "zone": "Zone Alder (fictional)"
+      },
+      {
+        "label": "Meeting of two parties",
+        "zone": "Zone Birch (fictional)"
+      },
+      {
+        "label": "Sale of a bicycle",
+        "zone": "Zone Alder (fictional)"
+      }
+    ],
+    "elements": [
+      {
+        "id": "hierarchy",
+        "label": "Editable hierarchy"
+      },
+      {
+        "id": "source",
+        "label": "Book (source)"
+      },
+      {
+        "id": "article",
+        "label": "Article slip"
+      },
+      {
+        "id": "text",
+        "label": "Sheet of the text"
+      },
+      {
+        "id": "zones",
+        "label": "Zone board"
+      },
+      {
+        "id": "facts",
+        "label": "Fact layer"
+      },
+      {
+        "id": "reading",
+        "label": "Reading (magnifier)"
+      }
+    ],
+    "relationships": [
+      {
+        "from": "hierarchy",
+        "to": "source",
+        "kind": "relation",
+        "label": "level as supplied"
+      },
+      {
+        "from": "source",
+        "to": "article",
+        "kind": "relation",
+        "label": "contains"
+      },
+      {
+        "from": "article",
+        "to": "text",
+        "kind": "relation",
+        "label": "names the zone"
+      },
+      {
+        "from": "text",
+        "to": "zones",
+        "kind": "relation",
+        "label": "same outline"
+      },
+      {
+        "from": "facts",
+        "to": "text",
+        "kind": "relation",
+        "label": "same zone or not"
+      },
+      {
+        "from": "reading",
+        "to": "facts",
+        "kind": "relation",
+        "label": "compares places"
+      }
+    ],
+    "focusElement": "zones",
+    "relationLabels": {
+      "relation": "relation",
+      "communication": "communication",
+      "sequence": "sequence",
+      "causal": "causal (as supplied)"
+    },
+    "traversalOrder": [
+      "hierarchy",
+      "source",
+      "article",
+      "text",
+      "zones",
+      "facts",
+      "reading"
+    ]
+  }
+}

@@ -1,0 +1,448 @@
+{
+  "id": "LAW-0156",
+  "slug": "sources-09-inspect",
+  "title": "Concurrent interpretations — one highlighted span, changed and traced",
+  "titleEs": "Interpretaciones concurrentes — Inspección y cambio de un dato",
+  "category": "sources",
+  "categoryName": "Fuentes e interpretación",
+  "motif": "Interpretaciones concurrentes",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The light-table desk after one passage has given two readings: a hand carries the magnifier over the overlay of one reading and a real enlarged copy of that region opens; the words it highlights are substituted (the old band stays as a dashed outline, \"before\" and \"after\" named), the window closes and a changed-datum marker and a note naming the old and the new value remain. No reading is marked correct.",
+  "tags": [
+    "interpretation",
+    "concurrent readings",
+    "inspect",
+    "magnifier",
+    "lens",
+    "tracing overlay",
+    "changed datum",
+    "book",
+    "editable hierarchy"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/sources/kits/interpretaciones-concurrentes.js",
+    "src/frameworks/lens.js",
+    "src/primitives/markers.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 6,
+              "description": "Short identifier printed on its hierarchy token (e.g. \"T1\", \"CA\")"
+            },
+            "title": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Fictional title (printed on the book or as a reading attribution)"
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Row of the supplied ordering this source is placed on (0 = first row). Displayed only; no ordering rule is applied"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "level"
+          ],
+          "description": "Source"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Fictional sources. The FIRST is the book that holds the passage; the readings are attributed to sources by index. Each source is placed on a row of the editable hierarchy (array replaces the previous value)"
+      },
+      "hierarchy": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Row label"
+            },
+            "minItems": 2,
+            "maxItems": 3,
+            "description": "Row labels, first to last (user-supplied, neutral) (array replaces the previous value)"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption printed at the foot of the board"
+          }
+        },
+        "required": [
+          "levels",
+          "caption"
+        ],
+        "description": "Editable hierarchy: an ordering of sources SUPPLIED by the author, drawn as the rows of a board. Displayed, never applied; it decides nothing about the readings"
+      },
+      "passages": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Reference printed above the passage, e.g. \"Text 1 · Art. 7 (fictional)\""
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 180,
+            "description": "Passage wording (fictional)"
+          }
+        },
+        "required": [
+          "ref",
+          "text"
+        ],
+        "description": "The passage that gives rise to the two readings (simulated, fictional wording)"
+      },
+      "interpretations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Label of reading A / B (e.g. \"Interpretation A / B\")"
+            },
+            "source": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Index of the source (in `sources`) the reading is attributed to; its title is printed as the attribution"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 110,
+              "description": "The reading as supplied (quoted on its card)"
+            },
+            "focus": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Words of the passage this reading focuses on; highlighted on its tracing overlay (matched word by word, case- and accent-insensitive). If they do not occur in the passage, the whole passage is bracketed instead"
+            }
+          },
+          "required": [
+            "label",
+            "source",
+            "text",
+            "focus"
+          ],
+          "description": "Reading A / B: attributed to a fictional source; shown as \"proposed (as supplied)\", never endorsed, ranked or resolved"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Exactly two readings of the same passage, A and B, attributed to fictional sources (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "readingB-focus",
+          "readingA-focus"
+        ],
+        "description": "Detail that is enlarged and substituted"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Words the inspected reading highlights BEFORE the substitution (its band is drawn from these words; if they do not occur in the passage, the whole passage is bracketed)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Alternative words highlighted AFTER the substitution (the one datum that changes)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "sources": [
+      {
+        "id": "T1",
+        "title": "Text 1 (fictional)",
+        "level": 0
+      },
+      {
+        "id": "CA",
+        "title": "Commentary A (fictional)",
+        "level": 1
+      },
+      {
+        "id": "CB",
+        "title": "Commentary B (fictional)",
+        "level": 1
+      }
+    ],
+    "hierarchy": {
+      "levels": [
+        "Level 1 (user-supplied)",
+        "Level 2 (user-supplied)"
+      ],
+      "caption": "Order as supplied, not applied"
+    },
+    "passages": {
+      "ref": "Text 1 · Art. 7 (fictional)",
+      "text": "Members may inspect the register and the minutes kept by the secretary."
+    },
+    "interpretations": [
+      {
+        "label": "Interpretation A",
+        "source": 1,
+        "text": "“kept by the secretary” covers the minutes only",
+        "focus": "the minutes kept by the secretary"
+      },
+      {
+        "label": "Interpretation B",
+        "source": 2,
+        "text": "“kept by the secretary” covers the register and the minutes",
+        "focus": "the register and the minutes kept by the secretary"
+      }
+    ],
+    "focusTarget": "readingB-focus",
+    "beforeValue": "the register and the minutes kept by the secretary",
+    "afterValue": "the register and the minutes",
+    "detailGeometry": {
+      "zoom": 2.2,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Context: the two readings after the split",
+      "marker": "Changed datum"
+    }
+  }
+}

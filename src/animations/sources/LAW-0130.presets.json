@@ -1,0 +1,101 @@
+{
+  "animationId": "LAW-0130",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All texts, provisions, levels and readings are fictional placeholders; jurisdiction unspecified. Only explicit relationships are drawn; causal arrows appear only when a relationship is supplied as causal.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Book and article separate, each provision peels out as a slip; relations, sequences and the attributed reading are drawn; the tracer goes text 1 → provision 1 → zone → provision 2 → text 2 and the zone enlarges.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other fictional texts on the same supplied level, no reading linked (the reading card stays unconnected), a different traversal order that starts at the hierarchy board, and the focus on the hierarchy board instead of the zone.",
+      "params": {
+        "sources": [{"id": "R1", "title": "Rulebook A (fictional)", "provision": "Rule 12"}, {"id": "G2", "title": "Guidance note B (fictional)", "provision": "Point 3"}],
+        "passages": [
+          {"text": "Members receive the agenda on Day 2 before each meeting.", "tension": "on Day 2"},
+          {"text": "The agenda is posted on the notice board on Day 5.", "tension": "on Day 5"}
+        ],
+        "hierarchy": {"levels": ["Level 1 (user-supplied)", "Level 2 (user-supplied)"], "placement": [0, 0], "caption": "Same level, as supplied"},
+        "interpretations": [{"by": "Guide D (fictional)", "text": "Reads Point 3 as a notice-board reminder"}],
+        "relationships": [
+          {"from": "hierarchy", "to": "source1", "kind": "relation", "label": "level as supplied"},
+          {"from": "hierarchy", "to": "source2", "kind": "relation", "label": "level as supplied"},
+          {"from": "source1", "to": "passage1", "kind": "relation", "label": "contains"},
+          {"from": "source2", "to": "passage2", "kind": "relation", "label": "contains"},
+          {"from": "passage1", "to": "zone", "kind": "sequence", "label": "brought together"},
+          {"from": "passage2", "to": "zone", "kind": "sequence", "label": "brought together"}
+        ],
+        "focusElement": "hierarchy",
+        "traversalOrder": ["hierarchy", "source1", "passage1", "zone", "passage2", "source2", "hierarchy"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long titles, provisions, wording, element captions and relation labels to exercise wrapping and label placement.",
+      "params": {
+        "sources": [
+          {"id": "T1-a", "title": "Consolidated Illustrative Text on Notices (fictional)", "provision": "Article 4, paragraph 2"},
+          {"id": "T2-b", "title": "Second Illustrative Text on Meetings (fictional)", "provision": "Article 9, second sentence"}
+        ],
+        "hierarchy": {"levels": ["Level one as supplied by the author", "Level two as supplied by the author", "Level three as supplied"], "placement": [0, 2], "caption": "Ordering entered by the author, displayed only"},
+        "passages": [
+          {"text": "Each written notice of a change to the internal rules is delivered in writing to every member before it is circulated.", "tension": "delivered in writing to every member"},
+          {"text": "A notice of change to the internal rules may instead be announced orally by the chair at the next ordinary meeting.", "tension": "announced orally by the chair"}
+        ],
+        "interpretations": [{"by": "Commentary on the second illustrative text (fictional)", "text": "Reads the second sentence of Article 9 as limited to ordinary meetings only"}],
+        "elements": [
+          {"id": "source1", "label": "Consolidated book · Text 1"},
+          {"id": "source2", "label": "Printed article · Text 2"},
+          {"id": "passage1", "label": "Provision pulled out of Text 1"},
+          {"id": "passage2", "label": "Provision pulled out of Text 2"},
+          {"id": "zone", "label": "Zone of tension between the phrases"},
+          {"id": "hierarchy", "label": "Editable hierarchy entered by the user"},
+          {"id": "reading", "label": "Reading proposed by a fictional commentary"}
+        ],
+        "relationships": [
+          {"from": "source1", "to": "passage1", "kind": "relation", "label": "contains this provision"},
+          {"from": "source2", "to": "passage2", "kind": "relation", "label": "contains this provision"},
+          {"from": "passage1", "to": "zone", "kind": "sequence", "label": "brought face to face"},
+          {"from": "passage2", "to": "zone", "kind": "sequence", "label": "brought face to face"},
+          {"from": "hierarchy", "to": "source1", "kind": "relation", "label": "level as supplied by the author"},
+          {"from": "hierarchy", "to": "source2", "kind": "relation", "label": "level as supplied by the author"},
+          {"from": "reading", "to": "zone", "kind": "communication", "label": "addresses the zone"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"id": "T1", "title": "Texto 1 (ficticio)", "provision": "Art. 4"}, {"id": "T2", "title": "Texto 2 (ficticio)", "provision": "Art. 9"}],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)", "Nivel 2 (aportado)"], "placement": [0, 1], "caption": "Orden aportado"},
+        "passages": [
+          {"text": "Cada aviso de cambio se entrega por escrito a todos los miembros.", "tension": "por escrito"},
+          {"text": "Un aviso de cambio puede anunciarse oralmente en la próxima reunión.", "tension": "anunciarse oralmente"}
+        ],
+        "interpretations": [{"by": "Comentario C (ficticio)", "text": "Lee el Art. 9 como limitado a reuniones"}],
+        "elements": [
+          {"id": "source1", "label": "Libro · Texto 1"},
+          {"id": "source2", "label": "Artículo · Texto 2"},
+          {"id": "passage1", "label": "Disposición del Texto 1"},
+          {"id": "passage2", "label": "Disposición del Texto 2"},
+          {"id": "zone", "label": "Zona de tensión"},
+          {"id": "hierarchy", "label": "Jerarquía editable"},
+          {"id": "reading", "label": "Lectura propuesta"}
+        ],
+        "relationships": [
+          {"from": "source1", "to": "passage1", "kind": "relation", "label": "contiene"},
+          {"from": "source2", "to": "passage2", "kind": "relation", "label": "contiene"},
+          {"from": "passage1", "to": "zone", "kind": "sequence", "label": "se aproximan"},
+          {"from": "passage2", "to": "zone", "kind": "sequence", "label": "se aproximan"},
+          {"from": "hierarchy", "to": "source1", "kind": "relation", "label": "nivel aportado"},
+          {"from": "hierarchy", "to": "source2", "kind": "relation", "label": "nivel aportado"},
+          {"from": "reading", "to": "zone", "kind": "communication", "label": "se refiere a"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

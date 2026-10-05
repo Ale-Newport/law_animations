@@ -1,0 +1,58 @@
+{
+  "animationId": "LAW-0143",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified); zones are neutral abstract areas with fictional names, both placements are supplied data, and no legal consequence is inferred or ranked.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Text 1 · Art. 4 lies on Zone Alder. The same fact 'Meeting of two parties' is supplied in Zone Alder in A (shared zone) and in Zone Birch in B (different zones).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: three zones and the text placed on Zone Cedar; the fact 'Hire of a hall' is supplied in Zone Birch in A and in Zone Cedar in B (so B now shares the text's zone), with a reading attributed to a fictional commentary listed in the shared strip, never applied.",
+      "params": {
+        "zones": [{"name": "Zone Alder (fictional)"}, {"name": "Zone Birch (fictional)"}, {"name": "Zone Cedar (fictional)"}],
+        "passages": [{"ref": "Text 1 · Art. 9 (fictional)", "heading": "Area of the text (simulated)", "zone": "Zone Cedar (fictional)"}],
+        "fact": {"label": "Hire of a hall"},
+        "scenarioA": {"label": "Different zones", "caption": "Fact supplied in Zone Birch", "zone": "Zone Birch (fictional)"},
+        "scenarioB": {"label": "Shared zone", "caption": "Fact supplied in the zone of the text", "zone": "Zone Cedar (fictional)"},
+        "changedFact": "The zone supplied for the hire of a hall",
+        "sharedFacts": ["Same text on Zone Cedar", "Same board, same fact, same hand", "Three zones in both scenes"],
+        "interpretations": [{"by": "Commentary 1 (fictional)", "text": "Proposes reading the border tiles as part of both zones"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long titles, level labels, zone names, passage, fact, scenario labels and captions, changed fact, four shared facts and notes to exercise wrapping and bounded shrinking.",
+      "params": {
+        "sources": [{"title": "Consolidated Illustrative Text Number One (fictional)", "note": "Simulated wording for teaching use"}, {"title": "Supplementary Illustrative Text Two (fictional)", "note": "Simulated wording for teaching"}],
+        "hierarchy": {"levels": ["First level as supplied by the author", "Second level as supplied by the author"], "placement": [0, 1]},
+        "zones": [{"name": "Alder coastal district zone (fictional)"}, {"name": "Birch inland district zone (fictional)"}],
+        "passages": [{"ref": "Consolidated Text 1 · Article 4 (fictional)", "heading": "Territorial scope of the text (simulated wording)", "zone": "Alder coastal district zone (fictional)"}],
+        "fact": {"label": "Meeting of two parties at a market"},
+        "scenarioA": {"label": "Shared zone with the text as supplied", "caption": "The fact is supplied in the same zone where the text is placed", "zone": "Alder coastal district zone (fictional)"},
+        "scenarioB": {"label": "Different zones for the fact and text", "caption": "The fact is supplied in a zone other than the one of the text", "zone": "Birch inland district zone (fictional)"},
+        "changedFact": "Only the zone supplied for the meeting of the two parties at the market",
+        "sharedFacts": ["The same fictional text placed on the same zone", "The same hexagonal board and the same zones", "The same fact, the same pawn and the same hand", "The same timing and the same speed in both scenes"],
+        "comparisonLabels": {"guide": "Only the zone supplied for the fact differs between A and B", "neutral": "Both placements are shown exactly as supplied; neither scene is ranked or preferred and no conclusion is drawn"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"title": "Texto 1 (ficticio)", "note": "Redacción simulada"}, {"title": "Texto 2 (ficticio)", "note": "Redacción simulada"}],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)", "Nivel 2 (aportado)"], "placement": [0, 1]},
+        "zones": [{"name": "Zona Aliso (ficticia)"}, {"name": "Zona Abedul (ficticia)"}],
+        "passages": [{"ref": "Texto 1 · Art. 4 (ficticio)", "heading": "Ámbito territorial (simulado)", "zone": "Zona Aliso (ficticia)"}],
+        "fact": {"label": "Reunión de dos partes"},
+        "scenarioA": {"label": "Ámbito compartido", "caption": "Hecho aportado en la zona del texto", "zone": "Zona Aliso (ficticia)"},
+        "scenarioB": {"label": "Ámbitos distintos", "caption": "Hecho aportado en otra zona", "zone": "Zona Abedul (ficticia)"},
+        "changedFact": "La zona aportada para la reunión",
+        "sharedFacts": ["Mismo texto, misma ficha, mismo tablero", "Mismo hecho y la misma mano"],
+        "comparisonLabels": {"guide": "Solo difiere la zona aportada", "neutral": "Ambas ubicaciones se muestran según lo aportado; ninguna se clasifica y no se extrae ninguna conclusión"}
+      }
+    }
+  ]
+}

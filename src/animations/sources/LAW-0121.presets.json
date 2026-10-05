@@ -1,0 +1,90 @@
+{
+  "animationId": "LAW-0121",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). The rack order is supplied by the author; readings are attributed and none is marked correct.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "A key word of a fictional article is raised under the magnifier and read on its own, then put back and read within the full article; its other occurrences and the book's row on the author's rack are marked.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different fictional article whose key word ('record') appears only once, placed by the author on the first row of a two-row rack; the author stops the action once the word is back in its article (finalState 'returned'), so no occurrence rail or rack ribbon is drawn and only the isolated reading is shown.",
+      "params": {
+        "sources": [
+          {"name": "Source D", "title": "Text 4 (fictional)", "level": 0},
+          {"name": "Source E", "title": "Text 5 (fictional)", "level": 1}
+        ],
+        "hierarchy": {"levels": ["Row 1 (user-supplied)", "Row 2 (user-supplied)"], "caption": "Ordering supplied by the author"},
+        "passages": {
+          "heading": "Text 4 · Art. 9 (fictional)",
+          "lines": ["The keeper signs the record at closing time.", "A copy stays with the keeper of the hall.", "Other copies are sent on request."],
+          "word": "record",
+          "wordPassage": 0
+        },
+        "interpretations": {
+          "isolated": {"text": "“record” as any written trace", "by": "Commentary 3 (fictional)"},
+          "contextual": {"text": "“record” as the keeper’s signed sheet", "by": "Commentary 4 (fictional)"}
+        },
+        "actorLabels": {"a": "Reader", "b": "Full article"},
+        "finalState": "returned",
+        "annotations": [{"target": "word", "text": "Enlarged, then back in its line"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long source names, row labels, article wording, readings and labels to exercise wrapping and bounded shrinking.",
+      "params": {
+        "sources": [
+          {"name": "Source A — consolidated edition", "title": "Text 1: Consolidated Register Rules (fictional)", "level": 1},
+          {"name": "Source B — annex volume", "title": "Text 2: Annex of Listed Rooms and Spaces (fictional)", "level": 0},
+          {"name": "Source C — explanatory notes", "title": "Text 3: Explanatory Notes (fictional)", "level": 2}
+        ],
+        "hierarchy": {"levels": ["Level 1 as supplied by the author for this example", "Level 2 as supplied by the author for this example", "Level 3 as supplied by the author for this example"], "caption": "Ordering of sources supplied by the author (not a rule)"},
+        "passages": {
+          "heading": "Text 1 · Article 4, paragraphs 1 to 3 (fictional)",
+          "lines": [
+            "Each storage unit keeps a bound register of all entries made during the working day.",
+            "In this article, a storage unit is a room or enclosed space listed in the annex of Text 2.",
+            "The register stays at the entrance of the storage unit and is shown on request."
+          ],
+          "word": "unit",
+          "wordPassage": 0
+        },
+        "interpretations": {
+          "isolated": {"text": "“unit” as any single item, measure or piece counted on its own", "by": "Commentary 1 (fictional, first edition)"},
+          "contextual": {"text": "“unit” as a room or enclosed space listed in the annex of Text 2", "by": "Commentary 2 (fictional, second edition)"}
+        },
+        "actorLabels": {"a": "Reader consulting the article", "b": "Full article as printed in Text 1"},
+        "objectLabels": {"isolated": "Isolated reading of the word", "contextual": "Contextual reading within the article"},
+        "annotations": [{"target": "rack", "text": "The row on which the author placed this text; no rule follows from the order"}]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [
+          {"name": "Fuente A", "title": "Texto 1 (ficticio)", "level": 1},
+          {"name": "Fuente B", "title": "Texto 2 (ficticio)", "level": 0},
+          {"name": "Fuente C", "title": "Texto 3 (ficticio)", "level": 2}
+        ],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)", "Nivel 2 (aportado)", "Nivel 3 (aportado)"], "caption": "Orden aportado por el autor"},
+        "passages": {
+          "heading": "Texto 1 · Art. 4 (ficticio)",
+          "lines": ["Cada unidad lleva un registro de entradas.", "En este artículo, una unidad es una sala incluida en el Texto 2.", "El registro queda a la entrada de la unidad."],
+          "word": "unidad",
+          "wordPassage": 0
+        },
+        "interpretations": {
+          "isolated": {"text": "«unidad» como cualquier elemento suelto", "by": "Comentario 1 (ficticio)"},
+          "contextual": {"text": "«unidad» como una sala incluida en el Texto 2", "by": "Comentario 2 (ficticio)"}
+        },
+        "actorLabels": {"a": "Lectora", "b": "Artículo completo"},
+        "objectLabels": {"isolated": "Lectura aislada", "contextual": "Lectura contextual"},
+        "annotations": [{"target": "rack", "text": "Donde el autor colocó este texto"}]
+      }
+    }
+  ]
+}

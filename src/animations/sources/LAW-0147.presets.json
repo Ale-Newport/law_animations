@@ -1,0 +1,68 @@
+{
+  "animationId": "LAW-0147",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All texts, provisions, levels and readings are fictional placeholders; jurisdiction unspecified. The two link states are supplied by the author; nothing says which instrument is valid, lawful or binding, and no scene wins.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Scene A: the link state 'authorization supplied' — the clip is clamped on the enabling page. Scene B: 'authorization to be checked' — the clip is laid open beside the page and the passage only gets a pencil outline. Everything else is identical and printed once below.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: different fictional texts, both texts on the same user-supplied level, and the reversed assignment — scene A is 'to be checked', scene B 'supplied' — so the fastened clip appears in B.",
+      "params": {
+        "sources": [{"id": "R2", "title": "Rulebook 2 (fictional)", "provision": "Rule 7"}, {"id": "N5", "title": "Notice order 5 (fictional)", "provision": "Opening words"}],
+        "passages": [
+          {"text": "The committee may issue a notice order on meeting dates.", "phrase": "issue a notice order"},
+          {"text": "This order is issued with reference to Rulebook 2 · Rule 7.", "phrase": "Rulebook 2 · Rule 7"}
+        ],
+        "hierarchy": {"levels": ["Level 1 (user-supplied)", "Level 2 (user-supplied)"], "placement": [0, 0], "caption": "Same level, as supplied"},
+        "interpretations": [{"by": "Guide D (fictional)", "text": "Reads Rule 7 as limited to meeting dates"}],
+        "scenarioA": {"label": "Authorization to be checked", "caption": "Link to Rule 7 marked to be checked"},
+        "scenarioB": {"label": "Authorization supplied", "caption": "Link to Rule 7 supplied"},
+        "sharedFacts": ["Same notice order and opening words", "Same Rule 7 wording"],
+        "states": {"a": "authorization-to-be-checked", "b": "authorization-supplied"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long titles, provisions, wording, level labels, scenario captions, shared facts, guide and neutral note to exercise wrapping and bounded shrinking.",
+      "params": {
+        "sources": [
+          {"id": "T1-a", "title": "Consolidated Illustrative Enabling Text on Notices (fictional)", "provision": "Article 12, paragraph 3"},
+          {"id": "I3-b", "title": "Illustrative Instrument No. 3 on Notice Rules (fictional)", "provision": "Basis clause, second recital"}
+        ],
+        "hierarchy": {"levels": ["Level one as supplied by the author", "Level two as supplied by the author", "Level three as supplied"], "placement": [0, 1], "caption": "Ordering entered by the author, displayed only"},
+        "passages": [
+          {"text": "The board may set detailed rules on the form and timing of notices to members in a separate written instrument adopted later.", "phrase": "detailed rules on the form and timing of notices"},
+          {"text": "This illustrative instrument states that it is made under the power described in Text 1 · Article 12, paragraph 3 (fictional).", "phrase": "Text 1 · Article 12, paragraph 3"}
+        ],
+        "interpretations": [{"by": "Commentary on the illustrative enabling text (fictional)", "text": "Reads Article 12, paragraph 3 as covering the form of notices but not their timing"}],
+        "scenarioA": {"label": "Authorization supplied with the example", "caption": "The link to the enabling passage is supplied with a copy"},
+        "scenarioB": {"label": "Authorization to be checked later", "caption": "The same link is marked to be checked against the source"},
+        "changedFact": "Changed fact: only the link state supplied for the reference to Article 12",
+        "sharedFacts": ["Same illustrative instrument and basis clause", "Same Text 1 and Article 12 wording", "Same hierarchy entered by the author", "Same desk, cord and hand"],
+        "comparisonLabels": {"guide": "Changed fact on the link tag", "neutral": "Both link states are supplied with the example; no conclusion is drawn about the instrument or any outcome."}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"id": "T1", "title": "Texto 1 (ficticio)", "provision": "Art. 12"}, {"id": "I3", "title": "Instrumento 3 (ficticio)", "provision": "Cláusula de base"}],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)", "Nivel 2 (aportado)"], "placement": [0, 1], "caption": "Orden aportado, no se aplica"},
+        "passages": [
+          {"text": "La junta puede fijar reglas detalladas sobre avisos en un instrumento separado.", "phrase": "reglas detalladas sobre avisos"},
+          {"text": "Este instrumento se dicta con la facultad descrita en Texto 1 · Art. 12.", "phrase": "Texto 1 · Art. 12"}
+        ],
+        "interpretations": [{"by": "Comentario C (ficticio)", "text": "Lee el Art. 12 como limitado a avisos"}],
+        "scenarioA": {"label": "Habilitación aportada", "caption": "El enlace se aporta con el ejemplo"},
+        "scenarioB": {"label": "Habilitación por comprobar", "caption": "El mismo enlace, marcado por comprobar"},
+        "changedFact": "Hecho cambiado: solo el estado del enlace aportado",
+        "sharedFacts": ["Mismo instrumento y cláusula de base", "Misma redacción del Texto 1 y del Art. 12", "Misma jerarquía aportada"],
+        "comparisonLabels": {"guide": "Única diferencia", "neutral": "Ambos estados del enlace se aportan con el ejemplo; sin conclusión sobre el instrumento."}
+      }
+    }
+  ]
+}

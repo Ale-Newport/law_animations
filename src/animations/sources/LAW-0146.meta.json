@@ -1,0 +1,613 @@
+{
+  "id": "LAW-0146",
+  "slug": "sources-07-mechanism",
+  "title": "Delegated rule-making — what refers to what: instrument, clause, enabling passage",
+  "titleEs": "Delegación normativa — Mecanismo o relación explicada",
+  "category": "sources",
+  "categoryName": "Fuentes e interpretación",
+  "motif": "Delegación normativa",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "Exploded diagram: the bound volume and a fictional instrument move apart, the enabling passage and the instrument's basis clause peel out as slips, and the editable hierarchy board (user-supplied, displayed only) and an attributed reading take their places. Only explicit relationships are drawn with their kind (relation, communication, sequence; causal only when supplied); the reference-clause → passage relation is the gold link cord. A small lens traces the supplied order; the focus element enlarges; the tag on the cord shows the supplied link state.",
+  "tags": [
+    "delegated rule-making",
+    "mechanism",
+    "relations",
+    "enabling provision",
+    "instrument",
+    "reference clause",
+    "link cord",
+    "editable hierarchy",
+    "attributed reading",
+    "tracer",
+    "fictional"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/sources/kits/delegacion-normativa.js",
+    "src/animations/sources/kits/conflicto-entre-textos.js",
+    "src/frameworks/graph.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 4,
+              "description": "Short identifier printed on the index tab and on its hierarchy token"
+            },
+            "title": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Title printed on the text (fictional)"
+            },
+            "provision": {
+              "type": "string",
+              "maxLength": 32,
+              "description": "Provision reference printed above its passage (fictional)"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "provision"
+          ],
+          "description": "Source text"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "The two fictional texts: first the enabling document (the bound volume), then the instrument that refers to it (array replaces the previous value)"
+      },
+      "hierarchy": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 36,
+              "description": "Level label"
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "description": "Level labels, top to bottom (user-supplied, neutral) (array replaces the previous value)"
+          },
+          "placement": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Level index"
+            },
+            "minItems": 2,
+            "maxItems": 2,
+            "description": "Level of each text (0 = first level), same order as sources; values beyond the last level use the last level (array replaces the previous value)"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption printed at the foot of the board"
+          }
+        },
+        "required": [
+          "levels",
+          "placement"
+        ],
+        "description": "Editable hierarchy: a user-supplied ordering of the two texts on a slotted board. Neutral labels by default; it is displayed only, never applied and never stated as a fact"
+      },
+      "passages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "text": {
+              "type": "string",
+              "maxLength": 130,
+              "description": "Simulated wording (fictional)"
+            },
+            "phrase": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Phrase of that wording marked where the link attaches; if it does not occur in the wording it is shown as a separate marked line"
+            }
+          },
+          "required": [
+            "text",
+            "phrase"
+          ],
+          "description": "Passage"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Simulated wording (same order as sources): the enabling passage of the document and the basis clause of the instrument, each with the phrase the link cord joins (array replaces the previous value)"
+      },
+      "interpretations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "by": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Fictional source the reading is attributed to"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Reading as proposed by that source"
+            }
+          },
+          "required": [
+            "by",
+            "text"
+          ],
+          "description": "Interpretation"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Readings attributed to fictional sources; shown as attributed notes (\"reading proposed\"), never endorsed (array replaces the previous value)"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "document",
+                "article",
+                "instrument",
+                "reference",
+                "hierarchy",
+                "reading"
+              ],
+              "description": "Component id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Component"
+        },
+        "minItems": 2,
+        "maxItems": 6,
+        "description": "Captions of the components (the scene draws all six; ids are fixed): document = the bound volume (Text 1), article = its enabling passage pulled out as a slip, instrument = the instrument sheet, reference = its basis clause pulled out as a slip, hierarchy = editable hierarchy board, reading = attributed reading card (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "document",
+                "article",
+                "instrument",
+                "reference",
+                "hierarchy",
+                "reading"
+              ],
+              "description": "Source component id"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "document",
+                "article",
+                "instrument",
+                "reference",
+                "hierarchy",
+                "reading"
+              ],
+              "description": "Target component id"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Short caption of this relationship shown on its connector (optional; the legend names the kind)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "Relationship"
+        },
+        "minItems": 1,
+        "maxItems": 8,
+        "description": "Explicit relationships between components; kind controls line style (causal only when supplied) (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "document",
+          "article",
+          "instrument",
+          "reference",
+          "hierarchy",
+          "reading"
+        ],
+        "description": "Component enlarged while the tracer passes"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for sequence links"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Override the caption used for each relation kind"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "document",
+            "article",
+            "instrument",
+            "reference",
+            "hierarchy",
+            "reading"
+          ],
+          "description": "Component id"
+        },
+        "minItems": 2,
+        "maxItems": 8,
+        "description": "Order in which the tracer visits components (array replaces the previous value)"
+      },
+      "linkState": {
+        "type": "string",
+        "enum": [
+          "authorization-supplied",
+          "authorization-to-be-checked"
+        ],
+        "description": "Link state supplied by the author, shown on the tag of the reference → passage cord at the end (never inferred)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "sources": [
+      {
+        "id": "T1",
+        "title": "Text 1 (fictional)",
+        "provision": "Art. 12"
+      },
+      {
+        "id": "I3",
+        "title": "Instrument 3 (fictional)",
+        "provision": "Basis clause"
+      }
+    ],
+    "hierarchy": {
+      "levels": [
+        "Level 1 (user-supplied)",
+        "Level 2 (user-supplied)"
+      ],
+      "placement": [
+        0,
+        1
+      ],
+      "caption": "Order as supplied, not applied"
+    },
+    "passages": [
+      {
+        "text": "The board may set detailed rules on notices in a separate instrument.",
+        "phrase": "detailed rules on notices"
+      },
+      {
+        "text": "This instrument is made under the power described in Text 1 · Art. 12.",
+        "phrase": "Text 1 · Art. 12"
+      }
+    ],
+    "interpretations": [
+      {
+        "by": "Commentary C (fictional)",
+        "text": "Reads Art. 12 as covering notices only"
+      }
+    ],
+    "elements": [
+      {
+        "id": "document",
+        "label": "Enabling document"
+      },
+      {
+        "id": "article",
+        "label": "Enabling passage"
+      },
+      {
+        "id": "instrument",
+        "label": "Instrument"
+      },
+      {
+        "id": "reference",
+        "label": "Reference clause"
+      },
+      {
+        "id": "hierarchy",
+        "label": "Editable hierarchy"
+      },
+      {
+        "id": "reading",
+        "label": "Attributed reading"
+      }
+    ],
+    "relationships": [
+      {
+        "from": "document",
+        "to": "article",
+        "kind": "relation",
+        "label": "contains"
+      },
+      {
+        "from": "instrument",
+        "to": "reference",
+        "kind": "relation",
+        "label": "contains"
+      },
+      {
+        "from": "reference",
+        "to": "article",
+        "kind": "relation",
+        "label": "refers to"
+      },
+      {
+        "from": "hierarchy",
+        "to": "document",
+        "kind": "relation",
+        "label": "placed as supplied"
+      },
+      {
+        "from": "hierarchy",
+        "to": "instrument",
+        "kind": "relation",
+        "label": "placed as supplied"
+      },
+      {
+        "from": "reading",
+        "to": "article",
+        "kind": "communication",
+        "label": "proposes a reading"
+      }
+    ],
+    "focusElement": "article",
+    "relationLabels": {
+      "relation": "relation",
+      "communication": "communication",
+      "sequence": "sequence",
+      "causal": "causal (as supplied)"
+    },
+    "traversalOrder": [
+      "instrument",
+      "reference",
+      "article",
+      "document",
+      "hierarchy"
+    ],
+    "linkState": "authorization-supplied"
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "animationId": "LAW-0138",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). Relationships are drawn only as supplied; a causal style appears only where the author supplies the kind 'causal'.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Exploded view with the supplied relationships (plain relations without arrows, sequences with arrows); the tracer goes from the stand through the book and the article to the filter, the side bin and the magnifier while the filter swells.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the article lists two subjects and three activities pass; the author supplies the article→filter link as causal (drawn with the causal style only because it is supplied), drops the stand link, and the tracer starts at the collection; the side bin is the focus part.",
+      "params": {
+        "passages": [{"ref": "Text 1 · Art. 5 (fictional)", "heading": "Subjects covered (simulated wording)", "subjects": ["Housing", "Water supply"]}],
+        "activities": [
+          {"label": "Roof repair", "subject": "Housing"},
+          {"label": "Night market", "subject": "Trade"},
+          {"label": "Well cleaning", "subject": "Water supply"}
+        ],
+        "relationships": [
+          {"from": "source", "to": "article", "kind": "relation", "label": "contains"},
+          {"from": "article", "to": "filter", "kind": "causal", "label": "keys the gates"},
+          {"from": "activities", "to": "filter", "kind": "sequence", "label": "enter one by one"},
+          {"from": "filter", "to": "included", "kind": "sequence", "label": "tag listed"},
+          {"from": "filter", "to": "unclassified", "kind": "sequence", "label": "tag not listed"},
+          {"from": "magnifier", "to": "unclassified", "kind": "relation", "label": "reads the tag"}
+        ],
+        "focusElement": "unclassified",
+        "traversalOrder": ["activities", "filter", "unclassified", "magnifier"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long part labels, relation captions, subjects and activity labels to exercise wrapping and bounded shrinking.",
+      "params": {
+        "sources": [{"title": "Consolidated Illustrative Text Number One (fictional)", "note": "Simulated wording for teaching"}, {"title": "Supplementary Text Two (fictional)", "note": "Simulated wording"}],
+        "hierarchy": {"levels": ["First level as supplied by the author", "Second level as supplied by the author"], "placement": [0, 1]},
+        "passages": [{"ref": "Consolidated Text 1 · Article 2 (fictional)", "heading": "Material scope of the text (simulated wording)", "subjects": ["Community transport services", "Housing maintenance", "Farming cooperatives"]}],
+        "activities": [
+          {"label": "Weekend bicycle rental for residents", "subject": "Community transport services"},
+          {"label": "Emergency roof repair after a storm", "subject": "Housing maintenance"},
+          {"label": "Open-air street concert in the square", "subject": "Cultural events in public spaces"},
+          {"label": "Seasonal seed exchange between growers", "subject": "Farming cooperatives"}
+        ],
+        "elements": [
+          {"id": "hierarchy", "label": "Editable hierarchy supplied by the author"},
+          {"id": "source", "label": "Consolidated fictional text (source)"},
+          {"id": "article", "label": "Article listing the subjects (passage)"},
+          {"id": "activities", "label": "Collection of fictional activities"},
+          {"id": "filter", "label": "Subject filter keyed by the article"},
+          {"id": "included", "label": "Bins for the listed subjects"},
+          {"id": "unclassified", "label": "Side bin for unlisted tags"},
+          {"id": "magnifier", "label": "Magnifier used to read a tag"}
+        ],
+        "relationships": [
+          {"from": "hierarchy", "to": "source", "kind": "relation", "label": "stands on the shelf supplied"},
+          {"from": "source", "to": "article", "kind": "relation", "label": "contains the passage"},
+          {"from": "article", "to": "filter", "kind": "sequence", "label": "its marks key the gates"},
+          {"from": "activities", "to": "filter", "kind": "sequence", "label": "enter the rail one by one"},
+          {"from": "filter", "to": "included", "kind": "sequence", "label": "the tag matches a listed subject"},
+          {"from": "filter", "to": "unclassified", "kind": "sequence", "label": "the tag matches no listed subject"},
+          {"from": "magnifier", "to": "unclassified", "kind": "relation", "label": "reads the tag of the card"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"title": "Texto 1 (ficticio)", "note": "Redacción simulada"}, {"title": "Texto 2 (ficticio)", "note": "Redacción simulada"}],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)", "Nivel 2 (aportado)"], "placement": [0, 1]},
+        "passages": [{"ref": "Texto 1 · Art. 2 (ficticio)", "heading": "Ámbito material (redacción simulada)", "subjects": ["Transporte", "Vivienda", "Agricultura"]}],
+        "activities": [
+          {"label": "Alquiler de bicicletas", "subject": "Transporte"},
+          {"label": "Reparación de tejado", "subject": "Vivienda"},
+          {"label": "Concierto callejero", "subject": "Cultura"},
+          {"label": "Intercambio de semillas", "subject": "Agricultura"}
+        ],
+        "elements": [
+          {"id": "hierarchy", "label": "Jerarquía editable"},
+          {"id": "source", "label": "Libro (fuente)"},
+          {"id": "article", "label": "Artículo (pasaje)"},
+          {"id": "activities", "label": "Colección de actividades"},
+          {"id": "filter", "label": "Filtro de materias"},
+          {"id": "included", "label": "Cubetas de materias listadas"},
+          {"id": "unclassified", "label": "Cubeta lateral"},
+          {"id": "magnifier", "label": "Lupa"}
+        ],
+        "relationships": [
+          {"from": "hierarchy", "to": "source", "kind": "relation", "label": "estante aportado"},
+          {"from": "source", "to": "article", "kind": "relation", "label": "contiene"},
+          {"from": "article", "to": "filter", "kind": "sequence", "label": "da clave a las compuertas"},
+          {"from": "activities", "to": "filter", "kind": "sequence", "label": "entran una a una"},
+          {"from": "filter", "to": "included", "kind": "sequence", "label": "etiqueta listada"},
+          {"from": "filter", "to": "unclassified", "kind": "sequence", "label": "etiqueta no listada"},
+          {"from": "magnifier", "to": "unclassified", "kind": "relation", "label": "lee la etiqueta"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

@@ -1,0 +1,512 @@
+{
+  "id": "LAW-0126",
+  "slug": "sources-02-mechanism",
+  "title": "Legislative definition — exploded text: term, levels and definition",
+  "titleEs": "Definición legislativa — Mecanismo o relación explicada",
+  "category": "sources",
+  "categoryName": "Fuentes e interpretación",
+  "motif": "Definición legislativa",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "The text is cut open into page bands, one per user-supplied hierarchy level; the article page and the definitions page rise out of their own bands, the term and the supplied definition lift off as cards. Only the supplied relationships are drawn, anchored to real edges and styled by kind (a plain relation has no arrow); a marker follows the traversal order through the bands while the focus element enlarges under a lens.",
+  "tags": [
+    "definition",
+    "defined term",
+    "hierarchy",
+    "page bands",
+    "relation",
+    "tracer",
+    "lens",
+    "mechanism"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/sources/kits/definicion-legislativa.js",
+    "src/primitives/annotate.js",
+    "src/frameworks/graph.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "Source name (fictional)"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Fictional source names: [0] is printed on the book (the full text that holds both sections); [1] names the separate note in which an ordinary use is proposed (scenes that show it) (array replaces the previous value)"
+      },
+      "hierarchy": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Level label (neutral by default)"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "User-supplied ordering of the divisions of the text, drawn top to bottom as index flags on the book. The order is the author's; the scene implies no rule of precedence between levels (array replaces the previous value)"
+      },
+      "passages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ref": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Reference printed on the page, e.g. \"Text 1 · Art. 7 (fictional)\""
+            },
+            "heading": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Heading of the passage"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 170,
+              "description": "Simulated wording: for [0] the clause that uses the term; for [1] the definition wording that follows the term"
+            },
+            "term": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "The term as written in this passage"
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4,
+              "description": "Hierarchy level (1 = first flag) that holds the passage"
+            }
+          },
+          "required": [
+            "ref",
+            "heading",
+            "text",
+            "term",
+            "level"
+          ],
+          "description": "Passage"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Fictional passages: [0] the article in which the term is USED; [1] the section that SUPPLIES the definition (array replaces the previous value)"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "term",
+                "article",
+                "hierarchy",
+                "definitions",
+                "definition"
+              ],
+              "description": "Component id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Component"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Captions of the five parts (ids fixed by the scene: term, article, hierarchy, definitions, definition) (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "term",
+                "article",
+                "hierarchy",
+                "definitions",
+                "definition"
+              ],
+              "description": "Source component id"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "term",
+                "article",
+                "hierarchy",
+                "definitions",
+                "definition"
+              ],
+              "description": "Target component id"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Caption of this relationship (descriptive; empty = the caption of its kind)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "Relationship"
+        },
+        "minItems": 1,
+        "maxItems": 8,
+        "description": "Explicit relationships between components; kind controls line style (causal only when supplied) (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "term",
+          "article",
+          "hierarchy",
+          "definitions",
+          "definition"
+        ],
+        "description": "Component enlarged while the tracer passes"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for sequence links"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Override the caption used for each relation kind"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "term",
+            "article",
+            "hierarchy",
+            "definitions",
+            "definition"
+          ],
+          "description": "Component id"
+        },
+        "minItems": 2,
+        "maxItems": 8,
+        "description": "Order in which the tracer visits components (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "sources": [
+      "Text 1 (fictional)"
+    ],
+    "hierarchy": [
+      "Level 1 (user-supplied)",
+      "Level 2 (user-supplied)",
+      "Level 3 (user-supplied)"
+    ],
+    "passages": [
+      {
+        "ref": "Text 1 · Art. 7 (fictional)",
+        "heading": "Keeping of items",
+        "text": "The holder keeps each listed item in the register (simulated wording).",
+        "term": "listed item",
+        "level": 3
+      },
+      {
+        "ref": "Text 1 · Art. 2 (fictional)",
+        "heading": "Definitions",
+        "text": "means an object entered in the annex (simulated wording).",
+        "term": "listed item",
+        "level": 2
+      }
+    ],
+    "elements": [
+      {
+        "id": "term",
+        "label": "Term"
+      },
+      {
+        "id": "article",
+        "label": "Article that uses it"
+      },
+      {
+        "id": "hierarchy",
+        "label": "Hierarchy (user-supplied)"
+      },
+      {
+        "id": "definitions",
+        "label": "Definitions section"
+      },
+      {
+        "id": "definition",
+        "label": "Supplied definition"
+      }
+    ],
+    "relationships": [
+      {
+        "from": "term",
+        "to": "article",
+        "kind": "relation",
+        "label": "appears in"
+      },
+      {
+        "from": "article",
+        "to": "hierarchy",
+        "kind": "relation",
+        "label": "sits at its level"
+      },
+      {
+        "from": "definitions",
+        "to": "hierarchy",
+        "kind": "relation",
+        "label": "sits at its level"
+      },
+      {
+        "from": "definition",
+        "to": "definitions",
+        "kind": "relation",
+        "label": "entry of"
+      },
+      {
+        "from": "term",
+        "to": "definition",
+        "kind": "relation",
+        "label": "defined in (as supplied)"
+      }
+    ],
+    "focusElement": "definition",
+    "relationLabels": {
+      "relation": "relation",
+      "communication": "communication",
+      "sequence": "sequence",
+      "causal": "causal (as supplied)"
+    },
+    "traversalOrder": [
+      "term",
+      "article",
+      "hierarchy",
+      "definitions",
+      "definition"
+    ]
+  }
+}

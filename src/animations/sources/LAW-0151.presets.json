@@ -1,0 +1,169 @@
+{
+  "animationId": "LAW-0151",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). Both paths are shown exactly as supplied; no path is preferred and no conclusion is drawn.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "A: Art. 4 refers directly to Art. 9. B: the same, except that Art. 9 prints its own reference to Art. 12, so B's marker hops on (a chain). Only Art. 9's row differs.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the chain turns back. B's Art. 9 prints a reference to Art. 2 on the first page, so B's second hop crosses back over the pages to Art. 2 (placed before Art. 4); A stops at Art. 9. The changed row is still Art. 9's.",
+      "params": {
+        "passages": [
+          {
+            "ref": "Art. 2 (fictional)",
+            "cue": "",
+            "level": 0
+          },
+          {
+            "ref": "Text 1 · Art. 4 (fictional)",
+            "cue": "as set out in Art. 9",
+            "level": 0
+          },
+          {
+            "ref": "Art. 9 (fictional)",
+            "cue": "see Art. 2",
+            "level": 1
+          }
+        ],
+        "pathA": [
+          1,
+          2
+        ],
+        "pathB": [
+          1,
+          2,
+          0
+        ],
+        "changedArticle": 2,
+        "scenarioA": {
+          "label": "Direct reference",
+          "caption": "Art. 9 prints no onward reference"
+        },
+        "scenarioB": {
+          "label": "Chain of references",
+          "caption": "Art. 9 refers back to Art. 2"
+        },
+        "changedFact": "Only Art. 9 differs: its own reference back to Art. 2 is printed in B",
+        "sharedFacts": [
+          "Same volume and divisions",
+          "Same phrase in Art. 4",
+          "Same marker, same start"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long volume title, division labels, article references, phrases, scenario labels, changed fact, shared facts and notes, to exercise wrapping and bounded shrinking, plus an attributed reading (drawn as an attributed note, never applied).",
+      "params": {
+        "sources": [
+          {
+            "title": "Text 1: Consolidated Register Rules, annotated (fictional)"
+          }
+        ],
+        "hierarchy": {
+          "levels": [
+            "Part 1 — general provisions (user-supplied)",
+            "Part 2 — annexed provisions (user-supplied)"
+          ]
+        },
+        "passages": [
+          {
+            "ref": "Text 1 · Article 4, paragraph 2 (fictional wording)",
+            "cue": "as set out in Article 9, paragraph 1, of this text",
+            "level": 0
+          },
+          {
+            "ref": "Article 9, paragraph 1 (fictional wording)",
+            "cue": "see also Article 12, paragraph 3, of this text",
+            "level": 1
+          },
+          {
+            "ref": "Article 12, paragraph 3 (fictional wording)",
+            "cue": "",
+            "level": 1
+          }
+        ],
+        "scenarioA": {
+          "label": "Direct reference to a single article",
+          "caption": "Article 9 prints no onward reference of its own"
+        },
+        "scenarioB": {
+          "label": "Chain of references across two articles",
+          "caption": "Article 9 prints its own reference to Article 12"
+        },
+        "changedFact": "Only Article 9 differs: its own reference to Article 12, paragraph 3, is printed in scenario B",
+        "sharedFacts": [
+          "Same volume, same divisions and same order",
+          "Same printed phrase in Article 4",
+          "Same page flag starting at the same place"
+        ],
+        "comparisonLabels": {
+          "guide": "The one detail that changes between A and B",
+          "neutral": "Both paths are shown as supplied by the author; neither is preferred"
+        },
+        "interpretations": [
+          {
+            "by": "Commentary 1 (fictional, second edition)",
+            "text": "Reads the phrase in Article 4 as pointing to Article 9 of the same volume"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [
+          {
+            "title": "Texto 1 (ficticio)"
+          }
+        ],
+        "hierarchy": {
+          "levels": [
+            "Parte 1 (aportada)",
+            "Parte 2 (aportada)"
+          ]
+        },
+        "passages": [
+          {
+            "ref": "Texto 1 · Art. 4 (ficticio)",
+            "cue": "según lo previsto en el art. 9",
+            "level": 0
+          },
+          {
+            "ref": "Art. 9 (ficticio)",
+            "cue": "véase el art. 12",
+            "level": 1
+          },
+          {
+            "ref": "Art. 12 (ficticio)",
+            "cue": "",
+            "level": 1
+          }
+        ],
+        "scenarioA": {
+          "label": "Remisión directa",
+          "caption": "El art. 9 no remite a otro"
+        },
+        "scenarioB": {
+          "label": "Cadena de remisiones",
+          "caption": "El art. 9 remite a su vez"
+        },
+        "changedFact": "Solo cambia el art. 9: en B imprime su propia remisión al art. 12",
+        "sharedFacts": [
+          "Mismo volumen y partes",
+          "Misma frase en el art. 4",
+          "Mismo marcador y salida"
+        ],
+        "comparisonLabels": {
+          "guide": "El único detalle que cambia",
+          "neutral": "Ambos recorridos según lo aportado; ninguno es preferido"
+        }
+      }
+    }
+  ]
+}

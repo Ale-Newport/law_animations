@@ -1,0 +1,510 @@
+{
+  "id": "LAW-0143",
+  "slug": "sources-06-contrast",
+  "title": "Territorial scope — same zone vs different zones",
+  "titleEs": "Ámbito territorial — Comparación de dos supuestos",
+  "category": "sources",
+  "categoryName": "Fuentes e interpretación",
+  "motif": "Ámbito territorial",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical tables seen from above: the same hexagonal zone board with the article slip lying on the text’s zone under a translucent sheet, and the same fact pawn. Only the zone supplied for that fact differs: in A its chip names the text’s zone and the hand sets the pawn there (solid ring); in B the chip names another zone and the pawn crosses the boundary (dashed ring). The shared hierarchy, passage and facts are drawn once; a comparison tray joins the two chips. No winner, score or conclusion.",
+  "tags": [
+    "territorial scope",
+    "zones",
+    "comparison",
+    "shared zone",
+    "different zones",
+    "board",
+    "fact pawn",
+    "hands"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/sources/kits/ambito-territorial.js",
+    "src/animations/sources/kits/ambito-material.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Title printed on the cover label, e.g. \"Text 1 (fictional)\""
+            },
+            "note": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Short descriptive line printed under the title (e.g. \"simulated wording\")"
+            }
+          },
+          "required": [
+            "title"
+          ],
+          "description": "Source text (fictional placeholder)"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Fictional source texts drawn as closed books in the hierarchy organiser: [0] holds the article slip (the anchor); [1] (optional) is a second text (array replaces the previous value)"
+      },
+      "hierarchy": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Level label"
+            },
+            "minItems": 1,
+            "maxItems": 2,
+            "description": "Compartment labels, first level first (user-supplied) (array replaces the previous value)"
+          },
+          "placement": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Level index"
+            },
+            "minItems": 1,
+            "maxItems": 2,
+            "description": "Compartment index (0 = first level) of each source, in source order (user-supplied) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "levels",
+          "placement"
+        ],
+        "description": "Editable hierarchy: user-supplied level labels on the compartments of the organiser holding the books. Display only: the order states no rule, priority or outcome"
+      },
+      "passages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ref": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Reference printed on the slip, e.g. \"Text 1 · Art. 4 (fictional)\""
+            },
+            "heading": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Heading of the article (simulated wording)"
+            },
+            "zone": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Zone where the text is placed, as supplied (it is laid on the board only when it matches a zone name)"
+            }
+          },
+          "required": [
+            "ref",
+            "heading",
+            "zone"
+          ],
+          "description": "Passage (simulated)"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "The article slip kept in Text 1: reference, heading and the zone where the author places the text (compared verbatim, case-insensitive, with the zone names) (array replaces the previous value)"
+      },
+      "interpretations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "by": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Fictional source of the reading"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "The reading as proposed (descriptive)"
+            }
+          },
+          "required": [
+            "by",
+            "text"
+          ],
+          "description": "Attributed reading"
+        },
+        "minItems": 0,
+        "maxItems": 1,
+        "description": "Reading attributed to a fictional source, pinned as a note; never applied and never endorsed (array replaces the previous value)"
+      },
+      "zones": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Zone name printed on its plaque"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "Zone (fictional)"
+        },
+        "minItems": 2,
+        "maxItems": 3,
+        "description": "Neutral abstract zones of the board (fictional names; no real place, map or border) (array replaces the previous value)"
+      },
+      "fact": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Fact label printed on the pawn tag"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "The fact shared by both scenes (fictional); only the zone supplied for it differs"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          },
+          "zone": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Zone supplied for the fact in A (compared verbatim with the zone names)"
+          }
+        },
+        "required": [
+          "label",
+          "zone"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          },
+          "zone": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Zone supplied for the fact in B (compared verbatim with the zone names)"
+          }
+        },
+        "required": [
+          "label",
+          "zone"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "sources": [
+      {
+        "title": "Text 1 (fictional)",
+        "note": "Simulated wording"
+      },
+      {
+        "title": "Text 2 (fictional)",
+        "note": "Simulated wording"
+      }
+    ],
+    "hierarchy": {
+      "levels": [
+        "Level 1 (user-supplied)",
+        "Level 2 (user-supplied)"
+      ],
+      "placement": [
+        0,
+        1
+      ]
+    },
+    "passages": [
+      {
+        "ref": "Text 1 · Art. 4 (fictional)",
+        "heading": "Territorial scope (simulated)",
+        "zone": "Zone Alder (fictional)"
+      }
+    ],
+    "interpretations": [],
+    "zones": [
+      {
+        "name": "Zone Alder (fictional)"
+      },
+      {
+        "name": "Zone Birch (fictional)"
+      }
+    ],
+    "fact": {
+      "label": "Meeting of two parties"
+    },
+    "scenarioA": {
+      "label": "Shared zone",
+      "caption": "Fact supplied in the zone of the text",
+      "zone": "Zone Alder (fictional)"
+    },
+    "scenarioB": {
+      "label": "Different zones",
+      "caption": "Fact supplied in another zone",
+      "zone": "Zone Birch (fictional)"
+    },
+    "changedFact": "The zone supplied for the meeting",
+    "sharedFacts": [
+      "Same text, same slip, same board",
+      "Same fact and the same hand"
+    ],
+    "comparisonLabels": {
+      "guide": "Only the supplied zone differs",
+      "neutral": "Both placements are shown as supplied; neither is ranked and no conclusion is drawn"
+    }
+  }
+}

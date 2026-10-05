@@ -1,0 +1,70 @@
+{
+  "animationId": "LAW-0131",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All texts, provisions, wordings and levels are fictional placeholders; jurisdiction unspecified. Both scene states are supplied by the author; no winner, score or legal consequence is shown.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Only the wording of the Art. 9 phrase differs: scene A (supplied: compatible application) docks and is clipped; scene B (supplied: conflict flagged) is held apart and flagged.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other fictional texts and a different changed fact (the relative day in the guidance note); scene A is supplied as 'conflict flagged' and scene B only as 'zone of tension highlighted' (no marker), so the sequence differs in the other direction.",
+      "params": {
+        "sources": [{"id": "R1", "title": "Rulebook A (fictional)", "provision": "Rule 12"}, {"id": "G2", "title": "Guidance note B (fictional)", "provision": "Point 3"}],
+        "passages": [
+          {"text": "Members receive the agenda on Day 2 before each meeting.", "tension": "on Day 2"},
+          {"text": "The agenda is posted on the notice board on Day 2.", "tension": "on Day 2"}
+        ],
+        "hierarchy": {"levels": ["Level 1 (user-supplied)", "Level 2 (user-supplied)"], "placement": [0, 0], "caption": "Same level, as supplied"},
+        "scenarioA": {"label": "Conflict flagged", "caption": "Wording A of the Point 3 day"},
+        "scenarioB": {"label": "Tension highlighted only", "caption": "Wording B of the Point 3 day"},
+        "changedFact": "Changed fact: only the relative day in Point 3",
+        "sharedFacts": ["Same Rule 12 wording", "Same hierarchy as supplied"],
+        "phrases": {"a": "on Day 5", "b": "on Day 2 or later"},
+        "states": {"a": "conflict-flagged", "b": "tension-highlighted"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long titles, provisions, wordings, scenario labels, shared facts and notes to exercise wrapping and bounded shrinking.",
+      "params": {
+        "sources": [
+          {"id": "T1-a", "title": "Consolidated Illustrative Text on Notices (fictional)", "provision": "Article 4, paragraph 2"},
+          {"id": "T2-b", "title": "Second Illustrative Text on Meetings (fictional)", "provision": "Article 9, second sentence"}
+        ],
+        "hierarchy": {"levels": ["Level one as supplied by the author", "Level two as supplied by the author", "Level three as supplied"], "placement": [0, 2], "caption": "Ordering entered by the author, displayed only"},
+        "passages": [
+          {"text": "Each written notice of a change to the internal rules is delivered in writing to every member before it is circulated.", "tension": "delivered in writing to every member"},
+          {"text": "A notice of change to the internal rules may instead be announced orally by the chair at the next ordinary meeting.", "tension": "announced orally by the chair"}
+        ],
+        "scenarioA": {"label": "Compatible application as supplied by the author", "caption": "First wording of the second sentence of Article 9"},
+        "scenarioB": {"label": "Conflict flagged as supplied by the author", "caption": "Second wording of the second sentence of Article 9"},
+        "changedFact": "Changed fact: only the wording of the second sentence of Article 9 differs between the two scenes",
+        "sharedFacts": ["Same consolidated text and Article 4 wording", "Same ordering entered by the author", "Same desk, hands and markers"],
+        "comparisonLabels": {"guide": "Changed fact", "neutral": "Both states are supplied with this illustrative example; neither text is shown to prevail and no consequence is drawn."},
+        "phrases": {"a": "also announced orally by the chair of the meeting", "b": "announced orally by the chair only, never in writing"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"id": "T1", "title": "Texto 1 (ficticio)", "provision": "Art. 4"}, {"id": "T2", "title": "Texto 2 (ficticio)", "provision": "Art. 9"}],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)", "Nivel 2 (aportado)"], "placement": [0, 1], "caption": "Orden aportado"},
+        "passages": [
+          {"text": "Cada aviso de cambio se entrega por escrito a todos los miembros.", "tension": "por escrito"},
+          {"text": "Un aviso de cambio puede anunciarse oralmente en la próxima reunión.", "tension": "anunciarse oralmente"}
+        ],
+        "interpretations": [{"by": "Comentario C (ficticio)", "text": "Lee el Art. 9 como limitado a reuniones"}],
+        "scenarioA": {"label": "Aplicación compatible", "caption": "Redacción A de la frase del Art. 9"},
+        "scenarioB": {"label": "Conflicto señalado", "caption": "Redacción B de la frase del Art. 9"},
+        "changedFact": "Hecho cambiado: solo la frase del Art. 9",
+        "sharedFacts": ["Mismo Texto 1 y redacción del Art. 4", "Misma jerarquía aportada", "Mismo escritorio y manos"],
+        "comparisonLabels": {"guide": "Hecho cambiado", "neutral": "Ambos estados se aportan con el ejemplo; no se muestra que ningún texto prevalezca."},
+        "phrases": {"a": "anunciarse también oralmente", "b": "anunciarse solo oralmente"}
+      }
+    }
+  ]
+}

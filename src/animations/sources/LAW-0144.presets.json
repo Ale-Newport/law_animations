@@ -1,0 +1,180 @@
+{
+  "animationId": "LAW-0144",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified); zones are neutral abstract areas with fictional names, the substituted zone is supplied data compared verbatim, and no legal consequence is inferred.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The text is placed on Zone Alder. The fact 'Meeting of two parties' was supplied in Zone Birch; the substitution supplies Zone Alder instead: the pawn crosses into the text's zone and its ring changes from dashed to solid.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Inverse substitution with three zones: the fact 'Delivery of a parcel' was supplied in Zone Alder (the text's zone) and is supplied in Zone Cedar instead: the pawn leaves the text's zone and its ring becomes dashed.",
+      "params": {
+        "zones": [
+          {
+            "name": "Zone Alder (fictional)"
+          },
+          {
+            "name": "Zone Birch (fictional)"
+          },
+          {
+            "name": "Zone Cedar (fictional)"
+          }
+        ],
+        "facts": [
+          {
+            "label": "Delivery of a parcel",
+            "zone": "Zone Alder (fictional)"
+          },
+          {
+            "label": "Meeting of two parties",
+            "zone": "Zone Birch (fictional)"
+          },
+          {
+            "label": "Sale of a bicycle",
+            "zone": "Zone Cedar (fictional)"
+          }
+        ],
+        "focusTarget": "fact-1",
+        "beforeValue": "Zone Alder (fictional)",
+        "afterValue": "Zone Cedar (fictional)",
+        "detailGeometry": {
+          "zoom": 2.6,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Facts and text placed on three zones",
+          "marker": "Datum changed"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long titles, level labels, zone names, slip texts, fact labels and substituted values (three zones) to exercise wrapping and bounded shrinking; the focus fact moves from Birch into the text's zone.",
+      "params": {
+        "sources": [
+          {
+            "title": "Consolidated Illustrative Text Number One (fictional)",
+            "note": "Simulated wording for teaching use"
+          },
+          {
+            "title": "Supplementary Illustrative Text Two (fictional)",
+            "note": "Simulated wording for teaching"
+          }
+        ],
+        "hierarchy": {
+          "levels": [
+            "First level as supplied by the author",
+            "Second level as supplied by the author"
+          ],
+          "placement": [
+            0,
+            1
+          ]
+        },
+        "zones": [
+          {
+            "name": "Alder coastal district zone (fictional)"
+          },
+          {
+            "name": "Birch inland district zone (fictional)"
+          },
+          {
+            "name": "Cedar river valley zone (fictional)"
+          }
+        ],
+        "passages": [
+          {
+            "ref": "Consolidated Text 1 · Article 4 (fictional)",
+            "heading": "Territorial scope of the text (simulated wording)",
+            "zone": "Alder coastal district zone (fictional)"
+          }
+        ],
+        "facts": [
+          {
+            "label": "Delivery of a parcel to a workshop",
+            "zone": "Cedar river valley zone (fictional)"
+          },
+          {
+            "label": "Meeting of two parties at a market",
+            "zone": "Birch inland district zone (fictional)"
+          },
+          {
+            "label": "Sale of a second-hand bicycle",
+            "zone": "Cedar river valley zone (fictional)"
+          }
+        ],
+        "focusTarget": "fact-2",
+        "beforeValue": "Birch inland district zone (fictional)",
+        "afterValue": "Alder coastal district zone (fictional)",
+        "contextLabels": {
+          "context": "Facts and the text placed on the fictional zones",
+          "marker": "Datum changed as supplied"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [
+          {
+            "title": "Texto 1 (ficticio)",
+            "note": "Redacción simulada"
+          },
+          {
+            "title": "Texto 2 (ficticio)",
+            "note": "Redacción simulada"
+          }
+        ],
+        "hierarchy": {
+          "levels": [
+            "Nivel 1 (aportado)",
+            "Nivel 2 (aportado)"
+          ],
+          "placement": [
+            0,
+            1
+          ]
+        },
+        "zones": [
+          {
+            "name": "Zona Aliso (ficticia)"
+          },
+          {
+            "name": "Zona Abedul (ficticia)"
+          }
+        ],
+        "passages": [
+          {
+            "ref": "Texto 1 · Art. 4 (ficticio)",
+            "heading": "Ámbito territorial (simulado)",
+            "zone": "Zona Aliso (ficticia)"
+          }
+        ],
+        "facts": [
+          {
+            "label": "Entrega de un paquete",
+            "zone": "Zona Aliso (ficticia)"
+          },
+          {
+            "label": "Reunión de dos partes",
+            "zone": "Zona Abedul (ficticia)"
+          },
+          {
+            "label": "Venta de una bicicleta",
+            "zone": "Zona Aliso (ficticia)"
+          }
+        ],
+        "beforeValue": "Zona Abedul (ficticia)",
+        "afterValue": "Zona Aliso (ficticia)",
+        "contextLabels": {
+          "context": "Hechos y texto situados en las zonas",
+          "marker": "Dato cambiado"
+        }
+      }
+    }
+  ]
+}

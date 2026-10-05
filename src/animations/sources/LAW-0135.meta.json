@@ -1,0 +1,616 @@
+{
+  "id": "LAW-0135",
+  "slug": "sources-04-contrast",
+  "title": "Temporal scope — a fact inside vs outside the supplied interval",
+  "titleEs": "Ámbito temporal — Comparación de dos supuestos",
+  "category": "sources",
+  "categoryName": "Fuentes e interpretación",
+  "motif": "Ámbito temporal",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical compact desks: a reader pins the one changed fact at a different supplied day (A inside, B beyond the supplied interval), then in parallel lays the article card on the ruler and pulls its tape over the same supplied interval. A guide joins the two changed cards; a neutral note states that nothing else differs and that no legal effect is stated.",
+  "tags": [
+    "sources",
+    "temporal scope",
+    "interval",
+    "comparison",
+    "timeline",
+    "facts",
+    "paired",
+    "hands"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/sources/kits/ambito-temporal.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Title printed on the book (fictional)"
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Index of the user-supplied hierarchy level the book sits on (0 = first listed level)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Source book"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Source books standing on the editable hierarchy stand (fictional titles) (array replaces the previous value)"
+      },
+      "hierarchy": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Level label"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Labels of the editable hierarchy levels in the order the author supplies them. Neutral placeholders by default: no ordering rule between sources is implied. (array replaces the previous value)"
+      },
+      "passages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ref": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Reference printed on the article card, e.g. \"Art. 4 (fictional)\""
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Simulated clause wording shown on the card"
+            },
+            "source": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Index of the source book that contains the passage"
+            }
+          },
+          "required": [
+            "ref"
+          ],
+          "description": "Passage"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Passages; the first is the article placed over the interval (simulated wording, fictional) (array replaces the previous value)"
+      },
+      "interpretations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "by": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Who proposes the reading (fictional)"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "The reading as proposed (fictional wording)"
+            }
+          },
+          "required": [
+            "by",
+            "text"
+          ],
+          "description": "Reading"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Readings attributed to their fictional source; shown as attributed notes, never endorsed (array replaces the previous value)"
+      },
+      "timeline": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "unit": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "Unit word printed before numbers, e.g. \"Day\""
+          },
+          "from": {
+            "type": "integer",
+            "minimum": -99,
+            "maximum": 999,
+            "description": "First unit on the ruler"
+          },
+          "to": {
+            "type": "integer",
+            "minimum": -98,
+            "maximum": 1000,
+            "description": "Last unit on the ruler (greater than \"from\"; at most 120 units are drawn)"
+          },
+          "step": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "description": "A number is printed every `step` units (raised automatically when numbers would crowd)"
+          }
+        },
+        "required": [
+          "unit",
+          "from",
+          "to"
+        ],
+        "description": "Relative time scale printed on the ruler (fictional units; no real dates)"
+      },
+      "interval": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "start": {
+            "type": "integer",
+            "minimum": -99,
+            "maximum": 1000,
+            "description": "Supplied first unit of the interval"
+          },
+          "end": {
+            "type": "integer",
+            "minimum": -99,
+            "maximum": 1000,
+            "description": "Supplied last unit of the interval"
+          }
+        },
+        "required": [
+          "start",
+          "end"
+        ],
+        "description": "Interval supplied by the author for the article (fictional relative units). The scene never computes or corrects it."
+      },
+      "facts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Short description (fictional)"
+            },
+            "day": {
+              "type": "integer",
+              "minimum": -99,
+              "maximum": 1000,
+              "description": "Supplied day (same unit as the ruler)"
+            },
+            "icon": {
+              "type": "string",
+              "enum": [
+                "envelope",
+                "parcel",
+                "key",
+                "invoice",
+                "meeting"
+              ],
+              "description": "Icon printed on the fact card"
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "auto",
+                "not-classified"
+              ],
+              "description": "\"auto\": inside / outside of the supplied interval by position; \"not-classified\": the author leaves the fact unclassified"
+            }
+          },
+          "required": [
+            "label",
+            "day"
+          ],
+          "description": "Fact"
+        },
+        "minItems": 1,
+        "maxItems": 5,
+        "description": "Facts laid around the timeline (fictional). The pin position comes from the supplied day; a fact on a boundary day stays not classified. (array replaces the previous value)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      },
+      "changed": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fact": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4,
+            "description": "Index of the changed fact in `facts`"
+          },
+          "dayA": {
+            "type": "integer",
+            "minimum": -99,
+            "maximum": 1000,
+            "description": "Supplied day of the changed fact in scenario A"
+          },
+          "dayB": {
+            "type": "integer",
+            "minimum": -99,
+            "maximum": 1000,
+            "description": "Supplied day of the changed fact in scenario B"
+          }
+        },
+        "required": [
+          "fact",
+          "dayA",
+          "dayB"
+        ],
+        "description": "The single changed fact: which fact, and its supplied day in scenario A and in scenario B (fictional days)"
+      },
+      "reader": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name (fictional)"
+          }
+        },
+        "required": [],
+        "description": "Reader shown at both desks (same person, same gestures)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "sources": [
+      {
+        "label": "Text 1 (fictional)",
+        "level": 0
+      },
+      {
+        "label": "Text 2 (fictional)",
+        "level": 1
+      },
+      {
+        "label": "Text 3 (fictional)",
+        "level": 2
+      }
+    ],
+    "hierarchy": [
+      "Level 1 (user-supplied)",
+      "Level 2 (user-supplied)",
+      "Level 3 (user-supplied)"
+    ],
+    "passages": [
+      {
+        "ref": "Art. 4 (fictional)",
+        "text": "Simulated clause wording for the supplied interval.",
+        "source": 0
+      }
+    ],
+    "interpretations": [
+      {
+        "by": "Commentary C (fictional)",
+        "text": "Proposes a reading of the interval wording."
+      }
+    ],
+    "timeline": {
+      "unit": "Day",
+      "from": 0,
+      "to": 20,
+      "step": 2
+    },
+    "interval": {
+      "start": 5,
+      "end": 13
+    },
+    "facts": [
+      {
+        "label": "Notice sent",
+        "day": 3,
+        "icon": "envelope",
+        "state": "auto"
+      },
+      {
+        "label": "Keys handed over",
+        "day": 10,
+        "icon": "key",
+        "state": "auto"
+      },
+      {
+        "label": "Invoice issued",
+        "day": 18,
+        "icon": "invoice",
+        "state": "auto"
+      }
+    ],
+    "changed": {
+      "fact": 1,
+      "dayA": 10,
+      "dayB": 15
+    },
+    "reader": {
+      "name": "Rin Park"
+    },
+    "scenarioA": {
+      "label": "Fact inside",
+      "caption": "Keys handed over on Day 10"
+    },
+    "scenarioB": {
+      "label": "Outside the supplied interval",
+      "caption": "Keys handed over on Day 15"
+    },
+    "changedFact": "Day on which the keys were handed over",
+    "sharedFacts": [
+      "Same article and interval (Day 5 – Day 13)",
+      "Same other facts",
+      "Same gestures and timing"
+    ],
+    "comparisonLabels": {
+      "guide": "Changed fact",
+      "neutral": "Only this supplied day differs. No legal effect or outcome is stated."
+    }
+  }
+}

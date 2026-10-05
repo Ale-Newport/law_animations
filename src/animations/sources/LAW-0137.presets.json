@@ -1,0 +1,65 @@
+{
+  "animationId": "LAW-0137",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified); the subject list and the tags are supplied data compared verbatim, and no legal consequence is inferred.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional Text 1 on Level 1 of the stand; its Art. 2 lists three subjects that key the gates. Four activity cards pass the filter: three drop into their subject's bin, the one tagged with an unlisted subject rolls into the side bin and is read with the magnifier.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the user-supplied order of the stand is swapped (the open text stands on the lower shelf), the article lists a different set of subjects, five cards pass (one with no tag supplied and one with an unlisted subject, so two reach the side bin) and a reading attributed to a fictional commentary is pinned beside the side bin without being applied.",
+      "params": {
+        "hierarchy": {"levels": ["Level 1 (user-supplied)", "Level 2 (user-supplied)"], "placement": [1, 0]},
+        "passages": [{"ref": "Text 1 · Art. 3 (fictional)", "heading": "Subjects covered (simulated wording)", "subjects": ["Housing", "Farming", "Water supply"]}],
+        "activities": [
+          {"label": "Roof repair", "subject": "Housing"},
+          {"label": "Community garden", "subject": ""},
+          {"label": "Well cleaning", "subject": "Water supply"},
+          {"label": "Seed exchange", "subject": "Farming"},
+          {"label": "Night market", "subject": "Trade"}
+        ],
+        "interpretations": [{"by": "Commentary 1 (fictional)", "text": "Proposes reading a community garden under Farming"}],
+        "annotations": [{"target": "unclassified", "text": "No subject tag was supplied for this card"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long titles, level labels, subjects, activity labels and notes to exercise wrapping and bounded shrinking.",
+      "params": {
+        "sources": [{"title": "Consolidated Illustrative Text Number One (fictional)", "note": "Simulated wording for teaching"}, {"title": "Supplementary Text Two (fictional)", "note": "Simulated wording"}],
+        "hierarchy": {"levels": ["First level as supplied by the author", "Second level as supplied by the author"], "placement": [0, 1]},
+        "passages": [{"ref": "Consolidated Text 1 · Article 2 (fictional)", "heading": "Material scope of the text (simulated wording)", "subjects": ["Community transport services", "Housing maintenance", "Farming cooperatives"]}],
+        "activities": [
+          {"label": "Weekend bicycle rental for residents", "subject": "Community transport services"},
+          {"label": "Emergency roof repair after a storm", "subject": "Housing maintenance"},
+          {"label": "Open-air street concert in the square", "subject": "Cultural events in public spaces"},
+          {"label": "Seasonal seed exchange between growers", "subject": "Farming cooperatives"}
+        ],
+        "actorLabels": {"a": "Reader consulting the text", "b": "Subject filter keyed by the article"},
+        "objectLabels": {"collection": "Collection of activities"},
+        "annotations": [{"target": "article", "text": "The article of the fictional text supplies the subject list that keys each filter gate"}]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"title": "Texto 1 (ficticio)", "note": "Redacción simulada"}, {"title": "Texto 2 (ficticio)", "note": "Redacción simulada"}],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)", "Nivel 2 (aportado)"], "placement": [0, 1]},
+        "passages": [{"ref": "Texto 1 · Art. 2 (ficticio)", "heading": "Ámbito material (redacción simulada)", "subjects": ["Transporte", "Vivienda", "Agricultura"]}],
+        "activities": [
+          {"label": "Alquiler de bicicletas", "subject": "Transporte"},
+          {"label": "Reparación de tejado", "subject": "Vivienda"},
+          {"label": "Concierto callejero", "subject": "Cultura"},
+          {"label": "Intercambio de semillas", "subject": "Agricultura"}
+        ],
+        "actorLabels": {"a": "Lectora", "b": "Filtro de materias"},
+        "objectLabels": {"collection": "Actividades"},
+        "annotations": [{"target": "article", "text": "El artículo aporta la lista que da clave a las compuertas"}]
+      }
+    }
+  ]
+}

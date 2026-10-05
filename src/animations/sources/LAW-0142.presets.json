@@ -1,0 +1,101 @@
+{
+  "animationId": "LAW-0142",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified); zones are neutral abstract areas with fictional names, relationships are drawn only as supplied (no causal link unless supplied) and no legal consequence is inferred.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Text 1 · Art. 4 is placed on Zone Alder; three fact pawns lie on the fact layer. Six plain relations link the hierarchy, the book, the slip, the three sheets and the magnifier; the tracer follows them in order and the zone board swells as the focus.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: three zones with the text placed on Zone Cedar; two relations are supplied as sequences (the slip is laid on the text's sheet, the sheet is laid on the board) and drawn with arrows; the tracer follows another order and the text's sheet is the focus.",
+      "params": {
+        "zones": [{"name": "Zone Alder (fictional)"}, {"name": "Zone Birch (fictional)"}, {"name": "Zone Cedar (fictional)"}],
+        "passages": [{"ref": "Text 1 · Art. 9 (fictional)", "heading": "Area of the text (simulated)", "zone": "Zone Cedar (fictional)"}],
+        "facts": [
+          {"label": "Repair of a fence", "zone": "Zone Alder (fictional)"},
+          {"label": "Hire of a hall", "zone": "Zone Cedar (fictional)"},
+          {"label": "Loan of a tractor", "zone": "Zone Birch (fictional)"}
+        ],
+        "relationships": [
+          {"from": "hierarchy", "to": "source", "kind": "relation", "label": "level as supplied"},
+          {"from": "source", "to": "article", "kind": "relation", "label": "contains"},
+          {"from": "article", "to": "text", "kind": "sequence", "label": "laid on its zone"},
+          {"from": "text", "to": "zones", "kind": "sequence", "label": "laid on the board"},
+          {"from": "facts", "to": "zones", "kind": "relation", "label": "zones as supplied"},
+          {"from": "reading", "to": "facts", "kind": "relation", "label": "compares places"}
+        ],
+        "focusElement": "text",
+        "traversalOrder": ["article", "text", "zones", "facts", "reading"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long element labels, relation captions, zone names, fact labels and texts (three zones) to exercise wrapping and bounded shrinking.",
+      "params": {
+        "sources": [{"title": "Consolidated Illustrative Text Number One (fictional)", "note": "Simulated wording for teaching use"}, {"title": "Supplementary Illustrative Text Two (fictional)", "note": "Simulated wording for teaching"}],
+        "hierarchy": {"levels": ["First level as supplied by the author", "Second level as supplied by the author"], "placement": [0, 1]},
+        "zones": [{"name": "Alder coastal district zone (fictional)"}, {"name": "Birch inland district zone (fictional)"}, {"name": "Cedar river valley zone (fictional)"}],
+        "passages": [{"ref": "Consolidated Text 1 · Article 4 (fictional)", "heading": "Territorial scope of the text (simulated wording)", "zone": "Alder coastal district zone (fictional)"}],
+        "facts": [
+          {"label": "Delivery of a parcel to a workshop", "zone": "Alder coastal district zone (fictional)"},
+          {"label": "Meeting of two parties at a market", "zone": "Birch inland district zone (fictional)"},
+          {"label": "Sale of a second-hand bicycle", "zone": "Cedar river valley zone (fictional)"}
+        ],
+        "elements": [
+          {"id": "hierarchy", "label": "Editable hierarchy of the texts"},
+          {"id": "source", "label": "Book holding the source text"},
+          {"id": "article", "label": "Article slip naming the zone"},
+          {"id": "text", "label": "Translucent sheet of the text"},
+          {"id": "zones", "label": "Board of neutral zones"},
+          {"id": "facts", "label": "Layer of the fact pawns"},
+          {"id": "reading", "label": "Reading with the magnifier"}
+        ],
+        "relationships": [
+          {"from": "hierarchy", "to": "source", "kind": "relation", "label": "places the book at a level, as supplied"},
+          {"from": "source", "to": "article", "kind": "relation", "label": "contains the article slip"},
+          {"from": "article", "to": "text", "kind": "relation", "label": "names the zone of the text"},
+          {"from": "text", "to": "zones", "kind": "relation", "label": "follows the zone outline"},
+          {"from": "facts", "to": "zones", "kind": "relation", "label": "zones as supplied per fact"},
+          {"from": "reading", "to": "facts", "kind": "relation", "label": "compares the two placements"}
+        ],
+        "relationLabels": {"relation": "relation as supplied", "communication": "communication as supplied", "sequence": "sequence as supplied", "causal": "causal link as supplied"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"title": "Texto 1 (ficticio)", "note": "Redacción simulada"}, {"title": "Texto 2 (ficticio)", "note": "Redacción simulada"}],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)", "Nivel 2 (aportado)"], "placement": [0, 1]},
+        "zones": [{"name": "Zona Aliso (ficticia)"}, {"name": "Zona Abedul (ficticia)"}],
+        "passages": [{"ref": "Texto 1 · Art. 4 (ficticio)", "heading": "Ámbito territorial (simulado)", "zone": "Zona Aliso (ficticia)"}],
+        "facts": [
+          {"label": "Entrega de un paquete", "zone": "Zona Aliso (ficticia)"},
+          {"label": "Reunión de dos partes", "zone": "Zona Abedul (ficticia)"},
+          {"label": "Venta de una bicicleta", "zone": "Zona Aliso (ficticia)"}
+        ],
+        "elements": [
+          {"id": "hierarchy", "label": "Jerarquía editable"},
+          {"id": "source", "label": "Libro (fuente)"},
+          {"id": "article", "label": "Ficha del artículo"},
+          {"id": "text", "label": "Lámina del texto"},
+          {"id": "zones", "label": "Tablero de zonas"},
+          {"id": "facts", "label": "Capa de hechos"},
+          {"id": "reading", "label": "Lectura (lupa)"}
+        ],
+        "relationships": [
+          {"from": "hierarchy", "to": "source", "kind": "relation", "label": "nivel aportado"},
+          {"from": "source", "to": "article", "kind": "relation", "label": "contiene"},
+          {"from": "article", "to": "text", "kind": "relation", "label": "nombra la zona"},
+          {"from": "text", "to": "zones", "kind": "relation", "label": "mismo contorno"},
+          {"from": "facts", "to": "zones", "kind": "relation", "label": "zonas aportadas"},
+          {"from": "reading", "to": "facts", "kind": "relation", "label": "compara lugares"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "animationId": "LAW-0134",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. Relationship kinds are drawn as supplied; nothing is shown as causal unless the author supplies it.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Hierarchy → source book → article → supplied interval (Day 5 – Day 13) → timeline → four fictional facts, plus an attributed reading; the interval strip is the focus.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the article sits in Text 2 on the second level, the interval is Day 9 – Day 17 with a fact on its start day (not classified), the tracer starts at the reading and the timeline is the focus.",
+      "params": {
+        "sources": [{"label": "Source A (fictional)", "level": 0}, {"label": "Source B (fictional)", "level": 1}],
+        "hierarchy": ["Level 1 (user-supplied)", "Level 2 (user-supplied)"],
+        "passages": [{"ref": "Art. 12 (fictional)", "text": "Simulated wording of a second fictional article.", "source": 1}],
+        "interval": {"start": 9, "end": 17},
+        "facts": [
+          {"label": "Request filed", "day": 4, "icon": "invoice", "state": "auto"},
+          {"label": "Meeting held", "day": 9, "icon": "meeting", "state": "auto"},
+          {"label": "Parcel returned", "day": 12, "icon": "parcel", "state": "auto"},
+          {"label": "Reply sent", "day": 19, "icon": "envelope", "state": "auto"}
+        ],
+        "interpretations": [{"by": "Note by Reader D (fictional)", "text": "Proposes reading the start day separately."}],
+        "relationships": [
+          {"from": "hierarchy", "to": "source", "kind": "relation", "label": "holds"},
+          {"from": "source", "to": "article", "kind": "relation", "label": "contains"},
+          {"from": "article", "to": "interval", "kind": "sequence", "label": "then supplies"},
+          {"from": "interval", "to": "timeline", "kind": "sequence", "label": "laid over"},
+          {"from": "timeline", "to": "facts", "kind": "relation", "label": "positions"},
+          {"from": "reading", "to": "article", "kind": "communication", "label": "proposes a reading"}
+        ],
+        "focusElement": "timeline",
+        "traversalOrder": ["reading", "article", "interval", "timeline", "facts"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long component names, relation captions, level labels, source title, article reference and fact descriptions.",
+      "params": {
+        "sources": [{"label": "Consolidated Example Text (fictional)", "level": 0}, {"label": "Second Fictional Collection", "level": 1}, {"label": "Third Placeholder Volume", "level": 2}],
+        "hierarchy": ["First level as supplied by the author", "Second level as supplied by the author", "Third level as supplied by the author"],
+        "passages": [{"ref": "Article 4, paragraph 2 (fictional)", "text": "Simulated clause wording that the author supplies for the interval.", "source": 0}],
+        "interpretations": [{"by": "Commentary on Text 1 by Reader C (fictional)", "text": "Proposes a reading of the wording that frames the supplied interval."}],
+        "facts": [
+          {"label": "Written notice sent to the other party", "day": 3, "icon": "envelope", "state": "auto"},
+          {"label": "Goods delivered to the loading dock", "day": 8, "icon": "parcel", "state": "auto"},
+          {"label": "Keys to the storage unit handed over", "day": 11, "icon": "key", "state": "auto"},
+          {"label": "Invoice issued for the goods", "day": 16, "icon": "invoice", "state": "auto"}
+        ],
+        "elements": [
+          {"id": "hierarchy", "label": "Editable hierarchy of the supplied sources"},
+          {"id": "source", "label": "Source book that holds the article"},
+          {"id": "article", "label": "Article card taken from the source"},
+          {"id": "interval", "label": "Interval supplied by the author"},
+          {"id": "timeline", "label": "Timeline in fictional relative days"},
+          {"id": "facts", "label": "Facts placed around the interval"},
+          {"id": "reading", "label": "Reading attributed to its source"}
+        ],
+        "relationships": [
+          {"from": "hierarchy", "to": "source", "kind": "relation", "label": "holds on a supplied level"},
+          {"from": "source", "to": "article", "kind": "relation", "label": "contains the passage"},
+          {"from": "article", "to": "interval", "kind": "relation", "label": "supplies its interval"},
+          {"from": "interval", "to": "timeline", "kind": "sequence", "label": "is laid over the timeline"},
+          {"from": "timeline", "to": "facts", "kind": "relation", "label": "positions each fact"},
+          {"from": "reading", "to": "article", "kind": "communication", "label": "proposes a reading of it"}
+        ],
+        "relationLabels": {"relation": "plain relation (no arrow)", "communication": "communication (dashed)", "sequence": "sequence (solid arrow)", "causal": "causal (only as supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"label": "Texto 1 (ficticio)", "level": 0}, {"label": "Texto 2 (ficticio)", "level": 1}, {"label": "Texto 3 (ficticio)", "level": 2}],
+        "hierarchy": ["Nivel 1 (aportado)", "Nivel 2 (aportado)", "Nivel 3 (aportado)"],
+        "passages": [{"ref": "Art. 4 (ficticio)", "text": "Redacción simulada para el intervalo aportado.", "source": 0}],
+        "interpretations": [{"by": "Comentario C (ficticio)", "text": "Propone una lectura de la redacción del intervalo."}],
+        "timeline": {"unit": "Día", "from": 0, "to": 20, "step": 2},
+        "facts": [
+          {"label": "Aviso enviado", "day": 3, "icon": "envelope", "state": "auto"},
+          {"label": "Mercancía entregada", "day": 8, "icon": "parcel", "state": "auto"},
+          {"label": "Llaves entregadas", "day": 11, "icon": "key", "state": "auto"},
+          {"label": "Factura emitida", "day": 16, "icon": "invoice", "state": "auto"}
+        ],
+        "elements": [
+          {"id": "hierarchy", "label": "Jerarquía editable"},
+          {"id": "source", "label": "Libro fuente"},
+          {"id": "article", "label": "Ficha del artículo"},
+          {"id": "interval", "label": "Intervalo aportado"},
+          {"id": "timeline", "label": "Línea de tiempo (días ficticios)"},
+          {"id": "facts", "label": "Hechos"},
+          {"id": "reading", "label": "Lectura atribuida"}
+        ],
+        "relationships": [
+          {"from": "hierarchy", "to": "source", "kind": "relation", "label": "contiene"},
+          {"from": "source", "to": "article", "kind": "relation", "label": "incluye"},
+          {"from": "article", "to": "interval", "kind": "relation", "label": "aporta"},
+          {"from": "interval", "to": "timeline", "kind": "sequence", "label": "se coloca sobre"},
+          {"from": "timeline", "to": "facts", "kind": "relation", "label": "sitúa"},
+          {"from": "reading", "to": "article", "kind": "communication", "label": "propone una lectura"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

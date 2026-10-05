@@ -1,0 +1,509 @@
+{
+  "id": "LAW-0137",
+  "slug": "sources-05-story",
+  "title": "Material scope — activities through a subject filter",
+  "titleEs": "Ámbito material — Microescena con objetos y actores",
+  "category": "sources",
+  "categoryName": "Fuentes e interpretación",
+  "motif": "Ámbito material",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "First-person workshop wall: the reader lifts the article slip out of the open fictional Text 1 (standing on the editable-hierarchy stand) and clips it into the filter holder; the marks of its listed subjects fly into the gate plates. The collection of activity cards slides down the rail: each gate opens only for the card whose tag matches its key and the card drops into that bin; a card whose tag matches no listed subject rolls into the side bin and is read with the magnifier. Only supplied states are shown.",
+  "tags": [
+    "material scope",
+    "subject filter",
+    "article",
+    "book",
+    "editable hierarchy",
+    "magnifier",
+    "activities",
+    "sorting",
+    "hands"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/sources/kits/ambito-material.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Title printed on the book, e.g. \"Text 1 (fictional)\""
+            },
+            "note": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Short descriptive line printed under the title (e.g. \"simulated wording\")"
+            }
+          },
+          "required": [
+            "title"
+          ],
+          "description": "Source text (fictional placeholder)"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Fictional source texts drawn as books: [0] is the open book that holds the passage (the anchor); [1] (optional) is a second, closed text on the stand (array replaces the previous value)"
+      },
+      "hierarchy": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Level label"
+            },
+            "minItems": 1,
+            "maxItems": 2,
+            "description": "Shelf labels, top shelf first (user-supplied) (array replaces the previous value)"
+          },
+          "placement": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Shelf index"
+            },
+            "minItems": 1,
+            "maxItems": 2,
+            "description": "Shelf index (0 = top shelf) of each source, in source order (user-supplied) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "levels",
+          "placement"
+        ],
+        "description": "Editable hierarchy: a user-supplied ordering drawn as the shelves of the stand. The labels are neutral placeholders; the order is displayed only and states no rule, priority or outcome"
+      },
+      "passages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ref": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Reference printed on the article, e.g. \"Text 1 · Art. 2 (fictional)\""
+            },
+            "heading": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Heading of the article (simulated wording)"
+            },
+            "subjects": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 32,
+                "description": "Listed subject"
+              },
+              "minItems": 1,
+              "maxItems": 4,
+              "description": "Subjects listed by the article, in order; each keys one gate of the filter (array replaces the previous value)"
+            }
+          },
+          "required": [
+            "ref",
+            "heading",
+            "subjects"
+          ],
+          "description": "Passage (simulated)"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "Simulated passages: [0] is the article whose subject list keys the filter (fictional wording) (array replaces the previous value)"
+      },
+      "interpretations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "by": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Fictional source of the reading"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "The reading as proposed (descriptive)"
+            }
+          },
+          "required": [
+            "by",
+            "text"
+          ],
+          "description": "Attributed reading"
+        },
+        "minItems": 0,
+        "maxItems": 1,
+        "description": "Readings attributed to a fictional source, drawn as an attributed note; never applied by the filter and never endorsed (array replaces the previous value)"
+      },
+      "activities": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Activity label"
+            },
+            "subject": {
+              "type": "string",
+              "maxLength": 32,
+              "description": "Subject tag supplied for the activity"
+            }
+          },
+          "required": [
+            "label",
+            "subject"
+          ],
+          "description": "Activity (fictional)"
+        },
+        "minItems": 1,
+        "maxItems": 5,
+        "description": "The collection of activities, in the order they enter the filter. Each carries the subject tag supplied for it, compared verbatim (case-insensitive) with the listed subjects; an empty tag means no subject was supplied (array replaces the previous value)"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for the reader (the hands)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label of the filter holder (the filter keyed by the article)"
+          }
+        },
+        "required": [],
+        "description": "Role captions shown next to each actor"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "collection": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Label on the magazine holding the collection of activities"
+          }
+        },
+        "required": [],
+        "description": "Labels printed on props"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "article",
+                "filter",
+                "included",
+                "unclassified",
+                "book",
+                "hierarchy"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "sorted-examined",
+          "sorted",
+          "filter-set"
+        ],
+        "description": "The state supplied by the author for the final hold (no legal conclusion is inferred)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "sources": [
+      {
+        "title": "Text 1 (fictional)",
+        "note": "Simulated wording"
+      },
+      {
+        "title": "Text 2 (fictional)",
+        "note": "Simulated wording"
+      }
+    ],
+    "hierarchy": {
+      "levels": [
+        "Level 1 (user-supplied)",
+        "Level 2 (user-supplied)"
+      ],
+      "placement": [
+        0,
+        1
+      ]
+    },
+    "passages": [
+      {
+        "ref": "Text 1 · Art. 2 (fictional)",
+        "heading": "Material scope (simulated wording)",
+        "subjects": [
+          "Transport",
+          "Housing",
+          "Farming"
+        ]
+      }
+    ],
+    "interpretations": [],
+    "activities": [
+      {
+        "label": "Bicycle rental",
+        "subject": "Transport"
+      },
+      {
+        "label": "Roof repair",
+        "subject": "Housing"
+      },
+      {
+        "label": "Street concert",
+        "subject": "Culture"
+      },
+      {
+        "label": "Seed exchange",
+        "subject": "Farming"
+      }
+    ],
+    "actorLabels": {
+      "a": "Reader",
+      "b": "Subject filter"
+    },
+    "objectLabels": {
+      "collection": "Activities"
+    },
+    "actionProgress": 1,
+    "annotations": [
+      {
+        "target": "article",
+        "text": "The article supplies the list that keys the gates"
+      }
+    ],
+    "finalState": "sorted-examined"
+  }
+}

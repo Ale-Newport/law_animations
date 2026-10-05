@@ -1,0 +1,62 @@
+{
+  "animationId": "LAW-0129",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All texts, provisions, levels and readings are fictional placeholders; jurisdiction unspecified. States are supplied by the author, never inferred; no text is shown to prevail and the hierarchy is only displayed.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Two fictional provisions are brought together on a reading desk; their tension phrases are highlighted, the reader inspects the zone with a lens and the assistant sets a pennant pin for the supplied state 'conflict flagged'.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: different fictional wording, both texts on the same user-supplied level, and the supplied state 'compatible application' — the zone is drawn as a calm double rule and the assistant joins the two texts with a paper clip instead of a pin.",
+      "params": {
+        "sources": [{"id": "R1", "title": "Rulebook A (fictional)", "provision": "Rule 12"}, {"id": "G2", "title": "Guidance note B (fictional)", "provision": "Point 3"}],
+        "passages": [
+          {"text": "Members receive the agenda on Day 2 before each meeting.", "tension": "on Day 2"},
+          {"text": "The agenda may also be posted on the notice board on Day 2.", "tension": "posted on the notice board"}
+        ],
+        "hierarchy": {"levels": ["Level 1 (user-supplied)", "Level 2 (user-supplied)"], "placement": [0, 0], "caption": "Same level, as supplied"},
+        "interpretations": [{"by": "Guide D (fictional)", "text": "Reads both texts as applying together"}],
+        "annotations": [{"target": "zone", "text": "Both phrases stay highlighted"}],
+        "finalState": "compatible-application"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long titles, provisions, wording, level labels, captions and a long note to exercise wrapping and bounded shrinking.",
+      "params": {
+        "sources": [
+          {"id": "T1-a", "title": "Consolidated Illustrative Text on Notices (fictional)", "provision": "Article 4, paragraph 2"},
+          {"id": "T2-b", "title": "Second Illustrative Text on Meetings (fictional)", "provision": "Article 9, second sentence"}
+        ],
+        "hierarchy": {"levels": ["Level one as supplied by the author", "Level two as supplied by the author", "Level three as supplied"], "placement": [0, 2], "caption": "Ordering entered by the author, displayed only"},
+        "passages": [
+          {"text": "Each written notice of a change to the internal rules is delivered in writing to every member before it is circulated.", "tension": "delivered in writing to every member"},
+          {"text": "A notice of change to the internal rules may instead be announced orally by the chair at the next ordinary meeting.", "tension": "announced orally by the chair at the next"}
+        ],
+        "interpretations": [{"by": "Commentary on the second illustrative text (fictional)", "text": "Reads the second sentence of Article 9 as limited to ordinary meetings only"}],
+        "actorLabels": {"a": "Reader comparing both texts", "b": "Research assistant with the article"},
+        "objectLabels": {"hierarchy": "Editable hierarchy entered by the user"},
+        "annotations": [{"target": "hierarchy", "text": "The ordering on this board was entered by the user and is not applied to the texts"}]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"id": "T1", "title": "Texto 1 (ficticio)", "provision": "Art. 4"}, {"id": "T2", "title": "Texto 2 (ficticio)", "provision": "Art. 9"}],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)", "Nivel 2 (aportado)"], "placement": [0, 1], "caption": "Orden aportado"},
+        "passages": [
+          {"text": "Cada aviso de cambio se entrega por escrito a todos los miembros.", "tension": "por escrito"},
+          {"text": "Un aviso de cambio puede anunciarse oralmente en la próxima reunión.", "tension": "anunciarse oralmente"}
+        ],
+        "interpretations": [{"by": "Comentario C (ficticio)", "text": "Lee el Art. 9 como limitado a reuniones"}],
+        "actorLabels": {"a": "Lectora", "b": "Asistente"},
+        "objectLabels": {"hierarchy": "Jerarquía editable"},
+        "annotations": [{"target": "hierarchy", "text": "Orden introducido por el usuario; no se aplica"}]
+      }
+    }
+  ]
+}

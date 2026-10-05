@@ -1,0 +1,84 @@
+{
+  "animationId": "LAW-0126",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the hierarchy is a user-supplied ordering and implies no rule of precedence.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Five parts (term, article, hierarchy, definitions section, supplied definition) joined only by plain relations; the marker runs from the term through the article's band (Level 3) and the definitions' band (Level 2) to the definition, which enlarges.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four user-supplied levels with the definitions section at Level 1 and the article at Level 4; the traversal runs the other way (from the definition back to the term); the hierarchy is the focus; the term–definition link is supplied as a sequence (arrowed) while the other relationships stay plain relations.",
+      "params": {
+        "hierarchy": ["Level 1 (user-supplied)", "Level 2 (user-supplied)", "Level 3 (user-supplied)", "Level 4 (user-supplied)"],
+        "passages": [
+          {"ref": "Text 1 · Art. 12 (fictional)", "heading": "Notices", "text": "A notice is sent to each registered holder (simulated wording).", "term": "registered holder", "level": 4},
+          {"ref": "Text 1 · Art. 1 (fictional)", "heading": "Meaning of terms", "text": "means a person entered as holder in the register (simulated wording).", "term": "registered holder", "level": 1}
+        ],
+        "relationships": [
+          {"from": "term", "to": "article", "kind": "relation", "label": "appears in"},
+          {"from": "article", "to": "hierarchy", "kind": "relation", "label": "sits at its level"},
+          {"from": "definitions", "to": "hierarchy", "kind": "relation", "label": "sits at its level"},
+          {"from": "definition", "to": "definitions", "kind": "relation", "label": "entry of"},
+          {"from": "definition", "to": "term", "kind": "sequence", "label": "read before (as supplied)"}
+        ],
+        "focusElement": "hierarchy",
+        "traversalOrder": ["definition", "definitions", "hierarchy", "article", "term"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long level labels, references, term, definition wording and relation captions to exercise wrapping and bounded shrinking.",
+      "params": {
+        "hierarchy": ["Level 1 — general provisions (user-supplied)", "Level 2 — definitions and scope (user-supplied)", "Level 3 — keeping of registers (user-supplied)"],
+        "passages": [
+          {"ref": "Consolidated Text 1 · Article 7, paragraph 2 (fictional)", "heading": "Keeping of listed items in the register", "text": "The holder keeps each listed movable item in the register kept for the purpose (simulated wording).", "term": "listed movable item", "level": 3},
+          {"ref": "Consolidated Text 1 · Article 2, paragraph 1 (fictional)", "heading": "Definitions for the purposes of this text", "text": "means an object entered in the annex and kept by the holder under this text (simulated wording).", "term": "listed movable item", "level": 2}
+        ],
+        "elements": [
+          {"id": "term", "label": "Term used in the article"},
+          {"id": "article", "label": "Article that uses the term"},
+          {"id": "hierarchy", "label": "Hierarchy of divisions in the author's order"},
+          {"id": "definitions", "label": "Section that supplies definitions"},
+          {"id": "definition", "label": "Definition supplied for the term"}
+        ],
+        "relationships": [
+          {"from": "term", "to": "article", "kind": "relation", "label": "appears in the article"},
+          {"from": "article", "to": "hierarchy", "kind": "relation", "label": "sits at its level of the hierarchy"},
+          {"from": "definitions", "to": "hierarchy", "kind": "relation", "label": "sits at its level of the hierarchy"},
+          {"from": "definition", "to": "definitions", "kind": "relation", "label": "is an entry of the section"},
+          {"from": "term", "to": "definition", "kind": "relation", "label": "defined in another section (as supplied)"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": ["Texto 1 (ficticio)"],
+        "hierarchy": ["Nivel 1 (aportado)", "Nivel 2 (aportado)", "Nivel 3 (aportado)"],
+        "passages": [
+          {"ref": "Texto 1 · Art. 7 (ficticio)", "heading": "Custodia de bienes", "text": "El titular conserva cada bien inscrito en el registro (redacción simulada).", "term": "bien inscrito", "level": 3},
+          {"ref": "Texto 1 · Art. 2 (ficticio)", "heading": "Definiciones", "text": "designa un objeto anotado en el anexo (redacción simulada).", "term": "bien inscrito", "level": 2}
+        ],
+        "elements": [
+          {"id": "term", "label": "Término"},
+          {"id": "article", "label": "Artículo que lo usa"},
+          {"id": "hierarchy", "label": "Jerarquía (aportada)"},
+          {"id": "definitions", "label": "Sección de definiciones"},
+          {"id": "definition", "label": "Definición aportada"}
+        ],
+        "relationships": [
+          {"from": "term", "to": "article", "kind": "relation", "label": "aparece en"},
+          {"from": "article", "to": "hierarchy", "kind": "relation", "label": "está en su nivel"},
+          {"from": "definitions", "to": "hierarchy", "kind": "relation", "label": "está en su nivel"},
+          {"from": "definition", "to": "definitions", "kind": "relation", "label": "entrada de"},
+          {"from": "term", "to": "definition", "kind": "relation", "label": "definido en (según lo aportado)"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

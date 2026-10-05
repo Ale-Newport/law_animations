@@ -1,0 +1,474 @@
+{
+  "id": "LAW-0151",
+  "slug": "sources-08-contrast",
+  "title": "Cross-reference between articles — direct reference vs chain of references",
+  "titleEs": "Remisión entre artículos — Comparación de dos supuestos",
+  "category": "sources",
+  "categoryName": "Fuentes e interpretación",
+  "motif": "Remisión entre artículos",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical open volumes on one clock. The one changed fact is written in: in B, Art. 9 prints its own onward cross-reference; in A its row stays plain. Both page flags make the same first hop from Art. 4 to Art. 9; in B the flag hops again to Art. 12. A guide joins the changed rows; both paths are shown as supplied, with no winner and no conclusion.",
+  "tags": [
+    "cross-reference",
+    "remisión",
+    "direct reference",
+    "chain of references",
+    "article",
+    "book",
+    "page flag",
+    "comparison",
+    "editable hierarchy"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/sources/kits/remision-entre-articulos.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Title of the volume, e.g. \"Text 1 (fictional)\""
+            }
+          },
+          "required": [
+            "title"
+          ],
+          "description": "Source text (fictional placeholder)"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "The bound volume (fictional placeholder); its title is printed as the running head of the first page (array replaces the previous value)"
+      },
+      "hierarchy": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Division label"
+            },
+            "minItems": 2,
+            "maxItems": 2,
+            "description": "Division labels, one per page (user-supplied) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "levels"
+        ],
+        "description": "Editable hierarchy: user-supplied divisions of the volume, drawn as the index tabs of its two pages (first page first). Displayed only; the order states no rule, priority or outcome"
+      },
+      "passages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ref": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Reference printed as the article heading, e.g. \"Text 1 · Art. 4 (fictional)\""
+            },
+            "cue": {
+              "type": "string",
+              "maxLength": 70,
+              "description": "Cross-reference phrase printed in the article, as supplied (empty = the article prints none)"
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Division (page) that holds the article: 0 = first page, 1 = second page"
+            }
+          },
+          "required": [
+            "ref",
+            "cue",
+            "level"
+          ],
+          "description": "Article (fictional)"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Articles printed in the volume (simulated wording). Each may print a cross-reference phrase exactly as supplied; the scene never reads, interprets or resolves it (array replaces the previous value)"
+      },
+      "interpretations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "by": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Fictional source of the reading"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "The reading as proposed (descriptive)"
+            }
+          },
+          "required": [
+            "by",
+            "text"
+          ],
+          "description": "Attributed reading"
+        },
+        "minItems": 0,
+        "maxItems": 1,
+        "description": "Readings of the reference attributed to a fictional source; drawn as an attributed note, never applied or endorsed (array replaces the previous value)"
+      },
+      "pathA": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Article index (0-based)"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Scenario A: the supplied reference path (indices of the articles the marker visits). The supplied reference path: indices of the articles the marker visits, in order. Two entries = a direct reference, three or four = a chain of references. Nothing is inferred from the cue wording (array replaces the previous value)"
+      },
+      "pathB": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Article index (0-based)"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Scenario B: the supplied reference path. The supplied reference path: indices of the articles the marker visits, in order. Two entries = a direct reference, three or four = a chain of references. Nothing is inferred from the cue wording (array replaces the previous value)"
+      },
+      "changedArticle": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 3,
+        "description": "Index of the article whose own cross-reference phrase is printed in scenario B only (the one changed fact); in A its cue row stays a plain line"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "sources": [
+      {
+        "title": "Text 1 (fictional)"
+      }
+    ],
+    "hierarchy": {
+      "levels": [
+        "Part 1 (user-supplied)",
+        "Part 2 (user-supplied)"
+      ]
+    },
+    "passages": [
+      {
+        "ref": "Text 1 · Art. 4 (fictional)",
+        "cue": "as set out in Art. 9",
+        "level": 0
+      },
+      {
+        "ref": "Art. 9 (fictional)",
+        "cue": "see Art. 12",
+        "level": 1
+      },
+      {
+        "ref": "Art. 12 (fictional)",
+        "cue": "",
+        "level": 1
+      }
+    ],
+    "interpretations": [],
+    "pathA": [
+      0,
+      1
+    ],
+    "pathB": [
+      0,
+      1,
+      2
+    ],
+    "changedArticle": 1,
+    "scenarioA": {
+      "label": "Direct reference",
+      "caption": "Art. 9 prints no onward reference"
+    },
+    "scenarioB": {
+      "label": "Chain of references",
+      "caption": "Art. 9 prints its own reference"
+    },
+    "changedFact": "Only Art. 9 differs: its own reference to Art. 12 is printed in B",
+    "sharedFacts": [
+      "Same volume and divisions",
+      "Same phrase in Art. 4",
+      "Same marker, same start"
+    ],
+    "comparisonLabels": {
+      "guide": "The one changed detail",
+      "neutral": "Both paths as supplied; neither is preferred"
+    }
+  }
+}

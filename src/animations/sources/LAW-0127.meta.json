@@ -1,0 +1,428 @@
+{
+  "id": "LAW-0127",
+  "slug": "sources-02-contrast",
+  "title": "Legislative definition — defined term vs proposed ordinary use",
+  "titleEs": "Definición legislativa — Comparación de dos supuestos",
+  "category": "sources",
+  "categoryName": "Fuentes e interpretación",
+  "motif": "Definición legislativa",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical reading desks; one fact changes — what the marked term is linked to. In A the hands open the full text at the flag of the definitions section and pin the cord to the supplied definition in another section; in B they turn over a note card and pin the cord to an ordinary use proposed by a named fictional source while the book stays closed. A guide links the two cord ends; no reading is endorsed and no outcome is shown. The desks fill the frame; the elements identical in both (the article extract, the full text and its hierarchy) are one compact strip of text above them, and each result is a callout attached where its cord ends.",
+  "tags": [
+    "definition",
+    "defined term",
+    "ordinary use",
+    "contrast",
+    "paired scenes",
+    "book",
+    "note card",
+    "pins",
+    "cord"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/sources/kits/definicion-legislativa.js",
+    "src/frameworks/paired.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "Source name (fictional)"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Fictional source names: [0] is printed on the book (the full text that holds both sections); [1] names the separate note in which an ordinary use is proposed (scenes that show it) (array replaces the previous value)"
+      },
+      "hierarchy": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Level label (neutral by default)"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "User-supplied ordering of the divisions of the text, drawn top to bottom as index flags on the book. The order is the author's; the scene implies no rule of precedence between levels (array replaces the previous value)"
+      },
+      "passages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ref": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Reference printed on the page, e.g. \"Text 1 · Art. 7 (fictional)\""
+            },
+            "heading": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Heading of the passage"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 170,
+              "description": "Simulated wording: for [0] the clause that uses the term; for [1] the definition wording that follows the term"
+            },
+            "term": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "The term as written in this passage"
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4,
+              "description": "Hierarchy level (1 = first flag) that holds the passage"
+            }
+          },
+          "required": [
+            "ref",
+            "heading",
+            "text",
+            "term",
+            "level"
+          ],
+          "description": "Passage"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Fictional passages: [0] the article in which the term is USED; [1] the section that SUPPLIES the definition (array replaces the previous value)"
+      },
+      "interpretations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Who proposes the reading (fictional)"
+            },
+            "reading": {
+              "type": "string",
+              "maxLength": 120,
+              "description": "The proposed reading, stated descriptively"
+            }
+          },
+          "required": [
+            "source",
+            "reading"
+          ],
+          "description": "Attributed reading"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Readings attributed to fictional sources: [0] is the ordinary use proposed on scenario B's note card (shown as attributed, never endorsed)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B (here: what the term is linked to)"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "sources": [
+      "Text 1 (fictional)",
+      "Usage note B (fictional)"
+    ],
+    "hierarchy": [
+      "Level 1 (user-supplied)",
+      "Level 2 (user-supplied)",
+      "Level 3 (user-supplied)"
+    ],
+    "passages": [
+      {
+        "ref": "Text 1 · Art. 7 (fictional)",
+        "heading": "Keeping of items",
+        "text": "The holder keeps each listed item in the register (simulated wording).",
+        "term": "listed item",
+        "level": 3
+      },
+      {
+        "ref": "Text 1 · Art. 2 (fictional)",
+        "heading": "Definitions",
+        "text": "means an object entered in the annex (simulated wording).",
+        "term": "listed item",
+        "level": 2
+      }
+    ],
+    "interpretations": [
+      {
+        "source": "Reader B (fictional)",
+        "reading": "Proposes the ordinary use: “any item written on a list”"
+      }
+    ],
+    "scenarioA": {
+      "label": "Defined term",
+      "caption": "The term is linked to the definition supplied in Art. 2"
+    },
+    "scenarioB": {
+      "label": "Proposed ordinary use",
+      "caption": "The term is linked to an ordinary use proposed by Reader B"
+    },
+    "changedFact": "Only one fact differs: what the term is linked to",
+    "sharedFacts": [
+      "Same article and term",
+      "Same text and hierarchy",
+      "Same reader and tools"
+    ],
+    "comparisonLabels": {
+      "guide": "Changed fact: where the cord ends (A: definition · B: proposal)",
+      "neutral": "Two supplied scenarios side by side — no reading is endorsed and no outcome is shown"
+    }
+  }
+}

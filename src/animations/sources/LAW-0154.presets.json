@@ -1,0 +1,291 @@
+{
+  "animationId": "LAW-0154",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All texts are fictional placeholders; jurisdiction unspecified. Only supplied relationships are drawn, with their supplied kind; a causal arrow appears only when a relationship is supplied as causal. Both readings are attributed and shown with equal weight.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Exploded view: hierarchy board and source book, the passage, the reading lens and the two readings; plain relations and one sequence link; the tracer runs book → passage → lens → A → lens → B with the lens as the focus.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different fictional passage and readings; the author supplies a communication link from the board to the book and sequence links from the lens to each reading; the passage is the focus element and the tracer visits the board first and reading B before reading A.",
+      "params": {
+        "sources": [
+          {
+            "id": "T2",
+            "title": "Text 2 (fictional)",
+            "level": 0
+          },
+          {
+            "id": "CC",
+            "title": "Commentary C (fictional)",
+            "level": 1
+          },
+          {
+            "id": "CD",
+            "title": "Commentary D (fictional)",
+            "level": 1
+          }
+        ],
+        "hierarchy": {
+          "levels": [
+            "Row 1 (user-supplied)",
+            "Row 2 (user-supplied)",
+            "Row 3 (user-supplied)"
+          ],
+          "caption": "Rows as supplied, displayed only"
+        },
+        "passages": {
+          "ref": "Text 2 · Art. 3 (fictional)",
+          "text": "Visitors sign the book at the gate before noon on working days."
+        },
+        "interpretations": [
+          {
+            "label": "Interpretation A",
+            "source": 1,
+            "text": "“before noon” sets the time on every day",
+            "focus": "before noon"
+          },
+          {
+            "label": "Interpretation B",
+            "source": 2,
+            "text": "“on working days” limits when the time applies",
+            "focus": "before noon on working days"
+          }
+        ],
+        "elements": [
+          {
+            "id": "board",
+            "label": "Rows supplied by the author"
+          },
+          {
+            "id": "book",
+            "label": "Text 2 (source)"
+          },
+          {
+            "id": "passage",
+            "label": "Art. 3 passage"
+          },
+          {
+            "id": "lens",
+            "label": "Two ways of reading"
+          },
+          {
+            "id": "readingA",
+            "label": "Reading A"
+          },
+          {
+            "id": "readingB",
+            "label": "Reading B"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "board",
+            "to": "book",
+            "kind": "communication"
+          },
+          {
+            "from": "book",
+            "to": "passage",
+            "kind": "relation"
+          },
+          {
+            "from": "passage",
+            "to": "lens",
+            "kind": "relation"
+          },
+          {
+            "from": "lens",
+            "to": "readingA",
+            "kind": "sequence"
+          },
+          {
+            "from": "lens",
+            "to": "readingB",
+            "kind": "sequence"
+          }
+        ],
+        "focusElement": "passage",
+        "relationLabels": {
+          "relation": "related",
+          "communication": "placed by",
+          "sequence": "then",
+          "causal": "causes (as supplied)"
+        },
+        "traversalOrder": [
+          "board",
+          "book",
+          "passage",
+          "lens",
+          "readingB",
+          "lens",
+          "readingA"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long titles, row labels, passage, readings, element labels and relation captions to exercise wrapping and label placement.",
+      "params": {
+        "sources": [
+          {
+            "id": "T1-ab",
+            "title": "Text 1: Consolidated Rules of the Example Club (fictional)",
+            "level": 0
+          },
+          {
+            "id": "CA-1",
+            "title": "Commentary A on the Consolidated Rules (fictional)",
+            "level": 1
+          },
+          {
+            "id": "CB-2",
+            "title": "Commentary B on the Consolidated Rules (fictional)",
+            "level": 1
+          }
+        ],
+        "hierarchy": {
+          "levels": [
+            "Level 1 as supplied by the author (example)",
+            "Level 2 as supplied by the author (example)",
+            "Level 3 as supplied by the author (example)"
+          ],
+          "caption": "Order supplied by the author; displayed, never applied"
+        },
+        "passages": {
+          "ref": "Text 1 · Article 7, paragraph 2, second sentence (fictional)",
+          "text": "Members of the club may inspect, on any working day and without charge, the register and the minutes of the general meetings kept by the secretary."
+        },
+        "interpretations": [
+          {
+            "label": "Interpretation A (first commentary)",
+            "source": 1,
+            "text": "“kept by the secretary” covers only the minutes of the general meetings, not the register itself",
+            "focus": "the minutes of the general meetings kept by the secretary"
+          },
+          {
+            "label": "Interpretation B (second commentary)",
+            "source": 2,
+            "text": "“kept by the secretary” covers both the register and the minutes of the general meetings",
+            "focus": "the register and the minutes of the general meetings kept by the secretary"
+          }
+        ],
+        "elements": [
+          {
+            "id": "board",
+            "label": "Editable hierarchy supplied by the author"
+          },
+          {
+            "id": "book",
+            "label": "Source book holding the passage"
+          },
+          {
+            "id": "passage",
+            "label": "The passage as printed in Text 1"
+          },
+          {
+            "id": "lens",
+            "label": "Reading the passage in two ways"
+          },
+          {
+            "id": "readingA",
+            "label": "Reading A as supplied by Commentary A"
+          },
+          {
+            "id": "readingB",
+            "label": "Reading B as supplied by Commentary B"
+          }
+        ],
+        "relationLabels": {
+          "relation": "related as supplied by the author",
+          "communication": "communicated as supplied",
+          "sequence": "read next, as supplied",
+          "causal": "causes (as supplied by the author)"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [
+          {
+            "id": "T1",
+            "title": "Texto 1 (ficticio)",
+            "level": 0
+          },
+          {
+            "id": "CA",
+            "title": "Comentario A (ficticio)",
+            "level": 1
+          },
+          {
+            "id": "CB",
+            "title": "Comentario B (ficticio)",
+            "level": 1
+          }
+        ],
+        "hierarchy": {
+          "levels": [
+            "Nivel 1 (aportado)",
+            "Nivel 2 (aportado)"
+          ],
+          "caption": "Orden aportado, no aplicado"
+        },
+        "passages": {
+          "ref": "Texto 1 · Art. 7 (ficticio)",
+          "text": "Los miembros pueden consultar el registro y las actas que lleva la secretaría."
+        },
+        "interpretations": [
+          {
+            "label": "Interpretación A",
+            "source": 1,
+            "text": "«que lleva la secretaría» abarca solo las actas",
+            "focus": "las actas que lleva la secretaría"
+          },
+          {
+            "label": "Interpretación B",
+            "source": 2,
+            "text": "«que lleva la secretaría» abarca el registro y las actas",
+            "focus": "el registro y las actas que lleva la secretaría"
+          }
+        ],
+        "elements": [
+          {
+            "id": "board",
+            "label": "Jerarquía editable"
+          },
+          {
+            "id": "book",
+            "label": "Libro fuente"
+          },
+          {
+            "id": "passage",
+            "label": "El pasaje"
+          },
+          {
+            "id": "lens",
+            "label": "Lectura del pasaje"
+          },
+          {
+            "id": "readingA",
+            "label": "Lectura A"
+          },
+          {
+            "id": "readingB",
+            "label": "Lectura B"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación (según lo aportado)",
+          "communication": "comunicación",
+          "sequence": "se lee después",
+          "causal": "causa (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "animationId": "LAW-0132",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All texts, wordings and states are fictional placeholders; jurisdiction unspecified. The states before and after the substitution are supplied by the author, never inferred from the wording.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The Text 2 phrase 'announced orally' is enlarged and replaced by 'announced orally or in writing'; the supplied state changes from 'conflict flagged' to 'reading proposed' (attributed to a fictional commentary).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the Text 1 phrase in the book is inspected instead (lens on the left, thumbnail on the right); 'in writing' becomes 'in writing or by e-mail' and the supplied state changes from 'tension highlighted' to 'compatible application' (paper clip).",
+      "params": {
+        "focusTarget": "tension-a",
+        "beforeValue": "in writing",
+        "afterValue": "in writing or by e-mail",
+        "detailGeometry": {"zoom": 2.2, "placement": "left"},
+        "contextLabels": {"context": "Context: the book and the article after they met", "marker": "Changed datum"},
+        "states": {"before": "tension-highlighted", "after": "compatible-application"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long titles, wordings, context caption and marker label to exercise wrapping in the lens, trace and marker.",
+      "params": {
+        "sources": [
+          {"id": "T1-a", "title": "Consolidated Illustrative Text on Notices (fictional)", "provision": "Article 4, paragraph 2"},
+          {"id": "T2-b", "title": "Second Illustrative Text on Meetings (fictional)", "provision": "Article 9, second sentence"}
+        ],
+        "hierarchy": {"levels": ["Level one as supplied by the author", "Level two as supplied by the author", "Level three as supplied"], "placement": [0, 2], "caption": "Ordering entered by the author, displayed only"},
+        "passages": [
+          {"text": "Each written notice of a change to the internal rules is delivered in writing to every member before it is circulated.", "tension": "delivered in writing to every member"},
+          {"text": "A notice of change to the internal rules may instead be announced orally by the chair at the next ordinary meeting.", "tension": "announced orally by the chair"}
+        ],
+        "interpretations": [{"by": "Commentary on the second illustrative text (fictional)", "text": "Reads the second sentence of Article 9 as limited to ordinary meetings only"}],
+        "beforeValue": "announced orally by the chair",
+        "afterValue": "announced orally by the chair or circulated in writing",
+        "contextLabels": {"context": "Context: the two illustrative provisions side by side on the reading desk", "marker": "Changed datum in the second text"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"id": "T1", "title": "Texto 1 (ficticio)", "provision": "Art. 4"}, {"id": "T2", "title": "Texto 2 (ficticio)", "provision": "Art. 9"}],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)", "Nivel 2 (aportado)"], "placement": [0, 1], "caption": "Orden aportado"},
+        "passages": [
+          {"text": "Cada aviso de cambio se entrega por escrito a todos los miembros.", "tension": "por escrito"},
+          {"text": "Un aviso de cambio puede anunciarse oralmente en la próxima reunión.", "tension": "anunciarse oralmente"}
+        ],
+        "interpretations": [{"by": "Comentario C (ficticio)", "text": "Lee el Art. 9 como limitado a reuniones"}],
+        "beforeValue": "anunciarse oralmente",
+        "afterValue": "anunciarse oralmente o por escrito",
+        "contextLabels": {"context": "Contexto: las dos disposiciones una junto a otra", "marker": "Dato cambiado"}
+      }
+    }
+  ]
+}

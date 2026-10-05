@@ -1,0 +1,65 @@
+{
+  "animationId": "LAW-0149",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). The path is shown exactly as supplied; nothing is inferred from the cross-reference wording and no conclusion is drawn.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Direct reference: the reader carries the page flag from the phrase printed in Art. 4 (Part 1) round the page text to the heading of Art. 9 (Part 2), which is ringed.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a chain of references. Art. 9 prints its own onward phrase, so the supplied path has three stops (Art. 4 → Art. 9 → Art. 12): the flag hops twice, the second hop starting from Art. 9's own phrase; both hops are numbered.",
+      "params": {
+        "passages": [
+          {"ref": "Text 1 · Art. 4 (fictional)", "cue": "as set out in Art. 9", "level": 0},
+          {"ref": "Art. 6 (fictional)", "cue": "", "level": 0},
+          {"ref": "Art. 9 (fictional)", "cue": "see Art. 12", "level": 1},
+          {"ref": "Art. 12 (fictional)", "cue": "", "level": 1}
+        ],
+        "path": [0, 2, 3],
+        "annotations": [{"target": "referenced", "text": "Last stop of the supplied chain"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long volume title, division labels, article references, cross-reference phrases, legend labels, notes and an attributed reading, on a three-stop chain, to exercise wrapping and bounded shrinking.",
+      "params": {
+        "sources": [{"title": "Text 1: Consolidated Register Rules, annotated (fictional)"}],
+        "hierarchy": {"levels": ["Part 1 — general provisions (user-supplied)", "Part 2 — annexed provisions (user-supplied)"]},
+        "passages": [
+          {"ref": "Text 1 · Article 4, paragraph 2 (fictional wording)", "cue": "as set out in Article 9, paragraph 1, of this text", "level": 0},
+          {"ref": "Article 6, paragraphs 1 to 3 (fictional wording)", "cue": "", "level": 0},
+          {"ref": "Article 9, paragraph 1 (fictional wording)", "cue": "see also Article 12, paragraph 3, of this text", "level": 1},
+          {"ref": "Article 12, paragraph 3 (fictional wording)", "cue": "", "level": 1}
+        ],
+        "interpretations": [{"by": "Commentary 1 (fictional, second edition)", "text": "Reads the phrase in Article 4 as pointing to Article 9 of the same volume"}],
+        "path": [0, 2, 3],
+        "actorLabels": {"a": "Reader following the reference", "b": "Referenced text at the end of the supplied path"},
+        "objectLabels": {"marker": "Page flag used as the reference marker", "path": "Hop followed exactly as supplied by the author"},
+        "annotations": [
+          {"target": "referenced", "text": "Where the marker lands at the end of the supplied path"},
+          {"target": "provision", "text": "The provision whose printed phrase starts the path"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content): direct reference from art. 4 to art. 9.",
+      "params": {
+        "locale": "es",
+        "sources": [{"title": "Texto 1 (ficticio)"}],
+        "hierarchy": {"levels": ["Parte 1 (aportada)", "Parte 2 (aportada)"]},
+        "passages": [
+          {"ref": "Texto 1 · Art. 4 (ficticio)", "cue": "según lo previsto en el art. 9", "level": 0},
+          {"ref": "Art. 6 (ficticio)", "cue": "", "level": 0},
+          {"ref": "Art. 9 (ficticio)", "cue": "", "level": 1},
+          {"ref": "Art. 12 (ficticio)", "cue": "", "level": 1}
+        ],
+        "actorLabels": {"a": "Lectora", "b": "Texto remitido"},
+        "objectLabels": {"marker": "Banderita (marcador)", "path": "Salto seguido (según lo aportado)"},
+        "annotations": [{"target": "referenced", "text": "Donde se posa el marcador"}]
+      }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "animationId": "LAW-0133",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. Inside / outside only compares positions with the supplied interval; a fact on a boundary day stays not classified.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional Art. 4 from Text 1 laid over the supplied interval Day 5 – Day 13; four fictional facts pinned around the ruler (two inside, two outside).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the article comes from Text 2 on the second user-supplied level, the supplied interval is Day 9 – Day 17 and one fact falls exactly on the start day, so it stays not classified; two hierarchy levels only.",
+      "params": {
+        "sources": [{"label": "Source A (fictional)", "level": 0}, {"label": "Source B (fictional)", "level": 1}],
+        "hierarchy": ["Level 1 (user-supplied)", "Level 2 (user-supplied)"],
+        "passages": [{"ref": "Art. 12 (fictional)", "text": "Simulated wording of a second fictional article.", "source": 1}],
+        "interval": {"start": 9, "end": 17},
+        "facts": [
+          {"label": "Request filed", "day": 4, "icon": "invoice", "state": "auto"},
+          {"label": "Meeting held", "day": 9, "icon": "meeting", "state": "auto"},
+          {"label": "Parcel returned", "day": 12, "icon": "parcel", "state": "auto"},
+          {"label": "Reply sent", "day": 19, "icon": "envelope", "state": "auto"}
+        ],
+        "readers": [{"name": "Lea Okoro", "role": "Reader A", "appearance": {"skin": 4, "outfit": 2}}, {"name": "Tom Varga", "role": "Reader B", "appearance": {"skin": 1, "outfit": 5}}],
+        "annotations": [{"target": "interval", "text": "A fact on the start day is left not classified"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long level labels, titles, article reference, fact descriptions, reader names and annotation to exercise wrapping and bounded shrinking without changing meaning.",
+      "params": {
+        "sources": [
+          {"label": "Consolidated Example Text on Deliveries (fictional)", "level": 0},
+          {"label": "Second Fictional Collection of Rules", "level": 1},
+          {"label": "Third Placeholder Volume (fictional)", "level": 2}
+        ],
+        "hierarchy": ["First level as supplied by the author", "Second level as supplied by the author", "Third level as supplied by the author"],
+        "passages": [{"ref": "Article 4, paragraph 2 (fictional)", "text": "Simulated clause wording that the author supplies for the interval on the timeline.", "source": 0}],
+        "facts": [
+          {"label": "Written notice sent to the other party by post", "day": 3, "icon": "envelope", "state": "auto"},
+          {"label": "Goods delivered to the warehouse loading dock", "day": 8, "icon": "parcel", "state": "auto"},
+          {"label": "Keys to the storage unit handed over", "day": 11, "icon": "key", "state": "auto"},
+          {"label": "Invoice issued for the delivered goods", "day": 16, "icon": "invoice", "state": "auto"}
+        ],
+        "readers": [{"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Reader A"}, {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Reader B"}],
+        "actorLabels": {"a": "Reader who takes the article", "b": "Reader who lays it on the timeline"},
+        "objectLabels": {"interval": "Interval supplied by the author"},
+        "annotations": [{"target": "interval", "text": "The tape covers exactly the interval that the author supplied for this article"}]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"label": "Texto 1 (ficticio)", "level": 0}, {"label": "Texto 2 (ficticio)", "level": 1}, {"label": "Texto 3 (ficticio)", "level": 2}],
+        "hierarchy": ["Nivel 1 (aportado)", "Nivel 2 (aportado)", "Nivel 3 (aportado)"],
+        "passages": [{"ref": "Art. 4 (ficticio)", "text": "Redacción simulada para el intervalo aportado.", "source": 0}],
+        "interpretations": [{"by": "Comentario C (ficticio)", "text": "Propone una lectura de la redacción del intervalo."}],
+        "timeline": {"unit": "Día", "from": 0, "to": 20, "step": 2},
+        "facts": [
+          {"label": "Aviso enviado", "day": 3, "icon": "envelope", "state": "auto"},
+          {"label": "Mercancía entregada", "day": 8, "icon": "parcel", "state": "auto"},
+          {"label": "Llaves entregadas", "day": 11, "icon": "key", "state": "auto"},
+          {"label": "Factura emitida", "day": 16, "icon": "invoice", "state": "auto"}
+        ],
+        "actorLabels": {"a": "Lector A", "b": "Lectora B"},
+        "objectLabels": {"interval": "Intervalo aportado"},
+        "annotations": [{"target": "interval", "text": "La cinta cubre el intervalo aportado"}]
+      }
+    }
+  ]
+}

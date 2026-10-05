@@ -1,0 +1,54 @@
+{
+  "animationId": "LAW-0139",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). Only the supplied subject tag differs between A and B; no legal consequence is drawn.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Same fictional text, article (Transport, Housing) and card in both stations. A: tag 'Transport' (listed) — its gate opens into that bin. B: tag 'Culture' (not listed) — no gate opens and the card reaches the side bin.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different article with three listed subjects and a different card; A carries the third listed subject (a longer path to the last gate) while B carries no tag at all (empty tag), so it reaches the side bin.",
+      "params": {
+        "passages": [{"ref": "Text 1 · Art. 7 (fictional)", "heading": "Subjects covered (simulated wording)", "subjects": ["Housing", "Farming", "Water supply"]}],
+        "activity": {"label": "Well cleaning"},
+        "scenarioA": {"label": "Subject included", "caption": "The card carries the tag 'Water supply', listed in Art. 7", "subject": "Water supply"},
+        "scenarioB": {"label": "Subject not classified", "caption": "No subject tag was supplied for the card", "subject": ""},
+        "changedFact": "Only the subject tag differs: supplied in A, absent in B",
+        "comparisonLabels": {"guide": "Changed fact: subject tag", "neutral": "Two situations side by side — nothing is concluded about the activity"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long titles, scenario labels, subjects and notes to exercise wrapping and bounded shrinking.",
+      "params": {
+        "sources": [{"title": "Consolidated Illustrative Text Number One (fictional)", "note": "Simulated wording for teaching"}],
+        "hierarchy": {"levels": ["First level as supplied by the author"], "placement": [0]},
+        "passages": [{"ref": "Consolidated Text 1 · Article 2 (fictional)", "heading": "Material scope of the text (simulated wording)", "subjects": ["Community transport services", "Housing maintenance"]}],
+        "activity": {"label": "Open-air street concert in the square"},
+        "scenarioA": {"label": "Subject included in the supplied list", "caption": "The card carries a tag that the article lists among its subjects", "subject": "Community transport services"},
+        "scenarioB": {"label": "Subject not classified by the supplied list", "caption": "The card carries a tag that the article does not classify at all", "subject": "Cultural events in public spaces"},
+        "changedFact": "Only the subject tag supplied for the card differs between the two situations",
+        "sharedFacts": ["Same fictional text and article", "Same keys in the filter", "Same card, same release, same speed"],
+        "comparisonLabels": {"guide": "Changed fact: the subject tag of the card", "neutral": "Two situations shown side by side — no outcome, ranking or consequence is stated"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"title": "Texto 1 (ficticio)", "note": "Redacción simulada"}],
+        "hierarchy": {"levels": ["Nivel 1 (aportado)"], "placement": [0]},
+        "passages": [{"ref": "Texto 1 · Art. 2 (ficticio)", "heading": "Ámbito material (redacción simulada)", "subjects": ["Transporte", "Vivienda"]}],
+        "activity": {"label": "Concierto callejero"},
+        "scenarioA": {"label": "Materia incluida", "caption": "La tarjeta lleva una etiqueta listada en el Art. 2", "subject": "Transporte"},
+        "scenarioB": {"label": "Materia no clasificada", "caption": "La tarjeta lleva una etiqueta que la lista no clasifica", "subject": "Cultura"},
+        "changedFact": "Solo cambia la etiqueta de materia de la tarjeta",
+        "sharedFacts": ["Mismo texto y artículo", "Mismas claves del filtro", "Misma tarjeta y salida"],
+        "comparisonLabels": {"guide": "Hecho cambiado: etiqueta de materia", "neutral": "Dos situaciones lado a lado — no se indica resultado ni consecuencia"}
+      }
+    }
+  ]
+}

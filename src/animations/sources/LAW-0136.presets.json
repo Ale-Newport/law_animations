@@ -1,0 +1,58 @@
+{
+  "animationId": "LAW-0136",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. The substitution changes one supplied datum; states only compare positions with the supplied interval and no legal effect is inferred.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The supplied end of the interval is substituted: Day 13 → Day 10. Only the fact on Day 11 changes from inside to outside the supplied interval.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the substituted datum is the day of a fact (Invoice issued, Day 16 → Day 12), so its pin slides under the tape; the interval stays Day 5 – Day 13.",
+      "params": {
+        "focusTarget": "factDay",
+        "focusFact": 3,
+        "beforeValue": 16,
+        "afterValue": 12,
+        "detailGeometry": {"zoom": 2, "placement": "auto"},
+        "contextLabels": {"context": "Facts pinned around the supplied interval", "marker": "Day substituted"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long source titles, level labels, article reference, fact descriptions, context caption and marker label.",
+      "params": {
+        "sources": [{"label": "Consolidated Example Text (fictional)", "level": 0}, {"label": "Second Fictional Collection of Rules", "level": 1}, {"label": "Third Placeholder Volume (fictional)", "level": 2}],
+        "hierarchy": ["First level as supplied by the author", "Second level as supplied by the author", "Third level as supplied by the author"],
+        "passages": [{"ref": "Article 4, paragraph 2 (fictional)", "text": "Simulated clause wording that the author supplies for the interval.", "source": 0}],
+        "facts": [
+          {"label": "Written notice sent to the other party by post", "day": 3, "icon": "envelope", "state": "auto"},
+          {"label": "Goods delivered to the warehouse loading dock", "day": 8, "icon": "parcel", "state": "auto"},
+          {"label": "Keys to the storage unit handed over", "day": 11, "icon": "key", "state": "auto"},
+          {"label": "Invoice issued for the delivered goods", "day": 16, "icon": "invoice", "state": "auto"}
+        ],
+        "contextLabels": {"context": "The article card laid over the interval that the author supplied", "marker": "Supplied datum changed here"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "sources": [{"label": "Texto 1 (ficticio)", "level": 0}, {"label": "Texto 2 (ficticio)", "level": 1}, {"label": "Texto 3 (ficticio)", "level": 2}],
+        "hierarchy": ["Nivel 1 (aportado)", "Nivel 2 (aportado)", "Nivel 3 (aportado)"],
+        "passages": [{"ref": "Art. 4 (ficticio)", "text": "Redacción simulada para el intervalo aportado.", "source": 0}],
+        "interpretations": [{"by": "Comentario C (ficticio)", "text": "Propone una lectura de la redacción del intervalo."}],
+        "timeline": {"unit": "Día", "from": 0, "to": 20, "step": 2},
+        "facts": [
+          {"label": "Aviso enviado", "day": 3, "icon": "envelope", "state": "auto"},
+          {"label": "Mercancía entregada", "day": 8, "icon": "parcel", "state": "auto"},
+          {"label": "Llaves entregadas", "day": 11, "icon": "key", "state": "auto"},
+          {"label": "Factura emitida", "day": 16, "icon": "invoice", "state": "auto"}
+        ],
+        "contextLabels": {"context": "Artículo colocado sobre el intervalo aportado", "marker": "Dato cambiado"}
+      }
+    }
+  ]
+}
