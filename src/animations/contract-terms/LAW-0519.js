@@ -97,19 +97,21 @@ function geom(ctx, F, minF) {
   const headH = head.height + 22;
   const clW = cW * 0.5 - 24;
   const clFit = fitG(p.clause, {maxWidth: clW - 18 - discR * 2 - 14 - 12, size: F, minSize: minF, maxLines: 3, weight: 700});
-  const pressZone = 74;
+  const sq = shape === 'square';
+  const pressZone = sq ? 58 : 74;
+  const cGap = sq ? 14 : 22;
   // vertical budget: header, contract (head + max(clause, card)), gap, press zone, card, rail
-  const fixed = hh + 8 + headH + 26 + 22 + pressZone + 30;
+  const fixed = hh + 8 + headH + 36 + cGap + pressZone + 26;
   const chFree = (S.h - fixed) / 2;
   const ch = Math.max(chMin, Math.min(chFree, cw * 0.9));
   if (ch < chMin - 0.5 || chFree < chMin) why.push('card-h');
   const clH = Math.max(clauseBlockH(clFit, discR, 0), Math.min(ch, clauseBlockH(clFit, discR, 2)));
-  const contractH = headH + Math.max(clH, ch) + 26;
+  const contractH = headH + Math.max(clH + 4, ch + 16) + 20;
   const C = {x: cX, y: hh + 8, w: cW, h: contractH};
   const clause = {x: 16, y: headH + 12, w: clW, h: clH, fit: clFit};
-  const attach = {x: C.x + cW * 0.5 + (cW * 0.5 - cw) / 2, y: C.y + headH + 12};
+  const attach = {x: C.x + cW * 0.5 + (cW * 0.5 - cw) / 2, y: C.y + headH + 22};
   const besideSpot = {x: (cX - cw) / 2 - 4, y: attach.y};
-  const trackY = C.y + C.h + 22;
+  const trackY = C.y + C.h + cGap;
   const padY = trackY + pressZone;
   const stops = Array.from({length: n + 1}, (_, i) => ({x: i * slotW + (slotW - cw) / 2, y: padY}));
   const railY = padY + ch + 16;
