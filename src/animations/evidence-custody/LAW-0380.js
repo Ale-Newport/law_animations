@@ -105,7 +105,7 @@ const scene = {
     // and square frames, bottom on tall ones); the lens may still overlap the dimmed legend
     const tallF = ctx.view.shape === 'portrait';
     const cctx = {...ctx, design: tallF ? {w: ctx.design.w, h: ctx.design.h * 0.66} : {w: ctx.design.w * (ctx.view.shape === "square" ? 0.8 : 0.7), h: ctx.design.h}};
-    const C = composeScene(cctx, {n, texts, title: null, rows: () => legendRows(ctx, P, k, after), noBag: true, tagText: ctx.show('key'), noExpand: true, sheetFrac: [0.4, 0.5, 0.6], minS: 30, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...[...P.records.map(rw => rw.field), P.beforeValue, P.afterValue].map(t => measure(String(t || ''), Math.max(16, sz), 700)))) : null}, panelLayout);
+    const C = composeScene(cctx, {n, texts, title: null, rows: () => legendRows(ctx, P, k, after), noBag: true, tagText: ctx.show('key'), noExpand: true, sheetFrac: [0.4, 0.5, 0.6], minS: 30, maxS: tallF ? 115 : 170, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...[...P.records.map(rw => rw.field), P.beforeValue, P.afterValue].map(t => measure(String(t || ''), Math.max(16, sz), 700)))) : null}, panelLayout);
     const G = C.st.G, SF = C.st.SF;
     const X = v => C.ox + v, Y = v => C.oy + v;
     const linked = P.items.map((_, i) => i !== k && Boolean(texts[i]));
@@ -175,7 +175,7 @@ const scene = {
     };
     // the before trace (lens only): small text under the tag
     const traceF = ctx.show('key') ? fitG(`${P.beforeLabel}: ${P.beforeValue}`, {maxWidth: 400, size: Math.max(8, 17 / L.zoom), minSize: 7, maxLines: 1, weight: 500}) : null;
-    const trace = g({name: 'lz-trace', opacity: 0}, traceF ? textAt(traceF, {x: C.ox + t.hole.x - G.tagH * 0.2, y: C.oy + t.hole.y + G.tagH * 0.62, fill: th.fgSoft || '#555', italic: true}) : null);
+    const trace = g({name: 'lz-trace', opacity: 0}, traceF ? textAt(traceF, {x: C.ox + t.hole.x - G.tagH * 0.2, y: C.oy + t.hole.y + G.tagH * 0.85, fill: th.fgSoft || '#555', italic: true}) : null);
     const lensContent = g(null,
       h('rect', {x: L.src.x - 400, y: L.src.y - 400, width: L.src.w + 800, height: L.src.h + 800, fill: '#3f6b5a'}),
       L.NL.rack, L.NL.sheet, L.NL.placed, L.NL.tags, L.NL.links, focusLayer('lz'), trace);

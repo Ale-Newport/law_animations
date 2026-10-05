@@ -267,7 +267,7 @@ export function fitSheet(G, texts, F, title) {
 export function fitStation(box, o) {
   let best = null;
   for (const frac of o.sheetFrac || [0.32, 0.4, 0.48, 0.56]) {
-    let hi = 260, lo = o.minS ?? 40;
+    let hi = o.maxS ?? 260, lo = o.minS ?? 40;
     // geometry scales linearly in S except the sheet width; binary search the largest S that fits
     const tryS = S => {
       const sheetW = Math.max(box.w * frac, 0);
@@ -549,7 +549,7 @@ export function composeScene(ctx, o, panelLayoutFn) {
       const inset = Math.max(14, Math.min(bench.w, bench.h) * 0.035);
       const pad = inset + (o.benchPad ?? 16);
       const box = {x: bench.x + pad, y: bench.y + pad, w: bench.w - pad * 2, h: bench.h - pad * 2 - (o.armRoom ? Math.min(60, bench.h * 0.06) : 0)};
-      const st = fitStation(box, {n: o.n, texts: o.texts, F, bagMode: opt.bag, noBag: o.noBag, title: o.title, tagText: o.tagText, noExpand: o.noExpand, sheetFrac: o.sheetFrac, minS: o.minS, tagTextW: o.tagTextW});
+      const st = fitStation(box, {n: o.n, texts: o.texts, F, bagMode: opt.bag, noBag: o.noBag, title: o.title, tagText: o.tagText, noExpand: o.noExpand, sheetFrac: o.sheetFrac, minS: o.minS, maxS: o.maxS, tagTextW: o.tagTextW});
       const c = {F, opt, bench, panel, PL, st, box};
       c.ok = Boolean(st) && (!PL || PL.ok);
       c.problems = [!st && 'station-fit', PL && !PL.ok && 'panel-text'].filter(Boolean);
