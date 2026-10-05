@@ -199,9 +199,12 @@ const scene = {
     const good = b => !b.problems.length && b.F * px >= 19.5 - 1e-6;
     // (names on the stations, or letters on them and the names in the panel: the one with the larger room — people and
     // stations — among those that keep the text floor)
-    let best = search(floor, 'room');
-    let names = 'room';
-    if (showKey) {
+    // (four stations at 1:1 with the key shown: the letters always stand beside the trays and the names go to the panel —
+    // the names on four stations of a square room are never tried, which keeps cold create within its budget)
+    const lettersOnly = showKey && four && ctx.view.shape === 'square';
+    let best = lettersOnly ? search(floor, 'letters') : search(floor, 'room');
+    let names = lettersOnly ? 'letters' : 'room';
+    if (showKey && !lettersOnly) {
       const b2 = search(floor, 'letters');
       const sc = b => (good(b) ? 1000 : 0) - 100 * b.problems.length + b.personPx * 2 + b.F * px * 3 + shareScore(b.C);
       if (sc(b2) > sc(best)) { best = b2; names = 'letters'; }

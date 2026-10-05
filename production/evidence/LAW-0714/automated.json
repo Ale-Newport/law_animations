@@ -1,0 +1,1798 @@
+{
+  "animationId": "LAW-0714",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0714",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "origin.name",
+        "rejected": "Invalid animation parameters:\n - params.origin.name: must have at most 48 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: start: one assembled plate in the middle, no connector yet @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "split": 0,
+          "laneA": {
+            "x": 467.63,
+            "y": 575.87
+          },
+          "laneB": {
+            "x": 467.63,
+            "y": 575.87
+          },
+          "convergence": {
+            "x": 467.63,
+            "y": 449.98
+          },
+          "tracer": {
+            "x": 1170.42,
+            "y": 223.32
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>convergence:relation",
+            "convergence>laneA:relation",
+            "laneA>convergence:relation",
+            "convergence>laneB:relation"
+          ],
+          "drawn": [
+            0,
+            0,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "laneA",
+              "to": "convergence",
+              "a": {
+                "x": 285.73,
+                "y": 309.06
+              },
+              "b": {
+                "x": 325.52,
+                "y": 258.89
+              }
+            },
+            {
+              "from": "laneB",
+              "to": "convergence",
+              "a": {
+                "x": 603.77,
+                "y": 309.06
+              },
+              "b": {
+                "x": 533.07,
+                "y": 246.14
+              }
+            },
+            {
+              "from": "record",
+              "to": "convergence",
+              "a": {
+                "x": 1170.42,
+                "y": 223.32
+              },
+              "b": {
+                "x": 533.07,
+                "y": 155.47
+              }
+            }
+          ],
+          "boxes": {
+            "laneA": {
+              "x": 16.38,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "laneB": {
+              "x": 599.76,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "convergence": {
+              "x": 311.58,
+              "y": 37.4,
+              "w": 211.49,
+              "h": 211.49
+            },
+            "record": {
+              "x": 1180.42,
+              "y": 163.95,
+              "w": 500,
+              "h": 174.1
+            }
+          },
+          "spot": {
+            "x": 898.38,
+            "y": 502.68
+          },
+          "focus": 1,
+          "keyShown": false,
+          "labelClash": [
+            "laneA>convergence"
+          ],
+          "routeClash": false,
+          "labelGaps": [
+            0,
+            16.2,
+            6.2
+          ],
+          "layout": {
+            "OH": 251.78,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 174.1,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: separate: the pieces stand apart before any relationship is drawn @0.18",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "split": 1,
+          "laneA": {
+            "x": 175.94,
+            "y": 575.87
+          },
+          "laneB": {
+            "x": 759.31,
+            "y": 575.87
+          },
+          "convergence": {
+            "x": 417.33,
+            "y": 143.14
+          },
+          "tracer": {
+            "x": 1170.42,
+            "y": 223.32
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>convergence:relation",
+            "convergence>laneA:relation",
+            "laneA>convergence:relation",
+            "convergence>laneB:relation"
+          ],
+          "drawn": [
+            0,
+            0,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "laneA",
+              "to": "convergence",
+              "a": {
+                "x": 285.73,
+                "y": 309.06
+              },
+              "b": {
+                "x": 325.52,
+                "y": 258.89
+              }
+            },
+            {
+              "from": "laneB",
+              "to": "convergence",
+              "a": {
+                "x": 603.77,
+                "y": 309.06
+              },
+              "b": {
+                "x": 533.07,
+                "y": 246.14
+              }
+            },
+            {
+              "from": "record",
+              "to": "convergence",
+              "a": {
+                "x": 1170.42,
+                "y": 223.32
+              },
+              "b": {
+                "x": 533.07,
+                "y": 155.47
+              }
+            }
+          ],
+          "boxes": {
+            "laneA": {
+              "x": 16.38,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "laneB": {
+              "x": 599.76,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "convergence": {
+              "x": 311.58,
+              "y": 37.4,
+              "w": 211.49,
+              "h": 211.49
+            },
+            "record": {
+              "x": 1180.42,
+              "y": 163.95,
+              "w": 500,
+              "h": 174.1
+            }
+          },
+          "spot": {
+            "x": 898.38,
+            "y": 502.68
+          },
+          "focus": 1,
+          "keyShown": false,
+          "labelClash": [
+            "laneA>convergence"
+          ],
+          "routeClash": false,
+          "labelGaps": [
+            0,
+            16.2,
+            6.2
+          ],
+          "layout": {
+            "OH": 251.78,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 174.1,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: relationships are drawn one after another @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "split": 1,
+          "laneA": {
+            "x": 175.94,
+            "y": 575.87
+          },
+          "laneB": {
+            "x": 759.31,
+            "y": 575.87
+          },
+          "convergence": {
+            "x": 417.33,
+            "y": 143.14
+          },
+          "tracer": {
+            "x": 1170.42,
+            "y": 223.32
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>convergence:relation",
+            "convergence>laneA:relation",
+            "laneA>convergence:relation",
+            "convergence>laneB:relation"
+          ],
+          "drawn": [
+            1,
+            0.583,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "laneA",
+              "to": "convergence",
+              "a": {
+                "x": 285.73,
+                "y": 309.06
+              },
+              "b": {
+                "x": 325.52,
+                "y": 258.89
+              }
+            },
+            {
+              "from": "laneB",
+              "to": "convergence",
+              "a": {
+                "x": 603.77,
+                "y": 309.06
+              },
+              "b": {
+                "x": 533.07,
+                "y": 246.14
+              }
+            },
+            {
+              "from": "record",
+              "to": "convergence",
+              "a": {
+                "x": 1170.42,
+                "y": 223.32
+              },
+              "b": {
+                "x": 533.07,
+                "y": 155.47
+              }
+            }
+          ],
+          "boxes": {
+            "laneA": {
+              "x": 16.38,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "laneB": {
+              "x": 599.76,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "convergence": {
+              "x": 311.58,
+              "y": 37.4,
+              "w": 211.49,
+              "h": 211.49
+            },
+            "record": {
+              "x": 1180.42,
+              "y": 163.95,
+              "w": 500,
+              "h": 174.1
+            }
+          },
+          "spot": {
+            "x": 898.38,
+            "y": 502.68
+          },
+          "focus": 1,
+          "keyShown": false,
+          "labelClash": [
+            "laneA>convergence"
+          ],
+          "routeClash": false,
+          "labelGaps": [
+            0,
+            16.2,
+            6.2
+          ],
+          "layout": {
+            "OH": 251.78,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 174.1,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: every supplied relationship is drawn by 0.43 @0.43",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "split": 1,
+          "laneA": {
+            "x": 175.94,
+            "y": 575.87
+          },
+          "laneB": {
+            "x": 759.31,
+            "y": 575.87
+          },
+          "convergence": {
+            "x": 417.33,
+            "y": 143.14
+          },
+          "tracer": {
+            "x": 1170.42,
+            "y": 223.32
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>convergence:relation",
+            "convergence>laneA:relation",
+            "laneA>convergence:relation",
+            "convergence>laneB:relation"
+          ],
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "laneA",
+              "to": "convergence",
+              "a": {
+                "x": 285.73,
+                "y": 309.06
+              },
+              "b": {
+                "x": 325.52,
+                "y": 258.89
+              }
+            },
+            {
+              "from": "laneB",
+              "to": "convergence",
+              "a": {
+                "x": 603.77,
+                "y": 309.06
+              },
+              "b": {
+                "x": 533.07,
+                "y": 246.14
+              }
+            },
+            {
+              "from": "record",
+              "to": "convergence",
+              "a": {
+                "x": 1170.42,
+                "y": 223.32
+              },
+              "b": {
+                "x": 533.07,
+                "y": 155.47
+              }
+            }
+          ],
+          "boxes": {
+            "laneA": {
+              "x": 16.38,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "laneB": {
+              "x": 599.76,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "convergence": {
+              "x": 311.58,
+              "y": 37.4,
+              "w": 211.49,
+              "h": 211.49
+            },
+            "record": {
+              "x": 1180.42,
+              "y": 163.95,
+              "w": 500,
+              "h": 174.1
+            }
+          },
+          "spot": {
+            "x": 898.38,
+            "y": 502.68
+          },
+          "focus": 1,
+          "keyShown": false,
+          "labelClash": [
+            "laneA>convergence"
+          ],
+          "routeClash": false,
+          "labelGaps": [
+            0,
+            16.2,
+            6.2
+          ],
+          "layout": {
+            "OH": 251.78,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 174.1,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the tracer runs while the focus element is enlarged @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "split": 1,
+          "laneA": {
+            "x": 175.94,
+            "y": 575.87
+          },
+          "laneB": {
+            "x": 759.31,
+            "y": 575.87
+          },
+          "convergence": {
+            "x": 417.33,
+            "y": 143.14
+          },
+          "tracer": {
+            "x": 286.28,
+            "y": 308.62
+          },
+          "tracerOn": 1,
+          "leg": 2,
+          "legs": [
+            "record>convergence:relation",
+            "convergence>laneA:relation",
+            "laneA>convergence:relation",
+            "convergence>laneB:relation"
+          ],
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "laneA",
+              "to": "convergence",
+              "a": {
+                "x": 285.73,
+                "y": 309.06
+              },
+              "b": {
+                "x": 325.52,
+                "y": 258.89
+              }
+            },
+            {
+              "from": "laneB",
+              "to": "convergence",
+              "a": {
+                "x": 603.77,
+                "y": 309.06
+              },
+              "b": {
+                "x": 533.07,
+                "y": 246.14
+              }
+            },
+            {
+              "from": "record",
+              "to": "convergence",
+              "a": {
+                "x": 1170.42,
+                "y": 223.32
+              },
+              "b": {
+                "x": 533.07,
+                "y": 155.47
+              }
+            }
+          ],
+          "boxes": {
+            "laneA": {
+              "x": 16.38,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "laneB": {
+              "x": 599.76,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "convergence": {
+              "x": 311.58,
+              "y": 37.4,
+              "w": 211.49,
+              "h": 211.49
+            },
+            "record": {
+              "x": 1180.42,
+              "y": 163.95,
+              "w": 500,
+              "h": 174.1
+            }
+          },
+          "spot": {
+            "x": 898.38,
+            "y": 502.68
+          },
+          "focus": 1.25,
+          "keyShown": false,
+          "labelClash": [
+            "laneA>convergence"
+          ],
+          "routeClash": false,
+          "labelGaps": [
+            0,
+            16.2,
+            6.2
+          ],
+          "layout": {
+            "OH": 251.78,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 174.1,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: every connector ends on its element; no causal arrow by default; key shown @1",
+      "pass": false,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "split": 1,
+          "laneA": {
+            "x": 175.94,
+            "y": 575.87
+          },
+          "laneB": {
+            "x": 759.31,
+            "y": 575.87
+          },
+          "convergence": {
+            "x": 417.33,
+            "y": 143.14
+          },
+          "tracer": {
+            "x": 603.77,
+            "y": 309.06
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>convergence:relation",
+            "convergence>laneA:relation",
+            "laneA>convergence:relation",
+            "convergence>laneB:relation"
+          ],
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "laneA",
+              "to": "convergence",
+              "a": {
+                "x": 285.73,
+                "y": 309.06
+              },
+              "b": {
+                "x": 325.52,
+                "y": 258.89
+              }
+            },
+            {
+              "from": "laneB",
+              "to": "convergence",
+              "a": {
+                "x": 603.77,
+                "y": 309.06
+              },
+              "b": {
+                "x": 533.07,
+                "y": 246.14
+              }
+            },
+            {
+              "from": "record",
+              "to": "convergence",
+              "a": {
+                "x": 1170.42,
+                "y": 223.32
+              },
+              "b": {
+                "x": 533.07,
+                "y": 155.47
+              }
+            }
+          ],
+          "boxes": {
+            "laneA": {
+              "x": 16.38,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "laneB": {
+              "x": 599.76,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "convergence": {
+              "x": 311.58,
+              "y": 37.4,
+              "w": 211.49,
+              "h": 211.49
+            },
+            "record": {
+              "x": 1180.42,
+              "y": 163.95,
+              "w": 500,
+              "h": 174.1
+            }
+          },
+          "spot": {
+            "x": 898.38,
+            "y": 502.68
+          },
+          "focus": 1,
+          "keyShown": true,
+          "labelClash": [
+            "laneA>convergence"
+          ],
+          "routeClash": false,
+          "labelGaps": [
+            0,
+            16.2,
+            6.2
+          ],
+          "layout": {
+            "OH": 251.78,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 174.1,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: a plain relation never gets an arrowhead @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "split": 1,
+          "laneA": {
+            "x": 175.94,
+            "y": 575.87
+          },
+          "laneB": {
+            "x": 759.31,
+            "y": 575.87
+          },
+          "convergence": {
+            "x": 417.33,
+            "y": 143.14
+          },
+          "tracer": {
+            "x": 603.77,
+            "y": 309.06
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>convergence:relation",
+            "convergence>laneA:relation",
+            "laneA>convergence:relation",
+            "convergence>laneB:relation"
+          ],
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "laneA",
+              "to": "convergence",
+              "a": {
+                "x": 285.73,
+                "y": 309.06
+              },
+              "b": {
+                "x": 325.52,
+                "y": 258.89
+              }
+            },
+            {
+              "from": "laneB",
+              "to": "convergence",
+              "a": {
+                "x": 603.77,
+                "y": 309.06
+              },
+              "b": {
+                "x": 533.07,
+                "y": 246.14
+              }
+            },
+            {
+              "from": "record",
+              "to": "convergence",
+              "a": {
+                "x": 1170.42,
+                "y": 223.32
+              },
+              "b": {
+                "x": 533.07,
+                "y": 155.47
+              }
+            }
+          ],
+          "boxes": {
+            "laneA": {
+              "x": 16.38,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "laneB": {
+              "x": 599.76,
+              "y": 319.06,
+              "w": 319.11,
+              "h": 256.81
+            },
+            "convergence": {
+              "x": 311.58,
+              "y": 37.4,
+              "w": 211.49,
+              "h": 211.49
+            },
+            "record": {
+              "x": 1180.42,
+              "y": 163.95,
+              "w": 500,
+              "h": 174.1
+            }
+          },
+          "spot": {
+            "x": 898.38,
+            "y": 502.68
+          },
+          "focus": 1,
+          "keyShown": true,
+          "labelClash": [
+            "laneA>convergence"
+          ],
+          "routeClash": false,
+          "labelGaps": [
+            0,
+            16.2,
+            6.2
+          ],
+          "layout": {
+            "OH": 251.78,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 174.1,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative: the supplied causal, sequence and communication links with their kinds (causal only where supplied) @1",
+      "pass": false,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "split": 1,
+          "laneA": {
+            "x": 187.32,
+            "y": 589.17
+          },
+          "laneB": {
+            "x": 807.98,
+            "y": 589.17
+          },
+          "convergence": {
+            "x": 444.45,
+            "y": 131.92
+          },
+          "tracer": {
+            "x": 305.6,
+            "y": 304.74
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>laneB:sequence",
+            "laneB>convergence:relation",
+            "convergence>laneA:causal"
+          ],
+          "drawn": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "causal",
+            "relation",
+            "sequence",
+            "communication"
+          ],
+          "arrows": [
+            true,
+            false,
+            true,
+            true
+          ],
+          "causalShown": true,
+          "linkEnds": [
+            {
+              "from": "laneA",
+              "to": "convergence",
+              "a": {
+                "x": 305.6,
+                "y": 304.74
+              },
+              "b": {
+                "x": 345.63,
+                "y": 254.92
+              }
+            },
+            {
+              "from": "laneB",
+              "to": "convergence",
+              "a": {
+                "x": 640.76,
+                "y": 304.74
+              },
+              "b": {
+                "x": 567.45,
+                "y": 240.2
+              }
+            },
+            {
+              "from": "record",
+              "to": "laneB",
+              "a": {
+                "x": 1230.42,
+                "y": 267.06
+              },
+              "b": {
+                "x": 988.48,
+                "y": 372.95
+              }
+            },
+            {
+              "from": "alternative",
+              "to": "record",
+              "a": {
+                "x": 1460.42,
+                "y": 367.85
+              },
+              "b": {
+                "x": 1460.42,
+                "y": 322.65
+              }
+            }
+          ],
+          "boxes": {
+            "laneA": {
+              "x": 16.82,
+              "y": 314.74,
+              "w": 341.01,
+              "h": 274.43
+            },
+            "laneB": {
+              "x": 637.47,
+              "y": 314.74,
+              "w": 341.01,
+              "h": 274.43
+            },
+            "convergence": {
+              "x": 331.45,
+              "y": 18.91,
+              "w": 226,
+              "h": 226
+            },
+            "record": {
+              "x": 1240.42,
+              "y": 20.15,
+              "w": 440,
+              "h": 292.5
+            },
+            "alternative": {
+              "x": 1286.75,
+              "y": 377.85,
+              "w": 347.34,
+              "h": 35.2
+            }
+          },
+          "spot": {
+            "x": 956.58,
+            "y": 510.96
+          },
+          "focus": 1,
+          "keyShown": true,
+          "labelClash": false,
+          "routeClash": false,
+          "labelGaps": [
+            0,
+            0,
+            14,
+            6.3
+          ],
+          "layout": {
+            "OH": 269.05,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 292.5,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 35.2,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: a causal arrow appears only when the author supplies kind causal (exactly that one) @1",
+      "pass": false,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "split": 1,
+          "laneA": {
+            "x": 211.53,
+            "y": 602.78
+          },
+          "laneB": {
+            "x": 870.33,
+            "y": 602.78
+          },
+          "convergence": {
+            "x": 484.76,
+            "y": 142.53
+          },
+          "tracer": {
+            "x": 678.62,
+            "y": 300.42
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>convergence:none",
+            "convergence>laneA:none",
+            "laneA>convergence:none",
+            "convergence>laneB:relation"
+          ],
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "causal",
+            "relation"
+          ],
+          "arrows": [
+            true,
+            false
+          ],
+          "causalShown": true,
+          "linkEnds": [
+            {
+              "from": "laneA",
+              "to": "laneB",
+              "a": {
+                "x": 403.23,
+                "y": 456.55
+              },
+              "b": {
+                "x": 678.62,
+                "y": 456.55
+              }
+            },
+            {
+              "from": "convergence",
+              "to": "laneB",
+              "a": {
+                "x": 615.18,
+                "y": 248.75
+              },
+              "b": {
+                "x": 678.62,
+                "y": 300.42
+              }
+            }
+          ],
+          "boxes": {
+            "laneA": {
+              "x": 29.82,
+              "y": 310.32,
+              "w": 363.41,
+              "h": 292.46
+            },
+            "laneB": {
+              "x": 688.62,
+              "y": 310.32,
+              "w": 363.41,
+              "h": 292.46
+            },
+            "convergence": {
+              "x": 364.33,
+              "y": 22.11,
+              "w": 240.85,
+              "h": 240.85
+            },
+            "record": {
+              "x": 1167.87,
+              "y": 163.95,
+              "w": 500,
+              "h": 174.1
+            }
+          },
+          "spot": {
+            "x": 1028.69,
+            "y": 519.43
+          },
+          "focus": 1,
+          "keyShown": true,
+          "labelClash": [
+            "convergence>laneB"
+          ],
+          "routeClash": false,
+          "labelGaps": [
+            8,
+            0
+          ],
+          "layout": {
+            "OH": 286.73,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 174.1,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same separation and relationships @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "split": 1,
+          "laneA": {
+            "x": 223.12,
+            "y": 632.32
+          },
+          "laneB": {
+            "x": 922.67,
+            "y": 632.32
+          },
+          "convergence": {
+            "x": 513.55,
+            "y": 152.44
+          },
+          "tracer": {
+            "x": 719,
+            "y": 315.15
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>convergence:relation",
+            "convergence>laneA:relation",
+            "laneA>convergence:relation",
+            "convergence>laneB:relation"
+          ],
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "laneA",
+              "to": "convergence",
+              "a": {
+                "x": 371.79,
+                "y": 310.6
+              },
+              "b": {
+                "x": 389.54,
+                "y": 290.8
+              }
+            },
+            {
+              "from": "laneB",
+              "to": "convergence",
+              "a": {
+                "x": 719,
+                "y": 315.15
+              },
+              "b": {
+                "x": 651.91,
+                "y": 262.02
+              }
+            },
+            {
+              "from": "record",
+              "to": "convergence",
+              "a": {
+                "x": 1218.72,
+                "y": 315.74
+              },
+              "b": {
+                "x": 651.91,
+                "y": 184.48
+              }
+            }
+          ],
+          "boxes": {
+            "laneA": {
+              "x": 29.45,
+              "y": 320.6,
+              "w": 387.34,
+              "h": 311.72
+            },
+            "laneB": {
+              "x": 729,
+              "y": 320.6,
+              "w": 387.34,
+              "h": 311.72
+            },
+            "convergence": {
+              "x": 385.2,
+              "y": 24.09,
+              "w": 256.71,
+              "h": 256.71
+            },
+            "record": {
+              "x": 1228.72,
+              "y": 260.54,
+              "w": 440,
+              "h": 216.93
+            }
+          },
+          "spot": {
+            "x": 1091.46,
+            "y": 543.48
+          },
+          "focus": 1,
+          "keyShown": true,
+          "labelClash": false,
+          "routeClash": false,
+          "labelGaps": [],
+          "layout": {
+            "OH": 305.61,
+            "size": 26,
+            "k": 1,
+            "fallback": false,
+            "mode": "row",
+            "why": [],
+            "recH": 216.93,
+            "bandH": 0,
+            "relH": 40,
+            "chipsH": 0,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "related as the owner supplied ",
+          "related as the owner supplied "
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Convergence piece, lane ends(e",
+          "related as the owner supplied "
+        ],
+        [
+          "related as the owner supplied ",
+          "related as the owner supplied "
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 1,
+      "pairs": [
+        [
+          "Convergence piece, lane ends(e",
+          "related as the owner supplied "
+        ],
+        [
+          "related as the owner supplied ",
+          "related as the owner supplied "
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "related as the owner supplied ",
+          "related as the owner supplied "
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "related as the owner supplied ",
+          "related as the owner supplied "
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 1,
+      "pairs": [
+        [
+          "related as the owner supplied ",
+          "related as the owner supplied "
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Convergence piece, lane ends(e",
+          "related as the owner supplied "
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Convergence piece, lane ends(e",
+          "related as the owner supplied "
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 1,
+      "pairs": [
+        [
+          "Convergence piece, lane ends(e",
+          "related as the owner supplied "
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "relacionado según lo aportado",
+          "relacionado según lo aportado"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Pieza de convergencia(ampliada",
+          "relacionado según lo aportado"
+        ],
+        [
+          "relacionado según lo aportado",
+          "relacionado según lo aportado"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 1,
+      "pairs": [
+        [
+          "Pieza de convergencia(ampliada",
+          "relacionado según lo aportado"
+        ],
+        [
+          "relacionado según lo aportado",
+          "relacionado según lo aportado"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "relacionado según lo aportado",
+          "relacionado según lo aportado"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "relacionado según lo aportado",
+          "relacionado según lo aportado"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 1,
+      "pairs": [
+        [
+          "relacionado según lo aportado",
+          "relacionado según lo aportado"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "relacionado según lo aportado",
+          "relacionado según lo aportado"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "relacionado según lo aportado",
+          "relacionado según lo aportado"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 1,
+      "pairs": [
+        [
+          "relacionado según lo aportado",
+          "relacionado según lo aportado"
+        ],
+        [
+          "relacionado según lo aportado",
+          "Según lo aportado · sin conclu"
+        ]
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

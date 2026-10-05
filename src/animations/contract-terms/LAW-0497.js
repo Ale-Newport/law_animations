@@ -63,7 +63,7 @@ const defaultParams = {
 const defaultParamsEs = {
   ...DEFAULT_CONTENT_ES,
   actorLabels: {a: 'Parte A', b: 'Parte B'},
-  objectLabels: {tray: 'Bandeja de comunicaciones'},
+  objectLabels: {tray: 'Bandeja'},
 };
 
 function unitPx(ctx) {

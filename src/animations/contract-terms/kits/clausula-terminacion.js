@@ -697,7 +697,7 @@ export function stageGeom(ctx, o) {
   const MO = measureObl(p.clauses, F, cwO, oblText, tight);
   if (!ME || !MO) return null;
   const chE = Math.max(ME.ch, o.minChE ?? 0), chO = Math.max(MO.ch, o.minCh ?? 0);
-  const headFits = show && o.headings !== false ? [fitG(p.panels.circumstance, {maxWidth: We - 2 * ci, size: F, maxLines: 2, weight: 700, strict: true}), fitG(p.panels.section, {maxWidth: Wt - 2 * ci, size: F, maxLines: 2, weight: 700, strict: true})] : [null, null];
+  const headFits = show && o.headings !== false ? [fitG(p.panels.circumstance, {maxWidth: We - 2 * ci - (stack && !o.eventFullWidth ? 2 * (arm + gapC + F * 0.3) : 0), size: F, maxLines: 2, weight: 700, strict: true}), fitG(p.panels.section, {maxWidth: Wt - 2 * ci, size: F, maxLines: 2, weight: 700, strict: true})] : [null, null];
   if (headFits.some(f => f && f.bad)) return null;
   const colHH = headFits[0] ? Math.max(...headFits.map(f => f.height)) + F * (tight ? 0.5 : 0.7) : F * 1.2;
   const headFit = show && o.headText !== false ? fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: BW - 2 * m - F, size: F, maxLines: 3, weight: 700}) : null;

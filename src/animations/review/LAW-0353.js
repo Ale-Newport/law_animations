@@ -117,14 +117,14 @@ function compose(ctx, P, F, opts) {
   const mHand = Math.max(F * 2.8, 46), mSide = Math.max(F * 0.9, 16);
   const inner = H ? {x: desk.x + mSide, y: desk.y + mHand, w: desk.w - mSide * 2, h: desk.h - mHand * 2}
     : {x: desk.x + mHand, y: desk.y + mSide, w: desk.w - mHand * 2, h: desk.h - mSide * 2};
-  const tagW = F * (H ? 11 : 9.5);
+  const tagW = F * (H ? 13 : 10.5);
   const planFor = cw => {
     const M = cardModel(P, {w: cw, F, showText: showKey});
-    const TM = tagModel(P, {w: tagW, F});
+    const TM = tagModel(P, {w: tagW, F, maxLines: H ? 4 : 6});
     return {M, TM, B: boardPlan(M, TM, {F, orient})};
   };
   const fits = q => q.B.w <= inner.w + 0.5 && q.B.h <= inner.h + 0.5;
-  let lo = F * 7.5, hi = Math.min(F * 17, H ? inner.w * 0.3 : inner.w * 0.4);
+  let lo = F * 7.5, hi = Math.min(F * 15, H ? inner.w * 0.26 : inner.w * 0.4);
   let best = planFor(lo);
   if (fits(best)) {
     for (let it = 0; it < 8; it++) {
@@ -133,7 +133,10 @@ function compose(ctx, P, F, opts) {
       if (fits(q)) { lo = mid; best = q; } else hi = mid;
     }
   }
-  const {M, TM, B} = best;
+  let {M, TM, B} = best;
+  // stretch the lanes along their axis to use the free length (more travel before the gate and more run after it)
+  const extra = (H ? inner.w - B.w : inner.h - B.h) - F;
+  if (fits(best) && extra > 0) B = boardPlan(M, TM, {F, orient, travel: B.travel + extra * 0.55, run: B.run + extra * 0.45});
   if (opts.band && PL) {
     const need = (H ? B.h + mHand * 2 : B.h + mSide * 2) + F * 0.4;
     if (need < desk.h) {
@@ -147,7 +150,7 @@ function compose(ctx, P, F, opts) {
   // hands: grips on the outer edge of each card; shoulders outside the desk, tracking the hand along the lane
   const deskB = desk.y + desk.h, deskR = desk.x + desk.w;
   const sOff = Math.max(100, F * 4.5);
-  const grip = H ? [{x: M.w * 0.42, y: F * 0.55}, {x: M.w * 0.42, y: M.h - F * 0.55}] : [{x: F * 0.55, y: M.h * 0.42}, {x: M.w - F * 0.55, y: M.h * 0.42}];
+  const grip = H ? [{x: F * 1.3, y: F * 0.55}, {x: F * 1.3, y: M.h - F * 0.55}] : [{x: F * 0.55, y: F * 1.3}, {x: M.w - F * 0.55, y: F * 1.3}];
   const at = (i, t) => { const p = B.pos(i, t); return {x: p.x + ox, y: p.y + oy}; };
   const gripAt = (i, t) => { const p = at(i, t); return {x: p.x + grip[i].x, y: p.y + grip[i].y}; };
   const lead = F * 2.2;
@@ -169,7 +172,7 @@ const scene = {
     const shape = ctx.view.shape;
     const showKey = ctx.show('key');
     const arrangements = shape === 'portrait' ? [{band: true, orient: 'v'}, {band: true, cols: 2, orient: 'v'}]
-      : shape === 'square' ? [{band: true, cols: 2, orient: 'h'}, {band: true, cols: 2, orient: 'h', tight: true}, {band: true, cols: 3, orient: 'h', tight: true}]
+      : shape === 'square' ? [{band: true, cols: 2, orient: 'h'}, {pw: 0.42, orient: 'v'}, {pw: 0.46, orient: 'v'}, {band: true, cols: 2, orient: 'h', tight: true}, {band: true, cols: 3, orient: 'h', tight: true}]
         : [{pw: 0.27, orient: 'h'}, {pw: 0.31, orient: 'h'}, {pw: 0.35, orient: 'h'}];
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);

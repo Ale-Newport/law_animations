@@ -233,8 +233,8 @@ export function gateArt(ctx, o) {
   );
 }
 
-/** Slat thickness factor: edge-on (open, 0.2) → wall (closed, 1). */
-export const slatK = closed => r(0.2 + 0.8 * clamp(closed), 3);
+/** Slat thickness factor: edge-on (open, 0.3) → wall (closed, 1). */
+export const slatK = closed => r(0.3 + 0.7 * clamp(closed), 3);
 
 /** Frame record for the gate's slats and pause glyph. */
 export function gateFrame(prefix, closed, pauseOp = closed) {
@@ -256,7 +256,7 @@ export function gateFrame(prefix, closed, pauseOp = closed) {
  */
 export function tagModel(P, o) {
   const pad = o.F * 0.5;
-  const fits = STATES.map(s => fitG(P.outcomes[s], {maxWidth: o.w - pad * 2 - o.F * 1.4, size: o.F, maxLines: 4, weight: 600}));
+  const fits = STATES.map(s => fitG(P.outcomes[s], {maxWidth: o.w - pad * 2 - o.F * 1.4, size: o.F, maxLines: o.maxLines ?? 4, weight: 600}));
   const hh = Math.max(...fits.map(f => f.height)) + pad * 2;
   return {w: o.w, h: Math.max(hh, o.F * 2.2), pad, fits, ok: fits.every(f => f.ok), F: o.F};
 }
@@ -294,12 +294,13 @@ export function boardPlan(M, TM, o) {
   const wd = across + pad * 2;
   const disc = Math.min(wd * 0.5, F * 2.4);
   const tStart = pad + disc + pad;
-  const travel = o.travel ?? Math.max(along * 0.75, F * 5);
+  const travel = o.travel ?? Math.max(along * 0.6, F * 4.5);
   const tWait = tStart + travel;
-  const gThk = Math.max(F * 1.5, 24);
+  const gThk = Math.max(F * 2.1, 34);
   const gapS = Math.max(F * 0.7, 12);
   const gT = tWait + along + gapS + gThk / 2;
-  const tEnd = gT + gThk / 2 + gapS + F * 0.5;
+  const run = o.run ?? Math.max(along * 0.85 + F * 1.5, F * 6);
+  const tEnd = gT + gThk / 2 + gapS + run;
   const len = tEnd + along + pad;
   const calW = F * 3.4, calH = calW * 0.86;
   const mg = F * 0.6;
@@ -333,7 +334,7 @@ export function boardPlan(M, TM, o) {
   const gate = H ? {cx: gT, cy: wd / 2, rot: 0} : {cx: wd / 2, cy: gT, rot: 90};
   const gateSpan = wd + F * 1.2;
   const gateBox = H ? {x: gT - gThk / 2, y: wd / 2 - gateSpan / 2, w: gThk, h: gateSpan} : {x: wd / 2 - gateSpan / 2, y: gT - gThk / 2, w: gateSpan, h: gThk};
-  return {F, H, along, across, pad, wd, disc, tStart, tWait, tEnd, gT, gThk, gapS, len, lanes, tag, cal, mid, W, H2: Hh, w: W, h: Hh,
+  return {F, H, travel, run, along, across, pad, wd, disc, tStart, tWait, tEnd, gT, gThk, gapS, len, lanes, tag, cal, mid, W, H2: Hh, w: W, h: Hh,
     chevAll, procDim, lit, rev: chevAll, pos, axis, gate, gateSpan, gateBox, tagCal, ok: !tagCal};
 }
 

@@ -85,4 +85,3 @@ jurisdictionTest(ID);
 stressLongerTest(ID);
 lineBreakTest(ID);
 noEnglishTest(ID);
-sweep(ID, 'DBGLAYOUT', `if (ctx.ratio !== '1:1') return; x.seek(x.durationMs); const l = x.getState({bounds: false}).semantic.layout; return l.mode + ' PH ' + l.PH + ' size ' + l.size;`, {tvs: ['all'], presets: ['long-labels-stress']});
