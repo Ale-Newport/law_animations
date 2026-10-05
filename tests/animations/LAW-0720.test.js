@@ -3,7 +3,7 @@
 // column drawn in the context's own coordinates; magnification >= 1.5), the change is localized (only the focus piece's
 // length and its value change; every other piece keeps its length) and seeking back restores the old datum exactly
 // (pure frame: the contract's seek-order determinism plus the before-value checks below).
-// Windows (LAW-0720.js W): legend 0–0.04 · pieces settle 0.03–0.14 · values 0.12–0.18 · lens opens 0.22–0.36 · old value
+// Windows (LAW-0720.js W): legend 0–0.04 · pieces settle 0.03–0.14 · values 0.05–0.10 · lens opens 0.22–0.36 · old value
 // lifts out 0.46–0.52 · piece length 0.50–0.62 · new value 0.58–0.64 · "before" line 0.62–0.68 · lens closes 0.76–0.86
 // · marker 0.85–0.90 · note 0.86–0.90 · key 0.88–0.92.
 // Legal (causation-10 brief): no apportionment doctrine, no computed percentage, no fault; one supplied datum replaced

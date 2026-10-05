@@ -1,6 +1,6 @@
 {
   "animationId": "LAW-0715",
-  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). The two scenes are identical except which supplied conduct runs (lane A in A, lane B in B), drawn at equal size, colour and timing. No winner, share, percentage, fault, contributory-negligence doctrine, liability, amount or outcome is stated.",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). The two scenes are identical except which supplied conduct runs (lane A in A, lane B in B), drawn at equal size, colour and timing. No winner, share, percentage, fault, contributory-negligence doctrine, liability, amount or outcome is stated. Long-labels-stress: coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20). True driver: the 1:1 box with the round-2 larger scenes (actors, longer lanes): each scene must keep >= 0.20 of the frame height with stress text >= 16 px. Fallbacks tried: column (stacked), text column and row. Rendered at 1080p (2026-10-05; pre-cap copy production/scratch/causation-09/LAW-0715.stress-precap.json): one account and two shared facts → no composition fits at 1:1 (fallback scale, heads at 15.4 px); no account, one shared fact → fits every ratio. Capped to no account and one shared fact (baseline 0 / 1); every text field keeps a near-maximum length strictly longer than the baseline.",
   "presets": [
     {
       "name": "baseline-illustrative",
@@ -68,7 +68,7 @@
     },
     {
       "name": "long-labels-stress",
-      "description": "Stress: near-maximum lengths with four steps, two shared facts and one account put forward.",
+      "description": "Stress: near-maximum lengths with four steps and one shared fact (counts capped, see the coordinator decision note).",
       "params": {
         "origin": {
           "name": "Event Z (fictional, storeroom)"
@@ -95,12 +95,7 @@
             "lane": "b"
           }
         ],
-        "alternatives": [
-          {
-            "label": "A different account of where B stood was put forward by A",
-            "status": "alleged"
-          }
-        ],
+        "alternatives": [],
         "losses": [
           {
             "label": "Loss at the end shelf as described by the storeroom owner (no amount)"
@@ -116,8 +111,7 @@
         },
         "changedFact": "Only which supplied conduct runs differs between the scenes: lane A in scene A, lane B in scene B",
         "sharedFacts": [
-          "Same storeroom, same aisles and the same end shelf",
-          "Same barriers at the end of both aisles"
+          "Same storeroom, same aisles and the same end shelf"
         ],
         "comparisonLabels": {
           "guide": "Only this differs between the two scenes",

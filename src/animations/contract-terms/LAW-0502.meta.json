@@ -1,0 +1,432 @@
+{
+  "id": "LAW-0502",
+  "slug": "contract-terms-06-mechanism",
+  "title": "Limitation clause, without doctrine — three transparent layers (clause text, contour, categories) slide apart; plain lines tie each clause line to its categories and a bead traces one category",
+  "titleEs": "Limitación contractual — Mecanismo o relación explicada",
+  "category": "contract-terms",
+  "categoryName": "Contenido y cláusulas",
+  "motif": "Limitación contractual",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "An exploded stack: three registered transparent sheets slide apart along a diagonal rail — layer 1 with the supplied clause lines, layer 2 with the contour on clear acetate (a bay round each exclusion to be reviewed), layer 3 with the supplied category tiles. Only the supplied relations are drawn, as plain lines without arrows, from each clause line to the categories read from it. A bead then travels the traversal order for one category and the focus element enlarges. Hold: each tile shows its supplied status (● / ◆ drawn alike) and the key \"As supplied · no conclusion drawn\". No enforceability, validity, cap or amount.",
+  "tags": [
+    "limitation clause",
+    "liability categories",
+    "layers",
+    "exploded view",
+    "contour",
+    "relations",
+    "tracer",
+    "mechanism"
+  ],
+  "durations": {
+    "defaultMs": 6500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/contract-terms/kits/limitacion-contractual.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "contract": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Reference printed on the contract (fictional)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Heading of the contract, as supplied (generic, e.g. \"Contract (fictional)\")"
+          }
+        },
+        "required": [
+          "reference",
+          "title"
+        ],
+        "description": "The contract sheet"
+      },
+      "clauseTitle": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "Heading of the clause, as supplied (e.g. \"Limitation clause\")"
+      },
+      "clauses": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Clause line, as supplied"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Lines of the supplied clause text (generic, fictional placeholders such as \"Clause 9.1 (supplied text)\"; never real contract text, never an amount) (array replaces the previous value)"
+      },
+      "categories": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Label of the category, as supplied (generic, fictional)"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "included",
+                "review"
+              ],
+              "description": "Supplied status: included or review (exclusion to be reviewed)"
+            },
+            "clause": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3,
+              "description": "The supplied clause line this category is read from (1 = first; clamped to the list)"
+            }
+          },
+          "required": [
+            "label",
+            "status",
+            "clause"
+          ],
+          "description": "A category tile"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Categories of liability named by the supplied text, top to bottom. Each has a supplied status: \"included\" (inside the contour) or \"review\" (an exclusion to be reviewed: the contour forms a bay around it). Nothing is inferred from either status (array replaces the previous value)"
+      },
+      "statusLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "included": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Status \"included\", as supplied"
+          },
+          "review": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Status \"exclusion to be reviewed\", as supplied"
+          }
+        },
+        "required": [
+          "included",
+          "review"
+        ],
+        "description": "Wording of the two supplied statuses (equal weight: ● included, ◆ to be reviewed)"
+      },
+      "layerLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "clause": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Layer 1 (clause text)"
+          },
+          "contour": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Layer 2 (contour)"
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Layer 3 (categories)"
+          }
+        },
+        "required": [
+          "clause",
+          "contour",
+          "category"
+        ],
+        "description": "Labels of the three layers"
+      },
+      "focusCategory": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 4,
+        "description": "The category the bead traces (1 = top; clamped to the list)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "clause",
+          "contour",
+          "category"
+        ],
+        "description": "Element the bead dwells on longest (it enlarges while the bead rests on it)"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "clause",
+            "contour",
+            "category"
+          ],
+          "description": "Element id"
+        },
+        "minItems": 2,
+        "maxItems": 3,
+        "description": "Order in which the bead visits the elements (array replaces the previous value)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "clause",
+                "contour",
+                "category"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "contract": {
+      "reference": "CT-246",
+      "title": "Contract (fictional)"
+    },
+    "clauseTitle": "Limitation clause",
+    "clauses": [
+      "Clause 9.1 (supplied text)",
+      "Clause 9.2 (supplied text)"
+    ],
+    "categories": [
+      {
+        "label": "Category 1 (supplied)",
+        "status": "included",
+        "clause": 1
+      },
+      {
+        "label": "Category 2 (supplied)",
+        "status": "review",
+        "clause": 2
+      },
+      {
+        "label": "Category 3 (supplied)",
+        "status": "included",
+        "clause": 1
+      }
+    ],
+    "statusLabels": {
+      "included": "Category included (as supplied)",
+      "review": "Exclusion to be reviewed (as supplied)"
+    },
+    "layerLabels": {
+      "clause": "Layer 1 · Clause text",
+      "contour": "Layer 2 · Contour",
+      "category": "Layer 3 · Categories"
+    },
+    "focusCategory": 2,
+    "focusElement": "contour",
+    "traversalOrder": [
+      "clause",
+      "contour",
+      "category"
+    ],
+    "annotations": []
+  }
+}

@@ -10,6 +10,9 @@
 // doctrine; A and B, both pads and all trolleys have identical stroke, colour and weight.
 // Brief customizable fields: none omitted (events, causalLinks, alternatives, losses + the contrast fields); 'origin'
 // added.
+// coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20): long-labels-stress capped to no account
+// and one shared fact (baseline 0 / 1). Rendered at 1080p (2026-10-05): one account + two shared facts → no 1:1
+// composition fits (fallback, heads 15.4 px); capped → fits every ratio. Details in the presets note.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite, identicalBeforeChange} from '../harness/supplied-text.js';

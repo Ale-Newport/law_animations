@@ -6,7 +6,7 @@
  *                      supplied) is built: the rack with its blades up and the
  *                      empty shelf, the guide rails, and one tray per event; the
  *                      pieces settle into their trays (0.03–0.14) and each
- *                      tray's supplied value appears under it (0.12–0.18).
+ *                      tray's supplied value appears under it (0.05–0.10).
  *  0.20–0.45 isolate   A real lens (the same drawing, magnified) opens from the
  *                      focus tray — its piece, tray and value — to a free area
  *                      beside the scene (0.22–0.36); the context dims; the
@@ -48,7 +48,7 @@ const ID = 'LAW-0720';
 const DURATION = 8000;
 const BEATS = {build: [0, 0.2], isolate: [0.2, 0.45], replace: [0.45, 0.75], back: [0.75, 1]};
 const W = {
-  legend: [0, 0.04], settle: [0.03, 0.14], vals: [0.12, 0.18], open: [0.22, 0.36], dim: [0.22, 0.32],
+  legend: [0, 0.04], settle: [0.03, 0.14], vals: [0.05, 0.1], open: [0.22, 0.36], dim: [0.22, 0.32],
   out: [0.46, 0.52], grow: [0.5, 0.62], in: [0.58, 0.64], trace: [0.62, 0.68], close: [0.76, 0.86], marker: [0.85, 0.9], note: [0.86, 0.9], key: [0.88, 0.92],
 };
 const TARGETS = ['event-1', 'event-2', 'event-3', 'event-4'];
@@ -98,11 +98,11 @@ function panelItems(ctx, p, M) {
   if (!ctx.show('key')) return [];
   const allOn = ctx.show('all');
   const out = [];
-  if (allOn && p.contextLabels.context) out.push({key: 'ctx', icon: 'status', text: p.contextLabels.context, when: 'legend'});
+  // the context caption and the total share one chip (the total's pieces are in the trays)
+  out.push(allOn && p.contextLabels.context ? {key: 'ctx', icon: 'status', text: `${p.contextLabels.context} · ${p.losses[0].label}`, when: 'legend'} : {key: 'bar', icon: 'bar', text: `${p.losses[0].label}: ${t.total}`, when: 'legend'});
   p.events.forEach((e, i) => out.push({key: `ev${i}`, icon: 'tray', i, text: e.label, when: 'legend'}));
   out.push({key: 'alloc-a', icon: 'alloc', side: 'a', text: allocText(ctx, p, M, 'a'), when: 'legend'});
   out.push({key: 'alloc-b', icon: 'alloc', side: 'b', text: allocText(ctx, p, M, 'b'), when: 'legend'});
-  out.push({key: 'bar', icon: 'bar', text: `${p.losses[0].label}: ${t.total}`, when: 'legend'});
   if (p.losses[1]) out.push({key: 'loss1', icon: 'note', text: `${t.alsoNoted}: ${p.losses[1].label}`, when: 'legend'});
   M.alternatives.forEach((a, j) => out.push({key: `alt${j}`, icon: 'alt', text: altText(ctx, a), when: 'legend'}));
   linkNotes(ctx, M).forEach(l => out.push({...l, when: 'legend'}));
@@ -146,7 +146,8 @@ const scene = {
       const cs = showVals ? texts.map((tx, i) => { const a = valueChipSize(ctx, tx, size, VMW); if (i !== k) return a; const b = valueChipSize(ctx, p.afterValue, size, VMW); const c = valueChipSize(ctx, traceText(ctx, p), size * TR, VMW); return {w: Math.max(a.w, b.w, c.w), h: Math.max(a.h, b.h) + c.h + 4, bad: a.bad || b.bad || c.bad}; }) : [];
       const chipWs = cs.map(c => c.w), chipH = cs.length ? Math.max(...cs.map(c => c.h)) : 0;
       st = [];
-      for (const lp of SH.lens) for (const compact of [false, true]) for (const stagger of [false, true]) {
+      // (labels hidden — no panel — : the lens opens over the rack, so the scene alone fills the box at rest)
+      for (const lp of items.length ? SH.lens : ['above']) for (const compact of [false, true]) for (const stagger of [false, true]) {
         const go = {chipWs, chipH, compact, stagger: stagger && cs.length > 0};
         const lensOf = S => {
           let G = stageGeom(S, M.n, fmax, go);

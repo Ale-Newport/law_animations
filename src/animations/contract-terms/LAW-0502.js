@@ -47,8 +47,9 @@ const sceneSchema = {
   traversalOrder: list('Order in which the bead visits the elements', oneOf('Element id', ELEMENTS), 2, 3),
   annotations: list('Editorial callouts shown in the final hold', annotation(ELEMENTS), 0, 2),
 };
+const noSheet = ({sheetLabel, ...rest}) => (void sheetLabel, rest);
 const defaultParams = {
-  ...CONTENT,
+  ...noSheet(CONTENT),
   layerLabels: {clause: 'Layer 1 · Clause text', contour: 'Layer 2 · Contour', category: 'Layer 3 · Categories'},
   focusCategory: 2,
   focusElement: 'contour',
@@ -56,7 +57,7 @@ const defaultParams = {
   annotations: [],
 };
 const defaultParamsEs = {
-  ...CONTENT_ES,
+  ...noSheet(CONTENT_ES),
   layerLabels: {clause: 'Capa 1 · Texto de la cláusula', contour: 'Capa 2 · Contorno', category: 'Capa 3 · Categorías'},
 };
 
@@ -65,7 +66,8 @@ const isStress = p => [...p.clauses, ...p.categories.map(c => c.label), p.contra
 function geom(ctx, F, minF) {
   const p = ctx.params;
   const D = ctx.design;
-  const wide = ctx.view.shape === 'landscape';
+  const shape = ctx.view.shape;
+  const wide = shape === 'landscape';
   const show = ctx.show('all'), showKey = ctx.show('key');
   const stress = isStress(p);
   const why = [];
@@ -78,8 +80,8 @@ function geom(ctx, F, minF) {
   const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: '#ffffff'});
   // sheets
   const n = p.categories.length;
-  let S, pos, notesBox;
-  const tabFit = t => fitG(t, {maxWidth: (wide ? D.w * 0.29 : D.w * 0.7) - 40, size: F, minSize: minF, maxLines: 2, weight: 800});
+  let S, S0, S2, pos, notesBox;
+  const tabFit = t => fitG(t, {maxWidth: (wide ? D.w * 0.29 : shape === 'square' ? D.w * 0.4 : D.w * 0.7) - 40, size: F, minSize: minF, maxLines: 2, weight: 800});
   const tabs = [tabFit(p.layerLabels.clause), tabFit(p.layerLabels.contour), tabFit(p.layerLabels.category)];
   const tabH = Math.max(...tabs.map(t => t.height)) + 22;
   if (wide) {
@@ -89,23 +91,41 @@ function geom(ctx, F, minF) {
     S = {w: step - 26, h: D.h - pad * 2 - 40 - (nh ? nh + 24 : 0) - tabH};
     pos = [0, 1, 2].map(i => ({x: pad + i * (step + 4) + 2, y: pad + tabH + 40 - i * 20}));
     notesBox = {x: pad, y: D.h - pad - nh, w: nw, h: nh, row: true};
+  } else if (shape === 'square') {
+    const nw = D.w - pad * 2;
+    const nh = notes.length ? Math.max(...notes.map(q => chipOf(q, 0, 0, (nw - gap * (notes.length - 1)) / notes.length).box.h)) : 0;
+    const gut = 30 + 24 * n;
+    const avH = D.h - pad * 2 - (nh ? nh + 22 : 0) - 2 * tabH - 30;
+    const w0 = D.w - pad * 2 - gut;
+    const hf = fitG(`${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`, {maxWidth: w0 - 60, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 800});
+    const cf = p.clauses.map(c => fitG(c, {maxWidth: w0 - 80, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600}));
+    const h0 = Math.max(avH * 0.22, hf.height + 36 + cf.reduce((a, f) => a + f.height + 24 + 14, 0) + 30);
+    const W2 = D.w - pad * 2 - gut - 30;
+    S = {w: W2 * 0.62, h: avH - h0};
+    S2 = {w: W2 * 0.38, h: avH - h0};
+    S0 = {w: w0, h: h0};
+    const y2 = pad + tabH + h0 + 30 + tabH;
+    pos = [{x: pad, y: pad + tabH}, {x: pad, y: y2}, {x: pad + S2.w + 30, y: y2}];
+    notesBox = {x: pad, y: D.h - pad - nh, w: nw, h: nh, row: true};
   } else {
     const nw = D.w - pad * 2;
     const nh = notes.length ? notes.reduce((a, q) => a + chipOf(q, 0, 0, nw).box.h + gap, -gap) : 0;
     const stepY = (D.h - pad * 2 - (nh ? nh + 24 : 0)) / 3;
-    S = {w: D.w - pad * 2 - 70, h: stepY - tabH - 22};
+    S = {w: D.w - pad * 2 - 70 - 30 - 24 * n, h: stepY - tabH - 22};
     pos = [0, 1, 2].map(i => ({x: pad + i * 35, y: pad + tabH + i * stepY}));
     notesBox = {x: pad, y: D.h - pad - nh, w: nw, h: nh, row: false};
   }
+  S0 = S0 ?? S;
+  S2 = S2 ?? S;
   if (S.h < 150) why.push('sheet-small');
   // stacked (start) position: the middle sheet's place
   const stack = pos[1];
   // layer 1: contract heading + clause lines
   const padX = 30;
-  const head = fitG(`${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`, {maxWidth: S.w - padX * 2, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 800});
-  const clauseFits = p.clauses.map(c => fitG(c, {maxWidth: S.w - padX * 2 - 20, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600}));
+  const head = fitG(`${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`, {maxWidth: S0.w - padX * 2, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 800});
+  const clauseFits = p.clauses.map(c => fitG(c, {maxWidth: S0.w - padX * 2 - 20, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600}));
   const top1 = head.height + 36;
-  const area1 = S.h - top1 - 16;
+  const area1 = S0.h - top1 - 16;
   const need1 = clauseFits.reduce((a, f) => a + f.height + 24, 0) + 12 * (clauseFits.length - 1);
   if (need1 > area1) why.push('clauses-do-not-fit');
   const cg1 = Math.max(12, (area1 - need1) / (clauseFits.length + 1));
@@ -127,6 +147,9 @@ function geom(ctx, F, minF) {
   const tgap = n > 1 ? (C.h - 24 - n * tileH) / (n - 1) : 0;
   const tiles = p.categories.map((c, i) => ({x: tileX, y: C.y + 12 + i * (tileH + tgap), w: tileW, h: tileH, lab: labFits[i], st: stFits[i], status: c.status, clause: clauseOf(p, c)}));
   const cg = contourGeom(C, tiles.map(t => ({y: t.y - 6, h: t.h + 12})), tiles.map(t => t.status), C.x + neck, 18);
+  const C2 = {x: 18, y: 18, w: S2.w - 36, h: S.h - 36};
+  const neck2 = neck * C2.w / C.w;
+  const cg2 = S2 === S ? cg : contourGeom(C2, tiles.map(t => ({y: t.y - 6, h: t.h + 12})), tiles.map(t => t.status), C2.x + neck2, 18);
   // notes placement
   let notesPl = null;
   if (notes.length) {
@@ -143,18 +166,27 @@ function geom(ctx, F, minF) {
     const row = clauseRows[t.clause];
     const a = {x: pos[0].x + S.w - 12, y: pos[0].y + row.y + row.h / 2};
     const b = {x: pos[2].x + t.x - 4, y: pos[2].y + t.y + t.h / 2};
-    if (!wide) { a.x = pos[0].x + padX + Math.min(row.fit.width, S.w * 0.5) ; a.y = pos[0].y + row.y + row.h; b.x = pos[2].x + t.x + Math.min(t.w * 0.75, tileTextX(t.h) + t.lab.width + 30); b.y = pos[2].y + t.y; }
-    return {i, a, b, len: Math.hypot(b.x - a.x, b.y - a.y)};
+    let pts = [a, b];
+    if (!wide) {
+      // portrait / square: each relation runs in its own lane of the right-hand gutter
+      a.x = pos[0].x + S0.w - 10; b.x = pos[2].x + t.x + t.w + 4;
+      const lane = pos[2].x + S.w + 22 + i * 24;
+      pts = [a, {x: lane, y: a.y}, {x: lane, y: b.y}, b];
+    }
+    let len = 0;
+    for (let k = 1; k < pts.length; k++) len += Math.hypot(pts[k].x - pts[k - 1].x, pts[k].y - pts[k - 1].y);
+    const d = `M${pts.map(q => `${r(q.x)} ${r(q.y)}`).join('L')}`;
+    return {i, a, b, d, len};
   });
   const fi = clamp(p.focusCategory, 1, n) - 1;
   const ft = tiles[fi];
   const frow = clauseRows[ft.clause];
   const stops = {
-    clause: {x: pos[0].x + padX + Math.min(frow.fit.width, S.w - padX * 2) / 2, y: pos[0].y + frow.y + frow.h / 2},
-    contour: {x: pos[1].x + (ft.status === 'review' ? C.x + neck : C.x + C.w), y: pos[1].y + ft.y + ft.h / 2},
+    clause: {x: pos[0].x + padX + Math.min(frow.fit.width, S0.w - padX * 2) / 2, y: pos[0].y + frow.y + frow.h / 2},
+    contour: {x: pos[1].x + (ft.status === 'review' ? C2.x + neck2 : C2.x + C2.w), y: pos[1].y + ft.y + ft.h / 2},
     category: {x: pos[2].x + ft.x + 30, y: pos[2].y + ft.y + ft.h / 2},
   };
-  return {ok: !why.length, why, F, minF, wide, S, pos, stack, tabs, tabH, head, clauseRows, padX, C, neck, tiles, gR, cg, notesPl, rel, stops, fi};
+  return {ok: !why.length, why, F, minF, wide, S, S0, S2, cg2, pos, stack, tabs, tabH, head, clauseRows, padX, C, neck, tiles, gR, cg, notesPl, rel, stops, fi};
 }
 
 const scene = {
@@ -177,6 +209,7 @@ const scene = {
     const edge = ['#b99a5a', '#5f8db0', '#8c8778'];
     const sheet = (i, content) => {
       const tab = L.tabs[i];
+      const S = i === 0 ? L.S0 : i === 1 ? L.S2 : L.S;
       return g({name: `layer${i}`},
         h('rect', {x: 10, y: 14, width: r(S.w), height: r(S.h), rx: 12, fill: th.shadow}),
         h('path', {d: roundRectPath(0, -L.tabH, Math.min(S.w * 0.92, tab.width + 44), L.tabH + 12, 10), fill: edge[i], stroke: INK, 'stroke-width': 2}),
@@ -188,14 +221,14 @@ const scene = {
       );
     };
     const l1 = g({name: 'l1-text', opacity: 0},
-      show ? txt(L.head, {x: L.padX, y: 18, fill: INK}) : h('path', {d: `M${L.padX} 34h${r(S.w * 0.5)}`, stroke: '#c9bea8', 'stroke-width': 10, 'stroke-linecap': 'round'}),
+      show ? txt(L.head, {x: L.padX, y: 18, fill: INK}) : h('path', {d: `M${L.padX} 34h${r(L.S0.w * 0.5)}`, stroke: '#c9bea8', 'stroke-width': 10, 'stroke-linecap': 'round'}),
       L.clauseRows.map((row, j) => g({name: `crow${j}`},
-        h('rect', {x: r(L.padX - 8), y: r(row.y), width: r(S.w - L.padX * 2 + 16), height: r(row.h), rx: 7, fill: '#fffdf7', stroke: '#c7b78f', 'stroke-width': 2}),
+        h('rect', {x: r(L.padX - 8), y: r(row.y), width: r(L.S0.w - L.padX * 2 + 16), height: r(row.h), rx: 7, fill: '#fffdf7', stroke: '#c7b78f', 'stroke-width': 2}),
         h('rect', {x: r(L.padX - 8), y: r(row.y), width: 8, height: r(row.h), rx: 3, fill: th.accent3}),
-        show ? txt(row.fit, {x: L.padX + 10, y: row.y + 12, fill: INK}) : h('path', {d: `M${r(L.padX + 10)} ${r(row.y + row.h / 2)}h${r(Math.min(S.w - L.padX * 2 - 40, 260))}`, stroke: '#d5cdbd', 'stroke-width': 8, 'stroke-linecap': 'round'}),
+        show ? txt(row.fit, {x: L.padX + 10, y: row.y + 12, fill: INK}) : h('path', {d: `M${r(L.padX + 10)} ${r(row.y + row.h / 2)}h${r(Math.min(L.S0.w - L.padX * 2 - 40, 260))}`, stroke: '#d5cdbd', 'stroke-width': 8, 'stroke-linecap': 'round'}),
       )),
     );
-    const l2 = g(null, g({name: 'cont'}, contourNode(ctx, 'contour', L.cg, {drawn: true})));
+    const l2 = g(null, g({name: 'cont'}, contourNode(ctx, 'contour', L.cg2, {drawn: true})));
     const l3 = g({name: 'l3-text', opacity: 0}, L.tiles.map((t, i) => g({name: `mt${i}`},
       g({transform: T(t.x, t.y)},
         tileArt(ctx, {w: t.w, h: t.h, n: i + 1, fit: null, showText: show}),
@@ -205,8 +238,8 @@ const scene = {
           show ? txt(t.st, {x: tileTextX(t.h) + L.gR * 2 + 10, y: (t.h + t.lab.height - t.st.height + 8) / 2, fill: INK}) : null),
       ))));
     const rels = L.rel.map(q => g({name: `rel${q.i}`, opacity: 0},
-      h('path', {name: `rel${q.i}-h`, d: `M${r(q.a.x)} ${r(q.a.y)}L${r(q.b.x)} ${r(q.b.y)}`, stroke: '#ffffff', 'stroke-width': 9, 'stroke-linecap': 'round', 'stroke-dasharray': `${r(q.len)} ${r(q.len + 10)}`, 'stroke-dashoffset': r(q.len), opacity: 0.85}),
-      h('path', {name: `rel${q.i}-l`, d: `M${r(q.a.x)} ${r(q.a.y)}L${r(q.b.x)} ${r(q.b.y)}`, stroke: th.accent2, 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-dasharray': `${r(q.len)} ${r(q.len + 10)}`, 'stroke-dashoffset': r(q.len)}),
+      h('path', {name: `rel${q.i}-h`, d: q.d, fill: 'none', 'stroke-linejoin': 'round', stroke: '#ffffff', 'stroke-width': 9, 'stroke-linecap': 'round', 'stroke-dasharray': `${r(q.len)} ${r(q.len + 10)}`, 'stroke-dashoffset': r(q.len), opacity: 0.85}),
+      h('path', {name: `rel${q.i}-l`, d: q.d, fill: 'none', 'stroke-linejoin': 'round', stroke: th.accent2, 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-dasharray': `${r(q.len)} ${r(q.len + 10)}`, 'stroke-dashoffset': r(q.len)}),
       h('circle', {cx: r(q.a.x), cy: r(q.a.y), r: 6.5, fill: th.accent2, stroke: '#fff', 'stroke-width': 2}),
       h('circle', {name: `rel${q.i}-e`, cx: r(q.b.x), cy: r(q.b.y), r: 6.5, fill: th.accent2, stroke: '#fff', 'stroke-width': 2, opacity: 0}),
     ));
