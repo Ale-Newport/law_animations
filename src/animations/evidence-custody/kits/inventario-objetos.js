@@ -257,14 +257,16 @@ export function stationGeomH(o) {
   const tagW = Math.max(S * 0.95, tagH * 2.3, (o.tagTextW || 0) / 0.6);
   const chainL = Math.max(14, S * 0.16);
   const tagZone = chainL * 0.6 + tagH * 0.95;
-  const linkGap = Math.max(24, S * 0.24);
+  const linkGap = Math.max(24, S * 0.24) + (o.extraGap || 0);
   const clipTop = Math.max(18, S * 0.18);
+  // the bag lies in one row beside the rack (two rows from 4 objects on)
   let B = null, bagSlots = [];
+  const bcols = n <= 3 ? n : Math.ceil(n / 2);
   if (!o.noBag) {
-    const cols = 2, rowsN = Math.ceil(n / cols);
-    const innerW = cols * S * 0.86 + S * 0.12, innerH = (rowsN - 1) * S * 0.62 + S * 0.86;
+    const rowsN = Math.ceil(n / bcols);
+    const innerW = bcols * S * 0.86 + S * 0.12, innerH = (rowsN - 1) * S * 0.62 + S * 0.86;
     B = bagModel(innerW / 0.84, innerH / 0.534);
-    bagSlots = Array.from({length: n}, (_, i) => ({x: B.inner.x + S * 0.06 + S * 0.43 + (i % 2) * S * 0.86 + (Math.floor(i / 2) % 2 ? S * 0.1 : 0), y: B.inner.y + S * 0.43 + Math.floor(i / 2) * S * 0.62}));
+    bagSlots = Array.from({length: n}, (_, i) => ({x: B.inner.x + S * 0.06 + S * 0.43 + (i % bcols) * S * 0.86 + (Math.floor(i / bcols) % 2 ? S * 0.1 : 0), y: B.inner.y + S * 0.43 + Math.floor(i / bcols) * S * 0.62}));
   }
   const bagGap = Math.max(26, S * 0.3);
   const rackX = o.noBag ? 0 : B.w + bagGap, rackY = 0;
@@ -274,19 +276,21 @@ export function stationGeomH(o) {
   });
   const tags = cells.map(c => ({hole: {x: c.eyelet.x + chainL * 0.25, y: c.eyelet.y + chainL * 0.6 + tagH * 0.3}, angle: 4}));
   const badgeZone = Math.max(26, S * 0.24);
-  const sheetY = rackY + rackH + tagZone + linkGap;
-  const sheet = {x: rackX, y: sheetY, w: rackW, h: clipTop + badgeZone + (o.sheetTextH || 0) + 12};
-  const rows = cells.map(c => ({x: c.x - gC / 2, w: pitch, y: sheetY + clipTop + badgeZone * 0.5, top: sheetY + clipTop, h: sheet.h - clipTop, badge: {x: c.cx, y: sheetY + clipTop + badgeZone * 0.5}, textY: sheetY + clipTop + badgeZone + 4}));
-  const H0 = sheet.y + sheet.h;
-  const bagY = o.noBag ? 0 : Math.max(0, (H0 - B.h) / 2);
-  const W = rackX + rackW, H = Math.max(H0, o.noBag ? 0 : bagY + B.h);
-  return {orient: 'h', tagTextW: o.tagTextW || 0, n, S, C, gC, p, pitch, rackW, rackH, rackX, rackY, tagH, tagW, tagZone, linkGap, clipTop, cells, sheet, rows, W, H, B,
+  const W = rackX + rackW;
+  // the ledger strip runs under the whole station (bag included), so every entry slot is wider than a cell
+  const sheetY = Math.max(rackY + rackH + tagZone + linkGap, o.noBag ? 0 : B.h + bagGap * 0.6);
+  const sheet = {x: 0, y: sheetY, w: W, h: clipTop + badgeZone + (o.sheetTextH || 0) + 12};
+  const slotW = W / n;
+  const rows = cells.map((c, i) => ({x: i * slotW, w: slotW, y: sheetY + clipTop + badgeZone * 0.5, top: sheetY + clipTop, h: sheet.h - clipTop, badge: {x: i * slotW + slotW / 2, y: sheetY + clipTop + badgeZone * 0.5}, textY: sheetY + clipTop + badgeZone + 4}));
+  const H = sheet.y + sheet.h;
+  const bagY = 0;
+  return {orient: 'h', noClip: true, slotW, tagTextW: o.tagTextW || 0, n, S, C, gC, p, pitch, rackW, rackH, rackX, rackY, tagH, tagW, tagZone, linkGap, clipTop, cells, sheet, rows, W, H, B,
     bag: o.noBag ? null : {x: 0, y: bagY, w: B.w, h: B.h}, slots: bagSlots.map(sl => ({x: sl.x, y: bagY + sl.y})), tags, chainL, bagMode: 'left', tagFitsCell: tagW <= pitch * 0.96};
 }
 
 export function fitSheet(G, texts, F, title) {
   if (G.orient === 'h') {
-    const tw = G.pitch - 18;
+    const tw = G.slotW - 20;
     let ok = tw > F * 3.2 && G.tagFitsCell;
     const fits = texts.map(t => {
       if (!t) return null;
@@ -356,6 +360,11 @@ export function fitStation(box, o) {
         if (SF.ok && G.W <= box.w + 0.5) found = {G, SF};
       }
     }
+    if (found && o.orient === 'h' && box.h - found.G.H > 8) {
+      const G0 = found.G;
+      const G = stationGeom({n: o.n, S: G0.S, noBag: o.noBag, tagTextW: G0.tagTextW, orient: 'h', sheetTextH: found.SF.textH, extraGap: Math.min(G0.S * 1.2, (box.h - G0.H) * 0.8)});
+      if (G.H <= box.h + 0.5) found = {G, SF: found.SF};
+    }
     if (found && (!best || found.G.S > best.G.S)) best = found;
   }
   return best;
@@ -398,7 +407,7 @@ export function stationNodes(ctx, G, o) {
     h('path', {d: roundRectPath(X(sh.x) + 7, Y(sh.y) + 10, sh.w, sh.h, 12), fill: '#000', opacity: 0.16}),
     h('path', {d: roundRectPath(X(sh.x), Y(sh.y), sh.w, sh.h, 12), fill: BOARD, stroke: INK, 'stroke-width': 2.4}),
     h('path', {d: roundRectPath(X(sh.x) + 8, Y(sh.y) + G.clipTop * 0.55, sh.w - 16, sh.h - G.clipTop * 0.55 - 8, 6), fill: SHEET, stroke: shade(SHEET, -0.25), 'stroke-width': 1.5}),
-    h('path', {d: roundRectPath(X(sh.x + sh.w * 0.3), Y(sh.y) - 4, sh.w * 0.4, G.clipTop * 0.8, 8), fill: '#9ea5ab', stroke: INK, 'stroke-width': 2}),
+    G.noClip ? null : h('path', {d: roundRectPath(X(sh.x + sh.w * 0.3), Y(sh.y) - 4, sh.w * 0.4, G.clipTop * 0.8, 8), fill: '#9ea5ab', stroke: INK, 'stroke-width': 2}),
   ];
   const badgeR = N0badge(o, G);
   const rowNodes = [];
