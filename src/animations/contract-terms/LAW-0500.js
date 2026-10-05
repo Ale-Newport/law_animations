@@ -90,8 +90,8 @@ function geom(ctx, F, minF, place, stack = false, upx = 1) {
   const ctxBox = tall ? {x: pad, y: pad, w: D.w - pad * 2, h: D.h - pad * 2} : right ? {x: pad, y: pad, w: D.w * 0.53 - pad, h: D.h - pad * 2} : {x: pad, y: pad, w: D.w - pad * 2, h: D.h * 0.48 - pad};
   let lensArea = right ? {x: D.w * 0.56, y: pad, w: D.w * 0.44 - pad, h: D.h - pad * 2} : {x: pad, y: D.h * 0.5, w: D.w - pad * 2, h: D.h * 0.5 - pad};
   // the slip
-  const SF = tall || stack ? F * 1.2 : F;
-  const slipW = tall ? clamp(ctxBox.w * 0.46, 300, 600) : stack ? clamp(Math.max(SF * 9.6, ctxBox.w * 0.5), 240, 560) : clamp(Math.max(F * 9.6, ctxBox.w * 0.36), 240, Math.max(380, F * 10));
+  const SF = tall ? F * 1.2 : F;
+  const slipW = tall ? clamp(ctxBox.w * 0.46, 300, 600) : stack ? clamp(Math.max(F * 9.6, ctxBox.w * 0.45), 240, 520) : clamp(Math.max(F * 9.6, ctxBox.w * 0.36), 240, Math.max(380, F * 10));
   const sp = 18;
   const label = fitG(p.communication.label, {maxWidth: slipW - sp * 2, size: SF, minSize: minF, maxLines: stress ? 4 : 3, weight: 700});
   const gR = Math.min(13, F * 0.42);
@@ -117,7 +117,7 @@ function geom(ctx, F, minF, place, stack = false, upx = 1) {
   if (head.bad || title.fit.bad || rowFits.some(f => f.bad) || sheetW < 300) why.push('sheet-text');
   // the magnifier rests below the slip
   const R = clamp(F * 2.1, 44, 70), hl = R * 1.5;
-  const sheet = {x: ctxBox.x + 18, y: ctxBox.y + 24, w: sheetW, h: tall ? D.h * 0.5 - 40 : stack ? ctxBox.h - 44 - slipH - 70 : ctxBox.h - 44};
+  const sheet = {x: ctxBox.x + 18, y: ctxBox.y + 24, w: sheetW, h: tall ? D.h * (ctx.view.shape === 'square' ? 0.56 : 0.5) - 40 : stack ? ctxBox.h - 44 - slipH - 70 : ctxBox.h - 44};
   if (tall) lensArea = {x: pad, y: pad, w: D.w - pad * 2, h: sheet.y + sheet.h - pad};
   const rowH0 = rowFits.map(f => f.height + 28);
   const need = rowH0.reduce((a, b) => a + b, 0) + 14 * (rowFits.length - 1);
@@ -199,7 +199,7 @@ const scene = {
     const stress = isStress(p);
     const minF = (stress ? 16.6 : 20) / upx;
     const pl = p.detailGeometry.placement;
-    const places = pl === 'right' ? ['right'] : pl === 'bottom' ? ['bottom'] : ctx.view.shape === 'portrait' ? ['top', 'bottom'] : ctx.view.shape === 'square' ? ['right', 'bottom'] : ['right', 'bottom'];
+    const places = pl === 'right' ? ['right'] : pl === 'bottom' ? ['bottom'] : ctx.view.shape === 'portrait' ? ['top', 'bottom'] : ctx.view.shape === 'square' ? ['top', 'right', 'bottom'] : ['right', 'bottom'];
     let L = null;
     search: for (const fpx of stress ? [21, 19.5, 18, 17, 16.6] : [25, 23, 21.5]) for (const place of places) {
       for (const st of place === 'right' ? [false, true] : [false]) {
