@@ -82,3 +82,4 @@ jurisdictionTest(ID);
 stressLongerTest(ID);
 lineBreakTest(ID);
 noEnglishTest(ID);
+sweep(ID, 'DBGLAYOUT', `if (ctx.ratio !== '1:1') return; x.seek(x.durationMs); return JSON.stringify(x.getState({bounds: false}).semantic.layout);`, {tvs: ['all'], presets: ['long-labels-stress', 'contrast-or-alternative']});

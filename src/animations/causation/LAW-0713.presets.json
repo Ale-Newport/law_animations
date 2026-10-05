@@ -71,7 +71,7 @@
     },
     {
       "name": "long-labels-stress",
-      "description": "Stress: near-maximum lengths with four steps (two per lane), one account put forward, two loss items, two notes and a labelled connector.",
+      "description": "Stress: near-maximum lengths and counts — six steps (three per lane), one account put forward, two loss items, two notes and a labelled connector.",
       "params": {
         "origin": {
           "name": "Event Z (fictional, storeroom)"
@@ -86,9 +86,36 @@
             "label": "Step 2 (supplied): B walks along the parallel aisle with a list",
             "time": "Day 1 (morning)",
             "lane": "b"
+          },
+          {
+            "label": "Step 3 (supplied): A turns the trolley toward the end shelf",
+            "time": "Day 1 (later on)",
+            "lane": "a"
+          },
+          {
+            "label": "Step 4 (supplied): B stops beside the same end shelf to read",
+            "time": "Day 1 (later on)",
+            "lane": "b"
+          },
+          {
+            "label": "Step 5 (supplied): A steps back from the trolley near the shelf",
+            "time": "Day 1 (afternoon)",
+            "lane": "a"
+          },
+          {
+            "label": "Step 6 (supplied): B puts the list down on the lowest shelf",
+            "time": "Day 1 (afternoon)",
+            "lane": "b"
           }
         ],
-        "causalLinks": [],
+        "causalLinks": [
+          {
+            "lane": "a",
+            "kind": "relation",
+            "status": "proposed",
+            "label": "relation as described by the owner"
+          }
+        ],
         "alternatives": [
           {
             "label": "A different account of where B stood was put forward by A",
@@ -98,11 +125,14 @@
         "losses": [
           {
             "label": "Loss at the end shelf as described by the storeroom owner (no amount)"
+          },
+          {
+            "label": "A further damaged item was also mentioned by the owner"
           }
         ],
         "actorLabels": {
-          "a": "Lane A: the conduct of A exactly as the storeroom owner supplied it",
-          "b": "Lane B: the conduct of B exactly as the storeroom owner supplied it"
+          "a": "Lane A as the owner supplied it",
+          "b": "Lane B as the owner supplied it"
         },
         "objectLabels": {
           "record": "Record of the two conducts in the storeroom (as supplied)",
@@ -113,6 +143,10 @@
           {
             "target": "lanes",
             "text": "Both lanes are drawn exactly alike; nothing is weighed or shared out"
+          },
+          {
+            "target": "record",
+            "text": "The record lists the steps only in the order supplied"
           }
         ]
       }

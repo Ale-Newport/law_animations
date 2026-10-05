@@ -428,7 +428,11 @@ const scene = {
         // (text at >= 20 — the 19.5 px baseline floor — wins when it keeps >= 0.85 of the largest field)
         const lmax = Math.max(...ls.map(q => q.PH));
         const l20 = ls.filter(q => q.size >= 20 && q.PH >= 0.85 * lmax).sort((a, b) => b.PH - a.PH)[0];
-        const lp = l20 || ls.sort((a, b) => b.PH - a.PH || b.size - a.size)[0];
+        // (the physical scene keeps >= 0.205 of the frame's area when a list candidate allows it: largest text first)
+        const v1 = ctx.view, fs1 = Math.min(v1.content.w / ctx.design.w, v1.content.h / ctx.design.h);
+        const shareL = q => ((RW_ * q.PH + 20) * (RH_ * q.PH + 16) * fs1 * fs1) / (v1.width * v1.height);
+        const lA = ls.filter(q => shareL(q) >= 0.205).sort((a, b) => b.size - a.size || b.PH - a.PH)[0];
+        const lp = (l20 && shareL(l20) >= 0.205 ? l20 : lA) || l20 || ls.sort((a, b) => b.PH - a.PH || b.size - a.size)[0];
         if (!L || lp.PH > L.PH) { L = lp; pick = lp; }
       }
     }

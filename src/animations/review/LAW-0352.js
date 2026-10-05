@@ -124,9 +124,9 @@ function compose(ctx, P, R, F, v) {
   const inset = Math.max(14, F * 0.8);
   const box = {x: desk.x + inset, y: desk.y + inset, w: desk.w - inset * 2, h: desk.h - inset * 2};
   // tag: a card on a rail along the desk's lower edge (below the lane)
-  const TW = Math.min(box.w * (v.relax ? 0.6 : 0.42), Math.max(F * 9, box.w / (R.n + 1.45) * 1.25));
-  const fitB = showKey ? fitG(P.beforeValue, {maxWidth: TW - F * 1.2, size: F, minSize: F, maxLines: v.relax ? 4 : 3, weight: 600}) : null;
-  const fitA = showKey ? fitG(P.afterValue, {maxWidth: TW - F * 1.2, size: F, minSize: F, maxLines: v.relax ? 4 : 3, weight: 600}) : null;
+  const TW = v.relax ? box.w * 0.4 : Math.min(box.w * 0.42, Math.max(F * 9, box.w / (R.n + 1.45) * 1.25));
+  const fitB = showKey ? fitG(P.beforeValue, {maxWidth: TW - F * 1.2, size: F, minSize: F, maxLines: v.relax ? 5 : 3, weight: 600}) : null;
+  const fitA = showKey ? fitG(P.afterValue, {maxWidth: TW - F * 1.2, size: F, minSize: F, maxLines: v.relax ? 5 : 3, weight: 600}) : null;
   if ((fitB && !fitB.ok) || (fitA && !fitA.ok)) problems.push('tag-text');
   const tagH = Math.max(fitB ? fitB.height : F * 1.4, fitA ? fitA.height : F * 1.4) + F * 0.9;
   const B = boardModel(ctx, {orient: 'row', box, F, names: P.routes.stations, origin: P.routes.origin, showText: showKey && !v.pips, target: R.target, slipN: R.notes.length, handRoom: tagH + F * 1.4, maxFw: 260, plateLines: v.pl ?? 3, reviewW: v.rw, folderMin: v.fmin});
