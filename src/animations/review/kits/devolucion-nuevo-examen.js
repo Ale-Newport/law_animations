@@ -310,8 +310,8 @@ export function boardModel(ctx, o) {
     if (fw < F * 5) problems.push('folder-small');
     const clear0 = fh * 0.14 + doorT * 0.6 + F * 0.3;
     const S = Math.max(0, box.h - (fixed - doorT * 0.6 - F * 0.3) - clear0 - 2 * fh);
-    extra = Math.min(S * 0.3, fh * 0.45);
-    const clear = clear0 + Math.min(S * 0.25, fh * 0.6);
+    extra = Math.min(S * 0.4, fh * 0.8);
+    const clear = clear0 + Math.min(S * 0.4, fh * 1.0);
     const tw = fw + 2 * fm, th = fh + 2 * fm + extra;
     const used = plateH + g1 + th + clear + fh;
     const y0 = box.y + Math.min(F * 0.8, Math.max(0, box.h - used - handMin) * 0.12);
