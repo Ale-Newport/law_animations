@@ -358,3 +358,74 @@ noOneWordLines(ID);
 noLoneLetterSplit(ID);
 noTornNumberUnit(ID);
 esAportadoAgrees(ID);
+
+// Print-bar fallback (reviewer request, 2026-10-05): supplied texts too long for a printed card in the context (an
+// unbroken long word, a long event label in the stress content) — the context draws print bars, the panel lists the texts
+// once at rest, the lens prints the event card at its true size once fully open (old state, then the new one), the
+// context card never carries a legible print, the Δ and the hold work as usual, and every case renders a full scene.
+test(`${ID}: print-bar fallback — texts listed in the panel, printed only in the lens (rendered)`, async ({page}) => {
+  test.setTimeout(300000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const stress = P('long-labels-stress');
+  const cands = [
+    {name: 'long-word', params: {obligations: ['Obligation-with-an-extraordinarily-long-hyphenated-name 1', 'Obligation 2 (supplied text)', 'Obligation 3 (supplied text)']}},
+    // (with the stress content as well the long word fits no 1:1 panel — an unbroken 55-character token; the kit never
+    // breaks a word — so that pairing is checked at 16:9 and 9:16 only)
+    {name: 'stress-long-word', ratios: ['16:9', '9:16'], params: {...stress, obligations: ['Obligation-with-an-extraordinarily-long-hyphenated-name 1', ...stress.obligations.slice(1)]}},
+    {name: 'stress-long-event', params: {...stress, event: {label: 'Event 1, a long supplied event name used in this example ok'}}},
+  ];
+  const out = await page.evaluate(async ([id, cands, ratios, HELP]) => {
+    eval(HELP.replace(/const /g, 'globalThis.'));
+    const def = await window.__lib.load(id);
+    const fails = [], rows = [];
+    let bars = 0;
+    for (const c of cands) for (const [ratio, w, h] of ratios) {
+      if (c.ratios && !c.ratios.includes(ratio)) continue;
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: c.params});
+      await x.ready;
+      const svg = x.element;
+      const tag = `${c.name} ${ratio}`;
+      x.seek(0.1 * x.durationMs);
+      const s0 = x.getState({bounds: false}).semantic;
+      rows.push(`${tag}: cardText ${s0.cardText} layoutOk ${s0.layoutOk} text ${s0.textPx}px`);
+      if (!s0.layoutOk || !svg.querySelector('[data-node="st-ev-in-sheet"]')) { fails.push(`${tag}: no full scene (${s0.why})`); x.destroy(); el.remove(); continue; }
+      if (s0.cardText !== false) { x.destroy(); el.remove(); continue; }
+      bars++;
+      const label = c.params.event?.label ?? def.defaultParams.event.label;
+      const norm = t => t.replace(/[ ⁠]/g, ' ').replace(/\s+/g, ' ').trim();
+      const shown = sel => [...svg.querySelectorAll(sel)].filter(t => eff(svg, t) >= 0.5).map(t => norm(t.textContent)).join(' ');
+      // at rest: the context card shows bars only; the panel lists the event's and the obligations' texts
+      if (svg.querySelectorAll('[data-node="st-ev-in"] text').length) fails.push(`${tag}: the context card carries text`);
+      const rest = shown('[data-node="panel-rest"] text');
+      for (const word of norm(label).split(' ').slice(0, 3)) if (!rest.includes(word)) fails.push(`${tag}: panel at rest lacks "${word}"`);
+      // the lens, fully open: the true-size print with the old state, then the new state
+      for (const [u, st] of [[0.34, s0.before], [0.62, null]]) {
+        x.seek(u * x.durationMs);
+        const s = x.getState({bounds: false}).semantic;
+        const want = st ?? s.after;
+        if (s.lensOpen !== 1 || s.lensState !== want) fails.push(`${tag} u${u}: lens ${s.lensOpen} state ${s.lensState}`);
+        if (eff(svg, svg.querySelector('[data-node="lzs-evp"]')) < 0.99) fails.push(`${tag} u${u}: the lens print is not shown`);
+        const lens = shown('[data-node="lzs-evp"] text');
+        if (!lens.includes(norm(label).split(' ')[0])) fails.push(`${tag} u${u}: the lens print lacks the event label`);
+        const W0 = box(svg, 'lens-border');
+        for (const t of svg.querySelectorAll('[data-node="lzs-evp"] text')) { const b = t.getBoundingClientRect(); if (b.width && (b.left < W0.left - 0.5 || b.right > W0.right + 0.5 || b.top < W0.top - 0.5 || b.bottom > W0.bottom + 0.5)) fails.push(`${tag} u${u}: lens print cut by the rim`); }
+      }
+      // while the lens opens, its fine print is not yet shown (legible only through the open lens)
+      x.seek(0.24 * x.durationMs);
+      if (eff(svg, svg.querySelector('[data-node="lzs-evp"]')) > 0.01) fails.push(`${tag}: the lens print shows before the lens is open`);
+      // the hold: the Δ, the context in its new state
+      x.seek(x.durationMs);
+      const s1 = x.getState({bounds: false}).semantic;
+      if (!s1.markerVisible || s1.contextState !== s1.after || !s1.layoutOk) fails.push(`${tag}: hold marker ${s1.markerVisible} state ${s1.contextState}`);
+      x.destroy();
+      el.remove();
+    }
+    return {fails, rows, bars};
+  }, [ID, cands, RATIOS, HELP]);
+  console.log(out.rows.join('\n'));
+  expect(out.bars).toBeGreaterThan(3);
+  expect(out.fails).toEqual([]);
+});

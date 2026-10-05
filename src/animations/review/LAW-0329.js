@@ -49,7 +49,7 @@ const DOCK = {landscape: 1.4, square: 1.25, portrait: 1.9};
 const DEPTH = {landscape: 1, square: 1, portrait: 1.4};
 const GAP = {landscape: 84, square: 70, portrait: 56};
 /** Item 18, four stations (long-labels-stress): the sheets' size factor with the compact stations (letters beside the trays at 1:1; sign low and narrower gaps at 9:16). */
-const SIDE_DOCK = {square: 1.05, portrait: 1.47};
+const SIDE_DOCK = {square: 1.3, portrait: 1.47, landscape: 1.15};
 
 const STRINGS = {
   en: {requested: 'The petition passed to the prior-examination tray (as supplied)', supplied: 'The petition passed to the prior-examination tray; the supplied decision lies beside it (as supplied)'},
@@ -133,20 +133,65 @@ const scene = {
     // are shorter and the trays and sheets larger; at 9:16 — bound by its width — the sign and calendar stand low on the
     // left wall and the gaps are narrower, so the row's width goes to larger trays and sheets)
     const four = R.n >= 4;
-    const fourOpts = names => (four && ctx.view.shape === 'square' && names === 'letters' ? {letterSide: true, docK: DOCK.square * SIDE_DOCK.square}
-      : four && ctx.view.shape === 'portrait' ? {signLow: true, docK: DOCK.portrait * SIDE_DOCK.portrait, gap: 44} : {});
+    const fourOpts = names => (four && ctx.view.shape === 'square' && names === 'letters' ? {letterSide: true, docK: DOCK.square * SIDE_DOCK.square, gap: 46}
+      : four && ctx.view.shape === 'portrait' ? {signLow: true, docK: DOCK.portrait * SIDE_DOCK.portrait, gap: 44}
+      : four && ctx.view.shape === 'landscape' ? {docK: DOCK.landscape * SIDE_DOCK.landscape, gap: 52} : {});
     const docKFor = names => fourOpts(names).docK ?? docK0;
     const gapFor = names => fourOpts(names).gap ?? GAP[ctx.view.shape];
     const sideFor = names => { const q = fourOpts(names); return {letterSide: q.letterSide, signLow: q.signLow}; };
+    // (item 18, four stations at 16:9 — fix-review-03: the long station names fill the legend beside the room, so the
+    // two-column panel may be narrower — its rows wrap onto more lines — and the gaps between the stations tighter, so
+    // the row, its trays and sheets take the width)
+    const fourWide = four && ctx.view.shape === 'landscape';
+    // (the rendered share of the frame width of the petition and of a tray in a composition — 1080p px per frame width)
+    const frameW = ctx.view.width * 1080 / Math.min(ctx.view.width, ctx.view.height);
+    const shares = C => ({doc: C.G.DW * C.k * px / frameW, tray: C.G.TW * C.k * px / frameW});
+    // (the acting objects' floors, with a small margin over the tests': a composition below them loses to any that keeps
+    // them, whatever its text size)
+    const tall = ctx.view.shape === 'portrait';
+    const shareMin = four ? {doc: tall ? 0.082 : 0.0365, tray: tall ? 0.184 : ctx.view.shape === 'square' ? 0.082 : 0.093}
+      : {doc: tall ? 0.092 : 0.047, tray: tall ? 0.184 : 0.093};
+    const shareScore = C => { if (C.dominated) return -1e6; const q = shares(C); return (q.doc < shareMin.doc || q.tray < shareMin.tray ? -700 : 0) + (ctx.view.shape === 'square' ? 1500 * q.doc : 0); };
+    // (cold create stays within its budget — fix-review-03: every composition is computed once per layout (the searches
+    // with and without the stress people floor try the same boxes, sizes and scales); and a larger room scale is only
+    // composed where scale 1 at the same box and text size has problems — a larger room at the same text size only makes
+    // the people, stations and sheets smaller, so it never scores better —, and never where scale 1 is already too small
+    // ('room-tiny': a larger scale is smaller still). usedScale: the scale the composition was made at.)
+    const memo = new Map();
+    const composed = [];
+    const keyOf = (box, F, scale, names) => `${names}|${r(box.x, 2)}|${r(box.y, 2)}|${r(box.w, 2)}|${r(box.h, 2)}|${r(F, 4)}|${scale}`;
+    const composeAt = (box, F, scale, names) => {
+      const key = keyOf(box, F, scale, names);
+      if (memo.has(key)) return memo.get(key);
+      if (scale > 1) {
+        const c1 = memo.get(keyOf(box, F, 1, names));
+        if (c1 && (!c1.problems.length || c1.problems.includes('room-tiny'))) { memo.set(key, c1); return c1; }
+      }
+      // (a box no larger than one that already composed without problems, at a text size no larger, can only give a
+      // smaller room and smaller text: it is not composed — it could never score better. It stands in as composable, so
+      // the size search still climbs to the larger text sizes, but scores far below every real composition)
+      const dom = composed.find(q => !q.tiny && q.names === names && q.box.w >= box.w - 0.01 && q.box.h >= box.h - 0.01 && q.F >= F - 1e-6);
+      if (dom) { const Cd = {...dom.C, problems: [], dominated: true, usedScale: scale}; memo.set(key, Cd); return Cd; }
+      // (and a box no larger than one already too small for its room ('room-tiny'), at a text size no smaller, is too
+      // small as well)
+      const tiny = composed.find(q => q.tiny && q.names === names && q.box.w >= box.w - 0.01 && q.box.h >= box.h - 0.01 && q.F <= F + 1e-6);
+      if (tiny) { const Ct = {...tiny.C, problems: [...tiny.C.problems], usedScale: scale}; memo.set(key, Ct); return Ct; }
+      const C0 = composeSa(ctx, P, R, box, F, {scale, text: showKey, names, numbers: showKey, courier: true, sign: true, untangle: {clearPx: ctx.view.shape === 'square' ? 16.5 : 18}, docK: docKFor(names), gap: gapFor(names), ...sideFor(names), tabPad: 9, depthK: DEPTH[ctx.view.shape], crop: 1.12, align: {x: 0.5, y: box.y + box.h < ctx.design.h - 1 ? 1 : 0.5}});
+      C0.usedScale = scale;
+      memo.set(key, C0);
+      if (!C0.problems.length || C0.problems.includes('room-tiny')) composed.push({names, box, F, C: C0, tiny: C0.problems.includes('room-tiny')});
+      return C0;
+    };
     // standing floors (hearings measure the FIGURE): >= 60 px off 1:1; >= 55 px at 1:1 (composed with a margin) — the
     // stress floor of 45 px only when nothing composes at 1:1
     const search = (minPersonPx, names) => searchSa(ctx, rowsFor(names), {
       sizes: [22.5, 21.6, 20.7, 19.8, 19.5, 18.9, 18, 17.1, 16.4], minF: 16.4, minPersonPx,
-      colFracs: [0.25, 0.3, 0.35, 0.39], bandCols: [2, 3, 4], sidePanels: [[0.44, 2], [0.5, 2]], bandMax: ctx.view.shape === 'square' ? 0.6 : 0.45,
+      colFracs: [0.25, 0.3, 0.35, 0.39], bandCols: [2, 3, 4], sidePanels: fourWide ? [[0.3, 2], [0.34, 2], [0.38, 2], [0.44, 2]] : [[0.44, 2], [0.5, 2]], bandMax: ctx.view.shape === 'square' ? 0.6 : 0.45,
       // (four stations at 1:1: a narrower gap between the room and the panel under it — item 18)
       ...(four && ctx.view.shape === 'square' && names === 'letters' ? {bandGap: 16} : {}),
       scales: [1, 1.12, 1.25],
-      compose: (box, F, scale) => composeSa(ctx, P, R, box, F, {scale, text: showKey, names, numbers: showKey, courier: true, sign: true, untangle: {clearPx: ctx.view.shape === 'square' ? 16.5 : 18}, docK: docKFor(names), gap: gapFor(names), ...sideFor(names), depthK: DEPTH[ctx.view.shape], crop: 1.12, align: {x: 0.5, y: box.y + box.h < ctx.design.h - 1 ? 1 : 0.5}}),
+      scoreOf: shareScore,
+      compose: (box, F, scale) => composeAt(box, F, scale, names),
     });
     const floor = ctx.view.shape === 'square' ? 55.5 : 61;
     const good = b => !b.problems.length && b.F * px >= 19.5 - 1e-6;
@@ -156,7 +201,7 @@ const scene = {
     let names = 'room';
     if (showKey) {
       const b2 = search(floor, 'letters');
-      const sc = b => (good(b) ? 1000 : 0) - 100 * b.problems.length + b.personPx * 2 + b.F * px * 3;
+      const sc = b => (good(b) ? 1000 : 0) - 100 * b.problems.length + b.personPx * 2 + b.F * px * 3 + shareScore(b.C);
       if (sc(b2) > sc(best)) { best = b2; names = 'letters'; }
     }
     // (long-labels-stress keeps >= 45 px at every ratio — STRESS PEOPLE FLOOR OFF 1:1, 2026-10-05; the tests hold the
@@ -165,7 +210,7 @@ const scene = {
     // (the chosen composition only: spare height deepens the route, spare width spreads the stations)
     const {F, lay} = best;
     const box = best.roomBox;
-    const C = composeSa(ctx, P, R, box, F, {scale: best.scale, text: showKey, names, numbers: showKey, courier: true, sign: true, untangle: {clearPx: ctx.view.shape === 'square' ? 16.5 : 18}, docK: docKFor(names), gap: gapFor(names), ...sideFor(names), depthK: DEPTH[ctx.view.shape], crop: 1.12, deepen: ctx.view.shape === 'portrait' ? 4.2 : R.n <= 2 ? 3.5 : 2.2, spread: R.n <= 2 ? 4 : 2.4, align: {x: 0.5, y: box.y + box.h < ctx.design.h - 1 ? 1 : 0.5}});
+    const C = composeSa(ctx, P, R, box, F, {scale: best.C.usedScale ?? best.scale, text: showKey, names, numbers: showKey, courier: true, sign: true, untangle: {clearPx: ctx.view.shape === 'square' ? 16.5 : 18}, docK: docKFor(names), gap: gapFor(names), ...sideFor(names), tabPad: 9, depthK: DEPTH[ctx.view.shape], crop: 1.12, deepen: ctx.view.shape === 'portrait' ? 4.2 : R.n <= 2 ? 3.5 : 2.2, spread: R.n <= 2 ? 4 : 2.4, align: {x: 0.5, y: box.y + box.h < ctx.design.h - 1 ? 1 : 0.5}});
     if (C.problems.length) best.problems.push(...C.problems.filter(q => !best.problems.includes(q)));
     const G = C.G;
     const room = saRoom(ctx, G, {prefix: 'rm', R, Ft: G.Ft, numbers: showKey, dec: true, ghost: false});
@@ -218,6 +263,14 @@ const scene = {
       dec: {op: decK, s: lerp(1.12, 1, decK), pin: {b: L.side === 'b' ? pinK : 0}},
     });
     Object.assign(nodes, rf.nodes);
+    // (fix-review-03: while the sheet passes near a step disc the WHOLE disc fades with its number — never an empty white
+    // circle; the room hides only the number, so its opacity is moved to the disc's group)
+    G.discs.forEach((_, j) => {
+      const n = nodes[`rm-step${j}-n`];
+      if (!n) return;
+      nodes[`rm-step${j}`] = {opacity: n.opacity};
+      nodes[`rm-step${j}-n`] = {opacity: 1};
+    });
     nodes.rings = {opacity: r(done ? seg(u, ...W.notes) : 0, 3)};
     if (L.lay) for (const mm of L.lay.rows) {
       if (mm.name.startsWith('note')) nodes[mm.name] = {opacity: r(done ? seg(u, ...W.notes) : 0, 3)};

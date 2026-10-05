@@ -1,0 +1,1167 @@
+{
+  "animationId": "LAW-0334",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0334",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "decisions.title"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: start: the frame lies on the decision; no relation drawn yet @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "frame": {
+            "x": 295.8,
+            "y": 343.42
+          },
+          "tracer": null,
+          "traceK": 0,
+          "visits": [
+            {
+              "id": "decision",
+              "t": 0
+            },
+            {
+              "id": "frame",
+              "t": 0.294
+            },
+            {
+              "id": "questionA",
+              "t": 0.529
+            },
+            {
+              "id": "frame",
+              "t": 0.765
+            },
+            {
+              "id": "questionB",
+              "t": 1
+            }
+          ],
+          "reached": [
+            "decision"
+          ],
+          "connectors": [
+            {
+              "from": "decision",
+              "to": "frame",
+              "kind": "relation",
+              "a": {
+                "x": 493.8,
+                "y": 346.61
+              },
+              "b": {
+                "x": 746.47,
+                "y": 344.9
+              },
+              "drawn": 0,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionA",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 296.7
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 258.56
+              },
+              "drawn": 0,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionB",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 390.14
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 428.28
+              },
+              "drawn": 0,
+              "arrow": false
+            }
+          ],
+          "boxes": {
+            "decision": {
+              "x": 0,
+              "y": 41.23,
+              "w": 485.8,
+              "h": 614.14
+            },
+            "frame": {
+              "x": 754.47,
+              "y": 234.57,
+              "w": 421.4,
+              "h": 217.7
+            },
+            "questionA": {
+              "x": 1370.42,
+              "y": 120.32,
+              "w": 320,
+              "h": 204.7
+            },
+            "questionB": {
+              "x": 1370.42,
+              "y": 361.82,
+              "w": 320,
+              "h": 204.7
+            }
+          },
+          "focus": "frame",
+          "focusScale": 1,
+          "copies": 0,
+          "states": 0,
+          "from": 1,
+          "to": 2,
+          "inside": [
+            true,
+            false
+          ],
+          "sections": [
+            1,
+            3
+          ],
+          "exploded": 0,
+          "problems": [],
+          "textPx": 23,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the frame is separated before any relation is drawn @0.18",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "frame": {
+            "x": 965.17,
+            "y": 343.42
+          },
+          "tracer": null,
+          "traceK": 0,
+          "visits": [
+            {
+              "id": "decision",
+              "t": 0
+            },
+            {
+              "id": "frame",
+              "t": 0.294
+            },
+            {
+              "id": "questionA",
+              "t": 0.529
+            },
+            {
+              "id": "frame",
+              "t": 0.765
+            },
+            {
+              "id": "questionB",
+              "t": 1
+            }
+          ],
+          "reached": [
+            "decision"
+          ],
+          "connectors": [
+            {
+              "from": "decision",
+              "to": "frame",
+              "kind": "relation",
+              "a": {
+                "x": 493.8,
+                "y": 346.61
+              },
+              "b": {
+                "x": 746.47,
+                "y": 344.9
+              },
+              "drawn": 0,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionA",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 296.7
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 258.56
+              },
+              "drawn": 0,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionB",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 390.14
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 428.28
+              },
+              "drawn": 0,
+              "arrow": false
+            }
+          ],
+          "boxes": {
+            "decision": {
+              "x": 0,
+              "y": 41.23,
+              "w": 485.8,
+              "h": 614.14
+            },
+            "frame": {
+              "x": 754.47,
+              "y": 234.57,
+              "w": 421.4,
+              "h": 217.7
+            },
+            "questionA": {
+              "x": 1370.42,
+              "y": 120.32,
+              "w": 320,
+              "h": 204.7
+            },
+            "questionB": {
+              "x": 1370.42,
+              "y": 361.82,
+              "w": 320,
+              "h": 204.7
+            }
+          },
+          "focus": "frame",
+          "focusScale": 1,
+          "copies": 0,
+          "states": 0,
+          "from": 1,
+          "to": 2,
+          "inside": [
+            true,
+            false
+          ],
+          "sections": [
+            1,
+            3
+          ],
+          "exploded": 1,
+          "problems": [],
+          "textPx": 23,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: all supplied relations drawn before the tracer starts @0.43",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "frame": {
+            "x": 965.17,
+            "y": 343.42
+          },
+          "tracer": null,
+          "traceK": 0,
+          "visits": [
+            {
+              "id": "decision",
+              "t": 0
+            },
+            {
+              "id": "frame",
+              "t": 0.294
+            },
+            {
+              "id": "questionA",
+              "t": 0.529
+            },
+            {
+              "id": "frame",
+              "t": 0.765
+            },
+            {
+              "id": "questionB",
+              "t": 1
+            }
+          ],
+          "reached": [
+            "decision"
+          ],
+          "connectors": [
+            {
+              "from": "decision",
+              "to": "frame",
+              "kind": "relation",
+              "a": {
+                "x": 493.8,
+                "y": 346.61
+              },
+              "b": {
+                "x": 746.47,
+                "y": 344.9
+              },
+              "drawn": 1,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionA",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 296.7
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 258.56
+              },
+              "drawn": 1,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionB",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 390.14
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 428.28
+              },
+              "drawn": 1,
+              "arrow": false
+            }
+          ],
+          "boxes": {
+            "decision": {
+              "x": 0,
+              "y": 41.23,
+              "w": 485.8,
+              "h": 614.14
+            },
+            "frame": {
+              "x": 754.47,
+              "y": 234.57,
+              "w": 421.4,
+              "h": 217.7
+            },
+            "questionA": {
+              "x": 1370.42,
+              "y": 120.32,
+              "w": 320,
+              "h": 204.7
+            },
+            "questionB": {
+              "x": 1370.42,
+              "y": 361.82,
+              "w": 320,
+              "h": 204.7
+            }
+          },
+          "focus": "frame",
+          "focusScale": 1,
+          "copies": 0,
+          "states": 0,
+          "from": 1,
+          "to": 2,
+          "inside": [
+            true,
+            false
+          ],
+          "sections": [
+            1,
+            3
+          ],
+          "exploded": 1,
+          "problems": [],
+          "textPx": 23,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the tracer follows the traversal order from its first component @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "frame": {
+            "x": 965.17,
+            "y": 343.42
+          },
+          "tracer": {
+            "x": 1475.36,
+            "y": 234.44
+          },
+          "traceK": 0.552,
+          "visits": [
+            {
+              "id": "decision",
+              "t": 0
+            },
+            {
+              "id": "frame",
+              "t": 0.294
+            },
+            {
+              "id": "questionA",
+              "t": 0.529
+            },
+            {
+              "id": "frame",
+              "t": 0.765
+            },
+            {
+              "id": "questionB",
+              "t": 1
+            }
+          ],
+          "reached": [
+            "decision",
+            "frame",
+            "questionA"
+          ],
+          "connectors": [
+            {
+              "from": "decision",
+              "to": "frame",
+              "kind": "relation",
+              "a": {
+                "x": 493.8,
+                "y": 346.61
+              },
+              "b": {
+                "x": 746.47,
+                "y": 344.9
+              },
+              "drawn": 1,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionA",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 296.7
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 258.56
+              },
+              "drawn": 1,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionB",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 390.14
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 428.28
+              },
+              "drawn": 1,
+              "arrow": false
+            }
+          ],
+          "boxes": {
+            "decision": {
+              "x": 0,
+              "y": 41.23,
+              "w": 485.8,
+              "h": 614.14
+            },
+            "frame": {
+              "x": 754.47,
+              "y": 234.57,
+              "w": 421.4,
+              "h": 217.7
+            },
+            "questionA": {
+              "x": 1370.42,
+              "y": 120.32,
+              "w": 320,
+              "h": 204.7
+            },
+            "questionB": {
+              "x": 1370.42,
+              "y": 361.82,
+              "w": 320,
+              "h": 204.7
+            }
+          },
+          "focus": "frame",
+          "focusScale": 1,
+          "copies": 1,
+          "states": 0,
+          "from": 1,
+          "to": 2,
+          "inside": [
+            true,
+            false
+          ],
+          "sections": [
+            1,
+            3
+          ],
+          "exploded": 1,
+          "problems": [],
+          "textPx": 23,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: copies in the glass, card states shown, plain relations without arrowheads, composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "frame": {
+            "x": 965.17,
+            "y": 343.42
+          },
+          "tracer": null,
+          "traceK": 1,
+          "visits": [
+            {
+              "id": "decision",
+              "t": 0
+            },
+            {
+              "id": "frame",
+              "t": 0.294
+            },
+            {
+              "id": "questionA",
+              "t": 0.529
+            },
+            {
+              "id": "frame",
+              "t": 0.765
+            },
+            {
+              "id": "questionB",
+              "t": 1
+            }
+          ],
+          "reached": [
+            "decision",
+            "frame",
+            "questionA",
+            "frame",
+            "questionB"
+          ],
+          "connectors": [
+            {
+              "from": "decision",
+              "to": "frame",
+              "kind": "relation",
+              "a": {
+                "x": 493.8,
+                "y": 346.61
+              },
+              "b": {
+                "x": 746.47,
+                "y": 344.9
+              },
+              "drawn": 1,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionA",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 296.7
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 258.56
+              },
+              "drawn": 1,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionB",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 390.14
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 428.28
+              },
+              "drawn": 1,
+              "arrow": false
+            }
+          ],
+          "boxes": {
+            "decision": {
+              "x": 0,
+              "y": 41.23,
+              "w": 485.8,
+              "h": 614.14
+            },
+            "frame": {
+              "x": 754.47,
+              "y": 234.57,
+              "w": 421.4,
+              "h": 217.7
+            },
+            "questionA": {
+              "x": 1370.42,
+              "y": 120.32,
+              "w": 320,
+              "h": 204.7
+            },
+            "questionB": {
+              "x": 1370.42,
+              "y": 361.82,
+              "w": 320,
+              "h": 204.7
+            }
+          },
+          "focus": "frame",
+          "focusScale": 1,
+          "copies": 1,
+          "states": 1,
+          "from": 1,
+          "to": 2,
+          "inside": [
+            true,
+            false
+          ],
+          "sections": [
+            1,
+            3
+          ],
+          "exploded": 1,
+          "problems": [],
+          "textPx": 23,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: a supplied causal link is the only way to get a directed style @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "frame": {
+            "x": 965.17,
+            "y": 343.42
+          },
+          "tracer": null,
+          "traceK": 1,
+          "visits": [
+            {
+              "id": "decision",
+              "t": 0
+            },
+            {
+              "id": "frame",
+              "t": 0.295
+            },
+            {
+              "id": "questionA",
+              "t": 0.53
+            },
+            {
+              "id": "frame",
+              "t": 0.765
+            },
+            {
+              "id": "questionB",
+              "t": 1
+            }
+          ],
+          "reached": [
+            "decision",
+            "frame",
+            "questionA",
+            "frame",
+            "questionB"
+          ],
+          "connectors": [
+            {
+              "from": "decision",
+              "to": "frame",
+              "kind": "causal",
+              "a": {
+                "x": 493.8,
+                "y": 346.61
+              },
+              "b": {
+                "x": 740.47,
+                "y": 344.94
+              },
+              "drawn": 1,
+              "arrow": true
+            }
+          ],
+          "boxes": {
+            "decision": {
+              "x": 0,
+              "y": 41.23,
+              "w": 485.8,
+              "h": 614.14
+            },
+            "frame": {
+              "x": 754.47,
+              "y": 234.57,
+              "w": 421.4,
+              "h": 217.7
+            },
+            "questionA": {
+              "x": 1370.42,
+              "y": 120.32,
+              "w": 320,
+              "h": 204.7
+            },
+            "questionB": {
+              "x": 1370.42,
+              "y": 361.82,
+              "w": 320,
+              "h": 204.7
+            }
+          },
+          "focus": "frame",
+          "focusScale": 1,
+          "copies": 1,
+          "states": 1,
+          "from": 1,
+          "to": 2,
+          "inside": [
+            true,
+            false
+          ],
+          "sections": [
+            1,
+            3
+          ],
+          "exploded": 1,
+          "problems": [],
+          "textPx": 23,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the supplied focus component is used @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "frame": {
+            "x": 965.17,
+            "y": 343.42
+          },
+          "tracer": {
+            "x": 478.21,
+            "y": 346.71
+          },
+          "traceK": 0.095,
+          "visits": [
+            {
+              "id": "decision",
+              "t": 0
+            },
+            {
+              "id": "frame",
+              "t": 0.294
+            },
+            {
+              "id": "questionA",
+              "t": 0.529
+            },
+            {
+              "id": "frame",
+              "t": 0.765
+            },
+            {
+              "id": "questionB",
+              "t": 1
+            }
+          ],
+          "reached": [
+            "decision"
+          ],
+          "connectors": [
+            {
+              "from": "decision",
+              "to": "frame",
+              "kind": "relation",
+              "a": {
+                "x": 493.8,
+                "y": 346.61
+              },
+              "b": {
+                "x": 746.47,
+                "y": 344.9
+              },
+              "drawn": 1,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionA",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 296.7
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 258.56
+              },
+              "drawn": 1,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionB",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 390.14
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 428.28
+              },
+              "drawn": 1,
+              "arrow": false
+            }
+          ],
+          "boxes": {
+            "decision": {
+              "x": 0,
+              "y": 41.23,
+              "w": 485.8,
+              "h": 614.14
+            },
+            "frame": {
+              "x": 754.47,
+              "y": 234.57,
+              "w": 421.4,
+              "h": 217.7
+            },
+            "questionA": {
+              "x": 1370.42,
+              "y": 120.32,
+              "w": 320,
+              "h": 204.7
+            },
+            "questionB": {
+              "x": 1370.42,
+              "y": 361.82,
+              "w": 320,
+              "h": 204.7
+            }
+          },
+          "focus": "frame",
+          "focusScale": 1,
+          "copies": 0,
+          "states": 0,
+          "from": 1,
+          "to": 2,
+          "inside": [
+            true,
+            false
+          ],
+          "sections": [
+            1,
+            3
+          ],
+          "exploded": 1,
+          "problems": [],
+          "textPx": 23,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the separation beat @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "frame": {
+            "x": 559.04,
+            "y": 343.42
+          },
+          "tracer": null,
+          "traceK": 0,
+          "visits": [
+            {
+              "id": "decision",
+              "t": 0
+            },
+            {
+              "id": "frame",
+              "t": 0.294
+            },
+            {
+              "id": "questionA",
+              "t": 0.529
+            },
+            {
+              "id": "frame",
+              "t": 0.765
+            },
+            {
+              "id": "questionB",
+              "t": 1
+            }
+          ],
+          "reached": [
+            "decision"
+          ],
+          "connectors": [
+            {
+              "from": "decision",
+              "to": "frame",
+              "kind": "relation",
+              "a": {
+                "x": 493.8,
+                "y": 346.61
+              },
+              "b": {
+                "x": 746.47,
+                "y": 344.9
+              },
+              "drawn": 0,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionA",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 296.7
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 258.56
+              },
+              "drawn": 0,
+              "arrow": false
+            },
+            {
+              "from": "frame",
+              "to": "questionB",
+              "kind": "relation",
+              "a": {
+                "x": 1183.87,
+                "y": 390.14
+              },
+              "b": {
+                "x": 1362.42,
+                "y": 428.28
+              },
+              "drawn": 0,
+              "arrow": false
+            }
+          ],
+          "boxes": {
+            "decision": {
+              "x": 0,
+              "y": 41.23,
+              "w": 485.8,
+              "h": 614.14
+            },
+            "frame": {
+              "x": 754.47,
+              "y": 234.57,
+              "w": 421.4,
+              "h": 217.7
+            },
+            "questionA": {
+              "x": 1370.42,
+              "y": 120.32,
+              "w": 320,
+              "h": 204.7
+            },
+            "questionB": {
+              "x": 1370.42,
+              "y": 361.82,
+              "w": 320,
+              "h": 204.7
+            }
+          },
+          "focus": "frame",
+          "focusScale": 1,
+          "copies": 0,
+          "states": 0,
+          "from": 1,
+          "to": 2,
+          "inside": [
+            true,
+            false
+          ],
+          "sections": [
+            1,
+            3
+          ],
+          "exploded": 0.393,
+          "problems": [],
+          "textPx": 23,
+          "arrangement": "row"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

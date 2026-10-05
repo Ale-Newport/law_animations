@@ -27,7 +27,7 @@ import {deskWindow} from '../../primitives/desk.js';
 import {actorLook} from '../../primitives/people-style.js';
 import {
   lrFields, LR_EN, LR_ES, localisedLr, resolveLr, sheetModel, sheetNode, frameExtent, frameNode, frameProps,
-  arrowNode, calendarNode, panelLayout, panelNode, ringRect, noteColors, R2,
+  arrowNode, calendarNode, placeCalendar, panelLayout, panelNode, ringRect, noteColors, R2,
 } from './kits/limites-de-revision.js';
 
 const ID = 'LAW-0333';
@@ -143,9 +143,9 @@ function compose(ctx, P, R, F, opts) {
   });
   const cal = {w: Math.min(AW - 14, F * 4.6), h: Math.min(AW - 14, F * 4.6) * 0.82};
   cal.x = sx - gapA - AW + (AW - cal.w) / 2 - 4;
-  cal.y = sy + Math.max(4, (M.head - cal.h) / 2);
   // the calendar must not touch an arrow
-  const calClear = arrows.every(a => a.tip.y - a.hgt / 2 > cal.y + cal.h + 6);
+  placeCalendar(cal, arrows, {top: sy, bottom: sy + M.h, head: M.head});
+  const calClear = cal.ok;
   // arms: shoulders below the desk's lower edge
   const fx = sx + E.x;
   const deskB = desk.y + desk.h;

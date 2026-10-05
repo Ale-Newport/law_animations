@@ -1,0 +1,63 @@
+{
+  "animationId": "LAW-0338",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. An exploded front elevation of a fictional two-compartment file box: the original file (with a placeholder decision sheet whose content is never shown) and the proposed additional pieces lift out of their own compartments on either side of a neutral divider plate that decides nothing. Only the supplied relationships are drawn; plain relations have no arrowhead and causal styles appear only when supplied. The two supplied states (● on bundle A, ◆ on bundle B) have equal weight. No admissibility rule, assessment, time limit, outcome or jurisdiction is drawn. Brief fields: decisions, grounds, routes (the captions of the two bundles and the divider), outcomes, elements (the index card and the calendar; an entry may also override a bundle's caption), relationships, focusElement, relationLabels and traversalOrder are editable.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Five plain relations: each bundle to the divider, the index card to each bundle and to the calendar; the tracer goes B → divider → A → index while the divider grows.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a supplied sequence link (index card → bundle B, 'sequence as configured') and a communication between the index card and the calendar; two new pieces; the focus is the index card and the tracer starts at the calendar.",
+      "params": {
+        "pieces": ["Letter K-2 (fictional)", "Photo set K-3 (fictional)"],
+        "relationships": [
+          {"from": "original", "to": "divider", "kind": "relation"},
+          {"from": "additional", "to": "divider", "kind": "relation"},
+          {"from": "index", "to": "additional", "kind": "sequence"},
+          {"from": "index", "to": "calendar", "kind": "communication"}
+        ],
+        "focusElement": "index",
+        "traversalOrder": ["calendar", "index", "additional", "divider", "original"],
+        "outcomes": {"a": "Original file left as it was, as supplied here", "b": "Proposed pieces held apart in B, as supplied here"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: four new pieces, every element label and relation caption long, every relationship kind supplied, a long traversal order.",
+      "params": {
+        "decisions": {"title": "Decision under review in the fictional example file 2041-B (content not shown here)"},
+        "grounds": "Reason noted by the person who proposes the additional pieces: “documents that appeared later” (as supplied)",
+        "routes": {
+          "original": "A · Original file of the fictional example, kept in its own compartment (material original)",
+          "additional": "B · Proposed additional material of the example, in a compartment of its own (fictional)",
+          "divider": "Plain divider plate standing between the two compartments of this example (neutral; it decides nothing)"
+        },
+        "pieces": ["N1 · Letter of the example (fictional)", "N2 · Photo set (fictional)", "N3 · Spreadsheet print (fictional)", "N4 · Note of a call (fictional)"],
+        "elements": [
+          {"id": "index", "label": "Index card listing every piece of this example in two columns (no assessment of any piece)"},
+          {"id": "calendar", "label": "Calendar of the example file hanging above the box (no date marked; a fixture only)"}
+        ],
+        "relationships": [
+          {"from": "original", "to": "divider", "kind": "relation"},
+          {"from": "additional", "to": "divider", "kind": "relation"},
+          {"from": "index", "to": "original", "kind": "relation"},
+          {"from": "index", "to": "additional", "kind": "sequence"},
+          {"from": "index", "to": "calendar", "kind": "communication"},
+          {"from": "calendar", "to": "additional", "kind": "causal"}
+        ],
+        "focusElement": "additional",
+        "relationLabels": {"relation": "Relation between two parts of the box (as supplied; no arrowhead)", "communication": "Communication between two parts (as supplied in this example)", "sequence": "Sequence as configured by the author (illustrative only)", "causal": "Causal link drawn only because this example supplies it"},
+        "traversalOrder": ["calendar", "index", "additional", "divider", "original", "index"],
+        "outcomes": {"a": "Original file of the example unchanged in compartment A (as supplied)", "b": "The four new pieces of the example kept in compartment B (as supplied)"},
+        "labels": {"heading": "Document review in the fictional example file (as supplied)", "pieces": "New pieces proposed in this example", "key": "As supplied · illustrative only · no conclusion drawn", "tracer": "Tracer marker: follows the order supplied by the author", "focus": "The focus element grows while the tracer is on it, then returns to its size"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Ejemplo base en español: las cinco relaciones simples y el recorrido B → separador → A → índice.",
+      "params": {"locale": "es"}
+    }
+  ]
+}

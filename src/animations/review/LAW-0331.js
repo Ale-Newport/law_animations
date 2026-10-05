@@ -445,6 +445,14 @@ const scene = {
     const fa = L.roomA.frame({doc: aA.doc, person: aA.person, reach: aA.reach, covers: aA.covers, route: {solid: 1}, sign: {a: sign}, pin: {a: pinK}, dec: {op: 0}});
     const fb = L.roomB.frame({doc: aB.doc, person: aB.person, reach: aB.reach, covers: aB.covers, route: {solid: 1}, sign: {b: sign}, dec: {op: stIn, s: lerp(1.12, 1, stIn), pin: {b: pinK}}});
     Object.assign(nodes, fa.nodes, fb.nodes);
+    // (review-03 fix: while a sheet passes near a step disc the WHOLE disc fades with its number — never an empty white
+    // circle; the room hides only the number, so its opacity is moved to the disc's group)
+    for (const pf of ['ra', 'rb']) G.discs.forEach((_, j) => {
+      const n = nodes[`${pf}-step${j}-n`];
+      if (!n) return;
+      nodes[`${pf}-step${j}`] = {opacity: n.opacity};
+      nodes[`${pf}-step${j}-n`] = {opacity: 1};
+    });
     // (the inset mirrors each room's decision slot: A's stays empty, B's receives the sheet with the room's own timing)
     if (L.inset) for (const [pf, op] of [['ra', 0], ['rb', stIn]]) {
       nodes[`${pf}-ins-dec`] = {opacity: r(op, 3)};

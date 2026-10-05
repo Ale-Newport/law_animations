@@ -1,0 +1,467 @@
+{
+  "id": "LAW-0335",
+  "slug": "review-04-contrast",
+  "title": "Review limits — two identical desks; only the section the question's arrow points at differs, then the same frame comes down on both",
+  "titleEs": "Límites de revisión — Comparación de dos supuestos",
+  "category": "review",
+  "categoryName": "Impugnaciones y revisión",
+  "motif": "Límites de revisión",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two complete desk scenes of equal size (side by side on wide frames, stacked on tall ones) with the same placeholder decision, the same arrow tag and the same review frame. Only one fact differs: the arrow slides to a different supplied section in A and in B. The same frame then comes down from the top edge on both and is laid over the supplied sections with its neutral filter glass; in A the arrow's tip ends inside the frame, in B outside. A highlight guide joins the two arrows (\"only this differs\"); a neutral note says there is no winner and no outcome. Jurisdiction unspecified; no doctrine on review scope.",
+  "tags": [
+    "review",
+    "review limits",
+    "contrast",
+    "paired scenes",
+    "frame",
+    "filter",
+    "arrow",
+    "scope as supplied",
+    "changed fact",
+    "neutral"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/review/kits/limites-de-revision.js",
+    "src/primitives/desk.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "decisions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Name of the decision printed on the sheet (fictional, as supplied)"
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 56,
+              "description": "Section tag (placeholder)"
+            },
+            "minItems": 3,
+            "maxItems": 6,
+            "description": "The decision's numbered sections (apartados), top to bottom (editable placeholder tags, as supplied) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "title",
+          "sections"
+        ],
+        "description": "The decision under review (fictional; placeholder text only)"
+      },
+      "grounds": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "side": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "a (question A, ●) or b (question B, ◆)"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "Text of the question (as supplied)"
+            },
+            "section": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5,
+              "description": "Index in `decisions.sections` the arrow points at"
+            }
+          },
+          "required": [
+            "side",
+            "text",
+            "section"
+          ],
+          "description": "Question"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "The two questions supplied by the author (● A, ◆ B — equal weight). Each arrow points at the section it refers to (as supplied); nothing is decided about it (array replaces the previous value)"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "from": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5,
+            "description": "First enclosed section (index)"
+          },
+          "to": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5,
+            "description": "Last enclosed section (index)"
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "description": "The review frame: the first and last section it encloses (indices in `decisions.sections`, as supplied). The frame shows the supplied scope only"
+      },
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "inside": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for an arrow whose section lies inside the frame"
+          },
+          "outside": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for an arrow whose section lies outside the frame"
+          }
+        },
+        "required": [
+          "inside",
+          "outside"
+        ],
+        "description": "Captions of where an arrow's tip lies (descriptive geometry only, as supplied)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "frame": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the review frame (keep \"as supplied\")"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "frame",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Optional one-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Optional one-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B (here: the section the question points at; A uses grounds[a].section, B uses grounds[b].section)"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label on the guide joining the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [
+          "guide",
+          "neutral"
+        ],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "decisions": {
+      "title": "Decision under review (fictional)",
+      "sections": [
+        "Section 1 (supplied text)",
+        "Section 2 (supplied text)",
+        "Section 3 (supplied text)",
+        "Section 4 (supplied text)",
+        "Section 5 (supplied text)"
+      ]
+    },
+    "grounds": [
+      {
+        "side": "a",
+        "text": "The question points at Section 2 here (as supplied)",
+        "section": 1
+      },
+      {
+        "side": "b",
+        "text": "The question points at Section 4 here (as supplied)",
+        "section": 3
+      }
+    ],
+    "routes": {
+      "from": 1,
+      "to": 2
+    },
+    "outcomes": {
+      "inside": "Its section lies inside the frame (as supplied)",
+      "outside": "Its section lies outside the frame (as supplied)"
+    },
+    "labels": {
+      "frame": "Review frame: the sections it encloses are supplied",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "scenarioA": {
+      "label": "Question inside the frame",
+      "caption": ""
+    },
+    "scenarioB": {
+      "label": "Question outside the frame",
+      "caption": ""
+    },
+    "changedFact": "Only the section the arrow points at differs",
+    "sharedFacts": [
+      "Same decision and sections",
+      "Same frame over Sections 2–3"
+    ],
+    "comparisonLabels": {
+      "guide": "only this differs",
+      "neutral": "Two supplied situations side by side: no winner, no outcome"
+    }
+  }
+}

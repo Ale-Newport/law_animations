@@ -519,8 +519,10 @@ export function makePlan(G, start, specs, win, o = {}) {
     const s = {...s0};
     if (s.type === 'walk') {
       s.from = {...pose};
-      // (turning counts as the arc the held sheet sweeps: a held sheet never outruns the walk)
-      s.d = Math.hypot(s.to.x - pose.x, s.to.y - pose.y) + (angDiff(pose.deg, s.to.deg) * Math.PI / 180) * G.HOLD;
+      // (turning counts as the arc swept by what turns with the participant: a held sheet (radius HOLD) never outruns
+      // the walk; empty-handed, only the hands swing round (radius ~ PERSON.half))
+      const held = steps.some(q => q.type === 'lift') && !steps.slice().reverse().find(q => q.type === 'lift' || q.type === 'put')?.to;
+      s.d = Math.hypot(s.to.x - pose.x, s.to.y - pose.y) + (angDiff(pose.deg, s.to.deg) * Math.PI / 180) * (held ? G.HOLD : PERSON.half);
       dist += s.d;
       pose = {...s.to};
     } else if (s.type === 'close') {
@@ -558,6 +560,18 @@ export function makePlan(G, start, specs, win, o = {}) {
   return {steps, end: st, start: {...start}, win, kind: o.kind || 'b'};
 }
 
+/**
+ * Walk progress: a smooth start, an even pace and a smooth stop (peak speed 1.25× the average — an eased sine would
+ * peak at 1.57×).
+ */
+export function walkEase(q) {
+  const a = 0.2;
+  const vmax = 1 / (1 - a);
+  if (q <= a) return (vmax * q * q) / (2 * a);
+  if (q >= 1 - a) { const z = 1 - q; return 1 - (vmax * z * z) / (2 * a); }
+  return (vmax * a) / 2 + vmax * (q - a);
+}
+
 /** Pose interpolation (deg linear, shortest of the supplied values). */
 function lerpPose(a, b, q) {
   return {x: lerp(a.x, b.x, q), y: lerp(a.y, b.y, q), deg: lerp(a.deg, b.deg, q)};
@@ -590,21 +604,22 @@ export function evalPlan(G, plan, u) {
   let cA = st.cA, cB = st.cB, walk = 0, travelled = st.travelled, phase = 'rest';
   if (s) {
     if (s.type === 'walk') {
-      const qe = ease.inOutSine(q);
+      const qe = walkEase(q);
       pose = lerpPose(s.from, s.to, qe);
       walk = s.d > 2 ? Math.sin(Math.PI * q) : 0;
       travelled += s.d * qe;
       phase = carried >= 0 ? 'carrying' : 'walking';
-    } else if (s.type === 'reach') { k = e(q); mode = s.mode; cover = s.cover || null; phase = 'reaching'; }
+    } else if (s.type === 'reach') { k = ease.inOutSine(q); mode = s.mode; cover = s.cover || null; phase = 'reaching'; }
     else if (s.type === 'lift') { if (q > 0) { carried = s.piece; loc[s.piece] = {kind: 'hand'}; lift = e(q); } phase = 'lifting'; }
     else if (s.type === 'put') { lift = 1 - e(q); phase = 'laying'; if (q >= 1) { loc[carried] = {...s.to}; carried = -1; } }
-    else if (s.type === 'release') { k = 1 - e(q); phase = 'releasing'; }
+    else if (s.type === 'release') { k = 1 - ease.inOutSine(q); phase = 'releasing'; }
     else if (s.type === 'close') {
-      const sx = lerp(-1, 1, e(q));
+      const qe = walkEase(q);
+      const sx = lerp(-1, 1, qe);
       if (s.cover === 'A') cA = sx; else cB = sx;
       pose = G.coverPose(s.F, sx);
       walk = Math.sin(Math.PI * q) * 0.7;
-      travelled += s.d * e(q);
+      travelled += s.d * qe;
       phase = 'closing';
     } else phase = 'waiting';
   } else if (u >= (ss.length ? ss[ss.length - 1].u1 : 0)) phase = 'done';
@@ -655,7 +670,8 @@ export function composeRd(ctx, R, box, o = {}) {
   else H = Math.min(H * crop, (W + 2 * t) / ar - 2 * t);
   const G = rdGeometry(R, {...o, W, H});
   const E = G.extents;
-  const k = Math.max(1e-6, Math.min(box.w / E.w, box.h / E.h));
+  // (maxK: an upper bound on the scale — a very large room would hurry its walks on screen, item 19)
+  const k = Math.max(1e-6, Math.min(box.w / E.w, box.h / E.h, o.maxK ?? Infinity));
   const al = o.align || {x: 0.5, y: 0.5};
   const ox = box.x + (box.w - E.w * k) * al.x - E.x * k;
   const oy = box.y + (box.h - E.h * k) * al.y - E.y * k;
@@ -665,12 +681,95 @@ export function composeRd(ctx, R, box, o = {}) {
 }
 
 /* ------------------------------------------------------------------ */
+/* Mechanism art (front elevation of a two-compartment file box)       */
+/* ------------------------------------------------------------------ */
+
+/**
+ * A bundle of standing sheets seen face-on (front elevation), in box B = {x, y, w, h}: a lane-coloured backing board
+ * and `n` sheets staggered in front of it; kind 'a' puts the decision sheet (grey header band, plain seal outline) in
+ * front, kind 'b' gives every sheet a lane-coloured strip. Nothing is written on them.
+ */
+export function bundleArt(ctx, B, kind, n = 3) {
+  const c = laneColors(ctx);
+  const col = kind === 'a' ? c.a : c.b, tint = kind === 'a' ? c.aSoft : c.bSoft;
+  const parts = [
+    h('path', {d: roundRectPath(B.x + 6, B.y + 8, B.w, B.h, 8), fill: 'rgba(31,35,40,0.12)'}),
+    h('path', {d: roundRectPath(B.x, B.y, B.w, B.h, 8), fill: tint, stroke: INK, 'stroke-width': 2.4}),
+    h('rect', {x: r(B.x), y: r(B.y), width: r(B.w * 0.08), height: r(B.h), rx: 4, fill: col}),
+  ];
+  const m = Math.max(1, Math.min(4, n));
+  const sw = B.w * 0.62, sh = B.h * 0.8;
+  for (let i = 0; i < m; i++) {
+    const last = i === m - 1;
+    const x = B.x + B.w * 0.16 + (i * B.w * 0.14) / Math.max(1, m - 1) * (m > 1 ? 1 : 0);
+    const y = B.y + B.h * 0.14 - i * 6 + (m - 1) * 6;
+    const cx = x + sw / 2, cy = y + sh / 2;
+    if (kind === 'a' && last) parts.push(g({transform: T(cx, cy)}, decisionArt(ctx, sw, sh, {noShadow: true})));
+    else parts.push(g({transform: T(cx, cy)}, sheetArt(ctx, sw, sh, {noShadow: true}), kind === 'b' ? stripeArt(sw, sh, col, undefined, 1) : null));
+  }
+  return parts;
+}
+
+/** The divider plate seen face-on: a tall grey plate with plain slots (it decides nothing). */
+export function plateArt(D) {
+  const slots = [];
+  for (let i = 1; i <= 4; i++) slots.push(`M${r(D.x + D.w * 0.25)} ${r(D.y + (D.h * i) / 5)}H${r(D.x + D.w * 0.75)}`);
+  return [
+    h('rect', {x: r(D.x + 5), y: r(D.y + 7), width: r(D.w), height: r(D.h), rx: 5, fill: 'rgba(31,35,40,0.14)'}),
+    h('rect', {x: r(D.x), y: r(D.y), width: r(D.w), height: r(D.h), rx: 5, fill: '#b9c1c9', stroke: INK, 'stroke-width': 2.4}),
+    h('path', {d: slots.join(''), stroke: '#6f7a85', 'stroke-width': 2.6, 'stroke-linecap': 'round'}),
+  ];
+}
+
+/** The open file box seen face-on: back wall (drawn first), and the front panel (drawn over the bundles). */
+export function fileBoxArt(ctx, Bx, slotX) {
+  const c = laneColors(ctx);
+  const lip = 26;
+  const back = [
+    h('path', {d: roundRectPath(Bx.x + 8, Bx.y + 10, Bx.w, Bx.h, 10), fill: ctx.theme.shadow}),
+    h('path', {d: roundRectPath(Bx.x, Bx.y - lip, Bx.w, Bx.h + lip, 10), fill: '#9c7a57', stroke: INK, 'stroke-width': 2.6}),
+    h('path', {d: `M${r(slotX)} ${r(Bx.y - lip + 6)}V${r(Bx.y + 4)}`, stroke: '#6b5139', 'stroke-width': 8, 'stroke-linecap': 'round'}),
+  ];
+  const front = [
+    h('path', {d: roundRectPath(Bx.x, Bx.y, Bx.w, Bx.h, 10), fill: '#caa075', stroke: INK, 'stroke-width': 2.6}),
+    h('path', {d: `M${r(slotX)} ${r(Bx.y + 8)}V${r(Bx.y + Bx.h - 8)}`, stroke: '#8e6441', 'stroke-width': 3}),
+    h('rect', {x: r(Bx.x + Bx.w * 0.12), y: r(Bx.y + Bx.h * 0.32), width: r(Bx.w * 0.22), height: r(Bx.h * 0.36), rx: 5, fill: '#ffffff', stroke: INK, 'stroke-width': 1.8}),
+    h('rect', {x: r(Bx.x + Bx.w * 0.12), y: r(Bx.y + Bx.h * 0.32), width: r(Bx.w * 0.05), height: r(Bx.h * 0.36), rx: 2, fill: c.a}),
+    h('rect', {x: r(Bx.x + Bx.w * 0.66), y: r(Bx.y + Bx.h * 0.32), width: r(Bx.w * 0.22), height: r(Bx.h * 0.36), rx: 5, fill: '#ffffff', stroke: INK, 'stroke-width': 1.8}),
+    h('rect', {x: r(Bx.x + Bx.w * 0.66), y: r(Bx.y + Bx.h * 0.32), width: r(Bx.w * 0.05), height: r(Bx.h * 0.36), rx: 2, fill: c.b}),
+  ];
+  return {back, front};
+}
+
+/** The index card of the pieces (front view): a card with two plain columns of rows — blue strips (A) and amber strips (B); no text. */
+export function indexCardArt(ctx, Cd, nA = 3, nB = 3) {
+  const c = laneColors(ctx);
+  const rows = [];
+  const colW = (Cd.w - 36) / 2;
+  const rh = Math.min(16, (Cd.h - 44) / Math.max(nA, nB, 1) - 6);
+  for (const [k, n0, x0] of [['a', nA, Cd.x + 12], ['b', nB, Cd.x + 24 + colW]]) {
+    for (let i = 0; i < n0; i++) {
+      const y = Cd.y + 34 + i * (rh + 6);
+      rows.push(h('rect', {x: r(x0), y: r(y), width: 7, height: r(rh), rx: 2, fill: c[k]}));
+      rows.push(h('path', {d: `M${r(x0 + 13)} ${r(y + rh / 2)}H${r(x0 + colW - 4 - (i % 2) * colW * 0.25)}`, stroke: '#b9c1c9', 'stroke-width': 3, 'stroke-linecap': 'round'}));
+    }
+  }
+  return [
+    h('path', {d: roundRectPath(Cd.x + 5, Cd.y + 7, Cd.w, Cd.h, 8), fill: ctx.theme.shadow}),
+    h('path', {d: roundRectPath(Cd.x, Cd.y, Cd.w, Cd.h, 8), fill: '#ffffff', stroke: INK, 'stroke-width': 2.4}),
+    h('rect', {x: r(Cd.x), y: r(Cd.y), width: r(Cd.w), height: 22, rx: 8, fill: '#9aa4ae', stroke: INK, 'stroke-width': 1.8}),
+    h('path', {d: `M${r(Cd.x + Cd.w / 2)} ${r(Cd.y + 28)}V${r(Cd.y + Cd.h - 10)}`, stroke: '#d0d6dc', 'stroke-width': 2}),
+    rows,
+  ];
+}
+
+/* ------------------------------------------------------------------ */
 /* Panel                                                               */
 /* ------------------------------------------------------------------ */
 
 /** Panel row node: this motif's glyphs (folders A/B, decision sheet, piece, divider, tray, calendar, sign), else the shared rows. */
 export function rdRowNode(ctx, m, o = {}) {
-  const MINE = ['folderA', 'folderB', 'decision', 'piece', 'pieceA', 'divider', 'tray', 'calendar', 'sign', 'grounds', 'kind-relation', 'kind-communication', 'kind-sequence', 'kind-causal', 'delta'];
+  const MINE = ['folderA', 'folderB', 'decision', 'piece', 'pieceA', 'divider', 'tray', 'calendar', 'sign', 'grounds', 'index', 'tracer', 'kind-relation', 'kind-communication', 'kind-sequence', 'kind-causal', 'delta'];
   if (m.kind === 'legend' && MINE.includes(m.glyphKind)) {
     const th = ctx.theme;
     const c = laneColors(ctx);
@@ -713,6 +812,16 @@ export function rdRowNode(ctx, m, o = {}) {
       glyph = g({transform: T(gx, gy)},
         h('path', {d: `M${r(-s * 0.36)} ${r(-s * 0.26)}H${r(s * 0.36)}V${r(s * 0.16)}H${r(-s * 0.06)}L${r(-s * 0.22)} ${r(s * 0.32)}V${r(s * 0.16)}H${r(-s * 0.36)}Z`, fill: '#ffffff', stroke: INK, 'stroke-width': 1.8, 'stroke-linejoin': 'round'}),
         h('path', {d: `M${r(-s * 0.24)} ${r(-s * 0.1)}H${r(s * 0.24)}M${r(-s * 0.24)} ${r(s * 0.02)}H${r(s * 0.1)}`, stroke: '#9aa4ae', 'stroke-width': 1.8, 'stroke-linecap': 'round'}));
+    } else if (k === 'index') {
+      glyph = g({transform: T(gx, gy)},
+        h('rect', {x: r(-s * 0.36), y: r(-s * 0.32), width: r(s * 0.72), height: r(s * 0.64), rx: 3, fill: '#ffffff', stroke: INK, 'stroke-width': 1.8}),
+        h('rect', {x: r(-s * 0.36), y: r(-s * 0.32), width: r(s * 0.72), height: r(s * 0.14), rx: 3, fill: '#9aa4ae'}),
+        h('rect', {x: r(-s * 0.28), y: r(-s * 0.08), width: r(s * 0.08), height: r(s * 0.1), fill: c.a}),
+        h('rect', {x: r(-s * 0.28), y: r(s * 0.1), width: r(s * 0.08), height: r(s * 0.1), fill: c.a}),
+        h('rect', {x: r(s * 0.06), y: r(-s * 0.08), width: r(s * 0.08), height: r(s * 0.1), fill: c.b}),
+        h('rect', {x: r(s * 0.06), y: r(s * 0.1), width: r(s * 0.08), height: r(s * 0.1), fill: c.b}));
+    } else if (k === 'tracer') {
+      glyph = g({transform: T(gx, gy)}, h('circle', {r: r(s * 0.3), fill: th.accent2, opacity: 0.22}), h('circle', {r: r(s * 0.16), fill: th.accent2, stroke: th.paper, 'stroke-width': 2.4}));
     } else if (k === 'delta') {
       glyph = g({transform: T(gx, gy)}, changedMarker(ctx, {radius: s * 0.3}));
     } else {

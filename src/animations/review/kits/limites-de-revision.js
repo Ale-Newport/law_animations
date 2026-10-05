@@ -274,6 +274,7 @@ export function legendIcon(ctx, kind, s, o = {}) {
       h('circle', {cx: r(kind === 'inside' ? -k * 0.35 : k * 0.62), cy: 0, r: r(R), fill: INK}),
     );
   }
+  if (kind === 'pip') return g(null, indexPip(o.index ?? 0, s * 0.46));
   if (kind === 'ring') return h('circle', {cx: 0, cy: 0, r: r(k * 0.7), fill: 'none', stroke: o.color ?? th.accent3, 'stroke-width': 4});
   if (kind === 'sheet') return h('path', {d: roundRectPath(-k * 0.7, -k, k * 1.4, s, 3), fill: th.paper, stroke: INK, 'stroke-width': 2});
   return null;
@@ -306,23 +307,24 @@ export function sheetModel(ctx, o) {
   if (title) ok.push(title.ok);
   const titleH = title ? title.height : F * 0.75;
   const railT = o.railT ?? Math.max(12, F * 0.62);
-  const rowGap = railT + Math.max(8, F * 0.5);
+  const rowGap = railT + Math.max(o.compact ? 5 : 8, F * (o.compact ? 0.3 : 0.5));
   const head = pad * 0.85 + titleH + F * 0.55 + rowGap;
   const pipR = F * 0.62;
-  const textW = inner - pipR * 2 - F * 0.5;
+  const pips = o.pips !== false;
+  const textW = pips ? inner - pipR * 2 - F * 0.5 : inner;
   const fits = o.sections.map(s => (o.showText ? fitG(s, {maxWidth: textW, size: F, minSize: minF, maxLines: o.rowLines ?? 2, weight: 600}) : null));
   fits.forEach(f => f && ok.push(f.ok));
   const textH = Math.max(F, ...fits.map(f => (f ? f.height : F * 0.62)));
   const bars = o.bars ?? 2;
   const barH = Math.max(7, F * 0.3);
-  const rowPad = F * 0.5;
+  const rowPad = F * (o.compact ? 0.3 : 0.5);
   const rowH = rowPad * 2 + textH + (bars ? F * 0.42 + bars * barH + (bars - 1) * barH * 0.9 : 0);
   const rows = o.sections.map((s, i) => {
     const y = head + i * (rowH + rowGap);
     return {i, y, h: rowH, cy: y + rowH / 2, fit: fits[i]};
   });
   const hh = head + o.sections.length * rowH + (o.sections.length - 1) * rowGap + pad * 0.9;
-  return {w, h: hh, pad, inner, title, titleH, head, rows, rowH, rowGap, railT, textW, textH, pipR, bars, barH, rowPad, F, ok: ok.every(Boolean)};
+  return {w, h: hh, pad, inner, title, titleH, head, rows, rowH, rowGap, railT, pips, textW, textH, pipR, bars, barH, rowPad, F, ok: ok.every(Boolean)};
 }
 
 /**
@@ -382,7 +384,7 @@ export function rowParts(ctx, M, i, o) {
   }
   // section pip: a neutral disc with i+1 notches (an index mark, not a verdict)
   const px = M.w - M.pad - M.pipR, py = row.y + M.rowPad + M.pipR;
-  rp.push(g({transform: T(px, py)}, indexPip(i, M.pipR)));
+  if (M.pips !== false) rp.push(g({transform: T(px, py)}, indexPip(i, M.pipR)));
   return rp;
 }
 
@@ -551,7 +553,7 @@ export function panelNode(ctx, PL) {
       parts.push(h('line', {x1: 0, x2: r(PL.w), y1: r(row.y - F * 0.3), y2: r(row.y - F * 0.3), stroke: th.fgSoft, 'stroke-width': 1.5, opacity: 0.6}));
       parts.push(textAt(row.fit, {x: 0, y: row.y, fill: th.fg, italic: true}));
     } else {
-      if (row.icon) parts.push(g({transform: T(F * 0.7, row.y + Math.min(row.fit.height, F * 1.2) / 2)}, legendIcon(ctx, row.icon, F * 1.15, {color: row.color})));
+      if (row.icon) parts.push(g({transform: T(F * 0.7, row.y + Math.min(row.fit.height, F * 1.2) / 2)}, legendIcon(ctx, row.icon, F * 1.15, {color: row.color, index: row.index})));
       parts.push(textAt(row.fit, {x: row.iconW, y: row.y, fill: th.fg}));
       if (row.sub) {
         const sy = row.y + row.fit.height + F * 0.3;
@@ -576,3 +578,31 @@ export function overlaps(a, b, pad = 0) {
 
 /** Round a point for semantics. */
 export const R2 = p => ({x: r(p.x), y: r(p.y)});
+
+/**
+ * Place the desk calendar in the arrow column (beside the sheet) where no arrow lies: beside the title, at the foot of
+ * the column, or in a free gap between the arrows (shrinking a little if needed). Mutates and returns `cal` with `ok`.
+ * @param {{x:number,y:number,w:number,h:number}} cal
+ * @param {Array<{tip:{y:number}, hgt:number}>} arrows
+ * @param {{top:number, bottom:number, head:number}} o  column extent (design y) and the sheet's header height
+ */
+export function placeCalendar(cal, arrows, o) {
+  const clear = (y, hh) => arrows.every(a => a.tip.y - a.hgt / 2 > y + hh + 6 || a.tip.y + a.hgt / 2 < y - 6);
+  const w0 = cal.w, h0 = cal.h;
+  for (const k of [1, 0.85, 0.72]) {
+    const hh = h0 * k;
+    const ys = [o.top + Math.max(4, (o.head - hh) / 2), o.bottom - hh - 6];
+    const sorted = arrows.map(a => [a.tip.y - a.hgt / 2, a.tip.y + a.hgt / 2]).sort((p, q) => p[0] - q[0]);
+    for (let i = 0; i + 1 < sorted.length; i++) ys.push((sorted[i][1] + sorted[i + 1][0]) / 2 - hh / 2);
+    for (const y of ys) {
+      if (y < o.top || y + hh > o.bottom) continue;
+      if (clear(y, hh)) {
+        cal.x += (w0 - w0 * k) / 2;
+        cal.w = w0 * k; cal.h = hh; cal.y = y; cal.ok = true;
+        return cal;
+      }
+    }
+  }
+  cal.ok = false;
+  return cal;
+}

@@ -88,28 +88,30 @@ export const LOCALES = {en: EN, es: ES};
 
 /** The participant's plan (template units). */
 function storyPlan(G, n, kept) {
+  // (the participant starts by folder A, beside the edge of its open cover)
+  const start = G.coverPose(G.folderO, -1);
   const specs = [
-    {type: 'walk', to: G.coverPose(G.folderO, -1)},
-    {type: 'reach', dur: 0.02, mode: 'cover', cover: 'A'},
-    {type: 'close', dur: 0.06, cover: 'A'},
+    {type: 'wait', dur: 0.004},
+    {type: 'reach', dur: 0.016, mode: 'cover', cover: 'A'},
+    {type: 'close', dur: 0.05, cover: 'A'},
     {type: 'release', dur: 0.014},
   ];
   for (let i = 0; i < n; i++) {
     specs.push({type: 'walk', to: G.poseFor(G.trayAt(i))});
-    specs.push({type: 'reach', dur: 0.018, mode: 'sheet'});
-    specs.push({type: 'lift', dur: 0.012, piece: i, from: {kind: 'tray', i}});
+    specs.push({type: 'reach', dur: 0.017, mode: 'sheet'});
+    specs.push({type: 'lift', dur: 0.007, piece: i, from: {kind: 'tray', i}});
     specs.push({type: 'walk', to: G.poseFor(G.slotN(i))});
-    specs.push({type: 'put', dur: 0.012, to: {kind: 'slotN', i}});
-    specs.push({type: 'release', dur: 0.014});
+    specs.push({type: 'put', dur: 0.007, to: {kind: 'slotN', i}});
+    specs.push({type: 'release', dur: 0.017});
   }
   if (kept) {
     specs.push({type: 'walk', to: G.coverPose(G.folderN, -1)});
-    specs.push({type: 'reach', dur: 0.018, mode: 'cover', cover: 'B'});
-    specs.push({type: 'close', dur: 0.05, cover: 'B'});
+    specs.push({type: 'reach', dur: 0.014, mode: 'cover', cover: 'B'});
+    specs.push({type: 'close', dur: 0.046, cover: 'B'});
     specs.push({type: 'release', dur: 0.014});
   }
-  specs.push({type: 'walk', to: {...G.rest}});
-  return makePlan(G, G.rest, specs, W.plan, {kind: 'b'});
+  // (the participant then stands where it let go: in the lane, clear of the counters)
+  return makePlan(G, start, specs, W.plan, {kind: 'b'});
 }
 
 const scene = {
@@ -143,24 +145,36 @@ const scene = {
     if (showKey) rows.push({kind: 'state', text: P.stateCaption ? P.stateCaption : ctx.t[side === 'a' ? 'kept' : 'open'], name: 'state-tag'});
     if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
     // (a tall box may grow the room's floor further: the room keeps most of a portrait frame)
-    const optsFor = arr => ({arr, docK: DOCK[arr], person: true, sign: true, n: R.n, crop: ctx.view.shape === 'portrait' ? 1.7 : 1.2});
-    const search = (arr, minPersonPx) => searchSa(ctx, rows, {
-      sizes: [22.5, 21.6, 20.7, 19.8, 19.5, 18.9, 18, 17.1, 16.4], minF: 16.4, minPersonPx,
-      colFracs: [0.25, 0.3, 0.35, 0.39], bandCols: [2, 3], sidePanels: [[0.44, 2], [0.5, 2]], bandMax: ctx.view.shape === 'square' ? 0.62 : 0.5,
+    const optsFor = arr => ({arr, docK: DOCK[arr], person: true, sign: true, n: R.n, crop: ctx.view.shape === 'square' ? 1.2 : ctx.view.shape === 'portrait' ? 2.6 : 1.7, maxK: 150 / (100 * px)});
+    const search = (arr, minPersonPx, sizes = [22.5, 21.6, 20.7, 19.8, 19.5, 18.9, 18, 17.1, 16.4]) => searchSa(ctx, rows, {
+      sizes, minF: 16.4, minPersonPx,
+      colFracs: [0.25, 0.3, 0.35, 0.39], bandCols: [2, 3], sidePanels: [[0.38, 2], [0.44, 2], [0.5, 2]], bandMax: ctx.view.shape === 'square' ? 0.62 : 0.5,
       scales: [1], targetPx: 1e9,
       // (item 18: the room — folders, pieces, participant — is the subject: a larger room outweighs a larger panel text)
-      scoreOf: C => C.k * 120,
+      scoreOf: C => C.k * 200,
       compose: (box) => composeRd(ctx, R, box, {...optsFor(arr), align: {x: 0.5, y: box.y + box.h < ctx.design.h - 1 ? 1 : 0.5}}),
     });
     const floor = ctx.view.shape === 'square' ? 55.5 : 61;
     const good = b => !b.problems.length && b.F * px >= 19.5 - 1e-6;
-    const sc = b => (good(b) ? 1000 : 0) - 100 * b.problems.length + b.C.k * 120 + Math.min(b.personPx, 110) + b.F * px * 3;
+    const sc = b => (good(b) ? 1000 : 0) - 100 * b.problems.length + b.C.k * 200 + Math.min(b.personPx, 110) + b.F * px * 3;
     let best = null, arr = 'row';
-    for (const a of ['row', 'stack']) {
+    // (four pieces: the stack arrangement's turn with every piece would hurry the walk — item 19 — so the row is used)
+    const arrs = R.n >= 4 ? ['row'] : ['row', 'stack'];
+    for (const a of arrs) {
       const b = search(a, floor);
       if (!best || sc(b) > sc(best)) { best = b; arr = a; }
     }
-    if (best.problems.length) for (const a of ['row', 'stack']) { const b = search(a, 45.5); if (b.problems.length < best.problems.length) { best = b; arr = a; } }
+    if (best.problems.length) for (const a of arrs) { const b = search(a, 45.5); if (b.problems.length < best.problems.length) { best = b; arr = a; } }
+    // (item 18, near-maximum texts in a wide frame: when the panel would leave the room under half the width, the
+    // panel's text steps down — never under the 16 px floor — so the room keeps the larger share; baseline texts always
+    // compose above 19.5 px with the room over half the width, so this never applies to them)
+    const share = b => b.C.planRect.w / ctx.design.w;
+    if (ctx.view.shape === 'landscape' && share(best) < 0.5) {
+      for (const a of arrs) {
+        const b = search(a, 45.5, [19.2, 18.5, 17.8, 17.1, 16.4]);
+        if (!b.problems.length && share(b) > share(best) * 1.12) { best = b; arr = a; }
+      }
+    }
     const {F, lay} = best;
     const box = best.roomBox;
     const C = composeRd(ctx, R, box, {...optsFor(arr), align: {x: 0.5, y: box.y + box.h < ctx.design.h - 1 ? 1 : 0.5}});

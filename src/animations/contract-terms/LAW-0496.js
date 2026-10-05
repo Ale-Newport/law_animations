@@ -36,7 +36,7 @@ import {measure} from '../../core/text.js';
 import {
   motifFields, DEFAULT_CONTENT, DEFAULT_CONTENT_ES, KIT_STRINGS, STATES, PX_BASE, PX_STRESS,
   layoutStage, stageArt, makeRigs, nameNodes, oblNodes, eventNode, bracketNode, stateGlyph, chipG, eventCard, measureEvent, measureObl, bracketMetrics,
-  localizeScene, headBox, overlaps,
+  localizeScene, headBox, overlaps, fitG,
 } from './kits/condicion-activacion.js';
 
 const ID = 'LAW-0496';
@@ -204,6 +204,7 @@ const scene = {
     const L = {ok: true, why: [], F, upx, show, showKey, Lc, src, dest, zoom, lr, cb, below, box, cardText: best.cardText, grow: best.grow, before: p.beforeValue, after: p.afterValue, lensM: best.lensM};
     Lc.rigs = makeRigs(ctx, Lc, p.parties);
     Lc.captions = p.parties.map(q => q.name);
+    rebalanceNames(Lc, F);
     L.rest = best.rest;
     L.hold = best.hold;
     L.dyRest = below ? Math.max(0, (L.lr.h - L.rest.h) / 2) : 0;
@@ -250,9 +251,12 @@ const scene = {
     // (side by side: under the card's lower right corner when the panel has room there, else in the gutter by its top)
     const roomBelow = G.panelE.y + G.panelE.h - (G.slot.y + G.chE / 2 + 5);
     const mk = !G.stack && roomBelow >= F * 1.7 ? changedMarker(ctx, {name: 'st-delta', x: G.slot.x + G.cwE / 2 - F * 0.75, y: G.slot.y + G.chE / 2 + 5 + F * 0.8, radius: F * 0.6, opacity: 0})
-      : G.stack ? changedMarker(ctx, {name: 'st-delta', x: Math.min(G.slot.x + G.cwE / 2 + 5 + F * 0.8, G.panelE.x + G.panelE.w - F * 0.65), y: G.slot.y - G.chE / 2 + F * 0.6, radius: F * 0.6, opacity: 0})
+      : G.stack ? stackDelta(ctx, G, F)
       : changedMarker(ctx, {name: 'st-delta', x: G.panelE.x + G.panelE.w + G.gw / 2, y: G.slot.y - G.chE / 2 + F * 0.6, radius: Math.min(F * 0.6, G.gw * 0.45), opacity: 0});
-    return g({name: 'scene'}, st, mk, panel(L.rest, 'panel-rest'), panel(L.hold, 'panel-hold'), lz.node);
+    // (the lens's tie back to its source: a soft callout wedge from the event card's slot to the lens window, behind the
+    // board and the people — it shows between them, so the enlarged copy reads as the card's, not as a new object)
+    const link = h('path', {name: 'lens-link', d: 'M0 0', fill: th.fg, 'fill-opacity': 0.07, stroke: th.inkSoft, 'stroke-width': 2.5, 'stroke-dasharray': '9 7', 'stroke-linejoin': 'round', opacity: 0});
+    return g({name: 'scene'}, link, st, mk, panel(L.rest, 'panel-rest'), panel(L.hold, 'panel-hold'), lz.node);
   },
   frame(ctx, L, u) {
     const p = ctx.params;
@@ -304,6 +308,46 @@ const scene = {
   },
 };
 
+/** A wrapped block whose last line is one bare word ("Maria-Fernanda / Castellanos / Villavicencio"). */
+const bareLast = lines => lines.length > 1 && lines.join(' ').split(/\s+/).length >= 3 && /^[\p{L}][\p{L}'’-]*[\p{L}][,;:.]?$/u.test(lines[lines.length - 1].trim());
+
+/**
+ * Name plates whose wrap leaves a bare last word (a narrow 1:1 context): the plate is widened — up to half the context,
+ * the two plates never meeting — until the name wraps without one (never more lines than before, so the plate's height
+ * reserved under the feet still holds it).
+ */
+function rebalanceNames(Lc, F) {
+  const G = Lc.G;
+  if (!G.names) return;
+  const half = (Lc.box.w - F * 0.8) / 2;
+  G.names = G.names.map((q, i) => {
+    if (!q || !bareLast(q.fit.lines)) return q;
+    for (let w = q.maxW + F * 0.5; w <= half + 1e-6; w += F * 0.5) {
+      const f = fitG(Lc.captions[i], {maxWidth: w - F * 1.2, size: F, maxLines: 3, weight: 600});
+      if (!f.bad && !bareLast(f.lines) && f.lines.length <= q.fit.lines.length) return {fit: f, maxW: w};
+    }
+    return q;
+  });
+}
+
+/**
+ * The Δ of the stacked board (1:1): the event card spans the panel, so the Δ sits in the panel's heading band, at its
+ * right end — clear of the heading's print (or its bar) and above the slot's dock — or, if the heading leaves no room
+ * there, at the band's left end.
+ */
+function stackDelta(ctx, G, F) {
+  const c = G.panelE;
+  const dockTop = G.slot.y - G.chE / 2 - 5;
+  const band = dockTop - c.y;
+  const rad = Math.min(F * 0.6, band * 0.4);
+  const f = G.headFits[0];
+  const hw = f ? f.width : c.w * 0.4;
+  const cy = c.y + Math.min(G.colHH, band) / 2 + 1;
+  const right = c.x + c.w - rad - Math.max(6, F * 0.3);
+  const x = right - rad >= c.x + c.w / 2 + hw / 2 + F * 0.3 ? right : c.x + rad + Math.max(6, F * 0.3);
+  return changedMarker(ctx, {name: 'st-delta', x, y: cy, radius: rad, opacity: 0});
+}
+
 /** The lens's current size factor and the copy's current magnification (it starts at about the context's own size). */
 function lensNow(L, open) {
   const s0 = 1 / L.zoom;
@@ -354,7 +398,19 @@ function lensFrame(L, open, gsAt = 1) {
     'lens-border': rect,
     'lens-content': {transform: `${T(R.x - S.x * zoomNow, R.y - S.y * zoomNow)} scale(${r(zoomNow, 4)})`},
     'lens-cfade': {opacity: hand.copy},
+    'lens-link': {opacity: vis ? r(Math.min(1, open * 4), 3) : 0, d: vis ? linkPath(L, R, gsAt) : 'M0 0'},
   }, zoomNow};
+}
+
+/** The callout wedge from the source crop (where the context draws it now) to the lens window R. */
+function linkPath(L, R, gs) {
+  const S = L.src;
+  const k = L.grow > 1 ? gs : 1, ax = L.box.x, ay = L.box.y;
+  const X = x => ax + (x - ax) * k, Y = y => ay + (y - ay) * k;
+  const pts = L.below
+    ? [[X(S.x), Y(S.y + S.h)], [R.x, R.y], [R.x + R.w, R.y], [X(S.x + S.w), Y(S.y + S.h)]]
+    : [[X(S.x + S.w), Y(S.y)], [R.x, R.y], [R.x, R.y + R.h], [X(S.x + S.w), Y(S.y + S.h)]];
+  return `M${pts.map(([x, y]) => `${r(x)} ${r(y)}`).join('L')}Z`;
 }
 
 /** The fine print of a print-bar card: shown in one step once the lens is (almost) fully open — legible only there. */

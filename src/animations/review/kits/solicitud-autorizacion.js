@@ -168,7 +168,10 @@ export function saGeometry(W, H, R, o = {}) {
   // (signLow rooms are bound by their width: the plates hug their trays a little closer)
   const SW = side ? TW + 30 + sideW : Math.max(TW + (nf ? 44 : o.signLow && o.sign ? 20 : 30), nameW * 1.04 + 30, Lf ? Lf * 1.6 + 24 : 0);
   const pT = nf ? padTop(nf[0]) : 14;
-  const SH = side ? Math.max(14 + TH + 12, Lf * 1.24 + 28) : pT + nameH + 12 + TH + 12;
+  // (opt-in tabPad — LAW-0329: extra space between the names and the trays, so the prior-examination tray's tab never
+  // meets a name's last line; every station alike)
+  const tabPad = nf ? o.tabPad || 0 : 0;
+  const SH = side ? Math.max(14 + TH + 12, Lf * 1.24 + 28) : pT + nameH + 12 + tabPad + TH + 12;
   const n = R.n;
   const gap = o.gap ?? 84;
   const rowW = n * SW + (n - 1) * gap;
@@ -890,7 +893,7 @@ export function composeSa(ctx, P, R, box, F, o = {}) {
     }
     const bd = o.board ? o.board(withText ? Ft : null, k) : null;
     const G = saGeometry(W, H, R, {Ft: withText || o.numbers || o.letters ? Ft : null, nameFits, letters: (withText && o.names === 'letters') || o.letters ? Ft : 0, docK: o.docK, gap: gapNow, courier: o.courier, board: bd, sign: o.sign, signW: o.signW, extraH: o.extraH, depthK: dkNow,
-      ...(o.letterSide ? {letterSide: true} : {}), ...(o.signLow ? {signLow: true} : {}), ...(o.padL ? {padL: o.padL} : {}),
+      ...(o.letterSide ? {letterSide: true} : {}), ...(o.signLow ? {signLow: true} : {}), ...(o.padL ? {padL: o.padL} : {}), ...(o.tabPad ? {tabPad: o.tabPad} : {}),
       untangle: o.untangle ? {clear: (o.untangle.clearPx ?? 16) / (pxPerUnit(ctx) * k)} : null});
     G.depthK = dkNow;
     G.Ft = withText || o.numbers || o.letters ? Ft : null;

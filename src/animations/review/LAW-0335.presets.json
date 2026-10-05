@@ -1,0 +1,168 @@
+{
+  "animationId": "LAW-0335",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Both scenes share the same placeholder decision, the same arrow and the same review frame over the supplied range (routes.from..routes.to). Exactly ONE fact differs: the section the question's arrow points at (A: grounds[a].section, B: grounds[b].section). 'Inside / outside the frame' only describes geometry of supplied data; there is no winner, score or outcome, and no rule about what a review may cover is drawn. A and B have equal weight (same size, ink, timing). Brief fields: decisions, grounds, routes, outcomes, scenarioA, scenarioB, changedFact, sharedFacts and comparisonLabels are editable. Coordinator decision (standing rule 2026-09-26, from LAW-0687/0689–0692): after trying the 1:1 fallbacks (compact rows without index pips, narrower insets and gap, bars removed), six two-line section tags could not fit two side-by-side scenes at >= 16 px, so the long-labels-stress section tags are capped at 35 characters ('Section N of the fictional decision'), still longer than the baseline tags (25); all other stress fields stay at near-maximum length. Measured DOM-less 2026-10-05: uncapped stress at 1:1 needs 845 design units of height at 16 px against 738 available.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Five sections and a frame over Sections 2–3 in both scenes; the arrow points at Section 2 in A (inside) and at Section 4 in B (outside).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a four-section decision, a frame over Sections 3–4, the arrow at Section 4 in A and at Section 1 in B (it travels upward instead); captions under the headers.",
+      "params": {
+        "decisions": {
+          "title": "Decision of example K (fictional; placeholder)",
+          "sections": [
+            "Part I — background (placeholder)",
+            "Part II — account (placeholder)",
+            "Part III — analysis (placeholder)",
+            "Part IV — operative text (placeholder)"
+          ]
+        },
+        "grounds": [
+          {
+            "side": "a",
+            "text": "The question points at Part IV here (as supplied)",
+            "section": 3
+          },
+          {
+            "side": "b",
+            "text": "The question points at Part I here (as supplied)",
+            "section": 0
+          }
+        ],
+        "routes": {
+          "from": 2,
+          "to": 3
+        },
+        "scenarioA": {
+          "label": "Question about Part IV",
+          "caption": "Supplied situation A (fictional)"
+        },
+        "scenarioB": {
+          "label": "Question about Part I",
+          "caption": "Supplied situation B (fictional)"
+        },
+        "sharedFacts": [
+          "Same decision of example K",
+          "Same frame over Parts III–IV"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: six sections with long tags, a long title, long scenario labels and captions, four shared facts and long notes; the frame over Sections 2–5.",
+      "params": {
+        "decisions": {
+          "title": "Decision under review in this fictional example (placeholder)",
+          "sections": [
+            "Section 1 of the fictional decision",
+            "Section 2 of the fictional decision",
+            "Section 3 of the fictional decision",
+            "Section 4 of the fictional decision",
+            "Section 5 of the fictional decision",
+            "Section 6 of the fictional decision"
+          ]
+        },
+        "grounds": [
+          {
+            "side": "a",
+            "text": "The question points at Section 3 in this fictional situation (as supplied)",
+            "section": 2
+          },
+          {
+            "side": "b",
+            "text": "The question points at Section 6 in this fictional situation (as supplied)",
+            "section": 5
+          }
+        ],
+        "routes": {
+          "from": 1,
+          "to": 4
+        },
+        "outcomes": {
+          "inside": "Its section lies inside the frame in this example (as supplied)",
+          "outside": "Its section lies outside the frame in this example (as supplied)"
+        },
+        "labels": {
+          "frame": "Review frame of this example: the sections it encloses are supplied by the user",
+          "key": "As supplied · no conclusion drawn (placeholder content only)"
+        },
+        "scenarioA": {
+          "label": "Question inside the frame in this example",
+          "caption": "Supplied situation A of this fictional example"
+        },
+        "scenarioB": {
+          "label": "Question outside the frame in this example",
+          "caption": "Supplied situation B of this fictional example"
+        },
+        "changedFact": "Only the section the arrow points at differs between the two supplied situations",
+        "sharedFacts": [
+          "Same decision and the same six sections in both",
+          "Same review frame over Sections 2–5 in both",
+          "Same arrow tag and the same desk in both scenes",
+          "Same timing: the frame comes down at the same moment"
+        ],
+        "comparisonLabels": {
+          "guide": "only this differs between A and B",
+          "neutral": "Two supplied situations side by side in this example: no winner, no score and no outcome"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {
+          "title": "Resolución revisada (ficticia)",
+          "sections": [
+            "Apartado 1 (texto aportado)",
+            "Apartado 2 (texto aportado)",
+            "Apartado 3 (texto aportado)",
+            "Apartado 4 (texto aportado)",
+            "Apartado 5 (texto aportado)"
+          ]
+        },
+        "grounds": [
+          {
+            "side": "a",
+            "text": "La cuestión señala el Apartado 2 (según lo aportado)",
+            "section": 1
+          },
+          {
+            "side": "b",
+            "text": "La cuestión señala el Apartado 4 (según lo aportado)",
+            "section": 3
+          }
+        ],
+        "outcomes": {
+          "inside": "Su apartado queda dentro del marco (según lo aportado)",
+          "outside": "Su apartado queda fuera del marco (según lo aportado)"
+        },
+        "labels": {
+          "frame": "Marco de revisión: los apartados que abarca son aportados",
+          "key": "Según lo aportado · sin conclusión"
+        },
+        "scenarioA": {
+          "label": "Cuestión incluida",
+          "caption": ""
+        },
+        "scenarioB": {
+          "label": "Cuestión fuera del marco",
+          "caption": ""
+        },
+        "changedFact": "Solo cambia el apartado al que apunta la flecha",
+        "sharedFacts": [
+          "Misma resolución y apartados",
+          "Mismo marco sobre los Apartados 2–3"
+        ],
+        "comparisonLabels": {
+          "guide": "solo esto cambia",
+          "neutral": "Dos situaciones aportadas lado a lado: sin ganador ni resultado"
+        }
+      }
+    }
+  ]
+}

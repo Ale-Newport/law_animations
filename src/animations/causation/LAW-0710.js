@@ -134,6 +134,53 @@ function texts(ctx, p, M) {
   return {chips, band, rels, relText, header: has('record') ? elementLabel(ctx, p, 'record') : null};
 }
 
+/**
+ * A chip measured for a width, at bounded cost: a chip measured for width W (w wide) is reused for any width in
+ * [w, W] (it fits there; a one-line chip for any width >= w), a chip that does not fit width W is not measured again
+ * for a narrower one, and new widths are quantized down to 20-unit steps (a chip never gets more room than offered).
+ */
+function rangedChip(ctx, memo, key, it, size, mw0, o) {
+  const rk = `${size}|${key}`;
+  let rs = memo.ranges.get(rk);
+  if (!rs) { rs = []; memo.ranges.set(rk, rs); }
+  for (const q of rs) {
+    if (q.c.bad ? mw0 <= q.hi : q.c.w <= mw0 + 0.5 && (mw0 <= q.hi || q.c.lines === 1)) return q.c;
+  }
+  const step = Math.floor(mw0 / 20) * 20;
+  const mw = Math.max(size * 4, step);
+  const c = {it, ...iconChip(ctx, it, {size, maxW: mw, ...o})};
+  // (the whole quantization step [mw, mw + 20) maps to this measurement)
+  rs.push({hi: Math.max(mw, step) + 19.99, c});
+  return c;
+}
+
+/** Relation-label widths and heights used by compose (memoized per text size and label width rule). */
+function relMeasures(ctx, base, size, narrowSeq, full) {
+  const mk = `${size}|${narrowSeq}`;
+  let m = base.memo.rel.get(mk);
+  if (m) return m;
+  m = {relW: 0, seqW: 0, relHmax: 0, altRelW: 0};
+  if (ctx.show('key') && ctx.show('all')) {
+    for (const q of base.rels) {
+      const c = chipG(ctx, base.relText(q), {x: 0, y: 0, maxWidth: Math.min(360, full / 2), size, maxLines: 2});
+      // gap between the objects and the record: room for the label of a connector that crosses it
+      if (q.from === 'record' || q.to === 'record') m.relW = Math.max(m.relW, c.box.w);
+      // tallest relation label (the record-to-object gap holds it beside a vertical link)
+      m.relHmax = Math.max(m.relHmax, c.box.h);
+      // the label of a link between the two states sits in the gap between the stands
+      if ((q.from === 'inner' && q.to === 'outer') || (q.from === 'outer' && q.to === 'inner')) {
+        const so = {x: 0, y: 0, maxWidth: narrowSeq ? Math.max(size * 7, 150) : Math.min(360, full / 2), size, maxLines: narrowSeq ? 3 : 2};
+        // (measured as drawn: unwidowed, so a label that cannot wrap without a one-word line keeps its one-line width)
+        m.seqW = Math.max(m.seqW, chipG(ctx, unwidow(base.relText(q), t0 => chipG(ctx, t0, so).fit), {...so, maxWidth: Math.min(360, full / 2)}).box.w);
+      }
+      // (the alternative link's label may wrap to three lines beside its connector)
+      if (q.from === 'alternative' || q.to === 'alternative') m.altRelW = Math.max(m.altRelW, chipG(ctx, base.relText(q), {x: 0, y: 0, maxWidth: Math.max(size * 7, 150), size, maxLines: 3}).box.w);
+    }
+  }
+  base.memo.rel.set(mk, m);
+  return m;
+}
+
 function compose(ctx, base, cfg) {
   const D = ctx.design;
   const {size, mode, RW} = cfg;
@@ -150,35 +197,7 @@ function compose(ctx, base, cfg) {
   }
   const recW = rec ? RW + 20 : 0;
   const recH = rec ? rec.h + 14 + rec.clipH * 0.35 : 0;
-  // gap between the objects and the record: room for the label of a connector that crosses it
-  let relW = 0;
-  if (textOn && ctx.show('all')) {
-    for (const q of base.rels) {
-      if (q.from !== 'record' && q.to !== 'record') continue;
-      const c = chipG(ctx, base.relText(q), {x: 0, y: 0, maxWidth: Math.min(360, full / 2), size, maxLines: 2});
-      relW = Math.max(relW, c.box.w);
-    }
-  }
-  // the label of a link between the two states sits in the gap between the stands
-  let seqW = 0;
-  if (textOn && ctx.show('all')) {
-    for (const q of base.rels) {
-      if (!((q.from === 'inner' && q.to === 'outer') || (q.from === 'outer' && q.to === 'inner'))) continue;
-      const so = {x: 0, y: 0, maxWidth: cfg.narrowSeq ? Math.max(size * 7, 150) : Math.min(360, full / 2), size, maxLines: cfg.narrowSeq ? 3 : 2};
-      // (measured as drawn: unwidowed, so a label that cannot wrap without a one-word line keeps its one-line width)
-      seqW = Math.max(seqW, chipG(ctx, unwidow(base.relText(q), t0 => chipG(ctx, t0, so).fit), {...so, maxWidth: Math.min(360, full / 2)}).box.w);
-    }
-  }
-  // tallest relation label (the record-to-object gap holds it beside a vertical link) and the alternative link label
-  let relHmax = 0, altRelW = 0;
-  if (textOn && ctx.show('all')) {
-    for (const q of base.rels) {
-      const c = chipG(ctx, base.relText(q), {x: 0, y: 0, maxWidth: Math.min(360, full / 2), size, maxLines: 2});
-      relHmax = Math.max(relHmax, c.box.h);
-      // (the alternative link's label may wrap to three lines beside its connector)
-      if (q.from === 'alternative' || q.to === 'alternative') altRelW = Math.max(altRelW, chipG(ctx, base.relText(q), {x: 0, y: 0, maxWidth: Math.max(size * 7, 150), size, maxLines: 3}).box.w);
-    }
-  }
+  const {relW, seqW, relHmax, altRelW} = relMeasures(ctx, base, size, Boolean(cfg.narrowSeq), full);
   const rowish = mode === 'row' || mode === 'rowcol';
   const gapR = rowish ? Math.max(40, relW + 50) : 40;
   const leftW = mode === 'band' ? full - recW - 30 : 0;
@@ -195,10 +214,7 @@ function compose(ctx, base, cfg) {
       return {it, w: s0, h: s0, bad: false, build: (x, y, name) => ({node: g({name}, itemIcon(ctx, {icon: 'alt', key: 'alt-el'}, x, y + s0 / 2, s0, base.kind)), box: {x, y, w: s0, h: s0}})};
     }
     if (!it || !textOn) return {w: 0, h: 0, bad: false};
-    const k = `${size}|${Math.round(mw)}|${it.key}`;
-    let c = memo.chip.get(k);
-    if (!c) { c = {it, ...iconChip(ctx, it, {size, maxW: mw, kind: base.kind, maxLines: it.key === 'boundary' ? 6 : 4})}; memo.chip.set(k, c); }
-    return c;
+    return rangedChip(ctx, memo, `el|${it.key}`, it, size, mw, {kind: base.kind, maxLines: it.key === 'boundary' ? 6 : 4});
   };
   const cB = meas(base.chips.inner, chipW), cA = meas(base.chips.outer, chipW);
   // band mode: the inset's chip beside the inset when it fits there, else under it (the whole left column wide)
@@ -213,28 +229,36 @@ function compose(ctx, base, cfg) {
   // band (key, notes)
   const bandW = mode === 'rowcol' ? recW : full;
   const kLeft = mode === 'band' ? (cfg.kLeft || 0) : 0; // band mode: the first kLeft band chips go in the left column
-  const flowBand = (w, from, to) => {
-    const bk = `${size}|${Math.round(w)}|${cfg.half}|${from}|${to}`;
+  const flowBand = (w, idx) => {
+    const bk = `${size}|${Math.round(w)}|${cfg.half}|${idx.join(',')}`;
     let b = memo.band.get(bk);
     if (!b) {
       const mw = cfg.half ? (w - 18) / 2 : Math.min(w, 760);
       const sz = [];
-      for (let i = from; i < to && textOn; i++) {
-        const ck = `${size}|${Math.round(mw)}|b${i}`;
-        let c = memo.chip.get(ck);
-        if (!c) { c = {it: base.band[i], ...iconChip(ctx, base.band[i], {size, maxW: mw, kind: base.kind, maxLines: 3})}; memo.chip.set(ck, c); }
-        sz.push(c);
+      for (const i of textOn ? idx : []) sz.push(rangedChip(ctx, memo, `b${i}`, base.band[i], size, mw, {kind: base.kind, maxLines: 3}));
+      // (first-fit rows: a chip takes the first row with room, so short chips fill gaps left by long ones; flowing the
+      // packed order row by row gives back exactly these rows)
+      const rowsFF = [];
+      for (const c of sz) {
+        const row = rowsFF.find(rw => rw.w + 18 + c.w <= w + 0.5);
+        if (row) { row.items.push(c); row.w += 18 + c.w; } else rowsFF.push({w: c.w, items: [c]});
       }
-      const fl = flowRows(sz, {x: 0, y: 0, w, gap: 18, rowGap: 10});
-      b = {sz, h: sz.length ? fl.bottom : 0, bad: sz.some(q => q.bad || q.w > w + 0.5)};
+      const packed = rowsFF.flatMap(rw => rw.items);
+      const fl = flowRows(packed, {x: 0, y: 0, w, gap: 18, rowGap: 10});
+      b = {sz: packed, h: packed.length ? fl.bottom : 0, bad: packed.some(q => q.bad || q.w > w + 0.5)};
       memo.band.set(bk, b);
     }
     return b;
   };
   if (kLeft > base.band.length) return {bad: 'k'};
-  const band = flowBand(bandW, kLeft, base.band.length);
+  // band mode, keyLeft: the short key chip ("As supplied · no conclusion drawn") joins the left column under the inset
+  const nB = base.band.length, keyI = base.band.findIndex(it => it.key === 'key');
+  const keyLeft = mode === 'band' && cfg.keyLeft && keyI >= kLeft;
+  if (cfg.keyLeft && !keyLeft) return {bad: 'keyLeft'};
+  const leftIdx = [...Array(kLeft).keys(), ...(keyLeft ? [keyI] : [])];
+  const band = flowBand(bandW, [...Array(nB).keys()].filter(i => !leftIdx.includes(i)));
   const leftBandW = mode === 'band' ? Math.min(leftW, (cD.w && leftW >= cD.w + 16 + 2 * 70 ? cD.w + 16 : 0) + Math.min((leftW - 12) / 2, 150) * 2 + 12) : 0;
-  const leftBand = kLeft ? flowBand(leftBandW, 0, kLeft) : {sz: [], h: 0, bad: false};
+  const leftBand = leftIdx.length ? flowBand(leftBandW, leftIdx) : {sz: [], h: 0, bad: false};
   if (band.bad || leftBand.bad) return {bad: 'band'};
   const bandH = band.h && mode !== 'rowcol' ? band.h + 18 : 0;
   const bandColH = band.h && mode === 'rowcol' ? band.h + 18 : 0;
@@ -303,10 +327,10 @@ const scene = {
     const SH = SHAPES[ctx.view.shape];
     const M = resolveAD(p);
     const tx = texts(ctx, p, M);
-    const base = {M, focus: p.focusElement, rels: tx.rels, relText: q => gp(tx.relText(q)), kind: 'ad', header: tx.header, rows: M.entries.map(e => entryRow(e)), chips: tx.chips, band: tx.band, memo: {rec: new Map(), band: new Map(), chip: new Map()}};
+    const base = {M, focus: p.focusElement, rels: tx.rels, relText: q => gp(tx.relText(q)), kind: 'ad', header: tx.header, rows: M.entries.map(e => entryRow(e)), chips: tx.chips, band: tx.band, memo: {rec: new Map(), band: new Map(), chip: new Map(), ranges: new Map(), rel: new Map()}};
     const finish = (L, isFallback) => {
     L.fallback = isFallback;
-    L.why = why.filter(w0 => /@17:/.test(w0) || globalThis.__whyAll).slice(0, globalThis.__whyAll ? 400 : 80);
+    L.why = why.filter(w0 => /@17:/.test(w0)).slice(0, 80);
     const D = L.D || ctx.design;
     const OH = L.OH;
     const U = L.unitW;
@@ -505,9 +529,8 @@ const scene = {
           for (const t0 of [0.5, 0.42, 0.58, 0.34, 0.66, 0.26, 0.74, 0.18, 0.82]) {
             for (const off of [1, -1, 0]) {
               const cand = mk(t0, off, mw, ml);
-              const dbg = globalThis.__lbl;
-              if (cand.bad || !inD(cand)) { if (dbg) dbg.push(`${lk.q.from}>${lk.q.to} ${mw}/${t0}/${off}: ${cand.bad ? "bad" : "out"} ${Math.round(cand.x)},${Math.round(cand.y)},${Math.round(cand.w)}x${Math.round(cand.h)} D${D.w}x${D.h}`); continue; }
-              if (obstacles.some(o => boxesMeet(cand, o, 6)) || placed.some(o => boxesMeet(cand, o, 8))) { if (dbg) dbg.push(`${lk.q.from}>${lk.q.to} ${mw}/${t0}/${off}: obst ${obstacles.findIndex(o => boxesMeet(cand, o, 6))}`); continue; }
+              if (cand.bad || !inD(cand)) continue;
+              if (obstacles.some(o => boxesMeet(cand, o, 6)) || placed.some(o => boxesMeet(cand, o, 8))) continue;
               // never over another connector, and nearer its own connector than any other
               const own = distTo(lk, cand);
               if (L.links.some(o => o !== lk && distTo(o, cand) <= Math.max(own, 4) + 4)) continue;
@@ -556,8 +579,9 @@ const scene = {
     for (let size = SH.size; size >= SH.minSize - 1e-9; size -= 1) {
       // (smaller sizes are tried only while no configuration yet keeps the ring pieces at the subject floor)
       if (best && size < Math.min(best.size - 3, 20) - 1e-9 && cands.some(subj)) break;
-      for (const mode of SH.modes) for (const RW of SH.rws) for (const maxLines of [3, 4]) for (const half of [false, true]) for (const stackChips of [false, true]) for (const narrowSeq of [false, true]) for (const kLeft of mode === 'band' ? [0, 1, 2, 3, 4].filter(k => k <= base.band.length) : [0]) {
-        const X = compose(ctx, base, {mode, size, RW, maxLines, half, stackChips, narrowSeq, kLeft, hMin, dry: true});
+      // (kLeft never 1: the two ring keys — band chips 0 and 1 — stay together, at equal weight, in one place)
+      for (const mode of SH.modes) for (const RW of SH.rws) for (const maxLines of [3, 4]) for (const half of [false, true]) for (const stackChips of [false, true]) for (const narrowSeq of [false, true]) for (const kLeft of mode === 'band' ? [0, 2, 3, 4].filter(k => k <= base.band.length) : [0]) for (const keyLeft of mode === 'band' ? [false, true] : [false]) {
+        const X = compose(ctx, base, {mode, size, RW, maxLines, half, stackChips, narrowSeq, kLeft, keyLeft, hMin, dry: true});
         if (!X.cfg) { why.push(`${mode}/${RW}${stackChips ? "s" : ""}@${size}:${X.bad}${X.OH ? Math.round(X.OH) : ""}`); continue; }
         if (!best) best = X;
         cands.push(X);

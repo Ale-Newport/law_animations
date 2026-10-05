@@ -1,0 +1,73 @@
+{
+  "animationId": "LAW-0336",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. The context is the desk after the review frame was laid over the supplied range (routes.from..routes.to). ONE supplied datum is substituted: where the frame's focus edge stands (beforeValue → afterValue on its edge tag; afterIndex gives the new section). Only that rail and its tag change; a ghost outline keeps the old position traceable and a neutral Δ marker stays. 'Inside / outside the frame' in the legend describes supplied geometry only; nothing about what a review may cover, validity or outcome is inferred. Brief fields: decisions, grounds, routes, outcomes, focusTarget, beforeValue, afterValue, detailGeometry and contextLabels are editable (afterIndex sets the new edge section).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Five sections, frame over Sections 2–3; the lens isolates the lower edge: 'ends after Section 3' becomes 'ends after Section 4' and the rail moves down one section, so question B's section now lies inside (as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the UPPER edge is substituted on a four-section decision — the frame over Parts III–IV starts at Part II instead of Part III, so question A's section (Part II) now lies inside.",
+      "params": {
+        "decisions": {"title": "Decision of example K (fictional; placeholder)", "sections": ["Part I — background (placeholder)", "Part II — account (placeholder)", "Part III — analysis (placeholder)", "Part IV — operative text (placeholder)"]},
+        "grounds": [
+          {"side": "a", "text": "Question A about Part II (fictional)", "section": 1},
+          {"side": "b", "text": "Question B about Part IV (fictional)", "section": 3}
+        ],
+        "routes": {"from": 2, "to": 3},
+        "focusTarget": "upper-edge",
+        "beforeValue": "Frame starts at Part III (as supplied)",
+        "afterValue": "Frame starts at Part II (as supplied)",
+        "afterIndex": 1,
+        "contextLabels": {"context": "Desk of example K after the frame was laid (as supplied)", "marker": "Changed datum: where the frame starts"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: six sections with long tags, a long title, long questions and captions, long before/after values; the lower edge moves from Section 5 to Section 6.",
+      "params": {
+        "decisions": {
+          "title": "Decision under review in this fictional example (placeholder)",
+          "sections": [
+            "Section 1 of this fictional decision (supplied text)",
+            "Section 2 of this fictional decision (supplied text)",
+            "Section 3 of this fictional decision (supplied text)",
+            "Section 4 of this fictional decision (supplied text)",
+            "Section 5 of this fictional decision (supplied text)",
+            "Section 6 of this fictional decision (supplied text)"
+          ]
+        },
+        "grounds": [
+          {"side": "a", "text": "Question A raised about Section 3 in this fictional example (as supplied)", "section": 2},
+          {"side": "b", "text": "Question B raised about Section 6 in this fictional example (as supplied)", "section": 5}
+        ],
+        "routes": {"from": 1, "to": 4},
+        "outcomes": {"inside": "Its section lies inside the frame in this example (as supplied)", "outside": "Its section lies outside the frame in this example (as supplied)"},
+        "labels": {"frame": "Review frame of this example: the sections it encloses are supplied by the user", "key": "As supplied · no conclusion drawn (placeholder content only)"},
+        "beforeValue": "In this example the frame ends after Section 5 (as supplied by the user)",
+        "afterValue": "In this example the frame ends after Section 6 (as supplied by the user)",
+        "afterIndex": 5,
+        "contextLabels": {"context": "The desk of this fictional example after the frame was laid (as supplied)", "marker": "Changed datum in this example: where the lower edge stands"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {"title": "Resolución revisada (ficticia)", "sections": ["Apartado 1 (texto aportado)", "Apartado 2 (texto aportado)", "Apartado 3 (texto aportado)", "Apartado 4 (texto aportado)", "Apartado 5 (texto aportado)"]},
+        "grounds": [
+          {"side": "a", "text": "Cuestión A (ficticia, según lo aportado)", "section": 1},
+          {"side": "b", "text": "Cuestión B (ficticia, según lo aportado)", "section": 3}
+        ],
+        "outcomes": {"inside": "Su apartado queda dentro del marco (según lo aportado)", "outside": "Su apartado queda fuera del marco (según lo aportado)"},
+        "labels": {"frame": "Marco de revisión: los apartados que abarca son aportados", "key": "Según lo aportado · sin conclusión"},
+        "beforeValue": "El marco termina tras el Apartado 3 (según lo aportado)",
+        "afterValue": "El marco termina tras el Apartado 4 (según lo aportado)",
+        "contextLabels": {"context": "La mesa tras colocar el marco (según lo aportado)", "marker": "Dato cambiado: dónde está el borde del marco"}
+      }
+    }
+  ]
+}

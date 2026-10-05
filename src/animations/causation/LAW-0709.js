@@ -135,12 +135,7 @@ function bandFlow(ctx, base, size, w, from, to, half, legendFirst = false) {
   if (!b) {
     const mw = half ? (w - 18) / 2 : Math.min(w, 760);
     const sz = [];
-    for (let i = from; i < to; i++) {
-      const ck = `${size}|${Math.round(mw)}|${i}`;
-      let c = base.memo.chip.get(ck);
-      if (!c) { c = {it: base.band[i], ...iconChip(ctx, base.band[i], {size, maxW: mw, maxLines: 3})}; base.memo.chip.set(ck, c); }
-      sz.push(c);
-    }
+    for (let i = from; i < to; i++) sz.push(bandChip(ctx, base, i, size, mw));
     // (legendFirst: the rows shown from the first frame sit directly under the record, the late rows below them)
     if (legendFirst) sz.sort((a0, b0) => (a0.it.when === 'legend' ? 0 : 1) - (b0.it.when === 'legend' ? 0 : 1));
     const fl = flowRows(sz, {x: 0, y: 0, w, gap: 18, rowGap: 10});
@@ -148,6 +143,26 @@ function bandFlow(ctx, base, size, w, from, to, half, legendFirst = false) {
     base.memo.band.set(key, b);
   }
   return b;
+}
+
+/**
+ * One band chip measured for a column width, at bounded cost: a chip measured for width W (w wide) is reused for any
+ * width in [w, W] (it fits there; a one-line chip for any width >= w), a chip that does not fit width W is not
+ * measured again for a narrower one, and new widths are quantized down to 20-unit steps (a chip never gets more room
+ * than it is offered).
+ */
+function bandChip(ctx, base, i, size, mw0) {
+  const rk = `${size}|${i}`;
+  let rs = base.memo.ranges.get(rk);
+  if (!rs) { rs = []; base.memo.ranges.set(rk, rs); }
+  for (const q of rs) {
+    if (q.c.bad ? mw0 <= q.hi : q.c.w <= mw0 + 0.5 && (mw0 <= q.hi || q.c.lines === 1)) return q.c;
+  }
+  const mw = Math.max(size * 4, Math.floor(mw0 / 20) * 20);
+  const c = {it: base.band[i], ...iconChip(ctx, base.band[i], {size, maxW: mw, maxLines: 3})};
+  // (the whole quantization step [mw, mw + 20) maps to this measurement)
+  rs.push({hi: Math.max(mw, Math.floor(mw0 / 20) * 20) + 19.99, c});
+  return c;
 }
 
 /** The grouping chip beside the field (measured). */
@@ -309,8 +324,31 @@ function compose(ctx, base, cfg) {
   const sceneW = mode === 'tall' || mode === 'below2' ? full : below ? Math.max(stageW, recW) : stageW + 30 + recW;
   const sceneH = mode === 'tall' ? Math.max(stageH(PH), colH) : mode === 'below2' ? stageH(PH) + 32 + Math.max(recH, B.h) : below ? stageH(PH) + 32 + recH : Math.max(stageH(PH), recH);
   if (sceneW < 0.56 * v.width / fs && sceneH < 0.56 * v.height / fs && !cfg.force) return {bad: 'share'};
-  if (cfg.dry) return {PH, size, cfg: {...cfg, dry: false}};
+  if (cfg.dry) return {PH, size, cfg: {...cfg, dry: false}, dcW: dc ? dc.box.w : 0, stageW};
   return {PH, size, cfg, rec, recW, recH, A, B, dc, mode, colH, stageW, stageH: stageH(PH), wsCol, full, chipTop};
+}
+
+/**
+ * Estimated share of the FRAME's area taken by the physical scene (field with its posts + floor line) for a measured
+ * candidate {PH, cfg, dcW, stageW}, at rest — mirrors the placement in layout() (the floor runs under a grouping chip that
+ * stands beside or above the field in the stacked compositions).
+ */
+function sceneShare(ctx, c) {
+  const D = ctx.design, v = ctx.view;
+  const fs = Math.min(v.content.w / D.w, v.content.h / D.h);
+  const PH = c.PH, mode = c.cfg.mode, full = D.w - 2 * MARGIN;
+  const fieldWd = RW_ * PH + 20;
+  let w = fieldWd;
+  if ((mode === 'below' || mode === 'below2') && c.dcW) {
+    const left = MARGIN + (full - c.stageW) / 2 + 10;
+    if (c.cfg.vw === 2) {
+      const mid = left + (FIELD.side + FIELD.RG + (FIELD.R1 + FIELD.R2) / 2) * PH;
+      const chipX = clamp(mid - c.dcW / 2, MARGIN, D.w - MARGIN - c.dcW);
+      w = Math.max(fieldWd, chipX + c.dcW + 16 - (left - 10));
+    } else w = fieldWd + 40 + c.dcW + 16 - 10;
+  }
+  // (height: the plate alone — at rest the posts lie flat — plus the floor line)
+  return (w * ((FIELD.plate + 2 * FIELD.RG * FIELD.K) * PH + 16) * fs * fs) / (v.width * v.height);
 }
 
 const scene = {
@@ -321,24 +359,28 @@ const scene = {
     const th = ctx.theme;
     const SH = SHAPES[ctx.view.shape];
     const M = resolveAD(p);
-    const base = {M, header: p.objectLabels.record || t.record, rows: recordRows(ctx, p, M), band: bandItems(ctx, p, M), varText: glueN(groupingText(ctx, p, M)), memo: {rec: new Map(), band: new Map(), chip: new Map()}};
+    const base = {M, header: p.objectLabels.record || t.record, rows: recordRows(ctx, p, M), band: bandItems(ctx, p, M), varText: glueN(groupingText(ctx, p, M)), memo: {rec: new Map(), band: new Map(), chip: new Map(), ranges: new Map()}};
     const rws = ctx.view.shape === 'landscape' ? [440, 520, 600, 680] : ctx.view.shape === 'square' ? [300, 340, 380, 440, 500] : [520, 640, 760, Math.floor(ctx.design.w - 2 * MARGIN - 20)];
     const nb0 = base.band.length;
     const ks = [...new Set([1, Math.ceil(nb0 / 3), Math.ceil(nb0 / 2), Math.ceil((2 * nb0) / 3), nb0 - 1].filter(k => k >= 1 && k < nb0))];
     let pick = null;
     const why = [];
     const bySize = new Map();
+    // (wide and tall boxes: a size under the bound is still measured while no measured size keeps the scene area)
+    const areaOK = () => [...bySize.values()].some(c => sceneShare(ctx, c) >= 0.205);
     for (let size = SH.size; size >= SH.minSize - 1e-9; size -= 1) {
       for (const mode of SH.modes) for (const RW of rws) for (const maxLines of [3, 4]) for (const half of [false, true]) for (const vw of [0, 1, 2]) for (const k of mode === 'split' ? ks : mode === 'tall' ? [...Array(nb0 + 1).keys()] : [0]) {
         const X = compose(ctx, base, {mode, size, RW, maxLines, half, vw, k, hMin: SH.hMin, dry: true});
         if (!X.cfg) { why.push(`${mode}${k || ''}/${RW}@${size}:${X.bad}${X.PH ? Math.round(X.PH) : ''}`); continue; }
-        if (globalThis.__dbg) globalThis.__dbg.push(`${mode}${k || ''}/${RW}/h${half ? 1 : 0}/v${vw}/m${maxLines}@${size}:PH${Math.round(X.PH)}`);
         const b0 = bySize.get(size);
         if (!b0 || X.PH > b0.PH + 1e-6) bySize.set(size, X);
       }
+      // (bounded, deterministic: wide and tall boxes stop three sizes below the first size that fits, and never search
+      // below 20 px once a size >= 20 fitted; the first size under that bound is still measured, and in tall boxes the
+      // search goes on (to the minimum size at most) while no measured size keeps the scene area — see the pick below)
       if (ctx.view.shape !== 'square' && bySize.size) {
         const first = [...bySize.values()][0];
-        if (size < Math.max(first.size - 3, Math.min(first.size, 20)) - 1e-9 && !globalThis.__dbg) break;
+        if (size < Math.max(first.size - 3, Math.min(first.size, 20)) - 1e-9 && (ctx.view.shape !== 'portrait' || areaOK())) break;
       }
     }
     // the field (plate, event, objects, posts) stays >= 0.21 of the frame height when any configuration allows it
@@ -359,6 +401,13 @@ const scene = {
         const c20 = cands.filter(c => c.size >= 20 - 1e-9);
         const best20 = c20.length ? c20.reduce((a0, b0) => (b0.PH > a0.PH + 1e-6 ? b0 : a0)) : null;
         pick = best20 && best20.PH >= 0.9 * best.PH ? best20 : best;
+        // the physical scene (field + floor) keeps >= 0.205 of the frame's area when a measured size allows it: the
+        // largest text size whose larger field does (long texts in tall boxes give up a text size rather than shrink the field)
+        const share = c => sceneShare(ctx, c);
+        if (share(pick) < 0.205) {
+          const big = cands.filter(c => c.PH > pick.PH && share(c) >= 0.205).sort((a0, b0) => b0.size - a0.size || b0.PH - a0.PH)[0];
+          if (big) pick = big;
+        }
       }
     }
     let L = pick ? compose(ctx, base, pick.cfg) : null;
@@ -389,7 +438,7 @@ const scene = {
       }
     }
     L.fallback = !pick;
-    L.why = why.filter(w0 => /@17:/.test(w0) || globalThis.__whyAll).slice(-24);
+    L.why = why.filter(w0 => /@17:/.test(w0)).slice(-24);
     L.M = M;
     const full = Dv.w - 2 * MARGIN;
     const PH = L.PH;

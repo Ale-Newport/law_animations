@@ -226,7 +226,6 @@ function compose(ctx, P, R, F, variant) {
     fy = clamp(sy, capH - E.yTop, topH - frameH - E.yTop);
     const cyy = topH + gapY;
     cards = cs.map((c, i) => ({...c, x: i ? DW - cw : 0, y: cyy}));
-    if (globalThis.__LRDBG) console.log('split', F, SW, M.h, capH + frameH, cardsH, gapY, avail);
     if (cyy + cardsH > avail) problems.push('split-tall');
     const dy = Math.max(0, (avail - cyy - cardsH) / 2);
     sy += dy; fy += dy; cards.forEach(c => { c.y += dy; });
@@ -317,7 +316,6 @@ function compose(ctx, P, R, F, variant) {
           }
         }
       }
-      if (globalThis.__LRDBG && !found) console.log('unplaced', F, SW, text);
       if (!found) { problems.push('label-unplaced'); unplaced.push(i); }
       else labels.push(found);
     });
@@ -341,11 +339,9 @@ const scene = {
     outer: for (const F of SIZES) {
       for (const v of variants) {
         const c = compose(ctx, P, R, F, v);
-        if (globalThis.__LRDBG) console.log(F, JSON.stringify(v), c.problems.join(","));
         if (c.ok) { C = c; break outer; }
         if (shape === 'square' && c.unplaced && c.unplaced.length && c.problems.every(q => q === 'label-unplaced')) {
           const c2 = compose(ctx, P, R, F, {...v, foot: c.unplaced});
-          if (globalThis.__LRDBG) console.log('foot', F, JSON.stringify(v), c2.problems.join(','));
           if (c2.ok) { C = c2; break outer; }
         }
         if (!best || c.problems.length < best.n) best = {n: c.problems.length, F, v};
@@ -392,7 +388,7 @@ const scene = {
         lb.far ? h('line', {x1: r(lb.base.x), y1: r(lb.base.y), x2: r(lb.box.x + lb.box.w / 2), y2: r(lb.box.y + lb.box.h / 2), stroke: kindColor(ctx, C.rels[lb.i].kind), 'stroke-width': 2}) : null,
         chip(ctx, lb.text, {x: lb.at.x, y: lb.at.y, anchor: 'middle', maxWidth: lb.mw, size: C.F, minSize: C.F, maxLines: 3, fill: th.card, stroke: kindColor(ctx, C.rels[lb.i].kind), weight: 600, name: `rel-l${lb.i}`}).node)),
       tracer(ctx, 'tracer', th.accent2),
-      C.key ? textAt(C.key, {x: 0, y: ctx.design.h - C.key.height, fill: th.fg, italic: true, name: 'key'}) : null,
+      C.key ? textAt(C.key, {x: C.F * 0.3, y: ctx.design.h - C.key.height - C.F * 0.35, fill: th.fg, italic: true, name: 'key'}) : null,
     );
   },
   frame(ctx, L, u) {

@@ -1,0 +1,772 @@
+{
+  "animationId": "LAW-0335",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0335",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": false,
+      "detail": [
+        {
+          "preset": "default",
+          "ratio": "9:16",
+          "u": 0,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "As supplied · no conclusion drawn @61,1502,342x24"
+          ]
+        },
+        {
+          "preset": "default",
+          "ratio": "9:16",
+          "u": 0.35,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "As supplied · no conclusion drawn @61,1502,342x24"
+          ]
+        },
+        {
+          "preset": "default",
+          "ratio": "9:16",
+          "u": 0.7,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "As supplied · no conclusion drawn @61,1502,342x24"
+          ]
+        },
+        {
+          "preset": "default",
+          "ratio": "9:16",
+          "u": 1,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "As supplied · no conclusion drawn @61,1502,342x24"
+          ]
+        },
+        {
+          "preset": "baseline-illustrative",
+          "ratio": "9:16",
+          "u": 0,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "As supplied · no conclusion drawn @61,1502,342x24"
+          ]
+        },
+        {
+          "preset": "baseline-illustrative",
+          "ratio": "9:16",
+          "u": 0.35,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "As supplied · no conclusion drawn @61,1502,342x24"
+          ]
+        },
+        {
+          "preset": "baseline-illustrative",
+          "ratio": "9:16",
+          "u": 0.7,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "As supplied · no conclusion drawn @61,1502,342x24"
+          ]
+        },
+        {
+          "preset": "baseline-illustrative",
+          "ratio": "9:16",
+          "u": 1,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "As supplied · no conclusion drawn @61,1502,342x24"
+          ]
+        },
+        {
+          "preset": "contrast-or-alternative",
+          "ratio": "9:16",
+          "u": 0,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "As supplied · no conclusion drawn @61,1492,370x24"
+          ]
+        },
+        {
+          "preset": "contrast-or-alternative",
+          "ratio": "9:16",
+          "u": 0.35,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "As supplied · no conclusion drawn @61,1492,370x24"
+          ]
+        },
+        {
+          "preset": "contrast-or-alternative",
+          "ratio": "9:16",
+          "u": 0.7,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "As supplied · no conclusion drawn @61,1492,370x24"
+          ]
+        },
+        {
+          "preset": "contrast-or-alternative",
+          "ratio": "9:16",
+          "u": 1,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "As supplied · no conclusion drawn @61,1492,370x24"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "decisions.title"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: identical scenes, no frame yet @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": {
+            "tip": {
+              "x": 83.8,
+              "y": 45.1
+            },
+            "frameY": -308.02,
+            "frameShown": false,
+            "glass": 0,
+            "lift": 0
+          },
+          "lookB": {
+            "tip": {
+              "x": 83.8,
+              "y": 45.1
+            },
+            "frameY": -308.02,
+            "frameShown": false,
+            "glass": 0,
+            "lift": 0
+          },
+          "tipA": {
+            "x": 83.8,
+            "y": 104.85
+          },
+          "tipB": {
+            "x": 952.11,
+            "y": 104.85
+          },
+          "frameA": {
+            "x": 413.2,
+            "y": -60.79
+          },
+          "sections": [
+            1,
+            3
+          ],
+          "inside": [
+            true,
+            false
+          ],
+          "insideNow": [
+            false,
+            false
+          ],
+          "from": 1,
+          "to": 2,
+          "guide": 0,
+          "states": 0,
+          "stages": [
+            {
+              "x": 0,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            },
+            {
+              "x": 868.31,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            }
+          ],
+          "arrangement": "row",
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: the change beat moves only the arrows (to different sections) @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "lookA": {
+            "tip": {
+              "x": 83.8,
+              "y": 177.88
+            },
+            "frameY": -308.02,
+            "frameShown": false,
+            "glass": 0,
+            "lift": 0
+          },
+          "lookB": {
+            "tip": {
+              "x": 83.8,
+              "y": 308.78
+            },
+            "frameY": -308.02,
+            "frameShown": false,
+            "glass": 0,
+            "lift": 0
+          },
+          "tipA": {
+            "x": 83.8,
+            "y": 237.63
+          },
+          "tipB": {
+            "x": 952.11,
+            "y": 368.53
+          },
+          "frameA": {
+            "x": 413.2,
+            "y": -60.79
+          },
+          "sections": [
+            1,
+            3
+          ],
+          "inside": [
+            true,
+            false
+          ],
+          "insideNow": [
+            false,
+            false
+          ],
+          "from": 1,
+          "to": 2,
+          "guide": 0,
+          "states": 0,
+          "stages": [
+            {
+              "x": 0,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            },
+            {
+              "x": 868.31,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            }
+          ],
+          "arrangement": "row",
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: the same frame comes down on both at the same time @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "lookA": {
+            "tip": {
+              "x": 126.22,
+              "y": 178.03
+            },
+            "frameY": -224.86,
+            "frameShown": true,
+            "glass": 0,
+            "lift": 1
+          },
+          "lookB": {
+            "tip": {
+              "x": 126.22,
+              "y": 309.07
+            },
+            "frameY": -224.86,
+            "frameShown": true,
+            "glass": 0,
+            "lift": 1
+          },
+          "tipA": {
+            "x": 126.22,
+            "y": 237.78
+          },
+          "tipB": {
+            "x": 994.53,
+            "y": 368.82
+          },
+          "frameA": {
+            "x": 413.2,
+            "y": 22.36
+          },
+          "sections": [
+            1,
+            3
+          ],
+          "inside": [
+            true,
+            false
+          ],
+          "insideNow": [
+            false,
+            false
+          ],
+          "from": 1,
+          "to": 2,
+          "guide": 0,
+          "states": 0,
+          "stages": [
+            {
+              "x": 0,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            },
+            {
+              "x": 868.31,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            }
+          ],
+          "arrangement": "row",
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: the arrow tips lie as supplied (inside in A, outside in B); guide shown; composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "tip": {
+              "x": 126.22,
+              "y": 178.03
+            },
+            "frameY": 16.8,
+            "frameShown": true,
+            "glass": 1,
+            "lift": 0
+          },
+          "lookB": {
+            "tip": {
+              "x": 126.22,
+              "y": 309.07
+            },
+            "frameY": 16.8,
+            "frameShown": true,
+            "glass": 1,
+            "lift": 0
+          },
+          "tipA": {
+            "x": 126.22,
+            "y": 237.78
+          },
+          "tipB": {
+            "x": 994.53,
+            "y": 368.82
+          },
+          "frameA": {
+            "x": 413.2,
+            "y": 264.03
+          },
+          "sections": [
+            1,
+            3
+          ],
+          "inside": [
+            true,
+            false
+          ],
+          "insideNow": [
+            true,
+            false
+          ],
+          "from": 1,
+          "to": 2,
+          "guide": 1,
+          "states": 1,
+          "stages": [
+            {
+              "x": 0,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            },
+            {
+              "x": 868.31,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            }
+          ],
+          "arrangement": "row",
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: frames identical at the hold @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "tip": {
+              "x": 126.22,
+              "y": 178.03
+            },
+            "frameY": 16.8,
+            "frameShown": true,
+            "glass": 1,
+            "lift": 0
+          },
+          "lookB": {
+            "tip": {
+              "x": 126.22,
+              "y": 309.07
+            },
+            "frameY": 16.8,
+            "frameShown": true,
+            "glass": 1,
+            "lift": 0
+          },
+          "tipA": {
+            "x": 126.22,
+            "y": 237.78
+          },
+          "tipB": {
+            "x": 994.53,
+            "y": 368.82
+          },
+          "frameA": {
+            "x": 413.2,
+            "y": 264.03
+          },
+          "sections": [
+            1,
+            3
+          ],
+          "inside": [
+            true,
+            false
+          ],
+          "insideNow": [
+            true,
+            false
+          ],
+          "from": 1,
+          "to": 2,
+          "guide": 1,
+          "states": 1,
+          "stages": [
+            {
+              "x": 0,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            },
+            {
+              "x": 868.31,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            }
+          ],
+          "arrangement": "row",
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: the supplied sections alone decide inside / outside @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "tip": {
+              "x": 126.22,
+              "y": 112.51
+            },
+            "frameY": 16.8,
+            "frameShown": true,
+            "glass": 1,
+            "lift": 0
+          },
+          "lookB": {
+            "tip": {
+              "x": 126.22,
+              "y": 243.55
+            },
+            "frameY": 16.8,
+            "frameShown": true,
+            "glass": 1,
+            "lift": 0
+          },
+          "tipA": {
+            "x": 126.22,
+            "y": 172.26
+          },
+          "tipB": {
+            "x": 994.53,
+            "y": 303.3
+          },
+          "frameA": {
+            "x": 413.2,
+            "y": 264.03
+          },
+          "sections": [
+            0,
+            2
+          ],
+          "inside": [
+            false,
+            true
+          ],
+          "insideNow": [
+            false,
+            true
+          ],
+          "from": 1,
+          "to": 2,
+          "guide": 1,
+          "states": 1,
+          "stages": [
+            {
+              "x": 0,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            },
+            {
+              "x": 868.31,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            }
+          ],
+          "arrangement": "row",
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the base @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": {
+            "tip": {
+              "x": 83.8,
+              "y": 45.1
+            },
+            "frameY": -308.02,
+            "frameShown": false,
+            "glass": 0,
+            "lift": 0
+          },
+          "lookB": {
+            "tip": {
+              "x": 83.8,
+              "y": 45.1
+            },
+            "frameY": -308.02,
+            "frameShown": false,
+            "glass": 0,
+            "lift": 0
+          },
+          "tipA": {
+            "x": 83.8,
+            "y": 104.85
+          },
+          "tipB": {
+            "x": 952.11,
+            "y": 104.85
+          },
+          "frameA": {
+            "x": 413.2,
+            "y": -60.79
+          },
+          "sections": [
+            1,
+            3
+          ],
+          "inside": [
+            true,
+            false
+          ],
+          "insideNow": [
+            false,
+            false
+          ],
+          "from": 1,
+          "to": 2,
+          "guide": 0,
+          "states": 0,
+          "stages": [
+            {
+              "x": 0,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            },
+            {
+              "x": 868.31,
+              "y": 59.75,
+              "w": 822.11,
+              "h": 430.34
+            }
+          ],
+          "arrangement": "row",
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

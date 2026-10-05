@@ -312,7 +312,10 @@ const scene = {
     const trOp = u >= W.trace[0] && u < W.trace[1] + 0.02 ? 1 : 0;
     const route = routeOf(L, G);
     const q = tracePos(route, tr);
-    nodes.tracer = {transform: T(r(q.x, 2), r(q.y, 2)), opacity: trOp};
+    // (smaller only through the tight gap between the part chip and the panel's top edge; full size elsewhere)
+    const out = Math.max(route.band[0] - q.y, q.y - route.band[1], 0);
+    const rk = route.ringK + (1 - route.ringK) * clamp(out / route.R0);
+    nodes.tracer = {transform: `${T(r(q.x, 2), r(q.y, 2))}${rk < 1 ? ` scale(${r(rk, 3)})` : ''}`, opacity: trOp};
     for (const nt of L.notes) nodes[nt.name] = {opacity: r(seg(u, ...(nt.name === 'key' ? W.key : W.final)), 3)};
     const beat = u < BEATS.separate[1] ? 'separate' : u < BEATS.relate[1] ? 'relate' : u < BEATS.trace[1] ? 'trace' : 'gather';
     return {
@@ -385,11 +388,23 @@ function geometry(L, {ex, exP = ex, sc, br}) {
  * spine. The supplied stages pick the part of the route that runs between the first and the last of them.
  */
 function routeOf(L, G) {
-  const gx = G.panelE.x + L.F * 0.4;
+  // (the marker's halo stays clear of the event panel's heading: it leaves the part relation just above the panel's top
+  // edge, runs above it to the gutter and goes down the gutter wholly outside the panel)
+  // (where the part chip leaves less than the halo's height above the panel, the leg runs midway in that gap and the
+  // marker is drawn smaller, ringK, so that it touches neither the chip's rim nor the panel's heading)
+  const R0 = L.F * 0.8 + 3;
+  const e = G['part-e'];
+  const lb = (L.labels || []).find(q => q.k === 'part' && q.s === 'e');
+  const chipB = lb ? lb.box.y + lb.box.h + labelShift(L, G, lb).y : -Infinity;
+  const gap = e.b.y - chipB;
+  const ringK = gap >= 2 * R0 + 6 ? 1 : clamp((gap - 6) / (2 * R0), 0.45, 1);
+  const yA = gap >= 2 * R0 + 6 ? e.b.y - R0 - 2 : (chipB + e.b.y) / 2;
+  const tA = e.b.y === e.a.y ? 1 : clamp((yA - e.a.y) / (e.b.y - e.a.y));
+  const gx = Math.max(G.panelE.x + L.F * 0.4, Math.min(G.panelE.x + R0, G.knobOpen.x - L.B.hr - R0));
   const full = [
-    {s: 'contract', p: G['part-e'].a},
-    {p: G['part-e'].b},
-    {p: {x: gx, y: G['part-e'].b.y + L.F * 0.4}},
+    {s: 'contract', p: e.a},
+    {p: mix(e.a, e.b, tA)},
+    {p: {x: gx, y: Math.min(yA, e.b.y)}},
     {p: {x: gx, y: G.port.y}},
     {s: 'event', p: G.port},
     {s: 'link', p: G.knob},
@@ -403,7 +418,7 @@ function routeOf(L, G) {
   for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i].p.x - pts[i - 1].p.x, pts[i].p.y - pts[i - 1].p.y));
   const stageIdx = {};
   pts.forEach((q, i) => { if (q.s) stageIdx[q.s] = i; });
-  return {pts: pts.map(q => q.p), cum, tot: cum[cum.length - 1], stageIdx};
+  return {pts: pts.map(q => q.p), cum, tot: cum[cum.length - 1], stageIdx, ringK, band: [chipB - R0, e.b.y + R0], R0};
 }
 
 function tracePos(route, t) {
@@ -434,8 +449,12 @@ function placeLabels(L) {
       return {x: clamp(x, box.x, box.x + box.w - w), y: q.y - hh / 2, w, h: hh};
     };
     let pick = null;
-    for (let i = 0; i < ts.length * 3 && !pick; i++) {
+    // (preferred: the chips high enough on their lines that the marker, running just above the event panel's top edge,
+    // passes under them clear of their rims — see routeOf; else anywhere clear of the parts)
+    const ringRoom = 2 * (F * 0.8 + 3) + 4;
+    for (const roomy of [true, false]) for (let i = 0; i < ts.length * 3 && !pick; i++) {
       const a = cand('e', i), b = cand('t', i);
+      if (roomy && (a.y + a.h > L.cols[0].y - ringRoom || b.y + b.h > L.cols[1].y - ringRoom)) continue;
       if (![...obst].some(o => overlaps(a, o, 2) || overlaps(b, o, 2)) && !overlaps(a, b, 4)) pick = [a, b];
     }
     if (!pick) { L.why.push('label-part'); L.ok = false; pick = [cand('e', 0), cand('t', 0)]; }
