@@ -38,7 +38,7 @@ contractSuite(ID, {
 ratioChecks(ID, 'layout fits, order, arrangement per ratio', [
   {at: [0, 1], fn: 's.layoutOk', label: 'layout fits'},
   {at: [0.58], fn: 's.filmRegistered && !s.seated', label: 'registered before plugged'},
-  {at: [0], fn: "s.arrangement === 'row'", ratios: ['16:9'], label: '16:9: the exploded components in a row'},
+  {at: [0], fn: "s.arrangement === 'grid'", ratios: ['16:9'], label: '16:9: the exploded components in a wide 2 × 2 grid (plates at full width)'},
   {at: [0], fn: "s.arrangement === 'column'", ratios: ['9:16'], label: '9:16: in a column'},
   {at: [0], fn: "s.arrangement === 'grid'", ratios: ['1:1'], label: '1:1: in a 2 × 2 grid'},
 ]);

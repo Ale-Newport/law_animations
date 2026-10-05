@@ -120,7 +120,7 @@ function geom(ctx, F, minF) {
   // 'down': the contract on top; the slip hangs below the socket on its bottom edge
   const portrait = shape === 'portrait';
   slipW = portrait ? clamp(D.w * 0.5, 300, 440) : clamp(D.w * 0.31, 300, 400);
-  const TT = slipText(ctx, p, slipW, F, minF, stress, D.h * (portrait ? 0.2 : 0.27));
+  const TT = slipText(ctx, p, slipW, F, minF, stress, D.h * (portrait ? 0.24 : 0.27));
   const zoneA = prong + 8 + TT.h + 22;
   const zoneB = portrait ? TT.h + 30 + capH : 0;
   const sideW = portrait ? 0 : slipW + 50;
@@ -147,8 +147,8 @@ function geom(ctx, F, minF) {
     lensRest = {centre: {x: m + 30 + lw / 2, y: D.h - m - capH - lh / 2 - 20}, a: 180};
     const rx0 = Math.max(lensRest.centre.x + lw / 2 + hl + 30, D.w - m - 30 - slipW - 40);
     regions = [
-      {x: m + 6, w: dockL - 30 - m - 6, top: zTop + 6, bottom: tipDock.y + prong + TT.h},
       {x: rx0, w: D.w - m - 6 - rx0, top: bTop - 10, bottom: D.h - m - capH},
+      {x: m + 6, w: dockL - 30 - m - 6, top: zTop + 6, bottom: tipDock.y + prong + TT.h},
     ];
   } else {
     const sx = D.w - m - slipW - 10;
@@ -427,6 +427,8 @@ function leader(ctx, L, pl) {
   else t = {x: L.lensRest.centre.x, y: L.lensRest.centre.y - L.lensDim.lh / 2};
   const from = {x: clamp(t.x, b.x + 12, b.x + b.w - 12), y: t.y < b.y ? b.y : t.y > b.y + b.h ? b.y + b.h : b.y + b.h / 2};
   if (t.x < b.x) from.x = b.x; else if (t.x > b.x + b.w) from.x = b.x + b.w;
+  // long leaders would cross the scene: the chip then sits without one (it is placed next to its target region)
+  if (Math.hypot(t.x - from.x, t.y - from.y) > 240) return g({name: `${pl.q.name}-lead`, opacity: 0});
   return g({name: `${pl.q.name}-lead`, opacity: 0},
     h('path', {d: `M${r(from.x)} ${r(from.y)}L${r(t.x)} ${r(t.y)}`, stroke: ctx.theme.inkSoft, 'stroke-width': 2.6, 'stroke-linecap': 'round'}),
     h('circle', {cx: r(t.x), cy: r(t.y), r: 6, fill: ctx.theme.inkSoft, stroke: '#fff', 'stroke-width': 2}),

@@ -39,7 +39,7 @@ const W = {
   links: [0.12, 0.28], labs0: [0.24, 0.3],
   r1a: [0.3, 0.37], f1: [0.36, 0.42], r1l: [0.4, 0.47], r1b: [0.42, 0.5], lit1: [0.49, 0.52],
   r2a: [0.52, 0.58], f2: [0.57, 0.63], r2l: [0.61, 0.67], r2b: [0.63, 0.7], lit2: [0.69, 0.72],
-  park: [0.69, 0.75], seam: [0.72, 0.77], note: [0.74, 0.79], key: [0.76, 0.81], ann: [0.78, 0.83],
+  park: [0.68, 0.79], seam: [0.72, 0.77], note: [0.74, 0.79], key: [0.76, 0.81], ann: [0.78, 0.83],
 };
 const STRINGS = {
   en: {...KIT_STRINGS.en, holds: 'in the contract', points: 'points to'},
@@ -85,14 +85,14 @@ function geom(ctx, F, minF) {
   let root, cards = {}, plq = {};
   const colW = hz ? A.w * 0.25 : A.w;
   const rootW = hz ? colW : Math.min(A.w * 0.62, 640);
-  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: rootW - 44, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 800});
+  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: rootW - 44, size: F, minSize: minF, maxLines: stress ? 4 : 2, weight: 800});
   const rootH = head.height + 30 + 2 * (discR * 2 + 22) + (hz ? 30 : 90);
   const cardW = hz ? A.w * 0.27 : (A.w - 70) / 2;
-  const cFit = k => fitG(p.clauses[k], {maxWidth: cardW - 30 - discR * 2 - 14 - 26, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700});
+  const cFit = k => fitG(p.clauses[k], {maxWidth: cardW - 30 - discR * 2 - 14 - 26, size: F, minSize: F, maxLines: stress ? 3 : 2, weight: 700});
   const cFits = {law: cFit('law'), forum: cFit('forum')};
   const cardH = Math.max(cFits.law.height, cFits.forum.height, discR * 2) + 40 + (hz ? 3 : 7) * 22 + 10;
   const plW = hz ? A.w * 0.27 : (A.w - 70) / 2;
-  const pFit = k => fitG(p.destinations[k], {maxWidth: hz ? plW - plaqueTextX(pR) - 22 : plW - 40, size: F * 1.05, minSize: minF, maxLines: stress ? 3 : 2, weight: 800});
+  const pFit = k => fitG(p.destinations[k], {maxWidth: hz ? plW - plaqueTextX(pR) - 22 : plW - 40, size: F * 1.05, minSize: F, maxLines: stress ? 3 : 2, weight: 800});
   const pFits = {law: pFit('law'), forum: pFit('forum')};
   const pBig = pFits.law.height > pFits.forum.height ? pFits.law : pFits.forum;
   const plH = hz ? Math.max(pBig.height, pR * 2) + 56 : stackedPlaqueH(pR, pBig);
@@ -199,6 +199,13 @@ const scene = {
     L.upx = upx;
     // connectors + routes (pure functions of the layout)
     L.conns = L.links.map(ln => connector(ctx, {name: `ln-${ln.id}`, from: ln.from, to: ln.to, kind: 'relation', bend: 0.06, color: laneColor(ctx, ln.kind)}));
+    L.routes = {};
+    for (const k of KINDS) {
+      const c0 = L.conns[L.links.findIndex(l => l.id === `in-${k}`)], c1 = L.conns[L.links.findIndex(l => l.id === `to-${k}`)];
+      const a = Array.from({length: 41}, (_, i) => c0.at(i / 40)), b = Array.from({length: 41}, (_, i) => c1.at(i / 40));
+      const pa = polyline(a), pb = polyline([a[40], ...b]);
+      L.routes[k] = {poly: polyline([...a, ...b]), f0: pa.total / (pa.total + pb.total)};
+    }
     return L;
   },
   build(ctx, L) {
@@ -255,7 +262,7 @@ const scene = {
     return g({name: 'scene'},
       L.conns.map(c => c.node),
       rootNode, plaques, cardNode('law'), cardNode('forum'), seam, labs,
-      tracer(ctx, 'tr', ctx.theme.accent2),
+      tracer(ctx, 'tr-law', laneColor(ctx, 'law')), tracer(ctx, 'tr-forum', laneColor(ctx, 'forum')),
       g({name: 'loupe', transform: T(L.park.x, L.park.y)}, loupe(ctx, 'loupe-art', L.LR)),
       notes,
     );
@@ -278,22 +285,20 @@ const scene = {
     });
     L.links.forEach((ln, i) => Object.assign(nodes, L.conns[i].frame(prog[ln.id], prog[ln.id] > 0 ? 1 : 0)));
     for (const l of L.labs) nodes[`lg-${l.id}`] = {opacity: r(l.stage === 0 ? seg(u, ...W.labs0) : clamp((prog[l.id] - 0.6) / 0.4), 3)};
-    // tracer along the active route: root edge → card (link 0) then card → plaque (link 1)
-    let tp = null, active = null, trO = 0;
+    // one tracer per route, each continuous: waits hidden at the contract edge, runs to its card, then on to its plaque
+    const trs = {};
+    let active = null;
     order.forEach((k, j) => {
       const [ak, , , bk] = rk[j];
-      const a = seg(u, ...W[ak]), b = seg(u, ...W[bk]);
-      const c0 = L.conns[idx(`in-${k}`)], c1 = L.conns[idx(`to-${k}`)];
-      if (u >= W[ak][0] && u < W[bk][1]) {
-        active = k;
-        trO = 1;
-        if (b <= 0) tp = c0.at(ease.inOutSine(a));
-        else tp = c1.at(ease.inOutSine(b));
-      }
+      const R = L.routes[k];
+      const a = ease.inOutSine(seg(u, ...W[ak])), b = ease.inOutSine(seg(u, ...W[bk]));
+      const t = b > 0 ? R.f0 + (1 - R.f0) * b : R.f0 * a;
+      const pt = R.poly.at(t);
+      const o = u < W[ak][0] ? 0 : u < W[bk][1] ? 1 : clamp(1 - (u - W[bk][1]) / 0.03);
+      nodes[`tr-${k}`] = {transform: T(r(pt.x, 2), r(pt.y, 2)), opacity: r(o, 3)};
+      trs[k] = {x: r(pt.x), y: r(pt.y), o};
+      if (u >= W[ak][0] && u < W[bk][1]) active = k;
     });
-    const lastB = W[rk[1][3]][1];
-    if (!tp) { const c1 = L.conns[idx(`to-${order[u >= lastB ? 1 : 0]}`)]; tp = u >= lastB ? c1.at(1) : L.conns[idx(`in-${order[0]}`)].at(0); trO = u >= lastB ? clamp(1 - (u - lastB) / 0.03) : 0; }
-    nodes.tr = {transform: T(r(tp.x, 2), r(tp.y, 2)), opacity: r(trO, 3)};
     // focus: the card being traced enlarges a little about its centre; the loupe hovers over its glyph
     for (const k of KINDS) {
       const c = L.cards[k];
@@ -320,7 +325,7 @@ const scene = {
     return {
       nodes,
       semantic: {
-        beat, order: order.join('>'), active, tracer: {x: r(tp.x), y: r(tp.y)}, tracerShown: r(trO, 3), loupe: {x: r(lp.x), y: r(lp.y)},
+        beat, order: order.join('>'), active, tracerLaw: {x: trs.law.x, y: trs.law.y}, tracerForum: {x: trs.forum.x, y: trs.forum.y}, tracerShown: r(Math.max(trs.law.o, trs.forum.o), 3), loupe: {x: r(lp.x), y: r(lp.y)},
         loupeParked: u < W.r1a[0] || u >= W.park[1],
         loupeBox: (() => { const b = loupeBox(lp.x, lp.y, L.LR); return bx(b); })(),
         links: L.links.map(ln => ({id: ln.id, kind: ln.kind, from: {x: r(ln.from.x), y: r(ln.from.y)}, to: {x: r(ln.to.x), y: r(ln.to.y)}, drawn: r(prog[ln.id], 3)})),
@@ -333,7 +338,7 @@ const scene = {
     };
   },
 };
-void edgeAnchor; void polyline;
+void edgeAnchor;
 
 export default defineAnimation({
   id: ID,

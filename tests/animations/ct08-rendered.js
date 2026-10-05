@@ -403,7 +403,7 @@ export function cardsApart(ID, pairs) {
  * appear only in the exact supplied labels (see CONFIG_LABEL).
  */
 export function noConditionRuleWords(ID) {
-  test(`${ID}: no rendered text states a termination rule or a conclusion (right or ground to terminate, notice period, time limit, resolved, effect, valid, sufficient, breach, must, outcome), EN and ES (every preset, rendered)`, async ({page}) => {
+  test(`${ID}: no rendered text states forum or conflict-of-laws doctrine or a conclusion (court, jurisdiction-competent, exclusive, prevail, effect, valid, binding, must, outcome), EN and ES (every preset, rendered)`, async ({page}) => {
     test.setTimeout(600000);
     await open(page);
     const presets = [{name: 'default', params: {}}, {name: 'default-es', params: {locale: 'es'}}, ...presetsFor(ID)];
@@ -440,7 +440,7 @@ export function noConditionRuleWords(ID) {
 }
 
 /** Banned wording, EN and ES (exported so that a test can check the regex itself). */
-export const TERM_BANNED = /(enforce|ejecutab|exigib|\bvalid|\binvalid|v(á|a)lid[oa]s?\b|validez|\bvoid\b|\bnul[oa]s?\b|nulidad|\bamounts?\b|importe|€|\$|%|\bEUR\b|\bUSD\b|\bmust\b|\bshall\b|\bdebe|\bdeber|\btiene que\b|breach|incumpl|\boutcome|resultado|\beffect|\befecto|binding|vinculante|c(ó|o)digo|statut|damages|\bdaños|\bwins?\b|\bgana|\bcourts?\b|tribunal|juzgado|jurisdic|conflict of laws|conflicto de leyes|exclusiv|prevail|prevalec|overrid|mandator|imperativ|competen|\brome\b|\bbrussels\b|\bhague\b|\bla haya\b)/i;
+export const TERM_BANNED = /(enforce|ejecutab|exigib|\bvalid|\binvalid|v(á|a)lid[oa]s?\b|validez|\bvoid\b|\bnul[oa]s?\b|nulidad|\bamounts?\b|importe|€|\$|%|\bEUR\b|\bUSD\b|\bmust\b|\bshall\b|\bdebe|\bdeber|\btiene que\b|breach|incumpl|\boutcome|resultado|\beffect|\befecto|binding|vinculante|c(ó|o)digo|statut|damages|\bdaños|\bwins?\b|\bgana|\bcourts?\b|tribunal|juzgado|conflict of laws|conflicto de leyes|exclusiv|prevail|prevalec|overrid|mandator|imperativ|competen|\brome\b|\bbrussels\b|\bhague\b|\bla haya\b)/i;
 /** The configuration words (allowed only inside the exact supplied labels). */
 export const CONFIG_WORDS = /(?!)/;
 /** The exact supplied labels (optionally after a room badge, "A: …"). */

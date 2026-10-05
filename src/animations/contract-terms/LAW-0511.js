@@ -55,6 +55,7 @@ function geom(ctx, F, minF) {
   const p = ctx.params;
   const D = ctx.design;
   const side = ctx.view.shape !== 'portrait';
+  const rowsB = ctx.view.shape === 'square';
   const show = ctx.show('all'), showKey = ctx.show('key');
   const stress = isStress(p);
   const why = [];
@@ -81,26 +82,29 @@ function geom(ctx, F, minF) {
   const discR = clamp(F * 1.0, 18, 26);
   const pR = discR * 1.35;
   const pw = (S.w - 28) / 2;
-  const pFits = KINDS.map(k => fitG(p.destinations[k], {maxWidth: pw - 32, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 800}));
+  const pFits = KINDS.map(k => fitG(p.destinations[k], {maxWidth: pw - 32, size: F, minSize: F, maxLines: 3, weight: 800}));
   const ph = stackedPlaqueH(pR, pFits[0].height > pFits[1].height ? pFits[0] : pFits[1]);
   const top = plaqueTop(pw);
   const plY = headH + top + 6;
   const plq = KINDS.map((k, i) => ({kind: k, x: i * (pw + 28), y: plY, w: pw, h: ph, fit: pFits[i]}));
   // contract card at the bottom: head + two bands side by side
-  const bw = (S.w - 36 - 16) / 2;
+  const bw = rowsB ? S.w - 36 : (S.w - 36 - 16) / 2;
   const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: S.w - 40, size: F, minSize: minF, maxLines: stress ? 2 : 1, weight: 800});
-  const bFits = KINDS.map(k => fitG(p.clauses[k], {maxWidth: bw - 24 - discR * 2 - 12 - 10, size: F, minSize: minF, maxLines: 3, weight: 700}));
+  const bFits = KINDS.map(k => fitG(p.clauses[k], {maxWidth: bw - 24 - discR * 2 - 12 - 10, size: F, minSize: F, maxLines: 3, weight: 700}));
   const bandH = Math.max(bFits[0].height, bFits[1].height, discR * 2) + 30;
-  const cardH = head.height + 26 + bandH + 22;
+  const cardH = head.height + 26 + (rowsB ? 2 * bandH + 12 : bandH) + 22;
   const card = {x: 0, y: S.h - cardH - 4, w: S.w, h: cardH};
-  const bands = KINDS.map((k, i) => ({kind: k, x: 18 + i * (bw + 16), y: card.y + head.height + 26, w: bw, h: bandH, fit: bFits[i]}));
+  const bands = KINDS.map((k, i) => (rowsB
+    ? {kind: k, x: 18, y: card.y + head.height + 26 + i * (bandH + 12), w: bw, h: bandH, fit: bFits[i]}
+    : {kind: k, x: 18 + i * (bw + 16), y: card.y + head.height + 26, w: bw, h: bandH, fit: bFits[i]}));
   // signposts: post from the band top up to the pivot; board rests level pointing inward
-  const pivY = plY + ph + (card.y - (plY + ph)) * 0.45;
-  const postLen = bands[0].y - pivY;
+  const pivY = plY + ph + (card.y - (plY + ph)) * 0.38;
+  const postX = i => (rowsB ? plq[i].x + plq[i].w / 2 : bands[i].x + bands[i].w / 2);
+  const postLen = card.y - pivY;
+  const boardL = Math.max(40, Math.min(clamp(S.w * 0.2, 80, 180), (pivY - plY - ph) * 0.6));
   if (postLen < 70) why.push('post');
-  const boardL = clamp(S.w * 0.2, 80, 180);
   const posts = bands.map((b, i) => {
-    const piv = {x: b.x + b.w / 2, y: pivY};
+    const piv = {x: postX(i), y: pivY};
     const P = plq[i];
     const port = {x: P.x + P.w / 2, y: P.y + P.h + 8};
     const restA = i === 0 ? 0 : 180;
@@ -126,7 +130,7 @@ function geom(ctx, F, minF) {
       ny += rh + gap;
     }
   }
-  return {ok: !why.length, why, F, minF, side, sc, badgeR, capFits, headH, discR, pR, plq, top, head, card, bands, posts, boardL, LR, loupeRest, reads, notesPl};
+  return {ok: !why.length, why, rowsB, F, minF, side, sc, badgeR, capFits, headH, discR, pR, plq, top, head, card, bands, posts, boardL, LR, loupeRest, reads, notesPl};
 }
 
 const examined = (p, w) => (w === 'a' ? p.examinedA : p.examinedB);
@@ -172,6 +176,7 @@ const scene = {
         h('path', {d: roundRectPath(C.x, C.y, C.w, C.h, 12), fill: '#fdfbf5', stroke: INK, 'stroke-width': 2.6}),
         h('path', {d: roundRectPath(C.x + 2, C.y + 2, C.w - 4, L.head.height + 16, 10), fill: th.accent4Soft}),
         show ? txt(L.head, {x: C.x + 18, y: C.y + 10, fill: INK}) : h('path', {d: `M${r(C.x + 18)} ${r(C.y + 10 + L.head.height / 2)}h${r(C.w * 0.4)}`, stroke: '#9fb08f', 'stroke-width': 10, 'stroke-linecap': 'round'}),
+        L.posts.map(q => h('path', {d: roundRectPath(q.piv.x - 16, C.y - 7, 32, 14, 5), fill: laneColor(ctx, q.kind), stroke: INK, 'stroke-width': 2})),
         L.bands.map(b => g(null,
           h('path', {name: `${P}-band-${b.kind}`, d: roundRectPath(b.x - 5, b.y - 5, b.w + 10, b.h + 10, 12), fill: laneSoft(ctx, b.kind), stroke: laneColor(ctx, b.kind), 'stroke-width': 3, opacity: 0}),
           h('path', {d: roundRectPath(b.x, b.y, b.w, b.h, 9), fill: '#ffffff', stroke: '#cfc4ae', 'stroke-width': 2}),

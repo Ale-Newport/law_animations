@@ -206,11 +206,11 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
     const extra = Math.max(0, availCol - (hcNat + hkNat + hfNat + prong + slipNat));
     hkT = Math.max(hkNat, Math.min(hkNat + extra * 0.3 * ff, D.h - 2 * m - band - nh - 40));
     hcT = hcNat + extra * 0.04 * ff;
-    slipMin = slipNat + extra * 0.62 * ff;
+    slipMin = Math.max(slipNat + extra * 0.62 * ff, D.h * 0.34 * ff);
   } else {
     const row1 = Math.max(hcNat, hfNat);
     const row2avail = D.h - m - (m + tabH0 + 8 + row1 + tabH0 + 34);
-    hkT = Math.max(hkNat, Math.min(hkNat + (row2avail - hkNat) * ff, D.h - 2 * m - band - nh * 0.6 - 40));
+    hkT = Math.max(hkNat, Math.min(hkNat + (row2avail - hkNat) * ff, shape === 'landscape' ? D.h - 2 * m - band - 4 : D.h - 2 * m - band - nh * 0.6 - 40));
     slipMin = Math.min(row2avail, hkT) * 0.75;
   }
   const spare = Math.max(0, hkT - hkNat);
@@ -258,7 +258,7 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
     fill: q.kind === 'final' ? ctx.theme.accent2Soft : ctx.theme.card});
   // place the assembly and the notes
   let A, notesBox;
-  if (style === 'right' && arrangement === 'row') {
+  if (style === 'right' && shape === 'landscape') {
     // landscape: assembly on the left, notes in a column on the right
     A = {x: m + 10, y: (D.h - asmBox.h) / 2 - asmBox.y};
     const nx = A.x + asmBox.w + 50;
@@ -382,8 +382,8 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
   else if (notesBox.anchor === 'end') { const nx = Math.min(...nb.map(b => b.x)); Tz = {x: m, y: m, w: nx - 40 - m, h: D.h - 2 * m}; }
   else { const ny = Math.min(...nb.map(b => b.y)); Tz = {x: m, y: m, w: D.w - 2 * m, h: ny - 24 - m}; }
   const Z = clamp(Math.min(Tz.w / aw, Tz.h / ah), 1, 1.7);
-  const zoom = {Z, c0: {x: a0.x + aw / 2, y: a0.y + ah / 2}, cT: {x: Tz.x + Tz.w / 2, y: Tz.y + Tz.h / 2}};
-  if (Z === 1) zoom.cT = zoom.c0;
+  const zoom = {Z, c0: {x: a0.x + aw / 2, y: a0.y + ah / 2}, cT: {x: Tz.x + Tz.w / 2, y: nb.length && notesBox.anchor !== 'end' ? Tz.y + Math.min(Tz.h / 2, ah * Z / 2 + 10) : Tz.y + Tz.h / 2}};
+  if (Z === 1 && !(nb.length && notesBox.anchor !== 'end')) zoom.cT = zoom.c0;
   return {
     zoom,
     ok: !why.length, why, F, minF, arrangement, style, side, prong, slipW, TT, sb, Wc, Wk, Wf, hc, hk, hf, band, head, title, titleY,
@@ -408,7 +408,7 @@ const scene = {
     const stress = isStress(p);
     const minF = (stress ? 16.6 : 20) / upx;
     const shape = ctx.view.shape;
-    const arrangements = shape === 'landscape' ? ['row'] : shape === 'portrait' ? ['column'] : ['grid'];
+    const arrangements = shape === 'landscape' ? ['grid', 'row'] : shape === 'portrait' ? ['column'] : ['grid'];
     let L = null;
     search: for (const fpx of stress ? [23, 21, 19.5, 18, 17] : [28, 26.5, 25, 23, 21.5, 20.5]) for (const ar of arrangements) for (const ff of [1, 0.9, 0.8, 0.7, 0.6, 0.45, 0.3, 0]) {
       L = geom(ctx, fpx / upx, minF, ar, ff);

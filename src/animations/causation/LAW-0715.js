@@ -87,7 +87,7 @@ const defaultParamsEs = {
 const MARGIN = 10;
 const SHAPES = {
   landscape: {size: 26, minSize: 17, arr: ['row']},
-  square: {size: 24, minSize: 17, arr: ['column', 'textcol', 'row']},
+  square: {size: 24, minSize: 17, arr: ['column', 'textcol']},
   portrait: {size: 25, minSize: 17, arr: ['column']},
 };
 const RW_ = fieldW(), RH_ = field1H();
@@ -157,7 +157,7 @@ function compose(ctx, base, cfg) {
   const gapL = arr === 'row' ? 34 : 24;
   const laneW = arr === 'row' ? (full - gapL) / 2 : textcol ? full - colW - 24 : full;
   const v = ctx.view, fs = Math.min(v.content.w / D.w, v.content.h / D.h);
-  const need = arr === 'row' ? 0.4 : textcol ? 0.55 : 0.71;
+  const need = arr === 'row' ? 0.4 : textcol ? 0.44 : 0.71;
   if (!cfg.fallback && laneW - 12 < need * v.width / fs + 2) return {bad: 'lane-share'};
   // headSide: each lane's head chip stands right of its field, at the field's top (B's guide chip under it)
   const side = Boolean(cfg.headSide);
@@ -273,7 +273,7 @@ const scene = {
     const v0 = ctx.view, fs0 = Math.min(v0.content.w / ctx.design.w, v0.content.h / ctx.design.h);
     for (let size = SH.size; size >= SH.minSize - 1e-9; size -= 1) {
       if (best && pick && pick.subj && size < Math.max(best.size - 3, Math.min(best.size, 20)) - 1e-9) break;
-      for (const arr of SH.arr) for (const half of arr === 'textcol' ? [0, 1] : [0, 1, 2]) for (const headSide of [false, true]) for (const guideTop of [false, true]) for (const guideBand of [false, true]) for (const wideGuide of [false, true]) for (const colF of arr === 'textcol' ? [0.28, 0.3, 0.32, 0.33] : [0]) {
+      for (const arr of SH.arr) for (const half of arr === 'textcol' ? [0, 1] : [0, 1, 2]) for (const headSide of [false, true]) for (const guideTop of [false, true]) for (const guideBand of [false, true]) for (const wideGuide of [false, true]) for (const colF of arr === 'textcol' ? [0.28, 0.3, 0.32, 0.33, 0.36, 0.39, 0.42, 0.45] : [0]) {
         const low = arr === 'textcol' && half;
         const X = compose(ctx, base, {size, arr, half: arr === 'textcol' ? false : half, low, colF, headSide, guideTop, guideBand, wideGuide, hMin, dry: true});
         if (!X.cfg) { why.push(`${arr}/${half ? 'h' : ''}@${size}:${X.bad}${X.PH ? Math.round(X.PH) : ''}`); continue; }
@@ -302,7 +302,7 @@ const scene = {
       }
     }
     L.fallback = !pick;
-    L.why = why.filter(w0 => /@17:/.test(w0)).slice(0, 40);
+    L.why = why.filter(w0 => (globalThis.WHY ? new RegExp(globalThis.WHY) : /@17:/).test(w0)).slice(0, 40);
     L.M = M;
     const full = Dv.w - 2 * MARGIN;
     const PH = L.PH;
@@ -331,7 +331,8 @@ const scene = {
     const [, lb] = L.lanes;
     // B's bracket spans its running trolley's path, just above the trolley's flag
     L.bx = [lb.G.cartX(0) - lb.G.cartW * 0.5, lb.G.cartX(1) + lb.G.cartW * 0.5];
-    L.brY = lb.G.yB - (CART_TOP + 0.04) * PH;
+    // (above the actor's head as well as the trolley's flag: the field top)
+    L.brY = lb.G.top + 0.005 * PH;
     if (L.gc && L.guideTop) {
       const G = lb.G;
       const mid = (L.bx[0] + L.bx[1]) / 2;

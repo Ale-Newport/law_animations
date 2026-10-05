@@ -73,21 +73,21 @@ const isStress = p => [...p.clauses, p.claim.label, p.contract.title, p.scenario
 /* ---------------------------------------------------------------------- */
 
 /** One bench's geometry in local coordinates (origin = bench top-left). */
-function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH, sf = 0.55) {
+function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH, sf = 0.55, wf = 1) {
   const why = [];
   const pi = promiseIndex(p);
   const prong = 50;
   const headerH = Math.max(headerTextH, F * 1.6) + 22;
   const pad = 22;
   const panel = {x: 0, y: headerH + 8, w: bw, h: bh - headerH - 8};
-  const cw = clamp(bw * (bw > 1000 ? 0.34 : bw < 820 ? 0.42 : 0.39), 250, 520);
+  const cw = clamp(bw * lerp(bw > 1000 ? 0.27 : 0.31, bw > 1000 ? 0.34 : bw < 820 ? 0.42 : 0.39, wf), 230, 520);
   const head = fitG(p.contract.reference, {maxWidth: cw - 40, size: F, minSize: minF, maxLines: 2, weight: 700});
   const rowFit = fitG(p.clauses[pi], {maxWidth: cw - 70, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600});
   const bandH = head.height + F * 0.8;
   const rowH = rowFit.height + F * 0.95;
   const ch0 = bandH + 22 + rowH + 30;
   const panelH0 = bh - headerH - 8;
-  const sw = clamp(bw * (stress ? 0.31 : 0.25), 205, 340);
+  const sw = clamp(bw * lerp(stress ? 0.27 : 0.21, stress ? 0.31 : 0.25, wf), 190, 340);
   const TT = slipText(ctx, p, sw, F, minF, stress, Math.max(F * 4.4, (panelH0 - 34 - 28 - 46) * sf));
   const PA = 0.3;
   TT.prongAt = PA;
@@ -121,7 +121,7 @@ function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH, sf = 0.55) {
   const slipFar = dock.x + prong + sw; // far edge of the docked slip
   const jawPark = right - jawW / 2 - 4;
   const jawClosed = slipFar + jawW / 2 + 2;
-  const jawOpen = Math.min(jawPark - 30, slipFar + Math.max(60, (jawPark - slipFar) * 0.62));
+  const jawOpen = Math.min(jawPark - 30, slipFar + Math.max(80, (jawPark - slipFar) * 0.7));
   const jawMid = lerp(jawPark, jawOpen, 0.5); // both benches reach here identically before the change
   if (jawOpen - jawClosed < 40) why.push('no-open-gap');
   return {orient: 'h', why, prong, headerH, panel, card, row, head, rowFit, bandH, rowH, TT, sb, sock, dock, restTip, beamY, trackY, jawW, jawPark, jawClosed, jawOpen, jawMid, slipFar, right, cy, pad};
@@ -136,14 +136,15 @@ function benchGeomV(ctx, p, bw, bh, F, minF, stress, headerTextH) {
   const pad = 20;
   const panel = {x: 0, y: headerH + 8, w: bw, h: bh - headerH - 8};
   const cw = bw - 2 * pad;
-  const head = fitG(p.contract.reference, {maxWidth: cw - 40, size: F, minSize: minF, maxLines: 2, weight: 700});
+  // (the reference is printed in the shared strip; the vertical bench card keeps only a thin head band)
+  const head = null;
   const rowFit = fitG(p.clauses[pi], {maxWidth: cw - 70, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600});
-  const bandH = head.height + F * 0.8;
+  const bandH = 16;
   const rowH = rowFit.height + F * 0.95;
   const ch = bandH + 20 + rowH + 18;
   const sw = clamp(bw * 0.56, 205, 340);
-  const TT = slipText(ctx, p, sw, F, minF, stress, F * 4.4);
-  if (head.bad || rowFit.bad || TT.bad) why.push('bench-text' + (head.bad ? ':head' : '') + (rowFit.bad ? ':row' : '') + (TT.bad ? ':slip' : ''));
+  const TT = slipText(ctx, p, sw, F, minF, stress, F * 3.6);
+  if (rowFit.bad || TT.bad) why.push('bench-text' + (rowFit.bad ? ':row' : '') + (TT.bad ? ':slip' : ''));
   const card = {x: pad, y: panel.y + 36, w: cw, h: ch};
   const row = {x: card.x + 20, y: card.y + bandH + 20, w: cw - 30, h: rowH};
   const slipR = card.x + cw - 44;
@@ -155,7 +156,7 @@ function benchGeomV(ctx, p, bw, bh, F, minF, stress, headerTextH) {
   const jawPark = bottom - jawW / 2 - 4;
   const restTip = {x: dock.x, y: jawPark - jawW / 2 - 26 - TT.h - prong};
   const travel = restTip.y - dock.y;
-  if (travel < 52) why.push('no-travel');
+  if (travel < (F > minF * 1.05 ? Math.max(52, panel.h * 0.15) : 52)) why.push('no-travel');
   const slipFar = dock.y + prong + TT.h;
   const jawClosed = slipFar + jawW / 2 + 2;
   const jawOpen = Math.min(jawPark - 24, slipFar + Math.max(56, (jawPark - slipFar) * 0.62));
@@ -216,7 +217,7 @@ function geom(ctx, F, minF, side, colMode = false) {
   const hT = Math.max(0, ...headerFits.map(f => (f ? f.height : 0)));
   let B = null;
   if (vMode) B = benchGeomV(ctx, p, bw, bh, F, minF, stress, hT);
-  else for (const sf of [0.85, 0.72, 0.55]) { B = benchGeom(ctx, p, bw, bh, F, minF, stress, hT, sf); if (!B.why.length) break; }
+  else search: for (const wf of [0, 0.5, 1]) for (const sf of [0.85, 0.72, 0.55]) { B = benchGeom(ctx, p, bw, bh, F, minF, stress, hT, sf, wf); if (!B.why.length) break search; }
   why.push(...B.why);
   const origins = side ? [{x: m, y: m}, {x: m + bw + gap, y: m}] : [{x: m, y: m}, {x: m, y: m + bh + gap}];
   const yb = colMode ? m + Math.max(0, (D.h - 2 * m - (stripH + notesH + 14)) / 2) : m + (side ? bh : 2 * bh + gap) + 14;
@@ -253,7 +254,7 @@ function clauseCard(ctx, B, show, prefix) {
     h('path', {d: `M0 ${r(B.bandH)}H${r(card.w)}`, stroke: INK, 'stroke-width': 2}),
     h('circle', {cx: r(card.w * 0.22), cy: 10, r: 6, fill: '#efe7d6', stroke: INK, 'stroke-width': 1.8}),
     h('circle', {cx: r(card.w * 0.78), cy: 10, r: 6, fill: '#efe7d6', stroke: INK, 'stroke-width': 1.8}),
-    show ? txt(B.head, {x: 20, y: (B.bandH - B.head.height) / 2 + 4, fill: INK}) : h('path', {d: `M20 ${r(B.bandH / 2 + 4)}h${r(Math.min(card.w * 0.6, 240))}`, stroke: '#9fbcb6', 'stroke-width': 11, 'stroke-linecap': 'round'}),
+    !B.head ? null : show ? txt(B.head, {x: 20, y: (B.bandH - B.head.height) / 2 + 4, fill: INK}) : h('path', {d: `M20 ${r(B.bandH / 2 + 4)}h${r(Math.min(card.w * 0.6, 240))}`, stroke: '#9fbcb6', 'stroke-width': 11, 'stroke-linecap': 'round'}),
     h('rect', {x: r(lx), y: r(row.y - card.y), width: r(row.w), height: r(row.h), rx: 7, fill: '#fff4d6', stroke: '#b79a55', 'stroke-width': 2.4}),
     h('path', {d: railD, fill: 'none', stroke: '#b9ad94', 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}),
     h('path', {name: `${prefix}lit`, d: railD, fill: 'none', stroke: ctx.theme.accent2, 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', opacity: 0}),

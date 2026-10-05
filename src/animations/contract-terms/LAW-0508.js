@@ -174,10 +174,13 @@ function geom(ctx, F, minF, placementPref) {
   dest.y = rg.k === 'top' ? rg.y : rg.k === 'bottom' ? rg.y + rg.h - dest.h : rg.y + (rg.h - dest.h) / 2;
   // reading lens: rests on the shelf below the board, then over the tag
   const shelfY = board.y + board.h + ledgeH;
-  const lensRest = {centre: {x: stand.x + 26 + lupaDim.lh * 0.3 + lupaDim.hl + lupaDim.lw / 2, y: shelfY + shelfH / 2 - 6}, a: 0};
+  // the reading lens rests on the shelf right under the tag's column, so it travels straight up the column (never over the sheet)
+  const lrx = clamp(tag.x + tag.w / 2, stand.x + 26 + lupaDim.lh * 0.3 + lupaDim.hl + lupaDim.lw / 2, stand.x + stand.w - lupaDim.lw / 2 - 10);
+  const lensRest = {centre: {x: lrx, y: shelfY + shelfH / 2 - 6}, a: 0};
+  const lupaLeft = lrx - lupaDim.lw / 2 - lupaDim.hl - lupaDim.lh * 0.3;
   const lensRead = {centre: {x: tag.x + tag.w / 2, y: tag.y + tag.h / 2}, a: -25};
   // the stand plate on the shelf; the marker beside the tag; the marker label and key in the column's free space
-  const plateFit = show && p.contextLabels.context ? fitG(p.contextLabels.context, {maxWidth: stand.w - lupaDim.lw - lupaDim.hl - 100, size: Math.max(minF, F * 0.9), minSize: minF, maxLines: 2, weight: 700}) : null;
+  const plateFit = show && p.contextLabels.context ? fitG(p.contextLabels.context, {maxWidth: lupaLeft - stand.x - 70, size: Math.max(minF, F * 0.9), minSize: minF, maxLines: 2, weight: 700}) : null;
   if (plateFit && plateFit.bad) why.push('plate-text');
   const markerR = Math.max(18, F * 0.7);
   const markerAt = {x: tag.x + tag.w + markerR + 8, y: tag.y + 28};
@@ -204,7 +207,7 @@ function geom(ctx, F, minF, placementPref) {
   }
   return {
     ok: !why.length, why, F, minF, after, stand, board, inner, fr, ledgeH, shelfH, shelfY, lupaDim, tag, tagW, valFits, wasFit, gR,
-    sheet, S, rows, pi, sock, TT, tip, prong, dockBox, loop, src, dest, zoom, lensPlace: best ? best.rg.k : null, lensRest, lensRead, plateFit, markerR, markerAt, placed, stress,
+    sheet, S, rows, pi, sock, TT, tip, prong, dockBox, loop, src, dest, zoom, lensPlace: best ? best.rg.k : null, lensRest, lensRead, plateFit, lupaLeft, markerR, markerAt, placed, stress,
   };
 }
 
@@ -289,7 +292,7 @@ const scene = {
     );
     const plate = L.plateFit ? (() => {
       const w = L.plateFit.width + 30, hh = L.plateFit.height + 12;
-      const x = stand.x + stand.w - w - 10, y = L.shelfY + (L.shelfH - 12 - hh) / 2;
+      const x = stand.x + 14, y = L.shelfY + (L.shelfH - 12 - hh) / 2;
       return g(null, h('rect', {x: r(x), y: r(y), width: r(w), height: r(hh), rx: 6, fill: '#e8d6a8', stroke: INK, 'stroke-width': 1.8}), txt(L.plateFit, {x: x + 15, y: y + 6, fill: INK}));
     })() : null;
     const sheetNode = g({transform: T(L.sheet.x, L.sheet.y)}, contractSheet(ctx, {prefix: 'c-', w: L.sheet.w, h: L.sheet.h, S: L.S, rows: L.rows, showText: show, promise: L.pi, railD: `M${r(L.S.padX + L.S.rowW)} ${r(L.rows[L.pi].y + L.rows[L.pi].h / 2)}H${r(L.sheet.w - 6)}`}));
@@ -340,6 +343,9 @@ const scene = {
     const oq = E(seg(a, ...W.open)), cq = E(seg(a, ...W.close));
     const open = cq > 0 ? 1 - cq : oq;
     Object.assign(nodes, L.lensF(open));
+    // (no cone lines: they would cross the promise-row text; the source frame and the window carry the link)
+    nodes['lens-coneA'] = {...nodes['lens-coneA'], opacity: 0};
+    nodes['lens-coneB'] = {...nodes['lens-coneB'], opacity: 0};
     // the datum: substitution happens inside the lens
     const lift = seg(a, ...W.lift), wasQ = seg(a, ...W.was), aftQ = seg(a, ...W.after);
     const substituted = aftQ > 0;

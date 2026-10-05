@@ -92,14 +92,18 @@ function splitCols(ctx, rows, colW, F, cols) {
   return best.cols;
 }
 
-function compose(ctx, P, recs, F, opt) {
+function compose(ctx, P, recs, F, opt, cache) {
   const {w: DW, h: DH} = ctx.design;
   const rows = infoRows(ctx, P, recs);
   const gapP = F * 1.1;
   let PLs = [], ph = 0;
   const side = opt.pw && rows.length ? DW * opt.pw : 0;
   const colW = side ? side : (DW - 8 - (opt.cols - 1) * F * 1.2) / opt.cols;
-  if (rows.length) { PLs = splitCols(ctx, rows, colW, F, side ? 1 : opt.cols); ph = Math.max(...PLs.map(q => q.h)); }
+  if (rows.length) {
+    const key = `${F}|${colW}|${side ? 1 : opt.cols}`;
+    if (!cache.has(key)) cache.set(key, splitCols(ctx, rows, colW, F, side ? 1 : opt.cols));
+    PLs = cache.get(key); ph = Math.max(...PLs.map(q => q.h));
+  }
   const SW = DW - (side ? side + F * 1.2 : 0);
   const showKey = ctx.show('key'), showAll = ctx.show('all');
   const badgeR = F * 0.95;
@@ -120,10 +124,10 @@ function compose(ctx, P, recs, F, opt) {
   const st = {kind: P.items[0].kind, targets: ['scene', 'object'], slots: 1, rows: recs.length, restRuler: false, ...opt.st};
   const G = stage.h > 150 && stage.w > 150 ? benches.map(b => rfStage({x: b.x + inset * 1.5, y: b.y + inset * 1.5, w: b.w - inset * 3, h: b.h - inset * 3}, st)) : null;
   const panelOk = !side || ph <= DH;
-  const printOk = G && G[0].tray.pw >= G[0].S * 1.4;
-  const ok = panelOk && PLs.every(q => q.ok) && headOk && G && G[0].fits && G[0].S >= 70 && printOk;
+  const printOk = G && G[0].tray.pw >= G[0].S * 1.25;
+  const ok = panelOk && PLs.every(q => q.ok) && headOk && G && G[0].fits && G[0].S >= 62 && printOk;
   return {F, rows, PLs, ph, colW, headH, heads, badgeR, benches, stage, G, panelY: side ? Math.max(0, (DH - ph) / 2) : DH - ph, panelX: side ? DW - side : null, ok, arr: opt.arr,
-    problems: [!PLs.every(q => q.ok) && 'panel-text', !headOk && 'head-text', (!G || G[0].S < 70) && 'stage-small', G && !printOk && 'print-small'].filter(Boolean)};
+    problems: [!PLs.every(q => q.ok) && 'panel-text', !headOk && 'head-text', (!G || G[0].S < 62) && 'stage-small', G && !printOk && 'print-small'].filter(Boolean)};
 }
 
 const scene = {
@@ -132,14 +136,17 @@ const scene = {
     const P = localised(ctx, EN0, (({views, ...rest}) => rest)(ES));
     const recs = rfRecords(P);
     const shape = ctx.view.shape;
-    const sts = [{tray: 'right', trayFrac: 0.34, approach: 'down'}, {tray: 'right', trayFrac: 0.4, approach: 'down'}, {tray: 'top', trayFrac: 0.3, approach: 'down'}, {tray: 'right', trayFrac: 0.28, approach: 'left'}, {tray: 'right', trayFrac: 0.34, approach: 'left'}];
+    const sts = [{tray: 'right', trayFrac: 0.34, approach: 'down'}, {tray: 'right', trayFrac: 0.4, approach: 'down'}, {tray: 'top', trayFrac: 0.3, approach: 'down'}, {tray: 'right', trayFrac: 0.28, approach: 'left'}, {tray: 'right', trayFrac: 0.34, approach: 'left'}, {tray: 'inset', trayFrac: 0, approach: 'down'}];
     const opts0 = shape === 'portrait' ? [{arr: 'col', cols: 1}, {arr: 'col', cols: 2}]
-      : shape === 'square' ? [{arr: 'col', cols: 1, pw: 0.36}, {arr: 'col', cols: 1, pw: 0.42}, {arr: 'row', cols: 2}, {arr: 'col', cols: 2}]
+      : shape === 'square' ? [{arr: 'col', cols: 1, pw: 0.36}, {arr: 'col', cols: 1, pw: 0.42}, {arr: 'row', cols: 2}, {arr: 'col', cols: 2}, {arr: 'row', cols: 1, pw: 0.3}, {arr: 'row', cols: 1, pw: 0.36}]
         : [{arr: 'row', cols: 2}, {arr: 'row', cols: 3}, {arr: 'row', cols: 1, pw: 0.22}, {arr: 'row', cols: 1, pw: 0.26}];
-    let C = null, best = null, bestScore = -1;
-    for (const F of SIZES) for (const o0 of opts0) for (const st of sts) {
-      const c = compose(ctx, P, recs, F, {...o0, st});
-      const score = (c.G ? c.G[0].S * Math.pow(Math.min(1, c.G[0].tray.pw / (2.2 * c.G[0].S)), 0.5) : 0) * Math.sqrt(F / 24) * (F < 19.5 ? 0.6 : 1);
+    let C = null, best = null, bestScore = -1, firstOk = -1;
+    const cache = new Map();
+    for (const [fi, F] of SIZES.entries()) for (const o0 of opts0) for (const st of sts) {
+      if (firstOk >= 0 && fi > firstOk + 5) break;
+      const c = compose(ctx, P, recs, F, {...o0, st}, cache);
+      if (c.ok && firstOk < 0 && F >= 19.5) firstOk = fi;
+      const score = (c.G ? c.G[0].S * Math.pow(Math.min(1, c.G[0].tray.pw / (1.4 * c.G[0].S)), 0.5) : 0) * Math.sqrt(F / 24) * (F < 19.5 ? 0.6 : 1);
       if (c.ok && score > bestScore) { best = c; bestScore = score; }
       if (!C || c.problems.length < C.problems.length) C = c;
     }

@@ -191,17 +191,23 @@ export function rfStage(B, o) {
   const side = o.tray;
   const gapT = 0.05;
   let S, zone, tray;
-  if (side === 'right' || side === 'left') {
+  if (side === 'inset') {
+    // one slot in the free lower-right corner of the stage (right of the camera stations, below the tag)
+    S = Math.min(B.w / bb.w, B.h / bb.h);
+    zone = B;
+    tray = null;
+  } else if (side === 'right' || side === 'left') {
     const tw = B.w * o.trayFrac;
     const zw = B.w - tw - B.w * gapT;
     S = Math.min(zw / bb.w, B.h / bb.h);
     zone = {x: side === 'right' ? B.x : B.x + tw + B.w * gapT, y: B.y, w: zw, h: B.h};
-    const pw = Math.min(tw * 0.86, ((B.h * 0.94) / n - B.h * 0.035) * PRINT_AR);
+    const sg = o.slotGap ?? 0.05;
+    const pw = Math.min(tw * 0.86, ((B.h * 0.94 - (n - 1) * B.h * sg) / n) * PRINT_AR);
     const ph = pw / PRINT_AR;
     const tx = side === 'right' ? B.x + B.w - tw : B.x;
     tray = {x: tx, y: B.y, w: tw, h: B.h, pw, ph, slots: Array.from({length: n}, (_, i) => {
-      const tot = n * ph + (n - 1) * B.h * 0.05;
-      return {x: tx + (tw - pw) / 2, y: B.y + (B.h - tot) / 2 + i * (ph + B.h * 0.05), w: pw, h: ph};
+      const tot = n * ph + (n - 1) * B.h * sg;
+      return {x: tx + (tw - pw) / 2, y: B.y + (B.h - tot) / 2 + i * (ph + B.h * sg), w: pw, h: ph};
     })};
   } else {
     const th = B.h * o.trayFrac;
@@ -220,6 +226,14 @@ export function rfStage(B, o) {
   const oy = zone.y + (zone.h - bb.h * S) / 2 - bb.y * S;
   const W = p => ({x: ox + p.x * S, y: oy + p.y * S});
   const WB = b => ({x: ox + b.x * S, y: oy + b.y * S, w: b.w * S, h: b.h * S});
+  if (!tray) {
+    const camR = Math.max(...used.map(c => c.x)) + CMu.radius + 0.06;
+    const x0 = Math.max(camR, 0.5), x1 = bb.x + bb.w - 0.02;
+    const pwU = x1 - x0, phU = pwU / PRINT_AR;
+    const y1 = bb.y + bb.h - 0.02, y0 = Math.max(y1 - phU, 1.0);
+    const sl = WB({x: x0, y: y0, w: pwU, h: phU});
+    tray = {x: sl.x, y: sl.y, w: sl.w, h: sl.h, pw: sl.w, ph: sl.h, slots: [sl]};
+  }
   const M = objectModel(o.kind, S);
   const T0 = tagModel({w: 1.12 * S, h: 0.5 * S, rows: Math.max(2, o.rows)});
   const fields = {};

@@ -5,8 +5,8 @@
 // completes). objectLabels = destinations (plaque labels).
 // acceptanceCheck (brief): continuity (60 fps: loupe, both dial centres, both needle tips), anchored objects (each line
 // ends at its own plaque; the dial rides on its own tab) and a transformation recognisable with the labels hidden.
-// Windows (LAW-0509.js): loupe→1 0.15–0.21 · tab1 0.22–0.29 · needle1 0.28–0.37 · line1 0.36–0.43 · loupe→2 0.31–0.37 ·
-// tab2 0.40–0.47 · needle2 0.46–0.55 · line2 0.54–0.62 · loupe back 0.60–0.68 · note 0.72–0.77 · key 0.74–0.79.
+// Windows (LAW-0509.js): loupe→1 0.10–0.22 · tab1 0.22–0.29 · needle1 0.28–0.37 · line1 0.36–0.43 · loupe→2 0.29–0.39 ·
+// tab2 0.40–0.47 · needle2 0.46–0.55 · line2 0.54–0.62 · loupe back 0.58–0.70 · note 0.72–0.77 · key 0.74–0.79.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
