@@ -551,7 +551,7 @@ export function panelNode(ctx, PL) {
       parts.push(textAt(row.fit, {x: F * 0.6, y: row.y + row.pad, fill: INK}));
     } else if (row.kind === 'key') {
       parts.push(h('line', {x1: 0, x2: r(PL.w), y1: r(row.y - F * 0.3), y2: r(row.y - F * 0.3), stroke: th.fgSoft, 'stroke-width': 1.5, opacity: 0.6}));
-      parts.push(textAt(row.fit, {x: 0, y: row.y, fill: th.fg, italic: true}));
+      parts.push(textAt(row.fit, {x: F * 0.25, y: row.y, fill: th.fg, italic: true}));
     } else {
       if (row.icon) parts.push(g({transform: T(F * 0.7, row.y + Math.min(row.fit.height, F * 1.2) / 2)}, legendIcon(ctx, row.icon, F * 1.15, {color: row.color, index: row.index})));
       parts.push(textAt(row.fit, {x: row.iconW, y: row.y, fill: th.fg}));
