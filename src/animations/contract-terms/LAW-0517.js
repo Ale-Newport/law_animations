@@ -31,7 +31,7 @@ import {
 const ID = 'LAW-0517';
 const DURATION = 6000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
-const W = {loupeTo: [0.04, 0.14], hl: [0.13, 0.17], rail: [0.15, 0.25], loupeBack: [0.2, 0.3], travel: [0.27, 0.64], attach: [0.645, 0.715], clip: [0.71, 0.75], note: [0.745, 0.79], key: [0.76, 0.8], ann: [0.77, 0.81]};
+const W = {loupeTo: [0.02, 0.16], hl: [0.15, 0.19], rail: [0.17, 0.27], loupeBack: [0.2, 0.33], travel: [0.28, 0.645], attach: [0.645, 0.715], clip: [0.71, 0.75], note: [0.745, 0.79], key: [0.76, 0.8], ann: [0.77, 0.81]};
 const STRINGS = {
   en: {...KIT_STRINGS.en, followed: 'The proposal followed the steps as supplied'},
   es: {...KIT_STRINGS.es, followed: 'La propuesta recorrió los pasos según lo aportado'},
@@ -109,7 +109,7 @@ const scene = {
     const nodes = {};
     const n = L.n;
     // loupe: rest → clause → rest
-    const q1 = ease.inOutCubic(seg(u, ...W.loupeTo)), q2 = ease.inOutCubic(seg(u, ...W.loupeBack));
+    const q1 = ease.inOutSine(seg(u, ...W.loupeTo)), q2 = ease.inOutSine(seg(u, ...W.loupeBack));
     const lp = u < W.loupeBack[0]
       ? {x: lerp(L.loupeRest.x, L.reads.x, q1), y: lerp(L.loupeRest.y, L.reads.y, q1) - Math.sin(q1 * Math.PI) * 26}
       : {x: lerp(L.reads.x, L.loupeRest.x, q2), y: lerp(L.reads.y, L.loupeRest.y, q2) - Math.sin(q2 * Math.PI) * 26};

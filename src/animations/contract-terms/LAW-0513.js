@@ -12,7 +12,7 @@
  *             it (constant grip, lifted arc) onto the tray, where it lands one level higher than the previous one — the
  *             annexes pile up in a cascade and only the label band of each lower binder stays visible. The level plate
  *             (number = position) lights as each binder lands. The binder listed first therefore ends on top.
- *  0.74–0.81  the hand leaves; the loupe stays on line 1 of the list.
+ *  0.74–0.84  the hand leaves; the loupe stays on line 1 of the list.
  *  0.76–1.00  hold: "Priority document (as supplied)" points at the top binder and "Subordinate document, as configured"
  *             at the bottom one (equal weight: same chip, same leader), the supplied final state and the key "As
  *             supplied · no conclusion drawn"; editorial notes if supplied.
@@ -38,8 +38,8 @@ const ID = 'LAW-0513';
 const DURATION = 6000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
 const RUN = [0.15, 0.74];
-const W = {leave: [0.74, 0.81], tags: [0.76, 0.81], key: [0.79, 0.84], notes: [0.8, 0.85]};
-const ACTION_END = 0.81;
+const W = {leave: [0.74, 0.84], tags: [0.76, 0.81], key: [0.79, 0.84], notes: [0.8, 0.85]};
+const ACTION_END = 0.84;
 
 const sceneSchema = {
   contract: contractField,
@@ -84,7 +84,7 @@ function geom(ctx, F, minF, arr, cols) {
   const plateW = discR * 2 + 26;
   const dx = 16;
   const lead = discR * 2.2 + 20;
-  const capH = show && p.actorLabels.a ? F * 0.9 * 1.18 + 14 + 26 : 0;
+  const capH = show && p.actorLabels.a ? Math.max(minF, F * 0.9) * 1.18 + 14 + 26 : 0;
   // ---- the card and the lower/right zone
   let card, zone;
   if (arr === 'side') {
@@ -113,7 +113,7 @@ function geom(ctx, F, minF, arr, cols) {
   const coverMin = stress ? Math.max(36, F * 1.5) : Math.max(54, F * 2.1);
   if (bh < bandH + coverMin) why.push('binder-height');
   bh = Math.max(bh, bandH + coverMin);
-  const dy = clamp((srcH - bh - 8) / Math.max(1, n - 1), bandH + 12, bh * 0.6);
+  const dy = Math.max(bandH + 12, Math.min((srcH - bh - 8) / Math.max(1, n - 1), bh * 0.6));
   const trayW = trayExtra + bw;
   const tray = {x: zone.x, w: trayW};
   const srcX0 = zone.x + trayW + gap;
@@ -132,10 +132,10 @@ function geom(ctx, F, minF, arr, cols) {
   const grip = {x: bw - 26, y: (bh - bandH) * 0.5};
   const portraitish = arr === 'top';
   const shoulder = portraitish ? {x: D.w + 120, y: D.h * 0.86} : {x: D.w + 150, y: D.h * 0.62};
-  const handRest = portraitish ? {x: D.w + 230, y: D.h * 0.86} : {x: D.w + 260, y: D.h * 0.6};
+  const handRest = portraitish ? {x: D.w - 16, y: D.h * 0.86} : {x: D.w - 16, y: D.h * 0.6};
   const targets = [handRest, ...picks.map(q => ({x: q.x + grip.x, y: q.y + grip.y})), ...slots.map(q => ({x: q.x + grip.x, y: q.y + grip.y}))];
-  const far = Math.max(...targets.map(q => Math.hypot(q.x - shoulder.x, q.y - shoulder.y)));
-  const near = Math.min(...targets.map(q => Math.hypot(q.x - shoulder.x, q.y - shoulder.y)));
+  const far = Math.max(...targets.map(q => Math.hypot(q.x - shoulder.x, q.y - shoulder.y))) + 70;
+  const near = Math.min(...targets.slice(1).map(q => Math.hypot(q.x - shoulder.x, q.y - shoulder.y)));
   const armW = clamp(far * 0.07, 46, 72);
   const handLen = 24 * 1.3 * (armW / 46);
   const upper = far * 0.53, lower = far * 0.47 - handLen + 2;
@@ -162,7 +162,9 @@ function geom(ctx, F, minF, arr, cols) {
   const trayFit = show && p.objectLabels.tray ? fitG(p.objectLabels.tray, {maxWidth: trayW - 40, size: Math.max(minF, F * 0.9), minSize: minF, maxLines: 1, weight: 700}) : null;
   if (trayFit && trayFit.bad) why.push('tray-label');
   const aboveTray = {x: zone.x, w: srcX0 - gap - zone.x, top: zone.y + 4, bottom: tray.y - 16 - (trayFit ? trayFit.height + 18 : 0)};
-  const style = q => ({fill: q.kind === 'tag' ? '#fffaf0' : q.kind === 'final' ? ctx.theme.accent2Soft : ctx.theme.card});
+  // the generic key never renders larger than the smallest supplied content text
+  const contentMin = Math.min(F, ...all.map(L0 => L0.fit.size), ...C.rows.map(f => f.size), C.text ? C.text.size : F);
+  const style = q => ({fill: q.kind === 'tag' ? '#fffaf0' : q.kind === 'final' ? ctx.theme.accent2Soft : ctx.theme.card, ...(q.kind === 'key' ? {size: contentMin, minSize: Math.min(minF, contentMin)} : {})});
   // the two reading tags sit level with the binder they name (top binder's cover / bottom binder's band); the other
   // notes fill what is left of the vacated column and the space above the tray
   const placed = [];
@@ -238,7 +240,7 @@ const scene = {
     });
     const trayLab = L.trayFit ? (() => {
       const f = L.trayFit, w = f.width + 26, hh = f.height + 10;
-      const x = tray.x + tray.w - w - 14, y = tray.y - hh - 8;
+      const x = tray.x + 6, y = tray.y - hh - 8;
       return g({name: 'trayLab'}, h('rect', {x: r(x), y: r(y), width: r(w), height: r(hh), rx: 7, fill: '#f1e2c4', stroke: INK, 'stroke-width': 1.8}), txt(f, {x: x + 13, y: y + 5, fill: INK}));
     })() : null;
     // rest marks of the binders, the low copies (on the desk) and the high copies (carried / piled), in pick order
@@ -250,7 +252,7 @@ const scene = {
     const loupeNode = g({name: 'loupe', transform: T(L.loupeRest.x, L.loupeRest.y)}, loupe(ctx, {R: L.loupeR, a: 180, handle: L.C.lead * 0.65 + 6}));
     const notes = L.placed.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node));
     const leads = L.placed.filter(pl => pl.q.kind === 'tag' || pl.q.kind === 'note').map(pl => leaderTo(ctx, `${pl.q.name}-lead`, pl.c.box, leadTarget(L, pl), pl.q.kind === 'tag' ? 2000 : 230));
-    const capFit = show && p.actorLabels.a ? fitG(p.actorLabels.a, {maxWidth: 360, size: L.F * 0.9, minSize: L.minF, maxLines: 1, weight: 700}) : null;
+    const capFit = show && p.actorLabels.a ? fitG(p.actorLabels.a, {maxWidth: 360, size: Math.max(L.minF, L.F * 0.9), minSize: L.minF, maxLines: 1, weight: 700}) : null;
     const cap = capFit ? (() => {
       const w = capFit.width + 28, hh = capFit.height + 14;
       const x = D.w - 26 - w, y = D.h - 22 - hh;
@@ -286,7 +288,7 @@ const scene = {
     const kRaw = (a - RUN[0]) / span;
     const k = clamp(Math.floor(kRaw), 0, n - 1);
     const q = a < RUN[0] ? 0 : a >= RUN[1] ? 1 : kRaw - k;
-    const reachQ = clamp(q / 0.3), carryQ = clamp((q - 0.3) / 0.55), settleQ = clamp((q - 0.85) / 0.15);
+    const reachQ = clamp(q / 0.38), carryQ = clamp((q - 0.38) / 0.5), settleQ = clamp((q - 0.88) / 0.12);
     const started = a >= RUN[0];
     let hand, phase;
     const gripAt = P => add(P, L.grip);
@@ -295,25 +297,27 @@ const scene = {
     const carryPos = t => {
       const P0 = L.picks[k], P1 = L.slots[k];
       const x = lerp(P0.x, P1.x, E(t));
-      const y = lerp(P0.y, P1.y, ease.outCubic(clamp(t / 0.7))) - Math.sin(Math.PI * t) * 46;
+      const y = lerp(P0.y, P1.y, ease.outCubic(clamp(t / 0.7))) - Math.sin(Math.PI * t) * 26;
       return {x, y};
     };
     let carriedK = -1, carried = null;
     if (!started) { hand = L.handRest; phase = 'rest'; }
-    else if (a >= RUN[1]) { hand = mix(gripAt(L.slots[n - 1]), L.handRest, E(leave)); phase = leave >= 1 ? 'away' : 'leaving'; }
-    else if (reachQ < 1) { hand = mix(from, gripAt(L.picks[k]), E(reachQ)); phase = 'reaching'; }
+    else if (a >= RUN[1]) { hand = mix(gripAt(L.slots[n - 1]), L.handRest, ease.inOutSine(leave)); phase = leave >= 1 ? 'away' : 'leaving'; }
+    else if (reachQ < 1) { hand = mix(from, gripAt(L.picks[k]), ease.inOutSine(reachQ)); phase = 'reaching'; }
     else if (carryQ < 1) { carried = carryPos(carryQ); carriedK = k; hand = gripAt(carried); phase = 'carrying'; }
     else { carried = L.slots[k]; carriedK = k; hand = gripAt(carried); phase = settleQ < 1 ? 'placing' : 'placed'; }
     const posed = L.arm.pose(L.shoulder, hand, 1);
     Object.assign(nodes, posed.nodes);
     // binders: placed ones on their slots, the carried one in the hand, the rest on the desk
     let placedN = 0;
+    const posOf = [];
     for (let j = 0; j < n; j++) {
       const isPlaced = started && (j < k || (j === k && (a >= RUN[1] || carryQ >= 1)));
       const inHand = j === carriedK && carryQ < 1;
       if (isPlaced) placedN++;
       const pos = isPlaced ? L.slots[j] : inHand ? carried : L.picks[j];
       const lifted = isPlaced || inHand;
+      posOf.push(pos);
       nodes[`bl${j}`] = {opacity: lifted ? 0 : 1};
       nodes[`bh${j}`] = {opacity: lifted ? 1 : 0, transform: T(r(pos.x, 2), r(pos.y, 2))};
       nodes[`plate${j}`] = {opacity: isPlaced ? 1 : 0.35};
@@ -345,7 +349,7 @@ const scene = {
         beat, phase, hand: P2(posed.hand), carrying: carriedK >= 0 && carryQ < 1 ? carriedK : null,
         carried: carried ? P2(carried) : null, carriedGrip: carried ? P2(add(carried, L.grip)) : P2(add(L.picks[0], L.grip)),
         loupe: P2(lp), loupeRow: row, placed: placedN, pileTop, order: L.order, pileOrder: Array.from({length: placedN}, (_, j) => L.order[n - 1 - j]).reverse(),
-        binder0: P2(nodes.bh0.opacity ? L.slots[0] : L.picks[0]), restCount: L.picks.filter((_, j) => bpos(j)).length,
+        binder0: P2(posOf[0]), restCount: L.picks.filter((_, j) => bpos(j)).length,
         tagsShown: r(tagO, 3), keyShown: r(keyO, 3), allReached: posed.reached,
         arrangement: `${L.arr}-${L.cols}`, textPx: r(L.F * L.upx, 2), layoutOk: L.ok, why: L.why.join(','), tried: L.ok ? undefined : L.tried.join(' | '), problems: L.ok ? [] : L.why,
         actionCapped: p.actionProgress < 1 && u > capU,

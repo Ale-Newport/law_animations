@@ -17,6 +17,7 @@
  * @module animations/evidence-custody/LAW-0380
  */
 import {defineAnimation} from '../../core/define.js';
+import {measure} from '../../core/text.js';
 import {makeMetadata} from '../../core/meta.js';
 import {h, g} from '../../core/svg.js';
 import {seg, clamp, r, ease} from '../../core/time.js';
@@ -100,7 +101,11 @@ const scene = {
     const before = rowFor(P, P.beforeValue), after = rowFor(P, P.afterValue);
     // rows: the list as supplied; the focus tag carries before/after instead of its own row's reference
     const texts = P.items.map((_, i) => { const rw = P.records[i]; return rw && String(rw.value || '').trim() ? `${rw.field}: ${rw.value}` : null; });
-    const C = composeScene(ctx, {n, texts, title: null, rows: () => legendRows(ctx, P, k, after), noBag: true, tagText: ctx.show('key'), noExpand: true, sheetFrac: [0.4, 0.5, 0.6]}, panelLayout);
+    // the station and legend are composed in a reduced design box so the lens always has a free side (right on wide
+    // and square frames, bottom on tall ones); the lens may still overlap the dimmed legend
+    const tallF = ctx.view.shape === 'portrait';
+    const cctx = {...ctx, design: tallF ? {w: ctx.design.w, h: ctx.design.h * 0.66} : {w: ctx.design.w * (ctx.view.shape === "square" ? 0.8 : 0.7), h: ctx.design.h}};
+    const C = composeScene(cctx, {n, texts, title: null, rows: () => legendRows(ctx, P, k, after), noBag: true, tagText: ctx.show('key'), noExpand: true, sheetFrac: [0.4, 0.5, 0.6], minS: 30, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...[...P.records.map(rw => rw.field), P.beforeValue, P.afterValue].map(t => measure(String(t || ''), Math.max(16, sz), 700)))) : null}, panelLayout);
     const G = C.st.G, SF = C.st.SF;
     const X = v => C.ox + v, Y = v => C.oy + v;
     const linked = P.items.map((_, i) => i !== k && Boolean(texts[i]));
@@ -117,9 +122,15 @@ const scene = {
     // lens source: the focus tag, its line and two whole list rows (focus + neighbour)
     // (the crop stops before the row text starts, so no row text is ever cut by the rim)
     const sx0 = X(G.cells[k].x + G.cells[k].w) - 4;
-    const src = {x: sx0, y: Y(G.rows[k].top), w: X(G.sheet.x) + 14 + N.badgeR * 2 + 6 - sx0, h: G.rows[k].h};
+    // two whole row bands (the focus row and a neighbour) so the lens is tall enough to be a real inspection window
+    const k2 = k + 1 < n ? k + 1 : k - 1;
+    const r0 = Math.max(0, Math.min(k, k2)), r1 = Math.max(k, k2, 0);
+    const src = {x: sx0, y: Y(G.rows[r0].top), w: X(G.sheet.x) + 14 + N.badgeR * 2 + 6 - sx0, h: G.rows[r1].top + G.rows[r1].h - G.rows[r0].top};
     const {w: DW, h: DH} = ctx.design;
     const gap = 18;
+    // lens floor in design units: smaller side >= 36 % of the FRAME's short side (rendered px)
+    const kpx = Math.min(ctx.view.content.w / DW, ctx.view.content.h / DH);
+    const need = (0.36 * Math.min(ctx.view.width, ctx.view.height)) / kpx;
     const regions = {
       right: {x: src.x + src.w + gap, y: 4, w: DW - (src.x + src.w + gap) - 4, h: DH - 8},
       left: {x: 4, y: 4, w: src.x - gap - 4, h: DH - 8},
@@ -128,19 +139,20 @@ const scene = {
     };
     let bestP = null, bz = 0;
     const pref = P.detailGeometry.placement;
-    const zOf = R => (R.w <= 0 || R.h <= 0 ? 0 : Math.min(P.detailGeometry.zoom * 1.4, R.w / src.w, R.h / src.h));
+    const zOf = R => (R.w <= 0 || R.h <= 0 ? 0 : Math.min(Math.max(P.detailGeometry.zoom, need / Math.min(src.h, src.w)), 5, R.w / src.w, R.h / src.h));
     // a preferred placement is honoured when it allows a real (>= 1.5x) lens; otherwise the best side is used
-    if (pref !== 'auto' && zOf(regions[pref]) >= 1.5) { bestP = pref; bz = zOf(regions[pref]); }
+    const big = z => z >= 1.5 && Math.min(src.h, src.w) * z >= need;
+    if (pref !== 'auto' && big(zOf(regions[pref]))) { bestP = pref; bz = zOf(regions[pref]); }
     else for (const [name, R] of Object.entries(regions)) { const z = zOf(R); if (z > bz) { bz = z; bestP = name; } }
     if (!bestP) bestP = 'right';
-    const zoom = Math.max(0.5, Math.min(bz, Math.max(P.detailGeometry.zoom, 1.5)));
+    const zoom = Math.max(0.5, bz);
     const R = regions[bestP];
     const dw = src.w * zoom, dh = src.h * zoom;
     const cx = clamp(src.x + src.w / 2, R.x + dw / 2, R.x + R.w - dw / 2), cy = clamp(src.y + src.h / 2, R.y + dh / 2, R.y + R.h - dh / 2);
     const dest = {x: cx - dw / 2, y: cy - dh / 2, w: dw, h: dh};
     const problems = [...C.problems];
     if (zoom < 1.5) problems.push('lens-zoom');
-    if (Math.min(dw, dh) < 0.35 * Math.min(DW, DH) * 0.9) problems.push('lens-size');
+    if (Math.min(dw, dh) < need * 0.975) problems.push('lens-size');
     if (overlaps(dest, src)) problems.push('lens-over-source');
     if (fb && fb.size * zoom < 16) problems.push('lens-text');
     const marker = {x: X(t.hole.x) + Math.cos(a) * TG.x1, y: Y(t.hole.y) - G.tagH * 0.75};

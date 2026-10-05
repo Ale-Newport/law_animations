@@ -193,7 +193,7 @@ export function amendmentSheet(ctx, o) {
   );
 }
 /** Smallest sheet height for a fitted label. */
-export const sheetMinH = (fit, headH) => headH + 18 + fit.height + 18 + 30;
+export const sheetMinH = (fit, headH) => headH + 14 + fit.height + 14 + 28;
 
 /** Binder clip seen from above (jaw across the sheet edge at y = 0, wire handles above). Origin = jaw centre. */
 export function binderClip(ctx, name, w) {
@@ -221,7 +221,7 @@ export function loupe(ctx, name, R) {
     h('path', {d: `M${r(R * 0.2)} ${r(-R * 0.62)}A${r(R * 0.65)} ${r(R * 0.65)} 0 0 1 ${r(R * 0.62)} ${r(-R * 0.2)}`, fill: 'none', stroke: '#fff', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.9}),
   );
 }
-export const loupeBox = (x, y, R) => ({x: x - R * 2.3, y: y - R * 1.3, w: R * 3.5, h: R * 3.6});
+export const loupeBox = (x, y, R) => ({x: x - R * 1.85, y: y - R * 1.25, w: R * 3.1, h: R * 3.1});
 
 /** Start tray (open box seen from above, slightly in perspective) around a w × h pad at (0, 0). The lip is separate. */
 export function trayBack(ctx, w, h0) {
@@ -261,7 +261,7 @@ export function letterBadge(ctx, which, x, y, R) {
 export function notesStrip(ctx, notes, F, minF, o = {}) {
   const D = ctx.design;
   const pad = o.pad ?? 14, gap = 12;
-  const cols = notes.length > 1 ? Math.min(notes.length, o.cols ?? (ctx.view.shape === 'landscape' ? 3 : ctx.view.shape === 'square' ? 2 : 1)) : 1;
+  const cols = notes.length > 1 ? Math.min(notes.length, o.cols ?? (ctx.view.shape === 'landscape' ? 3 : ctx.view.shape === 'square' || notes.length > 2 ? 2 : 1)) : 1;
   const cw = (D.w - pad * 2 - gap * (cols - 1)) / cols;
   const chipOf = (q, x, y) => chipG(ctx, q.text, {x, y, maxWidth: cw, size: Math.max(F * 0.95, minF), minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.fill ?? '#ffffff'});
   const rowsN = Math.ceil(notes.length / cols);
@@ -333,13 +333,14 @@ export function trackGeom(ctx, A, F, minF, p, o = {}) {
       const sx = x0 + (k + 1) * slotW + 7;
       return {k, x: sx, w: slotW - 14, top: A.y + 4, plate: {x: sx, y: plateY, w: slotW - 14, h: A.y + A.h - plateY}, fit: stepFits[k], press: 'down'};
     });
-    const LR = clamp(Math.min(slotW * 0.2, 58), 34, 58);
-    const loupeRest = {x: x0 + slotW * 0.62, y: plateY + Math.max(LR * 1.4, (A.y + A.h - plateY) * 0.5)};
-    if (loupeRest.y + LR * 2.3 > A.y + A.h + 4) why.push('loupe');
+    const band = A.y + A.h - plateY;
+    const LR = clamp(Math.min(slotW / 3.4, (band - 6) / 3.1, 60), 26, 60);
+    const loupeRest = {x: x0 + slotW / 2 + LR * 0.3, y: plateY + (band - LR * 3.1) / 2 + LR * 1.25};
+    if (LR * 3.1 > band + 4) why.push('loupe');
     Object.assign(G, {C, head, headH, clause: cl, attachArea: {x: attach.x - C.x - 8, y: attach.y - C.y - 8, w: sw + 16, h: sh + 16}, slotW, sw, sh, sheetHeadH, propFit, stepFits, padY, railY, plateY, stops, attach, stations, LR, loupeRest, edge: 'top'});
     G.rail = [{x: C.x + 4, y: A.y + cl.y + cl.h / 2}, {x: C.x - 18, y: A.y + cl.y + cl.h / 2}, {x: C.x - 18, y: railY}, {x: stops[0].x + sw / 2, y: railY}];
   } else if (shape === 'square') {
-    const ch0 = A.h * 0.36;
+    const ch0 = A.h * (stress ? 0.32 : 0.36);
     const C = {x: A.x, y: A.y + A.h - ch0, w: A.w, h: ch0};
     const head = fitG(headTxt, {maxWidth: C.w * 0.5 - 50, size: F, minSize: minF, maxLines: maxL + 1, weight: 800});
     const headH = head.height + 26;
@@ -349,16 +350,16 @@ export function trackGeom(ctx, A, F, minF, p, o = {}) {
     cl.y = headH + 18; cl.h = Math.max(clauseBlockH(clFit, discR, 1), Math.min(C.h - headH - 36, clauseBlockH(clFit, discR, 3))); cl.fit = clFit;
     if (cl.y + cl.h > C.h - 12) why.push('clause');
     const slotW = A.w / (n + 1);
-    const sw = Math.min(slotW - 40, 280);
-    const propFit = fitG(p.proposal, {maxWidth: sw - 24, size: F, minSize: minF, maxLines: 3, weight: 800});
+    const sw = Math.min(slotW - 30, 280);
+    const propFit = fitG(p.proposal, {maxWidth: sw - 22, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 800});
     const stepFits = p.steps.map(s => fitG(s, {maxWidth: slotW - 14 - 26, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 700}));
     const plateTextH = Math.max(...stepFits.map(f => f.height));
     const plateH = plateTextH + 30 + 24;
-    const pressZone = 104;
+    const pressZone = stress ? 92 : 104;
     const padY = A.y + plateH + 14 + pressZone;
     const railGap = 24;
     const shMin = sheetMinH(propFit, sheetHeadH);
-    const sh = Math.min(sw * 0.95, C.y - 30 - railGap - padY);
+    const sh = Math.min(sw * 0.95, C.y - 30 - railGap - padY, C.h - headH - 26);
     if (sh < shMin) why.push('sheet-h');
     const railY = padY + sh + railGap * 0.55;
     const stops = [];
@@ -376,7 +377,7 @@ export function trackGeom(ctx, A, F, minF, p, o = {}) {
     G.rail = [{x: C.x + cl.x + cl.w * 0.5, y: C.y + 2}, {x: C.x + cl.x + cl.w * 0.5, y: railY}, {x: stops[0].x + sw / 2, y: railY}];
     G.lastLeg = [{x: last.x, y: last.y}, {x: last.x, y: railY + 10}, {x: attach.x, y: attach.y}];
   } else {
-    const C0h = A.h * 0.29;
+    const C0h = A.h * (stress ? 0.27 : 0.29);
     const C = {x: A.x, y: A.y + A.h - C0h, w: A.w, h: C0h};
     const sw0 = Math.min(A.w * 0.4, 330);
     G.headX = 30 + sw0 + 34;
@@ -390,7 +391,7 @@ export function trackGeom(ctx, A, F, minF, p, o = {}) {
     const slotH = regionH / (n + 1);
     const colX = A.x + 30;
     const sw = sw0;
-    const propFit = fitG(p.proposal, {maxWidth: sw - 24, size: F, minSize: minF, maxLines: 2, weight: 800});
+    const propFit = fitG(p.proposal, {maxWidth: sw - 24, size: F, minSize: minF, maxLines: 3, weight: 800});
     const shMin = sheetMinH(propFit, sheetHeadH);
     const sh = Math.min(slotH - 34, sw * 0.8);
     if (sh < shMin) why.push('sheet-h');
@@ -434,7 +435,7 @@ export function trackGeom(ctx, A, F, minF, p, o = {}) {
       st.rest = {x: st.contact.x + Math.max(36, G.pressZone - hw - 4), y: s.y + t.cy};
     }
   });
-  if ([G.head, G.clause.fit, G.propFit, ...G.stepFits].some(f => f.bad)) why.push('text');
+  [['head', G.head], ['clause', G.clause.fit], ['proposal', G.propFit], ...G.stepFits.map((f, i) => [`step${i}`, f])].forEach(([k, f]) => { if (f.bad) why.push(`text-${k}`); });
   return G;
 }
 

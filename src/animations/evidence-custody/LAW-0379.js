@@ -18,6 +18,7 @@
  * @module animations/evidence-custody/LAW-0379
  */
 import {defineAnimation} from '../../core/define.js';
+import {measure} from '../../core/text.js';
 import {makeMetadata} from '../../core/meta.js';
 import {h, g} from '../../core/svg.js';
 import {seg, clamp, r} from '../../core/time.js';
@@ -123,7 +124,7 @@ function compose(ctx, P, k) {
   const opts = shape === 'portrait'
     ? [{arr: 'column', strip: 'below', cols: 1}, {arr: 'column', strip: 'below', cols: 2}]
     : shape === 'square'
-      ? [{arr: 'row', strip: 'below', cols: 2}, {arr: 'row', strip: 'below', cols: 1}, {arr: 'column', strip: 'side', pw: 0.36}, {arr: 'row', strip: 'side', pw: 0.3}, {arr: 'column', strip: 'side', pw: 0.3}]
+      ? [{arr: 'row', strip: 'below', cols: 2}, {arr: 'row', strip: 'below', cols: 1}, {arr: 'column', strip: 'side', pw: 0.36}, {arr: 'row', strip: 'side', pw: 0.3}, {arr: 'column', strip: 'side', pw: 0.3}, {arr: 'column', strip: 'below', cols: 2}]
       : [{arr: 'row', strip: 'below', cols: 2}, {arr: 'row', strip: 'side', pw: 0.24}, {arr: 'row', strip: 'side', pw: 0.3}];
   let best = null, bestScore = -1, fallback = null;
   for (const F of F_SIZES) {
@@ -158,7 +159,7 @@ function compose(ctx, P, k) {
       const box = {w: b0.w - pad * 2, h: b0.h - pad * 2 - Math.min(40, b0.h * 0.06)};
       let st = null;
       for (const bagMode of ['left', 'top']) {
-        const sA = fitStation(box, {n, texts: tA, F, bagMode, title: null, tagText: ctx.show('key'), sheetFrac: [0.34, 0.44, 0.54, 0.62], minS: 26});
+        const sA = fitStation(box, {n, texts: tA, F, bagMode, title: null, tagText: ctx.show('key'), sheetFrac: [0.34, 0.44, 0.54, 0.62], minS: 26, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...P.records.map(rw => rw.field).map(t => measure(String(t || ''), Math.max(16, sz), 700)))) : null});
         if (!sA) continue;
         // B uses the same S and sheet width as A (identical scale); only its row texts differ
         if (!st || sA.G.S > st.G.S) st = sA;

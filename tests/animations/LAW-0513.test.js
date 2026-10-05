@@ -8,8 +8,8 @@
 // with the labels hidden (the pile builds up level by level; plates and list discs show pips instead of numbers).
 // Legal content: the order is only the supplied list (bannedWords: no prevail/govern/conflict/interpretation wording),
 // no jurisdiction; the two reading tags have equal weight (same chip art).
-// Windows (LAW-0513.js): carries 0.15–0.74 (n equal slots: reach 30 % · carry 55 % · place 15 %) · hand leaves
-// 0.74–0.81 · tags 0.76–0.81 · key 0.79–0.84 · notes 0.80–0.85.
+// Windows (LAW-0513.js): carries 0.15–0.74 (n equal slots: reach 38 % · carry 50 % · place 12 %) · hand leaves
+// 0.74–0.84 · tags 0.76–0.81 · key 0.79–0.84 · notes 0.80–0.85.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
@@ -23,15 +23,15 @@ contractSuite(ID, {
   continuity: ['hand', 'loupe', 'binder0'],
   attach: [
     // carry 0 (three annexes): the carried binder follows the hand at a constant grip
-    {from: 0.15 + span3 * 0.31, to: 0.15 + span3 * 0.99, a: 'hand', b: 'carriedGrip', tol: 1.5},
-    {from: 0.15 + span3 * 1.31, to: 0.15 + span3 * 1.99, a: 'hand', b: 'carriedGrip', tol: 1.5},
-    {from: 0.15 + span3 * 2.31, to: 0.15 + span3 * 2.99, a: 'hand', b: 'carriedGrip', tol: 1.5},
+    {from: 0.15 + span3 * 0.39, to: 0.15 + span3 * 0.99, a: 'hand', b: 'carriedGrip', tol: 1.5},
+    {from: 0.15 + span3 * 1.39, to: 0.15 + span3 * 1.99, a: 'hand', b: 'carriedGrip', tol: 1.5},
+    {from: 0.15 + span3 * 2.39, to: 0.15 + span3 * 2.99, a: 'hand', b: 'carriedGrip', tol: 1.5},
   ],
   semantic: [
     {at: 0, fn: "s.placed === 0 && s.restCount === 3 && s.loupeRow === -1 && s.tagsShown === 0", label: 'rest: three binders on the desk, the tray empty'},
-    {at: 0.15 + span3 * 0.6, fn: "s.phase === 'carrying' && s.carrying === 0 && s.loupeRow === 2 && s.placed === 0", label: 'the last-listed annex is carried first while the loupe reads line 3'},
+    {at: 0.15 + span3 * 0.65, fn: "s.phase === 'carrying' && s.carrying === 0 && s.loupeRow === 2 && s.placed === 0", label: 'the last-listed annex is carried first while the loupe reads line 3'},
     {at: 0.15 + span3 * 1.5, fn: "s.placed === 1 && s.pileTop === s.order[2] && s.loupeRow === 1", label: 'after the first carry the last-listed annex lies on the tray'},
-    {at: 0.15 + span3 * 0.6, fn: "s.restCount === 2", label: 'the carried binder has left its rest spot (no teleport: low copy hidden)'},
+    {at: 0.15 + span3 * 0.65, fn: "s.restCount === 2", label: 'the carried binder has left its rest spot (no teleport: low copy hidden)'},
     {at: 1, fn: "s.placed === 3 && s.pileTop === s.order[0] && JSON.stringify(s.pileOrder) === JSON.stringify(s.order) && s.loupeRow === 0 && s.tagsShown === 1 && s.keyShown === 1 && s.layoutOk && s.allReached && s.phase === 'away'", label: 'hold: the pile matches the supplied order, the first-listed on top'},
     {at: 1, params: P('contrast-or-alternative'), fn: "s.placed === 4 && s.pileTop === 3 && JSON.stringify(s.pileOrder) === '[3,2,0,1]'", label: 'alternative: four annexes piled in the order D, C, A, B'},
     {at: 1, params: P('long-labels-stress'), fn: "s.placed === 4 && s.layoutOk", label: 'stress: four annexes, layout fits'},

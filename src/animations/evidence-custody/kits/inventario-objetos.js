@@ -182,7 +182,7 @@ export function stationGeom(o) {
   const rackW = C + p * 2;
   const rackH = n * C + (n - 1) * gC + p * 2;
   const tagH = Math.max(30, S * 0.42);
-  const tagW = Math.max(S * 0.95, tagH * 2.3);
+  const tagW = Math.max(S * 0.95, tagH * 2.3, (o.tagTextW || 0) / 0.6);
   const tagZone = tagW * 0.86 + S * 0.08;
   const linkGap = Math.max(56, S * 0.62);
   const clipTop = Math.max(26, S * 0.28); // clipboard clip above the first row band
@@ -226,7 +226,7 @@ export function stationGeom(o) {
   // tag hangs from the eyelet: chain to the hole, the tag body pointing right (toward the sheet)
   const chainL = Math.max(14, S * 0.16);
   const tags = cells.map(c => ({hole: {x: c.eyelet.x + chainL * 0.9, y: c.eyelet.y + chainL * 0.44}, angle: 8}));
-  return {n, S, C, gC, p, pitch, rackW, rackH, rackX, rackY, tagH, tagW, tagZone, linkGap, clipTop, cells, sheet, rows, W, H, B, bag: bagBox, slots, tags, chainL, bagMode};
+  return {tagTextW: o.tagTextW || 0, n, S, C, gC, p, pitch, rackW, rackH, rackX, rackY, tagH, tagW, tagZone, linkGap, clipTop, cells, sheet, rows, W, H, B, bag: bagBox, slots, tags, chainL, bagMode};
 }
 
 /** Row text of item i on the sheet ("No. 1: Brass key"), or null. */
@@ -271,7 +271,7 @@ export function fitStation(box, o) {
     // geometry scales linearly in S except the sheet width; binary search the largest S that fits
     const tryS = S => {
       const sheetW = Math.max(box.w * frac, 0);
-      const G = stationGeom({n: o.n, S, sheetW, bagMode: o.bagMode, noBag: o.noBag});
+      const G = stationGeom({n: o.n, S, sheetW, bagMode: o.bagMode, noBag: o.noBag, tagTextW: o.tagTextW ? o.tagTextW(Math.min(o.F, Math.max(30, S * 0.42) * 0.5)) : 0});
       if (G.W > box.w + 0.5 || G.H > box.h + 0.5) return null;
       if (o.tagText && G.tagH < o.F * 1.45) return null;
       const SF = fitSheet(G, o.texts, o.F, o.title);
@@ -291,7 +291,7 @@ export function fitStation(box, o) {
       const extra = box.w - G0.W;
       if (extra > 4 && !o.noExpand) {
         const sheetW = Math.min(G0.sheet.w + extra, Math.max(G0.sheet.w, G0.S * 4.2));
-        const G = stationGeom({n: o.n, S: G0.S, sheetW, bagMode: o.bagMode, noBag: o.noBag});
+        const G = stationGeom({n: o.n, S: G0.S, sheetW, bagMode: o.bagMode, noBag: o.noBag, tagTextW: G0.tagTextW});
         const SF = fitSheet(G, o.texts, o.F, o.title);
         if (SF.ok && G.W <= box.w + 0.5) found = {G, SF};
       }
@@ -549,7 +549,7 @@ export function composeScene(ctx, o, panelLayoutFn) {
       const inset = Math.max(14, Math.min(bench.w, bench.h) * 0.035);
       const pad = inset + (o.benchPad ?? 16);
       const box = {x: bench.x + pad, y: bench.y + pad, w: bench.w - pad * 2, h: bench.h - pad * 2 - (o.armRoom ? Math.min(60, bench.h * 0.06) : 0)};
-      const st = fitStation(box, {n: o.n, texts: o.texts, F, bagMode: opt.bag, noBag: o.noBag, title: o.title, tagText: o.tagText, noExpand: o.noExpand, sheetFrac: o.sheetFrac});
+      const st = fitStation(box, {n: o.n, texts: o.texts, F, bagMode: opt.bag, noBag: o.noBag, title: o.title, tagText: o.tagText, noExpand: o.noExpand, sheetFrac: o.sheetFrac, minS: o.minS, tagTextW: o.tagTextW});
       const c = {F, opt, bench, panel, PL, st, box};
       c.ok = Boolean(st) && (!PL || PL.ok);
       c.problems = [!st && 'station-fit', PL && !PL.ok && 'panel-text'].filter(Boolean);

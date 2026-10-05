@@ -16,6 +16,7 @@
  * @module animations/evidence-custody/LAW-0377
  */
 import {defineAnimation} from '../../core/define.js';
+import {measure} from '../../core/text.js';
 import {makeMetadata} from '../../core/meta.js';
 import {g} from '../../core/svg.js';
 import {seg, clamp, lerp, r} from '../../core/time.js';
@@ -118,7 +119,7 @@ const scene = {
     const P = localised(ctx, EN, ES);
     const n = P.items.length;
     const texts = P.items.map((_, i) => rowText(P, i));
-    const C = composeScene(ctx, {n, texts, title: ctx.show('key') ? P.objectLabels.list : null, rows: () => legendRows(ctx, P), tagText: ctx.show('key'), armRoom: true}, panelLayout);
+    const C = composeScene(ctx, {n, texts, title: ctx.show('key') ? P.objectLabels.list : null, rows: () => legendRows(ctx, P), tagText: ctx.show('key'), armRoom: true, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...P.records.map(rw => rw.field).map(t => measure(String(t || ''), Math.max(16, sz), 700)))) : null}, panelLayout);
     // panel layouts were computed per F inside composeScene; recompute for the chosen F
     const G = C.st.G, SF = C.st.SF;
     const linked = P.items.map((_, i) => Boolean(entryOf(P, i)));
