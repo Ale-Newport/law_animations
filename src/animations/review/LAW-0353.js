@@ -179,7 +179,7 @@ const scene = {
     let C = null;
     outer: for (const F of sizes) {
       for (const a of arrangements) {
-        const c = compose(ctx, P, F, a);
+        const c = compose(ctx, P, F, a); if (globalThis.DBG) console.log(r(F * pxu, 1), JSON.stringify(a), c.problems.join(","));
         if (c.ok) { C = c; break outer; }
         if (!C || c.problems.length < C.problems.length) C = c;
       }
