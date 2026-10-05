@@ -212,7 +212,7 @@ function compose(ctx, P, R, F, v) {
   for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) if (overlaps(boxes[i], boxes[j], 12)) problems.push('cards-overlap');
   if (problems.length && !v.force) return {ok: false, problems};
   const rels = P.relationships.filter(x => x.from !== x.to && els[x.from] && els[x.to]);
-  const bend = [0.06, 0.2, -0.2, 0.4, -0.4];
+  const bend = [0.06, 0.2, -0.2, 0.4, -0.4, 0.7, -0.7];
   const bi = rels.map(() => 0);
   let graph = null;
   const crosses = gr => {
@@ -225,12 +225,12 @@ function compose(ctx, P, R, F, v) {
     });
     return bad;
   };
-  for (let pass = 0; pass < 5; pass++) {
+  for (let pass = 0; pass < 7; pass++) {
     graph = relationGraph(v.foot ? {...ctx, show: lvl => (lvl === 'all' ? false : ctx.show(lvl))} : ctx, {name: 'rel', elements: els, relationships: rels, relationLabels: P.relationLabels, bend: (rel, i) => bend[bi[i]], chipSize: F, chipMax: Math.max(F * 9, cellW * v.chip), bounds: {x: 0, y: 0, w: DW, h: DH - stripH}, separateLabels: true});
     const bad = crosses(graph);
     if (!bad.size) break;
-    if (pass === 4) problems.push('conn-crosses');
-    bad.forEach(i => { bi[i] = Math.min(4, bi[i] + 1); });
+    if (pass === 6) problems.push('conn-crosses');
+    bad.forEach(i => { bi[i] = Math.min(6, bi[i] + 1); });
   }
   if (ctx.show('all') && graph.conns.some(c => c.lab && !c.labelClear)) problems.push('label-overlap');
   if (ctx.show('all') && graph.conns.some(c => c.lab && c.lab.fit && (c.lab.fit.size < F - 0.01 || c.lab.fit.truncated))) problems.push('label-shrunk');
