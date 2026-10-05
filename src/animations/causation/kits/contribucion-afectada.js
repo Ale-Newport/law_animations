@@ -172,11 +172,11 @@ export function lossText(ctx, p) {
  * lane offset D from the middle line, lane half-thickness LT, slab margin beyond the lanes, slab thickness, step-object
  * height, trolley parts (wheel radius, body height, mast, flag head).
  */
-export const FIELD = {side: 0.03, laneL: 1.5, conn: 0.34, ev: 0.2, K: 0.62, D: 0.56, LT: 0.08, marg: 0.12, margB: 0.38, plate: 0.07, item: 0.28, wheel: 0.035, body: 0.11, mast: 0.22, head: 0.15, cartW: 0.35, brace: 0.16};
+export const FIELD = {side: 0.03, laneL: 1.5, conn: 0.34, ev: 0.2, K: 0.62, D: 0.56, LT: 0.08, marg: 0.12, margB: 0.38, plate: 0.07, item: 0.28, wheel: 0.045, body: 0.14, mast: 0.25, head: 0.17, cartW: 0.42, brace: 0.16};
 /** The trolley's push-bar grip, local to its wheel contact (× PH). */
-export const CART_HANDLE = {x: -(0.35 / 2 + 0.07), y: -0.3};
+export const CART_HANDLE = {x: -(0.42 / 2 + 0.07), y: -0.36};
 /** Actor height (× PH): the stylized figure walking behind a trolley. */
-export const ACTOR_H = 0.62;
+export const ACTOR_H = 0.72;
 
 /**
  * An actor (stylized person rig, seeded look by index; equal size for both lanes). `frame(cx, laneY, PH)` places the
@@ -189,7 +189,7 @@ export function actorArt(ctx, {name, idx}) {
     frame(cx, laneY, PH, step = 0) {
       const k = (ACTOR_H * PH) / 410;
       const hand = {x: cx + CART_HANDLE.x * PH, y: laneY + CART_HANDLE.y * PH};
-      const x = cx - (FIELD.cartW * 0.5 + 0.17) * PH;
+      const x = cx - (FIELD.cartW * 0.5 + 0.19) * PH;
       const f = rig.frame({x, y: laneY, scale: k, lean: 6 + 2 * Math.sin(step), near: hand, far: {x: hand.x - 0.01 * PH, y: hand.y + 0.004 * PH}});
       return {nodes: f.nodes, reached: f.reached, hand, x};
     },
@@ -231,9 +231,9 @@ export function fieldGeom(left, floorY, PH) {
     PH, cy, K: F.K, xs, xe, xb: xe - 0.07 * PH, px, py, padR, yA, yB, laneY,
     LT: F.LT * PH, itemS: F.item * PH, plateT: F.plate * PH, headS: F.head * PH, cartW: F.cartW * PH,
     at: (l, x) => ({x, y: laneY(l)}),
-    cartX: f => lerp(xs + 0.36 * PH, xe - 0.36 * PH, f),
+    cartX: f => lerp(xs + 0.42 * PH, xe - 0.4 * PH, f),
     // the actor walks behind the trolley, hands on its push bar
-    actorX: cx => cx - (F.cartW * 0.5 + 0.17) * PH,
+    actorX: cx => cx - (F.cartW * 0.5 + 0.19) * PH,
     stand: l => laneY(l) + (F.LT + 0.03 + F.item) * PH,
     conn, floorY,
     x0: left, x1: left + fieldW() * PH, top: cy - fieldTop() * PH,

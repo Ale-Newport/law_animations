@@ -180,7 +180,7 @@ function geom(ctx, F, minF, arrangement) {
 }
 
 const scene = {
-  sizes: {landscape: [1600, 900], square: [1000, 860], portrait: [900, 1600]},
+  sizes: {landscape: [1600, 900], square: [1200, 1050], portrait: [900, 1600]},
   layout(ctx) {
     const p = ctx.params;
     const upx = unitPx(ctx);
@@ -215,8 +215,6 @@ const scene = {
       h('rect', {x: r(pl.x), y: r(pl.y), width: 12, height: r(pl.h), rx: 4, fill: th.accent2Soft}),
       ctx.show('all') ? txt(L.plate, {x: pl.x + pl.w / 2, y: pl.y + (pl.h - L.plate.height) / 2, anchor: 'middle', fill: INK})
         : h('path', {d: `M${r(pl.x + pl.w * 0.25)} ${r(pl.y + pl.h / 2)}h${r(pl.w * 0.5)}`, stroke: '#d5cdbd', 'stroke-width': 9, 'stroke-linecap': 'round'}),
-      // the plate is shared by both walls: two short hangers down to each wall
-      L.lanes.map(ln => h('path', {d: `M${r(ln.x + L.lw / 2)} ${r(pl.y + pl.h)}V${r(ln.y + L.G.wall.y)}`, stroke: '#9aa4ad', 'stroke-width': 4})),
     );
     return g({name: 'scene'}, plate, lanes, guide, notes);
   },

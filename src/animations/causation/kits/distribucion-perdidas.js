@@ -462,7 +462,7 @@ export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, dro
 }
 
 /** Extra guide-rail height (× S) that makes a stage of scale S exactly fill height bh (capped). */
-export const DROP_CAP = 0.95;
+export const DROP_CAP = 1.3;
 export function fillDrop(G, bh, cap = DROP_CAP) {
   return clamp(G.dropMin + (bh - G.H) / G.S, G.dropMin, cap);
 }
