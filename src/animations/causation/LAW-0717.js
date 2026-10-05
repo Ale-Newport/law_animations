@@ -86,7 +86,7 @@ const strings = {
 };
 
 const SHAPES = {
-  landscape: {sizes: [26, 16], modes: ['side', 'below'], sideWs: [0.3, 0.36, 0.42, 0.5, 0.58]},
+  landscape: {sizes: [30, 16], modes: ['side', 'below'], sideWs: [0.3, 0.36, 0.42, 0.5, 0.58]},
   square: {sizes: [24, 16], modes: ['below', 'side'], sideWs: [0.36, 0.42, 0.5]},
   portrait: {sizes: [25, 16], modes: ['below'], sideWs: []},
 };

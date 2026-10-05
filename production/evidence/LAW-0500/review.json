@@ -161,11 +161,21 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "16:9 baseline contact sheets compared side by side with LAW-0493..0496 sheets, viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0500/sheet-16x9-baseline.png"
+    ],
+    "findings": [
+      "CLONE of LAW-0496: same board-left/legend-right layout, same zoom lens callout at t=0.40-0.60 with strikethrough substitution, same 8000 ms timing; only labels changed",
+      "Fix: new inspect composition",
+      "Builder-known issues (9:16 empty at t~0.8, 1:1 cold create ~1 s, Spanish heading mismatch) not re-verified because clone verdict is decisive"
+    ],
+    "sourceHash": "db0387193cff8dceb77d69658a6840f6b7a796b443743944ba9647082fd319e5",
+    "renderFingerprint": "9f359b7d2ad6447d045fd910f58aa75a49e3d9c4019ba12429295206e678d179",
+    "reviewedAt": "2026-10-05T20:34:09.134Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -181,5 +191,10 @@
   "renderFingerprint": "9f359b7d2ad6447d045fd910f58aa75a49e3d9c4019ba12429295206e678d179",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
   "thumb": "production/evidence/LAW-0500/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "not_confirmed",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

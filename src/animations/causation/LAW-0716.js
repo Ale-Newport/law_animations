@@ -72,7 +72,7 @@ const ITEM_K = 1.2; // the steps stand a little larger here (the changed object 
 
 const strings = {
   en: {...CA_STRINGS.en, context: 'The two lanes after both conducts ran, with the record, as supplied', marker: 'Changed datum', beforeV: 'Before', afterV: 'After'},
-  es: {...CA_STRINGS.es, context: 'Los dos carriles tras avanzar ambas conductas, con el registro, según lo aportado', marker: 'Dato cambiado', beforeV: 'Antes', afterV: 'Después'},
+  es: {...CA_STRINGS.es, context: 'Los dos carriles tras avanzar ambas conductas, con su registro (aportado)', marker: 'Dato cambiado', beforeV: 'Antes', afterV: 'Después'},
 };
 
 const sceneSchema = {
@@ -101,7 +101,7 @@ const defaultParamsEs = {
   ...CA_ES_DEFAULTS,
   beforeValue: 'Paso 1: aportado para el carril A (conducta de A)',
   afterValue: 'Paso 1: aportado para el carril B (conducta de B)',
-  contextLabels: {context: 'Los dos carriles tras avanzar ambas conductas, con el registro, según lo aportado', marker: 'Dato cambiado'},
+  contextLabels: {context: 'Los dos carriles tras avanzar ambas conductas, con su registro (aportado)', marker: 'Dato cambiado'},
 };
 
 const MARGIN = 10;

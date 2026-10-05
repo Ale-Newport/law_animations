@@ -3,7 +3,7 @@
 // anchoring of objects (the right hand holds the tag while it is carried and clipped, then holds the object while it
 // is lifted, carried and lowered; once clipped the chain keeps its length, so the tag stays joined to the moving
 // object) and the transformation recognisable with labels hidden (the object ends in the bag with its tag attached).
-// Timing (u): rest 0–0.15 · hand to tag 0.15–0.20 · tag carried 0.20–0.32 (left hand steadies the object 0.20–0.50) ·
+// Timing (u): rest 0–0.15 · hand to tag 0.15–0.225 · tag carried 0.225–0.32 (left hand steadies the object 0.17–0.50) ·
 // chain clipped 0.32–0.39 · tag released 0.39–0.42 · hand to object 0.42–0.48 · lift 0.48–0.51 · carry 0.51–0.63 ·
 // lower into the bag 0.63–0.66 · hand back 0.66–0.73 · notes 0.74–0.80 · state 0.75–0.81; still from 0.81.
 // Legal: neutral process; rows written / blank as supplied; no admissibility or custody doctrine.
@@ -17,9 +17,9 @@ const ID = 'LAW-0361';
 contractSuite(ID, {
   continuity: ['handR', 'handL', 'obj', 'hole', 'chainEnd'],
   attach: [
-    {from: 0.2005, to: 0.3895, a: 'handR', b: 'tagGrip', tol: 1.5},
+    {from: 0.2255, to: 0.3895, a: 'handR', b: 'tagGrip', tol: 1.5},
     {from: 0.4805, to: 0.6595, a: 'handR', b: 'objGrip', tol: 1.5},
-    {from: 0.2705, to: 0.4195, a: 'handL', b: 'steady', tol: 1.5},
+    {from: 0.2805, to: 0.4195, a: 'handL', b: 'steady', tol: 1.5},
   ],
   semantic: [
     {at: 0, fn: "s.beat === 'rest' && s.phase === 'rest' && !s.attached && !s.inside && s.lift === 0", label: 'rest: tag apart, chain not clipped, object on the bench'},

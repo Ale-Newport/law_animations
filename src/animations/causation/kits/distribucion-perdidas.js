@@ -332,8 +332,8 @@ export function iconChip(ctx, it, o, memo) {
 }
 
 /** Flow chips in a panel of width w; returns {placed, h, bad}. */
-export function panelFlow(ctx, items, size, w, memo, {gap = 14, rowGap = 9, center = false} = {}) {
-  const sz = items.map(it => iconChip(ctx, it, {size, maxW: w, maxLines: it.maxLines ?? 3}, memo));
+export function panelFlow(ctx, items, size, w, memo, {gap = 14, rowGap = 9, center = false, maxLines = 3} = {}) {
+  const sz = items.map(it => iconChip(ctx, it, {size, maxW: w, maxLines: it.maxLines ?? maxLines}, memo));
   const fl = flowRows(sz, {x: 0, y: 0, w, gap, rowGap, center});
   return {placed: fl.placed, h: sz.length ? fl.bottom : 0, bad: sz.some(q => q.bad)};
 }
@@ -396,12 +396,18 @@ export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, dro
   const rowW = slot.reduce((a, b) => a + b, 0) + gap * (n - 1);
   const spreadW = S + (n - 1) * ST.spread * S;
   const shelfW = spreadW + 2 * ST.side * S;
-  const W = Math.max(rowW, shelfW) + 8;
+  // value chips may overhang their slot (staggered rows): the stage box holds them
+  const rel = [];
+  let x = 0;
+  slot.forEach(sw => { rel.push(x + sw / 2); x += sw + gap; });
+  const lo = Math.min(0, ...rel.map((c, i) => c - (chipWs[i] ?? 0) / 2 - 2));
+  const hi = Math.max(rowW, ...rel.map((c, i) => c + (chipWs[i] ?? 0) / 2 + 2));
+  const rowSpan = hi - lo;
+  const W = Math.max(rowSpan, shelfW) + 8;
   const cx = W / 2;
   const bx0 = cx - S / 2;
-  const trayX = [];
-  let x = cx - rowW / 2;
-  slot.forEach(sw => { trayX.push(x + sw / 2); x += sw + gap; });
+  const rowX0 = cx - rowSpan / 2 - lo;
+  const trayX = rel.map(c => rowX0 + c);
   const H = floorY + ST.floor + (chipH ? chipGap + chipH * (stagger ? 2 : 1) + (stagger ? 6 : 0) : 0);
   const restX = f => { const c = cum(f); return f.map((q, i) => bx0 + (c[i] + q / 2) * S); };
   const spreadX = f => restX(f).map((x0, i) => x0 + (i - (n - 1) / 2) * ST.spread * S);
@@ -410,7 +416,7 @@ export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, dro
   const gapX = f => { const c = cum(f); return c.slice(1, -1).map((cc, j) => bx0 + cc * S + (j + 0.5 - (n - 1) / 2) * ST.spread * S); };
   return {
     S, n, t, W, H, cx, bx0, railY, bladeTopRest, barTop, barMid, shelfY, trayTop, td, pedH, floorY, tws, slot, trayX, gap,
-    shelfX0: cx - shelfW / 2, shelfX1: cx + shelfW / 2, rowW,
+    shelfX0: cx - shelfW / 2, shelfX1: cx + shelfW / 2, rowW, rowX0,
     bladeW: ST.bladeW * S, bladeH,
     bladeRestY: bladeTopRest + bladeH, dropMin, stagger,
     chipRowY: i => floorY + ST.floor + chipGap + (stagger && i % 2 ? chipH + 6 : 0), bladeCutY: barTop + t + 2,
@@ -444,7 +450,7 @@ export function stageArt(ctx, G, {P, ox = 0, oy = 0, f, links, numbers = true}) 
   const gw = Math.max(5, G.S * 0.014);
   const guides = g({name: `${P}guides`}, G.trayX.map((tx, i) => guideArt(ctx, {name: `${P}guide${i}`, a: {x: ox + sx[i], y: oy + G.shelfY + ST.shelf * G.S + 4}, b: {x: ox + tx, y: oy + G.trayTop - 6}, w: gw, dashed: links && links[i] && links[i].status === 'disputed'})));
   const back = g({name: `${P}back`},
-    floorArt(ctx, {name: `${P}floor`, x0: ox + Math.min(G.shelfX0, G.cx - G.rowW / 2) - 6, x1: ox + Math.max(G.shelfX1, G.cx + G.rowW / 2) + 6, floorY: oy + G.floorY}),
+    floorArt(ctx, {name: `${P}floor`, x0: ox + Math.min(G.shelfX0, G.rowX0) - 6, x1: ox + Math.max(G.shelfX1, G.rowX0 + G.rowW) + 6, floorY: oy + G.floorY}),
     shelfArt(ctx, {name: `${P}shelf`, x0: ox + G.shelfX0, x1: ox + G.shelfX1, y: oy + G.shelfY, t: ST.shelf * G.S, floorY: oy + G.floorY}),
     railArt(ctx, {name: `${P}rail`, x0: ox + G.shelfX0 + G.S * 0.02, x1: ox + G.shelfX1 - G.S * 0.02, y: oy + G.railY, t: ST.rail * G.S}),
     g({name: `${P}trays`}, G.trayX.map((tx, i) => g({transform: T(ox + tx, oy + G.trayTop)}, trayBack(ctx, {tw: G.tws[i], td: G.td, ph: G.pedH, i})))),
@@ -474,7 +480,7 @@ export function arrangeScene(ctx, o) {
     for (const st of sts) for (const mode of o.modes) {
       const pws = mode === 'side' ? (o.sideWs ?? [0.3, 0.36, 0.42, 0.5]).map(f => Math.round(full * f)) : [full];
       for (const pw of pws) {
-        const panel = o.items.length ? panelFlow(ctx, o.items, size, pw, o.memo, {center: mode !== 'side'}) : {placed: [], h: 0, bad: false};
+        const panel = o.items.length ? panelFlow(ctx, o.items, size, pw, o.memo, {center: mode !== 'side', maxLines: mode === 'side' ? 4 : 3}) : {placed: [], h: 0, bad: false};
         if (panel.bad) continue;
         let bw, bh;
         if (mode === 'side') { if (panel.h > fullH) continue; bw = full - pw - GAP; bh = fullH; } else { bw = full; bh = fullH - (panel.h ? panel.h + GAP : 0); }

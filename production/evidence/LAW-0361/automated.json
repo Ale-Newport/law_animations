@@ -1,0 +1,1110 @@
+{
+  "animationId": "LAW-0361",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0361",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "items.0.label"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "9:16",
+          "k": "handR",
+          "f": 62,
+          "d": 91
+        },
+        {
+          "ratio": "9:16",
+          "k": "handR",
+          "f": 63,
+          "d": 117
+        },
+        {
+          "ratio": "9:16",
+          "k": "handR",
+          "f": 64,
+          "d": 117
+        },
+        {
+          "ratio": "9:16",
+          "k": "handR",
+          "f": 65,
+          "d": 91
+        },
+        {
+          "ratio": "9:16",
+          "k": "handL",
+          "f": 85,
+          "d": 97
+        }
+      ]
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: tag apart, chain not clipped, object on the bench @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "handR": {
+            "x": 642.31,
+            "y": 695.01
+          },
+          "handL": {
+            "x": 185.22,
+            "y": 695.01
+          },
+          "tagGrip": {
+            "x": 253.01,
+            "y": 502.51
+          },
+          "objGrip": {
+            "x": 313.67,
+            "y": 231.73
+          },
+          "steady": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "obj": {
+            "x": 281.82,
+            "y": 231.73
+          },
+          "hole": {
+            "x": 153.83,
+            "y": 519.99
+          },
+          "anchor": {
+            "x": 216.14,
+            "y": 231.73
+          },
+          "chainEnd": {
+            "x": 108.49,
+            "y": 574.68
+          },
+          "chainLen": 294.92,
+          "chainL": 67.67,
+          "attached": false,
+          "inside": false,
+          "lift": 0,
+          "tagAngle": -10,
+          "holdingTag": false,
+          "holdingObj": false,
+          "steadying": false,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "finalState": "bagged",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "S": 199,
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1118.29,
+            "h": 738
+          },
+          "bag": {
+            "x": 660.95,
+            "y": 90.35,
+            "w": 378.17,
+            "h": 557.31
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: nothing moves during the rest beat @0.145",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "handR": {
+            "x": 642.31,
+            "y": 695.01
+          },
+          "handL": {
+            "x": 185.22,
+            "y": 695.01
+          },
+          "tagGrip": {
+            "x": 253.01,
+            "y": 502.51
+          },
+          "objGrip": {
+            "x": 313.67,
+            "y": 231.73
+          },
+          "steady": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "obj": {
+            "x": 281.82,
+            "y": 231.73
+          },
+          "hole": {
+            "x": 153.83,
+            "y": 519.99
+          },
+          "anchor": {
+            "x": 216.14,
+            "y": 231.73
+          },
+          "chainEnd": {
+            "x": 108.49,
+            "y": 574.68
+          },
+          "chainLen": 294.92,
+          "chainL": 67.67,
+          "attached": false,
+          "inside": false,
+          "lift": 0,
+          "tagAngle": -10,
+          "holdingTag": false,
+          "holdingObj": false,
+          "steadying": false,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "finalState": "bagged",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "S": 199,
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1118.29,
+            "h": 738
+          },
+          "bag": {
+            "x": 660.95,
+            "y": 90.35,
+            "w": 378.17,
+            "h": 557.31
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the hand carries the tag to the object @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "phase": "carry-tag",
+          "handR": {
+            "x": 336.41,
+            "y": 348.04
+          },
+          "handL": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "tagGrip": {
+            "x": 336.41,
+            "y": 348.04
+          },
+          "objGrip": {
+            "x": 313.67,
+            "y": 231.73
+          },
+          "steady": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "obj": {
+            "x": 281.82,
+            "y": 231.73
+          },
+          "hole": {
+            "x": 253.08,
+            "y": 291.48
+          },
+          "anchor": {
+            "x": 216.14,
+            "y": 231.73
+          },
+          "chainEnd": {
+            "x": 182.47,
+            "y": 299.12
+          },
+          "chainLen": 70.25,
+          "chainL": 67.67,
+          "attached": false,
+          "inside": false,
+          "lift": 0,
+          "tagAngle": 34.17,
+          "holdingTag": true,
+          "holdingObj": false,
+          "steadying": true,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "finalState": "bagged",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "S": 199,
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1118.29,
+            "h": 738
+          },
+          "bag": {
+            "x": 660.95,
+            "y": 90.35,
+            "w": 378.17,
+            "h": 557.31
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the chain is clipped while the other hand steadies the object @0.36",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "phase": "clip",
+          "handR": {
+            "x": 337.45,
+            "y": 344.93
+          },
+          "handL": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "tagGrip": {
+            "x": 337.45,
+            "y": 344.93
+          },
+          "objGrip": {
+            "x": 313.67,
+            "y": 231.73
+          },
+          "steady": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "obj": {
+            "x": 281.82,
+            "y": 231.73
+          },
+          "hole": {
+            "x": 254.95,
+            "y": 287.17
+          },
+          "anchor": {
+            "x": 216.14,
+            "y": 231.73
+          },
+          "chainEnd": {
+            "x": 206.09,
+            "y": 251.27
+          },
+          "chainLen": 67.67,
+          "chainL": 67.67,
+          "attached": false,
+          "inside": false,
+          "lift": 0,
+          "tagAngle": 35,
+          "holdingTag": true,
+          "holdingObj": false,
+          "steadying": true,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "finalState": "bagged",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "S": 199,
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1118.29,
+            "h": 738
+          },
+          "bag": {
+            "x": 660.95,
+            "y": 90.35,
+            "w": 378.17,
+            "h": 557.31
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: released: the tag is joined at chain length @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "phase": "to-object",
+          "handR": {
+            "x": 325.56,
+            "y": 288.33
+          },
+          "handL": {
+            "x": 314.84,
+            "y": 329.45
+          },
+          "tagGrip": {
+            "x": 337.45,
+            "y": 344.93
+          },
+          "objGrip": {
+            "x": 313.67,
+            "y": 231.73
+          },
+          "steady": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "obj": {
+            "x": 281.82,
+            "y": 231.73
+          },
+          "hole": {
+            "x": 254.95,
+            "y": 287.17
+          },
+          "anchor": {
+            "x": 216.14,
+            "y": 231.73
+          },
+          "chainEnd": {
+            "x": 216.14,
+            "y": 231.73
+          },
+          "chainLen": 67.67,
+          "chainL": 67.67,
+          "attached": true,
+          "inside": false,
+          "lift": 0,
+          "tagAngle": 35,
+          "holdingTag": false,
+          "holdingObj": false,
+          "steadying": false,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "finalState": "bagged",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "S": 199,
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1118.29,
+            "h": 738
+          },
+          "bag": {
+            "x": 660.95,
+            "y": 90.35,
+            "w": 378.17,
+            "h": 557.31
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the object is carried and the tag stays attached @0.57",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "phase": "carry",
+          "handR": {
+            "x": 577.76,
+            "y": 230.67
+          },
+          "handL": {
+            "x": 185.22,
+            "y": 695.01
+          },
+          "tagGrip": {
+            "x": 455.33,
+            "y": 395.5
+          },
+          "objGrip": {
+            "x": 577.76,
+            "y": 230.67
+          },
+          "steady": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "obj": {
+            "x": 544.01,
+            "y": 230.67
+          },
+          "hole": {
+            "x": 452.83,
+            "y": 294.82
+          },
+          "anchor": {
+            "x": 474.38,
+            "y": 230.67
+          },
+          "chainEnd": {
+            "x": 474.38,
+            "y": 230.67
+          },
+          "chainLen": 67.67,
+          "chainL": 67.67,
+          "attached": true,
+          "inside": false,
+          "lift": 1,
+          "tagAngle": 88.57,
+          "holdingTag": false,
+          "holdingObj": true,
+          "steadying": false,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "finalState": "bagged",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "S": 199,
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1118.29,
+            "h": 738
+          },
+          "bag": {
+            "x": 660.95,
+            "y": 90.35,
+            "w": 378.17,
+            "h": 557.31
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: object in the bag with the tag attached; composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "bagged",
+          "handR": {
+            "x": 642.31,
+            "y": 695.01
+          },
+          "handL": {
+            "x": 185.22,
+            "y": 695.01
+          },
+          "tagGrip": {
+            "x": 861.82,
+            "y": 342.81
+          },
+          "objGrip": {
+            "x": 838.04,
+            "y": 229.61
+          },
+          "steady": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "obj": {
+            "x": 806.19,
+            "y": 229.61
+          },
+          "hole": {
+            "x": 779.32,
+            "y": 285.04
+          },
+          "anchor": {
+            "x": 740.51,
+            "y": 229.61
+          },
+          "chainEnd": {
+            "x": 740.51,
+            "y": 229.61
+          },
+          "chainLen": 67.67,
+          "chainL": 67.67,
+          "attached": true,
+          "inside": true,
+          "lift": 0,
+          "tagAngle": 35,
+          "holdingTag": false,
+          "holdingObj": false,
+          "steadying": false,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "finalState": "bagged",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "S": 199,
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1118.29,
+            "h": 738
+          },
+          "bag": {
+            "x": 660.95,
+            "y": 90.35,
+            "w": 378.17,
+            "h": 557.31
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: tagged: the tag is attached and the object stays on the bench @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "tagged",
+          "handR": {
+            "x": 642.31,
+            "y": 695.01
+          },
+          "handL": {
+            "x": 185.22,
+            "y": 695.01
+          },
+          "tagGrip": {
+            "x": 337.45,
+            "y": 344.93
+          },
+          "objGrip": {
+            "x": 313.67,
+            "y": 231.73
+          },
+          "steady": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "obj": {
+            "x": 281.82,
+            "y": 231.73
+          },
+          "hole": {
+            "x": 254.95,
+            "y": 287.17
+          },
+          "anchor": {
+            "x": 216.14,
+            "y": 231.73
+          },
+          "chainEnd": {
+            "x": 216.14,
+            "y": 231.73
+          },
+          "chainLen": 67.67,
+          "chainL": 67.67,
+          "attached": true,
+          "inside": false,
+          "lift": 0,
+          "tagAngle": 35,
+          "holdingTag": false,
+          "holdingObj": false,
+          "steadying": false,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "finalState": "tagged",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "S": 199,
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1118.29,
+            "h": 738
+          },
+          "bag": {
+            "x": 660.95,
+            "y": 90.35,
+            "w": 378.17,
+            "h": 557.31
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: pending: nothing is attached @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "rest",
+          "handR": {
+            "x": 642.31,
+            "y": 695.01
+          },
+          "handL": {
+            "x": 185.22,
+            "y": 695.01
+          },
+          "tagGrip": {
+            "x": 253.01,
+            "y": 502.51
+          },
+          "objGrip": {
+            "x": 313.67,
+            "y": 231.73
+          },
+          "steady": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "obj": {
+            "x": 281.82,
+            "y": 231.73
+          },
+          "hole": {
+            "x": 153.83,
+            "y": 519.99
+          },
+          "anchor": {
+            "x": 216.14,
+            "y": 231.73
+          },
+          "chainEnd": {
+            "x": 108.49,
+            "y": 574.68
+          },
+          "chainLen": 294.92,
+          "chainL": 67.67,
+          "attached": false,
+          "inside": false,
+          "lift": 0,
+          "tagAngle": -10,
+          "holdingTag": false,
+          "holdingObj": false,
+          "steadying": false,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "finalState": "pending",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "S": 199,
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1118.29,
+            "h": 738
+          },
+          "bag": {
+            "x": 660.95,
+            "y": 90.35,
+            "w": 378.17,
+            "h": 557.31
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "clip",
+          "handR": {
+            "x": 337.45,
+            "y": 344.93
+          },
+          "handL": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "tagGrip": {
+            "x": 337.45,
+            "y": 344.93
+          },
+          "objGrip": {
+            "x": 313.67,
+            "y": 231.73
+          },
+          "steady": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "obj": {
+            "x": 281.82,
+            "y": 231.73
+          },
+          "hole": {
+            "x": 254.95,
+            "y": 287.17
+          },
+          "anchor": {
+            "x": 216.14,
+            "y": 231.73
+          },
+          "chainEnd": {
+            "x": 215.95,
+            "y": 232.1
+          },
+          "chainLen": 67.67,
+          "chainL": 67.67,
+          "attached": false,
+          "inside": false,
+          "lift": 0,
+          "tagAngle": 35,
+          "holdingTag": true,
+          "holdingObj": false,
+          "steadying": true,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "finalState": "bagged",
+          "actionCapped": true,
+          "problems": [],
+          "textPx": 24,
+          "S": 199,
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1118.29,
+            "h": 738
+          },
+          "bag": {
+            "x": 660.95,
+            "y": 90.35,
+            "w": 378.17,
+            "h": 557.31
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: blank rows come only from the supplied records @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "bagged",
+          "handR": {
+            "x": 642.31,
+            "y": 695.01
+          },
+          "handL": {
+            "x": 185.22,
+            "y": 695.01
+          },
+          "tagGrip": {
+            "x": 861.82,
+            "y": 342.81
+          },
+          "objGrip": {
+            "x": 838.04,
+            "y": 229.61
+          },
+          "steady": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "obj": {
+            "x": 806.19,
+            "y": 229.61
+          },
+          "hole": {
+            "x": 779.32,
+            "y": 285.04
+          },
+          "anchor": {
+            "x": 740.51,
+            "y": 229.61
+          },
+          "chainEnd": {
+            "x": 740.51,
+            "y": 229.61
+          },
+          "chainLen": 67.67,
+          "chainL": 67.67,
+          "attached": true,
+          "inside": true,
+          "lift": 0,
+          "tagAngle": 35,
+          "holdingTag": false,
+          "holdingObj": false,
+          "steadying": false,
+          "allReached": true,
+          "rows": [
+            true,
+            false
+          ],
+          "finalState": "bagged",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "S": 199,
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1118.29,
+            "h": 738
+          },
+          "bag": {
+            "x": 660.95,
+            "y": 90.35,
+            "w": 378.17,
+            "h": 557.31
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the rest state exactly @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "handR": {
+            "x": 642.31,
+            "y": 695.01
+          },
+          "handL": {
+            "x": 185.22,
+            "y": 695.01
+          },
+          "tagGrip": {
+            "x": 253.01,
+            "y": 502.51
+          },
+          "objGrip": {
+            "x": 313.67,
+            "y": 231.73
+          },
+          "steady": {
+            "x": 349.49,
+            "y": 231.73
+          },
+          "obj": {
+            "x": 281.82,
+            "y": 231.73
+          },
+          "hole": {
+            "x": 153.83,
+            "y": 519.99
+          },
+          "anchor": {
+            "x": 216.14,
+            "y": 231.73
+          },
+          "chainEnd": {
+            "x": 108.49,
+            "y": 574.68
+          },
+          "chainLen": 294.92,
+          "chainL": 67.67,
+          "attached": false,
+          "inside": false,
+          "lift": 0,
+          "tagAngle": -10,
+          "holdingTag": false,
+          "holdingObj": false,
+          "steadying": false,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "finalState": "bagged",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "S": 199,
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1118.29,
+            "h": 738
+          },
+          "bag": {
+            "x": 660.95,
+            "y": 90.35,
+            "w": 378.17,
+            "h": 557.31
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

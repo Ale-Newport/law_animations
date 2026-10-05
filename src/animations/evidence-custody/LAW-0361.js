@@ -35,7 +35,7 @@ const ID = 'LAW-0361';
 const DURATION = 6000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
 const W = {
-  reachTag: [0.15, 0.2], carryTag: [0.2, 0.32], steadyIn: [0.2, 0.27], clip: [0.32, 0.39], release: [0.39, 0.42],
+  reachTag: [0.15, 0.225], carryTag: [0.225, 0.32], steadyIn: [0.17, 0.28], clip: [0.32, 0.39], release: [0.39, 0.42],
   steadyOut: [0.42, 0.5], toObj: [0.42, 0.48], lift: [0.48, 0.51], carry: [0.51, 0.63], lower: [0.63, 0.66],
   back: [0.66, 0.73], notes: [0.74, 0.8], state: [0.75, 0.81],
 };
