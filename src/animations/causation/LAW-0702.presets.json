@@ -1,0 +1,268 @@
+{
+  "animationId": "LAW-0702",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). Only the supplied relationships are drawn, with their kind; a causal arrow appears only where the author supplies kind 'causal'. The stated difference is shown only as supplied; nothing is computed or valued and no damages, compensation, liability, fault or causation conclusion is drawn. Long-labels-stress: coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20, from LAW-0687/0689–0692; subject floor: 'Subject ≥ 0.20 of the frame height at rest and hold (causation-05 LAW-0700 decision)', production/SESSION_HANDOFF.md). True driver: the 1:1 box (each balance column on its stand must reach 0.20 of the frame height). After trying the fallback layouts (objects beside the record; record column with the band; top band with the inset beside the record and the objects below, its chip beside or under the inset; record over the objects; stacked or side-by-side captions), the full stress counts did not fit 1:1 without the fallback scale. Measured, rendered at 1080p (2026-09-27): full counts (five entries, two alternatives, two labelled links, two stated items, five elements) → 1:1 fallback scale k 0.909, smallest text 15.4 px, columns 0.096 of the frame height; 16:9 20.0 px / 0.240; 9:16 21.0 px / 0.210. Five entries without alternatives/links: 1:1 column 0.199 (under the floor). The stress keeps every text at its near-maximum length and caps the COUNTS at four entries, no alternative, no link note, one stated item and the four baseline elements (baseline 3 / 0 / 0 / 1 / 4); after the cap: 1:1 20.0 px / 0.245 without scaling; 16:9 23.0 px / 0.325; 9:16 22.0 px / 0.315. Every field stays longer than the baseline and every count ≥ the baseline.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional shop: the column separates into the reference scenario and the alleged loss (as stated); record — reference, reference — alleged and inset — alleged are plain relations as supplied.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a workshop (four entries) in credits, an alternative put forward (listed once), and ONE causal link the author supplies (record → alleged), drawn as a causal arrow and labelled as supplied; the record is the focus element.",
+      "params": {
+        "events": [
+          {
+            "label": "Repair orders received",
+            "time": "Week 1",
+            "dir": "in",
+            "amount": 300
+          },
+          {
+            "label": "Spare parts bought",
+            "time": "Week 1",
+            "dir": "out",
+            "amount": 90
+          },
+          {
+            "label": "Repair orders received",
+            "time": "Week 2",
+            "dir": "in",
+            "amount": 150
+          },
+          {
+            "label": "Rent paid",
+            "time": "Week 2",
+            "dir": "out",
+            "amount": 60
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 3,
+            "kind": "causal",
+            "status": "proposed",
+            "label": "put forward by the workshop"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "Seasonal dip in orders put forward",
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Difference stated by the workshop",
+            "amount": 200
+          }
+        ],
+        "model": {
+          "unit": "credits",
+          "perToken": 0
+        },
+        "elements": [
+          {
+            "id": "record",
+            "label": "Workshop flow record (as supplied)"
+          },
+          {
+            "id": "reference",
+            "label": "Reference weeks (as stated)"
+          },
+          {
+            "id": "alleged",
+            "label": "Alleged loss (as stated)"
+          },
+          {
+            "id": "difference",
+            "label": "Stated gap (enlarged)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "record",
+            "to": "alleged",
+            "kind": "causal"
+          },
+          {
+            "from": "reference",
+            "to": "alleged",
+            "kind": "relation"
+          },
+          {
+            "from": "difference",
+            "to": "alleged",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "record",
+        "relationLabels": {
+          "relation": "related (as supplied)",
+          "communication": "noted in the record",
+          "sequence": "then (as supplied)",
+          "causal": "causal link put forward (as supplied)"
+        },
+        "traversalOrder": [
+          "record",
+          "alleged",
+          "reference",
+          "alleged",
+          "difference"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Stress: near-maximum text lengths (entry labels, times, element labels, relation labels, the stated difference); counts capped (four entries, one stated item, four elements) — see the coordinator decision note.",
+      "params": {
+        "events": [
+          {
+            "label": "Weekend market takings received at the stall",
+            "time": "Month 1 (first week)",
+            "dir": "in",
+            "amount": 240
+          },
+          {
+            "label": "Wholesale supplier invoice paid in full",
+            "time": "Month 1 (last week)",
+            "dir": "out",
+            "amount": 90
+          },
+          {
+            "label": "Online orders paid by customers this month",
+            "time": "Month 2 (first week)",
+            "dir": "in",
+            "amount": 180
+          },
+          {
+            "label": "Stall rent and electricity paid to the market",
+            "time": "Month 2 (mid-month)",
+            "dir": "out",
+            "amount": 70
+          }
+        ],
+        "causalLinks": [],
+        "alternatives": [],
+        "losses": [
+          {
+            "label": "Difference stated by the stall-holder for the three months",
+            "amount": 150
+          }
+        ],
+        "model": {
+          "unit": "units",
+          "perToken": 0
+        },
+        "elements": [
+          {
+            "id": "record",
+            "label": "Flow record of the market stall (as supplied)"
+          },
+          {
+            "id": "reference",
+            "label": "Reference scenario: the months as stated"
+          },
+          {
+            "id": "alleged",
+            "label": "Alleged loss: the level as stated"
+          },
+          {
+            "id": "difference",
+            "label": "The stated gap between them (enlarged)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "record",
+            "to": "alleged",
+            "kind": "relation"
+          },
+          {
+            "from": "reference",
+            "to": "alleged",
+            "kind": "relation"
+          },
+          {
+            "from": "difference",
+            "to": "alleged",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "difference",
+        "relationLabels": {
+          "relation": "related to it as supplied",
+          "communication": "noted in the flow record",
+          "sequence": "then, in the supplied order",
+          "causal": "causal link as supplied"
+        },
+        "traversalOrder": [
+          "record",
+          "alleged",
+          "reference"
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {
+            "label": "Ingresos de la tienda",
+            "time": "Mes 1",
+            "dir": "in",
+            "amount": 200
+          },
+          {
+            "label": "Pago a un proveedor",
+            "time": "Mes 1",
+            "dir": "out",
+            "amount": 60
+          },
+          {
+            "label": "Ingresos de la tienda",
+            "time": "Mes 2",
+            "dir": "in",
+            "amount": 160
+          }
+        ],
+        "losses": [
+          {
+            "label": "Diferencia declarada por la tienda",
+            "amount": 120
+          }
+        ],
+        "model": {
+          "unit": "unidades",
+          "perToken": 0
+        },
+        "elements": [
+          {
+            "id": "record",
+            "label": "Registro de flujos (según lo aportado)"
+          },
+          {
+            "id": "reference",
+            "label": "Escenario de referencia (según lo declarado)"
+          },
+          {
+            "id": "alleged",
+            "label": "Pérdida alegada (según lo declarado)"
+          },
+          {
+            "id": "difference",
+            "label": "Hueco declarado (ampliado)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relacionado según lo aportado",
+          "communication": "consta en el registro",
+          "sequence": "después (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

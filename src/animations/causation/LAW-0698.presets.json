@@ -1,0 +1,282 @@
+{
+  "animationId": "LAW-0698",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). Only the supplied relationships are drawn, with their kind; a causal arrow appears only where the author supplies kind 'causal'. The object's change is a visual state only; nothing is valued and no fault, liability, compensation or causation conclusion is drawn. Long-labels-stress: coordinator decision 2026-09-26 (standing stress cap rule, AUTHORING item 20; LAW-0687/0689–0692 precedent, see SESSION_HANDOFF): after trying the fallback layouts (record above the objects with the inset and the alternative in a left column and notes beside the inset; a right-hand text column; stacked captions; two-column chips), five near-maximum entries did not fit 1:1 at >= 16 px without scaling (measured 2026-09-26: 5 entries → 1:1 only with a fallback scale, text ~11 px). The stress keeps every text at its near-maximum length and caps the entry COUNT at 4 (baseline 3): 1:1 then fits at 17 px without scaling; every field stays longer than the baseline and every count >= the baseline.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional shop corner: the vase splits into before (no marks) and after (chipped lip, crack); an inset enlarges the altered part; before → after (sequence), after → record (noted in the record), inset — after (part of the object).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a painted cabinet panel (dent, scratches); an alternative put forward is related to the record; the author supplies ONE causal link (last entry → object after), drawn as a causal arrow and labelled as supplied; the record is the focus element.",
+      "params": {
+        "events": [
+          {
+            "label": "Storeroom shelf loaded with tins",
+            "time": "Day 1"
+          },
+          {
+            "label": "Shelf bracket bends under the load",
+            "time": "Day 4"
+          },
+          {
+            "label": "Tin lands on the cabinet panel",
+            "time": "Day 4"
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 2,
+            "kind": "causal",
+            "status": "proposed",
+            "label": "put forward by the store owner"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "Panel possibly dented during delivery",
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Top edge dented, scratches across the face"
+          }
+        ],
+        "object": {
+          "kind": "panel",
+          "before": "Painted cabinet panel, smooth face"
+        },
+        "elements": [
+          {
+            "id": "events",
+            "label": "Storeroom log (as supplied)"
+          },
+          {
+            "id": "before",
+            "label": "Panel before"
+          },
+          {
+            "id": "after",
+            "label": "Panel after"
+          },
+          {
+            "id": "detail",
+            "label": "Dented edge (enlarged)"
+          },
+          {
+            "id": "alternative",
+            "label": "Put forward"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "before",
+            "to": "after",
+            "kind": "sequence"
+          },
+          {
+            "from": "events",
+            "to": "after",
+            "kind": "causal"
+          },
+          {
+            "from": "detail",
+            "to": "after",
+            "kind": "relation"
+          },
+          {
+            "from": "alternative",
+            "to": "events",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "events",
+        "relationLabels": {
+          "relation": "related (as supplied)",
+          "communication": "noted in the log",
+          "sequence": "then (as supplied)",
+          "causal": "causal link put forward (as supplied)"
+        },
+        "traversalOrder": [
+          "alternative",
+          "events",
+          "after",
+          "detail"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Stress: near-maximum lengths for every field (four entries, two alternatives, two labelled links, two losses, five elements, long labels and relation captions). coordinator decision 2026-09-26 (standing stress cap rule, AUTHORING item 20; LAW-0687/0689–0692 precedent, see SESSION_HANDOFF): after trying the fallback layouts (record above the objects with the inset and the alternative in a left column and notes beside the inset; a right-hand text column; stacked captions; two-column chips), five near-maximum entries did not fit 1:1 at >= 16 px without scaling (measured 2026-09-26: 5 entries → 1:1 only with a fallback scale, text ~11 px). The stress keeps every text at its near-maximum length and caps the entry COUNT at 4 (baseline 3): 1:1 then fits at 17 px without scaling; every field stays longer than the baseline and every count >= the baseline.",
+      "params": {
+        "events": [
+          {
+            "label": "Wall shelf bracket above the display table slowly works loose",
+            "time": "Day 3 (mid-morning)"
+          },
+          {
+            "label": "Heavy paint tin slides along the tilting shelf board",
+            "time": "Day 3 (a bit later)"
+          },
+          {
+            "label": "Paint tin drops off the end of the shelf board",
+            "time": "Day 3 (seconds on)"
+          },
+          {
+            "label": "Tin lands on the left lip of the hand-painted vase",
+            "time": "Day 3 (same moment)"
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 2,
+            "kind": "sequence",
+            "status": "disputed",
+            "label": "order as in the assistant's notes"
+          },
+          {
+            "from": 3,
+            "kind": "sequence",
+            "status": "proposed",
+            "label": "as stated in the shop owner's report"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "Vase possibly chipped earlier during a stock move",
+            "status": "alleged"
+          },
+          {
+            "label": "Crack possibly present before the incident day",
+            "status": "proposed"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Left lip of the vase chipped and a long crack runs down its side"
+          },
+          {
+            "label": "Small painted fragment found lying on the display table top"
+          }
+        ],
+        "object": {
+          "kind": "vase",
+          "before": "Hand-painted ceramic vase with no visible marks at all"
+        },
+        "elements": [
+          {
+            "id": "events",
+            "label": "Incident record of the shop corner (as supplied)"
+          },
+          {
+            "id": "before",
+            "label": "Object before the incident"
+          },
+          {
+            "id": "after",
+            "label": "Object after the incident"
+          },
+          {
+            "id": "detail",
+            "label": "Altered part of the object (enlarged)"
+          },
+          {
+            "id": "alternative",
+            "label": "Other account put forward"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "before",
+            "to": "after",
+            "kind": "sequence"
+          },
+          {
+            "from": "after",
+            "to": "events",
+            "kind": "communication"
+          },
+          {
+            "from": "detail",
+            "to": "after",
+            "kind": "relation"
+          },
+          {
+            "from": "alternative",
+            "to": "events",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "detail",
+        "relationLabels": {
+          "relation": "related to it as supplied",
+          "communication": "noted in the incident record",
+          "sequence": "then, in the supplied order",
+          "causal": "causal link as supplied"
+        },
+        "traversalOrder": [
+          "before",
+          "after",
+          "events",
+          "alternative"
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {
+            "label": "Se afloja la escuadra de la balda",
+            "time": "Día 3"
+          },
+          {
+            "label": "La lata de pintura resbala de la balda",
+            "time": "Día 3"
+          },
+          {
+            "label": "La lata cae sobre el borde del jarrón",
+            "time": "Día 3"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Borde desportillado y grieta en el costado"
+          }
+        ],
+        "object": {
+          "kind": "vase",
+          "before": "Jarrón de cerámica sin marcas"
+        },
+        "elements": [
+          {
+            "id": "events",
+            "label": "Registro del incidente (según lo aportado)"
+          },
+          {
+            "id": "before",
+            "label": "Objeto antes"
+          },
+          {
+            "id": "after",
+            "label": "Objeto después"
+          },
+          {
+            "id": "detail",
+            "label": "Parte alterada (ampliada)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "parte del objeto",
+          "communication": "consta en el registro",
+          "sequence": "después (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

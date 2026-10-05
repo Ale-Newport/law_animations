@@ -1,0 +1,467 @@
+{
+  "id": "LAW-0700",
+  "slug": "causation-05-inspect",
+  "title": "Material damage — a lens on the object’s state tag; one supplied datum is substituted",
+  "titleEs": "Daño material — Inspección y cambio de un dato",
+  "category": "causation",
+  "categoryName": "Causalidad y daño",
+  "motif": "Daño material",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The altered object on its table with a state tag on a string, beside the incident record. The record steps out, the scene’s tag goes blank and a real enlarged copy of the tag and the lip grows from its source into the freed room; the tag’s value is struck and replaced by the alternative value while only the dependent marks change (e.g. the chip breaks from the lip). The lens returns to its source; a Δ marker and a before/after trace keep the old value traceable. Nothing is valued; no validity, liability or outcome is inferred.",
+  "tags": [
+    "causation",
+    "damage",
+    "material damage",
+    "inspect",
+    "lens",
+    "datum substitution",
+    "before and after",
+    "as supplied"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/causation/kits/dano-material.js",
+    "src/animations/causation/kits/prueba-contrafactual.js",
+    "src/animations/causation/kits/causal-chain.js",
+    "src/primitives/markers.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "events": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Entry text (fictional, descriptive; no valuation or finding)"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 20,
+              "description": "Optional fictional relative label, e.g. \"Day 3\" (shown as supplied; never a time limit)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Entry"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Incident record entries in the supplied order (fictional, descriptive) (array replaces the previous value)"
+      },
+      "causalLinks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4,
+              "description": "Index (0-based) of the entry where the link starts"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "sequence",
+                "causal"
+              ],
+              "description": "sequence (default) or causal; a causal arrow is only drawn when supplied here"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "proposed",
+                "disputed"
+              ],
+              "description": "proposed (put forward) or disputed (contested); never resolved"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Optional caption for this link"
+            }
+          },
+          "required": [
+            "from"
+          ],
+          "description": "Link"
+        },
+        "minItems": 0,
+        "maxItems": 5,
+        "description": "Per-link data. Link i joins entry i to the next entry; the link after the last entry joins it to the altered object. Links not listed are shown only as a sequence as supplied. (array replaces the previous value)"
+      },
+      "alternatives": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Alternative put forward"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "alleged",
+                "proposed"
+              ],
+              "description": "Descriptive status"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Alternative"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Other explanations put forward by someone; drawn with a barrier icon, never decided (array replaces the previous value)"
+      },
+      "losses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 72,
+              "description": "Description of the altered state (no valuation; label any hypothetical amount as hypothetical)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Loss"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Altered state as described. The first entry describes the object after; an optional second entry adds a noted detail. (array replaces the previous value)"
+      },
+      "object": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "vase",
+              "panel"
+            ],
+            "description": "Object drawn: a ceramic vase (crack, chipped lip) or a painted cabinet panel (dent, scratches)"
+          },
+          "before": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Description of the object before (as supplied)"
+          }
+        },
+        "required": [
+          "kind"
+        ],
+        "description": "The fictional generic object"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "object-tag"
+        ],
+        "description": "Detail that is enlarged and substituted"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      },
+      "markLevels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "before": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2,
+            "description": "Marks shown with the before value"
+          },
+          "after": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2,
+            "description": "Marks shown with the after value"
+          }
+        },
+        "required": [],
+        "description": "Visible marks shown with each value (0 intact · 1 first mark · 2 both marks); only this geometry changes with the datum"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "events": [
+      {
+        "label": "Paint tin lands on the vase’s lip",
+        "time": "Day 3"
+      },
+      {
+        "label": "Assistant notes the vase’s state",
+        "time": "Day 3"
+      }
+    ],
+    "causalLinks": [],
+    "alternatives": [],
+    "losses": [
+      {
+        "label": "Vase altered as shown on its tag"
+      }
+    ],
+    "object": {
+      "kind": "vase",
+      "before": "Ceramic vase, no marks"
+    },
+    "focusTarget": "object-tag",
+    "beforeValue": "Crack down the side (as supplied)",
+    "afterValue": "Crack and chipped lip (as supplied)",
+    "detailGeometry": {
+      "zoom": 1.8,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "The object and its record, as supplied",
+      "marker": "Changed datum"
+    },
+    "markLevels": {
+      "before": 1,
+      "after": 2
+    }
+  }
+}

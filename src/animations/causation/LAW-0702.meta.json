@@ -1,0 +1,589 @@
+{
+  "id": "LAW-0702",
+  "slug": "causation-06-mechanism",
+  "title": "Economic loss — the flow record, the reference scenario, the alleged loss and the stated gap, related as supplied",
+  "titleEs": "Pérdida económica — Mecanismo o relación explicada",
+  "category": "causation",
+  "categoryName": "Causalidad y daño",
+  "motif": "Pérdida económica",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "One balance column separates into the reference scenario (●) and the alleged loss (◆), each as stated, on equal stands; an inset enlarges the stated gap and the flow record slides out. Only the supplied relationships are drawn with their kind (plain relation by default; causal only when supplied); a tracer follows the traversal order while the focus element enlarges. Fictional amounts; nothing is computed or valued and no damages, compensation, liability, fault or causation is stated.",
+  "tags": [
+    "causation",
+    "economic loss",
+    "mechanism",
+    "reference scenario",
+    "alleged loss",
+    "stated difference",
+    "flows",
+    "as stated"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/causation/kits/perdida-economica.js",
+    "src/animations/causation/kits/dano-material.js",
+    "src/animations/causation/kits/causal-chain.js",
+    "src/animations/causation/kits/prueba-contrafactual.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "events": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Entry text (fictional, descriptive; no valuation or finding)"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 20,
+              "description": "Optional fictional relative label, e.g. \"Month 2\" (shown as supplied; never a time limit)"
+            },
+            "dir": {
+              "type": "string",
+              "enum": [
+                "in",
+                "out"
+              ],
+              "description": "in (adds to the balance) or out (removes from it)"
+            },
+            "amount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9999,
+              "description": "Fictional amount in the model unit (shown as supplied)"
+            }
+          },
+          "required": [
+            "label",
+            "dir",
+            "amount"
+          ],
+          "description": "Entry"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Flow entries in the supplied order (fictional): each adds (in) or removes (out) a supplied amount in BOTH scenarios (array replaces the previous value)"
+      },
+      "causalLinks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4,
+              "description": "Index (0-based) of the entry where the link starts"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "sequence",
+                "causal"
+              ],
+              "description": "sequence (default) or causal; a causal arrow is only drawn when supplied here"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "proposed",
+                "disputed"
+              ],
+              "description": "proposed (put forward) or disputed (contested); never resolved"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Optional caption for this link"
+            }
+          },
+          "required": [
+            "from"
+          ],
+          "description": "Link"
+        },
+        "minItems": 0,
+        "maxItems": 5,
+        "description": "Per-link data. Link i joins entry i to the next entry; the link after the last entry joins it to the stated difference. Links not listed are a sequence as supplied. (array replaces the previous value)"
+      },
+      "alternatives": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Alternative put forward"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "alleged",
+                "proposed"
+              ],
+              "description": "Descriptive status"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Alternative"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Other explanations put forward by someone; drawn with a barrier icon, never decided (array replaces the previous value)"
+      },
+      "losses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 72,
+              "description": "How the difference is stated (fictional; no valuation, no \"owed\")"
+            },
+            "amount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9999,
+              "description": "Fictional amount stated (model unit)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Stated difference"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "The stated difference: the first entry is the ALLEGED LOSS as someone states it (an amount the alleged scenario is below the reference scenario); an optional second entry is a noted detail. Never computed or decided. (array replaces the previous value)"
+      },
+      "model": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "unit": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "Name of the fictional unit, e.g. \"units\""
+          },
+          "perToken": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Units per token (0 = chosen so the column fits)"
+          }
+        },
+        "required": [],
+        "description": "Model scale and unit (display only)"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "record",
+                "reference",
+                "alleged",
+                "difference",
+                "alternative"
+              ],
+              "description": "Component id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Component"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Component labels; ids are fixed by the scene, labels are editable (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "record",
+                "reference",
+                "alleged",
+                "difference",
+                "alternative"
+              ],
+              "description": "Source component id"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "record",
+                "reference",
+                "alleged",
+                "difference",
+                "alternative"
+              ],
+              "description": "Target component id"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "Relationship"
+        },
+        "minItems": 1,
+        "maxItems": 8,
+        "description": "Explicit relationships between components; kind controls line style (causal only when supplied) (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "record",
+          "reference",
+          "alleged",
+          "difference",
+          "alternative"
+        ],
+        "description": "Component enlarged while the tracer passes"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for sequence links"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Override the caption used for each relation kind"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "record",
+            "reference",
+            "alleged",
+            "difference",
+            "alternative"
+          ],
+          "description": "Component id"
+        },
+        "minItems": 2,
+        "maxItems": 8,
+        "description": "Order in which the tracer visits components (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "events": [
+      {
+        "label": "Shop takings received",
+        "time": "Month 1",
+        "dir": "in",
+        "amount": 200
+      },
+      {
+        "label": "Supplier invoice paid",
+        "time": "Month 1",
+        "dir": "out",
+        "amount": 60
+      },
+      {
+        "label": "Shop takings received",
+        "time": "Month 2",
+        "dir": "in",
+        "amount": 160
+      }
+    ],
+    "causalLinks": [],
+    "alternatives": [],
+    "losses": [
+      {
+        "label": "Stated difference (as stated by the shop)",
+        "amount": 120
+      }
+    ],
+    "model": {
+      "unit": "",
+      "perToken": 0
+    },
+    "elements": [
+      {
+        "id": "record",
+        "label": "Flow record (as supplied)"
+      },
+      {
+        "id": "reference",
+        "label": "Reference scenario (as stated)"
+      },
+      {
+        "id": "alleged",
+        "label": "Alleged loss (as stated)"
+      },
+      {
+        "id": "difference",
+        "label": "Stated gap (enlarged)"
+      }
+    ],
+    "relationships": [
+      {
+        "from": "record",
+        "to": "alleged",
+        "kind": "relation"
+      },
+      {
+        "from": "reference",
+        "to": "alleged",
+        "kind": "relation"
+      },
+      {
+        "from": "difference",
+        "to": "alleged",
+        "kind": "relation"
+      }
+    ],
+    "focusElement": "difference",
+    "relationLabels": {
+      "relation": "related as supplied",
+      "communication": "noted in the record",
+      "sequence": "then (as supplied)",
+      "causal": "causal (as supplied)"
+    },
+    "traversalOrder": [
+      "record",
+      "alleged",
+      "reference",
+      "alleged",
+      "difference"
+    ]
+  }
+}

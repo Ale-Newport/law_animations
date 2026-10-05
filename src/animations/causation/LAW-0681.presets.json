@@ -1,0 +1,71 @@
+{
+  "animationId": "LAW-0681",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; every chain is shown only as proposed by a party.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional shop incident: four events in the supplied order topple one another and the last one strikes a vase on a plinth (loss as described by Party A).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different five-event chain with two loss objects, an alternative event put forward against link 3, and the final state held unresolved at that disputed link (downstream kept standing, dimmed, with a dashed fallen outline).",
+      "params": {
+        "events": [
+          {"label": "Pipe joint starts to drip", "time": "Day 1"},
+          {"label": "Water pools under the rack", "time": "Day 2"},
+          {"label": "Rack foot slides", "time": "Day 3"},
+          {"label": "Top shelf leans over", "time": "Day 3"},
+          {"label": "Box on the shelf tips", "time": "Day 3"}
+        ],
+        "causalLinks": [{"from": 2, "kind": "sequence", "status": "disputed"}],
+        "alternatives": [{"label": "Rack moved during cleaning", "link": 2, "status": "alleged"}],
+        "losses": [{"label": "Ceramic urn chipped"}, {"label": "Water jug cracked"}],
+        "presenter": {"name": "Tomás Varga", "role": "Party B", "appearance": {"skin": 1, "hair": "curly", "outfit": 2, "glasses": true}},
+        "actorLabels": {"a": "Party B · proposes this chain"},
+        "objectLabels": {"chain": "Proposed chain (as supplied)", "stand": "Storeroom shelf"},
+        "annotations": [{"target": "loss", "text": "Downstream drawn both standing and fallen — not decided here"}],
+        "finalState": "unresolved-at-disputed-link"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Six events with long labels, a long loss description, a long presenter caption and two callouts.",
+      "params": {
+        "events": [
+          {"label": "Delivery crate left partly blocking the main customer aisle overnight", "time": "T0"},
+          {"label": "Motorised floor-cleaning trolley makes contact with the delivery crate", "time": "T+2 min"},
+          {"label": "Freestanding shelf unit behind the crate is jolted sideways", "time": "T+2 min"},
+          {"label": "Ceramic display stand next to the shelf unit begins to wobble", "time": "T+3 min"},
+          {"label": "Glass display cover on the stand slides towards the edge", "time": "T+3 min"},
+          {"label": "Display cover falls against the pedestal holding the vase", "time": "T+4 min"}
+        ],
+        "losses": [{"label": "Hand-painted ceramic vase cracked (hypothetical value 1,200 units)"}],
+        "presenter": {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"},
+        "actorLabels": {"a": "Representative of Party A proposing this sequence of events"},
+        "objectLabels": {"chain": "Proposed chain of events exactly as supplied by Party A", "stand": "Gallery display pedestal"},
+        "annotations": [
+          {"target": "loss", "text": "Loss as described in Party A’s written account (hypothetical figures only)"},
+          {"target": "chain", "text": "Each event touches the next only in the order supplied"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {"label": "Caja olvidada en el pasillo", "time": "T0"},
+          {"label": "Un carro golpea la caja", "time": "T+1 min"},
+          {"label": "La estantería se sacude", "time": "T+1 min"},
+          {"label": "El expositor tiembla", "time": "T+2 min"}
+        ],
+        "losses": [{"label": "Jarrón de cerámica agrietado"}],
+        "actorLabels": {"a": "Parte A · propone esta cadena"},
+        "objectLabels": {"chain": "Cadena propuesta (según lo aportado)", "stand": ""},
+        "annotations": [{"target": "loss", "text": "Pérdida según el relato de la parte A"}]
+      }
+    }
+  ]
+}

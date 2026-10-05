@@ -1,0 +1,700 @@
+{
+  "id": "LAW-0689",
+  "slug": "causation-03-story",
+  "title": "Concurrent causes — two marble runs reach the same vase",
+  "titleEs": "Causas concurrentes — Microescena con objetos y actores",
+  "category": "causation",
+  "categoryName": "Causalidad y daño",
+  "motif": "Causas concurrentes",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "Side-view microscene: two presenters each release a marble at the top of their route’s rack of sloped planks (one plank per supplied event, in the supplied order). Both marbles roll down under gravity, dropping through each link, and meet the same vase from opposite sides: two separate cracks, nothing merged or added up. An alternative final state holds a route at a disputed link, unresolved.",
+  "tags": [
+    "causation",
+    "concurrent causes",
+    "two routes",
+    "marble run",
+    "same loss",
+    "not added up",
+    "presenters",
+    "hands"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/causation/kits/causas-concurrentes.js",
+    "src/animations/causation/kits/causal-chain.js",
+    "src/animations/causation/kits/prueba-contrafactual.js",
+    "src/primitives/person.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "events": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 70,
+                  "description": "Event label (fictional, descriptive)"
+                },
+                "time": {
+                  "type": "string",
+                  "maxLength": 20,
+                  "description": "Optional relative time label, e.g. \"T+2 min\" (shown as supplied)"
+                }
+              },
+              "required": [
+                "label"
+              ],
+              "description": "Event"
+            },
+            "minItems": 2,
+            "maxItems": 5,
+            "description": "Events of route A in the supplied order; its marble passes them in this order (2–5) (array replaces the previous value)"
+          },
+          "b": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 70,
+                  "description": "Event label (fictional, descriptive)"
+                },
+                "time": {
+                  "type": "string",
+                  "maxLength": 20,
+                  "description": "Optional relative time label, e.g. \"T+2 min\" (shown as supplied)"
+                }
+              },
+              "required": [
+                "label"
+              ],
+              "description": "Event"
+            },
+            "minItems": 2,
+            "maxItems": 5,
+            "description": "Events of route B in the supplied order; its marble passes them in this order (2–5) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "The events of each route, in the supplied order"
+      },
+      "causalLinks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "route": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "Route of the link"
+            },
+            "from": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4,
+              "description": "Index (0-based) of the event where the link starts"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "sequence",
+                "causal"
+              ],
+              "description": "sequence (default) or causal; a causal link is only labelled so when supplied here"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "proposed",
+                "disputed"
+              ],
+              "description": "proposed (put forward) or disputed (contested); the animation never resolves it"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Optional caption for this link"
+            }
+          },
+          "required": [
+            "route",
+            "from"
+          ],
+          "description": "Link"
+        },
+        "minItems": 0,
+        "maxItems": 6,
+        "description": "Per-link data. Link i of a route joins its event i to event i+1; the link after its last event joins it to the loss. Links not listed are proposed sequence links. (array replaces the previous value)"
+      },
+      "alternatives": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 70,
+              "description": "Alternative event label"
+            },
+            "route": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "Route it is put forward against"
+            },
+            "link": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4,
+              "description": "Index of the link it is put forward against"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "alleged",
+                "proposed"
+              ],
+              "description": "Descriptive status"
+            }
+          },
+          "required": [
+            "label",
+            "route",
+            "link"
+          ],
+          "description": "Alternative"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Alternative or intervening events put forward by someone; drawn as a barricade in front of a route, tied to one of its links, never decided (array replaces the previous value)"
+      },
+      "losses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "Description of the loss (label hypothetical amounts as hypothetical)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Loss"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "The loss as described. Both routes reach the first entry (the vase); a second entry is an extra description of the same loss (array replaces the previous value)"
+      },
+      "routeLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Name of route A"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Name of route B"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Names of the two supplied routes (the comparison Causa A / causa B)"
+      },
+      "presenters": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Display name (fictional by default)"
+              },
+              "role": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Descriptive role label (not a legal finding)"
+              },
+              "appearance": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "skin": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 5,
+                    "description": "Skin tone index 0–5"
+                  },
+                  "hair": {
+                    "type": "string",
+                    "enum": [
+                      "short",
+                      "long",
+                      "bun",
+                      "curly",
+                      "buzz",
+                      "scarf"
+                    ],
+                    "description": "Hair style"
+                  },
+                  "hairColor": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 6,
+                    "description": "Hair colour index 0–6"
+                  },
+                  "outfit": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 7,
+                    "description": "Outfit colour index 0–7"
+                  },
+                  "glasses": {
+                    "type": "boolean",
+                    "description": "Wears glasses"
+                  }
+                },
+                "required": [],
+                "description": "Optional appearance overrides; defaults derive from the seed"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "description": "A fictional person or party"
+          },
+          "b": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Display name (fictional by default)"
+              },
+              "role": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Descriptive role label (not a legal finding)"
+              },
+              "appearance": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "skin": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 5,
+                    "description": "Skin tone index 0–5"
+                  },
+                  "hair": {
+                    "type": "string",
+                    "enum": [
+                      "short",
+                      "long",
+                      "bun",
+                      "curly",
+                      "buzz",
+                      "scarf"
+                    ],
+                    "description": "Hair style"
+                  },
+                  "hairColor": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 6,
+                    "description": "Hair colour index 0–6"
+                  },
+                  "outfit": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 7,
+                    "description": "Outfit colour index 0–7"
+                  },
+                  "glasses": {
+                    "type": "boolean",
+                    "description": "Wears glasses"
+                  }
+                },
+                "required": [],
+                "description": "Optional appearance overrides; defaults derive from the seed"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "description": "A fictional person or party"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "The two presenters (fictional): one beside each route"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for the presenter of route A (descriptive, not a finding)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for the presenter of route B (descriptive, not a finding)"
+          }
+        },
+        "required": [],
+        "description": "Role captions shown with each presenter"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tag": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Status tag shown in the final hold when both routes reach the loss"
+          },
+          "stand": {
+            "type": "string",
+            "maxLength": 24,
+            "description": "Optional label printed on the display plinth"
+          }
+        },
+        "required": [],
+        "description": "Labels printed in the scene"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "loss",
+                "route-a",
+                "route-b"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "reaches-loss",
+          "unresolved-at-disputed-link"
+        ],
+        "description": "State supplied by the author for the final hold: both routes reach the loss, or a route with a disputed link is held there, unresolved (never decided)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "events": {
+      "a": [
+        {
+          "label": "Kitchen tap left running",
+          "time": "T0"
+        },
+        {
+          "label": "Sink overflows",
+          "time": "T+4 min"
+        },
+        {
+          "label": "Water spreads to the shelf",
+          "time": "T+9 min"
+        }
+      ],
+      "b": [
+        {
+          "label": "Roof gutter blocked",
+          "time": "T0"
+        },
+        {
+          "label": "Rain seeps through the wall",
+          "time": "T+6 min"
+        },
+        {
+          "label": "Water drips onto the shelf",
+          "time": "T+9 min"
+        }
+      ]
+    },
+    "causalLinks": [],
+    "alternatives": [],
+    "losses": [
+      {
+        "label": "Ceramic vase on the shelf cracked"
+      }
+    ],
+    "routeLabels": {
+      "a": "Cause A",
+      "b": "Cause B"
+    },
+    "presenters": {
+      "a": {
+        "name": "Rin Adeyemi",
+        "role": "Presenter"
+      },
+      "b": {
+        "name": "Tomás Varga",
+        "role": "Presenter",
+        "appearance": {
+          "skin": 1,
+          "hair": "curly",
+          "outfit": 2
+        }
+      }
+    },
+    "actorLabels": {
+      "a": "Runs route A as supplied",
+      "b": "Runs route B as supplied"
+    },
+    "objectLabels": {
+      "tag": "Two routes, one loss (as supplied)",
+      "stand": ""
+    },
+    "actionProgress": 1,
+    "annotations": [
+      {
+        "target": "loss",
+        "text": "Each route reaches the same vase on its own side"
+      }
+    ],
+    "finalState": "reaches-loss"
+  }
+}

@@ -1,0 +1,502 @@
+{
+  "id": "LAW-0708",
+  "slug": "causation-07-inspect",
+  "title": "Aggravation of damage — a lens on the variation tag of a panel; one supplied datum is substituted",
+  "titleEs": "Agravación de daño — Inspección y cambio de un dato",
+  "category": "causation",
+  "categoryName": "Causalidad y daño",
+  "motif": "Agravación de daño",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "A fictional panel (Object A) after the supplied change: the mark at the later level, a ● flag at the initial level and a ◆ flag at the later level, stripes and a bracket for the variation as supplied, and a value tag on a string above the bracket, beside the record. A real enlarged copy of the tag, the flag heads and the top of the panel grows from its source; the supplied value is struck and replaced by the alternative value, and only then does the dependent geometry (the ◆ flag, the bracket, the stripes and the mark’s edge) follow. The lens returns to its source; a Δ marker and a before/after trace keep the old value traceable. Placeholder levels on an illustrative scale; nothing is attributed, measured, valued or decided.",
+  "tags": [
+    "causation",
+    "aggravation of damage",
+    "inspect",
+    "lens",
+    "datum substitution",
+    "variation as supplied",
+    "before and after",
+    "as supplied"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/causation/kits/agravacion-dano.js",
+    "src/animations/causation/kits/dano-material.js",
+    "src/animations/causation/kits/prueba-contrafactual.js",
+    "src/animations/causation/kits/causal-chain.js",
+    "src/primitives/markers.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "object": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 48,
+            "description": "Name of the object, e.g. \"Object A (fictional panel)\""
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "description": "The fictional generic object (a surface panel; no person is ever drawn)"
+      },
+      "events": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Entry text (fictional, descriptive)"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 20,
+              "description": "Optional fictional relative label, e.g. \"Visit 2\" (shown as supplied; never a time limit)"
+            },
+            "stage": {
+              "type": "string",
+              "enum": [
+                "initial",
+                "later"
+              ],
+              "description": "Which supplied state the entry belongs to"
+            }
+          },
+          "required": [
+            "label",
+            "stage"
+          ],
+          "description": "Entry"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Record entries in the supplied order (fictional, descriptive; no cause, author or finding). Each belongs to the prior condition or to the later change. (array replaces the previous value)"
+      },
+      "causalLinks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4,
+              "description": "Index (0-based) of the entry where the link starts"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "sequence",
+                "causal"
+              ],
+              "description": "sequence (default) or causal; a causal arrow is only drawn when supplied here"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "proposed",
+                "disputed"
+              ],
+              "description": "proposed (put forward) or disputed (contested); never resolved"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Optional caption for this link"
+            }
+          },
+          "required": [
+            "from"
+          ],
+          "description": "Link"
+        },
+        "minItems": 0,
+        "maxItems": 5,
+        "description": "Per-link data. Link i joins entry i to the next entry; the link after the last entry joins it to the variation. Links not listed are a sequence as supplied. (array replaces the previous value)"
+      },
+      "alternatives": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Account put forward"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "alleged",
+                "proposed"
+              ],
+              "description": "Descriptive status"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Alternative"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Other accounts put forward by someone; drawn with a barrier icon, never decided (array replaces the previous value)"
+      },
+      "losses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 72,
+              "description": "Description of the supplied variation (no valuation)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Variation"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "The variation as supplied: the first entry is how the variation between the two states is described (a placeholder description, no amount or valuation); an optional second entry is a noted detail. (array replaces the previous value)"
+      },
+      "levels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "initial": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "description": "Level of the prior condition (as supplied)"
+          },
+          "later": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "description": "Level of the later change (as supplied)"
+          }
+        },
+        "required": [
+          "initial",
+          "later"
+        ],
+        "description": "Placeholder magnitudes on the illustrative scale (0–6 columns of the panel): the prior condition and the later change, both as supplied"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "variation-tag"
+        ],
+        "description": "Detail that is enlarged and substituted"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      },
+      "laterLevels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "before": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "description": "Later level drawn with the before value"
+          },
+          "after": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "description": "Later level drawn with the after value"
+          }
+        },
+        "required": [],
+        "description": "Placeholder later level drawn with each value (illustrative scale, 0–6); only this geometry changes with the datum"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "object": {
+      "name": "Object A (fictional panel)"
+    },
+    "events": [
+      {
+        "label": "Object A inspected: prior condition noted",
+        "time": "Visit 1",
+        "stage": "initial"
+      },
+      {
+        "label": "Photo of the surface added to the file",
+        "time": "Visit 1",
+        "stage": "initial"
+      },
+      {
+        "label": "Object A inspected again: later change noted",
+        "time": "Visit 2",
+        "stage": "later"
+      }
+    ],
+    "causalLinks": [],
+    "alternatives": [],
+    "losses": [
+      {
+        "label": "Variation as supplied"
+      }
+    ],
+    "levels": {
+      "initial": 2,
+      "later": 5
+    },
+    "focusTarget": "variation-tag",
+    "beforeValue": "level 2 → level 5 · illustrative scale, as supplied",
+    "afterValue": "level 2 → level 4 · illustrative scale, as supplied",
+    "detailGeometry": {
+      "zoom": 1.8,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Object A after the supplied change, with its record, as supplied",
+      "marker": "Changed datum"
+    },
+    "laterLevels": {
+      "before": 5,
+      "after": 4
+    }
+  }
+}

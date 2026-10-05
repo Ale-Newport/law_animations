@@ -1,0 +1,74 @@
+{
+  "animationId": "LAW-0683",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; scenario B never resolves the disputed link.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Two identical four-event chains; only link 2 → 3 differs (proposed in A, disputed in B with an alternative event put forward).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a five-event chain with two loss objects where the LAST link (event 5 → loss) is the one that differs, and no alternative barrier is supplied — B holds right before the loss and only the loss objects are unresolved.",
+      "params": {
+        "events": [
+          {"label": "Pipe joint starts to drip", "time": "Day 1"},
+          {"label": "Water pools under the rack", "time": "Day 2"},
+          {"label": "Rack foot slides", "time": "Day 3"},
+          {"label": "Top shelf leans over", "time": "Day 3"},
+          {"label": "Box on the shelf tips", "time": "Day 3"}
+        ],
+        "causalLinks": [{"from": 4, "kind": "sequence", "status": "disputed"}],
+        "alternatives": [],
+        "losses": [{"label": "Ceramic urn chipped"}, {"label": "Water jug cracked"}],
+        "scenarioA": {"label": "Proposed chain", "caption": "Last link (event 5 → loss) put forward as proposed"},
+        "scenarioB": {"label": "Disputed last link", "caption": "Whether event 5 reached the loss is disputed"},
+        "changedFact": "Only the last link differs: proposed in A, disputed in B",
+        "sharedFacts": ["Same five events in the same order", "Same loss objects"],
+        "comparisonLabels": {"guide": "Changed fact: event 5 → loss", "neutral": "Shown for comparison; no outcome is stated for the disputed link"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Six events with long labels, long scenario captions, facts and guide text.",
+      "params": {
+        "events": [
+          {"label": "Delivery crate left partly blocking the main customer aisle overnight"},
+          {"label": "Motorised floor-cleaning trolley makes contact with the delivery crate"},
+          {"label": "Freestanding shelf unit behind the crate is jolted sideways"},
+          {"label": "Ceramic display stand next to the shelf unit begins to wobble"},
+          {"label": "Glass display cover on the stand slides towards the edge"},
+          {"label": "Display cover falls against the pedestal holding the vase"}
+        ],
+        "causalLinks": [{"from": 2, "kind": "sequence", "status": "disputed"}],
+        "alternatives": [{"label": "A customer leaning on the display stand shortly before the incident", "link": 2, "status": "alleged"}],
+        "losses": [{"label": "Hand-painted ceramic vase cracked (hypothetical value 1,200 units)"}],
+        "scenarioA": {"label": "Chain exactly as proposed by Party A", "caption": "The link between event 3 and event 4 is put forward as part of the proposed chain"},
+        "scenarioB": {"label": "Link between events 3 and 4 disputed", "caption": "Party B disputes that link and puts forward an alternative intervening event"},
+        "changedFact": "Only the status of the link between event 3 and event 4 differs: proposed in scenario A, disputed in scenario B",
+        "sharedFacts": ["Same six events in the same supplied order", "Same trigger and spacing", "Same loss object and plinth"],
+        "comparisonLabels": {"guide": "Changed fact: status of the link between event 3 and event 4", "neutral": "Two situations shown for comparison — the disputed link is not resolved and no outcome is stated"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {"label": "Caja olvidada en el pasillo", "time": "T0"},
+          {"label": "Un carro golpea la caja", "time": "T+1 min"},
+          {"label": "La estantería se sacude", "time": "T+1 min"},
+          {"label": "El expositor tiembla", "time": "T+2 min"}
+        ],
+        "alternatives": [{"label": "Pasa un carro de limpieza", "link": 1, "status": "alleged"}],
+        "losses": [{"label": "Jarrón de cerámica agrietado"}],
+        "scenarioA": {"label": "Cadena propuesta", "caption": "El eslabón 2 → 3 se plantea como propuesto"},
+        "scenarioB": {"label": "Eslabón discutido", "caption": "El eslabón 2 → 3 se discute; se plantea una alternativa"},
+        "changedFact": "Solo cambia el eslabón 2 → 3: propuesto en A, discutido en B",
+        "sharedFacts": ["Mismos eventos y orden", "Mismo disparador", "Mismo objeto dañado"],
+        "comparisonLabels": {"guide": "Hecho cambiado: eslabón 2 → 3", "neutral": "Dos supuestos comparados — el eslabón discutido no se resuelve aquí"}
+      }
+    }
+  ]
+}

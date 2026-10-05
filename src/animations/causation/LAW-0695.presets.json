@@ -1,0 +1,206 @@
+{
+  "animationId": "LAW-0695",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified); the later event and every result are shown only as supplied, never inferred, and nothing states that the later event interrupts, replaces, relieves or shifts anything. Long-labels-stress: coordinator decision 2026-09-26 (standing stress cap rule, LAW-0687/0689–0692 precedent; see SESSION_HANDOFF): after trying the fallback layouts (right-hand text column with stacked scenes at 1:1, two-level staging, shared content drawn once), the near-maximum stress text did not fit every ratio at >= 16 px without scaling; the stress lengths are capped to the longest tried values that fit every ratio, every field still strictly longer than the baseline and every count >= the baseline.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional shop incident: two identical stages; in A the bay latch keeps the later event parked, in B the crane carries it into the slot after event 2; both run the same take and, as supplied, both reach the vase.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a four-event storeroom sequence, the later event after event 3, an alternative and a disputed link; as supplied, scene A reaches the loss while scene B is held unresolved at the later event's disputed link.",
+      "params": {
+        "events": [
+          {
+            "label": "Pipe joint starts to drip",
+            "time": "Day 1"
+          },
+          {
+            "label": "Water pools under the rack",
+            "time": "Day 2"
+          },
+          {
+            "label": "Rack foot rusts through",
+            "time": "Day 5"
+          },
+          {
+            "label": "Rack leans onto the cabinet",
+            "time": "Day 6"
+          }
+        ],
+        "addedEvent": {
+          "label": "Porter props a ladder on the rack",
+          "time": "Day 6",
+          "after": 2
+        },
+        "causalLinks": [
+          {
+            "from": 3,
+            "kind": "sequence",
+            "status": "disputed",
+            "label": "timing contested"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "Rack possibly overloaded earlier",
+            "link": 1,
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Glass lamp in the cabinet cracked"
+          }
+        ],
+        "scenarioA": {
+          "label": "Initial sequence",
+          "caption": "The ladder stays in the bay"
+        },
+        "scenarioB": {
+          "label": "Later event",
+          "caption": "The ladder enters after event 3"
+        },
+        "changedFact": "Only difference: whether the later event enters after event 3",
+        "sharedFacts": [
+          "Same four events",
+          "Same rack and cabinet",
+          "Same trigger"
+        ],
+        "comparisonLabels": {
+          "guide": "Changed detail: the slot after event 3",
+          "neutral": "Two supplied runs side by side — no winner, no share and no conclusion"
+        },
+        "results": {
+          "a": "reaches-loss",
+          "b": "unresolved-at-disputed-link"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Stress: long labels and times for every field (four events — the baseline count — with long labels, the later event, a long loss, one alternative, a labelled link and long captions). coordinator decision 2026-09-26 (standing stress cap rule, LAW-0687/0689–0692 precedent; see SESSION_HANDOFF): after trying the fallback layouts (right-hand text column with stacked scenes at 1:1, two-level staging, shared content drawn once), the near-maximum stress text did not fit every ratio at >= 16 px without scaling; the stress lengths are capped to the longest tried values that fit every ratio, every field still strictly longer than the baseline and every count >= the baseline. Measured 2026-09-26 at 1:1 (two whole stages stacked beside the text column): six events of ~72 characters → fallback scale k = 0.52; five of ~58 → 0.55; four of ~48 → 0.59; four of ~48 with shorter facts → 0.62; this preset (four events of ~38) fits every ratio at scale 1 (1:1 at 17 px).",
+      "params": {
+        "events": [
+          {
+            "label": "Delivery crate left in the narrow aisle",
+            "time": "T0 (early morning)"
+          },
+          {
+            "label": "Pallet trolley clips the crate's corner",
+            "time": "T+1 minute"
+          },
+          {
+            "label": "Crate slides and jolts the shelf unit",
+            "time": "T+2 minutes"
+          },
+          {
+            "label": "Glass display stand shakes and tilts",
+            "time": "T+3 minutes"
+          }
+        ],
+        "addedEvent": {
+          "label": "Night cleaner's machine bumps the stand",
+          "time": "T+2 minutes",
+          "after": 1
+        },
+        "causalLinks": [
+          {
+            "from": 3,
+            "kind": "sequence",
+            "status": "proposed",
+            "label": "order as in the log"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "Shelf possibly loose before",
+            "link": 2,
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Hand-painted ceramic vase cracked (hypothetical)"
+          }
+        ],
+        "scenarioA": {
+          "label": "Initial sequence (Party A)",
+          "caption": "The later event stays parked in the bay"
+        },
+        "scenarioB": {
+          "label": "Later event (Party B)",
+          "caption": "The later event enters after event 2 here"
+        },
+        "changedFact": "Only difference here: whether the later event enters the sequence",
+        "sharedFacts": [
+          "Same four events, same order",
+          "Same spacing and same trigger",
+          "Same vase and plinth"
+        ],
+        "comparisonLabels": {
+          "guide": "Changed detail: the slot after event 2 here",
+          "neutral": "Two supplied runs of the same model side by side — no winner and no conclusion"
+        },
+        "results": {
+          "a": "reaches-loss",
+          "b": "reaches-loss"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {
+            "label": "Caja olvidada en el pasillo",
+            "time": "T0"
+          },
+          {
+            "label": "El carro choca con la caja",
+            "time": "T+1 min"
+          },
+          {
+            "label": "La estantería recibe el golpe",
+            "time": "T+2 min"
+          },
+          {
+            "label": "El expositor se tambalea",
+            "time": "T+3 min"
+          }
+        ],
+        "addedEvent": {
+          "label": "El limpiador empuja el expositor",
+          "time": "T+2 min",
+          "after": 1
+        },
+        "losses": [
+          {
+            "label": "Jarrón de cerámica agrietado"
+          }
+        ],
+        "scenarioA": {
+          "label": "Secuencia inicial",
+          "caption": "Se queda en el muelle"
+        },
+        "scenarioB": {
+          "label": "Evento posterior",
+          "caption": "Entra tras el evento 2"
+        },
+        "changedFact": "Solo cambia si entra el evento posterior",
+        "sharedFacts": [
+          "Mismos eventos",
+          "Mismo disparador",
+          "Mismo jarrón"
+        ],
+        "comparisonLabels": {
+          "guide": "Detalle cambiado: el hueco tras el evento 2",
+          "neutral": "Mismo modelo lado a lado: sin ganador ni conclusión"
+        }
+      }
+    }
+  ]
+}

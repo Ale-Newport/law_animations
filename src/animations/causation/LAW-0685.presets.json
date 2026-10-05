@@ -1,0 +1,210 @@
+{
+  "animationId": "LAW-0685",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; every run shows the model as supplied and the result of the replay is supplied, never inferred.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional shop incident: four events topple in the supplied order and the vase cracks; the take rewinds, the claw lifts event 2 out of the model and the replay runs without it — as supplied, the loss does not occur (the tile before the gap lies down in the empty slot).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a five-event storeroom chain with two loss objects, an alternative event put forward and one disputed link; event 3 is removed and, as supplied, the loss still occurs in the replay (the tile before the gap reaches the tile after it).",
+      "params": {
+        "events": [
+          {
+            "label": "Pipe joint starts to drip",
+            "time": "Day 1"
+          },
+          {
+            "label": "Water pools under the rack",
+            "time": "Day 2"
+          },
+          {
+            "label": "Rack foot slides",
+            "time": "Day 3"
+          },
+          {
+            "label": "Top shelf leans over",
+            "time": "Day 3"
+          },
+          {
+            "label": "Box on the shelf tips",
+            "time": "Day 3"
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 3,
+            "kind": "sequence",
+            "status": "disputed"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "Rack moved during cleaning",
+            "link": 0,
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Ceramic urn chipped"
+          },
+          {
+            "label": "Water jug cracked"
+          }
+        ],
+        "selectedEvent": 2,
+        "actorLabels": {
+          "a": "Trigger: the same start for both runs",
+          "b": "Claw: lifts event 3 out of the model"
+        },
+        "objectLabels": {
+          "chain": "Model as supplied by Party B",
+          "present": "Event 3 present",
+          "removed": "Event 3 removed from the model"
+        },
+        "annotations": [
+          {
+            "target": "loss",
+            "text": "Result of the replay as supplied by Party B"
+          }
+        ],
+        "finalState": "loss-still-occurs"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Six events with near-maximum labels and times, two long loss descriptions, two long alternatives, three long link captions, long actor captions, tags and two long callouts.",
+      "params": {
+        "events": [
+          {
+            "label": "Delivery crate left partly blocking the main customer aisle of the shop overnight",
+            "time": "Day 1 · 21:40"
+          },
+          {
+            "label": "Motorised floor-cleaning trolley makes contact with the delivery crate at the corner",
+            "time": "Day 2 · 06:05"
+          },
+          {
+            "label": "Freestanding shelf unit standing directly behind the crate is jolted sideways",
+            "time": "Day 2 · 06:05"
+          },
+          {
+            "label": "Ceramic display stand next to the shelf unit begins to wobble on its uneven feet",
+            "time": "Day 2 · 06:06"
+          },
+          {
+            "label": "Glass display cover resting on the stand slides slowly towards the front edge",
+            "time": "Day 2 · 06:06"
+          },
+          {
+            "label": "Display cover falls against the tall pedestal holding the hand-painted vase",
+            "time": "Day 2 · 06:07"
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 0,
+            "kind": "causal",
+            "status": "proposed",
+            "label": "causal as stated in Party A’s written account of events"
+          },
+          {
+            "from": 3,
+            "kind": "sequence",
+            "status": "disputed",
+            "label": "disputed by Party B in its reply to the written account"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "A customer leaning heavily on the display stand shortly before the incident",
+            "link": 3,
+            "status": "alleged"
+          },
+          {
+            "label": "Vibration from a delivery lorry unloading at the rear door of the shop",
+            "link": 1,
+            "status": "proposed"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Hand-painted ceramic vase cracked from rim to base (hypothetical value 1,200 units)"
+          },
+          {
+            "label": "Glazed water jug chipped along its lip and handle (hypothetical value 300 units)"
+          }
+        ],
+        "selectedEvent": 3,
+        "actorLabels": {
+          "a": "Trigger: starts both runs at the same moment with the same push",
+          "b": "Claw: takes only the selected event out of the model, nothing else"
+        },
+        "objectLabels": {
+          "chain": "Model of the incident exactly as supplied by Party A’s representative",
+          "present": "Event 4 present in the model as supplied",
+          "removed": "Event 4 removed from the model for the replay"
+        },
+        "annotations": [
+          {
+            "target": "gap",
+            "text": "Only event 4 is taken out of the model; every other event stays exactly as supplied"
+          },
+          {
+            "target": "loss",
+            "text": "The replay result is supplied by Party A; the animation does not infer or decide it"
+          }
+        ],
+        "finalState": "loss-does-not-occur"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {
+            "label": "Caja olvidada en el pasillo",
+            "time": "T0"
+          },
+          {
+            "label": "Un carro golpea la caja",
+            "time": "T+1 min"
+          },
+          {
+            "label": "La estantería se sacude",
+            "time": "T+1 min"
+          },
+          {
+            "label": "El expositor tiembla",
+            "time": "T+2 min"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Jarrón de cerámica agrietado"
+          }
+        ],
+        "actorLabels": {
+          "a": "Disparador: inicia cada pasada igual",
+          "b": "Pinza: retira el evento seleccionado"
+        },
+        "objectLabels": {
+          "chain": "Modelo según lo aportado por la parte A",
+          "present": "Evento presente",
+          "removed": "Evento retirado del modelo"
+        },
+        "annotations": [
+          {
+            "target": "gap",
+            "text": "Solo se retira este evento; todo lo demás queda según lo aportado"
+          }
+        ]
+      }
+    }
+  ]
+}

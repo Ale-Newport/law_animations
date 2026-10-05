@@ -1,0 +1,363 @@
+{
+  "animationId": "LAW-0690",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; only supplied relationships are drawn, the two routes end at separate ports and are never added up. Long-labels-stress: coordinator decision 2026-09-26: stress lengths capped to fit at 16 px (LAW-0687 precedent; see SESSION_HANDOFF).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional flat: two three-event routes, sequence links as supplied, both tracers reach separate ports of the same loss; the loss card swells as they arrive.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: workshop routes (four and two events), one supplied causal link into the loss, one plain relation (no arrow), route B's first link disputed with an alternative put forward, focus on event B1.",
+      "params": {
+        "events": {
+          "a": [
+            {
+              "label": "Extension cable frayed",
+              "time": "Day 1"
+            },
+            {
+              "label": "Cable sparks near a crate",
+              "time": "Day 2"
+            },
+            {
+              "label": "Packing straw smoulders",
+              "time": "Day 2"
+            },
+            {
+              "label": "Heat reaches the display case",
+              "time": "Day 2"
+            }
+          ],
+          "b": [
+            {
+              "label": "Heater left on overnight",
+              "time": "Day 1"
+            },
+            {
+              "label": "Case glass heats unevenly",
+              "time": "Day 2"
+            }
+          ]
+        },
+        "losses": [
+          {
+            "label": "Glass display vase cracked"
+          }
+        ],
+        "routeLabels": {
+          "a": "Cause A · cable",
+          "b": "Cause B · heater"
+        },
+        "causalLinks": [
+          {
+            "route": "b",
+            "from": 0,
+            "kind": "sequence",
+            "status": "disputed",
+            "label": "timing contested"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "Case moved by a visitor",
+            "route": "b",
+            "link": 0,
+            "status": "alleged"
+          }
+        ],
+        "elements": [
+          {
+            "id": "sourceA",
+            "label": "Workshop cable"
+          },
+          {
+            "id": "sourceB",
+            "label": "Workshop heater"
+          },
+          {
+            "id": "loss",
+            "label": "Loss (as described)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "sourceA",
+            "to": "a1",
+            "kind": "sequence"
+          },
+          {
+            "from": "a1",
+            "to": "a2",
+            "kind": "sequence"
+          },
+          {
+            "from": "a2",
+            "to": "a3",
+            "kind": "sequence"
+          },
+          {
+            "from": "a3",
+            "to": "a4",
+            "kind": "sequence"
+          },
+          {
+            "from": "a4",
+            "to": "loss",
+            "kind": "causal",
+            "label": "stated as causal by the owner"
+          },
+          {
+            "from": "sourceB",
+            "to": "b1",
+            "kind": "relation"
+          },
+          {
+            "from": "b1",
+            "to": "b2",
+            "kind": "sequence"
+          },
+          {
+            "from": "b2",
+            "to": "loss",
+            "kind": "sequence"
+          }
+        ],
+        "focusElement": "b1",
+        "traversalOrder": [
+          "sourceA",
+          "a1",
+          "a2",
+          "a3",
+          "a4",
+          "loss",
+          "sourceB",
+          "b1",
+          "b2",
+          "loss"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "3 events per route (the baseline count) with capped labels, two losses, long element labels and relation captions, two labelled links (one causal), two alternatives. coordinator decision 2026-09-26: stress lengths capped to fit at 16 px (LAW-0687 precedent; see SESSION_HANDOFF). Standing coordinator rule (AUTHORING item 20), applied 2026-09-26 after trying the right-hand text column (column overflow 94–836 px at 17–20 px) and stacked three-floor lanes at 1:1: event labels capped to 32–35 characters, alternatives to 35–37, the first loss to 46; with near-maximum lengths the 1:1 board reached tiles of 91 px (board 0.30 of the height), capped 112 px (0.37).",
+      "params": {
+        "events": {
+          "a": [
+            {
+              "label": "Upstairs kitchen tap left running",
+              "time": "T0 (evening)"
+            },
+            {
+              "label": "Sink basin overflows onto the floor",
+              "time": "T+4 minutes"
+            },
+            {
+              "label": "Water spreads under the skirting",
+              "time": "T+7 minutes"
+            }
+          ],
+          "b": [
+            {
+              "label": "Roof gutter above the shop blocked",
+              "time": "T0 (evening)"
+            },
+            {
+              "label": "Heavy rain spills over the gutter",
+              "time": "T+3 minutes"
+            },
+            {
+              "label": "Rainwater runs into the brickwork",
+              "time": "T+8 minutes"
+            }
+          ]
+        },
+        "causalLinks": [
+          {
+            "route": "a",
+            "from": 2,
+            "kind": "sequence",
+            "status": "proposed",
+            "label": "order taken from the flat owner"
+          },
+          {
+            "route": "b",
+            "from": 1,
+            "kind": "causal",
+            "status": "proposed",
+            "label": "stated as causal by the surveyor"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "A leak from the shop’s sprinkler pipe",
+            "route": "a",
+            "link": 2,
+            "status": "alleged"
+          },
+          {
+            "label": "The shelf may already have been wet",
+            "route": "b",
+            "link": 1,
+            "status": "proposed"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Hand-painted ceramic vase on the shelf cracked"
+          },
+          {
+            "label": "Display shelf and stand refinished"
+          }
+        ],
+        "routeLabels": {
+          "a": "Cause A · the upstairs tap",
+          "b": "Cause B · the blocked roof gutter"
+        },
+        "elements": [
+          {
+            "id": "sourceA",
+            "label": "Start of route A as described"
+          },
+          {
+            "id": "sourceB",
+            "label": "Start of route B as described"
+          },
+          {
+            "id": "loss",
+            "label": "Loss exactly as described"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "sourceA",
+            "to": "a1",
+            "kind": "sequence"
+          },
+          {
+            "from": "a1",
+            "to": "a2",
+            "kind": "sequence"
+          },
+          {
+            "from": "a2",
+            "to": "a3",
+            "kind": "sequence"
+          },
+          {
+            "from": "a3",
+            "to": "loss",
+            "kind": "sequence"
+          },
+          {
+            "from": "sourceB",
+            "to": "b1",
+            "kind": "sequence"
+          },
+          {
+            "from": "b1",
+            "to": "b2",
+            "kind": "sequence"
+          },
+          {
+            "from": "b2",
+            "to": "b3",
+            "kind": "causal",
+            "label": "stated as causal by the surveyor"
+          },
+          {
+            "from": "b3",
+            "to": "loss",
+            "kind": "sequence"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relation only, no direction",
+          "communication": "communication between parties",
+          "sequence": "sequence exactly as supplied",
+          "causal": "causal only because supplied"
+        },
+        "focusElement": "loss",
+        "traversalOrder": [
+          "sourceA",
+          "a1",
+          "a2",
+          "a3",
+          "loss",
+          "sourceB",
+          "b1",
+          "b2",
+          "b3",
+          "loss"
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": {
+          "a": [
+            {
+              "label": "Grifo de la cocina abierto",
+              "time": "T0"
+            },
+            {
+              "label": "El fregadero rebosa",
+              "time": "T+4 min"
+            },
+            {
+              "label": "El agua llega al estante",
+              "time": "T+9 min"
+            }
+          ],
+          "b": [
+            {
+              "label": "Canalón del tejado atascado",
+              "time": "T0"
+            },
+            {
+              "label": "La lluvia se filtra por el muro",
+              "time": "T+6 min"
+            },
+            {
+              "label": "El agua gotea sobre el estante",
+              "time": "T+9 min"
+            }
+          ]
+        },
+        "losses": [
+          {
+            "label": "Jarrón de cerámica del estante agrietado"
+          }
+        ],
+        "routeLabels": {
+          "a": "Causa A",
+          "b": "Causa B"
+        },
+        "elements": [
+          {
+            "id": "sourceA",
+            "label": "Inicio de la ruta A"
+          },
+          {
+            "id": "sourceB",
+            "label": "Inicio de la ruta B"
+          },
+          {
+            "id": "loss",
+            "label": "Pérdida (según se describe)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación (sin dirección)",
+          "communication": "comunicación",
+          "sequence": "secuencia (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

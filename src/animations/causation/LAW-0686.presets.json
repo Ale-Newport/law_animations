@@ -1,0 +1,79 @@
+{
+  "animationId": "LAW-0686",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; relations are drawn only as supplied and the replay result is supplied, never inferred.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Four events joined by supplied sequence links; the tracer runs with every event, then event 2 slides out of the model and, as supplied, the replay stops at the gap (the loss is not reached).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a five-event storeroom board with one link supplied as causal, one disputed, an alternative tied to its link and an extra plain relation; event 3 is removed and, as supplied, a bypass carries the replay to the loss; the tracer detours through the alternative.",
+      "params": {
+        "events": [
+          {"label": "Pipe joint starts to drip", "time": "Day 1"},
+          {"label": "Water pools under the rack", "time": "Day 2"},
+          {"label": "Rack foot slides", "time": "Day 3"},
+          {"label": "Top shelf leans over", "time": "Day 3"},
+          {"label": "Box on the shelf tips", "time": "Day 3"}
+        ],
+        "causalLinks": [{"from": 0, "kind": "causal", "status": "proposed"}, {"from": 3, "kind": "sequence", "status": "disputed"}],
+        "alternatives": [{"label": "Rack moved during cleaning", "link": 1, "status": "alleged"}],
+        "losses": [{"label": "Ceramic urn chipped"}, {"label": "Water jug cracked"}],
+        "selectedEvent": 2,
+        "withoutResult": "loss-still-occurs",
+        "relationships": [{"from": "alt1", "to": "e4", "kind": "relation", "label": "offered as another account"}],
+        "focusElement": "e3",
+        "traversalOrder": ["e1", "e2", "alt1", "e3", "e4", "e5", "loss"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Six events with near-maximum labels and times, two long loss descriptions, two long alternatives, link captions, an extra relationship, long relation captions and a full traversal order.",
+      "params": {
+        "events": [
+          {"label": "Delivery crate left partly blocking the main customer aisle of the shop overnight", "time": "Day 1 · 21:40"},
+          {"label": "Motorised floor-cleaning trolley makes contact with the delivery crate at the corner", "time": "Day 2 · 06:05"},
+          {"label": "Freestanding shelf unit standing directly behind the crate is jolted sideways", "time": "Day 2 · 06:05"},
+          {"label": "Ceramic display stand next to the shelf unit begins to wobble on its uneven feet", "time": "Day 2 · 06:06"},
+          {"label": "Glass display cover resting on the stand slides slowly towards the front edge", "time": "Day 2 · 06:06"},
+          {"label": "Display cover falls against the tall pedestal holding the hand-painted vase", "time": "Day 2 · 06:07"}
+        ],
+        "causalLinks": [
+          {"from": 0, "kind": "causal", "status": "proposed", "label": "causal as stated in Party A’s written account of events"},
+          {"from": 3, "kind": "sequence", "status": "disputed", "label": "disputed by Party B in its reply to the written account"}
+        ],
+        "alternatives": [
+          {"label": "A customer leaning heavily on the display stand shortly before the incident", "link": 3, "status": "alleged"},
+          {"label": "Vibration from a delivery lorry unloading at the rear door of the shop", "link": 1, "status": "proposed"}
+        ],
+        "losses": [
+          {"label": "Hand-painted ceramic vase cracked from rim to base (hypothetical value 1,200 units)"},
+          {"label": "Glazed water jug chipped along its lip and handle (hypothetical value 300 units)"}
+        ],
+        "selectedEvent": 3,
+        "withoutResult": "loss-still-occurs",
+        "relationships": [{"from": "alt1", "to": "e5", "kind": "relation", "label": "put forward by Party B as another account of the same moment"}],
+        "focusElement": "e4",
+        "relationLabels": {"relation": "related as described by the parties", "communication": "communication between the parties", "sequence": "follows in the order supplied by Party A", "causal": "causal link as supplied by the proposing party", "disputed": "disputed by the other party in its reply", "without": "the model without event 4, exactly as supplied by Party A"},
+        "traversalOrder": ["e1", "e2", "e3", "e4", "e5", "e6", "loss"]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {"label": "Caja olvidada en el pasillo", "time": "T0"},
+          {"label": "Un carro golpea la caja", "time": "T+1 min"},
+          {"label": "La estantería se sacude", "time": "T+1 min"},
+          {"label": "El expositor tiembla", "time": "T+2 min"}
+        ],
+        "losses": [{"label": "Jarrón de cerámica agrietado"}],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia (orden aportado)", "causal": "causal (según lo aportado)", "disputed": "discutido", "without": "modelo sin él (según lo aportado)"}
+      }
+    }
+  ]
+}

@@ -1,0 +1,497 @@
+{
+  "id": "LAW-0704",
+  "slug": "causation-06-inspect",
+  "title": "Economic loss — a lens on the stated-difference tag of the balance column; one supplied datum is substituted",
+  "titleEs": "Pérdida económica — Inspección y cambio de un dato",
+  "category": "causation",
+  "categoryName": "Causalidad y daño",
+  "motif": "Pérdida económica",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The balance column after the supplied flows, with a ● reference level, a ◆ alleged-scenario level, a bracket for the stated gap and a value tag on a string, beside the flow record. A real enlarged copy of the tag and the gap grows from its source; the supplied value is struck and replaced by the alternative value while only the dependent geometry changes (the ◆ level, the band, the bracket and the tokens between the levels). The lens returns to its source; a Δ marker and a before/after trace keep the old value traceable. Nothing is valued, computed or owed; no damages, compensation, liability, fault or causation is inferred.",
+  "tags": [
+    "causation",
+    "economic loss",
+    "inspect",
+    "lens",
+    "datum substitution",
+    "stated difference",
+    "before and after",
+    "as stated"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/causation/kits/perdida-economica.js",
+    "src/animations/causation/kits/dano-material.js",
+    "src/animations/causation/kits/prueba-contrafactual.js",
+    "src/animations/causation/kits/causal-chain.js",
+    "src/primitives/markers.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "events": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Entry text (fictional, descriptive; no valuation or finding)"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 20,
+              "description": "Optional fictional relative label, e.g. \"Month 2\" (shown as supplied; never a time limit)"
+            },
+            "dir": {
+              "type": "string",
+              "enum": [
+                "in",
+                "out"
+              ],
+              "description": "in (adds to the balance) or out (removes from it)"
+            },
+            "amount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9999,
+              "description": "Fictional amount in the model unit (shown as supplied)"
+            }
+          },
+          "required": [
+            "label",
+            "dir",
+            "amount"
+          ],
+          "description": "Entry"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Flow entries in the supplied order (fictional): each adds (in) or removes (out) a supplied amount in BOTH scenarios (array replaces the previous value)"
+      },
+      "causalLinks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4,
+              "description": "Index (0-based) of the entry where the link starts"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "sequence",
+                "causal"
+              ],
+              "description": "sequence (default) or causal; a causal arrow is only drawn when supplied here"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "proposed",
+                "disputed"
+              ],
+              "description": "proposed (put forward) or disputed (contested); never resolved"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Optional caption for this link"
+            }
+          },
+          "required": [
+            "from"
+          ],
+          "description": "Link"
+        },
+        "minItems": 0,
+        "maxItems": 5,
+        "description": "Per-link data. Link i joins entry i to the next entry; the link after the last entry joins it to the stated difference. Links not listed are a sequence as supplied. (array replaces the previous value)"
+      },
+      "alternatives": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Alternative put forward"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "alleged",
+                "proposed"
+              ],
+              "description": "Descriptive status"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Alternative"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Other explanations put forward by someone; drawn with a barrier icon, never decided (array replaces the previous value)"
+      },
+      "losses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 72,
+              "description": "How the difference is stated (fictional; no valuation, no \"owed\")"
+            },
+            "amount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9999,
+              "description": "Fictional amount stated (model unit)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Stated difference"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "The stated difference: the first entry is the ALLEGED LOSS as someone states it (an amount the alleged scenario is below the reference scenario); an optional second entry is a noted detail. Never computed or decided. (array replaces the previous value)"
+      },
+      "model": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "unit": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "Name of the fictional unit, e.g. \"units\""
+          },
+          "perToken": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Units per token (0 = chosen so the column fits)"
+          }
+        },
+        "required": [],
+        "description": "Model scale and unit (display only)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "difference-tag"
+        ],
+        "description": "Detail that is enlarged and substituted"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      },
+      "statedGap": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "before": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9999,
+            "description": "Amount drawn with the before value"
+          },
+          "after": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9999,
+            "description": "Amount drawn with the after value"
+          }
+        },
+        "required": [],
+        "description": "Fictional amounts of the stated difference shown with each value (model unit); only this geometry changes with the datum"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "events": [
+      {
+        "label": "Shop takings received",
+        "time": "Month 1",
+        "dir": "in",
+        "amount": 200
+      },
+      {
+        "label": "Supplier invoice paid",
+        "time": "Month 1",
+        "dir": "out",
+        "amount": 60
+      },
+      {
+        "label": "Shop takings received",
+        "time": "Month 2",
+        "dir": "in",
+        "amount": 160
+      }
+    ],
+    "causalLinks": [],
+    "alternatives": [],
+    "losses": [
+      {
+        "label": "Stated difference (as stated by the shop)",
+        "amount": 120
+      }
+    ],
+    "model": {
+      "unit": "",
+      "perToken": 0
+    },
+    "focusTarget": "difference-tag",
+    "beforeValue": "120 units (fictional) · as stated",
+    "afterValue": "80 units (fictional) · as stated",
+    "detailGeometry": {
+      "zoom": 1.8,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "The balance column and its flow record, as supplied",
+      "marker": "Changed datum"
+    },
+    "statedGap": {
+      "before": 120,
+      "after": 80
+    }
+  }
+}

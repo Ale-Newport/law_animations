@@ -1,0 +1,81 @@
+{
+  "animationId": "LAW-0688",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the substituted datum is the status of one event in a supplied model — nothing is run, inferred or decided.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Four-event shop model set up to be run again; the lens enlarges event 2's slot and its status changes from present to removed from the model (the claw lifts it out).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a five-event storeroom model with two loss objects, an alternative event and a disputed link; event 3 starts removed (hanging on the claw) and is restored into its slot.",
+      "params": {
+        "events": [
+          {"label": "Pipe joint starts to drip", "time": "Day 1"},
+          {"label": "Water pools under the rack", "time": "Day 2"},
+          {"label": "Rack foot slides", "time": "Day 3"},
+          {"label": "Top shelf leans over", "time": "Day 3"},
+          {"label": "Box on the shelf tips", "time": "Day 3"}
+        ],
+        "causalLinks": [{"from": 3, "kind": "sequence", "status": "disputed"}],
+        "alternatives": [{"label": "Rack moved during cleaning", "link": 0, "status": "alleged"}],
+        "losses": [{"label": "Ceramic urn chipped"}, {"label": "Water jug cracked"}],
+        "selectedEvent": 2,
+        "substitution": "restore",
+        "beforeValue": "Removed from the model",
+        "afterValue": "Present in the model again",
+        "detailGeometry": {"zoom": 3, "placement": "auto"},
+        "contextLabels": {"context": "Model as supplied by Party B for a second run", "marker": "Datum changed"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Six events with near-maximum labels and times, two long loss descriptions, two alternatives, two link captions, long before/after values and long context labels.",
+      "params": {
+        "events": [
+          {"label": "Delivery crate left partly blocking the main customer aisle of the shop overnight", "time": "Day 1 · 21:40"},
+          {"label": "Motorised floor-cleaning trolley makes contact with the delivery crate at the corner", "time": "Day 2 · 06:05"},
+          {"label": "Freestanding shelf unit standing directly behind the crate is jolted sideways", "time": "Day 2 · 06:05"},
+          {"label": "Ceramic display stand next to the shelf unit begins to wobble on its uneven feet", "time": "Day 2 · 06:06"},
+          {"label": "Glass display cover resting on the stand slides slowly towards the front edge", "time": "Day 2 · 06:06"},
+          {"label": "Display cover falls against the tall pedestal holding the hand-painted vase", "time": "Day 2 · 06:07"}
+        ],
+        "causalLinks": [
+          {"from": 0, "kind": "causal", "status": "proposed", "label": "causal as stated in Party A’s written account of events"},
+          {"from": 3, "kind": "sequence", "status": "disputed", "label": "disputed by Party B in its reply to the written account"}
+        ],
+        "alternatives": [
+          {"label": "A customer leaning heavily on the display stand shortly before the incident", "link": 3, "status": "alleged"},
+          {"label": "Vibration from a delivery lorry unloading at the rear door of the shop", "link": 1, "status": "proposed"}
+        ],
+        "losses": [
+          {"label": "Hand-painted ceramic vase cracked from rim to base (hypothetical value 1,200 units)"},
+          {"label": "Glazed water jug chipped along its lip and handle (hypothetical value 300 units)"}
+        ],
+        "selectedEvent": 3,
+        "beforeValue": "Event 4 present in the model exactly as supplied by Party A in its written account",
+        "afterValue": "Event 4 removed from the model for the replay requested in Party B’s written reply",
+        "detailGeometry": {"zoom": 3, "placement": "auto"},
+        "contextLabels": {"context": "Model of the incident as supplied by Party A’s representative, to be run again", "marker": "Datum changed in the supplied model"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {"label": "Caja olvidada en el pasillo", "time": "T0"},
+          {"label": "Un carro golpea la caja", "time": "T+1 min"},
+          {"label": "La estantería se sacude", "time": "T+1 min"},
+          {"label": "El expositor tiembla", "time": "T+2 min"}
+        ],
+        "losses": [{"label": "Jarrón de cerámica agrietado"}],
+        "beforeValue": "Evento presente",
+        "afterValue": "Evento retirado del modelo",
+        "contextLabels": {"context": "Modelo según lo aportado por la parte A, listo para repetirse", "marker": "Dato cambiado"}
+      }
+    }
+  ]
+}

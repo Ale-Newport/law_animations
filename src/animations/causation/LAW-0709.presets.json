@@ -1,0 +1,178 @@
+{
+  "animationId": "LAW-0709",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). Event A is a generic fictional event and the consequences are generic fictional objects; no person is drawn and nobody is injured. The two rings are ONLY the supplied grouping: the inner ring holds the consequences supplied as 'Immediate consequence (as supplied)', the outer ring those supplied as 'Subsequent consequence (as supplied) — to be examined', with identical stroke, colour and weight; neither is shown as excluded, lesser or decided. No remoteness or scope doctrine, test, liability, amount, outcome or jurisdiction is stated. Omitted brief fields (coordinator decision BRIEF CUSTOMIZABLE FIELDS, 2026-10-05): none — events (the supplied consequences, each with its supplied ring), causalLinks, alternatives, losses (the grouping as supplied), actorLabels, objectLabels, actionProgress, annotations and finalState are all editable; 'origin' is added. Long-labels-stress: coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20, from LAW-0687/0689–0692; scene-area floor >= 0.20 of the frame in every preset, accepted LAW-0701..0708). True driver: the 1:1 box — the physical scene (plate with its event, objects, rings and posts, plus the floor) must cover >= 0.20 of the frame area while the stress text stays >= 16 px. Fallbacks tried: every composition (side, split, tall = right-hand column, below, below2) and the compact-list composition (plate left, right-hand column with the grouping chip, the record and the legend as a compact list continuing under the plate). Measured, rendered at 1080p (2026-10-05; pre-cap copy in production/scratch/causation-08/LAW-0709.stress-precap.json): full counts (six consequences, two accounts, one labelled link, two grouping items, two notes) → compact list 17 px, scene area 0.121; five consequences → 0.138; four consequences → 0.153; one account and one note → 0.143; four consequences, one account, one note → 0.190; the same with one grouping item → 0.211 (0.202 once the event name was shortened to keep its parenthetical on one line — under the 2 px margin); the same without the link note → 0.217. The stress therefore caps the COUNTS at four consequences (the first four: two inner, two outer), one account put forward (the first), one grouping item (the first), one note (the first) and no link note — baseline 3 / 0 / 1 / 1 / 0; every text field keeps its near-maximum length and stays strictly longer than the baseline.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional Event A with three supplied consequences: two in the inner ring (immediate, as supplied), one in the outer ring (subsequent, as supplied, to be examined).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a fictional shelf collapse, four consequences (one inner, three outer), a disputed link and an account put forward; the grouping is marked disputed as supplied (never decided).",
+      "params": {
+        "origin": {
+          "name": "Event B (fictional shelf collapse)"
+        },
+        "events": [
+          {
+            "label": "Consequence 1 (supplied): two boxes fall to the floor",
+            "time": "Day 1",
+            "ring": "inner"
+          },
+          {
+            "label": "Consequence 2 (supplied): a vase is chipped",
+            "time": "Day 1",
+            "ring": "outer"
+          },
+          {
+            "label": "Consequence 3 (supplied): a drum is moved aside",
+            "time": "Day 3",
+            "ring": "outer"
+          },
+          {
+            "label": "Consequence 4 (supplied): a stack of books is reshelved",
+            "time": "Day 5",
+            "ring": "outer"
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 2,
+            "kind": "sequence",
+            "status": "disputed",
+            "label": "order of events contested"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "A different account of Consequence 3 put forward",
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Grouping given by the owner"
+          },
+          {
+            "label": "A further item was also mentioned"
+          }
+        ],
+        "actorLabels": {
+          "a": "Event B and the consequences as supplied",
+          "b": "Rings: the grouping given, inner and outer"
+        },
+        "objectLabels": {
+          "record": "Record of the shelf collapse (as supplied)",
+          "inner": "Immediate consequence (as given)",
+          "outer": "Subsequent consequence (as given) — to be examined"
+        },
+        "annotations": [
+          {
+            "target": "rings",
+            "text": "The grouping is disputed; nothing is decided"
+          }
+        ],
+        "finalState": "grouping-disputed"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Stress: near-maximum lengths (long consequences, captions, labels and notes) with four consequences, one account put forward, one grouping item and one note — counts capped, see the coordinator decision note.",
+      "params": {
+        "origin": {
+          "name": "Event C (fictional storeroom shelf collapse)"
+        },
+        "events": [
+          {
+            "label": "Consequence 1 (supplied): several wooden crates knocked over",
+            "time": "Day 1 (morning)",
+            "ring": "inner"
+          },
+          {
+            "label": "Consequence 2 (supplied): a glass jar on a low shelf is cracked",
+            "time": "Day 1 (afternoon)",
+            "ring": "inner"
+          },
+          {
+            "label": "Consequence 3 (supplied): a metal drum moved to the corridor",
+            "time": "Day 2 (a day on)",
+            "ring": "outer"
+          },
+          {
+            "label": "Consequence 4 (supplied): a stack of ledgers is reshelved",
+            "time": "Day 4 (later on)",
+            "ring": "outer"
+          }
+        ],
+        "causalLinks": [],
+        "alternatives": [
+          {
+            "label": "A different account of the drum being moved was put forward",
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Grouping of the supplied consequences as given by the storeroom owner"
+          }
+        ],
+        "actorLabels": {
+          "a": "Event C and every consequence exactly as the owner supplied it",
+          "b": "Rings and posts: the supplied grouping only, inner and outer"
+        },
+        "objectLabels": {
+          "record": "Record of the storeroom shelving collapse (as supplied)",
+          "inner": "Immediate consequence (as supplied by the owner)",
+          "outer": "Subsequent consequence (as supplied) — still to be examined"
+        },
+        "annotations": [
+          {
+            "target": "rings",
+            "text": "The two rings show only the grouping as supplied by the owner, no more"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "origin": {
+          "name": "Evento A (ficticio)"
+        },
+        "events": [
+          {
+            "label": "Consecuencia 1 (aportada): se vuelca una caja",
+            "ring": "inner"
+          },
+          {
+            "label": "Consecuencia 2 (aportada): se agrieta un tarro",
+            "ring": "inner"
+          },
+          {
+            "label": "Consecuencia 3 (aportada): se desplaza un bidón almacenado",
+            "time": "Día 2",
+            "ring": "outer"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Agrupación según lo aportado"
+          }
+        ],
+        "actorLabels": {
+          "a": "El evento A y sus consecuencias aportadas",
+          "b": "Anillos: la agrupación aportada, interior y exterior"
+        },
+        "annotations": [
+          {
+            "target": "rings",
+            "text": "Los anillos solo muestran la agrupación según lo aportado"
+          }
+        ]
+      }
+    }
+  ]
+}

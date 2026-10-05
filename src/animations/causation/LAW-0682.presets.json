@@ -1,0 +1,72 @@
+{
+  "animationId": "LAW-0682",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; links are shown only as supplied, proposed or disputed.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Four events on an axis of supplied order; one link supplied as causal, one causal link disputed, an alternative event put forward against the disputed link, and the loss as described.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a five-event chain where no link is supplied as causal (all sequence), link 3 is disputed, two alternatives are put forward, an extra relation ties one alternative to event 4, and the tracer detours through that alternative (focus on it).",
+      "params": {
+        "events": [
+          {"label": "Pipe joint starts to drip", "time": "Day 1"},
+          {"label": "Water pools under the rack", "time": "Day 2"},
+          {"label": "Rack foot slides", "time": "Day 3"},
+          {"label": "Top shelf leans over", "time": "Day 3"},
+          {"label": "Box on the shelf tips", "time": "Day 3"}
+        ],
+        "causalLinks": [{"from": 2, "kind": "sequence", "status": "disputed"}],
+        "alternatives": [
+          {"label": "Rack moved during cleaning", "link": 2, "status": "alleged"},
+          {"label": "Shelf overloaded earlier", "link": 3, "status": "proposed"}
+        ],
+        "losses": [{"label": "Ceramic urn chipped"}],
+        "relationships": [{"from": "alt1", "to": "e4", "kind": "relation", "label": "offered as another account"}],
+        "focusElement": "alt1",
+        "traversalOrder": ["e1", "e2", "e3", "alt1", "e4", "e5", "loss"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Six events with long labels and times, long relation captions, long alternative and loss descriptions.",
+      "params": {
+        "events": [
+          {"label": "Delivery crate left partly blocking the main customer aisle overnight", "time": "Day 1 · 21:40"},
+          {"label": "Motorised floor-cleaning trolley makes contact with the delivery crate", "time": "Day 2 · 06:05"},
+          {"label": "Freestanding shelf unit behind the crate is jolted sideways", "time": "Day 2 · 06:05"},
+          {"label": "Ceramic display stand next to the shelf unit begins to wobble", "time": "Day 2 · 06:06"},
+          {"label": "Glass display cover on the stand slides towards the edge", "time": "Day 2 · 06:06"},
+          {"label": "Display cover falls against the pedestal holding the vase", "time": "Day 2 · 06:07"}
+        ],
+        "causalLinks": [
+          {"from": 0, "kind": "causal", "status": "proposed", "label": "causal as stated in Party A’s account"},
+          {"from": 3, "kind": "causal", "status": "disputed"}
+        ],
+        "alternatives": [{"label": "A customer leaning on the display stand shortly before the incident", "link": 3, "status": "alleged"}],
+        "losses": [{"label": "Hand-painted ceramic vase cracked (hypothetical value 1,200 units)"}],
+        "relationLabels": {"relation": "related as described", "communication": "communication", "sequence": "follows in the supplied order", "causal": "causal link as supplied by the proposing party", "disputed": "disputed by the other party"},
+        "focusElement": "link4",
+        "traversalOrder": ["e1", "e2", "e3", "e4", "e5", "e6", "loss"]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {"label": "Caja olvidada en el pasillo", "time": "T0"},
+          {"label": "Un carro golpea la caja", "time": "T+1 min"},
+          {"label": "La estantería se sacude", "time": "T+1 min"},
+          {"label": "El expositor tiembla", "time": "T+2 min"}
+        ],
+        "alternatives": [{"label": "Pasa un carro de limpieza", "link": 2, "status": "alleged"}],
+        "losses": [{"label": "Jarrón de cerámica agrietado"}],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (según lo aportado)", "disputed": "discutido"}
+      }
+    }
+  ]
+}

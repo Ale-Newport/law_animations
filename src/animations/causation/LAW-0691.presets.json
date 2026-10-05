@@ -1,0 +1,226 @@
+{
+  "animationId": "LAW-0691",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the scenes differ in one supplied fact only, nothing is added up and no winner, share or outcome is shown. Long-labels-stress: coordinator decision 2026-09-26: stress lengths capped to fit at 16 px (LAW-0687 precedent; see SESSION_HANDOFF).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional flat: scene A runs only the tap route, scene B only the gutter route; each marble reaches the same vase from its own side.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a workshop incident where scene A runs both routes at once and scene B runs route A only (route B's gate locked); four events in route A, two in route B.",
+      "params": {
+        "events": {
+          "a": [
+            {
+              "label": "Extension cable frayed",
+              "time": "Day 1"
+            },
+            {
+              "label": "Cable sparks near a crate",
+              "time": "Day 2"
+            },
+            {
+              "label": "Packing straw smoulders",
+              "time": "Day 2"
+            },
+            {
+              "label": "Heat reaches the display case",
+              "time": "Day 2"
+            }
+          ],
+          "b": [
+            {
+              "label": "Heater left on overnight",
+              "time": "Day 1"
+            },
+            {
+              "label": "Case glass heats unevenly",
+              "time": "Day 2"
+            }
+          ]
+        },
+        "losses": [
+          {
+            "label": "Glass display vase cracked"
+          }
+        ],
+        "routeLabels": {
+          "a": "Cause A · cable",
+          "b": "Cause B · heater"
+        },
+        "released": {
+          "scenarioA": "both",
+          "scenarioB": "a"
+        },
+        "scenarioA": {
+          "label": "Both routes run",
+          "caption": "Both gates open at the same moment"
+        },
+        "scenarioB": {
+          "label": "Only Cause A runs",
+          "caption": "Route B’s gate stays locked"
+        },
+        "changedFact": "Only route B’s gate differs: open in A, locked in B",
+        "sharedFacts": [
+          "Same events and planks",
+          "Same timing",
+          "Same vase"
+        ],
+        "comparisonLabels": {
+          "guide": "Changed fact: route B’s gate",
+          "neutral": "Both scenes shown as supplied — the routes are not added up; no share, no winner"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "3 events per route (the baseline count) with capped labels, two losses, long route names, scenario labels and captions, four shared facts, long changed fact, guide and neutral note, one alternative and a labelled link. coordinator decision 2026-09-26: stress lengths capped to fit at 16 px (LAW-0687 precedent; see SESSION_HANDOFF).",
+      "params": {
+        "events": {
+          "a": [
+            {
+              "label": "Kitchen tap in the upstairs flat left on",
+              "time": "T0 (evening)"
+            },
+            {
+              "label": "Sink basin overflows",
+              "time": "T+4 minutes"
+            },
+            {
+              "label": "Water spreads under the skirting",
+              "time": "T+7 minutes"
+            }
+          ],
+          "b": [
+            {
+              "label": "Shop roof gutter blocked",
+              "time": "T0 (evening)"
+            },
+            {
+              "label": "Heavy rain spills over the gutter",
+              "time": "T+3 minutes"
+            },
+            {
+              "label": "Rainwater seeps into the wall",
+              "time": "T+8 minutes"
+            }
+          ]
+        },
+        "causalLinks": [
+          {
+            "route": "a",
+            "from": 2,
+            "kind": "sequence",
+            "status": "proposed",
+            "label": "order from the flat owner"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "The shelf may have been wet",
+            "route": "b",
+            "link": 1,
+            "status": "proposed"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Ceramic vase on the shelf cracked twice"
+          },
+          {
+            "label": "Shelf refinished"
+          }
+        ],
+        "routeLabels": {
+          "a": "Cause A · the tap",
+          "b": "Cause B · the gutter"
+        },
+        "scenarioA": {
+          "label": "Scene A · the upstairs tap",
+          "caption": "Gutter route’s gate locked; rest as supplied"
+        },
+        "scenarioB": {
+          "label": "Scene B · the blocked gutter",
+          "caption": "Tap route’s gate locked; rest as supplied"
+        },
+        "changedFact": "Only one fact differs: which route’s gate carries a lock",
+        "sharedFacts": [
+          "Same six events and planks",
+          "Same release moment",
+          "Same vase and plinth",
+          "Same run timing"
+        ],
+        "comparisonLabels": {
+          "guide": "Changed fact: which gate is locked",
+          "neutral": "Two runs of the same model side by side — nothing added up, no share, no winner"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": {
+          "a": [
+            {
+              "label": "Grifo de la cocina abierto",
+              "time": "T0"
+            },
+            {
+              "label": "El fregadero rebosa",
+              "time": "T+4 min"
+            },
+            {
+              "label": "El agua llega al estante",
+              "time": "T+9 min"
+            }
+          ],
+          "b": [
+            {
+              "label": "Canalón del tejado atascado",
+              "time": "T0"
+            },
+            {
+              "label": "La lluvia se filtra por el muro",
+              "time": "T+6 min"
+            },
+            {
+              "label": "El agua gotea sobre el estante",
+              "time": "T+9 min"
+            }
+          ]
+        },
+        "losses": [
+          {
+            "label": "Jarrón de cerámica del estante agrietado"
+          }
+        ],
+        "routeLabels": {
+          "a": "Causa A",
+          "b": "Causa B"
+        },
+        "scenarioA": {
+          "label": "Se ejecuta la causa A",
+          "caption": "Solo se abre la compuerta A"
+        },
+        "scenarioB": {
+          "label": "Se ejecuta la causa B",
+          "caption": "Solo se abre la compuerta B"
+        },
+        "changedFact": "Solo cambia un hecho: qué compuerta está bloqueada",
+        "sharedFacts": [
+          "Mismos eventos",
+          "Mismo momento",
+          "Mismo jarrón"
+        ],
+        "comparisonLabels": {
+          "guide": "Hecho cambiado: la compuerta bloqueada",
+          "neutral": "Dos ejecuciones del mismo modelo — sin ganador ni conclusión"
+        }
+      }
+    }
+  ]
+}

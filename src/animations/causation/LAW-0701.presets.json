@@ -1,0 +1,211 @@
+{
+  "animationId": "LAW-0701",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). Every amount is a fictional figure shown as supplied; the difference between the reference scenario and the alleged loss is only a supplied, stated difference — never computed, valued or decided. No damages, compensation, liability, fault or causation conclusion is drawn. Long-labels-stress: coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20, from LAW-0687/0689–0692; subject floor: 'Subject ≥ 0.20 of the frame height at rest and hold (causation-05 LAW-0700 decision)', production/SESSION_HANDOFF.md). True driver: the 1:1 box. After trying the fallback layouts (machine beside the record; the band in the record's column; the band split between the record column and the foot; record over band under the machine; record and band side by side under the machine, 'below2'), the full stress counts (five entries, two alternatives, two labelled links, two stated items, two notes) did not fit 1:1 without the fallback scale. Measured, rendered at 1080p (2026-09-27): full counts → 1:1 fallback scale k 0.833, smallest text 14.2 px, machine 0.076 of the frame height; 16:9 20.0 px / 0.432; 9:16 20.0 px / 0.254. The stress keeps every text at its near-maximum length and caps the COUNTS at five entries, one alternative, one labelled link, one stated item and one note (baseline 3 / 0 / 0 / 1 / 1); after the cap: 1:1 17.0 px / 0.241 without scaling; 16:9 22.0 px / 0.458; 9:16 22.0 px / 0.279. Every field stays longer than the baseline and every count ≥ the baseline.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional shop: two months of takings in and an invoice out reach the reference level; the shop states a difference of 120 units, which leaves through the ◆ gate; the gap is bracketed as stated.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a workshop with four entries (two in, two out), a disputed link, an alternative put forward, a second noted detail and a supplied final state that marks the stated difference as disputed (never decided).",
+      "params": {
+        "events": [
+          {
+            "label": "Repair orders received",
+            "time": "Week 1",
+            "dir": "in",
+            "amount": 300
+          },
+          {
+            "label": "Spare parts bought",
+            "time": "Week 1",
+            "dir": "out",
+            "amount": 90
+          },
+          {
+            "label": "Repair orders received",
+            "time": "Week 2",
+            "dir": "in",
+            "amount": 150
+          },
+          {
+            "label": "Rent paid",
+            "time": "Week 2",
+            "dir": "out",
+            "amount": 60
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 1,
+            "kind": "sequence",
+            "status": "disputed",
+            "label": "order of entries contested"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "Seasonal dip in orders put forward",
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Difference stated by the workshop",
+            "amount": 200
+          },
+          {
+            "label": "Two orders cancelled in week 2",
+            "amount": 0
+          }
+        ],
+        "model": {
+          "unit": "credits",
+          "perToken": 0
+        },
+        "actorLabels": {
+          "a": "Hopper and gate: the supplied flows",
+          "b": "Left gate: the stated difference"
+        },
+        "objectLabels": {
+          "record": "Workshop flow record (as supplied)",
+          "reference": "Reference weeks (as stated)",
+          "alleged": "Alleged loss (as stated)"
+        },
+        "annotations": [
+          {
+            "target": "difference",
+            "text": "The stated difference is disputed; nothing is decided"
+          }
+        ],
+        "finalState": "difference-disputed"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Stress: near-maximum text lengths (five entries, long times, captions, headings and notes); counts of alternatives, labelled links, stated items and notes capped at one each — see the coordinator decision note.",
+      "params": {
+        "events": [
+          {
+            "label": "Weekend market takings received at the stall",
+            "time": "Month 1 (first week)",
+            "dir": "in",
+            "amount": 240
+          },
+          {
+            "label": "Wholesale supplier invoice paid in full",
+            "time": "Month 1 (last week)",
+            "dir": "out",
+            "amount": 90
+          },
+          {
+            "label": "Online orders paid by customers this month",
+            "time": "Month 2 (first week)",
+            "dir": "in",
+            "amount": 180
+          },
+          {
+            "label": "Stall rent and electricity paid to the market",
+            "time": "Month 2 (mid-month)",
+            "dir": "out",
+            "amount": 70
+          },
+          {
+            "label": "Holiday market takings received at the stall",
+            "time": "Month 3 (first week)",
+            "dir": "in",
+            "amount": 110
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 2,
+            "kind": "sequence",
+            "status": "disputed",
+            "label": "order as in the stall-holder's notes"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "Lower footfall at the market put forward by the organiser",
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Difference stated by the stall-holder for the three months",
+            "amount": 150
+          }
+        ],
+        "model": {
+          "unit": "units",
+          "perToken": 0
+        },
+        "actorLabels": {
+          "a": "Hopper and right gate: the supplied inflows and outflows",
+          "b": "Left gate: the stated difference, exactly as supplied"
+        },
+        "objectLabels": {
+          "record": "Flow record of the market stall (as supplied)",
+          "reference": "Reference scenario: the months as stated",
+          "alleged": "Alleged loss: the level as stated"
+        },
+        "annotations": [
+          {
+            "target": "difference",
+            "text": "The bracket shows only the difference as stated, nothing more"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {
+            "label": "Ingresos de la tienda",
+            "time": "Mes 1",
+            "dir": "in",
+            "amount": 200
+          },
+          {
+            "label": "Pago a un proveedor",
+            "time": "Mes 1",
+            "dir": "out",
+            "amount": 60
+          },
+          {
+            "label": "Ingresos de la tienda",
+            "time": "Mes 2",
+            "dir": "in",
+            "amount": 160
+          }
+        ],
+        "losses": [
+          {
+            "label": "Diferencia declarada por la tienda",
+            "amount": 120
+          }
+        ],
+        "model": {
+          "unit": "unidades",
+          "perToken": 0
+        },
+        "actorLabels": {
+          "a": "Tolva y compuerta: los flujos aportados",
+          "b": "Compuerta izquierda: la diferencia declarada"
+        },
+        "annotations": [
+          {
+            "target": "difference",
+            "text": "El hueco es solo la diferencia declarada"
+          }
+        ]
+      }
+    }
+  ]
+}

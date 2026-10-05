@@ -1,0 +1,216 @@
+{
+  "animationId": "LAW-0687",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; scenario B's result is supplied, never inferred, and no conclusion is drawn from the comparison. Long-labels-stress: coordinator decision 2026-09-26: 0687 stress lengths capped to fit 1:1 at 16 px (near-max not achievable; see SESSION_HANDOFF).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Two identical four-event shop models; only event 2 differs (present in A, lifted out of the model in B). As supplied, the loss does not occur in B.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a five-event storeroom model with two loss objects, an alternative event put forward and a disputed link; event 3 is removed in B and, as supplied, the loss still occurs in B too.",
+      "params": {
+        "events": [
+          {
+            "label": "Pipe joint starts to drip",
+            "time": "Day 1"
+          },
+          {
+            "label": "Water pools under the rack",
+            "time": "Day 2"
+          },
+          {
+            "label": "Rack foot slides",
+            "time": "Day 3"
+          },
+          {
+            "label": "Top shelf leans over",
+            "time": "Day 3"
+          },
+          {
+            "label": "Box on the shelf tips",
+            "time": "Day 3"
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 3,
+            "kind": "sequence",
+            "status": "disputed"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "Rack moved during cleaning",
+            "link": 0,
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Ceramic urn chipped"
+          },
+          {
+            "label": "Water jug cracked"
+          }
+        ],
+        "selectedEvent": 2,
+        "withoutResult": "loss-still-occurs",
+        "scenarioA": {
+          "label": "Event 3 present",
+          "caption": "The rack foot slides, as supplied"
+        },
+        "scenarioB": {
+          "label": "Event 3 removed from the model",
+          "caption": "Same model and run without event 3"
+        },
+        "changedFact": "Only event 3 differs: present in A, removed from the model in B",
+        "sharedFacts": [
+          "Same five events and spacing",
+          "Same trigger",
+          "Same two loss objects"
+        ],
+        "comparisonLabels": {
+          "guide": "Changed fact: event 3",
+          "neutral": "As supplied by Party B, the loss occurs in both runs — nothing is concluded here"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Six events, two losses, two alternatives, two link captions and four shared facts with long labels. coordinator decision 2026-09-26: 0687 stress lengths capped to fit 1:1 at 16 px (near-max not achievable; see SESSION_HANDOFF).",
+      "params": {
+        "events": [
+          {
+            "label": "Delivery crate left partly blocking the main customer aisle",
+            "time": "Day 1 · 21:40"
+          },
+          {
+            "label": "Floor-cleaning trolley makes contact with the delivery crate",
+            "time": "Day 2 · 06:05"
+          },
+          {
+            "label": "Shelf unit standing behind the crate is jolted sideways",
+            "time": "Day 2 · 06:05"
+          },
+          {
+            "label": "Ceramic display stand next to the shelf begins to wobble",
+            "time": "Day 2 · 06:06"
+          },
+          {
+            "label": "Glass display cover slides slowly towards the front edge",
+            "time": "Day 2 · 06:06"
+          },
+          {
+            "label": "Display cover falls against the pedestal holding the vase",
+            "time": "Day 2 · 06:07"
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 0,
+            "kind": "causal",
+            "status": "proposed",
+            "label": "causal as stated in Party A’s account"
+          },
+          {
+            "from": 3,
+            "kind": "sequence",
+            "status": "disputed",
+            "label": "disputed by Party B in its written reply"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "A customer leaning heavily on the display stand earlier",
+            "link": 3,
+            "status": "alleged"
+          },
+          {
+            "label": "Vibration from a lorry unloading at the rear door",
+            "link": 1,
+            "status": "proposed"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Hand-painted ceramic vase cracked (hypothetical value 1,200)"
+          },
+          {
+            "label": "Glazed water jug chipped (hypothetical value 300 units)"
+          }
+        ],
+        "selectedEvent": 3,
+        "withoutResult": "loss-does-not-occur",
+        "scenarioA": {
+          "label": "Event 4 present in the model",
+          "caption": "The display stand wobbles, as in Party A’s written account"
+        },
+        "scenarioB": {
+          "label": "Event 4 removed from the model",
+          "caption": "Same model and same run, repeated without the wobble"
+        },
+        "changedFact": "Only event 4 differs between the runs: present in A, removed from the model in B",
+        "sharedFacts": [
+          "Same six events in the same order",
+          "Same trigger at the same time",
+          "Same two loss objects",
+          "Same alternatives put forward"
+        ],
+        "comparisonLabels": {
+          "guide": "Changed fact: event 4 present or removed",
+          "neutral": "Two runs of the model compared side by side — no winner, no score, no conclusion"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {
+            "label": "Caja olvidada en el pasillo",
+            "time": "T0"
+          },
+          {
+            "label": "Un carro golpea la caja",
+            "time": "T+1 min"
+          },
+          {
+            "label": "La estantería se sacude",
+            "time": "T+1 min"
+          },
+          {
+            "label": "El expositor tiembla",
+            "time": "T+2 min"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Jarrón de cerámica agrietado"
+          }
+        ],
+        "scenarioA": {
+          "label": "Evento presente",
+          "caption": "El evento 2 sigue en el modelo"
+        },
+        "scenarioB": {
+          "label": "Evento retirado del modelo",
+          "caption": "Se retira el evento 2 y se repite la misma pasada"
+        },
+        "changedFact": "Solo cambia el evento 2: presente en A, retirado del modelo en B",
+        "sharedFacts": [
+          "Mismos eventos, orden y separación",
+          "Mismo disparador y tiempos",
+          "Misma pérdida"
+        ],
+        "comparisonLabels": {
+          "guide": "Hecho cambiado: evento 2",
+          "neutral": "Dos pasadas del modelo comparadas, sin ganador ni conclusión"
+        }
+      }
+    }
+  ]
+}

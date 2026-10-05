@@ -1,0 +1,259 @@
+{
+  "animationId": "LAW-0710",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). Event A is a generic fictional event and the consequences are generic fictional objects; no person is drawn and nobody is injured. The two rings are ONLY the supplied grouping: the inner ring holds the consequences supplied as 'Immediate consequence (as supplied)', the outer ring those supplied as 'Subsequent consequence (as supplied) — to be examined', with identical stroke, colour and weight; neither is shown as excluded, lesser or decided. No remoteness or scope doctrine, test, liability, amount, outcome or jurisdiction is stated. The relationships drawn are exactly those supplied, each with its kind; no preset supplies a causal link, so no causal arrow is drawn. Omitted brief fields (coordinator decision BRIEF CUSTOMIZABLE FIELDS, 2026-10-05): none — events, causalLinks, alternatives and losses are editable, with the mechanism fields (elements, relationships, focusElement, relationLabels, traversalOrder); 'origin' is added. Long-labels-stress: coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20, from LAW-0687/0689–0692; subject floor 'Subject ≥ 0.20 of the frame height at rest and hold' (causation-05 LAW-0700 decision, production/SESSION_HANDOFF.md)). True driver: the 1:1 box (each ring piece on its plinth must reach 0.20 of the frame height), and at 9:16 the relation label that must fit, on one line, between the two pieces. Fallbacks tried: record over the pieces with the boundary piece in the top band; pieces beside the record (row, rowcol); stack; stacked or side-by-side captions; text sizes down to 17 px. Measured, rendered at 1080p (2026-10-05; pre-cap copy in production/scratch/causation-08/LAW-0710.stress-precap.json): full counts (six consequences, two accounts, one labelled link, two grouping items) → 1:1 fallback scale, pieces 0.094 of the frame height; four consequences → 0.111; three → 0.153; one account → 0.106; four consequences, one account, one grouping item, no link note → 1:1 0.203, 9:16 0.198 (relation label 'related in the supplied record', 30 characters, between the pieces); with the relation label 'related as it was supplied' (26 characters, baseline 19) and plinths 1.04× the piece width → 9:16 0.207. The stress therefore caps the COUNTS at four consequences (the first four), one account put forward (the first), one grouping item (the first) and no link note (baseline 3 / 0 / 1 / 0), and the plain-relation label at 26 characters; every text field stays strictly longer than the baseline and every count ≥ the baseline.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional Event A taken apart: the inner ring piece, the outer ring piece and the enlarged boundary between them, related as supplied (plain relations).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a fictional shelf collapse (one inner, three outer consequences), a sequence link, a communication link and an account put forward; the outer piece is the focus. (No link note and one grouping item: with them the 1:1 ring pieces measured 0.148 of the frame height.)",
+      "params": {
+        "origin": {
+          "name": "Event B (fictional shelf collapse)"
+        },
+        "events": [
+          {
+            "label": "Consequence 1 (supplied): two boxes fall to the floor",
+            "time": "Day 1",
+            "ring": "inner"
+          },
+          {
+            "label": "Consequence 2 (supplied): a vase is chipped",
+            "time": "Day 1",
+            "ring": "outer"
+          },
+          {
+            "label": "Consequence 3 (supplied): a drum is moved aside",
+            "time": "Day 3",
+            "ring": "outer"
+          },
+          {
+            "label": "Consequence 4 (supplied): a stack of books is reshelved",
+            "time": "Day 5",
+            "ring": "outer"
+          }
+        ],
+        "causalLinks": [],
+        "alternatives": [
+          {
+            "label": "A different account of Consequence 3 put forward",
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Grouping given by the owner"
+          }
+        ],
+        "elements": [
+          {
+            "id": "record",
+            "label": "Record of the shelf collapse (as supplied)"
+          },
+          {
+            "id": "inner",
+            "label": "Inner ring (as given)"
+          },
+          {
+            "id": "outer",
+            "label": "Outer ring (as given)"
+          },
+          {
+            "id": "boundary",
+            "label": "Boundary between the rings (enlarged)"
+          },
+          {
+            "id": "alternative",
+            "label": "Other account put forward"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "inner",
+            "to": "outer",
+            "kind": "sequence"
+          },
+          {
+            "from": "record",
+            "to": "outer",
+            "kind": "communication"
+          },
+          {
+            "from": "boundary",
+            "to": "outer",
+            "kind": "relation"
+          },
+          {
+            "from": "alternative",
+            "to": "record",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "outer",
+        "relationLabels": {
+          "relation": "related as supplied",
+          "communication": "noted in the record",
+          "sequence": "then, in the supplied order",
+          "causal": "causal (as supplied)"
+        },
+        "traversalOrder": [
+          "inner",
+          "outer",
+          "record",
+          "alternative"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Stress: near-maximum lengths (long consequences, element and relation labels, a long traversal) with four consequences, one account put forward and one grouping item — counts capped, see the coordinator decision note.",
+      "params": {
+        "origin": {
+          "name": "Event C (fictional storeroom shelf collapse)"
+        },
+        "events": [
+          {
+            "label": "Consequence 1 (supplied): several wooden crates knocked over",
+            "time": "Day 1 (morning)",
+            "ring": "inner"
+          },
+          {
+            "label": "Consequence 2 (supplied): a glass jar on a low shelf is cracked",
+            "time": "Day 1 (afternoon)",
+            "ring": "inner"
+          },
+          {
+            "label": "Consequence 3 (supplied): a metal drum moved to the corridor",
+            "time": "Day 2 (a day on)",
+            "ring": "outer"
+          },
+          {
+            "label": "Consequence 4 (supplied): a stack of ledgers is reshelved",
+            "time": "Day 4 (later on)",
+            "ring": "outer"
+          }
+        ],
+        "causalLinks": [],
+        "alternatives": [
+          {
+            "label": "A different account of the drum being moved was put forward",
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Grouping of the supplied consequences as given by the storeroom owner"
+          }
+        ],
+        "elements": [
+          {
+            "id": "record",
+            "label": "Record of the storeroom collapse (as supplied)"
+          },
+          {
+            "id": "inner",
+            "label": "Inner ring of the storeroom (as supplied)"
+          },
+          {
+            "id": "outer",
+            "label": "Outer ring of the storeroom (as supplied)"
+          },
+          {
+            "id": "boundary",
+            "label": "Boundary between the two rings, enlarged here"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "record",
+            "to": "outer",
+            "kind": "relation"
+          },
+          {
+            "from": "inner",
+            "to": "outer",
+            "kind": "relation"
+          },
+          {
+            "from": "boundary",
+            "to": "outer",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "boundary",
+        "relationLabels": {
+          "relation": "related as it was supplied",
+          "communication": "noted in the supplied record",
+          "sequence": "then, in the order as supplied",
+          "causal": "causal link (as supplied)"
+        },
+        "traversalOrder": [
+          "record",
+          "outer",
+          "inner",
+          "outer",
+          "boundary",
+          "outer",
+          "record"
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "origin": {
+          "name": "Evento A (ficticio)"
+        },
+        "events": [
+          {
+            "label": "Consecuencia 1 (aportada): se vuelca una caja",
+            "ring": "inner"
+          },
+          {
+            "label": "Consecuencia 2 (aportada): se agrieta un tarro",
+            "ring": "inner"
+          },
+          {
+            "label": "Consecuencia 3 (aportada): se desplaza un bidón almacenado",
+            "time": "Día 2",
+            "ring": "outer"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Agrupación según lo aportado"
+          }
+        ],
+        "elements": [
+          {
+            "id": "record",
+            "label": "Registro del evento A (según lo aportado)"
+          },
+          {
+            "id": "inner",
+            "label": "Anillo interior"
+          },
+          {
+            "id": "outer",
+            "label": "Anillo exterior"
+          },
+          {
+            "id": "boundary",
+            "label": "Límite entre los anillos (ampliado)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relacionado según lo aportado",
+          "communication": "consta en el registro",
+          "sequence": "después (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

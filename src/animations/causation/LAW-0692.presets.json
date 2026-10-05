@@ -1,0 +1,235 @@
+{
+  "animationId": "LAW-0692",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; one supplied datum is substituted and nothing is inferred from it. Long-labels-stress: coordinator decision 2026-09-26: stress lengths capped to fit at 16 px (LAW-0687 precedent; see SESSION_HANDOFF).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional flat: both routes reach the same vase; the status of route B's link into the loss changes from proposed to disputed (as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the workshop model; route A's link into the loss is changed from disputed back to proposed (the dashed seal becomes linked rings).",
+      "params": {
+        "events": {
+          "a": [
+            {
+              "label": "Extension cable frayed",
+              "time": "Day 1"
+            },
+            {
+              "label": "Cable sparks near a crate",
+              "time": "Day 2"
+            },
+            {
+              "label": "Packing straw smoulders",
+              "time": "Day 2"
+            },
+            {
+              "label": "Heat reaches the display case",
+              "time": "Day 2"
+            }
+          ],
+          "b": [
+            {
+              "label": "Heater left on overnight",
+              "time": "Day 1"
+            },
+            {
+              "label": "Case glass heats unevenly",
+              "time": "Day 2"
+            }
+          ]
+        },
+        "losses": [
+          {
+            "label": "Glass display vase cracked"
+          }
+        ],
+        "routeLabels": {
+          "a": "Cause A · cable",
+          "b": "Cause B · heater"
+        },
+        "causalLinks": [
+          {
+            "route": "a",
+            "from": 3,
+            "kind": "sequence",
+            "status": "disputed",
+            "label": "timing contested"
+          }
+        ],
+        "focusTarget": "last-link-a",
+        "substitution": "to-proposed",
+        "beforeValue": "disputed",
+        "afterValue": "proposed (as supplied)",
+        "detailGeometry": {
+          "zoom": 2,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "State produced by both routes in the workshop model",
+          "marker": "Datum changed"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Five events per route with capped labels and times, two losses, two alternatives, labelled links, long route names, long before/after values and context labels. coordinator decision 2026-09-26: stress lengths capped to fit at 16 px (LAW-0687 precedent; see SESSION_HANDOFF).",
+      "params": {
+        "events": {
+          "a": [
+            {
+              "label": "Upstairs kitchen tap left running",
+              "time": "T0 (evening)"
+            },
+            {
+              "label": "Sink basin overflows",
+              "time": "T+4 minutes"
+            },
+            {
+              "label": "Water spreads under the skirting",
+              "time": "T+7 minutes"
+            },
+            {
+              "label": "Moisture soaks the shop ceiling",
+              "time": "T+12 minutes"
+            },
+            {
+              "label": "Water drips onto the display shelf",
+              "time": "T+15 minutes"
+            }
+          ],
+          "b": [
+            {
+              "label": "Roof gutter over the shop blocked",
+              "time": "T0 (evening)"
+            },
+            {
+              "label": "Heavy rain spills over the gutter",
+              "time": "T+3 minutes"
+            },
+            {
+              "label": "Rainwater seeps into the wall",
+              "time": "T+8 minutes"
+            },
+            {
+              "label": "Damp spreads in the inner wall",
+              "time": "T+12 minutes"
+            },
+            {
+              "label": "Water drips from the bracket",
+              "time": "T+15 minutes"
+            }
+          ]
+        },
+        "causalLinks": [
+          {
+            "route": "a",
+            "from": 2,
+            "kind": "sequence",
+            "status": "proposed",
+            "label": "order from the flat owner"
+          },
+          {
+            "route": "b",
+            "from": 3,
+            "kind": "causal",
+            "status": "proposed",
+            "label": "stated causal by the surveyor"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "A leak from the shop sprinkler",
+            "route": "a",
+            "link": 3,
+            "status": "alleged"
+          },
+          {
+            "label": "The shelf may have been wet",
+            "route": "b",
+            "link": 1,
+            "status": "proposed"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Hand-painted ceramic vase cracked twice"
+          },
+          {
+            "label": "Shelf and stand refinished"
+          }
+        ],
+        "routeLabels": {
+          "a": "Cause A · upstairs tap",
+          "b": "Cause B · blocked gutter"
+        },
+        "focusTarget": "last-link-b",
+        "substitution": "to-disputed",
+        "beforeValue": "proposed in the shop owner’s report",
+        "afterValue": "disputed in the upstairs reply",
+        "detailGeometry": {
+          "zoom": 2.2,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "State produced by both supplied routes, as supplied",
+          "marker": "Datum changed here"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": {
+          "a": [
+            {
+              "label": "Grifo de la cocina abierto",
+              "time": "T0"
+            },
+            {
+              "label": "El fregadero rebosa",
+              "time": "T+4 min"
+            },
+            {
+              "label": "El agua llega al estante",
+              "time": "T+9 min"
+            }
+          ],
+          "b": [
+            {
+              "label": "Canalón del tejado atascado",
+              "time": "T0"
+            },
+            {
+              "label": "La lluvia se filtra por el muro",
+              "time": "T+6 min"
+            },
+            {
+              "label": "El agua gotea sobre el estante",
+              "time": "T+9 min"
+            }
+          ]
+        },
+        "losses": [
+          {
+            "label": "Jarrón de cerámica del estante agrietado"
+          }
+        ],
+        "routeLabels": {
+          "a": "Causa A",
+          "b": "Causa B"
+        },
+        "beforeValue": "propuesto",
+        "afterValue": "discutido (según lo aportado)",
+        "contextLabels": {
+          "context": "Estado producido por ambas rutas, según lo aportado",
+          "marker": "Dato cambiado"
+        }
+      }
+    }
+  ]
+}

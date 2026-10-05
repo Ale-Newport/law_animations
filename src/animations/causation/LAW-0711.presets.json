@@ -1,0 +1,191 @@
+{
+  "animationId": "LAW-0711",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). Event A is a generic fictional event and the consequences are generic fictional objects; no person is drawn and nobody is injured. The two rings are ONLY the supplied grouping: the inner ring holds the consequences supplied as 'Immediate consequence (as supplied)', the outer ring those supplied as 'Subsequent consequence (as supplied) — to be examined', with identical stroke, colour and weight; neither is shown as excluded, lesser or decided. No remoteness or scope doctrine, test, liability, amount, outcome or jurisdiction is stated. The contrasted fact is ONE supplied grouping: the focus consequence (focusItem) is grouped in the inner ring in A and in the outer ring in B; its own 'ring' value is not used. Omitted brief fields (coordinator decision BRIEF CUSTOMIZABLE FIELDS, 2026-10-05): none — events, causalLinks, alternatives and losses are editable, with the contrast fields (scenarioA, scenarioB, changedFact, sharedFacts, comparisonLabels); 'origin' and 'focusItem' are added. Long-labels-stress: coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20, from LAW-0687/0689–0692; subject floor 'Subject ≥ 0.20 of the frame height at rest and hold' (causation-05 LAW-0700 decision, production/SESSION_HANDOFF.md)). True driver: the 1:1 box — each field (plate, objects, markers, floor) must reach 0.20 of the frame height with each lane >= 0.40 of the frame width while the stress text stays >= 16 px. Fallbacks tried: row, column and a right-hand text column (textcol, with the late chips under the lanes), head chips beside the fields, the guide chip beside, above or in the shared band (with a leader), half-width band chips, text down to 17 px. Measured, rendered at 1080p (2026-10-05; pre-cap copy in production/scratch/causation-08/LAW-0711.stress-precap.json): full counts (six consequences, two accounts, one labelled link, two grouping items) → 1:1 fallback scale k 0.714, field 0.101 of the frame height; four consequences → 0.193; four consequences and one account → 0.193; five consequences, one account, one grouping item → 0.193; four consequences, one account, one grouping item → 1:1 0.249 (9:16 0.214). The stress therefore caps the COUNTS at four consequences (the first four), one account put forward (the first) and one grouping item (the first) — baseline 3 / 0 / 1; the labelled link is kept; every text field keeps its near-maximum length and stays strictly longer than the baseline.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional Event A in two identical ring fields: Consequence 3 is grouped in the inner ring in A and in the outer ring in B, as supplied.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a fictional shelf collapse with four consequences, a disputed link and an account put forward; the chipped vase is the contrasted grouping.",
+      "params": {
+        "origin": {
+          "name": "Event B (fictional shelf collapse)"
+        },
+        "events": [
+          {
+            "label": "Consequence 1 (supplied): two boxes fall to the floor",
+            "time": "Day 1",
+            "ring": "inner"
+          },
+          {
+            "label": "Consequence 2 (supplied): a vase is chipped",
+            "time": "Day 1",
+            "ring": "outer"
+          },
+          {
+            "label": "Consequence 3 (supplied): a drum is moved aside",
+            "time": "Day 3",
+            "ring": "outer"
+          },
+          {
+            "label": "Consequence 4 (supplied): a stack of books is reshelved",
+            "time": "Day 5",
+            "ring": "outer"
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 2,
+            "kind": "sequence",
+            "status": "disputed",
+            "label": "order of events contested"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "A different account of Consequence 3 put forward",
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Grouping given by the owner"
+          }
+        ],
+        "scenarioA": {
+          "label": "Immediate consequence",
+          "caption": "as given by the owner"
+        },
+        "scenarioB": {
+          "label": "Subsequent consequence",
+          "caption": "as given, to be examined"
+        },
+        "changedFact": "Only where the chipped vase is grouped differs: inner ring in A, outer in B",
+        "sharedFacts": [
+          "Same shelf collapse, same consequences, same rings"
+        ],
+        "comparisonLabels": {
+          "guide": "Only this differs",
+          "neutral": "Neither grouping wins; nothing is concluded"
+        },
+        "focusItem": 1
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Stress: near-maximum lengths (long heads, changed fact, shared fact, notes and consequences) with four consequences, one account put forward, a labelled link and one grouping item — counts capped, see the coordinator decision note.",
+      "params": {
+        "origin": {
+          "name": "Event C (fictional storeroom shelf collapse)"
+        },
+        "events": [
+          {
+            "label": "Consequence 1 (supplied): several wooden crates knocked over",
+            "time": "Day 1 (morning)",
+            "ring": "inner"
+          },
+          {
+            "label": "Consequence 2 (supplied): a glass jar on a low shelf is cracked",
+            "time": "Day 1 (afternoon)",
+            "ring": "inner"
+          },
+          {
+            "label": "Consequence 3 (supplied): a metal drum moved to the corridor",
+            "time": "Day 2 (a day on)",
+            "ring": "outer"
+          },
+          {
+            "label": "Consequence 4 (supplied): a stack of ledgers is reshelved",
+            "time": "Day 4 (later on)",
+            "ring": "outer"
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 3,
+            "kind": "sequence",
+            "status": "disputed",
+            "label": "order as given in the owner's own written notes"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "A different account of the drum being moved was put forward",
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Grouping of the supplied consequences as given by the storeroom owner"
+          }
+        ],
+        "scenarioA": {
+          "label": "Immediate consequence, as grouped",
+          "caption": "as supplied by the storeroom owner"
+        },
+        "scenarioB": {
+          "label": "Subsequent consequence, as grouped",
+          "caption": "as supplied by the owner, still to be examined"
+        },
+        "changedFact": "Only the supplied grouping of Consequence 3 differs between the fields: A places it in the inner ring, B in the outer",
+        "sharedFacts": [
+          "Same storeroom event, same consequences, same rings in both fields"
+        ],
+        "comparisonLabels": {
+          "guide": "Only this one supplied grouping differs",
+          "neutral": "No winner and no conclusion: two supplied groupings shown side by side"
+        },
+        "focusItem": 2
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "origin": {
+          "name": "Evento A (ficticio)"
+        },
+        "events": [
+          {
+            "label": "Consecuencia 1 (aportada): se vuelca una caja",
+            "ring": "inner"
+          },
+          {
+            "label": "Consecuencia 2 (aportada): se agrieta un tarro",
+            "ring": "inner"
+          },
+          {
+            "label": "Consecuencia 3 (aportada): se desplaza un bidón almacenado",
+            "time": "Día 2",
+            "ring": "outer"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Agrupación según lo aportado"
+          }
+        ],
+        "scenarioA": {
+          "label": "Consecuencia inmediata",
+          "caption": "según lo aportado"
+        },
+        "scenarioB": {
+          "label": "Consecuencia ulterior",
+          "caption": "según lo aportado, por examinar"
+        },
+        "changedFact": "Solo cambia dónde se agrupa la consecuencia 3: anillo interior en A, exterior en B",
+        "sharedFacts": [
+          "Mismo evento, mismas consecuencias, mismos anillos"
+        ],
+        "comparisonLabels": {
+          "guide": "Solo esto cambia",
+          "neutral": "Sin ganador ni conclusión: dos agrupaciones comparadas"
+        }
+      }
+    }
+  ]
+}

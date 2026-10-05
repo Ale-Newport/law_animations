@@ -1,0 +1,196 @@
+{
+  "animationId": "LAW-0703",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). A (reference scenario, ●) and B (alleged loss, ◆) are identical machines with equal weight; the only difference is B's open ◆ gate, which lets out the supplied stated difference. Every amount is a fictional figure shown as supplied; nothing is computed, valued or decided and no winner, damages, compensation, liability, fault or causation conclusion is drawn. Long-labels-stress: coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20, from LAW-0687/0689–0692; subject floor: 'Subject ≥ 0.20 of the frame height at rest and hold (causation-05 LAW-0700 decision)', production/SESSION_HANDOFF.md). True driver: the 1:1 and 9:16 boxes (each machine must reach 0.20 of the frame height with both scenes shown). After trying the fallback layouts (A and B side by side; stacked with the shared entries under them, in one or two columns; stacked beside a right-hand text column, with the late chips under the lanes; heads beside the hoppers), the full stress counts did not fit 1:1 without the fallback scale. Measured, rendered at 1080p (2026-09-27): full counts (five entries, two alternatives, two labelled links, two stated items, two shared facts) → 1:1 fallback scale k 0.714, smallest text 12.1 px, machines 0.080 of the frame height; 9:16 18.0 px / 0.186; 16:9 20.0 px / 0.242. The stress keeps every text at its near-maximum length and caps the COUNTS at four entries, no alternative, no link note, one stated item and one shared fact (baseline 3 / 0 / 0 / 1 / 1); after the cap: 1:1 17.0 px / 0.258 without scaling; 9:16 20.0 px / 0.213; 16:9 22.0 px / 0.342. Every field stays longer than the baseline and every count ≥ the baseline.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional shop: the same three entries run in A and B; only B's ◆ gate is open and lets out the stated difference of 120 units; a level line and a bracket mark the one difference, as stated.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a workshop with four entries (two in, two out) in credits, a disputed link and an alternative put forward, all listed once for both machines; scenario captions name the weeks.",
+      "params": {
+        "events": [
+          {
+            "label": "Repair orders received",
+            "time": "Week 1",
+            "dir": "in",
+            "amount": 300
+          },
+          {
+            "label": "Spare parts bought",
+            "time": "Week 1",
+            "dir": "out",
+            "amount": 90
+          },
+          {
+            "label": "Repair orders received",
+            "time": "Week 2",
+            "dir": "in",
+            "amount": 150
+          },
+          {
+            "label": "Rent paid",
+            "time": "Week 2",
+            "dir": "out",
+            "amount": 60
+          }
+        ],
+        "causalLinks": [
+          {
+            "from": 1,
+            "kind": "sequence",
+            "status": "disputed",
+            "label": "order of entries contested"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "Seasonal dip in orders put forward",
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Difference stated by the workshop",
+            "amount": 200
+          }
+        ],
+        "model": {
+          "unit": "credits",
+          "perToken": 0
+        },
+        "scenarioA": {
+          "label": "Reference weeks",
+          "caption": "as stated by the workshop"
+        },
+        "scenarioB": {
+          "label": "Alleged loss",
+          "caption": "as stated by the workshop"
+        },
+        "changedFact": "Only B’s left gate opens for the stated 200 credits",
+        "sharedFacts": [
+          "Same four entries and the same scale"
+        ],
+        "comparisonLabels": {
+          "guide": "Only this differs",
+          "neutral": "No winner, no outcome: two accounts side by side"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Stress: near-maximum text lengths (entries, times, scenario labels and captions, changed fact, shared fact, guide and neutral note); counts capped (four entries, one stated item, one shared fact) — see the coordinator decision note.",
+      "params": {
+        "events": [
+          {
+            "label": "Weekend market takings received at the stall",
+            "time": "Month 1 (first week)",
+            "dir": "in",
+            "amount": 240
+          },
+          {
+            "label": "Wholesale supplier invoice paid in full",
+            "time": "Month 1 (last week)",
+            "dir": "out",
+            "amount": 90
+          },
+          {
+            "label": "Online orders paid by customers this month",
+            "time": "Month 2 (first week)",
+            "dir": "in",
+            "amount": 180
+          },
+          {
+            "label": "Stall rent and electricity paid to the market",
+            "time": "Month 2 (mid-month)",
+            "dir": "out",
+            "amount": 70
+          }
+        ],
+        "causalLinks": [],
+        "alternatives": [],
+        "losses": [
+          {
+            "label": "Difference stated by the stall-holder for the three months",
+            "amount": 150
+          }
+        ],
+        "model": {
+          "unit": "units",
+          "perToken": 0
+        },
+        "scenarioA": {
+          "label": "Reference scenario as stated by the stall-holder",
+          "caption": "the months as stated, with every supplied entry"
+        },
+        "scenarioB": {
+          "label": "Alleged loss as described by the stall-holder",
+          "caption": "the same months with the stated difference let out"
+        },
+        "changedFact": "Only B lets the stated difference of the three months out through its left gate, exactly as supplied",
+        "sharedFacts": [
+          "The same four entries in the same supplied order in both"
+        ],
+        "comparisonLabels": {
+          "guide": "Only this detail differs between the two scenes",
+          "neutral": "No winner, no score, no outcome: two scenarios shown side by side exactly as supplied"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {
+            "label": "Ingresos de la tienda",
+            "time": "Mes 1",
+            "dir": "in",
+            "amount": 200
+          },
+          {
+            "label": "Pago a un proveedor",
+            "time": "Mes 1",
+            "dir": "out",
+            "amount": 60
+          },
+          {
+            "label": "Ingresos de la tienda",
+            "time": "Mes 2",
+            "dir": "in",
+            "amount": 160
+          }
+        ],
+        "losses": [
+          {
+            "label": "Diferencia declarada por la tienda",
+            "amount": 120
+          }
+        ],
+        "model": {
+          "unit": "unidades",
+          "perToken": 0
+        },
+        "scenarioA": {
+          "label": "Escenario de referencia",
+          "caption": "según lo declarado"
+        },
+        "scenarioB": {
+          "label": "Pérdida alegada",
+          "caption": "según lo declarado"
+        },
+        "changedFact": "Solo B deja salir la diferencia declarada por su compuerta izquierda",
+        "sharedFacts": [
+          "Mismas entradas y misma escala del modelo"
+        ],
+        "comparisonLabels": {
+          "guide": "Solo esto cambia",
+          "neutral": "Sin ganador ni resultado: dos escenarios comparados"
+        }
+      }
+    }
+  ]
+}

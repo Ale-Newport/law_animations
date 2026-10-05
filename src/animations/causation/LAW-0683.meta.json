@@ -1,0 +1,465 @@
+{
+  "id": "LAW-0683",
+  "slug": "causation-01-contrast",
+  "title": "Causal chain — proposed chain vs disputed link",
+  "titleEs": "Cadena causal — Comparación de dos supuestos",
+  "category": "causation",
+  "categoryName": "Causalidad y daño",
+  "motif": "Cadena causal",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical toppling chains released by identical pendulums. Only one link differs: proposed in A (the chain runs on and the urn cracks), disputed in B (an alternative barrier stands behind it; the chain reaches the link and everything downstream is shown unresolved, neither fallen nor standing). A guide joins the changed link; no outcome is stated.",
+  "tags": [
+    "causation",
+    "chain",
+    "comparison",
+    "disputed link",
+    "proposed",
+    "unresolved",
+    "side-by-side",
+    "stacked",
+    "pendulum"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/causation/kits/causal-chain.js",
+    "src/animations/causation/kits/topple.js",
+    "src/frameworks/paired.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "events": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Event label (fictional, descriptive)"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Optional relative time label, e.g. \"T+2 min\" (shown as supplied)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Event"
+        },
+        "minItems": 3,
+        "maxItems": 6,
+        "description": "Events in the supplied order; the chain always follows this order (3–6) (array replaces the previous value)"
+      },
+      "causalLinks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5,
+              "description": "Index (0-based) of the event where the link starts"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "sequence",
+                "causal"
+              ],
+              "description": "sequence (default) or causal; a causal arrow is only drawn when supplied here"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "proposed",
+                "disputed"
+              ],
+              "description": "proposed (put forward) or disputed (contested); the animation never resolves it"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Optional caption for this link"
+            }
+          },
+          "required": [
+            "from"
+          ],
+          "description": "Link"
+        },
+        "minItems": 0,
+        "maxItems": 6,
+        "description": "Per-link data. Link i joins event i to the next event; the link after the last event joins it to the loss. Links not listed are proposed sequence links. (array replaces the previous value)"
+      },
+      "alternatives": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "Alternative event label"
+            },
+            "link": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5,
+              "description": "Index of the link it is put forward against"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "alleged",
+                "proposed"
+              ],
+              "description": "Descriptive status"
+            }
+          },
+          "required": [
+            "label",
+            "link"
+          ],
+          "description": "Alternative"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Alternative or intervening events put forward by someone; drawn as a barrier beside a link, never decided (array replaces the previous value)"
+      },
+      "losses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Description of the loss (label hypothetical amounts as hypothetical)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Loss"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Loss as described. The first entry is the object that is struck; an optional second entry is a smaller object beside it. (array replaces the previous value)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "events": [
+      {
+        "label": "Crate left in the aisle",
+        "time": "T0"
+      },
+      {
+        "label": "Trolley hits the crate",
+        "time": "T+1 min"
+      },
+      {
+        "label": "Shelf unit is jolted",
+        "time": "T+1 min"
+      },
+      {
+        "label": "Display stand shakes",
+        "time": "T+2 min"
+      }
+    ],
+    "causalLinks": [
+      {
+        "from": 1,
+        "kind": "sequence",
+        "status": "disputed"
+      }
+    ],
+    "alternatives": [
+      {
+        "label": "Cleaning cart passes by",
+        "link": 1,
+        "status": "alleged"
+      }
+    ],
+    "losses": [
+      {
+        "label": "Ceramic vase cracked"
+      }
+    ],
+    "scenarioA": {
+      "label": "Proposed chain",
+      "caption": "Link 2 → 3 put forward as proposed"
+    },
+    "scenarioB": {
+      "label": "Disputed link",
+      "caption": "Link 2 → 3 disputed; an alternative is put forward"
+    },
+    "changedFact": "Only link 2 → 3 differs: proposed in A, disputed in B",
+    "sharedFacts": [
+      "Same events, order and spacing",
+      "Same trigger",
+      "Same loss object"
+    ],
+    "comparisonLabels": {
+      "guide": "Changed fact: link 2 → 3",
+      "neutral": "Two situations compared — the disputed link is not resolved here"
+    }
+  }
+}

@@ -1,0 +1,485 @@
+{
+  "id": "LAW-0712",
+  "slug": "causation-08-inspect",
+  "title": "Scope of damage — a lens on the grouping tag of one supplied consequence; one supplied datum is substituted",
+  "titleEs": "Alcance del daño — Inspección y cambio de un dato",
+  "category": "causation",
+  "categoryName": "Causalidad y daño",
+  "motif": "Alcance del daño",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "A fictional ring field after the rings were drawn: Event A, two rings of identical stroke and weight with ● / ◆ markers, the supplied consequences in their rings, and Consequence 3 on the ◆ pad in the outer ring with a value tag on a string, beside the record. A real enlarged copy of the tag, the string, the two slot pads and the consequence grows from its source; the supplied value is struck and replaced by the alternative value, and only then does the dependent geometry follow — the consequence slides across the inner ring to the ● pad. The lens returns to its source; a Δ marker and a before/after trace keep the old value traceable. The rings are only a supplied grouping; nothing is tested, valued or decided.",
+  "tags": [
+    "causation",
+    "scope of damage",
+    "inspect",
+    "lens",
+    "datum substitution",
+    "rings",
+    "grouping as supplied",
+    "before and after",
+    "as supplied"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/causation/kits/alcance-dano.js",
+    "src/animations/causation/kits/dano-material.js",
+    "src/animations/causation/kits/prueba-contrafactual.js",
+    "src/animations/causation/kits/causal-chain.js",
+    "src/primitives/markers.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "origin": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 48,
+            "description": "Name of the event, e.g. \"Event A (fictional)\""
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "description": "The fictional event at the centre (a generic object event; no person is ever drawn)"
+      },
+      "events": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Consequence text (fictional, descriptive)"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 20,
+              "description": "Optional fictional relative label, e.g. \"Day 2\" (shown as supplied; never a time limit)"
+            },
+            "ring": {
+              "type": "string",
+              "enum": [
+                "inner",
+                "outer"
+              ],
+              "description": "Supplied grouping: inner (immediate, as supplied) or outer (subsequent, as supplied, to be examined)"
+            }
+          },
+          "required": [
+            "label",
+            "ring"
+          ],
+          "description": "Consequence"
+        },
+        "minItems": 2,
+        "maxItems": 6,
+        "description": "The supplied consequences, in the supplied order (fictional, generic objects or events; no person is injured). Each is placed in the ring it is SUPPLIED for: inner (immediate consequence as supplied) or outer (subsequent consequence as supplied, to be examined). The grouping is shown, never decided. (array replaces the previous value)"
+      },
+      "causalLinks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5,
+              "description": "Index (0-based) of the consequence the link reaches"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "sequence",
+                "causal"
+              ],
+              "description": "sequence (default) or causal; a causal link is only named when supplied here"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "proposed",
+                "disputed"
+              ],
+              "description": "proposed (put forward) or disputed (contested); never resolved"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Optional caption for this link"
+            }
+          },
+          "required": [
+            "from"
+          ],
+          "description": "Link"
+        },
+        "minItems": 0,
+        "maxItems": 6,
+        "description": "Per-link data. Link i joins the event to consequence i. Links not listed are a sequence as supplied. (array replaces the previous value)"
+      },
+      "alternatives": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Account put forward"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "alleged",
+                "proposed"
+              ],
+              "description": "Descriptive status"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Alternative"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Other accounts put forward by someone; drawn with a barrier icon, never decided (array replaces the previous value)"
+      },
+      "losses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 72,
+              "description": "Description of the supplied grouping (no valuation)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Grouping"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "The grouping as supplied: the first entry is how the supplied grouping is described (a placeholder, no amount or valuation); an optional second entry is a noted detail. (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "grouping-tag"
+        ],
+        "description": "Detail that is enlarged and substituted"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      },
+      "focusItem": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 5,
+        "description": "Index (0-based) of the consequence whose supplied grouping is the datum (its own \"ring\" value is not used here)"
+      },
+      "focusRings": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "before": {
+            "type": "string",
+            "enum": [
+              "inner",
+              "outer"
+            ],
+            "description": "Ring drawn with the before value"
+          },
+          "after": {
+            "type": "string",
+            "enum": [
+              "inner",
+              "outer"
+            ],
+            "description": "Ring drawn with the after value"
+          }
+        },
+        "required": [],
+        "description": "Ring the focus consequence stands in with each value (only this geometry changes with the datum)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "origin": {
+      "name": "Event A (fictional)"
+    },
+    "events": [
+      {
+        "label": "Consequence 1 (supplied): a crate is knocked over",
+        "ring": "inner"
+      },
+      {
+        "label": "Consequence 2 (supplied): a jar is cracked",
+        "ring": "inner"
+      },
+      {
+        "label": "Consequence 3 (supplied): a stored drum is moved",
+        "time": "Day 2",
+        "ring": "outer"
+      }
+    ],
+    "causalLinks": [],
+    "alternatives": [],
+    "losses": [
+      {
+        "label": "Grouping as supplied"
+      }
+    ],
+    "focusTarget": "grouping-tag",
+    "beforeValue": "Consequence 3: subsequent consequence (as supplied) — to be examined",
+    "afterValue": "Consequence 3: immediate consequence (as supplied)",
+    "detailGeometry": {
+      "zoom": 1.8,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Event A after the supplied grouping, with its record, as supplied",
+      "marker": "Changed datum"
+    },
+    "focusItem": 2,
+    "focusRings": {
+      "before": "outer",
+      "after": "inner"
+    }
+  }
+}

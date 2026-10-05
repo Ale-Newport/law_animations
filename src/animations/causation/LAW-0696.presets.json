@@ -1,0 +1,167 @@
+{
+  "animationId": "LAW-0696",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified); the later event and every result are shown only as supplied, never inferred, and nothing states that the later event interrupts, replaces, relieves or shifts anything. Long-labels-stress: coordinator decision 2026-09-26 (standing stress cap rule, LAW-0687/0689–0692 precedent; see SESSION_HANDOFF): after trying the fallback layouts (right-hand text column with stacked scenes at 1:1, two-level staging, shared content drawn once), the near-maximum stress text did not fit every ratio at >= 16 px without scaling; the stress lengths are capped to the longest tried values that fit every ratio, every field still strictly longer than the baseline and every count >= the baseline.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional shop incident after the later event has entered and the sequence has run through it; the lens enlarges the later event and its link to event 3, whose status turns from proposed to disputed (as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a five-event storeroom sequence with the later event after event 3, two losses and an alternative; the inspected link is the one INTO the later event, supplied as disputed, and it turns to proposed.",
+      "params": {
+        "events": [
+          {
+            "label": "Pipe joint starts to drip",
+            "time": "Day 1"
+          },
+          {
+            "label": "Water pools under the rack",
+            "time": "Day 2"
+          },
+          {
+            "label": "Rack foot rusts through",
+            "time": "Day 5"
+          },
+          {
+            "label": "Rack leans onto the cabinet",
+            "time": "Day 6"
+          },
+          {
+            "label": "Cabinet door swings open",
+            "time": "Day 6"
+          }
+        ],
+        "addedEvent": {
+          "label": "Porter props a ladder on the rack",
+          "time": "Day 6",
+          "after": 2
+        },
+        "alternatives": [
+          {
+            "label": "Rack possibly overloaded earlier",
+            "link": 1,
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Glass lamp in the cabinet cracked"
+          },
+          {
+            "label": "Lamp shade dented (hypothetical 60 units)"
+          }
+        ],
+        "focusTarget": "link-in",
+        "substitution": "to-proposed",
+        "beforeValue": "disputed",
+        "afterValue": "proposed (as supplied)",
+        "detailGeometry": {
+          "zoom": 3,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Storeroom model after the later event has entered, as supplied",
+          "marker": "Datum changed"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Stress: long labels and times for every field (four events — the baseline count — with long labels, the later event, a long loss, one alternative, a labelled link and long captions). coordinator decision 2026-09-26 (standing stress cap rule, LAW-0687/0689–0692 precedent; see SESSION_HANDOFF): after trying the fallback layouts (right-hand text column with stacked scenes at 1:1, two-level staging, shared content drawn once), the near-maximum stress text did not fit every ratio at >= 16 px without scaling; the stress lengths are capped to the longest tried values that fit every ratio, every field still strictly longer than the baseline and every count >= the baseline. Measured 2026-09-26: six events of ~72 characters → 1:1 fallback scale k = 0.83 and a lens under 36 % of the short side; five events of ~58 → k = 0.91; this preset fits every ratio at scale 1 with a real lens.",
+      "params": {
+        "events": [
+          {
+            "label": "Delivery crate left standing in the narrow aisle",
+            "time": "T0 (early morning)"
+          },
+          {
+            "label": "Loaded pallet trolley clips the crate's corner",
+            "time": "T+1 minute"
+          },
+          {
+            "label": "Crate slides and jolts the tall steel shelf unit",
+            "time": "T+2 minutes"
+          },
+          {
+            "label": "Glass display stand shakes and its top shelf tilts",
+            "time": "T+3 minutes"
+          }
+        ],
+        "addedEvent": {
+          "label": "Night cleaner's floor machine bumps the stand",
+          "time": "T+2 minutes (approx.)",
+          "after": 1
+        },
+        "causalLinks": [
+          {
+            "from": 3,
+            "kind": "sequence",
+            "status": "proposed",
+            "label": "order as in the supervisor's log"
+          }
+        ],
+        "alternatives": [
+          {
+            "label": "Shelf unit possibly loose before the night shift",
+            "link": 0,
+            "status": "alleged"
+          }
+        ],
+        "losses": [
+          {
+            "label": "Hand-painted ceramic vase cracked (hypothetical value 400)"
+          }
+        ],
+        "beforeValue": "proposed by Party A in the written statement",
+        "afterValue": "disputed by Party B in the reply (as supplied, left open)",
+        "contextLabels": {
+          "context": "State produced once the later event has entered, as supplied by both parties",
+          "marker": "Datum changed in this version"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "events": [
+          {
+            "label": "Caja olvidada en el pasillo",
+            "time": "T0"
+          },
+          {
+            "label": "El carro choca con la caja",
+            "time": "T+1 min"
+          },
+          {
+            "label": "La estantería recibe el golpe",
+            "time": "T+2 min"
+          },
+          {
+            "label": "El expositor se tambalea",
+            "time": "T+3 min"
+          }
+        ],
+        "addedEvent": {
+          "label": "El limpiador empuja el expositor",
+          "time": "T+2 min",
+          "after": 1
+        },
+        "losses": [
+          {
+            "label": "Jarrón de cerámica agrietado"
+          }
+        ],
+        "beforeValue": "propuesto",
+        "afterValue": "discutido (según lo aportado)",
+        "contextLabels": {
+          "context": "Estado producido tras la entrada del evento posterior, según lo aportado",
+          "marker": "Dato cambiado"
+        }
+      }
+    }
+  ]
+}
