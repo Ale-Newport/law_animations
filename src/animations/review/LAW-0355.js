@@ -143,7 +143,7 @@ function compose(ctx, P, F, v) {
   for (const k of H ? [12, 15] : [7.5, 9, 10.5]) { TM = tagModel(P, {w: F * k, F, maxLines: H ? 4 : 7}); if (TM.ok) break; }
   if (!TM.ok) problems.push('tag-text');
   const planFor = cw => {
-    const M = cardModel(P, {w: cw, F, showText: showKey && !v.list, compact: v.list, minK: v.minK});
+    const M = cardModel(P, {w: cw, F, showText: showKey && !v.list, compact: v.list, minK: H ? v.minK : 0.3});
     return {M, B: boardPlan(M, TM, {F, orient: v.orient, tagTop: H, calEnd: false, compact: v.list})};
   };
   const fits = q => q.B.w <= inner.w + 0.5 && q.B.h <= inner.h + 0.5 && q.M.ok;

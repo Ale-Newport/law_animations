@@ -149,7 +149,7 @@ function compose(ctx, P, F, opts) {
   const pF = Math.max(10, F * 0.5) + F * 0.4;
   const mapW = sw - 2 * mI - 2 * pF;
   // (a band along the desk's lower edge where the two hands rest)
-  const restBand = Math.max((opts.compact && showKey ? F * 0.62 : F) * 2, 30);
+  const restBand = Math.max((opts.compact && showKey ? F * 0.62 : F) * 1.5, 28);
   const mapHmax = deskH - 2 * mI - tabH - 2 * pF - restBand;
   const pendIdx = P.routes.map((rt, i) => i).filter(i => i === fi || P.routes[i].state === 'pending');
   const slots = pendIdx.length;
@@ -162,7 +162,7 @@ function compose(ctx, P, F, opts) {
     const gapM = Math.max(G * 6.5, mapW * 0.15);
     const tot = Math.min(G * (opts.compact ? 22 : 42), mapW - gapM);
     if (tot < G * (opts.compact ? 9 : 15)) return {F, ok: false, problems: ['map-width']};
-    for (const k of [0.47, 0.52, 0.42, 0.57]) {
+    for (const k of [0.42, 0.47, 0.52, 0.38]) {
       OM = originModel(P, {w: tot * k, F: G, showText: cardText});
       EM = endModel(P, {w: tot * (1 - k), F: G, showText: cardText});
       if (OM.ok && EM.ok) break;
@@ -270,7 +270,7 @@ const scene = {
     const showKey = ctx.show('key');
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const arrangements = shape === 'landscape' ? [{arr: 'row', cols: 3, orient: 'h', capHead: true}, {arr: 'row', cols: 3, orient: 'h'}, {arr: 'row', cols: 3, orient: 'v'}, {arr: 'row', cols: 2, orient: 'h'}, {arr: 'row', cols: 3, tight: true, orient: 'v'}]
-      : shape === 'portrait' ? [{arr: 'column', cols: 2, orient: 'h'}, {arr: 'column', cols: 1, orient: 'h'}, {arr: 'column', cols: 2, tight: true, orient: 'h'}]
+      : shape === 'portrait' ? [{arr: 'column', cols: 2, orient: 'h', capHead: true}, {arr: 'column', cols: 2, orient: 'v', capHead: true}, {arr: 'column', cols: 1, orient: 'v', capHead: true}, {arr: 'column', cols: 2, orient: 'h'}, {arr: 'column', cols: 1, orient: 'h'}, {arr: 'column', cols: 2, tight: true, orient: 'h'}]
         : [{arr: 'column', pw: 0.3, tight: true, orient: 'h'}, {arr: 'column', pw: 0.42, tight: true, orient: 'h', compact: true}, {arr: 'column', pw: 0.48, tight: true, orient: 'h', compact: true}, {arr: 'row', cols: 2, tight: true, orient: 'v', compact: true, capHead: true}, {arr: 'row', cols: 3, tight: true, orient: 'v', compact: true, capHead: true}, {arr: 'row', cols: 3, tight: true, orient: 'h', compact: true}];
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
     let C = null;

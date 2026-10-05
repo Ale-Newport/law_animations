@@ -88,7 +88,7 @@ const defaultParamsEs = {
     {id: 'laneB', label: 'Carril B: conducta de B'},
     {id: 'convergence', label: 'Pieza de convergencia (ampliada)'},
   ],
-  relationLabels: {relation: 'relacionado según lo aportado', communication: 'consta en el registro', sequence: 'después (según lo aportado)', causal: 'causal (según lo aportado)'},
+  relationLabels: {relation: 'relación aportada', communication: 'consta en el registro', sequence: 'después (según lo aportado)', causal: 'causal (según lo aportado)'},
 };
 
 const MARGIN = 10;
@@ -585,7 +585,7 @@ const scene = {
       // (smaller sizes are tried only while no configuration yet keeps the ring pieces at the subject floor)
       if (best && size < Math.min(best.size - 3, 20) - 1e-9 && cands.some(subj)) break;
       // (kLeft never 1: the two ring keys — band chips 0 and 1 — stay together, at equal weight, in one place)
-      for (const mode of SH.modes) for (const RW of SH.rws) for (const maxLines of [3, 4]) for (const half of [false, true]) for (const stackChips of [false, true]) for (const narrowSeq of [false, true]) for (const kLeft of mode === 'band' ? [0, 2, 3, 4].filter(k => k <= base.band.length) : [0]) for (const keyLeft of mode === 'band' ? [false, true] : [false]) {
+      for (const mode of SH.modes) for (const RW of SH.rws) for (const maxLines of [3, 4]) for (const half of [false, true]) for (const stackChips of [false, true]) for (const narrowSeq of [false, true]) for (const kLeft of mode === 'band' ? [0, 2].filter(k => k <= base.band.length) : [0]) for (const keyLeft of mode === 'band' ? [false, true] : [false]) {
         const X = compose(ctx, base, {mode, size, RW, maxLines, half, stackChips, narrowSeq, kLeft, keyLeft, hMin, dry: true});
         if (!X.cfg) { why.push(`${mode}/${RW}${stackChips ? "s" : ""}@${size}:${X.bad}${X.OH ? Math.round(X.OH) : ""}`); continue; }
         if (!best) best = X;

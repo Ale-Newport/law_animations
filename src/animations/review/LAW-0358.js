@@ -36,7 +36,7 @@ const BEATS = {separate: [0, 0.18], relate: [0.18, 0.43], trace: [0.43, 0.75], g
 const W = {apart: [0.03, 0.17], outline: [0.03, 0.12], relate: [0.19, 0.42], trace: [0.44, 0.74], gather: [0.76, 0.82], badges: [0.78, 0.84], state: [0.8, 0.85]};
 const IDS = ['origin', 'end1', 'end2', 'end3', 'filter', 'calendar'];
 const KINDS = ['relation', 'communication', 'sequence', 'causal'];
-const SIZES = [30, 28, 27, 26, 25, 24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
+const SIZES = [36, 34, 32, 30, 28, 27, 26, 25, 24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 const GATHER = 0.97;
 
 const STRINGS = {
@@ -175,7 +175,7 @@ function compose(ctx, P, R, F, opts) {
   const has = id => R.shown.has(id);
   if (orient === 'h') {
     // columns: [calendar over origin] · gap · [end cards] · gap · [filter]
-    const g1 = Math.max(F * 6, inner.w * 0.1), g2 = Math.max(F * 4.8, inner.w * 0.08);
+    const g1 = Math.max(F * 5, inner.w * 0.07), g2 = Math.max(F * 4, inner.w * 0.055);
     const avail = inner.w - g1 - (has('filter') || has('calendar') ? g2 + Math.max(has('filter') ? fw : 0, has('calendar') ? calW : 0) : 0);
     const ow = Math.min(F * 19, avail * 0.48), ew = Math.min(F * 20, avail - ow);
     if (ew < F * 8 || ow < F * 8) return {F, ok: false, problems: ['width']};
@@ -276,7 +276,7 @@ const scene = {
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const arrangements = shape === 'portrait' ? [{band: true, orient: 'v'}, {band: true, cols: 2, orient: 'v'}]
       : shape === 'square' ? [{pw: 0.3, orient: 'h'}, {pw: 0.34, orient: 'h'}, {band: true, cols: 2, orient: 'h'}, {band: true, cols: 2, orient: 'v'}, {band: true, cols: 3, tight: true, orient: 'h'}]
-        : [{pw: 0.27, orient: 'h'}, {pw: 0.31, orient: 'h'}, {pw: 0.35, orient: 'h'}, {pw: 0.39, orient: 'h'}];
+        : [{pw: 0.24, orient: 'h'}, {pw: 0.27, orient: 'h'}, {pw: 0.31, orient: 'h'}, {pw: 0.35, orient: 'h'}, {pw: 0.39, orient: 'h'}];
     const sizes = (!showKey ? [44, 40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
     let C = null;
     outer: for (const F of sizes) {

@@ -124,7 +124,8 @@ const scene = {
     /** Whether every panel text's widest word fits its chip at the body size (else the panel cannot be laid out). */
     const panelWordsFit = (F, plr, cardText, oblText) => {
       const {restItems, holdItems} = panelItems(cardText, oblText);
-      return [...restItems, ...holdItems].every(it => widestToken(it.text, F, it.kind === 'head' ? 700 : 600) <= Math.max(10, plr.w - F * 0.6 - (it.glyph || it.kind === 'marker' ? F * 1.6 : 0) - F * 1.2));
+      // (a print-bar card's listed text may carry a supplied heading word too wide for any chip: chipG breaks such a word)
+      return [...restItems, ...holdItems].every(it => it.kind === 'perf' || widestToken(it.text, F, it.kind === 'head' ? 700 : 600) <= Math.max(10, plr.w - F * 0.6 - (it.glyph || it.kind === 'marker' ? F * 1.6 : 0) - F * 1.2));
     };
     const panels = (F, plr, cardText, oblText) => {
       const {restItems, holdItems} = panelItems(cardText, oblText);

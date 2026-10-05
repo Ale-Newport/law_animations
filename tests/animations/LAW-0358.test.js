@@ -38,6 +38,7 @@ suppliedTextSuite(ID, {
 });
 
 ratioChecks(ID, 'connectors land on their parts with real length; the visiting order holds; composition fits', [
+  {at: [1], fn: 's.textPx >= 19.5', label: 'baseline presets (incl. baseline-es) keep key text >= 19.5 px in every ratio (browser-measured layout)', presets: ['baseline-illustrative', 'baseline-es'], tv: ['all']},
   {at: times(0.18, 1, 0.02), fn: 's.links.every(l => l.p === 0 || (l.endsOk && !l.crosses))', label: 'each drawn connector ends on its two parts and crosses no other part'},
   {at: [0.43, 1], fn: 's.links.every(l => l.len >= 2 * s.textPx / 1.2)', label: 'connectors are long enough to read (no stubs)'},
   {at: times(0, 1, 0.02), fn: 's.visited.every((id, i) => s.order[i] === id)', label: 'the marker visits the parts only in the supplied order'},

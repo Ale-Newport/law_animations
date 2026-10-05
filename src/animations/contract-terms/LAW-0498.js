@@ -3,7 +3,7 @@
  *
  * Storyboard (the contract taken apart into its parts; no people):
  *  0.00–0.18  separate: the assembled contract (head plate over the two panels) comes apart — the plate lifts, the
- *             circumstances panel ("Facts and communications": the card "Communication 1 (supplied)" with its
+ *             circumstances panel ("Circumstances and communications": the card "Communication 1 (supplied)" with its
  *             supplied case row, ● provided for or ◆ not described, drawn alike) slides left and the clause panel
  *             ("Termination clause": its supplied sections, with the connector bracket "[" standing open in its track at
  *             their left) slides right.

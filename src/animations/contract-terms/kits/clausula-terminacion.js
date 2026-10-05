@@ -341,7 +341,16 @@ function fitGRaw(text, o0) {
 /** chipW with a glued fit (fitG). */
 export function chipG(ctx, text, o) {
   const size = o.size, padX = o.padX ?? size * 0.6;
-  return chipW(ctx, text, {...o, fit: o.fit || fitG(text, {maxWidth: o.maxWidth - padX * 2, size, minSize: o.minSize ?? size, maxLines: o.maxLines ?? 2, weight: o.weight ?? 600})});
+  if (o.fit) return chipW(ctx, text, o);
+  // (a chip's word too wide for any chip width is broken at once — the whole-word fit is tried first, and only a word
+  // that no wrap can hold is broken — so a chip never sends a layout search through every size for nothing)
+  const fo = {maxWidth: o.maxWidth - padX * 2, size, minSize: o.minSize ?? size, maxLines: o.maxLines ?? 2, weight: o.weight ?? 600};
+  let fit = fitG(text, fo);
+  if (fit.bad && !BREAK && widestToken(text, fo.minSize, fo.weight) > fo.maxWidth) {
+    BREAK = true;
+    try { fit = fitG(text, {...fo, maxLines: fo.maxLines + 2}); } finally { BREAK = false; }
+  }
+  return chipW(ctx, text, {...o, fit});
 }
 
 export const INK = '#1f2328';
@@ -443,7 +452,7 @@ export const motifFields = {
     title: str('Heading of the contract, as supplied (generic, e.g. "Contract (fictional)")', 80),
   }, ['reference', 'title']),
   panels: obj('Headings of the two panels, as supplied', {
-    circumstance: str('Heading of the circumstances panel (e.g. "Facts and communications")', 50),
+    circumstance: str('Heading of the circumstances panel (e.g. "Circumstances and communications")', 50),
     section: str('Heading of the clause panel (e.g. "Termination clause")', 50),
   }, ['circumstance', 'section']),
   circumstance: obj('The supplied circumstance or communication (a generic, fictional placeholder; never a real notice)', {
@@ -463,7 +472,7 @@ export const motifFields = {
 export const DEFAULT_CONTENT = {
   parties: [{name: 'Lucía Ferrer', role: 'Party A'}, {name: 'Tomás Ibarra', role: 'Party B'}],
   contract: {reference: 'CT-523', title: 'Contract (fictional)'},
-  panels: {circumstance: 'Facts and communications', section: 'Termination clause'},
+  panels: {circumstance: 'Circumstances and communications', section: 'Termination clause'},
   circumstance: {label: 'Communication 1 (supplied)'},
   stateLabels: {provided: 'Case provided for (as supplied)', undescribed: 'Case not described (as supplied)'},
   clauses: ['Section 1 (supplied text)', 'Section 2 (supplied text)', 'Section 3 (supplied text)'],
@@ -474,7 +483,7 @@ export const DEFAULT_CONTENT = {
 export const DEFAULT_CONTENT_ES = {
   parties: [{name: 'Lucía Ferrer', role: 'Parte A'}, {name: 'Tomás Ibarra', role: 'Parte B'}],
   contract: {reference: 'CT-523', title: 'Contrato (ficticio)'},
-  panels: {circumstance: 'Hechos y comunicaciones', section: 'Cláusula de terminación'},
+  panels: {circumstance: 'Circunstancias y comunicaciones', section: 'Cláusula de terminación'},
   circumstance: {label: 'Comunicación 1 (aportada)'},
   stateLabels: {provided: 'Supuesto previsto (según lo aportado)', undescribed: 'Supuesto no descrito (según lo aportado)'},
   clauses: ['Apartado 1 (texto aportado)', 'Apartado 2 (texto aportado)', 'Apartado 3 (texto aportado)'],
@@ -641,6 +650,37 @@ export function bracketArt(ctx, {name, bh, B}) {
  *     names [2] | null, plates {tray} | null, notesH [below, top], tray (the circumstance tray), noReach, minCh, minChE,
  *     reserveBelow (F => {w, h}), gutter, rowGap, eventShare}
  */
+/** The two panel headings fitted (up to 3 lines, whole words; memoised by fitG). */
+function panelHeadFits(p, F, We, Wt, ci, cut) {
+  return [headFit(p.panels.circumstance, We - 2 * ci - cut, F), headFit(p.panels.section, Wt - 2 * ci, F)];
+}
+
+const BAREW = /^[\p{L}][\p{L}'’-]*[\p{L}][,;:.]?$/u;
+/**
+ * A panel heading: whole words, up to 3 lines, a short connector ("and", "y", "of", "de" …) kept with the next word;
+ * accepted unless its last line is one bare word or two lines are (a single first-line word — "Circumstances / and
+ * communications" — is fine for a heading).
+ */
+export function headFit(text, maxWidth, F) {
+  // (a heading word too wide for its panel is broken at once — after its own hyphens, else mid-word — so a heading never
+  // sends the layout search through every size for nothing)
+  const was = BREAK;
+  BREAK = true;
+  try { return headFitRaw(text, maxWidth, F); } finally { BREAK = was; }
+}
+function headFitRaw(text, maxWidth, F) {
+  const t = glueParen(glueText(text)).replace(/(^|\s)(and|or|of|y|o|e|de|del|la|el|the|a)[ \t]+(?=\S)/giu, '$1$2\u00a0');
+  for (const k of [1, 0.92, 0.84, 0.76, 0.68]) {
+    // (a word broken into pieces may take up to two more lines)
+    const ml = widestToken(text, F, 700) > maxWidth * k ? 5 : 3;
+    const f = fitW(t, {maxWidth: maxWidth * k, size: F, maxLines: ml, weight: 700, lean: true});
+    if (f.bad) return {...f, bad: true};
+    const bare = l => { const w = l.trim().split(/\s+/); return w.length === 1 && BAREW.test(w[0]); };
+    if (f.lines.length < 2 || f.lines.some(l => /\p{L}-$/u.test(l.trim())) || (!bare(f.lines[f.lines.length - 1]) && f.lines.filter(bare).length < 2)) return f;
+  }
+  return {lines: [], bad: true, size: F, height: 0, width: 0};
+}
+
 export function stageGeom(ctx, o) {
   const {box, F, k, p} = o;
   const show = o.show, cardText = show && o.cardText !== false;
@@ -686,7 +726,9 @@ export function stageGeom(ctx, o) {
     const ok = (!cardText || (widestToken(p.circumstance.label, F, 700) <= Math.max(10, ew - (o.noTab ? 0 : F * 0.6))
       && ['provided', 'undescribed'].every(st => widestToken(p.stateLabels[st], F, 600) <= Math.max(10, ew - gz))))
       && (!oblText || p.clauses.every(t => widestToken(t, F, 600) <= Math.max(10, ow)));
-    return ok ? {probe: true} : null;
+    // (the panel headings at the widest panels: a heading that cannot wrap there fits at no scale — bail out at once)
+    const hf = show && o.headings !== false ? panelHeadFits(p, F, We, Wt, ci, stack ? 2 * (arm + gapC + F * 0.3) : 0) : [];
+    return ok && !hf.some(f => f && f.bad) ? {probe: true} : null;
   }
   let ME = measureEvent(p, F, cwE, cardText, tight, !!o.noTab);
   // (o.eventTextGrow: on a card laid out taller than its print — an inspected card — the print grows, up to 1.7×)
@@ -697,7 +739,7 @@ export function stageGeom(ctx, o) {
   const MO = measureObl(p.clauses, F, cwO, oblText, tight);
   if (!ME || !MO) return null;
   const chE = Math.max(ME.ch, o.minChE ?? 0), chO = Math.max(MO.ch, o.minCh ?? 0);
-  const headFits = show && o.headings !== false ? [fitG(p.panels.circumstance, {maxWidth: We - 2 * ci - (stack ? 2 * (arm + gapC + F * 0.3) : 0), size: F, maxLines: 2, weight: 700, strict: true}), fitG(p.panels.section, {maxWidth: Wt - 2 * ci, size: F, maxLines: 2, weight: 700, strict: true})] : [null, null];
+  const headFits = show && o.headings !== false ? panelHeadFits(p, F, We, Wt, ci, stack ? 2 * (arm + gapC + F * 0.3) : 0) : [null, null];
   if (headFits.some(f => f && f.bad)) return null;
   const colHH = headFits[0] ? Math.max(...headFits.map(f => f.height)) + F * (tight ? 0.5 : 0.7) : F * 1.2;
   const headFit = show && o.headText !== false ? fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: BW - 2 * m - F, size: F, maxLines: 3, weight: 700}) : null;

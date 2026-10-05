@@ -3,8 +3,8 @@
 // (only the supplied state of the focus route: traced to its end card on desk A, clipped on desk B; every other route
 // is marked identically on both desks) and no legal consequence is invented (the guide and the neutral note name no
 // winner, score or outcome; the end entries never change).
-// Timing (u): base 0–0.17 (identical) · change: A puck hop 0.17–0.21, trace 0.21–0.34, back 0.34–0.39; B clip
-// 0.19–0.33 · shared marking on both desks: puck 0.43–0.66 + back 0.66–0.73, clips 0.43–0.73 · guide 0.77–0.82 ·
+// Timing (u): base 0–0.17 (identical) · change: A right hand + puck hop 0.17–0.22, trace 0.22–0.34, back 0.34–0.40; B clip
+// (left hand) 0.17–0.36 · shared marking on both desks: right hand + puck 0.43–0.65, back 0.65–0.74; left hand clips 0.43–0.68, back after · guide 0.77–0.82 ·
 // neutral note 0.80–0.85; still from 0.85.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
@@ -14,7 +14,7 @@ import {ratioChecks, times} from '../harness/ratio-checks.js';
 const ID = 'LAW-0359';
 
 contractSuite(ID, {
-  continuity: ['puckA', 'puckB', 'clipB'],
+  continuity: ['puckA', 'puckB', 'clipB', 'handRA', 'handRB', 'handLA', 'handLB'],
   semantic: [
     {at: 0, fn: "s.beat === 'base' && JSON.stringify(s.lookA) === JSON.stringify(s.lookB) && s.inkFocusA === 0 && s.laidFocusB === 0", label: 'base: both desks identical, nothing marked'},
     {at: 0.28, fn: "s.beat === 'change' && s.inkFocusA > 0 && s.inkFocusA < 1 && s.inkFocusB === 0 && s.laidFocusA === 0", label: 'change: only desk A traces the focus route'},
@@ -38,6 +38,10 @@ suppliedTextSuite(ID, {
 });
 
 ratioChecks(ID, 'only the focus route differs; equal desks; composition fits', [
+  {at: [1], fn: 's.textPx >= 19.5', label: 'baseline presets (incl. baseline-es) keep key text >= 19.5 px in every ratio (browser-measured layout)', presets: ['baseline-illustrative', 'baseline-es'], tv: ['all']},
+  {at: times(0, 1, 0.01), fn: 'Math.hypot(s.handRA.x - s.puckA.x, s.handRA.y - s.puckA.y) < 1.5 && Math.hypot(s.handRB.x - s.puckB.x, s.handRB.y - s.puckB.y) < 1.5', label: 'each puck stays in its right hand'},
+  {at: times(0, 1, 0.005), fn: '(!s.heldA || Math.hypot(s.handLA.x - s.gripSA.x, s.handLA.y - s.gripSA.y) < 1.5) && (!s.heldB || Math.hypot(s.handLB.x - s.gripSB.x, s.handLB.y - s.gripSB.y) < 1.5)', label: 'a carried clip stays in the left hand'},
+  {at: times(0, 1, 0.01), fn: 's.allReached', label: 'hands within reach'},
   {at: times(0, 0.165, 0.015), fn: 'JSON.stringify(s.lookA) === JSON.stringify(s.lookB)', label: 'identical desks before the change beat'},
   {at: times(0.17, 1, 0.02), fn: 's.sharedSame', label: 'the other routes are always marked identically'},
   {at: times(0.17, 1, 0.02), fn: 's.inkFocusB === 0 && s.laidFocusA === 0', label: 'desk B never traces the focus route; desk A never clips it'},

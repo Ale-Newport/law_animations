@@ -135,6 +135,8 @@ function compose(ctx, P, F, opts) {
     OM = originModel(P2, {w: ow, F, showText: showKey});
     EM = endModel(P2, {w: ew, F, showText: showKey, alt});
     plan = mapPlan(P2, OM, EM, {F, orient, gap: F * 6.5, slots: Math.max(1, np), tray: false});
+    const spareV = mapHmax - plan.needH;
+    if (spareV > 1) plan = mapPlan(P2, OM, EM, {F, orient, gap: F * 6.5 + Math.min(F * 6, spareV), slots: Math.max(1, np), tray: false});
   }
   const fitsW = plan.needW <= mapW + 0.5, fitsH = plan.needH <= mapHmax + 0.5;
   folder.h = plan.needH + 2 * pF;

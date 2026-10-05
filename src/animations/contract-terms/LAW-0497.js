@@ -3,7 +3,7 @@
  *
  * Storyboard (standing microscene; the contract board between the two parties):
  *  0.00–0.15  rest: the contract board (head band "CT-523 · Contract (fictional)", its layers behind) with two panels —
- *             "Facts and communications" (an empty slot; below it, in the tray, the card "Communication 1
+ *             "Circumstances and communications" (an empty slot; below it, in the tray, the card "Communication 1
  *             (supplied)" printed with its supplied case: ● "Case provided for (as supplied)" or ◆ "Case not described
  *             (as supplied)", drawn alike) and "Termination clause" (its supplied sections seated in rows). Right of the
  *             sections the connector bracket stands open in its track. Party A stands at the left, Party B at the right.
@@ -227,7 +227,7 @@ export default defineAnimation({
     motif: 'Cláusula de terminación',
     treatment: 'story',
     family: 'staged-scene',
-    description: 'Two standing parties on either side of a contract board with two panels, "Facts and communications" and "Termination clause". Party A takes the card "Communication 1 (supplied)" (printed with its supplied case: ● provided for or ◆ not described, drawn alike) from the tray and seats it in the slot. With "provided for" Party B slides a neutral connector bracket shut on the supplied section of the clause and a connector cord is drawn from the bracket to the seated card: the section is connected with the supplied communication. With "not described" the bracket stays open and no cord is drawn. The hold shows "Section connected as supplied" (or "No connection supplied") and the key "As supplied · no conclusion drawn". No termination doctrine, no notice period, no validity judgement, no conclusion.',
+    description: 'Two standing parties on either side of a contract board with two panels, "Circumstances and communications" and "Termination clause". Party A takes the card "Communication 1 (supplied)" (printed with its supplied case: ● provided for or ◆ not described, drawn alike) from the tray and seats it in the slot. With "provided for" Party B slides a neutral connector bracket shut on the supplied section of the clause and a connector cord is drawn from the bracket to the seated card: the section is connected with the supplied communication. With "not described" the bracket stays open and no cord is drawn. The hold shows "Section connected as supplied" (or "No connection supplied") and the key "As supplied · no conclusion drawn". No termination doctrine, no notice period, no validity judgement, no conclusion.',
     tags: ['termination clause', 'section', 'communication', 'circumstance', 'connector', 'bracket', 'contract', 'layers', 'equal weight', 'characters'],
     defaultDurationMs: DURATION,
     assets: ['src/animations/contract-terms/kits/clausula-terminacion.js', 'src/primitives/person.js', 'src/primitives/annotate.js', 'src/primitives/people-style.js'],

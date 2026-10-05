@@ -130,7 +130,7 @@ function compose(ctx, P, R, F, v) {
     for (let c = 0; c < sc; c++) {
       const part = all.slice(c * per, (c + 1) * per);
       if (!part.length) continue;
-      const PLc = panelLayout(ctx, part, {w: cw, F});
+      const PLc = panelLayout(ctx, part, {w: cw, F, maxLines: sc >= 3 ? 4 : 3});
       if (!PLc.ok) problems.push('strip-text');
       cols.push({PL: PLc, x: c * (cw + cg)});
     }
@@ -197,16 +197,17 @@ function compose(ctx, P, R, F, v) {
 }
 
 const scene = {
-  sizes: {landscape: [1690, 738], square: [950, 738], portrait: [950, 1360]},
+  // (design spaces fill the caption-safe box: 0.88 × 0.74 of the frame)
+  sizes: {landscape: [1690, 790], square: [950, 790], portrait: [950, 1400]},
   layout(ctx) {
     const P = localisedDn(ctx, EN, ES);
     const R = resolveDn(P);
     const shape = ctx.view.shape;
-    const rowV = [0.14, 0.18, 0.24, 0.3].flatMap(ez => [3, 4].flatMap(pl => [1.1, 0.9].map(rw => ({arr: 'row', ez, pl, rw}))));
+    const rowV = [0.14, 0.18, 0.24, 0.3].flatMap(ez => [3, 4].flatMap(pl => [1.1, 0.9, 0.75].map(rw => ({arr: 'row', ez, pl, rw}))));
     const colV = [0.14, 0.24, 0.3].flatMap(ez => [3, 4].map(pl => ({arr: 'column', ez, pl})));
     const vs = shape === 'landscape' ? [...[3, 4].flatMap(sc => rowV.map(x => ({...x, sc}))), ...[0.2, 0.24].flatMap(side => rowV.map(x => ({...x, side})))]
       : shape === 'portrait' ? [3, 2].flatMap(sc => colV.map(x => ({...x, sc})))
-        : [...[3, 2].flatMap(sc => colV.map(x => ({...x, sc}))), ...[0.3, 0.36].flatMap(side => colV.map(x => ({...x, side}))), ...[2, 3].flatMap(sc => rowV.map(x => ({...x, sc})))];
+        : [...[3, 2].flatMap(sc => colV.map(x => ({...x, sc}))), ...[0.3, 0.36].flatMap(side => colV.map(x => ({...x, side}))), ...rowV.map(x => ({...x, sc: 2}))];
     let C = null, best = null;
     // the boards are the subject: among the sizes that compose, keep the composition with the largest folder (weighted
     // mildly by the text size); text starts at 20.5 so the strip stays compact
@@ -220,7 +221,7 @@ const scene = {
         else if (!best || c.problems.length < best.problems.length) best = c;
       }
       if (found && (!C || score(found) > score(C))) C = found;
-      if (C && ++tried >= 3) break;
+      if (C && (++tried >= 3 || F <= 19.5)) break; // (supplied text stays >= 19.5 px whenever a composition allows it)
     }
     return {P, R, C: C || best};
   },

@@ -38,6 +38,7 @@ suppliedTextSuite(ID, {
 });
 
 ratioChecks(ID, 'lens is a real, large magnification; the datum lives in one place at a time', [
+  {at: [1], fn: 's.textPx >= 19.5', label: 'baseline presets (incl. baseline-es) keep key text >= 19.5 px in every ratio (browser-measured layout)', presets: ['baseline-illustrative', 'baseline-es'], tv: ['all']},
   {at: [0.5], fn: 's.zoom >= 1.5 && s.problems.length === 0', label: 'lens ≥ 1.5× and a composition fits'},
   {at: [0.5], dom: "(() => { const b = svg.querySelector('[data-node=\"lens-border\"]').getBoundingClientRect(); const m = svg.getScreenCTM(); const vb = svg.viewBox.baseVal; return Math.min(b.width, b.height) / Math.min(vb.width * m.a, vb.height * m.d) >= 0.34; })()", label: 'the open lens is ≥ ~35 % of the frame\'s short side', tv: ['all']},
   {at: times(0, 1, 0.01), fn: "s.contextShows !== 'lens' || s.copy > 0.02", label: 'the context copy is hidden only while the lens holds the detail'},

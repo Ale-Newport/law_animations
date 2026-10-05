@@ -110,7 +110,7 @@ export function localisedSd(ctx, en, es) {
 /* ------------------------------------------------------------------ */
 
 const GLUE_NEXT = /^(\d[\w.,;:)\]]*|[)\].,;:!?»”·]+|[–—-]\d+[\w)]*)$/u;
-const GLUE_PREV = /^(§|nº|n\.º|no\.|«|“|\(|card|tarjeta|Card|Tarjeta)$/u;
+const GLUE_PREV = /^(§|nº|n\.º|no\.|«|“|\(|card|tarjeta|Card|Tarjeta|of|de|del|the|a|en|el|la|to)$/u;
 
 /** Tokens merged into unbreakable units (numbers, single letters after "card" and closing punctuation stay with their word). */
 function units(text) {

@@ -170,7 +170,7 @@ const scene = {
     const showKey = ctx.show('key');
     const vs = shape === 'portrait' ? [{}, {cols: 2}]
       : shape === 'square' ? [{cols: 2}, {cols: 2, tight: true}, {cols: 3, tight: true}]
-        : showKey ? [{side: true, pw: 0.36}, {side: true, pw: 0.4}, {side: true, pw: 0.44}] : [{}];
+        : showKey ? [{side: true, pw: 0.36}, {side: true, pw: 0.4}, {side: true, pw: 0.44}] : [{side: true, pw: 0.27}, {side: true, pw: 0.31}, {}];
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [34, 30, 27, ...SIZES] : SIZES).map(x => x / pxu);
     let C = null, best = null;

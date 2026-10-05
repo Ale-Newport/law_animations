@@ -40,6 +40,7 @@ suppliedTextSuite(ID, {
 });
 
 ratioChecks(ID, 'puck always in hand; clips move only while held; composition fits; hands within reach', [
+  {at: [1], fn: 's.textPx >= 19.5', label: 'baseline presets (incl. baseline-es) keep key text >= 19.5 px in every ratio (browser-measured layout)', presets: ['baseline-illustrative', 'baseline-es'], tv: ['all']},
   {at: times(0, 1, 0.01), fn: 'Math.hypot(s.handR.x - s.puck.x, s.handR.y - s.puck.y) < 1.5', label: 'the puck stays in the right hand'},
   {at: times(0, 1, 0.005), fn: '!s.heldS || Math.hypot(s.handL.x - s.gripS.x, s.handL.y - s.gripS.y) < 1.5', label: 'a carried clip stays in the left hand (by its tab)'},
   {at: times(0, 1, 0.01), fn: "s.phaseL === 'carry' || s.laid.every(v => v === null || v === 0 || v === 1)", label: 'clips are either in the tray, carried or laid'},
