@@ -97,6 +97,19 @@ export function orderOf(p) {
   for (let i = 0; i < n; i++) if (!out.includes(i)) out.push(i);
   return out;
 }
+const GL = '\u2017';
+/**
+ * fitG with short tokens (≤ 2 characters, e.g. the annex letter "B" or "·") glued to the word before them, so a label
+ * never wraps as "Annex / B · Price". The glue character is measured (slightly wider than a space) and drawn as a space.
+ */
+export function fitK(text, o) {
+  const words = String(text ?? '').replace(/\s+/g, ' ').trim().split(' ');
+  const out = [];
+  for (const w of words) { if (out.length && w.length <= 2) out[out.length - 1] += GL + w; else out.push(w); }
+  const f = fitG(out.join(' '), o);
+  if (!out.some(w => w.includes(GL))) return f;
+  return {...f, lines: f.lines.map(l => l.split(GL).join(' ')), full: String(text ?? '')};
+}
 export const longest = arr => arr.reduce((a, b) => (String(b).length > String(a).length ? b : a), '');
 export const hueOf = i => HUES[i % HUES.length];
 export const softOf = i => HUE_SOFT[i % HUE_SOFT.length];
@@ -149,13 +162,13 @@ export function cardText(p, order, w, F, minF, o = {}) {
   const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: w - padX * 2, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700});
   const headH = head.height + F * 0.9;
   const heading = fitG(p.clause.heading, {maxWidth: w - padX * 2 - 30, size: F, minSize: minF, maxLines: 2, weight: 700});
-  const text = o.noText ? null : fitG(p.clause.text, {maxWidth: w - padX * 2, size: Math.max(minF, F * 0.92), minSize: minF, maxLines: stress ? 4 : 3, weight: 500});
+  const text = o.noText ? null : fitG(p.clause.text, {maxWidth: w - padX * 2, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 500});
   const disc = F * 0.9;
   const tab = F * 1.4;
   const rowX = padX + lead;
   const labelX = rowX + disc * 2 + 12 + tab + 12;
   const labelW = w - labelX - 22;
-  const rows = order.map((si, k) => fitG(o.rowText ? o.rowText(k, si) : p.schedules[si].label, {maxWidth: labelW, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600}));
+  const rows = order.map((si, k) => fitK(o.rowText ? o.rowText(k, si) : p.schedules[si].label, {maxWidth: labelW, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 600}));
   const rowH = rows.map(f => Math.max(f.height, disc * 2, tab) + F * 0.8);
   const headingY = headH + F * 0.75;
   const textY = headingY + heading.height + F * 0.45;
@@ -167,13 +180,13 @@ export function cardText(p, order, w, F, minF, o = {}) {
 }
 
 /** Row placement inside a card of height hh: [{y, h}], spreading into spare room (bounded). */
-export function placeCardRows(C, hh, F) {
+export function placeCardRows(C, hh, F, o = {}) {
   const n = C.rows.length;
   const base = C.rowH.reduce((a, b) => a + b, 0);
   const avail = hh - C.listY - F * 0.9;
   const spare = Math.max(0, avail - base - F * 0.35 * (n - 1));
-  const grow = Math.min(spare * 0.45 / n, F * 1.2);
-  const gap = Math.min(F * 0.35 + (spare - grow * n) * 0.5 / Math.max(1, n - 1 || 1), F * 1.4);
+  const grow = Math.min(spare * 0.55 / n, F * (o.maxGrow ?? 2.4));
+  const gap = Math.min(F * 0.35 + (spare - grow * n) * 0.6 / Math.max(1, n - 1), F * 1.8);
   let y = C.listY;
   return C.rows.map((fit, k) => { const row = {y, h: C.rowH[k] + grow, fit}; y += row.h + gap; return row; });
 }
@@ -237,24 +250,26 @@ export function contractCard(ctx, o) {
 export function binderTop(ctx, o) {
   const {w, h: hh, bandH, i} = o;
   const hue = hueOf(i);
-  const spine = Math.min(36, w * 0.1);
+  const s = o.tabS;
+  const spine = s + 14;
+  const by = hh - bandH;
   const parts = [
     h('rect', {x: 7, y: 9, width: r(w), height: r(hh), rx: 10, fill: ctx.theme.shadow}),
     h('rect', {x: 0, y: 0, width: r(w), height: r(hh), rx: 10, fill: hue, stroke: INK, 'stroke-width': 2.6}),
     h('rect', {x: 0, y: 0, width: r(spine), height: r(hh), rx: 8, fill: shade(hue, -0.22), stroke: INK, 'stroke-width': 2}),
-    h('path', {d: `M${r(spine + 10)} 14H${r(w - 14)}`, stroke: shade(hue, 0.25), 'stroke-width': 3, 'stroke-linecap': 'round'}),
+    h('path', {d: `M${r(spine + 12)} 14H${r(w - 14)}M${r(spine + 12)} 24H${r(w * 0.6)}`, stroke: shade(hue, 0.25), 'stroke-width': 3, 'stroke-linecap': 'round'}),
   ];
-  for (const fy of [0.25, 0.75]) {
-    const y = Math.min(hh - bandH - 12, (hh - bandH) * fy + 6);
-    if (y > 16) parts.push(h('circle', {cx: r(spine / 2), cy: r(y), r: 5, fill: '#e9e2d3', stroke: INK, 'stroke-width': 1.6}));
+  // two rings on the spine above the band
+  for (const fy of [0.3, 0.72]) {
+    const y = by * fy;
+    if (y > 14 && y < by - 14) parts.push(h('circle', {cx: r(spine / 2), cy: r(y), r: 5.5, fill: '#e9e2d3', stroke: INK, 'stroke-width': 1.6}));
   }
-  const by = hh - bandH;
-  const s = o.tabS;
   parts.push(
     h('rect', {x: r(spine + 8), y: r(by + 6), width: r(w - spine - 16), height: r(bandH - 12), rx: 7, fill: '#fffdf7', stroke: INK, 'stroke-width': 2}),
-    tabChip(ctx, spine + 18, by + bandH / 2 - s / 2, s, i, o.tab, o.show),
+    // the tab letter sits in a window on the spine, level with the band
+    tabChip(ctx, 7, by + bandH / 2 - s / 2, s, i, o.tab, o.show),
   );
-  const lx = spine + 18 + s + 14;
+  const lx = spine + 22;
   if (o.show) parts.push(txt(o.fit, {x: lx, y: by + bandH / 2 - o.fit.height / 2, fill: INK}));
   else parts.push(h('path', {d: `M${r(lx)} ${r(by + bandH / 2)}h${r(Math.min(w - lx - 30, 200))}`, stroke: '#cfc5b0', 'stroke-width': 10, 'stroke-linecap': 'round'}));
   return g({name: o.name, opacity: o.opacity, 'data-occludes': o.occludes ? 1 : undefined}, parts);
@@ -262,10 +277,9 @@ export function binderTop(ctx, o) {
 
 /** Label geometry of a binder band for width w. */
 export function binderLabel(label, w, F, minF, stress) {
-  const spine = Math.min(36, w * 0.1);
   const s = F * 1.4;
-  const lw = w - (spine + 18 + s + 14) - 22;
-  return {fit: fitG(label, {maxWidth: lw, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700}), tabS: s};
+  const lw = w - (s + 14 + 22) - 22;
+  return {fit: fitK(label, {maxWidth: lw, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 700}), tabS: s};
 }
 
 /* ------------------------------------------------------------------------ */

@@ -29,7 +29,7 @@ import {scenarioHeader} from '../../frameworks/paired.js';
 import {localised, benchNode, gloveArm, panelLayout, R2, fitG, textAt, INK} from './kits/evidence-art.js';
 import {
   ioFields, IO_EN, IO_ES, IO_LABELS_EN, IO_LABELS_ES, ioLabelFields, fitStation, stationNodes, stationProps,
-  itemWindows, routeAt, legendNodes, F_SIZES,
+  itemWindows, travelWeights, routeAt, legendNodes, F_SIZES,
 } from './kits/inventario-objetos.js';
 
 const ID = 'LAW-0379';
@@ -61,6 +61,8 @@ const OWN_ES = {
 };
 const EN = {...IO_EN, ...OWN_EN};
 const ES = {...IO_ES, ...OWN_ES};
+/** Spanish defaults (used by the baseline-es preset). */
+export const ES_PARAMS = ES;
 
 const sceneSchema = {
   ...ioFields,
@@ -205,7 +207,7 @@ const scene = {
       const N = stationNodes(ctx, G, {prefix: pref, ox, oy, kinds: P.items.map(it => it.kind), SF: si === 0 ? SFA : SFB, tagFits: tagFits(linked), showText: ctx.show('key'), tagWritable: linked});
       return {bench, ox, oy, linked, pref, world, shoulder, armW, N};
     });
-    const W = itemWindows(n, ACT[0], ACT[1], 0.05);
+    const W = itemWindows(n, ACT[0], ACT[1], 0.05, travelWeights(sides[0].world));
     for (const sd of sides) {
       let far = 0;
       for (let i = 0; i <= 80; i++) {

@@ -36,7 +36,7 @@ import {
 const ID = 'LAW-0506';
 const DURATION = 6000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
-const W = {trace: [0.15, 0.42], tabsOut: [0.42, 0.46], plates: [0.44, 0.56], slip: [0.54, 0.66], collar: [0.66, 0.74], final: [0.75, 0.79], key: [0.77, 0.81], legend: [0.79, 0.83]};
+const W = {trace: [0.15, 0.42], tabsOut: [0.42, 0.46], plates: [0.44, 0.56], slip: [0.54, 0.66], collar: [0.66, 0.74], final: [0.75, 0.79], key: [0.77, 0.81], legend: [0.79, 0.83], hold: [0.74, 0.78]};
 const IDS = ['contract', 'clause', 'promise', 'claim'];
 const KINDS = ['relation', 'communication', 'sequence', 'causal'];
 
@@ -129,9 +129,10 @@ function promiseFilm(ctx, o) {
   const th = ctx.theme;
   return g({name: o.name},
     h('path', {d: roundRectPath(5, 5, o.w, o.h, 12), fill: 'none', stroke: '#3c7486', 'stroke-width': 2, opacity: 0.45}),
-    h('path', {d: roundRectPath(0, 0, o.w, o.h, 12), fill: '#d6ecf2', 'fill-opacity': 0.16, stroke: '#3c7486', 'stroke-width': 2.6}),
+    h('path', {d: roundRectPath(0, 0, o.w, o.h, 12), fill: '#d6ecf2', 'fill-opacity': 0.16, stroke: '#3c7486', 'stroke-width': 2.6, name: `${o.name}-edge`}),
+
     h('path', {d: `M${r(o.w * 0.62)} 4l${r(o.w * 0.12)} 0M${r(o.w * 0.7)} ${r(o.h - 6)}l${r(o.w * 0.1)} 0`, stroke: '#ffffff', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.9}),
-    h('rect', {x: 14, y: 12, width: r(o.frameW), height: r(o.h - 24), rx: 8, fill: 'none', stroke: th.accent2, 'stroke-width': 4}),
+    h('rect', {name: `${o.name}-frame`, x: 14, y: 12, width: r(o.frameW), height: r(o.h - 24), rx: 8, fill: 'none', stroke: th.accent2, 'stroke-width': 4}),
     h('path', {d: o.railD, fill: 'none', stroke: th.accent2, 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}),
   );
 }
@@ -197,7 +198,9 @@ function geom(ctx, F, minF, hkFrac, styleIn) {
   const gap = 14;
   const TT0 = slipText(ctx, p, slipW, F, minF, stress, 0);
   const NF = Math.min(F, TT0.label.size, head.size, title.size, ...rowFits.map(f => f.size));
-  const chipOf = (q, x, yy, w, text, anchor) => chipG(ctx, text ?? q.text, {x, y: yy, anchor, maxWidth: w, size: NF, minSize: minF, maxLines: stress ? 4 : 3, weight: q.kind === 'key' ? 500 : 700, name: q.name,
+  let noteF = NF;
+  const chipOf = (q, x, yy, w, text, anchor) => chipG(ctx, text ?? q.text, {x, y: yy, anchor, maxWidth: w, size: q.kind === 'key' ? NF : noteF, // the generic caption never outgrows supplied text
+    minSize: minF, maxLines: stress ? 4 : 3, weight: q.kind === 'key' ? 500 : 700, name: q.name,
     glyph: q.kind === 'final' ? (gx, gy, rr) => stateGlyph(ctx, p.finalState, gx, gy, rr) : q.kind === 'legend' ? (gx, gy) => legendGlyph(ctx, q.k, gx, gy, F) : null,
     fill: q.kind === 'final' ? ctx.theme.accent2Soft : ctx.theme.card});
   // vertical budget → the clause plate height
@@ -280,7 +283,20 @@ function geom(ctx, F, minF, hkFrac, styleIn) {
   // hold notes: beside the assembly (16:9) or below it (other), in the room the exploded parts leave
   const placed = [];
   let notesBox;
-  if (style === 'right') notesBox = {x: asmRight + 40, w: D.w - m - asmRight - 40, top: m, bottom: D.h - m};
+  let hzR = null;
+  if (style === 'right') {
+    notesBox = {x: asmRight + 40, w: D.w - m - asmRight - 40, top: m, bottom: D.h - m};
+    // at the hold the assembled stack grows (one smooth scale, left edge fixed, lifted into the tab band) into the room the
+    // exploded film and slip used; the notes keep their natural width beside it
+    const aT = asm.contract.y, aL = asm.contract.x, aB = asmBottom + 20, aR = asmRight + 16;
+    const nW = clamp(notesBox.w * 0.55, Math.min(280, notesBox.w), notesBox.w);
+    const top = Math.max(m, Math.min(aT, ...IDS.map(id => tabPos[id].y)));
+    const Z = clamp(Math.min((D.h - m - top) / (aB - aT), (D.w - 2 * m - 4 - 40 - nW) / (aR - aL)), 1, 1.8);
+    const left = Z > 1 ? m + 4 : aL;
+    hzR = {Z, tx: left - Z * aL, ty: top - Z * aT};
+    const nx = left + Z * (asmRight - aL) + 40;
+    notesBox = {x: nx, w: D.w - m - nx, top: m, bottom: D.h - m};
+  }
   else notesBox = {x: m, w: D.w - 2 * m, top: asmBottom + 26, bottom: D.h - m};
   const w2 = (notesBox.w - 20) / 2;
   const colH = (list0, w) => list0.reduce((acc, q) => acc + chipOf(q, 0, 0, w, q.worst).box.h + gap, -gap);
@@ -288,9 +304,28 @@ function geom(ctx, F, minF, hkFrac, styleIn) {
   let cols;
   if (style === 'right' || colH(notes, notesBox.w) <= availN) cols = [{items: notes, x: notesBox.x + notesBox.w / 2, w: notesBox.w}];
   else { const half = Math.ceil(notes.length / 2); cols = [{items: notes.slice(0, half), x: notesBox.x + w2 / 2, w: w2}, {items: notes.slice(half), x: notesBox.x + w2 * 1.5 + 20, w: w2}]; }
+  // 9:16 / square fallback: at the hold the assembled stack grows (one smooth scale, top edge fixed) into the room the
+  // exploded parts used, leaving exactly the notes' height below it
+  let hz = hzR || {Z: 1, tx: 0, ty: 0};
+  if (style === 'down') {
+    const notesH = Math.max(...cols.map(col => colH(col.items, col.w)), 0);
+    const aT = asm.contract.y, aL = asm.contract.x, aB = asmBottom + 20, aR = asmRight + 16;
+    const top = Math.min(aT, ...IDS.map(id => tabPos[id].y)); // up into the band the exploded parts and tabs used
+    const Z = clamp(Math.min((D.h - m - 26 - notesH - top) / (aB - aT), (D.w - 2 * m) / (aR - aL)), 1, 1.8);
+    const left = m + (D.w - 2 * m - Z * (aR - aL)) / 2;
+    hz = {Z, tx: left - Z * aL, ty: top - Z * aT};
+    notesBox.top = top + Z * (aB - aT) + 10;
+    // the notes take the height left under the grown stack (larger type, never smaller than the plates')
+    const room = D.h - m - notesBox.top;
+    for (const k of [1.6, 1.5, 1.4, 1.3, 1.2, 1.1]) {
+      noteF = NF * k;
+      if (Math.max(...cols.map(col => colH(col.items, col.w))) <= room) break;
+      noteF = NF;
+    }
+  }
   for (const col of cols) {
     const total = colH(col.items, col.w);
-    if (col.w < 200 || total > availN + 0.5) why.push('notes-do-not-fit');
+    if (col.w < 200 || total > (style === 'down' ? D.h - m - notesBox.top : availN) + 0.5) why.push('notes-do-not-fit');
     let ny = style === 'right' ? notesBox.top + Math.max(0, (availN - total) / 2) : notesBox.top;
     for (const q of col.items) {
       const c = chipOf(q, col.x, ny, col.w, null, 'middle');
@@ -303,7 +338,7 @@ function geom(ctx, F, minF, hkFrac, styleIn) {
   const collarFrom = style === 'right' ? {x: 0, y: -collar.y - collar.h - 20} : {x: D.w - collar.x + 20, y: 0};
   return {
     ok: !why.length, why, F, minF, arrangement: 'depth', style, side, prong, slipW, TT, sb, Wc, Wk, Wf, hc, hk, hf, band, head, title, titleY,
-    rows, rowW, padX, pi, frameW, filmRail, sockLocal, sock, asm, exp, expBox, routeOf, tabFits, tabH, tabPos, collar, collarFrom, placed, stress, v,
+    hz, rows, rowW, padX, pi, frameW, filmRail, sockLocal, sock, asm, exp, expBox, routeOf, tabFits, tabH, tabPos, collar, collarFrom, placed, stress, v,
     zoom: {Z: 1, c0: {x: 0, y: 0}, cT: {x: 0, y: 0}},
   };
 }
@@ -417,8 +452,14 @@ const scene = {
       return `${T(r(P0.x, 2), r(P0.y, 2))} translate(${r(cx)} ${r(cy)}) scale(${s}) translate(${r(-cx)} ${r(-cy)})`;
     };
     for (const id of ['contract', 'clause', 'promise']) nodes[id] = {transform: swell(id, pos(id))};
-    const zs = 1;
-    nodes.zoomG = {transform: ''};
+    // while the film glides across the clause lines its register frame and edge are faint (a clear sheet); they print on
+    // as it lands
+    const vis = Math.max(clamp(1 - pq / 0.12), clamp((pq - 0.88) / 0.12));
+    nodes['film-edge'] = {'stroke-opacity': r(0.25 + 0.75 * vis, 3)};
+    nodes['film-frame'] = {opacity: r(vis, 3)};
+    const zq = done ? ease.inOutCubic(seg(u, ...W.hold)) : 0;
+    const zs = 1 + (L.hz.Z - 1) * zq;
+    nodes.zoomG = {transform: zq > 0 ? `translate(${r(L.hz.tx * zq, 2)} ${r(L.hz.ty * zq, 2)}) scale(${r(zs, 4)})` : ''};
     // the slip: stays put while the plates move (in a row it shifts with the assembly), then slides in along its axis
     const app = L.side === 'left' ? {x: L.asm.claim.x + 90, y: L.asm.claim.y} : {x: L.asm.claim.x, y: L.asm.claim.y + 90};
     let tip;

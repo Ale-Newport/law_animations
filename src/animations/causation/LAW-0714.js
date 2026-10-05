@@ -53,8 +53,8 @@ const IDS = ['record', 'laneA', 'laneB', 'convergence', 'alternative'];
 const PLINTH = 0.26;
 
 const strings = {
-  en: {...CA_STRINGS.en, convergence: 'Convergence piece: lane ends and connectors (enlarged)', alternative: 'Put forward', relation: 'related (as supplied)', communication: 'noted in the record', sequence: 'then (as supplied)', causal: 'causal (as supplied)'},
-  es: {...CA_STRINGS.es, convergence: 'Pieza de convergencia: finales de carril y conectores (ampliada)', alternative: 'Planteado', relation: 'relacionado (según lo aportado)', communication: 'consta en el registro', sequence: 'después (según lo aportado)', causal: 'causal (según lo aportado)'},
+  en: {...CA_STRINGS.en, convergence: 'Convergence piece: lane ends and connectors (enlarged)', alternative: 'Put forward', relation: 'related (as supplied)', communication: 'noted in the record', sequence: 'then (as supplied)', causal: 'causal (as supplied)', nm_laneA: 'Lane A', nm_laneB: 'Lane B', nm_convergence: 'convergence piece', nm_record: 'record', nm_alternative: 'put forward'},
+  es: {...CA_STRINGS.es, convergence: 'Pieza de convergencia: finales de carril y conectores (ampliada)', alternative: 'Planteado', relation: 'relacionado (según lo aportado)', communication: 'consta en el registro', sequence: 'después (según lo aportado)', causal: 'causal (según lo aportado)', nm_laneA: 'Carril A', nm_laneB: 'Carril B', nm_convergence: 'pieza de convergencia', nm_record: 'registro', nm_alternative: 'planteado'},
 };
 
 const sceneSchema = {
@@ -93,8 +93,8 @@ const defaultParamsEs = {
 
 const MARGIN = 10;
 const SHAPES = {
-  landscape: {size: 26, minSize: 17, modes: ['trioS', 'trio', 'row', 'rowcol'], rws: [380, 420, 480, 540, 600]},
-  square: {size: 24, minSize: 17, modes: ['trioS', 'band', 'stack'], rws: [340, 380, 420, 480, 540]},
+  landscape: {size: 26, minSize: 17, modes: ['trioB', 'trioS', 'trio', 'row', 'rowcol'], rws: [380, 420, 480, 540, 600]},
+  square: {size: 24, minSize: 17, modes: ['trioB', 'trioS', 'band', 'stack'], rws: [340, 380, 420, 480, 540]},
   portrait: {size: 25, minSize: 17, modes: ['stack', 'band'], rws: [460, 520, 620, 720, 930]},
 };
 
@@ -201,9 +201,15 @@ function compose(ctx, base, cfg) {
   const {relW, seqW, relHmax, altRelW, trioW} = relMeasures(ctx, base, size, Boolean(cfg.narrowSeq), full);
   // trio (wide) / trioS (square): lane A, the convergence piece and lane B in ONE row, large; the record and legend in a
   // right-hand column (trio) or above and below the row (trioS)
-  const trio = mode === 'trio' || mode === 'trioS';
-  const rowish = mode === 'row' || mode === 'rowcol' || mode === 'trio';
-  const gapR = mode === 'trio' ? 40 : rowish ? Math.max(40, relW + 50) : 40;
+  // trioB (wide boxes): the trio row on top, large; the record (bottom left) and the band with the legend (bottom right)
+  // share the lower strip
+  const trioB = mode === 'trioB';
+  const trio = mode === 'trio' || mode === 'trioS' || trioB;
+  // hero: the convergence card large and centred above the two lane pieces; the record and legend in a compact side
+  // column (the record column of rowcol)
+  const hero = mode === 'hero';
+  const rowish = mode === 'row' || mode === 'rowcol' || mode === 'trio' || hero;
+  const gapR = mode === 'trio' || hero ? 40 : rowish ? Math.max(40, relW + 50) : 40;
   const leftW = mode === 'band' ? full - recW - 30 : 0;
   const altGap = altRelW ? altRelW + 40 : 0; // room for the alternative link's label between its chip and the record
   const altV = Math.max(24, relHmax + 30); // vertical gap between the record and an alternative chip under it
@@ -231,15 +237,19 @@ function compose(ctx, base, cfg) {
   const cAlt = meas(base.chips.alternative, Math.min(altW, 760));
   if ([cB, cA, cD, cAlt].some(c => c.bad)) return {bad: `chip${[cB, cA, cD, cAlt].map((c, i) => (c.bad ? 'BADX'[i] : '')).join('')}`};
   // band (key, notes)
-  const bandW = mode === 'rowcol' || mode === 'trio' ? recW : full;
+  const bandW = mode === 'rowcol' || mode === 'trio' || hero ? recW : trioB ? full - recW - 20 : full;
+  // trio / trioS with relation labels shown: each connector carries a numbered marker; the numbered relation texts join
+  // the band as a legend (so the gaps between the parts stay narrow and the parts large)
+  const legend = trio && textOn && ctx.show('all') && base.legend.length > 0;
+  const items = legend ? [...base.legend, ...base.band] : base.band;
   const kLeft = mode === 'band' ? (cfg.kLeft || 0) : 0; // band mode: the first kLeft band chips go in the left column
   const flowBand = (w, idx) => {
-    const bk = `${size}|${Math.round(w)}|${cfg.half}|${idx.join(',')}`;
+    const bk = `${size}|${Math.round(w)}|${cfg.half}|${legend ? 'L' : ''}${idx.join(',')}`;
     let b = memo.band.get(bk);
     if (!b) {
       const mw = cfg.half ? (w - 18) / 2 : Math.min(w, 760);
       const sz = [];
-      for (const i of textOn ? idx : []) sz.push(rangedChip(ctx, memo, `b${i}`, base.band[i], size, mw, {kind: base.kind, maxLines: 3}));
+      for (const i of textOn ? idx : []) sz.push(rangedChip(ctx, memo, `b${items[i].key}`, items[i], size, mw, {kind: base.kind, maxLines: 3}));
       // (first-fit rows: a chip takes the first row with room, so short chips fill gaps left by long ones; flowing the
       // packed order row by row gives back exactly these rows)
       const rowsFF = [];
@@ -256,7 +266,7 @@ function compose(ctx, base, cfg) {
   };
   if (kLeft > base.band.length) return {bad: 'k'};
   // band mode, keyLeft: the short key chip ("As supplied · no conclusion drawn") joins the left column under the inset
-  const nB = base.band.length, keyI = base.band.findIndex(it => it.key === 'key');
+  const nB = items.length, keyI = items.findIndex(it => it.key === 'key');
   const keyLeft = mode === 'band' && cfg.keyLeft && keyI >= kLeft;
   if (cfg.keyLeft && !keyLeft) return {bad: 'keyLeft'};
   const leftIdx = [...Array(kLeft).keys(), ...(keyLeft ? [keyI] : [])];
@@ -267,8 +277,8 @@ function compose(ctx, base, cfg) {
   // (band mode packs tighter — gaps of 12 above the key band and 22 under the top band — so the ring pieces keep the
   // subject floor in square boxes)
   const bandGap = mode === 'band' ? 12 : 18, topGap = mode === 'band' ? 70 : 30;
-  const colBand = mode === 'rowcol' || mode === 'trio';
-  const bandH = band.h && !colBand ? band.h + bandGap : 0;
+  const colBand = mode === 'rowcol' || mode === 'trio' || hero;
+  const bandH = band.h && !colBand && !trioB ? band.h + bandGap : 0;
   const bandColH = band.h && colBand ? band.h + 18 : 0;
   // relation label height budget (one chip line)
   const relH = textOn ? Math.max(size * 1.9, relHmax + 10) : 40;
@@ -278,21 +288,26 @@ function compose(ctx, base, cfg) {
     const pw = ow * 1.04;
     if (trio) {
       // the convergence card (2R = the piece height) between the two pieces; each gap holds its connector's label
-      const R = OH * 0.5;
-      const g0 = Math.max(OH * 0.14, (textOn && ctx.show('all') ? trioW : 0) + 28, 40) + (base.focus === 'convergence' ? R * 0.25 + 12 : OH * 0.1 + 12);
+      const R = OH * (trioB ? KR : 0.5);
+      const g0 = Math.max(legend ? 0 : OH * 0.14, (textOn && ctx.show('all') ? (legend ? size * 2.2 : trioW) : 0) + 28, 40) + (base.focus === 'convergence' ? R * 0.25 + 12 : OH * 0.1 + 12);
       const colB = Math.max(pw, cB.w), colA = Math.max(pw, cA.w);
       const gapX = Math.max(2 * R + 2 * g0, (colB + colA) / 2 - pw + 24, cD.w + 16 - pw);
       return {w: colB / 2 + pw + gapX + colA / 2, pw, R, gapX, ow, trio: true};
     }
-    const R = OH * (mode === 'stack' ? 0.32 : 0.42);
+    const R = OH * (hero ? 0.6 : mode === 'stack' ? 0.32 : 0.42);
     const colB = stackChips ? pw : Math.max(pw, cB.w), colA = stackChips ? pw : Math.max(pw, cA.w);
     // (stack: the convergence piece stands above the pieces, so the gap only holds the link between them and its label)
-    const gapX = Math.max(OH * (mode === 'band' ? 0.55 : mode === 'stack' ? 0.3 : 0.9), mode === 'band' || mode === 'stack' ? 0 : 2 * R + 40, (colB + colA) / 2 - pw + 24, seqW + 40);
+    const gapX = Math.max(OH * (mode === 'band' ? 0.55 : mode === 'stack' || hero ? 0.3 : 0.9), mode === 'band' || mode === 'stack' || hero ? 0 : 2 * R + 40, (colB + colA) / 2 - pw + 24, seqW + 40);
     return {w: colB / 2 + pw + gapX + colA / 2, pw, R, gapX, ow};
   };
   const chipsH = stackChips ? cB.h + (cB.h && cA.h ? 8 : 0) + cA.h : Math.max(cB.h, cA.h);
+  // (trioB: the larger card — grown ×1.27 as the focus — reaches above the pieces' tops by TPAD × OH)
+  // (square boxes: the card larger still, ~0.3 of the safe width)
+  const KR = ctx.view.shape === 'square' ? 0.68 : 0.56;
+  const TPAD = Math.max(0, 0.52 + KR * 1.27 - 1.02);
   const zoneH = OH => {
-    if (trio) return OH + Math.max(OH * PLINTH + 14 + chipsH, OH * 0.04 + (cD.h ? cD.h + 14 : 0)) + 10;
+    if (trio) return OH + (trioB ? TPAD * OH : 0) + Math.max(OH * PLINTH + 14 + chipsH, OH * 0.04 + (cD.h ? cD.h + 14 : 0)) + 10;
+    if (hero) { const R = OH * 0.6; return 2.54 * R + (cD.h ? cD.h + 14 : 0) + 2 * relH + 50 + OH + OH * PLINTH + 14 + chipsH; }
     const R = OH * (mode === 'stack' ? 0.32 : 0.42);
     return (mode === 'band' ? 0 : 2 * R + 2 * relH + 70) + OH + OH * PLINTH + 14 + chipsH;
   };
@@ -324,6 +339,9 @@ function compose(ctx, base, cfg) {
     availH = D.h - bandH;
     const colH = recH + (cAlt.h ? altV + cAlt.h : 0) + bandColH;
     if (colH > availH) return {bad: 'colH'};
+  } else if (trioB) {
+    availH = D.h - Math.max(recH + (cAlt.h ? cAlt.h + altV : 0), band.h) - 30;
+    if (recW > full * 0.5) return {bad: 'recW'};
   } else {
     availH = D.h - bandH - recH - 30 - (cAlt.h ? cAlt.h + altV : 0) - (trio ? 0 : relH);
     if (recW > full) return {bad: 'recW'};
@@ -337,7 +355,7 @@ function compose(ctx, base, cfg) {
   const OH = lo;
   if (OH < cfg.hMin) return {bad: 'OH', OH};
   if (cfg.dry) return {OH, size, cfg: {...cfg, dry: false}};
-  return {OH, size, cfg, bandGap, topGap, rec, recW, recH, zoneW, gapR, altV, bandColH, chipsH, stackChips, leftBand, leftW: leftBandW, cB, cA, cD, cAlt, band, bandH, relH, unitW: unitW(OH), zoneH: zoneH(OH), mode, availH, bandGeo, Rin: bandGeo ? bandGeo.R : unitW(OH).R};
+  return {tpad: TPAD, legend, OH, size, cfg, bandGap, topGap, rec, recW, recH, zoneW, gapR, altV, bandColH, chipsH, stackChips, leftBand, leftW: leftBandW, cB, cA, cD, cAlt, band, bandH, relH, unitW: unitW(OH), zoneH: zoneH(OH), mode, availH, bandGeo, Rin: bandGeo ? bandGeo.R : unitW(OH).R};
 }
 
 const scene = {
@@ -349,7 +367,9 @@ const scene = {
     const SH = SHAPES[ctx.view.shape];
     const M = resolveCA(p);
     const tx = texts(ctx, p, M);
-    const base = {M, focus: p.focusElement, rels: tx.rels, relText: q => gp(tx.relText(q)), kind: 'ca', header: tx.header, rows: M.entries.map(e => entryRow(e)), chips: tx.chips, band: tx.band, memo: {rec: new Map(), band: new Map(), chip: new Map(), ranges: new Map(), rel: new Map()}};
+    const nm = id => ctx.t[`nm_${id}`] || id;
+    const legendItems = tx.rels.map((q, i) => ({key: `rl${i}`, text: gp(`${i + 1} · ${nm(q.from)} – ${nm(q.to)}: ${tx.relText(q)}`)}));
+    const base = {legend: legendItems, M, focus: p.focusElement, rels: tx.rels, relText: q => gp(tx.relText(q)), kind: 'ca', header: tx.header, rows: M.entries.map(e => entryRow(e)), chips: tx.chips, band: tx.band, memo: {rec: new Map(), band: new Map(), chip: new Map(), ranges: new Map(), rel: new Map()}};
     const finish = (L, isFallback) => {
     L.fallback = isFallback;
     L.why = why.filter(w0 => /@17:/.test(w0)).slice(0, 80);
@@ -361,7 +381,7 @@ const scene = {
     const full = D.w - 2 * MARGIN;
     let zx, zy, recX = 0, recY = 0, altX = 0, altY = 0;
     const zoneWd = U.w;
-    if (L.mode === 'row' || L.mode === 'rowcol' || L.mode === 'trio') {
+    if (L.mode === 'row' || L.mode === 'rowcol' || L.mode === 'trio' || L.mode === 'hero') {
       const blockW = zoneWd + L.gapR + L.recW;
       // spare width goes mostly between the objects and the record (the model spans the box)
       const extra = Math.max(0, full - blockW);
@@ -374,7 +394,7 @@ const scene = {
       recX = x0 + zoneWd + L.gapR + 10; recY = top + (blockH - colH) / 2 + (L.rec ? L.rec.clipH * 0.35 : 0);
       altX = recX - 10 + (L.recW - L.cAlt.w) / 2; altY = recY - (L.rec ? L.rec.clipH * 0.35 : 0) + L.recH + L.altV;
       L.bandY = top + blockH + 18;
-      if (L.mode === 'rowcol' || L.mode === 'trio') { L.bandX = recX - 10; L.bandW = L.recW; L.bandY = top + (blockH - colH) / 2 + L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 18; }
+      if (L.mode === 'rowcol' || L.mode === 'trio' || L.mode === 'hero') { L.bandX = recX - 10; L.bandW = L.recW; L.bandY = top + (blockH - colH) / 2 + L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 18; }
     } else if (L.mode === 'band') {
       const B0 = L.bandGeo;
       const blockH = B0.TB + L.relH + L.topGap + L.zoneH;
@@ -387,6 +407,15 @@ const scene = {
       L.insetAt = {x: MARGIN + (B0.chipLeft ? L.cD.w + 12 + B0.R * 0.27 : 0) + B0.R + 6, y: top + B0.altBlock + B0.topX + B0.R + 6};
       L.leftBandY = top + B0.altBlock + B0.topX + 2 * B0.R + 12 + B0.belowH + 20;
       L.bandY = top + blockH + spare * 0.8 + L.bandGap;
+    } else if (L.mode === 'trioB') {
+      const lowH = Math.max(L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0), L.band.h);
+      const blockH = L.zoneH + 30 + lowH;
+      const top = Math.max(0, (D.h - blockH) / 2);
+      zx = MARGIN + (full - zoneWd) / 2; zy = top;
+      const lowY = top + L.zoneH + 30;
+      recX = MARGIN + 10; recY = lowY + (L.rec ? L.rec.clipH * 0.35 : 0);
+      altX = MARGIN; altY = lowY + L.recH + L.altV;
+      L.bandX = MARGIN + L.recW + 20; L.bandW = full - L.recW - 20; L.bandY = lowY;
     } else {
       const blockH = L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 30 + (L.mode === 'trioS' ? 0 : L.relH) + L.zoneH;
       // (spare height goes between the record and the pieces: the pieces stand at the foot of the box)
@@ -402,7 +431,7 @@ const scene = {
     const colB = L.stackChips ? U.pw : Math.max(U.pw, L.cB.w);
     const bx = zx + colB / 2;
     const ax = bx + U.pw / 2 + U.gapX + U.pw / 2;
-    const floorY = U.trio ? zy + OH * (1 + PLINTH) + 10 : zy + L.zoneH - L.chipsH - 14;
+    const floorY = U.trio ? zy + OH * (1 + PLINTH + (L.mode === 'trioB' ? L.tpad : 0)) + 10 : zy + L.zoneH - L.chipsH - 14;
     const baseY = floorY - OH * PLINTH; // plinth top = object base
     const G = {spot: miniSpot(OH)};
     L.G = G;
@@ -412,7 +441,7 @@ const scene = {
       // the after state up to the record runs clear of it
       // (the inset grown as the focus keeps clear of the content notice's pill: at most 12 units into the notice band's
       // free strip above the design box)
-      convergence: U.trio ? {x: (bx + ax) / 2, y: baseY - OH * 0.52} : L.mode === 'band' ? L.insetAt : {x: (bx + ax) / 2, y: Math.max(zy + R, p.focusElement === 'convergence' ? 1.25 * R + 4 - 12 : 0)},
+      convergence: U.trio ? {x: (bx + ax) / 2, y: baseY - OH * 0.52} : L.mode === 'band' ? L.insetAt : L.mode === 'hero' ? {x: (bx + ax) / 2, y: zy + R * 1.27} : {x: (bx + ax) / 2, y: Math.max(zy + R, p.focusElement === 'convergence' ? 1.25 * R + 4 - 12 : 0)},
     };
     L.floorY = floorY;
     L.boxes = {
@@ -443,6 +472,7 @@ const scene = {
         const gR = R * (p.focusElement === 'convergence' ? 1.27 : 1);
         const left = L.pos.convergence.x - gR - 12 - L.cD.w; // clear of the inset when it enlarges as the focus
         if (U.trio) L.chipBox.convergence = chipAt(L.cD, L.pos.convergence.x - L.cD.w / 2, L.pos.convergence.y + R + 12, 'lab-convergence');
+        else if (L.mode === 'hero') L.chipBox.convergence = chipAt(L.cD, L.pos.convergence.x - L.cD.w / 2, L.pos.convergence.y + gR + 12, 'lab-convergence');
         else if (L.mode === 'band' && !L.bandGeo.chipLeft) L.chipBox.convergence = chipAt(L.cD, Math.max(MARGIN, L.pos.convergence.x - L.cD.w / 2), L.pos.convergence.y + gR + 10, 'lab-convergence');
         else {
           // left of the inset, else right of it; when neither side holds the chip, it is re-measured to the wider side
@@ -536,7 +566,15 @@ const scene = {
     const placed = [];
     L.relLabels = [];
     const distTo = (lk, b) => { let best = Infinity; for (let s0 = 0; s0 <= 40; s0++) { const q = lk.art.at(s0 / 40); const dx = Math.max(b.x - q.x, 0, q.x - b.x - b.w), dy = Math.max(b.y - q.y, 0, q.y - b.y - b.h); best = Math.min(best, Math.hypot(dx, dy)); } return best; };
-    if (ctx.show('all')) {
+    if (ctx.show('all') && L.legend) {
+      // numbered markers ON each connector (the chip interrupts the line); the numbered texts are in the band legend
+      for (const lk of L.links) {
+        const m = lk.art.at(0.5);
+        const c0 = chipG(ctx, String(lk.i + 1), {x: 0, y: 0, maxWidth: L.size * 4, size: L.size, maxLines: 1});
+        const c = chipG(ctx, String(lk.i + 1), {x: m.x - c0.box.w / 2, y: m.y - c0.box.h / 2, maxWidth: L.size * 4, size: L.size, maxLines: 1, fill: th.card, stroke: ctx.theme.inkSoft});
+        L.relLabels.push({i: lk.i, node: g({name: `lkl${lk.i}`, opacity: 0}, c.node), box: c.box, gap: 0});
+      }
+    } else if (ctx.show('all')) {
       for (const lk of L.links) {
         const size = L.size;
         const text0 = gp(tx.relText(lk.q));
@@ -603,7 +641,7 @@ const scene = {
     const why = [];
     const hMin = ctx.view.shape === 'portrait' ? 150 : 110;
     const v0 = ctx.view, fs0 = Math.min(v0.content.w / ctx.design.w, v0.content.h / ctx.design.h);
-    const subj = q => q.OH * 1.32 * fs0 >= 0.205 * v0.height;
+    const subj = q => q.OH * (q.cfg.mode === 'trioB' ? 1.24 : 1.32) * fs0 >= 0.205 * v0.height;
     // (the narrow lane-to-lane label width only matters when a lane A – lane B relation is supplied)
     const hasSeq = base.rels.some(q => (q.from === 'laneA' && q.to === 'laneB') || (q.from === 'laneB' && q.to === 'laneA'));
     for (let size = SH.size; size >= SH.minSize - 1e-9; size -= 1) {
@@ -623,8 +661,9 @@ const scene = {
     // floor), then the larger pieces
     // (when no configuration reaches the subject floor, the largest pieces win)
     const anySubj = cands.some(subj);
-    const rank = q => [subj(q) ? 1 : 0, anySubj && q.size >= 20 - 1e-9 ? 1 : 0, q.OH];
-    cands.sort((a, b) => { const x = rank(a), y = rank(b); return y[0] - x[0] || y[1] - x[1] || y[2] - x[2]; });
+    // (trioB first among the configurations at the subject floor: the parts large in one row, the lower strip used)
+    const rank = q => [subj(q) ? 1 : 0, subj(q) && q.cfg.mode === 'trioB' ? 1 : 0, anySubj && q.size >= 20 - 1e-9 ? 1 : 0, q.OH];
+    cands.sort((a, b) => { const x = rank(a), y = rank(b); return y[0] - x[0] || y[1] - x[1] || y[2] - x[2] || y[3] - x[3]; });
     let L = null;
     for (const X of cands.slice(0, 30)) {
       const Y = finish(compose(ctx, base, X.cfg), false);
@@ -769,7 +808,7 @@ const scene = {
       tpos = u < W.trace[0] ? {x: q.x, y: q.y} : {x: e.x, y: e.y};
     }
     nodes.tracer = {transform: T(tpos.x, tpos.y), opacity: r(tOp, 3)};
-    for (const b of L.bandNodes) nodes[`band-${b.key}`] = {opacity: r(b.key === 'key' ? seg(u, ...W.key) : seg(u, ...W.band), 3)};
+    for (const b of L.bandNodes) nodes[`band-${b.key}`] = {opacity: r(b.key === 'key' ? seg(u, ...W.key) : /^rl\d/.test(b.key) ? seg(u, ...W.relate) : seg(u, ...W.band), 3)};
     const semantic = {
       beat: u < BEATS.separate[1] ? 'separate' : u < BEATS.relate[1] ? 'relate' : u < BEATS.trace[1] ? 'trace' : 'hold',
       split: r(sp, 3),

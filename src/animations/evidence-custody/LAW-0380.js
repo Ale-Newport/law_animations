@@ -58,6 +58,8 @@ const OWN_ES = {
 };
 const EN = {...IO_EN, ...OWN_EN};
 const ES = {...IO_ES, ...OWN_ES};
+/** Spanish defaults (used by the baseline-es preset). */
+export const ES_PARAMS = ES;
 
 const sceneSchema = {
   ...ioFields,

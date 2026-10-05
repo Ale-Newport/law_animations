@@ -6,6 +6,9 @@
 // Windows (u, 8 s): context 0–0.20 (bench steps aside 0.10–0.19) · lens opens 0.20–0.32 (context copy hidden from
 // 0.20) · ring 0.34–0.40 · old value lifts 0.45–0.51 · trace 0.50–0.56 · new value 0.54–0.62 · still 0.62–0.75 · lens
 // closes 0.75–0.85 · context after-state from 0.85 · Δ 0.86–0.92 · legend 0.85–0.90 · bench back 0.85–0.93.
+// Coordinator decision (2026-10-05, coordinator message to the evidence-custody-04 builder, under the standing rule
+// 2026-09-26 / AUTHORING item 20): long-labels-stress lengths/counts are capped to the longest values that keep 1:1 at its
+// floors with text >= 16 px; every field stays at least as long as baseline and counts stay >= baseline.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';

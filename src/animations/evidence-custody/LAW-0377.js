@@ -24,7 +24,7 @@ import {T} from '../../core/transform.js';
 import {localised, benchNode, gloveArm, panelLayout, ringRect, noteColors, R2, fitG} from './kits/evidence-art.js';
 import {
   ioFields, IO_EN, IO_ES, IO_LABELS_EN, IO_LABELS_ES, ioLabelFields, entryOf, rowText, composeScene, stationNodes,
-  stationProps, itemWindows, routeAt, legendNodes,
+  stationProps, itemWindows, travelWeights, routeAt, legendNodes,
 } from './kits/inventario-objetos.js';
 
 const ID = 'LAW-0377';
@@ -64,6 +64,8 @@ const OWN_ES = {
 };
 const EN = {...IO_EN, ...OWN_EN};
 const ES = {...IO_ES, ...OWN_ES};
+/** Spanish defaults (used by the baseline-es preset). */
+export const ES_PARAMS = ES;
 
 const sceneSchema = {
   ...ioFields,
@@ -135,8 +137,8 @@ const scene = {
     const rackMid = X(G.rackX + G.rackW / 2);
     const bagMid = G.bag ? X(G.bag.x + G.bag.w / 2) : rackMid;
     const shoulder = {x: clamp(G.bagMode === 'left' ? (rackMid + bagMid) / 2 : rackMid + G.S * 0.3, C.bench.x + 60, C.bench.x + C.bench.w - 60), y: bb + Math.max(60, C.bench.h * 0.08)};
-    world.rest = {x: shoulder.x + armW * 0.3, y: bb - armW * 1.6};
-    const W = itemWindows(n, ACT[0], ACT[1], 0.06);
+    world.rest = {x: shoulder.x + armW * 0.3, y: bb - Math.max(armW * 1.6, C.bench.h * 0.1)};
+    const W = itemWindows(n, ACT[0], ACT[1], 0.06, travelWeights(world));
     const L0 = {P, n, W, world, G, linked};
     let far = 0;
     for (let i = 0; i <= 80; i++) {

@@ -120,6 +120,15 @@ function legendFor(ctx, rows, F, opt) {
       }
       if (best) PLs = best.cols;
     }
+    if (cols === 3 && rows.length >= 3) {
+      let best3 = null;
+      for (let i = 1; i < rows.length - 1; i++) for (let j = i + 1; j < rows.length; j++) {
+        const ps = [rows.slice(0, i), rows.slice(i, j), rows.slice(j)].map(rr => panelLayout(ctx, rr, {w: colW, F}));
+        const hh = Math.max(...ps.map(q => q.h));
+        if (!best3 || hh < best3.h) best3 = {h: hh, cols: ps};
+      }
+      PLs = best3.cols;
+    }
     const ph = Math.max(...PLs.map(q => q.h));
     return {bench: {x: 0, y: 0, w: DW, h: DH - ph - gap}, panel: {x: 4, y: DH - ph}, PL: {cols: PLs, h: ph, ok: PLs.every(q => q.ok), colW}};
   }
@@ -132,7 +141,7 @@ function compose(ctx, P, recs, F, opt, LG, vs) {
   const {bench, panel, PL} = LG;
   const inset = Math.max(14, Math.min(bench.w, bench.h) * 0.035);
   const mat = {x: bench.x + inset * 1.5, y: bench.y + inset * 1.5, w: bench.w - inset * 3, h: bench.h - inset * 3};
-  const wide = mat.w / mat.h > 1.05;
+  const wide = opt.orient ? opt.orient === 'h' : mat.w / mat.h > 1.05;
   const pl = P.detailGeometry.placement;
   const lensFirst = wide ? pl === 'left' : pl === 'top';
   const split = opt.split;
@@ -150,6 +159,7 @@ function compose(ctx, P, recs, F, opt, LG, vs) {
   const card = {x: slot.x, y: slot.y, w: pw, h: ph + tabH};
   const pad = pw * 0.06;
   const source = {x: card.x - pad, y: card.y - pad * 2.2, w: card.w + pad * 2, h: card.h + pad * 3};
+  { const sw = Math.max(source.w, source.h); source.x -= (sw - source.w) / 2; source.w = sw; }
   const lw = zoneLens.w * 0.97, lh = zoneLens.h * 0.96;
   const zoom = Math.min(lw / source.w, lh / source.h);
   const dest = {w: source.w * zoom, h: source.h * zoom};
@@ -180,7 +190,7 @@ function compose(ctx, P, recs, F, opt, LG, vs) {
   const ew = Math.max(G.stageBox.x + G.stageBox.w, G.tray.x + G.tray.w) - ex0, eh = Math.max(G.stageBox.y + G.stageBox.h, G.tray.y + G.tray.h) - ey0;
   const rsc = clamp(Math.min(mat.h * 0.96 / eh, mat.w * 0.96 / ew), 1, 2.2);
   const restS = G.S * rsc;
-  const stageOk = G.S >= 58 || restS >= 95;
+  const stageOk = G.S >= 70 || (restS >= 80 && G.S >= 55); // large at rest / hold; the context steps aside (smaller) only while the lens is open
   const ok = (!PL || PL.ok) && G.fits && zoomOk && textOk && lensBig && stageOk;
   const minT = Math.min(size, tsz, nsz, num0 ? Math.min(...nFits.map(f => f.size)) : size);
   return {F, rsc, bench, mat, panel, PL, G, fi, slot, pw, ph, tabH, card, source, dest, zoom, size, bFit, aFit, trace, tsz, badgeR, nFits, ok, kText: 16.3 / (minT * vs),
@@ -244,19 +254,19 @@ const scene = {
     const shape = ctx.view.shape;
     const vs = Math.min(ctx.view.content.w / ctx.design.w, ctx.view.content.h / ctx.design.h) * 1080 / Math.min(ctx.view.width, ctx.view.height);
     const opts = shape === 'portrait' ? [{mode: 'below', cols: 1}, {mode: 'below', cols: 2}]
-      : shape === 'square' ? [{mode: 'side', pw: 0.36}, {mode: 'side', pw: 0.42}, {mode: 'side', pw: 0.48}, {mode: 'below', cols: 2}]
+      : shape === 'square' ? [{mode: 'side', pw: 0.36}, {mode: 'side', pw: 0.42}, {mode: 'side', pw: 0.48}, {mode: 'below', cols: 2}, {mode: 'below', cols: 3}]
         : [{mode: 'side', pw: 0.26}, {mode: 'side', pw: 0.3}, {mode: 'side', pw: 0.34}];
     const rowsL = legendRows(ctx, P, recs);
     let C = null, best = null, bestScore = -1, firstOk = -1;
     const lg = new Map();
     for (const [fi, F] of SIZES.entries()) {
-      if (firstOk >= 0 && fi > firstOk + 2) break;
-      for (const o0 of opts) for (const split of [0.62, 0.55, 0.48, 0.42, 0.36]) for (const tr of [{tray: 'right', trayFrac: 0.34}, {tray: 'top', trayFrac: 0.3}, {tray: 'right', trayFrac: 0.26, approach: 'left'}]) {
+      if (firstOk >= 0 && fi > firstOk + 1) break;
+      for (const o0 of opts) for (const [orient, split] of [['h', 0.62], ['h', 0.55], ['h', 0.48], ['v', 0.48], ['v', 0.42], ['v', 0.36]]) for (const tr of [{tray: 'right', trayFrac: 0.34}, {tray: 'right', trayFrac: 0.26, approach: 'left'}]) {
         const key = `${F}|${JSON.stringify(o0)}`;
         if (!lg.has(key)) lg.set(key, legendFor(ctx, rowsL, F, o0));
         const LG = lg.get(key);
         if (LG.PL && !LG.PL.ok && C) continue;
-        const c = compose(ctx, P, recs, F, {...o0, split, ...tr}, LG, vs);
+        const c = compose(ctx, P, recs, F, {...o0, split, orient, ...tr}, LG, vs);
         const score = c.G.S * Math.sqrt(c.rsc) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * Math.min(1.3, c.zoom / 2);
         if (c.ok && firstOk < 0 && F >= 19.5) firstOk = fi;
         if (c.ok && score > bestScore) { best = c; bestScore = score; }
@@ -300,7 +310,10 @@ const scene = {
       : P.afterValue.trim() ? h('path', {d: scribbleLine(x0, vy + C.tabH * 0.3, pw * 0.75, C.tabH * 0.12, 2), fill: 'none', stroke: WRITE_INK, 'stroke-width': 2.2}) : null);
     const blankBadge = num0 ? h('circle', {cx: r(bx), cy: r(by), r: r(C.badgeR), fill: '#4f6d8a', stroke: INK, 'stroke-width': 2}) : null;
     const s0 = G.tray.slots[C.fi];
-    const mk = {x: s0.x - Math.max(18, G.S * 0.13), y: s0.y + ph + C.tabH * 0.5};
+    const mR = Math.max(16, G.S * 0.12);
+    // beside the caption tab, on the side away from the threads (right when there is room, else below the tab)
+    const mk = s0.x + pw + mR * 2.4 <= C.mat.x + C.mat.w ? {x: s0.x + pw + mR * 1.3, y: s0.y + ph + C.tabH * 0.5}
+      : {x: s0.x + pw - mR * 1.2, y: s0.y + ph + C.tabH + mR * 1.15};
     return g({name: 'scene'},
       bench.surface,
       g({'clip-path': bench.clip},
@@ -314,7 +327,7 @@ const scene = {
           tabB, tabA,
           L.threads.map(d => h('path', {d, fill: 'none', stroke: THREAD_COLOR, 'stroke-width': Math.max(3, G.S * 0.025), 'stroke-linecap': 'round'})),
           g({opacity: 1}, pinNode(ctx, G, 'objpin')),
-          changedMarker(ctx, {name: 'marker', x: mk.x, y: mk.y, radius: Math.max(16, G.S * 0.12), opacity: 0}),
+          changedMarker(ctx, {name: 'marker', x: mk.x, y: mk.y, radius: mR, opacity: 0}),
         ),
       ),
       bench.frame,

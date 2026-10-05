@@ -436,21 +436,26 @@ export function stationProps(G, N, o, st) {
  * Per-item windows inside [a, b] (fractions of u) for n items: reach the bag, grip, carry, lower/release.
  * Returns {items:[{reach:[..], carry:[..], release:[..], link:[..]}], back:[..]}.
  */
-export function itemWindows(n, a, b, backLen = 0.05) {
-  const span = (b - a - backLen) / n;
+export function itemWindows(n, a, b, backLen = 0.05, weights = null) {
+  // the first object gets a longer slot: its reach starts from the hand's rest at the bench edge (the longest move)
+  const wts = weights || Array.from({length: n}, (_, i) => (i === 0 ? 1.35 : 1));
+  const unit = (b - a - backLen) / wts.reduce((x, y) => x + y, 0);
   const items = [];
+  let acc = a;
   for (let i = 0; i < n; i++) {
-    const s0 = a + i * span;
+    const s0 = acc;
+    const span = unit * wts[i];
+    acc += span;
     items.push({
-      reach: [s0, s0 + span * 0.3],
-      grip: [s0 + span * 0.3, s0 + span * 0.38],
-      carry: [s0 + span * 0.38, s0 + span * 0.82],
-      release: [s0 + span * 0.82, s0 + span * 0.92],
-      link: [s0 + span * 0.88, s0 + span * 1.25],
-      write: [s0 + span * 0.92, s0 + span * 1.2],
+      reach: [s0, s0 + span * (i === 0 ? 0.48 : 0.4)],
+      grip: [s0 + span * (i === 0 ? 0.48 : 0.4), s0 + span * (i === 0 ? 0.52 : 0.45)],
+      carry: [s0 + span * (i === 0 ? 0.52 : 0.45), s0 + span * 0.86],
+      release: [s0 + span * 0.86, s0 + span * 0.93],
+      link: [s0 + span * 0.9, s0 + span * 1.25],
+      write: [s0 + span * 0.93, s0 + span * 1.2],
     });
   }
-  return {items, back: [b - backLen, b], span};
+  return {items, back: [b - backLen, b], span: unit};
 }
 
 /**
@@ -634,4 +639,12 @@ export function linkLine(name, a, b, w) {
     };
   };
   return {node, frame, from: a, to: b};
+}
+
+/** Slot weights proportional to each object's hand travel (reach from the previous point + carry), bounded. */
+export function travelWeights(world) {
+  const d = (p, q) => Math.hypot(p.x - q.x, p.y - q.y);
+  const raw = world.slots.map((sl, i) => d(i === 0 ? world.rest : world.cells[i - 1], sl) + d(sl, world.cells[i]));
+  const m = raw.reduce((x, y) => x + y, 0) / raw.length;
+  return raw.map(v => clamp(v / m, 0.7, 1.8));
 }

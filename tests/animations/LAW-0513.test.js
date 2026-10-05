@@ -1,90 +1,74 @@
-// LAW-0506 — Cláusula de indemnidad · mechanism (an exploded assembly of layers: contract plate, clause plate and a
-// promise film stack, the film registers on the supplied promise line, the claim plugs into its socket and a scope
-// collar slides over the joint). Contract battery + ID-specific checks.
+// LAW-0513 — Orden de documentos · story (a loupe walks up the supplied order list while one hand piles the annex
+// binders on a tray, last-listed first, so the first-listed ends on top). Contract battery + ID-specific checks.
 // Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05):
-// schedules, definitions, priorities, actorLabels (no actor in this treatment) and annotations; objectLabels = the
-// component name tabs (elements).
-// acceptanceCheck (brief): continuity of the motion (60 fps: the tracer, the plates, the slip), anchored objects (the
-// film lands exactly on the promise line; the prong seats in the socket) and a transformation recognisable with the
-// labels hidden (exploded → stacked → plugged → collar). Relations are drawn only as supplied (plain lines unless a
-// sequence / causal kind is supplied). Legal content: no indemnity doctrine (bannedWords), no jurisdiction; "scope
-// disputed" is neutral (same collar colour and width, dashed; ◆ of the same area as ●).
-// Windows (LAW-0506.js): trace 0.15–0.42 · tabs out 0.42–0.46 · plates 0.44–0.56 · slip 0.54–0.66 · collar 0.66–0.74 ·
-// hold scale (9:16 / stacked layout only) 0.74–0.78 · tags 0.75–0.83.
+// definitions; clauses = the supplied order-of-documents clause (heading + text), schedules = the annexes, priorities =
+// the supplied order list.
+// acceptanceCheck (brief): continuity of the motion (60 fps: the hand, the carried binder, the loupe), anchored objects
+// (a binder moves only in the hand, at a constant grip, between pick-up and landing) and a transformation recognisable
+// with the labels hidden (the pile builds up level by level; plates and list discs show pips instead of numbers).
+// Legal content: the order is only the supplied list (bannedWords: no prevail/govern/conflict/interpretation wording),
+// no jurisdiction; the two reading tags have equal weight (same chip art).
+// Windows (LAW-0513.js): carries 0.15–0.74 (n equal slots: reach 30 % · carry 55 % · place 15 %) · hand leaves
+// 0.74–0.81 · tags 0.76–0.81 · key 0.79–0.84 · notes 0.80–0.85.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
 import {ratioChecks, times} from '../harness/ratio-checks.js';
 
-const ID = 'LAW-0506';
+const ID = 'LAW-0513';
 const P = name => presetsFor(ID).find(q => q.name === name).params;
+const span3 = 0.59 / 3;
 
 contractSuite(ID, {
-  continuity: ['contract', 'clause', 'promise', 'slipTip'],
+  continuity: ['hand', 'loupe', 'binder0'],
+  attach: [
+    // carry 0 (three annexes): the carried binder follows the hand at a constant grip
+    {from: 0.15 + span3 * 0.31, to: 0.15 + span3 * 0.99, a: 'hand', b: 'carriedGrip', tol: 1.5},
+    {from: 0.15 + span3 * 1.31, to: 0.15 + span3 * 1.99, a: 'hand', b: 'carriedGrip', tol: 1.5},
+    {from: 0.15 + span3 * 2.31, to: 0.15 + span3 * 2.99, a: 'hand', b: 'carriedGrip', tol: 1.5},
+  ],
   semantic: [
-    {at: 0, fn: "s.assembled === 0 && !s.seated && s.collar === 0 && s.tabsShown === 1 && s.tracer === null && s.finalShown === 0", label: 'exploded view at rest with name tabs'},
-    {at: 0.3, fn: "s.tracer !== null && s.trace > 0 && s.trace < 1 && s.assembled === 0", label: 'the tracer follows the relations before any assembly'},
-    {at: 0.5, fn: "s.assembled > 0 && s.assembled < 1 && !s.seated && s.tabsShown === 0", label: 'the layers assemble after the trace'},
-    {at: 0.58, fn: "s.filmRegistered && !s.seated && s.collar === 0", label: 'the film is registered before the claim plugs in'},
-    {at: 0.72, fn: "s.seated && s.connected && s.collar > 0 && s.collar < 1", label: 'the collar slides on after the prong seats'},
-    {at: 1, fn: "s.collarOn && s.collarStyle === 'solid' && s.finalState === 'covered' && s.finalShown === 1 && s.keyShown === 1 && s.layoutOk", label: 'hold: covered as supplied, solid collar, tags shown'},
-    {at: 1, params: P('contrast-or-alternative'), fn: "s.finalState === 'disputed' && s.collarStyle === 'dashed' && s.collarOn && s.connected", label: 'disputed: the same collar drawn dashed — neutral'},
-    {at: 1, params: P('long-labels-stress'), fn: "s.connected && s.layoutOk && s.relations === 4", label: 'stress: four relations, connected, layout fits'},
-    {at: 1, params: {actionProgress: 0.5}, fn: "!s.seated && s.collar === 0", label: 'actionProgress freezes the assembly part-way'},
-    {at: 0.8, params: {textVisibility: 'none'}, fn: "s.connected && s.collarOn", label: 'labels hidden: the same assembly'},
+    {at: 0, fn: "s.placed === 0 && s.restCount === 3 && s.loupeRow === -1 && s.tagsShown === 0", label: 'rest: three binders on the desk, the tray empty'},
+    {at: 0.15 + span3 * 0.6, fn: "s.phase === 'carrying' && s.carrying === 0 && s.loupeRow === 2 && s.placed === 0", label: 'the last-listed annex is carried first while the loupe reads line 3'},
+    {at: 0.15 + span3 * 1.5, fn: "s.placed === 1 && s.pileTop === s.order[2] && s.loupeRow === 1", label: 'after the first carry the last-listed annex lies on the tray'},
+    {at: 0.15 + span3 * 0.6, fn: "s.restCount === 2", label: 'the carried binder has left its rest spot (no teleport: low copy hidden)'},
+    {at: 1, fn: "s.placed === 3 && s.pileTop === s.order[0] && JSON.stringify(s.pileOrder) === JSON.stringify(s.order) && s.loupeRow === 0 && s.tagsShown === 1 && s.keyShown === 1 && s.layoutOk && s.allReached && s.phase === 'away'", label: 'hold: the pile matches the supplied order, the first-listed on top'},
+    {at: 1, params: P('contrast-or-alternative'), fn: "s.placed === 4 && s.pileTop === 3 && JSON.stringify(s.pileOrder) === '[3,2,0,1]'", label: 'alternative: four annexes piled in the order D, C, A, B'},
+    {at: 1, params: P('long-labels-stress'), fn: "s.placed === 4 && s.layoutOk", label: 'stress: four annexes, layout fits'},
+    {at: 1, params: {actionProgress: 0.4}, fn: "s.placed < 3 && s.tagsShown === 0", label: 'actionProgress freezes the action part-way'},
+    {at: 0.9, params: {textVisibility: 'none'}, fn: "s.placed === 3 && s.pileTop === s.order[0]", label: 'labels hidden: the same pile'},
+    {at: 1, params: {priorities: [3, 3, 4]}, fn: "JSON.stringify(s.order) === '[2,0,1]' && s.pileTop === 2", label: 'repeats / out-of-range numbers ignored, missing annexes appended'},
   ],
 });
 
-ratioChecks(ID, 'layout fits, order, arrangement per ratio', [
+ratioChecks(ID, 'layout fits, reach, order, notes clear of the pile', [
+  {at: times(0, 1, 0.02), fn: 's.allReached', label: 'every hand target is within reach'},
   {at: [0, 1], fn: 's.layoutOk', label: 'layout fits'},
-  {at: [0.58], fn: 's.filmRegistered && !s.seated', label: 'registered before plugged'},
-  {at: [0, 0.5, 1], fn: "s.arrangement === 'depth'", label: 'every ratio: an exploded view along a depth axis (one straight move per part)'},
-  {at: [0.5], fn: "s.zoom === 1", label: 'no zoom while the parts move'},
-  {at: [1], fn: "s.zoom >= 1", ratios: ['9:16'], label: '9:16: the assembled stack only grows at the hold'},
+  {at: [1], fn: 'JSON.stringify(s.pileOrder) === JSON.stringify(s.order)', label: 'the final pile is the supplied order'},
+  // (AUTHORING item 12: tags and notes never rest on the pile)
+  {at: [1], fn: 's.noteBoxes.every(b => b.x >= s.pileBox.x + s.pileBox.w || b.x + b.w <= s.pileBox.x || b.y >= s.pileBox.y + s.pileBox.h || b.y + b.h <= s.pileBox.y)', label: 'notes clear of the pile'},
 ]);
 
 suppliedTextSuite(ID, {
-  fields: "return [p.contract.reference + ' · ' + p.contract.title, p.clauseTitle, p.claim.label, p.stateLabels[p.finalState], ...p.clauses]",
-  content: "return [p.claim.label, p.stateLabels[p.finalState], ...p.clauses]",
+  fields: "return [p.contract.reference + ' · ' + p.contract.title, p.clause.heading, p.clause.text, ...p.schedules.map(s => s.label), p.stateLabels.priority, p.stateLabels.subordinate, p.finalState, p.objectLabels.tray, p.actorLabels.a, ...p.annotations.map(a => a.text)]",
+  content: "return [...p.schedules.map(s => s.label), p.stateLabels.priority, p.stateLabels.subordinate, p.clause.text]",
   captions: "return ['As supplied · no conclusion drawn', 'Según lo aportado · sin conclusión']",
 });
 
 textFloor(ID);
 noTextOverlap(ID);
 seekHistory(ID);
-fill(ID, [0.05, 1], 0.5);
+fill(ID, [0.05, 1]);
 bannedWords(ID);
 coldCreate(ID);
 arrayCounts(ID, [
-  {clauses: ['Clause 1 (supplied text)'], promise: 1},
-  {clauses: ['Clause 1 (supplied text)', 'Clause 2 (supplied text)'], promise: 2},
-  {relationships: [{from: 'claim', to: 'promise', kind: 'causal'}], traversalOrder: ['claim', 'contract']},
-  {relationships: [{from: 'contract', to: 'clause', kind: 'relation'}, {from: 'clause', to: 'promise', kind: 'sequence'}, {from: 'promise', to: 'claim', kind: 'communication'}, {from: 'contract', to: 'claim', kind: 'causal'}, {from: 'clause', to: 'claim', kind: 'relation'}, {from: 'contract', to: 'promise', kind: 'relation'}]},
+  {schedules: [{tab: 'A', label: 'Annex A'}, {tab: 'B', label: 'Annex B'}], priorities: [2]},
+  {priorities: [1]},
+  {schedules: [{tab: 'A', label: 'Annex A · One'}, {tab: 'B', label: 'Annex B · Two'}, {tab: 'C', label: 'Annex C · Three'}, {tab: 'D', label: 'Annex D · Four'}], priorities: [4, 3, 2, 1], annotations: [{target: 'contract', text: 'Note one'}, {target: 'loupe', text: 'Note two'}]},
+  {annotations: [{target: 'tray', text: 'Note one'}]},
 ]);
 
-// the tab names (elements) are drawn in the exploded view (they fade out once the layers assemble)
-test(`${ID}: every component name tab is drawn at rest (rendered, every preset × ratio)`, async ({page}) => {
-  await openHost(page);
-  const out = await page.evaluate(async ([id, presets, ratios]) => {
-    const def = await window.__lib.load(id);
-    const bad = [];
-    for (const pr of presets) for (const [ratio, w, h] of ratios) {
-      const el = document.createElement('div');
-      document.getElementById('slots').appendChild(el);
-      const x = def.create(el, {width: w, height: h, params: pr.params});
-      await x.ready;
-      x.seek(0);
-      const texts = [...x.element.querySelectorAll('text')].map(t => t.textContent.replace(/\s+/g, ' ').trim());
-      for (const e of x.getState({bounds: false}).params.elements) if (!texts.some(t => t === e.label)) bad.push(`${pr.name} ${ratio}: tab "${e.label}" missing`);
-      x.destroy();
-      el.remove();
-    }
-    return bad;
-  }, [ID, presetsFor(ID).filter(q => q.name !== 'baseline-es'), RATIOS]);
-  expect(out).toEqual([]);
-});
-
-// ---- Rendered checks for contract-terms-07 (kept in this file: per-motif test files may not import another
+// ---- Rendered checks for contract-terms-09 (kept in this file: per-motif test files may not import another
 // motif's helpers; generic infrastructure adapted from tests/animations/ct05-rendered.js, copied, not imported).
 const RATIOS = [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]];
 const BIG = ['default', 'baseline-illustrative', 'baseline-es', 'contrast-or-alternative'];
@@ -272,29 +256,24 @@ function fill(ID, at, short = 0.8) {
   });
 }
 
-// Banned wording (very high legal risk: indemnity). No rendered text, EN or ES, may state indemnity doctrine or a
-// conclusion: a duty to indemnify / pay / compensate, liability, hold harmless, an obligation, must / shall, valid,
-// enforceable, binding, breach, outcome, entitled … The motif's own clause heading ("Indemnity clause" / "Cláusula de
-// indemnidad") is the only allowed "indemn-" text, and the cover words (cover / covered / coverage, cubierta /
-// cobertura) may appear only inside texts that are exactly a supplied parameter value.
-const BANNED = /(indemnif|indemniz|\bindemnity\b(?! clause)|hold harmless|mantener indemne|\bliab|responsab|\bobligat|\bobliged|obligad|\bobligaci|\bmust\b|\bshall\b|\bdebe|\bdeber|tiene que|\bpay(s|able|ment)?\b|\bpaid\b|pagar|pago\b|\bpagad|compensat|compens|reimburs|reembols|\bowe|\bowed|adeud|\bvalid|\binvalid|v(á|a)lid[oa]s?\b|validez|nulidad|enforce|exigib|ejecutab|binding|vinculant|breach|incumpl|\bentitled|tiene derecho|derecho a\b|\bright to\b|\boutcome|\bresult\b|resultado|consequen|consecuencia|\bwins?\b|\bloses?\b|gana|pierde|\blaw\b|\bley\b|statut|c(ó|o)digo|damages|\bdaños|perjuicio|\bguilt|culpab|\bfault|\bnegligen|\bproven\b|probad[oa]|\bdecided|decidid|\bruling|\bverdict|fallo\b|sentencia|\bplazo|deadline|\bdays?\b|\bd(í|i)as?\b|percent|porcentaje|\bcap\b|l(í|i)mite de)/i;
-const COVER = /(\bcover|cubiert|cobertura)/i;
+// Banned wording (order of documents): no rendered text, EN or ES, may state interpretation doctrine or a conclusion —
+// that a document prevails, governs, overrides or wins, a conflict rule, validity, an obligation, an outcome — nor
+// name a jurisdiction. Positions and "priority"/"subordinate" appear only as supplied values.
+const BANNED = /(\bprevail|prevalec|prevalen|\bgovern|\brige\b|\brigen\b|regir|\boverrid|supersed|\bprima sobre|\bwins?\b|\bloses?\b|\bgana\b|\bpierde\b|\bconflict|conflicto|contradic|\binterpret|interpreta|\bconstru(e|ction)\b|\bcontra proferentem|\bliab|responsab|\bobligat|\bobliged|obligad|\bobligaci|\bmust\b|\bshall\b|\bdebe|\bdeber|tiene que|\bvalid|\binvalid|v(á|a)lid[oa]s?\b|validez|nulidad|enforce|exigib|binding|vinculant|breach|incumpl|\bentitled|\boutcome|\bresult\b|resultado|consequen|consecuencia|\blaw\b|\bley\b|statut|c(ó|o)digo|\bguilt|culpab|\bdecided|decidid|\bruling|\bverdict|fallo\b|sentencia|\bplazo|deadline|percent|porcentaje|\bvoid\b|\bnulo\b)/i;
 function bannedWords(ID) {
-  test(`${ID}: no rendered text states indemnity doctrine or a conclusion; cover words only inside supplied values (EN and ES, every preset, rendered)`, async ({page}) => {
+  test(`${ID}: no rendered text states interpretation doctrine or a conclusion (EN and ES, every preset, rendered)`, async ({page}) => {
     test.setTimeout(600000);
     await openHost(page);
-    const out = await page.evaluate(async ([id, presets, ratios, src, csrc]) => {
+    const out = await page.evaluate(async ([id, presets, ratios, src]) => {
       const def = await window.__lib.load(id);
-      const banned = new RegExp(src, 'i'), cover = new RegExp(csrc, 'i');
+      const banned = new RegExp(src, 'i');
       const bad = [];
       let n = 0;
-      const vals = o => (o && typeof o === 'object' ? Object.values(o).flatMap(vals) : typeof o === 'string' ? [o] : []);
       for (const pr of presets) for (const [ratio, w, h] of ratios) for (const tv of ['all', 'key']) {
         const el = document.createElement('div');
         document.getElementById('slots').appendChild(el);
         const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
         await x.ready;
-        const supplied = new Set(vals(x.getState({bounds: false}).params).map(s => s.replace(/\s+/g, ' ').trim()));
         for (let s = 0; s <= 20; s++) {
           x.seek((s / 20) * x.durationMs);
           for (const t of x.element.querySelectorAll('text')) {
@@ -303,22 +282,21 @@ function bannedWords(ID) {
             const q = (ts.length ? ts.map(z => z.textContent).join(' ') : t.textContent).replace(/\s+/g, ' ').trim();
             if (!q) continue;
             n++;
-            if (banned.test(q.replace(/Cláusula de indemnidad/g, ''))) bad.push(`${pr.name} ${ratio} "${q.slice(0, 50)}"`);
-            if (cover.test(q) && ![...supplied].some(v => v === q || q.endsWith(v) || q.startsWith(v))) bad.push(`${pr.name} ${ratio} cover word outside a supplied value: "${q.slice(0, 50)}"`);
+            if (banned.test(q)) bad.push(`${pr.name} ${ratio} "${q.slice(0, 50)}"`);
           }
         }
         x.destroy();
         el.remove();
       }
       return {bad: [...new Set(bad)], n};
-    }, [ID, allPresets(ID), RATIOS, BANNED.source, COVER.source]);
+    }, [ID, allPresets(ID), RATIOS, BANNED.source]);
     expect(out.n).toBeGreaterThan(100);
     expect(out.bad.slice(0, 20)).toEqual([]);
   });
-  test(`${ID}: no preset supplies indemnity-doctrine wording; no jurisdiction named (EN and ES)`, () => {
+  test(`${ID}: no preset supplies doctrine wording; no jurisdiction named (EN and ES)`, () => {
     const juris = /(english|england|anglo|common[- ]law|civil[- ]law|british|american|ingl[eé]s|inglaterra|anglosaj|brit[aá]nic|estadounidense|jurisdic)/i;
     for (const pr of presetsFor(ID)) {
-      const s = JSON.stringify(pr.params).replace(/Indemnity clause|Cláusula de indemnidad|indemnity clause/g, '');
+      const s = JSON.stringify(pr.params);
       expect(s.match(BANNED), pr.name).toBeNull();
       expect(s.match(juris), pr.name).toBeNull();
     }

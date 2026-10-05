@@ -6,6 +6,10 @@
 // 0.17–0.38 (A to the far station, B to the near station) · shutter 0.44–0.50 · print flies 0.50–0.69 · hands back
 // 0.70–0.77 · guide 0.79–0.85 · note 0.82–0.87.
 // Legal: no winner, no consequence; the two framings are supplied situations only.
+// Coordinator decision (2026-10-05, coordinator message to the evidence-custody-04 builder, under the standing rule
+// 2026-09-26 / AUTHORING item 20): the long-labels-stress fields are capped to the longest values that keep both benches
+// at S >= 70 in 1:1 with text >= 16 px (side, stacked and side-head layouts tried first); every field stays longer than
+// baseline and counts stay >= baseline.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite, identicalBeforeChange} from '../harness/supplied-text.js';

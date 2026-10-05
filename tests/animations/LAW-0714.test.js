@@ -62,6 +62,8 @@ renderedTextFloor(ID, ['default', 'baseline-illustrative', 'baseline-es'], 19.5,
 textSizeOverTime(ID, 0.01);
 
 
+// (trio layouts — round-6 coordinator restructure: the relation label on each connector is a numbered marker ON the line
+// and the numbered relation texts are in the band legend, so the parts stay large; the same check applies to the markers)
 // Rendered: every relation label sits beside its OWN connector — ≤ 24 px at 1080p from its line — and nearer to it than
 // to any other connector, at the hold and while the tracer runs, in every preset × ratio (labels shown).
 ratioChecks(ID, 'relation labels attached to their own connector (rendered)', [

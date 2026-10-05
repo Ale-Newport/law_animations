@@ -83,6 +83,15 @@ function infoRows(ctx, P, recs) {
 function splitCols(ctx, rows, colW, F, cols) {
   const all = panelLayout(ctx, rows, {w: colW, F});
   if (cols === 1 || rows.length < 2) return [all];
+  if (cols === 3 && rows.length >= 3) {
+    let best3 = null;
+    for (let i = 1; i < rows.length - 1; i++) for (let j = i + 1; j < rows.length; j++) {
+      const ps = [rows.slice(0, i), rows.slice(i, j), rows.slice(j)].map(rr => panelLayout(ctx, rr, {w: colW, F}));
+      const hh = Math.max(...ps.map(q => q.h));
+      if (!best3 || hh < best3.h) best3 = {h: hh, cols: ps};
+    }
+    return best3.cols;
+  }
   let best = null;
   for (let i = 1; i < rows.length; i++) {
     const a = panelLayout(ctx, rows.slice(0, i), {w: colW, F}), b = panelLayout(ctx, rows.slice(i), {w: colW, F});
@@ -128,7 +137,7 @@ function compose(ctx, P, recs, F, opt, cache) {
     : {x: 0, y: i * (stage.h + headH + gap) + headH, w: stage.w, h: stage.h, headY: i * (stage.h + headH + gap)}));
   const inset = Math.max(12, Math.min(stage.w, stage.h) * 0.035);
   const st = {kind: P.items[0].kind, targets: ['scene', 'object'], slots: 1, rows: recs.length, restRuler: false, ...opt.st};
-  const G = stage.h > 150 && stage.w > 150 ? benches.map(b => rfStage({x: b.x + inset * 1.5, y: b.y + inset * 1.5, w: b.w - inset * 3, h: b.h - inset * 3}, st)) : null;
+  const G = stage.h > 150 && stage.w > 150 ? benches.map(b => rfStage({x: b.x + inset, y: b.y + inset, w: b.w - inset * 2, h: b.h - inset * 2}, st)) : null;
   const panelOk = !side || ph <= DH;
   const printOk = G && G[0].tray.pw >= G[0].S * 1.4;
   const ok = panelOk && PLs.every(q => q.ok) && headOk && headFits && G && G[0].fits && G[0].S >= 70 && printOk;
@@ -144,7 +153,7 @@ const scene = {
     const shape = ctx.view.shape;
     const sts = [{tray: 'right', trayFrac: 0.34, approach: 'down'}, {tray: 'right', trayFrac: 0.4, approach: 'down'}, {tray: 'top', trayFrac: 0.3, approach: 'down'}, {tray: 'right', trayFrac: 0.28, approach: 'left'}, {tray: 'right', trayFrac: 0.34, approach: 'left'}, {tray: 'inset', trayFrac: 0, approach: 'down'}];
     const opts0 = shape === 'portrait' ? [{arr: 'col', cols: 1}, {arr: 'col', cols: 2}]
-      : shape === 'square' ? [{arr: 'col', cols: 1, pw: 0.36}, {arr: 'col', cols: 1, pw: 0.42}, {arr: 'row', cols: 2}, {arr: 'col', cols: 2}, {arr: 'row', cols: 1, pw: 0.3}, {arr: 'row', cols: 1, pw: 0.36}, {arr: 'col', cols: 2, hs: 0.2}, {arr: 'col', cols: 2, hs: 0.24}, {arr: 'col', cols: 1, pw: 0.32, hs: 0.26}]
+      : shape === 'square' ? [{arr: 'col', cols: 1, pw: 0.36}, {arr: 'col', cols: 1, pw: 0.42}, {arr: 'row', cols: 2}, {arr: 'col', cols: 2}, {arr: 'row', cols: 1, pw: 0.3}, {arr: 'row', cols: 1, pw: 0.36}, {arr: 'col', cols: 2, hs: 0.2}, {arr: 'col', cols: 2, hs: 0.24}, {arr: 'col', cols: 3, hs: 0.2}, {arr: 'col', cols: 1, pw: 0.32, hs: 0.26}]
         : [{arr: 'row', cols: 2}, {arr: 'row', cols: 3}, {arr: 'row', cols: 1, pw: 0.22}, {arr: 'row', cols: 1, pw: 0.26}];
     let C = null, best = null, bestScore = -1, firstOk = -1;
     const cache = new Map();

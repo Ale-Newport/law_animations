@@ -10,7 +10,7 @@
  *             (growing to full size; printed text appears only once full size).
  *  0.18–0.43  only the supplied relationships are drawn, one after another, each anchored to the edges of its two
  *             parts; a plain relation has no arrowhead, a sequence/communication/causal link is drawn as such only when
- *             supplied. Each line carries its kind's caption.
+ *             supplied. The line-style key in the legend captions each kind (relation / sequence / ...).
  *  0.43–0.75  a tracer follows the supplied traversal order along the drawn lines; the focus part is enlarged while
  *             the tracer runs.
  *  0.75–1.00  hold: all parts, lines and captions visible; "as supplied · no conclusion drawn".
@@ -73,6 +73,8 @@ const OWN_ES = {
 };
 const EN = {...IO_EN, ...OWN_EN};
 const ES = {...IO_ES, ...OWN_ES};
+/** Spanish defaults (used by the baseline-es preset). */
+export const ES_PARAMS = ES;
 
 const sceneSchema = {...ioFields, ...ioLabelFields, ...mechanismFields(IDS)};
 const defaultParams = {...EN};
@@ -130,7 +132,7 @@ function compose(ctx, P) {
         }
       }
       const sl = slots(opt.tall);
-      const gx = Math.max(110, area.w * 0.08), gy = Math.max(70, area.h * 0.07);
+      const gx = Math.max(170, area.w * 0.14), gy = Math.max(84, area.h * 0.1);
       const capH = ctx.show('key') ? F * 1.2 * 2 + 8 : 0;
       const cw = (area.w - gx * (sl.cols - 1)) / sl.cols;
       const ch = (area.h - gy * (sl.rows - 1)) / sl.rows - capH;
@@ -214,10 +216,12 @@ const scene = {
   layout(ctx) {
     const P = localised(ctx, EN, ES);
     const C = compose(ctx, P);
-    const els = Object.fromEntries(C.present.map(id => [id, {box: C.boxes[id]}]));
+    const els = Object.fromEntries(C.present.map(id => [id, {box: {...C.boxes[id], h: C.bh + C.capH}}]));
     const rels = P.relationships.filter(x => els[x.from] && els[x.to] && x.from !== x.to);
-    const obstacles = ctx.show('key') ? C.present.map(id => ({x: C.boxes[id].x, y: C.boxes[id].y + C.bh, w: C.B, h: C.capH})) : [];
-    const graph = relationGraph(ctx, {name: 'gr', elements: els, relationships: rels, relationLabels: P.relationLabels, obstacles, bounds: C.area, separateLabels: true, chipSize: Math.min(C.F, 22), chipMax: Math.max(160, C.B * 1.1)});
+    const obstacles = [];
+    // relation captions are given once per kind in the legend's line-style key (chips on every short line crowded the
+    // parts and fell under 16 px in square frames); each line keeps its kind's style
+    const graph = relationGraph({...ctx, show: () => false}, {name: 'gr', elements: els, relationships: rels, relationLabels: P.relationLabels, obstacles, bounds: C.area, separateLabels: true, chipSize: Math.min(C.F, 22), chipMax: Math.max(160, C.B * 1.1)});
     const order = P.traversalOrder.filter(id => els[id]);
     const route = order.length > 1 ? graph.route(order) : null;
     const cx = C.area.x + C.area.w / 2, cy = C.area.y + C.area.h / 2;
@@ -274,7 +278,7 @@ const scene = {
       sem.tracer = R2(q);
     }
     const connectors = L.graph.conns.map(x => {
-      const A = C.boxes[x.rel.from], B = C.boxes[x.rel.to];
+      const A = L.els[x.rel.from].box, B = L.els[x.rel.to].box;
       const near = (pt, bx) => pt.x >= bx.x - 20 && pt.x <= bx.x + bx.w + 20 && pt.y >= bx.y - 20 && pt.y <= bx.y + bx.h + 20;
       return {from: x.rel.from, to: x.rel.to, okA: near(x.c.from, A), okB: near(x.c.to, B)};
     });

@@ -8,6 +8,9 @@
 // camera 0.16–0.24 · right hand to shutter 0.28–0.33 · per view (block 0.133 from 0.33): move 0–42 %, shutter 48–60 %,
 // print flies 60–96 % · hands back 0.74–0.80 · pin 0.75–0.78 · threads 0.76–0.87 · notes / state 0.80–0.86.
 // Legal: neutral process; the final state is only the supplied state; no doctrine on photographic evidence.
+// Coordinator decision (2026-10-05, coordinator message to the evidence-custody-04 builder, under the standing rule
+// 2026-09-26 / AUTHORING item 20): long-labels-stress lengths/counts are capped to the longest values that keep 1:1 at its
+// floors with text >= 16 px; every field stays at least as long as baseline and counts stay >= baseline.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
