@@ -74,7 +74,8 @@ function compose(ctx, P, R, F, v) {
   const arr = v.arr;
   const problems = [];
   const gapS = arr === 'row' ? F * 1.6 : F * 1.0;
-  const stageW = arr === 'row' ? (DW - gapS) / 2 : DW;
+  const SWv = v.side ? DW * v.side + F * 1.4 : 0;
+  const stageW = arr === 'row' ? (DW - SWv - gapS) / 2 : DW - SWv;
   // headers
   const badgeR = F * 0.95;
   const hx = arr === 'column' ? F * 1.6 : 0;
@@ -98,7 +99,9 @@ function compose(ctx, P, R, F, v) {
   // shared strip
   const rowsL = [], rowsR = [];
   if (showKey) rowsL.push({kind: 'heading', icon: 'lane', text: P.labels.route, name: 'sh-route'});
-  if (showKey) P.routes.stations.forEach((s, i) => { if (i !== R.target) rowsL.push({kind: 'item', icon: 'tray', text: s, name: `sh-st${i}`}); });
+  // the other supplied points share one compact row
+  const others = P.routes.stations.filter((s, i) => i !== R.target);
+  if (showKey && others.length) rowsL.push({kind: 'item', icon: 'tray', text: others.join(' · '), name: 'sh-st'});
   if (showKey) rowsL.push({kind: 'item', icon: 'folder', text: P.decisions.title, name: 'sh-folder'});
   if (showKey) rowsL.push({kind: 'item', icon: 'pin', text: P.labels.point, name: 'sh-point'});
   if (showKey) R.notes.forEach((t, i) => rowsL.push({kind: 'item', icon: 'note', index: i, text: t, name: `sh-note${i}`}));
@@ -109,7 +112,15 @@ function compose(ctx, P, R, F, v) {
   if (showKey) rowsR.push({kind: 'key', text: P.labels.key, name: 'key'});
   let strip = null;
   const all = [...rowsL, ...rowsR];
-  if (all.length) {
+  let SW = 0; // width taken by a side-column strip (the boards use the rest)
+  if (all.length && v.side) {
+    const cw = DW * v.side;
+    const PLc = panelLayout(ctx, all, {w: cw, F});
+    if (!PLc.ok) problems.push('strip-text');
+    if (PLc.h > DH) problems.push('strip-tall');
+    SW = cw + F * 1.4;
+    strip = {cols: [{PL: PLc, x: 0}], h: PLc.h, side: true, x: DW - cw, y: Math.max(0, (DH - PLc.h) / 2)};
+  } else if (all.length) {
     // the shared strip in `sc` columns (rows keep their order; the closing rows end the last column)
     const sc = v.sc ?? 2;
     const cg = F * 1.6;
@@ -123,9 +134,9 @@ function compose(ctx, P, R, F, v) {
       if (!PLc.ok) problems.push('strip-text');
       cols.push({PL: PLc, x: c * (cw + cg)});
     }
-    strip = {cols, h: Math.max(...cols.map(c => c.PL.h))};
+    strip = {cols, h: Math.max(...cols.map(c => c.PL.h)), x: 0};
   }
-  const stripH = strip ? strip.h + F * 0.8 : 0;
+  const stripH = strip && !strip.side ? strip.h + F * 0.8 : 0;
   // stage height: what remains
   let stageH;
   if (arr === 'row') stageH = DH - headH - bandH - capH - stripH;
@@ -167,7 +178,8 @@ function compose(ctx, P, R, F, v) {
   const dy = Math.max(0, (DH - total) / 2);
   stages.forEach(s => { s.y += dy; s.headY += dy; });
   bandY += dy; capY = capY.map(y => y + dy);
-  const stripY = dy + total - (strip ? strip.h : 0);
+  if (strip && !strip.side) strip.y = dy + total - strip.h;
+  const stripY = strip ? strip.y : 0;
   // stage-local paths: A enters from the left edge onto the lane's entry; B from the right edge onto the review mat
   const L = B.lane;
   const S = B.slots[0];
@@ -190,16 +202,27 @@ const scene = {
     const P = localisedDn(ctx, EN, ES);
     const R = resolveDn(P);
     const shape = ctx.view.shape;
-    const vs = shape === 'landscape' ? [3, 4].flatMap(sc => [0.24, 0.3].map(ez => ({arr: 'row', ez, sc})))
-      : shape === 'portrait' ? [0.24, 0.3].flatMap(ez => [3, 2].map(sc => ({arr: 'column', ez, sc})))
-        : [0.24, 0.3].flatMap(ez => [3, 2].map(sc => ({arr: 'column', ez, sc}))).concat([0.18, 0.24, 0.3, 0.14].flatMap(ez => [3, 4].map(pl => ({arr: 'row', ez, sc: 2, pl}))));
+    const rowV = [0.14, 0.18, 0.24, 0.3].flatMap(ez => [3, 4].map(pl => ({arr: 'row', ez, pl})));
+    const colV = [0.14, 0.24, 0.3].flatMap(ez => [3, 4].map(pl => ({arr: 'column', ez, pl})));
+    const vs = shape === 'landscape' ? [3, 4].flatMap(sc => rowV.map(x => ({...x, sc})))
+      : shape === 'portrait' ? [3, 2].flatMap(sc => colV.map(x => ({...x, sc})))
+        : [...[3, 2].flatMap(sc => colV.map(x => ({...x, sc}))), ...[0.3, 0.36].flatMap(side => colV.map(x => ({...x, side}))), ...rowV.map(x => ({...x, sc: 2}))];
     let C = null, best = null;
-    // (the boards are the subject: text starts at 20.5 so the strip stays compact and the boards get the height)
-    outer: for (const F of SIZES.filter(f => f <= 20.5)) for (const v of vs) {
-      const c = compose(ctx, P, R, F, v);
-      if (c.ok) { C = c; break outer; }
-      if (!best || c.problems.length < best.problems.length) best = c;
+    // the boards are the subject: among the sizes that compose, keep the composition with the largest folder (weighted
+    // mildly by the text size); text starts at 20.5 so the strip stays compact
+    const score = c => c.B.fw * Math.sqrt(c.F);
+    let tried = 0;
+    for (const F of SIZES.filter(f => f <= 20.5)) {
+      let found = null;
+      for (const v of vs) {
+        const c = compose(ctx, P, R, F, v);
+        if (c.ok) { if (!found || score(c) > score(found)) found = c; }
+        else if (!best || c.problems.length < best.problems.length) best = c;
+      }
+      if (found && (!C || score(found) > score(C))) C = found;
+      if (C && ++tried >= 3) break;
     }
+    if (globalThis.process?.env?.DN_DBG) for (const v of vs) { const c = compose(ctx, P, R, 19, v); console.log(JSON.stringify(v), Math.round(c.B?.fw || 0), c.problems.join(',')); }
     return {P, R, C: C || best};
   },
   build(ctx, L) {
@@ -264,7 +287,7 @@ const scene = {
     return g({name: 'scene'},
       stageNodes,
       g({name: 'guide', opacity: 0}, parts, chipNode),
-      C.strip ? g({name: 'strip', transform: T(0, C.stripY)}, C.strip.cols.map(col => g({transform: T(col.x, 0)}, panelNode(ctx, col.PL)))) : null,
+      C.strip ? g({name: 'strip', transform: T(C.strip.x, C.stripY)}, C.strip.cols.map(col => g({transform: T(col.x, 0)}, panelNode(ctx, col.PL)))) : null,
     );
   },
   frame(ctx, L, u) {
@@ -302,7 +325,7 @@ const scene = {
         inTargetA: shown && at(posA), inTargetB: shown && at(posB),
         target: L.R.target, guide: r(gk, 3), states: r(st, 3), run: r(kRun, 3),
         stages: C.stages.map(s => ({x: r(s.x), y: r(s.y), w: r(s.w), h: r(s.h)})), arrangement: C.arr,
-        problems: C.problems, textPx: r(C.F, 1),
+        problems: C.problems, textPx: r(C.F, 1), folderW: r(B.fw, 1), legend: C.strip ? (C.strip.side ? 'side' : 'band') : 'none',
       },
     };
   },
