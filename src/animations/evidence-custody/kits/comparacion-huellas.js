@@ -27,7 +27,7 @@ import {str, list, obj, oneOf} from '../../../schemas/fields.js';
 import {shade} from '../../../primitives/paper.js';
 import {
   INK, METAL, METAL_DARK, MANILA, MANILA_DARK, objectModel, objectArt, tagModel, tagArt, bagModel, bagBack, bagFront,
-  legendIcon, textAt, chainD,
+  legendIcon, textAt, chainD, panelLayout,
 } from './evidence-art.js';
 
 export const SYMBOLS = ['arc', 'loop', 'fork', 'dot', 'end'];
@@ -445,4 +445,48 @@ export function fcPanelNode(ctx, PL) {
     }
     return g({name: row.name}, parts);
   });
+}
+
+/**
+ * Legend placement: 'side' (a right-hand column, pw = share of the design width) or 'below' (cols columns under the
+ * scene). Returns the free area for the scene and the fitted panel columns.
+ */
+export function fcLegendFor(ctx, rows, F, opt) {
+  const {w: DW, h: DH} = ctx.design;
+  const gap = F * 1.3;
+  if (!rows.length) return {area: {x: 0, y: 0, w: DW, h: DH}, panel: null, PL: null};
+  if (opt.mode === 'below') {
+    const cols = opt.cols;
+    const colW = (DW - 8 - (cols - 1) * F * 1.2) / cols;
+    let PLs = [panelLayout(ctx, rows, {w: colW, F})];
+    if (cols === 2) {
+      let best = null;
+      for (let i = 1; i < rows.length; i++) {
+        const a = panelLayout(ctx, rows.slice(0, i), {w: colW, F}), b = panelLayout(ctx, rows.slice(i), {w: colW, F});
+        if (!best || Math.max(a.h, b.h) < best.h) best = {h: Math.max(a.h, b.h), cols: [a, b]};
+      }
+      if (best) PLs = best.cols;
+    }
+    if (cols === 3 && rows.length >= 3) {
+      const one = rows.map(rw => panelLayout(ctx, [rw], {w: colW, F}).h + F * 0.5);
+      let best3 = null;
+      for (let i = 1; i < rows.length - 1; i++) for (let j = i + 1; j < rows.length; j++) {
+        const hs = [one.slice(0, i), one.slice(i, j), one.slice(j)].map(a => a.reduce((x, y) => x + y, 0));
+        const hh = Math.max(...hs);
+        if (!best3 || hh < best3.h) best3 = {h: hh, i, j};
+      }
+      PLs = [rows.slice(0, best3.i), rows.slice(best3.i, best3.j), rows.slice(best3.j)].map(rr => panelLayout(ctx, rr, {w: colW, F}));
+    }
+    const ph = Math.max(...PLs.map(q => q.h));
+    return {area: {x: 0, y: 0, w: DW, h: DH - ph - gap}, panel: {x: 4, y: DH - ph}, PL: {cols: PLs, h: ph, ok: PLs.every(q => q.ok) && ph < DH * 0.62, colW, F}};
+  }
+  const PW = DW * opt.pw;
+  const one = panelLayout(ctx, rows, {w: PW, F});
+  return {area: {x: 0, y: 0, w: DW - PW - gap, h: DH}, panel: {x: DW - PW, y: Math.max(0, (DH - one.h) / 2)}, PL: {cols: [one], h: one.h, ok: one.ok && one.h <= DH, colW: PW, F}};
+}
+
+/** Legend panel groups for a fcLegendFor result. */
+export function fcPanels(ctx, LG) {
+  if (!LG.PL) return [];
+  return LG.PL.cols.map((PLc, i) => g({name: `panel${i}`, transform: T(LG.panel.x + i * (LG.PL.colW + LG.PL.F * 1.2), LG.panel.y)}, fcPanelNode(ctx, PLc)));
 }

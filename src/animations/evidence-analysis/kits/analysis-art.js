@@ -418,11 +418,12 @@ export function panelLayout(ctx, rows, o) {
   let y = 0;
   let ok = true;
   const out = rows.map(row => {
+    const fs = row.caption ? Math.max(16, Math.min(F, F * 0.84)) : F;
     const tw = row.kind === 'state' || row.kind === 'key' ? w - F * 1.2 : w - iconW;
-    const fit = fitG(row.text, {maxWidth: tw, size: F, minSize: F, maxLines: o.maxLines ?? 3, weight: row.kind === 'heading' ? 700 : row.kind === 'key' ? 600 : 500});
+    const fit = fitG(row.text, {maxWidth: tw, size: fs, minSize: fs, maxLines: o.maxLines ?? 3, weight: row.kind === 'heading' ? 700 : row.kind === 'key' ? 600 : 500});
     if (!fit.ok) ok = false;
     const pad = row.kind === 'state' ? F * 0.45 : 0;
-    const hh = Math.max(fit.height, row.icon ? F * 1.25 : 0) + pad * 2;
+    const hh = Math.max(fit.height, row.icon ? fs * 1.25 : 0) + pad * 2;
     const item = {...row, fit, y, h: hh, pad, iconW, tw};
     y += hh + gap;
     return item;
@@ -456,17 +457,28 @@ export function panelNode(ctx, PL) {
  */
 export function legendColumns(ctx, rows, colW, F, cols = 1) {
   if (!rows.length) return {cols: [], h: 0, ok: true, colW};
-  if (cols === 1) { const one = panelLayout(ctx, rows, {w: colW, F}); return {cols: [one], h: one.h, ok: one.ok, colW}; }
-  let best = null;
   const all = panelLayout(ctx, rows, {w: colW, F});
-  // candidate splits around the middle only (bounded work)
-  const mid = all.rows.findIndex(rw => rw.y + rw.h > all.h / 2);
-  for (let i = Math.max(1, mid - 2); i <= Math.min(rows.length - 1, mid + 2); i++) {
-    const a = panelLayout(ctx, rows.slice(0, i), {w: colW, F}), b = panelLayout(ctx, rows.slice(i), {w: colW, F});
-    if (!best || Math.max(a.h, b.h) < best.h) best = {h: Math.max(a.h, b.h), cols: [a, b], ok: a.ok && b.ok};
+  if (cols === 1) return {cols: [all], h: all.h, ok: all.ok, colW};
+  // greedy fill to a target height, raised until the rows fit in `cols` columns (bounded work)
+  const gap = F * 0.45;
+  let target = all.h / cols;
+  for (let it = 0; it < 30; it++) {
+    const groups = [[]];
+    let hh = 0;
+    for (const rw of all.rows) {
+      const need = rw.h + (groups[groups.length - 1].length ? gap : 0);
+      if (hh + need > target + 0.5 && groups[groups.length - 1].length) { groups.push([]); hh = 0; }
+      groups[groups.length - 1].push(rw);
+      hh += rw.h + (groups[groups.length - 1].length > 1 ? gap : 0);
+    }
+    if (groups.length <= cols) {
+      let start = 0;
+      const PLs = groups.map(gr => { const q = panelLayout(ctx, rows.slice(start, start + gr.length), {w: colW, F}); start += gr.length; return q; });
+      return {cols: PLs, h: Math.max(...PLs.map(q => q.h)), ok: PLs.every(q => q.ok), colW};
+    }
+    target += F * 0.6;
   }
-  if (!best) return {cols: [all], h: all.h, ok: all.ok, colW};
-  return {cols: best.cols, h: best.h, ok: best.ok, colW};
+  return {cols: [all], h: all.h, ok: all.ok, colW};
 }
 
 /** Rounded ring rectangle used to key editorial notes to their targets. */

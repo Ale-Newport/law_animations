@@ -106,11 +106,11 @@ function legendRows(ctx, P, links, looks, actorLooks) {
   const notes = noteColors(ctx.theme);
   const rows = contentRows(ctx, P, links, {looks, claims: false});
   if (showAll) {
-    rows.push({kind: 'item', icon: 'person', look: actorLooks[0], text: P.actorLabels.a, name: 'lg-wit'});
-    rows.push({kind: 'item', icon: 'person', look: actorLooks[1], text: P.actorLabels.b, name: 'lg-an'});
-    rows.push({kind: 'item', icon: 'board', text: P.objectLabels.board, name: 'lg-board'});
-    rows.push({kind: 'item', icon: 'line-direct', text: P.objectLabels.thread, name: 'lg-thread'});
-    rows.push({kind: 'item', icon: 'lens', text: P.objectLabels.magnifier, name: 'lg-mag'});
+    rows.push({kind: 'item', icon: 'person', look: actorLooks[0], text: P.actorLabels.a, name: 'lg-wit', caption: true});
+    rows.push({kind: 'item', icon: 'person', look: actorLooks[1], text: P.actorLabels.b, name: 'lg-an', caption: true});
+    rows.push({kind: 'item', icon: 'board', text: P.objectLabels.board, name: 'lg-board', caption: true});
+    rows.push({kind: 'item', icon: 'line-direct', text: P.objectLabels.thread, name: 'lg-thread', caption: true});
+    rows.push({kind: 'item', icon: 'lens', text: P.objectLabels.magnifier, name: 'lg-mag', caption: true});
     P.annotations.forEach((a, i) => rows.push({kind: 'item', icon: 'ring', color: notes[i % 2], text: a.text, name: `note${i}`}));
   }
   if (showKey) rows.push({kind: 'state', text: P.stateCaption || ctx.t[P.finalState], name: 'state-tag'});
@@ -374,6 +374,8 @@ function finishModel(ctx, P, links, M) {
     return {c: E.c, e: E.e, d};
   });
   const problems = [];
+  const cBot = Math.max(...BL.claims.map(C => C.y + C.h)), eTop = Math.min(...BL.evid.map(E => E.y));
+  if (eTop - cBot < Math.max(50, BL.eh * 0.45)) problems.push('board-fit');
   // reach: dangle ends and pin targets must be reachable from some standing place
   const R = REACH * M.k * 0.95;
   const okT = t => Math.abs(t.y - sy) < R;
@@ -396,8 +398,8 @@ const scene = {
     const actorLooks = [actorLook(ctx, null, 0), actorLook(ctx, null, 1)];
     const rows = legendRows(ctx, P, links, looks, actorLooks);
     const shape = ctx.view.shape;
-    const opts = shape === 'portrait' ? [{mode: 'below', cols: 1}, {mode: 'below', cols: 2}]
-      : shape === 'square' ? [{mode: 'below', cols: 2}]
+    const opts = shape === 'portrait' ? [{mode: 'below', cols: 1}, {mode: 'below', cols: 2}, {mode: 'below', cols: 3}]
+      : shape === 'square' ? [{mode: 'below', cols: 2}, {mode: 'below', cols: 3}]
         : [{mode: 'side', pw: 0.28}, {mode: 'side', pw: 0.32}, {mode: 'side', pw: 0.36}];
     const tallC = [{arr: 'tall', kf: 0.36, bb: 0.6}, {arr: 'tall', kf: 0.4, bb: 0.62}, {arr: 'tall', kf: 0.44, bb: 0.64}, {arr: 'tall', kf: 0.32, bb: 0.6}];
     const wideC = [{arr: 'wide', kf: 0.62, bb: 0.62, bx: 0.36}, {arr: 'wide', kf: 0.66, bb: 0.6, bx: 0.38}, {arr: 'wide', kf: 0.58, bb: 0.64, bx: 0.34}, {arr: 'wide', kf: 0.7, bb: 0.58, bx: 0.4}, {arr: 'wide', kf: 0.76, bb: 0.6, bx: 0.36}, {arr: 'wide', kf: 0.82, bb: 0.62, bx: 0.34}];
