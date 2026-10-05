@@ -1,0 +1,96 @@
+{
+  "animationId": "LAW-0084",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; rule texts are the author's illustrative text, not statements of any law. The replacement datum and the status its row takes afterwards are supplied by the author; nothing is inferred.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional garden incident: the disputed attribute 3 “Seen there at 21:40” is lifted out under a reading magnifier and replaced by the supplied “Both sides agree it was there at 21:40”; its bolt then moves from stopping short to seated (status supplied for after). The struck old value becomes the changed-datum tag.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a fictional library return with four rows; the CONDITION side of row 4 is inspected (lens on the socket and the rule text), its text is replaced and the row's bolt moves the other way — from seated to stopping short (status supplied as disputed after the change).",
+      "params": {
+        "facts": {
+          "title": "Return on Tuesday night (fictional)",
+          "attributes": [
+            {"text": "A book is returned by Mo Achebe", "status": "as-supplied"},
+            {"text": "Loan card inside the book", "status": "as-supplied"},
+            {"text": "Dropped through the night slot", "status": "as-supplied"},
+            {"text": "Slot log shows 23:10", "status": "as-supplied"}
+          ]
+        },
+        "rules": {
+          "title": "Library rule 7 (fictional text)",
+          "conditions": ["A borrowed book is returned", "with its loan card inside", "through the night slot", "before the slot is locked"]
+        },
+        "issues": [],
+        "assumptions": ["The night slot is part of the library"],
+        "focusTarget": "condition",
+        "focusRow": 3,
+        "beforeValue": "before the slot is locked",
+        "afterValue": "before the library closes that evening",
+        "afterStatus": "disputed",
+        "detailGeometry": {"zoom": 2.4, "placement": "auto"},
+        "contextLabels": {"context": "Context: the return record docked on library rule 7 (fictional)", "marker": "Rule text replaced (as supplied)"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Four long attributes and conditions, long titles, a long before and after value, long context caption and marker label.",
+      "params": {
+        "facts": {
+          "title": "Incident at the north gate of the community garden, Friday evening",
+          "attributes": [
+            {"text": "A heavy wheelbarrow full of soil was left standing across the main gravel path", "status": "as-supplied"},
+            {"text": "The wheelbarrow carries the painted number of the Plot 12 holder on its side", "status": "as-supplied"},
+            {"text": "A neighbour says she saw it there at about 21:40, after sunset", "status": "disputed"},
+            {"text": "No sign was placed next to it to warn other visitors", "status": "pending"}
+          ]
+        },
+        "rules": {
+          "title": "Community garden rule 4 on shared paths — fictional wording only",
+          "conditions": [
+            "An object of any kind is left standing on a path that all members share",
+            "by a person who holds a plot in the garden at the time",
+            "after the garden has been closed for the evening by the warden",
+            "without a warning sign placed next to the object"
+          ]
+        },
+        "issues": [{"attribute": 2, "text": "At what time did the warden actually close the garden that Friday evening?"}],
+        "assumptions": ["The main gravel path counts as a shared path for everyone"],
+        "focusTarget": "attribute",
+        "focusRow": 2,
+        "beforeValue": "A neighbour says she saw it there at about 21:40, after sunset",
+        "afterValue": "Two neighbours and the warden all state that it stood there from about 21:40 onwards",
+        "afterStatus": "as-supplied",
+        "detailGeometry": {"zoom": 2.5, "placement": "auto"},
+        "contextLabels": {"context": "Context: the incident card docked on the illustrative garden rule plate", "marker": "Changed datum supplied by the author"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "facts": {
+          "title": "Incidente en la parcela 12 (ficticio)",
+          "attributes": [
+            {"text": "Carretilla dejada en el camino principal", "status": "as-supplied"},
+            {"text": "Pertenece a quien cultiva la parcela 12", "status": "as-supplied"},
+            {"text": "Vista allí a las 21:40", "status": "disputed"}
+          ]
+        },
+        "rules": {
+          "title": "Norma 4 del huerto (texto ficticio)",
+          "conditions": ["Se deja un objeto en un camino común", "por quien cultiva una parcela", "después del cierre del huerto"]
+        },
+        "issues": [{"attribute": 2, "text": "¿A qué hora se cerró el huerto esa tarde?"}],
+        "assumptions": ["El camino principal se considera común"],
+        "beforeValue": "Vista allí a las 21:40",
+        "afterValue": "Ambas partes coinciden en que estaba allí a las 21:40",
+        "contextLabels": {"context": "Contexto: la tarjeta del hecho encajada en la placa de la regla", "marker": "Dato cambiado (según lo aportado)"}
+      }
+    }
+  ]
+}

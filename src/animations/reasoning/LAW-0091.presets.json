@@ -1,0 +1,73 @@
+{
+  "animationId": "LAW-0091",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the rule text is supplied by the author, no rule is applied and no outcome, winner or score is shown.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Four fictional facts; the written warning is recorded only in the earlier case. Board A: the new case leaves that cell empty, the link breaks and the magnifier lifts the warning into the rule's clip. Board B: the new case records the same warning, every column links and the clip stays empty.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a five-fact tenancy example in which the distinguishing fact (a phoned complaint) is recorded only in the NEW case, so on board A the empty cell is in the earlier strip and the token is lifted from the new strip; on board B both cases record the complaint.",
+      "params": {
+        "facts": [
+          {"text": "Lease signed for one year", "icon": "document", "in": "both"},
+          {"text": "Rent paid every month", "icon": "calendar", "in": "both"},
+          {"text": "Neighbour phoned in a complaint", "icon": "phone", "in": "b"},
+          {"text": "Keys returned on day 30", "icon": "key", "in": "both"},
+          {"text": "Deposit held in an account", "icon": "coin", "in": "both"}
+        ],
+        "rules": ["Rule Q (illustrative), as stated by the author for the earlier case"],
+        "issues": ["Is the complaint itself contested?"],
+        "assumptions": ["Fictional tenancy; dates are relative"],
+        "scenarioA": {"label": "Distinguishing fact present", "caption": "Only the new case records the complaint"},
+        "scenarioB": {"label": "Distinguishing fact absent", "caption": "Both cases record the complaint"},
+        "changedFact": "Only change: whether the earlier case also records the complaint",
+        "sharedFacts": ["Same five facts", "Same rule text"],
+        "comparisonLabels": {"guide": "Changed: the complaint", "neutral": "Two supplied variants side by side — nothing is decided"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long scenario labels and captions, long fact texts in the legend, a long rule, changed-fact line, guide label and neutral note to exercise wrapping and bounded shrinking.",
+      "params": {
+        "facts": [
+          {"text": "The buyer signed the standard order form at the counter of the shop", "icon": "document", "in": "both"},
+          {"text": "The goods were delivered to the buyer's warehouse on the third day", "icon": "box", "in": "both"},
+          {"text": "The seller sent a written warning about late payment before delivery", "icon": "letter", "in": "a"},
+          {"text": "The full price was paid in cash to the seller's representative", "icon": "coin", "in": "both"}
+        ],
+        "rules": ["Rule R (illustrative text supplied by the author), as formulated in the earlier fictional case on its own facts"],
+        "issues": ["Does the written warning make a difference for rule R in the new situation, or not?"],
+        "assumptions": ["All facts are fictional; every other fact of the two situations is treated as equal"],
+        "scenarioA": {"label": "Situation A — the distinguishing fact is present", "caption": "The new situation does not record the written warning that the earlier case records"},
+        "scenarioB": {"label": "Situation B — the distinguishing fact is absent", "caption": "The new situation records exactly the same written warning as the earlier case"},
+        "changedFact": "The only change between the two boards: whether the new situation also records the written warning about late payment",
+        "sharedFacts": ["Same facts in the same order", "Same illustrative rule text", "Same magnifier path and timing"],
+        "comparisonLabels": {"guide": "Changed fact: the written warning in the new situation", "neutral": "Two variants of one fictional example shown side by side — no outcome, winner or score is shown"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "facts": [
+          {"text": "El comprador firmó el pedido", "icon": "document", "in": "both"},
+          {"text": "Mercancía entregada el día 3", "icon": "box", "in": "both"},
+          {"text": "El vendedor envió un aviso por escrito", "icon": "letter", "in": "a"},
+          {"text": "Precio pagado en efectivo", "icon": "coin", "in": "both"}
+        ],
+        "rules": ["Regla R (ilustrativa), tal como se formuló en el caso anterior"],
+        "issues": ["¿Importa el aviso para la regla R?"],
+        "assumptions": ["Hechos ficticios; todo lo demás se mantiene igual"],
+        "scenarioA": {"label": "Hecho diferenciador presente", "caption": "El caso nuevo no recoge el aviso"},
+        "scenarioB": {"label": "Hecho diferenciador ausente", "caption": "El caso nuevo recoge el mismo aviso"},
+        "changedFact": "Único cambio: si el caso nuevo recoge el aviso por escrito",
+        "sharedFacts": ["Mismos hechos y orden", "Mismo texto de la regla", "Mismo recorrido de la lupa"],
+        "comparisonLabels": {"guide": "Hecho que cambia", "neutral": "Dos variantes de un ejemplo ficticio — no se muestra ningún resultado"}
+      }
+    }
+  ]
+}

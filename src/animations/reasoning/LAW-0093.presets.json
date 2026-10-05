@@ -1,0 +1,113 @@
+{
+  "animationId": "LAW-0093",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (house rules of an imaginary building, jurisdiction unspecified). The route the fact takes and the marker it carries are SUPPLIED by the author; the scene never decides whether a rule or an exception applies.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The fact card carries the condition marker (as supplied): the reader examines it, pulls the lever, the switch and gate open the separate branch and the wagon runs onto it.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different fact without the condition marker (as supplied). The magnifier finds an empty corner, the lever is never pulled, the branch stays closed and the wagon continues along the main route to its buffer.",
+      "params": {
+        "facts": [
+          "Parcel 9 is a standard parcel",
+          "Arrives Monday, 11:15"
+        ],
+        "issues": [
+          "Does the exception’s condition appear in the facts?"
+        ],
+        "annotations": [
+          {
+            "target": "condition",
+            "text": "Socket left empty · no marker supplied"
+          }
+        ],
+        "finalState": "main-as-supplied"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long facts, rules, condition, issue, reader name and annotation to exercise wrapping and bounded shrinking; the held-disputed state keeps the wagon at the stop line.",
+      "params": {
+        "facts": [
+          "Parcel 7 is marked as needing a recipient signature on delivery",
+          "Arrives on Monday morning at 9:40 with the second courier round"
+        ],
+        "rules": {
+          "general": "Parcels delivered to the building are left at the front desk for collection by the addressee",
+          "exception": "Parcels that need a recipient signature are taken to the secure post room on the ground floor",
+          "condition": "The parcel carries a label saying that a recipient signature is needed"
+        },
+        "issues": [
+          "Does the condition of the signed-for exception appear in the supplied facts of this delivery?"
+        ],
+        "assumptions": [
+          "Fictional house rules of an imaginary building, exactly as supplied by the author"
+        ],
+        "reader": {
+          "name": "Maria-Fernanda Castellanos Villavicencio",
+          "role": "Reader"
+        },
+        "actorLabels": {
+          "a": "Reader examining the supplied facts"
+        },
+        "objectLabels": {
+          "rule": "General rule of the house",
+          "exception": "Exception to the rule",
+          "condition": "Condition of the exception",
+          "fact": "Supplied fact"
+        },
+        "annotations": [
+          {
+            "target": "fact",
+            "text": "The marker is shown half filled because the author supplies it as disputed"
+          }
+        ],
+        "finalState": "held-disputed"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "facts": [
+          "El paquete 7 requiere firma",
+          "Llega el lunes a las 9:40"
+        ],
+        "rules": {
+          "general": "Los paquetes se dejan en recepción",
+          "exception": "Los paquetes con firma van a la sala de correo",
+          "condition": "El paquete requiere firma"
+        },
+        "issues": [
+          "¿Aparece en los hechos la condición de la excepción?"
+        ],
+        "assumptions": [
+          "Normas internas ficticias, tal como se aportan"
+        ],
+        "reader": {
+          "name": "Noor Haddad",
+          "role": "Lectora"
+        },
+        "actorLabels": {
+          "a": "Lectora"
+        },
+        "objectLabels": {
+          "rule": "Regla general",
+          "exception": "Excepción",
+          "condition": "Condición",
+          "fact": "Hecho"
+        },
+        "annotations": [
+          {
+            "target": "junction",
+            "text": "Rama separada · se abre con la condición aportada"
+          }
+        ]
+      }
+    }
+  ]
+}

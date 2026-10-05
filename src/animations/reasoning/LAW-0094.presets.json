@@ -1,0 +1,74 @@
+{
+  "animationId": "LAW-0094",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (house rules of an imaginary building, jurisdiction unspecified). Relationships, their kinds, the traversal order and the route state are SUPPLIED by the author; the scene draws only those links and never decides whether a rule or an exception applies.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Five supplied links (relations without arrowheads, sequences with them); the tracer visits fact → magnifier → condition → switch → exception; the supplied state opens the branch.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a fact without the condition marker and the main-route state supplied. The traversal ends on the main track, the focus is the condition socket, the switch blade never moves and the main track lights instead of the siding; one link is supplied as a communication.",
+      "params": {
+        "facts": ["Parcel 9 is a standard parcel", "Arrives Monday, 11:15"],
+        "relationships": [
+          {"from": "lens", "to": "fact", "kind": "relation"},
+          {"from": "lens", "to": "condition", "kind": "communication"},
+          {"from": "condition", "to": "connector", "kind": "sequence"},
+          {"from": "connector", "to": "rule", "kind": "sequence"},
+          {"from": "connector", "to": "exception", "kind": "relation"}
+        ],
+        "traversalOrder": ["fact", "lens", "condition", "connector", "rule"],
+        "focusElement": "condition",
+        "routeState": "main-as-supplied"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long facts, rules, condition, element labels and relation captions to exercise wrapping and bounded shrinking.",
+      "params": {
+        "facts": ["Parcel 7 is marked as needing a recipient signature on delivery", "Arrives on Monday morning at 9:40 with the second courier round"],
+        "rules": {
+          "general": "Parcels delivered to the building are left at the front desk for collection by the addressee",
+          "exception": "Parcels that need a recipient signature are taken to the secure post room on the ground floor",
+          "condition": "The parcel carries a label saying that a recipient signature is needed"
+        },
+        "issues": ["Does the condition of the signed-for exception appear in the supplied facts of this delivery?"],
+        "elements": [
+          {"id": "fact", "label": "Supplied fact of the delivery"},
+          {"id": "lens", "label": "Magnifier examining the fact"},
+          {"id": "condition", "label": "Condition of the exception"},
+          {"id": "connector", "label": "Switch connecting both routes"},
+          {"id": "rule", "label": "General rule of the house"},
+          {"id": "exception", "label": "Exception to the general rule"}
+        ],
+        "relationLabels": {"relation": "related to (as supplied)", "communication": "communicated to", "sequence": "followed by (supplied order)", "causal": "causal link (as supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "facts": ["El paquete 7 requiere firma", "Llega el lunes a las 9:40"],
+        "rules": {
+          "general": "Los paquetes se dejan en recepción",
+          "exception": "Los paquetes con firma van a la sala de correo",
+          "condition": "El paquete requiere firma"
+        },
+        "issues": ["¿Aparece en los hechos la condición de la excepción?"],
+        "assumptions": ["Normas internas ficticias, tal como se aportan"],
+        "elements": [
+          {"id": "fact", "label": "Hecho"},
+          {"id": "lens", "label": "Lupa"},
+          {"id": "condition", "label": "Condición"},
+          {"id": "connector", "label": "Aguja (conector)"},
+          {"id": "rule", "label": "Regla general"},
+          {"id": "exception", "label": "Excepción"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

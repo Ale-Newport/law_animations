@@ -1,0 +1,100 @@
+{
+  "animationId": "LAW-0100",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative, jurisdiction unspecified; the substituted value is supplied by the author and nothing is decided by the animation.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional club rule with three cumulative conditions, every piece seated after the test turn. The reading glass lifts pocket 2; its status is replaced (supplied → pending): the piece slides out, both mesh contacts split, and back in context the joint dial springs back to its open end.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different fictional rule with four conditions where piece 3 starts pending (its pocket empty, the test turn stops at the gap). The substitution runs the other way (pending → supplied): the piece slides into its pocket, both contacts engage and, back in context, a new test turn carries the joint dial to its end.",
+      "params": {
+        "rules": {
+          "name": "Rule G-4 (fictional allotment rule): transferring a garden plot",
+          "conditions": ["Written transfer request", "Neighbouring plot holders notified", "Plot inspected by the committee", "Transfer fee paid (hypothetical)"]
+        },
+        "facts": [
+          {"label": "Request dated Day 1, signed by L. Varga", "status": "supplied"},
+          {"label": "Notice pinned on the shed on Day 3", "status": "supplied"},
+          {"label": "Inspection visit recorded on Day 6", "status": "pending"},
+          {"label": "Fee slip F-7 (hypothetical amount)", "status": "supplied"}
+        ],
+        "issues": ["What changes on the board if the inspection record is supplied?"],
+        "assumptions": ["Statuses as supplied by the committee secretary"],
+        "focusTarget": "status",
+        "focusPiece": 3,
+        "beforeValue": "Pending: no inspection record yet",
+        "afterValue": "Supplied: inspection record of Day 6",
+        "afterStatus": "supplied",
+        "detailGeometry": {"zoom": 2.2, "placement": "auto"},
+        "contextLabels": {"context": "Context: the Rule G-4 board, piece 3 not yet supplied", "marker": "Changed datum: piece 3"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Five long conditions and facts; the fourth piece's status is replaced by 'disputed' (lifted askew, teeth unmeshed, not resolved here), with long before / after values and captions.",
+      "params": {
+        "rules": {
+          "name": "Rule M-12 (fictional housing co-operative rule): approving a shared workshop in the basement storage area",
+          "conditions": [
+            "Written application signed by a registered co-operative member",
+            "Floor plan of the basement area attached to the application",
+            "Written consent of the neighbouring storage-unit holders",
+            "Safety inspection of the electrical installation recorded by the caretaker",
+            "Annual usage fee paid into the co-operative account (hypothetical amount)"
+          ]
+        },
+        "facts": [
+          {"label": "Application form WS-3 signed by member Maria-Fernanda Castellanos Villavicencio on Day 4", "status": "supplied"},
+          {"label": "Hand-drawn floor plan of storage bays 7 to 9 attached as annex A", "status": "supplied"},
+          {"label": "Consent letters from all three neighbouring unit holders, dated Day 5", "status": "supplied"},
+          {"label": "Caretaker's inspection note dated Day 11 for the basement circuits", "status": "supplied"},
+          {"label": "Bank slip for the annual usage fee (hypothetical amount, reference 55-B)", "status": "supplied"}
+        ],
+        "issues": ["Which piece of Rule M-12 is affected if the caretaker's note is contested?"],
+        "assumptions": ["Every fact is taken exactly as supplied by the applicant", "No document has been verified by the co-operative board"],
+        "focusTarget": "status",
+        "focusPiece": 4,
+        "beforeValue": "Supplied: the caretaker's inspection note of Day 11 is on file with the application",
+        "afterValue": "Disputed: a member contests the inspection note; the question is not resolved here",
+        "afterStatus": "disputed",
+        "detailGeometry": {"zoom": 2.4, "placement": "auto"},
+        "contextLabels": {"context": "Context: Rule M-12 board, all five pieces seated after its test turn", "marker": "Changed datum: piece 4 status"}
+      }
+    },
+    {
+      "name": "fact-substitution",
+      "description": "The datum replaced is the fact printed on piece 1 (focusTarget = fact): the old text lifts off the piece and the new one appears; the piece stays seated and the rest of the board does not move.",
+      "params": {
+        "focusTarget": "fact",
+        "focusPiece": 1,
+        "beforeValue": "Form signed by member M. Okafor on Day 2",
+        "afterValue": "Form signed by member R. Lindqvist on Day 3",
+        "contextLabels": {"context": "Context: the Rule R-1 board after its test turn", "marker": "Changed datum: fact on piece 1"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "rules": {
+          "name": "Regla R-1 (norma ficticia de un club): reserva del salón",
+          "conditions": ["Formulario de reserva firmado", "Depósito pagado (importe hipotético)", "Fecha solicitada libre en el calendario"]
+        },
+        "facts": [
+          {"label": "Formulario firmado por el socio M. Okafor el día 2", "status": "supplied"},
+          {"label": "Recibo D-12 del depósito (hipotético)", "status": "supplied"},
+          {"label": "El calendario del club muestra libre el día 9", "status": "supplied"}
+        ],
+        "issues": ["¿Qué piezas de la regla R-1 se han aportado?"],
+        "assumptions": ["Los hechos se toman según lo aportado; ninguno se verifica aquí"],
+        "beforeValue": "Aportada: se entregó el recibo D-12",
+        "afterValue": "Pendiente: aún no se ha aportado el recibo",
+        "contextLabels": {"context": "Contexto: el tablero de la regla R-1 tras su giro de prueba", "marker": "Dato cambiado: pieza 2"}
+      }
+    }
+  ]
+}

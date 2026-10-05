@@ -1,0 +1,415 @@
+{
+  "id": "LAW-0108",
+  "slug": "reasoning-07-inspect",
+  "title": "Circular reasoning — the premise’s “rests on” tag under a lens: the claim itself replaced by an outside record",
+  "titleEs": "Razonamiento circular — Inspección y cambio de un dato",
+  "category": "reasoning",
+  "categoryName": "Razonamiento jurídico",
+  "motif": "Razonamiento circular",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The state after the action: premise and claim lean on each other and the support arrow returns to the premise. A lens opens a real enlarged copy of the premise’s “rests on” tag and the arrow landing; the supplied before value is struck and kept as a struck note, the after value appears, and only the dependent geometry changes — the returning arrow fades, an archive box slides in, the premise re-leans onto it and the chain arrows draw. The lens closes back onto the context with a neutral Δ marker. Seeking back restores the before value exactly.",
+  "tags": [
+    "reasoning",
+    "circular reasoning",
+    "inspect",
+    "lens",
+    "substitution",
+    "premise",
+    "outside record",
+    "tag"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/reasoning/kits/razonamiento-circular.js",
+    "src/frameworks/lens.js",
+    "src/primitives/annotate.js",
+    "src/primitives/badges.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "speaker": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Display name (fictional by default)"
+          },
+          "role": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Descriptive role label (not a legal finding)"
+          },
+          "appearance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "skin": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5,
+                "description": "Skin tone index 0–5"
+              },
+              "hair": {
+                "type": "string",
+                "enum": [
+                  "short",
+                  "long",
+                  "bun",
+                  "curly",
+                  "buzz",
+                  "scarf"
+                ],
+                "description": "Hair style"
+              },
+              "hairColor": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 6,
+                "description": "Hair colour index 0–6"
+              },
+              "outfit": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7,
+                "description": "Outfit colour index 0–7"
+              },
+              "glasses": {
+                "type": "boolean",
+                "description": "Wears glasses"
+              }
+            },
+            "required": [],
+            "description": "Optional appearance overrides; defaults derive from the seed"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "description": "A fictional person or party"
+      },
+      "claim": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "Claim as supplied, attributed to the fictional speaker (illustrative text; the scene never assesses it)"
+      },
+      "facts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 110,
+          "description": "Premise"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "The premise offered for the claim (fictional) (array replaces the previous value)"
+      },
+      "supportLabel": {
+        "type": "string",
+        "maxLength": 70,
+        "description": "Outside support printed on the archive box label (a fictional record, as supplied)"
+      },
+      "rules": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Rule text"
+        },
+        "minItems": 0,
+        "maxItems": 1,
+        "description": "Rule text supplied by the author (illustrative, never a statement of law), printed on the wall plaque; the scene never applies it (array replaces the previous value)"
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Issue"
+        },
+        "minItems": 0,
+        "maxItems": 1,
+        "description": "Open question supplied by the author, pinned as a note (never answered by the animation) (array replaces the previous value)"
+      },
+      "assumptions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 90,
+          "description": "Assumption"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Working assumptions supplied by the author, printed in the footnote (not verified) (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "support-tag",
+          "premise-top"
+        ],
+        "description": "Detail that is enlarged and substituted"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "speaker": {
+      "name": "Ines Vale",
+      "role": "Club treasurer (fictional)"
+    },
+    "claim": "The club ledger is accurate",
+    "facts": [
+      "The ledger’s totals are right"
+    ],
+    "supportLabel": "Bank statement B-7 · outside record",
+    "rules": [
+      "Club rule 9 (fictional text): the yearly report is based on the ledger"
+    ],
+    "issues": [
+      "Does the premise need the claim to stand?"
+    ],
+    "assumptions": [
+      "Both values are supplied by the author; neither is verified"
+    ],
+    "focusTarget": "support-tag",
+    "beforeValue": "The claim itself (the ledger is accurate)",
+    "afterValue": "Bank statement B-7 (an outside record)",
+    "detailGeometry": {
+      "zoom": 2,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Context: the premise and the claim lean on each other (fictional)",
+      "marker": "Changed datum (as supplied)"
+    }
+  }
+}

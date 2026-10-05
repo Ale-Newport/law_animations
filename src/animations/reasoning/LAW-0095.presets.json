@@ -1,0 +1,59 @@
+{
+  "animationId": "LAW-0095",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (house rules of an imaginary building, jurisdiction unspecified). The route each board shows (routeA / routeB) is SUPPLIED by the author; the scene never decides which rule applies, names no winner and states no outcome.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Two identical junction boards. Only in B a stamp prints the condition marker and the changed fact on the parcel card; both magnifiers examine the card at the same moment; B's socket lights, its switch throws and its gate opens, then the wagons follow their supplied routes (A main line, B separate branch).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: in B the author supplies the marker as DISPUTED. The stamp prints a half-filled marker, the socket answers with a dashed half diamond, no pulse reaches the switch and B's wagon is held at the stop line while A continues along the main route — the sequence, not just the text, differs.",
+      "params": {
+        "scenarioA": {"label": "General case", "caption": "The parcel carries no signature marker"},
+        "scenarioB": {"label": "Disputed marker", "caption": "The same parcel with a signature marker the courier disputes"},
+        "changedFact": "Signature marker disputed",
+        "comparisonLabels": {"guide": "Changed fact", "neutral": "Two supposed situations side by side — the disputed marker is not resolved here"},
+        "routeB": "held-disputed"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long fact, rules, scenario labels, captions, changed fact, shared facts and notes to exercise wrapping and bounded shrinking.",
+      "params": {
+        "facts": ["Parcel 7 from the second courier round arrives on Monday morning at 9:40"],
+        "rules": {
+          "general": "Parcels delivered to the building are left at the front desk for collection by the addressee",
+          "exception": "Parcels that need a recipient signature are taken to the secure post room on the ground floor",
+          "condition": "The parcel carries a label saying that a recipient signature is needed"
+        },
+        "scenarioA": {"label": "General case of an ordinary delivery", "caption": "The parcel card carries no signature marker at all in this supposed situation"},
+        "scenarioB": {"label": "Exceptional case of a signed-for delivery", "caption": "The very same parcel card is marked as needing a recipient signature"},
+        "changedFact": "Marked as needing a recipient signature on delivery",
+        "sharedFacts": ["Same parcel from the same courier round", "Same arrival time on Monday morning", "Same fictional house rules"],
+        "comparisonLabels": {"guide": "The only fact that changes", "neutral": "Two supposed situations shown side by side; no outcome, winner or legal consequence is stated"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "facts": ["El paquete 7 llega el lunes a las 9:40"],
+        "rules": {
+          "general": "Los paquetes se dejan en recepción",
+          "exception": "Los paquetes con firma van a la sala de correo",
+          "condition": "El paquete requiere firma"
+        },
+        "issues": ["¿Aparece en los hechos la condición de la excepción?"],
+        "assumptions": ["Normas internas ficticias, tal como se aportan"],
+        "scenarioA": {"label": "Supuesto general", "caption": "El paquete no lleva marca de firma"},
+        "scenarioB": {"label": "Supuesto excepcional", "caption": "El mismo paquete marcado como que requiere firma"},
+        "changedFact": "Requiere firma",
+        "sharedFacts": ["Mismo paquete, misma hora de llegada", "Mismas normas internas"],
+        "comparisonLabels": {"guide": "Hecho cambiado", "neutral": "Dos supuestos lado a lado — no se afirma ningún resultado"}
+      }
+    }
+  ]
+}

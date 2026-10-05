@@ -1,0 +1,190 @@
+{
+  "animationId": "LAW-0102",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative, jurisdiction unspecified; relationships, statuses and the traversal order are supplied by the author and nothing is decided by the animation.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional guest-pass rule with two alternative routes: the parts separate, the rule is related to both inlets (plain relations, no arrowheads), each inlet leads to the junction and the junction to the point of analysis (sequences). The tracer runs from Route A through the junction to the point while the magnifier enlarges the shuttle valve and the ball closes the B seat; both facts are supplied.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a fictional library-fee rule where Route A's fact is PENDING (nothing sent) and Route B's fact is supplied. The tracer follows Route B instead (portB → junction → point), the magnifier enlarges Route B's inlet, and the arriving route pushes the ball the other way (against the A seat). The rule–inlet links are supplied as communication for Route B.",
+      "params": {
+        "rules": {
+          "name": "Library rule 9 (fictional text): a late fee may be looked at again by either route",
+          "conditions": [
+            "The book was returned through the night slot",
+            "A staff member recorded a desk extension"
+          ]
+        },
+        "facts": [
+          {
+            "label": "Night-slot log for Day 14 not yet supplied",
+            "status": "pending"
+          },
+          {
+            "label": "Desk note: extension recorded by staff member R. Osei",
+            "status": "supplied"
+          }
+        ],
+        "issues": [
+          "Will the night-slot log be supplied later?"
+        ],
+        "assumptions": [
+          "The desk note is complete as supplied"
+        ],
+        "relationships": [
+          {
+            "from": "rule",
+            "to": "portA",
+            "kind": "relation"
+          },
+          {
+            "from": "rule",
+            "to": "portB",
+            "kind": "communication"
+          },
+          {
+            "from": "portB",
+            "to": "junction",
+            "kind": "sequence"
+          },
+          {
+            "from": "junction",
+            "to": "point",
+            "kind": "sequence"
+          }
+        ],
+        "focusElement": "portB",
+        "traversalOrder": [
+          "portB",
+          "junction",
+          "point"
+        ],
+        "relationLabels": {
+          "relation": "lists this condition",
+          "communication": "desk note sent to the rule's file",
+          "sequence": "route (sequence)",
+          "causal": "causal (as supplied)"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names and texts near the field limits: long rule caption, conditions, facts, element labels and relation captions, two long assumptions and a long issue. Text wraps between words; sizes stay at or above 16 px at 1080p.",
+      "params": {
+        "rules": {
+          "name": "Rule M-27 (fictional housing co-operative rule): a request to use the shared roof terrace may arrive by either route",
+          "conditions": [
+            "The request is countersigned by two registered members of the housing co-operative board",
+            "The requester presents the stamped annual terrace permit issued by the caretaker's office"
+          ]
+        },
+        "facts": [
+          {
+            "label": "Request form countersigned by Maria-Fernanda Castellanos and Oluwaseun Adeyemi-Clarke",
+            "status": "supplied"
+          },
+          {
+            "label": "Terrace permit no. T-5561 stamped by the caretaker's office, shown on Day 13",
+            "status": "disputed"
+          }
+        ],
+        "issues": [
+          "Were both countersignatures added before the request was placed in the tube? (not examined here)"
+        ],
+        "assumptions": [
+          "Each route is read on its own and neither route is ranked above the other",
+          "The dates are taken from the documents as supplied; none of them is verified here"
+        ],
+        "elements": [
+          {
+            "id": "rule",
+            "label": "Rule M-27 · illustrative text by the author"
+          },
+          {
+            "id": "portA",
+            "label": "Route A · countersignature condition as supplied"
+          },
+          {
+            "id": "portB",
+            "label": "Route B · terrace permit condition as supplied"
+          },
+          {
+            "id": "junction",
+            "label": "Shuttle-valve junction · either route opens it"
+          },
+          {
+            "id": "point",
+            "label": "Point of analysis · co-operative office tray"
+          }
+        ],
+        "relationLabels": {
+          "relation": "the rule lists this alternative",
+          "communication": "communication",
+          "sequence": "capsule route (sequence as supplied)",
+          "causal": "causal (as supplied)"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Versión en español del ejemplo base: la regla ficticia del pase de invitado con dos rutas alternativas; el trazador recorre la ruta A hasta el punto de análisis mientras la lupa amplía la válvula de lanzadera.",
+      "params": {
+        "locale": "es",
+        "rules": {
+          "name": "Regla G-2 (regla ficticia de un club): la solicitud de pase de invitado puede llegar por cualquiera de dos rutas",
+          "conditions": [
+            "Un socio invita por escrito a la persona invitada",
+            "La persona invitada muestra una tarjeta de un club asociado"
+          ]
+        },
+        "facts": [
+          {
+            "label": "Nota de invitación firmada por el socio J. Park el día 3",
+            "status": "supplied"
+          },
+          {
+            "label": "Tarjeta del club asociado n.º 0417 mostrada en la puerta",
+            "status": "supplied"
+          }
+        ],
+        "issues": [
+          "¿Sigue vigente la tarjeta n.º 0417? (no se examina aquí)"
+        ],
+        "assumptions": [
+          "Cada ruta se lee por separado; los hechos se toman según lo aportado"
+        ],
+        "elements": [
+          {
+            "id": "rule",
+            "label": "Regla · texto ilustrativo"
+          },
+          {
+            "id": "portA",
+            "label": "Ruta A · condición según lo aportado"
+          },
+          {
+            "id": "portB",
+            "label": "Ruta B · condición según lo aportado"
+          },
+          {
+            "id": "junction",
+            "label": "Unión · cualquiera de las rutas"
+          },
+          {
+            "id": "point",
+            "label": "Punto de análisis"
+          }
+        ],
+        "relationLabels": {
+          "relation": "enumera esta condición",
+          "communication": "comunicación",
+          "sequence": "ruta (secuencia)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "animationId": "LAW-0083",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; rule texts are the author's illustrative text, not statements of any law. Both scenario statuses are supplied by the author; no outcome is inferred and neither scenario is presented as the right one.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional garden incident in two identical stations: attribute 3 is supplied as coinciding in A (blue '=' clip, the bolt seats) and as disputed in B (amber '?' clip, the bolt stops short and B's magnifier moves over the joint).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a fictional library return with four rows where attribute 2 is supplied as coinciding in A and as PENDING in B (B's bolt stays retracted with a dashed ghost in the socket); different labels and shared facts.",
+      "params": {
+        "facts": {
+          "title": "Return on Tuesday night (fictional)",
+          "attributes": [
+            {
+              "text": "A book is returned by Mo Achebe",
+              "status": "as-supplied"
+            },
+            {
+              "text": "Loan card inside the book",
+              "status": "as-supplied"
+            },
+            {
+              "text": "Dropped through the night slot",
+              "status": "as-supplied"
+            },
+            {
+              "text": "Slot log shows 23:10",
+              "status": "as-supplied"
+            }
+          ]
+        },
+        "rules": {
+          "title": "Library rule 7 (fictional text)",
+          "conditions": [
+            "A borrowed book is returned",
+            "with its loan card inside",
+            "through the night slot",
+            "before the slot is locked"
+          ]
+        },
+        "issues": [],
+        "assumptions": [
+          "The night slot is part of the library"
+        ],
+        "changedAttribute": 1,
+        "statusA": "as-supplied",
+        "statusB": "pending",
+        "scenarioA": {
+          "label": "Loan card checked",
+          "caption": "Attribute 2 supplied as matching"
+        },
+        "scenarioB": {
+          "label": "Loan card not yet checked",
+          "caption": "Attribute 2 supplied as pending"
+        },
+        "changedFact": "Attribute 2 “Loan card inside the book”: matching in A, pending in B (as supplied)",
+        "sharedFacts": [
+          "same return record",
+          "same library rule text",
+          "attributes 1, 3 and 4 as supplied"
+        ],
+        "comparisonLabels": {
+          "guide": "The one supplied difference",
+          "neutral": "Both situations as supplied — the comparison draws no conclusion"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Four long attributes and conditions, long titles, long scenario labels and captions, a long changed-fact text, several long shared facts and long comparison labels.",
+      "params": {
+        "facts": {
+          "title": "Incident at the north gate of the community garden, Friday evening",
+          "attributes": [
+            {
+              "text": "A heavy wheelbarrow full of soil was left standing across the main gravel path",
+              "status": "as-supplied"
+            },
+            {
+              "text": "The wheelbarrow carries the painted number of the Plot 12 holder on its side",
+              "status": "as-supplied"
+            },
+            {
+              "text": "A neighbour says she saw it there at about 21:40, after sunset",
+              "status": "as-supplied"
+            },
+            {
+              "text": "No sign was placed next to it to warn other visitors",
+              "status": "as-supplied"
+            }
+          ]
+        },
+        "rules": {
+          "title": "Community garden rule 4 on shared paths — fictional wording only",
+          "conditions": [
+            "An object of any kind is left standing on a path that all members share",
+            "by a person who holds a plot in the garden at the time",
+            "after the garden has been closed for the evening by the warden",
+            "without a warning sign placed next to the object"
+          ]
+        },
+        "issues": [
+          {
+            "attribute": 2,
+            "text": "At what time did the warden actually close the garden that Friday evening?"
+          }
+        ],
+        "assumptions": [
+          "The main gravel path counts as a shared path for everyone"
+        ],
+        "changedAttribute": 2,
+        "statusA": "as-supplied",
+        "statusB": "disputed",
+        "scenarioA": {
+          "label": "Every attribute supplied as coinciding",
+          "caption": "The neighbour's account of the time is supplied as matching the rule's timing condition"
+        },
+        "scenarioB": {
+          "label": "The time attribute supplied as disputed",
+          "caption": "The neighbour's account of the time is supplied as disputed; nothing else is changed"
+        },
+        "changedFact": "Attribute 3 “A neighbour says she saw it there at about 21:40”: coinciding in A, disputed in B",
+        "sharedFacts": [
+          "the same fact card with the same title and wording",
+          "the same illustrative rule wording",
+          "attributes 1, 2 and 4 supplied identically"
+        ],
+        "comparisonLabels": {
+          "guide": "This is the only row that differs between the two situations",
+          "neutral": "Two situations supplied side by side for comparison — neither is marked as right and no conclusion is drawn"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "facts": {
+          "title": "Incidente en la parcela 12 (ficticio)",
+          "attributes": [
+            {
+              "text": "Carretilla dejada en el camino principal",
+              "status": "as-supplied"
+            },
+            {
+              "text": "Pertenece a quien cultiva la parcela 12",
+              "status": "as-supplied"
+            },
+            {
+              "text": "Vista allí a las 21:40",
+              "status": "as-supplied"
+            }
+          ]
+        },
+        "rules": {
+          "title": "Norma 4 del huerto (texto ficticio)",
+          "conditions": [
+            "Se deja un objeto en un camino común",
+            "por quien cultiva una parcela",
+            "después del cierre del huerto"
+          ]
+        },
+        "issues": [
+          {
+            "attribute": 2,
+            "text": "¿A qué hora se cerró el huerto esa tarde?"
+          }
+        ],
+        "assumptions": [
+          "El camino principal se considera común"
+        ],
+        "scenarioA": {
+          "label": "Atributos coincidentes",
+          "caption": "Atributo 3 aportado como coincidente con su condición"
+        },
+        "scenarioB": {
+          "label": "Un atributo discutido",
+          "caption": "Atributo 3 aportado como discutido"
+        },
+        "changedFact": "Atributo 3 «Vista allí a las 21:40»: coincidente en A, discutido en B (según lo aportado)",
+        "sharedFacts": [
+          "misma tarjeta y título",
+          "mismo texto de la regla",
+          "atributos 1–2 según lo aportado"
+        ],
+        "comparisonLabels": {
+          "guide": "Solo cambia esta fila",
+          "neutral": "Dos situaciones aportadas lado a lado — sin conclusión"
+        }
+      }
+    }
+  ]
+}

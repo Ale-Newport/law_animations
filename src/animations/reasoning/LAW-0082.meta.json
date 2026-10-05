@@ -1,0 +1,548 @@
+{
+  "id": "LAW-0082",
+  "slug": "reasoning-01-mechanism",
+  "title": "Fact and rule — parts diagram: attribute rows, connector bolts in a tray, rule sockets",
+  "titleEs": "Hecho y regla — Mecanismo o relación explicada",
+  "category": "reasoning",
+  "categoryName": "Razonamiento jurídico",
+  "motif": "Hecho y regla",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "Parts diagram: the fact card and the rule plate come apart and the latch bolts that connect attribute i to condition i are laid in a labelled connector tray (with the supplied assumptions). Only the supplied relationships are drawn, edge-anchored, from each attribute row to its bolt and from each bolt to the socket with the same profile (plain relations without arrowheads); a tracer follows the supplied order while the focus element enlarges and a magnifier glides onto the focus bolt. In the gather the parts stay apart: each bolt is lifted from the tray (dashed outlines keep where it lay) to its row and runs to its supplied stop — seated, or stopping short with a question mark; a pending bolt stays in the tray — with its wire still attached. Every connection is labelled on its wire with its kind, and a key lists the joint states. No rule is said to apply.",
+  "tags": [
+    "reasoning",
+    "fact",
+    "rule",
+    "attributes",
+    "alignment",
+    "connector",
+    "magnifier",
+    "exploded view",
+    "mechanism",
+    "relations",
+    "tracer",
+    "tray"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/reasoning/kits/hecho-y-regla.js",
+    "src/primitives/annotate.js",
+    "src/animations/causation/kits/place.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "facts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Title printed on the fact card"
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "maxLength": 90,
+                  "description": "Attribute text printed on the fact card (fictional)"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "as-supplied",
+                    "disputed",
+                    "pending"
+                  ],
+                  "description": "Status SUPPLIED by the author for how this attribute lines up with its condition: as-supplied (bolt seated), disputed (stops short, marked ?), pending (stays retracted). Descriptive only — never a legal finding"
+                }
+              },
+              "required": [
+                "text",
+                "status"
+              ],
+              "description": "Attribute"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Attributes of the fact (2–4) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "title",
+          "attributes"
+        ],
+        "description": "The fact card: a title and its attributes, in order (attribute i faces rule condition i). Fictional, as supplied"
+      },
+      "rules": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Title printed on the rule plate"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Condition text"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Conditions printed on the plate (2–4); condition i faces attribute i (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "title",
+          "conditions"
+        ],
+        "description": "The rule template: a title and its conditions, in order. Illustrative text supplied by the author; not a statement of any law"
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "attribute": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Zero-based attribute index"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Question text"
+            }
+          },
+          "required": [
+            "attribute",
+            "text"
+          ],
+          "description": "Issue"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Open questions attached to an attribute (shown as callouts at its joint; never answered) (array replaces the previous value)"
+      },
+      "assumptions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "Assumption"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Working assumptions supplied by the author, printed on the connector supports (not verified) (array replaces the previous value)"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "fact",
+                "connector",
+                "rule",
+                "lupa"
+              ],
+              "description": "Component id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Component"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Component labels. Ids are fixed by the scene (fact = fact card, connector = the latch bolts, rule = rule plate, lupa = magnifier); labels are editable. Unlisted components use their built-in label (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "fact",
+                "connector",
+                "rule",
+                "lupa"
+              ],
+              "description": "Source component id"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "fact",
+                "connector",
+                "rule",
+                "lupa"
+              ],
+              "description": "Target component id"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Optional caption for this relationship (defaults to the kind caption)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "Relationship"
+        },
+        "minItems": 1,
+        "maxItems": 6,
+        "description": "Explicit relationships between components. The kind sets the line style: a plain relation has end dots and no arrowhead; sequence/communication get an arrowhead; causal (thick) only when the author supplies it. fact↔connector and connector↔rule are drawn for every row (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "fact",
+          "connector",
+          "rule",
+          "lupa"
+        ],
+        "description": "Component enlarged while the tracer passes"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for sequence links"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Caption used for each relation kind (in the key and on unlabelled links)"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "fact",
+            "connector",
+            "rule",
+            "lupa"
+          ],
+          "description": "Component id"
+        },
+        "minItems": 2,
+        "maxItems": 8,
+        "description": "Order in which the tracer visits components (follows a drawn link when one joins two consecutive ids) (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "facts": {
+      "title": "Incident at Plot 12 (fictional)",
+      "attributes": [
+        {
+          "text": "Wheelbarrow left on the main path",
+          "status": "as-supplied"
+        },
+        {
+          "text": "It belongs to the Plot 12 holder",
+          "status": "as-supplied"
+        },
+        {
+          "text": "Seen there at 21:40",
+          "status": "disputed"
+        }
+      ]
+    },
+    "rules": {
+      "title": "Garden rule 4 (fictional text)",
+      "conditions": [
+        "An object is left on a shared path",
+        "by a plot holder",
+        "after the garden has closed"
+      ]
+    },
+    "issues": [
+      {
+        "attribute": 2,
+        "text": "When did the garden close that evening?"
+      }
+    ],
+    "assumptions": [
+      "The main path counts as shared"
+    ],
+    "elements": [
+      {
+        "id": "fact",
+        "label": "Fact card"
+      },
+      {
+        "id": "connector",
+        "label": "Connector bolts"
+      },
+      {
+        "id": "rule",
+        "label": "Rule plate"
+      },
+      {
+        "id": "lupa",
+        "label": "Magnifier"
+      }
+    ],
+    "relationships": [
+      {
+        "from": "fact",
+        "to": "connector",
+        "kind": "relation",
+        "label": "each attribute carries a bolt"
+      },
+      {
+        "from": "connector",
+        "to": "rule",
+        "kind": "relation",
+        "label": "each bolt faces its socket"
+      },
+      {
+        "from": "lupa",
+        "to": "connector",
+        "kind": "relation",
+        "label": "enlarges the joint in focus"
+      }
+    ],
+    "focusElement": "connector",
+    "relationLabels": {
+      "relation": "relation",
+      "communication": "communication",
+      "sequence": "sequence",
+      "causal": "causal (as supplied)"
+    },
+    "traversalOrder": [
+      "fact",
+      "connector",
+      "rule"
+    ]
+  }
+}

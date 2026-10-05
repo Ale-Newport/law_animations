@@ -1,0 +1,68 @@
+{
+  "animationId": "LAW-0096",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (house rules of an imaginary building, jurisdiction unspecified). The route shown before and after the substitution is SUPPLIED by the author (routeBefore / routeAfter); the scene never decides whether a rule or an exception applies. With focusTarget 'condition' the holder on the condition plaque shows beforeValue → afterValue in place of rules.condition.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The magnifier lifts the parcel card's datum holder: 'Needs a signature' is struck and replaced by 'No signature needed'; as supplied, the marker tile flips to empty, the relation to the gate socket is withdrawn, the switch returns and the main route lights.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the datum inspected is the CONDITION on the gate plaque. 'The parcel needs a signature' is replaced by 'The parcel is marked fragile'; the author supplies the after state as pending, so the card's marker is covered, the relation is withdrawn and the wagon's route stays unset at the junction.",
+      "params": {
+        "facts": ["Parcel 7 needs a signature", "Arrives Monday, 9:40"],
+        "rules": {
+          "general": "Parcels are left at the front desk",
+          "exception": "Parcels meeting the condition go to the post room",
+          "condition": "The parcel needs a signature"
+        },
+        "issues": ["What changes on the board if the supplied condition is reworded?"],
+        "focusTarget": "condition",
+        "beforeValue": "The parcel needs a signature",
+        "afterValue": "The parcel is marked fragile",
+        "contextLabels": {"context": "Context: the junction as supplied, parcel 7 at the stop line", "marker": "Changed condition"},
+        "routeBefore": "branch-as-supplied",
+        "routeAfter": "held-pending"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long facts, rules, values, issue, context caption and marker label to exercise wrapping and bounded shrinking; the before state is supplied as disputed and the after state as the exception branch.",
+      "params": {
+        "facts": ["Parcel 7 from the second courier round arrives on Monday morning at 9:40", "Delivered to the side entrance of the building"],
+        "rules": {
+          "general": "Parcels delivered to the building are left at the front desk for collection by the addressee",
+          "exception": "Parcels that need a recipient signature are taken to the secure post room on the ground floor",
+          "condition": "The parcel carries a label saying that a recipient signature is needed"
+        },
+        "issues": ["Which single datum printed on the delivery card of this parcel sets the route shown on the board?"],
+        "assumptions": ["Fictional house rules of an imaginary building, exactly as supplied by the author"],
+        "beforeValue": "Signature label partly torn and disputed by the courier",
+        "afterValue": "Signature label present and legible on the parcel",
+        "detailGeometry": {"zoom": 3, "placement": "auto"},
+        "contextLabels": {"context": "Context: the junction exactly as supplied, parcel 7 waiting at its stop line", "marker": "Datum replaced as supplied"},
+        "routeBefore": "held-disputed",
+        "routeAfter": "branch-as-supplied"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "facts": ["El paquete 7 llega el lunes a las 9:40"],
+        "rules": {
+          "general": "Los paquetes se dejan en recepción",
+          "exception": "Los paquetes con firma van a la sala de correo",
+          "condition": "El paquete requiere firma"
+        },
+        "issues": ["¿Qué dato de la ficha del paquete fija el recorrido?"],
+        "assumptions": ["Normas internas ficticias, tal como se aportan"],
+        "beforeValue": "Requiere firma",
+        "afterValue": "No requiere firma",
+        "contextLabels": {"context": "Contexto: el cruce según lo aportado, paquete 7 en la línea de parada", "marker": "Dato cambiado"}
+      }
+    }
+  ]
+}

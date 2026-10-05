@@ -1,0 +1,420 @@
+{
+  "id": "LAW-0092",
+  "slug": "reasoning-03-inspect",
+  "title": "Distinguishing cases — inspect the differing row and change one entry",
+  "titleEs": "Distinción de casos — Inspección y cambio de un dato",
+  "category": "reasoning",
+  "categoryName": "Razonamiento jurídico",
+  "motif": "Distinción de casos",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The pin board after the distinguishing fact was lifted into the rule's clip. A rectangular reading magnifier lifts off the distinguishing row (a real copy at the same coordinates), travels to the free side and enlarges it; one supplied entry changes (before value struck through, after value under it) and only its dependants update — a token pressed into the socket and the link closing, or the pictogram of the fact. It returns to context with a changed-datum pin.",
+  "tags": [
+    "reasoning",
+    "distinguishing",
+    "cases",
+    "inspect",
+    "magnifier",
+    "substitution",
+    "before",
+    "after",
+    "facts",
+    "rule",
+    "pin board"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/reasoning/kits/distincion-de-casos.js",
+    "src/animations/causation/kits/place.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "facts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Fact text (fictional, illustrative). Wraps to three lines, then shrinks within a bound, then ellipsis with the full text kept accessible"
+            },
+            "icon": {
+              "type": "string",
+              "enum": [
+                "letter",
+                "speech",
+                "document",
+                "box",
+                "coin",
+                "key",
+                "house",
+                "car",
+                "clock",
+                "calendar",
+                "phone",
+                "tree",
+                "person",
+                "tool"
+              ],
+              "description": "Pictogram printed on the fact token (the action reads without labels)"
+            },
+            "in": {
+              "type": "string",
+              "enum": [
+                "both",
+                "a",
+                "b"
+              ],
+              "description": "Where the fact appears: in both situations, only in A, or only in B. The first fact that is not in both is the distinguishing fact"
+            }
+          },
+          "required": [
+            "text",
+            "icon",
+            "in"
+          ],
+          "description": "A fictional fact and where it appears"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Facts of the two situations, one row each (fictional). Shared facts are marked \"both\"; the first fact present in only one situation is the distinguishing fact (array replaces the previous value)"
+      },
+      "rules": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Rule text"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Rule text supplied by the author (illustrative; the animation never states that it applies or not) (array replaces the previous value)"
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 90,
+          "description": "Issue"
+        },
+        "minItems": 0,
+        "maxItems": 1,
+        "description": "Open questions, shown as pending notes (never answered by the animation) (array replaces the previous value)"
+      },
+      "assumptions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 90,
+          "description": "Assumption"
+        },
+        "minItems": 0,
+        "maxItems": 1,
+        "description": "Working assumptions supplied by the author, shown as a footnote (not verified) (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "absent-entry",
+          "present-entry"
+        ],
+        "description": "Entry of the distinguishing row that is enlarged and substituted: the entry of the case that lacks the fact (absent-entry) or of the case that records it (present-entry)"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value of that entry before the substitution (shown struck through afterwards, never deleted)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value of that entry after the substitution (the alternative datum supplied by the author)"
+      },
+      "afterIcon": {
+        "type": "string",
+        "enum": [
+          "letter",
+          "speech",
+          "document",
+          "box",
+          "coin",
+          "key",
+          "house",
+          "car",
+          "clock",
+          "calendar",
+          "phone",
+          "tree",
+          "person",
+          "tool"
+        ],
+        "description": "Pictogram of the entry after the substitution (absent-entry: the token pressed into the socket; present-entry: the new pictogram)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the reading magnifier at its destination (reduced if the free side is smaller)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the magnifier travels: auto (right on wide boxes, below on tall and square boxes), left, right, top or bottom"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Context caption above the board"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum pin that stays after the return"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "facts": [
+      {
+        "text": "Buyer signed the order form",
+        "icon": "document",
+        "in": "both"
+      },
+      {
+        "text": "Goods delivered on day 3",
+        "icon": "box",
+        "in": "both"
+      },
+      {
+        "text": "Seller sent a written warning",
+        "icon": "letter",
+        "in": "a"
+      },
+      {
+        "text": "Price paid in cash",
+        "icon": "coin",
+        "in": "both"
+      }
+    ],
+    "rules": [
+      "Rule R (illustrative), as stated in the earlier case"
+    ],
+    "issues": [
+      "Does the warning matter for rule R?"
+    ],
+    "assumptions": [
+      "Fictional facts; the other facts are treated as equal"
+    ],
+    "focusTarget": "absent-entry",
+    "beforeValue": "Not recorded",
+    "afterValue": "Written warning recorded",
+    "afterIcon": "letter",
+    "detailGeometry": {
+      "zoom": 2.2,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Context: the comparison after the differing fact was lifted out",
+      "marker": "Changed datum"
+    }
+  }
+}

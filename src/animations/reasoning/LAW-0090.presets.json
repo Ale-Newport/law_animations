@@ -1,0 +1,100 @@
+{
+  "animationId": "LAW-0090",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the rule text is supplied by the author, no rule is applied and no outcome is shown. Link kinds follow the supplied relationships only (plain relation = no arrow; causal only when supplied).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Exploded view of the default example: four fictional facts, the written warning is recorded only in the earlier case (A). Rungs join the three shared rows, the gap row has none; the empty socket in B is related to the magnifier, which leads (sequence) to the stand holding the fact as supplied. The tracer runs rule → A → B → magnifier → stand; the magnifier is the focus element.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a tenancy example with five facts where the distinguishing fact (a phoned complaint) is recorded only in case B, so strip B stands first and the empty socket is in strip A. The author relates case A (not B) to the magnifier, uses a communication link from the magnifier to the stand, starts the tracer on case B and makes the stand the focus element.",
+      "params": {
+        "facts": [
+          {"text": "Lease signed for one year", "icon": "document", "in": "both"},
+          {"text": "Rent paid every month", "icon": "calendar", "in": "both"},
+          {"text": "Neighbour phoned in a complaint", "icon": "phone", "in": "b"},
+          {"text": "Keys returned on day 30", "icon": "key", "in": "both"},
+          {"text": "Deposit held in an account", "icon": "coin", "in": "both"}
+        ],
+        "rules": ["Rule Q (illustrative), as stated by the author for case A"],
+        "issues": ["Is the complaint itself contested?"],
+        "assumptions": ["Fictional tenancy; nothing else differs"],
+        "elements": [
+          {"id": "rule", "label": "Rule Q · as supplied"},
+          {"id": "caseA", "label": "Case A: earlier lease"},
+          {"id": "caseB", "label": "Case B: new lease"},
+          {"id": "lens", "label": "Magnifier: unmatched row"},
+          {"id": "fact", "label": "Fact only in B"}
+        ],
+        "relationships": [
+          {"from": "rule", "to": "caseA", "kind": "relation", "label": "stated for A"},
+          {"from": "caseB", "to": "caseA", "kind": "relation", "label": "matching rows"},
+          {"from": "caseA", "to": "lens", "kind": "relation", "label": "gap in A compared"},
+          {"from": "lens", "to": "fact", "kind": "communication", "label": "reported to the stand"}
+        ],
+        "focusElement": "fact",
+        "traversalOrder": ["caseB", "caseA", "lens", "fact"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long fact texts, component labels, rule text, relation captions, issue and assumption to exercise wrapping and bounded shrinking in every layout.",
+      "params": {
+        "facts": [
+          {"text": "The buyer signed the standard order form at the counter of the shop", "icon": "document", "in": "both"},
+          {"text": "The goods were delivered to the buyer's warehouse on the third day", "icon": "box", "in": "both"},
+          {"text": "The seller sent a written warning about late payment before delivery", "icon": "letter", "in": "a"},
+          {"text": "The full price was paid in cash to the seller's representative", "icon": "coin", "in": "both"}
+        ],
+        "rules": ["Rule R (illustrative text supplied by the author), as formulated in the earlier fictional case on its own facts"],
+        "issues": ["Does the written warning make a difference for rule R in the new situation, or not?"],
+        "assumptions": ["All facts are fictional; every other fact of the two situations is treated as equal"],
+        "elements": [
+          {"id": "rule", "label": "Rule as supplied by the author (illustrative)"},
+          {"id": "caseA", "label": "Earlier decided case (fictional example)"},
+          {"id": "caseB", "label": "New situation under analysis (fictional)"},
+          {"id": "lens", "label": "Magnifier comparing the two situations row by row"},
+          {"id": "fact", "label": "Fact recorded in only one of the two situations"}
+        ],
+        "relationships": [
+          {"from": "rule", "to": "caseA", "kind": "relation", "label": "stated on the facts of the earlier case"},
+          {"from": "caseA", "to": "caseB", "kind": "relation", "label": "facts recorded in both situations"},
+          {"from": "caseB", "to": "lens", "kind": "relation", "label": "empty socket of the new situation compared"},
+          {"from": "lens", "to": "fact", "kind": "sequence", "label": "then lifted out onto the stand"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "facts": [
+          {"text": "El comprador firmó el pedido", "icon": "document", "in": "both"},
+          {"text": "Mercancía entregada el día 3", "icon": "box", "in": "both"},
+          {"text": "El vendedor envió un aviso por escrito", "icon": "letter", "in": "a"},
+          {"text": "Precio pagado en efectivo", "icon": "coin", "in": "both"}
+        ],
+        "rules": ["Regla R (ilustrativa), tal como se formuló en el caso anterior"],
+        "issues": ["¿Importa el aviso para la regla R?"],
+        "assumptions": ["Hechos ficticios; los demás se tratan como iguales"],
+        "elements": [
+          {"id": "rule", "label": "Regla · según lo aportado"},
+          {"id": "caseA", "label": "Caso anterior (ficticio)"},
+          {"id": "caseB", "label": "Caso nuevo (ficticio)"},
+          {"id": "lens", "label": "Lupa: fila a fila"},
+          {"id": "fact", "label": "Hecho diferenciador"}
+        ],
+        "relationships": [
+          {"from": "rule", "to": "caseA", "kind": "relation", "label": "formulada sobre los hechos de A"},
+          {"from": "caseA", "to": "caseB", "kind": "relation", "label": "hechos comunes"},
+          {"from": "caseB", "to": "lens", "kind": "relation", "label": "hueco comparado"},
+          {"from": "lens", "to": "fact", "kind": "sequence", "label": "extrae"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

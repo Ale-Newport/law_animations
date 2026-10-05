@@ -1,0 +1,73 @@
+{
+  "animationId": "LAW-0101",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the rule text is the author's illustrative text, not a statement of any law, and every route status is shown only as supplied. Reaching the tray means only that a route delivered its capsule to the point of analysis — no conclusion is drawn.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional guest-pass rule with two alternative routes (a member's written invitation, a partner-club card). Both facts are supplied: each clerk sends a capsule through their own tube; both land in the same tray; the magnifier swings over it.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a fictional library-fee waiver with a different pair of routes. Route A's fact is supplied as DISPUTED (its capsule is stopped at the check gate with a question disc) while Route B's fact is supplied; only Route B reaches the tray. Other clerks, two assumptions and an editorial note on the junction.",
+      "params": {
+        "rules": {
+          "name": "Library rule 9 (fictional text): a late fee may be looked at again by either route",
+          "conditions": ["The book was returned through the night slot", "A staff member recorded a desk extension"]
+        },
+        "facts": [
+          {"label": "Night-slot log shows the book at 23:10 on Day 14", "status": "disputed"},
+          {"label": "Desk note: extension recorded by staff member R. Osei", "status": "supplied"}
+        ],
+        "issues": ["Which clock does the night-slot log use?"],
+        "assumptions": ["The slot log and the desk notes are complete", "Hypothetical fee; no amount is decided here"],
+        "clerks": [
+          {"name": "Tomás", "role": "Clerk", "appearance": {"skin": 1, "hair": "curly", "outfit": 2}},
+          {"name": "Ines", "role": "Clerk", "appearance": {"skin": 4, "hair": "bun", "outfit": 5, "glasses": true}}
+        ],
+        "actorLabels": {"a": "night-slot desk", "b": "loans desk"},
+        "annotations": [{"target": "connector", "text": "Either inlet can open the one outlet"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names and texts near the field limits: long rule caption, long conditions and facts, long clerk names and captions, two long assumptions and a long issue. Text wraps between words; sizes stay at or above 16 px at 1080p.",
+      "params": {
+        "rules": {
+          "name": "Rule M-27 (fictional housing co-operative rule): a request to use the shared roof terrace may arrive by either route",
+          "conditions": ["The request is countersigned by two registered members of the housing co-operative board", "The requester presents the stamped annual terrace permit issued by the caretaker's office"]
+        },
+        "facts": [
+          {"label": "Request form countersigned by board members Maria-Fernanda Castellanos and Oluwaseun Adeyemi-Clarke on Day 12", "status": "supplied"},
+          {"label": "Annual terrace permit no. T-5561 stamped by the caretaker's office, shown at the stairwell door on Day 13", "status": "supplied"}
+        ],
+        "issues": ["Were both countersignatures added before the request was placed in the tube? (not examined here)"],
+        "assumptions": ["Each route is read on its own and neither route is ranked above the other", "The dates are taken from the documents as supplied; none of them is verified here"],
+        "clerks": [
+          {"name": "Maximiliano Bartholomew-Okonkwo", "role": "Clerk"},
+          {"name": "Anastasia Wilhelmina Castellanos-Ruiz", "role": "Clerk"}
+        ],
+        "actorLabels": {"a": "sends the countersigned request by Route A", "b": "sends the terrace permit copy by Route B"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Versión en español del ejemplo base: regla ficticia de pase de invitado con dos rutas alternativas; ambos hechos aportados llegan a la misma bandeja.",
+      "params": {
+        "locale": "es",
+        "rules": {
+          "name": "Regla G-2 (regla ficticia de un club): la solicitud de pase de invitado puede llegar por cualquiera de dos rutas",
+          "conditions": ["Un socio invita por escrito a la persona invitada", "La persona invitada muestra una tarjeta de un club asociado"]
+        },
+        "facts": [
+          {"label": "Nota de invitación firmada por el socio J. Park el día 3", "status": "supplied"},
+          {"label": "Tarjeta del club asociado n.º 0417 mostrada en la puerta", "status": "supplied"}
+        ],
+        "issues": ["¿Sigue vigente la tarjeta n.º 0417? (no se examina aquí)"],
+        "assumptions": ["Cada ruta se lee por separado; los hechos se toman según lo aportado"],
+        "actorLabels": {"a": "envía por la ruta A", "b": "envía por la ruta B"},
+        "objectLabels": {"fact": "Hecho", "rule": "Regla · texto ilustrativo", "connector": "Unión · cualquiera de las rutas", "lupa": "Punto de análisis"}
+      }
+    }
+  ]
+}

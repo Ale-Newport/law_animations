@@ -1,0 +1,67 @@
+{
+  "animationId": "LAW-0086",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative, jurisdiction unspecified. Features, rule text, relevance marks and relationships are supplied by the author; the mechanism only shows that supplied structure and never decides that a rule applies, that cases are alike in law, or any outcome.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional loan of a ladder: case B's sheet rises off case A's; two features coincide (=), the return-date variants differ (≠) and the rain appears only in A. The rule plate relates to the relevant similarity and difference; the tracer runs B → similarity → A → difference → rule and the magnifier enlarges the difference readout.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a lent bicycle; a feature only case B has (lock handed over), a differing pictogram for B's variant, the tracer starts at the rule, the magnifier enlarges the relevant SIMILARITY, and the supplied state is 'difference disputed'.",
+      "params": {
+        "cases": {"a": {"name": "Case Quay Street", "note": "earlier case · fictional"}, "b": {"name": "Case Mill Lane", "note": "new case · fictional"}},
+        "facts": [
+          {"icon": "bicycle", "a": "Bicycle lent to a friend", "b": "Bicycle lent to a friend", "relevant": true},
+          {"icon": "clock", "iconB": "calendar", "a": "Kept for two days", "b": "Kept for one month", "relevant": true},
+          {"icon": "phone", "a": "Loan agreed by message", "b": "Loan agreed by message", "relevant": false},
+          {"icon": "lock", "a": "", "b": "Lock handed over too", "relevant": false}
+        ],
+        "rules": [{"name": "Rule Q (illustrative)", "text": "“Where an item is lent for a stated time, …”"}],
+        "issues": ["Do the two loans share the features Rule Q names?"],
+        "assumptions": ["Durations as stated by each borrower"],
+        "elements": [{"id": "similarity", "label": "Same kind of loan"}, {"id": "difference", "label": "Length of the loan"}],
+        "focusElement": "similarity",
+        "traversalOrder": ["rule", "similarity", "caseB", "difference", "caseA"],
+        "finalState": "difference-disputed"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Five features with long labels, long case names and notes, a long rule text and issue, two assumptions and long element labels.",
+      "params": {
+        "cases": {"a": {"name": "Case of the Harbourside Community Workshop", "note": "earlier case · fictional · reference account"}, "b": {"name": "Case of the Linden Avenue Allotment Shed", "note": "new case · fictional · as supplied"}},
+        "facts": [
+          {"icon": "ladder", "a": "Extending ladder lent by the next-door neighbour", "b": "Extending ladder lent by the next-door neighbour", "relevant": true},
+          {"icon": "note", "a": "Loan written down on a signed paper slip", "b": "Loan written down on a signed paper slip", "relevant": false},
+          {"icon": "calendar", "a": "A return date was agreed for the end of the month", "b": "No return date was ever discussed or agreed", "relevant": true},
+          {"icon": "rain", "a": "Ladder left outside overnight in heavy rain", "b": "", "relevant": false},
+          {"icon": "key", "a": "", "b": "Shed key handed over together with the ladder", "relevant": false}
+        ],
+        "rules": [{"name": "Rule R — illustrative wording", "text": "“Where an item is lent between neighbours and a date for its return is agreed between them, …” (text as supplied, not a statement of law)"}],
+        "issues": ["Is the Linden Avenue case alike in each of the features that the supplied Rule R names?"],
+        "assumptions": ["All facts are taken exactly as each account supplies them", "No other features are compared here"],
+        "elements": [{"id": "similarity", "label": "Relevant similarity named by Rule R"}, {"id": "difference", "label": "Relevant difference named by Rule R"}]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "cases": {"a": {"name": "Caso Puerto", "note": "caso anterior · ficticio"}, "b": {"name": "Caso Tilo", "note": "caso nuevo · ficticio"}},
+        "facts": [
+          {"icon": "ladder", "a": "Escalera prestada por un vecino", "b": "Escalera prestada por un vecino", "relevant": true},
+          {"icon": "note", "a": "Préstamo anotado en un papel", "b": "Préstamo anotado en un papel", "relevant": false},
+          {"icon": "calendar", "a": "Fecha de devolución pactada", "b": "Sin fecha de devolución pactada", "relevant": true},
+          {"icon": "rain", "a": "Dejada fuera bajo la lluvia", "b": "", "relevant": false}
+        ],
+        "rules": [{"name": "Regla R (ilustrativa)", "text": "«Cuando se presta un objeto y se pacta una fecha de devolución, …»"}],
+        "issues": ["¿Se parece el caso Tilo en los rasgos que nombra la regla R?"],
+        "assumptions": ["Hechos tomados tal como los aporta cada relato"],
+        "elements": [{"id": "similarity", "label": "Semejanza relevante"}, {"id": "difference", "label": "Diferencia relevante"}]
+      }
+    }
+  ]
+}

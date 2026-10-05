@@ -1,0 +1,150 @@
+{
+  "animationId": "LAW-0103",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative, jurisdiction unspecified; the only difference between A and B is the supplied route, statuses are shown as supplied, and no ranking, winner or outcome is drawn.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional guest-pass rule with two alternative routes. Scenario A sends the supplied fact by Route A (a member's written invitation), scenario B by Route B (a partner-club card). Both capsules push the shuttle ball to opposite seats and land in the same tray.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a fictional library-fee rule. Scenario A sends by Route A (night-slot log, supplied); scenario B sends by Route B, whose fact is supplied as DISPUTED — B's capsule is stopped at its check gate with a question disc and never reaches the valve, so B's tray stays empty. Nothing is decided about the dispute.",
+      "params": {
+        "rules": {
+          "name": "Library rule 9 (fictional text): a late fee may be looked at again by either route",
+          "conditions": [
+            "The book was returned through the night slot",
+            "A staff member recorded a desk extension"
+          ]
+        },
+        "facts": [
+          {
+            "label": "Night-slot log shows the book at 23:10 on Day 14",
+            "status": "supplied"
+          },
+          {
+            "label": "Desk note about an extension, signature unclear",
+            "status": "disputed"
+          }
+        ],
+        "issues": [
+          "Who signed the desk note?"
+        ],
+        "assumptions": [
+          "Hypothetical fee; no amount is decided here"
+        ],
+        "scenarioA": {
+          "label": "Route A",
+          "caption": "night-slot log sent"
+        },
+        "scenarioB": {
+          "label": "Route B",
+          "caption": "desk note sent, supplied as disputed"
+        },
+        "changedFact": "the fact travels as the night-slot log (A) or as the disputed desk note (B)",
+        "sharedFacts": [
+          "Same book, same borrower, same fee notice"
+        ],
+        "comparisonLabels": {
+          "guide": "Only the route differs",
+          "neutral": "B is stopped at its gate as supplied — nothing about the dispute is decided"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names and texts near the field limits: long rule caption, conditions, facts, scenario labels, changed fact, shared facts, neutral note, assumptions and issue. Text wraps between words; sizes stay at or above 16 px at 1080p.",
+      "params": {
+        "rules": {
+          "name": "Rule M-27 (fictional housing co-operative rule): a request to use the shared roof terrace may arrive by either route",
+          "conditions": [
+            "The request is countersigned by two registered members of the housing co-operative board",
+            "The requester presents the stamped annual terrace permit issued by the caretaker's office"
+          ]
+        },
+        "facts": [
+          {
+            "label": "Request form countersigned by Maria-Fernanda Castellanos and Oluwaseun Adeyemi-Clarke",
+            "status": "supplied"
+          },
+          {
+            "label": "Terrace permit no. T-5561 stamped by the caretaker's office, shown on Day 13",
+            "status": "supplied"
+          }
+        ],
+        "issues": [
+          "Were both countersignatures added before the request was placed in the tube? (not examined here)"
+        ],
+        "assumptions": [
+          "Each route is read on its own and neither route is ranked above the other",
+          "The dates are taken from the documents as supplied; none of them is verified here"
+        ],
+        "scenarioA": {
+          "label": "Route A · countersigned request",
+          "caption": "the countersigned request form goes in at inlet A"
+        },
+        "scenarioB": {
+          "label": "Route B · stamped terrace permit",
+          "caption": "a copy of the stamped terrace permit goes in at inlet B"
+        },
+        "changedFact": "the supplied document travels as the countersigned request form (A) or as the stamped annual terrace permit copy (B)",
+        "sharedFacts": [
+          "Same requester, same terrace, same weekend booking",
+          "Same rule M-27 and the same co-operative office tray"
+        ],
+        "comparisonLabels": {
+          "guide": "Only the route of the supplied document differs",
+          "neutral": "Both reach the same point of analysis by different routes; neither route is ranked and no outcome is shown"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Versión en español del ejemplo base: el mismo hecho aportado llega por la ruta A en el supuesto A y por la ruta B en el supuesto B, a la misma bandeja.",
+      "params": {
+        "locale": "es",
+        "rules": {
+          "name": "Regla G-2 (regla ficticia de un club): la solicitud de pase de invitado puede llegar por cualquiera de dos rutas",
+          "conditions": [
+            "Un socio invita por escrito a la persona invitada",
+            "La persona invitada muestra una tarjeta de un club asociado"
+          ]
+        },
+        "facts": [
+          {
+            "label": "Nota de invitación firmada por el socio J. Park el día 3",
+            "status": "supplied"
+          },
+          {
+            "label": "Tarjeta del club asociado n.º 0417 mostrada en la puerta",
+            "status": "supplied"
+          }
+        ],
+        "issues": [
+          "¿Sigue vigente la tarjeta n.º 0417? (no se examina aquí)"
+        ],
+        "assumptions": [
+          "Cada ruta se lee por separado; los hechos se toman según lo aportado"
+        ],
+        "scenarioA": {
+          "label": "Ruta A",
+          "caption": "el hecho se envía por la ruta A"
+        },
+        "scenarioB": {
+          "label": "Ruta B",
+          "caption": "el hecho se envía por la ruta B"
+        },
+        "changedFact": "el hecho aportado viaja como invitación escrita de un socio (A) o como tarjeta de club asociado (B)",
+        "sharedFacts": [
+          "Misma persona invitada y mismo día de visita",
+          "Misma regla G-2 y misma bandeja de recepción"
+        ],
+        "comparisonLabels": {
+          "guide": "Solo cambia la ruta",
+          "neutral": "Ambas llegan al mismo punto de análisis por rutas distintas — sin clasificación ni desenlace"
+        }
+      }
+    }
+  ]
+}

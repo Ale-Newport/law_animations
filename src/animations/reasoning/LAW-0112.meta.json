@@ -1,0 +1,346 @@
+{
+  "id": "LAW-0112",
+  "slug": "reasoning-08-inspect",
+  "title": "Hidden premise — a reading magnifier lifts the revealed card out and its datum is replaced",
+  "titleEs": "Premisa oculta — Inspección y cambio de un dato",
+  "category": "reasoning",
+  "categoryName": "Razonamiento jurídico",
+  "motif": "Premisa oculta",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "Context: fact and conclusion pulled apart, the gap revealing the intermediate card in its supplied status. A rectangular reading magnifier is laid on one card (a real copy at the same coordinates) and lifted out enlarged. The old text leaves the lens as a paper slip and is struck through (kept in view); the supplied new text takes its place and only then the card’s dependent state changes to the status supplied for after (pencil ↔ printed, hinges folded ↔ latched). The lens is set back and the struck slip becomes a changed-datum tag pinned to the card. No conclusion is drawn.",
+  "tags": [
+    "reasoning",
+    "hidden premise",
+    "enthymeme",
+    "inspect",
+    "magnifier",
+    "substitution",
+    "before-after",
+    "hinge",
+    "stated",
+    "unstated"
+  ],
+  "durations": {
+    "defaultMs": 9000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/reasoning/kits/premisa-oculta.js",
+    "src/animations/reasoning/kits/hecho-y-regla.js",
+    "src/frameworks/lens.js",
+    "src/primitives/annotate.js",
+    "src/animations/causation/kits/place.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 9000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "facts": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "Fact printed on the fact card (fictional, as supplied)"
+      },
+      "rules": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The intermediate premise — the step between the fact and the conclusion — as supplied by the author (illustrative text, not a statement of any law)"
+      },
+      "conclusion": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "Conclusion printed on the conclusion card, as supplied (it is never evaluated)"
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Question"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Open questions supplied by the author (shown as notes; never answered) (array replaces the previous value)"
+      },
+      "assumptions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 90,
+          "description": "Assumption"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Working assumptions supplied by the author (shown as notes; not verified) (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "premise",
+          "fact",
+          "conclusion"
+        ],
+        "description": "Which card’s text is enlarged and substituted: the intermediate premise, the fact or the conclusion"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "bottom"
+            ],
+            "description": "Where the lens opens: below the context (auto and bottom are the same here — the old value drops out beneath the lens)"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      },
+      "premiseStatus": {
+        "type": "string",
+        "enum": [
+          "stated",
+          "unstated"
+        ],
+        "description": "BEFORE the substitution — Whether the argument as supplied STATES the intermediate premise (stated: printed card, hinges latch it into the walk) or leaves it UNSTATED (unstated: pencil card that stays loose in the pocket). Descriptive only: never says whether the reasoning is right"
+      },
+      "afterStatus": {
+        "type": "string",
+        "enum": [
+          "stated",
+          "unstated"
+        ],
+        "description": "Status of the intermediate premise AFTER the substitution, as supplied by the author (the card’s look, its hinges and its level change to it); never inferred from the new text"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 9000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "facts": "The shed key was found in Jo’s coat pocket",
+    "rules": "Whoever holds the shed key locked the shed last",
+    "conclusion": "Jo locked the shed last",
+    "issues": [
+      "Who else could open the shed that evening?"
+    ],
+    "assumptions": [
+      "The shed has a single key"
+    ],
+    "premiseStatus": "unstated",
+    "afterStatus": "stated",
+    "focusTarget": "premise",
+    "beforeValue": "Whoever holds the shed key locked the shed last",
+    "afterValue": "Only the person with the key can lock the shed",
+    "detailGeometry": {
+      "zoom": 2.2,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Context: the gap between fact and conclusion, opened",
+      "marker": "Changed datum (as supplied)"
+    }
+  }
+}

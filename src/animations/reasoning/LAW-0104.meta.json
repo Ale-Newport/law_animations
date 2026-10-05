@@ -1,0 +1,396 @@
+{
+  "id": "LAW-0104",
+  "slug": "reasoning-06-inspect",
+  "title": "Alternative conditions — a lens on the shuttle valve while the supplied route datum is substituted",
+  "titleEs": "Condiciones alternativas — Inspección y cambio de un dato",
+  "category": "reasoning",
+  "categoryName": "Razonamiento jurídico",
+  "motif": "Condiciones alternativas",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "A compact pneumatic board shows the state produced by the story: a capsule has come by the route named by the supplied datum and rests in the tray; the shuttle-valve ball rests against the other seat and that tube glows. A lens opens a real enlarged copy of the valve (or the tray); the datum is substituted — the old value leaves on a paper slip that is struck and kept — and only the dependent geometry follows (ball to the other seat, glow to the other tube). The lens closes and a Δ marker stays. Seeking back restores the old datum.",
+  "tags": [
+    "reasoning",
+    "alternative conditions",
+    "inspect",
+    "lens",
+    "substitution",
+    "shuttle valve",
+    "route datum"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/reasoning/kits/condiciones-alternativas.js",
+    "src/frameworks/lens.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "rules": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Rule caption printed on the plaque (fictional)"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Condition"
+            },
+            "minItems": 2,
+            "maxItems": 2,
+            "description": "Alternative conditions, one per route (A then B); each labels an inlet (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "name",
+          "conditions"
+        ],
+        "description": "The rule as supplied: its caption and its two ALTERNATIVE conditions (Route A, Route B). Illustrative text, never a statement of any law"
+      },
+      "facts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 110,
+              "description": "Fact as supplied (fictional; printed on the route’s fact card)"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "supplied",
+                "pending",
+                "disputed"
+              ],
+              "description": "Status SUPPLIED by the author: supplied (its capsule is sent and reaches the tray) | pending (nothing is sent on this route) | disputed (the capsule is stopped at the route’s gate; not resolved here)"
+            }
+          },
+          "required": [
+            "label",
+            "status"
+          ],
+          "description": "Fact carried by the route at the same position (fictional, as supplied)"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Facts in route order (A then B), each with its supplied status (array replaces the previous value)"
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 110,
+          "description": "Issue"
+        },
+        "minItems": 0,
+        "maxItems": 1,
+        "description": "Question framed by the author, shown as a note (never answered by the animation) (array replaces the previous value)"
+      },
+      "assumptions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 110,
+          "description": "Assumption"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Working assumptions supplied by the author, shown in the footnote (not verified) (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "junction",
+          "point"
+        ],
+        "description": "Detail that is enlarged and substituted"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto"
+            ],
+            "description": "Where the lens opens: always the free region beside/below the board chosen by the layout (auto)"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      },
+      "beforeRoute": {
+        "type": "string",
+        "enum": [
+          "A",
+          "B"
+        ],
+        "description": "Route named by the datum BEFORE the substitution (the capsule came by it; the ball rests against the other seat)"
+      },
+      "afterRoute": {
+        "type": "string",
+        "enum": [
+          "A",
+          "B"
+        ],
+        "description": "Route named by the substituted datum, as supplied by the author (only the ball and the route glow follow it; nothing else is inferred)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "rules": {
+      "name": "Rule G-2 (fictional club rule): a guest-pass request may come by either of two routes",
+      "conditions": [
+        "The guest is invited in writing by a member",
+        "The guest shows a partner-club card"
+      ]
+    },
+    "facts": [
+      {
+        "label": "Invitation note signed by member J. Park on Day 3",
+        "status": "supplied"
+      },
+      {
+        "label": "Partner-club card no. 0417 shown at the door",
+        "status": "supplied"
+      }
+    ],
+    "issues": [
+      "Is card no. 0417 still current? (not examined here)"
+    ],
+    "assumptions": [
+      "Each route is read on its own; facts are taken as supplied"
+    ],
+    "focusTarget": "junction",
+    "beforeValue": "Sent by Route A — invitation note from member J. Park",
+    "afterValue": "Sent by Route B — partner-club card no. 0417",
+    "beforeRoute": "A",
+    "afterRoute": "B",
+    "detailGeometry": {
+      "zoom": 2.4,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Context: the capsule has reached the tray",
+      "marker": "Changed datum (as supplied)"
+    }
+  }
+}

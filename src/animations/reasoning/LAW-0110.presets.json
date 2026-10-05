@@ -1,0 +1,85 @@
+{
+  "animationId": "LAW-0110",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; relationships, their kinds, the premise text and its status are supplied by the author. A relation is never drawn as causation unless the author supplies the causal kind. No conclusion is drawn.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional shed key: fact and conclusion on the walk line with the argument as written (fact, then conclusion) arcing over the empty gap; the intermediate premise, supplied as LEFT UNSTATED, lies in the layer beneath the gap; the tracer goes fact → hinge links → premise → conclusion and the premise enlarges. Gathered, it stays beneath the gap and the hinges fold back home.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a fictional library return whose argument STATES its premise; a supplied communication link from the magnifier and a different traversal order and focus (the hinge links). Gathered, the printed card rises into the gap and both hinges latch it into the walk.",
+      "params": {
+        "facts": "The blue umbrella was left at the library desk",
+        "rules": "Items left at the desk go to lost property at closing",
+        "conclusion": "The umbrella went to lost property",
+        "issues": ["Did the desk close at the usual time that day?"],
+        "assumptions": ["Staff followed the posted routine"],
+        "premiseStatus": "stated",
+        "relationships": [
+          {"from": "fact", "to": "conclusion", "kind": "sequence", "label": "as written: fact, then conclusion"},
+          {"from": "fact", "to": "rule", "kind": "relation", "label": "the premise takes up the fact"},
+          {"from": "connector", "to": "rule", "kind": "relation", "label": "latches a stated card"},
+          {"from": "rule", "to": "conclusion", "kind": "sequence", "label": "stated step, then conclusion"},
+          {"from": "lupa", "to": "connector", "kind": "communication", "label": "checks the hinges"}
+        ],
+        "focusElement": "connector",
+        "traversalOrder": ["fact", "rule", "connector", "rule", "conclusion"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long fact, premise and conclusion texts, long component labels and relation captions, two issues and two assumptions.",
+      "params": {
+        "facts": "The only key to the garden shed was found in the inside pocket of Jo’s winter coat the next morning",
+        "rules": "Whoever is holding the only shed key the next morning is the person who locked the shed the night before",
+        "conclusion": "Jo is the person who locked the garden shed on the night before the key was found",
+        "issues": ["Who else could have opened or locked the shed that evening without the key?", "Was the coat left unattended in the hall overnight?"],
+        "assumptions": ["There is only one key and no other way to lock the shed", "The coat was not lent to anyone that evening"],
+        "elements": [
+          {"id": "fact", "label": "Fact as supplied by the author"},
+          {"id": "connector", "label": "Brass hinge links of the walk"},
+          {"id": "rule", "label": "Intermediate premise as supplied"},
+          {"id": "conclusion", "label": "Conclusion as supplied"},
+          {"id": "lupa", "label": "Reading magnifier"}
+        ],
+        "relationships": [
+          {"from": "fact", "to": "conclusion", "kind": "sequence", "label": "as written in the argument: the fact, then the conclusion"},
+          {"from": "fact", "to": "connector", "kind": "relation", "label": "a hinge sits on the fact card’s inner edge"},
+          {"from": "connector", "to": "rule", "kind": "relation", "label": "the hinges link a card into the walk only if it is stated"},
+          {"from": "rule", "to": "conclusion", "kind": "relation", "label": "the step that the gap in the argument hides"},
+          {"from": "lupa", "to": "rule", "kind": "relation", "label": "the magnifier reads the hidden card"}
+        ],
+        "relationLabels": {"relation": "plain relation (no direction)", "communication": "communication", "sequence": "sequence as written in the argument", "causal": "causal (as supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "facts": "La llave del cobertizo apareció en el abrigo de Jo",
+        "rules": "Quien tiene la llave cerró el cobertizo el último",
+        "conclusion": "Jo cerró el cobertizo el último",
+        "issues": ["¿Quién más pudo abrir el cobertizo esa tarde?"],
+        "assumptions": ["El cobertizo tiene una sola llave"],
+        "elements": [
+          {"id": "fact", "label": "Hecho"},
+          {"id": "connector", "label": "Bisagras de enlace"},
+          {"id": "rule", "label": "Premisa intermedia"},
+          {"id": "conclusion", "label": "Conclusión"},
+          {"id": "lupa", "label": "Lupa"}
+        ],
+        "relationships": [
+          {"from": "fact", "to": "conclusion", "kind": "sequence", "label": "tal como se escribe: hecho y luego conclusión"},
+          {"from": "fact", "to": "connector", "kind": "relation", "label": "bisagra en el borde del hecho"},
+          {"from": "connector", "to": "rule", "kind": "relation", "label": "enlaza una tarjeta declarada"},
+          {"from": "rule", "to": "conclusion", "kind": "relation", "label": "el paso que oculta el hueco"},
+          {"from": "lupa", "to": "rule", "kind": "relation", "label": "lee la tarjeta"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia (según se escribe)", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

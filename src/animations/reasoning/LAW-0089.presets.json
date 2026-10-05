@@ -1,0 +1,68 @@
+{
+  "animationId": "LAW-0089",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the rule text is supplied by the author, no rule is applied and no outcome is shown.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Four fictional facts; the written warning appears only in the earlier case (A). The magnifier compares the rows along the seam, lifts that token out and clips it under the rule card; the new case keeps an empty socket.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: five facts in a tenancy example, the distinguishing fact (a phoned complaint) appears only in case B, so the magnifier extracts it from the right-hand card; the author marks the difference as disputed (dashed string, disputed tag).",
+      "params": {
+        "facts": [
+          {"text": "Lease signed for one year", "icon": "document", "in": "both"},
+          {"text": "Rent paid every month", "icon": "calendar", "in": "both"},
+          {"text": "Keys returned on day 30", "icon": "key", "in": "both"},
+          {"text": "Neighbour phoned in a complaint", "icon": "phone", "in": "b"},
+          {"text": "Deposit held in an account", "icon": "coin", "in": "both"}
+        ],
+        "rules": ["Rule Q (illustrative), as stated by the author for case A"],
+        "issues": ["Is the complaint itself contested?"],
+        "assumptions": ["Fictional tenancy; dates are relative"],
+        "actorLabels": {"a": "Reviewer (fictional)"},
+        "objectLabels": {"caseA": "Case A (fictional)", "caseB": "Case B (fictional)", "rule": ""},
+        "annotations": [{"target": "absent", "text": "No complaint recorded in case A"}],
+        "finalState": "difference-disputed"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long fact texts, card labels, rule text, issue, assumption and callouts to exercise wrapping and bounded shrinking.",
+      "params": {
+        "facts": [
+          {"text": "The buyer signed the standard order form at the counter of the shop", "icon": "document", "in": "both"},
+          {"text": "The goods were delivered to the buyer's warehouse on the third day", "icon": "box", "in": "both"},
+          {"text": "The seller sent a written warning about late payment before delivery", "icon": "letter", "in": "a"},
+          {"text": "The full price was paid in cash to the seller's representative", "icon": "coin", "in": "both"}
+        ],
+        "rules": ["Rule R (illustrative text supplied by the author), as formulated in the earlier fictional case on its own facts"],
+        "issues": ["Does the written warning make a difference for rule R in the new situation, or not?"],
+        "assumptions": ["All facts are fictional; every other fact of the two situations is treated as equal"],
+        "actorLabels": {"a": "Analyst comparing the two situations (fictional)"},
+        "objectLabels": {"caseA": "Earlier decided case (fictional example)", "caseB": "New situation under analysis (fictional)", "rule": "Rule as supplied by the author (illustrative)"},
+        "annotations": [{"target": "fact", "text": "This fact is recorded only in the earlier case, as supplied by the author"}, {"target": "absent", "text": "The new situation records no written warning"}]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "facts": [
+          {"text": "El comprador firmó el pedido", "icon": "document", "in": "both"},
+          {"text": "Mercancía entregada el día 3", "icon": "box", "in": "both"},
+          {"text": "El vendedor envió un aviso por escrito", "icon": "letter", "in": "a"},
+          {"text": "Precio pagado en efectivo", "icon": "coin", "in": "both"}
+        ],
+        "rules": ["Regla R (ilustrativa), tal como se formuló en el caso anterior"],
+        "issues": ["¿Importa el aviso para la regla R?"],
+        "assumptions": ["Hechos ficticios; los demás se tratan como iguales"],
+        "actorLabels": {"a": "Analista (ficticia)"},
+        "objectLabels": {"caseA": "Caso anterior (ficticio)", "caseB": "Caso nuevo (ficticio)", "rule": ""},
+        "annotations": [{"target": "fact", "text": "Solo consta en el caso anterior"}]
+      }
+    }
+  ]
+}

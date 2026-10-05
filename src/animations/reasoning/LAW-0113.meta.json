@@ -1,0 +1,531 @@
+{
+  "id": "LAW-0113",
+  "slug": "reasoning-09-story",
+  "title": "Counterfactual fact — a diorama take is rewound and replayed with the flag moved to one other spot",
+  "titleEs": "Hecho contrafactual — Microescena con objetos y actores",
+  "category": "reasoning",
+  "categoryName": "Razonamiento jurídico",
+  "motif": "Hecho contrafactual",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "Front view of a tabletop diorama: a figurine carries a parcel to the spot marked by a flag (take A, reels forward). The take is rewound in exact reverse, leaving a dashed ghost of the base result; the analyst’s hand moves the flag to one other spot (the single changed circumstance) and the same take replays with identical speed and path until the new spot (take B). Script card rows “Base: …” and “What if: … (hypothetical)”, a plain relation to the rule condition the author names, issue, assumption and a key: as supplied, no conclusion drawn, outcome of the hypothetical run not supplied.",
+  "tags": [
+    "reasoning",
+    "counterfactual",
+    "hypothetical",
+    "replay",
+    "rewind",
+    "diorama",
+    "figurine",
+    "flag",
+    "rule",
+    "hands"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/reasoning/kits/hecho-contrafactual.js",
+    "src/primitives/person.js",
+    "src/primitives/desk.js",
+    "src/primitives/people-style.js",
+    "src/primitives/annotate.js",
+    "src/animations/causation/kits/place.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "facts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Title of the scene"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "Event"
+            },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Events of the scene in order (2–4); identical in the base run and in the hypothetical replay (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "title",
+          "events"
+        ],
+        "description": "The scene as supplied: a title and the ordered events that are replayed identically in both runs (fictional)"
+      },
+      "rules": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Title printed on the notice"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "Condition text"
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "description": "Conditions printed on the notice (1–3) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "title",
+          "conditions"
+        ],
+        "description": "Rule notice: illustrative text supplied by the author, not a statement of any law"
+      },
+      "circumstance": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "What the circumstance is"
+          },
+          "base": {
+            "type": "string",
+            "enum": [
+              "bench",
+              "sill",
+              "box"
+            ],
+            "description": "Spot in the base scenario"
+          },
+          "baseText": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Description of the base spot"
+          },
+          "alt": {
+            "type": "string",
+            "enum": [
+              "bench",
+              "sill",
+              "box"
+            ],
+            "description": "Spot in the hypothetical replay (what if …)"
+          },
+          "altText": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Description of the hypothetical spot"
+          },
+          "condition": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2,
+            "description": "Zero-based rule condition the author says this circumstance concerns (drawn as a plain relation, never as causation)"
+          }
+        },
+        "required": [
+          "label",
+          "base",
+          "baseText",
+          "alt",
+          "altText"
+        ],
+        "description": "The ONE circumstance the replay changes, supplied by the author: where the parcel is left"
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 90,
+          "description": "Question"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Open questions supplied by the author (shown, never answered) (array replaces the previous value)"
+      },
+      "assumptions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Assumption"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Working assumptions supplied by the author (not verified) (array replaces the previous value)"
+      },
+      "courier": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Display name (fictional by default)"
+          },
+          "role": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Descriptive role label (not a legal finding)"
+          },
+          "appearance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "skin": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5,
+                "description": "Skin tone index 0–5"
+              },
+              "hair": {
+                "type": "string",
+                "enum": [
+                  "short",
+                  "long",
+                  "bun",
+                  "curly",
+                  "buzz",
+                  "scarf"
+                ],
+                "description": "Hair style"
+              },
+              "hairColor": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 6,
+                "description": "Hair colour index 0–6"
+              },
+              "outfit": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7,
+                "description": "Outfit colour index 0–7"
+              },
+              "glasses": {
+                "type": "boolean",
+                "description": "Wears glasses"
+              }
+            },
+            "required": [],
+            "description": "Optional appearance overrides; defaults derive from the seed"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "description": "A fictional person or party"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for actor A"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for actor B"
+          }
+        },
+        "required": [],
+        "description": "Role captions shown next to each actor"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "parcel": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Label of the parcel prop"
+          },
+          "flag": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the flag pin that marks the circumstance"
+          }
+        },
+        "required": [],
+        "description": "Labels printed on props"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "fact",
+                "rule",
+                "connector",
+                "flag"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "replayed-as-supplied",
+          "rewound-awaiting-replay"
+        ],
+        "description": "The state supplied by the author for the final hold (no legal conclusion is inferred)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "facts": {
+      "title": "Delivery at No. 9 (fictional)",
+      "events": [
+        "A courier arrives at 18:10",
+        "Carries parcel 7 to the house",
+        "Leaves it and steps back"
+      ]
+    },
+    "rules": {
+      "title": "House notice 2 (fictional text)",
+      "conditions": [
+        "A parcel is left for a resident",
+        "at a place agreed with the resident",
+        "before 19:00"
+      ]
+    },
+    "circumstance": {
+      "label": "Where the parcel is left",
+      "base": "bench",
+      "baseText": "on the porch bench",
+      "alt": "sill",
+      "altText": "on the window sill",
+      "condition": 1
+    },
+    "issues": [
+      "Was the window sill ever agreed as a place?"
+    ],
+    "assumptions": [
+      "Everything else happens as in the base run"
+    ],
+    "courier": {
+      "name": "Courier C",
+      "role": "Courier"
+    },
+    "actorLabels": {
+      "a": "Courier C (figurine)",
+      "b": "Analyst · sets the what-if"
+    },
+    "objectLabels": {
+      "parcel": "Parcel 7",
+      "flag": "Spot flag"
+    },
+    "actionProgress": 1,
+    "annotations": [],
+    "finalState": "replayed-as-supplied"
+  }
+}

@@ -1,0 +1,394 @@
+{
+  "id": "LAW-0120",
+  "slug": "reasoning-10-inspect",
+  "title": "Limit of a conclusion — a magnifier lifts one situation card out and its datum is replaced",
+  "titleEs": "Límite de una conclusión — Inspección y cambio de un dato",
+  "category": "reasoning",
+  "categoryName": "Razonamiento jurídico",
+  "motif": "Límite de una conclusión",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "Context: the proposition plaque and the cord knotted around the situations supplied as covered on a survey map. The map shrinks to a thumbnail and a reading magnifier lifts one situation card and the cord beside it out (a real copy at the same coordinates). The old text leaves as a struck paper slip (kept in view), the supplied new text takes its place, and only then the cord is re-laid to the scope supplied for after, with the card’s marker following. The slip becomes a changed-datum tag under the card. Nothing is inferred about the situation.",
+  "tags": [
+    "reasoning",
+    "proposition",
+    "scope",
+    "limit",
+    "inspect",
+    "magnifier",
+    "substitution",
+    "before-after",
+    "cord",
+    "not examined"
+  ],
+  "durations": {
+    "defaultMs": 9000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/reasoning/kits/limite-de-una-conclusion.js",
+    "src/animations/reasoning/kits/hecho-y-regla.js",
+    "src/frameworks/lens.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 9000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "facts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Situation printed on the card (fictional)"
+            },
+            "scope": {
+              "type": "string",
+              "enum": [
+                "included",
+                "not-examined"
+              ],
+              "description": "Scope SUPPLIED by the author: included (the cord is laid around it — covered as supplied) or not-examined (left outside the cord). Outside never means excluded or decided; nothing is inferred"
+            }
+          },
+          "required": [
+            "text",
+            "scope"
+          ],
+          "description": "A situation card (fictional, as supplied)"
+        },
+        "minItems": 2,
+        "maxItems": 6,
+        "description": "Situations laid on the map, in order (numbered 1…n). Fictional, as supplied (array replaces the previous value)"
+      },
+      "rules": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Source line printed on the plaque (fictional)"
+          },
+          "proposition": {
+            "type": "string",
+            "maxLength": 160,
+            "description": "The proposition exactly as supplied"
+          }
+        },
+        "required": [
+          "title",
+          "proposition"
+        ],
+        "description": "The proposition whose reach is outlined. Illustrative text supplied by the author; never a statement of any law"
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 110,
+          "description": "Issue"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Open questions supplied by the author (shown on the note, never answered) (array replaces the previous value)"
+      },
+      "assumptions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 110,
+          "description": "Assumption"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Working assumptions supplied by the author (shown on the note, not verified) (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "situation"
+        ],
+        "description": "Detail enlarged and substituted: the text of the focus situation card"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto"
+            ],
+            "description": "Where the lens opens: auto (beside the thumbnail on wide/square boxes, below it on tall ones)"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      },
+      "focusSituation": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 5,
+        "description": "Zero-based index of the situation card that is inspected; beforeValue replaces its printed text before the change"
+      },
+      "afterScope": {
+        "type": "string",
+        "enum": [
+          "included",
+          "not-examined"
+        ],
+        "description": "Scope of the focus situation AFTER the substitution, as supplied by the author (the cord is re-laid to it); never inferred from the new text"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 9000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "rules": {
+      "title": "Note 7 of the residents’ club (fictional)",
+      "proposition": "Members are told of a meeting when its notice is pinned on the hall board"
+    },
+    "facts": [
+      {
+        "text": "Notice pinned on the hall board a week ahead",
+        "scope": "included"
+      },
+      {
+        "text": "Notice pinned on the board of the annex hall",
+        "scope": "included"
+      },
+      {
+        "text": "Notice sent only by text message",
+        "scope": "not-examined"
+      },
+      {
+        "text": "Member abroad for the whole month",
+        "scope": "not-examined"
+      }
+    ],
+    "issues": [
+      "Does Note 7 say anything about notices sent by message?"
+    ],
+    "assumptions": [
+      "Only the situations listed in Note 7 were examined"
+    ],
+    "focusTarget": "situation",
+    "focusSituation": 2,
+    "beforeValue": "Notice sent only by text message",
+    "afterValue": "Notice sent by text message and pinned on the hall board",
+    "afterScope": "included",
+    "detailGeometry": {
+      "zoom": 1.8,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Context: Note 7 outlined on the survey map",
+      "marker": "Changed datum (as supplied)"
+    }
+  }
+}

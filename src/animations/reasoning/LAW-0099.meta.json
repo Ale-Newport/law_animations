@@ -1,0 +1,428 @@
+{
+  "id": "LAW-0099",
+  "slug": "reasoning-05-contrast",
+  "title": "Cumulative conditions — all pieces supplied vs one piece pending, same test turn",
+  "titleEs": "Condiciones acumulativas — Comparación de dos supuestos",
+  "category": "reasoning",
+  "categoryName": "Razonamiento jurídico",
+  "motif": "Condiciones acumulativas",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical bench scenes with the same pictogram gear board and fact pieces; a shared legend names each condition and the fact supplied for it. In B a hand lifts one piece out and sets it aside in a tray (pending), or the piece is left unseated (disputed); the pieces drop in with identical timing, both latches release at the same instant and both drives turn: A turns as a whole and its joint dial moves, B stops at the gap. A guide links the changed condition in both scenes; the issue, assumptions and an \"as supplied\" key are shown; a neutral note, no winner or outcome.",
+  "tags": [
+    "reasoning",
+    "cumulative conditions",
+    "contrast",
+    "pending",
+    "disputed",
+    "gears",
+    "paired scenes",
+    "rule",
+    "facts",
+    "no outcome"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/reasoning/kits/condiciones-acumulativas.js",
+    "src/frameworks/paired.js",
+    "src/primitives/desk.js",
+    "src/animations/causation/kits/place.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "rules": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Rule caption printed on the brass header (fictional)"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Condition"
+            },
+            "minItems": 2,
+            "maxItems": 5,
+            "description": "Cumulative conditions listed by the rule; each gets a pocket on the gear line (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "name",
+          "conditions"
+        ],
+        "description": "The rule as supplied: its caption and its cumulative conditions, in order (illustrative text, never a statement of any law)"
+      },
+      "facts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 110,
+              "description": "Fact as supplied (fictional; printed on the piece)"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "supplied",
+                "pending",
+                "disputed"
+              ],
+              "description": "Status SUPPLIED by the author: supplied (piece seated) | pending (no piece yet; the pocket stays empty) | disputed (piece brought but not seated; not resolved here)"
+            }
+          },
+          "required": [
+            "label",
+            "status"
+          ],
+          "description": "Fact piece for the condition at the same position (fictional, as supplied)"
+        },
+        "minItems": 0,
+        "maxItems": 5,
+        "description": "Fact pieces in the same order as the conditions; a condition without a piece is treated as pending (array replaces the previous value)"
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 110,
+          "description": "Issue"
+        },
+        "minItems": 0,
+        "maxItems": 1,
+        "description": "Question framed by the author, shown on a note (never answered by the animation) (array replaces the previous value)"
+      },
+      "assumptions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 110,
+          "description": "Assumption"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Working assumptions supplied by the author, shown on the same note (not verified) (array replaces the previous value)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      },
+      "changedPiece": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5,
+        "description": "Which piece differs between A and B (1 = first condition). In A it is supplied; in B it has the changed status"
+      },
+      "changedStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "disputed"
+        ],
+        "description": "Status of the changed piece in B (supplied by the author): pending = not supplied yet, the piece is set aside and its pocket stays empty; disputed = brought but not seated, not resolved here"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "rules": {
+      "name": "Rule R-1 (fictional club rule): booking the hall",
+      "conditions": [
+        "Booking form signed",
+        "Deposit paid (hypothetical amount)",
+        "Requested date free in the calendar"
+      ]
+    },
+    "facts": [
+      {
+        "label": "Form signed by member M. Okafor on Day 2",
+        "status": "supplied"
+      },
+      {
+        "label": "Receipt D-12 for the deposit (hypothetical)",
+        "status": "supplied"
+      },
+      {
+        "label": "Club calendar shows Day 9 as free",
+        "status": "supplied"
+      }
+    ],
+    "issues": [
+      "Which pieces of Rule R-1 have been supplied?"
+    ],
+    "assumptions": [
+      "Facts are taken as supplied; none is verified here"
+    ],
+    "scenarioA": {
+      "label": "All pieces supplied",
+      "caption": "Pieces 1, 2 and 3 brought for Rule R-1"
+    },
+    "scenarioB": {
+      "label": "Piece 2 pending",
+      "caption": "The same pieces, except piece 2"
+    },
+    "changedFact": "Receipt D-12 for the deposit: supplied in A, not yet supplied in B",
+    "sharedFacts": [
+      "Same rule R-1",
+      "Same pieces 1 and 3",
+      "Same test turn"
+    ],
+    "comparisonLabels": {
+      "guide": "Only piece 2 differs",
+      "neutral": "Everything else is identical in A and B. No outcome is decided here."
+    },
+    "changedPiece": 2,
+    "changedStatus": "pending"
+  }
+}

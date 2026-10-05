@@ -1,0 +1,395 @@
+{
+  "id": "LAW-0095",
+  "slug": "reasoning-04-contrast",
+  "title": "Rule and exception — same junction, one changed fact",
+  "titleEs": "Regla y excepción — Comparación de dos supuestos",
+  "category": "reasoning",
+  "categoryName": "Razonamiento jurídico",
+  "motif": "Regla y excepción",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical railway-junction boards (general case A, exceptional case B). Only in B a stamp prints the condition marker on the fact card and the changed fact is written in its reserved row; both magnifiers examine the card at the same time; in B the socket fills, the switch throws and the gate opens, and the wagons then follow their supplied routes (A main line, B separate branch). A guide joins the changed detail; a neutral note states no outcome.",
+  "tags": [
+    "reasoning",
+    "rule",
+    "exception",
+    "contrast",
+    "paired scenes",
+    "changed fact",
+    "switch",
+    "branch"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/reasoning/kits/regla-y-excepcion.js",
+    "src/primitives/paper.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "facts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 90,
+          "description": "Fact"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Facts printed on the fact card (fictional); the first one is the headline (array replaces the previous value)"
+      },
+      "rules": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "general": {
+            "type": "string",
+            "maxLength": 110,
+            "description": "General rule printed on the main-route plaque"
+          },
+          "exception": {
+            "type": "string",
+            "maxLength": 110,
+            "description": "Exception printed on the branch plaque"
+          },
+          "condition": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Condition that opens the branch, printed beside the gate socket"
+          }
+        },
+        "required": [
+          "general",
+          "exception",
+          "condition"
+        ],
+        "description": "Rule structure supplied by the author (illustrative, jurisdiction unspecified; never a statement of real law)"
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Issue"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Question examined, shown as the scene heading (supplied, not answered by the scene) (array replaces the previous value)"
+      },
+      "assumptions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 90,
+          "description": "Assumption"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Assumptions shown as a footnote in the final hold (array replaces the previous value)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      },
+      "routeA": {
+        "type": "string",
+        "enum": [
+          "branch-as-supplied",
+          "main-as-supplied",
+          "held-disputed",
+          "held-pending"
+        ],
+        "description": "Route state supplied for scenario A (never computed)"
+      },
+      "routeB": {
+        "type": "string",
+        "enum": [
+          "branch-as-supplied",
+          "main-as-supplied",
+          "held-disputed",
+          "held-pending"
+        ],
+        "description": "Route state supplied for scenario B (never computed)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "facts": [
+      "Parcel 7 arrives Monday, 9:40"
+    ],
+    "rules": {
+      "general": "Parcels are left at the front desk",
+      "exception": "Signed-for parcels go to the post room",
+      "condition": "The parcel needs a signature"
+    },
+    "issues": [
+      "Does the exception’s condition appear in the facts?"
+    ],
+    "assumptions": [
+      "Fictional house rules, as supplied"
+    ],
+    "scenarioA": {
+      "label": "General case",
+      "caption": "The parcel carries no signature marker"
+    },
+    "scenarioB": {
+      "label": "Exceptional case",
+      "caption": "The same parcel is marked as needing a signature"
+    },
+    "changedFact": "Needs a signature",
+    "sharedFacts": [
+      "Same parcel, same arrival time",
+      "Same house rules"
+    ],
+    "comparisonLabels": {
+      "guide": "Changed fact",
+      "neutral": "Two supposed situations side by side — no outcome is stated"
+    },
+    "routeA": "main-as-supplied",
+    "routeB": "branch-as-supplied"
+  }
+}

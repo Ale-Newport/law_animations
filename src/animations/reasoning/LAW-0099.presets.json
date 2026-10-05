@@ -1,0 +1,91 @@
+{
+  "animationId": "LAW-0099",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative, jurisdiction unspecified; the difference between A and B is a supplied status, and nothing is decided by the animation.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional club rule with three cumulative conditions. A: all three pieces supplied — the line turns as a whole and the joint dial moves. B: identical except piece 2 is pending — it is withdrawn, its pocket stays empty and the same test turn stops at the gap.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a four-condition allotment rule where the changed piece 3 is DISPUTED in B (brought but not seated, tilted, not resolved here) instead of pending; B's line turns only up to piece 3.",
+      "params": {
+        "rules": {
+          "name": "Rule G-4 (fictional allotment rule): transferring a garden plot",
+          "conditions": ["Written transfer request", "Neighbouring plot holders notified", "Plot inspected by the committee", "Transfer fee paid (hypothetical)"]
+        },
+        "facts": [
+          {"label": "Request dated Day 1, signed by L. Varga", "status": "supplied"},
+          {"label": "Notice pinned on the shed on Day 3", "status": "supplied"},
+          {"label": "Inspection note dated Day 5", "status": "supplied"},
+          {"label": "Fee slip F-7 (hypothetical amount)", "status": "supplied"}
+        ],
+        "issues": ["Does the committee accept the inspection note?"],
+        "assumptions": ["Statuses as supplied by the committee secretary"],
+        "scenarioA": {"label": "All four pieces supplied", "caption": "The inspection note is accepted by both parties"},
+        "scenarioB": {"label": "Piece 3 disputed", "caption": "The inspection note is contested (not resolved here)"},
+        "changedFact": "Inspection note (piece 3): supplied in A, disputed in B",
+        "sharedFacts": ["Same rule G-4", "Same pieces 1, 2 and 4", "Same test turn"],
+        "comparisonLabels": {"guide": "Only the status of piece 3 differs", "neutral": "A and B are otherwise identical; the dispute is not resolved here."},
+        "changedPiece": 3,
+        "changedStatus": "disputed"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Five long conditions and facts, long scenario labels and captions, a long changed fact, long shared facts and a long neutral note; piece 4 pending in B.",
+      "params": {
+        "rules": {
+          "name": "Rule M-12 (fictional housing co-operative rule): approving a shared workshop in the basement storage area",
+          "conditions": [
+            "Written application signed by at least one registered member",
+            "Floor plan of the basement area attached to the application",
+            "Written consent of the neighbouring storage-unit holders",
+            "Safety inspection of the electrical installation recorded",
+            "Annual usage fee paid into the co-operative account (hypothetical)"
+          ]
+        },
+        "facts": [
+          {"label": "Application form WS-3 signed by member Maria-Fernanda Castellanos Villavicencio on Day 4", "status": "supplied"},
+          {"label": "Hand-drawn floor plan of storage bays 7 to 9 attached as annex A", "status": "supplied"},
+          {"label": "Consent letters from all three neighbouring unit holders", "status": "supplied"},
+          {"label": "Caretaker's inspection note dated Day 11 for the basement circuits", "status": "supplied"},
+          {"label": "Bank slip for the annual usage fee (hypothetical amount, reference 55-B)", "status": "supplied"}
+        ],
+        "issues": ["Which of the five pieces required by Rule M-12 are supplied in each scenario?"],
+        "assumptions": ["Every fact is taken exactly as supplied by the applicant"],
+        "scenarioA": {"label": "All five pieces supplied by the applicant", "caption": "The caretaker's inspection note has been handed in with the other four documents"},
+        "scenarioB": {"label": "Inspection note still pending", "caption": "Identical application, except that the caretaker has not yet recorded the inspection"},
+        "changedFact": "Caretaker's inspection note for the basement circuits (piece 4): supplied in A, not yet supplied in B",
+        "sharedFacts": ["Same Rule M-12 of the housing co-operative", "Same application form, floor plan, consent letters and bank slip", "Same test turn of the joint mechanism"],
+        "comparisonLabels": {"guide": "Only piece 4, the caretaker's inspection note, differs", "neutral": "Everything else is identical in A and B; the animation does not decide whether the workshop is approved."},
+        "changedPiece": 4,
+        "changedStatus": "pending"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "rules": {
+          "name": "Regla R-1 (norma ficticia de un club): reserva del salón",
+          "conditions": ["Formulario de reserva firmado", "Depósito pagado (importe hipotético)", "Fecha solicitada libre en el calendario"]
+        },
+        "facts": [
+          {"label": "Formulario firmado por el socio M. Okafor el día 2", "status": "supplied"},
+          {"label": "Recibo D-12 del depósito (hipotético)", "status": "supplied"},
+          {"label": "El calendario del club muestra libre el día 9", "status": "supplied"}
+        ],
+        "issues": ["¿Qué piezas de la regla R-1 se han aportado en cada supuesto?"],
+        "assumptions": ["Los hechos se toman según lo aportado; ninguno se verifica aquí"],
+        "scenarioA": {"label": "Todas las piezas aportadas", "caption": "Piezas 1, 2 y 3 aportadas para la regla R-1"},
+        "scenarioB": {"label": "Pieza 2 pendiente", "caption": "Las mismas piezas, salvo la pieza 2"},
+        "changedFact": "Recibo D-12 del depósito: aportado en A, aún no aportado en B",
+        "sharedFacts": ["Misma regla R-1", "Mismas piezas 1 y 3", "Mismo giro de prueba"],
+        "comparisonLabels": {"guide": "Solo cambia la pieza 2", "neutral": "Todo lo demás es igual en A y B. No se decide ningún resultado."}
+      }
+    }
+  ]
+}

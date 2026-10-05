@@ -1,0 +1,74 @@
+{
+  "animationId": "LAW-0087",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative, jurisdiction unspecified. The two scenes differ only in the new case's value of one supplied feature; relevance and rule text are supplied by the author. No winner, score or legal consequence is shown.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional loan of a ladder on two identical tracing boards. Scene A: the new case also agreed a return date — its print lands on the earlier case's print and they coincide ('='). Scene B: no return date was agreed — its print lands beside it ('≠'). Everything else is identical.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a lent bicycle; the changed feature is the length of the loan (same two days in scene A; one month, with a calendar pictogram, in scene B), another rule text and a shared-facts footnote.",
+      "params": {
+        "cases": {"a": {"name": "Case Quay Street", "note": "earlier case · fictional"}, "b": {"name": "Case Mill Lane", "note": "new case · fictional"}},
+        "facts": [
+          {"icon": "bicycle", "a": "Bicycle lent to a friend", "b": "Bicycle lent to a friend", "relevant": true},
+          {"icon": "clock", "a": "Kept for two days", "b": "Kept for two days", "relevant": true},
+          {"icon": "phone", "a": "Loan agreed by message", "b": "Loan agreed by message", "relevant": false}
+        ],
+        "rules": [{"name": "Rule Q (illustrative)", "text": "“Where an item is lent for a stated time, …”"}],
+        "issues": ["Does the new loan share the feature Rule Q names?"],
+        "assumptions": ["Durations as stated by each borrower"],
+        "scenarioA": {"label": "Relevant similarity", "caption": "New loan: kept for two days"},
+        "scenarioB": {"label": "Relevant difference", "caption": "New loan: kept for one month"},
+        "changedFact": {"feature": 1, "valueB": "Kept for one month", "iconB": "calendar"},
+        "sharedFacts": ["Bicycle lent to a friend", "Loan agreed by message"],
+        "comparisonLabels": {"guide": "Only the length of the loan changes", "neutral": "Same bicycle, same friend, same message in both scenes · no outcome is shown"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Five features with long labels, long case names, a long rule text, issue and assumptions, long scenario captions and a long changed value.",
+      "params": {
+        "cases": {"a": {"name": "Case of the Harbourside Community Workshop", "note": "earlier case · fictional · reference account"}, "b": {"name": "Case of the Linden Avenue Allotment Shed", "note": "new case · fictional · as supplied"}},
+        "facts": [
+          {"icon": "ladder", "a": "Extending ladder lent by the next-door neighbour", "b": "Extending ladder lent by the next-door neighbour", "relevant": true},
+          {"icon": "note", "a": "Loan written down on a signed paper slip", "b": "Loan written down on a signed paper slip", "relevant": false},
+          {"icon": "calendar", "a": "A return date was agreed for the end of the month", "b": "A return date was agreed for the end of the month", "relevant": true},
+          {"icon": "rain", "a": "Ladder left outside overnight in heavy rain", "b": "Ladder left outside overnight in heavy rain", "relevant": false},
+          {"icon": "key", "a": "Shed key handed over together with the ladder", "b": "Shed key handed over together with the ladder", "relevant": false}
+        ],
+        "rules": [{"name": "Rule R — illustrative wording", "text": "“Where an item is lent between neighbours and a date for its return is agreed between them, …” (text as supplied, not a statement of law)"}],
+        "issues": ["Does the Linden Avenue case share each of the features that the supplied Rule R names?"],
+        "assumptions": ["All facts are taken exactly as each account supplies them", "No other features are compared here"],
+        "scenarioA": {"label": "Relevant similarity (as supplied)", "caption": "In this scene the new case also agreed a return date for the end of the month"},
+        "scenarioB": {"label": "Relevant difference (as supplied)", "caption": "In this scene no return date was ever discussed or agreed in the new case"},
+        "changedFact": {"feature": 2, "valueB": "No return date was ever discussed or agreed", "iconB": null},
+        "sharedFacts": ["Extending ladder", "Signed paper slip", "Left out in rain", "Shed key handed over"],
+        "comparisonLabels": {"guide": "Only the new case’s return-date feature changes between scenes", "neutral": "Every other supplied feature is identical in scene A and scene B · no outcome, winner or score is shown"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "cases": {"a": {"name": "Caso Puerto", "note": "caso anterior · ficticio"}, "b": {"name": "Caso Tilo", "note": "caso nuevo · ficticio"}},
+        "facts": [
+          {"icon": "ladder", "a": "Escalera prestada por un vecino", "b": "Escalera prestada por un vecino", "relevant": true},
+          {"icon": "note", "a": "Préstamo anotado en un papel", "b": "Préstamo anotado en un papel", "relevant": false},
+          {"icon": "calendar", "a": "Fecha de devolución pactada", "b": "Fecha de devolución pactada", "relevant": true},
+          {"icon": "rain", "a": "Dejada fuera bajo la lluvia", "b": "Dejada fuera bajo la lluvia", "relevant": false}
+        ],
+        "rules": [{"name": "Regla R (ilustrativa)", "text": "«Cuando se presta un objeto y se pacta una fecha de devolución, …»"}],
+        "issues": ["¿Comparte el caso nuevo el rasgo que nombra la regla R?"],
+        "assumptions": ["Hechos tomados tal como los aporta cada relato"],
+        "scenarioA": {"label": "Semejanza relevante", "caption": "Caso nuevo: fecha de devolución pactada"},
+        "scenarioB": {"label": "Diferencia relevante", "caption": "Caso nuevo: sin fecha de devolución pactada"},
+        "changedFact": {"feature": 2, "valueB": "Sin fecha de devolución pactada", "iconB": null},
+        "comparisonLabels": {"guide": "Solo cambia este rasgo", "neutral": "Todos los demás rasgos son idénticos en A y B · no se muestra ningún resultado"}
+      }
+    }
+  ]
+}

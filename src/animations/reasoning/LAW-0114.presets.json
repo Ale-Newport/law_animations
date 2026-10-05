@@ -1,0 +1,235 @@
+{
+  "animationId": "LAW-0114",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the rule text is the author's illustrative text, not a statement of any law. Only supplied relationships are drawn; a causal style appears only when the author supplies it; the hypothetical's outcome is never shown.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional delivery: set and events are shared by both takes; only circumstance cel B changes (flag from the porch bench to the window sill). Relation set–events, sequences events→A and events→B, relations A–rule and B–rule; the magnifier enlarges cel B.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a fictional equipment return (flag from the wall parcel box to the bench below). Different supplied relationships — cel A is not related to the rule, the events reach cel B through a supplied communication link — a different traversal order, and the magnifier enlarges the events cel instead.",
+      "params": {
+        "facts": {
+          "title": "Laptop return at Unit 4 (fictional)",
+          "events": [
+            "A tenant arrives at 09:05",
+            "Carries the laptop box to the front",
+            "Leaves it and steps back",
+            "Nobody is at the door"
+          ]
+        },
+        "rules": {
+          "title": "Office return note (fictional text)",
+          "conditions": [
+            "Equipment is handed back",
+            "at the place named in the note"
+          ]
+        },
+        "circumstance": {
+          "label": "Where the box is left",
+          "base": "box",
+          "baseText": "in the wall parcel box",
+          "alt": "bench",
+          "altText": "on the bench below it",
+          "condition": 1
+        },
+        "issues": [
+          "Which place does the note name?"
+        ],
+        "assumptions": [
+          "The tenant's route is the same in both takes",
+          "Nothing else about the front changes"
+        ],
+        "elements": [
+          {
+            "id": "set",
+            "label": "Front of Unit 4 · unchanged"
+          },
+          {
+            "id": "events",
+            "label": "The tenant's four events · unchanged"
+          },
+          {
+            "id": "spotA",
+            "label": "Box cel"
+          },
+          {
+            "id": "spotB",
+            "label": "Bench cel"
+          },
+          {
+            "id": "rule",
+            "label": "Return note"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "set",
+            "to": "events",
+            "kind": "relation"
+          },
+          {
+            "from": "events",
+            "to": "spotA",
+            "kind": "sequence"
+          },
+          {
+            "from": "events",
+            "to": "spotB",
+            "kind": "communication"
+          },
+          {
+            "from": "spotB",
+            "to": "rule",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "events",
+        "relationLabels": {
+          "relation": "relation",
+          "communication": "communication (as supplied)",
+          "sequence": "sequence",
+          "causal": "causal (as supplied)"
+        },
+        "traversalOrder": [
+          "rule",
+          "spotB",
+          "events",
+          "spotA"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long element labels, relation captions, events, rule text, circumstance texts, issues and assumptions to exercise wrapping and bounded shrinking.",
+      "params": {
+        "facts": {
+          "title": "Evening delivery of a parcel at number 9 of fictional Linden Street",
+          "events": [
+            "A courier from a fictional delivery service arrives at the garden at 18:10",
+            "The courier carries parcel number 7 all the way up to the house front",
+            "The courier leaves the parcel there and steps back towards the garden"
+          ]
+        },
+        "rules": {
+          "title": "House notice number 2 of the residents' association (illustrative)",
+          "conditions": [
+            "A parcel addressed to a resident of the house is left for that resident",
+            "at a place that was agreed in advance with the resident concerned",
+            "before seven o'clock in the evening of the delivery day"
+          ]
+        },
+        "circumstance": {
+          "label": "The exact place where the courier finally leaves the parcel",
+          "base": "bench",
+          "baseText": "on the wooden bench under the porch roof",
+          "alt": "sill",
+          "altText": "on the stone sill of the front window instead",
+          "condition": 1
+        },
+        "issues": [
+          "Was the stone window sill ever agreed with the resident as a place for parcels?"
+        ],
+        "assumptions": [
+          "Every other event happens exactly as in the base run of the scene",
+          "The courier's route and timing are the same in both takes"
+        ],
+        "elements": [
+          {
+            "id": "set",
+            "label": "The set: house front and garden, both takes"
+          },
+          {
+            "id": "events",
+            "label": "The courier's events, same order in both"
+          },
+          {
+            "id": "spotA",
+            "label": "Circumstance cel A (base scenario)"
+          },
+          {
+            "id": "spotB",
+            "label": "Circumstance cel B (the single change)"
+          },
+          {
+            "id": "rule",
+            "label": "House notice number 2 (illustrative)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relation between the parts (as supplied)",
+          "communication": "communication between parts, supplied",
+          "sequence": "followed by, in exactly the same order",
+          "causal": "causal link, as supplied by the author"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "facts": {
+          "title": "Entrega en el n.º 9 (ficticio)",
+          "events": [
+            "Un repartidor llega a las 18:10",
+            "Lleva el paquete 7 hasta la casa",
+            "Lo deja y retrocede"
+          ]
+        },
+        "rules": {
+          "title": "Aviso de la casa 2 (texto ficticio)",
+          "conditions": [
+            "Se deja un paquete para un residente",
+            "en un lugar acordado con el residente",
+            "antes de las 19:00"
+          ]
+        },
+        "circumstance": {
+          "label": "Dónde se deja el paquete",
+          "base": "bench",
+          "baseText": "en el banco del porche",
+          "alt": "sill",
+          "altText": "en el alféizar de la ventana",
+          "condition": 1
+        },
+        "issues": [
+          "¿Se acordó alguna vez el alféizar como lugar?"
+        ],
+        "assumptions": [
+          "Todo lo demás ocurre como en la toma base"
+        ],
+        "elements": [
+          {
+            "id": "set",
+            "label": "Decorado · igual en ambas tomas"
+          },
+          {
+            "id": "events",
+            "label": "Hechos · iguales en ambas tomas"
+          },
+          {
+            "id": "spotA",
+            "label": "Lámina de circunstancia A"
+          },
+          {
+            "id": "spotB",
+            "label": "Lámina de circunstancia B"
+          },
+          {
+            "id": "rule",
+            "label": "Aviso (regla)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación",
+          "communication": "comunicación",
+          "sequence": "secuencia",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "animationId": "LAW-0104",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative, jurisdiction unspecified; the substituted datum is supplied by the author and only its dependent geometry changes. Nothing is inferred about validity, responsibility or outcome.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional guest-pass rule. The supplied route datum 'Sent by Route A' is replaced by 'Sent by Route B': the lens on the shuttle valve shows the ball crossing to the other seat and the glow moving to tube B; the capsule stays in the same tray; the old datum is kept on a struck slip.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a fictional library-fee rule; the lens opens on the receiving TRAY instead of the valve, and the datum goes the other way — from Route B (desk note) to Route A (night-slot log). The capsule stays in the tray; only the ball and the route glow follow the new datum.",
+      "params": {
+        "rules": {
+          "name": "Library rule 9 (fictional text): a late fee may be looked at again by either route",
+          "conditions": [
+            "The book was returned through the night slot",
+            "A staff member recorded a desk extension"
+          ]
+        },
+        "facts": [
+          {
+            "label": "Night-slot log shows the book at 23:10 on Day 14",
+            "status": "supplied"
+          },
+          {
+            "label": "Desk note: extension recorded by staff member R. Osei",
+            "status": "supplied"
+          }
+        ],
+        "issues": [
+          "Which clock does the night-slot log use?"
+        ],
+        "assumptions": [
+          "Both documents are taken as supplied"
+        ],
+        "focusTarget": "point",
+        "beforeValue": "Sent by Route B — desk note about an extension",
+        "afterValue": "Sent by Route A — night-slot log for Day 14",
+        "beforeRoute": "B",
+        "afterRoute": "A",
+        "detailGeometry": {
+          "zoom": 2,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Context: the library's receiving tray",
+          "marker": "Route datum replaced (as supplied)"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names and texts near the field limits: long rule caption, conditions, facts, before/after values, context caption, marker, assumptions and issue. Text wraps between words; sizes stay at or above 16 px at 1080p.",
+      "params": {
+        "rules": {
+          "name": "Rule M-27 (fictional housing co-operative rule): a request to use the shared roof terrace may arrive by either route",
+          "conditions": [
+            "The request is countersigned by two registered members of the housing co-operative board",
+            "The requester presents the stamped annual terrace permit issued by the caretaker's office"
+          ]
+        },
+        "facts": [
+          {
+            "label": "Request form countersigned by board members Maria-Fernanda Castellanos and Oluwaseun Adeyemi-Clarke on Day 12",
+            "status": "supplied"
+          },
+          {
+            "label": "Annual terrace permit no. T-5561 stamped by the caretaker's office, shown at the stairwell door on Day 13",
+            "status": "supplied"
+          }
+        ],
+        "issues": [
+          "Were both countersignatures added before the request was placed in the tube? (not examined here)"
+        ],
+        "assumptions": [
+          "Each route is read on its own and neither route is ranked above the other",
+          "The dates are taken from the documents as supplied; none of them is verified here"
+        ],
+        "beforeValue": "Sent by Route A — the countersigned request form of the housing co-operative board",
+        "afterValue": "Sent by Route B — a copy of the stamped annual terrace permit no. T-5561",
+        "contextLabels": {
+          "context": "Context: the co-operative office board once the capsule has reached its tray",
+          "marker": "Changed route datum (as supplied)"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Versión en español del ejemplo base: el dato de ruta aportado 'Enviado por la ruta A' se sustituye por 'Enviado por la ruta B'; la lupa sobre la válvula muestra la bola pasando al otro asiento.",
+      "params": {
+        "locale": "es",
+        "rules": {
+          "name": "Regla G-2 (regla ficticia de un club): la solicitud de pase de invitado puede llegar por cualquiera de dos rutas",
+          "conditions": [
+            "Un socio invita por escrito a la persona invitada",
+            "La persona invitada muestra una tarjeta de un club asociado"
+          ]
+        },
+        "facts": [
+          {
+            "label": "Nota de invitación firmada por el socio J. Park el día 3",
+            "status": "supplied"
+          },
+          {
+            "label": "Tarjeta del club asociado n.º 0417 mostrada en la puerta",
+            "status": "supplied"
+          }
+        ],
+        "issues": [
+          "¿Sigue vigente la tarjeta n.º 0417? (no se examina aquí)"
+        ],
+        "assumptions": [
+          "Cada ruta se lee por separado; los hechos se toman según lo aportado"
+        ],
+        "beforeValue": "Enviado por la ruta A — nota de invitación del socio J. Park",
+        "afterValue": "Enviado por la ruta B — tarjeta de club asociado n.º 0417",
+        "contextLabels": {
+          "context": "Contexto: la cápsula ha llegado a la bandeja",
+          "marker": "Dato cambiado (según lo aportado)"
+        }
+      }
+    }
+  ]
+}
