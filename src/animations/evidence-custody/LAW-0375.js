@@ -117,7 +117,7 @@ function compose(ctx, P, recs, F, opt) {
     ? {x: i * (stage.w + gap), y: headH, w: stage.w, h: stage.h, headY: 0}
     : {x: 0, y: i * (stage.h + headH + gap) + headH, w: stage.w, h: stage.h, headY: i * (stage.h + headH + gap)}));
   const inset = Math.max(12, Math.min(stage.w, stage.h) * 0.035);
-  const st = {kind: P.items[0].kind, targets: ['scene', 'object'], slots: 1, rows: recs.length, ...opt.st};
+  const st = {kind: P.items[0].kind, targets: ['scene', 'object'], slots: 1, rows: recs.length, restRuler: false, ...opt.st};
   const G = stage.h > 150 && stage.w > 150 ? benches.map(b => rfStage({x: b.x + inset * 1.5, y: b.y + inset * 1.5, w: b.w - inset * 3, h: b.h - inset * 3}, st)) : null;
   const panelOk = !side || ph <= DH;
   const printOk = G && G[0].tray.pw >= G[0].S * 1.4;
@@ -132,10 +132,10 @@ const scene = {
     const P = localised(ctx, EN0, (({views, ...rest}) => rest)(ES));
     const recs = rfRecords(P);
     const shape = ctx.view.shape;
-    const sts = [{tray: 'right', trayFrac: 0.34, approach: 'down'}, {tray: 'right', trayFrac: 0.4, approach: 'down'}, {tray: 'top', trayFrac: 0.3, approach: 'down'}, {tray: 'right', trayFrac: 0.34, approach: 'left'}];
+    const sts = [{tray: 'right', trayFrac: 0.34, approach: 'down'}, {tray: 'right', trayFrac: 0.4, approach: 'down'}, {tray: 'top', trayFrac: 0.3, approach: 'down'}, {tray: 'right', trayFrac: 0.28, approach: 'left'}, {tray: 'right', trayFrac: 0.34, approach: 'left'}];
     const opts0 = shape === 'portrait' ? [{arr: 'col', cols: 1}, {arr: 'col', cols: 2}]
       : shape === 'square' ? [{arr: 'col', cols: 1, pw: 0.36}, {arr: 'col', cols: 1, pw: 0.42}, {arr: 'row', cols: 2}, {arr: 'col', cols: 2}]
-        : [{arr: 'row', cols: 2}, {arr: 'row', cols: 3}];
+        : [{arr: 'row', cols: 2}, {arr: 'row', cols: 3}, {arr: 'row', cols: 1, pw: 0.22}, {arr: 'row', cols: 1, pw: 0.26}];
     let C = null, best = null, bestScore = -1;
     for (const F of SIZES) for (const o0 of opts0) for (const st of sts) {
       const c = compose(ctx, P, recs, F, {...o0, st});

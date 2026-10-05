@@ -182,7 +182,7 @@ export function rfStage(B, o) {
   parkU.a = aimDeg(parkU, {x: 0, y: 0});
   // unit bounding box of the stage (cluster, fields used, cameras at their stations, base)
   let bb = items.reduce(boxU);
-  bb = boxU(bb, {x: rulerRestU.x - 0.05, y: rulerRestU.y - rulerU.Lv - 0.1, w: rulerU.L + 0.2, h: rulerU.Lv + 0.15});
+  if (o.restRuler !== false) bb = boxU(bb, {x: rulerRestU.x - 0.05, y: rulerRestU.y - rulerU.Lv - 0.1, w: rulerU.L + 0.2, h: rulerU.Lv + 0.15});
   for (const t of o.targets) bb = boxU(bb, fieldsU.find(f => f.target === t));
   for (const s of [...used, parkU]) bb = boxU(bb, {x: s.x - CMu.radius - 0.08, y: s.y - CMu.radius - 0.08, w: (CMu.radius + 0.08) * 2, h: (CMu.radius + 0.08) * 2});
   bb = boxU(bb, {x: baseU.x - 0.3, y: baseU.y - 0.3, w: 0.6, h: 0.6});

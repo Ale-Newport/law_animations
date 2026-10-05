@@ -1,0 +1,825 @@
+{
+  "animationId": "LAW-0509",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0509",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "contract.reference",
+        "rejected": "Invalid animation parameters:\n - params.contract.reference: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "16:9",
+          "k": "loupe",
+          "f": 63,
+          "d": 112
+        },
+        {
+          "ratio": "16:9",
+          "k": "loupe",
+          "f": 64,
+          "d": 139
+        },
+        {
+          "ratio": "16:9",
+          "k": "loupe",
+          "f": 65,
+          "d": 168
+        },
+        {
+          "ratio": "16:9",
+          "k": "loupe",
+          "f": 66,
+          "d": 156
+        },
+        {
+          "ratio": "16:9",
+          "k": "loupe",
+          "f": 67,
+          "d": 126
+        },
+        {
+          "ratio": "16:9",
+          "k": "loupe",
+          "f": 68,
+          "d": 100
+        },
+        {
+          "ratio": "16:9",
+          "k": "loupe",
+          "f": 229,
+          "d": 101
+        },
+        {
+          "ratio": "16:9",
+          "k": "loupe",
+          "f": 230,
+          "d": 117
+        }
+      ]
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: tabs in, needles at rest, no lines @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "order": "law>forum",
+          "reading": null,
+          "loupe": {
+            "x": 1583.96,
+            "y": 383.03
+          },
+          "loupeParked": true,
+          "loupeBox": {
+            "x": 1500.34,
+            "y": 299.42,
+            "w": 232.09,
+            "h": 232.09
+          },
+          "dialA": {
+            "x": 854.75,
+            "y": 189.47
+          },
+          "dialB": {
+            "x": 854.75,
+            "y": 523.21
+          },
+          "needleA": {
+            "x": 793.37,
+            "y": 189.47
+          },
+          "needleB": {
+            "x": 793.43,
+            "y": 520.51
+          },
+          "needleDeg": [
+            180,
+            180
+          ],
+          "targetDeg": [
+            352.1,
+            28.9
+          ],
+          "restDeg": [
+            180,
+            180
+          ],
+          "lines": [
+            0,
+            0
+          ],
+          "tabs": [
+            0,
+            0
+          ],
+          "ends": [
+            {
+              "x": 1427.45,
+              "y": 138
+            },
+            {
+              "x": 1427.45,
+              "y": 728.96
+            }
+          ],
+          "plaqueBoxes": [
+            {
+              "kind": "law",
+              "x": 1431.45,
+              "y": 30,
+              "w": 610.05,
+              "h": 182
+            },
+            {
+              "kind": "forum",
+              "x": 1431.45,
+              "y": 620.96,
+              "w": 610.05,
+              "h": 182
+            }
+          ],
+          "kinds": [
+            "law",
+            "forum"
+          ],
+          "linesCross": false,
+          "rims": [
+            0,
+            0
+          ],
+          "keyShown": 0,
+          "noteShown": 0,
+          "textBoxes": [
+            {
+              "x": 14,
+              "y": 24,
+              "w": 732.06,
+              "h": 786.96
+            }
+          ],
+          "textPx": 26,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: the loupe reads the first clause before anything points (cause before effect) @0.25",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "order": "law>forum",
+          "reading": "law",
+          "loupe": {
+            "x": 313.42,
+            "y": 191.47
+          },
+          "loupeParked": false,
+          "loupeBox": {
+            "x": 229.8,
+            "y": 107.85,
+            "w": 232.09,
+            "h": 232.09
+          },
+          "dialA": {
+            "x": 917.73,
+            "y": 189.47
+          },
+          "dialB": {
+            "x": 854.75,
+            "y": 523.21
+          },
+          "needleA": {
+            "x": 856.35,
+            "y": 190.52
+          },
+          "needleB": {
+            "x": 793.45,
+            "y": 526.43
+          },
+          "needleDeg": [
+            180,
+            180
+          ],
+          "targetDeg": [
+            352.1,
+            28.9
+          ],
+          "restDeg": [
+            180,
+            180
+          ],
+          "lines": [
+            0,
+            0
+          ],
+          "tabs": [
+            0.315,
+            0
+          ],
+          "ends": [
+            {
+              "x": 1427.45,
+              "y": 138
+            },
+            {
+              "x": 1427.45,
+              "y": 728.96
+            }
+          ],
+          "plaqueBoxes": [
+            {
+              "kind": "law",
+              "x": 1431.45,
+              "y": 30,
+              "w": 610.05,
+              "h": 182
+            },
+            {
+              "kind": "forum",
+              "x": 1431.45,
+              "y": 620.96,
+              "w": 610.05,
+              "h": 182
+            }
+          ],
+          "kinds": [
+            "law",
+            "forum"
+          ],
+          "linesCross": false,
+          "rims": [
+            0,
+            0
+          ],
+          "keyShown": 0,
+          "noteShown": 0,
+          "textBoxes": [
+            {
+              "x": 14,
+              "y": 24,
+              "w": 732.06,
+              "h": 786.96
+            }
+          ],
+          "textPx": 26,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: first clause points; the second has not moved @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "order": "law>forum",
+          "reading": "forum",
+          "loupe": {
+            "x": 313.42,
+            "y": 525.21
+          },
+          "loupeParked": false,
+          "loupeBox": {
+            "x": 229.8,
+            "y": 441.6,
+            "w": 232.09,
+            "h": 232.09
+          },
+          "dialA": {
+            "x": 1054.75,
+            "y": 189.47
+          },
+          "dialB": {
+            "x": 1036.09,
+            "y": 523.21
+          },
+          "needleA": {
+            "x": 1115.56,
+            "y": 181.07
+          },
+          "needleB": {
+            "x": 974.71,
+            "y": 523.12
+          },
+          "needleDeg": [
+            352.1,
+            180
+          ],
+          "targetDeg": [
+            352.1,
+            28.9
+          ],
+          "restDeg": [
+            180,
+            180
+          ],
+          "lines": [
+            1,
+            0
+          ],
+          "tabs": [
+            1,
+            0.907
+          ],
+          "ends": [
+            {
+              "x": 1427.45,
+              "y": 138
+            },
+            {
+              "x": 1427.45,
+              "y": 728.96
+            }
+          ],
+          "plaqueBoxes": [
+            {
+              "kind": "law",
+              "x": 1431.45,
+              "y": 30,
+              "w": 610.05,
+              "h": 182
+            },
+            {
+              "kind": "forum",
+              "x": 1431.45,
+              "y": 620.96,
+              "w": 610.05,
+              "h": 182
+            }
+          ],
+          "kinds": [
+            "law",
+            "forum"
+          ],
+          "linesCross": false,
+          "rims": [
+            1,
+            0
+          ],
+          "keyShown": 0,
+          "noteShown": 0,
+          "textBoxes": [
+            {
+              "x": 14,
+              "y": 24,
+              "w": 732.06,
+              "h": 786.96
+            }
+          ],
+          "textPx": 26,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: each line ends on its own plaque; lines never cross @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "order": "law>forum",
+          "reading": null,
+          "loupe": {
+            "x": 1583.96,
+            "y": 383.03
+          },
+          "loupeParked": true,
+          "loupeBox": {
+            "x": 1500.34,
+            "y": 299.42,
+            "w": 232.09,
+            "h": 232.09
+          },
+          "dialA": {
+            "x": 1054.75,
+            "y": 189.47
+          },
+          "dialB": {
+            "x": 1054.75,
+            "y": 523.21
+          },
+          "needleA": {
+            "x": 1115.56,
+            "y": 181.07
+          },
+          "needleB": {
+            "x": 1108.49,
+            "y": 552.88
+          },
+          "needleDeg": [
+            352.1,
+            28.9
+          ],
+          "targetDeg": [
+            352.1,
+            28.9
+          ],
+          "restDeg": [
+            180,
+            180
+          ],
+          "lines": [
+            1,
+            1
+          ],
+          "tabs": [
+            1,
+            1
+          ],
+          "ends": [
+            {
+              "x": 1427.45,
+              "y": 138
+            },
+            {
+              "x": 1427.45,
+              "y": 728.96
+            }
+          ],
+          "plaqueBoxes": [
+            {
+              "kind": "law",
+              "x": 1431.45,
+              "y": 30,
+              "w": 610.05,
+              "h": 182
+            },
+            {
+              "kind": "forum",
+              "x": 1431.45,
+              "y": 620.96,
+              "w": 610.05,
+              "h": 182
+            }
+          ],
+          "kinds": [
+            "law",
+            "forum"
+          ],
+          "linesCross": false,
+          "rims": [
+            1,
+            1
+          ],
+          "keyShown": 1,
+          "noteShown": 1,
+          "textBoxes": [
+            {
+              "x": 14,
+              "y": 24,
+              "w": 732.06,
+              "h": 786.96
+            }
+          ],
+          "textPx": 26,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative: forum clause first, still to its own plaque @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "order": "forum>law",
+          "reading": null,
+          "loupe": {
+            "x": 1583.96,
+            "y": 383.03
+          },
+          "loupeParked": true,
+          "loupeBox": {
+            "x": 1500.34,
+            "y": 299.42,
+            "w": 232.09,
+            "h": 232.09
+          },
+          "dialA": {
+            "x": 1054.75,
+            "y": 189.47
+          },
+          "dialB": {
+            "x": 1054.75,
+            "y": 523.21
+          },
+          "needleA": {
+            "x": 1115.56,
+            "y": 181.07
+          },
+          "needleB": {
+            "x": 1108.49,
+            "y": 552.88
+          },
+          "needleDeg": [
+            352.1,
+            28.9
+          ],
+          "targetDeg": [
+            352.1,
+            28.9
+          ],
+          "restDeg": [
+            180,
+            180
+          ],
+          "lines": [
+            1,
+            1
+          ],
+          "tabs": [
+            1,
+            1
+          ],
+          "ends": [
+            {
+              "x": 1427.45,
+              "y": 138
+            },
+            {
+              "x": 1427.45,
+              "y": 728.96
+            }
+          ],
+          "plaqueBoxes": [
+            {
+              "kind": "forum",
+              "x": 1431.45,
+              "y": 30,
+              "w": 610.05,
+              "h": 182
+            },
+            {
+              "kind": "law",
+              "x": 1431.45,
+              "y": 620.96,
+              "w": 610.05,
+              "h": 182
+            }
+          ],
+          "kinds": [
+            "forum",
+            "law"
+          ],
+          "linesCross": false,
+          "rims": [
+            1,
+            1
+          ],
+          "keyShown": 1,
+          "noteShown": 1,
+          "textBoxes": [
+            {
+              "x": 14,
+              "y": 24,
+              "w": 732.06,
+              "h": 786.96
+            }
+          ],
+          "textPx": 26,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same pointing @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "order": "law>forum",
+          "reading": null,
+          "loupe": {
+            "x": 1583.96,
+            "y": 417.37
+          },
+          "loupeParked": true,
+          "loupeBox": {
+            "x": 1492.37,
+            "y": 325.78,
+            "w": 253.45,
+            "h": 253.45
+          },
+          "dialA": {
+            "x": 1062.26,
+            "y": 214.48
+          },
+          "dialB": {
+            "x": 1062.26,
+            "y": 573.24
+          },
+          "needleA": {
+            "x": 1128.07,
+            "y": 200.7
+          },
+          "needleB": {
+            "x": 1119.1,
+            "y": 609.16
+          },
+          "needleDeg": [
+            348.2,
+            32.3
+          ],
+          "targetDeg": [
+            348.2,
+            32.3
+          ],
+          "restDeg": [
+            180,
+            180
+          ],
+          "lines": [
+            1,
+            1
+          ],
+          "tabs": [
+            1,
+            1
+          ],
+          "ends": [
+            {
+              "x": 1427.45,
+              "y": 138
+            },
+            {
+              "x": 1427.45,
+              "y": 804
+            }
+          ],
+          "plaqueBoxes": [
+            {
+              "kind": "law",
+              "x": 1431.45,
+              "y": 30,
+              "w": 610.05,
+              "h": 182
+            },
+            {
+              "kind": "forum",
+              "x": 1431.45,
+              "y": 696,
+              "w": 610.05,
+              "h": 182
+            }
+          ],
+          "kinds": [
+            "law",
+            "forum"
+          ],
+          "linesCross": false,
+          "rims": [
+            1,
+            1
+          ],
+          "keyShown": 1,
+          "noteShown": 1,
+          "textBoxes": [
+            {
+              "x": 14,
+              "y": 24,
+              "w": 732.06,
+              "h": 862
+            }
+          ],
+          "textPx": 26,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}
