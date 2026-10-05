@@ -1,0 +1,651 @@
+{
+  "id": "LAW-0370",
+  "slug": "evidence-custody-03-mechanism",
+  "title": "Custody transfer — a spatial plan of the hand-off: two custodians, their own record sheets and the bag passing between them",
+  "titleEs": "Transferencia de custodia — Mecanismo o relación explicada",
+  "category": "evidence-custody",
+  "categoryName": "Recogida y custodia de pruebas",
+  "motif": "Transferencia de custodia",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "A spatial plan of a custody hand-off laid out like the room: custodian A with A's own record sheet, the sealed evidence bag on the counter tray with its ball chain and tag, custodian B with B's own record sheet. The elements move apart from the hand-off point, only the explicit relationships are drawn (plain relations without arrowheads, sequence links as configured), a tracer follows the supplied traversal order and the bag is enlarged while it runs. Sheets print their supplied rows; a blank row is only a supplied blank row. No doctrine; fictional; jurisdiction unspecified.",
+  "tags": [
+    "evidence",
+    "custody",
+    "transfer",
+    "hand-off",
+    "mechanism",
+    "record sheet",
+    "relations",
+    "tracer",
+    "evidence bag",
+    "tag",
+    "chain"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/evidence-custody/kits/evidence-art.js",
+    "src/animations/evidence-custody/kits/transferencia-custodia.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Item reference printed in the legend (fictional)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 70,
+              "description": "Short description of the item (fictional)"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "key",
+                "cup",
+                "box"
+              ],
+              "description": "Drawn object: key, cup or box"
+            }
+          },
+          "required": [
+            "id",
+            "label",
+            "kind"
+          ],
+          "description": "Item"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "The item handled in the scene (fictional). kind picks the drawn object (array replaces the previous value)"
+      },
+      "custodians": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Name (fictional)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Descriptive role (not a legal finding)"
+            }
+          },
+          "required": [
+            "name",
+            "role"
+          ],
+          "description": "Custodian"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "The two custodians (fictional; descriptive roles only): the first hands the bag over (A), the second receives it (B) (array replaces the previous value)"
+      },
+      "timestamps": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "What the time refers to"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Time as supplied (illustrative)"
+            }
+          },
+          "required": [
+            "label",
+            "time"
+          ],
+          "description": "Timestamp"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Times noted by the author (illustrative; no time limit is implied) (array replaces the previous value)"
+      },
+      "records": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "log": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "Which sheet the row belongs to (a or b)"
+            },
+            "field": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Field name printed on the sheet"
+            },
+            "value": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Value written in the row (empty = left blank)"
+            }
+          },
+          "required": [
+            "log",
+            "field",
+            "value"
+          ],
+          "description": "Record row"
+        },
+        "minItems": 2,
+        "maxItems": 6,
+        "description": "Rows of the two separate record sheets; log a = sheet of custodian A, log b = sheet of custodian B. An empty value leaves that row blank (as supplied) (array replaces the previous value)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key shown in the legend"
+          },
+          "blank": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Text used for a row left blank"
+          },
+          "logA": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Title of sheet A (the name of custodian A follows)"
+          },
+          "logB": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Title of sheet B (the name of custodian B follows)"
+          }
+        },
+        "required": [
+          "key",
+          "blank",
+          "logA",
+          "logB"
+        ],
+        "description": "Built-in labels"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "custodianA",
+                "logA",
+                "bag",
+                "chain",
+                "tag",
+                "custodianB",
+                "logB"
+              ],
+              "description": "Component id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Component"
+        },
+        "minItems": 2,
+        "maxItems": 7,
+        "description": "Component labels; ids are fixed by the scene, labels are editable (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "custodianA",
+                "logA",
+                "bag",
+                "chain",
+                "tag",
+                "custodianB",
+                "logB"
+              ],
+              "description": "Source component id"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "custodianA",
+                "logA",
+                "bag",
+                "chain",
+                "tag",
+                "custodianB",
+                "logB"
+              ],
+              "description": "Target component id"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "Relationship"
+        },
+        "minItems": 1,
+        "maxItems": 8,
+        "description": "Explicit relationships between components; kind controls line style (causal only when supplied) (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "custodianA",
+          "logA",
+          "bag",
+          "chain",
+          "tag",
+          "custodianB",
+          "logB"
+        ],
+        "description": "Component enlarged while the tracer passes"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for sequence links"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Override the caption used for each relation kind"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "custodianA",
+            "logA",
+            "bag",
+            "chain",
+            "tag",
+            "custodianB",
+            "logB"
+          ],
+          "description": "Component id"
+        },
+        "minItems": 2,
+        "maxItems": 8,
+        "description": "Order in which the tracer visits components (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "items": [
+      {
+        "id": "Item E-03 (fictional)",
+        "label": "Small wooden box in a sealed bag (fictional)",
+        "kind": "box"
+      }
+    ],
+    "custodians": [
+      {
+        "name": "R. Okoye (fictional)",
+        "role": "Person handing the bag over"
+      },
+      {
+        "name": "L. Moreau (fictional)",
+        "role": "Person receiving the bag"
+      }
+    ],
+    "timestamps": [
+      {
+        "label": "Bag handed over",
+        "time": "10:20 (illustrative)"
+      },
+      {
+        "label": "Bag received",
+        "time": "10:21 (illustrative)"
+      }
+    ],
+    "records": [
+      {
+        "log": "a",
+        "field": "Handed over by",
+        "value": "R. Okoye"
+      },
+      {
+        "log": "a",
+        "field": "Time",
+        "value": "10:20"
+      },
+      {
+        "log": "b",
+        "field": "Received by",
+        "value": "L. Moreau"
+      },
+      {
+        "log": "b",
+        "field": "Time",
+        "value": "10:21"
+      }
+    ],
+    "labels": {
+      "key": "As supplied · no conclusion drawn",
+      "blank": "(left blank, as supplied)",
+      "logA": "Sheet A",
+      "logB": "Sheet B"
+    },
+    "elements": [
+      {
+        "id": "custodianA",
+        "label": "Custodian A (hands the bag over)"
+      },
+      {
+        "id": "logA",
+        "label": "Sheet A (kept by A)"
+      },
+      {
+        "id": "bag",
+        "label": "Sealed bag on the counter tray"
+      },
+      {
+        "id": "chain",
+        "label": "Ball chain"
+      },
+      {
+        "id": "tag",
+        "label": "Tag"
+      },
+      {
+        "id": "custodianB",
+        "label": "Custodian B (receives the bag)"
+      },
+      {
+        "id": "logB",
+        "label": "Sheet B (kept by B)"
+      }
+    ],
+    "relationships": [
+      {
+        "from": "custodianA",
+        "to": "logA",
+        "kind": "relation"
+      },
+      {
+        "from": "custodianA",
+        "to": "bag",
+        "kind": "sequence"
+      },
+      {
+        "from": "bag",
+        "to": "custodianB",
+        "kind": "sequence"
+      },
+      {
+        "from": "custodianB",
+        "to": "logB",
+        "kind": "relation"
+      },
+      {
+        "from": "bag",
+        "to": "chain",
+        "kind": "relation"
+      },
+      {
+        "from": "chain",
+        "to": "tag",
+        "kind": "relation"
+      }
+    ],
+    "focusElement": "bag",
+    "relationLabels": {
+      "relation": "linked (as supplied)",
+      "communication": "communicates (as supplied)",
+      "sequence": "then (sequence as configured)",
+      "causal": "causes (supplied)"
+    },
+    "traversalOrder": [
+      "logA",
+      "custodianA",
+      "bag",
+      "custodianB",
+      "logB"
+    ]
+  }
+}

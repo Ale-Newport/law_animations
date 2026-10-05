@@ -36,7 +36,7 @@ import {
 const ID = 'LAW-0504';
 const DURATION = 6500;
 const BEATS = {context: [0, 0.18], isolate: [0.18, 0.36], substitute: [0.36, 0.68], ret: [0.68, 0.8], hold: [0.8, 1]};
-const W = {open: [0.18, 0.32], out: [0.4, 0.447], was: [0.46, 0.5], in: [0.443, 0.49], retract: [0.55, 0.6], draw: [0.6, 0.67], close: [0.69, 0.79], ctxIn: [0.785, 0.81], marker: [0.79, 0.82], notes: [0.81, 0.85], key: [0.82, 0.86]};
+const W = {open: [0.18, 0.32], out: [0.425, 0.447], was: [0.46, 0.5], in: [0.443, 0.466], retract: [0.55, 0.6], draw: [0.6, 0.67], close: [0.69, 0.79], ctxIn: [0.785, 0.81], marker: [0.79, 0.82], notes: [0.81, 0.85], key: [0.82, 0.86]};
 
 const STRINGS = {
   en: {key: 'As supplied · no conclusion drawn', was: 'was', wasNote: '{x}: was {v}'},

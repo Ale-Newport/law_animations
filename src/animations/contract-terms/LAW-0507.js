@@ -87,12 +87,12 @@ function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH) {
   const rowH = rowFit.height + F * 0.95;
   const ch0 = bandH + 22 + rowH + 30;
   const panelH0 = bh - headerH - 8;
-  const sw = clamp(bw * 0.25, 205, 340);
+  const sw = clamp(bw * (stress ? 0.31 : 0.25), 205, 340);
   const TT = slipText(ctx, p, sw, F, minF, stress, Math.max(F * 4.4, (panelH0 - 34 - 28 - 46) * 0.55));
   const PA = 0.3;
   TT.prongAt = PA;
   const ch = Math.max(ch0, Math.min(TT.h * 1.1, panelH0 - 96));
-  if (head.bad || rowFit.bad || TT.bad) why.push('bench-text');
+  if (head.bad || rowFit.bad || TT.bad) why.push('bench-text' + (head.bad ? ':head' : '') + (rowFit.bad ? ':row' : '') + (TT.bad ? ':slip' : ''));
   const beamGap = 34, trackH = 18;
   const stackH = beamGap + TT.h + trackH + 10;
   void stackH;
@@ -131,7 +131,7 @@ function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH) {
 function benchGeomV(ctx, p, bw, bh, F, minF, stress, headerTextH) {
   const why = [];
   const pi = promiseIndex(p);
-  const prong = 50;
+  const prong = 42;
   const headerH = Math.max(headerTextH, F * 1.6) + 22;
   const pad = 20;
   const panel = {x: 0, y: headerH + 8, w: bw, h: bh - headerH - 8};
@@ -140,12 +140,12 @@ function benchGeomV(ctx, p, bw, bh, F, minF, stress, headerTextH) {
   const rowFit = fitG(p.clauses[pi], {maxWidth: cw - 70, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600});
   const bandH = head.height + F * 0.8;
   const rowH = rowFit.height + F * 0.95;
-  const ch = bandH + 22 + rowH + 26;
-  const sw = clamp(bw * 0.46, 205, 320);
+  const ch = bandH + 20 + rowH + 18;
+  const sw = clamp(bw * 0.56, 205, 340);
   const TT = slipText(ctx, p, sw, F, minF, stress, F * 4.4);
-  if (head.bad || rowFit.bad || TT.bad) why.push('bench-text');
+  if (head.bad || rowFit.bad || TT.bad) why.push('bench-text' + (head.bad ? ':head' : '') + (rowFit.bad ? ':row' : '') + (TT.bad ? ':slip' : ''));
   const card = {x: pad, y: panel.y + 36, w: cw, h: ch};
-  const row = {x: card.x + 20, y: card.y + bandH + 22, w: cw - 30, h: rowH};
+  const row = {x: card.x + 20, y: card.y + bandH + 20, w: cw - 30, h: rowH};
   const slipR = card.x + cw - 44;
   const sock = {x: slipR - sw / 2, y: card.y + ch};
   const dock = {x: sock.x, y: sock.y + 4};
@@ -155,12 +155,12 @@ function benchGeomV(ctx, p, bw, bh, F, minF, stress, headerTextH) {
   const jawPark = bottom - jawW / 2 - 4;
   const restTip = {x: dock.x, y: jawPark - jawW / 2 - 26 - TT.h - prong};
   const travel = restTip.y - dock.y;
-  if (travel < 70) why.push('no-travel');
+  if (travel < 52) why.push('no-travel');
   const slipFar = dock.y + prong + TT.h;
   const jawClosed = slipFar + jawW / 2 + 2;
-  const jawOpen = Math.min(jawPark - 30, slipFar + Math.max(60, (jawPark - slipFar) * 0.62));
+  const jawOpen = Math.min(jawPark - 24, slipFar + Math.max(56, (jawPark - slipFar) * 0.62));
   const jawMid = lerp(jawPark, jawOpen, 0.5);
-  if (jawOpen - jawClosed < 40) why.push('no-open-gap');
+  if (jawOpen - jawClosed < 34) why.push('no-open-gap');
   const beamX = slipR + 26, trackX = slipR - sw - 22;
   if (beamX + 12 > bw - 4) why.push('beam-off-panel');
   return {orient: 'v', why, prong, headerH, panel, card, row, head, rowFit, bandH, rowH, TT, sb, sock, dock, restTip, beamX, trackX, jawW, jawPark, jawClosed, jawOpen, jawMid, slipFar, right: bw - pad, pad, bottom};
@@ -180,7 +180,9 @@ function geom(ctx, F, minF, side, colMode = false) {
   const sharedText = [p.comparisonLabels.shared, `${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`].filter(Boolean).join(' — ');
   const sharedHead = show ? fitG(sharedText, {maxWidth: fullW - 30, size: F, minSize: minF, maxLines: colMode ? (stress ? 7 : 5) : (stress ? 3 : 2), weight: 700}) : null;
   if (sharedHead && sharedHead.bad) why.push('shared-head');
-  const shared = show ? p.clauses.map((c, i) => ({i, fit: fitG(c, {maxWidth: fullW - 80, size: F, minSize: minF, maxLines: colMode && stress ? 4 : colMode ? 3 : 2, weight: 600})})) : [];
+  const fitShared = (mw, ml) => (show ? p.clauses.map((c, i) => ({i, fit: fitG(c, {maxWidth: mw, size: F, minSize: minF, maxLines: ml, weight: 600})})) : []);
+  let shared = fitShared(vMode ? (fullW - 32) / 3 - 62 : fullW - 80, vMode ? 4 : 2);
+  if (vMode && shared.some(q => q.fit.bad || q.fit.lines.length > 3)) shared = fitShared((fullW - 16) / 2 - 62, 3);
   if (shared.some(s0 => s0.fit.bad)) why.push('shared-text');
   let stripH = 0;
   if (shared.length) {
@@ -195,7 +197,7 @@ function geom(ctx, F, minF, side, colMode = false) {
   }
   const nLines = colMode ? (stress ? 9 : 6) : 2;
   const guideFit0 = show && p.comparisonLabels.guide ? fitG(p.comparisonLabels.guide, {maxWidth: (colMode ? fullW : fullW * 0.42) - 40, size: F, minSize: minF, maxLines: colMode ? 4 : 2, weight: 700}) : null;
-  const noteFit0 = showKey && p.comparisonLabels.neutral ? fitG(p.comparisonLabels.neutral, {maxWidth: (colMode ? fullW : fullW - (guideFit0 ? guideFit0.width + 80 : 0)) - 40, size: F, minSize: minF, maxLines: nLines, weight: 500}) : null;
+  const noteFit0 = showKey && p.comparisonLabels.neutral ? fitG(p.comparisonLabels.neutral, {maxWidth: (colMode ? fullW : fullW - (guideFit0 ? guideFit0.width + 80 : 0)) - 40, size: F, minSize: minF, maxLines: Math.max(nLines, stress ? 4 : 3), weight: 500}) : null;
   const beside = !colMode && (!guideFit0 || !noteFit0 || (!guideFit0.bad && !noteFit0.bad));
   const guideFit = beside || colMode ? guideFit0 : fitG(p.comparisonLabels.guide, {maxWidth: fullW - 40, size: F, minSize: minF, maxLines: 2, weight: 700});
   const noteFit = beside || colMode ? noteFit0 : fitG(p.comparisonLabels.neutral, {maxWidth: fullW - 40, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 500});
@@ -235,6 +237,10 @@ function pegboard(ctx, P) {
 function clauseCard(ctx, B, show, prefix) {
   const {card, row} = B;
   const lx = row.x - card.x;
+  const ry = row.y - card.y + row.h / 2;
+  const railD = B.orient === 'v'
+    ? `M${r(lx + row.w)} ${r(ry)}H${r(card.w - 14)}V${r(card.h - 12)}H${r(B.sock.x - card.x)}V${r(card.h - 4)}`
+    : `M${r(lx + row.w)} ${r(ry)}H${r(card.w - 6)}`;
   return g({transform: T(card.x, card.y)},
     // two hooks
     h('path', {d: `M${r(card.w * 0.22)} -26v18M${r(card.w * 0.78)} -26v18`, stroke: '#6b6f74', 'stroke-width': 6, 'stroke-linecap': 'round'}),
@@ -246,8 +252,8 @@ function clauseCard(ctx, B, show, prefix) {
     h('circle', {cx: r(card.w * 0.78), cy: 10, r: 6, fill: '#efe7d6', stroke: INK, 'stroke-width': 1.8}),
     show ? txt(B.head, {x: 20, y: (B.bandH - B.head.height) / 2 + 4, fill: INK}) : h('path', {d: `M20 ${r(B.bandH / 2 + 4)}h${r(Math.min(card.w * 0.6, 240))}`, stroke: '#9fbcb6', 'stroke-width': 11, 'stroke-linecap': 'round'}),
     h('rect', {x: r(lx), y: r(row.y - card.y), width: r(row.w), height: r(row.h), rx: 7, fill: '#fff4d6', stroke: '#b79a55', 'stroke-width': 2.4}),
-    h('path', {d: `M${r(lx + row.w)} ${r(row.y - card.y + row.h / 2)}H${r(card.w - 6)}`, stroke: '#b9ad94', 'stroke-width': 5, 'stroke-linecap': 'round'}),
-    h('path', {name: `${prefix}lit`, d: `M${r(lx + row.w)} ${r(row.y - card.y + row.h / 2)}H${r(card.w - 6)}`, stroke: ctx.theme.accent2, 'stroke-width': 6, 'stroke-linecap': 'round', opacity: 0}),
+    h('path', {d: railD, fill: 'none', stroke: '#b9ad94', 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}),
+    h('path', {name: `${prefix}lit`, d: railD, fill: 'none', stroke: ctx.theme.accent2, 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', opacity: 0}),
     show ? txt(B.rowFit, {x: lx + 14, y: row.y - card.y + (row.h - B.rowFit.height) / 2, fill: INK}) : h('path', {d: `M${r(lx + 14)} ${r(row.y - card.y + row.h / 2)}h${r(Math.min(row.w - 40, 220))}`, stroke: '#cfc5b0', 'stroke-width': 9, 'stroke-linecap': 'round'}),
   );
 }
@@ -260,6 +266,17 @@ function jaw(ctx, name, B, fixed) {
     h('rect', {x: r(-w), y: -16, width: r(w * 2), height: 32, rx: 7, fill: shade(BRASS, -0.12), stroke: INK, 'stroke-width': 2.2}),
     h('path', {d: `M${r(-w / 2)} 12V${r(len - 12)}Q${r(-w / 2)} ${r(len)} 0 ${r(len)}Q${r(w / 2)} ${r(len)} ${r(w / 2)} ${r(len - 12)}V12Z`, fill: BRASS, stroke: INK, 'stroke-width': 2.2, 'stroke-linejoin': 'round'}),
     fixed ? h('circle', {cx: 0, cy: 0, r: 5, fill: '#6b5524'}) : h('path', {d: `M${r(-w * 0.55)} -6h${r(w * 1.1)}M${r(-w * 0.55)} 4h${r(w * 1.1)}`, stroke: '#6b5524', 'stroke-width': 2.4}),
+  );
+}
+
+/** Vertical-bench jaw: a slider on the upright beam with a plate reaching left over the slip's centre line. */
+function jawV(ctx, name, B, fixed) {
+  const len = B.beamX - B.sock.x + 6;
+  const w = B.jawW;
+  return g({name},
+    h('path', {d: `M-12 ${r(-w / 2)}H${r(-len + 12)}Q${r(-len)} ${r(-w / 2)} ${r(-len)} 0Q${r(-len)} ${r(w / 2)} ${r(-len + 12)} ${r(w / 2)}H-12Z`, fill: BRASS, stroke: INK, 'stroke-width': 2.2, 'stroke-linejoin': 'round'}),
+    h('rect', {x: -16, y: r(-w), width: 32, height: r(w * 2), rx: 7, fill: shade(BRASS, -0.12), stroke: INK, 'stroke-width': 2.2}),
+    fixed ? h('circle', {cx: 0, cy: 0, r: 5, fill: '#6b5524'}) : h('path', {d: `M-6 ${r(-w * 0.55)}v${r(w * 1.1)}M4 ${r(-w * 0.55)}v${r(w * 1.1)}`, stroke: '#6b5524', 'stroke-width': 2.4}),
   );
 }
 
@@ -296,6 +313,35 @@ const scene = {
         show ? h('text', {x: r(R + 4), y: r(B.headerH / 2 + L.F * 0.36), 'text-anchor': 'middle', 'font-size': r(L.F, 2), 'font-weight': 800, fill: '#ffffff', 'font-family': "'Avenir Next', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif"}, k === 0 ? 'A' : 'B') : h('circle', {cx: r(R + 4), cy: r(B.headerH / 2), r: r(R * 0.32), fill: '#ffffff'}),
         hf ? txt(hf, {x: R * 2 + 22, y: (B.headerH - hf.height) / 2, fill: th.fg}) : null,
       );
+      const badge = g({name: `${P}badge`, opacity: 0}, h('circle', {cx: 0, cy: 0, r: 19, fill: '#fff', stroke: INK, 'stroke-width': 2}), stateGlyph(ctx, k === 0 ? 'covered' : 'disputed', 0, 0, 11));
+      if (B.orient === 'v') {
+        const beamTop = B.sock.y + 4;
+        const beam = g(null,
+          h('rect', {x: r(B.beamX - 7), y: r(beamTop), width: 14, height: r(B.bottom - beamTop), rx: 6, fill: '#8d969f', stroke: INK, 'stroke-width': 2.2}),
+          h('path', {d: `M${r(B.beamX)} ${r(beamTop + 20)}V${r(B.bottom - 12)}`, stroke: '#c6ccd2', 'stroke-width': 3}),
+        );
+        const track = h('rect', {x: r(B.trackX - 7), y: r(B.sock.y + 4), width: 14, height: r(B.bottom - B.sock.y - 4), rx: 5, fill: '#6f5a43', stroke: INK, 'stroke-width': 2.2});
+        const slip = g({name: `${P}slipG`},
+          h('rect', {x: r(-B.TT.w / 2 - 4), y: r(B.prong + 10), width: 10, height: r(B.TT.h - 20), rx: 4, fill: '#4a4f55'}),
+          h('circle', {cx: r(-B.TT.w / 2 - 15), cy: r(B.prong + 24), r: 7, fill: '#2b2f33'}),
+          h('circle', {cx: r(-B.TT.w / 2 - 15), cy: r(B.prong + B.TT.h - 24), r: 7, fill: '#2b2f33'}),
+          claimSlip(ctx, {name: `${P}slip`, T: B.TT, side: 'top', prong: B.prong, showText: show}),
+        );
+        const span = h('path', {name: `${P}span`, d: 'M0 0', fill: 'none', stroke: SCOPE, 'stroke-width': 7, 'stroke-linecap': dashed ? 'butt' : 'round', 'stroke-dasharray': dashed ? '18 11' : undefined, opacity: 0});
+        const len = B.beamX - B.sock.x + 6;
+        const guide = h('path', {name: `${P}guide`, d: roundRectPath(-len - 22, -B.jawW - 16, len + 44, B.jawW * 2 + 32, 14), fill: 'none', stroke: th.accent, 'stroke-width': 5, opacity: 0});
+        return g({transform: T(o.x, o.y)},
+          header,
+          pegboard(ctx, B.panel),
+          clauseCard(ctx, B, show, P),
+          track, beam,
+          g({transform: T(B.sock.x, B.sock.y)}, socketArt(ctx, `${P}sock`, 'down', 1)),
+          slip,
+          g({transform: T(B.beamX, beamTop + B.jawW)}, jawV(ctx, `${P}jawFix`, B, true)),
+          span,
+          g({name: `${P}jawG`}, jawV(ctx, `${P}jaw`, B, false), badge, guide),
+        );
+      }
       const beamX0 = B.sock.x + 6;
       const beam = g(null,
         h('rect', {x: r(beamX0), y: r(B.beamY - 7), width: r(B.right - beamX0), height: 14, rx: 6, fill: '#8d969f', stroke: INK, 'stroke-width': 2.2}),
@@ -312,7 +358,6 @@ const scene = {
       );
       const spanY = B.beamY + 26;
       const span = h('path', {name: `${P}span`, d: `M${r(beamX0 + 14)} ${r(spanY)}H${r(beamX0 + 14)}`, fill: 'none', stroke: SCOPE, 'stroke-width': 7, 'stroke-linecap': dashed ? 'butt' : 'round', 'stroke-dasharray': dashed ? '18 11' : undefined, opacity: 0});
-      const badge = g({name: `${P}badge`, opacity: 0}, h('circle', {cx: 0, cy: 0, r: 19, fill: '#fff', stroke: INK, 'stroke-width': 2}), stateGlyph(ctx, k === 0 ? 'covered' : 'disputed', 0, 0, 11));
       const guide = h('path', {name: `${P}guide`, d: roundRectPath(-B.jawW - 16, -30, B.jawW * 2 + 32, B.cy - B.beamY + 52, 14), fill: 'none', stroke: th.accent, 'stroke-width': 5, opacity: 0});
       return g({transform: T(o.x, o.y)},
         header,
@@ -363,28 +408,42 @@ const scene = {
     const done = p.actionProgress >= 1;
     const nodes = {};
     const rq = ease.inOutSine(seg(a, ...W.roll)), sq = ease.inOutSine(seg(a, ...W.seat));
-    const approach = {x: B.dock.x + 40, y: B.cy};
-    const tip = sq > 0 ? {x: lerp(approach.x, B.dock.x, sq), y: B.cy} : {x: lerp(B.restTip.x, approach.x, rq), y: B.cy};
+    const V = B.orient === 'v';
+    const approach = V ? {x: B.dock.x, y: B.dock.y + 40} : {x: B.dock.x + 40, y: B.cy};
+    const tip = sq > 0 ? {x: lerp(approach.x, B.dock.x, sq), y: lerp(approach.y, B.dock.y, sq)} : {x: lerp(B.restTip.x, approach.x, rq), y: lerp(B.restTip.y, approach.y, rq)};
     const seated = sq >= 1;
     const j1 = ease.inOutSine(seg(a, ...W.jaw1)), j2 = ease.inOutSine(seg(a, ...W.jaw2));
-    const jawX = k => (j2 > 0 ? lerp(B.jawMid, k === 0 ? B.jawClosed : B.jawOpen, j2) : lerp(B.jawPark, B.jawMid, j1));
+    const jawAt = k => (j2 > 0 ? lerp(B.jawMid, k === 0 ? B.jawClosed : B.jawOpen, j2) : lerp(B.jawPark, B.jawMid, j1));
     const spanQ = seg(a, ...W.span);
     const guideQ = done ? seg(u, ...W.guide) : 0, noteQ = done ? seg(u, ...W.note) : 0;
     const looks = [];
     for (let k = 0; k < 2; k++) {
       const P = k === 0 ? 'a-' : 'b-';
-      nodes[`${P}slipG`] = {transform: T(r(tip.x, 2), r(tip.y - B.TT.h * B.TT.prongAt, 2))};
-      nodes[`${P}slip`] = {transform: T(0, r(B.TT.h * B.TT.prongAt, 2))};
+      if (V) {
+        nodes[`${P}slipG`] = {transform: T(r(tip.x, 2), r(tip.y, 2))};
+        nodes[`${P}slip`] = {transform: T(0, 0)};
+      } else {
+        nodes[`${P}slipG`] = {transform: T(r(tip.x, 2), r(tip.y - B.TT.h * B.TT.prongAt, 2))};
+        nodes[`${P}slip`] = {transform: T(0, r(B.TT.h * B.TT.prongAt, 2))};
+      }
       nodes[`${P}sock-ring`] = {opacity: seated ? 1 : 0};
       nodes[`${P}lit`] = {opacity: seated ? 1 : 0};
-      const jx = jawX(k);
-      nodes[`${P}jawG`] = {transform: T(r(jx, 2), r(B.beamY, 2))};
-      const x0 = B.sock.x + 6 + 14;
-      const x1 = lerp(x0, jx - B.jawW, spanQ);
-      nodes[`${P}span`] = {d: `M${r(x0)} ${r(B.beamY + 26)}H${r(x1)}`, opacity: spanQ > 0 ? 1 : 0};
-      nodes[`${P}badge`] = {opacity: r(seg(a, W.jaw2[1] - 0.02, W.jaw2[1] + 0.02), 3), transform: T(0, r(B.cy - B.beamY + 32, 2))};
+      const jv = jawAt(k);
+      if (V) {
+        nodes[`${P}jawG`] = {transform: T(r(B.beamX, 2), r(jv, 2))};
+        const sx = B.beamX - 28, y0 = B.sock.y + 4 + B.jawW * 2 + 6;
+        const y1 = lerp(y0, jv - B.jawW, spanQ);
+        nodes[`${P}span`] = {d: `M${r(sx)} ${r(y0)}V${r(y1)}`, opacity: spanQ > 0 ? 1 : 0};
+        nodes[`${P}badge`] = {opacity: r(seg(a, W.jaw2[1] - 0.02, W.jaw2[1] + 0.02), 3), transform: T(r(-(B.beamX - B.sock.x + 6) - 26, 2), 0)};
+      } else {
+        nodes[`${P}jawG`] = {transform: T(r(jv, 2), r(B.beamY, 2))};
+        const x0 = B.sock.x + 6 + 14;
+        const x1 = lerp(x0, jv - B.jawW, spanQ);
+        nodes[`${P}span`] = {d: `M${r(x0)} ${r(B.beamY + 26)}H${r(x1)}`, opacity: spanQ > 0 ? 1 : 0};
+        nodes[`${P}badge`] = {opacity: r(seg(a, W.jaw2[1] - 0.02, W.jaw2[1] + 0.02), 3), transform: T(0, r(B.cy - B.beamY + 32, 2))};
+      }
       nodes[`${P}guide`] = {opacity: r(guideQ, 3)};
-      looks.push({tip: r(tip.x), jaw: r(jx), seated, span: r(spanQ, 3)});
+      looks.push({tip: [r(tip.x), r(tip.y)], jaw: r(jv), seated, span: r(spanQ, 3)});
     }
     if (L.guideFit) nodes.guideChip = {opacity: r(guideQ, 3)};
     if (L.noteFit) nodes.noteChip = {opacity: r(noteQ, 3)};
@@ -394,7 +453,7 @@ const scene = {
     return {
       nodes,
       semantic: {
-        beat, slipTip: {x: r(tip.x), y: r(tip.y)}, jawA: {x: looks[0].jaw, y: r(B.beamY)}, jawB: {x: looks[1].jaw, y: r(B.beamY)},
+        beat, slipTip: {x: r(tip.x), y: r(tip.y)}, jawA: V ? {x: r(B.beamX), y: looks[0].jaw} : {x: looks[0].jaw, y: r(B.beamY)}, jawB: V ? {x: r(B.beamX), y: looks[1].jaw} : {x: looks[1].jaw, y: r(B.beamY)}, orient: B.orient,
         seated, connected: seated, lookA: u < CHANGE_AT ? lookA : null, lookB: u < CHANGE_AT ? lookB : null,
         identical: JSON.stringify(lookA) === JSON.stringify(lookB) && ['a', 'b'].every(() => true),
         jawGapA: r(looks[0].jaw - B.jawW / 2 - B.slipFar), jawGapB: r(looks[1].jaw - B.jawW / 2 - B.slipFar),

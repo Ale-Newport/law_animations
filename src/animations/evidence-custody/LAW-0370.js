@@ -26,11 +26,10 @@ import {mechanismFields} from '../../schemas/fields.js';
 import {T} from '../../core/transform.js';
 import {edgeAnchor, roundRectPath, polyline} from '../../core/geometry.js';
 import {connector, tracer} from '../../primitives/annotate.js';
-import {localised, R2, fitG, textAt, tagModel, tagArt, chainNode, chainProps, bagModel, INK} from './kits/evidence-art.js';
+import {localised, R2, fitG, textAt, tagModel, tagArt, chainNode, chainProps, bagModel, objectModel, INK} from './kits/evidence-art.js';
 import {
-  TC_EN, TC_ES, tcFields, tcLogs, sheetModel, sheetArt, badge, bagUnit, tcPanelLayout, tcPanelNode, LANE,
+  TC_EN, TC_ES, tcFields, tcLogs, sheetModel, sheetArt, badge, bagUnit, tcPanelLayout, tcPanelNode,
 } from './kits/transferencia-custodia.js';
-import {objectModel} from './kits/evidence-art.js';
 
 const ID = 'LAW-0370';
 const DURATION = 8000;
@@ -74,6 +73,7 @@ const defaultParams = {...EN};
 /** Slots (fractions of the diagram box): x, y, w, h. */
 const SLOTS = {
   wide: {custodianA: [0, 0, 0.21, 0.4], logA: [0, 0.46, 0.25, 0.54], bag: [0.34, 0, 0.32, 0.5], chain: [0.32, 0.6, 0.15, 0.3], tag: [0.49, 0.56, 0.2, 0.4], custodianB: [0.79, 0, 0.21, 0.4], logB: [0.75, 0.46, 0.25, 0.54]},
+  sq: {custodianA: [0, 0, 0.24, 0.38], logA: [0, 0.42, 0.29, 0.58], bag: [0.34, 0, 0.32, 0.52], chain: [0.32, 0.62, 0.16, 0.28], tag: [0.49, 0.58, 0.2, 0.36], custodianB: [0.76, 0, 0.24, 0.38], logB: [0.71, 0.42, 0.29, 0.58]},
   tall: {custodianA: [0, 0, 0.44, 0.2], logA: [0.5, 0, 0.5, 0.27], bag: [0, 0.32, 0.46, 0.3], chain: [0.5, 0.38, 0.18, 0.18], tag: [0.7, 0.34, 0.3, 0.26], custodianB: [0, 0.8, 0.44, 0.2], logB: [0.5, 0.71, 0.5, 0.29]},
 };
 
@@ -98,28 +98,28 @@ function elementArt(ctx, id, a, P, rows, F, show) {
   if (id === 'logA' || id === 'logB') {
     const key = id === 'logA' ? 'a' : 'b';
     const rs = rows[key];
-    const fs = F * 0.86;
+    const fs = F;
     const head = show ? fitG(key === 'a' ? P.labels.logA : P.labels.logB, {maxWidth: a.w * 0.62, size: F, minSize: F, maxLines: 1, weight: 700}) : null;
     const texts = show ? rs.map(rw => ({fieldFit: fitG(rw.field, {maxWidth: a.w * 0.76, size: fs, minSize: fs, maxLines: 1, weight: 600}), valueFit: fitG(rw.filled ? rw.value : P.labels.blank, {maxWidth: a.w * 0.74, size: F, minSize: F, maxLines: 2, weight: 500})})) : null;
-    const rowH = texts ? Math.max(...texts.map(t => t.fieldFit.height + t.valueFit.height + F * 0.75), F * 2.6) : F * 2.4;
-    const headH = F * 2;
+    const rowH = texts ? Math.max(...texts.map(t => t.fieldFit.height + t.valueFit.height + F * 0.55), F * 2.5) : F * 2.4;
+    const headH = F * 1.7;
     const clipH = F * 0.9;
-    const need = clipH * 0.9 + headH + F * 0.5 + rowH * Math.max(2, rs.length) + F * 0.8;
+    const need = clipH * 0.9 + headH + F * 0.4 + rowH * Math.max(2, rs.length) + F * 0.6;
     const wNeed = texts ? Math.max(...texts.map(t => Math.max(t.fieldFit.width, t.valueFit.width + F * 0.3)), head ? head.width + F * 3.5 : 0) / 0.76 : a.w * 0.8;
     const w = Math.min(a.w, Math.max(a.w * 0.82, wNeed));
     const hh = Math.max(need, Math.min(a.h, need * 1.15));
     const ok = hh <= a.h + 0.5 && wNeed <= a.w + 0.5 && (!texts || texts.every(t => t.fieldFit.ok && t.valueFit.ok)) && (!head || head.ok);
     return {w, h: hh, ok, node: () => {
       const SM = sheetModel({x: -w / 2, y: -hh / 2, w, h: hh}, rs.length, {clipH, headH, minRows: Math.max(2, rs.length)});
-      return sheetArt(ctx, SM, key, rs, {prefix: `m-${id}`, name: `m-${id}-sheet`, texts: texts || rs.map(() => null), headText: head});
+      return sheetArt(ctx, SM, key, rs, {prefix: `m-${id}`, name: `m-${id}-sheet`, texts: texts || rs.map(() => null), headText: head, written: true});
     }};
   }
   if (id === 'bag') {
-    const bh = Math.min(a.h, a.w / 0.86) * 0.96, bw = bh * 0.86;
+    const bh = Math.min(a.h / 1.1, a.w / (0.86 + 0.12)) * 0.97, bw = bh * 0.86;
     const B = bagModel(bw, bh);
     const G0 = {B, S: bh, M: objectModel(P.items[0].kind, Math.min(B.inner.w / 1.05, B.inner.h / 0.75) * 0.9), TM: tagModel({w: bw * 0.7, h: bh * 0.2, rows: 2})};
     // the tray under the bag
-    return {w: bw, h: bh, ok: bh >= 120, node: () => g(null,
+    return {w: bw + bh * 0.12, h: bh * 1.1, ok: bh >= 120, node: () => g(null,
       h('path', {d: roundRectPath(-bw / 2 - bh * 0.06, -bh / 2 - bh * 0.05, bw + bh * 0.12, bh * 1.1, 10), fill: '#c8a272', stroke: INK, 'stroke-width': 2}),
       bagUnit(ctx, G0, 'm-bagunit', {noTag: true}).node,
     )};
@@ -130,11 +130,16 @@ function elementArt(ctx, id, a, P, rows, F, show) {
     return {w: tw, h: th, ok: tw >= 90, node: () => g({transform: T(-tw / 2 + th * 0.3, 0)}, tagArt(ctx, TM, {prefix: 'm-tag', rows: [{filled: true, len: 0.85}, {filled: true, len: 0.55}], seedKey: 'm-tag'}))};
   }
   // chain: a sagging ball chain across the slot
-  const cw = a.w * 0.9, ch = Math.min(a.h * 0.6, cw * 0.5);
+  const cw = a.w * 0.7, ch = Math.min(a.h * 0.6, cw * 0.5);
   return {w: cw, h: ch, ok: cw >= 50, node: () => {
     const c = chainNode('m-chainart', {bead: Math.max(6, cw * 0.05)});
     return g(null, c);
   }, chain: {a: {x: -cw / 2, y: -ch / 2}, b: {x: cw / 2, y: -ch / 2}, sag: ch * 1.6}};
+}
+
+function unionBox(a, b) {
+  const x = Math.min(a.x, b.x), y = Math.min(a.y, b.y);
+  return {x, y, w: Math.max(a.x + a.w, b.x + b.w) - x, h: Math.max(a.y + a.h, b.y + b.h) - y};
 }
 
 function compose(ctx, P, rows, lrows, F, opt) {
@@ -173,14 +178,16 @@ function compose(ctx, P, rows, lrows, F, opt) {
   for (const id of EL) {
     const [fx, fy, fw, fh] = slots[id];
     const s = {x: D.x + fx * D.w, y: D.y + fy * D.h, w: fw * D.w, h: fh * D.h};
-    const lf = show && lab[id] ? fitG(lab[id], {maxWidth: Math.max(id === 'chain' ? s.w * 1.3 : s.w, 60), size: F, minSize: F, maxLines: 2, weight: 600}) : null;
-    const lh = lf ? lf.height + F * 0.4 : 0;
+    const lf = show && lab[id] ? fitG(lab[id], {maxWidth: Math.max(id === 'chain' ? s.w * 1.3 : s.w, 60), size: F, minSize: F, maxLines: 3, weight: 600}) : null;
+    const lh = lf ? lf.height + F * 0.4 + Math.min(s.w, s.h) * 0.06 + (id.startsWith('custodian') ? Math.min(s.w, s.h) * 0.05 : 0) : 0;
     const area = {w: s.w * 0.96, h: Math.max(10, s.h - lh)};
     const art = elementArt(ctx, id, area, P, rows, F, show);
     if (!art.ok || (lf && !lf.ok) || area.h < 40) ok = false;
     const cx = s.x + s.w / 2;
     const cy = s.y + (s.h - lh) / 2;
-    E[id] = {id, slot: s, art, c: {x: cx, y: cy}, box: {x: cx - art.w / 2, y: cy - art.h / 2, w: art.w, h: art.h}, lf, labelY: cy + art.h / 2 + F * 0.3};
+    E[id] = {id, slot: s, art, c: {x: cx, y: cy}, box: {x: cx - art.w / 2, y: cy - art.h / 2, w: art.w, h: art.h}, lf, labelY: cy + art.h / 2 + F * 0.3 + art.h * 0.07 + (id.startsWith('custodian') ? art.h * 0.08 : 0)};
+    const e = E[id];
+    e.ubox = e.lf ? unionBox(e.box, {x: e.c.x - e.lf.width / 2, y: e.labelY, w: e.lf.width, h: e.lf.height}) : e.box;
   }
   const minArt = Math.min(E.bag.art.h, E.custodianA.art.h);
   return {F, D, panel, PL, E, ok, score: minArt, problems: [PL && !PL.ok && 'panel-text', !ok && 'element-fit'].filter(Boolean)};
@@ -195,7 +202,7 @@ const scene = {
     const lrows = legendRows(ctx, P, kinds);
     const shape = ctx.view.shape;
     const opts = shape === 'portrait' ? [{mode: 'below', cols: 1, slots: 'tall'}, {mode: 'below', cols: 2, slots: 'tall'}]
-      : shape === 'square' ? [{mode: 'side', pw: 0.3, slots: 'tall'}, {mode: 'side', pw: 0.34, slots: 'tall'}, {mode: 'below', cols: 2, slots: 'wide'}, {mode: 'below', cols: 2, slots: 'tall'}]
+      : shape === 'square' ? [{mode: 'side', pw: 0.3, slots: 'tall'}, {mode: 'side', pw: 0.34, slots: 'tall'}, {mode: 'below', cols: 2, slots: 'sq'}, {mode: 'below', cols: 2, slots: 'wide'}]
         : [{mode: 'side', pw: 0.22, slots: 'wide'}, {mode: 'side', pw: 0.26, slots: 'wide'}, {mode: 'side', pw: 0.3, slots: 'wide'}];
     let C = null, best = null, bestScore = -1;
     for (const F of SIZES) {
@@ -220,7 +227,7 @@ const scene = {
     const rels = P.relationships.filter(rl => rl.from !== rl.to && els.has(rl.from) && els.has(rl.to));
     const conns = rels.map((rl, i) => {
       const A = E[rl.from], B = E[rl.to];
-      const from = edgeAnchor(A.box, B.c, 10), to = edgeAnchor(B.box, A.c, 12);
+      const from = edgeAnchor(A.ubox, B.c, 10), to = edgeAnchor(B.ubox, A.c, 12);
       return {rl, c: connector(ctx, {name: `cn${i}`, from, to, kind: rl.kind, bend: 0.08 * (i % 2 ? 1 : -1), color: mechColor(ctx, rl.kind)})};
     });
     // tracer route through the traversal order (along a drawn relation when one exists)
@@ -305,7 +312,7 @@ const scene = {
         phase: u < W.separate[1] ? 'separate' : u < W.draw[1] ? 'relations' : u < W.trace[1] ? 'trace' : 'hold',
         separated: r(k, 3), labels: r(labK, 3), focus: r(focusK, 3), drawn,
         tracer: tp ? R2(tp) : null, leg, legs: L.legs.map(lg => [lg.a, lg.b, lg.along]),
-        connectors: L.conns.map(q => ({from: q.rl.from, to: q.rl.to, kind: q.rl.kind, end: R2(q.c.to), start: R2(q.c.from), toBox: E[q.rl.to].box, fromBox: E[q.rl.from].box, arrow: q.rl.kind !== 'relation'})),
+        connectors: L.conns.map(q => ({from: q.rl.from, to: q.rl.to, kind: q.rl.kind, end: R2(q.c.to), start: R2(q.c.from), toBox: E[q.rl.to].ubox, fromBox: E[q.rl.from].ubox, arrow: q.rl.kind !== 'relation'})),
         pos: Object.fromEntries(EL.map(id => [id, R2(pos[id])])), bag: R2(pos.bag), custodianA: R2(pos.custodianA), logB: R2(pos.logB),
         rows: {a: L.rows.a.map(rw => rw.filled), b: L.rows.b.map(rw => rw.filled)},
         problems: C.problems, textPx: r(C.F, 1), bagH: r(E.bag.art.h, 1), personR: r(E.custodianA.art.h / 2, 1),

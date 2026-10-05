@@ -302,7 +302,7 @@ export function sheetArt(ctx, SM, key, rows, o) {
     if (rw.filled) {
       const pts = sheetRowPoints(ctx, SM, i, rw, `${o.seed || P}`);
       const d = scribble(ctx, `${o.seed || P}-${i}`, pts.x0, pts.x1, R.y, pts.amp);
-      parts.push(h('path', {name: `${P}-w${i}`, d, fill: 'none', stroke: WRITE_INK, 'stroke-width': r(Math.max(2, R.h * 0.075), 2), 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 100, 'stroke-dasharray': '100 102', 'stroke-dashoffset': 100}));
+      parts.push(h('path', {name: `${P}-w${i}`, d, fill: 'none', stroke: WRITE_INK, 'stroke-width': r(Math.max(2, R.h * 0.075), 2), 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 100, 'stroke-dasharray': '100 102', 'stroke-dashoffset': o.written ? 0 : 100}));
     }
   });
   if (txt.length) parts.push(g({name: `${P}-txt`}, txt));

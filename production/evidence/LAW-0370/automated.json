@@ -1,0 +1,2849 @@
+{
+  "animationId": "LAW-0370",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0370",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "items.0.label"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: start: elements packed at the hand-off point, nothing drawn @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "separate",
+          "separated": 0,
+          "labels": 0,
+          "focus": 0,
+          "drawn": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "tracer": null,
+          "leg": -1,
+          "legs": [
+            [
+              "logA",
+              "custodianA",
+              true
+            ],
+            [
+              "custodianA",
+              "bag",
+              true
+            ],
+            [
+              "bag",
+              "custodianB",
+              true
+            ],
+            [
+              "custodianB",
+              "logB",
+              true
+            ]
+          ],
+          "connectors": [
+            {
+              "from": "custodianA",
+              "to": "logA",
+              "kind": "relation",
+              "end": {
+                "x": 135.8,
+                "y": 382.48
+              },
+              "start": {
+                "x": 130.36,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 25.56026082203128,
+                "y": 394.481270863836,
+                "w": 236.90378289473682,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "custodianA",
+              "to": "bag",
+              "kind": "sequence",
+              "end": {
+                "x": 388.68,
+                "y": 150.03
+              },
+              "start": {
+                "x": 244.3,
+                "y": 149.85
+              },
+              "toBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": true
+            },
+            {
+              "from": "bag",
+              "to": "custodianB",
+              "kind": "sequence",
+              "end": {
+                "x": 917.09,
+                "y": 149.66
+              },
+              "start": {
+                "x": 761.42,
+                "y": 150.38
+              },
+              "toBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": true
+            },
+            {
+              "from": "custodianB",
+              "to": "logB",
+              "kind": "relation",
+              "end": {
+                "x": 1016.3,
+                "y": 382.48
+              },
+              "start": {
+                "x": 1021.74,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 894.0354153923769,
+                "y": 394.481270863836,
+                "w": 228.0993009868422,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "bag",
+              "to": "chain",
+              "kind": "relation",
+              "end": {
+                "x": 473.16,
+                "y": 490.48
+              },
+              "start": {
+                "x": 510.76,
+                "y": 371.05
+              },
+              "toBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": false
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "end": {
+                "x": 561.56,
+                "y": 542.94
+              },
+              "start": {
+                "x": 523.14,
+                "y": 545.52
+              },
+              "toBox": {
+                "x": 573.5600790863836,
+                "y": 496.33000145061385,
+                "w": 212.35455925036604,
+                "h": 118.5920686145738
+              },
+              "fromBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "arrow": false
+            }
+          ],
+          "pos": {
+            "custodianA": {
+              "x": 403.12,
+              "y": 136.29
+            },
+            "logA": {
+              "x": 411.87,
+              "y": 292.17
+            },
+            "bag": {
+              "x": 576.05,
+              "y": 156.64
+            },
+            "chain": {
+              "x": 530.08,
+              "y": 299.09
+            },
+            "tag": {
+              "x": 615.45,
+              "y": 301.24
+            },
+            "custodianB": {
+              "x": 748.98,
+              "y": 136.29
+            },
+            "logB": {
+              "x": 740.22,
+              "y": 292.17
+            }
+          },
+          "bag": {
+            "x": 576.05,
+            "y": 156.64
+          },
+          "custodianA": {
+            "x": 403.12,
+            "y": 136.29
+          },
+          "logB": {
+            "x": 740.22,
+            "y": 292.17
+          },
+          "rows": {
+            "a": [
+              true,
+              true
+            ],
+            "b": [
+              true,
+              true
+            ]
+          },
+          "problems": [],
+          "textPx": 24,
+          "bagH": 303.9,
+          "personR": 94.8
+        }
+      }
+    },
+    {
+      "name": "semantic: elements apart before any relation is drawn @0.17",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "relations",
+          "separated": 1,
+          "labels": 0.25,
+          "focus": 0,
+          "drawn": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "tracer": null,
+          "leg": -1,
+          "legs": [
+            [
+              "logA",
+              "custodianA",
+              true
+            ],
+            [
+              "custodianA",
+              "bag",
+              true
+            ],
+            [
+              "bag",
+              "custodianB",
+              true
+            ],
+            [
+              "custodianB",
+              "logB",
+              true
+            ]
+          ],
+          "connectors": [
+            {
+              "from": "custodianA",
+              "to": "logA",
+              "kind": "relation",
+              "end": {
+                "x": 135.8,
+                "y": 382.48
+              },
+              "start": {
+                "x": 130.36,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 25.56026082203128,
+                "y": 394.481270863836,
+                "w": 236.90378289473682,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "custodianA",
+              "to": "bag",
+              "kind": "sequence",
+              "end": {
+                "x": 388.68,
+                "y": 150.03
+              },
+              "start": {
+                "x": 244.3,
+                "y": 149.85
+              },
+              "toBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": true
+            },
+            {
+              "from": "bag",
+              "to": "custodianB",
+              "kind": "sequence",
+              "end": {
+                "x": 917.09,
+                "y": 149.66
+              },
+              "start": {
+                "x": 761.42,
+                "y": 150.38
+              },
+              "toBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": true
+            },
+            {
+              "from": "custodianB",
+              "to": "logB",
+              "kind": "relation",
+              "end": {
+                "x": 1016.3,
+                "y": 382.48
+              },
+              "start": {
+                "x": 1021.74,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 894.0354153923769,
+                "y": 394.481270863836,
+                "w": 228.0993009868422,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "bag",
+              "to": "chain",
+              "kind": "relation",
+              "end": {
+                "x": 473.16,
+                "y": 490.48
+              },
+              "start": {
+                "x": 510.76,
+                "y": 371.05
+              },
+              "toBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": false
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "end": {
+                "x": 561.56,
+                "y": 542.94
+              },
+              "start": {
+                "x": 523.14,
+                "y": 545.52
+              },
+              "toBox": {
+                "x": 573.5600790863836,
+                "y": 496.33000145061385,
+                "w": 212.35455925036604,
+                "h": 118.5920686145738
+              },
+              "fromBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "arrow": false
+            }
+          ],
+          "pos": {
+            "custodianA": {
+              "x": 120.97,
+              "y": 103.09
+            },
+            "logA": {
+              "x": 144.01,
+              "y": 513.3
+            },
+            "bag": {
+              "x": 576.05,
+              "y": 156.64
+            },
+            "chain": {
+              "x": 455.08,
+              "y": 531.52
+            },
+            "tag": {
+              "x": 679.74,
+              "y": 537.17
+            },
+            "custodianB": {
+              "x": 1031.13,
+              "y": 103.09
+            },
+            "logB": {
+              "x": 1008.09,
+              "y": 513.3
+            }
+          },
+          "bag": {
+            "x": 576.05,
+            "y": 156.64
+          },
+          "custodianA": {
+            "x": 120.97,
+            "y": 103.09
+          },
+          "logB": {
+            "x": 1008.09,
+            "y": 513.3
+          },
+          "rows": {
+            "a": [
+              true,
+              true
+            ],
+            "b": [
+              true,
+              true
+            ]
+          },
+          "problems": [],
+          "textPx": 24,
+          "bagH": 303.9,
+          "personR": 94.8
+        }
+      }
+    },
+    {
+      "name": "semantic: relations are drawn one after another @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "relations",
+          "separated": 1,
+          "labels": 1,
+          "focus": 0,
+          "drawn": [
+            1,
+            1,
+            0.882,
+            0,
+            0,
+            0
+          ],
+          "tracer": null,
+          "leg": -1,
+          "legs": [
+            [
+              "logA",
+              "custodianA",
+              true
+            ],
+            [
+              "custodianA",
+              "bag",
+              true
+            ],
+            [
+              "bag",
+              "custodianB",
+              true
+            ],
+            [
+              "custodianB",
+              "logB",
+              true
+            ]
+          ],
+          "connectors": [
+            {
+              "from": "custodianA",
+              "to": "logA",
+              "kind": "relation",
+              "end": {
+                "x": 135.8,
+                "y": 382.48
+              },
+              "start": {
+                "x": 130.36,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 25.56026082203128,
+                "y": 394.481270863836,
+                "w": 236.90378289473682,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "custodianA",
+              "to": "bag",
+              "kind": "sequence",
+              "end": {
+                "x": 388.68,
+                "y": 150.03
+              },
+              "start": {
+                "x": 244.3,
+                "y": 149.85
+              },
+              "toBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": true
+            },
+            {
+              "from": "bag",
+              "to": "custodianB",
+              "kind": "sequence",
+              "end": {
+                "x": 917.09,
+                "y": 149.66
+              },
+              "start": {
+                "x": 761.42,
+                "y": 150.38
+              },
+              "toBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": true
+            },
+            {
+              "from": "custodianB",
+              "to": "logB",
+              "kind": "relation",
+              "end": {
+                "x": 1016.3,
+                "y": 382.48
+              },
+              "start": {
+                "x": 1021.74,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 894.0354153923769,
+                "y": 394.481270863836,
+                "w": 228.0993009868422,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "bag",
+              "to": "chain",
+              "kind": "relation",
+              "end": {
+                "x": 473.16,
+                "y": 490.48
+              },
+              "start": {
+                "x": 510.76,
+                "y": 371.05
+              },
+              "toBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": false
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "end": {
+                "x": 561.56,
+                "y": 542.94
+              },
+              "start": {
+                "x": 523.14,
+                "y": 545.52
+              },
+              "toBox": {
+                "x": 573.5600790863836,
+                "y": 496.33000145061385,
+                "w": 212.35455925036604,
+                "h": 118.5920686145738
+              },
+              "fromBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "arrow": false
+            }
+          ],
+          "pos": {
+            "custodianA": {
+              "x": 120.97,
+              "y": 103.09
+            },
+            "logA": {
+              "x": 144.01,
+              "y": 513.3
+            },
+            "bag": {
+              "x": 576.05,
+              "y": 156.64
+            },
+            "chain": {
+              "x": 455.08,
+              "y": 531.52
+            },
+            "tag": {
+              "x": 679.74,
+              "y": 537.17
+            },
+            "custodianB": {
+              "x": 1031.13,
+              "y": 103.09
+            },
+            "logB": {
+              "x": 1008.09,
+              "y": 513.3
+            }
+          },
+          "bag": {
+            "x": 576.05,
+            "y": 156.64
+          },
+          "custodianA": {
+            "x": 120.97,
+            "y": 103.09
+          },
+          "logB": {
+            "x": 1008.09,
+            "y": 513.3
+          },
+          "rows": {
+            "a": [
+              true,
+              true
+            ],
+            "b": [
+              true,
+              true
+            ]
+          },
+          "problems": [],
+          "textPx": 24,
+          "bagH": 303.9,
+          "personR": 94.8
+        }
+      }
+    },
+    {
+      "name": "semantic: every connector ends on its element @0.44",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "trace",
+          "separated": 1,
+          "labels": 1,
+          "focus": 0.019,
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "tracer": {
+            "x": 135.8,
+            "y": 382.48
+          },
+          "leg": 0,
+          "legs": [
+            [
+              "logA",
+              "custodianA",
+              true
+            ],
+            [
+              "custodianA",
+              "bag",
+              true
+            ],
+            [
+              "bag",
+              "custodianB",
+              true
+            ],
+            [
+              "custodianB",
+              "logB",
+              true
+            ]
+          ],
+          "connectors": [
+            {
+              "from": "custodianA",
+              "to": "logA",
+              "kind": "relation",
+              "end": {
+                "x": 135.8,
+                "y": 382.48
+              },
+              "start": {
+                "x": 130.36,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 25.56026082203128,
+                "y": 394.481270863836,
+                "w": 236.90378289473682,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "custodianA",
+              "to": "bag",
+              "kind": "sequence",
+              "end": {
+                "x": 388.68,
+                "y": 150.03
+              },
+              "start": {
+                "x": 244.3,
+                "y": 149.85
+              },
+              "toBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": true
+            },
+            {
+              "from": "bag",
+              "to": "custodianB",
+              "kind": "sequence",
+              "end": {
+                "x": 917.09,
+                "y": 149.66
+              },
+              "start": {
+                "x": 761.42,
+                "y": 150.38
+              },
+              "toBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": true
+            },
+            {
+              "from": "custodianB",
+              "to": "logB",
+              "kind": "relation",
+              "end": {
+                "x": 1016.3,
+                "y": 382.48
+              },
+              "start": {
+                "x": 1021.74,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 894.0354153923769,
+                "y": 394.481270863836,
+                "w": 228.0993009868422,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "bag",
+              "to": "chain",
+              "kind": "relation",
+              "end": {
+                "x": 473.16,
+                "y": 490.48
+              },
+              "start": {
+                "x": 510.76,
+                "y": 371.05
+              },
+              "toBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": false
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "end": {
+                "x": 561.56,
+                "y": 542.94
+              },
+              "start": {
+                "x": 523.14,
+                "y": 545.52
+              },
+              "toBox": {
+                "x": 573.5600790863836,
+                "y": 496.33000145061385,
+                "w": 212.35455925036604,
+                "h": 118.5920686145738
+              },
+              "fromBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "arrow": false
+            }
+          ],
+          "pos": {
+            "custodianA": {
+              "x": 120.97,
+              "y": 103.09
+            },
+            "logA": {
+              "x": 144.01,
+              "y": 513.3
+            },
+            "bag": {
+              "x": 576.05,
+              "y": 156.64
+            },
+            "chain": {
+              "x": 455.08,
+              "y": 531.52
+            },
+            "tag": {
+              "x": 679.74,
+              "y": 537.17
+            },
+            "custodianB": {
+              "x": 1031.13,
+              "y": 103.09
+            },
+            "logB": {
+              "x": 1008.09,
+              "y": 513.3
+            }
+          },
+          "bag": {
+            "x": 576.05,
+            "y": 156.64
+          },
+          "custodianA": {
+            "x": 120.97,
+            "y": 103.09
+          },
+          "logB": {
+            "x": 1008.09,
+            "y": 513.3
+          },
+          "rows": {
+            "a": [
+              true,
+              true
+            ],
+            "b": [
+              true,
+              true
+            ]
+          },
+          "problems": [],
+          "textPx": 24,
+          "bagH": 303.9,
+          "personR": 94.8
+        }
+      }
+    },
+    {
+      "name": "semantic: plain relations have no arrowhead; no causal link by default @0.44",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "trace",
+          "separated": 1,
+          "labels": 1,
+          "focus": 0.019,
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "tracer": {
+            "x": 135.8,
+            "y": 382.48
+          },
+          "leg": 0,
+          "legs": [
+            [
+              "logA",
+              "custodianA",
+              true
+            ],
+            [
+              "custodianA",
+              "bag",
+              true
+            ],
+            [
+              "bag",
+              "custodianB",
+              true
+            ],
+            [
+              "custodianB",
+              "logB",
+              true
+            ]
+          ],
+          "connectors": [
+            {
+              "from": "custodianA",
+              "to": "logA",
+              "kind": "relation",
+              "end": {
+                "x": 135.8,
+                "y": 382.48
+              },
+              "start": {
+                "x": 130.36,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 25.56026082203128,
+                "y": 394.481270863836,
+                "w": 236.90378289473682,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "custodianA",
+              "to": "bag",
+              "kind": "sequence",
+              "end": {
+                "x": 388.68,
+                "y": 150.03
+              },
+              "start": {
+                "x": 244.3,
+                "y": 149.85
+              },
+              "toBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": true
+            },
+            {
+              "from": "bag",
+              "to": "custodianB",
+              "kind": "sequence",
+              "end": {
+                "x": 917.09,
+                "y": 149.66
+              },
+              "start": {
+                "x": 761.42,
+                "y": 150.38
+              },
+              "toBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": true
+            },
+            {
+              "from": "custodianB",
+              "to": "logB",
+              "kind": "relation",
+              "end": {
+                "x": 1016.3,
+                "y": 382.48
+              },
+              "start": {
+                "x": 1021.74,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 894.0354153923769,
+                "y": 394.481270863836,
+                "w": 228.0993009868422,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "bag",
+              "to": "chain",
+              "kind": "relation",
+              "end": {
+                "x": 473.16,
+                "y": 490.48
+              },
+              "start": {
+                "x": 510.76,
+                "y": 371.05
+              },
+              "toBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": false
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "end": {
+                "x": 561.56,
+                "y": 542.94
+              },
+              "start": {
+                "x": 523.14,
+                "y": 545.52
+              },
+              "toBox": {
+                "x": 573.5600790863836,
+                "y": 496.33000145061385,
+                "w": 212.35455925036604,
+                "h": 118.5920686145738
+              },
+              "fromBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "arrow": false
+            }
+          ],
+          "pos": {
+            "custodianA": {
+              "x": 120.97,
+              "y": 103.09
+            },
+            "logA": {
+              "x": 144.01,
+              "y": 513.3
+            },
+            "bag": {
+              "x": 576.05,
+              "y": 156.64
+            },
+            "chain": {
+              "x": 455.08,
+              "y": 531.52
+            },
+            "tag": {
+              "x": 679.74,
+              "y": 537.17
+            },
+            "custodianB": {
+              "x": 1031.13,
+              "y": 103.09
+            },
+            "logB": {
+              "x": 1008.09,
+              "y": 513.3
+            }
+          },
+          "bag": {
+            "x": 576.05,
+            "y": 156.64
+          },
+          "custodianA": {
+            "x": 120.97,
+            "y": 103.09
+          },
+          "logB": {
+            "x": 1008.09,
+            "y": 513.3
+          },
+          "rows": {
+            "a": [
+              true,
+              true
+            ],
+            "b": [
+              true,
+              true
+            ]
+          },
+          "problems": [],
+          "textPx": 24,
+          "bagH": 303.9,
+          "personR": 94.8
+        }
+      }
+    },
+    {
+      "name": "semantic: the tracer starts on the first leg; the focus element is enlarged @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "trace",
+          "separated": 1,
+          "labels": 1,
+          "focus": 1,
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "tracer": {
+            "x": 134.83,
+            "y": 313.22
+          },
+          "leg": 0,
+          "legs": [
+            [
+              "logA",
+              "custodianA",
+              true
+            ],
+            [
+              "custodianA",
+              "bag",
+              true
+            ],
+            [
+              "bag",
+              "custodianB",
+              true
+            ],
+            [
+              "custodianB",
+              "logB",
+              true
+            ]
+          ],
+          "connectors": [
+            {
+              "from": "custodianA",
+              "to": "logA",
+              "kind": "relation",
+              "end": {
+                "x": 135.8,
+                "y": 382.48
+              },
+              "start": {
+                "x": 130.36,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 25.56026082203128,
+                "y": 394.481270863836,
+                "w": 236.90378289473682,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "custodianA",
+              "to": "bag",
+              "kind": "sequence",
+              "end": {
+                "x": 388.68,
+                "y": 150.03
+              },
+              "start": {
+                "x": 244.3,
+                "y": 149.85
+              },
+              "toBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": true
+            },
+            {
+              "from": "bag",
+              "to": "custodianB",
+              "kind": "sequence",
+              "end": {
+                "x": 917.09,
+                "y": 149.66
+              },
+              "start": {
+                "x": 761.42,
+                "y": 150.38
+              },
+              "toBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": true
+            },
+            {
+              "from": "custodianB",
+              "to": "logB",
+              "kind": "relation",
+              "end": {
+                "x": 1016.3,
+                "y": 382.48
+              },
+              "start": {
+                "x": 1021.74,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 894.0354153923769,
+                "y": 394.481270863836,
+                "w": 228.0993009868422,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "bag",
+              "to": "chain",
+              "kind": "relation",
+              "end": {
+                "x": 473.16,
+                "y": 490.48
+              },
+              "start": {
+                "x": 510.76,
+                "y": 371.05
+              },
+              "toBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": false
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "end": {
+                "x": 561.56,
+                "y": 542.94
+              },
+              "start": {
+                "x": 523.14,
+                "y": 545.52
+              },
+              "toBox": {
+                "x": 573.5600790863836,
+                "y": 496.33000145061385,
+                "w": 212.35455925036604,
+                "h": 118.5920686145738
+              },
+              "fromBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "arrow": false
+            }
+          ],
+          "pos": {
+            "custodianA": {
+              "x": 120.97,
+              "y": 103.09
+            },
+            "logA": {
+              "x": 144.01,
+              "y": 513.3
+            },
+            "bag": {
+              "x": 576.05,
+              "y": 156.64
+            },
+            "chain": {
+              "x": 455.08,
+              "y": 531.52
+            },
+            "tag": {
+              "x": 679.74,
+              "y": 537.17
+            },
+            "custodianB": {
+              "x": 1031.13,
+              "y": 103.09
+            },
+            "logB": {
+              "x": 1008.09,
+              "y": 513.3
+            }
+          },
+          "bag": {
+            "x": 576.05,
+            "y": 156.64
+          },
+          "custodianA": {
+            "x": 120.97,
+            "y": 103.09
+          },
+          "logB": {
+            "x": 1008.09,
+            "y": 513.3
+          },
+          "rows": {
+            "a": [
+              true,
+              true
+            ],
+            "b": [
+              true,
+              true
+            ]
+          },
+          "problems": [],
+          "textPx": 24,
+          "bagH": 303.9,
+          "personR": 94.8
+        }
+      }
+    },
+    {
+      "name": "semantic: the tracer reaches the last leg along drawn relations only @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "trace",
+          "separated": 1,
+          "labels": 1,
+          "focus": 1,
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "tracer": {
+            "x": 1014.06,
+            "y": 336.21
+          },
+          "leg": 3,
+          "legs": [
+            [
+              "logA",
+              "custodianA",
+              true
+            ],
+            [
+              "custodianA",
+              "bag",
+              true
+            ],
+            [
+              "bag",
+              "custodianB",
+              true
+            ],
+            [
+              "custodianB",
+              "logB",
+              true
+            ]
+          ],
+          "connectors": [
+            {
+              "from": "custodianA",
+              "to": "logA",
+              "kind": "relation",
+              "end": {
+                "x": 135.8,
+                "y": 382.48
+              },
+              "start": {
+                "x": 130.36,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 25.56026082203128,
+                "y": 394.481270863836,
+                "w": 236.90378289473682,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "custodianA",
+              "to": "bag",
+              "kind": "sequence",
+              "end": {
+                "x": 388.68,
+                "y": 150.03
+              },
+              "start": {
+                "x": 244.3,
+                "y": 149.85
+              },
+              "toBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": true
+            },
+            {
+              "from": "bag",
+              "to": "custodianB",
+              "kind": "sequence",
+              "end": {
+                "x": 917.09,
+                "y": 149.66
+              },
+              "start": {
+                "x": 761.42,
+                "y": 150.38
+              },
+              "toBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": true
+            },
+            {
+              "from": "custodianB",
+              "to": "logB",
+              "kind": "relation",
+              "end": {
+                "x": 1016.3,
+                "y": 382.48
+              },
+              "start": {
+                "x": 1021.74,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 894.0354153923769,
+                "y": 394.481270863836,
+                "w": 228.0993009868422,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "bag",
+              "to": "chain",
+              "kind": "relation",
+              "end": {
+                "x": 473.16,
+                "y": 490.48
+              },
+              "start": {
+                "x": 510.76,
+                "y": 371.05
+              },
+              "toBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": false
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "end": {
+                "x": 561.56,
+                "y": 542.94
+              },
+              "start": {
+                "x": 523.14,
+                "y": 545.52
+              },
+              "toBox": {
+                "x": 573.5600790863836,
+                "y": 496.33000145061385,
+                "w": 212.35455925036604,
+                "h": 118.5920686145738
+              },
+              "fromBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "arrow": false
+            }
+          ],
+          "pos": {
+            "custodianA": {
+              "x": 120.97,
+              "y": 103.09
+            },
+            "logA": {
+              "x": 144.01,
+              "y": 513.3
+            },
+            "bag": {
+              "x": 576.05,
+              "y": 156.64
+            },
+            "chain": {
+              "x": 455.08,
+              "y": 531.52
+            },
+            "tag": {
+              "x": 679.74,
+              "y": 537.17
+            },
+            "custodianB": {
+              "x": 1031.13,
+              "y": 103.09
+            },
+            "logB": {
+              "x": 1008.09,
+              "y": 513.3
+            }
+          },
+          "bag": {
+            "x": 576.05,
+            "y": 156.64
+          },
+          "custodianA": {
+            "x": 120.97,
+            "y": 103.09
+          },
+          "logB": {
+            "x": 1008.09,
+            "y": 513.3
+          },
+          "rows": {
+            "a": [
+              true,
+              true
+            ],
+            "b": [
+              true,
+              true
+            ]
+          },
+          "problems": [],
+          "textPx": 24,
+          "bagH": 303.9,
+          "personR": 94.8
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: still; composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "hold",
+          "separated": 1,
+          "labels": 1,
+          "focus": 0,
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "tracer": null,
+          "leg": -1,
+          "legs": [
+            [
+              "logA",
+              "custodianA",
+              true
+            ],
+            [
+              "custodianA",
+              "bag",
+              true
+            ],
+            [
+              "bag",
+              "custodianB",
+              true
+            ],
+            [
+              "custodianB",
+              "logB",
+              true
+            ]
+          ],
+          "connectors": [
+            {
+              "from": "custodianA",
+              "to": "logA",
+              "kind": "relation",
+              "end": {
+                "x": 135.8,
+                "y": 382.48
+              },
+              "start": {
+                "x": 130.36,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 25.56026082203128,
+                "y": 394.481270863836,
+                "w": 236.90378289473682,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "custodianA",
+              "to": "bag",
+              "kind": "sequence",
+              "end": {
+                "x": 388.68,
+                "y": 150.03
+              },
+              "start": {
+                "x": 244.3,
+                "y": 149.85
+              },
+              "toBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": true
+            },
+            {
+              "from": "bag",
+              "to": "custodianB",
+              "kind": "sequence",
+              "end": {
+                "x": 917.09,
+                "y": 149.66
+              },
+              "start": {
+                "x": 761.42,
+                "y": 150.38
+              },
+              "toBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": true
+            },
+            {
+              "from": "custodianB",
+              "to": "logB",
+              "kind": "relation",
+              "end": {
+                "x": 1016.3,
+                "y": 382.48
+              },
+              "start": {
+                "x": 1021.74,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 894.0354153923769,
+                "y": 394.481270863836,
+                "w": 228.0993009868422,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "bag",
+              "to": "chain",
+              "kind": "relation",
+              "end": {
+                "x": 473.16,
+                "y": 490.48
+              },
+              "start": {
+                "x": 510.76,
+                "y": 371.05
+              },
+              "toBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": false
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "end": {
+                "x": 561.56,
+                "y": 542.94
+              },
+              "start": {
+                "x": 523.14,
+                "y": 545.52
+              },
+              "toBox": {
+                "x": 573.5600790863836,
+                "y": 496.33000145061385,
+                "w": 212.35455925036604,
+                "h": 118.5920686145738
+              },
+              "fromBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "arrow": false
+            }
+          ],
+          "pos": {
+            "custodianA": {
+              "x": 120.97,
+              "y": 103.09
+            },
+            "logA": {
+              "x": 144.01,
+              "y": 513.3
+            },
+            "bag": {
+              "x": 576.05,
+              "y": 156.64
+            },
+            "chain": {
+              "x": 455.08,
+              "y": 531.52
+            },
+            "tag": {
+              "x": 679.74,
+              "y": 537.17
+            },
+            "custodianB": {
+              "x": 1031.13,
+              "y": 103.09
+            },
+            "logB": {
+              "x": 1008.09,
+              "y": 513.3
+            }
+          },
+          "bag": {
+            "x": 576.05,
+            "y": 156.64
+          },
+          "custodianA": {
+            "x": 120.97,
+            "y": 103.09
+          },
+          "logB": {
+            "x": 1008.09,
+            "y": 513.3
+          },
+          "rows": {
+            "a": [
+              true,
+              true
+            ],
+            "b": [
+              true,
+              true
+            ]
+          },
+          "problems": [],
+          "textPx": 24,
+          "bagH": 303.9,
+          "personR": 94.8
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking keeps the traversal order (second leg mid-trace) @0.58",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "trace",
+          "separated": 1,
+          "labels": 1,
+          "focus": 1,
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "tracer": {
+            "x": 369.69,
+            "y": 154.18
+          },
+          "leg": 1,
+          "legs": [
+            [
+              "logA",
+              "custodianA",
+              true
+            ],
+            [
+              "custodianA",
+              "bag",
+              true
+            ],
+            [
+              "bag",
+              "custodianB",
+              true
+            ],
+            [
+              "custodianB",
+              "logB",
+              true
+            ]
+          ],
+          "connectors": [
+            {
+              "from": "custodianA",
+              "to": "logA",
+              "kind": "relation",
+              "end": {
+                "x": 135.8,
+                "y": 382.48
+              },
+              "start": {
+                "x": 130.36,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 25.56026082203128,
+                "y": 394.481270863836,
+                "w": 236.90378289473682,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "custodianA",
+              "to": "bag",
+              "kind": "sequence",
+              "end": {
+                "x": 388.68,
+                "y": 150.03
+              },
+              "start": {
+                "x": 244.3,
+                "y": 149.85
+              },
+              "toBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": true
+            },
+            {
+              "from": "bag",
+              "to": "custodianB",
+              "kind": "sequence",
+              "end": {
+                "x": 917.09,
+                "y": 149.66
+              },
+              "start": {
+                "x": 761.42,
+                "y": 150.38
+              },
+              "toBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": true
+            },
+            {
+              "from": "custodianB",
+              "to": "logB",
+              "kind": "relation",
+              "end": {
+                "x": 1016.3,
+                "y": 382.48
+              },
+              "start": {
+                "x": 1021.74,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 894.0354153923769,
+                "y": 394.481270863836,
+                "w": 228.0993009868422,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "bag",
+              "to": "chain",
+              "kind": "relation",
+              "end": {
+                "x": 473.16,
+                "y": 490.48
+              },
+              "start": {
+                "x": 510.76,
+                "y": 371.05
+              },
+              "toBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": false
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "end": {
+                "x": 561.56,
+                "y": 542.94
+              },
+              "start": {
+                "x": 523.14,
+                "y": 545.52
+              },
+              "toBox": {
+                "x": 573.5600790863836,
+                "y": 496.33000145061385,
+                "w": 212.35455925036604,
+                "h": 118.5920686145738
+              },
+              "fromBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "arrow": false
+            }
+          ],
+          "pos": {
+            "custodianA": {
+              "x": 120.97,
+              "y": 103.09
+            },
+            "logA": {
+              "x": 144.01,
+              "y": 513.3
+            },
+            "bag": {
+              "x": 576.05,
+              "y": 156.64
+            },
+            "chain": {
+              "x": 455.08,
+              "y": 531.52
+            },
+            "tag": {
+              "x": 679.74,
+              "y": 537.17
+            },
+            "custodianB": {
+              "x": 1031.13,
+              "y": 103.09
+            },
+            "logB": {
+              "x": 1008.09,
+              "y": 513.3
+            }
+          },
+          "bag": {
+            "x": 576.05,
+            "y": 156.64
+          },
+          "custodianA": {
+            "x": 120.97,
+            "y": 103.09
+          },
+          "logB": {
+            "x": 1008.09,
+            "y": 513.3
+          },
+          "rows": {
+            "a": [
+              true,
+              true
+            ],
+            "b": [
+              true,
+              true
+            ]
+          },
+          "problems": [],
+          "textPx": 24,
+          "bagH": 303.9,
+          "personR": 94.8
+        }
+      }
+    },
+    {
+      "name": "semantic: a causal arrow appears only when supplied @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "hold",
+          "separated": 1,
+          "labels": 1,
+          "focus": 0,
+          "drawn": [
+            1
+          ],
+          "tracer": null,
+          "leg": -1,
+          "legs": [
+            [
+              "logA",
+              "custodianA",
+              false
+            ],
+            [
+              "custodianA",
+              "bag",
+              true
+            ],
+            [
+              "bag",
+              "custodianB",
+              false
+            ],
+            [
+              "custodianB",
+              "logB",
+              false
+            ]
+          ],
+          "connectors": [
+            {
+              "from": "custodianA",
+              "to": "bag",
+              "kind": "causal",
+              "end": {
+                "x": 388.68,
+                "y": 150.03
+              },
+              "start": {
+                "x": 244.3,
+                "y": 149.85
+              },
+              "toBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": true
+            }
+          ],
+          "pos": {
+            "custodianA": {
+              "x": 120.97,
+              "y": 103.09
+            },
+            "logA": {
+              "x": 144.01,
+              "y": 513.3
+            },
+            "bag": {
+              "x": 576.05,
+              "y": 156.64
+            },
+            "chain": {
+              "x": 455.08,
+              "y": 531.52
+            },
+            "tag": {
+              "x": 679.74,
+              "y": 537.17
+            },
+            "custodianB": {
+              "x": 1031.13,
+              "y": 103.09
+            },
+            "logB": {
+              "x": 1008.09,
+              "y": 513.3
+            }
+          },
+          "bag": {
+            "x": 576.05,
+            "y": 156.64
+          },
+          "custodianA": {
+            "x": 120.97,
+            "y": 103.09
+          },
+          "logB": {
+            "x": 1008.09,
+            "y": 513.3
+          },
+          "rows": {
+            "a": [
+              true,
+              true
+            ],
+            "b": [
+              true,
+              true
+            ]
+          },
+          "problems": [],
+          "textPx": 24,
+          "bagH": 303.9,
+          "personR": 94.8
+        }
+      }
+    },
+    {
+      "name": "semantic: blank rows come only from the supplied records @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "hold",
+          "separated": 1,
+          "labels": 1,
+          "focus": 0,
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "tracer": null,
+          "leg": -1,
+          "legs": [
+            [
+              "logA",
+              "custodianA",
+              true
+            ],
+            [
+              "custodianA",
+              "bag",
+              true
+            ],
+            [
+              "bag",
+              "custodianB",
+              true
+            ],
+            [
+              "custodianB",
+              "logB",
+              true
+            ]
+          ],
+          "connectors": [
+            {
+              "from": "custodianA",
+              "to": "logA",
+              "kind": "relation",
+              "end": {
+                "x": 135.8,
+                "y": 382.48
+              },
+              "start": {
+                "x": 130.36,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 29.96250177597865,
+                "y": 394.481270863836,
+                "w": 228.09930098684214,
+                "h": 285.47051999999996
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "custodianA",
+              "to": "bag",
+              "kind": "sequence",
+              "end": {
+                "x": 388.68,
+                "y": 150.03
+              },
+              "start": {
+                "x": 244.3,
+                "y": 149.85
+              },
+              "toBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "fromBox": {
+                "x": 7.638176656295755,
+                "y": 8.247462170424598,
+                "w": 226.6640625,
+                "h": 278.1453744077305
+              },
+              "arrow": true
+            },
+            {
+              "from": "bag",
+              "to": "custodianB",
+              "kind": "sequence",
+              "end": {
+                "x": 917.09,
+                "y": 149.66
+              },
+              "start": {
+                "x": 761.42,
+                "y": 150.38
+              },
+              "toBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": true
+            },
+            {
+              "from": "custodianB",
+              "to": "logB",
+              "kind": "relation",
+              "end": {
+                "x": 1018.13,
+                "y": 349.36
+              },
+              "start": {
+                "x": 1021.74,
+                "y": 296.39
+              },
+              "toBox": {
+                "x": 894.0354153923769,
+                "y": 361.361270863836,
+                "w": 228.0993009868422,
+                "h": 356.34731999999997
+              },
+              "fromBox": {
+                "x": 929.085994623902,
+                "y": 8.247462170424598,
+                "w": 204.08203125,
+                "h": 278.1453744077305
+              },
+              "arrow": false
+            },
+            {
+              "from": "bag",
+              "to": "chain",
+              "kind": "relation",
+              "end": {
+                "x": 473.16,
+                "y": 490.48
+              },
+              "start": {
+                "x": 510.76,
+                "y": 371.05
+              },
+              "toBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "fromBox": {
+                "x": 400.6775153275988,
+                "y": 4.699196001171288,
+                "w": 350.7421875,
+                "h": 356.353035307713
+              },
+              "arrow": false
+            },
+            {
+              "from": "chain",
+              "to": "tag",
+              "kind": "relation",
+              "end": {
+                "x": 561.56,
+                "y": 542.94
+              },
+              "start": {
+                "x": 523.14,
+                "y": 545.52
+              },
+              "toBox": {
+                "x": 573.5600790863836,
+                "y": 496.33000145061385,
+                "w": 212.35455925036604,
+                "h": 118.5920686145738
+              },
+              "fromBox": {
+                "x": 397.01270137628114,
+                "y": 502.48271262079066,
+                "w": 116.13139959004388,
+                "h": 93.33029878067356
+              },
+              "arrow": false
+            }
+          ],
+          "pos": {
+            "custodianA": {
+              "x": 120.97,
+              "y": 103.09
+            },
+            "logA": {
+              "x": 144.01,
+              "y": 513.3
+            },
+            "bag": {
+              "x": 576.05,
+              "y": 156.64
+            },
+            "chain": {
+              "x": 455.08,
+              "y": 531.52
+            },
+            "tag": {
+              "x": 679.74,
+              "y": 537.17
+            },
+            "custodianB": {
+              "x": 1031.13,
+              "y": 103.09
+            },
+            "logB": {
+              "x": 1008.09,
+              "y": 513.3
+            }
+          },
+          "bag": {
+            "x": 576.05,
+            "y": 156.64
+          },
+          "custodianA": {
+            "x": 120.97,
+            "y": 103.09
+          },
+          "logB": {
+            "x": 1008.09,
+            "y": 513.3
+          },
+          "rows": {
+            "a": [
+              true
+            ],
+            "b": [
+              false
+            ]
+          },
+          "problems": [],
+          "textPx": 24,
+          "bagH": 303.9,
+          "personR": 94.8
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}
