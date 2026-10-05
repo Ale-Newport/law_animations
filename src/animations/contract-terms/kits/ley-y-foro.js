@@ -174,7 +174,7 @@ export function clauseTab(ctx, kind, len, t) {
  * Compass dial seen from above: brass bezel, face with ticks, the needle (group `${name}-needle`, drawn pointing +x,
  * rotate it in frame), pivot cap. Origin = dial centre.
  */
-export function compassDial(ctx, kind, name, R) {
+export function compassDial(ctx, kind, name, R, angle) {
   const col = laneColor(ctx, kind);
   const ticks = [];
   for (let k = 0; k < 24; k++) {
@@ -188,7 +188,7 @@ export function compassDial(ctx, kind, name, R) {
     h('circle', {cx: 0, cy: 0, r: r(R - 2), fill: '#fbf8ef', stroke: INK, 'stroke-width': 2}),
     h('path', {d: ticks.join(''), stroke: '#8b8170', 'stroke-width': 2.2, 'stroke-linecap': 'round'}),
     glyphOf(kind, 0, R * 0.45, R * 0.2, shade(col, -0.1), 2),
-    g({name: `${name}-needle`},
+    g({name: `${name}-needle`, transform: angle == null ? undefined : `rotate(${r(angle, 2)})`},
       h('path', {d: `M${r(nl)} 0L0 ${r(-nw)}L${r(-nl * 0.62)} 0L0 ${r(nw)}Z`, fill: '#ffffff', stroke: INK, 'stroke-width': 2, 'stroke-linejoin': 'round'}),
       h('path', {d: `M${r(nl)} 0L0 ${r(-nw)}L0 ${r(nw)}Z`, fill: col, stroke: INK, 'stroke-width': 2, 'stroke-linejoin': 'round'}),
     ),

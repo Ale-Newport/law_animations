@@ -228,8 +228,8 @@ const scene = {
       if (C.planRect.h / frameHD < (shape === 'landscape' ? 0.225 : 0.205)) problems.push('subject-short');
       // (item 18: side by side, each room keeps >= 0.40 of the frame's width)
       if (arr === 'row' && shape === 'landscape' && C.planRect.w / frameWD < 0.4) problems.push('room-narrow');
-      // (coordinator decision 2026-10-06: stacked at 1:1, each room keeps >= 0.56 of the frame's width)
-      if (arr === 'col' && shape === 'square' && C.planRect.w / frameWD < 0.56) problems.push('room-narrow');
+      // (coordinator decision 2026-10-06: stacked at 1:1, each room keeps >= 0.47 of the frame's width)
+      if (arr === 'col' && shape === 'square' && C.planRect.w / frameWD < 0.47) problems.push('room-narrow');
       const shift = arr === 'row' ? {x: roomsW + rgap, y: 0} : {x: 0, y: roomH + hd.h + chan + gap};
       return {C, problems, hd, box, shift, roomsW, roomH, chan, side, arr, area, scale};
     };
@@ -250,7 +250,7 @@ const scene = {
       for (const cols of [2, 3]) arrangements.push({arr: 'col', panel: 'band', cols});
     } else {
       // (coordinator decision 2026-10-06: A stacked over B, the legend beside them — the rooms take the square's height)
-      for (const cf of [0.3, 0.33]) arrangements.push({arr: 'col', panel: 'column', cf});
+      for (const cf of [0.3, 0.34, 0.38, 0.42]) arrangements.push({arr: 'col', panel: 'column', cf});
       for (const cols of [2, 3, 4]) arrangements.push({arr: 'row', panel: 'band', cols});
       // (side by side only: each room >= 0.40 of the frame width — coordinator, review-03)
     }

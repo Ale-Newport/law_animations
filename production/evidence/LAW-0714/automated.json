@@ -987,18 +987,18 @@
       }
     },
     {
-      "name": "semantic: alternative: the supplied causal and sequence links with their kinds (causal only where supplied) @1",
+      "name": "semantic: alternative: both lanes framed alike (the same neutral relation to the convergence piece, the same sequence link from the record) @1",
       "pass": true,
       "detail": {
         "semantic": {
           "beat": "hold",
           "split": 1,
           "laneA": {
-            "x": 308.44,
+            "x": 318.44,
             "y": 569.59
           },
           "laneB": {
-            "x": 1381.99,
+            "x": 1371.99,
             "y": 569.59
           },
           "convergence": {
@@ -1006,79 +1006,94 @@
             "y": 437.57
           },
           "tracer": {
-            "x": 442.74,
-            "y": 439.47
+            "x": 452.74,
+            "y": 439.46
           },
           "tracerOn": 0,
           "leg": -1,
           "legs": [
             "record>laneB:sequence",
             "laneB>convergence:relation",
-            "convergence>laneA:causal"
+            "convergence>laneA:relation"
           ],
           "drawn": [
+            1,
             1,
             1,
             1
           ],
           "kinds": [
-            "causal",
             "relation",
+            "relation",
+            "sequence",
             "sequence"
           ],
           "arrows": [
-            true,
             false,
+            false,
+            true,
             true
           ],
-          "causalShown": true,
+          "causalShown": false,
           "linkEnds": [
             {
               "from": "laneA",
               "to": "convergence",
               "a": {
-                "x": 442.74,
-                "y": 439.47
+                "x": 452.74,
+                "y": 439.46
               },
               "b": {
                 "x": 708.27,
-                "y": 438.21
+                "y": 438.23
               }
             },
             {
               "from": "laneB",
               "to": "convergence",
               "a": {
-                "x": 1247.69,
-                "y": 439.47
+                "x": 1237.69,
+                "y": 439.46
               },
               "b": {
                 "x": 982.16,
-                "y": 438.21
+                "y": 438.23
+              }
+            },
+            {
+              "from": "record",
+              "to": "laneA",
+              "a": {
+                "x": 587.54,
+                "y": 285.7
+              },
+              "b": {
+                "x": 452.74,
+                "y": 363.05
               }
             },
             {
               "from": "record",
               "to": "laneB",
               "a": {
-                "x": 1107.78,
+                "x": 1102.89,
                 "y": 285.7
               },
               "b": {
-                "x": 1247.69,
-                "y": 364.48
+                "x": 1237.69,
+                "y": 363.05
               }
             }
           ],
           "boxes": {
             "laneA": {
-              "x": 184.14,
+              "x": 194.14,
               "y": 310.62,
               "w": 248.6,
               "h": 258.97
             },
             "laneB": {
-              "x": 1257.69,
+              "x": 1247.69,
               "y": 310.62,
               "w": 248.6,
               "h": 258.97
@@ -1097,7 +1112,7 @@
             }
           },
           "spot": {
-            "x": 1487.78,
+            "x": 1477.78,
             "y": 503.47
           },
           "focus": 1,
@@ -1107,7 +1122,8 @@
           "labelGaps": [
             8.5,
             0,
-            15.4
+            0.6,
+            0
           ],
           "layout": {
             "OH": 253.89,
@@ -1127,7 +1143,7 @@
       }
     },
     {
-      "name": "semantic: a causal arrow appears only when the author supplies kind causal (exactly that one) @1",
+      "name": "semantic: a causal arrow appears only when the author supplies kind causal (on exactly those links; both lanes alike) @1",
       "pass": true,
       "detail": {
         "semantic": {
@@ -1153,7 +1169,7 @@
           "leg": -1,
           "legs": [
             "laneA>convergence:causal",
-            "convergence>laneB:relation"
+            "convergence>laneB:causal"
           ],
           "drawn": [
             1,
@@ -1161,11 +1177,11 @@
           ],
           "kinds": [
             "causal",
-            "relation"
+            "causal"
           ],
           "arrows": [
             true,
-            false
+            true
           ],
           "causalShown": true,
           "linkEnds": [

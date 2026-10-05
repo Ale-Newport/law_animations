@@ -393,6 +393,15 @@ export function subjectArt(ctx, G, o) {
  * Print art: white border + image = a real copy of field F (the subject at the same coordinates, scaled to fit).
  * Local origin = print centre; size pw × ph at scale 1. Number badge (text when `numberText`, pips otherwise).
  */
+/** Image rect of a print of width pw centred at (cx, cy) at scale 1, and the field → print scale k. */
+export function printImage(pw, F, cx = 0, cy = 0) {
+  const ph = pw / PRINT_AR;
+  const m = Math.max(5, pw * 0.055);
+  const iw = pw - m * 2;
+  const img = {x: cx - pw / 2 + m, y: cy - ph / 2 + m, w: iw, h: iw / 1.5};
+  return {img, k: iw / F.w, map: p => ({x: img.x + (p.x - F.x) * (iw / F.w), y: img.y + (p.y - F.y) * (iw / F.w)})};
+}
+
 export function printArt(ctx, G, F, o) {
   const {pw, ph} = o;
   const m = Math.max(5, pw * 0.055);
@@ -400,7 +409,7 @@ export function printArt(ctx, G, F, o) {
   const img = {x: -pw / 2 + m, y: -ph / 2 + m, w: iw, h: iw / 1.5};
   const k = img.w / F.w;
   const clipId = `${o.name}-clip`;
-  const badgeR = Math.max(13, Math.min(pw, ph) * 0.1);
+  const badgeR = Math.max(15.5, Math.min(pw, ph) * 0.1);
   const bx = pw / 2 - badgeR - m * 0.4, by = -ph / 2 + badgeR + m * 0.4;
   const dots = [];
   const nd = o.index + 1;
@@ -485,7 +494,7 @@ export function rfPose(G, C, plan, u) {
   const CM = G.CM;
   // ruler
   const rp = G.ruler;
-  const kr = plan.ruler ? ease.inOutCubic(seg(u, ...plan.rulerCarry)) : 0;
+  const kr = plan.ruler ? ease.inOutCubic(seg(u, ...plan.rulerCarry)) : plan.rulerPlaced ? 1 : 0;
   const lift = Math.sin(Math.PI * kr) * G.S * 0.12;
   const rul = {x: lerp(rp.rest.x, rp.placed.x, kr), y: lerp(rp.rest.y, rp.placed.y, kr) - lift, a: lerp(rp.rest.a, rp.placed.a, kr)};
   const rulGripL = {x: rp.L * 0.62, y: -rp.w * 0.5};
@@ -543,7 +552,7 @@ export function rfPose(G, C, plan, u) {
     : plan.ruler && u < plan.rulerCarry[1] ? 'ruler'
       : vi < 0 || u < plan.views[0].move[0] ? 'reach'
         : u < plan.back[0] ? `view${vi}` : 'hold';
-  return {rul, rulerG, rulerHeld, placedRuler: plan.ruler && u >= plan.rulerCarry[1], cam, camG, btnG, camHand, aux, camHeld, auxOn, press, flash, vi, wedgeOp, prints, phase};
+  return {rul, rulerG, rulerHeld, placedRuler: plan.ruler ? u >= plan.rulerCarry[1] : Boolean(plan.rulerPlaced), cam, camG, btnG, camHand, aux, camHeld, auxOn, press, flash, vi, wedgeOp, prints, phase};
 }
 
 /** Shutter-button position of the camera at time u (for the aux hand's approach / leave keys). */
