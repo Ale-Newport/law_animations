@@ -124,7 +124,46 @@ function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH) {
   const jawOpen = Math.min(jawPark - 30, slipFar + Math.max(60, (jawPark - slipFar) * 0.62));
   const jawMid = lerp(jawPark, jawOpen, 0.5); // both benches reach here identically before the change
   if (jawOpen - jawClosed < 40) why.push('no-open-gap');
-  return {why, prong, headerH, panel, card, row, head, rowFit, bandH, rowH, TT, sb, sock, dock, restTip, beamY, trackY, jawW, jawPark, jawClosed, jawOpen, jawMid, slipFar, right, cy, pad};
+  return {orient: 'h', why, prong, headerH, panel, card, row, head, rowFit, bandH, rowH, TT, sb, sock, dock, restTip, beamY, trackY, jawW, jawPark, jawClosed, jawOpen, jawMid, slipFar, right, cy, pad};
+}
+
+/** Vertical bench (square frames, side by side): the card on top, the slip rises to the socket on its lower edge. */
+function benchGeomV(ctx, p, bw, bh, F, minF, stress, headerTextH) {
+  const why = [];
+  const pi = promiseIndex(p);
+  const prong = 50;
+  const headerH = Math.max(headerTextH, F * 1.6) + 22;
+  const pad = 20;
+  const panel = {x: 0, y: headerH + 8, w: bw, h: bh - headerH - 8};
+  const cw = bw - 2 * pad;
+  const head = fitG(p.contract.reference, {maxWidth: cw - 40, size: F, minSize: minF, maxLines: 2, weight: 700});
+  const rowFit = fitG(p.clauses[pi], {maxWidth: cw - 70, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600});
+  const bandH = head.height + F * 0.8;
+  const rowH = rowFit.height + F * 0.95;
+  const ch = bandH + 22 + rowH + 26;
+  const sw = clamp(bw * 0.46, 205, 320);
+  const TT = slipText(ctx, p, sw, F, minF, stress, F * 4.4);
+  if (head.bad || rowFit.bad || TT.bad) why.push('bench-text');
+  const card = {x: pad, y: panel.y + 36, w: cw, h: ch};
+  const row = {x: card.x + 20, y: card.y + bandH + 22, w: cw - 30, h: rowH};
+  const slipR = card.x + cw - 44;
+  const sock = {x: slipR - sw / 2, y: card.y + ch};
+  const dock = {x: sock.x, y: sock.y + 4};
+  const sb = slipBox(TT, 'top', prong);
+  const jawW = 22;
+  const bottom = panel.y + panel.h - 12;
+  const jawPark = bottom - jawW / 2 - 4;
+  const restTip = {x: dock.x, y: jawPark - jawW / 2 - 26 - TT.h - prong};
+  const travel = restTip.y - dock.y;
+  if (travel < 70) why.push('no-travel');
+  const slipFar = dock.y + prong + TT.h;
+  const jawClosed = slipFar + jawW / 2 + 2;
+  const jawOpen = Math.min(jawPark - 30, slipFar + Math.max(60, (jawPark - slipFar) * 0.62));
+  const jawMid = lerp(jawPark, jawOpen, 0.5);
+  if (jawOpen - jawClosed < 40) why.push('no-open-gap');
+  const beamX = slipR + 26, trackX = slipR - sw - 22;
+  if (beamX + 12 > bw - 4) why.push('beam-off-panel');
+  return {orient: 'v', why, prong, headerH, panel, card, row, head, rowFit, bandH, rowH, TT, sb, sock, dock, restTip, beamX, trackX, jawW, jawPark, jawClosed, jawOpen, jawMid, slipFar, right: bw - pad, pad, bottom};
 }
 
 function geom(ctx, F, minF, side, colMode = false) {
@@ -135,7 +174,8 @@ function geom(ctx, F, minF, side, colMode = false) {
   const why = [];
   const m = 26;
   // bottom band: shared clause strip (once, chips flowing in rows), guide chip, neutral note
-  const colW = colMode ? clamp(D.w * 0.27, 300, 400) : 0;
+  const vMode = colMode; colMode = false;
+  const colW = 0;
   const fullW = colMode ? colW : D.w - 2 * m;
   const sharedText = [p.comparisonLabels.shared, `${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`].filter(Boolean).join(' — ');
   const sharedHead = show ? fitG(sharedText, {maxWidth: fullW - 30, size: F, minSize: minF, maxLines: colMode ? (stress ? 7 : 5) : (stress ? 3 : 2), weight: 700}) : null;
@@ -171,7 +211,7 @@ function geom(ctx, F, minF, side, colMode = false) {
   const R0 = F * 0.9;
   const headerFits = [p.scenarioA.label, p.scenarioB.label].map(t => (show ? fitG(t, {maxWidth: bw - R0 * 2 - 40, size: F, minSize: minF, maxLines: 2, weight: 700}) : null));
   if (headerFits.some(f => f && f.bad)) why.push('header-text');
-  const B = benchGeom(ctx, p, bw, bh, F, minF, stress, Math.max(0, ...headerFits.map(f => (f ? f.height : 0))));
+  const B = (vMode ? benchGeomV : benchGeom)(ctx, p, bw, bh, F, minF, stress, Math.max(0, ...headerFits.map(f => (f ? f.height : 0))));
   why.push(...B.why);
   const origins = side ? [{x: m, y: m}, {x: m + bw + gap, y: m}] : [{x: m, y: m}, {x: m, y: m + bh + gap}];
   const yb = colMode ? m + Math.max(0, (D.h - 2 * m - (stripH + notesH + 14)) / 2) : m + (side ? bh : 2 * bh + gap) + 14;
@@ -232,7 +272,7 @@ const scene = {
     const upx = unitPx(ctx);
     const stress = isStress(p);
     const minF = (stress ? 16.6 : 20) / upx;
-    const modes = ctx.view.shape === 'landscape' ? [[true, false], [false, false]] : ctx.view.shape === 'square' ? [[false, true], [false, false]] : [[false, false]];
+    const modes = ctx.view.shape === 'landscape' ? [[true, false], [false, false]] : ctx.view.shape === 'square' ? [[true, true], [false, false]] : [[false, false]];
     let L = null;
     search: for (const fpx of stress ? [23, 21, 19.5, 18, 17] : [28, 26.5, 25, 23, 21.5, 20.5]) for (const [sd, cm] of modes) {
       L = geom(ctx, fpx / upx, minF, sd, cm);
