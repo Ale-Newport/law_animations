@@ -91,11 +91,11 @@ function geom(ctx, F, minF) {
   // one small station (gantry + press) per step; the card pauses so that the press of station k meets its tab k
   const cHead = clamp(F * 1.05, 22, 30);
   const stackC = S.w < 700;
-  const cw = Math.min(S.w * (stackC ? 0.4 : 0.36), 300);
+  const cw = Math.min(S.w * (stackC ? (stress ? 0.4 : 0.42) : 0.36), 300);
   const propFit = fitG(p.proposal, {maxWidth: cw - 18, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 800});
   const chMin = cHead + 10 + propFit.height + 10;
   const cX = stackC ? cw + 26 : S.w * 0.36, cW = S.w - cX;
-  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: cW - 64, size: F, minSize: minF, maxLines: stress && stackC ? 5 : stress || stackC ? 3 : 2, weight: 800});
+  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: cW - 64, size: F, minSize: minF, maxLines: stress && stackC ? 5 : stackC ? 4 : stress ? 3 : 2, weight: 800});
   const headH = head.height + 22;
   const clW = stackC ? cW - 32 : cW * 0.5 - 24;
   const clFit = fitG(p.clause, {maxWidth: clW - 18 - discR * 2 - 14 - 12, size: F, minSize: minF, maxLines: stress ? (stackC ? 5 : 4) : 3, weight: 700});
@@ -104,7 +104,7 @@ function geom(ctx, F, minF) {
   const cGap = stackC ? 16 : 22;
   const fixed = hh + 8 + headH + 50 + cGap + pressZone + 26 + (stackC ? clH0 + 14 : 0);
   const chFree = (S.h - fixed) / 2;
-  const ch = Math.max(chMin, Math.min(chFree, cw * 0.72));
+  const ch = Math.max(chMin, Math.min(chFree, cw * (stackC ? 0.85 : 0.72)));
   if (chFree < chMin) why.push(`card-h:${r(chFree)}/${r(chMin)}`);
   const extra = Math.max(0, S.h - (fixed + 2 * ch) - 12);
   pressZone += Math.min(extra * 0.45, 260);
@@ -188,9 +188,9 @@ const scene = {
             h('circle', {name: `${P}-lamp${st.k}`, cx: r((gx0 + gx1) / 2), cy: r(L.trackY - 16), r: 7, fill: th.accent2, stroke: INK, 'stroke-width': 1.4, opacity: 0}),
           );
         }),
+        g({transform: T(s0.x, s0.y)}, trayLip(ctx, L.cw, L.ch)),
         // the proposal card
         g({name: `${P}-card`, transform: T(s0.x, s0.y)}, amendmentSheet(ctx, {w: L.cw, h: L.ch, fit: L.propFit, showText: show, name: `${P}-am`, n: L.n, edge: L.edge, headH: L.cHead, sig: false, rev: true, narrow: true})),
-        g({transform: T(s0.x, s0.y)}, trayLip(ctx, L.cw, L.ch)),
         // presses (over the card)
         L.stations.map(st => g({name: `${P}-press${st.k}`, transform: T(st.rest.x, st.rest.y)},
           h('path', {d: `M0 ${r(-st.head.h / 2)}V${r(L.trackY - st.rest.y + 2)}`, stroke: '#59616a', 'stroke-width': 6}),
@@ -199,7 +199,7 @@ const scene = {
           pips(st.k + 1, 0, -5, Math.min(L.pipR * 0.8, (st.head.w - 8) / ((st.k + 1) * 2.8 + 0.4) - 0.6), '#ffffff'),
         )),
         g({name: `${P}-clip`, transform: T(L.attach.x + L.cw * 0.16, L.attach.y - 50), opacity: 0}, binderClip(ctx, `${P}-clip-art`, Math.min(54, L.cw * 0.3))),
-        h('path', {name: `${P}-guide`, d: roundRectPath(-14, -14, 1, 1, 1), fill: 'none', stroke: th.accent, 'stroke-width': 4.5, opacity: 0}),
+        h('path', {name: `${P}-guide`, d: roundRectPath(-14, -14, 1, 1, 1), fill: 'none', stroke: '#6b7280', 'stroke-width': 4.5, opacity: 0}),
       );
     };
     const legend = L.legend ? L.legend.map(c => g(null,

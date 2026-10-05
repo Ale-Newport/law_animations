@@ -29,7 +29,7 @@ import {personRig} from '../../primitives/person.js';
 import {actorLook} from '../../primitives/people-style.js';
 import {
   eaFields, EA_EN, EA_ES, localised, resolveLinks, boardNode, threadNode, threadD, magnifierArt, magnifierBox,
-  legendColumns, panelNode, ringRect, noteColors, R2, overlaps, unionBox, INK, FRAME, THREAD,
+  legendColumns, panelNode, ringRect, fitG, noteColors, R2, overlaps, unionBox, INK, FRAME, THREAD,
 } from './kits/analysis-art.js';
 import {
   MP_LABELS_EN, MP_LABELS_ES, mpLabelFields, boardLayout, idFits, claimTextH, cardNodes, evidenceBox, slotNodes, contentRows,
@@ -101,10 +101,10 @@ const defaultParams = {...EN, actionProgress: 1, finalState: 'linked'};
 
 /* ------------------------------------------------------------------ */
 
-function legendRows(ctx, P, links, looks, actorLooks) {
+function legendRows(ctx, P, links, looks, actorLooks, claimsInLegend) {
   const showKey = ctx.show('key'), showAll = ctx.show('all');
   const notes = noteColors(ctx.theme);
-  const rows = contentRows(ctx, P, links, {looks, claims: false});
+  const rows = contentRows(ctx, P, links, {looks, claims: claimsInLegend});
   if (showAll) {
     rows.push({kind: 'item', icon: 'person', look: actorLooks[0], text: P.actorLabels.a, name: 'lg-wit', caption: true});
     rows.push({kind: 'item', icon: 'person', look: actorLooks[1], text: P.actorLabels.b, name: 'lg-an', caption: true});
@@ -135,18 +135,18 @@ function stageModel(ctx, P, links, S, cand) {
     for (let it = 0; it < 3; it++) {
       board = {x: S.x + 4, y: S.y, w: S.w - 8, h: bh};
       inner = innerOf(board);
-      BL = boardLayout(inner, P, links, {evRange: [evStart, 1], cardScale: 0.9, claimText: cand.textH});
+      BL = boardLayout(inner, P, links, {evRange: [evStart, 1], cardScale: 0.9, claimText: cand.textH, idW: cand.idW});
       const evTop = Math.min(...BL.evid.map(E => E.y));
       bh = clamp(bh + (reachTop + 14 - evTop), S.h * 0.3, S.h * 0.8);
     }
     board = {x: S.x + 4, y: S.y, w: S.w - 8, h: bh};
     inner = innerOf(board);
-    BL = boardLayout(inner, P, links, {evRange: [evStart, 1], cardScale: 0.9, claimText: cand.textH});
+    BL = boardLayout(inner, P, links, {evRange: [evStart, 1], cardScale: 0.9, claimText: cand.textH, idW: cand.idW});
   } else {
     const bx = S.x + S.w * cand.bx;
     board = {x: bx, y: S.y, w: S.x + S.w - bx - 4, h: (floor - S.y) * cand.bb};
     inner = innerOf(board);
-    BL = boardLayout(inner, P, links, {evRange: [0, 1], cardScale: 1, claimText: cand.textH});
+    BL = boardLayout(inner, P, links, {evRange: [0, 1], cardScale: 1, claimText: cand.textH, idW: cand.idW});
   }
   // table for the evidence that does not come from the witness
   const wIdx = P.evidence.findIndex(e => e.kind === 'witness');
@@ -337,7 +337,7 @@ const mixP = (a, b, t) => ({x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t})
 
 /* ---- composition --------------------------------------------------- */
 
-function compose(ctx, P, links, rows, F, opt, cand) {
+function legendFor(ctx, rows, F, opt) {
   const {w: DW, h: DH} = ctx.design;
   const gap = F * 1.3;
   let stage, panel = null, PL = null;
@@ -354,13 +354,19 @@ function compose(ctx, P, links, rows, F, opt, cand) {
     stage = {x: 0, y: 0, w: DW - PW - gap, h: DH};
     panel = {x: DW - PW, y: Math.max(0, (DH - PL.h) / 2)};
   }
+  return {stage, panel, PL};
+}
+
+function compose(ctx, P, links, LG, F, cand, cot) {
+  const {stage, panel, PL} = LG;
   const problems = [];
   if (PL && !PL.ok) problems.push('panel-text');
   if (stage.h < 300 || stage.w < 300) return {problems: ['stage-small'], ok: false, score: 0};
   const asp = stage.w / stage.h;
   if ((cand.arr === 'tall') !== (asp < 1.05)) return {problems: ['arrangement'], ok: false};
-  const M = stageModel(ctx, P, links, stage, {...cand, textH: ctx.show('key') ? claimTextH(P, F) : null});
-  return {F, stage, panel, PL, M, problems, ok: problems.length === 0};
+  const key = ctx.show('key');
+  const M = stageModel(ctx, P, links, stage, {...cand, textH: key && cot ? claimTextH(P, F) : null, idW: key ? Math.max(...P.evidence.map(e => fitG(e.id, {maxWidth: 999, size: 20, weight: 800, maxLines: 1}).width)) : 0});
+  return {F, stage, panel, PL, M, problems, ok: problems.length === 0, cot};
 }
 
 /** Thread end points, dangle points and reach checks for a stage model. */
@@ -396,31 +402,36 @@ const scene = {
     const links = resolveLinks(P);
     const looks = P.evidence.map((e, j) => actorLook(ctx, null, 2 + j));
     const actorLooks = [actorLook(ctx, null, 0), actorLook(ctx, null, 1)];
-    const rows = legendRows(ctx, P, links, looks, actorLooks);
+    const rowsBy = {true: legendRows(ctx, P, links, looks, actorLooks, false), false: legendRows(ctx, P, links, looks, actorLooks, true)};
     const shape = ctx.view.shape;
     const opts = shape === 'portrait' ? [{mode: 'below', cols: 1}, {mode: 'below', cols: 2}, {mode: 'below', cols: 3}]
       : shape === 'square' ? [{mode: 'below', cols: 2}, {mode: 'below', cols: 3}]
         : [{mode: 'side', pw: 0.28}, {mode: 'side', pw: 0.32}, {mode: 'side', pw: 0.36}];
     const tallC = [{arr: 'tall', kf: 0.36, bb: 0.6}, {arr: 'tall', kf: 0.4, bb: 0.62}, {arr: 'tall', kf: 0.44, bb: 0.64}, {arr: 'tall', kf: 0.32, bb: 0.6}];
-    const wideC = [{arr: 'wide', kf: 0.62, bb: 0.62, bx: 0.36}, {arr: 'wide', kf: 0.66, bb: 0.6, bx: 0.38}, {arr: 'wide', kf: 0.58, bb: 0.64, bx: 0.34}, {arr: 'wide', kf: 0.7, bb: 0.58, bx: 0.4}, {arr: 'wide', kf: 0.76, bb: 0.6, bx: 0.36}, {arr: 'wide', kf: 0.82, bb: 0.62, bx: 0.34}];
+    const wideC = [];
+    for (const kf of [0.58, 0.64, 0.7, 0.78]) for (const bb of [0.62, 0.7]) for (const bx of [0.34, 0.38]) wideC.push({arr: 'wide', kf, bb, bx});
     const cands = [...tallC, ...wideC];
     let C = null, best = null, bestScore = -1;
     let firstOk = -1;
     for (const [si, F] of SIZES.entries()) {
-      if (firstOk >= 0 && si > firstOk + 2) break;
-      for (const opt of opts) for (const cand of cands) {
-        const c = compose(ctx, P, links, rows, F, opt, cand);
-        if (!c.M) { if (!C) C = c; continue; }
-        const ids = idFits(P, c.M.BL, 1, ctx.show('key') ? F : null);
-        const extra = finishModel(ctx, P, links, c.M);
-        if (!ids.ok && ctx.show('key')) extra.push('id-text');
-        c.problems.push(...extra);
-        c.ok = c.problems.length === 0;
-        c.ids = ids;
-        const score = c.M.k * Math.sqrt(c.M.BL.ew) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1);
-        if (c.ok && firstOk < 0 && F >= 19.5) firstOk = si;
-        if (c.ok && score > bestScore) { best = c; bestScore = score; }
-        if (!C || !C.M || c.problems.length < C.problems.length) C = c;
+      if (firstOk >= 0 && si > firstOk + 1) break;
+      for (const cot of [true, false]) for (const opt of opts) {
+        const LG = legendFor(ctx, rowsBy[cot], F, opt);
+        if (LG.PL && !LG.PL.ok && C) continue;
+        for (const cand of cands) {
+          const c = compose(ctx, P, links, LG, F, cand, cot);
+          if (!c.M) { if (!C) C = c; continue; }
+          const ids = idFits(P, c.M.BL, 1, ctx.show('key') && cot ? F : null);
+          const extra = finishModel(ctx, P, links, c.M);
+          if (!ids.ok && ctx.show('key')) extra.push('id-text');
+          c.problems.push(...extra);
+          c.ok = c.problems.length === 0;
+          c.ids = ids;
+          const score = c.M.k * Math.sqrt(c.M.BL.ew) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * (cot ? 1.15 : 1);
+          if (c.ok && firstOk < 0 && F >= 19.5) firstOk = si;
+          if (c.ok && score > bestScore) { best = c; bestScore = score; }
+          if (!C || !C.M || c.problems.length < C.problems.length) C = c;
+        }
       }
     }
     if (best) C = best;

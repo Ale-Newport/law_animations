@@ -57,9 +57,13 @@ export function boardLayout(inner, P, links, o = {}) {
   const textH = o.claimText ? o.claimText(cw) : null;
   const ch = textH != null ? Math.max(cw * 0.5, band + textH + Math.max(14, cw * 0.05) + 16) : cw * 0.6;
   const ew0 = (inner.w * (eb - ea) - pad * 2) / nE;
-  const ew = Math.min(ew0 * 0.56, inner.h * 0.34) * k;
+  // evidence cards: as large as the band below the claims allows, leaving a real gap for the threads
+  const gapMin = Math.max(56, inner.h * (o.gap ?? 0.2));
+  const availH = inner.h - pad * 1.5 - ch - gapMin;
+  const ew = Math.max(20, Math.min(ew0 * 0.56, inner.h * 0.34 * k, availH / 1.4));
   const eh = ew * 1.22;
-  const tw = ew * 0.62, th = Math.max(26, ew * 0.3);
+  const th = Math.max(26, ew * 0.3);
+  const tw = Math.max(ew * 0.62, (o.idW || 0) / 0.62 + th * 0.2);
   const claims = P.claims.map((c, i) => {
     const cx = inner.x + inner.w * ca + pad + cw0 * (i + 0.5);
     const x = cx - cw / 2, y = inner.y + pad * 0.9;

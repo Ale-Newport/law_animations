@@ -82,7 +82,7 @@ function geom(ctx, F, minF) {
   const need = (0.375 * 1080) / upx; // lens smaller side (units) for ≥ 35 % of the frame's short side
   const opt = top => {
     if (top) {
-      const cs = shape === 'square' ? 0.45 : 0.5;
+      const cs = shape === 'square' ? 0.47 : 0.5;
       const y0 = A.y + A.h * cs + 14;
       return {step: {cs, ax: D.w / 2, ay: A.y}, area: {x: pad, y: y0, w: D.w - pad * 2, h: A.y + A.h - y0}};
     }
@@ -96,9 +96,9 @@ function geom(ctx, F, minF) {
   const wasFit0 = fitG(`${ctx.t.was}: ${p.steps[ck]}`, {maxWidth: P.w - 20, size: wasSize / 1.5, minSize: wasSize / 1.5, maxLines: 3, weight: 600});
   const wasH = wasFit0.height + 14;
   const srcW = P.w + 28;
-  const k = Math.min(area.w / srcW, 3);
   const baseH = P.h + 24 + wasH + 10;
-  const srcH = Math.min(Math.max(baseH, need / k), area.h / k);
+  const k = Math.min(area.w / srcW, (area.h * 0.97) / baseH, 4.5);
+  const srcH = Math.min(Math.max(baseH, need / k, (area.h * 0.9) / k), area.h / k);
   const src = {x: P.x - 14, y: P.y - 12 - Math.max(0, (srcH - baseH) / 2), w: srcW, h: srcH};
   const dest = {w: src.w * k, h: src.h * k};
   dest.x = area.x + (area.w - dest.w) / 2;
