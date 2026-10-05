@@ -1,0 +1,871 @@
+{
+  "animationId": "LAW-0337",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0337",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "decisions.title"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "16:9",
+          "k": "person",
+          "f": 58,
+          "d": 91
+        },
+        {
+          "ratio": "16:9",
+          "k": "hand",
+          "f": 58,
+          "d": 91
+        },
+        {
+          "ratio": "16:9",
+          "k": "handL",
+          "f": 58,
+          "d": 91
+        },
+        {
+          "ratio": "16:9",
+          "k": "person",
+          "f": 261,
+          "d": 92
+        },
+        {
+          "ratio": "16:9",
+          "k": "hand",
+          "f": 261,
+          "d": 92
+        },
+        {
+          "ratio": "16:9",
+          "k": "handL",
+          "f": 261,
+          "d": 92
+        }
+      ]
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: every piece in the tray, both folders open, hands down, no state shown @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "step": null,
+          "arr": "stack",
+          "n": 3,
+          "inB": 0,
+          "inTray": 3,
+          "carried": -1,
+          "coverA": -1,
+          "coverB": -1,
+          "reaching": 0,
+          "lift": 0,
+          "handMode": "none",
+          "p0": {
+            "x": 852.23,
+            "y": 551.78
+          },
+          "p1": {
+            "x": 857.68,
+            "y": 547.01
+          },
+          "p2": {
+            "x": 863.13,
+            "y": 542.24
+          },
+          "p3": {
+            "x": 0,
+            "y": 0
+          },
+          "person": {
+            "x": 650.73,
+            "y": 377.38
+          },
+          "hand": {
+            "x": 709.3,
+            "y": 399.18
+          },
+          "handL": {
+            "x": 592.16,
+            "y": 399.18
+          },
+          "gripR": null,
+          "gripL": null,
+          "held": null,
+          "divider": {
+            "x": 638.47,
+            "y": 81.72,
+            "w": 24.52,
+            "h": 247.99
+          },
+          "dividerX": 650.73,
+          "pin": 0,
+          "allReached": true,
+          "finalState": "kept-separate",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 19.5,
+          "pxu": 0.9706,
+          "personPx": 132.2,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: nothing happens during the rest beat @0.145",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "step": null,
+          "arr": "stack",
+          "n": 3,
+          "inB": 0,
+          "inTray": 3,
+          "carried": -1,
+          "coverA": -1,
+          "coverB": -1,
+          "reaching": 0,
+          "lift": 0,
+          "handMode": "none",
+          "p0": {
+            "x": 852.23,
+            "y": 551.78
+          },
+          "p1": {
+            "x": 857.68,
+            "y": 547.01
+          },
+          "p2": {
+            "x": 863.13,
+            "y": 542.24
+          },
+          "p3": {
+            "x": 0,
+            "y": 0
+          },
+          "person": {
+            "x": 650.73,
+            "y": 377.38
+          },
+          "hand": {
+            "x": 709.3,
+            "y": 399.18
+          },
+          "handL": {
+            "x": 592.16,
+            "y": 399.18
+          },
+          "gripR": null,
+          "gripL": null,
+          "held": null,
+          "divider": {
+            "x": 638.47,
+            "y": 81.72,
+            "w": 24.52,
+            "h": 247.99
+          },
+          "dividerX": 650.73,
+          "pin": 0,
+          "allReached": true,
+          "finalState": "kept-separate",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 19.5,
+          "pxu": 0.9706,
+          "personPx": 132.2,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: folder A is closed over the original file before any piece is filed @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "phase": "reaching",
+          "step": "reach",
+          "arr": "stack",
+          "n": 3,
+          "inB": 0,
+          "inTray": 3,
+          "carried": -1,
+          "coverA": 1,
+          "coverB": -1,
+          "reaching": 0.009,
+          "lift": 0,
+          "handMode": "sheet",
+          "p0": {
+            "x": 852.23,
+            "y": 551.78
+          },
+          "p1": {
+            "x": 857.68,
+            "y": 547.01
+          },
+          "p2": {
+            "x": 863.13,
+            "y": 542.24
+          },
+          "p3": {
+            "x": 0,
+            "y": 0
+          },
+          "person": {
+            "x": 852.23,
+            "y": 380.11
+          },
+          "hand": {
+            "x": 793.93,
+            "y": 359.35
+          },
+          "handL": {
+            "x": 910.54,
+            "y": 359.35
+          },
+          "gripR": {
+            "x": 821.17,
+            "y": 467.28
+          },
+          "gripL": {
+            "x": 883.3,
+            "y": 467.28
+          },
+          "held": null,
+          "divider": {
+            "x": 638.47,
+            "y": 81.72,
+            "w": 24.52,
+            "h": 247.99
+          },
+          "dividerX": 650.73,
+          "pin": 0,
+          "allReached": true,
+          "finalState": "kept-separate",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 19.5,
+          "pxu": 0.9706,
+          "personPx": 132.2,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: every piece lies in folder B; folder A stays closed @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "phase": "releasing",
+          "step": "release",
+          "arr": "stack",
+          "n": 3,
+          "inB": 3,
+          "inTray": 0,
+          "carried": -1,
+          "coverA": 1,
+          "coverB": 1,
+          "reaching": 0.999,
+          "lift": 0,
+          "handMode": "cover",
+          "p0": {
+            "x": 970.15,
+            "y": 213.89
+          },
+          "p1": {
+            "x": 978.32,
+            "y": 208.44
+          },
+          "p2": {
+            "x": 986.49,
+            "y": 202.99
+          },
+          "p3": {
+            "x": 0,
+            "y": 0
+          },
+          "person": {
+            "x": 1114.3,
+            "y": 377.38
+          },
+          "hand": {
+            "x": 1172.87,
+            "y": 399.18
+          },
+          "handL": {
+            "x": 1073.43,
+            "y": 305.27
+          },
+          "gripR": null,
+          "gripL": {
+            "x": 1073.44,
+            "y": 305.2
+          },
+          "held": null,
+          "divider": {
+            "x": 638.47,
+            "y": 81.72,
+            "w": 24.52,
+            "h": 247.99
+          },
+          "dividerX": 650.73,
+          "pin": 0,
+          "allReached": true,
+          "finalState": "kept-separate",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 19.5,
+          "pxu": 0.9706,
+          "personPx": 132.2,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: hold (● kept-separate): both folders closed; hands down; the sign shows the state; the composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "done",
+          "step": null,
+          "arr": "stack",
+          "n": 3,
+          "inB": 3,
+          "inTray": 0,
+          "carried": -1,
+          "coverA": 1,
+          "coverB": 1,
+          "reaching": 0,
+          "lift": 0,
+          "handMode": "none",
+          "p0": {
+            "x": 970.15,
+            "y": 213.89
+          },
+          "p1": {
+            "x": 978.32,
+            "y": 208.44
+          },
+          "p2": {
+            "x": 986.49,
+            "y": 202.99
+          },
+          "p3": {
+            "x": 0,
+            "y": 0
+          },
+          "person": {
+            "x": 650.73,
+            "y": 377.38
+          },
+          "hand": {
+            "x": 709.3,
+            "y": 399.18
+          },
+          "handL": {
+            "x": 592.16,
+            "y": 399.18
+          },
+          "gripR": null,
+          "gripL": null,
+          "held": null,
+          "divider": {
+            "x": 638.47,
+            "y": 81.72,
+            "w": 24.52,
+            "h": 247.99
+          },
+          "dividerX": 650.73,
+          "pin": 1,
+          "allReached": true,
+          "finalState": "kept-separate",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 19.5,
+          "pxu": 0.9706,
+          "personPx": 132.2,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: ◆ open-for-review: folder B stays open with its pieces @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "done",
+          "step": null,
+          "arr": "stack",
+          "n": 3,
+          "inB": 3,
+          "inTray": 0,
+          "carried": -1,
+          "coverA": 1,
+          "coverB": -1,
+          "reaching": 0,
+          "lift": 0,
+          "handMode": "none",
+          "p0": {
+            "x": 970.15,
+            "y": 213.89
+          },
+          "p1": {
+            "x": 978.32,
+            "y": 208.44
+          },
+          "p2": {
+            "x": 986.49,
+            "y": 202.99
+          },
+          "p3": {
+            "x": 0,
+            "y": 0
+          },
+          "person": {
+            "x": 650.73,
+            "y": 377.38
+          },
+          "hand": {
+            "x": 709.3,
+            "y": 399.18
+          },
+          "handL": {
+            "x": 592.16,
+            "y": 399.18
+          },
+          "gripR": null,
+          "gripL": null,
+          "held": null,
+          "divider": {
+            "x": 638.47,
+            "y": 81.72,
+            "w": 24.52,
+            "h": 247.99
+          },
+          "dividerX": 650.73,
+          "pin": 1,
+          "allReached": true,
+          "finalState": "open-for-review",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 19.5,
+          "pxu": 0.9706,
+          "personPx": 132.2,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same action @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "phase": "releasing",
+          "step": "release",
+          "arr": "row",
+          "n": 3,
+          "inB": 1,
+          "inTray": 2,
+          "carried": -1,
+          "coverA": 1,
+          "coverB": -1,
+          "reaching": 0.05,
+          "lift": 0,
+          "handMode": "sheet",
+          "p0": {
+            "x": 1185.76,
+            "y": 323.84
+          },
+          "p1": {
+            "x": 1479.26,
+            "y": 315.78
+          },
+          "p2": {
+            "x": 1472.1,
+            "y": 322.04
+          },
+          "p3": {
+            "x": 0,
+            "y": 0
+          },
+          "person": {
+            "x": 1185.76,
+            "y": 534.52
+          },
+          "hand": {
+            "x": 1260.73,
+            "y": 556.07
+          },
+          "handL": {
+            "x": 1110.8,
+            "y": 556.07
+          },
+          "gripR": {
+            "x": 1221.57,
+            "y": 419.9
+          },
+          "gripL": {
+            "x": 1149.95,
+            "y": 419.9
+          },
+          "held": null,
+          "divider": {
+            "x": 784.01,
+            "y": 165.08,
+            "w": 32.24,
+            "h": 296.01
+          },
+          "dividerX": 800.13,
+          "pin": 0,
+          "allReached": true,
+          "finalState": "kept-separate",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 22.5,
+          "pxu": 0.9706,
+          "personPx": 173.8,
+          "cols": 0
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "releasing",
+          "step": "release",
+          "arr": "stack",
+          "n": 3,
+          "inB": 1,
+          "inTray": 2,
+          "carried": -1,
+          "coverA": 1,
+          "coverB": -1,
+          "reaching": 0,
+          "lift": 0,
+          "handMode": "sheet",
+          "p0": {
+            "x": 970.15,
+            "y": 213.89
+          },
+          "p1": {
+            "x": 857.68,
+            "y": 547.01
+          },
+          "p2": {
+            "x": 863.13,
+            "y": 542.24
+          },
+          "p3": {
+            "x": 0,
+            "y": 0
+          },
+          "person": {
+            "x": 970.15,
+            "y": 385.56
+          },
+          "hand": {
+            "x": 1028.71,
+            "y": 407.33
+          },
+          "handL": {
+            "x": 911.59,
+            "y": 407.33
+          },
+          "gripR": {
+            "x": 1001.22,
+            "y": 298.39
+          },
+          "gripL": {
+            "x": 939.08,
+            "y": 298.39
+          },
+          "held": null,
+          "divider": {
+            "x": 638.47,
+            "y": 81.72,
+            "w": 24.52,
+            "h": 247.99
+          },
+          "dividerX": 650.73,
+          "pin": 0,
+          "allReached": true,
+          "finalState": "kept-separate",
+          "actionCapped": true,
+          "problems": [],
+          "textPx": 19.5,
+          "pxu": 0.9706,
+          "personPx": 132.2,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: one supplied piece: it alone is filed @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "done",
+          "step": null,
+          "arr": "stack",
+          "n": 1,
+          "inB": 1,
+          "inTray": 0,
+          "carried": -1,
+          "coverA": 1,
+          "coverB": 1,
+          "reaching": 0,
+          "lift": 0,
+          "handMode": "none",
+          "p0": {
+            "x": 970.15,
+            "y": 213.89
+          },
+          "p1": {
+            "x": 0,
+            "y": 0
+          },
+          "p2": {
+            "x": 0,
+            "y": 0
+          },
+          "p3": {
+            "x": 0,
+            "y": 0
+          },
+          "person": {
+            "x": 650.73,
+            "y": 377.38
+          },
+          "hand": {
+            "x": 709.3,
+            "y": 399.18
+          },
+          "handL": {
+            "x": 592.16,
+            "y": 399.18
+          },
+          "gripR": null,
+          "gripL": null,
+          "held": null,
+          "divider": {
+            "x": 638.47,
+            "y": 81.72,
+            "w": 24.52,
+            "h": 247.99
+          },
+          "dividerX": 650.73,
+          "pin": 1,
+          "allReached": true,
+          "finalState": "kept-separate",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 19.8,
+          "pxu": 0.9706,
+          "personPx": 132.2,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the rest state exactly @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "step": null,
+          "arr": "stack",
+          "n": 3,
+          "inB": 0,
+          "inTray": 3,
+          "carried": -1,
+          "coverA": -1,
+          "coverB": -1,
+          "reaching": 0,
+          "lift": 0,
+          "handMode": "none",
+          "p0": {
+            "x": 852.23,
+            "y": 551.78
+          },
+          "p1": {
+            "x": 857.68,
+            "y": 547.01
+          },
+          "p2": {
+            "x": 863.13,
+            "y": 542.24
+          },
+          "p3": {
+            "x": 0,
+            "y": 0
+          },
+          "person": {
+            "x": 650.73,
+            "y": 377.38
+          },
+          "hand": {
+            "x": 709.3,
+            "y": 399.18
+          },
+          "handL": {
+            "x": 592.16,
+            "y": 399.18
+          },
+          "gripR": null,
+          "gripL": null,
+          "held": null,
+          "divider": {
+            "x": 638.47,
+            "y": 81.72,
+            "w": 24.52,
+            "h": 247.99
+          },
+          "dividerX": 650.73,
+          "pin": 0,
+          "allReached": true,
+          "finalState": "kept-separate",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 19.5,
+          "pxu": 0.9706,
+          "personPx": 132.2,
+          "cols": 1
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

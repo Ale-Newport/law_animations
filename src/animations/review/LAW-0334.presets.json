@@ -1,0 +1,94 @@
+{
+  "animationId": "LAW-0334",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. The decision is a placeholder sheet; the frame encloses ONLY the supplied range (routes.from..routes.to) and implies no rule about what a review may cover. Relationships are drawn only as supplied: plain relations have no arrowheads; a causal style appears only when the author supplies kind 'causal' (no shipped preset does). Cards describe where each supplied question's section lies relative to the supplied frame (inside / outside, as supplied); nothing is admitted, rejected or decided. Brief fields: decisions, grounds, routes, outcomes, elements, relationships, focusElement, relationLabels and traversalOrder are editable.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Five sections, the frame over Sections 2–3 lifted out beside (or below) the decision; plain relations decision–frame, frame–A, frame–B; the tracer runs decision → frame → A → frame → B with the frame enlarged; copies of Sections 2–3 slide into its glass.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four sections, a frame over Sections 1–2, question A at Section 4 (outside) and B at Section 1 (inside); a supplied sequence link from question A to question B (drawn with an arrowhead and captioned 'sequence as configured'), the decision as focus, and another traversal order.",
+      "params": {
+        "decisions": {"title": "Decision of example K (fictional; placeholder)", "sections": ["Part I — background (placeholder)", "Part II — account (placeholder)", "Part III — analysis (placeholder)", "Part IV — operative text (placeholder)"]},
+        "grounds": [
+          {"side": "a", "text": "Question A about Part IV (fictional)", "section": 3},
+          {"side": "b", "text": "Question B about Part I (fictional)", "section": 0}
+        ],
+        "routes": {"from": 0, "to": 1},
+        "relationships": [
+          {"from": "decision", "to": "frame", "kind": "relation", "label": "frame laid over Parts I–II (as supplied)"},
+          {"from": "frame", "to": "questionA", "kind": "relation"},
+          {"from": "frame", "to": "questionB", "kind": "relation"},
+          {"from": "questionA", "to": "questionB", "kind": "sequence", "label": "sequence as configured (illustrative)"}
+        ],
+        "focusElement": "decision",
+        "traversalOrder": ["questionA", "questionB", "frame", "decision"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: six sections with long tags, a long title, long questions, long component and relation captions, a frame over Sections 2–5 and an eight-step traversal.",
+      "params": {
+        "decisions": {
+          "title": "Decision under review in this fictional example (placeholder)",
+          "sections": [
+            "Section 1 of this fictional decision (supplied text)",
+            "Section 2 of this fictional decision (supplied text)",
+            "Section 3 of this fictional decision (supplied text)",
+            "Section 4 of this fictional decision (supplied text)",
+            "Section 5 of this fictional decision (supplied text)",
+            "Section 6 of this fictional decision (supplied text)"
+          ]
+        },
+        "grounds": [
+          {"side": "a", "text": "Question A raised about Section 3 in this fictional example (as supplied)", "section": 2},
+          {"side": "b", "text": "Question B raised about Section 6 in this fictional example (as supplied)", "section": 5}
+        ],
+        "routes": {"from": 1, "to": 4},
+        "outcomes": {"inside": "Its section lies inside the frame in this example (as supplied)", "outside": "Its section lies outside the frame in this example (as supplied)"},
+        "labels": {"frame": "Review frame of this example: the sections it encloses are supplied by the user", "key": "As supplied · no conclusion drawn (placeholder content only)"},
+        "elements": [
+          {"id": "decision", "label": "Decision of this example (placeholder sheet)"},
+          {"id": "frame", "label": "Review frame with its neutral filter glass"},
+          {"id": "questionA", "label": "Question A of this fictional example"},
+          {"id": "questionB", "label": "Question B of this fictional example"}
+        ],
+        "relationships": [
+          {"from": "decision", "to": "frame", "kind": "relation", "label": "frame laid over the sections supplied in this example"},
+          {"from": "frame", "to": "questionA", "kind": "relation"},
+          {"from": "frame", "to": "questionB", "kind": "relation"}
+        ],
+        "relationLabels": {"relation": "where its section lies in this example", "communication": "communication in this example (as supplied)", "sequence": "sequence in this example (as configured)", "causal": "causal link supplied by the user (as supplied)"},
+        "traversalOrder": ["decision", "frame", "questionA", "frame", "questionB", "frame", "decision", "frame"]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {"title": "Resolución revisada (ficticia)", "sections": ["Apartado 1 (texto aportado)", "Apartado 2 (texto aportado)", "Apartado 3 (texto aportado)", "Apartado 4 (texto aportado)", "Apartado 5 (texto aportado)"]},
+        "grounds": [
+          {"side": "a", "text": "Cuestión A (ficticia, según lo aportado)", "section": 1},
+          {"side": "b", "text": "Cuestión B (ficticia, según lo aportado)", "section": 3}
+        ],
+        "outcomes": {"inside": "Su apartado queda dentro del marco (según lo aportado)", "outside": "Su apartado queda fuera del marco (según lo aportado)"},
+        "labels": {"frame": "Marco de revisión: los apartados que abarca son aportados", "key": "Según lo aportado · sin conclusión"},
+        "elements": [
+          {"id": "decision", "label": "Resolución (hoja provisional)"},
+          {"id": "frame", "label": "Marco de revisión con cristal filtro"},
+          {"id": "questionA", "label": "Cuestión A"},
+          {"id": "questionB", "label": "Cuestión B"}
+        ],
+        "relationships": [
+          {"from": "decision", "to": "frame", "kind": "relation", "label": "marco sobre los apartados aportados"},
+          {"from": "frame", "to": "questionA", "kind": "relation"},
+          {"from": "frame", "to": "questionB", "kind": "relation"}
+        ],
+        "relationLabels": {"relation": "dónde queda su apartado", "communication": "comunicación (según lo aportado)", "sequence": "secuencia (según lo aportado)", "causal": "vínculo causal (aportado)"}
+      }
+    }
+  ]
+}

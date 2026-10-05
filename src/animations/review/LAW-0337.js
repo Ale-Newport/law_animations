@@ -83,6 +83,8 @@ const sceneSchema = {
 };
 
 const defaultParams = {...EN, actionProgress: 1, finalState: 'kept-separate'};
+/** The localised defaults (tests resolve what a locale-'es' render shows). */
+export const LOCALES = {en: EN, es: ES};
 
 /** The participant's plan (template units). */
 function storyPlan(G, n, kept) {
@@ -140,16 +142,19 @@ const scene = {
     if (showAll) P.annotations.forEach((a, i) => rows.push({kind: 'note', color: noteColors[i % 2], text: a.text, name: `note${i}`}));
     if (showKey) rows.push({kind: 'state', text: P.stateCaption ? P.stateCaption : ctx.t[side === 'a' ? 'kept' : 'open'], name: 'state-tag'});
     if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
-    const optsFor = arr => ({arr, docK: DOCK[arr], person: true, sign: true, n: R.n});
+    // (a tall box may grow the room's floor further: the room keeps most of a portrait frame)
+    const optsFor = arr => ({arr, docK: DOCK[arr], person: true, sign: true, n: R.n, crop: ctx.view.shape === 'portrait' ? 1.7 : 1.2});
     const search = (arr, minPersonPx) => searchSa(ctx, rows, {
       sizes: [22.5, 21.6, 20.7, 19.8, 19.5, 18.9, 18, 17.1, 16.4], minF: 16.4, minPersonPx,
-      colFracs: [0.25, 0.3, 0.35, 0.39], bandCols: [2, 3], sidePanels: [[0.44, 2], [0.5, 2]], bandMax: ctx.view.shape === 'square' ? 0.55 : 0.5,
-      scales: [1],
+      colFracs: [0.25, 0.3, 0.35, 0.39], bandCols: [2, 3], sidePanels: [[0.44, 2], [0.5, 2]], bandMax: ctx.view.shape === 'square' ? 0.62 : 0.5,
+      scales: [1], targetPx: 1e9,
+      // (item 18: the room — folders, pieces, participant — is the subject: a larger room outweighs a larger panel text)
+      scoreOf: C => C.k * 120,
       compose: (box) => composeRd(ctx, R, box, {...optsFor(arr), align: {x: 0.5, y: box.y + box.h < ctx.design.h - 1 ? 1 : 0.5}}),
     });
     const floor = ctx.view.shape === 'square' ? 55.5 : 61;
     const good = b => !b.problems.length && b.F * px >= 19.5 - 1e-6;
-    const sc = b => (good(b) ? 1000 : 0) - 100 * b.problems.length + Math.min(b.personPx, 140) * 2 + b.F * px * 3;
+    const sc = b => (good(b) ? 1000 : 0) - 100 * b.problems.length + b.C.k * 120 + Math.min(b.personPx, 110) + b.F * px * 3;
     let best = null, arr = 'row';
     for (const a of ['row', 'stack']) {
       const b = search(a, floor);
@@ -163,9 +168,11 @@ const scene = {
     const room = rdRoom(ctx, G, {prefix: 'rm', R, person: true});
     const plan = storyPlan(G, R.n, side === 'a');
     const tg = rdTargets(G);
-    const mg = 10;
+    const mg = 14;
     const rings = showAll ? P.annotations.map((a, i) => {
-      const b = tg[a.target];
+      const b0 = tg[a.target];
+      // (the thin divider gets a wider ring, round its feet too)
+      const b = a.target === 'divider' ? {x: b0.x - 22, y: b0.y - 8, w: b0.w + 44, h: b0.h + 16} : b0;
       return h('rect', {x: r(b.x - mg), y: r(b.y - mg), width: r(b.w + 2 * mg), height: r(b.h + 2 * mg), rx: 12, fill: 'none', stroke: noteColors[i % 2], 'stroke-width': r(5 / C.k, 2), 'data-target': a.target});
     }) : [];
     const dyC = centreShiftY(ctx.design, [C.planRect, best.panelBox]);
@@ -205,8 +212,8 @@ const scene = {
     };
     const inB = Object.values(ps.loc).filter(l => l.kind === 'slotN').length;
     const inTray = Object.values(ps.loc).filter(l => l.kind === 'tray').length;
-    const grip = ps.targets ? (ps.targets[0] || ps.targets[1]) : null;
-    const hand = ps.targets && !ps.targets[0] ? rf.handL : rf.hand;
+    const gripR = ps.targets && ps.targets[0] ? ps.targets[0] : null;
+    const gripL = ps.targets && ps.targets[1] ? ps.targets[1] : null;
     return {
       nodes,
       semantic: {
@@ -225,8 +232,10 @@ const scene = {
         handMode: ps.mode,
         p0: pieceAt(0), p1: pieceAt(1), p2: pieceAt(2), p3: pieceAt(3),
         person: R2(C.toD(ps.pose)),
-        hand: hand ? R2(C.toD(hand)) : null,
-        grip: grip ? R2(C.toD(grip)) : null,
+        hand: rf.hand ? R2(C.toD(rf.hand)) : null,
+        handL: rf.handL ? R2(C.toD(rf.handL)) : null,
+        gripR: gripR ? R2(C.toD(gripR)) : null,
+        gripL: gripL ? R2(C.toD(gripL)) : null,
         held: ps.held ? R2(C.toD(ps.held)) : null,
         divider: {x: r(C.toD(G.divider).x), y: r(C.toD(G.divider).y), w: r(G.divider.w * C.k), h: r(G.divider.h * C.k)},
         dividerX: r(C.toD({x: G.divider.x + G.divider.w / 2, y: 0}).x),

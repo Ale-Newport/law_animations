@@ -38,7 +38,7 @@
   "commands": [
     {
       "command": "npx playwright test tests/animations/LAW-0712.test.js --reporter=line",
-      "exitCode": 1
+      "exitCode": 0
     }
   ],
   "structure": {
@@ -63,8 +63,8 @@
     "requiredPresetsPresent": true
   },
   "automatedChecks": {
-    "status": "fail",
-    "exitCode": 1,
+    "status": "pass",
+    "exitCode": 0,
     "checks": 30,
     "failed": [],
     "details": "production/evidence/LAW-0712/automated.json",
@@ -163,11 +163,31 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "pass",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0712/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0712/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0712/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0712/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0712/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0712/sheet-16x9-es.png",
+      "production/scratch/rev-causation-08/rev-LAW-0712.png",
+      "production/scratch/rev-causation-08/r12-none.png"
+    ],
+    "findings": [
+      "automatedChecks pass on re-run of qa.mjs for LAW-0712 alone (first batch run failed only the cold-create 800 ms timing check, contrast 16:9 800 ms, under CPU load ~6); standalone test run 33/33 passed",
+      "build: plate with both rings, focus Consequence 3 on the ◆ pad with hanging value tag; isolate: opaque lens over the tag/string/pads/ring/drum grows ≥1.5× with context miniature kept; substitute: old value struck (0.45–0.49), lifts, new value fades in, then drum slides across the inner ring ◆→● pad (0.60–0.66); return: lens shrinks, Δ marker 'Changed datum', Before (struck)/After kept — dense strip 0.22–0.86 checked, no teleports",
+      "alternative preset substitutes a different datum (Consequence 2, inner→outer) — substantive; long-labels and es fit inside frame",
+      "16:9/9:16/1:1 layouts genuinely differ (side lens vs stacked lens); labels-hidden 9:16 strip reads (lens, drum slides)",
+      "minor: debug hook globalThis.__dbg2 (line ~238) should be removed; u≈0.80 tag is briefly blank by design (value returns after lens closes)",
+      "legal neutral: grouping as supplied, no doctrine, outcome or verdict colours"
+    ],
+    "sourceHash": "284750797c16aee8b83e6c9b3bab9b8a806f37f26948d42006b0a545da53e139",
+    "renderFingerprint": "f81294e52f280595520a235f3f80707b6c7333f0840f5820b7c2f6ddb326c88c",
+    "reviewedAt": "2026-10-05T16:53:15.701Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -183,5 +203,10 @@
   "renderFingerprint": "f81294e52f280595520a235f3f80707b6c7333f0840f5820b7c2f6ddb326c88c",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
   "thumb": "production/evidence/LAW-0712/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

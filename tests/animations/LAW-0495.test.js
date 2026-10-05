@@ -237,3 +237,61 @@ noOneWordLines(ID);
 noLoneLetterSplit(ID);
 noTornNumberUnit(ID);
 esAportadoAgrees(ID);
+
+// Every valid obligation count renders a full scene (reviewer finding, 2026-10-05: three obligations at 1:1 used to leave
+// the scene empty): 1–3 obligations × every tranche × every preset (+ ES defaults) × ratio × labels all / none — the
+// layout fits, both rooms with their boards, cards and people are drawn inside the frame, the text ≥ 16 px (≥ 19.5 px on
+// the non-stress presets' own two-obligation content) and the heads ≥ 45 px.
+test(`${ID}: one to three obligations render a full, legible scene at every ratio (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, {name: 'es-only', params: {locale: 'es'}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets, ratios]) => {
+    const def = await window.__lib.load(id);
+    const fails = [];
+    let n = 0;
+    for (const pr of presets) for (let k = 1; k <= 3; k++) for (const [from, to] of [[1, k], [k, k]]) for (const [ratio, w, h] of ratios) for (const tv of ['all', 'none']) {
+      const base = pr.params.obligations || def.defaultParams.obligations;
+      const es = (pr.params.locale || def.defaultParams.locale) === 'es';
+      const word = es ? 'Obligación' : 'Obligation';
+      const obligations = [...Array(k).keys()].map(i => base[i] ?? `${word} ${i + 1}${es ? ' (texto aportado)' : ' (supplied text)'}`);
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, obligations, tranche: {from, to}, textVisibility: tv}});
+      await x.ready;
+      x.seek(x.durationMs);
+      n++;
+      const tag = `${pr.name} ${k} obl ${from}–${to} ${ratio} ${tv}`;
+      const s = x.getState({bounds: false}).semantic;
+      if (!s.layoutOk) fails.push(`${tag}: layout ${s.why}`);
+      if (!(s.textPx >= 16)) fails.push(`${tag}: text ${s.textPx} px`);
+      if (!(s.headPx >= 45)) fails.push(`${tag}: heads ${s.headPx} px`);
+      if (s.bracketA !== (pr.params.scenarioA?.state === 'pending' ? 'open' : 'closed')) fails.push(`${tag}: room A bracket ${s.bracketA}`);
+      const svg = x.element;
+      const fr = svg.getBoundingClientRect();
+      const k1080 = 1080 / Math.min(w, h) * (w / fr.width);
+      for (const sel of ['a-frame', 'b-frame', 'a-ev-in-sheet', 'b-ev-in-sheet', 'a-A-head', 'a-B-head', 'b-A-head', 'b-B-head', ...[...Array(k).keys()].flatMap(i => [`a-obl${i}-in-sheet`, `b-obl${i}-in-sheet`])]) {
+        const e = svg.querySelector(`[data-node="${sel}"]`);
+        const b = e && e.getBoundingClientRect();
+        if (!b || b.width * k1080 < 20 || b.height * k1080 < 20) { fails.push(`${tag}: ${sel} missing or tiny`); continue; }
+        if (b.left < fr.left - 1 || b.right > fr.right + 1 || b.top < fr.top - 1 || b.bottom > fr.bottom + 1) fails.push(`${tag}: ${sel} outside the frame`);
+      }
+      if (tv === 'all') {
+        const texts = [...svg.querySelectorAll('text')].filter(t => t.textContent.trim() && !t.closest('[data-layer="content-notice"]'));
+        const shown = texts.filter(t => { let op = 1; for (let q = t; q && q !== svg; q = q.parentNode) { const a = q.getAttribute && q.getAttribute('opacity'); if (a !== null && a !== undefined) op *= parseFloat(a); } return op > 0.5; });
+        for (const t of shown) {
+          const b = t.getBoundingClientRect();
+          if (b.left < fr.left - 1 || b.right > fr.right + 1 || b.top < fr.top - 1 || b.bottom > fr.bottom + 1) fails.push(`${tag}: text "${t.textContent.slice(0, 30)}" outside the frame`);
+        }
+        const all = svg.textContent.replace(/[\u00a0\u2060]/g, ' ');
+        for (const txt of obligations) if (!txt.split(/\s+/).slice(0, 2).every(wd => all.includes(wd))) fails.push(`${tag}: "${txt}" not drawn`);
+      }
+      x.destroy();
+      el.remove();
+    }
+    return {fails, n};
+  }, [ID, presets, RATIOS]);
+  expect(out.n).toBeGreaterThan(300);
+  expect(out.fails.slice(0, 30)).toEqual([]);
+});

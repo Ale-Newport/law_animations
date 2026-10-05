@@ -162,11 +162,32 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0709/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0709/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0709/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0709/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0709/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0709/sheet-16x9-es.png",
+      "production/scratch/rev-causation-08/r09-big.png",
+      "production/scratch/rev-causation-08/r09-alt.png",
+      "production/scratch/rev-causation-08/r09-stress916.png",
+      "production/scratch/rev-causation-08/r09-none.png"
+    ],
+    "findings": [
+      "automatedChecks fail (exit 1): own test 'physical scene area >= 0.2' fails — long-labels-stress 9:16 scene area 0.180 at u=0.1 and 0.189 at u=1; seen in render: plate small at top while ~20% of the frame below the legend list is empty; fix: enlarge plate/field in the 9:16 stress layout (use the empty bottom band) or cap the stress counts for 9:16 as done for 1:1",
+      "cold create() 929 ms for contrast-or-alternative 1:1 (>800 ms test bar, measured under shared-CPU load ~6); bound/cache the layout search",
+      "debug hook globalThis.__dbg left in module (lines ~335/341, also changes search break behaviour); remove",
+      "visual otherwise at reference level (copy of LAW-0705 engine): inner ring then outer ring grow from the event pad, posts rise, bracket + grouping chip, readable hold; 16:9/9:16/1:1 re-layout genuine; labels-hidden reads (rings grow, posts rise)",
+      "legal: rings are only the supplied grouping, identical stroke/colour for both rings, outer ring 'to be examined', no doctrine/test/outcome; neutral"
+    ],
+    "sourceHash": "4639197c749e24d95397173bdd1ad955b5c436d4c357579ba6519ea47497b1d2",
+    "renderFingerprint": "ca9461bc7f8b8b75bd38fb6cd7b97a5acec027592111478b6cbcc1e3bedc3173",
+    "reviewedAt": "2026-10-05T16:53:15.226Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -182,5 +203,10 @@
   "renderFingerprint": "ca9461bc7f8b8b75bd38fb6cd7b97a5acec027592111478b6cbcc1e3bedc3173",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.05,0.3,0.5,0.68,1",
   "thumb": "production/evidence/LAW-0709/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

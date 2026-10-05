@@ -63,18 +63,18 @@ const appearance = obj('Optional appearance overrides; defaults derive from the 
 /** Fields shared by the four entries (brief: decisions, grounds, routes, outcomes — outcomes are per entry). */
 export const rdFields = {
   decisions: obj('The decision sheet ("resolución") lying on top of the original file — a fictional placeholder; its content is never shown', {
-    title: str('Name of the decision sheet (fictional, as supplied)', 80),
+    title: str('Name of the decision sheet (fictional, as supplied)', 100),
   }, ['title']),
-  grounds: str('Reason noted by whoever proposes the additional pieces (as supplied; shown, never assessed)', 110),
+  grounds: str('Reason noted by whoever proposes the additional pieces (as supplied; shown, never assessed)', 130),
   routes: obj('Where each kind of material is kept (as configured): a filing arrangement only — nothing is decided about the material', {
-    original: str('Caption of folder A: the original file', 80),
-    additional: str('Caption of folder B: the separate folder for the proposed additional pieces', 80),
-    divider: str('Caption of the neutral divider standing between the two folders (it decides nothing)', 90),
+    original: str('Caption of folder A: the original file', 100),
+    additional: str('Caption of folder B: the separate folder for the proposed additional pieces', 100),
+    divider: str('Caption of the neutral divider standing between the two folders (it decides nothing)', 110),
   }, ['original', 'additional', 'divider']),
-  pieces: list('Proposed additional pieces (fictional placeholder sheets), in the order they are handled', str('Label of a piece (fictional)', 40), 1, 4),
+  pieces: list('Proposed additional pieces (fictional placeholder sheets), in the order they are handled', str('Label of a piece (fictional)', 48), 1, 4),
   labels: obj('Editable captions', {
-    heading: str('Heading of the panel (keep "as supplied")', 80),
-    pieces: str('Caption introducing the list of new pieces', 60),
+    heading: str('Heading of the panel (keep "as supplied")', 90),
+    pieces: str('Caption introducing the list of new pieces', 70),
     key: str('Neutral key (must say that no conclusion is drawn)', 90),
   }, ['heading', 'pieces', 'key']),
 };
@@ -519,7 +519,8 @@ export function makePlan(G, start, specs, win, o = {}) {
     const s = {...s0};
     if (s.type === 'walk') {
       s.from = {...pose};
-      s.d = Math.hypot(s.to.x - pose.x, s.to.y - pose.y) + angDiff(pose.deg, s.to.deg) * 0.9;
+      // (turning counts as the arc the held sheet sweeps: a held sheet never outruns the walk)
+      s.d = Math.hypot(s.to.x - pose.x, s.to.y - pose.y) + (angDiff(pose.deg, s.to.deg) * Math.PI / 180) * G.HOLD;
       dist += s.d;
       pose = {...s.to};
     } else if (s.type === 'close') {

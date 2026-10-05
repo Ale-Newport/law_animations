@@ -103,21 +103,26 @@ const scene = {
     // arrangements, preferred first: [rooms side by side | stacked, cards printed | print bars with their texts in the strip]
     // [rooms side by side | stacked, cards printed | print bars, panel = strip below | column at the right (1:1: CF
     // CONTRAST 1:1 STAGE SHARE decision, 2026-10-04)]
+    // 1:1 'compact' fallback (three obligations, where the stacked rooms cannot hold three rows and the people): the rooms
+    // side by side, each a tall board — printed cards stacked (tranche and its track on top, the event card under them,
+    // its tag in the heading band above it) or, for the longest texts, print bars with their texts in the strip —; the
+    // contract heading moves to the strip, the track is shorter, the people's heads ≥ 48 px and the text ≥ 16 px.
     const arrs = shape === 'landscape' ? [['side', true, 'strip'], ['side', false, 'strip']]
-      : shape === 'square' ? [['stack', true, 'col'], ['stack', false, 'col'], ['side', false, 'strip']]
+      : shape === 'square' ? [['stack', true, 'col'], ['stack', false, 'col'], ['side', false, 'strip'], ['side', true, 'strip', 'compact'], ['side', false, 'strip', 'compact']]
         : [['stack', true, 'strip'], ['stack', false, 'strip']];
     const tagChip = (F, w) => chipG(ctx, ctx.t.only, {x: 0, y: 0, anchor: 'middle', maxWidth: w, size: F, maxLines: 2, weight: 700, stroke: ctx.theme.accent});
-    for (const [arr, cardText, panel] of arrs) for (const px of pxs) for (const eventShare of [0.5, 0.58]) {
+    for (const [arr, cardText, panel, compact] of arrs) for (const px of (compact ? PX_STRESS : pxs)) for (const eventShare of [0.5, 0.58]) {
       if (best) break;
       const F = px / upx;
       const side = arr === 'side';
+      const hm = compact ? Math.min(headMin, 48) : headMin;
       const colW = panel === 'col' ? Math.max(box.w * 0.34, F * 14) : 0;
       const roomW = side ? (box.w - F * 0.8) / 2 : box.w - (colW ? colW + F * 0.6 : 0);
       const headFits = ROOMS.map(s => (show ? fitG(scen[s].label, {maxWidth: roomW - F * 3.2, size: F, maxLines: 2, weight: 700}) : null));
       if (headFits.some(f => f && f.bad)) continue;
       const headH = headFits[0] ? Math.max(...headFits.map(f => f.height)) + F * 0.7 : F * 1.6;
       const items = [];
-      if (show && (!cardText || panel === 'col')) items.push({name: 'contract', kind: 'legend', text: `${p.contract.reference} · ${p.contract.title}`});
+      if (show && (!cardText || panel === 'col' || compact)) items.push({name: 'contract', kind: 'legend', text: `${p.contract.reference} · ${p.contract.title}`});
       if (show && !cardText) {
         items.push({name: 'legend-ev', kind: 'legend', text: `${p.panels.event}: ${p.event.label}`});
         p.obligations.forEach((t, j) => items.push({name: `legend-o${j}`, kind: 'legend', text: `${p.panels.tranche}: ${t}`}));
@@ -146,12 +151,12 @@ const scene = {
         const Ls = [];
       rooms.forEach((rb, i) => Ls.push(layoutStage(ctx, {kOnly: i && Ls[0].ok ? Ls[0].k : undefined,
         box: {x: rb.x + F * 0.3, y: rb.y + headH + F * 0.3, w: rb.w - F * 0.6, h: rb.h - headH - F * 0.5}, upx, prefix: `${ROOMS[i]}-`, p,
-        px: [px], headMin, headTarget: 0, kMax: arr === 'stack' && panel === 'strip' ? 1.6 : Math.min(1.6, (headMin + 8) / (90 * upx)), tight: true, cardText, headText: cardText && panel !== 'col', headings: cardText,
-        names: null, plates: null, notes: [], tray: false, minCh: 71 / upx, minChE: (shape === 'square' && !stress ? 86 : 71) / upx,
-        slotRoom: show && cardText ? (F0, w) => tagChip(F0, w).box.h + F0 * 0.5 : null, eventShare, minCwE: (shape === 'square' && !stress ? 86 : 71) / upx, minCwO: 71 / upx, reachEvent: false,
+        px: [px], headMin: hm, headTarget: 0, kMax: arr === 'stack' && panel === 'strip' ? 1.6 : Math.min(1.6, (hm + 8) / (90 * upx)), tight: true, cardText, headText: cardText && panel !== 'col' && !compact, headings: cardText && !compact,
+        names: null, plates: null, notes: [], tray: false, minCh: (compact ? (cardText ? 54 : 44) : 71) / upx, minChE: (compact && !cardText ? 60 : shape === 'square' && !stress && !compact ? 86 : 71) / upx, compactTrack: !!compact, stack: !!compact && cardText, eventFullWidth: !!compact && cardText,
+        slotRoom: show && cardText ? (F0, w) => tagChip(F0, w).box.h + F0 * 0.5 : null, eventShare, minCwE: (shape === 'square' && !stress && !compact ? 86 : 71) / upx, minCwO: 71 / upx, reachEvent: false,
       })));
       if (Ls.some(L => !L.ok)) continue;
-      best = {px, F, Ls, rooms, headFits, headH, items, stripH, roomW, arr, cardText, panel, colPl};
+      best = {px, F, Ls, rooms, headFits, headH, items, stripH, roomW, arr, cardText, panel, colPl, compact: !!compact};
     }
     if (!best) return {ok: false, why: ['no-layout-fits'], problems: ['no-layout-fits']};
     const {F, Ls, rooms, headFits, headH, items, stripH} = best;
@@ -168,6 +173,11 @@ const scene = {
       if (!show || !L.cardText) return null;
       const G = Lr.G;
       const c = chipG(ctx, ctx.t.only, {x: G.slot.x, y: 0, anchor: 'middle', maxWidth: G.We - F * 0.4, size: F, maxLines: 2, weight: 700, stroke: ctx.theme.accent, name: `${ROOMS[i]}-tag`});
+      if (G.stack) {
+        // (the compact 1:1 fallback — a stacked board —: the tag in the event panel's heading band, above the card)
+        const room = G.slot.y - G.chE / 2 - G.panelE.y;
+        return {c, y: G.panelE.y + (room - c.box.h) / 2, ok: c.box.h <= room - 2};
+      }
       const yTop = G.slot.y + G.chE / 2 + Math.max(8, F * 0.3);
       return {c, y: yTop, ok: yTop + c.box.h <= G.panelE.y + G.panelE.h - 2};
     });

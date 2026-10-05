@@ -165,11 +165,29 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0329/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0329/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0329/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0329/sheet-16x9-es.png",
+      "production/evidence/LAW-0329/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0329/sheet-9x16-baseline.png",
+      "production/scratch/rev-review-03/rev-LAW-0329.png"
+    ],
+    "findings": [
+      "Round-1 sign fix verified: sign empty until the 0.74 pin beat, then only the supplied state (test confirms max opacity 0 before 0.74 in every preset x ratio)",
+      "automatedChecks fail: tests/animations/LAW-0329.test.js:166 long-labels-stress 16:9 petition is 0.031 of frame width (<0.035) and prior-examination tray 0.072 (<0.09) at the hold - with four stations + two-column legend at 16:9 the room shrinks; enlarge the room (narrow or wrap the legend, reduce gaps) so sheet/tray meet the thresholds",
+      "cold create() > 1 s: long-labels-stress 16:9 1513 ms, contrast-or-alternative 1:1 1297 ms, 16:9 1104 ms (shared machine under load, but well over budget) - cache/bound the layout search",
+      "1:1 baseline: room occupies the top third and the petition is small (~4.5% of width); could be larger",
+      "content neutral: illustrative, fictional, as supplied, no outcome"
+    ],
+    "sourceHash": "60f4be8a68a305fb2dfc7ea839ab04f4b47ce4032a92cca03c8ad3230d3987d6",
+    "renderFingerprint": "b0bc0c98553a54343e8ad8479a6a5b9d142b796d73b7b686b59f40f5523850e4",
+    "reviewedAt": "2026-10-05T16:53:06.249Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -185,5 +203,10 @@
   "renderFingerprint": "b0bc0c98553a54343e8ad8479a6a5b9d142b796d73b7b686b59f40f5523850e4",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.05,0.3,0.5,0.68,1",
   "thumb": "production/evidence/LAW-0329/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }
