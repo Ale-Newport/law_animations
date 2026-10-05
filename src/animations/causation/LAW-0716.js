@@ -185,16 +185,16 @@ function tagArt(ctx, m, x, y, P, textOn) {
  * wide boxes).
  */
 function zoneGeom(M, PH, tg, rec, RW, arr, minW, tagSide = false) {
-  // the field stands right of the tag (the tag hangs at the slab's left, level with the focus step's path)
-  const G = fieldGeom(tg.w + 30, 0, PH);
+  // the tag hangs above the slab's left end (free: both trolleys stand at their barriers on the right)
+  const G = fieldGeom(0, 0, PH);
   const fx = G.xs + 0.2 * PH;
   const ih = G.itemS * ITEM_K, iw = ih * 0.82;
   // the two slots of the focus step: under lane A, under lane B (item bases)
   const ys = [G.stand('a'), G.stand('b')];
   const itemTop = ys[0] - ih;
-  const tagX = 6;
-  const tagY = Math.min(Math.max(G.top, (itemTop + ys[1]) / 2 - tg.h / 2), -tg.h - 12);
-  let right = G.x1 + 12;
+  const tagX = G.x0 + 6;
+  const tagY = G.slabTop - 12 - tg.h;
+  let right = Math.max(G.x1, tagX + tg.w) + 12;
   let recX = null, recY = null, recTop = 0;
   if (arr === 'side' || arr === 'stack2') {
     recX = right + 30;
@@ -217,10 +217,10 @@ function slotArt(ctx, {G, at, side}) {
     sideMark(ctx, {cx: rx + G.headS * 0.45, cy: -ry * 0.2, s: G.headS * 0.7, side}));
 }
 
-/** The tag's string: from the tag's right edge (fixed) to the top of the focus step at y (item base). */
+/** The tag's string: from the tag's foot (fixed) to the top of the focus step at y (item base). */
 function stringD(L, y) {
   const top = y - L.zg0.ih;
-  return `M${r(L.tagAt.x + L.tg.w)} ${r(L.tagAt.y + L.tg.h * 0.5)}L${r(L.fxw - L.zg0.iw * 0.3)} ${r(top + L.zg0.ih * 0.15)}`;
+  return `M${r(L.fxw)} ${r(L.tagAt.y + L.tg.h)}L${r(L.fxw)} ${r(top)}`;
 }
 
 function compose(ctx, base, cfg) {
@@ -301,9 +301,9 @@ function compose(ctx, base, cfg) {
     // crop: the tag, the string and both slots of the focus consequence with the inner ring between them (the
     // consequence and its string move inside it when the datum changes)
     const G = zg.G;
-    const c0 = {x: zg.tagX - 6, y: Math.min(zg.tagY, zg.itemTop) - 6};
-    // (both slots with the step on them: the moving step and its string stay in view)
-    const c1 = {x: zg.fx + zg.iw / 2 + G.headS + 8, y: Math.max(zg.tagY + tg.h, zg.ys[1]) + 8};
+    const c0 = {x: Math.min(zg.tagX, zg.fx - zg.iw / 2) - 6, y: zg.tagY - 6};
+    // (the tag down to both slots with the step on them: the moving step and its string stay in view)
+    const c1 = {x: Math.max(zg.tagX + tg.w, zg.fx + zg.iw / 2 + G.headS) + 8, y: zg.ys[1] + 8};
     let crop = {x: c0.x, y: c0.y, w: c1.x - c0.x, h: c1.y - c0.y};
     // (a crop narrower than the room widens, centred, up to 1.6× — so the open lens spans the room)
     const ar = room.w / room.h;
@@ -431,7 +431,7 @@ const scene = {
       }
     }
     L.F = F; L.zx = zx;
-    L.Gw = fieldGeom(zx + L.tg.w + 30, F, L.PH);
+    L.Gw = fieldGeom(zx, F, L.PH);
     L.places = itemPlaces(L.Gw, M, [fi]);
     L.fxw = zx + L.fx;
     L.zg0 = {iw: L.iw, ih: L.ih};

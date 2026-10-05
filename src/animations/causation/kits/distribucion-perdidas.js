@@ -440,3 +440,53 @@ export function stageArt(ctx, G, {P, ox = 0, oy = 0, f, links, numbers = true}) 
   const front = g({name: `${P}front`}, G.trayX.map((tx, i) => g({name: `${P}tray${i}`, transform: T(ox + tx, oy + G.trayTop)}, trayFront(ctx, {tw: G.tws[i], td: G.td, ph: G.pedH, i, numText: numbers && ctx.show('key') ? String(i + 1) : null}))));
   return {back, front, guides};
 }
+
+/* ------------------------------------------------------------------------ */
+/* Shared layout search: one stage + one chip panel                          */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * Choose the text size, arrangement and stage scale S that make the stage largest while every chip fits.
+ * o.items: panel chip items; o.stage(size) → {dims(S) → {w, h}, ok?: boolean} (stage size in px for scale S at that
+ * text size); o.modes: subset of ['side', 'below', 'above']; o.sizes [max, min]; o.sMax upper bound of S.
+ * Returns {size, mode, S, pw, panel, stage} or null. Memoized chip measurements in o.memo.
+ */
+export function arrangeScene(ctx, o) {
+  const D = ctx.design;
+  const M = 10, GAP = o.gap ?? 26;
+  const full = D.w - 2 * M, fullH = D.h - 2 * M;
+  const cands = [];
+  for (let size = o.sizes[0]; size >= o.sizes[1] - 1e-9; size -= 1) {
+    const st = o.stage(size);
+    if (!st || st.bad) continue;
+    let best = null;
+    for (const mode of o.modes) {
+      const pws = mode === 'side' ? (o.sideWs ?? [0.3, 0.36, 0.42, 0.5]).map(f => Math.round(full * f)) : [full];
+      for (const pw of pws) {
+        const panel = o.items.length ? panelFlow(ctx, o.items, size, pw, o.memo, {center: mode !== 'side'}) : {placed: [], h: 0, bad: false};
+        if (panel.bad) continue;
+        let bw, bh;
+        if (mode === 'side') { if (panel.h > fullH) continue; bw = full - pw - GAP; bh = fullH; } else { bw = full; bh = fullH - (panel.h ? panel.h + GAP : 0); }
+        if (bw < 100 || bh < 100) continue;
+        const S = maxScale(s => { const d = st.dims(s); return d.w <= bw && d.h <= bh; }, 40, o.sMax ?? 2000);
+        if (!S) continue;
+        if (!best || S > best.S + 1e-6) best = {size, mode, S, pw, panel, bw, bh};
+      }
+    }
+    if (best) cands.push(best);
+  }
+  if (!cands.length) return null;
+  const Sbest = Math.max(...cands.map(c => c.S));
+  const keep = o.keep ?? 0.88;
+  const ok = cands.filter(c => c.S >= keep * Sbest - 1e-6);
+  return ok.sort((a, b) => b.size - a.size)[0];
+}
+
+/** Place the measured panel chips at (x, y) (flowRows result offset), returning [{key, when, node, box}]. */
+export function placePanel(ctx, panel, x, y, styleOf = () => ({})) {
+  return panel.placed.map(pl => {
+    const it = pl.it.it;
+    const b = pl.it.build(x + pl.x, y + pl.y, `band-${it.key}`, styleOf(it));
+    return {key: it.key, when: it.when, node: b.node, box: b.box};
+  });
+}
