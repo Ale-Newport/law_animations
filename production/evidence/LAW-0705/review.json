@@ -1,0 +1,230 @@
+{
+  "animationId": "LAW-0705",
+  "generatedBy": "scripts/qa.mjs",
+  "treatment": "story",
+  "sourceHash": "628812d2f823f4644e04ebe096607dcdf3341b7d62f0021099a6006a66dd69bb",
+  "implementationHash": "f026d78e1764584ea5cde7307511f4631ff88573521c8845149aafa436116a96",
+  "dependencies": [
+    "src/animations/causation/LAW-0705.js",
+    "src/animations/causation/kits/agravacion-dano.js",
+    "src/animations/causation/kits/causal-chain.js",
+    "src/animations/causation/kits/dano-material.js",
+    "src/animations/causation/kits/prueba-contrafactual.js",
+    "src/animations/causation/kits/topple.js",
+    "src/core/define.js",
+    "src/core/geometry.js",
+    "src/core/i18n.js",
+    "src/core/layout.js",
+    "src/core/meta.js",
+    "src/core/random.js",
+    "src/core/schema.js",
+    "src/core/svg.js",
+    "src/core/text.js",
+    "src/core/theme.js",
+    "src/core/time.js",
+    "src/core/transform.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js",
+    "src/schemas/fields.js"
+  ],
+  "environment": {
+    "browser": "chromium 153.0.8010.12",
+    "playwright": "@playwright/test 1.63.0",
+    "node": "v26.0.0",
+    "platform": "darwin-arm64",
+    "fonts": "system font stack (see src/core/text.js FONTS)"
+  },
+  "commands": [
+    {
+      "command": "npx playwright test tests/animations/LAW-0705.test.js --reporter=line",
+      "exitCode": 0
+    }
+  ],
+  "structure": {
+    "files": {
+      "module": "src/animations/causation/LAW-0705.js",
+      "metadata": "src/animations/causation/LAW-0705.meta.json",
+      "presets": "src/animations/causation/LAW-0705.presets.json",
+      "test": "tests/animations/LAW-0705.test.js"
+    },
+    "exists": {
+      "module": true,
+      "metadata": true,
+      "presets": true,
+      "test": true
+    },
+    "presets": [
+      "baseline-illustrative",
+      "contrast-or-alternative",
+      "long-labels-stress",
+      "baseline-es"
+    ],
+    "requiredPresetsPresent": true
+  },
+  "automatedChecks": {
+    "status": "pass",
+    "exitCode": 0,
+    "checks": 30,
+    "failed": [],
+    "details": "production/evidence/LAW-0705/automated.json",
+    "sourceHashAtRun": "628812d2f823f4644e04ebe096607dcdf3341b7d62f0021099a6006a66dd69bb"
+  },
+  "captures": [
+    {
+      "path": "production/evidence/LAW-0705/sheet-16x9-baseline.png",
+      "ratio": "16:9",
+      "preset": "baseline-illustrative",
+      "times": [
+        0.05,
+        0.3,
+        0.5,
+        0.68,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0705/sheet-9x16-baseline.png",
+      "ratio": "9:16",
+      "preset": "baseline-illustrative",
+      "times": [
+        0.05,
+        0.3,
+        0.5,
+        0.68,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0705/sheet-1x1-baseline.png",
+      "ratio": "1:1",
+      "preset": "baseline-illustrative",
+      "times": [
+        0.05,
+        0.3,
+        0.5,
+        0.68,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0705/sheet-16x9-alternative.png",
+      "ratio": "16:9",
+      "preset": "contrast-or-alternative",
+      "times": [
+        0.05,
+        0.3,
+        0.5,
+        0.68,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0705/sheet-16x9-long-labels.png",
+      "ratio": "16:9",
+      "preset": "long-labels-stress",
+      "times": [
+        0.05,
+        0.3,
+        0.5,
+        0.68,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0705/sheet-16x9-es.png",
+      "ratio": "16:9",
+      "preset": "baseline-es",
+      "times": [
+        0.05,
+        0.3,
+        0.5,
+        0.68,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    }
+  ],
+  "visualReview": {
+    "status": "pass",
+    "reviewer": "independent QA reviewer (causation-07) / Claude Opus 5.5",
+    "method": "Round 2: viewed composite strips rendered from 127.0.0.1:5840 (1:1 grid of stress mid/hold, pre-cap vs capped, default, alternative, es-only, labels hidden; 9:16 and 16:9 holds; 0707 dense frames of the head-chip beat u 0.05-0.3 with zooms); reran the 0705/0707 Playwright tests (42 pass) and the DOM-less check (2/2); nested count comparison; measured the pre-cap scene area",
+    "live": null,
+    "artifacts": [
+      "production/scratch/review-causation-07/r5-11.png",
+      "production/scratch/review-causation-07/r5-pre.png",
+      "production/scratch/review-causation-07/r5-t.png",
+      "production/scratch/review-causation-07/r5-w.png"
+    ],
+    "findings": [
+      "Round-1 defect fixed: the 0.09 exemption is gone; scene area >= 0.20 in every preset (stress 1:1 0.211 labels on / 0.258 hidden; stress 16:9 0.393, 9:16 0.226)",
+      "1:1 'list' composition: the panel is the dominant object (about 0.47 W, subject 0.419 H), chips below; item 18 met",
+      "Cap driver confirmed: pre-cap renders in 'list' mode at PH 200 with scene area 0.153 (< 0.20); capped PH 236 / 0.211; stress counts >= baseline (entries 4/3, accounts 1/0, links 1/0, variation items 2/1, notes 1/1), no string shorter",
+      "Prior-condition chip now under the record at 1:1",
+      "Text minima 20-22 px in baseline and es; cold create <= 241 ms",
+      "minor: stress 'Object C' sits alone on the first line of the object chip (two glued words, the parenthetical kept whole); readable, not a one-word line",
+      "Content and es-only re-read: '(ilustrativa)' now used; no conclusion, no causation doctrine"
+    ],
+    "sourceHash": "628812d2f823f4644e04ebe096607dcdf3341b7d62f0021099a6006a66dd69bb",
+    "renderFingerprint": "116c5b0e5192c4a394d3d1cdabdf806d89c65f52b891363e7d46e7b16448d876",
+    "reviewedAt": "2026-10-05T06:20:48.808Z"
+  },
+  "legalStatus": "illustrative-unverified",
+  "testedConfigurations": [
+    "16:9 baseline-illustrative editorial-flat paper",
+    "9:16 baseline-illustrative editorial-flat paper",
+    "1:1 baseline-illustrative editorial-flat paper",
+    "16:9 contrast-or-alternative editorial-flat paper",
+    "16:9 long-labels-stress editorial-flat paper",
+    "16:9 baseline-es editorial-flat paper"
+  ],
+  "knownIssues": [],
+  "accepted": false,
+  "renderFingerprint": "116c5b0e5192c4a394d3d1cdabdf806d89c65f52b891363e7d46e7b16448d876",
+  "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.05,0.3,0.5,0.68,1",
+  "thumb": "production/evidence/LAW-0705/thumb.png",
+  "captureErrors": [],
+  "previousVisualReview": {
+    "status": "fail",
+    "reviewer": "independent QA reviewer (causation-07) / Claude Opus 5.5",
+    "method": "Viewed composite strips rendered from a loopback server on 127.0.0.1:5840 (16:9 6-frame sequences, 1:1 and 9:16 grids of all presets at mid-action and hold, es-only and labels hidden); reran 102 Playwright tests (pass), DOM-less unit check 4/4; nested count comparison of stress vs baseline; pre-cap renders at 1:1",
+    "live": null,
+    "artifacts": [
+      "production/scratch/review-causation-07/a05-def.png",
+      "production/scratch/review-causation-07/s5-11.png",
+      "production/scratch/review-causation-07/s5-916.png"
+    ],
+    "findings": [
+      "BLOCKING item 18: long-labels-stress 1:1 physical scene area 0.101 of the frame (labels shown) against the LAW-0701 precedent floor of 0.20; the panel sits in the top-left while the record card and chips take most of the frame",
+      "BLOCKING: tests/animations/LAW-0705.test.js lowers the scene-area floor to 0.09 for long-labels-stress without a coordinator decision (AUTHORING: never lower a floor in your own test); recompose 1:1 stress or get a coordinator ruling",
+      "Other ratios OK: stress 16:9 0.304, 9:16 0.200; baselines 0.224-0.464; subject heights 0.250-0.567",
+      "Legal content checked EN and es-only: objects only, no red, no doctrine/fault/outcome, no causal arrow, ●/◆ equal, key present",
+      "minor: 1:1 default the prior-condition chip is detached bottom right at mid-action; es 'Escala: 1 columna = 1 nivel (marcador)': 'marcador' is an odd rendering of placeholder (kit string)"
+    ],
+    "sourceHash": "39a6cb39a8acfd51ff2cb332f34a040624cc093d1f891a81d4dd0269ea34b118",
+    "renderFingerprint": "4f34bb2d52f7a246ef693f4d0487aa040746fe2ff6181b1ca6e94c036c7c7a87",
+    "reviewedAt": "2026-10-05T06:05:58.445Z",
+    "invalidated": "source changed and rendered output differs from what was reviewed"
+  },
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
+}

@@ -1,0 +1,694 @@
+{
+  "animationId": "LAW-0308",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0308",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "hearing.room"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: build: the context at full size (the chart connected to the explanation), the supplied before value on the caption; no lens @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "datum": "before",
+          "spanState": "before",
+          "spanBefore": [
+            4,
+            6
+          ],
+          "spanAfter": [
+            6,
+            8
+          ],
+          "lensOpen": 0,
+          "lensStartU": 0.2228,
+          "contextScale": 1,
+          "ctxCopy": 1,
+          "lensCopy": 0,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 0,
+          "newShown": 0,
+          "focusTarget": "span",
+          "markerText": "Changed: one datum, the marked span",
+          "markerShown": 0,
+          "panel": 1,
+          "zoomVsRest": 2.14,
+          "lensMinSide": 0.441,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "measurement",
+            "interpretation"
+          ],
+          "roles": {
+            "specialist": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "measurementI": 0,
+          "interpretationI": 1,
+          "finalState": "interpretation-connected",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 91.1,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: isolate: a real enlargement (>= 1.5x the context at rest) holds the datum; the context copy is hidden; the panel is out @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "datum": "before",
+          "spanState": "before",
+          "spanBefore": [
+            4,
+            6
+          ],
+          "spanAfter": [
+            6,
+            8
+          ],
+          "lensOpen": 1,
+          "lensStartU": 0.2228,
+          "contextScale": 0.96,
+          "ctxCopy": 0,
+          "lensCopy": 1,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 0,
+          "newShown": 0,
+          "focusTarget": "span",
+          "markerText": "Changed: one datum, the marked span",
+          "markerShown": 0,
+          "panel": 0,
+          "zoomVsRest": 2.14,
+          "lensMinSide": 0.441,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "measurement",
+            "interpretation"
+          ],
+          "roles": {
+            "specialist": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "measurementI": 0,
+          "interpretationI": 1,
+          "finalState": "interpretation-connected",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 91.1,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: substitute: the old value moves, unchanged and never struck, to its dock before anything else changes @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "changing",
+          "spanState": "before",
+          "spanBefore": [
+            4,
+            6
+          ],
+          "spanAfter": [
+            6,
+            8
+          ],
+          "lensOpen": 1,
+          "lensStartU": 0.2228,
+          "contextScale": 0.96,
+          "ctxCopy": 0,
+          "lensCopy": 1,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 0.093,
+          "newShown": 0,
+          "focusTarget": "span",
+          "markerText": "Changed: one datum, the marked span",
+          "markerShown": 0,
+          "panel": 0,
+          "zoomVsRest": 2.14,
+          "lensMinSide": 0.441,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "measurement",
+            "interpretation"
+          ],
+          "roles": {
+            "specialist": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "measurementI": 0,
+          "interpretationI": 1,
+          "finalState": "interpretation-connected",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 91.1,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the new value comes before its dependent geometry changes @0.59",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "after",
+          "spanState": "before",
+          "spanBefore": [
+            4,
+            6
+          ],
+          "spanAfter": [
+            6,
+            8
+          ],
+          "lensOpen": 1,
+          "lensStartU": 0.2228,
+          "contextScale": 0.96,
+          "ctxCopy": 0,
+          "lensCopy": 1,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 1,
+          "newShown": 1,
+          "focusTarget": "span",
+          "markerText": "Changed: one datum, the marked span",
+          "markerShown": 0,
+          "panel": 0,
+          "zoomVsRest": 2.14,
+          "lensMinSide": 0.441,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "measurement",
+            "interpretation"
+          ],
+          "roles": {
+            "specialist": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "measurementI": 0,
+          "interpretationI": 1,
+          "finalState": "interpretation-connected",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 91.1,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: then only the dependent geometry follows (the band on the chart, the card's line and the connector) @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "after",
+          "spanState": "after",
+          "spanBefore": [
+            4,
+            6
+          ],
+          "spanAfter": [
+            6,
+            8
+          ],
+          "lensOpen": 1,
+          "lensStartU": 0.2228,
+          "contextScale": 0.96,
+          "ctxCopy": 0,
+          "lensCopy": 1,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 1,
+          "newShown": 1,
+          "focusTarget": "span",
+          "markerText": "Changed: one datum, the marked span",
+          "markerShown": 0,
+          "panel": 0,
+          "zoomVsRest": 2.14,
+          "lensMinSide": 0.441,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "measurement",
+            "interpretation"
+          ],
+          "roles": {
+            "specialist": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "measurementI": 0,
+          "interpretationI": 1,
+          "finalState": "interpretation-connected",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 91.1,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: return: the lens has closed onto the updated context at full size @0.82",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "datum": "after",
+          "spanState": "after",
+          "spanBefore": [
+            4,
+            6
+          ],
+          "spanAfter": [
+            6,
+            8
+          ],
+          "lensOpen": 0,
+          "lensStartU": 0.2228,
+          "contextScale": 1,
+          "ctxCopy": 1,
+          "lensCopy": 0,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 1,
+          "newShown": 1,
+          "focusTarget": "span",
+          "markerText": "Changed: one datum, the marked span",
+          "markerShown": 0.667,
+          "panel": 1,
+          "zoomVsRest": 2.14,
+          "lensMinSide": 0.441,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "measurement",
+            "interpretation"
+          ],
+          "roles": {
+            "specialist": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "measurementI": 0,
+          "interpretationI": 1,
+          "finalState": "interpretation-connected",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 91.1,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: new value, the old value docked (traceable, not struck), marker; the composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "datum": "after",
+          "spanState": "after",
+          "spanBefore": [
+            4,
+            6
+          ],
+          "spanAfter": [
+            6,
+            8
+          ],
+          "lensOpen": 0,
+          "lensStartU": 0.2228,
+          "contextScale": 1,
+          "ctxCopy": 1,
+          "lensCopy": 0,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 1,
+          "newShown": 1,
+          "focusTarget": "span",
+          "markerText": "Changed: one datum, the marked span",
+          "markerShown": 1,
+          "panel": 1,
+          "zoomVsRest": 2.14,
+          "lensMinSide": 0.441,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "measurement",
+            "interpretation"
+          ],
+          "roles": {
+            "specialist": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "measurementI": 0,
+          "interpretationI": 1,
+          "finalState": "interpretation-connected",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 91.1,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the previous datum exactly @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "datum": "before",
+          "spanState": "before",
+          "spanBefore": [
+            4,
+            6
+          ],
+          "spanAfter": [
+            6,
+            8
+          ],
+          "lensOpen": 1,
+          "lensStartU": 0.2228,
+          "contextScale": 0.96,
+          "ctxCopy": 0,
+          "lensCopy": 1,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 0,
+          "newShown": 0,
+          "focusTarget": "span",
+          "markerText": "Changed: one datum, the marked span",
+          "markerShown": 0,
+          "panel": 0,
+          "zoomVsRest": 2.14,
+          "lensMinSide": 0.441,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "measurement",
+            "interpretation"
+          ],
+          "roles": {
+            "specialist": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "measurementI": 0,
+          "interpretationI": 1,
+          "finalState": "interpretation-connected",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 91.1,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: another supplied pair: points 2–3 → 4–5; nothing else is inferred @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "datum": "after",
+          "spanState": "after",
+          "spanBefore": [
+            2,
+            3
+          ],
+          "spanAfter": [
+            4,
+            5
+          ],
+          "lensOpen": 0,
+          "lensStartU": 0.212,
+          "contextScale": 1,
+          "ctxCopy": 1,
+          "lensCopy": 0,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 1,
+          "newShown": 1,
+          "focusTarget": "span",
+          "markerText": "Changed: the span read",
+          "markerShown": 1,
+          "panel": 1,
+          "zoomVsRest": 2.071,
+          "lensMinSide": 0.42,
+          "forms": [
+            "bounded",
+            "open"
+          ],
+          "ops": [
+            "interpretation",
+            "measurement"
+          ],
+          "roles": {
+            "specialist": 2,
+            "listeners": [
+              0,
+              1,
+              3
+            ]
+          },
+          "measurementI": 1,
+          "interpretationI": 0,
+          "finalState": "interpretation-connected",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 79.9,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same localised change is visible @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "after",
+          "spanState": "after",
+          "spanBefore": [
+            4,
+            6
+          ],
+          "spanAfter": [
+            6,
+            8
+          ],
+          "lensOpen": 1,
+          "lensStartU": 0.2294,
+          "contextScale": 0.7,
+          "ctxCopy": 0,
+          "lensCopy": 1,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 1,
+          "newShown": 1,
+          "focusTarget": "span",
+          "markerText": "Changed: one datum, the marked span",
+          "markerShown": 0,
+          "panel": 0,
+          "zoomVsRest": 1.678,
+          "lensMinSide": 0.42,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "measurement",
+            "interpretation"
+          ],
+          "roles": {
+            "specialist": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "measurementI": 0,
+          "interpretationI": 1,
+          "finalState": "interpretation-connected",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 117.7,
+          "allReached": true
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

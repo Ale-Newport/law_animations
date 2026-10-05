@@ -1,0 +1,682 @@
+{
+  "animationId": "LAW-0239",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0239",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "courts.building"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: two identical complete scenes; no change drawn yet @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": "{\"ring\":0,\"mark\":0,\"ramp\":0,\"people\":[{\"x\":171,\"y\":596},{\"x\":686,\"y\":518}],\"states\":[\"waiting\",\"waiting\"],\"doors\":[0,0,0],\"badges\":[1,1,0,0]}",
+          "lookB": "{\"ring\":0,\"mark\":0,\"ramp\":0,\"people\":[{\"x\":171,\"y\":596},{\"x\":686,\"y\":518}],\"states\":[\"waiting\",\"waiting\"],\"doors\":[0,0,0],\"badges\":[1,1,0,0]}",
+          "viaA": [
+            "ramp",
+            "steps"
+          ],
+          "viaB": [
+            "side",
+            "steps"
+          ],
+          "statesA": [
+            "waiting",
+            "waiting"
+          ],
+          "statesB": [
+            "waiting",
+            "waiting"
+          ],
+          "rampA": 0,
+          "rampB": 0,
+          "ringA": 0,
+          "ringB": 0,
+          "startsA": [
+            0.4,
+            0.51
+          ],
+          "startsB": [
+            0.4,
+            0.51
+          ],
+          "endsA": [
+            0.6797,
+            0.76
+          ],
+          "endsB": [
+            0.7177,
+            0.76
+          ],
+          "header": 0,
+          "guide": 0,
+          "moving": 0,
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 64,
+          "sceneShare": 0.425,
+          "separation": 116,
+          "k": 0.64,
+          "arrangement": "row/row",
+          "log": [
+            "22.5/row/row:k0.64:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the change: both entrances ringed at the same time; nobody moves yet @0.27",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "lookA": "{\"ring\":0.867,\"mark\":0,\"ramp\":0.148,\"people\":[{\"x\":171,\"y\":596},{\"x\":686,\"y\":518}],\"states\":[\"waiting\",\"waiting\"],\"doors\":[0,0,0],\"badges\":[1,1,0,0]}",
+          "lookB": "{\"ring\":0.867,\"mark\":0,\"ramp\":0,\"people\":[{\"x\":171,\"y\":596},{\"x\":686,\"y\":518}],\"states\":[\"waiting\",\"waiting\"],\"doors\":[0,0,0],\"badges\":[1,1,0,0]}",
+          "viaA": [
+            "ramp",
+            "steps"
+          ],
+          "viaB": [
+            "side",
+            "steps"
+          ],
+          "statesA": [
+            "waiting",
+            "waiting"
+          ],
+          "statesB": [
+            "waiting",
+            "waiting"
+          ],
+          "rampA": 0.148,
+          "rampB": 0,
+          "ringA": 0.867,
+          "ringB": 0.867,
+          "startsA": [
+            0.4,
+            0.51
+          ],
+          "startsB": [
+            0.4,
+            0.51
+          ],
+          "endsA": [
+            0.6797,
+            0.76
+          ],
+          "endsB": [
+            0.7177,
+            0.76
+          ],
+          "header": 0,
+          "guide": 0,
+          "moving": 0,
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 64,
+          "sceneShare": 0.425,
+          "separation": 116,
+          "k": 0.64,
+          "arrangement": "row/row",
+          "log": [
+            "22.5/row/row:k0.64:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: A has the ramp (as supplied), B the steps only @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "lookA": "{\"ring\":1,\"mark\":1,\"ramp\":1,\"people\":[{\"x\":171,\"y\":596},{\"x\":686,\"y\":518}],\"states\":[\"waiting\",\"waiting\"],\"doors\":[0,0,0],\"badges\":[1,1,0,0]}",
+          "lookB": "{\"ring\":1,\"mark\":1,\"ramp\":0,\"people\":[{\"x\":171,\"y\":596},{\"x\":686,\"y\":518}],\"states\":[\"waiting\",\"waiting\"],\"doors\":[0,0,0],\"badges\":[1,1,0,0]}",
+          "viaA": [
+            "ramp",
+            "steps"
+          ],
+          "viaB": [
+            "side",
+            "steps"
+          ],
+          "statesA": [
+            "waiting",
+            "waiting"
+          ],
+          "statesB": [
+            "waiting",
+            "waiting"
+          ],
+          "rampA": 1,
+          "rampB": 0,
+          "ringA": 1,
+          "ringB": 1,
+          "startsA": [
+            0.4,
+            0.51
+          ],
+          "startsB": [
+            0.4,
+            0.51
+          ],
+          "endsA": [
+            0.6797,
+            0.76
+          ],
+          "endsB": [
+            0.7177,
+            0.76
+          ],
+          "header": 1,
+          "guide": 0,
+          "moving": 0,
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 64,
+          "sceneShare": 0.425,
+          "separation": 116,
+          "k": 0.64,
+          "arrangement": "row/row",
+          "log": [
+            "22.5/row/row:k0.64:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the same start times in A and B @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "lookA": "{\"ring\":1,\"mark\":1,\"ramp\":1,\"people\":[{\"x\":510.16,\"y\":401.18},{\"x\":686,\"y\":518}],\"states\":[\"moving\",\"waiting\"],\"doors\":[1,0,0],\"badges\":[0,1,0,0]}",
+          "lookB": "{\"ring\":1,\"mark\":1,\"ramp\":0,\"people\":[{\"x\":564.21,\"y\":634},{\"x\":686,\"y\":518}],\"states\":[\"moving\",\"waiting\"],\"doors\":[0,0,0],\"badges\":[0,1,0,0]}",
+          "viaA": [
+            "ramp",
+            "steps"
+          ],
+          "viaB": [
+            "side",
+            "steps"
+          ],
+          "statesA": [
+            "moving",
+            "waiting"
+          ],
+          "statesB": [
+            "moving",
+            "waiting"
+          ],
+          "rampA": 1,
+          "rampB": 0,
+          "ringA": 1,
+          "ringB": 1,
+          "startsA": [
+            0.4,
+            0.51
+          ],
+          "startsB": [
+            0.4,
+            0.51
+          ],
+          "endsA": [
+            0.6797,
+            0.76
+          ],
+          "endsB": [
+            0.7177,
+            0.76
+          ],
+          "header": 1,
+          "guide": 0,
+          "moving": 0.278,
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 64,
+          "sceneShare": 0.425,
+          "separation": 116,
+          "k": 0.64,
+          "arrangement": "row/row",
+          "log": [
+            "22.5/row/row:k0.64:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: only the wheelchair user’s way in differs (ramp in A, the level side entrance in B); the long-cane user takes the steps in both @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": "{\"ring\":1,\"mark\":1,\"ramp\":1,\"people\":[{\"x\":505,\"y\":202.4},{\"x\":725,\"y\":202.4}],\"states\":[\"arrived\",\"arrived\"],\"doors\":[0,0,0],\"badges\":[0,0,1,1]}",
+          "lookB": "{\"ring\":1,\"mark\":1,\"ramp\":0,\"people\":[{\"x\":505,\"y\":202.4},{\"x\":725,\"y\":202.4}],\"states\":[\"arrived\",\"arrived\"],\"doors\":[0,0,0],\"badges\":[0,0,1,1]}",
+          "viaA": [
+            "ramp",
+            "steps"
+          ],
+          "viaB": [
+            "side",
+            "steps"
+          ],
+          "statesA": [
+            "arrived",
+            "arrived"
+          ],
+          "statesB": [
+            "arrived",
+            "arrived"
+          ],
+          "rampA": 1,
+          "rampB": 0,
+          "ringA": 1,
+          "ringB": 1,
+          "startsA": [
+            0.4,
+            0.51
+          ],
+          "startsB": [
+            0.4,
+            0.51
+          ],
+          "endsA": [
+            0.6797,
+            0.76
+          ],
+          "endsB": [
+            0.7177,
+            0.76
+          ],
+          "header": 1,
+          "guide": 1,
+          "moving": 1,
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 64,
+          "sceneShare": 0.425,
+          "separation": 116,
+          "k": 0.64,
+          "arrangement": "row/row",
+          "log": [
+            "22.5/row/row:k0.64:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: everyone arrived in both scenes; the guide drawn @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": "{\"ring\":1,\"mark\":1,\"ramp\":1,\"people\":[{\"x\":505,\"y\":202.4},{\"x\":725,\"y\":202.4}],\"states\":[\"arrived\",\"arrived\"],\"doors\":[0,0,0],\"badges\":[0,0,1,1]}",
+          "lookB": "{\"ring\":1,\"mark\":1,\"ramp\":0,\"people\":[{\"x\":505,\"y\":202.4},{\"x\":725,\"y\":202.4}],\"states\":[\"arrived\",\"arrived\"],\"doors\":[0,0,0],\"badges\":[0,0,1,1]}",
+          "viaA": [
+            "ramp",
+            "steps"
+          ],
+          "viaB": [
+            "side",
+            "steps"
+          ],
+          "statesA": [
+            "arrived",
+            "arrived"
+          ],
+          "statesB": [
+            "arrived",
+            "arrived"
+          ],
+          "rampA": 1,
+          "rampB": 0,
+          "ringA": 1,
+          "ringB": 1,
+          "startsA": [
+            0.4,
+            0.51
+          ],
+          "startsB": [
+            0.4,
+            0.51
+          ],
+          "endsA": [
+            0.6797,
+            0.76
+          ],
+          "endsB": [
+            0.7177,
+            0.76
+          ],
+          "header": 1,
+          "guide": 1,
+          "moving": 1,
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 64,
+          "sceneShare": 0.425,
+          "separation": 116,
+          "k": 0.64,
+          "arrangement": "row/row",
+          "log": [
+            "22.5/row/row:k0.64:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the parallel action is complete by u 0.76 @0.76",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "lookA": "{\"ring\":1,\"mark\":1,\"ramp\":1,\"people\":[{\"x\":505,\"y\":202.4},{\"x\":725,\"y\":202.4}],\"states\":[\"arrived\",\"arrived\"],\"doors\":[0,0,0],\"badges\":[0,0,1,0]}",
+          "lookB": "{\"ring\":1,\"mark\":1,\"ramp\":0,\"people\":[{\"x\":505,\"y\":202.4},{\"x\":725,\"y\":202.4}],\"states\":[\"arrived\",\"arrived\"],\"doors\":[0,0,0],\"badges\":[0,0,1,0]}",
+          "viaA": [
+            "ramp",
+            "steps"
+          ],
+          "viaB": [
+            "side",
+            "steps"
+          ],
+          "statesA": [
+            "arrived",
+            "arrived"
+          ],
+          "statesB": [
+            "arrived",
+            "arrived"
+          ],
+          "rampA": 1,
+          "rampB": 0,
+          "ringA": 1,
+          "ringB": 1,
+          "startsA": [
+            0.4,
+            0.51
+          ],
+          "startsB": [
+            0.4,
+            0.51
+          ],
+          "endsA": [
+            0.6797,
+            0.76
+          ],
+          "endsB": [
+            0.7177,
+            0.76
+          ],
+          "header": 1,
+          "guide": 0,
+          "moving": 1,
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 64,
+          "sceneShare": 0.425,
+          "separation": 116,
+          "k": 0.64,
+          "arrangement": "row/row",
+          "log": [
+            "22.5/row/row:k0.64:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: identical supplied states give identical scenes (nothing invented) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": "{\"ring\":1,\"mark\":1,\"ramp\":1,\"people\":[{\"x\":505,\"y\":202.4},{\"x\":725,\"y\":202.4}],\"states\":[\"arrived\",\"arrived\"],\"doors\":[0,0,0],\"badges\":[0,0,1,1]}",
+          "lookB": "{\"ring\":1,\"mark\":1,\"ramp\":1,\"people\":[{\"x\":505,\"y\":202.4},{\"x\":725,\"y\":202.4}],\"states\":[\"arrived\",\"arrived\"],\"doors\":[0,0,0],\"badges\":[0,0,1,1]}",
+          "viaA": [
+            "ramp",
+            "steps"
+          ],
+          "viaB": [
+            "ramp",
+            "steps"
+          ],
+          "statesA": [
+            "arrived",
+            "arrived"
+          ],
+          "statesB": [
+            "arrived",
+            "arrived"
+          ],
+          "rampA": 1,
+          "rampB": 1,
+          "ringA": 1,
+          "ringB": 1,
+          "startsA": [
+            0.4,
+            0.465
+          ],
+          "startsB": [
+            0.4,
+            0.465
+          ],
+          "endsA": [
+            0.7503,
+            0.76
+          ],
+          "endsB": [
+            0.7503,
+            0.76
+          ],
+          "header": 1,
+          "guide": 1,
+          "moving": 1,
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 64,
+          "sceneShare": 0.425,
+          "separation": 122.3,
+          "k": 0.64,
+          "arrangement": "row/row",
+          "log": [
+            "22.5/row/row:k0.64:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same difference @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "lookA": "{\"ring\":1,\"mark\":1,\"ramp\":1,\"people\":[{\"x\":402.89,\"y\":242.4},{\"x\":375,\"y\":560.92}],\"states\":[\"moving\",\"moving\"],\"doors\":[0.865,0,0],\"badges\":[]}",
+          "lookB": "{\"ring\":1,\"mark\":1,\"ramp\":0,\"people\":[{\"x\":610,\"y\":296.52},{\"x\":375,\"y\":560.92}],\"states\":[\"moving\",\"moving\"],\"doors\":[0.865,0.458,1],\"badges\":[]}",
+          "viaA": [
+            "ramp",
+            "steps"
+          ],
+          "viaB": [
+            "side",
+            "steps"
+          ],
+          "statesA": [
+            "moving",
+            "moving"
+          ],
+          "statesB": [
+            "moving",
+            "moving"
+          ],
+          "rampA": 1,
+          "rampB": 0,
+          "ringA": 1,
+          "ringB": 1,
+          "startsA": [
+            0.4,
+            0.525
+          ],
+          "startsB": [
+            0.4,
+            0.525
+          ],
+          "endsA": [
+            0.6854,
+            0.76
+          ],
+          "endsB": [
+            0.7331,
+            0.76
+          ],
+          "header": 1,
+          "guide": 0,
+          "moving": 0.556,
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 99.4,
+          "sceneShare": 0.425,
+          "separation": 116,
+          "k": 0.994,
+          "arrangement": "row/row",
+          "log": [
+            "22.5/row/row:k0.99:"
+          ]
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

@@ -1,0 +1,534 @@
+{
+  "animationId": "LAW-0283",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0283",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "hearing.room"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: two identical rooms at rest (blank displays, switches in the middle, lights off, cards in the trays) @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": "{\"l\":0,\"s\":0.5,\"f\":[0,0],\"t\":[0,0],\"p\":null}[\"in-tray\",\"in-tray\",\"in-tray\"]",
+          "lookB": "{\"l\":0,\"s\":0.5,\"f\":[0,0],\"t\":[0,0],\"p\":null}[\"in-tray\",\"in-tray\",\"in-tray\"]",
+          "lightsA": 0,
+          "lightsB": 0,
+          "switchA": 0.5,
+          "switchB": 0.5,
+          "stateA": "blank",
+          "stateB": "blank",
+          "cardState": [
+            "in-tray",
+            "in-tray",
+            "in-tray"
+          ],
+          "received": 0,
+          "guide": 0,
+          "hands": [
+            {
+              "x": 163.07,
+              "y": 530.02
+            },
+            {
+              "x": 485.85,
+              "y": 481.6
+            },
+            {
+              "x": 348.67,
+              "y": 606.68
+            }
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 97.9,
+          "arrangement": "row",
+          "order": "0>1>2"
+        }
+      }
+    },
+    {
+      "name": "semantic: nothing differs before the change beat @0.16",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": "{\"l\":0,\"s\":0.5,\"f\":[0,0],\"t\":[0,0],\"p\":null}[\"in-tray\",\"in-tray\",\"in-tray\"]",
+          "lookB": "{\"l\":0,\"s\":0.5,\"f\":[0,0],\"t\":[0,0],\"p\":null}[\"in-tray\",\"in-tray\",\"in-tray\"]",
+          "lightsA": 0,
+          "lightsB": 0,
+          "switchA": 0.5,
+          "switchB": 0.5,
+          "stateA": "blank",
+          "stateB": "blank",
+          "cardState": [
+            "in-tray",
+            "in-tray",
+            "in-tray"
+          ],
+          "received": 0,
+          "guide": 0,
+          "hands": [
+            {
+              "x": 163.07,
+              "y": 530.02
+            },
+            {
+              "x": 485.85,
+              "y": 481.6
+            },
+            {
+              "x": 348.67,
+              "y": 606.68
+            }
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 97.9,
+          "arrangement": "row",
+          "order": "0>1>2"
+        }
+      }
+    },
+    {
+      "name": "semantic: the one supplied fact is introduced in both rooms at once: A started (switch ●), B pending (switch ◆) @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "introduce",
+          "lookA": "{\"l\":0.333,\"s\":1,\"f\":[1,0],\"t\":[1,0],\"p\":0.75}[\"in-tray\",\"in-tray\",\"in-tray\"]",
+          "lookB": "{\"l\":0,\"s\":0,\"f\":[0,1],\"t\":[0,1],\"p\":null}[\"in-tray\",\"in-tray\",\"in-tray\"]",
+          "lightsA": 0.333,
+          "lightsB": 0,
+          "switchA": 1,
+          "switchB": 0,
+          "stateA": "started",
+          "stateB": "pending",
+          "cardState": [
+            "in-tray",
+            "in-tray",
+            "in-tray"
+          ],
+          "received": 0,
+          "guide": 0,
+          "hands": [
+            {
+              "x": 163.07,
+              "y": 530.02
+            },
+            {
+              "x": 485.85,
+              "y": 481.6
+            },
+            {
+              "x": 348.67,
+              "y": 606.68
+            }
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 97.9,
+          "arrangement": "row",
+          "order": "0>1>2"
+        }
+      }
+    },
+    {
+      "name": "semantic: only A is activated (its lamps come on); B waits @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "lookA": "{\"l\":1,\"s\":1,\"f\":[1,0],\"t\":[1,0],\"p\":null}[\"in-tray\",\"in-tray\",\"in-tray\"]",
+          "lookB": "{\"l\":0,\"s\":0,\"f\":[0,1],\"t\":[0,1],\"p\":null}[\"in-tray\",\"in-tray\",\"in-tray\"]",
+          "lightsA": 1,
+          "lightsB": 0,
+          "switchA": 1,
+          "switchB": 0,
+          "stateA": "started",
+          "stateB": "pending",
+          "cardState": [
+            "in-tray",
+            "in-tray",
+            "in-tray"
+          ],
+          "received": 0,
+          "guide": 0,
+          "hands": [
+            {
+              "x": 163.07,
+              "y": 530.02
+            },
+            {
+              "x": 485.85,
+              "y": 481.6
+            },
+            {
+              "x": 348.67,
+              "y": 606.68
+            }
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 97.9,
+          "arrangement": "row",
+          "order": "0>1>2"
+        }
+      }
+    },
+    {
+      "name": "semantic: the same hand-over runs in parallel in both rooms @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "lookA": "{\"l\":1,\"s\":1,\"f\":[1,0],\"t\":[1,0],\"p\":null}[\"placed\",\"held\",\"in-tray\"]",
+          "lookB": "{\"l\":0,\"s\":0,\"f\":[0,1],\"t\":[0,1],\"p\":null}[\"placed\",\"held\",\"in-tray\"]",
+          "lightsA": 1,
+          "lightsB": 0,
+          "switchA": 1,
+          "switchB": 0,
+          "stateA": "started",
+          "stateB": "pending",
+          "cardState": [
+            "placed",
+            "held",
+            "in-tray"
+          ],
+          "received": 1,
+          "guide": 0,
+          "hands": [
+            {
+              "x": 163.07,
+              "y": 530.02
+            },
+            {
+              "x": 477.74,
+              "y": 489.58
+            },
+            {
+              "x": 348.67,
+              "y": 606.68
+            }
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 97.9,
+          "arrangement": "row",
+          "order": "0>1>2"
+        }
+      }
+    },
+    {
+      "name": "semantic: the hand-over is complete before the guide @0.77",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": "{\"l\":1,\"s\":1,\"f\":[1,0],\"t\":[1,0],\"p\":null}[\"placed\",\"placed\",\"placed\"]",
+          "lookB": "{\"l\":0,\"s\":0,\"f\":[0,1],\"t\":[0,1],\"p\":null}[\"placed\",\"placed\",\"placed\"]",
+          "lightsA": 1,
+          "lightsB": 0,
+          "switchA": 1,
+          "switchB": 0,
+          "stateA": "started",
+          "stateB": "pending",
+          "cardState": [
+            "placed",
+            "placed",
+            "placed"
+          ],
+          "received": 3,
+          "guide": 0,
+          "hands": [
+            {
+              "x": 163.07,
+              "y": 530.02
+            },
+            {
+              "x": 485.85,
+              "y": 481.6
+            },
+            {
+              "x": 348.67,
+              "y": 606.68
+            }
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 97.9,
+          "arrangement": "row",
+          "order": "0>1>2"
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: the guide links the two displays; the composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": "{\"l\":1,\"s\":1,\"f\":[1,0],\"t\":[1,0],\"p\":null}[\"placed\",\"placed\",\"placed\"]",
+          "lookB": "{\"l\":0,\"s\":0,\"f\":[0,1],\"t\":[0,1],\"p\":null}[\"placed\",\"placed\",\"placed\"]",
+          "lightsA": 1,
+          "lightsB": 0,
+          "switchA": 1,
+          "switchB": 0,
+          "stateA": "started",
+          "stateB": "pending",
+          "cardState": [
+            "placed",
+            "placed",
+            "placed"
+          ],
+          "received": 3,
+          "guide": 1,
+          "hands": [
+            {
+              "x": 163.07,
+              "y": 530.02
+            },
+            {
+              "x": 485.85,
+              "y": 481.6
+            },
+            {
+              "x": 348.67,
+              "y": 606.68
+            }
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 97.9,
+          "arrangement": "row",
+          "order": "0>1>2"
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the difference still reads (switch, lamps, frames) @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "lookA": "{\"l\":1,\"s\":1,\"f\":[1,0],\"t\":[1,0],\"p\":null}[\"held\",\"in-tray\",\"in-tray\"]",
+          "lookB": "{\"l\":0,\"s\":0,\"f\":[0,1],\"t\":[0,1],\"p\":null}[\"held\",\"in-tray\",\"in-tray\"]",
+          "lightsA": 1,
+          "lightsB": 0,
+          "switchA": 1,
+          "switchB": 0,
+          "stateA": "started",
+          "stateB": "pending",
+          "cardState": [
+            "held",
+            "in-tray",
+            "in-tray"
+          ],
+          "received": 0,
+          "guide": 0,
+          "hands": [
+            {
+              "x": 214.25,
+              "y": 443.78
+            },
+            {
+              "x": 651.93,
+              "y": 390.12
+            },
+            {
+              "x": 459.83,
+              "y": 556.11
+            }
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 129.9,
+          "arrangement": "row",
+          "order": "0>1>2"
+        }
+      }
+    },
+    {
+      "name": "semantic: another supplied configuration (sequence C, A, D, B) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": "{\"l\":1,\"s\":1,\"f\":[1,0],\"t\":[1,0],\"p\":null}[\"placed\",\"placed\",\"placed\",\"placed\"]",
+          "lookB": "{\"l\":0,\"s\":0,\"f\":[0,1],\"t\":[0,1],\"p\":null}[\"placed\",\"placed\",\"placed\",\"placed\"]",
+          "lightsA": 1,
+          "lightsB": 0,
+          "switchA": 1,
+          "switchB": 0,
+          "stateA": "started",
+          "stateB": "pending",
+          "cardState": [
+            "placed",
+            "placed",
+            "placed",
+            "placed"
+          ],
+          "received": 4,
+          "guide": 1,
+          "hands": [
+            {
+              "x": 143.89,
+              "y": 525.84
+            },
+            {
+              "x": 435.39,
+              "y": 480.41
+            },
+            {
+              "x": 232.38,
+              "y": 629.47
+            },
+            {
+              "x": 384.65,
+              "y": 604.2
+            }
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 91.9,
+          "arrangement": "row",
+          "order": "2>0>3>1"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

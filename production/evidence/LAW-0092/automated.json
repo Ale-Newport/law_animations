@@ -1,0 +1,673 @@
+{
+  "animationId": "LAW-0092",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0092",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "facts.0.text"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: context: the produced state with the before datum (broken link, fact in the clip) @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "context",
+          "target": "absent-entry",
+          "row": 2,
+          "targetSide": "b",
+          "lensOpen": 0,
+          "zoom": 1,
+          "zoomVsMiniature": 1,
+          "zoomAtDest": 2.2,
+          "lensC": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "sourceCentre": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "copyErr": 0,
+          "dim": 0,
+          "mini": 1,
+          "srcErr": 0,
+          "datum": "before",
+          "beforeShown": true,
+          "beforeStruck": 0,
+          "afterShown": 0,
+          "entryValue": "before",
+          "tokenInSocket": false,
+          "icon": null,
+          "link": "broken",
+          "clipTag": "distinguishing",
+          "markerShown": false,
+          "links": [
+            1,
+            1,
+            1,
+            0.811
+          ],
+          "outcome": null
+        }
+      }
+    },
+    {
+      "name": "semantic: the magnifier lifts off as an exact copy at the source coordinates @0.231",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "target": "absent-entry",
+          "row": 2,
+          "targetSide": "b",
+          "lensOpen": 0,
+          "zoom": 1,
+          "zoomVsMiniature": 1,
+          "zoomAtDest": 2.2,
+          "lensC": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "sourceCentre": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "copyErr": 0,
+          "dim": 0,
+          "mini": 1,
+          "srcErr": 0.003,
+          "datum": "before",
+          "beforeShown": true,
+          "beforeStruck": 0,
+          "afterShown": 0,
+          "entryValue": "before",
+          "tokenInSocket": false,
+          "icon": null,
+          "link": "broken",
+          "clipTag": "distinguishing",
+          "markerShown": false,
+          "links": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "outcome": null
+        }
+      }
+    },
+    {
+      "name": "semantic: while it travels, the enlarged copy stays mapped to its source region @0.29",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "target": "absent-entry",
+          "row": 2,
+          "targetSide": "b",
+          "lensOpen": 0.624,
+          "zoom": 1.635,
+          "zoomVsMiniature": 2.347,
+          "zoomAtDest": 2.2,
+          "lensC": {
+            "x": 1010.8,
+            "y": 593.88
+          },
+          "sourceCentre": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "copyErr": 0,
+          "dim": 0.624,
+          "mini": 0.6967,
+          "srcErr": 796.637,
+          "datum": "before",
+          "beforeShown": true,
+          "beforeStruck": 0,
+          "afterShown": 0,
+          "entryValue": "before",
+          "tokenInSocket": false,
+          "icon": null,
+          "link": "broken",
+          "clipTag": "distinguishing",
+          "markerShown": false,
+          "links": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "outcome": null
+        }
+      }
+    },
+    {
+      "name": "semantic: isolated and enlarged before anything changes @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "target": "absent-entry",
+          "row": 2,
+          "targetSide": "b",
+          "lensOpen": 1,
+          "zoom": 2.2,
+          "zoomVsMiniature": 4.278,
+          "zoomAtDest": 2.2,
+          "lensC": {
+            "x": 1030.75,
+            "y": 698.85
+          },
+          "sourceCentre": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "copyErr": 0,
+          "dim": 1,
+          "mini": 0.5143,
+          "srcErr": 1475.179,
+          "datum": "before",
+          "beforeShown": true,
+          "beforeStruck": 0,
+          "afterShown": 0,
+          "entryValue": "before",
+          "tokenInSocket": false,
+          "icon": null,
+          "link": "broken",
+          "clipTag": "distinguishing",
+          "markerShown": false,
+          "links": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "outcome": null
+        }
+      }
+    },
+    {
+      "name": "semantic: substitution: after value in place, before value struck (kept), socket filled, link closed, dependent tag updated @0.72",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "target": "absent-entry",
+          "row": 2,
+          "targetSide": "b",
+          "lensOpen": 1,
+          "zoom": 2.2,
+          "zoomVsMiniature": 4.278,
+          "zoomAtDest": 2.2,
+          "lensC": {
+            "x": 1030.75,
+            "y": 698.85
+          },
+          "sourceCentre": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "copyErr": 0,
+          "dim": 1,
+          "mini": 0.5143,
+          "srcErr": 1475.179,
+          "datum": "after",
+          "beforeShown": true,
+          "beforeStruck": 1,
+          "afterShown": 1,
+          "entryValue": "after",
+          "tokenInSocket": true,
+          "icon": "letter",
+          "link": "closed",
+          "clipTag": "recorded-both",
+          "markerShown": false,
+          "links": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "outcome": null
+        }
+      }
+    },
+    {
+      "name": "semantic: the other rows are untouched @0.72",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "target": "absent-entry",
+          "row": 2,
+          "targetSide": "b",
+          "lensOpen": 1,
+          "zoom": 2.2,
+          "zoomVsMiniature": 4.278,
+          "zoomAtDest": 2.2,
+          "lensC": {
+            "x": 1030.75,
+            "y": 698.85
+          },
+          "sourceCentre": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "copyErr": 0,
+          "dim": 1,
+          "mini": 0.5143,
+          "srcErr": 1475.179,
+          "datum": "after",
+          "beforeShown": true,
+          "beforeStruck": 1,
+          "afterShown": 1,
+          "entryValue": "after",
+          "tokenInSocket": true,
+          "icon": "letter",
+          "link": "closed",
+          "clipTag": "recorded-both",
+          "markerShown": false,
+          "links": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "outcome": null
+        }
+      }
+    },
+    {
+      "name": "semantic: return: back to context with a changed-datum marker; the old value stays traceable @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "target": "absent-entry",
+          "row": 2,
+          "targetSide": "b",
+          "lensOpen": 0,
+          "zoom": 1,
+          "zoomVsMiniature": 1,
+          "zoomAtDest": 2.2,
+          "lensC": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "sourceCentre": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "copyErr": 0,
+          "dim": 0,
+          "mini": 1,
+          "srcErr": 0,
+          "datum": "after",
+          "beforeShown": true,
+          "beforeStruck": 1,
+          "afterShown": 1,
+          "entryValue": "after",
+          "tokenInSocket": true,
+          "icon": "letter",
+          "link": "closed",
+          "clipTag": "recorded-both",
+          "markerShown": true,
+          "links": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "outcome": null
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back before the substitution restores the old datum exactly @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "target": "absent-entry",
+          "row": 2,
+          "targetSide": "b",
+          "lensOpen": 1,
+          "zoom": 2.2,
+          "zoomVsMiniature": 4.278,
+          "zoomAtDest": 2.2,
+          "lensC": {
+            "x": 1030.75,
+            "y": 698.85
+          },
+          "sourceCentre": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "copyErr": 0,
+          "dim": 1,
+          "mini": 0.5143,
+          "srcErr": 1475.179,
+          "datum": "before",
+          "beforeShown": true,
+          "beforeStruck": 0,
+          "afterShown": 0,
+          "entryValue": "before",
+          "tokenInSocket": false,
+          "icon": null,
+          "link": "broken",
+          "clipTag": "distinguishing",
+          "markerShown": false,
+          "links": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "outcome": null
+        }
+      }
+    },
+    {
+      "name": "semantic: present entry: only the pictogram and value change; the link stays broken @0.72",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "target": "present-entry",
+          "row": 2,
+          "targetSide": "b",
+          "lensOpen": 1,
+          "zoom": 2.2,
+          "zoomVsMiniature": 4.278,
+          "zoomAtDest": 2.2,
+          "lensC": {
+            "x": 1030.75,
+            "y": 698.85
+          },
+          "sourceCentre": {
+            "x": 1012.03,
+            "y": 576.71
+          },
+          "copyErr": 0,
+          "dim": 1,
+          "mini": 0.5143,
+          "srcErr": 1783.607,
+          "datum": "after",
+          "beforeShown": true,
+          "beforeStruck": 1,
+          "afterShown": 1,
+          "entryValue": "after",
+          "tokenInSocket": null,
+          "icon": "letter",
+          "link": "broken",
+          "clipTag": "distinguishing",
+          "markerShown": false,
+          "links": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "outcome": null
+        }
+      }
+    },
+    {
+      "name": "semantic: present entry: before the substitution the original pictogram is shown @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "target": "present-entry",
+          "row": 2,
+          "targetSide": "b",
+          "lensOpen": 1,
+          "zoom": 2.2,
+          "zoomVsMiniature": 4.278,
+          "zoomAtDest": 2.2,
+          "lensC": {
+            "x": 1030.75,
+            "y": 698.85
+          },
+          "sourceCentre": {
+            "x": 1012.03,
+            "y": 576.71
+          },
+          "copyErr": 0,
+          "dim": 1,
+          "mini": 0.5143,
+          "srcErr": 1783.607,
+          "datum": "before",
+          "beforeShown": true,
+          "beforeStruck": 0,
+          "afterShown": 0,
+          "entryValue": "before",
+          "tokenInSocket": null,
+          "icon": "phone",
+          "link": "broken",
+          "clipTag": "distinguishing",
+          "markerShown": false,
+          "links": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "outcome": null
+        }
+      }
+    },
+    {
+      "name": "semantic: the substitution reads with labels hidden (token, link, pin) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "target": "absent-entry",
+          "row": 2,
+          "targetSide": "b",
+          "lensOpen": 0,
+          "zoom": 1,
+          "zoomVsMiniature": 1,
+          "zoomAtDest": 2.2,
+          "lensC": {
+            "x": 954.53,
+            "y": 559.28
+          },
+          "sourceCentre": {
+            "x": 954.53,
+            "y": 559.28
+          },
+          "copyErr": 0,
+          "dim": 0,
+          "mini": 1,
+          "srcErr": 0,
+          "datum": "after",
+          "beforeShown": true,
+          "beforeStruck": 1,
+          "afterShown": 1,
+          "entryValue": "after",
+          "tokenInSocket": true,
+          "icon": "letter",
+          "link": "closed",
+          "clipTag": "recorded-both",
+          "markerShown": true,
+          "links": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "outcome": null
+        }
+      }
+    },
+    {
+      "name": "semantic: no outcome is inferred @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "target": "absent-entry",
+          "row": 2,
+          "targetSide": "b",
+          "lensOpen": 0,
+          "zoom": 1,
+          "zoomVsMiniature": 1,
+          "zoomAtDest": 2.2,
+          "lensC": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "sourceCentre": {
+            "x": 954.53,
+            "y": 576.71
+          },
+          "copyErr": 0,
+          "dim": 0,
+          "mini": 1,
+          "srcErr": 0,
+          "datum": "after",
+          "beforeShown": true,
+          "beforeStruck": 1,
+          "afterShown": 1,
+          "entryValue": "after",
+          "tokenInSocket": true,
+          "icon": "letter",
+          "link": "closed",
+          "clipTag": "recorded-both",
+          "markerShown": true,
+          "links": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "outcome": null
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

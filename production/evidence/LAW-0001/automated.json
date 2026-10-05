@@ -1,0 +1,870 @@
+{
+  "animationId": "LAW-0001",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0001",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: starts unsigned with party A holding the pen @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 165.98,
+            "y": 595
+          },
+          "penHeld": true,
+          "penTouching": false,
+          "signatureProgress": 0,
+          "documentCenter": {
+            "x": 464,
+            "y": 423
+          },
+          "documentRotation": 0,
+          "documentHolder": "A",
+          "handA": {
+            "x": 201.47,
+            "y": 661.75
+          },
+          "docGripA": {
+            "x": 379.22,
+            "y": 584.2
+          },
+          "handB1": {
+            "x": 1490,
+            "y": 144
+          },
+          "docGripB": {
+            "x": 679.5,
+            "y": 299
+          },
+          "stampTool": {
+            "x": 1475,
+            "y": 756
+          },
+          "stampSpot": {
+            "x": 572.33,
+            "y": 485
+          },
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "stampPressed": false,
+          "stampApplied": false,
+          "beat": "rest",
+          "finalState": "passed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: pen is on paper while the signature is drawn @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 456.98,
+            "y": 647.28
+          },
+          "penHeld": true,
+          "penTouching": true,
+          "signatureProgress": 0.6,
+          "documentCenter": {
+            "x": 464,
+            "y": 423
+          },
+          "documentRotation": 0,
+          "documentHolder": "A",
+          "handA": {
+            "x": 492.47,
+            "y": 714.03
+          },
+          "docGripA": {
+            "x": 379.22,
+            "y": 584.2
+          },
+          "handB1": {
+            "x": 1490,
+            "y": 144
+          },
+          "docGripB": {
+            "x": 679.5,
+            "y": 299
+          },
+          "stampTool": {
+            "x": 1475,
+            "y": 756
+          },
+          "stampSpot": {
+            "x": 572.33,
+            "y": 485
+          },
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "stampPressed": false,
+          "stampApplied": false,
+          "beat": "action",
+          "finalState": "passed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: pen laid down before the sheet is pushed @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 171.98,
+            "y": 609
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "signatureProgress": 1,
+          "documentCenter": {
+            "x": 464,
+            "y": 423
+          },
+          "documentRotation": 0,
+          "documentHolder": "A",
+          "handA": {
+            "x": 353.78,
+            "y": 597.76
+          },
+          "docGripA": {
+            "x": 379.22,
+            "y": 584.2
+          },
+          "handB1": {
+            "x": 1490,
+            "y": 144
+          },
+          "docGripB": {
+            "x": 679.5,
+            "y": 299
+          },
+          "stampTool": {
+            "x": 1475,
+            "y": 756
+          },
+          "stampSpot": {
+            "x": 572.33,
+            "y": 485
+          },
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "stampPressed": false,
+          "stampApplied": false,
+          "beat": "complete",
+          "finalState": "passed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: document moves only after the signature is complete @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 171.98,
+            "y": 609
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "signatureProgress": 1,
+          "documentCenter": {
+            "x": 935.89,
+            "y": 423
+          },
+          "documentRotation": -1.93,
+          "documentHolder": "gliding",
+          "handA": {
+            "x": 553.68,
+            "y": 605.85
+          },
+          "docGripA": {
+            "x": 856.58,
+            "y": 586.96
+          },
+          "handB1": {
+            "x": 1229.28,
+            "y": 276.5
+          },
+          "docGripB": {
+            "x": 1147.09,
+            "y": 291.81
+          },
+          "stampTool": {
+            "x": 1475,
+            "y": 756
+          },
+          "stampSpot": {
+            "x": 1046.24,
+            "y": 481.32
+          },
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "stampPressed": false,
+          "stampApplied": false,
+          "beat": "complete",
+          "finalState": "passed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: ends with the stamped document at B @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 171.98,
+            "y": 609
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "signatureProgress": 1,
+          "documentCenter": {
+            "x": 1120,
+            "y": 423
+          },
+          "documentRotation": 0,
+          "documentHolder": "B",
+          "handA": {
+            "x": 400,
+            "y": 820
+          },
+          "docGripA": {
+            "x": 1035.22,
+            "y": 584.2
+          },
+          "handB1": {
+            "x": 1490,
+            "y": 144
+          },
+          "docGripB": {
+            "x": 1335.5,
+            "y": 299
+          },
+          "stampTool": {
+            "x": 1475,
+            "y": 756
+          },
+          "stampSpot": {
+            "x": 1228.33,
+            "y": 485
+          },
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "stampPressed": false,
+          "stampApplied": true,
+          "beat": "hold",
+          "finalState": "passed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: pending state: no signature, no transfer @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 171.98,
+            "y": 609
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "signatureProgress": 0,
+          "documentCenter": {
+            "x": 464,
+            "y": 423
+          },
+          "documentRotation": 0,
+          "documentHolder": "A",
+          "handA": {
+            "x": 400,
+            "y": 820
+          },
+          "docGripA": {
+            "x": 379.22,
+            "y": 584.2
+          },
+          "handB1": {
+            "x": 1490,
+            "y": 144
+          },
+          "docGripB": {
+            "x": 679.5,
+            "y": 299
+          },
+          "stampTool": {
+            "x": 1475,
+            "y": 756
+          },
+          "stampSpot": {
+            "x": 572.33,
+            "y": 485
+          },
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "stampPressed": false,
+          "stampApplied": false,
+          "beat": "hold",
+          "finalState": "pending",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: retained state: signed, stays with A @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 171.98,
+            "y": 609
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "signatureProgress": 1,
+          "documentCenter": {
+            "x": 464,
+            "y": 423
+          },
+          "documentRotation": 0,
+          "documentHolder": "A",
+          "handA": {
+            "x": 400,
+            "y": 820
+          },
+          "docGripA": {
+            "x": 379.22,
+            "y": 584.2
+          },
+          "handB1": {
+            "x": 1490,
+            "y": 144
+          },
+          "docGripB": {
+            "x": 679.5,
+            "y": 299
+          },
+          "stampTool": {
+            "x": 1475,
+            "y": 756
+          },
+          "stampSpot": {
+            "x": 572.33,
+            "y": 485
+          },
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "stampPressed": false,
+          "stampApplied": false,
+          "beat": "hold",
+          "finalState": "signed-retained",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 405.17,
+            "y": 681.75
+          },
+          "penHeld": true,
+          "penTouching": true,
+          "signatureProgress": 0.825,
+          "documentCenter": {
+            "x": 464,
+            "y": 423
+          },
+          "documentRotation": 0,
+          "documentHolder": "A",
+          "handA": {
+            "x": 440.67,
+            "y": 748.5
+          },
+          "docGripA": {
+            "x": 379.22,
+            "y": 584.2
+          },
+          "handB1": {
+            "x": 1490,
+            "y": 144
+          },
+          "docGripB": {
+            "x": 679.5,
+            "y": 299
+          },
+          "stampTool": {
+            "x": 1475,
+            "y": 756
+          },
+          "stampSpot": {
+            "x": 572.33,
+            "y": 485
+          },
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "stampPressed": false,
+          "stampApplied": false,
+          "beat": "hold",
+          "finalState": "passed",
+          "actionCapped": true
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Alex Moreno",
+          "px": 13.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Alex Moreno",
+          "px": 10.3
+        },
+        {
+          "text": "1. Scope of work",
+          "px": 11.4
+        },
+        {
+          "text": "2. Fees (hypothetical)",
+          "px": 11.4
+        },
+        {
+          "text": "3. Term and notice",
+          "px": 11.4
+        },
+        {
+          "text": "DOC-104",
+          "px": 12.3
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Alex Moreno",
+          "px": 13.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Alex Moreno",
+          "px": 10.3
+        },
+        {
+          "text": "1. Scope of work",
+          "px": 11.4
+        },
+        {
+          "text": "2. Fees (hypothetical)",
+          "px": 11.4
+        },
+        {
+          "text": "3. Term and notice",
+          "px": 11.4
+        },
+        {
+          "text": "DOC-104",
+          "px": 12.3
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Priya Lindqvist",
+          "px": 13.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Priya Lindqvist",
+          "px": 10.3
+        },
+        {
+          "text": "1. Equipment list",
+          "px": 11.4
+        },
+        {
+          "text": "2. Monthly amount (hypothetica",
+          "px": 11.4
+        },
+        {
+          "text": "3. Return of equipment",
+          "px": 11.4
+        },
+        {
+          "text": "4. Confidential annex",
+          "px": 11.4
+        },
+        {
+          "text": "LEASE-22",
+          "px": 12.3
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        "Framework Agreement for the Supply and M",
+        "2. Scope of the supply obligations and t",
+        "4. Duration, renewal and the procedure f",
+        "Maria-Fernanda Castellanos Villavicencio",
+        "Oluwaseun Bartholomew-Nakamura · Receivi"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "2. Scope of the supply obligat",
+          "px": 9
+        },
+        {
+          "text": "4. Duration, renewal and the p",
+          "px": 9
+        },
+        {
+          "text": "1. Definitions and interpretat",
+          "px": 9.3
+        },
+        {
+          "text": "3. Fees, invoicing and payment",
+          "px": 9.3
+        },
+        {
+          "text": "Maria-Fernanda Castellanos Vil",
+          "px": 10
+        },
+        {
+          "text": "RECEIVED ORIGINAL",
+          "px": 13.2
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        "Framework Agreement for the Supply and M",
+        "1. Definitions and interpretation of ter",
+        "2. Scope of the supply obligations and t",
+        "3. Fees, invoicing and payment arrangeme",
+        "4. Duration, renewal and the procedure f",
+        "Maria-Fernanda Castellanos Villavicencio"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Maria-Fernanda Castellanos Vil",
+          "px": 10.3
+        },
+        {
+          "text": "1. Definitions and interpretat",
+          "px": 10.7
+        },
+        {
+          "text": "2. Scope of the supply obligat",
+          "px": 10.7
+        },
+        {
+          "text": "3. Fees, invoicing and payment",
+          "px": 10.7
+        },
+        {
+          "text": "4. Duration, renewal and the p",
+          "px": 10.7
+        },
+        {
+          "text": "RECEIVED ORIGINAL",
+          "px": 13.7
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        "Framework Agreement for the Supply and M",
+        "1. Definitions and interpretation of ter",
+        "2. Scope of the supply obligations and t",
+        "3. Fees, invoicing and payment arrangeme",
+        "4. Duration, renewal and the procedure f",
+        "Maria-Fernanda Castellanos Villavicencio"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "1. Definitions and interpretat",
+          "px": 7.4
+        },
+        {
+          "text": "2. Scope of the supply obligat",
+          "px": 7.4
+        },
+        {
+          "text": "3. Fees, invoicing and payment",
+          "px": 7.4
+        },
+        {
+          "text": "4. Duration, renewal and the p",
+          "px": 7.4
+        },
+        {
+          "text": "Maria-Fernanda Castellanos Vil",
+          "px": 7.4
+        },
+        {
+          "text": "RECEIVED ORIGINAL",
+          "px": 9.8
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Alex Moreno",
+          "px": 13.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Alex Moreno",
+          "px": 10.3
+        },
+        {
+          "text": "1. Objeto del servicio",
+          "px": 11.4
+        },
+        {
+          "text": "2. Honorarios (hipotéticos)",
+          "px": 11.4
+        },
+        {
+          "text": "3. Duración y preaviso",
+          "px": 11.4
+        },
+        {
+          "text": "DOC-104",
+          "px": 12.3
+        }
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

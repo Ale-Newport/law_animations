@@ -1,0 +1,986 @@
+{
+  "animationId": "LAW-0016",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0016",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: context first: whole desk, previous datum @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "zoom": 1,
+          "zoomProgress": 0,
+          "datum": "before",
+          "shownValue": "digital",
+          "focusTarget": "revised",
+          "focusEdit": 0,
+          "focusSource": {
+            "x": 736.8,
+            "y": 235.38,
+            "w": 699.6,
+            "h": 237.06
+          },
+          "focusOnScreen": {
+            "x": 1086.6,
+            "y": 353.91
+          },
+          "screenTarget": {
+            "x": 800,
+            "y": 548.6
+          },
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "w": 1600,
+            "h": 860
+          },
+          "linkState": "changing",
+          "linkEnd": {
+            "x": 1346.93,
+            "y": 286.43
+          },
+          "otherLinksDrawn": 0.56,
+          "otherLinks": 2,
+          "minimapVisible": false,
+          "minimapCorner": "tr",
+          "markerVisible": false
+        }
+      }
+    },
+    {
+      "name": "semantic: real enlargement of the focused pair, context kept in the minimap @0.42",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "zoom": 2.102,
+          "zoomProgress": 1,
+          "datum": "before",
+          "shownValue": "digital",
+          "focusTarget": "revised",
+          "focusEdit": 0,
+          "focusSource": {
+            "x": 736.8,
+            "y": 235.38,
+            "w": 699.6,
+            "h": 237.06
+          },
+          "focusOnScreen": {
+            "x": 800,
+            "y": 548.6
+          },
+          "screenTarget": {
+            "x": 800,
+            "y": 548.6
+          },
+          "viewport": {
+            "x": 705.96,
+            "y": 92.89,
+            "w": 761.27,
+            "h": 409.18
+          },
+          "linkState": "linked",
+          "linkEnd": {
+            "x": 1346.93,
+            "y": 286.43
+          },
+          "otherLinksDrawn": 1,
+          "otherLinks": 2,
+          "minimapVisible": true,
+          "minimapCorner": "tr",
+          "markerVisible": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the detail is the same geometry mapped by the camera (source coordinates preserved) @0.42",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "zoom": 2.102,
+          "zoomProgress": 1,
+          "datum": "before",
+          "shownValue": "digital",
+          "focusTarget": "revised",
+          "focusEdit": 0,
+          "focusSource": {
+            "x": 736.8,
+            "y": 235.38,
+            "w": 699.6,
+            "h": 237.06
+          },
+          "focusOnScreen": {
+            "x": 800,
+            "y": 548.6
+          },
+          "screenTarget": {
+            "x": 800,
+            "y": 548.6
+          },
+          "viewport": {
+            "x": 705.96,
+            "y": 92.89,
+            "w": 761.27,
+            "h": 409.18
+          },
+          "linkState": "linked",
+          "linkEnd": {
+            "x": 1346.93,
+            "y": 286.43
+          },
+          "otherLinksDrawn": 1,
+          "otherLinks": 2,
+          "minimapVisible": true,
+          "minimapCorner": "tr",
+          "markerVisible": false
+        }
+      }
+    },
+    {
+      "name": "semantic: only the focused datum changes; the other links stay as they were @0.58",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "zoom": 2.102,
+          "zoomProgress": 1,
+          "datum": "changing",
+          "shownValue": null,
+          "focusTarget": "revised",
+          "focusEdit": 0,
+          "focusSource": {
+            "x": 736.8,
+            "y": 235.38,
+            "w": 699.6,
+            "h": 237.06
+          },
+          "focusOnScreen": {
+            "x": 800,
+            "y": 548.6
+          },
+          "screenTarget": {
+            "x": 800,
+            "y": 548.6
+          },
+          "viewport": {
+            "x": 705.96,
+            "y": 92.89,
+            "w": 761.27,
+            "h": 409.18
+          },
+          "linkState": "linked",
+          "linkEnd": {
+            "x": 1346.83,
+            "y": 286.43
+          },
+          "otherLinksDrawn": 1,
+          "otherLinks": 2,
+          "minimapVisible": true,
+          "minimapCorner": "tr",
+          "markerVisible": false
+        }
+      }
+    },
+    {
+      "name": "semantic: new datum in place; its link re-anchored @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "zoom": 2.102,
+          "zoomProgress": 1,
+          "datum": "after",
+          "shownValue": "online",
+          "focusTarget": "revised",
+          "focusEdit": 0,
+          "focusSource": {
+            "x": 736.8,
+            "y": 235.38,
+            "w": 699.6,
+            "h": 237.06
+          },
+          "focusOnScreen": {
+            "x": 800,
+            "y": 548.6
+          },
+          "screenTarget": {
+            "x": 800,
+            "y": 548.6
+          },
+          "viewport": {
+            "x": 705.96,
+            "y": 92.89,
+            "w": 761.27,
+            "h": 409.18
+          },
+          "linkState": "linked",
+          "linkEnd": {
+            "x": 1346.74,
+            "y": 286.43
+          },
+          "otherLinksDrawn": 1,
+          "otherLinks": 2,
+          "minimapVisible": true,
+          "minimapCorner": "tr",
+          "markerVisible": false
+        }
+      }
+    },
+    {
+      "name": "semantic: returns to the context with a changed-datum marker @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "zoom": 1,
+          "zoomProgress": 0,
+          "datum": "after",
+          "shownValue": "online",
+          "focusTarget": "revised",
+          "focusEdit": 0,
+          "focusSource": {
+            "x": 736.8,
+            "y": 235.38,
+            "w": 699.6,
+            "h": 237.06
+          },
+          "focusOnScreen": {
+            "x": 1086.6,
+            "y": 353.91
+          },
+          "screenTarget": {
+            "x": 800,
+            "y": 548.6
+          },
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "w": 1600,
+            "h": 860
+          },
+          "linkState": "linked",
+          "linkEnd": {
+            "x": 1346.74,
+            "y": 286.43
+          },
+          "otherLinksDrawn": 1,
+          "otherLinks": 2,
+          "minimapVisible": false,
+          "minimapCorner": "tr",
+          "markerVisible": true
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the previous datum exactly @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "zoom": 1.387,
+          "zoomProgress": 0.351,
+          "datum": "before",
+          "shownValue": "digital",
+          "focusTarget": "revised",
+          "focusEdit": 0,
+          "focusSource": {
+            "x": 736.8,
+            "y": 235.38,
+            "w": 699.6,
+            "h": 237.06
+          },
+          "focusOnScreen": {
+            "x": 1163.17,
+            "y": 445.59
+          },
+          "screenTarget": {
+            "x": 800,
+            "y": 548.6
+          },
+          "viewport": {
+            "x": 247.91,
+            "y": 32.62,
+            "w": 1153.66,
+            "h": 620.09
+          },
+          "linkState": "linked",
+          "linkEnd": {
+            "x": 1346.93,
+            "y": 286.43
+          },
+          "otherLinksDrawn": 1,
+          "otherLinks": 2,
+          "minimapVisible": true,
+          "minimapCorner": "tr",
+          "markerVisible": false
+        }
+      }
+    },
+    {
+      "name": "semantic: when the new words equal the original, that link retracts (dependent state) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "zoom": 1,
+          "zoomProgress": 0,
+          "datum": "after",
+          "shownValue": "main",
+          "focusTarget": "revised",
+          "focusEdit": 1,
+          "focusSource": {
+            "x": 529.94,
+            "y": 294.78,
+            "w": 733.59,
+            "h": 113.4
+          },
+          "focusOnScreen": {
+            "x": 896.73,
+            "y": 351.48
+          },
+          "screenTarget": {
+            "x": 800,
+            "y": 548.6
+          },
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "w": 1600,
+            "h": 860
+          },
+          "linkState": "unlinked",
+          "linkEnd": {
+            "x": 1191.18,
+            "y": 336.76
+          },
+          "otherLinksDrawn": 1,
+          "otherLinks": 2,
+          "minimapVisible": false,
+          "minimapCorner": "tr",
+          "markerVisible": true
+        }
+      }
+    },
+    {
+      "name": "semantic: …and seeking back before the swap shows it linked again @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "zoom": 2.007,
+          "zoomProgress": 1,
+          "datum": "before",
+          "shownValue": "branch",
+          "focusTarget": "revised",
+          "focusEdit": 1,
+          "focusSource": {
+            "x": 529.94,
+            "y": 294.78,
+            "w": 733.59,
+            "h": 113.4
+          },
+          "focusOnScreen": {
+            "x": 800,
+            "y": 548.6
+          },
+          "screenTarget": {
+            "x": 800,
+            "y": 548.6
+          },
+          "viewport": {
+            "x": 498.04,
+            "y": 78.08,
+            "w": 797.38,
+            "h": 428.59
+          },
+          "linkState": "linked",
+          "linkEnd": {
+            "x": 1208.35,
+            "y": 336.76
+          },
+          "otherLinksDrawn": 1,
+          "otherLinks": 2,
+          "minimapVisible": true,
+          "minimapCorner": "tr",
+          "markerVisible": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the datum can be on the original sheet instead @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "zoom": 1,
+          "zoomProgress": 0,
+          "datum": "after",
+          "shownValue": "glossy",
+          "focusTarget": "original",
+          "focusEdit": 0,
+          "focusSource": {
+            "x": 163.6,
+            "y": 235.38,
+            "w": 699.6,
+            "h": 237.06
+          },
+          "focusOnScreen": {
+            "x": 513.4,
+            "y": 353.91
+          },
+          "screenTarget": {
+            "x": 800,
+            "y": 311.4
+          },
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "w": 1600,
+            "h": 860
+          },
+          "linkState": "linked",
+          "linkEnd": {
+            "x": 1346.93,
+            "y": 286.43
+          },
+          "otherLinksDrawn": 1,
+          "otherLinks": 2,
+          "minimapVisible": false,
+          "minimapCorner": "br",
+          "markerVisible": true
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Original text",
+          "px": 11.7
+        },
+        {
+          "text": "1",
+          "px": 11.7
+        },
+        {
+          "text": "2",
+          "px": 11.7
+        },
+        {
+          "text": "3",
+          "px": 11.7
+        },
+        {
+          "text": "Revised text",
+          "px": 11.7
+        },
+        {
+          "text": "1",
+          "px": 11.7
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "DOC-212",
+          "px": 13.2
+        },
+        {
+          "text": "DOC-212",
+          "px": 13.2
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Original text",
+          "px": 9.2
+        },
+        {
+          "text": "DOC-212",
+          "px": 9.2
+        },
+        {
+          "text": "Revised text",
+          "px": 9.2
+        },
+        {
+          "text": "DOC-212",
+          "px": 9.2
+        },
+        {
+          "text": "1",
+          "px": 11
+        },
+        {
+          "text": "2",
+          "px": 11
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Original text",
+          "px": 11.7
+        },
+        {
+          "text": "1",
+          "px": 11.7
+        },
+        {
+          "text": "2",
+          "px": 11.7
+        },
+        {
+          "text": "3",
+          "px": 11.7
+        },
+        {
+          "text": "Revised text",
+          "px": 11.7
+        },
+        {
+          "text": "1",
+          "px": 11.7
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "DOC-212",
+          "px": 13.2
+        },
+        {
+          "text": "DOC-212",
+          "px": 13.2
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Original text",
+          "px": 9.2
+        },
+        {
+          "text": "DOC-212",
+          "px": 9.2
+        },
+        {
+          "text": "Revised text",
+          "px": 9.2
+        },
+        {
+          "text": "DOC-212",
+          "px": 9.2
+        },
+        {
+          "text": "1",
+          "px": 11
+        },
+        {
+          "text": "2",
+          "px": 11
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Original text",
+          "px": 11.7
+        },
+        {
+          "text": "1",
+          "px": 11.7
+        },
+        {
+          "text": "2",
+          "px": 11.7
+        },
+        {
+          "text": "3",
+          "px": 11.7
+        },
+        {
+          "text": "Revised text",
+          "px": 11.7
+        },
+        {
+          "text": "1",
+          "px": 11.7
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "DOC-212",
+          "px": 13.2
+        },
+        {
+          "text": "DOC-212",
+          "px": 13.2
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Original text",
+          "px": 9.2
+        },
+        {
+          "text": "DOC-212",
+          "px": 9.2
+        },
+        {
+          "text": "Revised text",
+          "px": 9.2
+        },
+        {
+          "text": "DOC-212",
+          "px": 9.2
+        },
+        {
+          "text": "1",
+          "px": 11
+        },
+        {
+          "text": "2",
+          "px": 11
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "1",
+          "px": 9
+        },
+        {
+          "text": "2",
+          "px": 9
+        },
+        {
+          "text": "3",
+          "px": 9
+        },
+        {
+          "text": "1",
+          "px": 9
+        },
+        {
+          "text": "2",
+          "px": 9
+        },
+        {
+          "text": "3",
+          "px": 9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "FRAMEWORK-2026-000417-B",
+          "px": 12.5
+        },
+        {
+          "text": "FRAMEWORK-2026-000417-B",
+          "px": 12.5
+        },
+        {
+          "text": "Original text",
+          "px": 13.5
+        },
+        {
+          "text": "Revised text",
+          "px": 13.5
+        },
+        {
+          "text": "1",
+          "px": 13.6
+        },
+        {
+          "text": "2",
+          "px": 13.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "1",
+          "px": 8.5
+        },
+        {
+          "text": "2",
+          "px": 8.5
+        },
+        {
+          "text": "3",
+          "px": 8.5
+        },
+        {
+          "text": "1",
+          "px": 8.5
+        },
+        {
+          "text": "2",
+          "px": 8.5
+        },
+        {
+          "text": "3",
+          "px": 8.5
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Texto original",
+          "px": 11.7
+        },
+        {
+          "text": "1",
+          "px": 11.7
+        },
+        {
+          "text": "2",
+          "px": 11.7
+        },
+        {
+          "text": "3",
+          "px": 11.7
+        },
+        {
+          "text": "Texto revisado",
+          "px": 11.7
+        },
+        {
+          "text": "1",
+          "px": 11.7
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "DOC-212",
+          "px": 13.2
+        },
+        {
+          "text": "DOC-212",
+          "px": 13.2
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Texto original",
+          "px": 9.2
+        },
+        {
+          "text": "DOC-212",
+          "px": 9.2
+        },
+        {
+          "text": "Texto revisado",
+          "px": 9.2
+        },
+        {
+          "text": "DOC-212",
+          "px": 9.2
+        },
+        {
+          "text": "1",
+          "px": 11
+        },
+        {
+          "text": "2",
+          "px": 11
+        }
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

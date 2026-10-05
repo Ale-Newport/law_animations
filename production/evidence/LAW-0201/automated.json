@@ -1,0 +1,2646 @@
+{
+  "animationId": "LAW-0201",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0201",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "courts.building"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: everyone waits in the corridor, outside the room; no label shown @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 735.39,
+              "y": 654.71
+            },
+            {
+              "x": 629.7,
+              "y": 654.71
+            },
+            {
+              "x": 1173.35,
+              "y": 331.38
+            },
+            {
+              "x": 524.02,
+              "y": 654.71
+            },
+            {
+              "x": 418.34,
+              "y": 654.71
+            }
+          ],
+          "states": [
+            "waiting",
+            "waiting",
+            "waiting",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "p0": {
+            "x": 735.39,
+            "y": 654.71
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 629.7,
+            "y": 654.71
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 1173.35,
+            "y": 331.38
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 524.02,
+            "y": 654.71
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 418.34,
+            "y": 654.71
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "rest",
+          "seated": 0,
+          "walking": 0,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: nothing moves during the rest beat @0.145",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 735.39,
+              "y": 654.71
+            },
+            {
+              "x": 629.7,
+              "y": 654.71
+            },
+            {
+              "x": 1173.35,
+              "y": 331.38
+            },
+            {
+              "x": 524.02,
+              "y": 654.71
+            },
+            {
+              "x": 418.34,
+              "y": 654.71
+            }
+          ],
+          "states": [
+            "waiting",
+            "waiting",
+            "waiting",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "p0": {
+            "x": 735.39,
+            "y": 654.71
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 629.7,
+            "y": 654.71
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 1173.35,
+            "y": 331.38
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 524.02,
+            "y": 654.71
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 418.34,
+            "y": 654.71
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "rest",
+          "seated": 0,
+          "walking": 0,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: the placement starts; a label only shows for a seated person @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 323.09,
+              "y": 435.5
+            },
+            {
+              "x": 841.07,
+              "y": 574.7
+            },
+            {
+              "x": 1173.35,
+              "y": 331.38
+            },
+            {
+              "x": 524.02,
+              "y": 654.71
+            },
+            {
+              "x": 418.34,
+              "y": 654.71
+            }
+          ],
+          "states": [
+            "walking",
+            "walking",
+            "waiting",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "p0": {
+            "x": 323.09,
+            "y": 435.5
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            true,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 841.07,
+            "y": 574.7
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 1173.35,
+            "y": 331.38
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 524.02,
+            "y": 654.71
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 418.34,
+            "y": 654.71
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "action",
+          "seated": 0,
+          "walking": 2,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.2) @0.2",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 838.01,
+              "y": 631.84
+            },
+            {
+              "x": 629.7,
+              "y": 654.71
+            },
+            {
+              "x": 1173.35,
+              "y": 331.38
+            },
+            {
+              "x": 524.02,
+              "y": 654.71
+            },
+            {
+              "x": 418.34,
+              "y": 654.71
+            }
+          ],
+          "states": [
+            "walking",
+            "waiting",
+            "waiting",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "p0": {
+            "x": 838.01,
+            "y": 631.84
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "atDoor": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 629.7,
+            "y": 654.71
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 1173.35,
+            "y": 331.38
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 524.02,
+            "y": 654.71
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 418.34,
+            "y": 654.71
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "action",
+          "seated": 0,
+          "walking": 1,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.25) @0.25",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 655.98,
+              "y": 441.55
+            },
+            {
+              "x": 646.91,
+              "y": 654.71
+            },
+            {
+              "x": 1173.35,
+              "y": 331.38
+            },
+            {
+              "x": 524.02,
+              "y": 654.71
+            },
+            {
+              "x": 418.34,
+              "y": 654.71
+            }
+          ],
+          "states": [
+            "walking",
+            "walking",
+            "waiting",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "p0": {
+            "x": 655.98,
+            "y": 441.55
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 646.91,
+            "y": 654.71
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 1173.35,
+            "y": 331.38
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 524.02,
+            "y": 654.71
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 418.34,
+            "y": 654.71
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "action",
+          "seated": 0,
+          "walking": 2,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.35) @0.35",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 644.4,
+              "y": 433.42
+            },
+            {
+              "x": 1149.73,
+              "y": 228.51
+            },
+            {
+              "x": 524.02,
+              "y": 654.71
+            },
+            {
+              "x": 418.34,
+              "y": 654.71
+            }
+          ],
+          "states": [
+            "sitting",
+            "walking",
+            "walking",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            false,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            true,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 644.4,
+            "y": 433.42
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 1149.73,
+            "y": 228.51
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 524.02,
+            "y": 654.71
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 418.34,
+            "y": 654.71
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "action",
+          "seated": 0,
+          "walking": 3,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.45) @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 607.5,
+              "y": 66.28
+            },
+            {
+              "x": 797.56,
+              "y": 654.71
+            },
+            {
+              "x": 418.34,
+              "y": 654.71
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "walking",
+            "walking",
+            "waiting"
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "anchor1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 607.5,
+            "y": 66.28
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 797.56,
+            "y": 654.71
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 418.34,
+            "y": 654.71
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "complete",
+          "seated": 2,
+          "walking": 2,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.55) @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 553.13,
+              "y": 66.28
+            },
+            {
+              "x": 796.74,
+              "y": 368.1
+            },
+            {
+              "x": 841.07,
+              "y": 601.8
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "sitting",
+            "walking"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            true
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "anchor1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "anchor2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 841.07,
+            "y": 601.8
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "complete",
+          "seated": 3,
+          "walking": 2,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.65) @0.65",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 553.13,
+              "y": 66.28
+            },
+            {
+              "x": 796.74,
+              "y": 368.1
+            },
+            {
+              "x": 238.69,
+              "y": 457.14
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated",
+            "walking"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "anchor1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "anchor2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "anchor3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 238.69,
+            "y": 457.14
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "complete",
+          "seated": 4,
+          "walking": 1,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.7) @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 553.13,
+              "y": 66.28
+            },
+            {
+              "x": 796.74,
+              "y": 368.1
+            },
+            {
+              "x": 235.18,
+              "y": 508.72
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated",
+            "sitting"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "anchor1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "anchor2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "anchor3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "complete",
+          "seated": 4,
+          "walking": 1,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: mid-way: some seated, others still on their way @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 553.13,
+              "y": 66.28
+            },
+            {
+              "x": 796.74,
+              "y": 414.98
+            },
+            {
+              "x": 520.16,
+              "y": 654.71
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "sitting",
+            "walking",
+            "walking"
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "anchor1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 796.74,
+            "y": 414.98
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 520.16,
+            "y": 654.71
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "complete",
+          "seated": 2,
+          "walking": 3,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: the main action is complete by u 0.74 @0.74",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 553.13,
+              "y": 66.28
+            },
+            {
+              "x": 796.74,
+              "y": 368.1
+            },
+            {
+              "x": 235.18,
+              "y": 508.72
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1,
+            0.286
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "anchor1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "anchor2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "anchor3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "anchor4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "hold",
+          "seated": 5,
+          "walking": 0,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: every seat label is fully shown by u 0.82 @0.82",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 553.13,
+              "y": 66.28
+            },
+            {
+              "x": 796.74,
+              "y": 368.1
+            },
+            {
+              "x": 235.18,
+              "y": 508.72
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "anchor1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "anchor2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "anchor3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "anchor4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "hold",
+          "seated": 5,
+          "walking": 0,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: everyone seated (supplied final state), every label shown @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 553.13,
+              "y": 66.28
+            },
+            {
+              "x": 796.74,
+              "y": 368.1
+            },
+            {
+              "x": 235.18,
+              "y": 508.72
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "anchor1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "anchor2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "anchor3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "anchor4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "hold",
+          "seated": 5,
+          "walking": 0,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same walk and sit happens @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 553.13,
+              "y": 66.28
+            },
+            {
+              "x": 796.74,
+              "y": 414.98
+            },
+            {
+              "x": 520.16,
+              "y": 654.71
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "sitting",
+            "walking",
+            "walking"
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "anchor1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 796.74,
+            "y": 414.98
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 520.16,
+            "y": 654.71
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "complete",
+          "seated": 2,
+          "walking": 3,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: everyone ends seated @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 553.13,
+              "y": 66.28
+            },
+            {
+              "x": 796.74,
+              "y": 368.1
+            },
+            {
+              "x": 235.18,
+              "y": 508.72
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "anchor1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "anchor2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "anchor3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "anchor4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "hold",
+          "seated": 5,
+          "walking": 0,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: supplied state: the last person is still waiting at the door @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 553.13,
+              "y": 66.28
+            },
+            {
+              "x": 796.74,
+              "y": 368.1
+            },
+            {
+              "x": 418.34,
+              "y": 654.71
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated",
+            "waiting"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "anchor1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "anchor2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "anchor3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 418.34,
+            "y": 654.71
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "hold",
+          "seated": 4,
+          "walking": 0,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "last-waiting",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the placement part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 919.86,
+              "y": 228.39
+            },
+            {
+              "x": 524.02,
+              "y": 654.71
+            },
+            {
+              "x": 418.34,
+              "y": 654.71
+            }
+          ],
+          "states": [
+            "seated",
+            "sitting",
+            "walking",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            0.271,
+            0,
+            0,
+            0,
+            0
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 919.86,
+            "y": 228.39
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 524.02,
+            "y": 654.71
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 418.34,
+            "y": 654.71
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "hold",
+          "seated": 1,
+          "walking": 2,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": true,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: the supplied routes decide who walks where, in that order @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 796.74,
+              "y": 368.1
+            },
+            {
+              "x": 553.13,
+              "y": 66.28
+            }
+          ],
+          "states": [
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1
+          ],
+          "p0": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false
+          ],
+          "p1": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "seat1": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "anchor1": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "beat": "hold",
+          "seated": 2,
+          "walking": 0,
+          "allReached": true,
+          "order": "right2>front",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    },
+    {
+      "name": "semantic: every label found a place beside its seat @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 309.52,
+              "y": 368.1
+            },
+            {
+              "x": 633.74,
+              "y": 368.1
+            },
+            {
+              "x": 553.13,
+              "y": 66.28
+            },
+            {
+              "x": 796.74,
+              "y": 368.1
+            },
+            {
+              "x": 235.18,
+              "y": 508.72
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "p0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "seat0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "anchor0": {
+            "x": 309.52,
+            "y": 368.1
+          },
+          "inRoom": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "p1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "seat1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "anchor1": {
+            "x": 633.74,
+            "y": 368.1
+          },
+          "p2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "seat2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "anchor2": {
+            "x": 553.13,
+            "y": 66.28
+          },
+          "p3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "seat3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "anchor3": {
+            "x": 796.74,
+            "y": 368.1
+          },
+          "p4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "seat4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "anchor4": {
+            "x": 235.18,
+            "y": 508.72
+          },
+          "beat": "hold",
+          "seated": 5,
+          "walking": 0,
+          "allReached": true,
+          "order": "left1>right1>front>right2>back1",
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            4,
+            10,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.896,
+          "personPx": 89.5
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

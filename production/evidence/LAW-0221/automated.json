@@ -1,0 +1,2312 @@
+{
+  "animationId": "LAW-0221",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0221",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "courts.building",
+        "rejected": "Invalid animation parameters:\n - params.courts.building: must have at most 50 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: the first person in the sequence holds the signal, their lamp alone is lit @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "token": {
+            "x": 375.83,
+            "y": 469.13
+          },
+          "holder": "Participant B",
+          "holderIndex": 1,
+          "lamps": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": -1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: nothing moves during the rest beat @0.145",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "token": {
+            "x": 375.83,
+            "y": 469.13
+          },
+          "holder": "Participant B",
+          "holderIndex": 1,
+          "lamps": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": -1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: cause before effect: a lamp is lit only with the token in hand (u=0.2) @0.2",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "token": {
+            "x": 378.02,
+            "y": 467.69
+          },
+          "holder": null,
+          "holderIndex": null,
+          "lamps": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "lit": 1,
+          "phase": "push",
+          "hop": 0,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: cause before effect: a lamp is lit only with the token in hand (u=0.25) @0.25",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "token": {
+            "x": 440,
+            "y": 426.89
+          },
+          "holder": null,
+          "holderIndex": null,
+          "lamps": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "lit": 1,
+          "phase": "push",
+          "hop": 0,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: cause before effect: a lamp is lit only with the token in hand (u=0.3) @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "token": {
+            "x": 617.58,
+            "y": 309.98
+          },
+          "holder": null,
+          "holderIndex": null,
+          "lamps": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lit": 0,
+          "phase": "catch",
+          "hop": 0,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: cause before effect: a lamp is lit only with the token in hand (u=0.35) @0.35",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "token": {
+            "x": 678.02,
+            "y": 270.19
+          },
+          "holder": null,
+          "holderIndex": null,
+          "lamps": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lit": 0,
+          "phase": "catch",
+          "hop": 0,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: cause before effect: a lamp is lit only with the token in hand (u=0.4) @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "token": {
+            "x": 680.03,
+            "y": 268.87
+          },
+          "holder": "Participant C",
+          "holderIndex": 2,
+          "lamps": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": 0,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: cause before effect: a lamp is lit only with the token in hand (u=0.45) @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "token": {
+            "x": 680.03,
+            "y": 268.87
+          },
+          "holder": "Participant C",
+          "holderIndex": 2,
+          "lamps": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": 0,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: cause before effect: a lamp is lit only with the token in hand (u=0.5) @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "token": {
+            "x": 680.03,
+            "y": 271.87
+          },
+          "holder": null,
+          "holderIndex": null,
+          "lamps": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "lit": 1,
+          "phase": "push",
+          "hop": 1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: cause before effect: a lamp is lit only with the token in hand (u=0.55) @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "token": {
+            "x": 680.03,
+            "y": 323.59
+          },
+          "holder": null,
+          "holderIndex": null,
+          "lamps": [
+            0,
+            0,
+            0.372,
+            0
+          ],
+          "lit": 0,
+          "phase": "glide",
+          "hop": 1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: cause before effect: a lamp is lit only with the token in hand (u=0.6) @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "token": {
+            "x": 680.03,
+            "y": 438.25
+          },
+          "holder": null,
+          "holderIndex": null,
+          "lamps": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lit": 0,
+          "phase": "catch",
+          "hop": 1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: cause before effect: a lamp is lit only with the token in hand (u=0.65) @0.65",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "token": {
+            "x": 680.03,
+            "y": 468.65
+          },
+          "holder": null,
+          "holderIndex": null,
+          "lamps": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lit": 0,
+          "phase": "catch",
+          "hop": 1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: cause before effect: a lamp is lit only with the token in hand (u=0.7) @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "token": {
+            "x": 680.03,
+            "y": 469.13
+          },
+          "holder": "Participant D",
+          "holderIndex": 3,
+          "lamps": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": 1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the first pass is under way @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "token": {
+            "x": 617.58,
+            "y": 309.98
+          },
+          "holder": null,
+          "holderIndex": null,
+          "lamps": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lit": 0,
+          "phase": "catch",
+          "hop": 0,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the main action is complete by u 0.74, in the supplied order @0.74",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "token": {
+            "x": 680.03,
+            "y": 469.13
+          },
+          "holder": "Participant D",
+          "holderIndex": 3,
+          "lamps": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": 1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: the last person in the sequence holds the signal (supplied final state) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "token": {
+            "x": 680.03,
+            "y": 469.13
+          },
+          "holder": "Participant D",
+          "holderIndex": 3,
+          "lamps": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": 1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: supplied state: the signal is back in the tray and every turn is pending @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "token": {
+            "x": 527.93,
+            "y": 369
+          },
+          "holder": null,
+          "holderIndex": null,
+          "lamps": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "lit": 0,
+          "phase": "rest",
+          "hop": 2,
+          "hopsTotal": 3,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "tokenInTray": true,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "all-pending",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k0.99",
+            "22.5:splith:k0.99",
+            "22.5:splith:k0.96",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the passing part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "token": {
+            "x": 680.03,
+            "y": 268.87
+          },
+          "holder": "Participant C",
+          "holderIndex": 2,
+          "lamps": [
+            0,
+            0,
+            0.25,
+            0
+          ],
+          "lit": 0,
+          "phase": "rest",
+          "hop": 0,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": true,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the supplied sequence decides who passes to whom @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "token": {
+            "x": 375.83,
+            "y": 268.87
+          },
+          "holder": "Participant A",
+          "holderIndex": 0,
+          "lamps": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": 0,
+          "hopsTotal": 1,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant D",
+            "Participant A"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant D",
+            "Participant A"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same passing happens @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "token": {
+            "x": 803.84,
+            "y": 268.37
+          },
+          "holder": null,
+          "holderIndex": null,
+          "lamps": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "lit": 1,
+          "phase": "push",
+          "hop": 1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 16.6,
+          "personPx": 131.3,
+          "k": 1.313,
+          "arrangement": "column-h",
+          "chips": 0,
+          "problems": [],
+          "log": [
+            "16.6:columnh:k1.31",
+            "16.6:columnh:k1.31",
+            "16.6:columnh:k1.31",
+            "16.6:wideh:k1.31",
+            "16.6:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 488.68,
+            "y": 181.22
+          },
+          "seat0": {
+            "x": 488.68,
+            "y": 181.22
+          },
+          "p1": {
+            "x": 488.68,
+            "y": 556.78
+          },
+          "seat1": {
+            "x": 488.68,
+            "y": 556.78
+          },
+          "p2": {
+            "x": 803.84,
+            "y": 181.22
+          },
+          "seat2": {
+            "x": 803.84,
+            "y": 181.22
+          },
+          "p3": {
+            "x": 803.84,
+            "y": 556.78
+          },
+          "seat3": {
+            "x": 803.84,
+            "y": 556.78
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same final state @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "token": {
+            "x": 803.84,
+            "y": 472.74
+          },
+          "holder": "Participant D",
+          "holderIndex": 3,
+          "lamps": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": 1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 16.6,
+          "personPx": 131.3,
+          "k": 1.313,
+          "arrangement": "column-h",
+          "chips": 0,
+          "problems": [],
+          "log": [
+            "16.6:columnh:k1.31",
+            "16.6:columnh:k1.31",
+            "16.6:columnh:k1.31",
+            "16.6:wideh:k1.31",
+            "16.6:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 488.68,
+            "y": 181.22
+          },
+          "seat0": {
+            "x": 488.68,
+            "y": 181.22
+          },
+          "p1": {
+            "x": 488.68,
+            "y": 556.78
+          },
+          "seat1": {
+            "x": 488.68,
+            "y": 556.78
+          },
+          "p2": {
+            "x": 803.84,
+            "y": 181.22
+          },
+          "seat2": {
+            "x": 803.84,
+            "y": 181.22
+          },
+          "p3": {
+            "x": 803.84,
+            "y": 556.78
+          },
+          "seat3": {
+            "x": 803.84,
+            "y": 556.78
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: every chip placed beside its seat (no fallback layout) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "token": {
+            "x": 680.03,
+            "y": 469.13
+          },
+          "holder": "Participant D",
+          "holderIndex": 3,
+          "lamps": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": 1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: every hand target within reach (u=0.1) @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "token": {
+            "x": 375.83,
+            "y": 469.13
+          },
+          "holder": "Participant B",
+          "holderIndex": 1,
+          "lamps": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": -1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: every hand target within reach (u=0.4) @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "token": {
+            "x": 680.03,
+            "y": 268.87
+          },
+          "holder": "Participant C",
+          "holderIndex": 2,
+          "lamps": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": 0,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: every hand target within reach (u=0.7) @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "token": {
+            "x": 680.03,
+            "y": 469.13
+          },
+          "holder": "Participant D",
+          "holderIndex": 3,
+          "lamps": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": 1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: every hand target within reach (u=1) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "token": {
+            "x": 680.03,
+            "y": 469.13
+          },
+          "holder": "Participant D",
+          "holderIndex": 3,
+          "lamps": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "lit": 1,
+          "phase": "rest",
+          "hop": 1,
+          "hopsTotal": 2,
+          "allReached": true,
+          "causeFirst": true,
+          "holdersSoFar": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "tokenInTray": false,
+          "sequence": [
+            "Participant B",
+            "Participant C",
+            "Participant D"
+          ],
+          "finalState": "turn-active",
+          "actionCapped": false,
+          "textPx": 22.5,
+          "personPx": 126.7,
+          "k": 1.268,
+          "arrangement": "wide-h",
+          "chips": 4,
+          "problems": [],
+          "log": [
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.04",
+            "22.5:splith:k1.01",
+            "22.5:wideh:k1.27",
+            "22.5:wideh:k1.21"
+          ],
+          "p0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "seat0": {
+            "x": 375.83,
+            "y": 187.75
+          },
+          "p1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "seat1": {
+            "x": 375.83,
+            "y": 550.25
+          },
+          "p2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "seat2": {
+            "x": 680.03,
+            "y": 187.75
+          },
+          "p3": {
+            "x": 680.03,
+            "y": 550.25
+          },
+          "seat3": {
+            "x": 680.03,
+            "y": 550.25
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

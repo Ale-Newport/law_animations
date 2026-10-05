@@ -1,0 +1,720 @@
+{
+  "animationId": "LAW-0027",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0027",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: identical base situation: blank slot in both scenes @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "a": {
+            "slot": "blank",
+            "write": 0,
+            "question": 0,
+            "linked": 0,
+            "links": [
+              0,
+              0,
+              0
+            ],
+            "stamp": false,
+            "penTip": {
+              "x": 1066,
+              "y": 590
+            }
+          },
+          "b": {
+            "slot": "blank",
+            "write": 0,
+            "question": 0,
+            "linked": 0,
+            "links": [
+              0,
+              0,
+              0
+            ],
+            "stamp": false,
+            "penTip": {
+              "x": 1066,
+              "y": 590
+            }
+          },
+          "penA": {
+            "x": 1066,
+            "y": 590
+          },
+          "penB": {
+            "x": 1066,
+            "y": 590
+          },
+          "stampA": {
+            "x": 1128,
+            "y": 96
+          },
+          "stampB": {
+            "x": 1128,
+            "y": 96
+          },
+          "handA": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "gripA": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "handB": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "gripB": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "strokeA": null,
+          "strokeB": null,
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the changed fact is introduced locally at the slot, before any guide @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "a": {
+            "slot": "available",
+            "write": 0.538,
+            "question": 0,
+            "linked": 0,
+            "links": [
+              0,
+              0,
+              0
+            ],
+            "stamp": false,
+            "penTip": {
+              "x": 789.89,
+              "y": 476.7
+            }
+          },
+          "b": {
+            "slot": "unconfirmed",
+            "write": 0.782,
+            "question": 0,
+            "linked": 0,
+            "links": [
+              0,
+              0,
+              0
+            ],
+            "stamp": false,
+            "penTip": {
+              "x": 841.2,
+              "y": 479.51
+            }
+          },
+          "penA": {
+            "x": 789.89,
+            "y": 476.7
+          },
+          "penB": {
+            "x": 841.2,
+            "y": 479.51
+          },
+          "stampA": {
+            "x": 1128,
+            "y": 96
+          },
+          "stampB": {
+            "x": 1128,
+            "y": 96
+          },
+          "handA": {
+            "x": 835.01,
+            "y": 530.47
+          },
+          "gripA": {
+            "x": 835.01,
+            "y": 530.47
+          },
+          "handB": {
+            "x": 886.33,
+            "y": 533.29
+          },
+          "gripB": {
+            "x": 886.33,
+            "y": 533.29
+          },
+          "strokeA": {
+            "x": 789.89,
+            "y": 476.7
+          },
+          "strokeB": {
+            "x": 841.2,
+            "y": 479.51
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: only scenario B adds a question mark @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "slot": "available",
+            "write": 1,
+            "question": 0,
+            "linked": 0,
+            "links": [
+              0,
+              0,
+              0
+            ],
+            "stamp": false,
+            "penTip": {
+              "x": 1066,
+              "y": 590
+            }
+          },
+          "b": {
+            "slot": "unconfirmed",
+            "write": 1,
+            "question": 1,
+            "linked": 0,
+            "links": [
+              0,
+              0,
+              0
+            ],
+            "stamp": false,
+            "penTip": {
+              "x": 1066,
+              "y": 590
+            }
+          },
+          "penA": {
+            "x": 1066,
+            "y": 590
+          },
+          "penB": {
+            "x": 1066,
+            "y": 590
+          },
+          "stampA": {
+            "x": 1128,
+            "y": 96
+          },
+          "stampB": {
+            "x": 1128,
+            "y": 96
+          },
+          "handA": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "gripA": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "handB": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "gripB": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "strokeA": null,
+          "strokeB": null,
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the guides are drawn identically in parallel @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "slot": "available",
+            "write": 1,
+            "question": 0,
+            "linked": 1,
+            "links": [
+              1,
+              0.296,
+              0
+            ],
+            "stamp": false,
+            "penTip": {
+              "x": 518.33,
+              "y": 452.26
+            }
+          },
+          "b": {
+            "slot": "unconfirmed",
+            "write": 1,
+            "question": 1,
+            "linked": 1,
+            "links": [
+              1,
+              0.296,
+              0
+            ],
+            "stamp": false,
+            "penTip": {
+              "x": 518.33,
+              "y": 452.26
+            }
+          },
+          "penA": {
+            "x": 518.33,
+            "y": 452.26
+          },
+          "penB": {
+            "x": 518.33,
+            "y": 452.26
+          },
+          "stampA": {
+            "x": 1128,
+            "y": 96
+          },
+          "stampB": {
+            "x": 1128,
+            "y": 96
+          },
+          "handA": {
+            "x": 563.46,
+            "y": 506.04
+          },
+          "gripA": {
+            "x": 563.46,
+            "y": 506.04
+          },
+          "handB": {
+            "x": 563.46,
+            "y": 506.04
+          },
+          "gripB": {
+            "x": 563.46,
+            "y": 506.04
+          },
+          "strokeA": {
+            "x": 518.33,
+            "y": 452.26
+          },
+          "strokeB": {
+            "x": 518.33,
+            "y": 452.26
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: both linked and stamped the same way; only the term slot differs @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "slot": "available",
+            "write": 1,
+            "question": 0,
+            "linked": 3,
+            "links": [
+              1,
+              1,
+              1
+            ],
+            "stamp": true,
+            "penTip": {
+              "x": 1066,
+              "y": 590
+            }
+          },
+          "b": {
+            "slot": "unconfirmed",
+            "write": 1,
+            "question": 1,
+            "linked": 3,
+            "links": [
+              1,
+              1,
+              1
+            ],
+            "stamp": true,
+            "penTip": {
+              "x": 1066,
+              "y": 590
+            }
+          },
+          "penA": {
+            "x": 1066,
+            "y": 590
+          },
+          "penB": {
+            "x": 1066,
+            "y": 590
+          },
+          "stampA": {
+            "x": 1128,
+            "y": 96
+          },
+          "stampB": {
+            "x": 1128,
+            "y": 96
+          },
+          "handA": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "gripA": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "handB": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "gripB": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "strokeA": null,
+          "strokeB": null,
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: comparison guide drawn at the end @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "slot": "available",
+            "write": 1,
+            "question": 0,
+            "linked": 3,
+            "links": [
+              1,
+              1,
+              1
+            ],
+            "stamp": true,
+            "penTip": {
+              "x": 1066,
+              "y": 590
+            }
+          },
+          "b": {
+            "slot": "unconfirmed",
+            "write": 1,
+            "question": 1,
+            "linked": 3,
+            "links": [
+              1,
+              1,
+              1
+            ],
+            "stamp": true,
+            "penTip": {
+              "x": 1066,
+              "y": 590
+            }
+          },
+          "penA": {
+            "x": 1066,
+            "y": 590
+          },
+          "penB": {
+            "x": 1066,
+            "y": 590
+          },
+          "stampA": {
+            "x": 1128,
+            "y": 96
+          },
+          "stampB": {
+            "x": 1128,
+            "y": 96
+          },
+          "handA": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "gripA": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "handB": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "gripB": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "strokeA": null,
+          "strokeB": null,
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the difference still reads with labels hidden (shape of slot + question mark) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "slot": "available",
+            "write": 1,
+            "question": 0,
+            "linked": 3,
+            "links": [
+              1,
+              1,
+              1
+            ],
+            "stamp": true,
+            "penTip": {
+              "x": 1066,
+              "y": 590
+            }
+          },
+          "b": {
+            "slot": "unconfirmed",
+            "write": 1,
+            "question": 1,
+            "linked": 3,
+            "links": [
+              1,
+              1,
+              1
+            ],
+            "stamp": true,
+            "penTip": {
+              "x": 1066,
+              "y": 590
+            }
+          },
+          "penA": {
+            "x": 1066,
+            "y": 590
+          },
+          "penB": {
+            "x": 1066,
+            "y": 590
+          },
+          "stampA": {
+            "x": 1128,
+            "y": 96
+          },
+          "stampB": {
+            "x": 1128,
+            "y": 96
+          },
+          "handA": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "gripA": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "handB": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "gripB": {
+            "x": 1106.08,
+            "y": 647.63
+          },
+          "strokeA": null,
+          "strokeB": null,
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "arrangement": "row"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

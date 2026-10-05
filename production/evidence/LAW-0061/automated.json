@@ -1,0 +1,711 @@
+{
+  "animationId": "LAW-0061",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0061",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "query"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: starts with the card in hand, nothing linked @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "finalState": "linked",
+          "holder": "researcher",
+          "hand": {
+            "x": 1552,
+            "y": 601.3
+          },
+          "noteGrip": {
+            "x": 1552,
+            "y": 601.3
+          },
+          "noteCenter": {
+            "x": 1427.06,
+            "y": 607.16
+          },
+          "port": {
+            "x": 1242.57,
+            "y": 647.72
+          },
+          "sourcePin": {
+            "x": 1082.05,
+            "y": 523.79
+          },
+          "pinSpot": {
+            "x": 1530.53,
+            "y": 396.35
+          },
+          "threadTied": false,
+          "threadLength": 0,
+          "notePinned": false,
+          "passageHighlighted": 0,
+          "bracket": 0,
+          "cardClearOfPage": true,
+          "gripClearOfText": true,
+          "annotationsDropped": [],
+          "gutterGap": 198,
+          "linkedPassage": 2,
+          "searchLinked": 0,
+          "allReached": true,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the found passage lights up before the card arrives @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "finalState": "linked",
+          "holder": "researcher",
+          "hand": {
+            "x": 1531.37,
+            "y": 433.51
+          },
+          "noteGrip": {
+            "x": 1531.37,
+            "y": 433.51
+          },
+          "noteCenter": {
+            "x": 1406.42,
+            "y": 439.36
+          },
+          "port": {
+            "x": 1221.93,
+            "y": 479.93
+          },
+          "sourcePin": {
+            "x": 1082.05,
+            "y": 523.79
+          },
+          "pinSpot": {
+            "x": 1530.53,
+            "y": 396.35
+          },
+          "threadTied": false,
+          "threadLength": 0,
+          "notePinned": false,
+          "passageHighlighted": 1,
+          "bracket": 0,
+          "cardClearOfPage": true,
+          "gripClearOfText": true,
+          "annotationsDropped": [],
+          "gutterGap": 176.86,
+          "linkedPassage": 2,
+          "searchLinked": 0,
+          "allReached": true,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the tab eyelet is hooked on the pin at the bracketed passage; the card does not cover the page @0.42",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "finalState": "linked",
+          "holder": "researcher",
+          "hand": {
+            "x": 1391.49,
+            "y": 477.37
+          },
+          "noteGrip": {
+            "x": 1391.49,
+            "y": 477.37
+          },
+          "noteCenter": {
+            "x": 1266.54,
+            "y": 483.23
+          },
+          "port": {
+            "x": 1082.05,
+            "y": 523.79
+          },
+          "sourcePin": {
+            "x": 1082.05,
+            "y": 523.79
+          },
+          "pinSpot": {
+            "x": 1530.53,
+            "y": 396.35
+          },
+          "threadTied": true,
+          "threadLength": 0,
+          "notePinned": false,
+          "passageHighlighted": 1,
+          "bracket": 1,
+          "cardClearOfPage": true,
+          "gripClearOfText": true,
+          "annotationsDropped": [],
+          "gutterGap": 33.56,
+          "linkedPassage": 2,
+          "searchLinked": 0,
+          "allReached": true,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the card is pulled back across the gutter; the thread pays out @0.52",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "finalState": "linked",
+          "holder": "researcher",
+          "hand": {
+            "x": 1490.76,
+            "y": 470.85
+          },
+          "noteGrip": {
+            "x": 1490.76,
+            "y": 470.85
+          },
+          "noteCenter": {
+            "x": 1365.82,
+            "y": 476.7
+          },
+          "port": {
+            "x": 1181.33,
+            "y": 517.27
+          },
+          "sourcePin": {
+            "x": 1082.05,
+            "y": 523.79
+          },
+          "pinSpot": {
+            "x": 1530.53,
+            "y": 396.35
+          },
+          "threadTied": true,
+          "threadLength": 101.92,
+          "notePinned": false,
+          "passageHighlighted": 1,
+          "bracket": 1,
+          "cardClearOfPage": true,
+          "gripClearOfText": true,
+          "annotationsDropped": [],
+          "gutterGap": 135.26,
+          "linkedPassage": 2,
+          "searchLinked": 1,
+          "allReached": true,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the card is pinned in the margin column under the hand @0.66",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "finalState": "linked",
+          "holder": "board",
+          "hand": {
+            "x": 1530.53,
+            "y": 400.99
+          },
+          "noteGrip": {
+            "x": 1536.39,
+            "y": 477.37
+          },
+          "noteCenter": {
+            "x": 1411.44,
+            "y": 483.23
+          },
+          "port": {
+            "x": 1226.95,
+            "y": 523.79
+          },
+          "sourcePin": {
+            "x": 1082.05,
+            "y": 523.79
+          },
+          "pinSpot": {
+            "x": 1530.53,
+            "y": 400.99
+          },
+          "threadTied": true,
+          "threadLength": 148.44,
+          "notePinned": true,
+          "passageHighlighted": 1,
+          "bracket": 1,
+          "cardClearOfPage": true,
+          "gripClearOfText": true,
+          "annotationsDropped": [],
+          "gutterGap": 182,
+          "linkedPassage": 2,
+          "searchLinked": 1,
+          "allReached": true,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: ends linked by the thread, not merged (gap between page and card) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "finalState": "linked",
+          "holder": "board",
+          "hand": {
+            "x": 1629.55,
+            "y": 619.97
+          },
+          "noteGrip": {
+            "x": 1536.39,
+            "y": 477.37
+          },
+          "noteCenter": {
+            "x": 1411.44,
+            "y": 483.23
+          },
+          "port": {
+            "x": 1226.95,
+            "y": 523.79
+          },
+          "sourcePin": {
+            "x": 1082.05,
+            "y": 523.79
+          },
+          "pinSpot": {
+            "x": 1530.53,
+            "y": 396.35
+          },
+          "threadTied": true,
+          "threadLength": 148.44,
+          "notePinned": true,
+          "passageHighlighted": 1,
+          "bracket": 1,
+          "cardClearOfPage": true,
+          "gripClearOfText": true,
+          "annotationsDropped": [],
+          "gutterGap": 182,
+          "linkedPassage": 2,
+          "searchLinked": 1,
+          "allReached": true,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the thread across the gutter is long enough to read as a link between two separate sheets @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "finalState": "linked",
+          "holder": "board",
+          "hand": {
+            "x": 1629.55,
+            "y": 619.97
+          },
+          "noteGrip": {
+            "x": 1536.39,
+            "y": 477.37
+          },
+          "noteCenter": {
+            "x": 1411.44,
+            "y": 483.23
+          },
+          "port": {
+            "x": 1226.95,
+            "y": 523.79
+          },
+          "sourcePin": {
+            "x": 1082.05,
+            "y": 523.79
+          },
+          "pinSpot": {
+            "x": 1530.53,
+            "y": 396.35
+          },
+          "threadTied": true,
+          "threadLength": 148.44,
+          "notePinned": true,
+          "passageHighlighted": 1,
+          "bracket": 1,
+          "cardClearOfPage": true,
+          "gripClearOfText": true,
+          "annotationsDropped": [],
+          "gutterGap": 182,
+          "linkedPassage": 2,
+          "searchLinked": 1,
+          "allReached": true,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: placed state: pinned beside the page, no thread, no bracket @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "finalState": "placed",
+          "holder": "board",
+          "hand": {
+            "x": 1629.55,
+            "y": 619.97
+          },
+          "noteGrip": {
+            "x": 1536.39,
+            "y": 477.37
+          },
+          "noteCenter": {
+            "x": 1411.44,
+            "y": 483.23
+          },
+          "port": {
+            "x": 1226.95,
+            "y": 523.79
+          },
+          "sourcePin": {
+            "x": 1082.05,
+            "y": 523.79
+          },
+          "pinSpot": {
+            "x": 1530.53,
+            "y": 396.35
+          },
+          "threadTied": false,
+          "threadLength": 0,
+          "notePinned": true,
+          "passageHighlighted": 1,
+          "bracket": 0,
+          "cardClearOfPage": true,
+          "gripClearOfText": true,
+          "annotationsDropped": [],
+          "gutterGap": 182,
+          "linkedPassage": 2,
+          "searchLinked": 0,
+          "allReached": true,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: held state: the card stays in the researcher’s hand @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "finalState": "held",
+          "holder": "researcher",
+          "hand": {
+            "x": 1545.76,
+            "y": 438.33
+          },
+          "noteGrip": {
+            "x": 1545.76,
+            "y": 438.33
+          },
+          "noteCenter": {
+            "x": 1420.81,
+            "y": 444.18
+          },
+          "port": {
+            "x": 1236.32,
+            "y": 484.74
+          },
+          "sourcePin": {
+            "x": 1082.05,
+            "y": 523.79
+          },
+          "pinSpot": {
+            "x": 1530.53,
+            "y": 396.35
+          },
+          "threadTied": false,
+          "threadLength": 0,
+          "notePinned": false,
+          "passageHighlighted": 1,
+          "bracket": 0,
+          "cardClearOfPage": true,
+          "gripClearOfText": true,
+          "annotationsDropped": [
+            0
+          ],
+          "gutterGap": 191.6,
+          "linkedPassage": 2,
+          "searchLinked": 0,
+          "allReached": true,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the thread goes to the passage supplied by the author @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "finalState": "linked",
+          "holder": "board",
+          "hand": {
+            "x": 1629.55,
+            "y": 619.97
+          },
+          "noteGrip": {
+            "x": 1536.39,
+            "y": 477.37
+          },
+          "noteCenter": {
+            "x": 1411.44,
+            "y": 558.36
+          },
+          "port": {
+            "x": 1226.95,
+            "y": 642.31
+          },
+          "sourcePin": {
+            "x": 1082.05,
+            "y": 642.31
+          },
+          "pinSpot": {
+            "x": 1530.53,
+            "y": 471.49
+          },
+          "threadTied": true,
+          "threadLength": 148.44,
+          "notePinned": true,
+          "passageHighlighted": 1,
+          "bracket": 1,
+          "cardClearOfPage": true,
+          "gripClearOfText": true,
+          "annotationsDropped": [],
+          "gutterGap": 182,
+          "linkedPassage": 3,
+          "searchLinked": 1,
+          "allReached": true,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "finalState": "linked",
+          "holder": "researcher",
+          "hand": {
+            "x": 1442.53,
+            "y": 439.2
+          },
+          "noteGrip": {
+            "x": 1442.53,
+            "y": 439.2
+          },
+          "noteCenter": {
+            "x": 1317.59,
+            "y": 445.06
+          },
+          "port": {
+            "x": 1133.1,
+            "y": 485.62
+          },
+          "sourcePin": {
+            "x": 1082.05,
+            "y": 523.79
+          },
+          "pinSpot": {
+            "x": 1530.53,
+            "y": 396.35
+          },
+          "threadTied": false,
+          "threadLength": 0,
+          "notePinned": false,
+          "passageHighlighted": 1,
+          "bracket": 0.39,
+          "cardClearOfPage": true,
+          "gripClearOfText": true,
+          "annotationsDropped": [],
+          "gutterGap": 85.85,
+          "linkedPassage": 2,
+          "searchLinked": 0,
+          "allReached": true,
+          "actionCapped": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the action is identical with labels hidden @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "finalState": "linked",
+          "holder": "board",
+          "hand": {
+            "x": 1629.55,
+            "y": 619.97
+          },
+          "noteGrip": {
+            "x": 1536.39,
+            "y": 477.37
+          },
+          "noteCenter": {
+            "x": 1411.44,
+            "y": 483.23
+          },
+          "port": {
+            "x": 1226.95,
+            "y": 505.44
+          },
+          "sourcePin": {
+            "x": 1082.05,
+            "y": 505.44
+          },
+          "pinSpot": {
+            "x": 1530.53,
+            "y": 396.35
+          },
+          "threadTied": true,
+          "threadLength": 148.44,
+          "notePinned": true,
+          "passageHighlighted": 1,
+          "bracket": 1,
+          "cardClearOfPage": true,
+          "gripClearOfText": true,
+          "annotationsDropped": [],
+          "gutterGap": 182,
+          "linkedPassage": 2,
+          "searchLinked": 1,
+          "allReached": true,
+          "actionCapped": false
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

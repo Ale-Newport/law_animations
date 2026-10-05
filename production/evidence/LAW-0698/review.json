@@ -1,0 +1,204 @@
+{
+  "animationId": "LAW-0698",
+  "generatedBy": "scripts/qa.mjs",
+  "treatment": "mechanism",
+  "sourceHash": "30ee23abf8bc816c5639802266856417113624f474d124c0ce6288ff47d1fb27",
+  "implementationHash": "4467ced299f486b93296880bf5bbd950aa93a852e9dd47ad0fdb73be27b569cc",
+  "dependencies": [
+    "src/animations/causation/LAW-0698.js",
+    "src/animations/causation/kits/causal-chain.js",
+    "src/animations/causation/kits/dano-material.js",
+    "src/animations/causation/kits/prueba-contrafactual.js",
+    "src/animations/causation/kits/topple.js",
+    "src/core/define.js",
+    "src/core/geometry.js",
+    "src/core/i18n.js",
+    "src/core/layout.js",
+    "src/core/meta.js",
+    "src/core/random.js",
+    "src/core/schema.js",
+    "src/core/svg.js",
+    "src/core/text.js",
+    "src/core/theme.js",
+    "src/core/time.js",
+    "src/core/transform.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js",
+    "src/schemas/fields.js"
+  ],
+  "environment": {
+    "browser": "chromium 153.0.8010.12",
+    "playwright": "@playwright/test 1.63.0",
+    "node": "v26.0.0",
+    "platform": "darwin-arm64",
+    "fonts": "system font stack (see src/core/text.js FONTS)"
+  },
+  "commands": [
+    {
+      "command": "npx playwright test tests/animations/LAW-0698.test.js --reporter=line",
+      "exitCode": 0
+    }
+  ],
+  "structure": {
+    "files": {
+      "module": "src/animations/causation/LAW-0698.js",
+      "metadata": "src/animations/causation/LAW-0698.meta.json",
+      "presets": "src/animations/causation/LAW-0698.presets.json",
+      "test": "tests/animations/LAW-0698.test.js"
+    },
+    "exists": {
+      "module": true,
+      "metadata": true,
+      "presets": true,
+      "test": true
+    },
+    "presets": [
+      "baseline-illustrative",
+      "contrast-or-alternative",
+      "long-labels-stress",
+      "baseline-es"
+    ],
+    "requiredPresetsPresent": true
+  },
+  "automatedChecks": {
+    "status": "pass",
+    "exitCode": 0,
+    "checks": 30,
+    "failed": [],
+    "details": "production/evidence/LAW-0698/automated.json",
+    "sourceHashAtRun": "30ee23abf8bc816c5639802266856417113624f474d124c0ce6288ff47d1fb27"
+  },
+  "captures": [
+    {
+      "path": "production/evidence/LAW-0698/sheet-16x9-baseline.png",
+      "ratio": "16:9",
+      "preset": "baseline-illustrative",
+      "times": [
+        0.12,
+        0.35,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0698/sheet-9x16-baseline.png",
+      "ratio": "9:16",
+      "preset": "baseline-illustrative",
+      "times": [
+        0.12,
+        0.35,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0698/sheet-1x1-baseline.png",
+      "ratio": "1:1",
+      "preset": "baseline-illustrative",
+      "times": [
+        0.12,
+        0.35,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0698/sheet-16x9-alternative.png",
+      "ratio": "16:9",
+      "preset": "contrast-or-alternative",
+      "times": [
+        0.12,
+        0.35,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0698/sheet-16x9-long-labels.png",
+      "ratio": "16:9",
+      "preset": "long-labels-stress",
+      "times": [
+        0.12,
+        0.35,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0698/sheet-16x9-es.png",
+      "ratio": "16:9",
+      "preset": "baseline-es",
+      "times": [
+        0.12,
+        0.35,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    }
+  ],
+  "visualReview": {
+    "status": "pass",
+    "reviewer": "REVIEWER-C05 (independent QA agent, Claude Opus 5.5)",
+    "method": "round 2: opened all 24 dense sheets-r2 (4 presets x 3 ratios x labels on/off, 12 times); rendered probes labgap2.mjs (label gap to own vs nearest other connector at u 0.6 and 1, every preset x ratio), metrics.mjs (text px every u=0.01, shares, IN_FRAME, cold create), qa.mjs exit 0 warnings [], unit check pass, seek identity",
+    "live": null,
+    "artifacts": [
+      "production/scratch/review-causation-05/sheets-r2/LAW-0698",
+      "production/scratch/review-causation-05/labgap2.log",
+      "production/scratch/review-causation-05/metrics-r2.log",
+      "production/scratch/review-causation-05/qa-r2.log"
+    ],
+    "findings": [
+      "PASS: every relation label 0-10 px (1080p) from its own connector at u 0.6 and 1 in all 12 preset x ratio combos, always nearer its own than any other (84 checks); alternative 1:1 causal label now sits on the record->panel arrow",
+      "Text: baseline/es 23/25/21 px, alternative 22-23/20, stress 22/20/17 px at every u; nothing outside frame; cold create <= 98 ms",
+      "Stress cap (4 entries vs baseline 3) re-verified: 5 entries force the 1:1 fallback scale (OH 73); citation real",
+      "Minor: stress 1:1 before/after vases 138 px (0.108 of frame height) - small but the crack/chip read in the inset; relations plain, causal arrow only when supplied, solid lines"
+    ],
+    "sourceHash": "30ee23abf8bc816c5639802266856417113624f474d124c0ce6288ff47d1fb27",
+    "renderFingerprint": "15174c8a6c6074def3886a9cde5891f205d06aec4f8de2089c452ee45a1bd592",
+    "reviewedAt": "2026-09-26T23:54:33.074Z"
+  },
+  "legalStatus": "illustrative-unverified",
+  "testedConfigurations": [
+    "16:9 baseline-illustrative editorial-flat paper",
+    "9:16 baseline-illustrative editorial-flat paper",
+    "1:1 baseline-illustrative editorial-flat paper",
+    "16:9 contrast-or-alternative editorial-flat paper",
+    "16:9 long-labels-stress editorial-flat paper",
+    "16:9 baseline-es editorial-flat paper"
+  ],
+  "knownIssues": [],
+  "accepted": false,
+  "renderFingerprint": "15174c8a6c6074def3886a9cde5891f205d06aec4f8de2089c452ee45a1bd592",
+  "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.12,0.35,0.55,0.72,1",
+  "thumb": "production/evidence/LAW-0698/thumb.png",
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
+}

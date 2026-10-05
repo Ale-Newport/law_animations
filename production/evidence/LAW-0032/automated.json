@@ -1,0 +1,841 @@
+{
+  "animationId": "LAW-0032",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0032",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: context shows the before datum: the tab on v4 @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "lensOpen": 0,
+          "datum": "before",
+          "focusTarget": "selection",
+          "lensTabOn": "v4",
+          "contextTabOn": "v4",
+          "lensTab": {
+            "x": 1340,
+            "y": 342
+          },
+          "contextTab": {
+            "x": 1340,
+            "y": 342
+          },
+          "contextDatum": "before",
+          "lensTextSwap": null,
+          "contextTextSwap": null,
+          "source": {
+            "x": 1240.04,
+            "y": 301,
+            "w": 430,
+            "h": 155
+          },
+          "dest": {
+            "x": 254.04,
+            "y": 208,
+            "w": 946,
+            "h": 341
+          },
+          "markerVisible": false,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: lens open on the unchanged detail, drawn at the same source coordinates as the context @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 1,
+          "datum": "before",
+          "focusTarget": "selection",
+          "lensTabOn": "v4",
+          "contextTabOn": "v4",
+          "lensTab": {
+            "x": 1340,
+            "y": 342
+          },
+          "contextTab": {
+            "x": 1340,
+            "y": 342
+          },
+          "contextDatum": "before",
+          "lensTextSwap": null,
+          "contextTextSwap": null,
+          "source": {
+            "x": 1240.04,
+            "y": 301,
+            "w": 430,
+            "h": 155
+          },
+          "dest": {
+            "x": 254.04,
+            "y": 208,
+            "w": 946,
+            "h": 341
+          },
+          "markerVisible": false,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the substitution happens inside the lens only @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "datum": "changing",
+          "focusTarget": "selection",
+          "lensTabOn": "moving",
+          "contextTabOn": "v4",
+          "lensTab": {
+            "x": 1331.99,
+            "y": 287.51
+          },
+          "contextTab": {
+            "x": 1340,
+            "y": 342
+          },
+          "contextDatum": "before",
+          "lensTextSwap": null,
+          "contextTextSwap": null,
+          "source": {
+            "x": 1240.04,
+            "y": 301,
+            "w": 430,
+            "h": 155
+          },
+          "dest": {
+            "x": 254.04,
+            "y": 208,
+            "w": 946,
+            "h": 341
+          },
+          "markerVisible": false,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: returns to context with the new datum and a changed marker @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "focusTarget": "selection",
+          "lensTabOn": "v3",
+          "contextTabOn": "v3",
+          "lensTab": {
+            "x": 1330,
+            "y": 274
+          },
+          "contextTab": {
+            "x": 1330,
+            "y": 274
+          },
+          "contextDatum": "after",
+          "lensTextSwap": null,
+          "contextTextSwap": null,
+          "source": {
+            "x": 1240.04,
+            "y": 301,
+            "w": 430,
+            "h": 155
+          },
+          "dest": {
+            "x": 254.04,
+            "y": 208,
+            "w": 946,
+            "h": 341
+          },
+          "markerVisible": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the previous datum exactly @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.649,
+          "datum": "before",
+          "focusTarget": "selection",
+          "lensTabOn": "v4",
+          "contextTabOn": "v4",
+          "lensTab": {
+            "x": 1340,
+            "y": 342
+          },
+          "contextTab": {
+            "x": 1340,
+            "y": 342
+          },
+          "contextDatum": "before",
+          "lensTextSwap": null,
+          "contextTextSwap": null,
+          "source": {
+            "x": 1240.04,
+            "y": 301,
+            "w": 430,
+            "h": 155
+          },
+          "dest": {
+            "x": 254.04,
+            "y": 208,
+            "w": 946,
+            "h": 341
+          },
+          "markerVisible": false,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: date substitution leaves the tab where it was @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "focusTarget": "date",
+          "lensTabOn": "v4",
+          "contextTabOn": "v4",
+          "lensTab": {
+            "x": 1340,
+            "y": 342
+          },
+          "contextTab": {
+            "x": 1340,
+            "y": 342
+          },
+          "contextDatum": "after",
+          "lensTextSwap": 1,
+          "contextTextSwap": 1,
+          "source": {
+            "x": 1250.04,
+            "y": 369,
+            "w": 420,
+            "h": 87
+          },
+          "dest": {
+            "x": 254.04,
+            "y": 316.8,
+            "w": 924,
+            "h": 191.4
+          },
+          "markerVisible": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back before a date substitution shows the old date @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.649,
+          "datum": "before",
+          "focusTarget": "date",
+          "lensTabOn": "v4",
+          "contextTabOn": "v4",
+          "lensTab": {
+            "x": 1340,
+            "y": 342
+          },
+          "contextTab": {
+            "x": 1340,
+            "y": 342
+          },
+          "contextDatum": "before",
+          "lensTextSwap": 0,
+          "contextTextSwap": 0,
+          "source": {
+            "x": 1250.04,
+            "y": 369,
+            "w": 420,
+            "h": 87
+          },
+          "dest": {
+            "x": 254.04,
+            "y": 316.8,
+            "w": 924,
+            "h": 191.4
+          },
+          "markerVisible": false,
+          "allReached": true
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "DOC-311",
+          "px": 9.6
+        },
+        {
+          "text": "1. Scope of supply",
+          "px": 9.6
+        },
+        {
+          "text": "2. Prices (hypothetical)",
+          "px": 9.6
+        },
+        {
+          "text": "3. Delivery schedule",
+          "px": 9.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "1. Scope of supply",
+          "px": 10.1
+        },
+        {
+          "text": "2. Prices (hypothetical)",
+          "px": 10.1
+        },
+        {
+          "text": "3. Delivery schedule",
+          "px": 10.1
+        },
+        {
+          "text": "DOC-311",
+          "px": 10.2
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "DOC-311",
+          "px": 7.2
+        },
+        {
+          "text": "1. Scope of supply",
+          "px": 7.2
+        },
+        {
+          "text": "2. Prices (hypothetical)",
+          "px": 7.2
+        },
+        {
+          "text": "3. Delivery schedule",
+          "px": 7.2
+        },
+        {
+          "text": "Supply Agreement",
+          "px": 11
+        },
+        {
+          "text": "Version file",
+          "px": 12.1
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "DOC-311",
+          "px": 9.6
+        },
+        {
+          "text": "1. Scope of supply",
+          "px": 9.6
+        },
+        {
+          "text": "2. Prices (hypothetical)",
+          "px": 9.6
+        },
+        {
+          "text": "3. Delivery schedule",
+          "px": 9.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "1. Scope of supply",
+          "px": 10.1
+        },
+        {
+          "text": "2. Prices (hypothetical)",
+          "px": 10.1
+        },
+        {
+          "text": "3. Delivery schedule",
+          "px": 10.1
+        },
+        {
+          "text": "DOC-311",
+          "px": 10.2
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "DOC-311",
+          "px": 7.2
+        },
+        {
+          "text": "1. Scope of supply",
+          "px": 7.2
+        },
+        {
+          "text": "2. Prices (hypothetical)",
+          "px": 7.2
+        },
+        {
+          "text": "3. Delivery schedule",
+          "px": 7.2
+        },
+        {
+          "text": "Supply Agreement",
+          "px": 11
+        },
+        {
+          "text": "Version file",
+          "px": 12.1
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "DOC-311",
+          "px": 9.6
+        },
+        {
+          "text": "1. Scope of supply",
+          "px": 9.6
+        },
+        {
+          "text": "2. Prices (hypothetical)",
+          "px": 9.6
+        },
+        {
+          "text": "3. Delivery schedule",
+          "px": 9.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "1. Scope of supply",
+          "px": 10.1
+        },
+        {
+          "text": "2. Prices (hypothetical)",
+          "px": 10.1
+        },
+        {
+          "text": "3. Delivery schedule",
+          "px": 10.1
+        },
+        {
+          "text": "DOC-311",
+          "px": 10.2
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "DOC-311",
+          "px": 7.2
+        },
+        {
+          "text": "1. Scope of supply",
+          "px": 7.2
+        },
+        {
+          "text": "2. Prices (hypothetical)",
+          "px": 7.2
+        },
+        {
+          "text": "3. Delivery schedule",
+          "px": 7.2
+        },
+        {
+          "text": "Day 15",
+          "px": 10.9
+        },
+        {
+          "text": "Supply Agreement",
+          "px": 11
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        "Framework Agreement for the Supply and M"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "DOC-311",
+          "px": 9.6
+        },
+        {
+          "text": "1. Scope of supply",
+          "px": 9.6
+        },
+        {
+          "text": "2. Prices (hypothetical)",
+          "px": 9.6
+        },
+        {
+          "text": "3. Delivery schedule",
+          "px": 9.6
+        },
+        {
+          "text": "Supplier contract drafts —work",
+          "px": 10.4
+        },
+        {
+          "text": "Framework Agreement for the Su",
+          "px": 10.6
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        "Framework Agreement for the Supply and M"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "DOC-311",
+          "px": 9.9
+        },
+        {
+          "text": "1. Scope of supply",
+          "px": 9.9
+        },
+        {
+          "text": "2. Prices (hypothetical)",
+          "px": 9.9
+        },
+        {
+          "text": "3. Delivery schedule",
+          "px": 9.9
+        },
+        {
+          "text": "Framework Agreement for the Su",
+          "px": 10.8
+        },
+        {
+          "text": "Supplier contractdrafts — work",
+          "px": 12.3
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        "Framework Agreement for the Supply and M"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "DOC-311",
+          "px": 7.2
+        },
+        {
+          "text": "1. Scope of supply",
+          "px": 7.2
+        },
+        {
+          "text": "2. Prices (hypothetical)",
+          "px": 7.2
+        },
+        {
+          "text": "3. Delivery schedule",
+          "px": 7.2
+        },
+        {
+          "text": "Framework Agreement for the Su",
+          "px": 7.9
+        },
+        {
+          "text": "Supplier contractdrafts — work",
+          "px": 8.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "DOC-311",
+          "px": 9.6
+        },
+        {
+          "text": "1. Objeto del suministro",
+          "px": 9.6
+        },
+        {
+          "text": "2. Precios (hipotéticos)",
+          "px": 9.6
+        },
+        {
+          "text": "3. Calendario de entregas",
+          "px": 9.6
+        },
+        {
+          "text": "Expediente de versiones",
+          "px": 10.4
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "DOC-311",
+          "px": 9.9
+        },
+        {
+          "text": "1. Objeto del suministro",
+          "px": 9.9
+        },
+        {
+          "text": "2. Precios (hipotéticos)",
+          "px": 9.9
+        },
+        {
+          "text": "3. Calendario de entregas",
+          "px": 9.9
+        },
+        {
+          "text": "Expediente deversiones",
+          "px": 12.3
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "DOC-311",
+          "px": 7.2
+        },
+        {
+          "text": "1. Objeto del suministro",
+          "px": 7.2
+        },
+        {
+          "text": "2. Precios (hipotéticos)",
+          "px": 7.2
+        },
+        {
+          "text": "3. Calendario de entregas",
+          "px": 7.2
+        },
+        {
+          "text": "Expediente deversiones",
+          "px": 8.6
+        },
+        {
+          "text": "Contrato de suministro",
+          "px": 11
+        }
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

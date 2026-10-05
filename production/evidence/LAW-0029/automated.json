@@ -1,0 +1,1006 @@
+{
+  "animationId": "LAW-0029",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0029",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: starts with every copy loose in the pile, no tab, pen lying on the desk @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holders": [
+            "pile",
+            "pile",
+            "pile",
+            "pile"
+          ],
+          "order": [],
+          "carrying": null,
+          "handA": {
+            "x": 928,
+            "y": 642
+          },
+          "carryGrip": null,
+          "tab": {
+            "x": 1587.5,
+            "y": 834.78
+          },
+          "tabHeld": false,
+          "tabAttached": false,
+          "tabGrip": null,
+          "handB1": {
+            "x": 1650,
+            "y": 730
+          },
+          "penTip": {
+            "x": 1545,
+            "y": 615
+          },
+          "penHeld": false,
+          "handB2": {
+            "x": 1840,
+            "y": 430
+          },
+          "penGrip": null,
+          "tickPoint": null,
+          "tickProgress": 0,
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "copy1": {
+            "x": 400,
+            "y": 550
+          },
+          "copy2": {
+            "x": 705,
+            "y": 605
+          },
+          "copy3": {
+            "x": 408.22,
+            "y": 477.47
+          },
+          "copy4": {
+            "x": 720.13,
+            "y": 533.59
+          },
+          "beat": "rest",
+          "finalState": "tab-applied",
+          "selected": "v4",
+          "chainOrder": [],
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the oldest copy is carried first @0.2",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holders": [
+            "carried",
+            "pile",
+            "pile",
+            "pile"
+          ],
+          "order": [],
+          "carrying": "v1",
+          "handA": {
+            "x": 468.69,
+            "y": 650.81
+          },
+          "carryGrip": {
+            "x": 468.69,
+            "y": 650.81
+          },
+          "tab": {
+            "x": 1587.5,
+            "y": 834.78
+          },
+          "tabHeld": false,
+          "tabAttached": false,
+          "tabGrip": null,
+          "handB1": {
+            "x": 1650,
+            "y": 730
+          },
+          "penTip": {
+            "x": 1545,
+            "y": 615
+          },
+          "penHeld": false,
+          "handB2": {
+            "x": 1840,
+            "y": 430
+          },
+          "penGrip": null,
+          "tickPoint": null,
+          "tickProgress": 0,
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "copy1": {
+            "x": 498.97,
+            "y": 505.99
+          },
+          "copy2": {
+            "x": 705,
+            "y": 605
+          },
+          "copy3": {
+            "x": 408.22,
+            "y": 477.47
+          },
+          "copy4": {
+            "x": 720.13,
+            "y": 533.59
+          },
+          "beat": "action",
+          "finalState": "tab-applied",
+          "selected": "v4",
+          "chainOrder": [],
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: copies enter the chain in version order @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holders": [
+            "chain",
+            "chain",
+            "carried",
+            "pile"
+          ],
+          "order": [
+            0,
+            1
+          ],
+          "carrying": "v3",
+          "handA": {
+            "x": 578.7,
+            "y": 592.67
+          },
+          "carryGrip": {
+            "x": 578.7,
+            "y": 592.67
+          },
+          "tab": {
+            "x": 1587.5,
+            "y": 834.78
+          },
+          "tabHeld": false,
+          "tabAttached": false,
+          "tabGrip": null,
+          "handB1": {
+            "x": 1650,
+            "y": 730
+          },
+          "penTip": {
+            "x": 1545,
+            "y": 615
+          },
+          "penHeld": false,
+          "handB2": {
+            "x": 1840,
+            "y": 430
+          },
+          "penGrip": null,
+          "tickPoint": null,
+          "tickProgress": 0,
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "copy1": {
+            "x": 1160,
+            "y": 299
+          },
+          "copy2": {
+            "x": 1170,
+            "y": 367
+          },
+          "copy3": {
+            "x": 610.2,
+            "y": 447.03
+          },
+          "copy4": {
+            "x": 720.13,
+            "y": 533.59
+          },
+          "beat": "action",
+          "finalState": "tab-applied",
+          "selected": "v4",
+          "chainOrder": [
+            "v1",
+            "v2"
+          ],
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the tab is not attached before the chain is complete @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holders": [
+            "chain",
+            "chain",
+            "chain",
+            "carried"
+          ],
+          "order": [
+            0,
+            1,
+            2
+          ],
+          "carrying": "v4",
+          "handA": {
+            "x": 837.82,
+            "y": 644.35
+          },
+          "carryGrip": {
+            "x": 837.82,
+            "y": 644.35
+          },
+          "tab": {
+            "x": 1587.5,
+            "y": 834.78
+          },
+          "tabHeld": false,
+          "tabAttached": false,
+          "tabGrip": null,
+          "handB1": {
+            "x": 1664.2,
+            "y": 755.79
+          },
+          "penTip": {
+            "x": 1545,
+            "y": 615
+          },
+          "penHeld": false,
+          "handB2": {
+            "x": 1840,
+            "y": 430
+          },
+          "penGrip": null,
+          "tickPoint": null,
+          "tickProgress": 0,
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "copy1": {
+            "x": 1160,
+            "y": 299
+          },
+          "copy2": {
+            "x": 1170,
+            "y": 367
+          },
+          "copy3": {
+            "x": 1180,
+            "y": 435
+          },
+          "copy4": {
+            "x": 879.17,
+            "y": 500.85
+          },
+          "beat": "complete",
+          "finalState": "tab-applied",
+          "selected": "v4",
+          "chainOrder": [
+            "v1",
+            "v2",
+            "v3"
+          ],
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the chain is complete while the tab is still carried @0.58",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holders": [
+            "chain",
+            "chain",
+            "chain",
+            "chain"
+          ],
+          "order": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "carrying": null,
+          "handA": {
+            "x": 989.79,
+            "y": 658.72
+          },
+          "carryGrip": null,
+          "tab": {
+            "x": 1419.87,
+            "y": 489.8
+          },
+          "tabHeld": true,
+          "tabAttached": false,
+          "tabGrip": {
+            "x": 1529.62,
+            "y": 482.37
+          },
+          "handB1": {
+            "x": 1529.62,
+            "y": 482.37
+          },
+          "penTip": {
+            "x": 1545,
+            "y": 615
+          },
+          "penHeld": false,
+          "handB2": {
+            "x": 1840,
+            "y": 430
+          },
+          "penGrip": null,
+          "tickPoint": null,
+          "tickProgress": 0,
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "copy1": {
+            "x": 1160,
+            "y": 299
+          },
+          "copy2": {
+            "x": 1170,
+            "y": 367
+          },
+          "copy3": {
+            "x": 1180,
+            "y": 435
+          },
+          "copy4": {
+            "x": 1190,
+            "y": 503
+          },
+          "beat": "complete",
+          "finalState": "tab-applied",
+          "selected": "v4",
+          "chainOrder": [
+            "v1",
+            "v2",
+            "v3",
+            "v4"
+          ],
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the tick is written only after the tab is pressed on @0.705",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holders": [
+            "chain",
+            "chain",
+            "chain",
+            "chain"
+          ],
+          "order": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "carrying": null,
+          "handA": {
+            "x": 928,
+            "y": 642
+          },
+          "carryGrip": null,
+          "tab": {
+            "x": 1340,
+            "y": 342
+          },
+          "tabHeld": false,
+          "tabAttached": true,
+          "tabGrip": null,
+          "handB1": {
+            "x": 1650,
+            "y": 730
+          },
+          "penTip": {
+            "x": 1385.95,
+            "y": 346.81
+          },
+          "penHeld": true,
+          "handB2": {
+            "x": 1450.66,
+            "y": 315.24
+          },
+          "penGrip": {
+            "x": 1450.66,
+            "y": 315.24
+          },
+          "tickPoint": {
+            "x": 1385.95,
+            "y": 346.81
+          },
+          "tickProgress": 0.5,
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "copy1": {
+            "x": 1160,
+            "y": 299
+          },
+          "copy2": {
+            "x": 1170,
+            "y": 367
+          },
+          "copy3": {
+            "x": 1180,
+            "y": 435
+          },
+          "copy4": {
+            "x": 1190,
+            "y": 503
+          },
+          "beat": "complete",
+          "finalState": "tab-applied",
+          "selected": "v4",
+          "chainOrder": [
+            "v1",
+            "v2",
+            "v3",
+            "v4"
+          ],
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: ends with the ordered chain, the tab on the selected copy and the pen put down @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holders": [
+            "chain",
+            "chain",
+            "chain",
+            "chain"
+          ],
+          "order": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "carrying": null,
+          "handA": {
+            "x": 928,
+            "y": 642
+          },
+          "carryGrip": null,
+          "tab": {
+            "x": 1340,
+            "y": 342
+          },
+          "tabHeld": false,
+          "tabAttached": true,
+          "tabGrip": null,
+          "handB1": {
+            "x": 1650,
+            "y": 730
+          },
+          "penTip": {
+            "x": 1545,
+            "y": 615
+          },
+          "penHeld": false,
+          "handB2": {
+            "x": 1840,
+            "y": 430
+          },
+          "penGrip": null,
+          "tickPoint": null,
+          "tickProgress": 1,
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "copy1": {
+            "x": 1160,
+            "y": 299
+          },
+          "copy2": {
+            "x": 1170,
+            "y": 367
+          },
+          "copy3": {
+            "x": 1180,
+            "y": 435
+          },
+          "copy4": {
+            "x": 1190,
+            "y": 503
+          },
+          "beat": "hold",
+          "finalState": "tab-applied",
+          "selected": "v4",
+          "chainOrder": [
+            "v1",
+            "v2",
+            "v3",
+            "v4"
+          ],
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the tab follows the supplied selected version @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holders": [
+            "chain",
+            "chain",
+            "chain",
+            "chain"
+          ],
+          "order": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "carrying": null,
+          "handA": {
+            "x": 928,
+            "y": 642
+          },
+          "carryGrip": null,
+          "tab": {
+            "x": 1320,
+            "y": 206
+          },
+          "tabHeld": false,
+          "tabAttached": true,
+          "tabGrip": null,
+          "handB1": {
+            "x": 1650,
+            "y": 730
+          },
+          "penTip": {
+            "x": 1545,
+            "y": 615
+          },
+          "penHeld": false,
+          "handB2": {
+            "x": 1840,
+            "y": 430
+          },
+          "penGrip": null,
+          "tickPoint": null,
+          "tickProgress": 1,
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "copy1": {
+            "x": 1160,
+            "y": 299
+          },
+          "copy2": {
+            "x": 1170,
+            "y": 367
+          },
+          "copy3": {
+            "x": 1180,
+            "y": 435
+          },
+          "copy4": {
+            "x": 1190,
+            "y": 503
+          },
+          "beat": "hold",
+          "finalState": "tab-applied",
+          "selected": "v2",
+          "chainOrder": [
+            "v1",
+            "v2",
+            "v3",
+            "v4"
+          ],
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: ordered-only: chain complete, no tab applied @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holders": [
+            "chain",
+            "chain",
+            "chain",
+            "chain"
+          ],
+          "order": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "carrying": null,
+          "handA": {
+            "x": 928,
+            "y": 642
+          },
+          "carryGrip": null,
+          "tab": {
+            "x": 1587.5,
+            "y": 834.78
+          },
+          "tabHeld": false,
+          "tabAttached": false,
+          "tabGrip": null,
+          "handB1": {
+            "x": 1650,
+            "y": 730
+          },
+          "penTip": {
+            "x": 1545,
+            "y": 615
+          },
+          "penHeld": false,
+          "handB2": {
+            "x": 1840,
+            "y": 430
+          },
+          "penGrip": null,
+          "tickPoint": null,
+          "tickProgress": 0,
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "copy1": {
+            "x": 1160,
+            "y": 299
+          },
+          "copy2": {
+            "x": 1170,
+            "y": 367
+          },
+          "copy3": {
+            "x": 1180,
+            "y": 435
+          },
+          "copy4": {
+            "x": 1190,
+            "y": 503
+          },
+          "beat": "hold",
+          "finalState": "ordered-only",
+          "selected": "v4",
+          "chainOrder": [
+            "v1",
+            "v2",
+            "v3",
+            "v4"
+          ],
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the ordering part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holders": [
+            "chain",
+            "chain",
+            "pile",
+            "pile"
+          ],
+          "order": [
+            0,
+            1
+          ],
+          "carrying": null,
+          "handA": {
+            "x": 1111.83,
+            "y": 560.16
+          },
+          "carryGrip": null,
+          "tab": {
+            "x": 1587.5,
+            "y": 834.78
+          },
+          "tabHeld": false,
+          "tabAttached": false,
+          "tabGrip": null,
+          "handB1": {
+            "x": 1650,
+            "y": 730
+          },
+          "penTip": {
+            "x": 1545,
+            "y": 615
+          },
+          "penHeld": false,
+          "handB2": {
+            "x": 1840,
+            "y": 430
+          },
+          "penGrip": null,
+          "tickPoint": null,
+          "tickProgress": 0,
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "copy1": {
+            "x": 1160,
+            "y": 299
+          },
+          "copy2": {
+            "x": 1170,
+            "y": 367
+          },
+          "copy3": {
+            "x": 408.22,
+            "y": 477.47
+          },
+          "copy4": {
+            "x": 720.13,
+            "y": 533.59
+          },
+          "beat": "hold",
+          "finalState": "tab-applied",
+          "selected": "v4",
+          "chainOrder": [
+            "v1",
+            "v2"
+          ],
+          "actionCapped": true
+        }
+      }
+    },
+    {
+      "name": "semantic: three supplied versions are ordered and B is tabbed @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holders": [
+            "chain",
+            "chain",
+            "chain"
+          ],
+          "order": [
+            0,
+            1,
+            2
+          ],
+          "carrying": null,
+          "handA": {
+            "x": 928,
+            "y": 642
+          },
+          "carryGrip": null,
+          "tab": {
+            "x": 1320,
+            "y": 206
+          },
+          "tabHeld": false,
+          "tabAttached": true,
+          "tabGrip": null,
+          "handB1": {
+            "x": 1650,
+            "y": 730
+          },
+          "penTip": {
+            "x": 1545,
+            "y": 615
+          },
+          "penHeld": false,
+          "handB2": {
+            "x": 1840,
+            "y": 430
+          },
+          "penGrip": null,
+          "tickPoint": null,
+          "tickProgress": 1,
+          "reach": {
+            "A": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "copy1": {
+            "x": 1160,
+            "y": 299
+          },
+          "copy2": {
+            "x": 1170,
+            "y": 367
+          },
+          "copy3": {
+            "x": 1180,
+            "y": 435
+          },
+          "beat": "hold",
+          "finalState": "tab-applied",
+          "selected": "B",
+          "chainOrder": [
+            "A",
+            "B",
+            "C"
+          ],
+          "actionCapped": false
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

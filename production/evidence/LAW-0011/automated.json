@@ -1,0 +1,2606 @@
+{
+  "animationId": "LAW-0011",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0011",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: at t=0 B still holds the changed document (same tab as A), no dashed outline @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "a": {
+            "cover": 0,
+            "spread": 0,
+            "ticks": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "holder": "folder",
+            "index": {
+              "x": 783.8,
+              "y": 392.4
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "b": {
+            "cover": 0,
+            "spread": 0,
+            "ticks": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "holder": "folder",
+            "index": {
+              "x": 783.8,
+              "y": 392.4
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "changedIndex": 2,
+          "ghostB": 0,
+          "presentB": 1,
+          "exitB": 0,
+          "sheetB": {
+            "x": 779.4,
+            "y": 387.2,
+            "opacity": 1
+          },
+          "sameBase": true,
+          "handLA": {
+            "x": 610,
+            "y": 860
+          },
+          "handRA": {
+            "x": 1262,
+            "y": 856
+          },
+          "handLB": {
+            "x": 610,
+            "y": 860
+          },
+          "handRB": {
+            "x": 1262,
+            "y": 856
+          },
+          "indexA": {
+            "x": 783.8,
+            "y": 392.4
+          },
+          "indexB": {
+            "x": 783.8,
+            "y": 392.4
+          },
+          "penA": {
+            "x": 500,
+            "y": 760
+          },
+          "penB": {
+            "x": 500,
+            "y": 760
+          },
+          "coverGripA": {
+            "x": 966,
+            "y": 566.4
+          },
+          "indexGripA": {
+            "x": 857.8,
+            "y": 598.8
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "guideSpansGutter": true,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: identical closed base situation @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "a": {
+            "cover": 0,
+            "spread": 0,
+            "ticks": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "holder": "folder",
+            "index": {
+              "x": 783.8,
+              "y": 392.4
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "b": {
+            "cover": 0,
+            "spread": 0,
+            "ticks": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "holder": "folder",
+            "index": {
+              "x": 783.8,
+              "y": 392.4
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "changedIndex": 2,
+          "ghostB": 0,
+          "presentB": 1,
+          "exitB": 0,
+          "sheetB": {
+            "x": 779.4,
+            "y": 387.2,
+            "opacity": 1
+          },
+          "sameBase": true,
+          "handLA": {
+            "x": 610,
+            "y": 860
+          },
+          "handRA": {
+            "x": 1262,
+            "y": 856
+          },
+          "handLB": {
+            "x": 610,
+            "y": 860
+          },
+          "handRB": {
+            "x": 1262,
+            "y": 856
+          },
+          "indexA": {
+            "x": 783.8,
+            "y": 392.4
+          },
+          "indexB": {
+            "x": 783.8,
+            "y": 392.4
+          },
+          "penA": {
+            "x": 500,
+            "y": 760
+          },
+          "penB": {
+            "x": 500,
+            "y": 760
+          },
+          "coverGripA": {
+            "x": 966,
+            "y": 566.4
+          },
+          "indexGripA": {
+            "x": 857.8,
+            "y": 598.8
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "guideSpansGutter": true,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the difference is not shown before the change beat @0.165",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "a": {
+            "cover": 0,
+            "spread": 0,
+            "ticks": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "holder": "folder",
+            "index": {
+              "x": 783.8,
+              "y": 392.4
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "b": {
+            "cover": 0,
+            "spread": 0,
+            "ticks": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "holder": "folder",
+            "index": {
+              "x": 783.8,
+              "y": 392.4
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "changedIndex": 2,
+          "ghostB": 0,
+          "presentB": 1,
+          "exitB": 0,
+          "sheetB": {
+            "x": 779.4,
+            "y": 387.2,
+            "opacity": 1
+          },
+          "sameBase": true,
+          "handLA": {
+            "x": 610,
+            "y": 860
+          },
+          "handRA": {
+            "x": 1262,
+            "y": 856
+          },
+          "handLB": {
+            "x": 610,
+            "y": 860
+          },
+          "handRB": {
+            "x": 1262,
+            "y": 856
+          },
+          "indexA": {
+            "x": 783.8,
+            "y": 392.4
+          },
+          "indexB": {
+            "x": 783.8,
+            "y": 392.4
+          },
+          "penA": {
+            "x": 500,
+            "y": 760
+          },
+          "penB": {
+            "x": 500,
+            "y": 760
+          },
+          "coverGripA": {
+            "x": 966,
+            "y": 566.4
+          },
+          "indexGripA": {
+            "x": 857.8,
+            "y": 598.8
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "guideSpansGutter": true,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: change beat: B's document visibly leaves the folder before its outline appears @0.26",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "a": {
+            "cover": 0,
+            "spread": 0,
+            "ticks": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "holder": "folder",
+            "index": {
+              "x": 783.8,
+              "y": 392.4
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "b": {
+            "cover": 0,
+            "spread": 0,
+            "ticks": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "holder": "folder",
+            "index": {
+              "x": 783.8,
+              "y": 392.4
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "changedIndex": 2,
+          "ghostB": 0,
+          "presentB": 0.643,
+          "exitB": 0.634,
+          "sheetB": {
+            "x": 956.97,
+            "y": 387.2,
+            "opacity": 0.976
+          },
+          "sameBase": false,
+          "handLA": {
+            "x": 610,
+            "y": 860
+          },
+          "handRA": {
+            "x": 1262,
+            "y": 856
+          },
+          "handLB": {
+            "x": 610,
+            "y": 860
+          },
+          "handRB": {
+            "x": 1262,
+            "y": 856
+          },
+          "indexA": {
+            "x": 783.8,
+            "y": 392.4
+          },
+          "indexB": {
+            "x": 783.8,
+            "y": 392.4
+          },
+          "penA": {
+            "x": 500,
+            "y": 760
+          },
+          "penB": {
+            "x": 500,
+            "y": 760
+          },
+          "coverGripA": {
+            "x": 966,
+            "y": 566.4
+          },
+          "indexGripA": {
+            "x": 857.8,
+            "y": 598.8
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "guideSpansGutter": true,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the change is complete (dashed tab in B) before any action @0.32",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "a": {
+            "cover": 0,
+            "spread": 0,
+            "ticks": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "holder": "folder",
+            "index": {
+              "x": 783.8,
+              "y": 392.4
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "b": {
+            "cover": 0,
+            "spread": 0,
+            "ticks": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "holder": "folder",
+            "index": {
+              "x": 783.8,
+              "y": 392.4
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "changedIndex": 2,
+          "ghostB": 0.388,
+          "presentB": 0.214,
+          "exitB": 1,
+          "sheetB": {
+            "x": 1059.4,
+            "y": 387.2,
+            "opacity": 0
+          },
+          "sameBase": false,
+          "handLA": {
+            "x": 610,
+            "y": 860
+          },
+          "handRA": {
+            "x": 1262,
+            "y": 856
+          },
+          "handLB": {
+            "x": 610,
+            "y": 860
+          },
+          "handRB": {
+            "x": 1262,
+            "y": 856
+          },
+          "indexA": {
+            "x": 783.8,
+            "y": 392.4
+          },
+          "indexB": {
+            "x": 783.8,
+            "y": 392.4
+          },
+          "penA": {
+            "x": 500,
+            "y": 760
+          },
+          "penB": {
+            "x": 500,
+            "y": 760
+          },
+          "coverGripA": {
+            "x": 966,
+            "y": 566.4
+          },
+          "indexGripA": {
+            "x": 857.8,
+            "y": 598.8
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "guideSpansGutter": true,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the opening runs identically in parallel @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "cover": 180,
+            "spread": 0.6,
+            "ticks": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "holder": "right-hand",
+            "index": {
+              "x": 963.25,
+              "y": 570.66
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "b": {
+            "cover": 180,
+            "spread": 0.6,
+            "ticks": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "holder": "right-hand",
+            "index": {
+              "x": 963.25,
+              "y": 570.66
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "changedIndex": 2,
+          "ghostB": 1,
+          "presentB": 0,
+          "exitB": 1,
+          "sheetB": {
+            "x": 1117.44,
+            "y": 444.85,
+            "opacity": 0
+          },
+          "sameBase": false,
+          "handLA": {
+            "x": 466.2,
+            "y": 823.57
+          },
+          "handRA": {
+            "x": 1040.62,
+            "y": 775.83
+          },
+          "handLB": {
+            "x": 466.2,
+            "y": 823.57
+          },
+          "handRB": {
+            "x": 1040.62,
+            "y": 775.83
+          },
+          "indexA": {
+            "x": 963.25,
+            "y": 570.66
+          },
+          "indexB": {
+            "x": 963.25,
+            "y": 570.66
+          },
+          "penA": {
+            "x": 500,
+            "y": 760
+          },
+          "penB": {
+            "x": 500,
+            "y": 760
+          },
+          "coverGripA": {
+            "x": 154,
+            "y": 566.4
+          },
+          "indexGripA": {
+            "x": 1040.62,
+            "y": 775.83
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "guideSpansGutter": true,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: only the changed entry differs: unticked in B @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "cover": 180,
+            "spread": 1,
+            "ticks": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "holder": "laid-out",
+            "index": {
+              "x": 1025,
+              "y": 632
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "b": {
+            "cover": 180,
+            "spread": 1,
+            "ticks": [
+              1,
+              1,
+              0,
+              1
+            ],
+            "holder": "laid-out",
+            "index": {
+              "x": 1025,
+              "y": 632
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "changedIndex": 2,
+          "ghostB": 1,
+          "presentB": 0,
+          "exitB": 1,
+          "sheetB": {
+            "x": 1180,
+            "y": 507,
+            "opacity": 0
+          },
+          "sameBase": false,
+          "handLA": {
+            "x": 610,
+            "y": 860
+          },
+          "handRA": {
+            "x": 1262,
+            "y": 856
+          },
+          "handLB": {
+            "x": 610,
+            "y": 860
+          },
+          "handRB": {
+            "x": 1262,
+            "y": 856
+          },
+          "indexA": {
+            "x": 1025,
+            "y": 632
+          },
+          "indexB": {
+            "x": 1025,
+            "y": 632
+          },
+          "penA": {
+            "x": 500,
+            "y": 760
+          },
+          "penB": {
+            "x": 500,
+            "y": 760
+          },
+          "coverGripA": {
+            "x": 154,
+            "y": 566.4
+          },
+          "indexGripA": {
+            "x": 1099,
+            "y": 838.4
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "guideSpansGutter": true,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: every other state matches and no stamp or outcome is added @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "cover": 180,
+            "spread": 1,
+            "ticks": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "holder": "laid-out",
+            "index": {
+              "x": 1025,
+              "y": 632
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "b": {
+            "cover": 180,
+            "spread": 1,
+            "ticks": [
+              1,
+              1,
+              0,
+              1
+            ],
+            "holder": "laid-out",
+            "index": {
+              "x": 1025,
+              "y": 632
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "changedIndex": 2,
+          "ghostB": 1,
+          "presentB": 0,
+          "exitB": 1,
+          "sheetB": {
+            "x": 1180,
+            "y": 507,
+            "opacity": 0
+          },
+          "sameBase": false,
+          "handLA": {
+            "x": 610,
+            "y": 860
+          },
+          "handRA": {
+            "x": 1262,
+            "y": 856
+          },
+          "handLB": {
+            "x": 610,
+            "y": 860
+          },
+          "handRB": {
+            "x": 1262,
+            "y": 856
+          },
+          "indexA": {
+            "x": 1025,
+            "y": 632
+          },
+          "indexB": {
+            "x": 1025,
+            "y": 632
+          },
+          "penA": {
+            "x": 500,
+            "y": 760
+          },
+          "penB": {
+            "x": 500,
+            "y": 760
+          },
+          "coverGripA": {
+            "x": 154,
+            "y": 566.4
+          },
+          "indexGripA": {
+            "x": 1099,
+            "y": 838.4
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "guideSpansGutter": true,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: comparison guide drawn at the end @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "cover": 180,
+            "spread": 1,
+            "ticks": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "holder": "laid-out",
+            "index": {
+              "x": 1025,
+              "y": 632
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "b": {
+            "cover": 180,
+            "spread": 1,
+            "ticks": [
+              1,
+              1,
+              0,
+              1
+            ],
+            "holder": "laid-out",
+            "index": {
+              "x": 1025,
+              "y": 632
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "changedIndex": 2,
+          "ghostB": 1,
+          "presentB": 0,
+          "exitB": 1,
+          "sheetB": {
+            "x": 1180,
+            "y": 507,
+            "opacity": 0
+          },
+          "sameBase": false,
+          "handLA": {
+            "x": 610,
+            "y": 860
+          },
+          "handRA": {
+            "x": 1262,
+            "y": 856
+          },
+          "handLB": {
+            "x": 610,
+            "y": 860
+          },
+          "handRB": {
+            "x": 1262,
+            "y": 856
+          },
+          "indexA": {
+            "x": 1025,
+            "y": 632
+          },
+          "indexB": {
+            "x": 1025,
+            "y": 632
+          },
+          "penA": {
+            "x": 500,
+            "y": 760
+          },
+          "penB": {
+            "x": 500,
+            "y": 760
+          },
+          "coverGripA": {
+            "x": 154,
+            "y": 566.4
+          },
+          "indexGripA": {
+            "x": 1099,
+            "y": 838.4
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "guideSpansGutter": true,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: side by side, the guide label sits in the gutter between the desks @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "cover": 180,
+            "spread": 1,
+            "ticks": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "holder": "laid-out",
+            "index": {
+              "x": 1025,
+              "y": 632
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "b": {
+            "cover": 180,
+            "spread": 1,
+            "ticks": [
+              1,
+              1,
+              0,
+              1
+            ],
+            "holder": "laid-out",
+            "index": {
+              "x": 1025,
+              "y": 632
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "changedIndex": 2,
+          "ghostB": 1,
+          "presentB": 0,
+          "exitB": 1,
+          "sheetB": {
+            "x": 1180,
+            "y": 507,
+            "opacity": 0
+          },
+          "sameBase": false,
+          "handLA": {
+            "x": 610,
+            "y": 860
+          },
+          "handRA": {
+            "x": 1262,
+            "y": 856
+          },
+          "handLB": {
+            "x": 610,
+            "y": 860
+          },
+          "handRB": {
+            "x": 1262,
+            "y": 856
+          },
+          "indexA": {
+            "x": 1025,
+            "y": 632
+          },
+          "indexB": {
+            "x": 1025,
+            "y": 632
+          },
+          "penA": {
+            "x": 500,
+            "y": 760
+          },
+          "penB": {
+            "x": 500,
+            "y": 760
+          },
+          "coverGripA": {
+            "x": 154,
+            "y": 566.4
+          },
+          "indexGripA": {
+            "x": 1099,
+            "y": 838.4
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "guideSpansGutter": true,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the changed fact follows the supplied index @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "cover": 180,
+            "spread": 1,
+            "ticks": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "holder": "laid-out",
+            "index": {
+              "x": 1025,
+              "y": 632
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "b": {
+            "cover": 180,
+            "spread": 1,
+            "ticks": [
+              0,
+              1,
+              1,
+              1
+            ],
+            "holder": "laid-out",
+            "index": {
+              "x": 1025,
+              "y": 632
+            },
+            "penHeld": false,
+            "stamp": false
+          },
+          "changedIndex": 0,
+          "ghostB": 1,
+          "presentB": 0,
+          "exitB": 1,
+          "sheetB": {
+            "x": 1055,
+            "y": 382,
+            "opacity": 0
+          },
+          "sameBase": false,
+          "handLA": {
+            "x": 610,
+            "y": 860
+          },
+          "handRA": {
+            "x": 1262,
+            "y": 856
+          },
+          "handLB": {
+            "x": 610,
+            "y": 860
+          },
+          "handRB": {
+            "x": 1262,
+            "y": 856
+          },
+          "indexA": {
+            "x": 1025,
+            "y": 632
+          },
+          "indexB": {
+            "x": 1025,
+            "y": 632
+          },
+          "penA": {
+            "x": 500,
+            "y": 760
+          },
+          "penB": {
+            "x": 500,
+            "y": 760
+          },
+          "coverGripA": {
+            "x": 154,
+            "y": 566.4
+          },
+          "indexGripA": {
+            "x": 1099,
+            "y": 838.4
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "guideSpansGutter": true,
+          "arrangement": "row"
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Application form",
+          "Identity document copy"
+        ],
+        [
+          "Application form",
+          "Supporting letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Application form",
+          "Identity document copy"
+        ],
+        [
+          "Application form",
+          "Supporting letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ],
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ],
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Application form",
+          "Identity document copy"
+        ],
+        [
+          "Application form",
+          "Supporting letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Application form",
+          "Identity document copy"
+        ],
+        [
+          "Application form",
+          "Supporting letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ],
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ],
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Application form",
+          "Identity document copy"
+        ],
+        [
+          "Application form",
+          "Supporting letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Application form",
+          "Identity document copy"
+        ],
+        [
+          "Application form",
+          "Supporting letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ],
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "1:1",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ],
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Application form",
+          "Identity document copy"
+        ],
+        [
+          "Application form",
+          "Supporting letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Application form",
+          "Identity document copy"
+        ],
+        [
+          "Application form",
+          "Supporting letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ],
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ],
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Application form",
+          "Identity document copy"
+        ],
+        [
+          "Application form",
+          "Supporting letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Application form",
+          "Identity document copy"
+        ],
+        [
+          "Application form",
+          "Supporting letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ],
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ],
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Application form",
+          "Identity document copy"
+        ],
+        [
+          "Application form",
+          "Supporting letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Application form",
+          "Identity document copy"
+        ],
+        [
+          "Application form",
+          "Supporting letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ],
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ],
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "1",
+          "Licence renewal"
+        ],
+        [
+          "Renewal form",
+          "Previous licence copy"
+        ],
+        [
+          "Renewal form",
+          "Site plan"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "1",
+          "Licence renewal"
+        ],
+        [
+          "Renewal form",
+          "Previous licence copy"
+        ],
+        [
+          "Renewal form",
+          "Site plan"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Renewal form",
+          "Previous licence copy"
+        ],
+        [
+          "Renewal form",
+          "Site plan"
+        ],
+        [
+          "Renewal form",
+          "INDEX"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Renewal form",
+          "Previous licence copy"
+        ],
+        [
+          "Renewal form",
+          "Site plan"
+        ],
+        [
+          "Renewal form",
+          "INDEX"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Renewal form",
+          "Previous licence copy"
+        ],
+        [
+          "Renewal form",
+          "Site plan"
+        ],
+        [
+          "Renewal form",
+          "INDEX"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Renewal form",
+          "Previous licence copy"
+        ],
+        [
+          "Renewal form",
+          "Site plan"
+        ],
+        [
+          "Renewal form",
+          "INDEX"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Completed application form wit",
+          "Certified copy of the identity"
+        ],
+        [
+          "Completed application form wit",
+          "Supporting letter from theprev"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Completed application form wit",
+          "Certified copy of the identity"
+        ],
+        [
+          "Completed application form wit",
+          "Supporting letter from theprev"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "Receipt for the hypotheticalad"
+        ],
+        [
+          "3",
+          "Request for registration of ac"
+        ],
+        [
+          "2",
+          "Receipt for the hypotheticalad"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "Receipt for the hypotheticalad"
+        ],
+        [
+          "3",
+          "Request for registration of ac"
+        ],
+        [
+          "2",
+          "Receipt for the hypotheticalad"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Completed application form wit",
+          "Certified copy of the identity"
+        ],
+        [
+          "Completed application form wit",
+          "Supporting letter from theprev"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Completed application form wit",
+          "Certified copy of the identity"
+        ],
+        [
+          "Completed application form wit",
+          "Supporting letter from theprev"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "Receipt for the hypotheticalad"
+        ],
+        [
+          "3",
+          "Request for registration of ac"
+        ],
+        [
+          "2",
+          "Receipt for the hypotheticalad"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "Receipt for the hypotheticalad"
+        ],
+        [
+          "3",
+          "Request for registration of ac"
+        ],
+        [
+          "2",
+          "Receipt for the hypotheticalad"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Completed application form wit",
+          "Certified copy of the identity"
+        ],
+        [
+          "Completed application form wit",
+          "Supporting letter from theprev"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "INDEX"
+        ],
+        [
+          "Completed application form wit",
+          "Certified copy of the identity"
+        ],
+        [
+          "Completed application form wit",
+          "Supporting letter from theprev"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "3. Supporting letter from the "
+        ],
+        [
+          "2",
+          "3. Supporting letter from the "
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "3. Supporting letter from the "
+        ],
+        [
+          "2",
+          "3. Supporting letter from the "
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "ÍNDICE"
+        ],
+        [
+          "Formulario de solicitud",
+          "Copia del documento de identid"
+        ],
+        [
+          "Formulario de solicitud",
+          "Carta de apoyo"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "ÍNDICE"
+        ],
+        [
+          "Formulario de solicitud",
+          "Copia del documento de identid"
+        ],
+        [
+          "Formulario de solicitud",
+          "Carta de apoyo"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "Recibo de tasa (hipotético)"
+        ],
+        [
+          "2",
+          "Recibo de tasa (hipotético)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "Recibo de tasa (hipotético)"
+        ],
+        [
+          "2",
+          "Recibo de tasa (hipotético)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "ÍNDICE"
+        ],
+        [
+          "Formulario de solicitud",
+          "Copia del documento de identid"
+        ],
+        [
+          "Formulario de solicitud",
+          "Carta de apoyo"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "ÍNDICE"
+        ],
+        [
+          "Formulario de solicitud",
+          "Copia del documento de identid"
+        ],
+        [
+          "Formulario de solicitud",
+          "Carta de apoyo"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "Recibo de tasa (hipotético)"
+        ],
+        [
+          "2",
+          "Recibo de tasa (hipotético)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "Recibo de tasa (hipotético)"
+        ],
+        [
+          "2",
+          "Recibo de tasa (hipotético)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "ÍNDICE"
+        ],
+        [
+          "Formulario de solicitud",
+          "Copia del documento de identid"
+        ],
+        [
+          "Formulario de solicitud",
+          "Carta de apoyo"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "1",
+          "2"
+        ],
+        [
+          "1",
+          "3"
+        ],
+        [
+          "1",
+          "4"
+        ],
+        [
+          "1",
+          "ÍNDICE"
+        ],
+        [
+          "Formulario de solicitud",
+          "Copia del documento de identid"
+        ],
+        [
+          "Formulario de solicitud",
+          "Carta de apoyo"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "4. Recibo de tasa (hipotético)"
+        ],
+        [
+          "2",
+          "4. Recibo de tasa (hipotético)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "4. Recibo de tasa (hipotético)"
+        ],
+        [
+          "2",
+          "4. Recibo de tasa (hipotético)"
+        ]
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

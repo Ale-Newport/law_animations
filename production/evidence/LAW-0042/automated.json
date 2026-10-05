@@ -1,0 +1,4521 @@
+{
+  "animationId": "LAW-0042",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0042",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "query.terms.0.text",
+        "rejected": "Invalid animation parameters:\n - params.query.terms[0].text: must have at most 24 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: starts separated: no relations, no tracer, passage unmarked @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "tracer": {
+            "x": 370,
+            "y": 148
+          },
+          "tracerVisible": false,
+          "strip": {
+            "x": 1222,
+            "y": 578.74
+          },
+          "tokenA": {
+            "x": 195.89,
+            "y": 148
+          },
+          "tokenB": {
+            "x": 325.35,
+            "y": 148
+          },
+          "relationsDrawn": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 0,
+          "postingLit": 0,
+          "slotLit": false,
+          "shelfLit": false,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 0,
+            "card": 0,
+            "passage": 0,
+            "document": 1,
+            "library": 0
+          },
+          "elementsReady": {
+            "term": 0,
+            "card": 0,
+            "passage": 0
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: relations are drawn one by one @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "tracer": {
+            "x": 370,
+            "y": 148
+          },
+          "tracerVisible": false,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            0.997,
+            0,
+            0,
+            0
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 0,
+          "postingLit": 0,
+          "slotLit": false,
+          "shelfLit": false,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: all relations drawn before the tracer runs @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 370,
+            "y": 155.29
+          },
+          "tracerVisible": true,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 0,
+          "postingLit": 0,
+          "slotLit": false,
+          "shelfLit": false,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: the passage and posting only change when the tracer passes @0.44",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 370,
+            "y": 148
+          },
+          "tracerVisible": true,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 0,
+          "postingLit": 0,
+          "slotLit": false,
+          "shelfLit": false,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: gather: marked passage, lit posting, slot and shelf gap stay visible @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1906.12,
+            "y": 311.15
+          },
+          "tracerVisible": false,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 1,
+          "postingLit": 1,
+          "slotLit": true,
+          "shelfLit": true,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: every connector ends on the edge of its element @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1906.12,
+            "y": 311.15
+          },
+          "tracerVisible": false,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 1,
+          "postingLit": 1,
+          "slotLit": true,
+          "shelfLit": true,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: connectors stay anchored while the tracer runs @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 1161.49,
+            "y": 245.62
+          },
+          "tracerVisible": true,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 0.171,
+          "postingLit": 1,
+          "slotLit": false,
+          "shelfLit": false,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: tracer follows the default traversal order @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 1161.49,
+            "y": 245.62
+          },
+          "tracerVisible": true,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 0.171,
+          "postingLit": 1,
+          "slotLit": false,
+          "shelfLit": false,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: tracer follows a supplied traversal order after seeking @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 1169.08,
+            "y": 239.99
+          },
+          "tracerVisible": true,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "library",
+            "document",
+            "passage",
+            "card"
+          ],
+          "passageMarked": 0.686,
+          "postingLit": 0,
+          "slotLit": true,
+          "shelfLit": true,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: plain relations are not drawn as causation by default @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1906.12,
+            "y": 311.15
+          },
+          "tracerVisible": false,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 1,
+          "postingLit": 1,
+          "slotLit": true,
+          "shelfLit": true,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: a causal link appears only when supplied @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1906.12,
+            "y": 311.15
+          },
+          "tracerVisible": false,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 1,
+          "postingLit": 1,
+          "slotLit": true,
+          "shelfLit": true,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "causal",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "causal",
+            "sequence"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: the tag states the kind of match only (descriptive) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1906.12,
+            "y": 311.15
+          },
+          "tracerVisible": false,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 1,
+          "postingLit": 1,
+          "slotLit": true,
+          "shelfLit": true,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: every connector has a readable length (no stubs) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1906.12,
+            "y": 311.15
+          },
+          "tracerVisible": false,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 1,
+          "postingLit": 1,
+          "slotLit": true,
+          "shelfLit": true,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: relation labels keep their full size and wording @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1906.12,
+            "y": 311.15
+          },
+          "tracerVisible": false,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 1,
+          "postingLit": 1,
+          "slotLit": true,
+          "shelfLit": true,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: element captions do not appear before their elements @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "tracer": {
+            "x": 370,
+            "y": 148
+          },
+          "tracerVisible": false,
+          "strip": {
+            "x": 1191.82,
+            "y": 545.57
+          },
+          "tokenA": {
+            "x": 295.33,
+            "y": 366.28
+          },
+          "tokenB": {
+            "x": 396.53,
+            "y": 294.31
+          },
+          "relationsDrawn": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 0,
+          "postingLit": 0,
+          "slotLit": false,
+          "shelfLit": false,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 0,
+            "card": 0,
+            "passage": 0,
+            "document": 1,
+            "library": 0
+          },
+          "elementsReady": {
+            "term": 0.665,
+            "card": 0.455,
+            "passage": 0.081
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: captions shown once every element is in place @0.25",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "tracer": {
+            "x": 370,
+            "y": 148
+          },
+          "tracerVisible": false,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            0.907,
+            0,
+            0,
+            0,
+            0
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 0,
+          "postingLit": 0,
+          "slotLit": false,
+          "shelfLit": false,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    },
+    {
+      "name": "semantic: the card lists the passage from its posting line (a port on the card edge) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1906.12,
+            "y": 311.15
+          },
+          "tracerVisible": false,
+          "strip": {
+            "x": 850,
+            "y": 170
+          },
+          "tokenA": {
+            "x": 296.11,
+            "y": 368
+          },
+          "tokenB": {
+            "x": 432.38,
+            "y": 368
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "searchBox",
+            "term",
+            "card",
+            "passage",
+            "document",
+            "library"
+          ],
+          "passageMarked": 1,
+          "postingLit": 1,
+          "slotLit": true,
+          "shelfLit": true,
+          "matchKind": "exact",
+          "connectorEnds": [
+            {
+              "from": {
+                "x": 370,
+                "y": 204
+              },
+              "to": {
+                "x": 370,
+                "y": 312
+              },
+              "fromId": "searchBox",
+              "toId": "term",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 367,
+                "y": 190,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 232.73,
+                "y": 326,
+                "w": 274.54,
+                "h": 84
+              },
+              "len": 108
+            },
+            {
+              "from": {
+                "x": 355,
+                "y": 418
+              },
+              "to": {
+                "x": 355,
+                "y": 518.05
+              },
+              "fromId": "term",
+              "toId": "card",
+              "kind": "sequence",
+              "fromBox": {
+                "x": 352,
+                "y": 404,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 60,
+                "y": 532.05,
+                "w": 590,
+                "h": 363.95
+              },
+              "len": 100.05
+            },
+            {
+              "from": {
+                "x": 607.9,
+                "y": 656.3
+              },
+              "to": {
+                "x": 1125.79,
+                "y": 272.1
+              },
+              "fromId": "card",
+              "toId": "passage",
+              "kind": "relation",
+              "fromBox": {
+                "x": 593.9,
+                "y": 661.46,
+                "w": 6,
+                "h": 6
+              },
+              "toBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "len": 644.85
+            },
+            {
+              "from": {
+                "x": 1198.92,
+                "y": 272.1
+              },
+              "to": {
+                "x": 1193.51,
+                "y": 548
+              },
+              "fromId": "passage",
+              "toId": "document",
+              "kind": "relation",
+              "fromBox": {
+                "x": 850,
+                "y": 170,
+                "w": 700,
+                "h": 94.1
+              },
+              "toBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "len": 275.95
+            },
+            {
+              "from": {
+                "x": 1498.25,
+                "y": 548
+              },
+              "to": {
+                "x": 1874,
+                "y": 329.8
+              },
+              "fromId": "document",
+              "toId": "library",
+              "kind": "relation",
+              "fromBox": {
+                "x": 842,
+                "y": 556,
+                "w": 696,
+                "h": 342
+              },
+              "toBox": {
+                "x": 1882,
+                "y": 226.96,
+                "w": 48.24,
+                "h": 168.37
+              },
+              "len": 434.51
+            }
+          ],
+          "anchorBoxes": {
+            "searchBox": {
+              "x": 50,
+              "y": 100,
+              "w": 640,
+              "h": 96
+            },
+            "term": {
+              "x": 232.73,
+              "y": 326,
+              "w": 274.54,
+              "h": 84
+            },
+            "card": {
+              "x": 60,
+              "y": 532.05,
+              "w": 590,
+              "h": 363.95
+            },
+            "passage": {
+              "x": 850,
+              "y": 170,
+              "w": 700,
+              "h": 94.1
+            },
+            "document": {
+              "x": 842,
+              "y": 556,
+              "w": 696,
+              "h": 342
+            },
+            "library": {
+              "x": 1840,
+              "y": 144,
+              "w": 340,
+              "h": 766
+            }
+          },
+          "captionsShown": {
+            "searchBox": 1,
+            "term": 1,
+            "card": 1,
+            "passage": 1,
+            "document": 1,
+            "library": 1
+          },
+          "elementsReady": {
+            "term": 1,
+            "card": 1,
+            "passage": 1
+          },
+          "kinds": [
+            "sequence",
+            "sequence",
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "relationLabels": [
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": true
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            },
+            {
+              "size": 28,
+              "truncated": false,
+              "leader": false
+            }
+          ],
+          "focus": "card"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

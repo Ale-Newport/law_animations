@@ -1,0 +1,563 @@
+{
+  "animationId": "LAW-0441",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0441",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "parties.0.name"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: starts open in the offeror's hand @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holder": "A",
+          "sheetCenter": {
+            "x": 564.01,
+            "y": 493.4
+          },
+          "sheetAngle": 0,
+          "flight": 0,
+          "folded": 0,
+          "handA": {
+            "x": 402.01,
+            "y": 493.4
+          },
+          "handB": {
+            "x": 1743.18,
+            "y": 601.4
+          },
+          "gripA": {
+            "x": 402.01,
+            "y": 493.4
+          },
+          "gripB": {
+            "x": 726.01,
+            "y": 493.4
+          },
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "rest",
+          "finalState": "opened",
+          "sealed": false,
+          "opened": 0,
+          "routeDrawn": 0,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: folded into its own mailer and sealed before sending @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holder": "A",
+          "sheetCenter": {
+            "x": 553.98,
+            "y": 480.47
+          },
+          "sheetAngle": -1.04,
+          "flight": 0,
+          "folded": 1,
+          "handA": {
+            "x": 392.01,
+            "y": 483.4
+          },
+          "handB": {
+            "x": 1743.18,
+            "y": 601.4
+          },
+          "gripA": {
+            "x": 392.01,
+            "y": 483.4
+          },
+          "gripB": {
+            "x": 715.96,
+            "y": 477.54
+          },
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "action",
+          "finalState": "opened",
+          "sealed": true,
+          "opened": 0,
+          "routeDrawn": 0,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: travels along the route (trail revealed behind it) @0.47",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holder": "in-transit",
+          "sheetCenter": {
+            "x": 998.82,
+            "y": 116.49
+          },
+          "sheetAngle": -1.47,
+          "flight": 0.471,
+          "folded": 1,
+          "handA": {
+            "x": 336.97,
+            "y": 583.03
+          },
+          "handB": {
+            "x": 1742.49,
+            "y": 600.72
+          },
+          "gripA": {
+            "x": 836.87,
+            "y": 120.65
+          },
+          "gripB": {
+            "x": 1160.76,
+            "y": 112.34
+          },
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "opened",
+          "sealed": true,
+          "opened": 0,
+          "routeDrawn": 0.471,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: hand and mailer meet at the shared catch point @0.56",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holder": "B",
+          "sheetCenter": {
+            "x": 1408.38,
+            "y": 431.3
+          },
+          "sheetAngle": 0,
+          "flight": 0,
+          "folded": 1,
+          "handA": {
+            "x": 318.31,
+            "y": 601.4
+          },
+          "handB": {
+            "x": 1570.38,
+            "y": 431.3
+          },
+          "gripA": {
+            "x": 1246.38,
+            "y": 431.3
+          },
+          "gripB": {
+            "x": 1570.38,
+            "y": 431.3
+          },
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "opened",
+          "sealed": true,
+          "opened": 0,
+          "routeDrawn": 1,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: seal is broken before the sheet opens @0.645",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holder": "B",
+          "sheetCenter": {
+            "x": 1497.48,
+            "y": 493.4
+          },
+          "sheetAngle": 0,
+          "flight": 0,
+          "folded": 0.7,
+          "handA": {
+            "x": 318.31,
+            "y": 601.4
+          },
+          "handB": {
+            "x": 1659.48,
+            "y": 493.4
+          },
+          "gripA": {
+            "x": 1335.48,
+            "y": 493.4
+          },
+          "gripB": {
+            "x": 1659.48,
+            "y": 493.4
+          },
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "opened",
+          "sealed": false,
+          "opened": 0.15,
+          "routeDrawn": 1,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: ends open in the offeree's hand @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holder": "B",
+          "sheetCenter": {
+            "x": 1497.48,
+            "y": 493.4
+          },
+          "sheetAngle": 0,
+          "flight": 0,
+          "folded": 0,
+          "handA": {
+            "x": 318.31,
+            "y": 601.4
+          },
+          "handB": {
+            "x": 1659.48,
+            "y": 493.4
+          },
+          "gripA": {
+            "x": 1335.48,
+            "y": 493.4
+          },
+          "gripB": {
+            "x": 1659.48,
+            "y": 493.4
+          },
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "opened",
+          "sealed": false,
+          "opened": 1,
+          "routeDrawn": 1,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: delivered state: received but still sealed @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holder": "B",
+          "sheetCenter": {
+            "x": 1497.48,
+            "y": 493.4
+          },
+          "sheetAngle": 0,
+          "flight": 0,
+          "folded": 1,
+          "handA": {
+            "x": 318.31,
+            "y": 601.4
+          },
+          "handB": {
+            "x": 1659.48,
+            "y": 493.4
+          },
+          "gripA": {
+            "x": 1335.48,
+            "y": 493.4
+          },
+          "gripB": {
+            "x": 1659.48,
+            "y": 493.4
+          },
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "delivered",
+          "sealed": true,
+          "opened": 0,
+          "routeDrawn": 1,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: in-transit state: stops part-way, never reaches B @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holder": "in-transit",
+          "sheetCenter": {
+            "x": 1084.95,
+            "y": 118.58
+          },
+          "sheetAngle": 2.47,
+          "flight": 0.55,
+          "folded": 1,
+          "handA": {
+            "x": 318.31,
+            "y": 601.4
+          },
+          "handB": {
+            "x": 1743.18,
+            "y": 601.4
+          },
+          "gripA": {
+            "x": 923.1,
+            "y": 111.59
+          },
+          "gripB": {
+            "x": 1246.8,
+            "y": 125.57
+          },
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "in-transit",
+          "sealed": true,
+          "opened": 0,
+          "routeDrawn": 0.55,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holder": "A",
+          "sheetCenter": {
+            "x": 495.94,
+            "y": 406.26
+          },
+          "sheetAngle": -6.97,
+          "flight": 0,
+          "folded": 1,
+          "handA": {
+            "x": 335.14,
+            "y": 425.92
+          },
+          "handB": {
+            "x": 1743.18,
+            "y": 601.4
+          },
+          "gripA": {
+            "x": 335.14,
+            "y": 425.92
+          },
+          "gripB": {
+            "x": 656.74,
+            "y": 386.59
+          },
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "opened",
+          "sealed": true,
+          "opened": 0,
+          "routeDrawn": 0,
+          "actionCapped": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the action is identical with labels hidden @0.8",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "holder": "B",
+          "sheetCenter": {
+            "x": 1497.48,
+            "y": 493.4
+          },
+          "sheetAngle": 0,
+          "flight": 0,
+          "folded": 0,
+          "handA": {
+            "x": 318.31,
+            "y": 601.4
+          },
+          "handB": {
+            "x": 1659.48,
+            "y": 493.4
+          },
+          "gripA": {
+            "x": 1335.48,
+            "y": 493.4
+          },
+          "gripB": {
+            "x": 1659.48,
+            "y": 493.4
+          },
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "opened",
+          "sealed": false,
+          "opened": 1,
+          "routeDrawn": 1,
+          "actionCapped": false
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

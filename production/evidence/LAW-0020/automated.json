@@ -1,0 +1,3714 @@
+{
+  "animationId": "LAW-0020",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0020",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: lens source is the field region itself; the lens never covers it @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "lensOpen": 0,
+          "datum": "before",
+          "lensBand": 0,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens source spans the whole value box, so the band starts and ends inside the lens @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 1,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: context shows the before datum @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "lensOpen": 0,
+          "datum": "before",
+          "lensBand": 0,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens open on the unchanged detail @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.996,
+          "datum": "before",
+          "lensBand": 0,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 1,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: substitution happens inside the lens only @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "datum": "changing",
+          "lensBand": 0.587,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 1,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: returns to context with the new datum; other fields unchanged @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the previous datum exactly @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.256,
+          "datum": "before",
+          "lensBand": 0,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 1,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: extent substitution: the band retracts to a partial cover @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 0.489,
+          "contextBand": 0.489,
+          "beforeBand": 1,
+          "afterBand": 0.489,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            0.489,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "extent",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: extent: before state is fully covered @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "lensOpen": 0,
+          "datum": "before",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 1,
+          "afterBand": 0.489,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "extent",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens window never half-transparent (0.1) @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "lensOpen": 0,
+          "datum": "before",
+          "lensBand": 0,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens window never half-transparent (0.23) @0.23",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.001,
+          "datum": "before",
+          "lensBand": 0,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens window never half-transparent (0.3) @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.256,
+          "datum": "before",
+          "lensBand": 0,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 1,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens window never half-transparent (0.6) @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "datum": "changing",
+          "lensBand": 0.587,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 1,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens window never half-transparent (0.8) @0.8",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0.744,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 1,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens window never half-transparent (0.84) @0.84",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0.032,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 1,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens window never half-transparent (0.845) @0.845",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0.014,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 0.5,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "changing",
+          "contextBands": [
+            1,
+            1,
+            0.5,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 1,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens window never half-transparent (0.855) @0.855",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0.001,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens window never half-transparent (0.86) @0.86",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens window never half-transparent (0.9) @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: lens window never half-transparent (1) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: context still shows the before datum while the lens returns @0.84",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0.032,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 0,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "before",
+          "contextBands": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 1,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the context field updates under the landing lens @0.845",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0.014,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 0.5,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "changing",
+          "contextBands": [
+            1,
+            1,
+            0.5,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 1,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the context update is complete before the lens window disappears @0.8535",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0.001,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 1,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: changed-datum chip clear of the resting props (baseline-illustrative, landscape) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: stamp impression never splits a word (baseline-illustrative, landscape) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: changed-datum chip clear of the resting props (baseline-illustrative, square) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 480.39,
+            "y": 649.14,
+            "w": 444.03,
+            "h": 89.89
+          },
+          "fieldOrigin": {
+            "x": 492.34,
+            "y": 682.06
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 983.61,
+            "y": 675.7,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: stamp impression never splits a word (baseline-illustrative, square) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 480.39,
+            "y": 649.14,
+            "w": 444.03,
+            "h": 89.89
+          },
+          "fieldOrigin": {
+            "x": 492.34,
+            "y": 682.06
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 983.61,
+            "y": 675.7,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: changed-datum chip clear of the resting props (baseline-illustrative, portrait) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 206.52,
+            "y": 829.76,
+            "w": 472.87,
+            "h": 94.7
+          },
+          "fieldOrigin": {
+            "x": 218.57,
+            "y": 864.33
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 761.5,
+            "y": 858.97,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: stamp impression never splits a word (baseline-illustrative, portrait) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 206.52,
+            "y": 829.76,
+            "w": 472.87,
+            "h": 94.7
+          },
+          "fieldOrigin": {
+            "x": 218.57,
+            "y": 864.33
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 761.5,
+            "y": 858.97,
+            "w": 223.86,
+            "h": 45.76
+          },
+          "stampLines": [
+            "REDACTED",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: changed-datum chip clear of the resting props (contrast-or-alternative, landscape) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 0.268,
+          "contextBand": 0.268,
+          "beforeBand": 1,
+          "afterBand": 0.268,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            0,
+            0,
+            0.268
+          ],
+          "valuesRemoved": [
+            0
+          ],
+          "focusTarget": "extent",
+          "focusField": 3,
+          "source": {
+            "x": 865.71,
+            "y": 689.26,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 725.53
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 551.33,
+            "w": 288.44,
+            "h": 45.76
+          },
+          "stampLines": [
+            "DISCLOSURE",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "DISCLOSURE",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: stamp impression never splits a word (contrast-or-alternative, landscape) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 0.268,
+          "contextBand": 0.268,
+          "beforeBand": 1,
+          "afterBand": 0.268,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            0,
+            0,
+            0.268
+          ],
+          "valuesRemoved": [
+            0
+          ],
+          "focusTarget": "extent",
+          "focusField": 3,
+          "source": {
+            "x": 865.71,
+            "y": 689.26,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 725.53
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 551.33,
+            "w": 288.44,
+            "h": 45.76
+          },
+          "stampLines": [
+            "DISCLOSURE",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "DISCLOSURE",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: changed-datum chip clear of the resting props (contrast-or-alternative, square) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 0.267,
+          "contextBand": 0.267,
+          "beforeBand": 1,
+          "afterBand": 0.267,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            0,
+            0,
+            0.267
+          ],
+          "valuesRemoved": [
+            0
+          ],
+          "focusTarget": "extent",
+          "focusField": 3,
+          "source": {
+            "x": 480.39,
+            "y": 795.03,
+            "w": 444.03,
+            "h": 89.89
+          },
+          "fieldOrigin": {
+            "x": 492.34,
+            "y": 827.95
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 983.61,
+            "y": 923.59,
+            "w": 288.44,
+            "h": 45.76
+          },
+          "stampLines": [
+            "DISCLOSURE",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "DISCLOSURE",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: stamp impression never splits a word (contrast-or-alternative, square) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 0.267,
+          "contextBand": 0.267,
+          "beforeBand": 1,
+          "afterBand": 0.267,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            0,
+            0,
+            0.267
+          ],
+          "valuesRemoved": [
+            0
+          ],
+          "focusTarget": "extent",
+          "focusField": 3,
+          "source": {
+            "x": 480.39,
+            "y": 795.03,
+            "w": 444.03,
+            "h": 89.89
+          },
+          "fieldOrigin": {
+            "x": 492.34,
+            "y": 827.95
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 983.61,
+            "y": 923.59,
+            "w": 288.44,
+            "h": 45.76
+          },
+          "stampLines": [
+            "DISCLOSURE",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "DISCLOSURE",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: changed-datum chip clear of the resting props (contrast-or-alternative, portrait) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 0.267,
+          "contextBand": 0.267,
+          "beforeBand": 1,
+          "afterBand": 0.267,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            0,
+            0,
+            0.267
+          ],
+          "valuesRemoved": [
+            0
+          ],
+          "focusTarget": "extent",
+          "focusField": 3,
+          "source": {
+            "x": 206.52,
+            "y": 985.78,
+            "w": 472.87,
+            "h": 94.7
+          },
+          "fieldOrigin": {
+            "x": 218.57,
+            "y": 1020.35
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 761.5,
+            "y": 1017.07,
+            "w": 247.28,
+            "h": 41.6
+          },
+          "stampLines": [
+            "DISCLOSURE",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "DISCLOSURE",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: stamp impression never splits a word (contrast-or-alternative, portrait) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 0.267,
+          "contextBand": 0.267,
+          "beforeBand": 1,
+          "afterBand": 0.267,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            0,
+            0,
+            0.267
+          ],
+          "valuesRemoved": [
+            0
+          ],
+          "focusTarget": "extent",
+          "focusField": 3,
+          "source": {
+            "x": 206.52,
+            "y": 985.78,
+            "w": 472.87,
+            "h": 94.7
+          },
+          "fieldOrigin": {
+            "x": 218.57,
+            "y": 1020.35
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 761.5,
+            "y": 1017.07,
+            "w": 247.28,
+            "h": 41.6
+          },
+          "stampLines": [
+            "DISCLOSURE",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "DISCLOSURE",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: changed-datum chip clear of the resting props (long-labels-stress, landscape) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 871.72,
+            "y": 508.07,
+            "w": 493.1,
+            "h": 97.11
+          },
+          "fieldOrigin": {
+            "x": 883.2,
+            "y": 543.33
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1431.41,
+            "y": 539.12,
+            "w": 348.57,
+            "h": 44.72
+          },
+          "stampLines": [
+            "REDACTED",
+            "OUTGOING",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "OUTGOING",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: stamp impression never splits a word (long-labels-stress, landscape) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 871.72,
+            "y": 508.07,
+            "w": 493.1,
+            "h": 97.11
+          },
+          "fieldOrigin": {
+            "x": 883.2,
+            "y": 543.33
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1431.41,
+            "y": 539.12,
+            "w": 348.57,
+            "h": 44.72
+          },
+          "stampLines": [
+            "REDACTED",
+            "OUTGOING",
+            "COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "OUTGOING",
+            "COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: changed-datum chip clear of the resting props (long-labels-stress, square) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 487.86,
+            "y": 635.78,
+            "w": 433.96,
+            "h": 87.85
+          },
+          "fieldOrigin": {
+            "x": 499.55,
+            "y": 667.95
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 979.9,
+            "y": 661.73,
+            "w": 348.57,
+            "h": 44.72
+          },
+          "stampLines": [
+            "REDACTED",
+            "OUTGOING COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "OUTGOING COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: stamp impression never splits a word (long-labels-stress, square) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 487.86,
+            "y": 635.78,
+            "w": 433.96,
+            "h": 87.85
+          },
+          "fieldOrigin": {
+            "x": 499.55,
+            "y": 667.95
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 979.9,
+            "y": 661.73,
+            "w": 348.57,
+            "h": 44.72
+          },
+          "stampLines": [
+            "REDACTED",
+            "OUTGOING COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "OUTGOING COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: changed-datum chip clear of the resting props (long-labels-stress, portrait) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 212.03,
+            "y": 818.51,
+            "w": 465.96,
+            "h": 93.31
+          },
+          "fieldOrigin": {
+            "x": 223.9,
+            "y": 852.57
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 759.03,
+            "y": 850.2,
+            "w": 244.76,
+            "h": 39.26
+          },
+          "stampLines": [
+            "REDACTED",
+            "OUTGOING COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "OUTGOING COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: stamp impression never splits a word (long-labels-stress, portrait) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 212.03,
+            "y": 818.51,
+            "w": 465.96,
+            "h": 93.31
+          },
+          "fieldOrigin": {
+            "x": 223.9,
+            "y": 852.57
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 759.03,
+            "y": 850.2,
+            "w": 244.76,
+            "h": 39.26
+          },
+          "stampLines": [
+            "REDACTED",
+            "OUTGOING COPY"
+          ],
+          "lensStampLines": [
+            "REDACTED",
+            "OUTGOING COPY"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: changed-datum chip clear of the resting props (baseline-es, landscape) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 216.55,
+            "h": 45.76
+          },
+          "stampLines": [
+            "COPIA",
+            "REDACTADA"
+          ],
+          "lensStampLines": [
+            "COPIA",
+            "REDACTADA"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: stamp impression never splits a word (baseline-es, landscape) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 865.71,
+            "y": 521.01,
+            "w": 507.34,
+            "h": 99.91
+          },
+          "fieldOrigin": {
+            "x": 877.52,
+            "y": 557.28
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 1441.27,
+            "y": 553.08,
+            "w": 216.55,
+            "h": 45.76
+          },
+          "stampLines": [
+            "COPIA",
+            "REDACTADA"
+          ],
+          "lensStampLines": [
+            "COPIA",
+            "REDACTADA"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: changed-datum chip clear of the resting props (baseline-es, square) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 480.39,
+            "y": 649.14,
+            "w": 444.03,
+            "h": 89.89
+          },
+          "fieldOrigin": {
+            "x": 492.34,
+            "y": 682.06
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 983.61,
+            "y": 675.7,
+            "w": 216.55,
+            "h": 45.76
+          },
+          "stampLines": [
+            "COPIA",
+            "REDACTADA"
+          ],
+          "lensStampLines": [
+            "COPIA",
+            "REDACTADA"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: stamp impression never splits a word (baseline-es, square) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 480.39,
+            "y": 649.14,
+            "w": 444.03,
+            "h": 89.89
+          },
+          "fieldOrigin": {
+            "x": 492.34,
+            "y": 682.06
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 983.61,
+            "y": 675.7,
+            "w": 216.55,
+            "h": 45.76
+          },
+          "stampLines": [
+            "COPIA",
+            "REDACTADA"
+          ],
+          "lensStampLines": [
+            "COPIA",
+            "REDACTADA"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: changed-datum chip clear of the resting props (baseline-es, portrait) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 206.52,
+            "y": 829.76,
+            "w": 472.87,
+            "h": 94.7
+          },
+          "fieldOrigin": {
+            "x": 218.57,
+            "y": 864.33
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 761.5,
+            "y": 858.97,
+            "w": 216.55,
+            "h": 45.76
+          },
+          "stampLines": [
+            "COPIA",
+            "REDACTADA"
+          ],
+          "lensStampLines": [
+            "COPIA",
+            "REDACTADA"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: stamp impression never splits a word (baseline-es, portrait) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensBand": 1,
+          "contextBand": 1,
+          "beforeBand": 0,
+          "afterBand": 1,
+          "contextDatum": "after",
+          "contextBands": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valuesRemoved": [
+            0,
+            1,
+            2
+          ],
+          "focusTarget": "band",
+          "focusField": 2,
+          "source": {
+            "x": 206.52,
+            "y": 829.76,
+            "w": 472.87,
+            "h": 94.7
+          },
+          "fieldOrigin": {
+            "x": 218.57,
+            "y": 864.33
+          },
+          "sourceContainsField": true,
+          "sourceCoversFieldBox": true,
+          "lensClearOfSource": true,
+          "allReached": true,
+          "lensWindow": 0,
+          "datumChipClear": true,
+          "datumChip": {
+            "x": 761.5,
+            "y": 858.97,
+            "w": 216.55,
+            "h": 45.76
+          },
+          "stampLines": [
+            "COPIA",
+            "REDACTADA"
+          ],
+          "lensStampLines": [
+            "COPIA",
+            "REDACTADA"
+          ]
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Client name",
+          "ACC-0000-1234 (fictional)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Client IntakeRecord",
+          "Account reference"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Client name",
+          "px": 13.4
+        },
+        {
+          "text": "Home address",
+          "px": 13.4
+        },
+        {
+          "text": "Account reference",
+          "px": 13.4
+        },
+        {
+          "text": "Matter summary",
+          "px": 13.4
+        },
+        {
+          "text": "Fee basis (hypothetical)",
+          "px": 13.4
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Equipment lease review",
+          "Account reference"
+        ],
+        [
+          "Fee basis (hypothetical)",
+          "Account reference"
+        ],
+        [
+          "Fixed fee of 900 (hypothetical",
+          "ACC-0000-1234 (fictional)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Fee basis (hypothetical)",
+          "Account reference"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Fee basis (hypothetical)",
+          "Account reference"
+        ],
+        [
+          "Fixed fee of 900 (hypothetical",
+          "ACC-0000-1234 (fictional)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Fee basis (hypothetical)",
+          "Account reference"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Client name",
+          "px": 9.7
+        },
+        {
+          "text": "Home address",
+          "px": 9.7
+        },
+        {
+          "text": "Account reference",
+          "px": 9.7
+        },
+        {
+          "text": "Matter summary",
+          "px": 9.7
+        },
+        {
+          "text": "Fee basis (hypothetical)",
+          "px": 9.7
+        },
+        {
+          "text": "REC-2231",
+          "px": 10.3
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Client name",
+          "ACC-0000-1234 (fictional)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Client IntakeRecord",
+          "Account reference"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Client name",
+          "px": 13.4
+        },
+        {
+          "text": "Home address",
+          "px": 13.4
+        },
+        {
+          "text": "Account reference",
+          "px": 13.4
+        },
+        {
+          "text": "Matter summary",
+          "px": 13.4
+        },
+        {
+          "text": "Fee basis (hypothetical)",
+          "px": 13.4
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Equipment lease review",
+          "Account reference"
+        ],
+        [
+          "Fee basis (hypothetical)",
+          "Account reference"
+        ],
+        [
+          "Fixed fee of 900 (hypothetical",
+          "ACC-0000-1234 (fictional)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Fee basis (hypothetical)",
+          "Account reference"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Fee basis (hypothetical)",
+          "Account reference"
+        ],
+        [
+          "Fixed fee of 900 (hypothetical",
+          "ACC-0000-1234 (fictional)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Fee basis (hypothetical)",
+          "Account reference"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Client name",
+          "px": 9.7
+        },
+        {
+          "text": "Home address",
+          "px": 9.7
+        },
+        {
+          "text": "Account reference",
+          "px": 9.7
+        },
+        {
+          "text": "Matter summary",
+          "px": 9.7
+        },
+        {
+          "text": "Fee basis (hypothetical)",
+          "px": 9.7
+        },
+        {
+          "text": "REC-2231",
+          "px": 10.3
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Relation to the matter",
+          "Phone number (fictional)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Relation to the matter",
+          "000-555-0199"
+        ],
+        [
+          "Neighbour of Party A",
+          "000-555-0199"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Full name",
+          "px": 13.4
+        },
+        {
+          "text": "Relation to the matter",
+          "px": 13.4
+        },
+        {
+          "text": "Availability",
+          "px": 13.4
+        },
+        {
+          "text": "Phone number (fictional)",
+          "px": 13.4
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Relation to the matter",
+          "Phone number (fictional)"
+        ],
+        [
+          "Neighbour of Party A",
+          "Phone number (fictional)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Relation to the matter",
+          "Phone number (fictional)"
+        ],
+        [
+          "Neighbour of Party A",
+          "000-555-0199"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Relation to the matter",
+          "Phone number (fictional)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Relation to the matter",
+          "000-555-0199"
+        ],
+        [
+          "Neighbour of Party A",
+          "000-555-0199"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Full name",
+          "px": 9.7
+        },
+        {
+          "text": "Relation to the matter",
+          "px": 9.7
+        },
+        {
+          "text": "Availability",
+          "px": 9.7
+        },
+        {
+          "text": "Phone number (fictional)",
+          "px": 9.7
+        },
+        {
+          "text": "DISCLOSURECOPY",
+          "px": 10.1
+        },
+        {
+          "text": "HR-0419",
+          "px": 10.3
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Full legal name of the individ",
+          "ACC-0000-1234-5678-9012 (ficti"
+        ],
+        [
+          "REDACTEDOUTGOINGCOPY",
+          "Internal account reference and"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Consolidated Intake and Contac",
+          "Internal account reference and"
+        ],
+        [
+          "REDACTEDOUTGOINGCOPY",
+          "Internal account reference and"
+        ]
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        "Consolidated Intake and Contact Record f",
+        "Review of an equipment lease and its rel"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Copies prepared for the reques",
+          "px": 9.3
+        },
+        {
+          "text": "RECORD-2026-000417-CONFIDENTIA",
+          "px": 9.4
+        },
+        {
+          "text": "REDACTEDOUTGOINGCOPY",
+          "px": 10.1
+        },
+        {
+          "text": "Residential address including ",
+          "px": 10.9
+        },
+        {
+          "text": "Short description of the matte",
+          "px": 10.9
+        },
+        {
+          "text": "Fee arrangement agreed at inta",
+          "px": 10.9
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Review of an equipment lease a",
+          "Internal account reference and"
+        ],
+        [
+          "Fee arrangement agreed at inta",
+          "Internal account reference and"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Fee arrangement agreed at inta",
+          "Internal account reference and"
+        ]
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        "Copies prepared for the requesting party",
+        "Consolidated Intake and Contact Record f",
+        "Review of an equipment lease and its rel",
+        "Datum changed in this fieldDatum changed"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Copies prepared for the reques",
+          "px": 11
+        },
+        {
+          "text": "RECORD-2026-000417-CONFIDENTIA",
+          "px": 11
+        },
+        {
+          "text": "REDACTEDOUTGOING COPY",
+          "px": 11.5
+        },
+        {
+          "text": "Residential address including ",
+          "px": 12.8
+        },
+        {
+          "text": "Short description of the matte",
+          "px": 12.8
+        },
+        {
+          "text": "Fee arrangement agreed at inta",
+          "px": 12.8
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Fee arrangement agreed at inta",
+          "Internal account reference and"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Fee arrangement agreed at inta",
+          "Internal account reference and"
+        ]
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        "Copies prepared for the requesting party",
+        "Consolidated Intake and Contact Record f",
+        "Review of an equipment lease and its rel"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "RECORD-2026-000417-CONFIDENTIA",
+          "px": 6.8
+        },
+        {
+          "text": "REDACTEDOUTGOING COPY",
+          "px": 7.1
+        },
+        {
+          "text": "Copies prepared for the reques",
+          "px": 7.2
+        },
+        {
+          "text": "Residential address including ",
+          "px": 8
+        },
+        {
+          "text": "Short description of the matte",
+          "px": 8
+        },
+        {
+          "text": "Fee arrangement agreed at inta",
+          "px": 8
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Nombre del cliente",
+          "REF-0000-1234 (ficticia)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Ficha de alta decliente",
+          "Referencia de cuenta"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Nombre del cliente",
+          "px": 13.4
+        },
+        {
+          "text": "Domicilio",
+          "px": 13.4
+        },
+        {
+          "text": "Referencia de cuenta",
+          "px": 13.4
+        },
+        {
+          "text": "Resumen del asunto",
+          "px": 13.4
+        },
+        {
+          "text": "Base de honorarios (hipotética",
+          "px": 13.4
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Revisión de un arrendamiento",
+          "Referencia de cuenta"
+        ],
+        [
+          "Base de honorarios (hipotética",
+          "Referencia de cuenta"
+        ],
+        [
+          "Importe fijo de 900 (hipotétic",
+          "REF-0000-1234 (ficticia)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Base de honorarios (hipotética",
+          "Referencia de cuenta"
+        ],
+        [
+          "Importe fijo de 900 (hipotétic",
+          "Referencia de cuenta"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "Base de honorarios (hipotética",
+          "Referencia de cuenta"
+        ],
+        [
+          "Importe fijo de 900 (hipotétic",
+          "REF-0000-1234 (ficticia)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "Base de honorarios (hipotética",
+          "Referencia de cuenta"
+        ],
+        [
+          "Importe fijo de 900 (hipotétic",
+          "Referencia de cuenta"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Nombre del cliente",
+          "px": 9.7
+        },
+        {
+          "text": "Domicilio",
+          "px": 9.7
+        },
+        {
+          "text": "Referencia de cuenta",
+          "px": 9.7
+        },
+        {
+          "text": "Resumen del asunto",
+          "px": 9.7
+        },
+        {
+          "text": "Base de honorarios (hipotética",
+          "px": 9.7
+        },
+        {
+          "text": "REG-2231",
+          "px": 10.3
+        }
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

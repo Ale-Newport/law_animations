@@ -1,0 +1,433 @@
+{
+  "animationId": "LAW-0311",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0311",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "hearing.room"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: the two rooms are identical; both session clocks run alike @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": "{\"p\":[{\"x\":460.42,\"y\":148.78},{\"x\":159.2,\"y\":557.36},{\"x\":334.58,\"y\":557.36}],\"w\":4.8,\"m\":182.98}",
+          "lookB": "{\"p\":[{\"x\":460.42,\"y\":148.78},{\"x\":159.2,\"y\":557.36},{\"x\":334.58,\"y\":557.36}],\"w\":4.8,\"m\":182.98}",
+          "clockA": "running",
+          "clockB": "running",
+          "minuteA": 182.98,
+          "minuteB": 182.98,
+          "cardA": "none",
+          "cardB": "none",
+          "pauseB": 0,
+          "zoomB": 0,
+          "linkB": 0,
+          "captionB": 0,
+          "pinsB": 0,
+          "tags": 0,
+          "recessMark": 0,
+          "signallingB": 0,
+          "gestureB": 0,
+          "guide": 0,
+          "handB": {
+            "x": 1143.91,
+            "y": 110.79
+          },
+          "allReached": true,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 81,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: the one difference is introduced in both rooms at once, in the same place: a ◆ marks the card's place in B, nothing in A @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "introduce",
+          "lookA": "{\"p\":[{\"x\":460.42,\"y\":148.78},{\"x\":159.2,\"y\":557.36},{\"x\":334.58,\"y\":557.36}],\"w\":14.4,\"m\":212.95}",
+          "lookB": "{\"p\":[{\"x\":460.42,\"y\":148.78},{\"x\":159.2,\"y\":557.36},{\"x\":334.58,\"y\":557.36}],\"w\":14.4,\"m\":212.95}",
+          "clockA": "running",
+          "clockB": "running",
+          "minuteA": 212.95,
+          "minuteB": 212.95,
+          "cardA": "none",
+          "cardB": "none",
+          "pauseB": 0,
+          "zoomB": 0,
+          "linkB": 0,
+          "captionB": 0,
+          "pinsB": 0,
+          "tags": 1,
+          "recessMark": 1,
+          "signallingB": 0,
+          "gestureB": 0,
+          "guide": 0,
+          "handB": {
+            "x": 1143.91,
+            "y": 110.79
+          },
+          "allReached": true,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 81,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: only in B does the operator signal and the session clock slow down; everything else identical @0.48",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "lookA": "{\"p\":[{\"x\":460.42,\"y\":148.78},{\"x\":159.2,\"y\":557.36},{\"x\":334.58,\"y\":557.36}],\"w\":23.04,\"m\":\"contrasted\"}",
+          "lookB": "{\"p\":[{\"x\":460.42,\"y\":148.78},{\"x\":159.2,\"y\":557.36},{\"x\":334.58,\"y\":557.36}],\"w\":23.04,\"m\":\"contrasted\"}",
+          "clockA": "running",
+          "clockB": "slowing",
+          "minuteA": 239.93,
+          "minuteB": 238.26,
+          "cardA": "none",
+          "cardB": "none",
+          "pauseB": 0,
+          "zoomB": 0,
+          "linkB": 0,
+          "captionB": 0,
+          "pinsB": 0,
+          "tags": 1,
+          "recessMark": 1,
+          "signallingB": 1,
+          "gestureB": 0,
+          "guide": 0,
+          "handB": {
+            "x": 1079.95,
+            "y": 137.35
+          },
+          "allReached": true,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 81,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: only in B does the recess card come out of the raised hand; in A the session clock keeps running @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "lookA": "{\"p\":[{\"x\":460.42,\"y\":148.78},{\"x\":159.2,\"y\":557.36},{\"x\":334.58,\"y\":557.36}],\"w\":28.8,\"m\":\"contrasted\"}",
+          "lookB": "{\"p\":[{\"x\":460.42,\"y\":148.78},{\"x\":159.2,\"y\":557.36},{\"x\":334.58,\"y\":557.36}],\"w\":28.8,\"m\":\"contrasted\"}",
+          "clockA": "running",
+          "clockB": "stopped",
+          "minuteA": 257.91,
+          "minuteB": 240,
+          "cardA": "none",
+          "cardB": "coming",
+          "pauseB": 1,
+          "zoomB": 0.323,
+          "linkB": 0,
+          "captionB": 0,
+          "pinsB": 0,
+          "tags": 1,
+          "recessMark": 0,
+          "signallingB": 1,
+          "gestureB": 1,
+          "guide": 0,
+          "handB": {
+            "x": 1079.95,
+            "y": 137.35
+          },
+          "allReached": true,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 81,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: A active (clock running), B in recess (clock paused, card connected, positions marked); the guide is drawn; the composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": "{\"p\":[{\"x\":460.42,\"y\":148.78},{\"x\":159.2,\"y\":557.36},{\"x\":334.58,\"y\":557.36}],\"w\":45.12,\"m\":\"contrasted\"}",
+          "lookB": "{\"p\":[{\"x\":460.42,\"y\":148.78},{\"x\":159.2,\"y\":557.36},{\"x\":334.58,\"y\":557.36}],\"w\":45.12,\"m\":\"contrasted\"}",
+          "clockA": "running",
+          "clockB": "stopped",
+          "minuteA": 308.85,
+          "minuteB": 240,
+          "cardA": "none",
+          "cardB": "connected",
+          "pauseB": 1,
+          "zoomB": 1,
+          "linkB": 1,
+          "captionB": 1,
+          "pinsB": 1,
+          "tags": 1,
+          "recessMark": 0,
+          "signallingB": 0,
+          "gestureB": 0,
+          "guide": 1,
+          "handB": {
+            "x": 1143.91,
+            "y": 110.79
+          },
+          "allReached": true,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 81,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the base @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": "{\"p\":[{\"x\":460.42,\"y\":148.78},{\"x\":159.2,\"y\":557.36},{\"x\":334.58,\"y\":557.36}],\"w\":4.8,\"m\":182.98}",
+          "lookB": "{\"p\":[{\"x\":460.42,\"y\":148.78},{\"x\":159.2,\"y\":557.36},{\"x\":334.58,\"y\":557.36}],\"w\":4.8,\"m\":182.98}",
+          "clockA": "running",
+          "clockB": "running",
+          "minuteA": 182.98,
+          "minuteB": 182.98,
+          "cardA": "none",
+          "cardB": "none",
+          "pauseB": 0,
+          "zoomB": 0,
+          "linkB": 0,
+          "captionB": 0,
+          "pinsB": 0,
+          "tags": 0,
+          "recessMark": 0,
+          "signallingB": 0,
+          "gestureB": 0,
+          "guide": 0,
+          "handB": {
+            "x": 1143.91,
+            "y": 110.79
+          },
+          "allReached": true,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 81,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

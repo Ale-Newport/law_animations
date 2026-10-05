@@ -1,0 +1,253 @@
+{
+  "animationId": "LAW-0067",
+  "generatedBy": "scripts/qa.mjs",
+  "treatment": "contrast",
+  "sourceHash": "c19c22782763a48a653b742f98f31c6813bd130031edf4392490bce5d8e121a3",
+  "implementationHash": "74a8705b0f8448d2ec2be8a509f71289cf79f101a9c3fb837124f420026ead84",
+  "dependencies": [
+    "src/animations/research/LAW-0067.js",
+    "src/animations/research/kits/extraccion-de-hechos.js",
+    "src/core/define.js",
+    "src/core/geometry.js",
+    "src/core/i18n.js",
+    "src/core/layout.js",
+    "src/core/meta.js",
+    "src/core/random.js",
+    "src/core/schema.js",
+    "src/core/svg.js",
+    "src/core/text.js",
+    "src/core/theme.js",
+    "src/core/time.js",
+    "src/core/transform.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js",
+    "src/schemas/fields.js"
+  ],
+  "environment": {
+    "browser": "chromium 153.0.8010.12",
+    "playwright": "@playwright/test 1.63.0",
+    "node": "v26.0.0",
+    "platform": "darwin-arm64",
+    "fonts": "system font stack (see src/core/text.js FONTS)"
+  },
+  "commands": [
+    {
+      "command": "npx playwright test tests/animations/LAW-0067.test.js --reporter=line",
+      "exitCode": 0
+    }
+  ],
+  "structure": {
+    "files": {
+      "module": "src/animations/research/LAW-0067.js",
+      "metadata": "src/animations/research/LAW-0067.meta.json",
+      "presets": "src/animations/research/LAW-0067.presets.json",
+      "test": "tests/animations/LAW-0067.test.js"
+    },
+    "exists": {
+      "module": true,
+      "metadata": true,
+      "presets": true,
+      "test": true
+    },
+    "presets": [
+      "baseline-illustrative",
+      "contrast-or-alternative",
+      "long-labels-stress",
+      "baseline-es"
+    ],
+    "requiredPresetsPresent": true
+  },
+  "automatedChecks": {
+    "status": "pass",
+    "exitCode": 0,
+    "checks": 34,
+    "failed": [],
+    "details": "production/evidence/LAW-0067/automated.json",
+    "sourceHashAtRun": "c19c22782763a48a653b742f98f31c6813bd130031edf4392490bce5d8e121a3"
+  },
+  "captures": [
+    {
+      "path": "production/evidence/LAW-0067/sheet-16x9-baseline.png",
+      "ratio": "16:9",
+      "preset": "baseline-illustrative",
+      "times": [
+        0.1,
+        0.3,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0067/sheet-9x16-baseline.png",
+      "ratio": "9:16",
+      "preset": "baseline-illustrative",
+      "times": [
+        0.1,
+        0.3,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0067/sheet-1x1-baseline.png",
+      "ratio": "1:1",
+      "preset": "baseline-illustrative",
+      "times": [
+        0.1,
+        0.3,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0067/sheet-16x9-alternative.png",
+      "ratio": "16:9",
+      "preset": "contrast-or-alternative",
+      "times": [
+        0.1,
+        0.3,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0067/sheet-16x9-long-labels.png",
+      "ratio": "16:9",
+      "preset": "long-labels-stress",
+      "times": [
+        0.1,
+        0.3,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0067/sheet-16x9-es.png",
+      "ratio": "16:9",
+      "preset": "baseline-es",
+      "times": [
+        0.1,
+        0.3,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0067/sheet-9x16-alternative.png",
+      "ratio": "9:16",
+      "preset": "contrast-or-alternative",
+      "times": [
+        0.1,
+        0.3,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    }
+  ],
+  "visualReview": {
+    "status": "pass",
+    "reviewer": "claude (coordinator, main session) — delta review after seek-order determinism fix",
+    "method": "forward-ordered SVG markup identical after removing added neutral attributes on hidden elements (all presets × 3 ratios × keyframes); all evidence PNGs byte-identical to the previously reviewed ones; 16:9 baseline sheet viewed; prior full independent review covers the rest; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/_coordinator/seek-order-2026-09-24.md",
+      "production/evidence/LAW-0067/sheet-16x9-baseline.png"
+    ],
+    "findings": [
+      "Frame now emits every animated attribute, so rendered DOM no longer depends on seek order",
+      "Only neutral attributes added on hidden elements; pictures unchanged",
+      "Content unchanged and neutral"
+    ],
+    "sourceHash": "c19c22782763a48a653b742f98f31c6813bd130031edf4392490bce5d8e121a3",
+    "renderFingerprint": "4eeed4f9429f1a0e220cd8a9699f5ae0f814dbd4ab51c40d70e197a8ffbc4392",
+    "reviewedAt": "2026-09-24T00:26:11.964Z"
+  },
+  "legalStatus": "illustrative-unverified",
+  "testedConfigurations": [
+    "16:9 baseline-illustrative editorial-flat paper",
+    "9:16 baseline-illustrative editorial-flat paper",
+    "1:1 baseline-illustrative editorial-flat paper",
+    "16:9 contrast-or-alternative editorial-flat paper",
+    "16:9 long-labels-stress editorial-flat paper",
+    "16:9 baseline-es editorial-flat paper",
+    "9:16 contrast-or-alternative editorial-flat paper"
+  ],
+  "knownIssues": [],
+  "accepted": false,
+  "renderFingerprint": "4eeed4f9429f1a0e220cd8a9699f5ae0f814dbd4ab51c40d70e197a8ffbc4392",
+  "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.3,0.55,0.72,1",
+  "thumb": "production/evidence/LAW-0067/thumb.png",
+  "captureErrors": [],
+  "previousVisualReview": {
+    "status": "pass",
+    "reviewer": "claude subagent (independent reviewer, workflow repair-from-file)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0067/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0067/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0067/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0067/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0067/sheet-9x16-alternative.png",
+      "production/evidence/LAW-0067/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0067/sheet-16x9-es.png",
+      "production/scratch/final-research-07/LAW-0067.png",
+      "production/scratch/final-research-07/LAW-0067-nolabels.png",
+      "production/scratch/final-research-07/r7-0067-ll-169.png",
+      "production/scratch/final-research-07/r7-0067-ll-169-crop.png",
+      "production/scratch/final-research-07/r7-0067-ll-169-crop2.png",
+      "production/scratch/final-research-07/r7-0067-ll-916.png",
+      "production/scratch/final-research-07/r7-0067-ll-11.png",
+      "production/scratch/final-research-07/r7-0067-base-169.png",
+      "production/scratch/final-research-07/r7-0067-base-916.png",
+      "production/scratch/final-research-07/r7-0067-base-11.png",
+      "production/scratch/final-research-07/r7-0067-alt-11.png",
+      "production/scratch/final-research-07/r7-0067-es-916.png",
+      "production/scratch/final-research-07/r7-0067-mid-strip.png"
+    ],
+    "findings": [
+      "Round-6 defects verified fixed: long-labels 16:9 hold has no ellipses (page ¶2/¶3, A's entry and B's note wrap fully to 4 lines); LL 1:1 A's request (the changed fact) and both scenario subtitles are complete, page/card sentence text measured >= 20 px at 1080 (page shown as an excerpt with dotted ellipsis marks for unrequested ¶1/¶4, identical in A and B), B's note no longer splits 'by Day / 4'; LL 9:16 page and card sentences >= 20 px, closing caption has no one-word widow",
+      "9:16 default: A's entry text clears the ¶2 flag stub and the pen no longer touches the 'Quoted from the page' tag; 1:1 t=0.66: B's ¶2+3 flag in transit stays outside the card header's top-right corner",
+      "Contrast reads: two identical scenes until the typed request differs; same flag timing; A pulls a quoted strip of ¶2, B flags ¶2+¶3 and the pen writes a dashed annotated note; guide bracket links the two requests only at the end; closing note 'no conclusion is drawn'; stacked in 9:16, side by side in 16:9/1:1; action reads with labels hidden",
+      "Minor, not blocking: at 1:1 the card status tags 'Quoted from the page' / 'Annotated inference' are about 16 px at 1080 (scenario headings carrying the same distinction are 23.5 px; accepted references use ~17.5 px state labels); LL 16:9 B's note ends with a one-word last line 'stated)'; LL 16:9 page header metadata shrinks to ~10 px (decorative)",
+      "Legal content neutral: fictional parties, jurisdiction unspecified, inference explicitly labelled as not stated on the page, no finding or winner"
+    ],
+    "sourceHash": "93cf895e9f57ee45a4b1b6470586fbc62900351d8c95f9a61e82cadfa3a2ac3d",
+    "renderFingerprint": "9181338c32578a0f0283207eb5ac80ba2dbb2a8711d3123a860492024e27e03c",
+    "reviewedAt": "2026-09-23T09:08:16.547Z",
+    "invalidated": "source changed and rendered output differs from what was reviewed"
+  },
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
+}

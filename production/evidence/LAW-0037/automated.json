@@ -1,0 +1,848 @@
+{
+  "animationId": "LAW-0037",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0037",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: both sheets on the desk, box open, nothing written @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "originalCenter": {
+            "x": 680,
+            "y": 566
+          },
+          "originalHolder": "desk",
+          "originalScale": 1,
+          "copyCenter": {
+            "x": 962,
+            "y": 548
+          },
+          "copyHolder": "desk",
+          "handA1": {
+            "x": 210,
+            "y": 820
+          },
+          "handA2": {
+            "x": 780,
+            "y": 836
+          },
+          "handB1": {
+            "x": 1560,
+            "y": 300
+          },
+          "handB2": {
+            "x": 1570,
+            "y": 700
+          },
+          "gripOrigA2": {
+            "x": 643.95,
+            "y": 682.81
+          },
+          "gripCopyA2": {
+            "x": 919.89,
+            "y": 662.76
+          },
+          "gripCopyB1": {
+            "x": 1075.65,
+            "y": 502.66
+          },
+          "lidEdge": {
+            "x": 118.19,
+            "y": 482
+          },
+          "lidFold": -0.24,
+          "lidClosed": false,
+          "stampTool": {
+            "x": 866,
+            "y": 806
+          },
+          "stampSpot": {
+            "x": 360,
+            "y": 555.8
+          },
+          "stampApplied": false,
+          "penTip": {
+            "x": 1416,
+            "y": 762
+          },
+          "penTouching": false,
+          "notesProgress": 0,
+          "noteTip": null,
+          "reach": {
+            "A1": true,
+            "A2": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "beat": "rest",
+          "finalState": "sealed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the original moves toward the box WHILE the copy circulates @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "originalCenter": {
+            "x": 674.07,
+            "y": 562.04
+          },
+          "originalHolder": "A-carrying",
+          "originalScale": 1.003,
+          "copyCenter": {
+            "x": 1125.76,
+            "y": 506.7
+          },
+          "copyHolder": "gliding",
+          "handA1": {
+            "x": 210,
+            "y": 820
+          },
+          "handA2": {
+            "x": 637.86,
+            "y": 679.25
+          },
+          "handB1": {
+            "x": 1240.47,
+            "y": 456.49
+          },
+          "handB2": {
+            "x": 1570,
+            "y": 700
+          },
+          "gripOrigA2": {
+            "x": 637.86,
+            "y": 679.25
+          },
+          "gripCopyA2": {
+            "x": 1087.57,
+            "y": 622.83
+          },
+          "gripCopyB1": {
+            "x": 1237.81,
+            "y": 457.53
+          },
+          "lidEdge": {
+            "x": 118.19,
+            "y": 482
+          },
+          "lidFold": -0.24,
+          "lidClosed": false,
+          "stampTool": {
+            "x": 866,
+            "y": 806
+          },
+          "stampSpot": {
+            "x": 360,
+            "y": 555.8
+          },
+          "stampApplied": false,
+          "penTip": {
+            "x": 1416,
+            "y": 762
+          },
+          "penTouching": false,
+          "notesProgress": 0,
+          "noteTip": null,
+          "reach": {
+            "A1": true,
+            "A2": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "beat": "action",
+          "finalState": "sealed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the original sinks inside the box walls; the copy is with the reader @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "originalCenter": {
+            "x": 361.81,
+            "y": 483.44
+          },
+          "originalHolder": "sinking",
+          "originalScale": 0.855,
+          "copyCenter": {
+            "x": 1358,
+            "y": 480
+          },
+          "copyHolder": "B",
+          "handA1": {
+            "x": 126.76,
+            "y": 513.53
+          },
+          "handA2": {
+            "x": 511.19,
+            "y": 694.08
+          },
+          "handB1": {
+            "x": 1482.2,
+            "y": 408.87
+          },
+          "handB2": {
+            "x": 1478.32,
+            "y": 713.68
+          },
+          "gripOrigA2": {
+            "x": 328,
+            "y": 582.33
+          },
+          "gripCopyA2": {
+            "x": 1322.97,
+            "y": 597.12
+          },
+          "gripCopyB1": {
+            "x": 1468.67,
+            "y": 427.81
+          },
+          "lidEdge": {
+            "x": 118.19,
+            "y": 482
+          },
+          "lidFold": -0.24,
+          "lidClosed": false,
+          "stampTool": {
+            "x": 866,
+            "y": 806
+          },
+          "stampSpot": {
+            "x": 360,
+            "y": 555.8
+          },
+          "stampApplied": false,
+          "penTip": {
+            "x": 1420.07,
+            "y": 671.36
+          },
+          "penTouching": false,
+          "notesProgress": 0,
+          "noteTip": null,
+          "reach": {
+            "A1": true,
+            "A2": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "sealed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: lid folding over while the reader writes on the copy @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "originalCenter": {
+            "x": 362,
+            "y": 484
+          },
+          "originalHolder": "box",
+          "originalScale": 0.84,
+          "copyCenter": {
+            "x": 1358,
+            "y": 480
+          },
+          "copyHolder": "B",
+          "handA1": {
+            "x": 449.13,
+            "y": 482
+          },
+          "handA2": {
+            "x": 823,
+            "y": 821
+          },
+          "handB1": {
+            "x": 1560,
+            "y": 300
+          },
+          "handB2": {
+            "x": 1452.17,
+            "y": 482.25
+          },
+          "gripOrigA2": {
+            "x": 328.65,
+            "y": 581.12
+          },
+          "gripCopyA2": {
+            "x": 1322.97,
+            "y": 597.12
+          },
+          "gripCopyB1": {
+            "x": 1468.67,
+            "y": 427.81
+          },
+          "lidEdge": {
+            "x": 449.13,
+            "y": 482
+          },
+          "lidFold": 0.866,
+          "lidClosed": false,
+          "stampTool": {
+            "x": 866,
+            "y": 806
+          },
+          "stampSpot": {
+            "x": 360,
+            "y": 555.8
+          },
+          "stampApplied": false,
+          "penTip": {
+            "x": 1393.92,
+            "y": 439.93
+          },
+          "penTouching": false,
+          "notesProgress": 0.235,
+          "noteTip": null,
+          "reach": {
+            "A1": true,
+            "A2": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "sealed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: lid closed before the seal is stamped (cause before effect) @0.62",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "originalCenter": {
+            "x": 362,
+            "y": 484
+          },
+          "originalHolder": "box",
+          "originalScale": 0.84,
+          "copyCenter": {
+            "x": 1358,
+            "y": 480
+          },
+          "copyHolder": "B",
+          "handA1": {
+            "x": 349.6,
+            "y": 651
+          },
+          "handA2": {
+            "x": 597.53,
+            "y": 673.25
+          },
+          "handB1": {
+            "x": 1560,
+            "y": 300
+          },
+          "handB2": {
+            "x": 1328.18,
+            "y": 505.53
+          },
+          "gripOrigA2": {
+            "x": 328.65,
+            "y": 581.12
+          },
+          "gripCopyA2": {
+            "x": 1322.97,
+            "y": 597.12
+          },
+          "gripCopyB1": {
+            "x": 1468.67,
+            "y": 427.81
+          },
+          "lidEdge": {
+            "x": 489.2,
+            "y": 482
+          },
+          "lidFold": 1,
+          "lidClosed": true,
+          "stampTool": {
+            "x": 597.53,
+            "y": 673.25
+          },
+          "stampSpot": {
+            "x": 360,
+            "y": 555.8
+          },
+          "stampApplied": false,
+          "penTip": {
+            "x": 1269.93,
+            "y": 463.21
+          },
+          "penTouching": true,
+          "notesProgress": 0.647,
+          "noteTip": {
+            "x": 1269.93,
+            "y": 463.21
+          },
+          "reach": {
+            "A1": true,
+            "A2": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "sealed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: original sealed in the box, annotated copy with the reader @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "originalCenter": {
+            "x": 362,
+            "y": 484
+          },
+          "originalHolder": "box",
+          "originalScale": 0.84,
+          "copyCenter": {
+            "x": 1358,
+            "y": 480
+          },
+          "copyHolder": "B",
+          "handA1": {
+            "x": 210,
+            "y": 820
+          },
+          "handA2": {
+            "x": 780,
+            "y": 836
+          },
+          "handB1": {
+            "x": 1560,
+            "y": 300
+          },
+          "handB2": {
+            "x": 1570,
+            "y": 700
+          },
+          "gripOrigA2": {
+            "x": 328.65,
+            "y": 581.12
+          },
+          "gripCopyA2": {
+            "x": 1322.97,
+            "y": 597.12
+          },
+          "gripCopyB1": {
+            "x": 1468.67,
+            "y": 427.81
+          },
+          "lidEdge": {
+            "x": 489.2,
+            "y": 482
+          },
+          "lidFold": 1,
+          "lidClosed": true,
+          "stampTool": {
+            "x": 866,
+            "y": 806
+          },
+          "stampSpot": {
+            "x": 360,
+            "y": 555.8
+          },
+          "stampApplied": true,
+          "penTip": {
+            "x": 1416,
+            "y": 762
+          },
+          "penTouching": false,
+          "notesProgress": 1,
+          "noteTip": null,
+          "reach": {
+            "A1": true,
+            "A2": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "sealed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: open state: original inside, lid left open, no seal @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "originalCenter": {
+            "x": 362,
+            "y": 484
+          },
+          "originalHolder": "box",
+          "originalScale": 0.84,
+          "copyCenter": {
+            "x": 1358,
+            "y": 480
+          },
+          "copyHolder": "B",
+          "handA1": {
+            "x": 210,
+            "y": 820
+          },
+          "handA2": {
+            "x": 780,
+            "y": 836
+          },
+          "handB1": {
+            "x": 1560,
+            "y": 300
+          },
+          "handB2": {
+            "x": 1570,
+            "y": 700
+          },
+          "gripOrigA2": {
+            "x": 328.65,
+            "y": 581.12
+          },
+          "gripCopyA2": {
+            "x": 1322.97,
+            "y": 597.12
+          },
+          "gripCopyB1": {
+            "x": 1468.67,
+            "y": 427.81
+          },
+          "lidEdge": {
+            "x": 118.19,
+            "y": 482
+          },
+          "lidFold": -0.24,
+          "lidClosed": false,
+          "stampTool": {
+            "x": 866,
+            "y": 806
+          },
+          "stampSpot": {
+            "x": 360,
+            "y": 555.8
+          },
+          "stampApplied": false,
+          "penTip": {
+            "x": 1416,
+            "y": 762
+          },
+          "penTouching": false,
+          "notesProgress": 1,
+          "noteTip": null,
+          "reach": {
+            "A1": true,
+            "A2": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "open",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: closed state: lid closed, no seal @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "originalCenter": {
+            "x": 362,
+            "y": 484
+          },
+          "originalHolder": "box",
+          "originalScale": 0.84,
+          "copyCenter": {
+            "x": 1358,
+            "y": 480
+          },
+          "copyHolder": "B",
+          "handA1": {
+            "x": 210,
+            "y": 820
+          },
+          "handA2": {
+            "x": 780,
+            "y": 836
+          },
+          "handB1": {
+            "x": 1560,
+            "y": 300
+          },
+          "handB2": {
+            "x": 1570,
+            "y": 700
+          },
+          "gripOrigA2": {
+            "x": 328.65,
+            "y": 581.12
+          },
+          "gripCopyA2": {
+            "x": 1322.97,
+            "y": 597.12
+          },
+          "gripCopyB1": {
+            "x": 1468.67,
+            "y": 427.81
+          },
+          "lidEdge": {
+            "x": 489.2,
+            "y": 482
+          },
+          "lidFold": 1,
+          "lidClosed": true,
+          "stampTool": {
+            "x": 866,
+            "y": 806
+          },
+          "stampSpot": {
+            "x": 360,
+            "y": 555.8
+          },
+          "stampApplied": false,
+          "penTip": {
+            "x": 1416,
+            "y": 762
+          },
+          "penTouching": false,
+          "notesProgress": 1,
+          "noteTip": null,
+          "reach": {
+            "A1": true,
+            "A2": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "closed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "originalCenter": {
+            "x": 397.52,
+            "y": 473.91
+          },
+          "originalHolder": "A-carrying",
+          "originalScale": 1.022,
+          "copyCenter": {
+            "x": 1161.06,
+            "y": 502.26
+          },
+          "copyHolder": "B-pulling",
+          "handA1": {
+            "x": 210,
+            "y": 820
+          },
+          "handA2": {
+            "x": 358.86,
+            "y": 592.66
+          },
+          "handB1": {
+            "x": 1272.88,
+            "y": 452.56
+          },
+          "handB2": {
+            "x": 1569.96,
+            "y": 700.05
+          },
+          "gripOrigA2": {
+            "x": 358.86,
+            "y": 592.66
+          },
+          "gripCopyA2": {
+            "x": 1123.42,
+            "y": 618.57
+          },
+          "gripCopyB1": {
+            "x": 1272.88,
+            "y": 452.56
+          },
+          "lidEdge": {
+            "x": 118.19,
+            "y": 482
+          },
+          "lidFold": -0.24,
+          "lidClosed": false,
+          "stampTool": {
+            "x": 866,
+            "y": 806
+          },
+          "stampSpot": {
+            "x": 360,
+            "y": 555.8
+          },
+          "stampApplied": false,
+          "penTip": {
+            "x": 1416,
+            "y": 762
+          },
+          "penTouching": false,
+          "notesProgress": 0,
+          "noteTip": null,
+          "reach": {
+            "A1": true,
+            "A2": true,
+            "B1": true,
+            "B2": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "sealed",
+          "actionCapped": true
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

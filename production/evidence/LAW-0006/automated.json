@@ -1,0 +1,2424 @@
+{
+  "animationId": "LAW-0006",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0006",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: starts as a compact, unmarked set with no relations drawn @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "explode": 0,
+          "tracer": {
+            "x": 280.68,
+            "y": 188.4
+          },
+          "tracerVisible": false,
+          "copyOrigin": {
+            "x": 720,
+            "y": 494
+          },
+          "stampFace": {
+            "x": 280.68,
+            "y": 188.4
+          },
+          "ghost": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghostMoving": false,
+          "dieInked": false,
+          "markApplied": false,
+          "markCenter": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "relationsDrawn": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "visitOrder": [
+            "ink",
+            "stamp",
+            "mark",
+            "copy",
+            "folder"
+          ],
+          "connectors": [
+            {
+              "from": "ink",
+              "to": "stamp",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 390.68,
+                "y": 194.4
+              },
+              "end": {
+                "x": 833.39,
+                "y": 192.96
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                7.9,
+                8
+              ]
+            },
+            {
+              "from": "stamp",
+              "to": "mark",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 935.39,
+                "y": 231.36
+              },
+              "end": {
+                "x": 935.39,
+                "y": 416.36
+              },
+              "ports": [
+                "bottom",
+                "top"
+              ],
+              "gap": [
+                4.4,
+                0
+              ]
+            },
+            {
+              "from": "copy",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1014.9,
+                "y": 477
+              },
+              "end": {
+                "x": 1298.9,
+                "y": 477
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                6.8,
+                6.8
+              ]
+            },
+            {
+              "from": "folder",
+              "to": "copy",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 527.8,
+                "y": 792
+              },
+              "end": {
+                "x": 527.8,
+                "y": 632
+              },
+              "ports": [
+                "under",
+                "nearCorner"
+              ],
+              "gap": [
+                0,
+                10
+              ]
+            },
+            {
+              "from": "pen",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1612.24,
+                "y": 189.94
+              },
+              "end": {
+                "x": 1590,
+                "y": 322
+              },
+              "ports": [
+                "nib",
+                "top"
+              ],
+              "gap": [
+                6,
+                8
+              ]
+            }
+          ],
+          "maxAnchorGap": 10
+        }
+      }
+    },
+    {
+      "name": "semantic: the elements are separated before any relation is drawn @0.18",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "explode": 1,
+          "tracer": {
+            "x": 280.68,
+            "y": 188.4
+          },
+          "tracerVisible": false,
+          "copyOrigin": {
+            "x": 720,
+            "y": 330
+          },
+          "stampFace": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghost": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghostMoving": false,
+          "dieInked": false,
+          "markApplied": false,
+          "markCenter": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "relationsDrawn": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "visitOrder": [
+            "ink",
+            "stamp",
+            "mark",
+            "copy",
+            "folder"
+          ],
+          "connectors": [
+            {
+              "from": "ink",
+              "to": "stamp",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 390.68,
+                "y": 194.4
+              },
+              "end": {
+                "x": 833.39,
+                "y": 192.96
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                7.9,
+                8
+              ]
+            },
+            {
+              "from": "stamp",
+              "to": "mark",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 935.39,
+                "y": 231.36
+              },
+              "end": {
+                "x": 935.39,
+                "y": 416.36
+              },
+              "ports": [
+                "bottom",
+                "top"
+              ],
+              "gap": [
+                4.4,
+                0
+              ]
+            },
+            {
+              "from": "copy",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1014.9,
+                "y": 477
+              },
+              "end": {
+                "x": 1298.9,
+                "y": 477
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                6.8,
+                6.8
+              ]
+            },
+            {
+              "from": "folder",
+              "to": "copy",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 527.8,
+                "y": 792
+              },
+              "end": {
+                "x": 527.8,
+                "y": 632
+              },
+              "ports": [
+                "under",
+                "nearCorner"
+              ],
+              "gap": [
+                0,
+                10
+              ]
+            },
+            {
+              "from": "pen",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1612.24,
+                "y": 189.94
+              },
+              "end": {
+                "x": 1590,
+                "y": 322
+              },
+              "ports": [
+                "nib",
+                "top"
+              ],
+              "gap": [
+                6,
+                8
+              ]
+            }
+          ],
+          "maxAnchorGap": 10
+        }
+      }
+    },
+    {
+      "name": "semantic: relations are drawn one by one @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "explode": 1,
+          "tracer": {
+            "x": 280.68,
+            "y": 188.4
+          },
+          "tracerVisible": false,
+          "copyOrigin": {
+            "x": 720,
+            "y": 330
+          },
+          "stampFace": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghost": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghostMoving": false,
+          "dieInked": false,
+          "markApplied": false,
+          "markCenter": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            0.5,
+            0,
+            0
+          ],
+          "visitOrder": [
+            "ink",
+            "stamp",
+            "mark",
+            "copy",
+            "folder"
+          ],
+          "connectors": [
+            {
+              "from": "ink",
+              "to": "stamp",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 390.68,
+                "y": 194.4
+              },
+              "end": {
+                "x": 833.39,
+                "y": 192.96
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                7.9,
+                8
+              ]
+            },
+            {
+              "from": "stamp",
+              "to": "mark",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 935.39,
+                "y": 231.36
+              },
+              "end": {
+                "x": 935.39,
+                "y": 416.36
+              },
+              "ports": [
+                "bottom",
+                "top"
+              ],
+              "gap": [
+                4.4,
+                0
+              ]
+            },
+            {
+              "from": "copy",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1014.9,
+                "y": 477
+              },
+              "end": {
+                "x": 1298.9,
+                "y": 477
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                6.8,
+                6.8
+              ]
+            },
+            {
+              "from": "folder",
+              "to": "copy",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 527.8,
+                "y": 792
+              },
+              "end": {
+                "x": 527.8,
+                "y": 632
+              },
+              "ports": [
+                "under",
+                "nearCorner"
+              ],
+              "gap": [
+                0,
+                10
+              ]
+            },
+            {
+              "from": "pen",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1612.24,
+                "y": 189.94
+              },
+              "end": {
+                "x": 1590,
+                "y": 322
+              },
+              "ports": [
+                "nib",
+                "top"
+              ],
+              "gap": [
+                6,
+                8
+              ]
+            }
+          ],
+          "maxAnchorGap": 10
+        }
+      }
+    },
+    {
+      "name": "semantic: all relations drawn before the tracer changes anything @0.44",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "explode": 1,
+          "tracer": {
+            "x": 280.68,
+            "y": 188.4
+          },
+          "tracerVisible": true,
+          "copyOrigin": {
+            "x": 720,
+            "y": 330
+          },
+          "stampFace": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghost": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghostMoving": false,
+          "dieInked": false,
+          "markApplied": false,
+          "markCenter": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "ink",
+            "stamp",
+            "mark",
+            "copy",
+            "folder"
+          ],
+          "connectors": [
+            {
+              "from": "ink",
+              "to": "stamp",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 390.68,
+                "y": 194.4
+              },
+              "end": {
+                "x": 833.39,
+                "y": 192.96
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                7.9,
+                8
+              ]
+            },
+            {
+              "from": "stamp",
+              "to": "mark",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 935.39,
+                "y": 231.36
+              },
+              "end": {
+                "x": 935.39,
+                "y": 416.36
+              },
+              "ports": [
+                "bottom",
+                "top"
+              ],
+              "gap": [
+                4.4,
+                0
+              ]
+            },
+            {
+              "from": "copy",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1014.9,
+                "y": 477
+              },
+              "end": {
+                "x": 1298.9,
+                "y": 477
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                6.8,
+                6.8
+              ]
+            },
+            {
+              "from": "folder",
+              "to": "copy",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 527.8,
+                "y": 792
+              },
+              "end": {
+                "x": 527.8,
+                "y": 632
+              },
+              "ports": [
+                "under",
+                "nearCorner"
+              ],
+              "gap": [
+                0,
+                10
+              ]
+            },
+            {
+              "from": "pen",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1612.24,
+                "y": 189.94
+              },
+              "end": {
+                "x": 1590,
+                "y": 322
+              },
+              "ports": [
+                "nib",
+                "top"
+              ],
+              "gap": [
+                6,
+                8
+              ]
+            }
+          ],
+          "maxAnchorGap": 10
+        }
+      }
+    },
+    {
+      "name": "semantic: every connector starts and ends on its element (anchor gap <= 12 design units) @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "explode": 1,
+          "tracer": {
+            "x": 935.39,
+            "y": 147.78
+          },
+          "tracerVisible": true,
+          "copyOrigin": {
+            "x": 720,
+            "y": 330
+          },
+          "stampFace": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghost": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghostMoving": true,
+          "dieInked": true,
+          "markApplied": false,
+          "markCenter": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "ink",
+            "stamp",
+            "mark",
+            "copy",
+            "folder"
+          ],
+          "connectors": [
+            {
+              "from": "ink",
+              "to": "stamp",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 390.68,
+                "y": 194.4
+              },
+              "end": {
+                "x": 833.39,
+                "y": 192.96
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                7.9,
+                8
+              ]
+            },
+            {
+              "from": "stamp",
+              "to": "mark",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 935.39,
+                "y": 231.36
+              },
+              "end": {
+                "x": 935.39,
+                "y": 416.36
+              },
+              "ports": [
+                "bottom",
+                "top"
+              ],
+              "gap": [
+                4.4,
+                0
+              ]
+            },
+            {
+              "from": "copy",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1014.9,
+                "y": 477
+              },
+              "end": {
+                "x": 1298.9,
+                "y": 477
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                6.8,
+                6.8
+              ]
+            },
+            {
+              "from": "folder",
+              "to": "copy",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 527.8,
+                "y": 792
+              },
+              "end": {
+                "x": 527.8,
+                "y": 632
+              },
+              "ports": [
+                "under",
+                "nearCorner"
+              ],
+              "gap": [
+                0,
+                10
+              ]
+            },
+            {
+              "from": "pen",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1612.24,
+                "y": 189.94
+              },
+              "end": {
+                "x": 1590,
+                "y": 322
+              },
+              "ports": [
+                "nib",
+                "top"
+              ],
+              "gap": [
+                6,
+                8
+              ]
+            }
+          ],
+          "maxAnchorGap": 10
+        }
+      }
+    },
+    {
+      "name": "semantic: plain relations carry no arrowhead; no causal link by default @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "explode": 1,
+          "tracer": {
+            "x": 935.39,
+            "y": 147.78
+          },
+          "tracerVisible": true,
+          "copyOrigin": {
+            "x": 720,
+            "y": 330
+          },
+          "stampFace": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghost": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghostMoving": true,
+          "dieInked": true,
+          "markApplied": false,
+          "markCenter": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "ink",
+            "stamp",
+            "mark",
+            "copy",
+            "folder"
+          ],
+          "connectors": [
+            {
+              "from": "ink",
+              "to": "stamp",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 390.68,
+                "y": 194.4
+              },
+              "end": {
+                "x": 833.39,
+                "y": 192.96
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                7.9,
+                8
+              ]
+            },
+            {
+              "from": "stamp",
+              "to": "mark",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 935.39,
+                "y": 231.36
+              },
+              "end": {
+                "x": 935.39,
+                "y": 416.36
+              },
+              "ports": [
+                "bottom",
+                "top"
+              ],
+              "gap": [
+                4.4,
+                0
+              ]
+            },
+            {
+              "from": "copy",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1014.9,
+                "y": 477
+              },
+              "end": {
+                "x": 1298.9,
+                "y": 477
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                6.8,
+                6.8
+              ]
+            },
+            {
+              "from": "folder",
+              "to": "copy",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 527.8,
+                "y": 792
+              },
+              "end": {
+                "x": 527.8,
+                "y": 632
+              },
+              "ports": [
+                "under",
+                "nearCorner"
+              ],
+              "gap": [
+                0,
+                10
+              ]
+            },
+            {
+              "from": "pen",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1612.24,
+                "y": 189.94
+              },
+              "end": {
+                "x": 1590,
+                "y": 322
+              },
+              "ports": [
+                "nib",
+                "top"
+              ],
+              "gap": [
+                6,
+                8
+              ]
+            }
+          ],
+          "maxAnchorGap": 10
+        }
+      }
+    },
+    {
+      "name": "semantic: the inked die footprint travels down the press axis before the mark exists @0.58",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "explode": 1,
+          "tracer": {
+            "x": 935.39,
+            "y": 357.97
+          },
+          "tracerVisible": true,
+          "copyOrigin": {
+            "x": 720,
+            "y": 330
+          },
+          "stampFace": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghost": {
+            "x": 935.39,
+            "y": 320.64
+          },
+          "ghostMoving": true,
+          "dieInked": true,
+          "markApplied": false,
+          "markCenter": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "ink",
+            "stamp",
+            "mark",
+            "copy",
+            "folder"
+          ],
+          "connectors": [
+            {
+              "from": "ink",
+              "to": "stamp",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 390.68,
+                "y": 194.4
+              },
+              "end": {
+                "x": 833.39,
+                "y": 192.96
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                7.9,
+                8
+              ]
+            },
+            {
+              "from": "stamp",
+              "to": "mark",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 935.39,
+                "y": 231.36
+              },
+              "end": {
+                "x": 935.39,
+                "y": 416.36
+              },
+              "ports": [
+                "bottom",
+                "top"
+              ],
+              "gap": [
+                4.4,
+                0
+              ]
+            },
+            {
+              "from": "copy",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1014.9,
+                "y": 477
+              },
+              "end": {
+                "x": 1298.9,
+                "y": 477
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                6.8,
+                6.8
+              ]
+            },
+            {
+              "from": "folder",
+              "to": "copy",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 527.8,
+                "y": 792
+              },
+              "end": {
+                "x": 527.8,
+                "y": 632
+              },
+              "ports": [
+                "under",
+                "nearCorner"
+              ],
+              "gap": [
+                0,
+                10
+              ]
+            },
+            {
+              "from": "pen",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1612.24,
+                "y": 189.94
+              },
+              "end": {
+                "x": 1590,
+                "y": 322
+              },
+              "ports": [
+                "nib",
+                "top"
+              ],
+              "gap": [
+                6,
+                8
+              ]
+            }
+          ],
+          "maxAnchorGap": 10
+        }
+      }
+    },
+    {
+      "name": "semantic: the mark appears once the footprint reaches the copy @0.66",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "explode": 1,
+          "tracer": {
+            "x": 865.05,
+            "y": 464.79
+          },
+          "tracerVisible": true,
+          "copyOrigin": {
+            "x": 720,
+            "y": 330
+          },
+          "stampFace": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghost": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "ghostMoving": false,
+          "dieInked": true,
+          "markApplied": true,
+          "markCenter": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "ink",
+            "stamp",
+            "mark",
+            "copy",
+            "folder"
+          ],
+          "connectors": [
+            {
+              "from": "ink",
+              "to": "stamp",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 390.68,
+                "y": 194.4
+              },
+              "end": {
+                "x": 833.39,
+                "y": 192.96
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                7.9,
+                8
+              ]
+            },
+            {
+              "from": "stamp",
+              "to": "mark",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 935.39,
+                "y": 231.36
+              },
+              "end": {
+                "x": 935.39,
+                "y": 416.36
+              },
+              "ports": [
+                "bottom",
+                "top"
+              ],
+              "gap": [
+                4.4,
+                0
+              ]
+            },
+            {
+              "from": "copy",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1014.9,
+                "y": 477
+              },
+              "end": {
+                "x": 1298.9,
+                "y": 477
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                6.8,
+                6.8
+              ]
+            },
+            {
+              "from": "folder",
+              "to": "copy",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 527.8,
+                "y": 792
+              },
+              "end": {
+                "x": 527.8,
+                "y": 632
+              },
+              "ports": [
+                "under",
+                "nearCorner"
+              ],
+              "gap": [
+                0,
+                10
+              ]
+            },
+            {
+              "from": "pen",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1612.24,
+                "y": 189.94
+              },
+              "end": {
+                "x": 1590,
+                "y": 322
+              },
+              "ports": [
+                "nib",
+                "top"
+              ],
+              "gap": [
+                6,
+                8
+              ]
+            }
+          ],
+          "maxAnchorGap": 10
+        }
+      }
+    },
+    {
+      "name": "semantic: ends with source, transformation and state visible; tracer gone @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "explode": 1,
+          "tracer": {
+            "x": 767.06,
+            "y": 717.8
+          },
+          "tracerVisible": false,
+          "copyOrigin": {
+            "x": 720,
+            "y": 330
+          },
+          "stampFace": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghost": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "ghostMoving": false,
+          "dieInked": true,
+          "markApplied": true,
+          "markCenter": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "ink",
+            "stamp",
+            "mark",
+            "copy",
+            "folder"
+          ],
+          "connectors": [
+            {
+              "from": "ink",
+              "to": "stamp",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 390.68,
+                "y": 194.4
+              },
+              "end": {
+                "x": 833.39,
+                "y": 192.96
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                7.9,
+                8
+              ]
+            },
+            {
+              "from": "stamp",
+              "to": "mark",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 935.39,
+                "y": 231.36
+              },
+              "end": {
+                "x": 935.39,
+                "y": 416.36
+              },
+              "ports": [
+                "bottom",
+                "top"
+              ],
+              "gap": [
+                4.4,
+                0
+              ]
+            },
+            {
+              "from": "copy",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1014.9,
+                "y": 477
+              },
+              "end": {
+                "x": 1298.9,
+                "y": 477
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                6.8,
+                6.8
+              ]
+            },
+            {
+              "from": "folder",
+              "to": "copy",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 527.8,
+                "y": 792
+              },
+              "end": {
+                "x": 527.8,
+                "y": 632
+              },
+              "ports": [
+                "under",
+                "nearCorner"
+              ],
+              "gap": [
+                0,
+                10
+              ]
+            },
+            {
+              "from": "pen",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1612.24,
+                "y": 189.94
+              },
+              "end": {
+                "x": 1590,
+                "y": 322
+              },
+              "ports": [
+                "nib",
+                "top"
+              ],
+              "gap": [
+                6,
+                8
+              ]
+            }
+          ],
+          "maxAnchorGap": 10
+        }
+      }
+    },
+    {
+      "name": "semantic: tracer follows the default traversal order @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "explode": 1,
+          "tracer": {
+            "x": 935.39,
+            "y": 413.53
+          },
+          "tracerVisible": true,
+          "copyOrigin": {
+            "x": 720,
+            "y": 330
+          },
+          "stampFace": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghost": {
+            "x": 935.39,
+            "y": 394.35
+          },
+          "ghostMoving": true,
+          "dieInked": true,
+          "markApplied": false,
+          "markCenter": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "ink",
+            "stamp",
+            "mark",
+            "copy",
+            "folder"
+          ],
+          "connectors": [
+            {
+              "from": "ink",
+              "to": "stamp",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 390.68,
+                "y": 194.4
+              },
+              "end": {
+                "x": 833.39,
+                "y": 192.96
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                7.9,
+                8
+              ]
+            },
+            {
+              "from": "stamp",
+              "to": "mark",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 935.39,
+                "y": 231.36
+              },
+              "end": {
+                "x": 935.39,
+                "y": 416.36
+              },
+              "ports": [
+                "bottom",
+                "top"
+              ],
+              "gap": [
+                4.4,
+                0
+              ]
+            },
+            {
+              "from": "copy",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1014.9,
+                "y": 477
+              },
+              "end": {
+                "x": 1298.9,
+                "y": 477
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                6.8,
+                6.8
+              ]
+            },
+            {
+              "from": "folder",
+              "to": "copy",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 527.8,
+                "y": 792
+              },
+              "end": {
+                "x": 527.8,
+                "y": 632
+              },
+              "ports": [
+                "under",
+                "nearCorner"
+              ],
+              "gap": [
+                0,
+                10
+              ]
+            },
+            {
+              "from": "pen",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1612.24,
+                "y": 189.94
+              },
+              "end": {
+                "x": 1590,
+                "y": 322
+              },
+              "ports": [
+                "nib",
+                "top"
+              ],
+              "gap": [
+                6,
+                8
+              ]
+            }
+          ],
+          "maxAnchorGap": 10
+        }
+      }
+    },
+    {
+      "name": "semantic: tracer follows a supplied traversal order @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "explode": 1,
+          "tracer": {
+            "x": 523.52,
+            "y": 193.97
+          },
+          "tracerVisible": true,
+          "copyOrigin": {
+            "x": 720,
+            "y": 330
+          },
+          "stampFace": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghost": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghostMoving": false,
+          "dieInked": false,
+          "markApplied": false,
+          "markCenter": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "visitOrder": [
+            "pen",
+            "original",
+            "copy",
+            "ink",
+            "stamp",
+            "mark"
+          ],
+          "connectors": [
+            {
+              "from": "ink",
+              "to": "stamp",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 390.68,
+                "y": 194.4
+              },
+              "end": {
+                "x": 833.39,
+                "y": 192.96
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                7.9,
+                8
+              ]
+            },
+            {
+              "from": "stamp",
+              "to": "mark",
+              "kind": "sequence",
+              "arrow": true,
+              "start": {
+                "x": 935.39,
+                "y": 231.36
+              },
+              "end": {
+                "x": 935.39,
+                "y": 416.36
+              },
+              "ports": [
+                "bottom",
+                "top"
+              ],
+              "gap": [
+                4.4,
+                0
+              ]
+            },
+            {
+              "from": "copy",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1014.9,
+                "y": 477
+              },
+              "end": {
+                "x": 1298.9,
+                "y": 477
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                6.8,
+                6.8
+              ]
+            },
+            {
+              "from": "folder",
+              "to": "copy",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 527.8,
+                "y": 792
+              },
+              "end": {
+                "x": 527.8,
+                "y": 632
+              },
+              "ports": [
+                "under",
+                "nearCorner"
+              ],
+              "gap": [
+                0,
+                10
+              ]
+            },
+            {
+              "from": "pen",
+              "to": "original",
+              "kind": "relation",
+              "arrow": false,
+              "start": {
+                "x": 1612.24,
+                "y": 189.94
+              },
+              "end": {
+                "x": 1590,
+                "y": 322
+              },
+              "ports": [
+                "nib",
+                "top"
+              ],
+              "gap": [
+                6,
+                8
+              ]
+            }
+          ],
+          "maxAnchorGap": 10
+        }
+      }
+    },
+    {
+      "name": "semantic: causal styling only when the author supplies it @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "explode": 1,
+          "tracer": {
+            "x": 767.06,
+            "y": 717.8
+          },
+          "tracerVisible": false,
+          "copyOrigin": {
+            "x": 720,
+            "y": 330
+          },
+          "stampFace": {
+            "x": 935.39,
+            "y": 196.96
+          },
+          "ghost": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "ghostMoving": false,
+          "dieInked": true,
+          "markApplied": true,
+          "markCenter": {
+            "x": 935.39,
+            "y": 446.96
+          },
+          "relationsDrawn": [
+            1
+          ],
+          "visitOrder": [
+            "ink",
+            "stamp",
+            "mark",
+            "copy",
+            "folder"
+          ],
+          "connectors": [
+            {
+              "from": "ink",
+              "to": "stamp",
+              "kind": "causal",
+              "arrow": true,
+              "start": {
+                "x": 390.68,
+                "y": 194.4
+              },
+              "end": {
+                "x": 833.39,
+                "y": 192.96
+              },
+              "ports": [
+                "right",
+                "left"
+              ],
+              "gap": [
+                7.9,
+                8
+              ]
+            }
+          ],
+          "maxAnchorGap": 8
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-218",
+          "Lease Agreement"
+        ],
+        [
+          "Lease Agreement",
+          "Lease Agreement"
+        ],
+        [
+          "1. Premises",
+          "1. Premises"
+        ],
+        [
+          "2. Rent (hypothetical)",
+          "2. Rent (hypothetical)"
+        ],
+        [
+          "3. Duration and notice",
+          "3. Duration and notice"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-218",
+          "DOC-218"
+        ],
+        [
+          "DOC-218",
+          "Lease Agreement"
+        ],
+        [
+          "Lease Agreement",
+          "Lease Agreement"
+        ],
+        [
+          "1. Premises",
+          "1. Premises"
+        ],
+        [
+          "2. Rent (hypothetical)",
+          "2. Rent (hypothetical)"
+        ],
+        [
+          "3. Duration and notice",
+          "3. Duration and notice"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-218",
+          "Lease Agreement"
+        ],
+        [
+          "Lease Agreement",
+          "Lease Agreement"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-218",
+          "Lease Agreement"
+        ],
+        [
+          "Lease Agreement",
+          "Lease Agreement"
+        ],
+        [
+          "1. Premises",
+          "1. Premises"
+        ],
+        [
+          "2. Rent (hypothetical)",
+          "2. Rent (hypothetical)"
+        ],
+        [
+          "3. Duration and notice",
+          "3. Duration and notice"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-218",
+          "DOC-218"
+        ],
+        [
+          "DOC-218",
+          "Lease Agreement"
+        ],
+        [
+          "Lease Agreement",
+          "Lease Agreement"
+        ],
+        [
+          "1. Premises",
+          "1. Premises"
+        ],
+        [
+          "2. Rent (hypothetical)",
+          "2. Rent (hypothetical)"
+        ],
+        [
+          "3. Duration and notice",
+          "3. Duration and notice"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-218",
+          "Lease Agreement"
+        ],
+        [
+          "Lease Agreement",
+          "Lease Agreement"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "INV-0071",
+          "Delivery Note"
+        ],
+        [
+          "Delivery Note",
+          "Delivery Note"
+        ],
+        [
+          "1. Items delivered",
+          "1. Items delivered"
+        ],
+        [
+          "2. Quantities (hypothetical)",
+          "2. Quantities (hypothetical)"
+        ],
+        [
+          "3. Delivery address",
+          "3. Delivery address"
+        ],
+        [
+          "4. Internal reference",
+          "4. Internal reference"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "INV-0071",
+          "INV-0071"
+        ],
+        [
+          "INV-0071",
+          "Delivery Note"
+        ],
+        [
+          "Delivery Note",
+          "Delivery Note"
+        ],
+        [
+          "1. Items delivered",
+          "1. Items delivered"
+        ],
+        [
+          "2. Quantities (hypothetical)",
+          "2. Quantities (hypothetical)"
+        ],
+        [
+          "3. Delivery address",
+          "3. Delivery address"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "INV-0071",
+          "Delivery Note"
+        ],
+        [
+          "Delivery Note",
+          "Delivery Note"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "REG-2026-000417-COPY-B",
+          "Framework Agreement for the Su"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "Framework Agreement for the Su"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2. Scope of the supply obligat",
+          "COPYRECEIVEDAT DESK"
+        ],
+        [
+          "3. Fees, invoicing and payment",
+          "COPYRECEIVEDAT DESK"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 1,
+      "pairs": [
+        [
+          "2. Scope of the supply obligat",
+          "COPYRECEIVEDAT DESK"
+        ],
+        [
+          "3. Fees, invoicing and payment",
+          "COPYRECEIVEDAT DESK"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "REG-2026-000417-COPY-B",
+          "REG-2026-000417-COPY-B"
+        ],
+        [
+          "REG-2026-000417-COPY-B",
+          "Framework Agreement for the Su"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "Framework Agreement for the Su"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2. Scope of the supply obligat",
+          "COPYRECEIVEDAT DESK"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 1,
+      "pairs": [
+        [
+          "2. Scope of the supply obligat",
+          "COPYRECEIVEDAT DESK"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "REG-2026-000417-COPY-B",
+          "Framework Agreement for the Su"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "Framework Agreement for the Su"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2. Scope of the supply obligat",
+          "COPYRECEIVEDAT DESK"
+        ],
+        [
+          "3. Fees, invoicing and payment",
+          "COPYRECEIVEDAT DESK"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 1,
+      "pairs": [
+        [
+          "2. Scope of the supply obligat",
+          "COPYRECEIVEDAT DESK"
+        ],
+        [
+          "3. Fees, invoicing and payment",
+          "COPYRECEIVEDAT DESK"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-218",
+          "Contrato dearrendamiento"
+        ],
+        [
+          "Contrato dearrendamiento",
+          "Contrato dearrendamiento"
+        ],
+        [
+          "1. Inmueble",
+          "1. Inmueble"
+        ],
+        [
+          "2. Renta (hipotética)",
+          "2. Renta (hipotética)"
+        ],
+        [
+          "3. Duración y preaviso",
+          "3. Duración y preaviso"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-218",
+          "DOC-218"
+        ],
+        [
+          "DOC-218",
+          "Contrato dearrendamiento"
+        ],
+        [
+          "Contrato dearrendamiento",
+          "Contrato dearrendamiento"
+        ],
+        [
+          "1. Inmueble",
+          "1. Inmueble"
+        ],
+        [
+          "2. Renta (hipotética)",
+          "2. Renta (hipotética)"
+        ],
+        [
+          "3. Duración y preaviso",
+          "3. Duración y preaviso"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-218",
+          "Contrato dearrendamiento"
+        ],
+        [
+          "Contrato dearrendamiento",
+          "Contrato dearrendamiento"
+        ]
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

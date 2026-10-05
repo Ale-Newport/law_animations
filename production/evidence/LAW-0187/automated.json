@@ -1,0 +1,938 @@
+{
+  "animationId": "LAW-0187",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0187",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "actors.0.name"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: identical base situation in both scenes @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "clock": 0,
+          "a": {
+            "tokenAt": "home",
+            "speakingA": false,
+            "speakingB": false,
+            "bubbleA": 0,
+            "bubbleB": 0,
+            "ticks": [
+              0,
+              0,
+              0
+            ],
+            "both": false
+          },
+          "b": {
+            "tokenAt": "home",
+            "speakingA": false,
+            "speakingB": false,
+            "bubbleA": 0,
+            "bubbleB": 0,
+            "ticks": [
+              0,
+              0,
+              0
+            ],
+            "both": false
+          },
+          "tokenA": {
+            "x": 575,
+            "y": 419
+          },
+          "tokenB": {
+            "x": 575,
+            "y": 419
+          },
+          "medLA": {
+            "x": 487,
+            "y": 416
+          },
+          "medRA": {
+            "x": 663,
+            "y": 416
+          },
+          "medLB": {
+            "x": 487,
+            "y": 416
+          },
+          "medRB": {
+            "x": 663,
+            "y": 416
+          },
+          "handAA": {
+            "x": 333,
+            "y": 406
+          },
+          "handBB": {
+            "x": 817,
+            "y": 406
+          },
+          "gripLA": {
+            "x": 566,
+            "y": 412
+          },
+          "gripRA": {
+            "x": 584,
+            "y": 412
+          },
+          "tokenHoldA": null,
+          "charts": [
+            {
+              "spans": {
+                "a": [],
+                "b": []
+              },
+              "overlap": 0
+            },
+            {
+              "spans": {
+                "a": [],
+                "b": []
+              },
+              "overlap": 0
+            }
+          ],
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the change: one speaker with the token in A, both speaking in B @0.36",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "clock": 0.355,
+          "a": {
+            "tokenAt": "a",
+            "speakingA": true,
+            "speakingB": false,
+            "bubbleA": 1,
+            "bubbleB": 0,
+            "ticks": [
+              0,
+              0,
+              0
+            ],
+            "both": false
+          },
+          "b": {
+            "tokenAt": "home",
+            "speakingA": true,
+            "speakingB": true,
+            "bubbleA": 1,
+            "bubbleB": 1,
+            "ticks": [
+              0,
+              0,
+              0
+            ],
+            "both": true
+          },
+          "tokenA": {
+            "x": 415,
+            "y": 400
+          },
+          "tokenB": {
+            "x": 575,
+            "y": 419
+          },
+          "medLA": {
+            "x": 487,
+            "y": 416
+          },
+          "medRA": {
+            "x": 663,
+            "y": 416
+          },
+          "medLB": {
+            "x": 487,
+            "y": 416
+          },
+          "medRB": {
+            "x": 663,
+            "y": 416
+          },
+          "handAA": {
+            "x": 402,
+            "y": 395
+          },
+          "handBB": {
+            "x": 795,
+            "y": 325.63
+          },
+          "gripLA": {
+            "x": 406,
+            "y": 393
+          },
+          "gripRA": {
+            "x": 424,
+            "y": 393
+          },
+          "tokenHoldA": "a",
+          "charts": [
+            {
+              "spans": {
+                "a": [
+                  [
+                    0.3,
+                    0.355
+                  ]
+                ],
+                "b": []
+              },
+              "overlap": 0
+            },
+            {
+              "spans": {
+                "a": [
+                  [
+                    0.24,
+                    0.355
+                  ]
+                ],
+                "b": [
+                  [
+                    0.24,
+                    0.355
+                  ]
+                ]
+              },
+              "overlap": 0.115
+            }
+          ],
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: A never has two speakers at once; B does @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "clock": 0.616,
+          "a": {
+            "tokenAt": "moving",
+            "speakingA": false,
+            "speakingB": false,
+            "bubbleA": 0,
+            "bubbleB": 0,
+            "ticks": [
+              1,
+              0,
+              0
+            ],
+            "both": false
+          },
+          "b": {
+            "tokenAt": "home",
+            "speakingA": true,
+            "speakingB": true,
+            "bubbleA": 1,
+            "bubbleB": 1,
+            "ticks": [
+              0,
+              0,
+              0
+            ],
+            "both": true
+          },
+          "tokenA": {
+            "x": 416.52,
+            "y": 400.18
+          },
+          "tokenB": {
+            "x": 575,
+            "y": 419
+          },
+          "medLA": {
+            "x": 407.52,
+            "y": 393.18
+          },
+          "medRA": {
+            "x": 510.77,
+            "y": 334.75
+          },
+          "medLB": {
+            "x": 463,
+            "y": 188
+          },
+          "medRB": {
+            "x": 687,
+            "y": 188
+          },
+          "handAA": {
+            "x": 333,
+            "y": 406
+          },
+          "handBB": {
+            "x": 795,
+            "y": 329.09
+          },
+          "gripLA": {
+            "x": 407.52,
+            "y": 393.18
+          },
+          "gripRA": {
+            "x": 425.52,
+            "y": 393.18
+          },
+          "tokenHoldA": "l",
+          "charts": [
+            {
+              "spans": {
+                "a": [
+                  [
+                    0.3,
+                    0.47
+                  ]
+                ],
+                "b": []
+              },
+              "overlap": 0
+            },
+            {
+              "spans": {
+                "a": [
+                  [
+                    0.24,
+                    0.616
+                  ]
+                ],
+                "b": [
+                  [
+                    0.24,
+                    0.616
+                  ]
+                ]
+              },
+              "overlap": 0.376
+            }
+          ],
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: A: the second party speaks after the first @0.75",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "clock": 1.083,
+          "a": {
+            "tokenAt": "b",
+            "speakingA": false,
+            "speakingB": true,
+            "bubbleA": 0,
+            "bubbleB": 1,
+            "ticks": [
+              1,
+              0,
+              0
+            ],
+            "both": false
+          },
+          "b": {
+            "tokenAt": "home",
+            "speakingA": true,
+            "speakingB": true,
+            "bubbleA": 1,
+            "bubbleB": 1,
+            "ticks": [
+              0,
+              0,
+              0
+            ],
+            "both": true
+          },
+          "tokenA": {
+            "x": 735,
+            "y": 400
+          },
+          "tokenB": {
+            "x": 575,
+            "y": 419
+          },
+          "medLA": {
+            "x": 487,
+            "y": 416
+          },
+          "medRA": {
+            "x": 663,
+            "y": 416
+          },
+          "medLB": {
+            "x": 482,
+            "y": 368.54
+          },
+          "medRB": {
+            "x": 668,
+            "y": 368.54
+          },
+          "handAA": {
+            "x": 333,
+            "y": 406
+          },
+          "handBB": {
+            "x": 815.41,
+            "y": 399.6
+          },
+          "gripLA": {
+            "x": 726,
+            "y": 393
+          },
+          "gripRA": {
+            "x": 744,
+            "y": 393
+          },
+          "tokenHoldA": "b",
+          "charts": [
+            {
+              "spans": {
+                "a": [
+                  [
+                    0.3,
+                    0.47
+                  ]
+                ],
+                "b": [
+                  [
+                    0.9,
+                    1.083
+                  ]
+                ]
+              },
+              "overlap": 0
+            },
+            {
+              "spans": {
+                "a": [
+                  [
+                    0.24,
+                    1.083
+                  ]
+                ],
+                "b": [
+                  [
+                    0.24,
+                    1.083
+                  ]
+                ]
+              },
+              "overlap": 0.843
+            }
+          ],
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: charts: sequence in A, overlap in B @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "clock": 1.12,
+          "a": {
+            "tokenAt": "b",
+            "speakingA": false,
+            "speakingB": false,
+            "bubbleA": 0,
+            "bubbleB": 1,
+            "ticks": [
+              1,
+              0,
+              0
+            ],
+            "both": false
+          },
+          "b": {
+            "tokenAt": "home",
+            "speakingA": false,
+            "speakingB": false,
+            "bubbleA": 1,
+            "bubbleB": 1,
+            "ticks": [
+              0,
+              0,
+              0
+            ],
+            "both": false
+          },
+          "tokenA": {
+            "x": 735,
+            "y": 400
+          },
+          "tokenB": {
+            "x": 575,
+            "y": 419
+          },
+          "medLA": {
+            "x": 487,
+            "y": 416
+          },
+          "medRA": {
+            "x": 663,
+            "y": 416
+          },
+          "medLB": {
+            "x": 487,
+            "y": 416
+          },
+          "medRB": {
+            "x": 663,
+            "y": 416
+          },
+          "handAA": {
+            "x": 333,
+            "y": 406
+          },
+          "handBB": {
+            "x": 817,
+            "y": 406
+          },
+          "gripLA": {
+            "x": 726,
+            "y": 393
+          },
+          "gripRA": {
+            "x": 744,
+            "y": 393
+          },
+          "tokenHoldA": "b",
+          "charts": [
+            {
+              "spans": {
+                "a": [
+                  [
+                    0.3,
+                    0.47
+                  ]
+                ],
+                "b": [
+                  [
+                    0.9,
+                    1.12
+                  ]
+                ]
+              },
+              "overlap": 0
+            },
+            {
+              "spans": {
+                "a": [
+                  [
+                    0.24,
+                    1.12
+                  ]
+                ],
+                "b": [
+                  [
+                    0.24,
+                    1.12
+                  ]
+                ]
+              },
+              "overlap": 0.88
+            }
+          ],
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: comparison guide drawn at the end @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "clock": 1.12,
+          "a": {
+            "tokenAt": "b",
+            "speakingA": false,
+            "speakingB": false,
+            "bubbleA": 0,
+            "bubbleB": 1,
+            "ticks": [
+              1,
+              0,
+              0
+            ],
+            "both": false
+          },
+          "b": {
+            "tokenAt": "home",
+            "speakingA": false,
+            "speakingB": false,
+            "bubbleA": 1,
+            "bubbleB": 1,
+            "ticks": [
+              0,
+              0,
+              0
+            ],
+            "both": false
+          },
+          "tokenA": {
+            "x": 735,
+            "y": 400
+          },
+          "tokenB": {
+            "x": 575,
+            "y": 419
+          },
+          "medLA": {
+            "x": 487,
+            "y": 416
+          },
+          "medRA": {
+            "x": 663,
+            "y": 416
+          },
+          "medLB": {
+            "x": 487,
+            "y": 416
+          },
+          "medRB": {
+            "x": 663,
+            "y": 416
+          },
+          "handAA": {
+            "x": 333,
+            "y": 406
+          },
+          "handBB": {
+            "x": 817,
+            "y": 406
+          },
+          "gripLA": {
+            "x": 726,
+            "y": 393
+          },
+          "gripRA": {
+            "x": 744,
+            "y": 393
+          },
+          "tokenHoldA": "b",
+          "charts": [
+            {
+              "spans": {
+                "a": [
+                  [
+                    0.3,
+                    0.47
+                  ]
+                ],
+                "b": [
+                  [
+                    0.9,
+                    1.12
+                  ]
+                ]
+              },
+              "overlap": 0
+            },
+            {
+              "spans": {
+                "a": [
+                  [
+                    0.24,
+                    1.12
+                  ]
+                ],
+                "b": [
+                  [
+                    0.24,
+                    1.12
+                  ]
+                ]
+              },
+              "overlap": 0.88
+            }
+          ],
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the ordered scene follows the supplied speaking order @0.36",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "clock": 0.355,
+          "a": {
+            "tokenAt": "b",
+            "speakingA": false,
+            "speakingB": true,
+            "bubbleA": 0,
+            "bubbleB": 1,
+            "ticks": [
+              0,
+              0,
+              0
+            ],
+            "both": false
+          },
+          "b": {
+            "tokenAt": "home",
+            "speakingA": true,
+            "speakingB": true,
+            "bubbleA": 1,
+            "bubbleB": 1,
+            "ticks": [
+              0,
+              0,
+              0
+            ],
+            "both": true
+          },
+          "tokenA": {
+            "x": 735,
+            "y": 400
+          },
+          "tokenB": {
+            "x": 575,
+            "y": 419
+          },
+          "medLA": {
+            "x": 487,
+            "y": 416
+          },
+          "medRA": {
+            "x": 663,
+            "y": 416
+          },
+          "medLB": {
+            "x": 487,
+            "y": 416
+          },
+          "medRB": {
+            "x": 663,
+            "y": 416
+          },
+          "handAA": {
+            "x": 333,
+            "y": 406
+          },
+          "handBB": {
+            "x": 795,
+            "y": 318.27
+          },
+          "gripLA": {
+            "x": 726,
+            "y": 393
+          },
+          "gripRA": {
+            "x": 744,
+            "y": 393
+          },
+          "tokenHoldA": "b",
+          "charts": [
+            {
+              "spans": {
+                "a": [],
+                "b": [
+                  [
+                    0.3,
+                    0.355
+                  ]
+                ]
+              },
+              "overlap": 0
+            },
+            {
+              "spans": {
+                "a": [
+                  [
+                    0.24,
+                    0.355
+                  ]
+                ],
+                "b": [
+                  [
+                    0.24,
+                    0.355
+                  ]
+                ]
+              },
+              "overlap": 0.115
+            }
+          ],
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

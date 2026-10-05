@@ -1,0 +1,763 @@
+{
+  "animationId": "LAW-0040",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0040",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: context: the state produced by the action, with the before datum @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "lensOpen": 0,
+          "datum": "before",
+          "lensSwap": 0,
+          "contextSwap": 0,
+          "contextDatum": "before",
+          "focusTarget": "copyMark",
+          "source": {
+            "x": 1583.09,
+            "y": 594.74,
+            "w": 232.63,
+            "h": 130.27
+          },
+          "detailCenter": {
+            "x": 1699.4,
+            "y": 659.87
+          },
+          "dest": {
+            "x": 814.33,
+            "y": 243.32,
+            "w": 604.84,
+            "h": 338.71
+          },
+          "lidClosed": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: lens open on the unchanged detail; the source keeps the detail’s coordinates @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.996,
+          "datum": "before",
+          "lensSwap": 0,
+          "contextSwap": 0,
+          "contextDatum": "before",
+          "focusTarget": "copyMark",
+          "source": {
+            "x": 1583.09,
+            "y": 594.74,
+            "w": 232.63,
+            "h": 130.27
+          },
+          "detailCenter": {
+            "x": 1699.4,
+            "y": 659.87
+          },
+          "dest": {
+            "x": 814.33,
+            "y": 243.32,
+            "w": 604.84,
+            "h": 338.71
+          },
+          "lidClosed": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: substitution happens inside the lens only @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "datum": "changing",
+          "lensSwap": 0.556,
+          "contextSwap": 0,
+          "contextDatum": "before",
+          "focusTarget": "copyMark",
+          "source": {
+            "x": 1583.09,
+            "y": 594.74,
+            "w": 232.63,
+            "h": 130.27
+          },
+          "detailCenter": {
+            "x": 1699.4,
+            "y": 659.87
+          },
+          "dest": {
+            "x": 814.33,
+            "y": 243.32,
+            "w": 604.84,
+            "h": 338.71
+          },
+          "lidClosed": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: returns to context with the new datum @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensSwap": 1,
+          "contextSwap": 1,
+          "contextDatum": "after",
+          "focusTarget": "copyMark",
+          "source": {
+            "x": 1583.09,
+            "y": 594.74,
+            "w": 232.63,
+            "h": 130.27
+          },
+          "detailCenter": {
+            "x": 1699.4,
+            "y": 659.87
+          },
+          "dest": {
+            "x": 814.33,
+            "y": 243.32,
+            "w": 604.84,
+            "h": 338.71
+          },
+          "lidClosed": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the previous datum exactly @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.256,
+          "datum": "before",
+          "lensSwap": 0,
+          "contextSwap": 0,
+          "contextDatum": "before",
+          "focusTarget": "copyMark",
+          "source": {
+            "x": 1583.09,
+            "y": 594.74,
+            "w": 232.63,
+            "h": 130.27
+          },
+          "detailCenter": {
+            "x": 1699.4,
+            "y": 659.87
+          },
+          "dest": {
+            "x": 814.33,
+            "y": 243.32,
+            "w": 604.84,
+            "h": 338.71
+          },
+          "lidClosed": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: box-label substitution is localized on the box lid @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "lensSwap": 1,
+          "contextSwap": 1,
+          "contextDatum": "after",
+          "focusTarget": "boxLabel",
+          "source": {
+            "x": 508.83,
+            "y": 369.91,
+            "w": 268.2,
+            "h": 150.19
+          },
+          "detailCenter": {
+            "x": 642.93,
+            "y": 445.01
+          },
+          "dest": {
+            "x": 774.05,
+            "y": 220.76,
+            "w": 685.4,
+            "h": 383.82
+          },
+          "lidClosed": true,
+          "allReached": true
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "1. Parties",
+          "px": 9.8
+        },
+        {
+          "text": "2. Goods (hypothetical)",
+          "px": 9.8
+        },
+        {
+          "text": "3. Delivery terms",
+          "px": 9.8
+        },
+        {
+          "text": "DOC-214",
+          "px": 10.4
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "1. Parties",
+          "px": 10
+        },
+        {
+          "text": "2. Goods (hypothetical)",
+          "px": 10
+        },
+        {
+          "text": "3. Delivery terms",
+          "px": 10
+        },
+        {
+          "text": "DOC-214",
+          "px": 10.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "1. Parties",
+          "px": 7
+        },
+        {
+          "text": "2. Goods (hypothetical)",
+          "px": 7
+        },
+        {
+          "text": "3. Delivery terms",
+          "px": 7
+        },
+        {
+          "text": "DOC-214",
+          "px": 7.6
+        },
+        {
+          "text": "COPY 2OF 3",
+          "px": 10.4
+        },
+        {
+          "text": "Supply Agreement",
+          "px": 11
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "1. Parties",
+          "px": 9.8
+        },
+        {
+          "text": "2. Goods (hypothetical)",
+          "px": 9.8
+        },
+        {
+          "text": "3. Delivery terms",
+          "px": 9.8
+        },
+        {
+          "text": "DOC-214",
+          "px": 10.4
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "1. Parties",
+          "px": 10
+        },
+        {
+          "text": "2. Goods (hypothetical)",
+          "px": 10
+        },
+        {
+          "text": "3. Delivery terms",
+          "px": 10
+        },
+        {
+          "text": "DOC-214",
+          "px": 10.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "1. Parties",
+          "px": 7
+        },
+        {
+          "text": "2. Goods (hypothetical)",
+          "px": 7
+        },
+        {
+          "text": "3. Delivery terms",
+          "px": 7
+        },
+        {
+          "text": "DOC-214",
+          "px": 7.6
+        },
+        {
+          "text": "COPY 2OF 3",
+          "px": 10.4
+        },
+        {
+          "text": "Supply Agreement",
+          "px": 11
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "1. Parties",
+          "px": 9.8
+        },
+        {
+          "text": "2. Goods (hypothetical)",
+          "px": 9.8
+        },
+        {
+          "text": "3. Delivery terms",
+          "px": 9.8
+        },
+        {
+          "text": "DOC-214",
+          "px": 10.4
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "1. Parties",
+          "px": 10
+        },
+        {
+          "text": "2. Goods (hypothetical)",
+          "px": 10
+        },
+        {
+          "text": "3. Delivery terms",
+          "px": 10
+        },
+        {
+          "text": "DOC-214",
+          "px": 10.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "1. Parties",
+          "px": 7
+        },
+        {
+          "text": "2. Goods (hypothetical)",
+          "px": 7
+        },
+        {
+          "text": "3. Delivery terms",
+          "px": 7
+        },
+        {
+          "text": "DOC-214",
+          "px": 7.6
+        },
+        {
+          "text": "COPY",
+          "px": 10.4
+        },
+        {
+          "text": "Supply Agreement",
+          "px": 11
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        "Framework Agreement for the Supply and M"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "1. Parties",
+          "px": 9.8
+        },
+        {
+          "text": "2. Goods (hypothetical)",
+          "px": 9.8
+        },
+        {
+          "text": "3. Delivery terms",
+          "px": 9.8
+        },
+        {
+          "text": "WORKINGCOPY 2 OF 3— CUSTOMERRE",
+          "px": 9.9
+        },
+        {
+          "text": "DOC-214",
+          "px": 10.4
+        },
+        {
+          "text": "Framework Agreement for the Su",
+          "px": 10.8
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        "Framework Agreement for the Supply and M"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "WORKINGCOPY 2 OF 3— CUSTOMERRE",
+          "px": 9.8
+        },
+        {
+          "text": "1. Parties",
+          "px": 10
+        },
+        {
+          "text": "2. Goods (hypothetical)",
+          "px": 10
+        },
+        {
+          "text": "3. Delivery terms",
+          "px": 10
+        },
+        {
+          "text": "Framework Agreement for the Su",
+          "px": 10.4
+        },
+        {
+          "text": "DOC-214",
+          "px": 10.9
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        "Framework Agreement for the Supply and M",
+        "Copy mark: WORKING COPY 2 OF 3 — CUSTOME"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "1. Parties",
+          "px": 6.8
+        },
+        {
+          "text": "2. Goods (hypothetical)",
+          "px": 6.8
+        },
+        {
+          "text": "3. Delivery terms",
+          "px": 6.8
+        },
+        {
+          "text": "WORKINGCOPY 2 OF 3— CUSTOMERRE",
+          "px": 7.1
+        },
+        {
+          "text": "DOC-214",
+          "px": 7.4
+        },
+        {
+          "text": "Framework Agreement for the Su",
+          "px": 7.5
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "1. Partes",
+          "px": 9.8
+        },
+        {
+          "text": "2. Bienes (hipotéticos)",
+          "px": 9.8
+        },
+        {
+          "text": "3. Condiciones de entrega",
+          "px": 9.8
+        },
+        {
+          "text": "DOC-214",
+          "px": 10.4
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "1. Partes",
+          "px": 10
+        },
+        {
+          "text": "2. Bienes (hipotéticos)",
+          "px": 10
+        },
+        {
+          "text": "3. Condiciones de entrega",
+          "px": 10
+        },
+        {
+          "text": "DOC-214",
+          "px": 10.9
+        },
+        {
+          "text": "PRECINTADO",
+          "px": 13.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "1. Partes",
+          "px": 6.8
+        },
+        {
+          "text": "2. Bienes (hipotéticos)",
+          "px": 6.8
+        },
+        {
+          "text": "3. Condiciones de entrega",
+          "px": 6.8
+        },
+        {
+          "text": "DOC-214",
+          "px": 7.4
+        },
+        {
+          "text": "COPIA 2DE 3",
+          "px": 10.1
+        },
+        {
+          "text": "PRECINTADO",
+          "px": 10.1
+        }
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

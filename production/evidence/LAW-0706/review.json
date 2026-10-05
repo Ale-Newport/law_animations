@@ -1,0 +1,205 @@
+{
+  "animationId": "LAW-0706",
+  "generatedBy": "scripts/qa.mjs",
+  "treatment": "mechanism",
+  "sourceHash": "90cfe2574d557dbfb060c0a22967e66b92c8aad924e61856d3b637351e99dfcd",
+  "implementationHash": "5b046c920ffd81e0e67a7efc72ccb4995d7af0c867d920c053317a478bb9e480",
+  "dependencies": [
+    "src/animations/causation/LAW-0706.js",
+    "src/animations/causation/kits/agravacion-dano.js",
+    "src/animations/causation/kits/causal-chain.js",
+    "src/animations/causation/kits/dano-material.js",
+    "src/animations/causation/kits/prueba-contrafactual.js",
+    "src/animations/causation/kits/topple.js",
+    "src/core/define.js",
+    "src/core/geometry.js",
+    "src/core/i18n.js",
+    "src/core/layout.js",
+    "src/core/meta.js",
+    "src/core/random.js",
+    "src/core/schema.js",
+    "src/core/svg.js",
+    "src/core/text.js",
+    "src/core/theme.js",
+    "src/core/time.js",
+    "src/core/transform.js",
+    "src/primitives/annotate.js",
+    "src/primitives/paper.js",
+    "src/schemas/fields.js"
+  ],
+  "environment": {
+    "browser": "chromium 153.0.8010.12",
+    "playwright": "@playwright/test 1.63.0",
+    "node": "v26.0.0",
+    "platform": "darwin-arm64",
+    "fonts": "system font stack (see src/core/text.js FONTS)"
+  },
+  "commands": [
+    {
+      "command": "npx playwright test tests/animations/LAW-0706.test.js --reporter=line",
+      "exitCode": 0
+    }
+  ],
+  "structure": {
+    "files": {
+      "module": "src/animations/causation/LAW-0706.js",
+      "metadata": "src/animations/causation/LAW-0706.meta.json",
+      "presets": "src/animations/causation/LAW-0706.presets.json",
+      "test": "tests/animations/LAW-0706.test.js"
+    },
+    "exists": {
+      "module": true,
+      "metadata": true,
+      "presets": true,
+      "test": true
+    },
+    "presets": [
+      "baseline-illustrative",
+      "contrast-or-alternative",
+      "long-labels-stress",
+      "baseline-es"
+    ],
+    "requiredPresetsPresent": true
+  },
+  "automatedChecks": {
+    "status": "pass",
+    "exitCode": 0,
+    "checks": 31,
+    "failed": [],
+    "details": "production/evidence/LAW-0706/automated.json",
+    "sourceHashAtRun": "90cfe2574d557dbfb060c0a22967e66b92c8aad924e61856d3b637351e99dfcd"
+  },
+  "captures": [
+    {
+      "path": "production/evidence/LAW-0706/sheet-16x9-baseline.png",
+      "ratio": "16:9",
+      "preset": "baseline-illustrative",
+      "times": [
+        0.12,
+        0.35,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0706/sheet-9x16-baseline.png",
+      "ratio": "9:16",
+      "preset": "baseline-illustrative",
+      "times": [
+        0.12,
+        0.35,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0706/sheet-1x1-baseline.png",
+      "ratio": "1:1",
+      "preset": "baseline-illustrative",
+      "times": [
+        0.12,
+        0.35,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0706/sheet-16x9-alternative.png",
+      "ratio": "16:9",
+      "preset": "contrast-or-alternative",
+      "times": [
+        0.12,
+        0.35,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0706/sheet-16x9-long-labels.png",
+      "ratio": "16:9",
+      "preset": "long-labels-stress",
+      "times": [
+        0.12,
+        0.35,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "path": "production/evidence/LAW-0706/sheet-16x9-es.png",
+      "ratio": "16:9",
+      "preset": "baseline-es",
+      "times": [
+        0.12,
+        0.35,
+        0.55,
+        0.72,
+        1
+      ],
+      "background": "paper",
+      "errors": [],
+      "externalRequests": []
+    }
+  ],
+  "visualReview": {
+    "status": "pass",
+    "reviewer": "independent QA reviewer (causation-07) / Claude Opus 5.5",
+    "method": "Viewed composite strips rendered from a loopback server on 127.0.0.1:5840 (16:9 6-frame sequences, 1:1 and 9:16 grids of all presets at mid-action and hold, es-only and labels hidden); reran 102 Playwright tests (pass), DOM-less unit check 4/4; nested count comparison of stress vs baseline; pre-cap renders at 1:1",
+    "live": null,
+    "artifacts": [
+      "production/scratch/review-causation-07/a06-def.png",
+      "production/scratch/review-causation-07/s6-11.png",
+      "production/scratch/review-causation-07/s6-916.png"
+    ],
+    "findings": [
+      "Exploded mechanism, connectors land, all relations plain 'related as supplied'; sequence/communication arrows only in the alternative where supplied and labelled; no causal arrow",
+      "Stress counts equal baseline (events 3/3, accounts 0/0, links 0/0, variation 1/1, elements 4/4), none below; driver confirmed: pre-cap 1:1 fallback k 0.769",
+      "minor (item 11/18): 16:9 pieces read small (panels ~0.22 H, subject with flags 0.330) with the lower-right ~30% empty; matches accepted LAW-0702 layout, so not blocking",
+      "Subject heights 0.203-0.330 (stress 1:1 0.203, alt 1:1 0.205 at floor)",
+      "Legal and es-only checked"
+    ],
+    "sourceHash": "90cfe2574d557dbfb060c0a22967e66b92c8aad924e61856d3b637351e99dfcd",
+    "renderFingerprint": "1860ed45d00a59a93c8641d7709a820994fd0236e3853f9e890acae7dc2fe32c",
+    "reviewedAt": "2026-10-05T06:05:58.546Z"
+  },
+  "legalStatus": "illustrative-unverified",
+  "testedConfigurations": [
+    "16:9 baseline-illustrative editorial-flat paper",
+    "9:16 baseline-illustrative editorial-flat paper",
+    "1:1 baseline-illustrative editorial-flat paper",
+    "16:9 contrast-or-alternative editorial-flat paper",
+    "16:9 long-labels-stress editorial-flat paper",
+    "16:9 baseline-es editorial-flat paper"
+  ],
+  "knownIssues": [],
+  "accepted": false,
+  "renderFingerprint": "1860ed45d00a59a93c8641d7709a820994fd0236e3853f9e890acae7dc2fe32c",
+  "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.12,0.35,0.55,0.72,1",
+  "thumb": "production/evidence/LAW-0706/thumb.png",
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
+}

@@ -1,0 +1,537 @@
+{
+  "animationId": "LAW-0449",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0449",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "parties.0.name"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: both cards in A's rack; the strip is empty @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "cardP": {
+            "x": 403.79,
+            "y": 232.55
+          },
+          "cardW": {
+            "x": 403.79,
+            "y": 436.95
+          },
+          "whereP": "A",
+          "whereW": "A",
+          "handA": {
+            "x": 150,
+            "y": 555.03
+          },
+          "handB": {
+            "x": 1911.49,
+            "y": 555.03
+          },
+          "allReached": true,
+          "stationsShown": 0,
+          "order": [
+            "proposal-sent",
+            "withdrawal-sent",
+            "withdrawal-received",
+            "proposal-received"
+          ],
+          "grouped": false,
+          "finalShown": 0,
+          "finalState": "withdrawal-communicated",
+          "flightGap": 8.1,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "textPx": 22,
+          "headPx": 129.8,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the proposal travels first (supplied order); one station shown @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "cardP": {
+            "x": 438.66,
+            "y": 232.58
+          },
+          "cardW": {
+            "x": 403.79,
+            "y": 436.95
+          },
+          "whereP": "route",
+          "whereW": "A",
+          "handA": {
+            "x": 150,
+            "y": 555.03
+          },
+          "handB": {
+            "x": 1911.49,
+            "y": 555.03
+          },
+          "allReached": true,
+          "stationsShown": 1,
+          "order": [
+            "proposal-sent",
+            "withdrawal-sent",
+            "withdrawal-received",
+            "proposal-received"
+          ],
+          "grouped": false,
+          "finalShown": 0,
+          "finalState": "withdrawal-communicated",
+          "flightGap": 8.1,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "textPx": 22,
+          "headPx": 129.8,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: both journeys under way (the routes cross) @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "cardP": {
+            "x": 768.41,
+            "y": 268.51
+          },
+          "cardW": {
+            "x": 1113.21,
+            "y": 311.83
+          },
+          "whereP": "route",
+          "whereW": "route",
+          "handA": {
+            "x": 150,
+            "y": 555.03
+          },
+          "handB": {
+            "x": 1911.49,
+            "y": 555.03
+          },
+          "allReached": true,
+          "stationsShown": 2,
+          "order": [
+            "proposal-sent",
+            "withdrawal-sent",
+            "withdrawal-received",
+            "proposal-received"
+          ],
+          "grouped": false,
+          "finalShown": 0,
+          "finalState": "withdrawal-communicated",
+          "flightGap": 8.1,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "textPx": 22,
+          "headPx": 129.8,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: main action done by 0.75: both cards in B's rack, four stations @0.75",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "cardP": {
+            "x": 1657.71,
+            "y": 436.95
+          },
+          "cardW": {
+            "x": 1657.71,
+            "y": 232.55
+          },
+          "whereP": "B",
+          "whereW": "B",
+          "handA": {
+            "x": 150,
+            "y": 555.03
+          },
+          "handB": {
+            "x": 1906.75,
+            "y": 543.76
+          },
+          "allReached": true,
+          "stationsShown": 4,
+          "order": [
+            "proposal-sent",
+            "withdrawal-sent",
+            "withdrawal-received",
+            "proposal-received"
+          ],
+          "grouped": false,
+          "finalShown": 0,
+          "finalState": "withdrawal-communicated",
+          "flightGap": 8.1,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "textPx": 22,
+          "headPx": 129.8,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: the strip keeps the supplied order; the supplied final state is shown @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "cardP": {
+            "x": 1657.71,
+            "y": 436.95
+          },
+          "cardW": {
+            "x": 1657.71,
+            "y": 232.55
+          },
+          "whereP": "B",
+          "whereW": "B",
+          "handA": {
+            "x": 150,
+            "y": 555.03
+          },
+          "handB": {
+            "x": 1906.75,
+            "y": 543.76
+          },
+          "allReached": true,
+          "stationsShown": 4,
+          "order": [
+            "proposal-sent",
+            "withdrawal-sent",
+            "withdrawal-received",
+            "proposal-received"
+          ],
+          "grouped": false,
+          "finalShown": 1,
+          "finalState": "withdrawal-communicated",
+          "flightGap": 8.1,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "textPx": 22,
+          "headPx": 129.8,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back: the order and the final state follow the time only @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "cardP": {
+            "x": 438.66,
+            "y": 232.58
+          },
+          "cardW": {
+            "x": 403.79,
+            "y": 436.95
+          },
+          "whereP": "route",
+          "whereW": "A",
+          "handA": {
+            "x": 150,
+            "y": 555.03
+          },
+          "handB": {
+            "x": 1911.49,
+            "y": 555.03
+          },
+          "allReached": true,
+          "stationsShown": 1,
+          "order": [
+            "proposal-sent",
+            "withdrawal-sent",
+            "withdrawal-received",
+            "proposal-received"
+          ],
+          "grouped": false,
+          "finalShown": 0,
+          "finalState": "withdrawal-communicated",
+          "flightGap": 8.1,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "textPx": 22,
+          "headPx": 129.8,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: receipts supplied with one position: one station, order to be examined @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "cardP": {
+            "x": 1756.64,
+            "y": 389.94
+          },
+          "cardW": {
+            "x": 1756.64,
+            "y": 207.84
+          },
+          "whereP": "B",
+          "whereW": "B",
+          "handA": {
+            "x": 86,
+            "y": 395.79
+          },
+          "handB": {
+            "x": 1971.79,
+            "y": 377.85
+          },
+          "allReached": true,
+          "stationsShown": 3,
+          "order": [
+            "proposal-sent",
+            "withdrawal-sent",
+            "proposal-received+withdrawal-received"
+          ],
+          "grouped": true,
+          "finalShown": 1,
+          "finalState": "sequence-to-examine",
+          "flightGap": 6.1,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "textPx": 19.6,
+          "headPx": 72.1,
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "cardP": {
+            "x": 452.78,
+            "y": 232.67
+          },
+          "cardW": {
+            "x": 403.79,
+            "y": 436.95
+          },
+          "whereP": "route",
+          "whereW": "A",
+          "handA": {
+            "x": 171.6,
+            "y": 503.7
+          },
+          "handB": {
+            "x": 1911.49,
+            "y": 555.03
+          },
+          "allReached": true,
+          "stationsShown": 1,
+          "order": [
+            "proposal-sent",
+            "withdrawal-sent",
+            "withdrawal-received",
+            "proposal-received"
+          ],
+          "grouped": false,
+          "finalShown": 0,
+          "finalState": "withdrawal-communicated",
+          "flightGap": 8.1,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "textPx": 22,
+          "headPx": 129.8,
+          "actionCapped": true
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same journeys and stations @0.8",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "cardP": {
+            "x": 1651.34,
+            "y": 351.93
+          },
+          "cardW": {
+            "x": 1651.34,
+            "y": 159.21
+          },
+          "whereP": "B",
+          "whereW": "B",
+          "handA": {
+            "x": 174,
+            "y": 554.4
+          },
+          "handB": {
+            "x": 1882.2,
+            "y": 535.07
+          },
+          "allReached": true,
+          "stationsShown": 4,
+          "order": [
+            "proposal-sent",
+            "withdrawal-sent",
+            "withdrawal-received",
+            "proposal-received"
+          ],
+          "grouped": false,
+          "finalShown": 1,
+          "finalState": "withdrawal-communicated",
+          "flightGap": 11.4,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "textPx": 26,
+          "headPx": 151.5,
+          "actionCapped": false
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

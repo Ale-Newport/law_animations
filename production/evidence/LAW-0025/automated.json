@@ -1,0 +1,624 @@
+{
+  "animationId": "LAW-0025",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0025",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: pages unlinked, nothing marked or stamped @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 1620,
+            "y": 820
+          },
+          "handPen": {
+            "x": 1683.43,
+            "y": 873.22
+          },
+          "penGrip": {
+            "x": 1683.43,
+            "y": 873.22
+          },
+          "strokeEnd": null,
+          "drawing": null,
+          "links": [
+            0,
+            0,
+            0
+          ],
+          "linked": 0,
+          "underline": 0,
+          "question": 0,
+          "write": 0,
+          "stampTool": {
+            "x": 1800,
+            "y": 118
+          },
+          "stampSpot": null,
+          "stampPressed": false,
+          "stampApplied": false,
+          "reach": {
+            "pen": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "rest",
+          "finalState": "aligned",
+          "pairs": 3,
+          "termSlot": "available",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: guides are drawn one pair at a time, in reading order @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 767.7,
+            "y": 411.01
+          },
+          "handPen": {
+            "x": 831.12,
+            "y": 464.23
+          },
+          "penGrip": {
+            "x": 831.12,
+            "y": 464.23
+          },
+          "strokeEnd": {
+            "x": 767.7,
+            "y": 411.01
+          },
+          "drawing": "link0",
+          "links": [
+            0.767,
+            0,
+            0
+          ],
+          "linked": 0,
+          "underline": 0,
+          "question": 0,
+          "write": 0,
+          "stampTool": {
+            "x": 1800,
+            "y": 118
+          },
+          "stampSpot": null,
+          "stampPressed": false,
+          "stampApplied": false,
+          "reach": {
+            "pen": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "action",
+          "finalState": "aligned",
+          "pairs": 3,
+          "termSlot": "available",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: first guides complete during the action beats @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 696.25,
+            "y": 755.27
+          },
+          "handPen": {
+            "x": 759.68,
+            "y": 808.49
+          },
+          "penGrip": {
+            "x": 759.68,
+            "y": 808.49
+          },
+          "strokeEnd": {
+            "x": 696.25,
+            "y": 755.27
+          },
+          "drawing": "link2",
+          "links": [
+            1,
+            1,
+            0.309
+          ],
+          "linked": 2,
+          "underline": 0,
+          "question": 0,
+          "write": 0,
+          "stampTool": {
+            "x": 1800,
+            "y": 118
+          },
+          "stampSpot": null,
+          "stampPressed": false,
+          "stampApplied": false,
+          "reach": {
+            "pen": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "aligned",
+          "pairs": 3,
+          "termSlot": "available",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the term is marked only after every guide is drawn (cause before effect) @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 858.9,
+            "y": 676.42
+          },
+          "handPen": {
+            "x": 922.33,
+            "y": 729.65
+          },
+          "penGrip": {
+            "x": 922.33,
+            "y": 729.65
+          },
+          "strokeEnd": null,
+          "drawing": null,
+          "links": [
+            1,
+            1,
+            1
+          ],
+          "linked": 3,
+          "underline": 0,
+          "question": 0,
+          "write": 0,
+          "stampTool": {
+            "x": 1800,
+            "y": 118
+          },
+          "stampSpot": null,
+          "stampPressed": false,
+          "stampApplied": false,
+          "reach": {
+            "pen": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "aligned",
+          "pairs": 3,
+          "termSlot": "available",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the reviewer presses the stamp after the guides are complete @0.71",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 1620,
+            "y": 820
+          },
+          "handPen": {
+            "x": 1683.43,
+            "y": 873.22
+          },
+          "penGrip": {
+            "x": 1683.43,
+            "y": 873.22
+          },
+          "strokeEnd": null,
+          "drawing": null,
+          "links": [
+            1,
+            1,
+            1
+          ],
+          "linked": 3,
+          "underline": 1,
+          "question": 0,
+          "write": 0,
+          "stampTool": {
+            "x": 1265.8,
+            "y": 209.34
+          },
+          "stampSpot": {
+            "x": 1265.8,
+            "y": 209.34
+          },
+          "stampPressed": true,
+          "stampApplied": false,
+          "reach": {
+            "pen": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "aligned",
+          "pairs": 3,
+          "termSlot": "available",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: aligned: every pair linked, equivalent underlined, stamp applied @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 1620,
+            "y": 820
+          },
+          "handPen": {
+            "x": 1683.43,
+            "y": 873.22
+          },
+          "penGrip": {
+            "x": 1683.43,
+            "y": 873.22
+          },
+          "strokeEnd": null,
+          "drawing": null,
+          "links": [
+            1,
+            1,
+            1
+          ],
+          "linked": 3,
+          "underline": 1,
+          "question": 0,
+          "write": 0,
+          "stampTool": {
+            "x": 1800,
+            "y": 118
+          },
+          "stampSpot": null,
+          "stampPressed": false,
+          "stampApplied": true,
+          "reach": {
+            "pen": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "aligned",
+          "pairs": 3,
+          "termSlot": "available",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: term-unconfirmed: guides drawn, the term keeps a question mark instead @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 1620,
+            "y": 820
+          },
+          "handPen": {
+            "x": 1683.43,
+            "y": 873.22
+          },
+          "penGrip": {
+            "x": 1683.43,
+            "y": 873.22
+          },
+          "strokeEnd": null,
+          "drawing": null,
+          "links": [
+            1,
+            1,
+            1
+          ],
+          "linked": 3,
+          "underline": 0,
+          "question": 1,
+          "write": 0,
+          "stampTool": {
+            "x": 1800,
+            "y": 118
+          },
+          "stampSpot": null,
+          "stampPressed": false,
+          "stampApplied": true,
+          "reach": {
+            "pen": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "term-unconfirmed",
+          "pairs": 3,
+          "termSlot": "unconfirmed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 649.46,
+            "y": 571.78
+          },
+          "handPen": {
+            "x": 712.88,
+            "y": 625.01
+          },
+          "penGrip": {
+            "x": 712.88,
+            "y": 625.01
+          },
+          "strokeEnd": null,
+          "drawing": null,
+          "links": [
+            1,
+            0,
+            0
+          ],
+          "linked": 1,
+          "underline": 0,
+          "question": 0,
+          "write": 0,
+          "stampTool": {
+            "x": 1800,
+            "y": 118
+          },
+          "stampSpot": null,
+          "stampPressed": false,
+          "stampApplied": false,
+          "reach": {
+            "pen": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "aligned",
+          "pairs": 3,
+          "termSlot": "available",
+          "actionCapped": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the action completes identically with labels hidden @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 1620,
+            "y": 820
+          },
+          "handPen": {
+            "x": 1683.43,
+            "y": 873.22
+          },
+          "penGrip": {
+            "x": 1683.43,
+            "y": 873.22
+          },
+          "strokeEnd": null,
+          "drawing": null,
+          "links": [
+            1,
+            1,
+            1
+          ],
+          "linked": 3,
+          "underline": 1,
+          "question": 0,
+          "write": 0,
+          "stampTool": {
+            "x": 1800,
+            "y": 118
+          },
+          "stampSpot": null,
+          "stampPressed": false,
+          "stampApplied": true,
+          "reach": {
+            "pen": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "aligned",
+          "pairs": 3,
+          "termSlot": "available",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: one guide per supplied segment pair @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "penTip": {
+            "x": 747.42,
+            "y": 410.15
+          },
+          "handPen": {
+            "x": 810.85,
+            "y": 463.37
+          },
+          "penGrip": {
+            "x": 810.85,
+            "y": 463.37
+          },
+          "strokeEnd": null,
+          "drawing": null,
+          "links": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "linked": 1,
+          "underline": 0,
+          "question": 0,
+          "write": 0,
+          "stampTool": {
+            "x": 1800,
+            "y": 118
+          },
+          "stampSpot": null,
+          "stampPressed": false,
+          "stampApplied": false,
+          "reach": {
+            "pen": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "action",
+          "finalState": "aligned",
+          "pairs": 4,
+          "termSlot": "available",
+          "actionCapped": false
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

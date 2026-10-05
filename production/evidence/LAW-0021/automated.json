@@ -1,0 +1,1070 @@
+{
+  "animationId": "LAW-0021",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0021",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: starts at rest: annex in the folder, pen on the desk, nothing written @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "annexCenter": {
+            "x": 1348,
+            "y": 590
+          },
+          "annexRotation": -4,
+          "annexHolder": "folder",
+          "annexLift": 0,
+          "annexGrip": {
+            "x": 1482.2,
+            "y": 525.16
+          },
+          "pocketOverAnnex": true,
+          "annexBottom": 832.01,
+          "pocketLip": 626,
+          "annexInWindow": true,
+          "heldGrip": {
+            "x": 440,
+            "y": 40
+          },
+          "handB": {
+            "x": 1538,
+            "y": 760
+          },
+          "handA": {
+            "x": 440,
+            "y": 40
+          },
+          "penTip": {
+            "x": 340,
+            "y": 196
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "writeProgress": 0,
+          "linkProgress": 0,
+          "links": {
+            "1": 0
+          },
+          "eyelet": {
+            "x": 1146.76,
+            "y": 511.65
+          },
+          "linkEnd": {
+            "x": 702.51,
+            "y": 510
+          },
+          "inkTip": {
+            "x": 457.64,
+            "y": 494.33
+          },
+          "stampTool": {
+            "x": 520,
+            "y": 158
+          },
+          "stampSpot": {
+            "x": 724,
+            "y": 582.73
+          },
+          "stampPressed": false,
+          "sealApplied": false,
+          "sealAcrossSeam": false,
+          "highlight": 0,
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "rest",
+          "finalState": "linked",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: rest beat stays still (annex still in the pocket) @0.14",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "annexCenter": {
+            "x": 1348,
+            "y": 590
+          },
+          "annexRotation": -4,
+          "annexHolder": "folder",
+          "annexLift": 0,
+          "annexGrip": {
+            "x": 1482.2,
+            "y": 525.16
+          },
+          "pocketOverAnnex": true,
+          "annexBottom": 832.01,
+          "pocketLip": 626,
+          "annexInWindow": true,
+          "heldGrip": {
+            "x": 440,
+            "y": 40
+          },
+          "handB": {
+            "x": 1538,
+            "y": 760
+          },
+          "handA": {
+            "x": 440,
+            "y": 40
+          },
+          "penTip": {
+            "x": 340,
+            "y": 196
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "writeProgress": 0,
+          "linkProgress": 0,
+          "links": {
+            "1": 0
+          },
+          "eyelet": {
+            "x": 1146.76,
+            "y": 511.65
+          },
+          "linkEnd": {
+            "x": 702.51,
+            "y": 510
+          },
+          "inkTip": {
+            "x": 457.64,
+            "y": 494.33
+          },
+          "stampTool": {
+            "x": 520,
+            "y": 158
+          },
+          "stampSpot": {
+            "x": 724,
+            "y": 582.73
+          },
+          "stampPressed": false,
+          "sealApplied": false,
+          "sealAcrossSeam": false,
+          "highlight": 0,
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "rest",
+          "finalState": "linked",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: B carries the lifted annex toward the contract @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "annexCenter": {
+            "x": 1325.82,
+            "y": 395.18
+          },
+          "annexRotation": -2.04,
+          "annexHolder": "B-carrying",
+          "annexLift": 0.762,
+          "annexGrip": {
+            "x": 1462.16,
+            "y": 334.97
+          },
+          "pocketOverAnnex": false,
+          "annexBottom": 631.7,
+          "pocketLip": 626,
+          "annexInWindow": true,
+          "heldGrip": {
+            "x": 440,
+            "y": 40
+          },
+          "handB": {
+            "x": 1462.16,
+            "y": 334.97
+          },
+          "handA": {
+            "x": 440,
+            "y": 40
+          },
+          "penTip": {
+            "x": 340,
+            "y": 196
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "writeProgress": 0,
+          "linkProgress": 0,
+          "links": {
+            "1": 0
+          },
+          "eyelet": {
+            "x": 1127.38,
+            "y": 309.99
+          },
+          "linkEnd": {
+            "x": 702.51,
+            "y": 510
+          },
+          "inkTip": {
+            "x": 457.64,
+            "y": 494.33
+          },
+          "stampTool": {
+            "x": 520,
+            "y": 158
+          },
+          "stampSpot": {
+            "x": 724,
+            "y": 582.73
+          },
+          "stampPressed": false,
+          "sealApplied": false,
+          "sealAcrossSeam": false,
+          "highlight": 0,
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "action",
+          "finalState": "linked",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: released annex glides the last stretch; clause not yet lit @0.42",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "annexCenter": {
+            "x": 917.88,
+            "y": 580.46
+          },
+          "annexRotation": -0.31,
+          "annexHolder": "gliding",
+          "annexLift": 0.5,
+          "annexGrip": {
+            "x": 1055.97,
+            "y": 524.39
+          },
+          "pocketOverAnnex": false,
+          "annexBottom": 811.9,
+          "pocketLip": 626,
+          "annexInWindow": true,
+          "heldGrip": {
+            "x": 296.64,
+            "y": 134.07
+          },
+          "handB": {
+            "x": 1242.54,
+            "y": 502.26
+          },
+          "handA": {
+            "x": 296.64,
+            "y": 134.07
+          },
+          "penTip": {
+            "x": 340,
+            "y": 196
+          },
+          "penHeld": true,
+          "penTouching": false,
+          "writeProgress": 0,
+          "linkProgress": 0,
+          "links": {
+            "1": 0
+          },
+          "eyelet": {
+            "x": 722.09,
+            "y": 489.33
+          },
+          "linkEnd": {
+            "x": 702.51,
+            "y": 510
+          },
+          "inkTip": {
+            "x": 457.64,
+            "y": 494.33
+          },
+          "stampTool": {
+            "x": 520,
+            "y": 158
+          },
+          "stampSpot": {
+            "x": 724,
+            "y": 582.73
+          },
+          "stampPressed": false,
+          "sealApplied": false,
+          "sealAcrossSeam": false,
+          "highlight": 0,
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "linked",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: tab lands at the clause first, then the reference is written @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "annexCenter": {
+            "x": 891,
+            "y": 582.96
+          },
+          "annexRotation": 0,
+          "annexHolder": "docked",
+          "annexLift": 0,
+          "annexGrip": {
+            "x": 1029.4,
+            "y": 527.64
+          },
+          "pocketOverAnnex": false,
+          "annexBottom": 813.46,
+          "pocketLip": 626,
+          "annexInWindow": true,
+          "heldGrip": {
+            "x": 454.86,
+            "y": 423.49
+          },
+          "handB": {
+            "x": 1519.49,
+            "y": 743.85
+          },
+          "handA": {
+            "x": 454.86,
+            "y": 423.49
+          },
+          "penTip": {
+            "x": 498.22,
+            "y": 485.42
+          },
+          "penHeld": true,
+          "penTouching": true,
+          "writeProgress": 0.333,
+          "linkProgress": 0,
+          "links": {
+            "1": 0
+          },
+          "eyelet": {
+            "x": 695.72,
+            "y": 490.76
+          },
+          "linkEnd": {
+            "x": 702.51,
+            "y": 510
+          },
+          "inkTip": {
+            "x": 498.22,
+            "y": 485.42
+          },
+          "stampTool": {
+            "x": 520,
+            "y": 158
+          },
+          "stampSpot": {
+            "x": 724,
+            "y": 582.73
+          },
+          "stampPressed": false,
+          "sealApplied": false,
+          "sealAcrossSeam": false,
+          "highlight": 1,
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "linked",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: link loop drawn after the reference, before the seal @0.58",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "annexCenter": {
+            "x": 891,
+            "y": 582.96
+          },
+          "annexRotation": 0,
+          "annexHolder": "docked",
+          "annexLift": 0,
+          "annexGrip": {
+            "x": 1029.4,
+            "y": 527.64
+          },
+          "pocketOverAnnex": false,
+          "annexBottom": 813.46,
+          "pocketLip": 626,
+          "annexInWindow": true,
+          "heldGrip": {
+            "x": 674.16,
+            "y": 426.58
+          },
+          "handB": {
+            "x": 1538,
+            "y": 760
+          },
+          "handA": {
+            "x": 674.16,
+            "y": 426.58
+          },
+          "penTip": {
+            "x": 717.52,
+            "y": 488.51
+          },
+          "penHeld": true,
+          "penTouching": true,
+          "writeProgress": 1,
+          "linkProgress": 0.571,
+          "links": {
+            "1": 0.571
+          },
+          "eyelet": {
+            "x": 695.72,
+            "y": 490.76
+          },
+          "linkEnd": {
+            "x": 702.51,
+            "y": 510
+          },
+          "inkTip": {
+            "x": 717.52,
+            "y": 488.51
+          },
+          "stampTool": {
+            "x": 520,
+            "y": 158
+          },
+          "stampSpot": {
+            "x": 724,
+            "y": 582.73
+          },
+          "stampPressed": false,
+          "sealApplied": false,
+          "sealAcrossSeam": false,
+          "highlight": 1,
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "linked",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: pen laid down before the seal is taken @0.66",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "annexCenter": {
+            "x": 891,
+            "y": 582.96
+          },
+          "annexRotation": 0,
+          "annexHolder": "docked",
+          "annexLift": 0,
+          "annexGrip": {
+            "x": 1029.4,
+            "y": 527.64
+          },
+          "pocketOverAnnex": false,
+          "annexBottom": 813.46,
+          "pocketLip": 626,
+          "annexInWindow": true,
+          "heldGrip": {
+            "x": 352.48,
+            "y": 140.05
+          },
+          "handB": {
+            "x": 1538,
+            "y": 760
+          },
+          "handA": {
+            "x": 352.48,
+            "y": 140.05
+          },
+          "penTip": {
+            "x": 340,
+            "y": 196
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "writeProgress": 1,
+          "linkProgress": 1,
+          "links": {
+            "1": 1
+          },
+          "eyelet": {
+            "x": 695.72,
+            "y": 490.76
+          },
+          "linkEnd": {
+            "x": 702.51,
+            "y": 510
+          },
+          "inkTip": {
+            "x": 702.51,
+            "y": 510
+          },
+          "stampTool": {
+            "x": 520,
+            "y": 158
+          },
+          "stampSpot": {
+            "x": 724,
+            "y": 582.73
+          },
+          "stampPressed": false,
+          "sealApplied": false,
+          "sealAcrossSeam": false,
+          "highlight": 1,
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "linked",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: held final state: annex docked at the clause, link ends on the tab eyelet, joint seal across the seam @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "annexCenter": {
+            "x": 891,
+            "y": 582.96
+          },
+          "annexRotation": 0,
+          "annexHolder": "docked",
+          "annexLift": 0,
+          "annexGrip": {
+            "x": 1029.4,
+            "y": 527.64
+          },
+          "pocketOverAnnex": false,
+          "annexBottom": 813.46,
+          "pocketLip": 626,
+          "annexInWindow": true,
+          "heldGrip": {
+            "x": 440,
+            "y": 40
+          },
+          "handB": {
+            "x": 1538,
+            "y": 760
+          },
+          "handA": {
+            "x": 440,
+            "y": 40
+          },
+          "penTip": {
+            "x": 340,
+            "y": 196
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "writeProgress": 1,
+          "linkProgress": 1,
+          "links": {
+            "1": 1
+          },
+          "eyelet": {
+            "x": 695.72,
+            "y": 490.76
+          },
+          "linkEnd": {
+            "x": 702.51,
+            "y": 510
+          },
+          "inkTip": {
+            "x": 702.51,
+            "y": 510
+          },
+          "stampTool": {
+            "x": 520,
+            "y": 158
+          },
+          "stampSpot": {
+            "x": 724,
+            "y": 582.73
+          },
+          "stampPressed": false,
+          "sealApplied": true,
+          "sealAcrossSeam": true,
+          "highlight": 1,
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "linked",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same physical transformation happens @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "annexCenter": {
+            "x": 891,
+            "y": 578
+          },
+          "annexRotation": 0,
+          "annexHolder": "docked",
+          "annexLift": 0,
+          "annexGrip": {
+            "x": 1029.4,
+            "y": 522.68
+          },
+          "pocketOverAnnex": false,
+          "annexBottom": 808.5,
+          "pocketLip": 626,
+          "annexInWindow": true,
+          "heldGrip": {
+            "x": 440,
+            "y": 40
+          },
+          "handB": {
+            "x": 1538,
+            "y": 760
+          },
+          "handA": {
+            "x": 440,
+            "y": 40
+          },
+          "penTip": {
+            "x": 340,
+            "y": 196
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "writeProgress": 1,
+          "linkProgress": 1,
+          "links": {
+            "1": 1
+          },
+          "eyelet": {
+            "x": 695.72,
+            "y": 485.8
+          },
+          "linkEnd": {
+            "x": 702.51,
+            "y": 505.04
+          },
+          "inkTip": {
+            "x": 702.51,
+            "y": 505.04
+          },
+          "stampTool": {
+            "x": 520,
+            "y": 158
+          },
+          "stampSpot": {
+            "x": 724,
+            "y": 577.77
+          },
+          "stampPressed": false,
+          "sealApplied": true,
+          "sealAcrossSeam": true,
+          "highlight": 1,
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "linked",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: separate state: annex laid apart, no link, seal on the annex alone @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "annexCenter": {
+            "x": 955,
+            "y": 608.96
+          },
+          "annexRotation": 3,
+          "annexHolder": "separate",
+          "annexLift": 0,
+          "annexGrip": {
+            "x": 1096.11,
+            "y": 560.96
+          },
+          "pocketOverAnnex": false,
+          "annexBottom": 848.2,
+          "pocketLip": 626,
+          "annexInWindow": true,
+          "heldGrip": {
+            "x": 440,
+            "y": 40
+          },
+          "handB": {
+            "x": 1538,
+            "y": 760
+          },
+          "handA": {
+            "x": 440,
+            "y": 40
+          },
+          "penTip": {
+            "x": 340,
+            "y": 196
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "writeProgress": 1,
+          "linkProgress": 0,
+          "links": {
+            "1": 0
+          },
+          "eyelet": {
+            "x": 764.81,
+            "y": 506.67
+          },
+          "linkEnd": {
+            "x": 702.51,
+            "y": 510
+          },
+          "inkTip": {
+            "x": 610.8,
+            "y": 497.14
+          },
+          "stampTool": {
+            "x": 520,
+            "y": 158
+          },
+          "stampSpot": {
+            "x": 856.67,
+            "y": 593.56
+          },
+          "stampPressed": false,
+          "sealApplied": true,
+          "sealAcrossSeam": false,
+          "highlight": 0,
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "separate",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: another linked clause re-targets the dock @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "annexCenter": {
+            "x": 891,
+            "y": 644.5
+          },
+          "annexRotation": 0,
+          "annexHolder": "docked",
+          "annexLift": 0,
+          "annexGrip": {
+            "x": 1029.4,
+            "y": 589.18
+          },
+          "pocketOverAnnex": false,
+          "annexBottom": 875,
+          "pocketLip": 626,
+          "annexInWindow": true,
+          "heldGrip": {
+            "x": 440,
+            "y": 40
+          },
+          "handB": {
+            "x": 1538,
+            "y": 760
+          },
+          "handA": {
+            "x": 440,
+            "y": 40
+          },
+          "penTip": {
+            "x": 340,
+            "y": 196
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "writeProgress": 1,
+          "linkProgress": 1,
+          "links": {
+            "2": 1
+          },
+          "eyelet": {
+            "x": 695.72,
+            "y": 638.19
+          },
+          "linkEnd": {
+            "x": 702.51,
+            "y": 657.42
+          },
+          "inkTip": {
+            "x": 702.51,
+            "y": 657.42
+          },
+          "stampTool": {
+            "x": 520,
+            "y": 158
+          },
+          "stampSpot": {
+            "x": 724,
+            "y": 546.22
+          },
+          "stampPressed": false,
+          "sealApplied": true,
+          "sealAcrossSeam": true,
+          "highlight": 1,
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "linked",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "annexCenter": {
+            "x": 1115.51,
+            "y": 560.38
+          },
+          "annexRotation": -2.49,
+          "annexHolder": "B-carrying",
+          "annexLift": 0.983,
+          "annexGrip": {
+            "x": 1251.38,
+            "y": 499.11
+          },
+          "pocketOverAnnex": false,
+          "annexBottom": 798.16,
+          "pocketLip": 626,
+          "annexInWindow": true,
+          "heldGrip": {
+            "x": 440,
+            "y": 40
+          },
+          "handB": {
+            "x": 1251.38,
+            "y": 499.11
+          },
+          "handA": {
+            "x": 440,
+            "y": 40
+          },
+          "penTip": {
+            "x": 340,
+            "y": 196
+          },
+          "penHeld": false,
+          "penTouching": false,
+          "writeProgress": 0,
+          "linkProgress": 0,
+          "links": {
+            "1": 0
+          },
+          "eyelet": {
+            "x": 916.41,
+            "y": 476.73
+          },
+          "linkEnd": {
+            "x": 702.51,
+            "y": 510
+          },
+          "inkTip": {
+            "x": 457.64,
+            "y": 494.33
+          },
+          "stampTool": {
+            "x": 520,
+            "y": 158
+          },
+          "stampSpot": {
+            "x": 724,
+            "y": 582.73
+          },
+          "stampPressed": false,
+          "sealApplied": false,
+          "sealAcrossSeam": false,
+          "highlight": 0,
+          "reach": {
+            "A": true,
+            "B": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "linked",
+          "actionCapped": true
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

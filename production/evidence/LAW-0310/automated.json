@@ -1,0 +1,938 @@
+{
+  "animationId": "LAW-0310",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0310",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "hearing.room"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: the pieces in their places; the session clock runs; no card @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "lifted": 0,
+          "drawn": [
+            0,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "running",
+          "run": 0,
+          "minuteDeg": 168,
+          "pause": 0,
+          "card": 0,
+          "link": 0,
+          "cardState": "none",
+          "caption": 0,
+          "pins": 0,
+          "stopFrom": 0.528,
+          "frames": 0,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: separate: the pieces are lifted before any relationship is drawn @0.16",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "lifted": 1,
+          "drawn": [
+            0,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "running",
+          "run": 0.2778,
+          "minuteDeg": 188,
+          "pause": 0,
+          "card": 0,
+          "link": 0,
+          "cardState": "none",
+          "caption": 0,
+          "pins": 0,
+          "stopFrom": 0.528,
+          "frames": 0,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: relate: the relationships are drawn one after the other @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "lifted": 1,
+          "drawn": [
+            1,
+            0.179
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "running",
+          "run": 0.5209,
+          "minuteDeg": 205.5,
+          "pause": 0,
+          "card": 0,
+          "link": 0,
+          "cardState": "none",
+          "caption": 0,
+          "pins": 0,
+          "stopFrom": 0.528,
+          "frames": 0,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: every relationship drawn before the tracer; the clock still runs @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "running",
+          "run": 0.6945,
+          "minuteDeg": 218,
+          "pause": 0,
+          "card": 0,
+          "link": 0,
+          "cardState": "none",
+          "caption": 0,
+          "pins": 0,
+          "stopFrom": 0.528,
+          "frames": 0,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: trace: the tracer runs along the relationships @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": {
+            "x": 810.38,
+            "y": 171.77
+          },
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "running",
+          "run": 0.7813,
+          "minuteDeg": 224.25,
+          "pause": 0,
+          "card": 0,
+          "link": 0,
+          "cardState": "none",
+          "caption": 0,
+          "pins": 0,
+          "stopFrom": 0.528,
+          "frames": 0,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: once the tracer has reached the panel the session clock slows down @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": {
+            "x": 496.76,
+            "y": 504.6
+          },
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "slowing",
+          "run": 0.9948,
+          "minuteDeg": 239.63,
+          "pause": 0,
+          "card": 0,
+          "link": 0,
+          "cardState": "none",
+          "caption": 0,
+          "pins": 0,
+          "stopFrom": 0.528,
+          "frames": 0,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the session clock has stopped with its pause badge before the card comes @0.665",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "stopped",
+          "run": 1,
+          "minuteDeg": 240,
+          "pause": 1,
+          "card": 0,
+          "link": 0,
+          "cardState": "none",
+          "caption": 0,
+          "pins": 0,
+          "stopFrom": 0.528,
+          "frames": 0,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the recess card comes out; no connector yet; nothing framed @0.72",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "stopped",
+          "run": 1,
+          "minuteDeg": 240,
+          "pause": 1,
+          "card": 0.581,
+          "link": 0,
+          "cardState": "coming",
+          "caption": 0,
+          "pins": 0,
+          "stopFrom": 0.528,
+          "frames": 0,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the connector draws from the clock to the card once the card has arrived @0.77",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "stopped",
+          "run": 1,
+          "minuteDeg": 240,
+          "pause": 1,
+          "card": 1,
+          "link": 0.575,
+          "cardState": "connecting",
+          "caption": 0,
+          "pins": 0,
+          "stopFrom": 0.528,
+          "frames": 0,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the connected card, its caption and the kept positions stand before both places are framed @0.86",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "stopped",
+          "run": 1,
+          "minuteDeg": 240,
+          "pause": 1,
+          "card": 1,
+          "link": 1,
+          "cardState": "connected",
+          "caption": 1,
+          "pins": 1,
+          "stopFrom": 0.528,
+          "frames": 0,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: origin, paused clock, connected recess card and kept positions visible, the same frame round both places; only the supplied kinds; no causal link by default; the composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "stopped",
+          "run": 1,
+          "minuteDeg": 240,
+          "pause": 1,
+          "card": 1,
+          "link": 1,
+          "cardState": "connected",
+          "caption": 1,
+          "pins": 1,
+          "stopFrom": 0.528,
+          "frames": 1,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the running clock @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "lifted": 0.919,
+          "drawn": [
+            0,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "running",
+          "run": 0.1736,
+          "minuteDeg": 180.5,
+          "pause": 0,
+          "card": 0,
+          "link": 0,
+          "cardState": "none",
+          "caption": 0,
+          "pins": 0,
+          "stopFrom": 0.528,
+          "frames": 0,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same relationships and tracer @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": {
+            "x": 1072.18,
+            "y": 142.1
+          },
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "running",
+          "run": 0.7813,
+          "minuteDeg": 224.25,
+          "pause": 0,
+          "card": 0,
+          "link": 0,
+          "cardState": "none",
+          "caption": 0,
+          "pins": 0,
+          "stopFrom": 0.528,
+          "frames": 0,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 95.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: another supplied mechanism: a link from the wall clock, other traversal and focus @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "clock",
+          "focusScale": 1,
+          "clockState": "stopped",
+          "run": 1,
+          "minuteDeg": 30,
+          "pause": 1,
+          "card": 1,
+          "link": 1,
+          "cardState": "connected",
+          "caption": 1,
+          "pins": 1,
+          "stopFrom": 0.528,
+          "frames": 1,
+          "ops": [
+            "recess",
+            "active"
+          ],
+          "roles": {
+            "operator": 2,
+            "listeners": [
+              0,
+              1,
+              3
+            ]
+          },
+          "activeI": 1,
+          "recessI": 0,
+          "order": "0>1",
+          "operatorIndex": 2,
+          "trav": "clock>board>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 61.4,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: a causal link is drawn only when the author supplies it @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "causal",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "board",
+          "focusScale": 1,
+          "clockState": "stopped",
+          "run": 1,
+          "minuteDeg": 240,
+          "pause": 1,
+          "card": 1,
+          "link": 1,
+          "cardState": "connected",
+          "caption": 1,
+          "pins": 1,
+          "stopFrom": 0.616,
+          "frames": 1,
+          "ops": [
+            "active",
+            "recess"
+          ],
+          "roles": {
+            "operator": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "activeI": 0,
+          "recessI": 1,
+          "order": "0>1",
+          "operatorIndex": 0,
+          "trav": "exhibit>board",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 75.5,
+          "allReached": true
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

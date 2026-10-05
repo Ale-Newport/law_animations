@@ -1,0 +1,2572 @@
+{
+  "animationId": "LAW-0015",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0015",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: two identical situations (both copies carry the original wording) @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "a": {
+            "wording": "original",
+            "placed": false,
+            "links": 0,
+            "ticks": 0,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": false,
+            "incoming": {
+              "x": 1268,
+              "y": 462
+            }
+          },
+          "b": {
+            "wording": "original",
+            "placed": false,
+            "links": 0,
+            "ticks": 0,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": false,
+            "incoming": {
+              "x": 1268,
+              "y": 462
+            }
+          },
+          "incomingA": {
+            "x": 1268,
+            "y": 462
+          },
+          "incomingB": {
+            "x": 1268,
+            "y": 462
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1368.88,
+            "y": 196.88
+          },
+          "gripA": {
+            "x": 1368.88,
+            "y": 196.88
+          },
+          "handDrafterB": {
+            "x": 1368.88,
+            "y": 196.88
+          },
+          "gripB": {
+            "x": 1368.88,
+            "y": 196.88
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            0,
+            0
+          ],
+          "guideLabel": "Changed fact: wording of rows 1 and 3 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: change beat: only B’s copy is being rewritten @0.26",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "a": {
+            "wording": "original",
+            "placed": false,
+            "links": 0,
+            "ticks": 0,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": false,
+            "incoming": {
+              "x": 1268,
+              "y": 462
+            }
+          },
+          "b": {
+            "wording": "changing",
+            "placed": false,
+            "links": 0,
+            "ticks": 0,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": false,
+            "incoming": {
+              "x": 1268,
+              "y": 462
+            }
+          },
+          "incomingA": {
+            "x": 1268,
+            "y": 462
+          },
+          "incomingB": {
+            "x": 1268,
+            "y": 462
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1368.88,
+            "y": 196.88
+          },
+          "gripA": {
+            "x": 1368.88,
+            "y": 196.88
+          },
+          "handDrafterB": {
+            "x": 1368.88,
+            "y": 196.88
+          },
+          "gripB": {
+            "x": 1368.88,
+            "y": 196.88
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            0,
+            0
+          ],
+          "guideLabel": "Changed fact: wording of rows 1 and 3 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: after the change the two desks still move identically @0.36",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "a": {
+            "wording": "original",
+            "placed": false,
+            "links": 0,
+            "ticks": 0,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": false,
+            "incoming": {
+              "x": 1224.55,
+              "y": 496.01
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": false,
+            "links": 0,
+            "ticks": 0,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": false,
+            "incoming": {
+              "x": 1224.55,
+              "y": 496.01
+            }
+          },
+          "incomingA": {
+            "x": 1224.55,
+            "y": 496.01
+          },
+          "incomingB": {
+            "x": 1224.55,
+            "y": 496.01
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1315.51,
+            "y": 228.6
+          },
+          "gripA": {
+            "x": 1315.51,
+            "y": 228.6
+          },
+          "handDrafterB": {
+            "x": 1315.51,
+            "y": 228.6
+          },
+          "gripB": {
+            "x": 1315.51,
+            "y": 228.6
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            0,
+            0
+          ],
+          "guideLabel": "Changed fact: wording of rows 1 and 3 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: identical placement in parallel @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "wording": "original",
+            "placed": true,
+            "links": 0,
+            "ticks": 0,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": false,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": true,
+            "links": 0,
+            "ticks": 0,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": false,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "incomingA": {
+            "x": 1130,
+            "y": 570
+          },
+          "incomingB": {
+            "x": 1130,
+            "y": 570
+          },
+          "penA": {
+            "x": 1052.9,
+            "y": 574.44
+          },
+          "penB": {
+            "x": 265.61,
+            "y": 462.76
+          },
+          "strokeEndA": null,
+          "strokeEndB": {
+            "x": 265.61,
+            "y": 462.76
+          },
+          "handDrafterA": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripA": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "handDrafterB": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripB": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            0,
+            0
+          ],
+          "guideLabel": "Changed fact: wording of rows 1 and 3 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: same check, different marks: A ticks every row, B links its modified words @0.8",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "wording": "original",
+            "placed": true,
+            "links": 0,
+            "ticks": 3,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": true,
+            "links": 3,
+            "ticks": 1,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "incomingA": {
+            "x": 1130,
+            "y": 570
+          },
+          "incomingB": {
+            "x": 1130,
+            "y": 570
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripA": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "handDrafterB": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripB": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            0,
+            0
+          ],
+          "guideLabel": "Changed fact: wording of rows 1 and 3 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: only the changed rows differ between the scenes @0.8",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "wording": "original",
+            "placed": true,
+            "links": 0,
+            "ticks": 3,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": true,
+            "links": 3,
+            "ticks": 1,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "incomingA": {
+            "x": 1130,
+            "y": 570
+          },
+          "incomingB": {
+            "x": 1130,
+            "y": 570
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripA": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "handDrafterB": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripB": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            0,
+            0
+          ],
+          "guideLabel": "Changed fact: wording of rows 1 and 3 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: both stamped identically; the guide is fully drawn @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "wording": "original",
+            "placed": true,
+            "links": 0,
+            "ticks": 3,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": true,
+            "links": 3,
+            "ticks": 1,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "incomingA": {
+            "x": 1130,
+            "y": 570
+          },
+          "incomingB": {
+            "x": 1130,
+            "y": 570
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripA": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "handDrafterB": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripB": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            1,
+            1
+          ],
+          "guideLabel": "Changed fact: wording of rows 1 and 3 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the guide rings and joins EVERY differing row (rows 1 and 3), not just the first @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "wording": "original",
+            "placed": true,
+            "links": 0,
+            "ticks": 3,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": true,
+            "links": 3,
+            "ticks": 1,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "incomingA": {
+            "x": 1130,
+            "y": 570
+          },
+          "incomingB": {
+            "x": 1130,
+            "y": 570
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripA": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "handDrafterB": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripB": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            1,
+            1
+          ],
+          "guideLabel": "Changed fact: wording of rows 1 and 3 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the guide label names every differing row (built from the edits) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "wording": "original",
+            "placed": true,
+            "links": 0,
+            "ticks": 3,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": true,
+            "links": 3,
+            "ticks": 1,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "incomingA": {
+            "x": 1130,
+            "y": 570
+          },
+          "incomingB": {
+            "x": 1130,
+            "y": 570
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripA": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "handDrafterB": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripB": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            1,
+            1
+          ],
+          "guideLabel": "Changed fact: wording of rows 1 and 3 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the guide is still drawing on at 0.84 (no early reveal) @0.84",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "wording": "original",
+            "placed": true,
+            "links": 0,
+            "ticks": 3,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": true,
+            "links": 3,
+            "ticks": 1,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "incomingA": {
+            "x": 1130,
+            "y": 570
+          },
+          "incomingB": {
+            "x": 1130,
+            "y": 570
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripA": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "handDrafterB": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripB": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0.364,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            1,
+            0
+          ],
+          "guideLabel": "Changed fact: wording of rows 1 and 3 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the difference reads with labels hidden (marks, not text) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "wording": "original",
+            "placed": true,
+            "links": 0,
+            "ticks": 3,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": true,
+            "links": 3,
+            "ticks": 1,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "incomingA": {
+            "x": 1130,
+            "y": 570
+          },
+          "incomingB": {
+            "x": 1130,
+            "y": 570
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripA": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "handDrafterB": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripB": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            1,
+            1
+          ],
+          "guideLabel": "Changed fact: wording of rows 1 and 3 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the guide follows the supplied changed row @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "wording": "original",
+            "placed": true,
+            "links": 0,
+            "ticks": 3,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": true,
+            "links": 1,
+            "ticks": 2,
+            "marks": [
+              "tick",
+              "link",
+              "tick"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "incomingA": {
+            "x": 1130,
+            "y": 570
+          },
+          "incomingB": {
+            "x": 1130,
+            "y": 570
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripA": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "handDrafterB": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripB": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "focusRows": [
+            1
+          ],
+          "ringedRows": [
+            [
+              1,
+              1
+            ]
+          ],
+          "guideBranches": [],
+          "guideLabel": "Changed fact: wording of row 2 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: adjacent differing rows share one ring; the label lists all of them @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "wording": "original",
+            "placed": true,
+            "links": 0,
+            "ticks": 3,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": true,
+            "links": 3,
+            "ticks": 0,
+            "marks": [
+              "link",
+              "link",
+              "link"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "incomingA": {
+            "x": 1130,
+            "y": 570
+          },
+          "incomingB": {
+            "x": 1130,
+            "y": 570
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripA": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "handDrafterB": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripB": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "focusRows": [
+            0,
+            1,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              2
+            ]
+          ],
+          "guideBranches": [],
+          "guideLabel": "Changed fact: wording of rows 1, 2 and 3 of the incoming copy",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the {rows} token is filled in the built-in language @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "wording": "original",
+            "placed": true,
+            "links": 0,
+            "ticks": 3,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": true,
+            "links": 3,
+            "ticks": 1,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "incomingA": {
+            "x": 1130,
+            "y": 570
+          },
+          "incomingB": {
+            "x": 1130,
+            "y": 570
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripA": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "handDrafterB": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripB": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            1,
+            1
+          ],
+          "guideLabel": "Hecho cambiado: redacción de la copia entrante, filas 1 y 3",
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: a guide label without the token is shown verbatim @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "wording": "original",
+            "placed": true,
+            "links": 0,
+            "ticks": 3,
+            "marks": [
+              "tick",
+              "tick",
+              "tick"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "b": {
+            "wording": "revised",
+            "placed": true,
+            "links": 3,
+            "ticks": 1,
+            "marks": [
+              "link",
+              "link",
+              "tick",
+              "link"
+            ],
+            "stamp": true,
+            "incoming": {
+              "x": 1130,
+              "y": 570
+            }
+          },
+          "incomingA": {
+            "x": 1130,
+            "y": 570
+          },
+          "incomingB": {
+            "x": 1130,
+            "y": 570
+          },
+          "penA": {
+            "x": 1488,
+            "y": 770
+          },
+          "penB": {
+            "x": 1488,
+            "y": 770
+          },
+          "strokeEndA": null,
+          "strokeEndB": null,
+          "handDrafterA": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripA": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "handDrafterB": {
+            "x": 1395,
+            "y": 70
+          },
+          "gripB": {
+            "x": 1197.2,
+            "y": 307
+          },
+          "stampA": {
+            "x": 92,
+            "y": 880
+          },
+          "stampB": {
+            "x": 92,
+            "y": 880
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "focusRows": [
+            0,
+            2
+          ],
+          "ringedRows": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "guideBranches": [
+            1,
+            1
+          ],
+          "guideLabel": "Changed fact: clause 1 and clause 3",
+          "arrangement": "row"
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "Printing Services Agreement",
+          "The"
+        ],
+        [
+          "letter",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "Printing Services Agreement",
+          "The"
+        ],
+        [
+          ".",
+          "letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "letter",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          ".",
+          "email"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "Printing Services Agreement",
+          "The"
+        ],
+        [
+          "letter",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "Printing Services Agreement",
+          "The"
+        ],
+        [
+          ".",
+          "letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "letter",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          ".",
+          "email"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "letter",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          ".",
+          "letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "letter",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          ".",
+          "email"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "Printing Services Agreement",
+          "The"
+        ],
+        [
+          "letter",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "Printing Services Agreement",
+          "The"
+        ],
+        [
+          ".",
+          "letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "letter",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          ".",
+          "email"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "Printing Services Agreement",
+          "The"
+        ],
+        [
+          "letter",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "Printing Services Agreement",
+          "The"
+        ],
+        [
+          ".",
+          "letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "letter",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          ".",
+          "email"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "letter",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          ".",
+          "letter"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          "letter",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Printing Services Agreement"
+        ],
+        [
+          ".",
+          "email"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "LOAN-07",
+          "Equipment Loan Note"
+        ],
+        [
+          "LOAN-07",
+          "Equipment Loan Note"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "LOAN-07",
+          "Equipment Loan Note"
+        ],
+        [
+          "LOAN-07",
+          "Equipment Loan Note"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "LOAN-07",
+          "Equipment Loan Note"
+        ],
+        [
+          "LOAN-07",
+          "Equipment Loan Note"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "LOAN-07",
+          "Equipment Loan Note"
+        ],
+        [
+          "LOAN-07",
+          "Equipment Loan Note"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "LOAN-07",
+          "Equipment Loan Note"
+        ],
+        [
+          "LOAN-07",
+          "Equipment Loan Note"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "LOAN-07",
+          "Equipment Loan Note"
+        ],
+        [
+          "LOAN-07",
+          "Equipment Loan Note"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "FRAMEWORK-2026-000417-B",
+          "Framework Agreement for the Su"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "1"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "The"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "Supplier"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "delivers"
+        ],
+        [
+          "Supplier",
+          "equipment"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "FRAMEWORK-2026-000417-B",
+          "Framework Agreement for the Su"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "1"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "The"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "Supplier"
+        ],
+        [
+          "Supplier",
+          "equipment"
+        ],
+        [
+          "delivers",
+          "the"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "FRAMEWORK-2026-000417-B",
+          "Framework Agreement for the Su"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "1"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "The"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "Supplier"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "delivers"
+        ],
+        [
+          "Supplier",
+          "equipment"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "FRAMEWORK-2026-000417-B",
+          "Framework Agreement for the Su"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "1"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "The"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "Supplier"
+        ],
+        [
+          "Supplier",
+          "equipment"
+        ],
+        [
+          "delivers",
+          "the"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "FRAMEWORK-2026-000417-B",
+          "Framework Agreement for the Su"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "the"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "listed"
+        ],
+        [
+          "representatives",
+          "."
+        ],
+        [
+          "FRAMEWORK-2026-000417-B",
+          "Framework Agreement for the Su"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "the"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "FRAMEWORK-2026-000417-B",
+          "Framework Agreement for the Su"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "listed"
+        ],
+        [
+          "representatives",
+          "."
+        ],
+        [
+          "FRAMEWORK-2026-000417-B",
+          "Framework Agreement for the Su"
+        ],
+        [
+          "Framework Agreement for the Su",
+          "listed"
+        ],
+        [
+          ".",
+          "managers"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-212",
+          "Contrato de servicios de impre"
+        ],
+        [
+          "Contrato de servicios de impre",
+          "1"
+        ],
+        [
+          "Contrato de servicios de impre",
+          "El"
+        ],
+        [
+          "Contrato de servicios de impre",
+          "proveedor"
+        ],
+        [
+          "central",
+          "."
+        ],
+        [
+          "carta",
+          "."
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "DOC-212",
+          "Contrato de servicios de impre"
+        ],
+        [
+          "Contrato de servicios de impre",
+          "El"
+        ],
+        [
+          "Contrato de servicios de impre",
+          "proveedor"
+        ],
+        [
+          "central",
+          "."
+        ],
+        [
+          "carta",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Contrato de servicios de impre"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-212",
+          "Contrato de servicios de impre"
+        ],
+        [
+          "Contrato de servicios de impre",
+          "1"
+        ],
+        [
+          "Contrato de servicios de impre",
+          "El"
+        ],
+        [
+          "Contrato de servicios de impre",
+          "proveedor"
+        ],
+        [
+          "central",
+          "."
+        ],
+        [
+          "carta",
+          "."
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "DOC-212",
+          "Contrato de servicios de impre"
+        ],
+        [
+          "Contrato de servicios de impre",
+          "El"
+        ],
+        [
+          "Contrato de servicios de impre",
+          "proveedor"
+        ],
+        [
+          "central",
+          "."
+        ],
+        [
+          "carta",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Contrato de servicios de impre"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "DOC-212",
+          "Contrato de servicios de impre"
+        ],
+        [
+          "central",
+          "."
+        ],
+        [
+          "carta",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Contrato de servicios de impre"
+        ],
+        [
+          ".",
+          "central"
+        ],
+        [
+          ".",
+          "carta"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "DOC-212",
+          "Contrato de servicios de impre"
+        ],
+        [
+          "central",
+          "."
+        ],
+        [
+          "carta",
+          "."
+        ],
+        [
+          "DOC-212",
+          "Contrato de servicios de impre"
+        ],
+        [
+          ".",
+          "regional"
+        ],
+        [
+          ".",
+          "electrónico"
+        ]
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

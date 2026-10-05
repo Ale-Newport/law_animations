@@ -1,0 +1,2451 @@
+{
+  "animationId": "LAW-0026",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0026",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: separate: strips still in their pages, nothing related yet @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "tracer": {
+            "x": 190,
+            "y": 713.58
+          },
+          "tracerVisible": false,
+          "sourceStrip": {
+            "x": 190,
+            "y": 745.53
+          },
+          "translationStrip": {
+            "x": 2020,
+            "y": 775.53
+          },
+          "lifted": 0,
+          "relationsDrawn": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 0,
+          "termStatus": "available",
+          "filed": false,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: both strips are lifted out before relations are drawn @0.18",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "tracer": {
+            "x": 190,
+            "y": 713.58
+          },
+          "tracerVisible": false,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 0,
+          "termStatus": "available",
+          "filed": false,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: relations are drawn one by one @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "tracer": {
+            "x": 190,
+            "y": 713.58
+          },
+          "tracerVisible": false,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            1,
+            1,
+            0.993,
+            0,
+            0,
+            0
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 0,
+          "termStatus": "available",
+          "filed": false,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: all relations drawn before the tracer runs @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 196.81,
+            "y": 705.94
+          },
+          "tracerVisible": true,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 0,
+          "termStatus": "available",
+          "filed": false,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the term slot changes only when the tracer reaches the translated segment @0.44",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 190,
+            "y": 713.58
+          },
+          "tracerVisible": true,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 0,
+          "termStatus": "available",
+          "filed": false,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: gather: equivalent in place, sheets filed, tracer gone @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1070,
+            "y": 1041.58
+          },
+          "tracerVisible": false,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 1,
+          "termStatus": "available",
+          "filed": true,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: every connector starts and ends on the edge of its own element @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1070,
+            "y": 1041.58
+          },
+          "tracerVisible": false,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 1,
+          "termStatus": "available",
+          "filed": true,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: plain relations carry no arrowhead and nothing is causal by default @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1070,
+            "y": 1041.58
+          },
+          "tracerVisible": false,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 1,
+          "termStatus": "available",
+          "filed": true,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: every relation label sits beside its own connector, clear of every connector path and of the parts at their focus size @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1070,
+            "y": 1041.58
+          },
+          "tracerVisible": false,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 1,
+          "termStatus": "available",
+          "filed": true,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels stay clear with Spanish interface strings and an unconfirmed term @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1070,
+            "y": 1041.58
+          },
+          "tracerVisible": false,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 1,
+          "termStatus": "unconfirmed",
+          "filed": true,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: tracer follows the default traversal order @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 1576.65,
+            "y": 263.59
+          },
+          "tracerVisible": true,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 0.408,
+          "termStatus": "available",
+          "filed": false,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: tracer follows a supplied traversal order @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 1737.4,
+            "y": 443.2
+          },
+          "tracerVisible": true,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 0,
+          "termStatus": "available",
+          "filed": true,
+          "visitOrder": [
+            "folder",
+            "target",
+            "translation",
+            "segment"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: unconfirmed term: the slot keeps the source term with a question mark @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1070,
+            "y": 1041.58
+          },
+          "tracerVisible": false,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "relationKinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "sequence",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
+          "labelsClear": true,
+          "slotFill": 1,
+          "termStatus": "unconfirmed",
+          "filed": true,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "source",
+              "to": "segment",
+              "a": {
+                "x": 348,
+                "y": 536.37
+              },
+              "b": {
+                "x": 591.22,
+                "y": 263.58
+              }
+            },
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1312,
+                "y": 221.9
+              }
+            },
+            {
+              "from": "segment",
+              "to": "record",
+              "a": {
+                "x": 770.84,
+                "y": 263.58
+              },
+              "b": {
+                "x": 966.39,
+                "y": 531.58
+              }
+            },
+            {
+              "from": "record",
+              "to": "translation",
+              "a": {
+                "x": 1238.06,
+                "y": 537.58
+              },
+              "b": {
+                "x": 1445.67,
+                "y": 369.58
+              }
+            },
+            {
+              "from": "translation",
+              "to": "target",
+              "a": {
+                "x": 1687.07,
+                "y": 363.58
+              },
+              "b": {
+                "x": 1862,
+                "y": 563.24
+              }
+            },
+            {
+              "from": "target",
+              "to": "folder",
+              "a": {
+                "x": 1862,
+                "y": 793.14
+              },
+              "b": {
+                "x": 1298,
+                "y": 970.06
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: a causal arrow appears only when the author supplies it @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1070,
+            "y": 1041.58
+          },
+          "tracerVisible": false,
+          "sourceStrip": {
+            "x": 690,
+            "y": 152.79
+          },
+          "translationStrip": {
+            "x": 1590,
+            "y": 252.79
+          },
+          "lifted": 1,
+          "relationsDrawn": [
+            1
+          ],
+          "relationKinds": [
+            "causal"
+          ],
+          "arrows": [
+            true
+          ],
+          "labelsClear": true,
+          "slotFill": 1,
+          "termStatus": "available",
+          "filed": true,
+          "visitOrder": [
+            "source",
+            "segment",
+            "record",
+            "translation",
+            "target",
+            "folder"
+          ],
+          "connectorEnds": [
+            {
+              "from": "segment",
+              "to": "translation",
+              "a": {
+                "x": 968,
+                "y": 183.68
+              },
+              "b": {
+                "x": 1306,
+                "y": 221.23
+              }
+            }
+          ],
+          "elementBoxes": {
+            "source": {
+              "x": 40,
+              "y": 498.58,
+              "w": 300,
+              "h": 430
+            },
+            "target": {
+              "x": 1870,
+              "y": 528.58,
+              "w": 300,
+              "h": 430
+            },
+            "segment": {
+              "x": 420,
+              "y": 50,
+              "w": 540,
+              "h": 205.58
+            },
+            "translation": {
+              "x": 1320,
+              "y": 150,
+              "w": 540,
+              "h": 205.58
+            },
+            "record": {
+              "x": 810,
+              "y": 545.58,
+              "w": 520,
+              "h": 256
+            },
+            "folder": {
+              "x": 850,
+              "y": 941.58,
+              "w": 440,
+              "h": 200
+            }
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

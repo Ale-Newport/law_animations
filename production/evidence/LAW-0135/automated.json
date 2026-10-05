@@ -1,0 +1,942 @@
+{
+  "animationId": "LAW-0135",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0135",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "sources.0.label"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: both scenes identical, the changed fact still held and undated @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "a": {
+            "holder": "book",
+            "changed": "hand",
+            "day": 10,
+            "state": "inside",
+            "tape": 0,
+            "states": [
+              "neutral",
+              "neutral",
+              "neutral"
+            ]
+          },
+          "b": {
+            "holder": "book",
+            "changed": "hand",
+            "day": 15,
+            "state": "outside",
+            "tape": 0,
+            "states": [
+              "neutral",
+              "neutral",
+              "neutral"
+            ]
+          },
+          "sameOtherSlots": true,
+          "sameCard": true,
+          "changedCardA": {
+            "x": 700,
+            "y": 322
+          },
+          "changedCardB": {
+            "x": 1650,
+            "y": 322
+          },
+          "handA": {
+            "x": 629.12,
+            "y": 244.34
+          },
+          "handB": {
+            "x": 1579.12,
+            "y": 244.34
+          },
+          "gripA": {
+            "x": 629.12,
+            "y": 244.34
+          },
+          "gripB": {
+            "x": 1579.12,
+            "y": 244.34
+          },
+          "tapeEndA": {
+            "x": 310.07,
+            "y": 396
+          },
+          "cardA": {
+            "x": 329,
+            "y": 208.09
+          },
+          "cardB": {
+            "x": 1279,
+            "y": 208.09
+          },
+          "guideProgress": 0,
+          "changedIndex": 1,
+          "allReached": true,
+          "headerText": 0,
+          "headerPx": [
+            {
+              "label": 19.2,
+              "caption": 19.2
+            },
+            {
+              "label": 19.2,
+              "caption": 19.2
+            }
+          ],
+          "textPx": {
+            "fact": 19.2,
+            "maxCaption": 19.2,
+            "factDesign": 22,
+            "k": 0.874
+          },
+          "arms": [
+            {
+              "elbow": {
+                "x": 872.57,
+                "y": -85.62
+              },
+              "elbowInPanel": false,
+              "elbowOk": true,
+              "armOnFacts": [],
+              "handSide": "card",
+              "armOnArticle": false
+            },
+            {
+              "elbow": {
+                "x": 1822.57,
+                "y": -85.62
+              },
+              "elbowInPanel": false,
+              "elbowOk": true,
+              "armOnFacts": [],
+              "handSide": "card",
+              "armOnArticle": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: change: A pins the fact on Day 10, B on Day 15 @0.36",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "a": {
+            "holder": "book",
+            "changed": "lying",
+            "day": 10,
+            "state": "inside",
+            "tape": 0,
+            "states": [
+              "neutral",
+              "neutral",
+              "neutral"
+            ]
+          },
+          "b": {
+            "holder": "book",
+            "changed": "lying",
+            "day": 15,
+            "state": "outside",
+            "tape": 0,
+            "states": [
+              "neutral",
+              "neutral",
+              "neutral"
+            ]
+          },
+          "sameOtherSlots": true,
+          "sameCard": true,
+          "changedCardA": {
+            "x": 367,
+            "y": 572.98
+          },
+          "changedCardB": {
+            "x": 1521,
+            "y": 572.98
+          },
+          "handA": {
+            "x": 300,
+            "y": 498
+          },
+          "handB": {
+            "x": 1454,
+            "y": 498
+          },
+          "gripA": {
+            "x": 300,
+            "y": 498
+          },
+          "gripB": {
+            "x": 1454,
+            "y": 498
+          },
+          "tapeEndA": {
+            "x": 310.07,
+            "y": 396
+          },
+          "cardA": {
+            "x": 329,
+            "y": 208.09
+          },
+          "cardB": {
+            "x": 1279,
+            "y": 208.09
+          },
+          "guideProgress": 0,
+          "changedIndex": 1,
+          "allReached": true,
+          "headerText": 0.6,
+          "headerPx": [
+            {
+              "label": 19.2,
+              "caption": 19.2
+            },
+            {
+              "label": 19.2,
+              "caption": 19.2
+            }
+          ],
+          "textPx": {
+            "fact": 19.2,
+            "maxCaption": 19.2,
+            "factDesign": 22,
+            "k": 0.874
+          },
+          "arms": [
+            {
+              "elbow": {
+                "x": 543.45,
+                "y": 168.04
+              },
+              "elbowInPanel": true,
+              "elbowOk": true,
+              "armOnFacts": [
+                1
+              ],
+              "handSide": "facts",
+              "armOnArticle": false
+            },
+            {
+              "elbow": {
+                "x": 1697.45,
+                "y": 168.04
+              },
+              "elbowInPanel": true,
+              "elbowOk": true,
+              "armOnFacts": [
+                1
+              ],
+              "handSide": "facts",
+              "armOnArticle": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the same action runs in parallel with the same article and other facts @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "holder": "ruler",
+            "changed": "pinned",
+            "day": 10,
+            "state": "inside",
+            "tape": 0,
+            "states": [
+              "neutral",
+              "neutral",
+              "neutral"
+            ]
+          },
+          "b": {
+            "holder": "ruler",
+            "changed": "pinned",
+            "day": 15,
+            "state": "outside",
+            "tape": 0,
+            "states": [
+              "neutral",
+              "neutral",
+              "neutral"
+            ]
+          },
+          "sameOtherSlots": true,
+          "sameCard": true,
+          "changedCardA": {
+            "x": 367,
+            "y": 572.98
+          },
+          "changedCardB": {
+            "x": 1521,
+            "y": 572.98
+          },
+          "handA": {
+            "x": 310.07,
+            "y": 332.96
+          },
+          "handB": {
+            "x": 1260.07,
+            "y": 332.96
+          },
+          "gripA": {
+            "x": 254.07,
+            "y": 325.92
+          },
+          "gripB": {
+            "x": 1204.07,
+            "y": 325.92
+          },
+          "tapeEndA": {
+            "x": 310.07,
+            "y": 396
+          },
+          "cardA": {
+            "x": 134.07,
+            "y": 325.92
+          },
+          "cardB": {
+            "x": 1084.07,
+            "y": 325.92
+          },
+          "guideProgress": 0,
+          "changedIndex": 1,
+          "allReached": true,
+          "headerText": 1,
+          "headerPx": [
+            {
+              "label": 19.2,
+              "caption": 19.2
+            },
+            {
+              "label": 19.2,
+              "caption": 19.2
+            }
+          ],
+          "textPx": {
+            "fact": 19.2,
+            "maxCaption": 19.2,
+            "factDesign": 22,
+            "k": 0.874
+          },
+          "arms": [
+            {
+              "elbow": {
+                "x": 719.32,
+                "y": 307.36
+              },
+              "elbowInPanel": true,
+              "elbowOk": true,
+              "armOnFacts": [],
+              "handSide": "card",
+              "armOnArticle": false
+            },
+            {
+              "elbow": {
+                "x": 1669.32,
+                "y": 307.36
+              },
+              "elbowInPanel": true,
+              "elbowOk": true,
+              "armOnFacts": [],
+              "handSide": "card",
+              "armOnArticle": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: final: the changed fact is inside in A and outside the supplied interval in B @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "holder": "ruler",
+            "changed": "pinned",
+            "day": 10,
+            "state": "inside",
+            "tape": 1,
+            "states": [
+              "outside",
+              "inside",
+              "outside"
+            ]
+          },
+          "b": {
+            "holder": "ruler",
+            "changed": "pinned",
+            "day": 15,
+            "state": "outside",
+            "tape": 1,
+            "states": [
+              "outside",
+              "outside",
+              "outside"
+            ]
+          },
+          "sameOtherSlots": true,
+          "sameCard": true,
+          "changedCardA": {
+            "x": 367,
+            "y": 572.98
+          },
+          "changedCardB": {
+            "x": 1521,
+            "y": 572.98
+          },
+          "handA": {
+            "x": 1300,
+            "y": 244.34
+          },
+          "handB": {
+            "x": 2250,
+            "y": 244.34
+          },
+          "gripA": {
+            "x": 254.07,
+            "y": 325.92
+          },
+          "gripB": {
+            "x": 1204.07,
+            "y": 325.92
+          },
+          "tapeEndA": {
+            "x": 597.96,
+            "y": 396
+          },
+          "cardA": {
+            "x": 134.07,
+            "y": 325.92
+          },
+          "cardB": {
+            "x": 1084.07,
+            "y": 325.92
+          },
+          "guideProgress": 1,
+          "changedIndex": 1,
+          "allReached": true,
+          "headerText": 1,
+          "headerPx": [
+            {
+              "label": 19.2,
+              "caption": 19.2
+            },
+            {
+              "label": 19.2,
+              "caption": 19.2
+            }
+          ],
+          "textPx": {
+            "fact": 19.2,
+            "maxCaption": 19.2,
+            "factDesign": 22,
+            "k": 0.874
+          },
+          "arms": [
+            {
+              "elbow": {
+                "x": 1709.25,
+                "y": 218.74
+              },
+              "elbowInPanel": false,
+              "elbowOk": true,
+              "armOnFacts": [],
+              "handSide": "card",
+              "armOnArticle": false
+            },
+            {
+              "elbow": {
+                "x": 2659.25,
+                "y": 218.74
+              },
+              "elbowInPanel": false,
+              "elbowOk": true,
+              "armOnFacts": [],
+              "handSide": "card",
+              "armOnArticle": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: exactly the indicated fact differs; every other state is identical @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "holder": "ruler",
+            "changed": "pinned",
+            "day": 10,
+            "state": "inside",
+            "tape": 1,
+            "states": [
+              "outside",
+              "inside",
+              "outside"
+            ]
+          },
+          "b": {
+            "holder": "ruler",
+            "changed": "pinned",
+            "day": 15,
+            "state": "outside",
+            "tape": 1,
+            "states": [
+              "outside",
+              "outside",
+              "outside"
+            ]
+          },
+          "sameOtherSlots": true,
+          "sameCard": true,
+          "changedCardA": {
+            "x": 367,
+            "y": 572.98
+          },
+          "changedCardB": {
+            "x": 1521,
+            "y": 572.98
+          },
+          "handA": {
+            "x": 1300,
+            "y": 244.34
+          },
+          "handB": {
+            "x": 2250,
+            "y": 244.34
+          },
+          "gripA": {
+            "x": 254.07,
+            "y": 325.92
+          },
+          "gripB": {
+            "x": 1204.07,
+            "y": 325.92
+          },
+          "tapeEndA": {
+            "x": 597.96,
+            "y": 396
+          },
+          "cardA": {
+            "x": 134.07,
+            "y": 325.92
+          },
+          "cardB": {
+            "x": 1084.07,
+            "y": 325.92
+          },
+          "guideProgress": 1,
+          "changedIndex": 1,
+          "allReached": true,
+          "headerText": 1,
+          "headerPx": [
+            {
+              "label": 19.2,
+              "caption": 19.2
+            },
+            {
+              "label": 19.2,
+              "caption": 19.2
+            }
+          ],
+          "textPx": {
+            "fact": 19.2,
+            "maxCaption": 19.2,
+            "factDesign": 22,
+            "k": 0.874
+          },
+          "arms": [
+            {
+              "elbow": {
+                "x": 1709.25,
+                "y": 218.74
+              },
+              "elbowInPanel": false,
+              "elbowOk": true,
+              "armOnFacts": [],
+              "handSide": "card",
+              "armOnArticle": false
+            },
+            {
+              "elbow": {
+                "x": 2659.25,
+                "y": 218.74
+              },
+              "elbowInPanel": false,
+              "elbowOk": true,
+              "armOnFacts": [],
+              "handSide": "card",
+              "armOnArticle": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the comparison guide is drawn at the end @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "holder": "ruler",
+            "changed": "pinned",
+            "day": 10,
+            "state": "inside",
+            "tape": 1,
+            "states": [
+              "outside",
+              "inside",
+              "outside"
+            ]
+          },
+          "b": {
+            "holder": "ruler",
+            "changed": "pinned",
+            "day": 15,
+            "state": "outside",
+            "tape": 1,
+            "states": [
+              "outside",
+              "outside",
+              "outside"
+            ]
+          },
+          "sameOtherSlots": true,
+          "sameCard": true,
+          "changedCardA": {
+            "x": 367,
+            "y": 572.98
+          },
+          "changedCardB": {
+            "x": 1521,
+            "y": 572.98
+          },
+          "handA": {
+            "x": 1300,
+            "y": 244.34
+          },
+          "handB": {
+            "x": 2250,
+            "y": 244.34
+          },
+          "gripA": {
+            "x": 254.07,
+            "y": 325.92
+          },
+          "gripB": {
+            "x": 1204.07,
+            "y": 325.92
+          },
+          "tapeEndA": {
+            "x": 597.96,
+            "y": 396
+          },
+          "cardA": {
+            "x": 134.07,
+            "y": 325.92
+          },
+          "cardB": {
+            "x": 1084.07,
+            "y": 325.92
+          },
+          "guideProgress": 1,
+          "changedIndex": 1,
+          "allReached": true,
+          "headerText": 1,
+          "headerPx": [
+            {
+              "label": 19.2,
+              "caption": 19.2
+            },
+            {
+              "label": 19.2,
+              "caption": 19.2
+            }
+          ],
+          "textPx": {
+            "fact": 19.2,
+            "maxCaption": 19.2,
+            "factDesign": 22,
+            "k": 0.874
+          },
+          "arms": [
+            {
+              "elbow": {
+                "x": 1709.25,
+                "y": 218.74
+              },
+              "elbowInPanel": false,
+              "elbowOk": true,
+              "armOnFacts": [],
+              "handSide": "card",
+              "armOnArticle": false
+            },
+            {
+              "elbow": {
+                "x": 2659.25,
+                "y": 218.74
+              },
+              "elbowInPanel": false,
+              "elbowOk": true,
+              "armOnFacts": [],
+              "handSide": "card",
+              "armOnArticle": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: no guide before the closing beat @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "holder": "ruler",
+            "changed": "pinned",
+            "day": 10,
+            "state": "inside",
+            "tape": 0.8,
+            "states": [
+              "neutral",
+              "neutral",
+              "neutral"
+            ]
+          },
+          "b": {
+            "holder": "ruler",
+            "changed": "pinned",
+            "day": 15,
+            "state": "outside",
+            "tape": 0.8,
+            "states": [
+              "neutral",
+              "neutral",
+              "neutral"
+            ]
+          },
+          "sameOtherSlots": true,
+          "sameCard": true,
+          "changedCardA": {
+            "x": 367,
+            "y": 572.98
+          },
+          "changedCardB": {
+            "x": 1521,
+            "y": 572.98
+          },
+          "handA": {
+            "x": 588.75,
+            "y": 396
+          },
+          "handB": {
+            "x": 1538.75,
+            "y": 396
+          },
+          "gripA": {
+            "x": 254.07,
+            "y": 325.92
+          },
+          "gripB": {
+            "x": 1204.07,
+            "y": 325.92
+          },
+          "tapeEndA": {
+            "x": 588.75,
+            "y": 396
+          },
+          "cardA": {
+            "x": 134.07,
+            "y": 325.92
+          },
+          "cardB": {
+            "x": 1084.07,
+            "y": 325.92
+          },
+          "guideProgress": 0,
+          "changedIndex": 1,
+          "allReached": true,
+          "headerText": 1,
+          "headerPx": [
+            {
+              "label": 19.2,
+              "caption": 19.2
+            },
+            {
+              "label": 19.2,
+              "caption": 19.2
+            }
+          ],
+          "textPx": {
+            "fact": 19.2,
+            "maxCaption": 19.2,
+            "factDesign": 22,
+            "k": 0.874
+          },
+          "arms": [
+            {
+              "elbow": {
+                "x": 998,
+                "y": 370.4
+              },
+              "elbowInPanel": false,
+              "elbowOk": true,
+              "armOnFacts": [],
+              "handSide": "card",
+              "armOnArticle": false
+            },
+            {
+              "elbow": {
+                "x": 1948,
+                "y": 370.4
+              },
+              "elbowInPanel": false,
+              "elbowOk": true,
+              "armOnFacts": [],
+              "handSide": "card",
+              "armOnArticle": false
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

@@ -1,0 +1,2800 @@
+{
+  "animationId": "LAW-0122",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0122",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "sources.0.name",
+        "rejected": "Invalid animation parameters:\n - params.sources[0].name: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: start: nothing separated, no line drawn @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "separated": {
+            "article": false,
+            "passage": false,
+            "word": false
+          },
+          "sheet": {
+            "x": 903,
+            "y": 413.56
+          },
+          "strip": {
+            "x": 1392.69,
+            "y": 201.29
+          },
+          "token": {
+            "x": 1845.11,
+            "y": 91.64
+          },
+          "tracer": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracerOn": false,
+          "current": null,
+          "visited": [],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": false,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": false,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": false,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": false,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": false,
+          "wordSeated": false,
+          "back": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "backMoving": false,
+          "wordPlacedBack": false,
+          "backVisible": false,
+          "backSize": {
+            "w": 59.2,
+            "h": 33.04
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 0.387,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: separate first: sheet, strip and token lifted before any relation is drawn @0.19",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracer": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracerOn": false,
+          "current": null,
+          "visited": [],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": false,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": false,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": false,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": false,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": true,
+          "wordSeated": false,
+          "back": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "backMoving": false,
+          "wordPlacedBack": false,
+          "backVisible": false,
+          "backSize": {
+            "w": 59.2,
+            "h": 33.04
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 1,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: every supplied connector is drawn and both ends land on their component edges @0.43",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracer": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracerOn": false,
+          "current": null,
+          "visited": [],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": true,
+          "wordSeated": false,
+          "back": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "backMoving": false,
+          "wordPlacedBack": false,
+          "backVisible": false,
+          "backSize": {
+            "w": 59.2,
+            "h": 33.04
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 1,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: default relations carry no arrowhead (association is not drawn as causation) @0.43",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracer": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracerOn": false,
+          "current": null,
+          "visited": [],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": true,
+          "wordSeated": false,
+          "back": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "backMoving": false,
+          "wordPlacedBack": false,
+          "backVisible": false,
+          "backSize": {
+            "w": 59.2,
+            "h": 33.04
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 1,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the tracer starts on the focus (the word), which is enlarged @0.46",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracer": {
+            "x": 1849.64,
+            "y": 477.23
+          },
+          "tracerOn": true,
+          "current": "word",
+          "visited": [
+            "word"
+          ],
+          "focus": "word",
+          "focusScale": 1.14,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": true,
+          "wordSeated": false,
+          "back": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "backMoving": false,
+          "wordPlacedBack": false,
+          "backVisible": false,
+          "backSize": {
+            "w": 59.2,
+            "h": 33.04
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 1,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the tracer follows the traversal order outwards @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracer": {
+            "x": 1122.91,
+            "y": 350.42
+          },
+          "tracerOn": true,
+          "current": null,
+          "visited": [
+            "word",
+            "passage",
+            "article"
+          ],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": true,
+          "wordSeated": false,
+          "back": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "backMoving": false,
+          "wordPlacedBack": false,
+          "backVisible": false,
+          "backSize": {
+            "w": 59.2,
+            "h": 33.04
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 1,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: traversal order as supplied (early seek) @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracer": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracerOn": false,
+          "current": null,
+          "visited": [],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": false,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": false,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": false,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": true,
+          "wordSeated": false,
+          "back": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "backMoving": false,
+          "wordPlacedBack": false,
+          "backVisible": false,
+          "backSize": {
+            "w": 59.2,
+            "h": 33.04
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 1,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: traversal order unchanged after seeking to the end @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1845.11,
+            "y": 91.64
+          },
+          "tracer": {
+            "x": 185,
+            "y": 295.48
+          },
+          "tracerOn": false,
+          "current": "rack",
+          "visited": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": false,
+          "wordSeated": true,
+          "back": {
+            "x": 1324.81,
+            "y": 163.93
+          },
+          "backMoving": false,
+          "wordPlacedBack": true,
+          "backVisible": false,
+          "backSize": {
+            "w": 50.06,
+            "h": 27.14
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 0.387,
+          "cards": {
+            "isolated": true,
+            "contextual": true
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: relation labels sit beside their lines (a leader joins them), never on top of them @0.43",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracer": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracerOn": false,
+          "current": null,
+          "visited": [],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": true,
+          "wordSeated": false,
+          "back": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "backMoving": false,
+          "wordPlacedBack": false,
+          "backVisible": false,
+          "backSize": {
+            "w": 59.2,
+            "h": 33.04
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 1,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: until the gather the enlarged word stays under the magnifier @0.74",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracer": {
+            "x": 186.36,
+            "y": 295.91
+          },
+          "tracerOn": true,
+          "current": "rack",
+          "visited": [
+            "word",
+            "passage",
+            "article",
+            "book"
+          ],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": true,
+          "wordSeated": false,
+          "back": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "backMoving": false,
+          "wordPlacedBack": false,
+          "backVisible": false,
+          "backSize": {
+            "w": 59.2,
+            "h": 33.04
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 1,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: gather: the word leaves the lens along its line, shrinking on the way back to its passage @0.8",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1852.42,
+            "y": 220.01
+          },
+          "tracer": {
+            "x": 185,
+            "y": 295.48
+          },
+          "tracerOn": false,
+          "current": "rack",
+          "visited": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": false,
+          "wordSeated": false,
+          "back": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "backMoving": true,
+          "wordPlacedBack": false,
+          "backVisible": false,
+          "backSize": {
+            "w": 59.2,
+            "h": 33.04
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 0.58,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the word is re-seated in its passage, then travels on into the full article @0.88",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1845.11,
+            "y": 91.64
+          },
+          "tracer": {
+            "x": 185,
+            "y": 295.48
+          },
+          "tracerOn": false,
+          "current": "rack",
+          "visited": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": false,
+          "wordSeated": true,
+          "back": {
+            "x": 1564.46,
+            "y": 143.12
+          },
+          "backMoving": true,
+          "wordPlacedBack": false,
+          "backVisible": true,
+          "backSize": {
+            "w": 27.6,
+            "h": 6.9
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 0.387,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: word back in its passage and on its line of the full article; both attributed readings visible @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1845.11,
+            "y": 91.64
+          },
+          "tracer": {
+            "x": 185,
+            "y": 295.48
+          },
+          "tracerOn": false,
+          "current": "rack",
+          "visited": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": false,
+          "wordSeated": true,
+          "back": {
+            "x": 1324.81,
+            "y": 163.93
+          },
+          "backMoving": false,
+          "wordPlacedBack": true,
+          "backVisible": false,
+          "backSize": {
+            "w": 50.06,
+            "h": 27.14
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 0.387,
+          "cards": {
+            "isolated": true,
+            "contextual": true
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: mechanism completes identically @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1845.11,
+            "y": 91.64
+          },
+          "tracer": {
+            "x": 185,
+            "y": 269
+          },
+          "tracerOn": false,
+          "current": "rack",
+          "visited": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "focus": "word",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 350.52
+              },
+              "toPt": {
+                "x": 360,
+                "y": 303.5
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": false,
+          "wordSeated": true,
+          "back": {
+            "x": 1324.81,
+            "y": 163.93
+          },
+          "backMoving": false,
+          "wordPlacedBack": true,
+          "backVisible": false,
+          "backSize": {
+            "w": 50.06,
+            "h": 27.14
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1845.11,
+            "y": 53.12
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 0.387,
+          "cards": {
+            "isolated": true,
+            "contextual": true
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: a supplied sequence gets an arrow; the relation keeps none; both land @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracer": {
+            "x": 1858.05,
+            "y": 301.94
+          },
+          "tracerOn": true,
+          "current": null,
+          "visited": [
+            "word"
+          ],
+          "focus": "word",
+          "focusScale": 1.042,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "word",
+              "to": "article",
+              "kind": "sequence",
+              "drawn": true,
+              "arrow": true,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1780.02,
+                "y": 402.27
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 164.85
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "word",
+            "passage",
+            "article",
+            "book",
+            "rack"
+          ],
+          "tokenInLens": true,
+          "wordSeated": false,
+          "back": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "backMoving": false,
+          "wordPlacedBack": false,
+          "backVisible": false,
+          "backSize": {
+            "w": 59.2,
+            "h": 33.04
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 1,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: reversed traversal order is followed as supplied @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "separated": {
+            "article": true,
+            "passage": true,
+            "word": true
+          },
+          "sheet": {
+            "x": 1390,
+            "y": 247.54
+          },
+          "strip": {
+            "x": 1865.35,
+            "y": 112.64
+          },
+          "token": {
+            "x": 1850,
+            "y": 500
+          },
+          "tracer": {
+            "x": 774.07,
+            "y": 480.84
+          },
+          "tracerOn": true,
+          "current": "book",
+          "visited": [
+            "rack",
+            "book"
+          ],
+          "focus": "article",
+          "focusScale": 1,
+          "relations": [
+            {
+              "from": "word",
+              "to": "passage",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "bottom",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1848.12,
+                "y": 379.81
+              },
+              "toPt": {
+                "x": 1845.11,
+                "y": 187.32
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "passage",
+              "to": "article",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1690,
+                "y": 159.32
+              },
+              "toPt": {
+                "x": 1610,
+                "y": 182.1
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "article",
+              "to": "book",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 1170,
+                "y": 338.18
+              },
+              "toPt": {
+                "x": 1066,
+                "y": 381.03
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            },
+            {
+              "from": "book",
+              "to": "rack",
+              "kind": "relation",
+              "drawn": true,
+              "arrow": false,
+              "side": "right",
+              "nearMiss": 0,
+              "fromPt": {
+                "x": 466,
+                "y": 385.96
+              },
+              "toPt": {
+                "x": 360,
+                "y": 351.46
+              },
+              "fromOn": true,
+              "toOn": true,
+              "labelOffLine": true
+            }
+          ],
+          "order": [
+            "rack",
+            "book",
+            "article",
+            "passage",
+            "word"
+          ],
+          "tokenInLens": true,
+          "wordSeated": false,
+          "back": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "backMoving": false,
+          "wordPlacedBack": false,
+          "backVisible": false,
+          "backSize": {
+            "w": 59.2,
+            "h": 33.04
+          },
+          "backOnKey": false,
+          "backOverStripWord": false,
+          "backHits": 0,
+          "flightHits": 0,
+          "backBeforeSeated": false,
+          "copyLift": {
+            "x": 1887.49,
+            "y": 48.27
+          },
+          "copyStripWord": {
+            "x": 1815.508203125,
+            "y": 74.28,
+            "w": 59.201171875,
+            "h": 33.04
+          },
+          "labelLeadHits": 0,
+          "labelLeadHitRels": [],
+          "labelsOnParts": 0,
+          "relCrossParts": 0,
+          "portCrowd": 0,
+          "relCrossings": 0,
+          "capsIntrude": 0,
+          "tokenScale": 1,
+          "cards": {
+            "isolated": false,
+            "contextual": false
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "short-hold",
+      "preset": "default",
+      "ratio": "16:9",
+      "holdMs": 150,
+      "durationMs": 7000
+    },
+    {
+      "kind": "short-hold",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "holdMs": 150,
+      "durationMs": 7000
+    },
+    {
+      "kind": "short-hold",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "holdMs": 150,
+      "durationMs": 7000
+    },
+    {
+      "kind": "short-hold",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "holdMs": 150,
+      "durationMs": 7000
+    },
+    {
+      "kind": "short-hold",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "holdMs": 150,
+      "durationMs": 7000
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

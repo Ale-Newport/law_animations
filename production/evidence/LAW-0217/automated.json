@@ -1,0 +1,2618 @@
+{
+  "animationId": "LAW-0217",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0217",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "courts.building"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: everyone waits in a corridor, outside the room; no label shown @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 77.63,
+              "y": 392.37
+            },
+            {
+              "x": 583.86,
+              "y": 660.3
+            },
+            {
+              "x": 747.46,
+              "y": 660.3
+            },
+            {
+              "x": 77.63,
+              "y": 228.77
+            }
+          ],
+          "states": [
+            "waiting",
+            "waiting",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 77.63,
+            "y": 392.37
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 583.86,
+            "y": 660.3
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 747.46,
+            "y": 660.3
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 77.63,
+            "y": 228.77
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "rest",
+          "seated": 0,
+          "walking": 0,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: nothing moves during the rest beat @0.145",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 77.63,
+              "y": 392.37
+            },
+            {
+              "x": 583.86,
+              "y": 660.3
+            },
+            {
+              "x": 747.46,
+              "y": 660.3
+            },
+            {
+              "x": 77.63,
+              "y": 228.77
+            }
+          ],
+          "states": [
+            "waiting",
+            "waiting",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 77.63,
+            "y": 392.37
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 583.86,
+            "y": 660.3
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 747.46,
+            "y": 660.3
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 77.63,
+            "y": 228.77
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "rest",
+          "seated": 0,
+          "walking": 0,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the entrance starts; a label only shows for a seated person @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 665.13,
+              "y": 629.37
+            },
+            {
+              "x": 747.46,
+              "y": 660.3
+            },
+            {
+              "x": 77.63,
+              "y": 228.77
+            }
+          ],
+          "states": [
+            "sitting",
+            "walking",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            true,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 665.13,
+            "y": 629.37
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 747.46,
+            "y": 660.3
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 77.63,
+            "y": 228.77
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "action",
+          "seated": 0,
+          "walking": 2,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.2) @0.2",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 106.99,
+              "y": 311.24
+            },
+            {
+              "x": 583.86,
+              "y": 660.3
+            },
+            {
+              "x": 747.46,
+              "y": 660.3
+            },
+            {
+              "x": 77.63,
+              "y": 228.77
+            }
+          ],
+          "states": [
+            "walking",
+            "waiting",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "atDoor": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 106.99,
+            "y": 311.24
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 583.86,
+            "y": 660.3
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 747.46,
+            "y": 660.3
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 77.63,
+            "y": 228.77
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "action",
+          "seated": 0,
+          "walking": 1,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.25) @0.25",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 338.43,
+              "y": 287.13
+            },
+            {
+              "x": 583.86,
+              "y": 660.3
+            },
+            {
+              "x": 747.46,
+              "y": 660.3
+            },
+            {
+              "x": 77.63,
+              "y": 228.77
+            }
+          ],
+          "states": [
+            "walking",
+            "waiting",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 338.43,
+            "y": 287.13
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 583.86,
+            "y": 660.3
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 747.46,
+            "y": 660.3
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 77.63,
+            "y": 228.77
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "action",
+          "seated": 0,
+          "walking": 1,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.35) @0.35",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 676.82,
+              "y": 341.71
+            },
+            {
+              "x": 747.46,
+              "y": 660.3
+            },
+            {
+              "x": 77.63,
+              "y": 228.77
+            }
+          ],
+          "states": [
+            "seated",
+            "walking",
+            "waiting",
+            "waiting"
+          ],
+          "labels": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 676.82,
+            "y": 341.71
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 747.46,
+            "y": 660.3
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 77.63,
+            "y": 228.77
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "action",
+          "seated": 1,
+          "walking": 1,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.45) @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 774.17,
+              "y": 217.09
+            },
+            {
+              "x": 641.8,
+              "y": 335.51
+            },
+            {
+              "x": 77.63,
+              "y": 228.77
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "walking",
+            "waiting"
+          ],
+          "labels": [
+            1,
+            0.009,
+            0,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 641.8,
+            "y": 335.51
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 77.63,
+            "y": 228.77
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "complete",
+          "seated": 2,
+          "walking": 1,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.55) @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 774.17,
+              "y": 217.09
+            },
+            {
+              "x": 345.14,
+              "y": 427.43
+            },
+            {
+              "x": 402.29,
+              "y": 310.57
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "sitting",
+            "walking"
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 402.29,
+            "y": 310.57
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "complete",
+          "seated": 2,
+          "walking": 2,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.65) @0.65",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 774.17,
+              "y": 217.09
+            },
+            {
+              "x": 345.14,
+              "y": 427.43
+            },
+            {
+              "x": 986.18,
+              "y": 383.02
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "walking"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 986.18,
+            "y": 383.02
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "complete",
+          "seated": 3,
+          "walking": 1,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: labels never arrive before their occupant lands (u=0.7) @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 774.17,
+              "y": 217.09
+            },
+            {
+              "x": 345.14,
+              "y": 427.43
+            },
+            {
+              "x": 986.18,
+              "y": 427.43
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "sitting"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "complete",
+          "seated": 3,
+          "walking": 1,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: mid-way: some seated, others still on their way @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 774.17,
+              "y": 217.09
+            },
+            {
+              "x": 349.35,
+              "y": 350.09
+            },
+            {
+              "x": 97.09,
+              "y": 307.54
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "walking",
+            "walking"
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            true
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 349.35,
+            "y": 350.09
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 97.09,
+            "y": 307.54
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "complete",
+          "seated": 2,
+          "walking": 2,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the main action is complete by u 0.74 @0.74",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 774.17,
+              "y": 217.09
+            },
+            {
+              "x": 345.14,
+              "y": 427.43
+            },
+            {
+              "x": 986.18,
+              "y": 427.43
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            0.286
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "hold",
+          "seated": 4,
+          "walking": 0,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: every seat label is fully shown by u 0.82 @0.82",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 774.17,
+              "y": 217.09
+            },
+            {
+              "x": 345.14,
+              "y": 427.43
+            },
+            {
+              "x": 986.18,
+              "y": 427.43
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "hold",
+          "seated": 4,
+          "walking": 0,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: everyone seated (supplied final state), every label shown @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 774.17,
+              "y": 217.09
+            },
+            {
+              "x": 345.14,
+              "y": 427.43
+            },
+            {
+              "x": 986.18,
+              "y": 427.43
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "hold",
+          "seated": 4,
+          "walking": 0,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: each person walks through the door of their supplied route, and only that door @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 774.17,
+              "y": 217.09
+            },
+            {
+              "x": 345.14,
+              "y": 427.43
+            },
+            {
+              "x": 986.18,
+              "y": 427.43
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "hold",
+          "seated": 4,
+          "walking": 0,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same entrance and sitting happens @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 386.62,
+              "y": 217.06
+            },
+            {
+              "x": 829.09,
+              "y": 217.06
+            },
+            {
+              "x": 392.18,
+              "y": 364.69
+            },
+            {
+              "x": 101.38,
+              "y": 308.92
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "walking",
+            "walking"
+          ],
+          "labels": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            true
+          ],
+          "p0": {
+            "x": 386.62,
+            "y": 217.06
+          },
+          "seat0": {
+            "x": 386.62,
+            "y": 217.06
+          },
+          "p1": {
+            "x": 829.09,
+            "y": 217.06
+          },
+          "seat1": {
+            "x": 829.09,
+            "y": 217.06
+          },
+          "p2": {
+            "x": 392.18,
+            "y": 364.69
+          },
+          "seat2": {
+            "x": 391.63,
+            "y": 427.44
+          },
+          "p3": {
+            "x": 101.38,
+            "y": 308.92
+          },
+          "seat3": {
+            "x": 1041.14,
+            "y": 427.44
+          },
+          "beat": "complete",
+          "seated": 2,
+          "walking": 2,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 16.6,
+          "startOutside": true,
+          "labelGapsPx": [],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": []
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: everyone ends seated @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 386.62,
+              "y": 217.06
+            },
+            {
+              "x": 829.09,
+              "y": 217.06
+            },
+            {
+              "x": 391.63,
+              "y": 427.44
+            },
+            {
+              "x": 1041.14,
+              "y": 427.44
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 386.62,
+            "y": 217.06
+          },
+          "seat0": {
+            "x": 386.62,
+            "y": 217.06
+          },
+          "p1": {
+            "x": 829.09,
+            "y": 217.06
+          },
+          "seat1": {
+            "x": 829.09,
+            "y": 217.06
+          },
+          "p2": {
+            "x": 391.63,
+            "y": 427.44
+          },
+          "seat2": {
+            "x": 391.63,
+            "y": 427.44
+          },
+          "p3": {
+            "x": 1041.14,
+            "y": 427.44
+          },
+          "seat3": {
+            "x": 1041.14,
+            "y": 427.44
+          },
+          "beat": "hold",
+          "seated": 4,
+          "walking": 0,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 16.6,
+          "startOutside": true,
+          "labelGapsPx": [],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": []
+        }
+      }
+    },
+    {
+      "name": "semantic: supplied state: the last person is still waiting in the corridor @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 774.17,
+              "y": 217.09
+            },
+            {
+              "x": 345.14,
+              "y": 427.43
+            },
+            {
+              "x": 77.63,
+              "y": 228.77
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "waiting"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 77.63,
+            "y": 228.77
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "hold",
+          "seated": 3,
+          "walking": 0,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "last-waiting",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the entrance part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 774.17,
+              "y": 258.05
+            },
+            {
+              "x": 712.22,
+              "y": 660.3
+            },
+            {
+              "x": 77.63,
+              "y": 228.77
+            }
+          ],
+          "states": [
+            "seated",
+            "walking",
+            "walking",
+            "waiting"
+          ],
+          "labels": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 774.17,
+            "y": 258.05
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 712.22,
+            "y": 660.3
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 77.63,
+            "y": 228.77
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "hold",
+          "seated": 1,
+          "walking": 2,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": true,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the supplied routes decide who walks where, by which route, in that order @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 986.18,
+              "y": 427.43
+            },
+            {
+              "x": 340.13,
+              "y": 217.09
+            }
+          ],
+          "states": [
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1
+          ],
+          "access": [
+            "public",
+            "public"
+          ],
+          "inRoom": [
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false
+          ],
+          "p0": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "seat0": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "p1": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat1": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "beat": "hold",
+          "seated": 2,
+          "walking": 0,
+          "allReached": true,
+          "order": "back4:public>front1:public",
+          "doorUsed": [
+            "public",
+            "public"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            10,
+            38
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: every label found a place beside its seat @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "people": [
+            {
+              "x": 340.13,
+              "y": 217.09
+            },
+            {
+              "x": 774.17,
+              "y": 217.09
+            },
+            {
+              "x": 345.14,
+              "y": 427.43
+            },
+            {
+              "x": 986.18,
+              "y": 427.43
+            }
+          ],
+          "states": [
+            "seated",
+            "seated",
+            "seated",
+            "seated"
+          ],
+          "labels": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "access": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "inRoom": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "atDoor": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "p0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "seat0": {
+            "x": 340.13,
+            "y": 217.09
+          },
+          "p1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "seat1": {
+            "x": 774.17,
+            "y": 217.09
+          },
+          "p2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "seat2": {
+            "x": 345.14,
+            "y": 427.43
+          },
+          "p3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "seat3": {
+            "x": 986.18,
+            "y": 427.43
+          },
+          "beat": "hold",
+          "seated": 4,
+          "walking": 0,
+          "allReached": true,
+          "order": "front1:restricted>front3:public>back1:public>back4:restricted",
+          "doorUsed": [
+            "restricted",
+            "public",
+            "public",
+            "restricted"
+          ],
+          "routesThroughOwnDoor": true,
+          "finalState": "all-seated",
+          "actionCapped": false,
+          "labelsPlaced": true,
+          "chipsOffAllRoutes": true,
+          "labelFails": [],
+          "textPx": 22.5,
+          "startOutside": true,
+          "labelGapsPx": [
+            38,
+            38,
+            10,
+            10
+          ],
+          "arrangement": "column",
+          "k": 0.835,
+          "personPx": 83.4,
+          "log": [
+            "22.5:column::k0.83",
+            "21.7:column::k0.83",
+            "20.9:column::k0.83"
+          ]
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

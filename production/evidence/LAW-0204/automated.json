@@ -1,0 +1,973 @@
+{
+  "animationId": "LAW-0204",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0204",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "courts.building"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: context: everyone seated; the old datum; no lens, no marker @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "lensOpen": 0,
+          "contextScale": 1,
+          "textOnPlan": 1,
+          "valueScale": 1,
+          "valueShown": 1,
+          "datum": "before",
+          "strike": 0,
+          "oldDocked": 0,
+          "newShown": 0,
+          "focusTarget": "seat",
+          "personSlot": "right1",
+          "person": {
+            "x": 632.73,
+            "y": 368.1
+          },
+          "seatBefore": {
+            "x": 632.73,
+            "y": 368.1
+          },
+          "seatAfter": {
+            "x": 795.73,
+            "y": 368.1
+          },
+          "moves": true,
+          "zoom": 2.01,
+          "lensScale": 1.205,
+          "crop": {
+            "x": 525.09,
+            "y": 119.94,
+            "w": 378.28,
+            "h": 599.09
+          },
+          "stackInCrop": true,
+          "lensClearOfPeople": true,
+          "lensClearOfSource": true,
+          "lensClearOfPlan": true,
+          "guidesClear": true,
+          "markerShown": 0,
+          "markerClearOfHeads": true,
+          "others": [
+            {
+              "x": 308.53,
+              "y": 368.1
+            },
+            null,
+            {
+              "x": 552.13,
+              "y": 66.29
+            },
+            {
+              "x": 234.56,
+              "y": 508.71
+            }
+          ],
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 89.5,
+          "log": [
+            "22.5/0.24/below/330:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: isolate: a real enlargement (>= 1.5x) of the detail, clear of every person and of its source @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 1,
+          "contextScale": 0.6,
+          "textOnPlan": 0,
+          "valueScale": 0.733,
+          "valueShown": 0,
+          "datum": "before",
+          "strike": 0,
+          "oldDocked": 0,
+          "newShown": 0,
+          "focusTarget": "seat",
+          "personSlot": "right1",
+          "person": {
+            "x": 379.64,
+            "y": 368.46
+          },
+          "seatBefore": {
+            "x": 379.64,
+            "y": 368.46
+          },
+          "seatAfter": {
+            "x": 477.44,
+            "y": 368.46
+          },
+          "moves": true,
+          "zoom": 2.01,
+          "lensScale": 1.205,
+          "crop": {
+            "x": 525.09,
+            "y": 119.94,
+            "w": 378.28,
+            "h": 599.09
+          },
+          "stackInCrop": true,
+          "lensClearOfPeople": true,
+          "lensClearOfSource": true,
+          "lensClearOfPlan": true,
+          "guidesClear": true,
+          "markerShown": 0,
+          "markerClearOfHeads": true,
+          "others": [
+            {
+              "x": 185.12,
+              "y": 368.46
+            },
+            null,
+            {
+              "x": 331.28,
+              "y": 187.37
+            },
+            {
+              "x": 140.73,
+              "y": 452.83
+            }
+          ],
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 89.5,
+          "log": [
+            "22.5/0.24/below/330:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: substitute: the old value is struck through before anything moves @0.49",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "contextScale": 0.6,
+          "textOnPlan": 0,
+          "valueScale": 0.733,
+          "valueShown": 0,
+          "datum": "changing",
+          "strike": 0.75,
+          "oldDocked": 0,
+          "newShown": 0,
+          "focusTarget": "seat",
+          "personSlot": "right1",
+          "person": {
+            "x": 379.64,
+            "y": 368.46
+          },
+          "seatBefore": {
+            "x": 379.64,
+            "y": 368.46
+          },
+          "seatAfter": {
+            "x": 477.44,
+            "y": 368.46
+          },
+          "moves": true,
+          "zoom": 2.01,
+          "lensScale": 1.205,
+          "crop": {
+            "x": 525.09,
+            "y": 119.94,
+            "w": 378.28,
+            "h": 599.09
+          },
+          "stackInCrop": true,
+          "lensClearOfPeople": true,
+          "lensClearOfSource": true,
+          "lensClearOfPlan": true,
+          "guidesClear": true,
+          "markerShown": 0,
+          "markerClearOfHeads": true,
+          "others": [
+            {
+              "x": 185.12,
+              "y": 368.46
+            },
+            null,
+            {
+              "x": 331.28,
+              "y": 187.37
+            },
+            {
+              "x": 140.73,
+              "y": 452.83
+            }
+          ],
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 89.5,
+          "log": [
+            "22.5/0.24/below/330:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the old value is docked; only the inspected person moves @0.585",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "contextScale": 0.6,
+          "textOnPlan": 0,
+          "valueScale": 0.733,
+          "valueShown": 0,
+          "datum": "changing",
+          "strike": 1,
+          "oldDocked": 1,
+          "newShown": 0,
+          "focusTarget": "seat",
+          "personSlot": "moving",
+          "person": {
+            "x": 440.91,
+            "y": 372.48
+          },
+          "seatBefore": {
+            "x": 379.64,
+            "y": 368.46
+          },
+          "seatAfter": {
+            "x": 477.44,
+            "y": 368.46
+          },
+          "moves": true,
+          "zoom": 2.01,
+          "lensScale": 1.205,
+          "crop": {
+            "x": 525.09,
+            "y": 119.94,
+            "w": 378.28,
+            "h": 599.09
+          },
+          "stackInCrop": true,
+          "lensClearOfPeople": true,
+          "lensClearOfSource": true,
+          "lensClearOfPlan": true,
+          "guidesClear": true,
+          "markerShown": 0,
+          "markerClearOfHeads": true,
+          "others": [
+            {
+              "x": 185.12,
+              "y": 368.46
+            },
+            null,
+            {
+              "x": 331.28,
+              "y": 187.37
+            },
+            {
+              "x": 140.73,
+              "y": 452.83
+            }
+          ],
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 89.5,
+          "log": [
+            "22.5/0.24/below/330:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the new value and the new seat in the lens @0.66",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "contextScale": 0.6,
+          "textOnPlan": 0,
+          "valueScale": 0.733,
+          "valueShown": 0,
+          "datum": "after",
+          "strike": 1,
+          "oldDocked": 1,
+          "newShown": 1,
+          "focusTarget": "seat",
+          "personSlot": "right2",
+          "person": {
+            "x": 477.44,
+            "y": 368.46
+          },
+          "seatBefore": {
+            "x": 379.64,
+            "y": 368.46
+          },
+          "seatAfter": {
+            "x": 477.44,
+            "y": 368.46
+          },
+          "moves": true,
+          "zoom": 2.01,
+          "lensScale": 1.205,
+          "crop": {
+            "x": 525.09,
+            "y": 119.94,
+            "w": 378.28,
+            "h": 599.09
+          },
+          "stackInCrop": true,
+          "lensClearOfPeople": true,
+          "lensClearOfSource": true,
+          "lensClearOfPlan": true,
+          "guidesClear": true,
+          "markerShown": 0,
+          "markerClearOfHeads": true,
+          "others": [
+            {
+              "x": 185.12,
+              "y": 368.46
+            },
+            null,
+            {
+              "x": 331.28,
+              "y": 187.37
+            },
+            {
+              "x": 140.73,
+              "y": 452.83
+            }
+          ],
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 89.5,
+          "log": [
+            "22.5/0.24/below/330:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: return: the lens has closed onto the updated context @0.8",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "contextScale": 0.8,
+          "textOnPlan": 1,
+          "valueScale": 0.8,
+          "valueShown": 1,
+          "datum": "after",
+          "strike": 1,
+          "oldDocked": 1,
+          "newShown": 1,
+          "focusTarget": "seat",
+          "personSlot": "right2",
+          "person": {
+            "x": 636.59,
+            "y": 368.28
+          },
+          "seatBefore": {
+            "x": 506.19,
+            "y": 368.28
+          },
+          "seatAfter": {
+            "x": 636.59,
+            "y": 368.28
+          },
+          "moves": true,
+          "zoom": 2.01,
+          "lensScale": 1.205,
+          "crop": {
+            "x": 525.09,
+            "y": 119.94,
+            "w": 378.28,
+            "h": 599.09
+          },
+          "stackInCrop": true,
+          "lensClearOfPeople": true,
+          "lensClearOfSource": true,
+          "lensClearOfPlan": true,
+          "guidesClear": true,
+          "markerShown": 0,
+          "markerClearOfHeads": true,
+          "others": [
+            {
+              "x": 246.82,
+              "y": 368.28
+            },
+            null,
+            {
+              "x": 441.71,
+              "y": 126.83
+            },
+            {
+              "x": 187.64,
+              "y": 480.77
+            }
+          ],
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 89.5,
+          "log": [
+            "22.5/0.24/below/330:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: new seat, struck old value docked, marker shown @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "contextScale": 1,
+          "textOnPlan": 1,
+          "valueScale": 1,
+          "valueShown": 1,
+          "datum": "after",
+          "strike": 1,
+          "oldDocked": 1,
+          "newShown": 1,
+          "focusTarget": "seat",
+          "personSlot": "right2",
+          "person": {
+            "x": 795.73,
+            "y": 368.1
+          },
+          "seatBefore": {
+            "x": 632.73,
+            "y": 368.1
+          },
+          "seatAfter": {
+            "x": 795.73,
+            "y": 368.1
+          },
+          "moves": true,
+          "zoom": 2.01,
+          "lensScale": 1.205,
+          "crop": {
+            "x": 525.09,
+            "y": 119.94,
+            "w": 378.28,
+            "h": 599.09
+          },
+          "stackInCrop": true,
+          "lensClearOfPeople": true,
+          "lensClearOfSource": true,
+          "lensClearOfPlan": true,
+          "guidesClear": true,
+          "markerShown": 1,
+          "markerClearOfHeads": true,
+          "others": [
+            {
+              "x": 308.53,
+              "y": 368.1
+            },
+            null,
+            {
+              "x": 552.13,
+              "y": 66.29
+            },
+            {
+              "x": 234.56,
+              "y": 508.71
+            }
+          ],
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 89.5,
+          "log": [
+            "22.5/0.24/below/330:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the previous datum exactly @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.062,
+          "contextScale": 0.6,
+          "textOnPlan": 0,
+          "valueScale": 0.733,
+          "valueShown": 0.938,
+          "datum": "before",
+          "strike": 0,
+          "oldDocked": 0,
+          "newShown": 0,
+          "focusTarget": "seat",
+          "personSlot": "right1",
+          "person": {
+            "x": 379.64,
+            "y": 368.46
+          },
+          "seatBefore": {
+            "x": 379.64,
+            "y": 368.46
+          },
+          "seatAfter": {
+            "x": 477.44,
+            "y": 368.46
+          },
+          "moves": true,
+          "zoom": 2.01,
+          "lensScale": 1.205,
+          "crop": {
+            "x": 525.09,
+            "y": 119.94,
+            "w": 378.28,
+            "h": 599.09
+          },
+          "stackInCrop": true,
+          "lensClearOfPeople": true,
+          "lensClearOfSource": true,
+          "lensClearOfPlan": true,
+          "guidesClear": true,
+          "markerShown": 0,
+          "markerClearOfHeads": true,
+          "others": [
+            {
+              "x": 185.12,
+              "y": 368.46
+            },
+            null,
+            {
+              "x": 331.28,
+              "y": 187.37
+            },
+            {
+              "x": 140.73,
+              "y": 452.83
+            }
+          ],
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 89.5,
+          "log": [
+            "22.5/0.24/below/330:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the other people are listed (fixed places) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "contextScale": 1,
+          "textOnPlan": 1,
+          "valueScale": 1,
+          "valueShown": 1,
+          "datum": "after",
+          "strike": 1,
+          "oldDocked": 1,
+          "newShown": 1,
+          "focusTarget": "seat",
+          "personSlot": "right2",
+          "person": {
+            "x": 795.73,
+            "y": 368.1
+          },
+          "seatBefore": {
+            "x": 632.73,
+            "y": 368.1
+          },
+          "seatAfter": {
+            "x": 795.73,
+            "y": 368.1
+          },
+          "moves": true,
+          "zoom": 2.01,
+          "lensScale": 1.205,
+          "crop": {
+            "x": 525.09,
+            "y": 119.94,
+            "w": 378.28,
+            "h": 599.09
+          },
+          "stackInCrop": true,
+          "lensClearOfPeople": true,
+          "lensClearOfSource": true,
+          "lensClearOfPlan": true,
+          "guidesClear": true,
+          "markerShown": 1,
+          "markerClearOfHeads": true,
+          "others": [
+            {
+              "x": 308.53,
+              "y": 368.1
+            },
+            null,
+            {
+              "x": 552.13,
+              "y": 66.29
+            },
+            {
+              "x": 234.56,
+              "y": 508.71
+            }
+          ],
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 89.5,
+          "log": [
+            "22.5/0.24/below/330:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: label substitution: only the label changes; nobody moves @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "contextScale": 1,
+          "textOnPlan": 1,
+          "valueScale": 1,
+          "valueShown": 1,
+          "datum": "after",
+          "strike": 1,
+          "oldDocked": 1,
+          "newShown": 1,
+          "focusTarget": "label",
+          "personSlot": "right1",
+          "person": {
+            "x": 632.73,
+            "y": 368.1
+          },
+          "seatBefore": {
+            "x": 632.73,
+            "y": 368.1
+          },
+          "seatAfter": {
+            "x": 632.73,
+            "y": 368.1
+          },
+          "moves": false,
+          "zoom": 2.01,
+          "lensScale": 1.204,
+          "crop": {
+            "x": 531.09,
+            "y": 132.97,
+            "w": 378.59,
+            "h": 599.59
+          },
+          "stackInCrop": true,
+          "lensClearOfPeople": true,
+          "lensClearOfSource": true,
+          "lensClearOfPlan": true,
+          "guidesClear": true,
+          "markerShown": 1,
+          "markerClearOfHeads": true,
+          "others": [
+            {
+              "x": 308.53,
+              "y": 368.1
+            },
+            null,
+            {
+              "x": 552.13,
+              "y": 66.29
+            },
+            {
+              "x": 234.56,
+              "y": 508.71
+            }
+          ],
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 89.5,
+          "log": [
+            "22.5/0.24/below/330:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same localised change is visible @0.66",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "contextScale": 0.65,
+          "textOnPlan": 0,
+          "valueScale": 0.733,
+          "valueShown": 0,
+          "datum": "after",
+          "strike": 1,
+          "oldDocked": 1,
+          "newShown": 1,
+          "focusTarget": "seat",
+          "personSlot": "right2",
+          "person": {
+            "x": 517.23,
+            "y": 368.42
+          },
+          "seatBefore": {
+            "x": 411.28,
+            "y": 368.42
+          },
+          "seatAfter": {
+            "x": 517.23,
+            "y": 368.42
+          },
+          "moves": true,
+          "zoom": 2.12,
+          "lensScale": 1.379,
+          "crop": {
+            "x": 571.72,
+            "y": 125.3,
+            "w": 285.03,
+            "h": 450.24
+          },
+          "stackInCrop": true,
+          "lensClearOfPeople": true,
+          "lensClearOfSource": true,
+          "lensClearOfPlan": true,
+          "guidesClear": true,
+          "markerShown": 0,
+          "markerClearOfHeads": true,
+          "others": [
+            {
+              "x": 200.55,
+              "y": 368.42
+            },
+            null,
+            {
+              "x": 358.89,
+              "y": 172.24
+            },
+            {
+              "x": 152.46,
+              "y": 459.81
+            }
+          ],
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 89.5,
+          "log": [
+            "22.5/0.24/below/330:"
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: an after-seat equal to the current seat moves nobody (nothing inferred) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "contextScale": 1,
+          "textOnPlan": 1,
+          "valueScale": 1,
+          "valueShown": 1,
+          "datum": "after",
+          "strike": 1,
+          "oldDocked": 1,
+          "newShown": 1,
+          "focusTarget": "seat",
+          "personSlot": "right1",
+          "person": {
+            "x": 632.73,
+            "y": 368.1
+          },
+          "seatBefore": {
+            "x": 632.73,
+            "y": 368.1
+          },
+          "seatAfter": {
+            "x": 632.73,
+            "y": 368.1
+          },
+          "moves": false,
+          "zoom": 2.01,
+          "lensScale": 1.205,
+          "crop": {
+            "x": 531.17,
+            "y": 119.94,
+            "w": 378.28,
+            "h": 599.09
+          },
+          "stackInCrop": true,
+          "lensClearOfPeople": true,
+          "lensClearOfSource": true,
+          "lensClearOfPlan": true,
+          "guidesClear": true,
+          "markerShown": 1,
+          "markerClearOfHeads": true,
+          "others": [
+            {
+              "x": 308.53,
+              "y": 368.1
+            },
+            null,
+            {
+              "x": 552.13,
+              "y": 66.29
+            },
+            {
+              "x": 234.56,
+              "y": 508.71
+            }
+          ],
+          "problems": [],
+          "allReached": true,
+          "textPx": 22.5,
+          "personPx": 89.5,
+          "log": [
+            "22.5/0.24/below/330:"
+          ]
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

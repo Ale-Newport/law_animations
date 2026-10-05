@@ -1,0 +1,476 @@
+{
+  "animationId": "LAW-0028",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0028",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: build: full context shows the before datum @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "lensOpen": 0,
+          "datum": "before",
+          "contextDatum": "before",
+          "lensValue": "?",
+          "contextValue": "?",
+          "lensBracketDashed": 1,
+          "contextBracketDashed": 1,
+          "source": {
+            "x": 495.69,
+            "y": 428.13,
+            "w": 404.81,
+            "h": 110.16
+          },
+          "contextSlot": {
+            "x": 1029.13,
+            "y": 554.36,
+            "w": 235.91,
+            "h": 35.6
+          },
+          "markerVisible": false,
+          "view": {
+            "x": 278.96,
+            "y": 70,
+            "k": 0.824
+          },
+          "viewMode": "full",
+          "linked": 3,
+          "allReached": true,
+          "focusTarget": "equivalent"
+        }
+      }
+    },
+    {
+      "name": "semantic: isolate: lens open on the unchanged slot (dashed bracket) @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.995,
+          "datum": "before",
+          "contextDatum": "before",
+          "lensValue": "?",
+          "contextValue": "?",
+          "lensBracketDashed": 1,
+          "contextBracketDashed": 1,
+          "source": {
+            "x": 495.69,
+            "y": 428.13,
+            "w": 404.81,
+            "h": 110.16
+          },
+          "contextSlot": {
+            "x": 598.66,
+            "y": 486.2,
+            "w": 183.23,
+            "h": 27.65
+          },
+          "markerVisible": false,
+          "view": {
+            "x": 16,
+            "y": 110,
+            "k": 0.64
+          },
+          "viewMode": "miniature",
+          "linked": 3,
+          "allReached": true,
+          "focusTarget": "equivalent"
+        }
+      }
+    },
+    {
+      "name": "semantic: the lens source region contains the real slot at its context coordinates @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.995,
+          "datum": "before",
+          "contextDatum": "before",
+          "lensValue": "?",
+          "contextValue": "?",
+          "lensBracketDashed": 1,
+          "contextBracketDashed": 1,
+          "source": {
+            "x": 495.69,
+            "y": 428.13,
+            "w": 404.81,
+            "h": 110.16
+          },
+          "contextSlot": {
+            "x": 598.66,
+            "y": 486.2,
+            "w": 183.23,
+            "h": 27.65
+          },
+          "markerVisible": false,
+          "view": {
+            "x": 16,
+            "y": 110,
+            "k": 0.64
+          },
+          "viewMode": "miniature",
+          "linked": 3,
+          "allReached": true,
+          "focusTarget": "equivalent"
+        }
+      }
+    },
+    {
+      "name": "semantic: the substitution happens inside the lens only @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "datum": "changing",
+          "contextDatum": "before",
+          "lensValue": null,
+          "contextValue": "?",
+          "lensBracketDashed": 0.5,
+          "contextBracketDashed": 1,
+          "source": {
+            "x": 495.69,
+            "y": 428.13,
+            "w": 404.81,
+            "h": 110.16
+          },
+          "contextSlot": {
+            "x": 598.66,
+            "y": 486.2,
+            "w": 183.23,
+            "h": 27.65
+          },
+          "markerVisible": false,
+          "view": {
+            "x": 16,
+            "y": 110,
+            "k": 0.64
+          },
+          "viewMode": "miniature",
+          "linked": 3,
+          "allReached": true,
+          "focusTarget": "equivalent"
+        }
+      }
+    },
+    {
+      "name": "semantic: only the dependent bracket follows the new datum in the lens @0.72",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "datum": "after",
+          "contextDatum": "before",
+          "lensValue": "fish-market hall",
+          "contextValue": "?",
+          "lensBracketDashed": 0,
+          "contextBracketDashed": 1,
+          "source": {
+            "x": 495.69,
+            "y": 428.13,
+            "w": 404.81,
+            "h": 110.16
+          },
+          "contextSlot": {
+            "x": 598.66,
+            "y": 486.2,
+            "w": 183.23,
+            "h": 27.65
+          },
+          "markerVisible": false,
+          "view": {
+            "x": 16,
+            "y": 110,
+            "k": 0.64
+          },
+          "viewMode": "miniature",
+          "linked": 3,
+          "allReached": true,
+          "focusTarget": "equivalent"
+        }
+      }
+    },
+    {
+      "name": "semantic: return: context shows the new datum with a changed marker @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "contextDatum": "after",
+          "lensValue": "fish-market hall",
+          "contextValue": "fish-market hall",
+          "lensBracketDashed": 0,
+          "contextBracketDashed": 0,
+          "source": {
+            "x": 495.69,
+            "y": 428.13,
+            "w": 404.81,
+            "h": 110.16
+          },
+          "contextSlot": {
+            "x": 1029.13,
+            "y": 554.36,
+            "w": 235.91,
+            "h": 35.6
+          },
+          "markerVisible": true,
+          "view": {
+            "x": 278.96,
+            "y": 70,
+            "k": 0.824
+          },
+          "viewMode": "full",
+          "linked": 3,
+          "allReached": true,
+          "focusTarget": "equivalent"
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the previous datum exactly @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.148,
+          "datum": "before",
+          "contextDatum": "before",
+          "lensValue": "?",
+          "contextValue": "?",
+          "lensBracketDashed": 1,
+          "contextBracketDashed": 1,
+          "source": {
+            "x": 495.69,
+            "y": 428.13,
+            "w": 404.81,
+            "h": 110.16
+          },
+          "contextSlot": {
+            "x": 598.66,
+            "y": 486.2,
+            "w": 183.23,
+            "h": 27.65
+          },
+          "markerVisible": false,
+          "view": {
+            "x": 16,
+            "y": 110,
+            "k": 0.64
+          },
+          "viewMode": "miniature",
+          "linked": 3,
+          "allReached": true,
+          "focusTarget": "equivalent"
+        }
+      }
+    },
+    {
+      "name": "semantic: wording substitution between available equivalents keeps the bracket solid @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "contextDatum": "after",
+          "lensValue": "fish-market hall",
+          "contextValue": "fish-market hall",
+          "lensBracketDashed": 0,
+          "contextBracketDashed": 0,
+          "source": {
+            "x": 495.69,
+            "y": 428.13,
+            "w": 404.81,
+            "h": 110.16
+          },
+          "contextSlot": {
+            "x": 1029.13,
+            "y": 554.36,
+            "w": 235.91,
+            "h": 35.6
+          },
+          "markerVisible": true,
+          "view": {
+            "x": 278.96,
+            "y": 70,
+            "k": 0.824
+          },
+          "viewMode": "full",
+          "linked": 3,
+          "allReached": true,
+          "focusTarget": "equivalent"
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative before value shown before the substitution @0.35",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.765,
+          "datum": "before",
+          "contextDatum": "before",
+          "lensValue": "fish market",
+          "contextValue": "fish market",
+          "lensBracketDashed": 0,
+          "contextBracketDashed": 0,
+          "source": {
+            "x": 495.69,
+            "y": 428.13,
+            "w": 404.81,
+            "h": 110.16
+          },
+          "contextSlot": {
+            "x": 598.66,
+            "y": 486.2,
+            "w": 183.23,
+            "h": 27.65
+          },
+          "markerVisible": false,
+          "view": {
+            "x": 16,
+            "y": 110,
+            "k": 0.64
+          },
+          "viewMode": "miniature",
+          "linked": 3,
+          "allReached": true,
+          "focusTarget": "equivalent"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

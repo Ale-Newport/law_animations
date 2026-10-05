@@ -1,0 +1,863 @@
+{
+  "animationId": "LAW-0708",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0708",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "object.name",
+        "rejected": "Invalid animation parameters:\n - params.object.name: must have at most 48 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: context: the produced state with the old datum; no lens, no marker @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "datum": "before",
+          "tagValue": "before",
+          "lensValue": null,
+          "strike": 0,
+          "lensOpen": 0,
+          "lensOn": false,
+          "zoom": 2.143,
+          "lensNow": {
+            "x": 794.74,
+            "y": 66.78,
+            "w": 296,
+            "h": 235.85
+          },
+          "crop": {
+            "x": 794.74,
+            "y": 66.78,
+            "w": 296,
+            "h": 235.85
+          },
+          "shift": 0,
+          "back": 1,
+          "lensMinSide": 0.468,
+          "lensFill": 0.676,
+          "ctxValues": 1,
+          "geo": 0,
+          "laterLevel": 5,
+          "levels": [
+            5,
+            4
+          ],
+          "initial": 2,
+          "flagB": {
+            "x": 1035.72,
+            "y": 325.13
+          },
+          "markerVisible": false,
+          "keyShown": false,
+          "textsOut": false,
+          "tag": {
+            "x": 802.74,
+            "y": 74.78,
+            "w": 280,
+            "h": 142.14
+          },
+          "marker": {
+            "x": 819.3,
+            "y": 68.34,
+            "R": 18.4
+          },
+          "frame": {
+            "w": 1690.42,
+            "h": 738
+          },
+          "layout": {
+            "PH": 247.96,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "arr": "side",
+            "why": [],
+            "Z": 2.143,
+            "room": {
+              "w": 634.34,
+              "h": 738
+            },
+            "dest": {
+              "w": 634.34,
+              "h": 505.44
+            },
+            "zW": 1024.08,
+            "zH": 648.46
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: isolate: an enlarged copy (>= 1.5×) holds the datum; the scene tag is blank; texts stepped out @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "datum": "before",
+          "tagValue": "before",
+          "lensValue": "before",
+          "strike": 0,
+          "lensOpen": 1,
+          "lensOn": true,
+          "zoom": 2.143,
+          "lensNow": {
+            "x": 10,
+            "y": 0,
+            "w": 634.34,
+            "h": 505.44
+          },
+          "crop": {
+            "x": 794.74,
+            "y": 66.78,
+            "w": 296,
+            "h": 235.85
+          },
+          "shift": 0,
+          "back": 1,
+          "lensMinSide": 0.468,
+          "lensFill": 0.676,
+          "ctxValues": 0,
+          "geo": 0,
+          "laterLevel": 5,
+          "levels": [
+            5,
+            4
+          ],
+          "initial": 2,
+          "flagB": {
+            "x": 1035.72,
+            "y": 325.13
+          },
+          "markerVisible": false,
+          "keyShown": false,
+          "textsOut": true,
+          "tag": {
+            "x": 802.74,
+            "y": 74.78,
+            "w": 280,
+            "h": 142.14
+          },
+          "marker": {
+            "x": 819.3,
+            "y": 68.34,
+            "R": 18.4
+          },
+          "frame": {
+            "w": 1690.42,
+            "h": 738
+          },
+          "layout": {
+            "PH": 247.96,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "arr": "side",
+            "why": [],
+            "Z": 2.143,
+            "room": {
+              "w": 634.34,
+              "h": 738
+            },
+            "dest": {
+              "w": 634.34,
+              "h": 505.44
+            },
+            "zW": 1024.08,
+            "zH": 648.46
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the old value is struck before anything changes @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "changing",
+          "tagValue": "before",
+          "lensValue": "before",
+          "strike": 1,
+          "lensOpen": 1,
+          "lensOn": true,
+          "zoom": 2.143,
+          "lensNow": {
+            "x": 10,
+            "y": 0,
+            "w": 634.34,
+            "h": 505.44
+          },
+          "crop": {
+            "x": 794.74,
+            "y": 66.78,
+            "w": 296,
+            "h": 235.85
+          },
+          "shift": 0,
+          "back": 1,
+          "lensMinSide": 0.468,
+          "lensFill": 0.676,
+          "ctxValues": 0,
+          "geo": 0,
+          "laterLevel": 5,
+          "levels": [
+            5,
+            4
+          ],
+          "initial": 2,
+          "flagB": {
+            "x": 1035.72,
+            "y": 325.13
+          },
+          "markerVisible": false,
+          "keyShown": false,
+          "textsOut": true,
+          "tag": {
+            "x": 802.74,
+            "y": 74.78,
+            "w": 280,
+            "h": 142.14
+          },
+          "marker": {
+            "x": 819.3,
+            "y": 68.34,
+            "R": 18.4
+          },
+          "frame": {
+            "w": 1690.42,
+            "h": 738
+          },
+          "layout": {
+            "PH": 247.96,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "arr": "side",
+            "why": [],
+            "Z": 2.143,
+            "room": {
+              "w": 634.34,
+              "h": 738
+            },
+            "dest": {
+              "w": 634.34,
+              "h": 505.44
+            },
+            "zW": 1024.08,
+            "zH": 648.46
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the new value is legible in the lens BEFORE any dependent geometry changes @0.59",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "after",
+          "tagValue": "after",
+          "lensValue": "after",
+          "strike": 1,
+          "lensOpen": 1,
+          "lensOn": true,
+          "zoom": 2.143,
+          "lensNow": {
+            "x": 10,
+            "y": 0,
+            "w": 634.34,
+            "h": 505.44
+          },
+          "crop": {
+            "x": 794.74,
+            "y": 66.78,
+            "w": 296,
+            "h": 235.85
+          },
+          "shift": 0,
+          "back": 1,
+          "lensMinSide": 0.468,
+          "lensFill": 0.676,
+          "ctxValues": 0,
+          "geo": 0,
+          "laterLevel": 5,
+          "levels": [
+            5,
+            4
+          ],
+          "initial": 2,
+          "flagB": {
+            "x": 1035.72,
+            "y": 325.13
+          },
+          "markerVisible": false,
+          "keyShown": false,
+          "textsOut": true,
+          "tag": {
+            "x": 802.74,
+            "y": 74.78,
+            "w": 280,
+            "h": 142.14
+          },
+          "marker": {
+            "x": 819.3,
+            "y": 68.34,
+            "R": 18.4
+          },
+          "frame": {
+            "w": 1690.42,
+            "h": 738
+          },
+          "layout": {
+            "PH": 247.96,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "arr": "side",
+            "why": [],
+            "Z": 2.143,
+            "room": {
+              "w": 634.34,
+              "h": 738
+            },
+            "dest": {
+              "w": 634.34,
+              "h": 505.44
+            },
+            "zW": 1024.08,
+            "zH": 648.46
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: then only its dependent geometry follows @0.67",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "after",
+          "tagValue": "after",
+          "lensValue": "after",
+          "strike": 1,
+          "lensOpen": 1,
+          "lensOn": true,
+          "zoom": 2.143,
+          "lensNow": {
+            "x": 10,
+            "y": 0,
+            "w": 634.34,
+            "h": 505.44
+          },
+          "crop": {
+            "x": 794.74,
+            "y": 66.78,
+            "w": 296,
+            "h": 235.85
+          },
+          "shift": 0,
+          "back": 1,
+          "lensMinSide": 0.468,
+          "lensFill": 0.676,
+          "ctxValues": 0,
+          "geo": 1,
+          "laterLevel": 4,
+          "levels": [
+            5,
+            4
+          ],
+          "initial": 2,
+          "flagB": {
+            "x": 973.73,
+            "y": 325.13
+          },
+          "markerVisible": false,
+          "keyShown": false,
+          "textsOut": true,
+          "tag": {
+            "x": 802.74,
+            "y": 74.78,
+            "w": 280,
+            "h": 142.14
+          },
+          "marker": {
+            "x": 819.3,
+            "y": 68.34,
+            "R": 18.4
+          },
+          "frame": {
+            "w": 1690.42,
+            "h": 738
+          },
+          "layout": {
+            "PH": 247.96,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "arr": "side",
+            "why": [],
+            "Z": 2.143,
+            "room": {
+              "w": 634.34,
+              "h": 738
+            },
+            "dest": {
+              "w": 634.34,
+              "h": 505.44
+            },
+            "zW": 1024.08,
+            "zH": 648.46
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: return: changed tag in the context, Δ marker, key @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "datum": "after",
+          "tagValue": "after",
+          "lensValue": null,
+          "strike": 1,
+          "lensOpen": 0,
+          "lensOn": false,
+          "zoom": 2.143,
+          "lensNow": {
+            "x": 794.74,
+            "y": 66.78,
+            "w": 296,
+            "h": 235.85
+          },
+          "crop": {
+            "x": 794.74,
+            "y": 66.78,
+            "w": 296,
+            "h": 235.85
+          },
+          "shift": 0,
+          "back": 1,
+          "lensMinSide": 0.468,
+          "lensFill": 0.676,
+          "ctxValues": 1,
+          "geo": 1,
+          "laterLevel": 4,
+          "levels": [
+            5,
+            4
+          ],
+          "initial": 2,
+          "flagB": {
+            "x": 973.73,
+            "y": 325.13
+          },
+          "markerVisible": true,
+          "keyShown": true,
+          "textsOut": false,
+          "tag": {
+            "x": 802.74,
+            "y": 74.78,
+            "w": 280,
+            "h": 142.14
+          },
+          "marker": {
+            "x": 819.3,
+            "y": 68.34,
+            "R": 18.4
+          },
+          "frame": {
+            "w": 1690.42,
+            "h": 738
+          },
+          "layout": {
+            "PH": 247.96,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "arr": "side",
+            "why": [],
+            "Z": 2.143,
+            "room": {
+              "w": 634.34,
+              "h": 738
+            },
+            "dest": {
+              "w": 634.34,
+              "h": 505.44
+            },
+            "zW": 1024.08,
+            "zH": 648.46
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the previous datum exactly @0.34",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "datum": "before",
+          "tagValue": "before",
+          "lensValue": "before",
+          "strike": 0,
+          "lensOpen": 1,
+          "lensOn": true,
+          "zoom": 2.143,
+          "lensNow": {
+            "x": 10,
+            "y": 0,
+            "w": 634.34,
+            "h": 505.44
+          },
+          "crop": {
+            "x": 794.74,
+            "y": 66.78,
+            "w": 296,
+            "h": 235.85
+          },
+          "shift": 0,
+          "back": 1,
+          "lensMinSide": 0.468,
+          "lensFill": 0.676,
+          "ctxValues": 0,
+          "geo": 0,
+          "laterLevel": 5,
+          "levels": [
+            5,
+            4
+          ],
+          "initial": 2,
+          "flagB": {
+            "x": 1035.72,
+            "y": 325.13
+          },
+          "markerVisible": false,
+          "keyShown": false,
+          "textsOut": true,
+          "tag": {
+            "x": 802.74,
+            "y": 74.78,
+            "w": 280,
+            "h": 142.14
+          },
+          "marker": {
+            "x": 819.3,
+            "y": 68.34,
+            "R": 18.4
+          },
+          "frame": {
+            "w": 1690.42,
+            "h": 738
+          },
+          "layout": {
+            "PH": 247.96,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "arr": "side",
+            "why": [],
+            "Z": 2.143,
+            "room": {
+              "w": 634.34,
+              "h": 738
+            },
+            "dest": {
+              "w": 634.34,
+              "h": 505.44
+            },
+            "zW": 1024.08,
+            "zH": 648.46
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative: the supplied later level grows; the mark spreads further @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "datum": "after",
+          "tagValue": "after",
+          "lensValue": null,
+          "strike": 1,
+          "lensOpen": 0,
+          "lensOn": false,
+          "zoom": 1.823,
+          "lensNow": {
+            "x": 772.79,
+            "y": 25.88,
+            "w": 356,
+            "h": 283.95
+          },
+          "crop": {
+            "x": 772.79,
+            "y": 25.88,
+            "w": 356,
+            "h": 283.95
+          },
+          "shift": 0,
+          "back": 1,
+          "lensMinSide": 0.479,
+          "lensFill": 0.734,
+          "ctxValues": 1,
+          "geo": 1,
+          "laterLevel": 5,
+          "levels": [
+            3,
+            5
+          ],
+          "initial": 1,
+          "flagB": {
+            "x": 1086.54,
+            "y": 335.22
+          },
+          "markerVisible": true,
+          "keyShown": true,
+          "textsOut": false,
+          "tag": {
+            "x": 780.79,
+            "y": 33.88,
+            "w": 340,
+            "h": 184
+          },
+          "marker": {
+            "x": 798.79,
+            "y": 26.88,
+            "R": 20
+          },
+          "frame": {
+            "w": 1690.42,
+            "h": 738
+          },
+          "layout": {
+            "PH": 271.49,
+            "size": 25,
+            "k": 1,
+            "fallback": false,
+            "arr": "side",
+            "why": [],
+            "Z": 1.823,
+            "room": {
+              "w": 649.15,
+              "h": 738
+            },
+            "dest": {
+              "w": 649.15,
+              "h": 517.77
+            },
+            "zW": 1009.27,
+            "zH": 735.49
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same isolation and change @0.67",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "after",
+          "tagValue": "after",
+          "lensValue": "after",
+          "strike": 1,
+          "lensOpen": 1,
+          "lensOn": true,
+          "zoom": 1.827,
+          "lensNow": {
+            "x": 10,
+            "y": 0,
+            "w": 582.16,
+            "h": 666.38
+          },
+          "crop": {
+            "x": 798.68,
+            "y": 27.58,
+            "w": 318.71,
+            "h": 364.82
+          },
+          "shift": 297.08,
+          "back": 1,
+          "lensMinSide": 0.539,
+          "lensFill": 0.515,
+          "ctxValues": 0,
+          "geo": 1,
+          "laterLevel": 4,
+          "levels": [
+            5,
+            4
+          ],
+          "initial": 2,
+          "flagB": {
+            "x": 699.26,
+            "y": 285.28
+          },
+          "markerVisible": false,
+          "keyShown": false,
+          "textsOut": true,
+          "tag": {
+            "x": 520.96,
+            "y": 35.58,
+            "w": 280,
+            "h": 118.82
+          },
+          "marker": {
+            "x": 539.68,
+            "y": 28.3,
+            "R": 20.8
+          },
+          "frame": {
+            "w": 1690.42,
+            "h": 738
+          },
+          "layout": {
+            "PH": 306.39,
+            "size": 26,
+            "k": 1,
+            "fallback": false,
+            "arr": "side",
+            "why": [],
+            "Z": 1.827,
+            "room": {
+              "w": 582.16,
+              "h": 738
+            },
+            "dest": {
+              "w": 582.16,
+              "h": 666.38
+            },
+            "zW": 1076.26,
+            "zH": 734.7
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

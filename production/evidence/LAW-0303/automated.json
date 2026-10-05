@@ -1,0 +1,463 @@
+{
+  "animationId": "LAW-0303",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0303",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "hearing.room"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: the two rooms are identical @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": "{\"d\":{\"x\":689,\"y\":459.13},\"s\":0.36,\"ds\":\"cabinet\",\"t\":0,\"k\":0}",
+          "lookB": "{\"d\":{\"x\":689,\"y\":459.13},\"s\":0.36,\"ds\":\"cabinet\",\"t\":0,\"k\":0}",
+          "zoneA": "none",
+          "zoneB": "none",
+          "frameB": 0,
+          "zoomB": 0,
+          "captionB": 0,
+          "docState": "cabinet",
+          "docStateB": "cabinet",
+          "tags": 0,
+          "zoneMark": 0,
+          "pointing": 0,
+          "guide": 0,
+          "handA": {
+            "x": 464.04,
+            "y": 110.99
+          },
+          "handB": {
+            "x": 1142.96,
+            "y": 110.99
+          },
+          "allReached": true,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "document",
+            "detail"
+          ],
+          "roles": {
+            "presenter": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "docI": 0,
+          "detI": 1,
+          "detailShown": true,
+          "finalState": "detail-enlarged",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 81.4,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: the one difference is introduced in both rooms at once, in the same place: a ◆ marks the zone in B, nothing in A @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "introduce",
+          "lookA": "{\"d\":{\"x\":689,\"y\":459.13},\"s\":0.36,\"ds\":\"cabinet\",\"t\":0,\"k\":0}",
+          "lookB": "{\"d\":{\"x\":689,\"y\":459.13},\"s\":0.36,\"ds\":\"cabinet\",\"t\":0,\"k\":0}",
+          "zoneA": "none",
+          "zoneB": "none",
+          "frameB": 0,
+          "zoomB": 0,
+          "captionB": 0,
+          "docState": "cabinet",
+          "docStateB": "cabinet",
+          "tags": 1,
+          "zoneMark": 1,
+          "pointing": 0,
+          "guide": 0,
+          "handA": {
+            "x": 464.04,
+            "y": 110.99
+          },
+          "handB": {
+            "x": 1142.96,
+            "y": 110.99
+          },
+          "allReached": true,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "document",
+            "detail"
+          ],
+          "roles": {
+            "presenter": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "docI": 0,
+          "detI": 1,
+          "detailShown": true,
+          "finalState": "detail-enlarged",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 81.4,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: the same action in both rooms: the document travels to the board @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "lookA": "{\"d\":{\"x\":219.17,\"y\":278},\"s\":0.463,\"ds\":\"travelling\",\"t\":0,\"k\":1}",
+          "lookB": "{\"d\":{\"x\":219.17,\"y\":278},\"s\":0.463,\"ds\":\"travelling\",\"t\":0,\"k\":1}",
+          "zoneA": "none",
+          "zoneB": "none",
+          "frameB": 0,
+          "zoomB": 0,
+          "captionB": 0,
+          "docState": "travelling",
+          "docStateB": "travelling",
+          "tags": 1,
+          "zoneMark": 1,
+          "pointing": 1,
+          "guide": 0,
+          "handA": {
+            "x": 399.75,
+            "y": 137.69
+          },
+          "handB": {
+            "x": 1078.67,
+            "y": 137.69
+          },
+          "allReached": true,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "document",
+            "detail"
+          ],
+          "roles": {
+            "presenter": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "docI": 0,
+          "detI": 1,
+          "detailShown": true,
+          "finalState": "detail-enlarged",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 81.4,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: only in B is the region enlarged into the zone (a different object and relation); everything else identical @0.65",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "lookA": "{\"d\":{\"x\":114,\"y\":110},\"s\":1,\"ds\":\"placed\",\"t\":1,\"k\":0}",
+          "lookB": "{\"d\":{\"x\":114,\"y\":110},\"s\":1,\"ds\":\"placed\",\"t\":1,\"k\":0}",
+          "zoneA": "none",
+          "zoneB": "enlarging",
+          "frameB": 1,
+          "zoomB": 0.31,
+          "captionB": 0,
+          "docState": "placed",
+          "docStateB": "placed",
+          "tags": 1,
+          "zoneMark": 0.69,
+          "pointing": 0,
+          "guide": 0,
+          "handA": {
+            "x": 464.04,
+            "y": 110.99
+          },
+          "handB": {
+            "x": 1142.96,
+            "y": 110.99
+          },
+          "allReached": true,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "document",
+            "detail"
+          ],
+          "roles": {
+            "presenter": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "docI": 0,
+          "detI": 1,
+          "detailShown": true,
+          "finalState": "detail-enlarged",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 81.4,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: both pages on their boards; the enlarged zone only in B; the guide is drawn; the composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": "{\"d\":{\"x\":114,\"y\":110},\"s\":1,\"ds\":\"placed\",\"t\":1,\"k\":0}",
+          "lookB": "{\"d\":{\"x\":114,\"y\":110},\"s\":1,\"ds\":\"placed\",\"t\":1,\"k\":0}",
+          "zoneA": "none",
+          "zoneB": "enlarged",
+          "frameB": 1,
+          "zoomB": 1,
+          "captionB": 1,
+          "docState": "placed",
+          "docStateB": "placed",
+          "tags": 1,
+          "zoneMark": 0,
+          "pointing": 0,
+          "guide": 1,
+          "handA": {
+            "x": 464.04,
+            "y": 110.99
+          },
+          "handB": {
+            "x": 1142.96,
+            "y": 110.99
+          },
+          "allReached": true,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "document",
+            "detail"
+          ],
+          "roles": {
+            "presenter": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "docI": 0,
+          "detI": 1,
+          "detailShown": true,
+          "finalState": "detail-enlarged",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 81.4,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the base @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": "{\"d\":{\"x\":689,\"y\":459.13},\"s\":0.36,\"ds\":\"cabinet\",\"t\":0,\"k\":0}",
+          "lookB": "{\"d\":{\"x\":689,\"y\":459.13},\"s\":0.36,\"ds\":\"cabinet\",\"t\":0,\"k\":0}",
+          "zoneA": "none",
+          "zoneB": "none",
+          "frameB": 0,
+          "zoomB": 0,
+          "captionB": 0,
+          "docState": "cabinet",
+          "docStateB": "cabinet",
+          "tags": 0,
+          "zoneMark": 0,
+          "pointing": 0,
+          "guide": 0,
+          "handA": {
+            "x": 464.04,
+            "y": 110.99
+          },
+          "handB": {
+            "x": 1142.96,
+            "y": 110.99
+          },
+          "allReached": true,
+          "forms": [
+            "open",
+            "bounded"
+          ],
+          "ops": [
+            "document",
+            "detail"
+          ],
+          "roles": {
+            "presenter": 0,
+            "listeners": [
+              1,
+              2
+            ]
+          },
+          "docI": 0,
+          "detI": 1,
+          "detailShown": true,
+          "finalState": "detail-enlarged",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 81.4,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

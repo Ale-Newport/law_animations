@@ -1,0 +1,905 @@
+{
+  "animationId": "LAW-0005",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0005",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: stamp on its rest, copy unmarked @0.05",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "stampTool": {
+            "x": 1176,
+            "y": 121.5
+          },
+          "stampHeight": 0,
+          "stampOn": "rest",
+          "stampHeld": false,
+          "stampPressed": false,
+          "markApplied": false,
+          "markSpot": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "markRotation": -7,
+          "stampRotation": 0,
+          "copyCenter": {
+            "x": 760,
+            "y": 499.5
+          },
+          "copyHolder": "desk",
+          "copyGrip": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handSteady": {
+            "x": 688,
+            "y": 27
+          },
+          "handStamp": {
+            "x": 1400,
+            "y": 90
+          },
+          "originalCenter": {
+            "x": 304,
+            "y": 499.5
+          },
+          "originalHolder": "desk",
+          "origGrip": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "handA": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "reach": {
+            "A": true,
+            "steady": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "rest",
+          "finalState": "filed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the stamp is inked on the pad before it moves to the copy @0.25",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "stampTool": {
+            "x": 936,
+            "y": 117
+          },
+          "stampHeight": 0,
+          "stampOn": "pad",
+          "stampHeld": true,
+          "stampPressed": false,
+          "markApplied": false,
+          "markSpot": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "markRotation": -7,
+          "stampRotation": 0,
+          "copyCenter": {
+            "x": 760,
+            "y": 499.5
+          },
+          "copyHolder": "desk",
+          "copyGrip": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handSteady": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handStamp": {
+            "x": 936,
+            "y": 117
+          },
+          "originalCenter": {
+            "x": 304,
+            "y": 499.5
+          },
+          "originalHolder": "desk",
+          "origGrip": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "handA": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "reach": {
+            "A": true,
+            "steady": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "action",
+          "finalState": "filed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: raised over the copy: no mark before contact (cause precedes effect) @0.33",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "stampTool": {
+            "x": 822.98,
+            "y": 379.56
+          },
+          "stampHeight": 1.011,
+          "stampOn": "air",
+          "stampHeld": true,
+          "stampPressed": false,
+          "markApplied": false,
+          "markSpot": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "markRotation": -7,
+          "stampRotation": -6.35,
+          "copyCenter": {
+            "x": 760,
+            "y": 499.5
+          },
+          "copyHolder": "desk",
+          "copyGrip": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handSteady": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handStamp": {
+            "x": 822.98,
+            "y": 379.56
+          },
+          "originalCenter": {
+            "x": 304,
+            "y": 499.5
+          },
+          "originalHolder": "desk",
+          "origGrip": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "handA": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "reach": {
+            "A": true,
+            "steady": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "action",
+          "finalState": "filed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: contact: the mark exists exactly under the stamp face @0.44",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "stampTool": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "stampHeight": 0,
+          "stampOn": "copy",
+          "stampHeld": true,
+          "stampPressed": true,
+          "markApplied": true,
+          "markSpot": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "markRotation": -7,
+          "stampRotation": -7,
+          "copyCenter": {
+            "x": 760,
+            "y": 499.5
+          },
+          "copyHolder": "desk",
+          "copyGrip": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handSteady": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handStamp": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "originalCenter": {
+            "x": 304,
+            "y": 499.5
+          },
+          "originalHolder": "desk",
+          "origGrip": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "handA": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "reach": {
+            "A": true,
+            "steady": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "filed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the mark keeps the rotation of the stamp face at contact @0.44",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "stampTool": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "stampHeight": 0,
+          "stampOn": "copy",
+          "stampHeld": true,
+          "stampPressed": true,
+          "markApplied": true,
+          "markSpot": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "markRotation": -7,
+          "stampRotation": -7,
+          "copyCenter": {
+            "x": 760,
+            "y": 499.5
+          },
+          "copyHolder": "desk",
+          "copyGrip": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handSteady": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handStamp": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "originalCenter": {
+            "x": 304,
+            "y": 499.5
+          },
+          "originalHolder": "desk",
+          "origGrip": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "handA": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "reach": {
+            "A": true,
+            "steady": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "filed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: the marked copy is slid onto the file afterwards @0.66",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "stampTool": {
+            "x": 1176,
+            "y": 121.5
+          },
+          "stampHeight": 0,
+          "stampOn": "rest",
+          "stampHeld": false,
+          "stampPressed": false,
+          "markApplied": true,
+          "markSpot": {
+            "x": 1310.93,
+            "y": 390.59
+          },
+          "markRotation": -6.69,
+          "stampRotation": 0,
+          "copyCenter": {
+            "x": 1259.09,
+            "y": 483.25
+          },
+          "copyHolder": "sliding",
+          "copyGrip": {
+            "x": 1114.09,
+            "y": 266.67
+          },
+          "handSteady": {
+            "x": 1114.09,
+            "y": 266.67
+          },
+          "handStamp": {
+            "x": 1400,
+            "y": 90
+          },
+          "originalCenter": {
+            "x": 285.27,
+            "y": 534.46
+          },
+          "originalHolder": "A-returning",
+          "origGrip": {
+            "x": 276.28,
+            "y": 742.87
+          },
+          "handA": {
+            "x": 276.28,
+            "y": 742.87
+          },
+          "reach": {
+            "A": true,
+            "steady": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "filed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: ends: marked copy filed, original back with A, stamp on its rest @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "stampTool": {
+            "x": 1176,
+            "y": 121.5
+          },
+          "stampHeight": 0,
+          "stampOn": "rest",
+          "stampHeld": false,
+          "stampPressed": false,
+          "markApplied": true,
+          "markSpot": {
+            "x": 1336.56,
+            "y": 391.42
+          },
+          "markRotation": -5,
+          "stampRotation": 0,
+          "copyCenter": {
+            "x": 1282,
+            "y": 482.5
+          },
+          "copyHolder": "folder",
+          "copyGrip": {
+            "x": 1143.47,
+            "y": 261.73
+          },
+          "handSteady": {
+            "x": 688,
+            "y": 27
+          },
+          "handStamp": {
+            "x": 1400,
+            "y": 90
+          },
+          "originalCenter": {
+            "x": 274,
+            "y": 555.5
+          },
+          "originalHolder": "A",
+          "origGrip": {
+            "x": 269.11,
+            "y": 764.04
+          },
+          "handA": {
+            "x": 269.11,
+            "y": 764.04
+          },
+          "reach": {
+            "A": true,
+            "steady": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "filed",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: unmarked state: the stamp hovers and returns, no mark @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "stampTool": {
+            "x": 1176,
+            "y": 121.5
+          },
+          "stampHeight": 0,
+          "stampOn": "rest",
+          "stampHeld": false,
+          "stampPressed": false,
+          "markApplied": false,
+          "markSpot": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "markRotation": -7,
+          "stampRotation": 0,
+          "copyCenter": {
+            "x": 760,
+            "y": 499.5
+          },
+          "copyHolder": "desk",
+          "copyGrip": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handSteady": {
+            "x": 688,
+            "y": 27
+          },
+          "handStamp": {
+            "x": 1400,
+            "y": 90
+          },
+          "originalCenter": {
+            "x": 304,
+            "y": 499.5
+          },
+          "originalHolder": "desk",
+          "origGrip": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "handA": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "reach": {
+            "A": true,
+            "steady": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "unmarked",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: unmarked state: no contact at the contact time @0.44",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "stampTool": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "stampHeight": 0.774,
+          "stampOn": "air",
+          "stampHeld": true,
+          "stampPressed": false,
+          "markApplied": false,
+          "markSpot": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "markRotation": -7,
+          "stampRotation": -7,
+          "copyCenter": {
+            "x": 760,
+            "y": 499.5
+          },
+          "copyHolder": "desk",
+          "copyGrip": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handSteady": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handStamp": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "originalCenter": {
+            "x": 304,
+            "y": 499.5
+          },
+          "originalHolder": "desk",
+          "origGrip": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "handA": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "reach": {
+            "A": true,
+            "steady": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "complete",
+          "finalState": "unmarked",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: marked-on-desk state: marked copy stays on the desk @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "stampTool": {
+            "x": 1176,
+            "y": 121.5
+          },
+          "stampHeight": 0,
+          "stampOn": "rest",
+          "stampHeld": false,
+          "stampPressed": false,
+          "markApplied": true,
+          "markSpot": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "markRotation": -7,
+          "stampRotation": 0,
+          "copyCenter": {
+            "x": 760,
+            "y": 499.5
+          },
+          "copyHolder": "desk",
+          "copyGrip": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handSteady": {
+            "x": 688,
+            "y": 27
+          },
+          "handStamp": {
+            "x": 1400,
+            "y": 90
+          },
+          "originalCenter": {
+            "x": 304,
+            "y": 499.5
+          },
+          "originalHolder": "desk",
+          "origGrip": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "handA": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "reach": {
+            "A": true,
+            "steady": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "marked-on-desk",
+          "actionCapped": false
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "stampTool": {
+            "x": 818.49,
+            "y": 389.98
+          },
+          "stampHeight": 1.007,
+          "stampOn": "air",
+          "stampHeld": true,
+          "stampPressed": false,
+          "markApplied": false,
+          "markSpot": {
+            "x": 811.35,
+            "y": 406.57
+          },
+          "markRotation": -7,
+          "stampRotation": -6.6,
+          "copyCenter": {
+            "x": 760,
+            "y": 499.5
+          },
+          "copyHolder": "desk",
+          "copyGrip": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handSteady": {
+            "x": 613.85,
+            "y": 283.7
+          },
+          "handStamp": {
+            "x": 818.49,
+            "y": 389.98
+          },
+          "originalCenter": {
+            "x": 304,
+            "y": 499.5
+          },
+          "originalHolder": "desk",
+          "origGrip": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "handA": {
+            "x": 288.2,
+            "y": 707.5
+          },
+          "reach": {
+            "A": true,
+            "steady": true,
+            "stamp": true
+          },
+          "allReached": true,
+          "beat": "hold",
+          "finalState": "filed",
+          "actionCapped": true
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2. Scope of the supply obligat",
+          "COPYRECEIVEDAT DESK"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 1,
+      "pairs": [
+        [
+          "2. Scope of the supply obligat",
+          "COPYRECEIVEDAT DESK"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2. Scope of the supply obligat",
+          "COPYRECEIVEDAT DESK"
+        ],
+        [
+          "3. Fees, invoicing and payment",
+          "COPYRECEIVEDAT DESK"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 1,
+      "pairs": [
+        [
+          "2. Scope of the supply obligat",
+          "COPYRECEIVEDAT DESK"
+        ],
+        [
+          "3. Fees, invoicing and payment",
+          "COPYRECEIVEDAT DESK"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2. Scope of the supply obligat",
+          "COPYRECEIVEDAT DESK"
+        ],
+        [
+          "3. Fees, invoicing and payment",
+          "COPYRECEIVEDAT DESK"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 1,
+      "pairs": [
+        [
+          "2. Scope of the supply obligat",
+          "COPYRECEIVEDAT DESK"
+        ],
+        [
+          "3. Fees, invoicing and payment",
+          "COPYRECEIVEDAT DESK"
+        ]
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

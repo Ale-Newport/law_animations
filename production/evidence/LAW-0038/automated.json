@@ -1,0 +1,809 @@
+{
+  "animationId": "LAW-0038",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0038",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: starts as one stack: original and copy together, nothing annotated @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "tracer": {
+            "x": 826,
+            "y": 765.28
+          },
+          "tracerVisible": false,
+          "original": {
+            "x": 872,
+            "y": 320
+          },
+          "copy": {
+            "x": 888,
+            "y": 336
+          },
+          "split": 0,
+          "notesProgress": 0,
+          "originalWrittenOn": false,
+          "relationsDrawn": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "arrowheads": [
+            false,
+            false,
+            true,
+            true,
+            false
+          ],
+          "visitOrder": [
+            "seal",
+            "box",
+            "original",
+            "copy",
+            "folder"
+          ],
+          "connectorLanding": [
+            8,
+            8,
+            14,
+            14,
+            8
+          ],
+          "originalLowered": 0,
+          "originalInBox": false,
+          "originalScale": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: components are separated before relations are drawn @0.2",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "tracer": {
+            "x": 826,
+            "y": 765.28
+          },
+          "tracerVisible": false,
+          "original": {
+            "x": 300,
+            "y": 290
+          },
+          "copy": {
+            "x": 1290,
+            "y": 330
+          },
+          "split": 1,
+          "notesProgress": 0,
+          "originalWrittenOn": false,
+          "relationsDrawn": [
+            0.256,
+            0,
+            0,
+            0,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "arrowheads": [
+            false,
+            false,
+            true,
+            true,
+            false
+          ],
+          "visitOrder": [
+            "seal",
+            "box",
+            "original",
+            "copy",
+            "folder"
+          ],
+          "connectorLanding": [
+            8,
+            8,
+            14,
+            14,
+            8
+          ],
+          "originalLowered": 0,
+          "originalInBox": false,
+          "originalScale": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: relations are drawn one by one @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "tracer": {
+            "x": 826,
+            "y": 765.28
+          },
+          "tracerVisible": false,
+          "original": {
+            "x": 300,
+            "y": 290
+          },
+          "copy": {
+            "x": 1290,
+            "y": 330
+          },
+          "split": 1,
+          "notesProgress": 0,
+          "originalWrittenOn": false,
+          "relationsDrawn": [
+            1,
+            1,
+            0.256,
+            0,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "arrowheads": [
+            false,
+            false,
+            true,
+            true,
+            false
+          ],
+          "visitOrder": [
+            "seal",
+            "box",
+            "original",
+            "copy",
+            "folder"
+          ],
+          "connectorLanding": [
+            8,
+            8,
+            14,
+            14,
+            8
+          ],
+          "originalLowered": 0,
+          "originalInBox": false,
+          "originalScale": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: all relations drawn before the tracer runs; the copy is unchanged until reached @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 819.32,
+            "y": 765.47
+          },
+          "tracerVisible": true,
+          "original": {
+            "x": 300,
+            "y": 290
+          },
+          "copy": {
+            "x": 1290,
+            "y": 330
+          },
+          "split": 1,
+          "notesProgress": 0,
+          "originalWrittenOn": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "arrowheads": [
+            false,
+            false,
+            true,
+            true,
+            false
+          ],
+          "visitOrder": [
+            "seal",
+            "box",
+            "original",
+            "copy",
+            "folder"
+          ],
+          "connectorLanding": [
+            8,
+            8,
+            14,
+            14,
+            8
+          ],
+          "originalLowered": 0,
+          "originalInBox": false,
+          "originalScale": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: every connector ends on its element outline (all ratios share the rule) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1290,
+            "y": 823
+          },
+          "tracerVisible": false,
+          "original": {
+            "x": 300,
+            "y": 661.46
+          },
+          "copy": {
+            "x": 1290,
+            "y": 330
+          },
+          "split": 1,
+          "notesProgress": 1,
+          "originalWrittenOn": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "arrowheads": [
+            false,
+            false,
+            true,
+            true,
+            false
+          ],
+          "visitOrder": [
+            "seal",
+            "box",
+            "original",
+            "copy",
+            "folder"
+          ],
+          "connectorLanding": [
+            6,
+            8,
+            14,
+            14,
+            8
+          ],
+          "originalLowered": 1,
+          "originalInBox": true,
+          "originalScale": 0.9
+        }
+      }
+    },
+    {
+      "name": "semantic: plain relations carry no arrowhead; no causal link by default @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1290,
+            "y": 823
+          },
+          "tracerVisible": false,
+          "original": {
+            "x": 300,
+            "y": 661.46
+          },
+          "copy": {
+            "x": 1290,
+            "y": 330
+          },
+          "split": 1,
+          "notesProgress": 1,
+          "originalWrittenOn": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "arrowheads": [
+            false,
+            false,
+            true,
+            true,
+            false
+          ],
+          "visitOrder": [
+            "seal",
+            "box",
+            "original",
+            "copy",
+            "folder"
+          ],
+          "connectorLanding": [
+            6,
+            8,
+            14,
+            14,
+            8
+          ],
+          "originalLowered": 1,
+          "originalInBox": true,
+          "originalScale": 0.9
+        }
+      }
+    },
+    {
+      "name": "semantic: ends with the copy annotated, the original untouched, tracer gone @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1290,
+            "y": 823
+          },
+          "tracerVisible": false,
+          "original": {
+            "x": 300,
+            "y": 661.46
+          },
+          "copy": {
+            "x": 1290,
+            "y": 330
+          },
+          "split": 1,
+          "notesProgress": 1,
+          "originalWrittenOn": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "arrowheads": [
+            false,
+            false,
+            true,
+            true,
+            false
+          ],
+          "visitOrder": [
+            "seal",
+            "box",
+            "original",
+            "copy",
+            "folder"
+          ],
+          "connectorLanding": [
+            6,
+            8,
+            14,
+            14,
+            8
+          ],
+          "originalLowered": 1,
+          "originalInBox": true,
+          "originalScale": 0.9
+        }
+      }
+    },
+    {
+      "name": "semantic: tracer follows the supplied traversal order @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 697.21,
+            "y": 338.09
+          },
+          "tracerVisible": true,
+          "original": {
+            "x": 300,
+            "y": 290
+          },
+          "copy": {
+            "x": 1290,
+            "y": 330
+          },
+          "split": 1,
+          "notesProgress": 0,
+          "originalWrittenOn": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "arrowheads": [
+            false,
+            false,
+            true,
+            true,
+            false
+          ],
+          "visitOrder": [
+            "seal",
+            "box",
+            "original",
+            "copy",
+            "folder"
+          ],
+          "connectorLanding": [
+            8,
+            8,
+            14,
+            14,
+            8
+          ],
+          "originalLowered": 0,
+          "originalInBox": false,
+          "originalScale": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: the order does not change when seeking back @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "tracer": {
+            "x": 826,
+            "y": 765.28
+          },
+          "tracerVisible": false,
+          "original": {
+            "x": 300,
+            "y": 290
+          },
+          "copy": {
+            "x": 1290,
+            "y": 330
+          },
+          "split": 1,
+          "notesProgress": 0,
+          "originalWrittenOn": false,
+          "relationsDrawn": [
+            1,
+            1,
+            0.256,
+            0,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "arrowheads": [
+            false,
+            false,
+            true,
+            true,
+            false
+          ],
+          "visitOrder": [
+            "seal",
+            "box",
+            "original",
+            "copy",
+            "folder"
+          ],
+          "connectorLanding": [
+            8,
+            8,
+            14,
+            14,
+            8
+          ],
+          "originalLowered": 0,
+          "originalInBox": false,
+          "originalScale": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: a supplied traversal order is followed @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 964.77,
+            "y": 344.14
+          },
+          "tracerVisible": true,
+          "original": {
+            "x": 300,
+            "y": 290
+          },
+          "copy": {
+            "x": 1290,
+            "y": 330
+          },
+          "split": 1,
+          "notesProgress": 1,
+          "originalWrittenOn": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "arrowheads": [
+            false,
+            false,
+            true,
+            true,
+            false
+          ],
+          "visitOrder": [
+            "folder",
+            "copy",
+            "original"
+          ],
+          "connectorLanding": [
+            8,
+            8,
+            14,
+            14,
+            8
+          ],
+          "originalLowered": 0,
+          "originalInBox": false,
+          "originalScale": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: causal styling only when the author supplies a causal link @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1290,
+            "y": 823
+          },
+          "tracerVisible": false,
+          "original": {
+            "x": 300,
+            "y": 661.46
+          },
+          "copy": {
+            "x": 1290,
+            "y": 330
+          },
+          "split": 1,
+          "notesProgress": 1,
+          "originalWrittenOn": false,
+          "relationsDrawn": [
+            1
+          ],
+          "kinds": [
+            "causal"
+          ],
+          "arrowheads": [
+            true
+          ],
+          "visitOrder": [
+            "seal",
+            "box",
+            "original",
+            "copy",
+            "folder"
+          ],
+          "connectorLanding": [
+            14
+          ],
+          "originalLowered": 1,
+          "originalInBox": true,
+          "originalScale": 0.9
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

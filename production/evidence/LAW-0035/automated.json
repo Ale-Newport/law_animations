@@ -1,0 +1,1284 @@
+{
+  "animationId": "LAW-0035",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0035",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: identical base situation in both scenes @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "a": {
+            "envelope": "out-tray",
+            "card": "folder",
+            "signature": 0,
+            "stamped": false,
+            "filed": false
+          },
+          "b": {
+            "envelope": "out-tray",
+            "card": "folder",
+            "signature": 0,
+            "stamped": false,
+            "filed": false
+          },
+          "envA": {
+            "x": 330,
+            "y": 790
+          },
+          "envB": {
+            "x": 330,
+            "y": 790
+          },
+          "cardA": {
+            "x": 946,
+            "y": 852
+          },
+          "cardB": {
+            "x": 946,
+            "y": 852
+          },
+          "handA_a": {
+            "x": 700,
+            "y": 1030
+          },
+          "handA_b": {
+            "x": 700,
+            "y": 1030
+          },
+          "handB1_a": {
+            "x": 380,
+            "y": 300
+          },
+          "handB1_b": {
+            "x": 380,
+            "y": 300
+          },
+          "cardGripA_a": {
+            "x": 987.93,
+            "y": 906.57
+          },
+          "envGripB_a": {
+            "x": 227.06,
+            "y": 707.54
+          },
+          "envGripB_b": {
+            "x": 227.06,
+            "y": 707.54
+          },
+          "allReached": true,
+          "reach": {
+            "a": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            },
+            "b": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            }
+          },
+          "markerProgress": 0,
+          "guideProgress": 0,
+          "detail": "column",
+          "copyA": {
+            "x": 946,
+            "y": 978
+          },
+          "copyB": {
+            "x": 2840.03,
+            "y": 978
+          },
+          "copyScale": 1,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the one changed fact is introduced locally: only A attaches the card @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "a": {
+            "envelope": "out-tray",
+            "card": "A",
+            "signature": 0,
+            "stamped": false,
+            "filed": false
+          },
+          "b": {
+            "envelope": "out-tray",
+            "card": "folder",
+            "signature": 0,
+            "stamped": false,
+            "filed": false
+          },
+          "envA": {
+            "x": 330,
+            "y": 790
+          },
+          "envB": {
+            "x": 330,
+            "y": 790
+          },
+          "cardA": {
+            "x": 441.77,
+            "y": 818.43
+          },
+          "cardB": {
+            "x": 946,
+            "y": 852
+          },
+          "handA_a": {
+            "x": 483.62,
+            "y": 874.81
+          },
+          "handA_b": {
+            "x": 700,
+            "y": 1030
+          },
+          "handB1_a": {
+            "x": 380,
+            "y": 300
+          },
+          "handB1_b": {
+            "x": 380,
+            "y": 300
+          },
+          "cardGripA_a": {
+            "x": 483.62,
+            "y": 874.81
+          },
+          "envGripB_a": {
+            "x": 227.06,
+            "y": 707.54
+          },
+          "envGripB_b": {
+            "x": 227.06,
+            "y": 707.54
+          },
+          "allReached": true,
+          "reach": {
+            "a": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            },
+            "b": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            }
+          },
+          "markerProgress": 1,
+          "guideProgress": 0,
+          "detail": "column",
+          "copyA": {
+            "x": 946,
+            "y": 978
+          },
+          "copyB": {
+            "x": 2840.03,
+            "y": 978
+          },
+          "copyScale": 1,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: A dispatches with the card clipped, B without @0.39",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "a": {
+            "envelope": "out-tray",
+            "card": "envelope",
+            "signature": 0,
+            "stamped": false,
+            "filed": false
+          },
+          "b": {
+            "envelope": "out-tray",
+            "card": "folder",
+            "signature": 0,
+            "stamped": false,
+            "filed": false
+          },
+          "envA": {
+            "x": 330,
+            "y": 790
+          },
+          "envB": {
+            "x": 330,
+            "y": 790
+          },
+          "cardA": {
+            "x": 418.99,
+            "y": 816.91
+          },
+          "cardB": {
+            "x": 946,
+            "y": 852
+          },
+          "handA_a": {
+            "x": 589.66,
+            "y": 964.91
+          },
+          "handA_b": {
+            "x": 589.66,
+            "y": 964.91
+          },
+          "handB1_a": {
+            "x": 380,
+            "y": 300
+          },
+          "handB1_b": {
+            "x": 380,
+            "y": 300
+          },
+          "cardGripA_a": {
+            "x": 459.96,
+            "y": 872.2
+          },
+          "envGripB_a": {
+            "x": 227.06,
+            "y": 707.54
+          },
+          "envGripB_b": {
+            "x": 227.06,
+            "y": 707.54
+          },
+          "allReached": true,
+          "reach": {
+            "a": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            },
+            "b": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            }
+          },
+          "markerProgress": 1,
+          "guideProgress": 0,
+          "detail": "column",
+          "copyA": {
+            "x": 946,
+            "y": 978
+          },
+          "copyB": {
+            "x": 2840.03,
+            "y": 978
+          },
+          "copyScale": 1,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the delivery runs identically in parallel @0.52",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "envelope": "B",
+            "card": "envelope",
+            "signature": 0,
+            "stamped": false,
+            "filed": false
+          },
+          "b": {
+            "envelope": "B",
+            "card": "folder",
+            "signature": 0,
+            "stamped": false,
+            "filed": false
+          },
+          "envA": {
+            "x": 635.15,
+            "y": 506.32
+          },
+          "envB": {
+            "x": 635.15,
+            "y": 506.32
+          },
+          "cardA": {
+            "x": 727.38,
+            "y": 538.29
+          },
+          "cardB": {
+            "x": 946,
+            "y": 852
+          },
+          "handA_a": {
+            "x": 698.41,
+            "y": 666.87
+          },
+          "handA_b": {
+            "x": 698.41,
+            "y": 666.87
+          },
+          "handB1_a": {
+            "x": 530.61,
+            "y": 415.48
+          },
+          "handB1_b": {
+            "x": 530.61,
+            "y": 415.48
+          },
+          "cardGripA_a": {
+            "x": 768.05,
+            "y": 598.02
+          },
+          "envGripB_a": {
+            "x": 530.61,
+            "y": 415.48
+          },
+          "envGripB_b": {
+            "x": 530.61,
+            "y": 415.48
+          },
+          "allReached": true,
+          "reach": {
+            "a": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            },
+            "b": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            }
+          },
+          "markerProgress": 0,
+          "guideProgress": 0,
+          "detail": "column",
+          "copyA": {
+            "x": 946,
+            "y": 978
+          },
+          "copyB": {
+            "x": 2840.03,
+            "y": 978
+          },
+          "copyScale": 1,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: both envelopes reach the IN tray @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "envelope": "in-tray",
+            "card": "envelope",
+            "signature": 0.444,
+            "stamped": false,
+            "filed": false
+          },
+          "b": {
+            "envelope": "in-tray",
+            "card": "folder",
+            "signature": 0,
+            "stamped": false,
+            "filed": false
+          },
+          "envA": {
+            "x": 840,
+            "y": 310
+          },
+          "envB": {
+            "x": 840,
+            "y": 310
+          },
+          "cardA": {
+            "x": 926.9,
+            "y": 343.05
+          },
+          "cardB": {
+            "x": 946,
+            "y": 852
+          },
+          "handA_a": {
+            "x": 660,
+            "y": 880
+          },
+          "handA_b": {
+            "x": 680,
+            "y": 955
+          },
+          "handB1_a": {
+            "x": 540,
+            "y": 150
+          },
+          "handB1_b": {
+            "x": 505.43,
+            "y": 272.55
+          },
+          "cardGripA_a": {
+            "x": 963.91,
+            "y": 401.07
+          },
+          "envGripB_a": {
+            "x": 743.06,
+            "y": 220.56
+          },
+          "envGripB_b": {
+            "x": 743.06,
+            "y": 220.56
+          },
+          "allReached": true,
+          "reach": {
+            "a": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            },
+            "b": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            }
+          },
+          "markerProgress": 0,
+          "guideProgress": 0,
+          "detail": "column",
+          "copyA": {
+            "x": 946,
+            "y": 978
+          },
+          "copyB": {
+            "x": 2840.03,
+            "y": 978
+          },
+          "copyScale": 1,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: A: signed card filed; B: blank card still in the folder @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "envelope": "in-tray",
+            "card": "folder",
+            "signature": 1,
+            "stamped": true,
+            "filed": true
+          },
+          "b": {
+            "envelope": "in-tray",
+            "card": "folder",
+            "signature": 0,
+            "stamped": false,
+            "filed": false
+          },
+          "envA": {
+            "x": 840,
+            "y": 310
+          },
+          "envB": {
+            "x": 840,
+            "y": 310
+          },
+          "cardA": {
+            "x": 946,
+            "y": 852
+          },
+          "cardB": {
+            "x": 946,
+            "y": 852
+          },
+          "handA_a": {
+            "x": 700,
+            "y": 1030
+          },
+          "handA_b": {
+            "x": 700,
+            "y": 1030
+          },
+          "handB1_a": {
+            "x": 380,
+            "y": 300
+          },
+          "handB1_b": {
+            "x": 380,
+            "y": 300
+          },
+          "cardGripA_a": {
+            "x": 987.93,
+            "y": 906.57
+          },
+          "envGripB_a": {
+            "x": 743.06,
+            "y": 220.56
+          },
+          "envGripB_b": {
+            "x": 743.06,
+            "y": 220.56
+          },
+          "allReached": true,
+          "reach": {
+            "a": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            },
+            "b": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            }
+          },
+          "markerProgress": 0,
+          "guideProgress": 1,
+          "detail": "column",
+          "copyA": {
+            "x": 1547.01,
+            "y": 349.1
+          },
+          "copyB": {
+            "x": 1547.01,
+            "y": 1042.9
+          },
+          "copyScale": 3.08,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: both notices delivered; guide joins the compared detail; no outcome state exists @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "envelope": "in-tray",
+            "card": "folder",
+            "signature": 1,
+            "stamped": true,
+            "filed": true
+          },
+          "b": {
+            "envelope": "in-tray",
+            "card": "folder",
+            "signature": 0,
+            "stamped": false,
+            "filed": false
+          },
+          "envA": {
+            "x": 840,
+            "y": 310
+          },
+          "envB": {
+            "x": 840,
+            "y": 310
+          },
+          "cardA": {
+            "x": 946,
+            "y": 852
+          },
+          "cardB": {
+            "x": 946,
+            "y": 852
+          },
+          "handA_a": {
+            "x": 700,
+            "y": 1030
+          },
+          "handA_b": {
+            "x": 700,
+            "y": 1030
+          },
+          "handB1_a": {
+            "x": 380,
+            "y": 300
+          },
+          "handB1_b": {
+            "x": 380,
+            "y": 300
+          },
+          "cardGripA_a": {
+            "x": 987.93,
+            "y": 906.57
+          },
+          "envGripB_a": {
+            "x": 743.06,
+            "y": 220.56
+          },
+          "envGripB_b": {
+            "x": 743.06,
+            "y": 220.56
+          },
+          "allReached": true,
+          "reach": {
+            "a": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            },
+            "b": {
+              "A": true,
+              "B1": true,
+              "B2": true
+            }
+          },
+          "markerProgress": 0,
+          "guideProgress": 1,
+          "detail": "column",
+          "copyA": {
+            "x": 1547.01,
+            "y": 349.1
+          },
+          "copyB": {
+            "x": 1547.01,
+            "y": 1042.9
+          },
+          "copyScale": 3.08,
+          "arrangement": "row"
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "RECEIVED",
+          "px": 4.8
+        },
+        {
+          "text": "Date and place of the meeting",
+          "px": 5.6
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 5.6
+        },
+        {
+          "text": "Received by",
+          "px": 5.6
+        },
+        {
+          "text": "Date and place of the meeting",
+          "px": 5.6
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 5.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "RECEIVED",
+          "px": 4.7
+        },
+        {
+          "text": "Date and place of the meeting",
+          "px": 5.5
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 5.5
+        },
+        {
+          "text": "Received by",
+          "px": 5.5
+        },
+        {
+          "text": "Date and place of the meeting",
+          "px": 5.5
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 5.5
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "RECEIVED",
+          "px": 3.9
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 4.5
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 4.5
+        },
+        {
+          "text": "Date and place of the meeting",
+          "px": 4.6
+        },
+        {
+          "text": "Received by",
+          "px": 4.6
+        },
+        {
+          "text": "Date and place of the meeting",
+          "px": 4.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "RECEIVED",
+          "px": 4.8
+        },
+        {
+          "text": "Date and place of the meeting",
+          "px": 5.6
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 5.6
+        },
+        {
+          "text": "Received by",
+          "px": 5.6
+        },
+        {
+          "text": "Date and place of the meeting",
+          "px": 5.6
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 5.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "RECEIVED",
+          "px": 4.7
+        },
+        {
+          "text": "Date and place of the meeting",
+          "px": 5.5
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 5.5
+        },
+        {
+          "text": "Received by",
+          "px": 5.5
+        },
+        {
+          "text": "Date and place of the meeting",
+          "px": 5.5
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 5.5
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "RECEIVED",
+          "px": 3.9
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 4.5
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 4.5
+        },
+        {
+          "text": "Date and place of the meeting",
+          "px": 4.6
+        },
+        {
+          "text": "Received by",
+          "px": 4.6
+        },
+        {
+          "text": "Date and place of the meeting",
+          "px": 4.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "To: Jonah Adeyemi",
+          "px": 4.6
+        },
+        {
+          "text": "To: Jonah Adeyemi",
+          "px": 4.6
+        },
+        {
+          "text": "RECEIVED",
+          "px": 4.8
+        },
+        {
+          "text": "Ref. ADR-512",
+          "px": 5.6
+        },
+        {
+          "text": "Received by",
+          "px": 5.6
+        },
+        {
+          "text": "Ref. ADR-512",
+          "px": 5.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "To: Jonah Adeyemi",
+          "px": 4.5
+        },
+        {
+          "text": "To: Jonah Adeyemi",
+          "px": 4.5
+        },
+        {
+          "text": "RECEIVED",
+          "px": 4.7
+        },
+        {
+          "text": "Ref. ADR-512",
+          "px": 5.5
+        },
+        {
+          "text": "Received by",
+          "px": 5.5
+        },
+        {
+          "text": "Ref. ADR-512",
+          "px": 5.5
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "To: Jonah Adeyemi",
+          "px": 3.6
+        },
+        {
+          "text": "To: Jonah Adeyemi",
+          "px": 3.6
+        },
+        {
+          "text": "RECEIVED",
+          "px": 3.8
+        },
+        {
+          "text": "Ref. ADR-512",
+          "px": 4.4
+        },
+        {
+          "text": "Ref. ADR-512",
+          "px": 4.4
+        },
+        {
+          "text": "Received by",
+          "px": 4.5
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        "Notice of Rescheduled Annual Coordinatio",
+        "To: Oluwaseun Bartholomew-NakamuraTo: Ol",
+        "Notice of Rescheduled Annual Coordinatio",
+        "To: Oluwaseun Bartholomew-NakamuraTo: Ol"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "RECEIVED",
+          "px": 3.6
+        },
+        {
+          "text": "To: OluwaseunBartholomew-Nakam",
+          "px": 4
+        },
+        {
+          "text": "To: OluwaseunBartholomew-Nakam",
+          "px": 4
+        },
+        {
+          "text": "Day 3",
+          "px": 4.9
+        },
+        {
+          "text": "To: Oluwaseun Bartholomew-Naka",
+          "px": 5
+        },
+        {
+          "text": "To: Oluwaseun Bartholomew-Naka",
+          "px": 5
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        "Notice of Rescheduled Annual Coordinatio",
+        "To: Oluwaseun Bartholomew-NakamuraTo: Ol",
+        "Notice of Rescheduled Annual Coordinatio",
+        "To: Oluwaseun Bartholomew-NakamuraTo: Ol"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "RECEIVED",
+          "px": 3.7
+        },
+        {
+          "text": "To: OluwaseunBartholomew-Nakam",
+          "px": 4
+        },
+        {
+          "text": "To: OluwaseunBartholomew-Nakam",
+          "px": 4
+        },
+        {
+          "text": "Day 3",
+          "px": 4.9
+        },
+        {
+          "text": "To: Oluwaseun Bartholomew-Naka",
+          "px": 5.1
+        },
+        {
+          "text": "To: Oluwaseun Bartholomew-Naka",
+          "px": 5.1
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        "Notice of Rescheduled Annual Coordinatio",
+        "To: Oluwaseun Bartholomew-NakamuraTo: Ol",
+        "Notice of Rescheduled Annual Coordinatio",
+        "To: Oluwaseun Bartholomew-NakamuraTo: Ol"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "RECEIVED",
+          "px": 2.8
+        },
+        {
+          "text": "To: OluwaseunBartholomew-Nakam",
+          "px": 3.1
+        },
+        {
+          "text": "To: OluwaseunBartholomew-Nakam",
+          "px": 3.1
+        },
+        {
+          "text": "Day 3",
+          "px": 3.8
+        },
+        {
+          "text": "To: Oluwaseun Bartholomew-Naka",
+          "px": 3.9
+        },
+        {
+          "text": "To: Oluwaseun Bartholomew-Naka",
+          "px": 3.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "RECIBIDO",
+          "px": 5
+        },
+        {
+          "text": "Para: Sam Okafor",
+          "px": 5.1
+        },
+        {
+          "text": "Para: Sam Okafor",
+          "px": 5.1
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 5.6
+        },
+        {
+          "text": "Recibido por",
+          "px": 5.6
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 5.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Para: Sam Okafor",
+          "px": 5
+        },
+        {
+          "text": "RECIBIDO",
+          "px": 5
+        },
+        {
+          "text": "Para: Sam Okafor",
+          "px": 5
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 5.5
+        },
+        {
+          "text": "Recibido por",
+          "px": 5.5
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 5.5
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Para: Sam Okafor",
+          "px": 4.1
+        },
+        {
+          "text": "RECIBIDO",
+          "px": 4.1
+        },
+        {
+          "text": "Para: Sam Okafor",
+          "px": 4.1
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 4.5
+        },
+        {
+          "text": "Ref. NTF-207",
+          "px": 4.5
+        },
+        {
+          "text": "Recibido por",
+          "px": 4.6
+        }
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

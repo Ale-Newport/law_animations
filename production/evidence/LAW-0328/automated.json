@@ -1,0 +1,789 @@
+{
+  "animationId": "LAW-0328",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0328",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "decisions.title"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: build: the context at full size, the route travelled, the supplied before value on the record; no lens @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "datum": "before",
+          "stateBefore": "a",
+          "stateAfter": "b",
+          "routeState": "before",
+          "sheetAt": "last",
+          "solid": 1,
+          "dashed": 0,
+          "lensOpen": 0,
+          "lensStartU": 0.2176,
+          "contextScale": 1,
+          "ctxCopy": 1,
+          "lensCopy": 0,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 0,
+          "newShown": 0,
+          "was": 0,
+          "focusTarget": "route-record",
+          "markerText": "Changed: the supplied route state",
+          "markerShown": 0,
+          "panel": 1,
+          "zoomVsRest": 1.568,
+          "lensMinSide": 0.382,
+          "refsSize": 2.1,
+          "lensText": 0.421,
+          "textLimit": false,
+          "roomSize": {
+            "W": 1092,
+            "H": 814,
+            "needW": 1088,
+            "needH": 736,
+            "k": 0.8376
+          },
+          "names": "room",
+          "problems": [],
+          "textPx": 22.5,
+          "stations": [
+            {
+              "x": 121.47,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 397.32,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 673.18,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: isolate: a real enlargement (>= 1.5x the context at rest) holds the datum; the context copy is hidden; the panel is out @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "datum": "before",
+          "stateBefore": "a",
+          "stateAfter": "b",
+          "routeState": "before",
+          "sheetAt": "last",
+          "solid": 1,
+          "dashed": 0,
+          "lensOpen": 1,
+          "lensStartU": 0.2176,
+          "contextScale": 0.96,
+          "ctxCopy": 0,
+          "lensCopy": 1,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 0,
+          "newShown": 0,
+          "was": 0,
+          "focusTarget": "route-record",
+          "markerText": "Changed: the supplied route state",
+          "markerShown": 0,
+          "panel": 0,
+          "zoomVsRest": 1.568,
+          "lensMinSide": 0.382,
+          "refsSize": 2.1,
+          "lensText": 0.421,
+          "textLimit": false,
+          "roomSize": {
+            "W": 1092,
+            "H": 814,
+            "needW": 1088,
+            "needH": 736,
+            "k": 0.8376
+          },
+          "names": "room",
+          "problems": [],
+          "textPx": 22.5,
+          "stations": [
+            {
+              "x": 121.47,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 397.32,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 673.18,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: substitute: the old value moves, unchanged and never struck, towards the dock before anything else changes @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "changing",
+          "stateBefore": "a",
+          "stateAfter": "b",
+          "routeState": "before",
+          "sheetAt": "last",
+          "solid": 1,
+          "dashed": 0,
+          "lensOpen": 1,
+          "lensStartU": 0.2176,
+          "contextScale": 0.96,
+          "ctxCopy": 0,
+          "lensCopy": 1,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 0.093,
+          "newShown": 0,
+          "was": 0,
+          "focusTarget": "route-record",
+          "markerText": "Changed: the supplied route state",
+          "markerShown": 0,
+          "panel": 0,
+          "zoomVsRest": 1.568,
+          "lensMinSide": 0.382,
+          "refsSize": 2.1,
+          "lensText": 0.421,
+          "textLimit": false,
+          "roomSize": {
+            "W": 1092,
+            "H": 814,
+            "needW": 1088,
+            "needH": 736,
+            "k": 0.8376
+          },
+          "names": "room",
+          "problems": [],
+          "textPx": 22.5,
+          "stations": [
+            {
+              "x": 121.47,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 397.32,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 673.18,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: the new value comes before its dependent state changes @0.59",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "after",
+          "stateBefore": "a",
+          "stateAfter": "b",
+          "routeState": "before",
+          "sheetAt": "last",
+          "solid": 1,
+          "dashed": 0,
+          "lensOpen": 1,
+          "lensStartU": 0.2176,
+          "contextScale": 0.96,
+          "ctxCopy": 0,
+          "lensCopy": 1,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 1,
+          "newShown": 1,
+          "was": 1,
+          "focusTarget": "route-record",
+          "markerText": "Changed: the supplied route state",
+          "markerShown": 0,
+          "panel": 0,
+          "zoomVsRest": 1.568,
+          "lensMinSide": 0.382,
+          "refsSize": 2.1,
+          "lensText": 0.421,
+          "textLimit": false,
+          "roomSize": {
+            "W": 1092,
+            "H": 814,
+            "needW": 1088,
+            "needH": 736,
+            "k": 0.8376
+          },
+          "names": "room",
+          "problems": [],
+          "textPx": 22.5,
+          "stations": [
+            {
+              "x": 121.47,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 397.32,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 673.18,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: then only the dependent state follows: the route drawn dashed (pending), the sheet waiting in the first tray @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "after",
+          "stateBefore": "a",
+          "stateAfter": "b",
+          "routeState": "after",
+          "sheetAt": "first",
+          "solid": 0,
+          "dashed": 1,
+          "lensOpen": 1,
+          "lensStartU": 0.2176,
+          "contextScale": 0.96,
+          "ctxCopy": 0,
+          "lensCopy": 1,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 1,
+          "newShown": 1,
+          "was": 1,
+          "focusTarget": "route-record",
+          "markerText": "Changed: the supplied route state",
+          "markerShown": 0,
+          "panel": 0,
+          "zoomVsRest": 1.568,
+          "lensMinSide": 0.382,
+          "refsSize": 2.1,
+          "lensText": 0.421,
+          "textLimit": false,
+          "roomSize": {
+            "W": 1092,
+            "H": 814,
+            "needW": 1088,
+            "needH": 736,
+            "k": 0.8376
+          },
+          "names": "room",
+          "problems": [],
+          "textPx": 22.5,
+          "stations": [
+            {
+              "x": 121.47,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 397.32,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 673.18,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: return: the lens has closed onto the updated context at full size @0.82",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "datum": "after",
+          "stateBefore": "a",
+          "stateAfter": "b",
+          "routeState": "after",
+          "sheetAt": "first",
+          "solid": 0,
+          "dashed": 1,
+          "lensOpen": 0,
+          "lensStartU": 0.2176,
+          "contextScale": 1,
+          "ctxCopy": 1,
+          "lensCopy": 0,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 1,
+          "newShown": 1,
+          "was": 1,
+          "focusTarget": "route-record",
+          "markerText": "Changed: the supplied route state",
+          "markerShown": 0.667,
+          "panel": 1,
+          "zoomVsRest": 1.568,
+          "lensMinSide": 0.382,
+          "refsSize": 2.1,
+          "lensText": 0.421,
+          "textLimit": false,
+          "roomSize": {
+            "W": 1092,
+            "H": 814,
+            "needW": 1088,
+            "needH": 736,
+            "k": 0.8376
+          },
+          "names": "room",
+          "problems": [],
+          "textPx": 22.5,
+          "stations": [
+            {
+              "x": 121.47,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 397.32,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 673.18,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: new value, the old value docked (traceable, not struck), marker; the composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "datum": "after",
+          "stateBefore": "a",
+          "stateAfter": "b",
+          "routeState": "after",
+          "sheetAt": "first",
+          "solid": 0,
+          "dashed": 1,
+          "lensOpen": 0,
+          "lensStartU": 0.2176,
+          "contextScale": 1,
+          "ctxCopy": 1,
+          "lensCopy": 0,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 1,
+          "newShown": 1,
+          "was": 1,
+          "focusTarget": "route-record",
+          "markerText": "Changed: the supplied route state",
+          "markerShown": 1,
+          "panel": 1,
+          "zoomVsRest": 1.568,
+          "lensMinSide": 0.382,
+          "refsSize": 2.1,
+          "lensText": 0.421,
+          "textLimit": false,
+          "roomSize": {
+            "W": 1092,
+            "H": 814,
+            "needW": 1088,
+            "needH": 736,
+            "k": 0.8376
+          },
+          "names": "room",
+          "problems": [],
+          "textPx": 22.5,
+          "stations": [
+            {
+              "x": 121.47,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 397.32,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 673.18,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the previous datum exactly @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "datum": "before",
+          "stateBefore": "a",
+          "stateAfter": "b",
+          "routeState": "before",
+          "sheetAt": "last",
+          "solid": 1,
+          "dashed": 0,
+          "lensOpen": 1,
+          "lensStartU": 0.2176,
+          "contextScale": 0.96,
+          "ctxCopy": 0,
+          "lensCopy": 1,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 0,
+          "newShown": 0,
+          "was": 0,
+          "focusTarget": "route-record",
+          "markerText": "Changed: the supplied route state",
+          "markerShown": 0,
+          "panel": 0,
+          "zoomVsRest": 1.568,
+          "lensMinSide": 0.382,
+          "refsSize": 2.1,
+          "lensText": 0.421,
+          "textLimit": false,
+          "roomSize": {
+            "W": 1092,
+            "H": 814,
+            "needW": 1088,
+            "needH": 736,
+            "k": 0.8376
+          },
+          "names": "room",
+          "problems": [],
+          "textPx": 22.5,
+          "stations": [
+            {
+              "x": 121.47,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 397.32,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            },
+            {
+              "x": 673.18,
+              "y": 59.18,
+              "w": 217.22,
+              "h": 166.75
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: another supplied value: not checked becomes available; the sheet's place follows; nothing else is inferred @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "datum": "after",
+          "stateBefore": "b",
+          "stateAfter": "a",
+          "routeState": "after",
+          "sheetAt": "last",
+          "solid": 1,
+          "dashed": 0,
+          "lensOpen": 0,
+          "lensStartU": 0.219,
+          "contextScale": 1,
+          "ctxCopy": 1,
+          "lensCopy": 0,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 1,
+          "newShown": 1,
+          "was": 1,
+          "focusTarget": "route-record",
+          "markerText": "Changed: the supplied route state",
+          "markerShown": 1,
+          "panel": 1,
+          "zoomVsRest": 1.684,
+          "lensMinSide": 0.454,
+          "refsSize": 1.85,
+          "lensText": 0.367,
+          "textLimit": false,
+          "roomSize": {
+            "W": 1116,
+            "H": 848,
+            "needW": 1116,
+            "needH": 840,
+            "k": 0.8597
+          },
+          "names": "letters",
+          "problems": [],
+          "textPx": 22.5,
+          "stations": [
+            {
+              "x": 177.82,
+              "y": 36.11,
+              "w": 122.43,
+              "h": 178.05
+            },
+            {
+              "x": 408.57,
+              "y": 36.11,
+              "w": 122.43,
+              "h": 178.05
+            },
+            {
+              "x": 639.32,
+              "y": 36.11,
+              "w": 122.43,
+              "h": 178.05
+            },
+            {
+              "x": 870.07,
+              "y": 36.11,
+              "w": 122.43,
+              "h": 178.05
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same localised change @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "after",
+          "stateBefore": "a",
+          "stateAfter": "b",
+          "routeState": "after",
+          "sheetAt": "first",
+          "solid": 0,
+          "dashed": 1,
+          "lensOpen": 1,
+          "lensStartU": 0.2196,
+          "contextScale": 0.9,
+          "ctxCopy": 0,
+          "lensCopy": 1,
+          "bothCopies": false,
+          "strike": 0,
+          "docked": 1,
+          "newShown": 1,
+          "was": 1,
+          "focusTarget": "route-record",
+          "markerText": "Changed: the supplied route state",
+          "markerShown": 0,
+          "panel": 0,
+          "zoomVsRest": 2.823,
+          "lensMinSide": 0.376,
+          "refsSize": 1,
+          "lensText": null,
+          "textLimit": false,
+          "roomSize": {
+            "W": 848,
+            "H": 580,
+            "needW": 848,
+            "needH": 580,
+            "k": 1.2338
+          },
+          "names": "room",
+          "problems": [],
+          "textPx": 22.5,
+          "stations": [
+            {
+              "x": 500.77,
+              "y": 51.82,
+              "w": 175.69,
+              "h": 250.95
+            },
+            {
+              "x": 831.91,
+              "y": 51.82,
+              "w": 175.69,
+              "h": 250.95
+            },
+            {
+              "x": 1163.06,
+              "y": 51.82,
+              "w": 175.69,
+              "h": 250.95
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

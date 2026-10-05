@@ -1,0 +1,702 @@
+{
+  "animationId": "LAW-0286",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0286",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "hearing.room"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: the pieces in their places, the slips on the lectern @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "lifted": 0,
+          "drawn": [
+            0,
+            0,
+            0
+          ],
+          "kinds": [
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "ledge",
+          "focusScale": 1,
+          "itemState": [
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "open": [
+            0,
+            0,
+            0
+          ],
+          "textShown": [
+            0,
+            0,
+            0
+          ],
+          "tether": [
+            null,
+            0,
+            null
+          ],
+          "order": "0>1>2",
+          "presenterIndex": 0,
+          "trav": "lectern>ledge>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 96.7,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: separate: the pieces are lifted before any relationship is drawn @0.16",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "lifted": 1,
+          "drawn": [
+            0,
+            0,
+            0
+          ],
+          "kinds": [
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "ledge",
+          "focusScale": 1,
+          "itemState": [
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "open": [
+            0,
+            0,
+            0
+          ],
+          "textShown": [
+            0,
+            0,
+            0
+          ],
+          "tether": [
+            null,
+            0,
+            null
+          ],
+          "order": "0>1>2",
+          "presenterIndex": 0,
+          "trav": "lectern>ledge>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 96.7,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: relate: the relationships are drawn one after the other @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "lifted": 1,
+          "drawn": [
+            1,
+            0.625,
+            0
+          ],
+          "kinds": [
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "ledge",
+          "focusScale": 1,
+          "itemState": [
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "open": [
+            0,
+            0,
+            0
+          ],
+          "textShown": [
+            0,
+            0,
+            0
+          ],
+          "tether": [
+            null,
+            0,
+            null
+          ],
+          "order": "0>1>2",
+          "presenterIndex": 0,
+          "trav": "lectern>ledge>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 96.7,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: every relationship drawn before the tracer; no state has changed yet @0.43",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "ledge",
+          "focusScale": 1,
+          "itemState": [
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "open": [
+            0,
+            0,
+            0
+          ],
+          "textShown": [
+            0,
+            0,
+            0
+          ],
+          "tether": [
+            null,
+            0,
+            null
+          ],
+          "order": "0>1>2",
+          "presenterIndex": 0,
+          "trav": "lectern>ledge>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 96.7,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: trace: the tracer runs along the relationships @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "tracer": {
+            "x": 703.56,
+            "y": 325.75
+          },
+          "at": null,
+          "focus": "ledge",
+          "focusScale": 1.052,
+          "itemState": [
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "open": [
+            0,
+            0,
+            0
+          ],
+          "textShown": [
+            0,
+            0,
+            0
+          ],
+          "tether": [
+            null,
+            0,
+            null
+          ],
+          "order": "0>1>2",
+          "presenterIndex": 0,
+          "trav": "lectern>ledge>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 96.7,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the cards opened once the tracer reached the table @0.88",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "ledge",
+          "focusScale": 1,
+          "itemState": [
+            "open",
+            "open",
+            "open"
+          ],
+          "open": [
+            1,
+            1,
+            1
+          ],
+          "textShown": [
+            1,
+            1,
+            1
+          ],
+          "tether": [
+            null,
+            1,
+            null
+          ],
+          "order": "0>1>2",
+          "presenterIndex": 0,
+          "trav": "lectern>ledge>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 96.7,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: only the supplied kinds; no causal link by default; the composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "ledge",
+          "focusScale": 1,
+          "itemState": [
+            "open",
+            "open",
+            "open"
+          ],
+          "open": [
+            1,
+            1,
+            1
+          ],
+          "textShown": [
+            1,
+            1,
+            1
+          ],
+          "tether": [
+            null,
+            1,
+            null
+          ],
+          "order": "0>1>2",
+          "presenterIndex": 0,
+          "trav": "lectern>ledge>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 96.7,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the rest state @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "lifted": 0.919,
+          "drawn": [
+            0,
+            0,
+            0
+          ],
+          "kinds": [
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "ledge",
+          "focusScale": 1,
+          "itemState": [
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "open": [
+            0,
+            0,
+            0
+          ],
+          "textShown": [
+            0,
+            0,
+            0
+          ],
+          "tether": [
+            null,
+            0,
+            null
+          ],
+          "order": "0>1>2",
+          "presenterIndex": 0,
+          "trav": "lectern>ledge>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 96.7,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same relationships and tracer @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "sequence",
+            "communication",
+            "relation"
+          ],
+          "tracer": {
+            "x": 209.85,
+            "y": 397.41
+          },
+          "at": null,
+          "focus": "ledge",
+          "focusScale": 1,
+          "itemState": [
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "open": [
+            0,
+            0,
+            0
+          ],
+          "textShown": [
+            0,
+            0,
+            0
+          ],
+          "tether": [
+            null,
+            0,
+            null
+          ],
+          "order": "0>1>2",
+          "presenterIndex": 0,
+          "trav": "lectern>ledge>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 100.8,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: another supplied mechanism: other links, traversal and focus @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "communication",
+            "relation"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "participants",
+          "focusScale": 1,
+          "itemState": [
+            "open",
+            "open",
+            "open",
+            "open"
+          ],
+          "open": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "textShown": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "tether": [
+            null,
+            1,
+            null,
+            1
+          ],
+          "order": "1>2>0>3",
+          "presenterIndex": 1,
+          "trav": "exhibit>ledge>participants",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 73.5,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: a causal link is drawn only when the author supplies it @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "lifted": 1,
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "causal",
+            "communication"
+          ],
+          "tracer": null,
+          "at": null,
+          "focus": "ledge",
+          "focusScale": 1,
+          "itemState": [
+            "open",
+            "open",
+            "open"
+          ],
+          "open": [
+            1,
+            1,
+            1
+          ],
+          "textShown": [
+            1,
+            1,
+            1
+          ],
+          "tether": [
+            null,
+            1,
+            null
+          ],
+          "order": "0>1>2",
+          "presenterIndex": 0,
+          "trav": "lectern>ledge",
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 96.7,
+          "allReached": true
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

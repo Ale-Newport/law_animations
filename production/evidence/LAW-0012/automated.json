@@ -1,0 +1,1518 @@
+{
+  "animationId": "LAW-0012",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0012",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: context shows the before datum (document present, entry ticked) @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "lensOpen": 0,
+          "datum": "before",
+          "focusTarget": "document",
+          "lensPresent": 1,
+          "contextPresent": 1,
+          "lensSwap": 0,
+          "contextSwap": 0,
+          "contextDatum": "before",
+          "contextTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "lensTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "source": {
+            "x": 981.75,
+            "y": 316.91,
+            "w": 398,
+            "h": 82.5
+          },
+          "lensAligned": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: lens open on the unchanged detail @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.996,
+          "datum": "before",
+          "focusTarget": "document",
+          "lensPresent": 1,
+          "contextPresent": 1,
+          "lensSwap": 0,
+          "contextSwap": 0,
+          "contextDatum": "before",
+          "contextTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "lensTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "source": {
+            "x": 981.75,
+            "y": 316.91,
+            "w": 398,
+            "h": 82.5
+          },
+          "lensAligned": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the lens holds a real copy at the same source coordinates @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.996,
+          "datum": "before",
+          "focusTarget": "document",
+          "lensPresent": 1,
+          "contextPresent": 1,
+          "lensSwap": 0,
+          "contextSwap": 0,
+          "contextDatum": "before",
+          "contextTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "lensTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "source": {
+            "x": 981.75,
+            "y": 316.91,
+            "w": 398,
+            "h": 82.5
+          },
+          "lensAligned": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: substitution happens inside the lens only @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "datum": "changing",
+          "focusTarget": "document",
+          "lensPresent": 0.413,
+          "contextPresent": 1,
+          "lensSwap": 0.587,
+          "contextSwap": 0,
+          "contextDatum": "before",
+          "contextTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "lensTicks": [
+            1,
+            1,
+            0.413,
+            1
+          ],
+          "source": {
+            "x": 981.75,
+            "y": 316.91,
+            "w": 398,
+            "h": 82.5
+          },
+          "lensAligned": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: returns to context with the new datum; only its own tick changes @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "focusTarget": "document",
+          "lensPresent": 0,
+          "contextPresent": 0,
+          "lensSwap": 1,
+          "contextSwap": 1,
+          "contextDatum": "after",
+          "contextTicks": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "lensTicks": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "source": {
+            "x": 981.75,
+            "y": 316.91,
+            "w": 398,
+            "h": 82.5
+          },
+          "lensAligned": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the previous datum exactly @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.256,
+          "datum": "before",
+          "focusTarget": "document",
+          "lensPresent": 1,
+          "contextPresent": 1,
+          "lensSwap": 0,
+          "contextSwap": 0,
+          "contextDatum": "before",
+          "contextTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "lensTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "source": {
+            "x": 981.75,
+            "y": 316.91,
+            "w": 398,
+            "h": 82.5
+          },
+          "lensAligned": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: heading substitution leaves presence and ticks unchanged @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "focusTarget": "heading",
+          "lensPresent": 1,
+          "contextPresent": 1,
+          "lensSwap": 1,
+          "contextSwap": 1,
+          "contextDatum": "after",
+          "contextTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "lensTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "source": {
+            "x": 981.75,
+            "y": 316.91,
+            "w": 398,
+            "h": 82.5
+          },
+          "lensAligned": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: file-number substitution changes only the number @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "focusTarget": "fileNumber",
+          "lensPresent": 1,
+          "contextPresent": 1,
+          "lensSwap": 1,
+          "contextSwap": 1,
+          "contextDatum": "after",
+          "contextTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "lensTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "source": {
+            "x": 1039,
+            "y": 104,
+            "w": 212.6,
+            "h": 66
+          },
+          "lensAligned": true,
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: reverse substitution: the document is added to its slot @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "focusTarget": "document",
+          "lensPresent": 1,
+          "contextPresent": 1,
+          "lensSwap": 1,
+          "contextSwap": 1,
+          "contextDatum": "after",
+          "contextTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "lensTicks": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "source": {
+            "x": 981.75,
+            "y": 316.91,
+            "w": 398,
+            "h": 82.5
+          },
+          "lensAligned": true,
+          "allReached": true
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "16:9",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Registry",
+          "px": 9.1
+        },
+        {
+          "text": "INDEX",
+          "px": 10.8
+        },
+        {
+          "text": "Applicant: Sam Okafor",
+          "px": 10.8
+        },
+        {
+          "text": "EXP-0417",
+          "px": 11.3
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ],
+        [
+          "4",
+          "OPENED"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ],
+        [
+          "4",
+          "OPENED"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ],
+        [
+          "4",
+          "OPENED"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "9:16",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ],
+        [
+          "4",
+          "OPENED"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Registry",
+          "px": 10.7
+        },
+        {
+          "text": "INDEX",
+          "px": 12.7
+        },
+        {
+          "text": "Applicant: Sam Okafor",
+          "px": 12.7
+        },
+        {
+          "text": "EXP-0417",
+          "px": 13.4
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "default",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "EXP-0417",
+          "2"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Registry",
+          "px": 7
+        },
+        {
+          "text": "INDEX",
+          "px": 8.3
+        },
+        {
+          "text": "Applicant: Sam Okafor",
+          "px": 8.3
+        },
+        {
+          "text": "EXP-0417",
+          "px": 8.7
+        },
+        {
+          "text": "4. Fee receipt (hypothetical)",
+          "px": 11.2
+        },
+        {
+          "text": "2. Identity document copy",
+          "px": 11.8
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "Fee receipt (hypothetical)"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Registry",
+          "px": 9.1
+        },
+        {
+          "text": "INDEX",
+          "px": 10.8
+        },
+        {
+          "text": "Applicant: Sam Okafor",
+          "px": 10.8
+        },
+        {
+          "text": "EXP-0417",
+          "px": 11.3
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ],
+        [
+          "4",
+          "OPENED"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ],
+        [
+          "4",
+          "OPENED"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ],
+        [
+          "4",
+          "OPENED"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "4. Fee receipt (hypothetical)"
+        ],
+        [
+          "4",
+          "OPENED"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Registry",
+          "px": 10.7
+        },
+        {
+          "text": "INDEX",
+          "px": 12.7
+        },
+        {
+          "text": "Applicant: Sam Okafor",
+          "px": 12.7
+        },
+        {
+          "text": "EXP-0417",
+          "px": 13.4
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "EXP-0417",
+          "2"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Registry",
+          "px": 7
+        },
+        {
+          "text": "INDEX",
+          "px": 8.3
+        },
+        {
+          "text": "Applicant: Sam Okafor",
+          "px": 8.3
+        },
+        {
+          "text": "EXP-0417",
+          "px": 8.7
+        },
+        {
+          "text": "4. Fee receipt (hypothetical)",
+          "px": 11.2
+        },
+        {
+          "text": "2. Identity document copy",
+          "px": 11.8
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Registry",
+          "px": 9.1
+        },
+        {
+          "text": "INDEX",
+          "px": 10.8
+        },
+        {
+          "text": "Holder: Jonah Adeyemi",
+          "px": 10.8
+        },
+        {
+          "text": "LIC-208",
+          "px": 11.3
+        },
+        {
+          "text": "REGISTERED",
+          "px": 13.4
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Registry",
+          "px": 10.7
+        },
+        {
+          "text": "INDEX",
+          "px": 12.7
+        },
+        {
+          "text": "Holder: Jonah Adeyemi",
+          "px": 12.7
+        },
+        {
+          "text": "LIC-208",
+          "px": 13.4
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Registry",
+          "px": 7
+        },
+        {
+          "text": "INDEX",
+          "px": 8.3
+        },
+        {
+          "text": "Holder: Jonah Adeyemi",
+          "px": 8.3
+        },
+        {
+          "text": "LIC-208",
+          "px": 8.7
+        },
+        {
+          "text": "REGISTERED",
+          "px": 10
+        },
+        {
+          "text": "1",
+          "px": 12.4
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "2",
+          "Receipt for the hypotheticalad"
+        ],
+        [
+          "3",
+          "Request for registration of ac"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "2",
+          "Receipt for the hypotheticalad"
+        ],
+        [
+          "3",
+          "Request for registration of ac"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "Receipt for the hypotheticalad"
+        ],
+        [
+          "3",
+          "Request for registration of ac"
+        ],
+        [
+          "Maria-Fernanda CastellanosVill",
+          "3"
+        ],
+        [
+          "Maria-Fernanda CastellanosVill",
+          "Supporting letter from the cur"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "Receipt for the hypotheticalad"
+        ],
+        [
+          "3",
+          "Request for registration of ac"
+        ]
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        "1. Completed application form with all m",
+        "2. Certified copy of the identity docume",
+        "3. Supporting letter from the current la",
+        "4. Receipt for the hypothetical administ"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "1. Completed application form ",
+          "px": 8.5
+        },
+        {
+          "text": "2. Certified copy of the ident",
+          "px": 8.5
+        },
+        {
+          "text": "3. Supporting letter from the ",
+          "px": 8.5
+        },
+        {
+          "text": "4. Receipt for the hypothetica",
+          "px": 8.5
+        },
+        {
+          "text": "Registry",
+          "px": 9.1
+        },
+        {
+          "text": "Requesting party: Oluwaseun Ba",
+          "px": 9.5
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "2",
+          "3. Supporting letter from the "
+        ],
+        [
+          "4",
+          "OPENED"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "FILE-2026-000417-B",
+          "Supporting letter from theprev"
+        ],
+        [
+          "2",
+          "3. Supporting letter from the "
+        ],
+        [
+          "4",
+          "OPENED"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "3. Supporting letter from the "
+        ],
+        [
+          "4",
+          "OPENED"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "3. Supporting letter from the "
+        ],
+        [
+          "4",
+          "OPENED"
+        ]
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        "1. Completed application form with all m",
+        "2. Certified copy of the identity docume",
+        "3. Supporting letter from the current la",
+        "4. Receipt for the hypothetical administ"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "1. Completed application form ",
+          "px": 10
+        },
+        {
+          "text": "2. Certified copy of the ident",
+          "px": 10
+        },
+        {
+          "text": "3. Supporting letter from the ",
+          "px": 10
+        },
+        {
+          "text": "4. Receipt for the hypothetica",
+          "px": 10
+        },
+        {
+          "text": "Registry",
+          "px": 10.4
+        },
+        {
+          "text": "Requesting party: Oluwaseun Ba",
+          "px": 10.9
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "3",
+          "Request for registration of ac"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "FILE-2026-000417-B",
+          "Supporting letter from the pre"
+        ],
+        [
+          "3",
+          "Request for registration of ac"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "FILE-2026-000417-B",
+          "2"
+        ],
+        [
+          "3",
+          "Request for registration of ac"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "u": 1,
+      "pairs": [
+        [
+          "3",
+          "Request for registration of ac"
+        ]
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        "1. Completed application form with all m",
+        "2. Certified copy of the identity docume",
+        "3. Supporting letter from the current la",
+        "4. Receipt for the hypothetical administ"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "1. Completed application form ",
+          "px": 7
+        },
+        {
+          "text": "2. Certified copy of the ident",
+          "px": 7
+        },
+        {
+          "text": "3. Supporting letter from the ",
+          "px": 7
+        },
+        {
+          "text": "4. Receipt for the hypothetica",
+          "px": 7
+        },
+        {
+          "text": "Registry",
+          "px": 7
+        },
+        {
+          "text": "Requesting party: Oluwaseun Ba",
+          "px": 7.3
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "2",
+          "Recibo de tasa (hipotético)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "2",
+          "Recibo de tasa (hipotético)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "Recibo de tasa (hipotético)"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "Recibo de tasa (hipotético)"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Registro",
+          "px": 9.1
+        },
+        {
+          "text": "ÍNDICE",
+          "px": 10.8
+        },
+        {
+          "text": "Solicitante: Sam Okafor",
+          "px": 10.8
+        },
+        {
+          "text": "2. Copia del documento de iden",
+          "px": 10.8
+        },
+        {
+          "text": "EXP-0417",
+          "px": 11.3
+        },
+        {
+          "text": "Copia del documento de identid",
+          "px": 12.3
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0,
+      "pairs": [
+        [
+          "2",
+          "4. Recibo de tasa (hipotético)"
+        ],
+        [
+          "4",
+          "ABIERTO"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0.35,
+      "pairs": [
+        [
+          "2",
+          "4. Recibo de tasa (hipotético)"
+        ],
+        [
+          "4",
+          "ABIERTO"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 0.7,
+      "pairs": [
+        [
+          "2",
+          "4. Recibo de tasa (hipotético)"
+        ],
+        [
+          "4",
+          "ABIERTO"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "u": 1,
+      "pairs": [
+        [
+          "2",
+          "4. Recibo de tasa (hipotético)"
+        ],
+        [
+          "4",
+          "ABIERTO"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Registro",
+          "px": 10.7
+        },
+        {
+          "text": "ÍNDICE",
+          "px": 12.7
+        },
+        {
+          "text": "Solicitante: Sam Okafor",
+          "px": 12.7
+        },
+        {
+          "text": "2. Copia del documento de iden",
+          "px": 13.1
+        },
+        {
+          "text": "EXP-0417",
+          "px": 13.4
+        },
+        {
+          "text": "Copia del documento de identid",
+          "px": 14
+        }
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0,
+      "pairs": [
+        [
+          "3",
+          "Solicitud de inscripción"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0.35,
+      "pairs": [
+        [
+          "3",
+          "Solicitud de inscripción"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "u": 0.7,
+      "pairs": [
+        [
+          "EXP-0417",
+          "2"
+        ],
+        [
+          "3",
+          "Solicitud de inscripción"
+        ]
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Registro",
+          "px": 7
+        },
+        {
+          "text": "ÍNDICE",
+          "px": 8.3
+        },
+        {
+          "text": "Solicitante: Sam Okafor",
+          "px": 8.3
+        },
+        {
+          "text": "2. Copia del documento de iden",
+          "px": 8.4
+        },
+        {
+          "text": "EXP-0417",
+          "px": 8.7
+        },
+        {
+          "text": "Copia del documento de identid",
+          "px": 8.9
+        }
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

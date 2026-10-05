@@ -1,0 +1,841 @@
+{
+  "animationId": "LAW-0039",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0039",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: identical base situation (same sheet, same place, unmarked) @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "arrangement": "row",
+          "a": {
+            "holder": "desk",
+            "marked": false,
+            "notes": 0,
+            "lidClosed": false,
+            "stamp": {
+              "x": 790,
+              "y": 1012
+            },
+            "sheet": {
+              "x": 600,
+              "y": 800
+            }
+          },
+          "b": {
+            "holder": "desk",
+            "marked": false,
+            "notes": 0,
+            "lidClosed": false,
+            "stamp": {
+              "x": 790,
+              "y": 1012
+            },
+            "sheet": {
+              "x": 600,
+              "y": 800
+            }
+          },
+          "markTexts": [
+            "ORIGINAL",
+            "COPY"
+          ],
+          "sheetA": {
+            "x": 600,
+            "y": 800
+          },
+          "sheetB": {
+            "x": 600,
+            "y": 800
+          },
+          "stampA": {
+            "x": 790,
+            "y": 1012
+          },
+          "stampB": {
+            "x": 790,
+            "y": 1012
+          },
+          "handA2a": {
+            "x": 720,
+            "y": 1020
+          },
+          "handA2b": {
+            "x": 720,
+            "y": 1020
+          },
+          "handB1b": {
+            "x": 600,
+            "y": 112
+          },
+          "penB": {
+            "x": 1060,
+            "y": 540
+          },
+          "gripA": {
+            "x": 566.96,
+            "y": 900.98
+          },
+          "gripB": {
+            "x": 566.96,
+            "y": 900.98
+          },
+          "gripB1": {
+            "x": 628.32,
+            "y": 671
+          },
+          "noteTipB": null,
+          "stampSpotA": {
+            "x": 600,
+            "y": 806.12
+          },
+          "stampSpotB": {
+            "x": 600,
+            "y": 806.12
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0
+        }
+      }
+    },
+    {
+      "name": "semantic: the stamping motion is identical in both scenes @0.25",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "arrangement": "row",
+          "a": {
+            "holder": "desk",
+            "marked": false,
+            "notes": 0,
+            "lidClosed": false,
+            "stamp": {
+              "x": 712.93,
+              "y": 928.49
+            },
+            "sheet": {
+              "x": 600,
+              "y": 800
+            }
+          },
+          "b": {
+            "holder": "desk",
+            "marked": false,
+            "notes": 0,
+            "lidClosed": false,
+            "stamp": {
+              "x": 712.93,
+              "y": 928.49
+            },
+            "sheet": {
+              "x": 600,
+              "y": 800
+            }
+          },
+          "markTexts": [
+            "ORIGINAL",
+            "COPY"
+          ],
+          "sheetA": {
+            "x": 600,
+            "y": 800
+          },
+          "sheetB": {
+            "x": 600,
+            "y": 800
+          },
+          "stampA": {
+            "x": 712.93,
+            "y": 928.49
+          },
+          "stampB": {
+            "x": 712.93,
+            "y": 928.49
+          },
+          "handA2a": {
+            "x": 712.93,
+            "y": 928.49
+          },
+          "handA2b": {
+            "x": 712.93,
+            "y": 928.49
+          },
+          "handB1b": {
+            "x": 600,
+            "y": 112
+          },
+          "penB": {
+            "x": 1060,
+            "y": 540
+          },
+          "gripA": {
+            "x": 566.96,
+            "y": 900.98
+          },
+          "gripB": {
+            "x": 566.96,
+            "y": 900.98
+          },
+          "gripB1": {
+            "x": 628.32,
+            "y": 671
+          },
+          "noteTipB": null,
+          "stampSpotA": {
+            "x": 600,
+            "y": 806.12
+          },
+          "stampSpotB": {
+            "x": 600,
+            "y": 806.12
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0
+        }
+      }
+    },
+    {
+      "name": "semantic: exactly one fact differs: the mark stamped on the sheet @0.35",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "arrangement": "row",
+          "a": {
+            "holder": "desk",
+            "marked": true,
+            "notes": 0,
+            "lidClosed": false,
+            "stamp": {
+              "x": 774.7,
+              "y": 995.42
+            },
+            "sheet": {
+              "x": 600,
+              "y": 800
+            }
+          },
+          "b": {
+            "holder": "desk",
+            "marked": true,
+            "notes": 0,
+            "lidClosed": false,
+            "stamp": {
+              "x": 774.7,
+              "y": 995.42
+            },
+            "sheet": {
+              "x": 600,
+              "y": 800
+            }
+          },
+          "markTexts": [
+            "ORIGINAL",
+            "COPY"
+          ],
+          "sheetA": {
+            "x": 600,
+            "y": 800
+          },
+          "sheetB": {
+            "x": 600,
+            "y": 800
+          },
+          "stampA": {
+            "x": 774.7,
+            "y": 995.42
+          },
+          "stampB": {
+            "x": 774.7,
+            "y": 995.42
+          },
+          "handA2a": {
+            "x": 774.7,
+            "y": 995.42
+          },
+          "handA2b": {
+            "x": 774.7,
+            "y": 995.42
+          },
+          "handB1b": {
+            "x": 600,
+            "y": 112
+          },
+          "penB": {
+            "x": 1060,
+            "y": 540
+          },
+          "gripA": {
+            "x": 566.96,
+            "y": 900.98
+          },
+          "gripB": {
+            "x": 566.96,
+            "y": 900.98
+          },
+          "gripB1": {
+            "x": 628.32,
+            "y": 671
+          },
+          "noteTipB": null,
+          "stampSpotA": {
+            "x": 600,
+            "y": 806.12
+          },
+          "stampSpotB": {
+            "x": 600,
+            "y": 806.12
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0
+        }
+      }
+    },
+    {
+      "name": "semantic: the changed fact changes the route: box in A, reader in B @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "arrangement": "row",
+          "a": {
+            "holder": "box",
+            "marked": true,
+            "notes": 0,
+            "lidClosed": false,
+            "stamp": {
+              "x": 790,
+              "y": 1012
+            },
+            "sheet": {
+              "x": 332,
+              "y": 766
+            }
+          },
+          "b": {
+            "holder": "B-pulling",
+            "marked": true,
+            "notes": 0,
+            "lidClosed": false,
+            "stamp": {
+              "x": 790,
+              "y": 1012
+            },
+            "sheet": {
+              "x": 817.8,
+              "y": 369.05
+            }
+          },
+          "markTexts": [
+            "ORIGINAL",
+            "COPY"
+          ],
+          "sheetA": {
+            "x": 332,
+            "y": 766
+          },
+          "sheetB": {
+            "x": 817.8,
+            "y": 369.05
+          },
+          "stampA": {
+            "x": 790,
+            "y": 1012
+          },
+          "stampB": {
+            "x": 790,
+            "y": 1012
+          },
+          "handA2a": {
+            "x": 657.33,
+            "y": 996.44
+          },
+          "handA2b": {
+            "x": 720,
+            "y": 1020
+          },
+          "handB1b": {
+            "x": 843.45,
+            "y": 239.49
+          },
+          "penB": {
+            "x": 1054.55,
+            "y": 526.83
+          },
+          "gripA": {
+            "x": 303.06,
+            "y": 850.43
+          },
+          "gripB": {
+            "x": 786.85,
+            "y": 470.69
+          },
+          "gripB1": {
+            "x": 843.45,
+            "y": 239.49
+          },
+          "noteTipB": null,
+          "stampSpotA": {
+            "x": 331.93,
+            "y": 771.14
+          },
+          "stampSpotB": {
+            "x": 817.92,
+            "y": 375.17
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0
+        }
+      }
+    },
+    {
+      "name": "semantic: both scenes complete; no other difference is introduced (lids open in both) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "arrangement": "row",
+          "a": {
+            "holder": "box",
+            "marked": true,
+            "notes": 0,
+            "lidClosed": false,
+            "stamp": {
+              "x": 790,
+              "y": 1012
+            },
+            "sheet": {
+              "x": 332,
+              "y": 766
+            }
+          },
+          "b": {
+            "holder": "B",
+            "marked": true,
+            "notes": 1,
+            "lidClosed": false,
+            "stamp": {
+              "x": 790,
+              "y": 1012
+            },
+            "sheet": {
+              "x": 814,
+              "y": 318
+            }
+          },
+          "markTexts": [
+            "ORIGINAL",
+            "COPY"
+          ],
+          "sheetA": {
+            "x": 332,
+            "y": 766
+          },
+          "sheetB": {
+            "x": 814,
+            "y": 318
+          },
+          "stampA": {
+            "x": 790,
+            "y": 1012
+          },
+          "stampB": {
+            "x": 790,
+            "y": 1012
+          },
+          "handA2a": {
+            "x": 720,
+            "y": 1020
+          },
+          "handA2b": {
+            "x": 720,
+            "y": 1020
+          },
+          "handB1b": {
+            "x": 600,
+            "y": 112
+          },
+          "penB": {
+            "x": 1060,
+            "y": 540
+          },
+          "gripA": {
+            "x": 303.06,
+            "y": 850.43
+          },
+          "gripB": {
+            "x": 783.61,
+            "y": 419.81
+          },
+          "gripB1": {
+            "x": 838.93,
+            "y": 188.3
+          },
+          "noteTipB": null,
+          "stampSpotA": {
+            "x": 331.93,
+            "y": 771.14
+          },
+          "stampSpotB": {
+            "x": 814.16,
+            "y": 324.12
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: comparison guide drawn at the end @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "arrangement": "row",
+          "a": {
+            "holder": "box",
+            "marked": true,
+            "notes": 0,
+            "lidClosed": false,
+            "stamp": {
+              "x": 790,
+              "y": 1012
+            },
+            "sheet": {
+              "x": 332,
+              "y": 766
+            }
+          },
+          "b": {
+            "holder": "B",
+            "marked": true,
+            "notes": 1,
+            "lidClosed": false,
+            "stamp": {
+              "x": 790,
+              "y": 1012
+            },
+            "sheet": {
+              "x": 814,
+              "y": 318
+            }
+          },
+          "markTexts": [
+            "ORIGINAL",
+            "COPY"
+          ],
+          "sheetA": {
+            "x": 332,
+            "y": 766
+          },
+          "sheetB": {
+            "x": 814,
+            "y": 318
+          },
+          "stampA": {
+            "x": 790,
+            "y": 1012
+          },
+          "stampB": {
+            "x": 790,
+            "y": 1012
+          },
+          "handA2a": {
+            "x": 720,
+            "y": 1020
+          },
+          "handA2b": {
+            "x": 720,
+            "y": 1020
+          },
+          "handB1b": {
+            "x": 600,
+            "y": 112
+          },
+          "penB": {
+            "x": 1060,
+            "y": 540
+          },
+          "gripA": {
+            "x": 303.06,
+            "y": 850.43
+          },
+          "gripB": {
+            "x": 783.61,
+            "y": 419.81
+          },
+          "gripB1": {
+            "x": 838.93,
+            "y": 188.3
+          },
+          "noteTipB": null,
+          "stampSpotA": {
+            "x": 331.93,
+            "y": 771.14
+          },
+          "stampSpotB": {
+            "x": 814.16,
+            "y": 324.12
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: guide not shown before its beat @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "arrangement": "row",
+          "a": {
+            "holder": "A-carrying",
+            "marked": true,
+            "notes": 0,
+            "lidClosed": false,
+            "stamp": {
+              "x": 790,
+              "y": 1012
+            },
+            "sheet": {
+              "x": 346.88,
+              "y": 754.7
+            }
+          },
+          "b": {
+            "holder": "gliding",
+            "marked": true,
+            "notes": 0,
+            "lidClosed": false,
+            "stamp": {
+              "x": 790,
+              "y": 1012
+            },
+            "sheet": {
+              "x": 833.95,
+              "y": 587.34
+            }
+          },
+          "markTexts": [
+            "ORIGINAL",
+            "COPY"
+          ],
+          "sheetA": {
+            "x": 346.88,
+            "y": 754.7
+          },
+          "sheetB": {
+            "x": 833.95,
+            "y": 587.34
+          },
+          "stampA": {
+            "x": 790,
+            "y": 1012
+          },
+          "stampB": {
+            "x": 790,
+            "y": 1012
+          },
+          "handA2a": {
+            "x": 313.45,
+            "y": 856.86
+          },
+          "handA2b": {
+            "x": 799.79,
+            "y": 782.66
+          },
+          "handB1b": {
+            "x": 797.93,
+            "y": 354.55
+          },
+          "penB": {
+            "x": 1060,
+            "y": 540
+          },
+          "gripA": {
+            "x": 313.45,
+            "y": 856.86
+          },
+          "gripB": {
+            "x": 800.05,
+            "y": 688.04
+          },
+          "gripB1": {
+            "x": 863.37,
+            "y": 458.59
+          },
+          "noteTipB": null,
+          "stampSpotA": {
+            "x": 346.88,
+            "y": 760.89
+          },
+          "stampSpotB": {
+            "x": 833.9,
+            "y": 593.46
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

@@ -1,0 +1,493 @@
+{
+  "animationId": "LAW-0291",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0291",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "hearing.room"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: the two rooms are identical @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": "{\"s\":[\"stack\",\"stack\",\"stack\"],\"o\":[0,0,0],\"x\":[349.82,233.22,0]}",
+          "lookB": "{\"s\":[\"stack\",\"stack\",\"stack\"],\"o\":[0,0,0],\"x\":[349.82,233.22,0]}",
+          "formA": "open",
+          "formB": "bounded",
+          "givenByA": 0,
+          "givenByB": 1,
+          "carrierA": null,
+          "carrierB": null,
+          "changed": 2,
+          "stateA": "stack",
+          "stateB": "stack",
+          "tags": 0,
+          "itemState": [
+            "stack",
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "itemStateB": [
+            "stack",
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "othersSame": true,
+          "guide": 0,
+          "handA": {
+            "x": 616.09,
+            "y": 180
+          },
+          "handQA": {
+            "x": 616.09,
+            "y": 180
+          },
+          "handWB": {
+            "x": 723.32,
+            "y": 216.93
+          },
+          "active": null,
+          "allReached": true,
+          "railXA": [
+            700.6,
+            700.6,
+            700.6,
+            700.6
+          ],
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 68.9,
+          "arrangement": "row",
+          "order": "0>1>2>3"
+        }
+      }
+    },
+    {
+      "name": "semantic: the one difference is introduced in both rooms at once: an open question from the questioner in A, a bounded answer from the witness in B @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "introduce",
+          "lookA": "{\"s\":[\"stack\",\"stack\",\"stack\"],\"o\":[0,0,0],\"x\":[349.82,233.22,0]}",
+          "lookB": "{\"s\":[\"stack\",\"stack\",\"stack\"],\"o\":[0,0,0],\"x\":[349.82,233.22,0]}",
+          "formA": "open",
+          "formB": "bounded",
+          "givenByA": 0,
+          "givenByB": 1,
+          "carrierA": null,
+          "carrierB": null,
+          "changed": 2,
+          "stateA": "stack",
+          "stateB": "stack",
+          "tags": 1,
+          "itemState": [
+            "stack",
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "itemStateB": [
+            "stack",
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "othersSame": true,
+          "guide": 0,
+          "handA": {
+            "x": 616.09,
+            "y": 180
+          },
+          "handQA": {
+            "x": 616.09,
+            "y": 180
+          },
+          "handWB": {
+            "x": 723.32,
+            "y": 216.93
+          },
+          "active": null,
+          "allReached": true,
+          "railXA": [
+            700.6,
+            700.6,
+            700.6,
+            700.6
+          ],
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 68.9,
+          "arrangement": "row",
+          "order": "0>1>2>3"
+        }
+      }
+    },
+    {
+      "name": "semantic: the contrasted turn is set on the tray by the questioner in A and by the witness in B (a different relation) @0.607",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "lookA": "{\"s\":[\"open\",\"open\",\"stack\"],\"o\":[1,1,0],\"x\":[116.61,116.61,0]}",
+          "lookB": "{\"s\":[\"open\",\"open\",\"stack\"],\"o\":[1,1,0],\"x\":[116.61,116.61,0]}",
+          "formA": "open",
+          "formB": "bounded",
+          "givenByA": 0,
+          "givenByB": 1,
+          "carrierA": 0,
+          "carrierB": 1,
+          "changed": 2,
+          "stateA": "carried",
+          "stateB": "carried",
+          "tags": 1,
+          "itemState": [
+            "open",
+            "open",
+            "carried",
+            "stack"
+          ],
+          "itemStateB": [
+            "open",
+            "open",
+            "carried",
+            "stack"
+          ],
+          "othersSame": true,
+          "guide": 0,
+          "handA": {
+            "x": 685.35,
+            "y": 188.59
+          },
+          "handQA": {
+            "x": 685.35,
+            "y": 188.59
+          },
+          "handWB": {
+            "x": 709.43,
+            "y": 228.72
+          },
+          "active": 2,
+          "allReached": true,
+          "railXA": [
+            534.98,
+            617.79,
+            700.6,
+            700.6
+          ],
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 68.9,
+          "arrangement": "row",
+          "order": "0>1>2>3"
+        }
+      }
+    },
+    {
+      "name": "semantic: the same exchange runs in both rooms; every other turn is identical @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "lookA": "{\"s\":[\"open\",\"sliding\",\"stack\"],\"o\":[1,0,0],\"x\":[233.22,233.22,0]}",
+          "lookB": "{\"s\":[\"open\",\"sliding\",\"stack\"],\"o\":[1,0,0],\"x\":[233.22,233.22,0]}",
+          "formA": "open",
+          "formB": "bounded",
+          "givenByA": 0,
+          "givenByB": 1,
+          "carrierA": null,
+          "carrierB": null,
+          "changed": 2,
+          "stateA": "stack",
+          "stateB": "stack",
+          "tags": 1,
+          "itemState": [
+            "open",
+            "sliding",
+            "stack",
+            "stack"
+          ],
+          "itemStateB": [
+            "open",
+            "sliding",
+            "stack",
+            "stack"
+          ],
+          "othersSame": true,
+          "guide": 0,
+          "handA": {
+            "x": 635.26,
+            "y": 221.9
+          },
+          "handQA": {
+            "x": 635.26,
+            "y": 221.9
+          },
+          "handWB": {
+            "x": 723.32,
+            "y": 216.93
+          },
+          "active": 1,
+          "allReached": true,
+          "railXA": [
+            617.79,
+            700.6,
+            700.6,
+            700.6
+          ],
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 68.9,
+          "arrangement": "row",
+          "order": "0>1>2>3"
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: both contrasted cards on the rails; the guide is drawn; the composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": "{\"s\":[\"open\",\"open\",\"open\"],\"o\":[1,1,1],\"x\":[0,0,0]}",
+          "lookB": "{\"s\":[\"open\",\"open\",\"open\"],\"o\":[1,1,1],\"x\":[0,0,0]}",
+          "formA": "open",
+          "formB": "bounded",
+          "givenByA": 0,
+          "givenByB": 1,
+          "carrierA": null,
+          "carrierB": null,
+          "changed": 2,
+          "stateA": "open",
+          "stateB": "open",
+          "tags": 1,
+          "itemState": [
+            "open",
+            "open",
+            "open",
+            "open"
+          ],
+          "itemStateB": [
+            "open",
+            "open",
+            "open",
+            "open"
+          ],
+          "othersSame": true,
+          "guide": 1,
+          "handA": {
+            "x": 616.09,
+            "y": 180
+          },
+          "handQA": {
+            "x": 616.09,
+            "y": 180
+          },
+          "handWB": {
+            "x": 723.32,
+            "y": 216.93
+          },
+          "active": null,
+          "allReached": true,
+          "railXA": [
+            452.17,
+            534.98,
+            617.79,
+            700.6
+          ],
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 68.9,
+          "arrangement": "row",
+          "order": "0>1>2>3"
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the base @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": "{\"s\":[\"stack\",\"stack\",\"stack\"],\"o\":[0,0,0],\"x\":[349.82,233.22,0]}",
+          "lookB": "{\"s\":[\"stack\",\"stack\",\"stack\"],\"o\":[0,0,0],\"x\":[349.82,233.22,0]}",
+          "formA": "open",
+          "formB": "bounded",
+          "givenByA": 0,
+          "givenByB": 1,
+          "carrierA": null,
+          "carrierB": null,
+          "changed": 2,
+          "stateA": "stack",
+          "stateB": "stack",
+          "tags": 0,
+          "itemState": [
+            "stack",
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "itemStateB": [
+            "stack",
+            "stack",
+            "stack",
+            "stack"
+          ],
+          "othersSame": true,
+          "guide": 0,
+          "handA": {
+            "x": 616.09,
+            "y": 180
+          },
+          "handQA": {
+            "x": 616.09,
+            "y": 180
+          },
+          "handWB": {
+            "x": 723.32,
+            "y": 216.93
+          },
+          "active": null,
+          "allReached": true,
+          "railXA": [
+            700.6,
+            700.6,
+            700.6,
+            700.6
+          ],
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 68.9,
+          "arrangement": "row",
+          "order": "0>1>2>3"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

@@ -1,0 +1,605 @@
+{
+  "animationId": "LAW-0051",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0051",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "query"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: identical base situation (no date typed yet) @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "a": {
+            "card": {
+              "x": 468,
+              "y": 496
+            },
+            "holder": "counter",
+            "selected": null,
+            "later": [],
+            "fan": 1
+          },
+          "b": {
+            "card": {
+              "x": 468,
+              "y": 496
+            },
+            "holder": "counter",
+            "selected": null,
+            "later": [],
+            "fan": 1
+          },
+          "dateTyped": 0,
+          "cardA": {
+            "x": 468,
+            "y": 496
+          },
+          "cardB": {
+            "x": 468,
+            "y": 496
+          },
+          "handA": {
+            "x": 852.84,
+            "y": 660.12
+          },
+          "handB": {
+            "x": 852.84,
+            "y": 660.12
+          },
+          "cardGripA": {
+            "x": 645.6,
+            "y": 589.44
+          },
+          "cardGripB": {
+            "x": 645.6,
+            "y": 589.44
+          },
+          "targets": {
+            "a": 1,
+            "b": 2
+          },
+          "targetY": {
+            "a": 310.88,
+            "b": 454.88
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row",
+          "guideRoute": "top"
+        }
+      }
+    },
+    {
+      "name": "semantic: the date is typed; everything else is still identical @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "a": {
+            "card": {
+              "x": 468,
+              "y": 496
+            },
+            "holder": "counter",
+            "selected": null,
+            "later": [],
+            "fan": 1
+          },
+          "b": {
+            "card": {
+              "x": 468,
+              "y": 496
+            },
+            "holder": "counter",
+            "selected": null,
+            "later": [],
+            "fan": 1
+          },
+          "dateTyped": 0.889,
+          "cardA": {
+            "x": 468,
+            "y": 496
+          },
+          "cardB": {
+            "x": 468,
+            "y": 496
+          },
+          "handA": {
+            "x": 836.56,
+            "y": 660.12
+          },
+          "handB": {
+            "x": 836.56,
+            "y": 660.12
+          },
+          "cardGripA": {
+            "x": 645.6,
+            "y": 589.44
+          },
+          "cardGripB": {
+            "x": 645.6,
+            "y": 589.44
+          },
+          "targets": {
+            "a": 1,
+            "b": 2
+          },
+          "targetY": {
+            "a": 310.88,
+            "b": 454.88
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row",
+          "guideRoute": "top"
+        }
+      }
+    },
+    {
+      "name": "semantic: the same gesture runs in parallel @0.56",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "card": {
+              "x": 442,
+              "y": 405.23
+            },
+            "holder": "R-sliding",
+            "selected": null,
+            "later": [],
+            "fan": 1
+          },
+          "b": {
+            "card": {
+              "x": 442,
+              "y": 459.33
+            },
+            "holder": "R-sliding",
+            "selected": null,
+            "later": [],
+            "fan": 1
+          },
+          "dateTyped": 1,
+          "cardA": {
+            "x": 442,
+            "y": 405.23
+          },
+          "cardB": {
+            "x": 442,
+            "y": 459.33
+          },
+          "handA": {
+            "x": 619.6,
+            "y": 498.67
+          },
+          "handB": {
+            "x": 619.6,
+            "y": 552.77
+          },
+          "cardGripA": {
+            "x": 619.6,
+            "y": 498.67
+          },
+          "cardGripB": {
+            "x": 619.6,
+            "y": 552.77
+          },
+          "targets": {
+            "a": 1,
+            "b": 2
+          },
+          "targetY": {
+            "a": 310.88,
+            "b": 454.88
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row",
+          "guideRoute": "top"
+        }
+      }
+    },
+    {
+      "name": "semantic: only the marked layer (and so the ghosting) differs @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "card": {
+              "x": 442,
+              "y": 310.88
+            },
+            "holder": "rail",
+            "selected": 1,
+            "later": [
+              2
+            ],
+            "fan": 1
+          },
+          "b": {
+            "card": {
+              "x": 442,
+              "y": 454.88
+            },
+            "holder": "rail",
+            "selected": 2,
+            "later": [],
+            "fan": 1
+          },
+          "dateTyped": 1,
+          "cardA": {
+            "x": 442,
+            "y": 310.88
+          },
+          "cardB": {
+            "x": 442,
+            "y": 454.88
+          },
+          "handA": {
+            "x": 900,
+            "y": 704
+          },
+          "handB": {
+            "x": 900,
+            "y": 704
+          },
+          "cardGripA": {
+            "x": 619.6,
+            "y": 404.32
+          },
+          "cardGripB": {
+            "x": 619.6,
+            "y": 548.32
+          },
+          "targets": {
+            "a": 1,
+            "b": 2
+          },
+          "targetY": {
+            "a": 310.88,
+            "b": 454.88
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "arrangement": "row",
+          "guideRoute": "top"
+        }
+      }
+    },
+    {
+      "name": "semantic: the changed date moves the card to a different place on the same rail @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "card": {
+              "x": 442,
+              "y": 310.88
+            },
+            "holder": "rail",
+            "selected": 1,
+            "later": [
+              2
+            ],
+            "fan": 1
+          },
+          "b": {
+            "card": {
+              "x": 442,
+              "y": 454.88
+            },
+            "holder": "rail",
+            "selected": 2,
+            "later": [],
+            "fan": 1
+          },
+          "dateTyped": 1,
+          "cardA": {
+            "x": 442,
+            "y": 310.88
+          },
+          "cardB": {
+            "x": 442,
+            "y": 454.88
+          },
+          "handA": {
+            "x": 900,
+            "y": 704
+          },
+          "handB": {
+            "x": 900,
+            "y": 704
+          },
+          "cardGripA": {
+            "x": 619.6,
+            "y": 404.32
+          },
+          "cardGripB": {
+            "x": 619.6,
+            "y": 548.32
+          },
+          "targets": {
+            "a": 1,
+            "b": 2
+          },
+          "targetY": {
+            "a": 310.88,
+            "b": 454.88
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "arrangement": "row",
+          "guideRoute": "top"
+        }
+      }
+    },
+    {
+      "name": "semantic: comparison guide drawn at the end @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "card": {
+              "x": 442,
+              "y": 310.88
+            },
+            "holder": "rail",
+            "selected": 1,
+            "later": [
+              2
+            ],
+            "fan": 1
+          },
+          "b": {
+            "card": {
+              "x": 442,
+              "y": 454.88
+            },
+            "holder": "rail",
+            "selected": 2,
+            "later": [],
+            "fan": 1
+          },
+          "dateTyped": 1,
+          "cardA": {
+            "x": 442,
+            "y": 310.88
+          },
+          "cardB": {
+            "x": 442,
+            "y": 454.88
+          },
+          "handA": {
+            "x": 900,
+            "y": 704
+          },
+          "handB": {
+            "x": 900,
+            "y": 704
+          },
+          "cardGripA": {
+            "x": 619.6,
+            "y": 404.32
+          },
+          "cardGripB": {
+            "x": 619.6,
+            "y": 548.32
+          },
+          "targets": {
+            "a": 1,
+            "b": 2
+          },
+          "targetY": {
+            "a": 310.88,
+            "b": 454.88
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "arrangement": "row",
+          "guideRoute": "top"
+        }
+      }
+    },
+    {
+      "name": "semantic: the marked layer comes from the supplied value, never computed from the date @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "card": {
+              "x": 442,
+              "y": 310.88
+            },
+            "holder": "rail",
+            "selected": 1,
+            "later": [
+              2
+            ],
+            "fan": 1
+          },
+          "b": {
+            "card": {
+              "x": 442,
+              "y": 310.88
+            },
+            "holder": "rail",
+            "selected": 1,
+            "later": [
+              2
+            ],
+            "fan": 1
+          },
+          "dateTyped": 1,
+          "cardA": {
+            "x": 442,
+            "y": 310.88
+          },
+          "cardB": {
+            "x": 442,
+            "y": 310.88
+          },
+          "handA": {
+            "x": 900,
+            "y": 704
+          },
+          "handB": {
+            "x": 900,
+            "y": 704
+          },
+          "cardGripA": {
+            "x": 619.6,
+            "y": 404.32
+          },
+          "cardGripB": {
+            "x": 619.6,
+            "y": 404.32
+          },
+          "targets": {
+            "a": 1,
+            "b": 1
+          },
+          "targetY": {
+            "a": 310.88,
+            "b": 310.88
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "arrangement": "row",
+          "guideRoute": "top"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

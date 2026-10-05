@@ -1,0 +1,510 @@
+{
+  "animationId": "LAW-0707",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0707",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "object.name",
+        "rejected": "Invalid animation parameters:\n - params.object.name: must have at most 48 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: two identical rigs at the initial level; no stop yet @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": {
+            "flag": 55.1,
+            "level": 2,
+            "stop": 0,
+            "edge": 0,
+            "head": 1
+          },
+          "lookB": {
+            "flag": 55.1,
+            "level": 2,
+            "stop": 0,
+            "edge": 0,
+            "head": 1
+          },
+          "stops": 0,
+          "slide": 0,
+          "levelA": 2,
+          "levelB": 2,
+          "initial": 2,
+          "later": 5,
+          "flagA": {
+            "x": 65.1,
+            "y": 128
+          },
+          "flagB": {
+            "x": 917.31,
+            "y": 128
+          },
+          "guideShown": false,
+          "keyShown": false,
+          "arrangement": "row",
+          "layout": {
+            "PH": 233.66,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: change: the stops are in place before anything moves @0.36",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "lookA": {
+            "flag": 55.1,
+            "level": 2,
+            "stop": 1,
+            "edge": 0,
+            "head": 1
+          },
+          "lookB": {
+            "flag": 55.1,
+            "level": 2,
+            "stop": 1,
+            "edge": 0,
+            "head": 1
+          },
+          "stops": 1,
+          "slide": 0,
+          "levelA": 2,
+          "levelB": 2,
+          "initial": 2,
+          "later": 5,
+          "flagA": {
+            "x": 65.1,
+            "y": 128
+          },
+          "flagB": {
+            "x": 917.31,
+            "y": 128
+          },
+          "guideShown": false,
+          "keyShown": false,
+          "arrangement": "row",
+          "layout": {
+            "PH": 233.66,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the same action runs in parallel on both rigs @0.46",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "run",
+          "lookA": {
+            "flag": 128.7,
+            "level": 2,
+            "stop": 1,
+            "edge": 0,
+            "head": 1
+          },
+          "lookB": {
+            "flag": 128.7,
+            "level": 2,
+            "stop": 1,
+            "edge": 0,
+            "head": 1
+          },
+          "stops": 1,
+          "slide": 0.5,
+          "levelA": 2,
+          "levelB": 2,
+          "initial": 2,
+          "later": 5,
+          "flagA": {
+            "x": 138.7,
+            "y": 128
+          },
+          "flagB": {
+            "x": 990.91,
+            "y": 128
+          },
+          "guideShown": false,
+          "keyShown": false,
+          "arrangement": "row",
+          "layout": {
+            "PH": 233.66,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: both flags reach the initial level before B changes @0.56",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "run",
+          "lookA": {
+            "flag": 202.3,
+            "level": 2,
+            "stop": 1,
+            "edge": 1,
+            "head": 1
+          },
+          "lookB": {
+            "flag": 202.3,
+            "level": 2,
+            "stop": 1,
+            "edge": 1,
+            "head": 1
+          },
+          "stops": 1,
+          "slide": 1,
+          "levelA": 2,
+          "levelB": 2,
+          "initial": 2,
+          "later": 5,
+          "flagA": {
+            "x": 212.3,
+            "y": 128
+          },
+          "flagB": {
+            "x": 1064.51,
+            "y": 128
+          },
+          "guideShown": false,
+          "keyShown": false,
+          "arrangement": "row",
+          "layout": {
+            "PH": 233.66,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: only B’s mark spreads, to the supplied later level @0.76",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "run",
+          "lookA": {
+            "flag": 202.3,
+            "level": 2,
+            "stop": 1,
+            "edge": 1,
+            "head": 1
+          },
+          "lookB": {
+            "flag": 377.5,
+            "level": 5,
+            "stop": 1,
+            "edge": 1,
+            "head": 1
+          },
+          "stops": 1,
+          "slide": 1,
+          "levelA": 2,
+          "levelB": 5,
+          "initial": 2,
+          "later": 5,
+          "flagA": {
+            "x": 212.3,
+            "y": 128
+          },
+          "flagB": {
+            "x": 1239.71,
+            "y": 128
+          },
+          "guideShown": false,
+          "keyShown": false,
+          "arrangement": "row",
+          "layout": {
+            "PH": 233.66,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: guide line, bracket, neutral note and key @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "flag": 202.3,
+            "level": 2,
+            "stop": 1,
+            "edge": 1,
+            "head": 1
+          },
+          "lookB": {
+            "flag": 377.5,
+            "level": 5,
+            "stop": 1,
+            "edge": 1,
+            "head": 1
+          },
+          "stops": 1,
+          "slide": 1,
+          "levelA": 2,
+          "levelB": 5,
+          "initial": 2,
+          "later": 5,
+          "flagA": {
+            "x": 212.3,
+            "y": 128
+          },
+          "flagB": {
+            "x": 1239.71,
+            "y": 128
+          },
+          "guideShown": true,
+          "keyShown": true,
+          "arrangement": "row",
+          "layout": {
+            "PH": 233.66,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative: the tabletop and its supplied levels @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "flag": 153.9,
+            "level": 1,
+            "stop": 1,
+            "edge": 1,
+            "head": 1
+          },
+          "lookB": {
+            "flag": 301.6,
+            "level": 4,
+            "stop": 1,
+            "edge": 1,
+            "head": 1
+          },
+          "stops": 1,
+          "slide": 1,
+          "levelA": 1,
+          "levelB": 4,
+          "initial": 1,
+          "later": 4,
+          "flagA": {
+            "x": 163.9,
+            "y": 106.48
+          },
+          "flagB": {
+            "x": 1163.81,
+            "y": 106.48
+          },
+          "guideShown": true,
+          "keyShown": true,
+          "arrangement": "row",
+          "layout": {
+            "PH": 196.83,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same contrast @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "flag": 314.6,
+            "level": 2,
+            "stop": 1,
+            "edge": 1,
+            "head": 1
+          },
+          "lookB": {
+            "flag": 590.1,
+            "level": 5,
+            "stop": 1,
+            "edge": 1,
+            "head": 1
+          },
+          "stops": 1,
+          "slide": 1,
+          "levelA": 2,
+          "levelB": 5,
+          "initial": 2,
+          "later": 5,
+          "flagA": {
+            "x": 324.6,
+            "y": 200.32
+          },
+          "flagB": {
+            "x": 1452.31,
+            "y": 200.32
+          },
+          "guideShown": true,
+          "keyShown": true,
+          "arrangement": "row",
+          "layout": {
+            "PH": 367.38,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

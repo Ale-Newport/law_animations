@@ -1,0 +1,1545 @@
+{
+  "animationId": "LAW-0710",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0710",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "origin.name",
+        "rejected": "Invalid animation parameters:\n - params.origin.name: must have at most 48 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: start: one assembled plate in the middle, no connector yet @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "split": 0,
+          "inner": {
+            "x": 461.2,
+            "y": 602.78
+          },
+          "outer": {
+            "x": 461.2,
+            "y": 602.78
+          },
+          "boundary": {
+            "x": 461.2,
+            "y": 459.42
+          },
+          "tracer": {
+            "x": 1213.73,
+            "y": 319.02
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>outer:relation",
+            "outer>inner:relation",
+            "inner>outer:relation",
+            "outer>boundary:relation"
+          ],
+          "drawn": [
+            0,
+            0,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "record",
+              "to": "outer",
+              "a": {
+                "x": 1213.73,
+                "y": 319.02
+              },
+              "b": {
+                "x": 900.04,
+                "y": 411.78
+              }
+            },
+            {
+              "from": "inner",
+              "to": "outer",
+              "a": {
+                "x": 325.12,
+                "y": 456.55
+              },
+              "b": {
+                "x": 597.28,
+                "y": 456.55
+              }
+            },
+            {
+              "from": "boundary",
+              "to": "outer",
+              "a": {
+                "x": 535.45,
+                "y": 240.55
+              },
+              "b": {
+                "x": 710.83,
+                "y": 402.08
+              }
+            }
+          ],
+          "boxes": {
+            "inner": {
+              "x": 32.35,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "outer": {
+              "x": 607.28,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "boundary": {
+              "x": 284.6,
+              "y": 0,
+              "w": 240.85,
+              "h": 240.85
+            },
+            "record": {
+              "x": 1223.73,
+              "y": 131.55,
+              "w": 440,
+              "h": 238.9
+            }
+          },
+          "spot": {
+            "x": 710.83,
+            "y": 402.08
+          },
+          "focus": 1,
+          "keyShown": false,
+          "labelClash": false,
+          "routeClash": false,
+          "labelGaps": [
+            14,
+            8,
+            8.3
+          ],
+          "layout": {
+            "OH": 286.73,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 238.9,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: separate: the pieces stand apart before any relationship is drawn @0.18",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "split": 1,
+          "inner": {
+            "x": 173.73,
+            "y": 602.78
+          },
+          "outer": {
+            "x": 748.66,
+            "y": 602.78
+          },
+          "boundary": {
+            "x": 405.03,
+            "y": 120.43
+          },
+          "tracer": {
+            "x": 1213.73,
+            "y": 319.02
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>outer:relation",
+            "outer>inner:relation",
+            "inner>outer:relation",
+            "outer>boundary:relation"
+          ],
+          "drawn": [
+            0,
+            0,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "record",
+              "to": "outer",
+              "a": {
+                "x": 1213.73,
+                "y": 319.02
+              },
+              "b": {
+                "x": 900.04,
+                "y": 411.78
+              }
+            },
+            {
+              "from": "inner",
+              "to": "outer",
+              "a": {
+                "x": 325.12,
+                "y": 456.55
+              },
+              "b": {
+                "x": 597.28,
+                "y": 456.55
+              }
+            },
+            {
+              "from": "boundary",
+              "to": "outer",
+              "a": {
+                "x": 535.45,
+                "y": 240.55
+              },
+              "b": {
+                "x": 710.83,
+                "y": 402.08
+              }
+            }
+          ],
+          "boxes": {
+            "inner": {
+              "x": 32.35,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "outer": {
+              "x": 607.28,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "boundary": {
+              "x": 284.6,
+              "y": 0,
+              "w": 240.85,
+              "h": 240.85
+            },
+            "record": {
+              "x": 1223.73,
+              "y": 131.55,
+              "w": 440,
+              "h": 238.9
+            }
+          },
+          "spot": {
+            "x": 710.83,
+            "y": 402.08
+          },
+          "focus": 1,
+          "keyShown": false,
+          "labelClash": false,
+          "routeClash": false,
+          "labelGaps": [
+            14,
+            8,
+            8.3
+          ],
+          "layout": {
+            "OH": 286.73,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 238.9,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: relationships are drawn one after another @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "split": 1,
+          "inner": {
+            "x": 173.73,
+            "y": 602.78
+          },
+          "outer": {
+            "x": 748.66,
+            "y": 602.78
+          },
+          "boundary": {
+            "x": 405.03,
+            "y": 120.43
+          },
+          "tracer": {
+            "x": 1213.73,
+            "y": 319.02
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>outer:relation",
+            "outer>inner:relation",
+            "inner>outer:relation",
+            "outer>boundary:relation"
+          ],
+          "drawn": [
+            1,
+            0.583,
+            0
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "record",
+              "to": "outer",
+              "a": {
+                "x": 1213.73,
+                "y": 319.02
+              },
+              "b": {
+                "x": 900.04,
+                "y": 411.78
+              }
+            },
+            {
+              "from": "inner",
+              "to": "outer",
+              "a": {
+                "x": 325.12,
+                "y": 456.55
+              },
+              "b": {
+                "x": 597.28,
+                "y": 456.55
+              }
+            },
+            {
+              "from": "boundary",
+              "to": "outer",
+              "a": {
+                "x": 535.45,
+                "y": 240.55
+              },
+              "b": {
+                "x": 710.83,
+                "y": 402.08
+              }
+            }
+          ],
+          "boxes": {
+            "inner": {
+              "x": 32.35,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "outer": {
+              "x": 607.28,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "boundary": {
+              "x": 284.6,
+              "y": 0,
+              "w": 240.85,
+              "h": 240.85
+            },
+            "record": {
+              "x": 1223.73,
+              "y": 131.55,
+              "w": 440,
+              "h": 238.9
+            }
+          },
+          "spot": {
+            "x": 710.83,
+            "y": 402.08
+          },
+          "focus": 1,
+          "keyShown": false,
+          "labelClash": false,
+          "routeClash": false,
+          "labelGaps": [
+            14,
+            8,
+            8.3
+          ],
+          "layout": {
+            "OH": 286.73,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 238.9,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: every supplied relationship is drawn by 0.43 @0.43",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "split": 1,
+          "inner": {
+            "x": 173.73,
+            "y": 602.78
+          },
+          "outer": {
+            "x": 748.66,
+            "y": 602.78
+          },
+          "boundary": {
+            "x": 405.03,
+            "y": 120.43
+          },
+          "tracer": {
+            "x": 1213.73,
+            "y": 319.02
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>outer:relation",
+            "outer>inner:relation",
+            "inner>outer:relation",
+            "outer>boundary:relation"
+          ],
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "record",
+              "to": "outer",
+              "a": {
+                "x": 1213.73,
+                "y": 319.02
+              },
+              "b": {
+                "x": 900.04,
+                "y": 411.78
+              }
+            },
+            {
+              "from": "inner",
+              "to": "outer",
+              "a": {
+                "x": 325.12,
+                "y": 456.55
+              },
+              "b": {
+                "x": 597.28,
+                "y": 456.55
+              }
+            },
+            {
+              "from": "boundary",
+              "to": "outer",
+              "a": {
+                "x": 535.45,
+                "y": 240.55
+              },
+              "b": {
+                "x": 710.83,
+                "y": 402.08
+              }
+            }
+          ],
+          "boxes": {
+            "inner": {
+              "x": 32.35,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "outer": {
+              "x": 607.28,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "boundary": {
+              "x": 284.6,
+              "y": 0,
+              "w": 240.85,
+              "h": 240.85
+            },
+            "record": {
+              "x": 1223.73,
+              "y": 131.55,
+              "w": 440,
+              "h": 238.9
+            }
+          },
+          "spot": {
+            "x": 710.83,
+            "y": 402.08
+          },
+          "focus": 1,
+          "keyShown": false,
+          "labelClash": false,
+          "routeClash": false,
+          "labelGaps": [
+            14,
+            8,
+            8.3
+          ],
+          "layout": {
+            "OH": 286.73,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 238.9,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the tracer runs while the focus element is enlarged @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "split": 1,
+          "inner": {
+            "x": 173.73,
+            "y": 602.78
+          },
+          "outer": {
+            "x": 748.66,
+            "y": 602.78
+          },
+          "boundary": {
+            "x": 405.03,
+            "y": 120.43
+          },
+          "tracer": {
+            "x": 328.1,
+            "y": 456.55
+          },
+          "tracerOn": 1,
+          "leg": 2,
+          "legs": [
+            "record>outer:relation",
+            "outer>inner:relation",
+            "inner>outer:relation",
+            "outer>boundary:relation"
+          ],
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "record",
+              "to": "outer",
+              "a": {
+                "x": 1213.73,
+                "y": 319.02
+              },
+              "b": {
+                "x": 900.04,
+                "y": 411.78
+              }
+            },
+            {
+              "from": "inner",
+              "to": "outer",
+              "a": {
+                "x": 325.12,
+                "y": 456.55
+              },
+              "b": {
+                "x": 597.28,
+                "y": 456.55
+              }
+            },
+            {
+              "from": "boundary",
+              "to": "outer",
+              "a": {
+                "x": 535.45,
+                "y": 240.55
+              },
+              "b": {
+                "x": 710.83,
+                "y": 402.08
+              }
+            }
+          ],
+          "boxes": {
+            "inner": {
+              "x": 32.35,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "outer": {
+              "x": 607.28,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "boundary": {
+              "x": 284.6,
+              "y": 0,
+              "w": 240.85,
+              "h": 240.85
+            },
+            "record": {
+              "x": 1223.73,
+              "y": 131.55,
+              "w": 440,
+              "h": 238.9
+            }
+          },
+          "spot": {
+            "x": 710.83,
+            "y": 402.08
+          },
+          "focus": 1.25,
+          "keyShown": false,
+          "labelClash": false,
+          "routeClash": false,
+          "labelGaps": [
+            14,
+            8,
+            8.3
+          ],
+          "layout": {
+            "OH": 286.73,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 238.9,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: every connector ends on its element; no causal arrow by default; key shown @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "split": 1,
+          "inner": {
+            "x": 173.73,
+            "y": 602.78
+          },
+          "outer": {
+            "x": 748.66,
+            "y": 602.78
+          },
+          "boundary": {
+            "x": 405.03,
+            "y": 120.43
+          },
+          "tracer": {
+            "x": 535.45,
+            "y": 240.55
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>outer:relation",
+            "outer>inner:relation",
+            "inner>outer:relation",
+            "outer>boundary:relation"
+          ],
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "record",
+              "to": "outer",
+              "a": {
+                "x": 1213.73,
+                "y": 319.02
+              },
+              "b": {
+                "x": 900.04,
+                "y": 411.78
+              }
+            },
+            {
+              "from": "inner",
+              "to": "outer",
+              "a": {
+                "x": 325.12,
+                "y": 456.55
+              },
+              "b": {
+                "x": 597.28,
+                "y": 456.55
+              }
+            },
+            {
+              "from": "boundary",
+              "to": "outer",
+              "a": {
+                "x": 535.45,
+                "y": 240.55
+              },
+              "b": {
+                "x": 710.83,
+                "y": 402.08
+              }
+            }
+          ],
+          "boxes": {
+            "inner": {
+              "x": 32.35,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "outer": {
+              "x": 607.28,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "boundary": {
+              "x": 284.6,
+              "y": 0,
+              "w": 240.85,
+              "h": 240.85
+            },
+            "record": {
+              "x": 1223.73,
+              "y": 131.55,
+              "w": 440,
+              "h": 238.9
+            }
+          },
+          "spot": {
+            "x": 710.83,
+            "y": 402.08
+          },
+          "focus": 1,
+          "keyShown": true,
+          "labelClash": false,
+          "routeClash": false,
+          "labelGaps": [
+            14,
+            8,
+            8.3
+          ],
+          "layout": {
+            "OH": 286.73,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 238.9,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: a plain relation never gets an arrowhead @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "split": 1,
+          "inner": {
+            "x": 173.73,
+            "y": 602.78
+          },
+          "outer": {
+            "x": 748.66,
+            "y": 602.78
+          },
+          "boundary": {
+            "x": 405.03,
+            "y": 120.43
+          },
+          "tracer": {
+            "x": 535.45,
+            "y": 240.55
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>outer:relation",
+            "outer>inner:relation",
+            "inner>outer:relation",
+            "outer>boundary:relation"
+          ],
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "record",
+              "to": "outer",
+              "a": {
+                "x": 1213.73,
+                "y": 319.02
+              },
+              "b": {
+                "x": 900.04,
+                "y": 411.78
+              }
+            },
+            {
+              "from": "inner",
+              "to": "outer",
+              "a": {
+                "x": 325.12,
+                "y": 456.55
+              },
+              "b": {
+                "x": 597.28,
+                "y": 456.55
+              }
+            },
+            {
+              "from": "boundary",
+              "to": "outer",
+              "a": {
+                "x": 535.45,
+                "y": 240.55
+              },
+              "b": {
+                "x": 710.83,
+                "y": 402.08
+              }
+            }
+          ],
+          "boxes": {
+            "inner": {
+              "x": 32.35,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "outer": {
+              "x": 607.28,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "boundary": {
+              "x": 284.6,
+              "y": 0,
+              "w": 240.85,
+              "h": 240.85
+            },
+            "record": {
+              "x": 1223.73,
+              "y": 131.55,
+              "w": 440,
+              "h": 238.9
+            }
+          },
+          "spot": {
+            "x": 710.83,
+            "y": 402.08
+          },
+          "focus": 1,
+          "keyShown": true,
+          "labelClash": false,
+          "routeClash": false,
+          "labelGaps": [
+            14,
+            8,
+            8.3
+          ],
+          "layout": {
+            "OH": 286.73,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 238.9,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative: the supplied sequence and communication links with their kinds; still no causal arrow @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "split": 1,
+          "inner": {
+            "x": 160.41,
+            "y": 602.78
+          },
+          "outer": {
+            "x": 763.53,
+            "y": 602.78
+          },
+          "boundary": {
+            "x": 400.16,
+            "y": 120.43
+          },
+          "tracer": {
+            "x": 1427.05,
+            "y": 367.85
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "inner>outer:sequence",
+            "outer>record:communication",
+            "record>alternative:relation"
+          ],
+          "drawn": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "sequence",
+            "communication",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "inner",
+              "to": "outer",
+              "a": {
+                "x": 311.8,
+                "y": 456.55
+              },
+              "b": {
+                "x": 612.15,
+                "y": 456.55
+              }
+            },
+            {
+              "from": "record",
+              "to": "outer",
+              "a": {
+                "x": 1167.05,
+                "y": 280.1
+              },
+              "b": {
+                "x": 914.91,
+                "y": 390.35
+              }
+            },
+            {
+              "from": "boundary",
+              "to": "outer",
+              "a": {
+                "x": 530.59,
+                "y": 233.27
+              },
+              "b": {
+                "x": 725.7,
+                "y": 402.08
+              }
+            },
+            {
+              "from": "alternative",
+              "to": "record",
+              "a": {
+                "x": 1427.05,
+                "y": 367.85
+              },
+              "b": {
+                "x": 1427.05,
+                "y": 322.65
+              }
+            }
+          ],
+          "boxes": {
+            "inner": {
+              "x": 19.03,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "outer": {
+              "x": 622.15,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "boundary": {
+              "x": 279.74,
+              "y": 0,
+              "w": 240.85,
+              "h": 240.85
+            },
+            "record": {
+              "x": 1177.05,
+              "y": 20.15,
+              "w": 500,
+              "h": 292.5
+            },
+            "alternative": {
+              "x": 1272.17,
+              "y": 377.85,
+              "w": 309.76,
+              "h": 35.2
+            }
+          },
+          "spot": {
+            "x": 725.7,
+            "y": 402.08
+          },
+          "focus": 1,
+          "keyShown": true,
+          "labelClash": false,
+          "routeClash": false,
+          "labelGaps": [
+            8,
+            0,
+            8,
+            6.3
+          ],
+          "layout": {
+            "OH": 286.73,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 292.5,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 35.2,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: a causal arrow appears only when the author supplies kind causal (exactly that one) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "split": 1,
+          "inner": {
+            "x": 203.75,
+            "y": 602.78
+          },
+          "outer": {
+            "x": 778.68,
+            "y": 602.78
+          },
+          "boundary": {
+            "x": 435.04,
+            "y": 120.43
+          },
+          "tracer": {
+            "x": 565.47,
+            "y": 240.55
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>outer:none",
+            "outer>inner:causal",
+            "inner>outer:causal",
+            "outer>boundary:relation"
+          ],
+          "drawn": [
+            1,
+            1
+          ],
+          "kinds": [
+            "causal",
+            "relation"
+          ],
+          "arrows": [
+            true,
+            false
+          ],
+          "causalShown": true,
+          "linkEnds": [
+            {
+              "from": "inner",
+              "to": "outer",
+              "a": {
+                "x": 355.13,
+                "y": 456.55
+              },
+              "b": {
+                "x": 627.3,
+                "y": 456.55
+              }
+            },
+            {
+              "from": "boundary",
+              "to": "outer",
+              "a": {
+                "x": 565.47,
+                "y": 240.55
+              },
+              "b": {
+                "x": 740.85,
+                "y": 402.08
+              }
+            }
+          ],
+          "boxes": {
+            "inner": {
+              "x": 62.37,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "outer": {
+              "x": 637.3,
+              "y": 310.32,
+              "w": 282.76,
+              "h": 292.46
+            },
+            "boundary": {
+              "x": 314.62,
+              "y": 0,
+              "w": 240.85,
+              "h": 240.85
+            },
+            "record": {
+              "x": 1193.71,
+              "y": 131.55,
+              "w": 440,
+              "h": 238.9
+            }
+          },
+          "spot": {
+            "x": 740.85,
+            "y": 402.08
+          },
+          "focus": 1,
+          "keyShown": true,
+          "labelClash": false,
+          "routeClash": false,
+          "labelGaps": [
+            8,
+            8.3
+          ],
+          "layout": {
+            "OH": 286.73,
+            "size": 20,
+            "k": 1,
+            "fallback": false,
+            "mode": "rowcol",
+            "why": [],
+            "recH": 238.9,
+            "bandH": 0,
+            "relH": 45.2,
+            "chipsH": 35.2,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same separation and relationships @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "split": 1,
+          "inner": {
+            "x": 205.24,
+            "y": 632.32
+          },
+          "outer": {
+            "x": 815.39,
+            "y": 632.32
+          },
+          "boundary": {
+            "x": 450.98,
+            "y": 128.36
+          },
+          "tracer": {
+            "x": 589.33,
+            "y": 252.18
+          },
+          "tracerOn": 0,
+          "leg": -1,
+          "legs": [
+            "record>outer:relation",
+            "outer>inner:relation",
+            "inner>outer:relation",
+            "outer>boundary:relation"
+          ],
+          "drawn": [
+            1,
+            1,
+            1
+          ],
+          "kinds": [
+            "relation",
+            "relation",
+            "relation"
+          ],
+          "arrows": [
+            false,
+            false,
+            false
+          ],
+          "causalShown": false,
+          "linkEnds": [
+            {
+              "from": "record",
+              "to": "outer",
+              "a": {
+                "x": 1191.9,
+                "y": 409.75
+              },
+              "b": {
+                "x": 976.08,
+                "y": 447.99
+              }
+            },
+            {
+              "from": "inner",
+              "to": "outer",
+              "a": {
+                "x": 365.94,
+                "y": 476.46
+              },
+              "b": {
+                "x": 654.7,
+                "y": 476.46
+              }
+            },
+            {
+              "from": "boundary",
+              "to": "outer",
+              "a": {
+                "x": 589.33,
+                "y": 252.18
+              },
+              "b": {
+                "x": 775.07,
+                "y": 418.4
+              }
+            }
+          ],
+          "boxes": {
+            "inner": {
+              "x": 54.55,
+              "y": 320.6,
+              "w": 301.38,
+              "h": 311.72
+            },
+            "outer": {
+              "x": 664.7,
+              "y": 320.6,
+              "w": 301.38,
+              "h": 311.72
+            },
+            "boundary": {
+              "x": 322.62,
+              "y": 0,
+              "w": 256.71,
+              "h": 256.71
+            },
+            "record": {
+              "x": 1201.9,
+              "y": 229.34,
+              "w": 440,
+              "h": 279.33
+            }
+          },
+          "spot": {
+            "x": 775.07,
+            "y": 418.4
+          },
+          "focus": 1,
+          "keyShown": true,
+          "labelClash": false,
+          "routeClash": false,
+          "labelGaps": [],
+          "layout": {
+            "OH": 305.61,
+            "size": 26,
+            "k": 1,
+            "fallback": false,
+            "mode": "row",
+            "why": [],
+            "recH": 279.33,
+            "bandH": 0,
+            "relH": 40,
+            "chipsH": 0,
+            "altH": 0,
+            "TB": null
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

@@ -1,0 +1,1266 @@
+{
+  "animationId": "LAW-0048",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0048",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "query"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: context shows the before datum at its paragraph @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "build",
+          "lensOpen": 0,
+          "datum": "before",
+          "contextDatum": "before",
+          "contextMarks": "before",
+          "tagsUnderLens": 0,
+          "lensWindow": 0,
+          "lensOnSource": false,
+          "contextRow": 3,
+          "lensRow": 3,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 599.68
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the lens opens on the unchanged detail @0.44",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 1,
+          "datum": "before",
+          "contextDatum": "before",
+          "contextMarks": "before",
+          "tagsUnderLens": 3,
+          "lensWindow": 1,
+          "lensOnSource": false,
+          "contextRow": 3,
+          "lensRow": 3,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 599.68
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the substitution happens inside the lens only @0.62",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "datum": "changing",
+          "contextDatum": "before",
+          "contextMarks": "before",
+          "tagsUnderLens": 3,
+          "lensWindow": 1,
+          "lensOnSource": false,
+          "contextRow": 3,
+          "lensRow": -1,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 599.68
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: inside the lens the tag and highlight reach the new paragraph @0.74",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "datum": "after",
+          "contextDatum": "before",
+          "contextMarks": "before",
+          "tagsUnderLens": 3,
+          "lensWindow": 1,
+          "lensOnSource": false,
+          "contextRow": 3,
+          "lensRow": 5,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 599.68
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: returns to context with the new datum at its paragraph @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "contextDatum": "after",
+          "contextMarks": "after",
+          "tagsUnderLens": 0,
+          "lensWindow": 0,
+          "lensOnSource": false,
+          "contextRow": 5,
+          "lensRow": 5,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 719.74
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the previous datum exactly @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "lensOpen": 0.256,
+          "datum": "before",
+          "contextDatum": "before",
+          "contextMarks": "before",
+          "tagsUnderLens": 0,
+          "lensWindow": 1,
+          "lensOnSource": false,
+          "contextRow": 3,
+          "lensRow": 3,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 599.68
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the lens keeps a source region in the context @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "contextDatum": "after",
+          "contextMarks": "after",
+          "tagsUnderLens": 0,
+          "lensWindow": 0,
+          "lensOnSource": false,
+          "contextRow": 5,
+          "lensRow": 5,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 719.74
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the changed-datum marker sits outside the new tag and covers none of its value @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "contextDatum": "after",
+          "contextMarks": "after",
+          "tagsUnderLens": 0,
+          "lensWindow": 0,
+          "lensOnSource": false,
+          "contextRow": 5,
+          "lensRow": 5,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 719.74
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: long values: the marker still leaves the whole substituted value readable @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "contextDatum": "after",
+          "contextMarks": "after",
+          "tagsUnderLens": 0,
+          "lensWindow": 0,
+          "lensOnSource": false,
+          "contextRow": 4,
+          "lensRow": 4,
+          "contextTag": {
+            "x": 1336.89,
+            "y": 659.71
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 559.7,
+            "w": 329.82,
+            "h": 207.96
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1273.25,
+            "y": 506,
+            "w": 224.14,
+            "h": 82.32,
+            "leader": 30.44,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the closing lens stays opaque while it moves back (no semi-transparent double image) @0.82",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0.044,
+          "datum": "after",
+          "contextDatum": "before",
+          "contextMarks": "withdrawn",
+          "tagsUnderLens": 1,
+          "lensWindow": 1,
+          "lensOnSource": false,
+          "contextRow": 3,
+          "lensRow": 5,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 599.68
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: as the lens flies back the context's old tag and highlight have left (never beside the lens's new ones) @0.8",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0.351,
+          "datum": "after",
+          "contextDatum": "before",
+          "contextMarks": "withdrawn",
+          "tagsUnderLens": 0,
+          "lensWindow": 1,
+          "lensOnSource": false,
+          "contextRow": 3,
+          "lensRow": 5,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 599.68
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the context keeps its old marks until the return begins @0.74",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "lensOpen": 1,
+          "datum": "after",
+          "contextDatum": "before",
+          "contextMarks": "before",
+          "tagsUnderLens": 3,
+          "lensWindow": 1,
+          "lensOnSource": false,
+          "contextRow": 3,
+          "lensRow": 5,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 599.68
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the changed-datum callout lies on the board, outside the book and the card @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "contextDatum": "after",
+          "contextMarks": "after",
+          "tagsUnderLens": 0,
+          "lensWindow": 0,
+          "lensOnSource": false,
+          "contextRow": 5,
+          "lensRow": 5,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 719.74
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the context takes the new state only while the closed lens covers it exactly @0.845",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "contextDatum": "changing",
+          "contextMarks": "after",
+          "tagsUnderLens": 0,
+          "lensWindow": 0.833,
+          "lensOnSource": true,
+          "contextRow": 5,
+          "lensRow": 5,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 719.74
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: the lens has faded completely before the card and marker change @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "contextDatum": "changing",
+          "contextMarks": "after",
+          "tagsUnderLens": 0,
+          "lensWindow": 0,
+          "lensOnSource": false,
+          "contextRow": 5,
+          "lensRow": 5,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 719.74
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 624.4,
+            "w": 246.22,
+            "h": 198.61
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1276.82,
+            "y": 602,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 32.18,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    },
+    {
+      "name": "semantic: removing the pinpoint leaves no paragraph designated @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "return",
+          "lensOpen": 0,
+          "datum": "after",
+          "contextDatum": "after",
+          "contextMarks": "after",
+          "tagsUnderLens": 0,
+          "lensWindow": 0,
+          "lensOnSource": false,
+          "contextRow": 0,
+          "lensRow": 0,
+          "contextTag": {
+            "x": 1295.1,
+            "y": 599.68
+          },
+          "highlight": 1,
+          "source": {
+            "x": 1395.79,
+            "y": 564.49,
+            "w": 246.22,
+            "h": 198.38
+          },
+          "focusTarget": "paragraph",
+          "markerClearOfTag": true,
+          "markLabel": {
+            "x": 1277.93,
+            "y": 578,
+            "w": 232.68,
+            "h": 49.28,
+            "leader": 29.78,
+            "size": 28,
+            "ok": true
+          },
+          "allReached": true
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Edition of day 3",
+          "px": 10.3
+        },
+        {
+          "text": "Casebook of Examples",
+          "px": 10.9
+        },
+        {
+          "text": "Noted on day 12",
+          "px": 12.1
+        },
+        {
+          "text": "Journal of Sample Studies",
+          "px": 13.1
+        },
+        {
+          "text": "Practice Notes",
+          "px": 13.1
+        },
+        {
+          "text": "p. 112",
+          "px": 13.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Edition of day 3",
+          "px": 12.2
+        },
+        {
+          "text": "Casebook of Examples",
+          "px": 12.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Edition of day 3",
+          "px": 8
+        },
+        {
+          "text": "Noted on day 12",
+          "px": 8.1
+        },
+        {
+          "text": "Casebook of Examples",
+          "px": 8.5
+        },
+        {
+          "text": "Journal of Sample Studies",
+          "px": 10.6
+        },
+        {
+          "text": "p. 112",
+          "px": 10.6
+        },
+        {
+          "text": "Practice Notes",
+          "px": 13.2
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Edition of day 3",
+          "px": 10.3
+        },
+        {
+          "text": "Casebook of Examples",
+          "px": 10.9
+        },
+        {
+          "text": "Noted on day 12",
+          "px": 12.1
+        },
+        {
+          "text": "Journal of Sample Studies",
+          "px": 13.1
+        },
+        {
+          "text": "Practice Notes",
+          "px": 13.1
+        },
+        {
+          "text": "p. 112",
+          "px": 13.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Edition of day 3",
+          "px": 12.2
+        },
+        {
+          "text": "Casebook of Examples",
+          "px": 12.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Edition of day 3",
+          "px": 8
+        },
+        {
+          "text": "Noted on day 12",
+          "px": 8.1
+        },
+        {
+          "text": "Casebook of Examples",
+          "px": 8.5
+        },
+        {
+          "text": "Journal of Sample Studies",
+          "px": 10.6
+        },
+        {
+          "text": "p. 112",
+          "px": 10.6
+        },
+        {
+          "text": "Practice Notes",
+          "px": 13.2
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Edition of day 1",
+          "px": 10.3
+        },
+        {
+          "text": "Practice Notes",
+          "px": 10.9
+        },
+        {
+          "text": "Journal of Sample Studies",
+          "px": 13.1
+        },
+        {
+          "text": "Casebook of Examples",
+          "px": 13.1
+        },
+        {
+          "text": "Noted on day 4",
+          "px": 13.2
+        },
+        {
+          "text": "p. 57",
+          "px": 13.6
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Noted on day 4",
+          "px": 10.6
+        },
+        {
+          "text": "Edition of day 1",
+          "px": 12.2
+        },
+        {
+          "text": "Practice Notes",
+          "px": 12.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Edition of day 1",
+          "px": 8
+        },
+        {
+          "text": "Practice Notes",
+          "px": 8.5
+        },
+        {
+          "text": "Noted on day 4",
+          "px": 9.2
+        },
+        {
+          "text": "Journal of Sample Studies",
+          "px": 10.6
+        },
+        {
+          "text": "p. 57",
+          "px": 10.6
+        },
+        {
+          "text": "Casebook of Examples",
+          "px": 12.1
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        "Consolidated Casebook of Illustrative Ex",
+        "Edition of day 3 (fictional)Edition of d"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Noted on day 12 (log)",
+          "px": 9.4
+        },
+        {
+          "text": "Edition of day 3 (fictional)Ed",
+          "px": 10.3
+        },
+        {
+          "text": "Consolidated Casebook of Illus",
+          "px": 10.9
+        },
+        {
+          "text": "Practice Notes and Commentary",
+          "px": 13.1
+        },
+        {
+          "text": "page 1127",
+          "px": 13.6
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        "Consolidated Casebook of Illustrative Ex",
+        "Edition of day 3 (fictional)Edition of d"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Journal of Sample Studies in C",
+          "px": 11.1
+        },
+        {
+          "text": "Edition of day 3 (fictional)Ed",
+          "px": 12.2
+        },
+        {
+          "text": "Consolidated Casebook of Illus",
+          "px": 12.9
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        "Journal of Sample Studies in Comparative",
+        "Consolidated Casebook of Illustrative Ex",
+        "Edition of day 3 (fictional)Edition of d"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Journal of Sample Studies in C",
+          "px": 7.6
+        },
+        {
+          "text": "Edition of day 3 (fictional)Ed",
+          "px": 8
+        },
+        {
+          "text": "Practice Notes and Commentary",
+          "px": 8.5
+        },
+        {
+          "text": "Consolidated Casebook of Illus",
+          "px": 8.5
+        },
+        {
+          "text": "page 1127",
+          "px": 10.6
+        },
+        {
+          "text": "Consolidated Casebook ofIllust",
+          "px": 12.7
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "texts": [
+        "Repertorio de EjemplosRepertorio de…"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Edición del día 3",
+          "px": 10.3
+        },
+        {
+          "text": "Anotada el día 12",
+          "px": 10.5
+        },
+        {
+          "text": "Repertorio de EjemplosRepertor",
+          "px": 10.9
+        },
+        {
+          "text": "Revista de Estudios de Muestra",
+          "px": 13.1
+        },
+        {
+          "text": "Notas Prácticas",
+          "px": 13.1
+        },
+        {
+          "text": "p. 112",
+          "px": 13.6
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "texts": [
+        "Repertorio de EjemplosRepertorio de…"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Edición del día 3",
+          "px": 12.2
+        },
+        {
+          "text": "Repertorio de EjemplosRepertor",
+          "px": 12.9
+        }
+      ]
+    },
+    {
+      "kind": "truncated-text",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "texts": [
+        "Repertorio de EjemplosRepertorio de…"
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Anotada el día 12",
+          "px": 7
+        },
+        {
+          "text": "Edición del día 3",
+          "px": 8
+        },
+        {
+          "text": "Repertorio de EjemplosRepertor",
+          "px": 8.5
+        },
+        {
+          "text": "Revista de Estudios de Muestra",
+          "px": 9
+        },
+        {
+          "text": "p. 112",
+          "px": 10.6
+        },
+        {
+          "text": "Notas Prácticas",
+          "px": 13.2
+        }
+      ]
+    },
+    {
+      "kind": "short-hold",
+      "preset": "default",
+      "ratio": "16:9",
+      "holdMs": 200,
+      "durationMs": 8000
+    },
+    {
+      "kind": "short-hold",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "holdMs": 200,
+      "durationMs": 8000
+    },
+    {
+      "kind": "short-hold",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "holdMs": 200,
+      "durationMs": 8000
+    },
+    {
+      "kind": "short-hold",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "holdMs": 200,
+      "durationMs": 8000
+    },
+    {
+      "kind": "short-hold",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "holdMs": 200,
+      "durationMs": 8000
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

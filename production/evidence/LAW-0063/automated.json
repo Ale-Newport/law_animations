@@ -1,0 +1,623 @@
+{
+  "animationId": "LAW-0063",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0063",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "query"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: two complete scenes with an identical base (nothing marked or placed yet) @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "a": {
+            "side": "strip",
+            "sideOrigin": "source page",
+            "at": {
+              "x": 74,
+              "y": 498.8
+            },
+            "center": {
+              "x": 235,
+              "y": 530.32
+            },
+            "landed": false,
+            "pinned": false,
+            "tied": false,
+            "marked": 0,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "b": {
+            "side": "card",
+            "sideOrigin": "commentary shelf",
+            "at": {
+              "x": 1538,
+              "y": -26
+            },
+            "center": {
+              "x": 1692,
+              "y": 82
+            },
+            "landed": false,
+            "pinned": false,
+            "tied": false,
+            "marked": 0,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "samePassage": true,
+          "guideProgress": 0,
+          "tagGuideGap": 30.56,
+          "footer": null
+        }
+      }
+    },
+    {
+      "name": "semantic: the change is introduced in parallel and named @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "a": {
+            "side": "strip",
+            "sideOrigin": "source page",
+            "at": {
+              "x": 74,
+              "y": 498.8
+            },
+            "center": {
+              "x": 235,
+              "y": 530.32
+            },
+            "landed": false,
+            "pinned": false,
+            "tied": false,
+            "marked": 0.857,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "b": {
+            "side": "card",
+            "sideOrigin": "commentary shelf",
+            "at": {
+              "x": 1538,
+              "y": -26
+            },
+            "center": {
+              "x": 1692,
+              "y": 82
+            },
+            "landed": false,
+            "pinned": false,
+            "tied": false,
+            "marked": 0.857,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "samePassage": true,
+          "guideProgress": 0,
+          "tagGuideGap": 30.56,
+          "footer": "changed-fact"
+        }
+      }
+    },
+    {
+      "name": "semantic: A’s note comes from the page (copied words); B’s from the commentary shelf @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "side": "strip",
+            "sideOrigin": "source page",
+            "at": {
+              "x": 481.19,
+              "y": 499.93
+            },
+            "center": {
+              "x": 636.39,
+              "y": 530.32
+            },
+            "landed": false,
+            "pinned": false,
+            "tied": false,
+            "marked": 1,
+            "clearOfPage": false,
+            "passage": 2
+          },
+          "b": {
+            "side": "card",
+            "sideOrigin": "commentary shelf",
+            "at": {
+              "x": 1538,
+              "y": 359.75
+            },
+            "center": {
+              "x": 1692,
+              "y": 467.75
+            },
+            "landed": false,
+            "pinned": false,
+            "tied": false,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "samePassage": true,
+          "guideProgress": 0,
+          "tagGuideGap": 30.56,
+          "footer": "shared-facts"
+        }
+      }
+    },
+    {
+      "name": "semantic: the changed fact alters geometry and path, not only text @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "side": "strip",
+            "sideOrigin": "source page",
+            "at": {
+              "x": 481.19,
+              "y": 499.93
+            },
+            "center": {
+              "x": 636.39,
+              "y": 530.32
+            },
+            "landed": false,
+            "pinned": false,
+            "tied": false,
+            "marked": 1,
+            "clearOfPage": false,
+            "passage": 2
+          },
+          "b": {
+            "side": "card",
+            "sideOrigin": "commentary shelf",
+            "at": {
+              "x": 1538,
+              "y": 359.75
+            },
+            "center": {
+              "x": 1692,
+              "y": 467.75
+            },
+            "landed": false,
+            "pinned": false,
+            "tied": false,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "samePassage": true,
+          "guideProgress": 0,
+          "tagGuideGap": 30.56,
+          "footer": "shared-facts"
+        }
+      }
+    },
+    {
+      "name": "semantic: both side notes land beside the page, clear of its text @0.62",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "side": "strip",
+            "sideOrigin": "source page",
+            "at": {
+              "x": 565.48,
+              "y": 500.17
+            },
+            "center": {
+              "x": 719.48,
+              "y": 530.32
+            },
+            "landed": true,
+            "pinned": false,
+            "tied": false,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "b": {
+            "side": "card",
+            "sideOrigin": "commentary shelf",
+            "at": {
+              "x": 1538,
+              "y": 439.6
+            },
+            "center": {
+              "x": 1692,
+              "y": 547.6
+            },
+            "landed": true,
+            "pinned": false,
+            "tied": false,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "samePassage": true,
+          "guideProgress": 0,
+          "tagGuideGap": 30.56,
+          "footer": "shared-facts"
+        }
+      }
+    },
+    {
+      "name": "semantic: both are pinned and tied to the same passage @0.76",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "side": "strip",
+            "sideOrigin": "source page",
+            "at": {
+              "x": 565.48,
+              "y": 500.17
+            },
+            "center": {
+              "x": 719.48,
+              "y": 530.32
+            },
+            "landed": true,
+            "pinned": true,
+            "tied": true,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "b": {
+            "side": "card",
+            "sideOrigin": "commentary shelf",
+            "at": {
+              "x": 1538,
+              "y": 439.6
+            },
+            "center": {
+              "x": 1692,
+              "y": 547.6
+            },
+            "landed": true,
+            "pinned": true,
+            "tied": true,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "samePassage": true,
+          "guideProgress": 0,
+          "tagGuideGap": 30.56,
+          "footer": "shared-facts"
+        }
+      }
+    },
+    {
+      "name": "semantic: closing guide drawn; neutral note (no winner or outcome) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "side": "strip",
+            "sideOrigin": "source page",
+            "at": {
+              "x": 565.48,
+              "y": 500.17
+            },
+            "center": {
+              "x": 719.48,
+              "y": 530.32
+            },
+            "landed": true,
+            "pinned": true,
+            "tied": true,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "b": {
+            "side": "card",
+            "sideOrigin": "commentary shelf",
+            "at": {
+              "x": 1538,
+              "y": 439.6
+            },
+            "center": {
+              "x": 1692,
+              "y": 547.6
+            },
+            "landed": true,
+            "pinned": true,
+            "tied": true,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "samePassage": true,
+          "guideProgress": 1,
+          "tagGuideGap": 30.56,
+          "footer": "neutral"
+        }
+      }
+    },
+    {
+      "name": "semantic: the closing guide keeps clear of the side-note tags @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "side": "strip",
+            "sideOrigin": "source page",
+            "at": {
+              "x": 565.48,
+              "y": 500.17
+            },
+            "center": {
+              "x": 719.48,
+              "y": 530.32
+            },
+            "landed": true,
+            "pinned": true,
+            "tied": true,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "b": {
+            "side": "card",
+            "sideOrigin": "commentary shelf",
+            "at": {
+              "x": 1538,
+              "y": 439.6
+            },
+            "center": {
+              "x": 1692,
+              "y": 547.6
+            },
+            "landed": true,
+            "pinned": true,
+            "tied": true,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "samePassage": true,
+          "guideProgress": 1,
+          "tagGuideGap": 30.56,
+          "footer": "neutral"
+        }
+      }
+    },
+    {
+      "name": "semantic: the linked passage stays identical in both scenes @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "side": "strip",
+            "sideOrigin": "source page",
+            "at": {
+              "x": 565.48,
+              "y": 605.7
+            },
+            "center": {
+              "x": 719.48,
+              "y": 635.85
+            },
+            "landed": true,
+            "pinned": true,
+            "tied": true,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 3
+          },
+          "b": {
+            "side": "card",
+            "sideOrigin": "commentary shelf",
+            "at": {
+              "x": 1538,
+              "y": 450
+            },
+            "center": {
+              "x": 1692,
+              "y": 558
+            },
+            "landed": true,
+            "pinned": true,
+            "tied": true,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 3
+          },
+          "samePassage": true,
+          "guideProgress": 1,
+          "tagGuideGap": 30.56,
+          "footer": "neutral"
+        }
+      }
+    },
+    {
+      "name": "semantic: the contrast reads with labels hidden @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "side": "strip",
+            "sideOrigin": "source page",
+            "at": {
+              "x": 565.48,
+              "y": 486.49
+            },
+            "center": {
+              "x": 719.48,
+              "y": 512.95
+            },
+            "landed": true,
+            "pinned": true,
+            "tied": true,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "b": {
+            "side": "card",
+            "sideOrigin": "commentary shelf",
+            "at": {
+              "x": 1538,
+              "y": 422.23
+            },
+            "center": {
+              "x": 1692,
+              "y": 530.23
+            },
+            "landed": true,
+            "pinned": true,
+            "tied": true,
+            "marked": 1,
+            "clearOfPage": true,
+            "passage": 2
+          },
+          "samePassage": true,
+          "guideProgress": 1,
+          "tagGuideGap": null,
+          "footer": "neutral"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

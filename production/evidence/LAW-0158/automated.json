@@ -1,0 +1,3266 @@
+{
+  "animationId": "LAW-0158",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0158",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "sources.0.label"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: separate: parts packed, nothing related, nothing marked @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "tracer": {
+            "x": 417.65,
+            "y": 723.14
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 0,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": -102.97,
+              "k": 1
+            },
+            "version2": {
+              "dy": -102.97,
+              "k": 1
+            },
+            "band": {
+              "dy": -102.97,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": -205.95,
+              "k": 1
+            },
+            "timeline": {
+              "dy": -308.92,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 0,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 0,
+          "sides": [
+            "neutral",
+            "neutral",
+            "neutral"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 0
+        }
+      }
+    },
+    {
+      "name": "semantic: parts separated before any relation is drawn @0.17",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "tracer": {
+            "x": 417.65,
+            "y": 723.14
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 0,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 0,
+          "sides": [
+            "neutral",
+            "neutral",
+            "neutral"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 0
+        }
+      }
+    },
+    {
+      "name": "semantic: relate: every supplied relation drawn before the tracer starts @0.44",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 417.65,
+            "y": 723.14
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 0,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 0,
+          "sides": [
+            "neutral",
+            "neutral",
+            "neutral"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 0
+        }
+      }
+    },
+    {
+      "name": "semantic: item 5: every link (and every thread) ends on its own part edge — a link to the cases on a card @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 859.64,
+            "y": 1395.54
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 1,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 1,
+          "sides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: links have length (≥ 2 × text size; threads ≥ 1.5 ×) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 859.64,
+            "y": 1395.54
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 1,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 1,
+          "sides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: each relation label sits beside its line (not on it, within reach) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 859.64,
+            "y": 1395.54
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 1,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 1,
+          "sides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: the timeline–cases relation is one thread per case, from each card to its pin @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 859.64,
+            "y": 1395.54
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 1,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 1,
+          "sides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: the plumb line ties the band split to the milestone day on the ruler @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 859.64,
+            "y": 1395.54
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 1,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 1,
+          "sides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: plain relations have no arrowhead; no causal link by default @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 859.64,
+            "y": 1395.54
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 1,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 1,
+          "sides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: tracer visits follow the supplied traversal order @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 2408.51,
+            "y": 850.25
+          },
+          "tracerOn": true,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1.002
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 1,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1.002,
+          "focusHalo": 0.015,
+          "zones": 1,
+          "sides": [
+            "neutral",
+            "neutral",
+            "neutral"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 0
+        }
+      }
+    },
+    {
+      "name": "semantic: no case state before the tracer reaches the cases (cause before effect) @0.46",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "tracer": {
+            "x": 647.19,
+            "y": 723.14
+          },
+          "tracerOn": true,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1.01
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 0,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1.01,
+          "focusHalo": 0.07,
+          "zones": 0,
+          "sides": [
+            "neutral",
+            "neutral",
+            "neutral"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 0
+        }
+      }
+    },
+    {
+      "name": "semantic: gather: states by position only, key shown, focus back to normal size @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 859.64,
+            "y": 1395.54
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 1,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 1,
+          "sides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: a causal link is drawn only when supplied, and only for that link @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1799.19,
+            "y": 1395.54
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "causal",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 3.93
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 0,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 1,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 1,
+          "sides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: another supplied order is followed as supplied @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 1799.19,
+            "y": 850.25
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [
+            {
+              "ri": 0,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 1,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 2,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 3,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 4,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            },
+            {
+              "ri": 5,
+              "beside": true,
+              "onLine": false,
+              "gap": 10
+            }
+          ],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 1,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "timeline",
+            "cases",
+            "band"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 1,
+          "sides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same parts, links and states @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "tracer": {
+            "x": 859.64,
+            "y": 1395.54
+          },
+          "tracerOn": false,
+          "tracerOnText": false,
+          "sep": 1,
+          "looks": {
+            "hierarchy": {
+              "dy": 0,
+              "k": 1
+            },
+            "version1": {
+              "dy": 0,
+              "k": 1
+            },
+            "version2": {
+              "dy": 0,
+              "k": 1
+            },
+            "band": {
+              "dy": 0,
+              "k": 1
+            },
+            "milestone": {
+              "dy": 0,
+              "k": 1
+            },
+            "cases": {
+              "dy": 0,
+              "k": 1
+            },
+            "timeline": {
+              "dy": 0,
+              "k": 1
+            },
+            "note": {
+              "dy": 0,
+              "k": 1
+            }
+          },
+          "conns": [
+            {
+              "from": "hierarchy",
+              "to": "version1",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 6.14
+            },
+            {
+              "from": "version1",
+              "to": "band",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "band",
+              "to": "version2",
+              "kind": "relation",
+              "thread": null,
+              "arrow": false,
+              "endsOk": true,
+              "len": 5.31
+            },
+            {
+              "from": "milestone",
+              "to": "band",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 6.32
+            },
+            {
+              "from": "band",
+              "to": "cases",
+              "kind": "sequence",
+              "thread": null,
+              "arrow": true,
+              "endsOk": true,
+              "len": 3.83
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 0,
+              "arrow": false,
+              "endsOk": true,
+              "len": 2.97
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 1,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.25
+            },
+            {
+              "from": "timeline",
+              "to": "cases",
+              "kind": "relation",
+              "thread": 2,
+              "arrow": false,
+              "endsOk": true,
+              "len": 9.07
+            }
+          ],
+          "labels": [],
+          "threads": 3,
+          "cases": 3,
+          "plumb": {
+            "x": 1668.76,
+            "rulerDayX": 1668.76,
+            "shown": 1,
+            "top": 844.25,
+            "bandBottom": 844.25,
+            "bottom": 1480.33,
+            "rulerTop": 1480.33
+          },
+          "visits": [
+            "version1",
+            "band",
+            "milestone",
+            "band",
+            "cases",
+            "timeline"
+          ],
+          "focus": "milestone",
+          "focusScale": 1,
+          "focusHalo": 0,
+          "zones": 1,
+          "sides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "expectedSides": [
+            "before",
+            "before",
+            "after"
+          ],
+          "cardsLeftOfPost": [
+            true,
+            false,
+            false
+          ],
+          "sidesKept": false,
+          "relationsDrawn": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "textPx": 20.15,
+          "stage": [
+            3218.6,
+            1766.32,
+            48.25
+          ],
+          "broken": [],
+          "keyShown": 1
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

@@ -1,0 +1,384 @@
+{
+  "animationId": "LAW-0003",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0003",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "documentId",
+        "rejected": "Invalid animation parameters:\n - params.documentId: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: identical base situation @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "a": {
+            "signature": 0,
+            "holder": "A",
+            "stamp": false,
+            "doc": {
+              "x": 360,
+              "y": 550
+            }
+          },
+          "b": {
+            "signature": 0,
+            "holder": "A",
+            "stamp": false,
+            "doc": {
+              "x": 360,
+              "y": 550
+            }
+          },
+          "docA": {
+            "x": 360,
+            "y": 550
+          },
+          "docB": {
+            "x": 360,
+            "y": 550
+          },
+          "penA": {
+            "x": 89.88,
+            "y": 704
+          },
+          "penB": {
+            "x": 89.88,
+            "y": 704
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: only scenario B draws the signature @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "a": {
+            "signature": 0,
+            "holder": "A",
+            "stamp": false,
+            "doc": {
+              "x": 360,
+              "y": 550
+            }
+          },
+          "b": {
+            "signature": 0.533,
+            "holder": "A",
+            "stamp": false,
+            "doc": {
+              "x": 360,
+              "y": 550
+            }
+          },
+          "docA": {
+            "x": 360,
+            "y": 550
+          },
+          "docB": {
+            "x": 360,
+            "y": 550
+          },
+          "penA": {
+            "x": 198.97,
+            "y": 752.39
+          },
+          "penB": {
+            "x": 319.44,
+            "y": 783.52
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: the transfer runs identically in parallel @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "a": {
+            "signature": 0,
+            "holder": "gliding",
+            "stamp": false,
+            "doc": {
+              "x": 719.55,
+              "y": 550
+            }
+          },
+          "b": {
+            "signature": 1,
+            "holder": "gliding",
+            "stamp": false,
+            "doc": {
+              "x": 719.55,
+              "y": 550
+            }
+          },
+          "docA": {
+            "x": 719.55,
+            "y": 550
+          },
+          "docB": {
+            "x": 719.55,
+            "y": 550
+          },
+          "penA": {
+            "x": 95.88,
+            "y": 718
+          },
+          "penB": {
+            "x": 95.88,
+            "y": 718
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 0,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: both delivered and stamped; only the signature differs @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "signature": 0,
+            "holder": "B",
+            "stamp": true,
+            "doc": {
+              "x": 846,
+              "y": 550
+            }
+          },
+          "b": {
+            "signature": 1,
+            "holder": "B",
+            "stamp": true,
+            "doc": {
+              "x": 846,
+              "y": 550
+            }
+          },
+          "docA": {
+            "x": 846,
+            "y": 550
+          },
+          "docB": {
+            "x": 846,
+            "y": 550
+          },
+          "penA": {
+            "x": 95.88,
+            "y": 718
+          },
+          "penB": {
+            "x": 95.88,
+            "y": 718
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "arrangement": "row"
+        }
+      }
+    },
+    {
+      "name": "semantic: comparison guide drawn at the end @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "a": {
+            "signature": 0,
+            "holder": "B",
+            "stamp": true,
+            "doc": {
+              "x": 846,
+              "y": 550
+            }
+          },
+          "b": {
+            "signature": 1,
+            "holder": "B",
+            "stamp": true,
+            "doc": {
+              "x": 846,
+              "y": 550
+            }
+          },
+          "docA": {
+            "x": 846,
+            "y": 550
+          },
+          "docB": {
+            "x": 846,
+            "y": 550
+          },
+          "penA": {
+            "x": 95.88,
+            "y": 718
+          },
+          "penB": {
+            "x": 95.88,
+            "y": 718
+          },
+          "reach": {
+            "a": true,
+            "b": true
+          },
+          "allReached": true,
+          "guideProgress": 1,
+          "arrangement": "row"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

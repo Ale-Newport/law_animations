@@ -1,0 +1,549 @@
+{
+  "animationId": "LAW-0705",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0705",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "object.name",
+        "rejected": "Invalid animation parameters:\n - params.object.name: must have at most 48 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: the mark at the supplied initial level; no flag yet @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "finalState": "variation-shown",
+          "level": 2,
+          "initial": 2,
+          "later": 5,
+          "spread": 0,
+          "flagA": 0,
+          "flagB": 0,
+          "stripes": 0,
+          "bracket": 0,
+          "varShown": false,
+          "keyShown": false,
+          "actionCapped": false,
+          "flagBPos": {
+            "x": 218.6,
+            "y": 213.91
+          },
+          "flagAPos": {
+            "x": 163.43,
+            "y": 213.91
+          },
+          "edge": {
+            "x": 218.6,
+            "y": 261.8
+          },
+          "lit": [
+            false,
+            false,
+            false
+          ],
+          "layout": {
+            "PH": 319.27,
+            "size": 22,
+            "k": 1,
+            "fallback": false,
+            "mode": "split",
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the prior-condition rows light and the ● flag marks the initial level @0.22",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "finalState": "variation-shown",
+          "level": 2,
+          "initial": 2,
+          "later": 5,
+          "spread": 0,
+          "flagA": 1,
+          "flagB": 0,
+          "stripes": 0,
+          "bracket": 0,
+          "varShown": false,
+          "keyShown": false,
+          "actionCapped": false,
+          "flagBPos": {
+            "x": 218.6,
+            "y": 213.91
+          },
+          "flagAPos": {
+            "x": 435.07,
+            "y": 213.91
+          },
+          "edge": {
+            "x": 218.6,
+            "y": 261.8
+          },
+          "lit": [
+            true,
+            true,
+            false
+          ],
+          "layout": {
+            "PH": 319.27,
+            "size": 22,
+            "k": 1,
+            "fallback": false,
+            "mode": "split",
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the later-change rows light before the mark moves @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "finalState": "variation-shown",
+          "level": 2,
+          "initial": 2,
+          "later": 5,
+          "spread": 0,
+          "flagA": 1,
+          "flagB": 0.968,
+          "stripes": 0,
+          "bracket": 0,
+          "varShown": false,
+          "keyShown": false,
+          "actionCapped": false,
+          "flagBPos": {
+            "x": 428.14,
+            "y": 213.91
+          },
+          "flagAPos": {
+            "x": 435.07,
+            "y": 213.91
+          },
+          "edge": {
+            "x": 428.14,
+            "y": 261.8
+          },
+          "lit": [
+            false,
+            false,
+            true
+          ],
+          "layout": {
+            "PH": 319.27,
+            "size": 22,
+            "k": 1,
+            "fallback": false,
+            "mode": "split",
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the mark spreads, the ◆ flag riding its edge @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "finalState": "variation-shown",
+          "level": 2.85,
+          "initial": 2,
+          "later": 5,
+          "spread": 0.283,
+          "flagA": 1,
+          "flagB": 1,
+          "stripes": 0,
+          "bracket": 0,
+          "varShown": false,
+          "keyShown": false,
+          "actionCapped": false,
+          "flagBPos": {
+            "x": 502.93,
+            "y": 213.91
+          },
+          "flagAPos": {
+            "x": 435.07,
+            "y": 213.91
+          },
+          "edge": {
+            "x": 502.93,
+            "y": 261.8
+          },
+          "lit": [
+            false,
+            false,
+            true
+          ],
+          "layout": {
+            "PH": 319.27,
+            "size": 22,
+            "k": 1,
+            "fallback": false,
+            "mode": "split",
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the mark reaches the supplied later level before the bracket @0.63",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "finalState": "variation-shown",
+          "level": 5,
+          "initial": 2,
+          "later": 5,
+          "spread": 1,
+          "flagA": 1,
+          "flagB": 1,
+          "stripes": 0.2,
+          "bracket": 0,
+          "varShown": false,
+          "keyShown": false,
+          "actionCapped": false,
+          "flagBPos": {
+            "x": 674.52,
+            "y": 213.91
+          },
+          "flagAPos": {
+            "x": 435.07,
+            "y": 213.91
+          },
+          "edge": {
+            "x": 674.52,
+            "y": 261.8
+          },
+          "lit": [
+            false,
+            false,
+            false
+          ],
+          "layout": {
+            "PH": 319.27,
+            "size": 22,
+            "k": 1,
+            "fallback": false,
+            "mode": "split",
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: both flags, stripes, the bracket, the variation as supplied and the key @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "finalState": "variation-shown",
+          "level": 5,
+          "initial": 2,
+          "later": 5,
+          "spread": 1,
+          "flagA": 1,
+          "flagB": 1,
+          "stripes": 1,
+          "bracket": 1,
+          "varShown": true,
+          "keyShown": true,
+          "actionCapped": false,
+          "flagBPos": {
+            "x": 674.52,
+            "y": 213.91
+          },
+          "flagAPos": {
+            "x": 435.07,
+            "y": 213.91
+          },
+          "edge": {
+            "x": 674.52,
+            "y": 261.8
+          },
+          "lit": [
+            false,
+            false,
+            false
+          ],
+          "layout": {
+            "PH": 319.27,
+            "size": 22,
+            "k": 1,
+            "fallback": false,
+            "mode": "split",
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative: the later state marked disputed as supplied (never decided) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "finalState": "variation-disputed",
+          "level": 4,
+          "initial": 1,
+          "later": 4,
+          "spread": 1,
+          "flagA": 1,
+          "flagB": 1,
+          "stripes": 1,
+          "bracket": 1,
+          "varShown": true,
+          "keyShown": true,
+          "actionCapped": false,
+          "flagBPos": {
+            "x": 449.48,
+            "y": 169.31
+          },
+          "flagAPos": {
+            "x": 259.95,
+            "y": 169.31
+          },
+          "edge": {
+            "x": 449.48,
+            "y": 207.22
+          },
+          "lit": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "layout": {
+            "PH": 252.71,
+            "size": 21,
+            "k": 1,
+            "fallback": false,
+            "mode": "side",
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "finalState": "variation-shown",
+          "level": 2,
+          "initial": 2,
+          "later": 5,
+          "spread": 0,
+          "flagA": 1,
+          "flagB": 1,
+          "stripes": 0,
+          "bracket": 0,
+          "varShown": false,
+          "keyShown": true,
+          "actionCapped": true,
+          "flagBPos": {
+            "x": 435.07,
+            "y": 213.91
+          },
+          "flagAPos": {
+            "x": 435.07,
+            "y": 213.91
+          },
+          "edge": {
+            "x": 435.07,
+            "y": 261.8
+          },
+          "lit": [
+            false,
+            false,
+            true
+          ],
+          "layout": {
+            "PH": 319.27,
+            "size": 22,
+            "k": 1,
+            "fallback": false,
+            "mode": "split",
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same transformation @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "finalState": "variation-shown",
+          "level": 5,
+          "initial": 2,
+          "later": 5,
+          "spread": 1,
+          "flagA": 1,
+          "flagB": 1,
+          "stripes": 1,
+          "bracket": 1,
+          "varShown": true,
+          "keyShown": true,
+          "actionCapped": false,
+          "flagBPos": {
+            "x": 687.72,
+            "y": 231.45
+          },
+          "flagAPos": {
+            "x": 428.63,
+            "y": 231.45
+          },
+          "edge": {
+            "x": 687.72,
+            "y": 283.27
+          },
+          "lit": [
+            false,
+            false,
+            false
+          ],
+          "layout": {
+            "PH": 345.45,
+            "size": 26,
+            "k": 1,
+            "fallback": false,
+            "mode": "side",
+            "why": []
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

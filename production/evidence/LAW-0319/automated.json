@@ -1,0 +1,487 @@
+{
+  "animationId": "LAW-0319",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0319",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 7
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "hearing.room"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: the two rooms are identical; both boards empty; nobody moves @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": "{\"p\":[{\"x\":427.7,\"y\":417.71},{\"x\":282.56,\"y\":422.07},{\"x\":572.85,\"y\":422.07}],\"w\":4.8,\"d\":{\"x\":424.8,\"y\":358.2},\"ds\":1,\"dop\":1,\"ex\":[{\"x\":318.84,\"y\":250},{\"x\":391.42,\"y\":250},{\"x\":463.99,\"y\":250},{\"x\":536.56,\"y\":250}]}",
+          "lookB": "{\"p\":[{\"x\":427.7,\"y\":417.71},{\"x\":282.56,\"y\":422.07},{\"x\":572.85,\"y\":422.07}],\"w\":4.8,\"d\":{\"x\":424.8,\"y\":358.2},\"ds\":1,\"dop\":1,\"ex\":[{\"x\":318.84,\"y\":250},{\"x\":391.42,\"y\":250},{\"x\":463.99,\"y\":250},{\"x\":536.56,\"y\":250}]}",
+          "tags": 0,
+          "cardA": 0,
+          "cardB": 0,
+          "cardState": "none",
+          "raised": 0,
+          "drawA": [
+            0,
+            0
+          ],
+          "drawB": [
+            0,
+            0
+          ],
+          "offA": [
+            0,
+            0
+          ],
+          "offB": [
+            0,
+            0
+          ],
+          "linkStateA": "none",
+          "linkStateB": "none",
+          "linksA": [
+            0,
+            1
+          ],
+          "linksB": [
+            2,
+            3
+          ],
+          "guide": 0,
+          "handA": {
+            "x": 458.91,
+            "y": 429.33
+          },
+          "handB": {
+            "x": 1344.32,
+            "y": 429.33
+          },
+          "allReached": true,
+          "reader": 0,
+          "docLift": 0,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 70.4,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: the one difference is introduced in both rooms at once: card A comes out of the document in A, card B in B @0.33",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "introduce",
+          "lookA": "{\"p\":[{\"x\":427.7,\"y\":417.71},{\"x\":282.56,\"y\":422.07},{\"x\":572.85,\"y\":422.07}],\"w\":15.84,\"d\":{\"x\":427.7,\"y\":187.44},\"ds\":1.25,\"dop\":0,\"ex\":[{\"x\":318.84,\"y\":250},{\"x\":391.42,\"y\":250},{\"x\":463.99,\"y\":250},{\"x\":536.56,\"y\":250}]}",
+          "lookB": "{\"p\":[{\"x\":427.7,\"y\":417.71},{\"x\":282.56,\"y\":422.07},{\"x\":572.85,\"y\":422.07}],\"w\":15.84,\"d\":{\"x\":427.7,\"y\":187.44},\"ds\":1.25,\"dop\":0,\"ex\":[{\"x\":318.84,\"y\":250},{\"x\":391.42,\"y\":250},{\"x\":463.99,\"y\":250},{\"x\":536.56,\"y\":250}]}",
+          "tags": 1,
+          "cardA": 0.5,
+          "cardB": 0.5,
+          "cardState": "coming",
+          "raised": 1,
+          "drawA": [
+            0,
+            0
+          ],
+          "drawB": [
+            0,
+            0
+          ],
+          "offA": [
+            0,
+            0
+          ],
+          "offB": [
+            0,
+            0
+          ],
+          "linkStateA": "none",
+          "linkStateB": "none",
+          "linksA": [
+            0,
+            1
+          ],
+          "linksB": [
+            2,
+            3
+          ],
+          "guide": 0,
+          "handA": {
+            "x": 440.77,
+            "y": 371.27
+          },
+          "handB": {
+            "x": 1326.18,
+            "y": 371.27
+          },
+          "allReached": true,
+          "reader": 0,
+          "docLift": 1,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 70.4,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: the cards are in place before any link runs @0.39",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "introduce",
+          "lookA": "{\"p\":[{\"x\":427.7,\"y\":417.71},{\"x\":282.56,\"y\":422.07},{\"x\":572.85,\"y\":422.07}],\"w\":18.72,\"d\":{\"x\":427.7,\"y\":187.44},\"ds\":1.25,\"dop\":0,\"ex\":[{\"x\":318.84,\"y\":250},{\"x\":391.42,\"y\":250},{\"x\":463.99,\"y\":250},{\"x\":536.56,\"y\":250}]}",
+          "lookB": "{\"p\":[{\"x\":427.7,\"y\":417.71},{\"x\":282.56,\"y\":422.07},{\"x\":572.85,\"y\":422.07}],\"w\":18.72,\"d\":{\"x\":427.7,\"y\":187.44},\"ds\":1.25,\"dop\":0,\"ex\":[{\"x\":318.84,\"y\":250},{\"x\":391.42,\"y\":250},{\"x\":463.99,\"y\":250},{\"x\":536.56,\"y\":250}]}",
+          "tags": 1,
+          "cardA": 1,
+          "cardB": 1,
+          "cardState": "placed",
+          "raised": 0,
+          "drawA": [
+            0,
+            0
+          ],
+          "drawB": [
+            0,
+            0
+          ],
+          "offA": [
+            0,
+            0
+          ],
+          "offB": [
+            0,
+            0
+          ],
+          "linkStateA": "none",
+          "linkStateB": "none",
+          "linksA": [
+            0,
+            1
+          ],
+          "linksB": [
+            2,
+            3
+          ],
+          "guide": 0,
+          "handA": {
+            "x": 458.91,
+            "y": 429.33
+          },
+          "handB": {
+            "x": 1344.32,
+            "y": 429.33
+          },
+          "allReached": true,
+          "reader": 0,
+          "docLift": 1,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 70.4,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: the same action runs in both rooms at the same pace; only the laid-out section is linked @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "lookA": "{\"p\":[{\"x\":427.7,\"y\":417.71},{\"x\":282.56,\"y\":422.07},{\"x\":572.85,\"y\":422.07}],\"w\":26.4,\"d\":{\"x\":427.7,\"y\":187.44},\"ds\":1.25,\"dop\":0,\"ex\":[{\"x\":318.84,\"y\":250},{\"x\":391.42,\"y\":250},{\"x\":463.99,\"y\":250},{\"x\":536.56,\"y\":250}]}",
+          "lookB": "{\"p\":[{\"x\":427.7,\"y\":417.71},{\"x\":282.56,\"y\":422.07},{\"x\":572.85,\"y\":422.07}],\"w\":26.4,\"d\":{\"x\":427.7,\"y\":187.44},\"ds\":1.25,\"dop\":0,\"ex\":[{\"x\":318.84,\"y\":250},{\"x\":391.42,\"y\":250},{\"x\":463.99,\"y\":250},{\"x\":536.56,\"y\":250}]}",
+          "tags": 1,
+          "cardA": 1,
+          "cardB": 1,
+          "cardState": "placed",
+          "raised": 0,
+          "drawA": [
+            0.809,
+            0
+          ],
+          "drawB": [
+            0.809,
+            0
+          ],
+          "offA": [
+            0,
+            0
+          ],
+          "offB": [
+            0,
+            0
+          ],
+          "linkStateA": "linking",
+          "linkStateB": "linking",
+          "linksA": [
+            0,
+            1
+          ],
+          "linksB": [
+            2,
+            3
+          ],
+          "guide": 0,
+          "handA": {
+            "x": 458.91,
+            "y": 429.33
+          },
+          "handB": {
+            "x": 1344.32,
+            "y": 429.33
+          },
+          "allReached": true,
+          "reader": 0,
+          "docLift": 1,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 70.4,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: A linked to the paragraphs of section A, B to those of section B; the guide drawn; the composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": "{\"p\":[{\"x\":427.7,\"y\":417.71},{\"x\":282.56,\"y\":422.07},{\"x\":572.85,\"y\":422.07}],\"w\":45.12,\"d\":{\"x\":427.7,\"y\":187.44},\"ds\":1.25,\"dop\":0,\"ex\":[{\"x\":318.84,\"y\":250},{\"x\":391.42,\"y\":250},{\"x\":463.99,\"y\":250},{\"x\":536.56,\"y\":250}]}",
+          "lookB": "{\"p\":[{\"x\":427.7,\"y\":417.71},{\"x\":282.56,\"y\":422.07},{\"x\":572.85,\"y\":422.07}],\"w\":45.12,\"d\":{\"x\":427.7,\"y\":187.44},\"ds\":1.25,\"dop\":0,\"ex\":[{\"x\":318.84,\"y\":250},{\"x\":391.42,\"y\":250},{\"x\":463.99,\"y\":250},{\"x\":536.56,\"y\":250}]}",
+          "tags": 1,
+          "cardA": 1,
+          "cardB": 1,
+          "cardState": "placed",
+          "raised": 0,
+          "drawA": [
+            1,
+            1
+          ],
+          "drawB": [
+            1,
+            1
+          ],
+          "offA": [
+            0,
+            0
+          ],
+          "offB": [
+            0,
+            0
+          ],
+          "linkStateA": "linked",
+          "linkStateB": "linked",
+          "linksA": [
+            0,
+            1
+          ],
+          "linksB": [
+            2,
+            3
+          ],
+          "guide": 1,
+          "handA": {
+            "x": 458.91,
+            "y": 429.33
+          },
+          "handB": {
+            "x": 1344.32,
+            "y": 429.33
+          },
+          "allReached": true,
+          "reader": 0,
+          "docLift": 1,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 70.4,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the base @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": "{\"p\":[{\"x\":427.7,\"y\":417.71},{\"x\":282.56,\"y\":422.07},{\"x\":572.85,\"y\":422.07}],\"w\":4.8,\"d\":{\"x\":424.8,\"y\":358.2},\"ds\":1,\"dop\":1,\"ex\":[{\"x\":318.84,\"y\":250},{\"x\":391.42,\"y\":250},{\"x\":463.99,\"y\":250},{\"x\":536.56,\"y\":250}]}",
+          "lookB": "{\"p\":[{\"x\":427.7,\"y\":417.71},{\"x\":282.56,\"y\":422.07},{\"x\":572.85,\"y\":422.07}],\"w\":4.8,\"d\":{\"x\":424.8,\"y\":358.2},\"ds\":1,\"dop\":1,\"ex\":[{\"x\":318.84,\"y\":250},{\"x\":391.42,\"y\":250},{\"x\":463.99,\"y\":250},{\"x\":536.56,\"y\":250}]}",
+          "tags": 0,
+          "cardA": 0,
+          "cardB": 0,
+          "cardState": "none",
+          "raised": 0,
+          "drawA": [
+            0,
+            0
+          ],
+          "drawB": [
+            0,
+            0
+          ],
+          "offA": [
+            0,
+            0
+          ],
+          "offB": [
+            0,
+            0
+          ],
+          "linkStateA": "none",
+          "linkStateB": "none",
+          "linksA": [
+            0,
+            1
+          ],
+          "linksB": [
+            2,
+            3
+          ],
+          "guide": 0,
+          "handA": {
+            "x": 458.91,
+            "y": 429.33
+          },
+          "handB": {
+            "x": 1344.32,
+            "y": 429.33
+          },
+          "allReached": true,
+          "reader": 0,
+          "docLift": 0,
+          "problems": [],
+          "textPx": 22.5,
+          "personPx": 70.4,
+          "arrangement": "row",
+          "order": "0>1"
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}
