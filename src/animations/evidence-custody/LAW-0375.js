@@ -152,7 +152,7 @@ const scene = {
       if (firstOk >= 0 && fi > firstOk + 5) break;
       const c = compose(ctx, P, recs, F, {...o0, st}, cache);
       if (c.ok && firstOk < 0 && F >= 19.5) firstOk = fi;
-      const score = (c.G ? c.G[0].S * Math.pow(Math.min(1, c.G[0].tray.pw / (1.4 * c.G[0].S)), 0.5) : 0) * Math.sqrt(F / 24) * (F < 19.5 ? 0.6 : 1);
+      const score = (c.G ? c.G[0].S * Math.pow(Math.min(1, c.G[0].tray.pw / (1.4 * c.G[0].S)), 0.5) : 0) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1);
       if (c.ok && score > bestScore) { best = c; bestScore = score; }
       if (!C || c.problems.length < C.problems.length) C = c;
     }
