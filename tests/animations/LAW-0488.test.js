@@ -1,0 +1,1064 @@
+// LAW-0488 — Término definido · inspect. Contract battery + ID-specific checks.
+// Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05):
+// the clauses list (one clause: term.clause), schedules, the definitions list (one definition slip: definition) and
+// priorities. The motif's core content — the word, one placeholder definition slip, the definitions sheet and the
+// contract, and where the slip ends — stays editable (test-comment note only). No stress field is capped.
+// acceptanceCheck (brief): the detail keeps its source coordinates (the lens content is a real copy of the scene, laid
+// out identically and posed identically every frame, cropped to the term station — the record that tells "defined
+// term" from "term with no linked definition"), the change is local (only the term station's label turns and returns
+// with the supplied after value; only its dependent state follows — the thread retracts from the word (or draws on) and
+// the definition slip leaves one dock and lies in the other; the documents and the stations keep the supplied order),
+// and seeking back restores the old datum exactly. Legal content (high risk): supplied configurations only, neutral and
+// of equal weight (configNeutral); no interpretation rule and no conclusion about the word (noInterpretationRuleWords,
+// EN and ES); no jurisdiction (conceptNeutral).
+// Lens checklist (docs/AUTHORING.md line 109; SESSION_HANDOFF lens decisions): rest magnification ≥ 1.5 at every host
+// size (the layout aims ≥ 1.62), smaller side ≥ 35 % of the frame's short side, one copy at a time at 60 fps, panel/lens
+// hand-over ≤ 180 ms, never over context text, in frame, no lens-copy text cut by the rim; the visible context ≥ 0.45;
+// the Δ marker and the lens's guides clear of text; the changed datum legible inside the open lens; labels hidden, a
+// non-text change (the slip and the thread) inside the lens; the new state in the scene as soon as the lens closes.
+// Windows (LAW-0488.js W, adapted from LAW-0484): panel out 0.18–0.20 · open 0.20–0.28 · strike 0.36–0.42 · turn
+// 0.47–0.489 (no value legible ≤ ~150 ms; review ct02) · then, the new value legible, the dependent state: dep1
+// 0.50–0.53 and dep2 0.53–0.56 (a leaving slip: the thread retracts in dep1, the slip moves in dep2; an arriving slip:
+// the slip moves in dep1, the thread draws on in dep2) · close 0.74–0.80 · Δ 0.799–0.812 · panel back 0.80–0.84 · notes
+// 0.81–0.85 (full opacity by u 0.85). Labels hidden: the context shrinks 0.165–0.215 and grows back 0.785–0.835, in step
+// with the lens (no lone thumbnail for more than 150 ms).
+import {test, expect} from '@playwright/test';
+import {contractSuite, presetsFor} from '../harness/contract.js';
+import {suppliedTextSuite} from '../harness/supplied-text.js';
+import {ratioChecks, times} from '../harness/ratio-checks.js';
+import {textFloor, noTextOverlap, noTextOverProps, seekHistory, fill, headFloor, esDefaults, noInterpretationRuleWords, configNeutral, noEmptyPanel, conceptNeutral, TERM_BANNED, CONFIG_WORDS, CONFIG_LABELS, noOneWordLines, noLoneLetterSplit, noTornNumberUnit, esAportadoAgrees, docSize} from './ct02-rendered.js';
+
+const ID = 'LAW-0488';
+const P = name => presetsFor(ID).find(q => q.name === name).params;
+
+contractSuite(ID, {
+  continuity: ['cardP', 'cardR'],
+  semantic: [
+    {at: 0.1, fn: "s.lensOpen === 0 && s.datum === 'before' && s.contextValue === 'Slip in contract B (as supplied)' && !s.markerVisible && s.whereP === 'B' && s.whereR === 'B' && s.status === 'term-defined' && s.slipAt === 'linked' && s.thread === 1", label: 'context: the story end state (the definitions sheet at Party B, the unfolded contract at Party A, the slip in the contract, the thread from the word to it); the before label; no marker'},
+    {at: 0.34, fn: "s.lensOpen === 1 && s.datum === 'before' && s.zoom >= 1.6 && JSON.stringify(s.lensCopyAt) === JSON.stringify(s.contextAt)", label: 'isolate: a real enlarged copy (≥ 1.6×) at the station own coordinates'},
+    {at: 0.44, fn: "s.strike === 1 && s.datum === 'before' && s.status === 'term-defined' && s.slipAt === 'linked'", label: 'the old label is struck (lens annotation) before anything changes'},
+    {at: 0.6, fn: "s.datum === 'after' && s.lensOpen === 1 && s.lensValue === 'Slip in sheet A (as supplied)' && s.status === 'term-unlinked' && s.slipAt === 'external' && s.thread === 0 && s.whereP === 'B' && s.whereR === 'B'", label: 'the new label in the scene and the open lens; only the slip and the thread follow; the documents are unchanged'},
+    {at: 0.495, fn: "s.datum === 'after' && s.lensValue === 'Slip in sheet A (as supplied)' && s.slipAt === 'linked' && s.thread === 1", label: 'the new value is legible first; the thread and the slip have not moved yet (review ct02)'},
+    {at: 0.52, fn: "s.datum === 'after' && s.slipAt === 'linked' && s.thread > 0 && s.thread < 1", label: 'then the thread retracts, before the slip leaves'},
+    {at: 0.81, fn: "s.lensOpen === 0 && s.datum === 'after' && s.slipAt === 'external'", label: 'the lens has closed onto the identical station; the new state stays'},
+    {at: 1, fn: "s.markerVisible && s.contextValue === 'Slip in sheet A (as supplied)' && s.allReached && s.layoutOk && s.order[2] === 'term-station'", label: 'return: Δ marker, new label in context; the stations keep the supplied order'},
+    {at: 0.3, fn: "s.datum === 'before' && s.strike === 0 && s.contextValue === 'Slip in contract B (as supplied)' && s.status === 'term-defined' && s.slipAt === 'linked'", label: 'seeking back restores the previous datum and configuration exactly'},
+    {at: 1, params: P('contrast-or-alternative'), fn: "s.focusTarget === 'term-station' && s.contextValue === 'Slip in service contract B (as supplied)' && s.status === 'term-defined' && s.slipAt === 'linked' && s.markerVisible && s.order[0] === 'sheet-sent'", label: 'alternative: the other way round — no linked definition becomes a defined term, as supplied (the thread draws on)'},
+    {at: 0.6, params: P('contrast-or-alternative'), fn: "s.slipAt === 'linked' && s.thread === 1", label: 'alternative: the arriving slip\'s thread is drawn by the time the new label is in'},
+    {at: 0.6, params: {textVisibility: 'none'}, fn: "s.lensOpen === 1 && s.datum === 'after' && s.slipAt === 'external' && s.thread === 0", label: 'labels hidden: the same isolation and substitution'},
+  ],
+});
+
+ratioChecks(ID, 'lens: zoom, never over the context, field wholly inside, still value', [
+  {at: times(0.2, 0.8, 0.01), fn: 's.lensClearOfHeads && s.lensClearOfContext && s.allReached', label: 'the lens never covers a head or the context; every hand reaches'},
+  {at: [0.3, 0.5, 0.7], fn: 's.lensShortFrac >= 0.35 && s.changedFieldWhole', label: 'lens short side ≥ 35 % of the frame; the inspected station wholly inside the crop'},
+  {at: [0.34, 0.5, 0.7], fn: 's.zoom >= 1.5 - 1e-9 && s.lensOpen === 1', label: 'lens ≥ 1.5×'},
+  {at: times(0.54, 0.74, 0.01), fn: "s.datum === 'after' && s.lensOpen === 1", label: 'the new value stays still in the open lens for ≥ 400 ms'},
+  {at: [1], fn: 's.layoutOk', label: 'layout fits'},
+  {at: [0.1, 0.34, 0.7], fn: 's.lensDrawn', label: 'a magnifying lens is drawn (no silent no-lens fallback)'},
+]);
+
+// Rendered: the lens copy mirrors the context (same transform / opacity attributes on every copied node).
+const MIRROR = `(() => {
+  const ctxNodes = [...svg.querySelectorAll('[data-node^="st-"]')];
+  for (const a of ctxNodes) {
+    const n = a.getAttribute('data-node');
+    const b = svg.querySelector('[data-node="lzs-' + n.slice(3) + '"]');
+    // (the lens copy leaves out the fields its rim would cut; the changed datum is shown in one place at a time)
+    if (!b || b.hasAttribute('data-lens-hidden') || /-(time|alt)-txt$/.test(n)) continue;
+    for (const at of ['transform', 'x1', 'y1', 'x2', 'y2', 'opacity']) if ((a.getAttribute(at) || '') !== (b.getAttribute(at) || '')) return false;
+  }
+  return true;
+})()`;
+ratioChecks(ID, 'the lens copy mirrors the scene (rendered)', [
+  {at: times(0.2, 0.8, 0.03), tv: ['all'], dom: MIRROR, presets: ['baseline-illustrative', 'baseline-es'], label: 'rendered: every copied node carries the context node’s attributes'},
+]);
+
+// (the context headline shown at the hold: the supplied contextAfter, else the supplied context — a context left at its
+// default follows the status after with the module's own default caption, which is not a supplied field)
+const HOLD_HEADLINE = "(p.contextLabels.contextAfter || (['Defined term (as supplied)', 'Término definido (según lo aportado)'].includes(p.contextLabels.context) && p.statusAfter !== p.statusBefore ? '' : p.contextLabels.context))";
+suppliedTextSuite(ID, {
+  // (B's device is drawn only when the supplied sequence has its events)
+  fields: `const b = p.sequence.some(e => e.event.startsWith('contract')); return [p.sheet.reference, p.sheet.title, p.definition.label + ' ' + p.definition.value, ...(b ? [p.contract.reference, p.contract.title] : []), ...p.parties.map(q => q.name), ...p.sequence.filter(e => e.event !== p.focusTarget).map(e => e.time), p.afterValue, p.beforeValue, ${HOLD_HEADLINE}, p.contextLabels.marker].filter(Boolean)`,
+  content: `return [p.afterValue, p.beforeValue, ...p.parties.map(q => q.name), p.contextLabels.context, p.contextLabels.contextAfter, p.contextLabels.marker].filter(Boolean)`,
+  captions: "return ['As supplied · no conclusion drawn', 'Según lo aportado · sin conclusión']",
+});
+
+// Rendered, dense: no lens-copy text line is cut by the lens rim; each text block is wholly in or out.
+test.describe(`${ID} lens rim (rendered)`, () => {
+  test(`${ID}: no lens-copy text crosses the rim (u 0.20–0.80, every preset × ratio × labels)`, async ({page}) => {
+    test.setTimeout(240000);
+    await page.goto('/tests/harness/host.html');
+    await page.waitForFunction(() => document.body.dataset.ready === '1');
+    const presets = [{name: 'default', params: {}}, ...presetsFor(ID)];
+    const bad = await page.evaluate(async ([id, presets]) => {
+      const def = await window.__lib.load(id);
+      const out = [];
+      for (const pr of presets) {
+        for (const tv of ['all', 'none']) {
+          for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+            const el = document.createElement('div');
+            document.getElementById('slots').appendChild(el);
+            const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+            await x.ready;
+            const svg = x.element;
+            const node = n => svg.querySelector(`[data-node="${n}"]`);
+            const shown = e => { for (let q = e; q && q !== svg; q = q.parentNode) { const o = q.getAttribute && q.getAttribute('opacity'); if (o !== null && parseFloat(o) < 0.05) return false; } return true; };
+            let texts = 0;
+            for (let u = 0.2; u <= 0.8 + 1e-9; u += 0.01) {
+              x.seek(u * x.durationMs);
+              const win = node('lens-win'), border = node('lens-border');
+              if (!win || !shown(win)) continue;
+              const inv = svg.getScreenCTM().inverse();
+              const toRoot = (px, py) => { const q = new DOMPoint(px, py).matrixTransform(inv); return {x: q.x, y: q.y}; };
+              const bm = border.getScreenCTM();
+              const c0 = new DOMPoint(+border.getAttribute('x'), +border.getAttribute('y')).matrixTransform(bm);
+              const c1 = new DOMPoint(+border.getAttribute('x') + +border.getAttribute('width'), +border.getAttribute('y') + +border.getAttribute('height')).matrixTransform(bm);
+              const W0 = toRoot(c0.x, c0.y), W1 = toRoot(c1.x, c1.y);
+              for (const t of node('lens-content').querySelectorAll('text')) {
+                if (!shown(t) || !(t.textContent || '').trim()) continue;
+                const spans = [...t.querySelectorAll('tspan')].filter(ts => (ts.textContent || '').trim());
+                const boxOf = e => { const b = e.getBoundingClientRect(); const p0 = toRoot(b.left, b.top), p1 = toRoot(b.right, b.bottom); return {p0, p1, w: b.width, h: b.height}; };
+                const vis = spans.filter(ts => { const {p0, p1, w: bw, h: bh} = boxOf(ts); return bw >= 0.5 && bh >= 0.5 && p0.x < W1.x && p1.x > W0.x && p0.y < W1.y && p1.y > W0.y; });
+                if (vis.length && vis.length !== spans.length) out.push(`${pr.name} ${ratio} labels:${tv} u=${u.toFixed(2)}: "${(t.textContent || '').trim().slice(0, 30)}" only partly in the lens`);
+                for (const ts of vis) {
+                  texts++;
+                  const {p0, p1} = boxOf(ts);
+                  const inside = p0.x >= W0.x - 1 && p1.x <= W1.x + 1 && p0.y >= W0.y - 1 && p1.y <= W1.y + 1;
+                  if (!inside) out.push(`${pr.name} ${ratio} labels:${tv} u=${u.toFixed(2)}: "${ts.textContent.slice(0, 30)}" cut by the rim`);
+                }
+              }
+            }
+            if (tv === 'all' && !texts) out.push(`${pr.name} ${ratio}: no lens text found (test would be vacuous)`);
+            x.destroy();
+            el.remove();
+          }
+        }
+      }
+      return [...new Set(out)].slice(0, 40);
+    }, [ID, presets]);
+    expect(bad, bad.join('\n')).toEqual([]);
+  });
+});
+
+// Rendered, lens checklist (docs/AUTHORING.md, inspect): in every preset × ratio × labels state
+//  - magnification ≥ 1.5× against the context at REST: the inspected station event in the lens (u 0.34) vs the
+//    same event in the context at u 0.10; the context event itself never shrinks (u 0.34 vs 0.10 within 1 %);
+//  - the lens's SMALLER side is ≥ 35 % of the frame's short side at every u of the open lens;
+//  - the changed datum in ONE place at a time, at 60 fps through open and close: the context copy and the lens copy of
+//    the inspected time label (before and after) are never both ≥ 0.15, and
+//    while the lens copy shows (≥ 0.15) the context copy is hidden (< 0.02), not dimmed;
+//  - the lens never lies over visible context text; nothing leaves the frame (every u step 0.01).
+test(`${ID}: lens checklist — rest magnification, one copy at a time, never over text, in frame (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [];
+    const stats = {frames: 0, mags: []};
+    for (const pr of presets) {
+      for (const tv of ['all', 'none']) {
+        for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+          const el = document.createElement('div');
+          document.getElementById('slots').appendChild(el);
+          const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+          await x.ready;
+          const svg = x.element;
+          const tag = `${pr.name} ${tv} ${ratio}`;
+          const q = n => svg.querySelector(`[data-node="${n}"]`);
+          const op = n0 => { if (!n0) return 0; let o = 1; for (let n = n0; n && n !== svg; n = n.parentNode) { const a = n.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (n.getAttribute('display') === 'none') return 0; } return o; };
+          const fo = x.getState({bounds: false}).semantic.focusNode;
+          const sr = svg.getBoundingClientRect();
+          const px = w / sr.width;
+          // rest magnification — labels shown: the inspected station, in the lens and in the context at rest (the
+          // context keeps its size); labels hidden: the lens card against the indicated card AT REST (u 0.05), in both
+          // dimensions (the lens test below covers every preset × ratio × labels at sized hosts too)
+          const hidden = tv !== 'all';
+          const pc = 'card-r';
+          x.seek(0.05 * x.durationMs);
+          const restB = q(hidden ? `st-${pc}` : `st-${fo}`).getBoundingClientRect();
+          const rest = restB.height;
+          x.seek(0.34 * x.durationMs);
+          const held = q(hidden ? `st-${pc}` : `st-${fo}`).getBoundingClientRect().height;
+          const lensB = q(hidden ? 'lzc-card' : `lzs-${fo}`).getBoundingClientRect();
+          const inLens = lensB.height;
+          const mag = hidden ? Math.min(lensB.height / restB.height, lensB.width / restB.width) : inLens / rest;
+          stats.mags.push(`${tag} ${mag.toFixed(3)}`);
+          if (!(mag >= 1.5 - 1e-3)) fails.push(`${tag} rest magnification ${mag.toFixed(3)}`);
+          if (!hidden && Math.abs(held / rest - 1) > 0.01) fails.push(`${tag} the context card changes size (${(held / rest).toFixed(3)})`);
+          if (hidden) { x.seek(0.7 * x.durationMs); const held2 = q(`st-${pc}`).getBoundingClientRect().height; if (Math.abs(held2 / held - 1) > 0.01) fails.push(`${tag} the context changes size while the lens is open`); }
+          // one copy at a time (60 fps through the open and close windows)
+          const pairs = [`${fo}-time-txt`, `${fo}-alt-txt`].map(n => [q(`st-${n}`), q(`lzs-${n}`), n]).filter(([a, b]) => a && b);
+          const step = 1000 / 60 / x.durationMs;
+          for (const [u0, u1] of [[0.19, 0.3], [0.73, 0.82]]) {
+            let empty = 0;
+            for (let u = u0; u <= u1; u += step) {
+              x.seek(u * x.durationMs);
+              stats.frames++;
+              // an empty lens outline (rim shown, enlarged copy < 0.15) never lasts more than ~200 ms
+              empty = op(q('lens-win')) > 0.02 && op(q('lens-cfade')) < 0.15 ? empty + 1000 / 60 : 0;
+              if (empty > 180 + 1e-6) { fails.push(`${tag} u${u.toFixed(4)} empty lens outline for more than 180 ms`); empty = -1e9; }
+              for (const [a, b, n] of pairs) {
+                const oa = op(a), ob = op(b);
+                if (oa >= 0.15 && ob >= 0.15) fails.push(`${tag} u${u.toFixed(4)} ${n}: context ${oa.toFixed(2)} and lens ${ob.toFixed(2)} both legible`);
+                else if (ob >= 0.15 && oa >= 0.02) fails.push(`${tag} u${u.toFixed(4)} ${n}: context copy dimmed (${oa.toFixed(2)}), not hidden`);
+              }
+            }
+          }
+          // the substitution at 60 fps (review ct02): no value legible for ≤ 180 ms (semantic lensValue null; labels
+          // shown, rendered: neither the old nor the new label legible in the lens), never both legible, and the thread
+          // and the slip keep their state until the new value is legible
+          {
+            const lt = q(`lzs-${fo}-time-txt`), la = q(`lzs-${fo}-alt-txt`);
+            const slipNodes = ['st-card-r-slip', 'st-card-p-slip', 'lzs-card-r-slip', 'lzs-card-p-slip', 'lzc-card-slip'].map(q).filter(Boolean);
+            const rawOp = e => parseFloat(e.getAttribute('opacity') ?? '1');
+            x.seek(0.46 * x.durationMs);
+            const thread0 = x.getState({bounds: false}).semantic.thread, slip0 = slipNodes.map(rawOp);
+            let blank = 0, blankR = 0, legibleNew = false;
+            for (let u = 0.46; u <= 0.6; u += step) {
+              x.seek(u * x.durationMs);
+              stats.frames++;
+              const sm = x.getState({bounds: false}).semantic;
+              blank = sm.lensOpen > 0 && sm.lensValue === null ? blank + 1000 / 60 : 0;
+              if (blank > 180 + 1e-6) { fails.push(`${tag} u${u.toFixed(4)} no value in the lens for more than 180 ms`); blank = -1e9; }
+              const ot = lt ? op(lt) : 0, oa = la ? op(la) : 0;
+              if (!hidden) {
+                if (ot >= 0.15 && oa >= 0.15) fails.push(`${tag} u${u.toFixed(4)} old and new label both legible in the lens`);
+                blankR = ot < 0.15 && oa < 0.15 ? blankR + 1000 / 60 : 0;
+                if (blankR > 180 + 1e-6) { fails.push(`${tag} u${u.toFixed(4)} no label legible in the lens for more than 180 ms`); blankR = -1e9; }
+              }
+              legibleNew = legibleNew || (hidden ? sm.datum === 'after' : sm.datum === 'after' && oa >= 0.15);
+              if (!legibleNew && (sm.thread !== thread0 || slipNodes.some((e, k) => Math.abs(rawOp(e) - slip0[k]) > 1e-3))) fails.push(`${tag} u${u.toFixed(4)} the thread or the slip moves before the new value is legible`);
+            }
+            if (!legibleNew) fails.push(`${tag} the new value never becomes legible by u 0.6`);
+          }
+          // never over visible context text; everything in frame
+          const lensG = q('lens');
+          const texts = [...svg.querySelectorAll('text')].filter(t => t.textContent.trim() && !(lensG && lensG.contains(t)));
+          for (let s = 0; s <= 100; s++) {
+            x.seek((s / 100) * x.durationMs);
+            const lb = q('lens-border');
+            const lensOn = lb && op(lb) > 0.02 && op(q('lens-win') || lb) > 0.02;
+            const win = lensOn ? lb.getBoundingClientRect() : null;
+            if (s >= 30 && s <= 74) {
+              const wb = lb.getBoundingClientRect();
+              const short = Math.min(wb.width, wb.height) * px / Math.min(w, h);
+              if (!(short >= 0.35 - 1e-3)) fails.push(`${tag} u${s / 100} lens smaller side ${short.toFixed(3)} of the short side`);
+            }
+            if (win && (win.left < sr.left - 1 || win.top < sr.top - 1 || win.right > sr.right + 1 || win.bottom > sr.bottom + 1)) fails.push(`${tag} u${s / 100} lens leaves the frame`);
+            for (const t of texts) {
+              if (op(t) < 0.05) continue;
+              const b = t.getBoundingClientRect();
+              if (!b.width) continue;
+              if (b.left < sr.left - 1 || b.top < sr.top - 1 || b.right > sr.right + 1 || b.bottom > sr.bottom + 1) fails.push(`${tag} u${s / 100} "${t.textContent.trim().slice(0, 16)}" leaves the frame`);
+              if (win) {
+                const ox = Math.min(b.right, win.right) - Math.max(b.left, win.left), oy = Math.min(b.bottom, win.bottom) - Math.max(b.top, win.top);
+                if (ox * px > 1 && oy * px > 1) fails.push(`${tag} u${s / 100} lens over context text "${t.textContent.trim().slice(0, 16)}"`);
+              }
+            }
+          }
+          x.destroy();
+          el.remove();
+        }
+      }
+    }
+    return {fails, stats};
+  }, [ID, presets]);
+  console.log(JSON.stringify({frames: out.stats.frames, mags: out.stats.mags}));
+  expect(out.stats.frames).toBeGreaterThan(1000);
+  const seen = new Set();
+  const uniq = out.fails.filter(f => { const key = f.replace(/ u[0-9.]+ /, ' ').replace(/[0-9.]+\)?$/, ''); if (seen.has(key)) return false; seen.add(key); return true; });
+  expect(uniq.slice(0, 30), `${out.fails.length} lens checklist faults`).toEqual([]);
+});
+
+// Rendered, 60 fps: around the open (u 0.12–0.32) and the close (u 0.70–0.90) there is never more than ~200 ms in
+// which neither the panel (opacity ≥ 0.15) nor the lens copy (window shown, enlarged copy ≥ 0.15) is readable.
+// Every preset × ratio × labels state.
+test(`${ID}: panel and lens hand over within 180 ms at the open and at the close (60 fps, rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [], worst = {};
+    let frames = 0;
+    for (const pr of presets) {
+      for (const tv of ['all', 'key', 'none']) {
+        for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+          const el = document.createElement('div');
+          document.getElementById('slots').appendChild(el);
+          const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+          await x.ready;
+          const svg = x.element;
+          const op = n0 => { if (!n0) return 0; let o = 1; for (let n = n0; n && n !== svg; n = n.parentNode) { const a = n.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); } return o; };
+          const panel = ['context', 'leg0', 'leg1', 'kept', 'key'].map(n => svg.querySelector(`[data-node="${n}"]`)).filter(Boolean);
+          // (labels hidden: the lens's part holds no note at all — nothing to hand over)
+          if (!panel.length) { x.destroy(); el.remove(); continue; }
+          const win = svg.querySelector('[data-node="lens-win"]'), cf = svg.querySelector('[data-node="lens-cfade"]');
+          for (const [u0, u1] of [[0.12, 0.32], [0.7, 0.9]]) {
+            let gap = 0, max = 0;
+            for (let t = u0 * x.durationMs; t <= u1 * x.durationMs; t += 1000 / 60) {
+              x.seek(t);
+              frames++;
+              const readable = Math.max(...panel.map(op)) >= 0.15 || (op(win) > 0.02 && op(cf) >= 0.15);
+              gap = readable ? 0 : gap + 1000 / 60;
+              max = Math.max(max, gap);
+            }
+            const key = `${pr.name} ${tv} ${ratio} ${u0 < 0.5 ? 'open' : 'close'}`;
+            worst[key] = Math.round(max);
+            if (max > 180 + 1e-6) fails.push(`${key}: ${Math.round(max)} ms with neither readable`);
+          }
+          x.destroy();
+          el.remove();
+        }
+      }
+    }
+    return {fails, frames, worst};
+  }, [ID, presets]);
+  console.log(JSON.stringify(out.worst));
+  expect(out.frames).toBeGreaterThan(1000);
+  expect(out.fails.slice(0, 25), `${out.fails.length} long gaps`).toEqual([]);
+});
+
+textFloor(ID, {tvs: ['all', 'key', 'none']});
+noTextOverlap(ID);
+noTextOverProps(ID, ['[data-node="st-card-p"]', '[data-node="st-card-r"]', '[data-node="st-A-head"]', '[data-node="st-B-head"]']);
+seekHistory(ID);
+// (labels shown: the panel and the context fill the frame at rest and at the hold; labels hidden: the lens's part holds
+// no free-standing decoration at rest and at the hold — the key alone, when shown — so the fill is checked with the lens
+// open, where the context and the lens fill the frame)
+fill(ID, [0.05, 0.12, 0.9, 1], {tvs: ['all']});
+fill(ID, [0.34, 0.5, 0.7], {tvs: ['key', 'none']});
+esDefaults(ID);
+// (cf inspect head-box floors — review cf10: 50 px at 1:1 in every preset, long-labels-stress included — the test
+// used 45 there —, and 60 px off 1:1; the layout aims 2 px above each)
+headFloor(ID, {floors: Object.fromEntries(['default', 'baseline-illustrative', 'contrast-or-alternative', 'long-labels-stress', 'baseline-es'].flatMap(n => [[`${n}|1:1`, 50], [`${n}|16:9`, 60], [`${n}|9:16`, 60]]))});
+// (the context documents at rest and at the hold — while the lens is open the context may shrink at 1:1 and 9:16, the
+// accepted LAW-0472/0476 precedent)
+docSize(ID, {cards: '^st-card-[pr]$', times: [0, 0.1, 0.9, 1]});
+
+// The hold's context headline agrees with the supplied configuration after the substitution (review cf10): never "clause
+// linked" over a scene whose slip lies in the auxiliary document, nor the reverse; at rest it agrees with the
+// configuration before (every preset, EN and ES defaults, every ratio, labels all).
+test(`${ID}: the context headline follows the supplied configuration — at rest the one before, at the hold the one after (rendered)`, async ({page}) => {
+  test.setTimeout(300000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, {name: 'es-only', params: {locale: 'es'}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [], seen = [];
+    for (const pr of presets) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: 'all'}});
+      await x.ready;
+      const svg = x.element;
+      const q = x.getState({bounds: false}).params;
+      const op = e => { let v = 1; for (let n = e; n && n !== svg; n = n.parentElement) { const a = n.getAttribute('opacity'); if (a !== null) v *= parseFloat(a); } return v; };
+      const headline = () => ['context', 'context-after'].map(n => svg.querySelector(`[data-node="${n}"]`)).filter(e => e && op(e) >= 0.5).map(e => [...e.querySelectorAll('text')].map(t => t.textContent).join(' ').replace(/\s+/g, ' ').trim());
+      for (const [u, status] of [[0.1, q.statusBefore], [0.9, q.statusAfter], [1, q.statusAfter]]) {
+        x.seek(u * x.durationMs);
+        const hl = headline();
+        seen.push(`${pr.name} ${ratio} u${u}: ${hl.join(' / ')}`);
+        if (hl.length !== 1) { fails.push(`${pr.name} ${ratio} u${u}: ${hl.length} headlines shown`); continue; }
+        const ext = /no linked definition|sin definici(ó|o)n enlazada|glossary|\bsheet\b|\bhoja\b/i.test(hl[0]), linked = !ext && /\bdefined\b|definido|contract|contrato/i.test(hl[0]);
+        if (status === 'term-unlinked' && linked && !ext) fails.push(`${pr.name} ${ratio} u${u}: "${hl[0]}" over the configuration ${status}`);
+        if (status === 'term-defined' && ext && !linked) fails.push(`${pr.name} ${ratio} u${u}: "${hl[0]}" over the configuration ${status}`);
+        // (the slip lies where the configuration of that moment puts it)
+        const sa = x.getState({bounds: false}).semantic.slipAt;
+        if (sa !== (status === 'term-unlinked' ? 'external' : 'linked')) fails.push(`${pr.name} ${ratio} u${u}: slip ${sa} under ${status}`);
+      }
+      x.destroy();
+      el.remove();
+    }
+    return {fails, seen};
+  }, [ID, presets]);
+  console.log(out.seen.filter(l => / u1:/.test(l)).join('\n'));
+  expect(out.fails).toEqual([]);
+});
+noInterpretationRuleWords(ID);
+conceptNeutral(ID);
+noEmptyPanel(ID);
+
+// Rendered: the open lens is never near-empty — while it is fully open and its copy faded in (u 0.30–0.72, the label's
+// turn excepted), visible
+// content covers ≥ 30 % of its window (≥ 40 % with labels hidden) (a 24 × 24 grid of cell centres under visible copy elements other than the
+// window's own shapes; the window: the lens's border). Every preset × ratio × labels all / key / none.
+test(`${ID}: the open lens is filled by its copy (rendered, content ≥ 30 % of the window)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [], worst = {};
+    for (const pr of presets) for (const tv of ['all', 'key', 'none']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      const svg = x.element;
+      const op = e => { let o = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return o; };
+      let mn = 1;
+      // (outside the label's turn, 0.47–0.489, where the changing label is briefly hidden)
+      for (const k of [30, 36, 42, 45, 50, 53, 56, 62, 68, 72]) {
+        x.seek((k / 100) * x.durationMs);
+        const B = svg.querySelector('[data-node="lens-border"]').getBoundingClientRect();
+        const leaves = [...svg.querySelectorAll('[data-node="lens-cfade"] text, [data-node="lens-cfade"] path, [data-node="lens-cfade"] rect, [data-node="lens-cfade"] circle, [data-node="lens-cfade"] line, [data-node="lzc"] path, [data-node="lzc"] rect, [data-node="lzc"] circle')]
+          .filter(e => !e.closest('clipPath') && !e.closest('defs') && op(e) >= 0.3).map(e => e.getBoundingClientRect())
+          .filter(q => q.width * q.height > 0 && q.width * q.height < 0.9 * B.width * B.height && q.right > B.left && q.left < B.right && q.bottom > B.top && q.top < B.bottom);
+        let cov = 0;
+        const N = 24;
+        for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) { const cx = B.left + (i + 0.5) * B.width / N, cy = B.top + (j + 0.5) * B.height / N; if (leaves.some(q => cx >= q.left && cx <= q.right && cy >= q.top && cy <= q.bottom)) cov++; }
+        mn = Math.min(mn, cov / N / N);
+      }
+      worst[`${pr.name} ${tv} ${ratio}`] = +mn.toFixed(2);
+            if (mn < (tv === 'all' ? 0.3 : 0.4)) fails.push(`${pr.name} ${tv} ${ratio}: lens content ${mn.toFixed(2)}`);
+      x.destroy();
+      el.remove();
+    }
+    return {fails, worst};
+  }, [ID, presets]);
+  console.log(JSON.stringify(out.worst));
+  expect(out.fails).toEqual([]);
+});
+configNeutral(ID, [[{statusBefore: 'term-defined', statusAfter: 'term-defined'}, {statusBefore: 'term-unlinked', statusAfter: 'term-unlinked'}], [{}, {statusAfter: 'term-defined'}]], ['st-']);
+
+// The supplied parameters of every preset carry no banned wording either (EN and ES).
+test(`${ID}: no preset supplies interpretation-rule, meaning, outcome or obligation wording (EN and ES)`, () => {
+  for (const pr of presetsFor(ID)) {
+    expect(JSON.stringify(pr.params).match(TERM_BANNED), pr.name).toBeNull();
+    const q = pr.params;
+    for (const t of [q.beforeValue, q.afterValue, ...(q.sequence || []).map(e => e.time), ...(q.contextLabels ? Object.values(q.contextLabels) : [])].filter(Boolean)) if (CONFIG_WORDS.test(t)) expect(CONFIG_LABELS, pr.name).toContain(t);
+  }
+});
+
+// Rendered: the dependent state — the definition slip lies in the dock the supplied configuration gives it: before the
+// turn the configuration before, from the turn the one after (exactly one slip visible, in the contract's dock or in
+// the definitions sheet's); seeking back restores it. Default (linked → external), the alternative (external → linked)
+// and the other presets, every ratio.
+test(`${ID}: the definition slip follows the supplied configuration from dock to dock (rendered)`, async ({page}) => {
+  test.setTimeout(300000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const cases = [{name: 'default', params: {}}, ...presetsFor(ID).filter(q => q.name !== 'baseline-illustrative')];
+  const out = await page.evaluate(async ([id, cases]) => {
+    const def = await window.__lib.load(id);
+    const fails = [];
+    let n = 0;
+    for (const pr of cases) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: pr.params});
+      await x.ready;
+      const svg = x.element;
+      const p = x.getState({bounds: false}).params;
+      const eff = e => { let o = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return o; };
+      const at = c => { const e = svg.querySelector(`[data-node="st-card-${c}-slip"]`); return e && eff(e) > 0.5; };
+      for (const [u, want] of [[0.1, p.statusBefore], [0.44, p.statusBefore], [0.6, p.statusAfter], [1, p.statusAfter], [0.3, p.statusBefore]]) {
+        x.seek(u * x.durationMs);
+        n++;
+        const inSet = at('r'), inDoc = at('p');
+        if (inSet === inDoc) fails.push(`${pr.name} ${ratio} u${u}: slip in the set ${inSet}, in the document ${inDoc}`);
+        else if (inSet !== (want === 'term-defined')) fails.push(`${pr.name} ${ratio} u${u}: slip ${inSet ? 'in the set' : 'in the document'} under ${want}`);
+        // (the visible slip lies inside its document's dock)
+        const c = inSet ? 'r' : 'p';
+        const sb = svg.querySelector(`[data-node="st-card-${c}-slip"]`).getBoundingClientRect(), db = svg.querySelector(`[data-node="st-card-${c}-dock"]`).getBoundingClientRect();
+        if (!(sb.left >= db.left - 1 && sb.right <= db.right + 4 && sb.top >= db.top - 4 && sb.bottom <= db.bottom + 5)) fails.push(`${pr.name} ${ratio} u${u}: the slip is not in its dock`);
+      }
+      x.destroy();
+      el.remove();
+    }
+    return {fails, n};
+  }, [ID, cases]);
+  expect(out.n).toBeGreaterThan(20);
+  expect(out.fails).toEqual([]);
+});
+
+// Rendered (round 2): the Δ marker never lies over a text — from its first frame to the hold, every preset × ratio ×
+// labels state (u step 0.01 from 0.78), its box is clear of every visible text box (the after value included) and in
+// the frame.
+test(`${ID}: the Δ marker is clear of every text and in the frame (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, {name: 'default-es', params: {locale: 'es'}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [];
+    let seen = 0;
+    for (const pr of presets) for (const tv of ['all', 'key', 'none']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      const svg = x.element;
+      const sr = svg.getBoundingClientRect();
+      const eff = e => { let o = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return o; };
+      const mk = svg.querySelector('[data-node="cx-marker"]');
+      for (let u = 0.78; u <= 1 + 1e-9; u += 0.01) {
+        x.seek(u * x.durationMs);
+        if (!mk || eff(mk) < 0.05) continue;
+        seen++;
+        const M = mk.getBoundingClientRect();
+        if (M.left < sr.left - 1 || M.right > sr.right + 1 || M.top < sr.top - 1 || M.bottom > sr.bottom + 1) fails.push(`${pr.name} ${tv} ${ratio} u${u.toFixed(2)}: marker outside the frame`);
+        for (const t of svg.querySelectorAll('text')) {
+          if (mk.contains(t) || !t.textContent.trim() || eff(t) < 0.05) continue;
+          const b = t.getBoundingClientRect();
+          if (b.width < 1) continue;
+          if (M.left < b.right - 0.5 && M.right > b.left + 0.5 && M.top < b.bottom - 0.5 && M.bottom > b.top + 0.5) fails.push(`${pr.name} ${tv} ${ratio} u${u.toFixed(2)}: marker over "${t.textContent.trim().slice(0, 30)}"`);
+        }
+      }
+      x.destroy();
+      el.remove();
+    }
+    return {fails: [...new Set(fails)], seen};
+  }, [ID, presets]);
+  expect(out.seen).toBeGreaterThan(100);
+  expect(out.fails.slice(0, 20)).toEqual([]);
+});
+
+// Rendered (round 2): magnification against the context at REST — the inspected station in the lens (u 0.34) over the
+// same station in the context (u 0.10) — at sized hosts: the default viewport with a full-size element (≥ 1.6, the
+// layout's margin), and a 640 × 360-type element (a third of the size) and 800 × 600 / 1400 × 1000 viewports (≥ 1.5).
+// Every preset (and es defaults) × ratio, labels all.
+for (const [vw, vh] of [[1280, 800], [800, 600], [1400, 1000]]) {
+  test(`${ID}: lens magnification ≥ 1.5 at sized hosts (viewport ${vw}×${vh}; ≥ 1.6 full-size at the default viewport) (rendered)`, async ({page}) => {
+    test.setTimeout(600000);
+    await page.setViewportSize({width: vw, height: vh});
+    await page.goto('/tests/harness/host.html');
+    await page.waitForFunction(() => document.body.dataset.ready === '1');
+    const presets = [{name: 'default', params: {}}, {name: 'default-es', params: {locale: 'es'}}, ...presetsFor(ID)];
+    const out = await page.evaluate(async ([id, presets, isDefault]) => {
+      const def = await window.__lib.load(id);
+      const fails = [], rows = [];
+      for (const pr of presets) for (const [w, h] of [[1920, 1080], [1080, 1920], [1080, 1080]]) for (const sized of [false, true]) {
+        const el = document.createElement('div');
+        if (sized) { el.style.width = `${w / 3}px`; el.style.height = `${h / 3}px`; }
+        document.getElementById('slots').appendChild(el);
+        const x = def.create(el, {width: w, height: h, params: pr.params});
+        await x.ready;
+        const fo = x.getState({bounds: false}).semantic.focusNode;
+        const q = n => x.element.querySelector(`[data-node="${n}"]`);
+        x.seek(0.1 * x.durationMs);
+        const a = q(`st-${fo}`).getBoundingClientRect().height;
+        x.seek(0.34 * x.durationMs);
+        const b = q(`lzs-${fo}`).getBoundingClientRect().height;
+        const m = b / a;
+        const floor = isDefault && !sized ? 1.6 : 1.5;
+        rows.push(`${pr.name} ${w}x${h}${sized ? ' sized' : ''} ${m.toFixed(3)}`);
+        if (!(m >= floor)) fails.push(`${pr.name} ${w}x${h}${sized ? ' sized' : ''}: ${m.toFixed(3)} < ${floor}`);
+        x.destroy();
+        el.remove();
+      }
+      return {fails, rows};
+    }, [ID, presets, vw === 1280 && vh === 800]);
+    console.log(out.rows.join(' | '));
+    expect(out.fails).toEqual([]);
+  });
+}
+
+// Rendered (round 2): the context left VISIBLE while the lens is open (context leaves not wholly under the lens) is
+// ≥ 0.45 of the frame. Lens beside the context (stack 'right' — 16:9 and 1:1 when chosen): across the frame's width.
+// Lens stacked below the context (stack 'below' — 9:16, and 1:1 when chosen): in either dimension (coordinator
+// decision 2026-09-27, LAW-0232). Every preset (and es defaults) × ratio × labels state, u 0.30–0.70.
+test(`${ID}: the context left visible beside or above the open lens is ≥ 0.45 of the frame (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, {name: 'default-es', params: {locale: 'es'}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [], rows = [];
+    for (const pr of presets) for (const tv of ['all', 'key', 'none']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      const svg = x.element;
+      const sr = svg.getBoundingClientRect();
+      const eff = e => { let o = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return o; };
+      const stack = x.getState({bounds: false}).semantic.stack;
+      let mn = 9;
+      for (const u of [0.3, 0.4, 0.5, 0.6, 0.7]) {
+        x.seek(u * x.durationMs);
+        const B = svg.querySelector('[data-node="lens-border"]').getBoundingClientRect();
+        let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+        for (const e of svg.querySelectorAll('[data-node^="st-"] path, [data-node^="st-"] rect, [data-node^="st-"] circle, [data-node^="st-"] text, [data-node^="st-"] line, [data-node^="st-"] ellipse')) {
+          if (eff(e) < 0.05) continue;
+          const b = e.getBoundingClientRect();
+          if (b.width < 0.5 && b.height < 0.5) continue;
+          if (b.left >= B.left && b.right <= B.right && b.top >= B.top && b.bottom <= B.bottom) continue;
+          x0 = Math.min(x0, b.left); x1 = Math.max(x1, b.right); y0 = Math.min(y0, b.top); y1 = Math.max(y1, b.bottom);
+        }
+        const cw = (x1 - x0) / sr.width, ch = (y1 - y0) / sr.height;
+        mn = Math.min(mn, stack === 'right' ? cw : Math.max(cw, ch));
+      }
+      rows.push(`${pr.name} ${tv} ${ratio} ${stack} ${mn.toFixed(3)}`);
+      if (!(mn >= 0.45)) fails.push(`${pr.name} ${tv} ${ratio} (${stack}): visible context ${mn.toFixed(3)}`);
+      x.destroy();
+      el.remove();
+    }
+    return {fails, rows};
+  }, [ID, presets]);
+  console.log(out.rows.join('\n'));
+  expect(out.fails).toEqual([]);
+});
+
+// Rendered (pre-review): the lens's dashed guide lines never cross a visible text while the lens is open — every preset
+// (and es defaults) × ratio × labels state, u 0.30–0.70 step 0.02; a guide that would cross one is not drawn.
+test(`${ID}: the lens's guide lines cross no visible text (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, {name: 'default-es', params: {locale: 'es'}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [];
+    let drawn = 0;
+    for (const pr of presets) for (const tv of ['all', 'key', 'none']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      const svg = x.element;
+      const eff = e => { let o = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return o; };
+      for (let u = 0.3; u <= 0.7 + 1e-9; u += 0.02) {
+        x.seek(u * x.durationMs);
+        const texts = [...svg.querySelectorAll('text')].filter(t => t.textContent.trim() && eff(t) >= 0.05 && !t.closest('[data-node="lens"]') && !t.closest('[data-layer="content-notice"]')).map(t => [t, t.getBoundingClientRect()]);
+        for (const n of ['lens-coneA', 'lens-coneB']) {
+          const ln = svg.querySelector(`[data-node="${n}"]`);
+          if (!ln || eff(ln) < 0.05) continue;
+          drawn++;
+          const m = ln.getScreenCTM();
+          const p1 = new DOMPoint(+ln.getAttribute('x1'), +ln.getAttribute('y1')).matrixTransform(m), p2 = new DOMPoint(+ln.getAttribute('x2'), +ln.getAttribute('y2')).matrixTransform(m);
+          for (const [t, b] of texts) {
+            for (let i = 1; i < 100; i++) {
+              const q = {x: p1.x + (p2.x - p1.x) * i / 100, y: p1.y + (p2.y - p1.y) * i / 100};
+              if (q.x > b.left + 1 && q.x < b.right - 1 && q.y > b.top + 1 && q.y < b.bottom - 1) { fails.push(`${pr.name} ${tv} ${ratio} u${u.toFixed(2)} ${n} over "${t.textContent.trim().slice(0, 24)}"`); break; }
+            }
+          }
+        }
+      }
+      x.destroy();
+      el.remove();
+    }
+    return {fails: [...new Set(fails)], drawn};
+  }, [ID, presets]);
+  expect(out.drawn).toBeGreaterThan(0);
+  expect(out.fails.slice(0, 20)).toEqual([]);
+});
+
+// Rendered (review fix): while the lens is open (u 0.30–0.70), the lens copy of the changed datum — the inspected
+// station's label, before value until the turn, after value from it — is visible (opacity ≥ 0.9, outside the turn) and
+// wholly inside the lens window, in every preset (and es defaults) × ratio, labels on.
+test(`${ID}: the changed datum is legible inside the open lens (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, {name: 'default-es', params: {locale: 'es'}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [];
+    let seen = 0;
+    for (const pr of presets) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: pr.params});
+      await x.ready;
+      const svg = x.element;
+      const eff = e => { let o = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return o; };
+      for (let u = 0.3; u <= 0.7 + 1e-9; u += 0.02) {
+        // (the label turns over 0.47–0.489: neither copy is legible while it turns)
+        if (u > 0.465 && u < 0.495) continue;
+        x.seek(u * x.durationMs);
+        const s = x.getState({bounds: false}).semantic;
+        const node = svg.querySelector(`[data-node="lzs-${s.focusNode}-${s.datum === 'after' ? 'alt' : 'time'}-txt"]`);
+        const B = svg.querySelector('[data-node="lens-border"]').getBoundingClientRect();
+        seen++;
+        if (!node) { fails.push(`${pr.name} ${ratio} u${u.toFixed(2)}: no lens copy of the datum`); continue; }
+        const op = eff(node);
+        const b = node.getBoundingClientRect();
+        const inside = b.width > 1 && b.left >= B.left - 1 && b.right <= B.right + 1 && b.top >= B.top - 1 && b.bottom <= B.bottom + 1;
+        if (op < 0.9 || !inside) fails.push(`${pr.name} ${ratio} u${u.toFixed(2)}: datum copy opacity ${op.toFixed(2)}, inside ${inside}`);
+      }
+      x.destroy();
+      el.remove();
+    }
+    return {fails: [...new Set(fails)], seen};
+  }, [ID, presets]);
+  expect(out.seen).toBeGreaterThan(100);
+  expect(out.fails.slice(0, 20)).toEqual([]);
+});
+
+// Labels hidden (key / none), rendered: the lens shows the change itself — its copy holds the contract set, whole, and
+// between the open lens before the turn (u 0.44) and after it (u 0.6) a non-text part wholly inside the lens window
+// changes visibly (the clause slip leaves or lies in its dock). Every preset × ratio.
+test(`${ID}: labels hidden — a visible non-text change happens inside the lens, on the contract set (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [];
+    let n = 0;
+    for (const pr of presets) for (const tv of ['key', 'none']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      const svg = x.element;
+      const p = x.getState({bounds: false}).params;
+      const eff = e => { let o = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return o; };
+      const tag = `${pr.name} ${tv} ${ratio}`;
+      const look = () => {
+        const W = svg.querySelector('[data-node="lens-border"]').getBoundingClientRect();
+        const inW = b => b.width > 0 && b.left >= W.left - 1 && b.right <= W.right + 1 && b.top >= W.top - 1 && b.bottom <= W.bottom + 1;
+        return [...svg.querySelectorAll('[data-node="lens"] path, [data-node="lens"] rect, [data-node="lens"] circle, [data-node="lens"] line, [data-node="lzc"] path, [data-node="lzc"] rect, [data-node="lzc"] circle')]
+          .filter(e => !e.closest('clipPath') && !e.closest('defs')).map(e => ({e, o: eff(e), inside: inW(e.getBoundingClientRect())}));
+      };
+      x.seek(0.44 * x.durationMs);
+      const a = look();
+      // (the lens card: the indicated card drawn at lens scale, connected)
+      const card = svg.querySelector('[data-node="lzc-card-face"]');
+      if (!card || eff(card) < 0.9) fails.push(`${tag}: the contract set is not in the lens`);
+      const W0 = svg.querySelector('[data-node="lens-border"]').getBoundingClientRect(), cb = card ? card.getBoundingClientRect() : null;
+      if (cb && !(cb.left >= W0.left - 1 && cb.right <= W0.right + 1 && cb.top >= W0.top - 1 && cb.bottom <= W0.bottom + 1)) fails.push(`${tag}: the card is cut by the lens`);
+      const dock = svg.querySelector('[data-node="lzc-card-dock"]');
+      if (!dock || eff(dock) < 0.9) fails.push(`${tag}: the contract set's dock is not shown in the lens`);
+      x.seek(0.6 * x.durationMs);
+      const b = look();
+      n++;
+      const changed = a.some((q, i) => b[i] && q.inside && b[i].inside && Math.abs(q.o - b[i].o) >= 0.5);
+      if (!changed) fails.push(`${tag}: nothing visible changes inside the lens`);
+      x.destroy();
+      el.remove();
+    }
+    return {fails, n};
+  }, [ID, presets]);
+  expect(out.n).toBeGreaterThan(20);
+  expect(out.fails).toEqual([]);
+});
+
+// Rendered: the lens's source frame never crosses a person (the whole drawn figure) or a caption, while it is drawn
+// (u 0.20–0.80, every preset × ratio × labels all / key / none).
+test(`${ID}: the lens's source frame crosses no person, no caption and no text (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [];
+    let n = 0;
+    for (const pr of presets) for (const tv of ['all', 'key', 'none']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      const svg = x.element;
+      const eff = e => { let o = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return o; };
+      for (let k = 20; k <= 80; k += 4) {
+        x.seek((k / 100) * x.durationMs);
+        const src = svg.querySelector('[data-node="lens-src"]');
+        if (!src || eff(src) < 0.05) continue;
+        n++;
+        const S = src.getBoundingClientRect();
+        // (and no visible text of the context: each is wholly inside the frame or wholly outside it)
+        for (const t of svg.querySelectorAll('text')) {
+          if (!t.textContent.trim() || eff(t) < 0.05 || t.closest('[data-node="lens"]') || t.closest('[data-layer="content-notice"]')) continue;
+          const b = t.getBoundingClientRect();
+          if (!b.width) continue;
+          const meet = b.left < S.right - 1 && b.right > S.left + 1 && b.top < S.bottom - 1 && b.bottom > S.top + 1;
+          const within = b.left >= S.left - 1 && b.right <= S.right + 1 && b.top >= S.top - 1 && b.bottom <= S.bottom + 1;
+          if (meet && !within) fails.push(`${pr.name} ${tv} ${ratio}: the source frame crosses "${t.textContent.trim().slice(0, 20)}"`);
+        }
+        for (const nm of ['st-A', 'st-B', 'st-name0', 'st-name1']) {
+          const e = svg.querySelector(`[data-node="${nm}"]`);
+          if (!e || eff(e) < 0.05) continue;
+          const b = e.getBoundingClientRect();
+          const meet = b.left < S.right - 2 && b.right > S.left + 2 && b.top < S.bottom - 2 && b.bottom > S.top + 2;
+          const within = b.left >= S.left && b.right <= S.right && b.top >= S.top && b.bottom <= S.bottom;
+          if (meet && !within) fails.push(`${pr.name} ${tv} ${ratio}: the source frame crosses ${nm}`);
+        }
+      }
+      x.destroy();
+      el.remove();
+    }
+    return {fails: [...new Set(fails)], n};
+  }, [ID, presets]);
+  expect(out.n).toBeGreaterThan(100);
+  expect(out.fails).toEqual([]);
+});
+
+// Rendered: labels hidden, at rest and at the hold, no free-standing ●/◆ legend glyphs are drawn in the lens's part
+// (a legend without its text explains nothing); the key, when shown, is the only note there.
+test(`${ID}: labels hidden — no free-standing legend glyphs at rest or at the hold (rendered)`, async ({page}) => {
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const out = await page.evaluate(async id => {
+    const def = await window.__lib.load(id);
+    const fails = [];
+    for (const tv of ['key', 'none']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {textVisibility: tv}});
+      await x.ready;
+      for (const u of [0.05, 1]) {
+        x.seek(u * x.durationMs);
+        for (const nm of ['leg0', 'leg1']) { const e = x.element.querySelector(`[data-node="${nm}"]`); if (e && e.getAttribute('opacity') !== '0') fails.push(`${tv} ${ratio} u${u}: ${nm}`); }
+      }
+      x.destroy();
+      el.remove();
+    }
+    return fails;
+  }, ID);
+  expect(out).toEqual([]);
+});
+
+// The acting scene keeps its share of the frame with labels shown (no thumbnails beside the text): on wide frames the
+// people and racks span ≥ 0.55 of the width beside the panel; on tall frames they keep ≥ 0.2 of the height.
+ratioChecks(ID, 'the scene keeps its share of the frame beside the text', [
+  {at: [0.1, 0.5, 1], tv: ['all'], ratios: ['16:9'], fn: 's.stageW >= 0.55', label: 'wide frames: people and racks ≥ 0.55 of the width'},
+  {at: [0.1, 0.5, 1], tv: ['all'], ratios: ['9:16'], fn: 's.stageH >= 0.2', label: 'tall frames: people and racks ≥ 0.2 of the height'},
+]);
+
+// Labels hidden (key / none), rendered: at rest and at the hold the scene takes ≥ 0.55 of the frame's area — of its
+// height on 9:16 — (no text column), with full documents — each with its sheet and its dock, never a glyph token —
+// and each person wears the ●/◆ badge of their card: both present, the same size (± 3 %), clear of the faces.
+test(`${ID}: labels hidden — the scene fills the frame at rest and at the hold, full cards, ownership badges (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [], rows = [];
+    for (const pr of presets) for (const tv of ['key', 'none']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      const svg = x.element;
+      const R = svg.getBoundingClientRect();
+      const eff = e => { let o = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return o; };
+      const tag = `${pr.name} ${tv} ${ratio}`;
+      for (const u of [0.05, 1]) {
+        x.seek(u * x.durationMs);
+        const bs = [...svg.querySelectorAll('[data-node="ctxz"] path, [data-node="ctxz"] rect, [data-node="ctxz"] circle, [data-node="ctxz"] text')].filter(e => !e.closest('defs') && eff(e) >= 0.05).map(e => e.getBoundingClientRect()).filter(q => q.width > 0 && q.height > 0);
+        const x0 = Math.min(...bs.map(q => q.left)), x1 = Math.max(...bs.map(q => q.right)), y0 = Math.min(...bs.map(q => q.top)), y1 = Math.max(...bs.map(q => q.bottom));
+        // (the share of the frame's area — of its height on tall frames)
+        const area = ratio === '9:16' ? (y1 - y0) / R.height : (x1 - x0) * (y1 - y0) / (R.width * R.height);
+        rows.push(`${tag} u${u} ${area.toFixed(2)}`);
+        if (area < 0.55) fails.push(`${tag} u${u}: scene ${area.toFixed(2)} of the frame`);
+        for (const c of ['p', 'r']) {
+          const f0 = svg.querySelector(`[data-node="st-card-${c}-face"]`);
+          if (!f0) continue;
+          const b = f0.getBoundingClientRect();
+          // (a whole document — its sheet and its dock —, never a glyph token)
+          if (!svg.querySelector(`[data-node="st-card-${c}-sheet"]`) || !svg.querySelector(`[data-node="st-card-${c}-dock"]`) || b.width < 0.8 * b.height) fails.push(`${tag} u${u}: card ${c} drawn as a token`);
+          if (u === 1 && eff(svg.querySelector(`[data-node="st-card-${c}-attrs"]`)) < 0.9) fails.push(`${tag}: card ${c} not connected at the hold`);
+        }
+        const bA = svg.querySelector('[data-node="st-badgeA"]'), bB = svg.querySelector('[data-node="st-badgeB"]');
+        if (!bA || !bB || eff(bA) < 0.9 || eff(bB) < 0.9) { fails.push(`${tag} u${u}: badges missing`); continue; }
+        const ra = bA.getBoundingClientRect(), rb = bB.getBoundingClientRect();
+        if (Math.abs(ra.width / rb.width - 1) > 0.03) fails.push(`${tag}: badges of unequal size`);
+        for (const [bd, f] of [[ra, 'A'], [rb, 'B'], [ra, 'B'], [rb, 'A']]) {
+          const face = svg.querySelector(`[data-node="st-${f}-head"] > circle`);
+          if (!face) continue;
+          const q = face.getBoundingClientRect();
+          if (bd.left < q.right + 2 && bd.right > q.left - 2 && bd.top < q.bottom + 2 && bd.bottom > q.top - 2) fails.push(`${tag}: a badge touches ${f}'s face`);
+        }
+        if (svg.querySelector('[data-node="st-badgeA"] circle:nth-of-type(2)') === null && !svg.querySelector('[data-node="st-badgeA"] > circle + circle, [data-node="st-badgeA"] > circle ~ *')) fails.push(`${tag}: badge A has no glyph`);
+      }
+      x.destroy();
+      el.remove();
+    }
+    return {fails: [...new Set(fails)], rows};
+  }, [ID, presets]);
+  console.log(out.rows.join(' | '));
+  expect(out.fails).toEqual([]);
+});
+
+// Labels hidden (key / none), rendered at full size and at sized hosts (1/2, 1/3): the lens card is ≥ 1.5× the
+// indicated card AT REST (u 0.05) in both dimensions (the layout aims at ≥ 1.62), every preset × ratio.
+test(`${ID}: labels hidden — the lens card is ≥ 1.5× the card at rest in both dimensions, at every host size (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, {name: 'default-es', params: {locale: 'es'}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [], mags = [];
+    for (const div of [1, 2, 3]) for (const pr of presets) for (const tv of ['key', 'none']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      if (div > 1) { el.style.width = `${w / div}px`; el.style.height = `${h / div}px`; }
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      const svg = x.element;
+      const pc = 'r';
+      x.seek(0.05 * x.durationMs);
+      const rest = svg.querySelector(`[data-node="st-card-${pc}"]`).getBoundingClientRect();
+      x.seek(0.5 * x.durationMs);
+      const lens = svg.querySelector('[data-node="lzc-card"]').getBoundingClientRect();
+      const mw = lens.width / rest.width, mh = lens.height / rest.height;
+      mags.push(`${div} ${pr.name} ${tv} ${ratio} ${mw.toFixed(2)}/${mh.toFixed(2)}`);
+      if (mw < 1.5 || mh < 1.5) fails.push(`1/${div} ${pr.name} ${tv} ${ratio}: ${mw.toFixed(2)} × ${mh.toFixed(2)}`);
+      x.destroy();
+      el.remove();
+    }
+    return {fails, mags};
+  }, [ID, presets]);
+  console.log(out.mags.filter((m, i) => i % 7 === 0).join(' | '));
+  expect(out.fails).toEqual([]);
+});
+
+// Labels hidden at 16:9 (AUTHORING item 18; cf-09 round 4): the magnification is not bought by shrinking the context —
+// at rest and at the hold the cards are ≥ 0.12 of the frame's width and the scene (people, racks, strip) spans ≥ 0.8
+// of it, and the lens enlarges the card at rest ≤ 2.3× (not a thumbnail context), every preset.
+test(`${ID}: labels hidden, 16:9 — large cards at rest and at the hold, the scene across the frame (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, {name: 'default-es', params: {locale: 'es'}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [], rows = [];
+    for (const pr of presets) for (const tv of ['key', 'none']) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: 1920, height: 1080, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      const svg = x.element;
+      const R = svg.getBoundingClientRect();
+      const eff = e => { let o = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return o; };
+      const pc = 'r';
+      const tag = `${pr.name} ${tv}`;
+      let rest = null;
+      for (const u of [0.05, 1]) {
+        x.seek(u * x.durationMs);
+        for (const c of ['p', 'r']) {
+          const b = svg.querySelector(`[data-node="st-card-${c}"]`).getBoundingClientRect();
+          if (b.width / R.width < 0.12) fails.push(`${tag} u${u}: card ${c} ${(b.width / R.width).toFixed(3)} of the width`);
+          if (c === pc && u === 0.05) rest = b;
+        }
+        const bs = [...svg.querySelectorAll('[data-node="ctxz"] path, [data-node="ctxz"] rect, [data-node="ctxz"] circle')].filter(e => !e.closest('defs') && eff(e) >= 0.05).map(e => e.getBoundingClientRect()).filter(q => q.width > 0 && q.height > 0);
+        const span = (Math.max(...bs.map(q => q.right)) - Math.min(...bs.map(q => q.left))) / R.width;
+        rows.push(`${tag} u${u} card ${(rest.width / R.width).toFixed(3)} span ${span.toFixed(2)}`);
+        if (span < 0.8) fails.push(`${tag} u${u}: scene spans ${span.toFixed(2)} of the width`);
+      }
+      x.seek(0.5 * x.durationMs);
+      const lz = svg.querySelector('[data-node="lzc-card"]').getBoundingClientRect();
+      const mw = lz.width / rest.width, mh = lz.height / rest.height;
+      if (mw > 2.3 || mh > 2.3) fails.push(`${tag}: lens ${mw.toFixed(2)} × ${mh.toFixed(2)} the card at rest — the context shrunk`);
+      x.destroy();
+      el.remove();
+    }
+    return {fails, rows};
+  }, [ID, presets]);
+  console.log(out.rows.filter((m, i) => i % 4 === 0).join(' | '));
+  expect(out.fails).toEqual([]);
+});
+
+// Labels hidden, rendered at 60 fps: one copy of the changed state at a time — the clause slip in the context set's dock
+// and in the lens card's dock are never both visible (≥ 0.15), and while the slip lies in the set, neither is missing for
+// more than 180 ms (open 0.15–0.35, close 0.68–0.88), every preset × ratio.
+test(`${ID}: labels hidden — the slip in the contract set shows in one place at a time, handed over within 180 ms (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, ...presetsFor(ID), {name: 'linked-both', params: {statusBefore: 'term-defined', statusAfter: 'term-defined'}}];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [];
+    let frames = 0;
+    for (const pr of presets) for (const tv of ['key', 'none']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      const svg = x.element;
+      const eff = e => { if (!e) return 0; let o = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return o; };
+      const vis = n => eff(svg.querySelector(`[data-node="${n}"]`));
+      for (const [u0, u1] of [[0.15, 0.35], [0.68, 0.88]]) {
+        let gap = 0;
+        for (let t = u0 * x.durationMs; t <= u1 * x.durationMs; t += 1000 / 60) {
+          x.seek(t);
+          frames++;
+          const c = vis('st-card-r-slip'), l = vis('lzc-card-slip');
+          if (c >= 0.15 && l >= 0.15) { fails.push(`${pr.name} ${tv} ${ratio} t${Math.round(t)}: both slips visible`); break; }
+          const inSet = x.getState({bounds: false}).semantic.slipAt === 'linked';
+          gap = inSet && c < 0.15 && l < 0.15 ? gap + 1000 / 60 : 0;
+          if (gap > 180 + 1e-6) { fails.push(`${pr.name} ${tv} ${ratio}: no slip for over 180 ms near t${Math.round(t)}`); break; }
+        }
+      }
+      x.destroy();
+      el.remove();
+    }
+    return {fails: [...new Set(fails)], frames};
+  }, [ID, presets]);
+  expect(out.frames).toBeGreaterThan(1000);
+  expect(out.fails.slice(0, 20)).toEqual([]);
+});
+
+// Labels hidden, rendered at 60 fps (review ct02): the context shrinks into its part in step with the lens — never more
+// than 150 ms with the context more than halfway shrunk while the lens copy is not legible (open 0.10–0.30, close
+// 0.70–0.90), every preset × ratio × key / none.
+test(`${ID}: labels hidden — the context is never a lone thumbnail for more than 150 ms (60 fps, rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, ...presetsFor(ID)];
+  const out = await page.evaluate(async ([id, presets]) => {
+    const def = await window.__lib.load(id);
+    const fails = [], worst = {};
+    let frames = 0;
+    for (const pr of presets) for (const tv of ['key', 'none']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      const svg = x.element;
+      const eff = e => { if (!e) return 0; let o = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) o *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return o; };
+      const z = svg.querySelector('[data-node="ctxz"]');
+      const scaleOf = () => { const m = /scale\(([0-9.]+)\)/.exec(z.getAttribute('transform') || ''); return m ? parseFloat(m[1]) : 1; };
+      x.seek(0.5 * x.durationMs);
+      const s1 = scaleOf();
+      const key = `${pr.name} ${tv} ${ratio}`;
+      if (s1 > 0.999) { worst[key] = 'in place'; x.destroy(); el.remove(); continue; }
+      const half = 1 - (1 - s1) / 2;
+      let max = 0;
+      for (const [u0, u1] of [[0.1, 0.3], [0.7, 0.9]]) {
+        let gap = 0;
+        for (let t = u0 * x.durationMs; t <= u1 * x.durationMs; t += 1000 / 60) {
+          x.seek(t);
+          frames++;
+          const lensOn = eff(svg.querySelector('[data-node="lens-win"]')) > 0.02 && eff(svg.querySelector('[data-node="lzc"]')) >= 0.15;
+          gap = scaleOf() < half && !lensOn ? gap + 1000 / 60 : 0;
+          max = Math.max(max, gap);
+        }
+      }
+      worst[key] = Math.round(max);
+      if (max > 150 + 1e-6) fails.push(`${key}: lone thumbnail for ${Math.round(max)} ms`);
+      x.destroy();
+      el.remove();
+    }
+    return {fails, frames, worst};
+  }, [ID, presets]);
+  console.log(JSON.stringify(out.worst));
+  expect(out.frames).toBeGreaterThan(500);
+  expect(out.fails).toEqual([]);
+});
+
+// How wrapped text breaks (every preset + es-only × ratio, u step 0.05): no one-word line, no lone letter or ID split
+// from its word, no number torn from its unit, and no Spanish "(aportado)" after a feminine or plural word.
+noOneWordLines(ID);
+noLoneLetterSplit(ID);
+noTornNumberUnit(ID);
+esAportadoAgrees(ID);

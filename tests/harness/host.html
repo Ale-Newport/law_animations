@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Animation test host</title>
+<style>
+  body { margin: 0; font-family: sans-serif; }
+  .slot { width: 480px; height: 480px; display: inline-block; vertical-align: top; }
+</style>
+</head>
+<body>
+<div id="slots"></div>
+<script type="module">
+  import {load, implementedIds} from '../../src/registry.js';
+  import * as harness from './in-page.js';
+  window.__lib = {load, implementedIds, ...harness};
+  document.body.dataset.ready = '1';
+</script>
+</body>
+</html>
