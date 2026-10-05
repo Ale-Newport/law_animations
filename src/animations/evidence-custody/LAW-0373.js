@@ -151,7 +151,7 @@ function compose(ctx, P, recs, LG, st) {
   const inset = Math.max(14, Math.min(bench.w, bench.h) * 0.035);
   const mat = {x: bench.x + inset * 1.6, y: bench.y + inset * 1.6, w: bench.w - inset * 3.2, h: bench.h - inset * 3.2};
   const G = bench.h > 200 && bench.w > 200 ? rfStage(mat, {kind: P.items[0].kind, targets: P.views.map(v => v.target), slots: P.views.length, rows: recs.length, ...st}) : null;
-  const printOk = G && G.tray.pw >= G.S * 1.2;
+  const printOk = G && G.tray.pw >= G.S * 1.05;
   const ok = (!PL || PL.ok) && G && G.fits && G.S >= 95 && printOk;
   return {bench, mat, panel: LG.panel, PL, G, ok, problems: [PL && !PL.ok && 'panel-text', (!G || !G.fits) && 'stage-fit', (!G || G.S < 95) && 'stage-small', G && !printOk && 'print-small'].filter(Boolean)};
 }
