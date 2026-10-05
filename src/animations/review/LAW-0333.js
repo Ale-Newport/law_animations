@@ -100,8 +100,8 @@ function compose(ctx, P, R, F, opts) {
   if (!rows.length) desk = {x: 0, y: 0, w: DW, h: DH};
   else if (shape === 'portrait') {
     PL = panelLayout(ctx, rows, {w: DW - 8, F});
-    desk = {x: 0, y: 0, w: DW, h: DH - PL.h - gap};
-    panel = {x: 4, y: DH - PL.h};
+    desk = {x: 0, y: 0, w: DW, h: DH - PL.h - gap - F * 0.4};
+    panel = {x: 4, y: DH - PL.h - F * 0.4};
   } else {
     const PW = DW * opts.pw;
     PL = panelLayout(ctx, rows, {w: PW, F});

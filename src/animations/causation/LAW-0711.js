@@ -45,7 +45,7 @@ import {contrastFields, int} from '../../schemas/fields.js';
 import {textBlock} from '../../primitives/annotate.js';
 import {
   adFields, AD_STRINGS, AD_DEFAULTS, AD_ES_DEFAULTS, resolveAD, entryText, linkNotes, altText, glueN as gp, unwidow,
-  FIELD, fieldGeom, fieldW, fieldH, itemPlaces, plateArt, ringArt, postArt, eventArt, itemArt, floorArt,
+  FIELD, fieldGeom, fieldW, fieldH, plateArt, ringArt, postArt, eventArt, itemArt, floorArt,
   iconChip, flowRows, fitG, chipG, sideMark,
   clamp, ease, lerp, r, seg, localizeScene,
 } from './kits/alcance-dano.js';
@@ -60,8 +60,33 @@ const W = {
 };
 // the focus consequence's path runs along angle 0 (to the right of the event); the ring markers stand at the back right
 const PATH_A = 0, MARK_A = 300, MARK_STEM = 0.1;
-const R0 = 0.16; // where the focus consequence waits (× PH from the event's centre)
-const ITEM_K = 1.2; // the consequences stand a little larger here (the contrasted object stays a real object at 1:1)
+const R0 = 0.26; // where the focus consequence waits (× PH from the event's centre): beside the event, not on it
+const ITEM_K = 1.25; // the consequences stand a little larger here (the contrasted object stays a real object at 1:1)
+// compact spacing (the fields keep the subject floor in square boxes with long texts): between band rows, above the
+// band, between a head chip and its field
+const ROW_GAP = 8, BAND_GAP = 12, HEAD_GAP = 8;
+// this treatment's ring geometry (× PH): a wider inner ring, so the event, the inner consequences and the focus
+// consequence's path stand apart; each slot keeps a whole object inside its ring (half an object = 0.18)
+const RING = {R1: 0.6, R2: 0.95, rIn: 0.42, rOut: 0.775};
+// angles (deg; 0 = the focus path, to the right; 90 = front) of the other consequences, in order of use: inner ones
+// round the event's left half, outer ones spread round the whole annulus away from the path and the markers
+const INNER_D = [180, 118, 242, 70, 290], OUTER_D = [180, 130, 230, 95, 265, 50];
+
+/** Field geometry of this treatment: the kit's field with this treatment's ring radii. */
+function geom(left, floorY, PH) {
+  const G = fieldGeom(left, floorY, PH);
+  return {...G, R1: RING.R1 * PH, R2: RING.R2 * PH, rIn: RING.rIn * PH, rOut: RING.rOut * PH, postX1: G.cx + RING.R1 * PH, postX2: G.cx + RING.R2 * PH};
+}
+
+/** Places of the other consequences (the focus one is posed per frame on the path at angle 0). */
+function places(G, M, fi) {
+  let ki = 0, ko = 0;
+  return M.entries.filter(e => e.i !== fi).map(e => {
+    const inner = e.ring === 'inner';
+    const deg = inner ? INNER_D[ki++ % INNER_D.length] : OUTER_D[ko++ % OUTER_D.length];
+    return {i: e.i, ring: e.ring, deg, ...G.at(inner ? G.rIn : G.rOut, deg)};
+  });
+}
 
 const strings = {
   en: {...AD_STRINGS.en, shared: 'Same in A and B (as supplied)', changed: 'Changed fact', guide: 'Only this differs', neutral: 'No winner, no conclusion: two groupings side by side', item: 'Consequence', inA: 'inner ring (A)', inB: 'outer ring (B)', asSupplied: 'as supplied'},
@@ -105,7 +130,7 @@ const RW_ = fieldW(), RH_ = fieldH();
 const BR_UP = FIELD.item * 1.2 + 0.1;
 
 /** Header chip: solid ●/◆ cue (equal weight, same colour) + "A · label" / "B · label". */
-function headChip(ctx, it, size, maxW, textOn) {
+function headChip(ctx, it, size, maxW, textOn, hMin = 0) {
   const th = ctx.theme;
   const R = size * 0.8;
   const fo = {maxWidth: maxW - 2 * R - 34, size, minSize: size, maxLines: 4, weight: 700};
@@ -114,7 +139,7 @@ function headChip(ctx, it, size, maxW, textOn) {
   const fit0 = textOn && it.text0 ? fitG(ctx, unwidow(gp(it.text0), t0 => fitG(ctx, t0, fo)), fo) : null;
   const tw = Math.max(fit ? fit.width : 0, fit0 ? fit0.width : 0), th0 = Math.max(fit ? fit.height : 0, fit0 ? fit0.height : 0);
   const w = 2 * R + (fit ? 16 + tw + 18 : 12);
-  const hh = Math.max(2 * R + 10, fit ? th0 + size * 0.8 : 0);
+  const hh = Math.max(2 * R + 10, fit ? th0 + size * 0.8 : 0, hMin);
   return {
     hasText0: Boolean(fit0), w, h: hh, bad: fit ? fit.truncated || fit.broken || Boolean(fit0 && (fit0.truncated || fit0.broken)) : false,
     build(x, y, name) {
@@ -175,7 +200,12 @@ function compose(ctx, base, cfg) {
   const hw = side ? Math.min(laneW * 0.4, 420) : laneW;
   const hk = `${size}|${Math.round(hw)}`;
   let heads = memo.heads.get(hk);
-  if (!heads) { heads = base.heads.map(it => headChip(ctx, it, size, hw, textOn)); memo.heads.set(hk, heads); }
+  if (!heads) {
+    // (A's and B's head chips get the same height: equal frames for the two compared groupings)
+    const h0 = Math.max(...base.heads.map(it => headChip(ctx, it, size, hw, textOn).h));
+    heads = base.heads.map(it => headChip(ctx, it, size, hw, textOn, h0));
+    memo.heads.set(hk, heads);
+  }
   if (heads.some(q => q.bad) && !cfg.force) return {bad: 'head'};
   const headH = Math.max(...heads.map(q => q.h));
   // the guide chip beside B's field (measured once)
@@ -202,7 +232,7 @@ function compose(ctx, base, cfg) {
   const measureBand = (items, w, lines, half) => {
     const mw = half === 2 ? (w - 36) / 3 : half ? (w - 18) / 2 : Math.min(w, 760);
     const bsz = textOn ? items.map(it => rangedChip(ctx, memo, `${it.key}|${lines}`, it, size, it.key === 'sharedHead' ? w : mw, lines)) : [];
-    const fl = flowRows(bsz, {x: 0, y: 0, w, gap: 18, rowGap: 10});
+    const fl = flowRows(bsz, {x: 0, y: 0, w, gap: 18, rowGap: ROW_GAP});
     return {bsz, bandH: bsz.length ? fl.bottom : 0, bad: bsz.some(q => q.bad || q.w > w + 0.5)};
   };
   const items = gband ? [base.guideItem, ...base.band] : base.band;
@@ -215,10 +245,10 @@ function compose(ctx, base, cfg) {
   }
   if ((shared.bad || (shared.low && shared.low.bad)) && !cfg.force) return {bad: 'shared'};
   if (textcol && shared.bandH > D.h) return {bad: 'col'};
-  const bandH = shared.low ? (shared.low.bandH ? shared.low.bandH + 16 : 0) : shared.bandH && !textcol ? shared.bandH + 16 : 0;
+  const bandH = shared.low ? (shared.low.bandH ? shared.low.bandH + BAND_GAP : 0) : shared.bandH && !textcol ? shared.bandH + BAND_GAP : 0;
   const avail = D.h - bandH - (arr !== 'row' ? gapL : 0);
   const perLaneH = arr === 'row' ? avail : avail / 2;
-  const innerH = perLaneH - (side ? 0 : headH) - 12 - (top && gc ? gc.box.h + 14 + 0 : 0);
+  const innerH = perLaneH - (side ? 0 : headH) - HEAD_GAP - (top && gc ? gc.box.h + 14 + 0 : 0);
   const PH = Math.min((laneW - gcW - 12) / RW_, (innerH - 16) / RH_);
   if (!(PH >= cfg.hMin)) return {bad: 'PH', PH};
   // the guide chip fits beside B's field, above B's floor (headSide: under B's head chip)
@@ -276,9 +306,9 @@ const scene = {
         const X = compose(ctx, base, {size, arr, half: arr === 'textcol' ? false : half, low, colF, headSide, guideTop, guideBand, wideGuide, hMin, dry: true});
         if (!X.cfg) { why.push(`${arr}/${half ? 'h' : ''}@${size}:${X.bad}${X.PH ? Math.round(X.PH) : ''}`); continue; }
         if (!best) best = X;
-        // each field (plate, objects, markers, floor) reaches >= 0.205 of the frame height when it can (subject floor
+        // each field (plate, objects, markers, floor) reaches >= 0.21 of the frame height when it can (subject floor
         // 0.20 + margin); then text at >= 20 (the 19.5 px baseline floor); then the larger field
-        const subj = (X.PH * RH_ + 16) * fs0 >= 0.2 * v0.height + 3 * v0.height / 1080;
+        const subj = (X.PH * RH_ + 16) * fs0 >= 0.21 * v0.height;
         const ok20 = s0 => s0 >= 20 - 1e-9;
         const key = q => [q.subj ? 1 : 0, ok20(q.size) ? 1 : 0, q.PH];
         X.subj = subj;
@@ -319,12 +349,11 @@ const scene = {
       const mw = RW_ * PH;
       const mx0 = x0 + Math.max(0, (L.laneW - mw - L.gcW) / 2);
       const F = y0 + L.laneH - 16;
-      const G = fieldGeom(mx0, F, PH);
+      const G = geom(mx0, F, PH);
       const head = L.headSide ? hd.build(G.x1 + 24, G.top + 2, i ? 'hB' : 'hA') : hd.build(x0 + (L.laneW - hd.w) / 2, y0, i ? 'hB' : 'hA');
       // the shared consequences (the focus one keeps the path at angle 0 free), the slots and the waiting spot
-      const places = itemPlaces(G, M, {[fi]: PATH_A}).filter(q => q.i !== fi);
       const at = rr => G.at(rr, PATH_A);
-      return {i, x0, y0, head, F, G, mx0, places, p0: at(R0 * PH), pIn: at(G.rIn), pOut: at(G.rOut)};
+      return {i, x0, y0, head, F, G, mx0, places: places(G, M, fi), p0: at(R0 * PH), pIn: at(G.rIn), pOut: at(G.rOut)};
     });
     const [, lb] = L.lanes;
     L.bx = [lb.pIn.x, lb.pOut.x];
@@ -346,13 +375,13 @@ const scene = {
       const sx = L.bx[1] + 4;
       L.guideLead = Math.abs(my - L.brY) < 1 ? `M${r(sx)} ${r(L.brY)}H${r(chipX)}` : `M${r(sx)} ${r(L.brY)}H${r(chipX - 12)}V${r(my)}H${r(chipX)}`;
     }
-    const sy = L.shared && L.shared.low ? lowY : y + 16;
+    const sy = L.shared && L.shared.low ? lowY : y + BAND_GAP;
     L.bandNodes = [];
     if (L.shared.bsz.length) {
       const pl = L.textcol
-        ? [...flowRows(L.shared.bsz, {x: MARGIN + L.laneW + 24, y: Math.max(0, (Dv.h - L.shared.bandH) / 2), w: L.colW, gap: 18, rowGap: 10}).placed,
-          ...(L.shared.low ? flowRows(L.shared.low.bsz, {x: MARGIN, y: sy, w: L.laneW, gap: 18, rowGap: 10, center: true}).placed : [])]
-        : flowRows(L.shared.bsz, {x: MARGIN, y: sy, w: full, gap: 18, rowGap: 10, center: true}).placed;
+        ? [...flowRows(L.shared.bsz, {x: MARGIN + L.laneW + 24, y: Math.max(0, (Dv.h - L.shared.bandH) / 2), w: L.colW, gap: 18, rowGap: ROW_GAP}).placed,
+          ...(L.shared.low ? flowRows(L.shared.low.bsz, {x: MARGIN, y: sy, w: L.laneW, gap: 18, rowGap: ROW_GAP, center: true}).placed : [])]
+        : flowRows(L.shared.bsz, {x: MARGIN, y: sy, w: full, gap: 18, rowGap: ROW_GAP, center: true}).placed;
       for (const q of pl) {
         const it = q.it.it;
         const st = it.key === 'changed' || it.key === 'guide' ? {fill: it.key === 'guide' ? th.card : th.accent2Soft, stroke: th.accent2} : it.key === 'sharedHead' ? {fill: th.paperShade, stroke: th.inkSoft} : {};

@@ -184,7 +184,11 @@ export function rdGeometry(R, o = {}) {
   }
   // the register board (inspect) below the counter, in the free lane
   const bd = o.board || null;
-  if (bd) {
+  if (bd && o.boardSide === 'right') {
+    // (boardSide 'right': the board stands beside the counter, on the right wall — a wide room for a wide box)
+    L.board = {x: L.counter.x + counterW + 40, y: Math.max(14, yTop + CH / 2 - bd.h / 2), w: bd.w, h: bd.h};
+    needH = Math.max(needH, L.board.y + bd.h + 30);
+  } else if (bd) {
     L.board = {x: L.counter.x + (counterW - bd.w) / 2, y: yTop + CH + 34, w: bd.w, h: bd.h};
     needH = Math.max(needH, L.board.y + bd.h + 30);
   }
