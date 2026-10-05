@@ -252,8 +252,8 @@ const scene = {
     const gP = C.gripAt(0, tP), gR = C.gripAt(1, tR);
     const hP = kRel > 0 ? mix(gP, C.rest[0], kRel) : mix(C.rest[0], gP, kReach);
     const hR = kRel > 0 ? mix(gR, C.rest[1], kRel) : mix(C.rest[1], gR, kReach);
-    const pp = L.armP.pose(C.shoulderFor(0, hP), hP, C.H ? 1 : -1);
-    const pr = L.armR.pose(C.shoulderFor(1, hR), hR, C.H ? -1 : 1);
+    const pp = L.armP.pose(C.shoulderFor(0, hP), hP, C.H ? -1 : 1);
+    const pr = L.armR.pose(C.shoulderFor(1, hR), hR, C.H ? 1 : -1);
     Object.assign(nodes, pp.nodes, pr.nodes);
     Object.assign(nodes, gateFrame('bd-gate', maintained ? 0 : 1));
     const kLit = maintained ? seg(ua, ...W.lit) : 0;
