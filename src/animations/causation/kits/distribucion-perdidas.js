@@ -379,13 +379,15 @@ export function maxScale(fits, lo, hi) {
 export function valueChip(ctx, text, {x, y, size, mw, name, stroke}) {
   const th = ctx.theme;
   const o = {x, y, anchor: 'middle', maxWidth: mw, size, minSize: size, maxLines: 2, fill: th.card, stroke: stroke ?? th.ink, name, weight: 650, padX: size * 0.42, padY: size * 0.3};
-  const c = chipG(ctx, text, o);
+  // (parentheticals kept whole, no one-word line)
+  const c = chipG(ctx, unwidow(glueN(text), q => chipG(ctx, q, o).fit), o);
   return {...c, bad: c.fit.truncated || c.fit.broken};
 }
 
 /** Measure a value chip without building (width / height). */
 export function valueChipSize(ctx, text, size, mw) {
-  const c = chipG(ctx, text, {x: 0, y: 0, maxWidth: mw, size, minSize: size, maxLines: 2, weight: 650, padX: size * 0.42, padY: size * 0.3});
+  const o = {x: 0, y: 0, maxWidth: mw, size, minSize: size, maxLines: 2, weight: 650, padX: size * 0.42, padY: size * 0.3};
+  const c = chipG(ctx, unwidow(glueN(text), q => chipG(ctx, q, o).fit), o);
   return {w: c.box.w, h: c.box.h, bad: c.fit.truncated || c.fit.broken};
 }
 

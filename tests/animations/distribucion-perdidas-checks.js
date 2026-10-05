@@ -562,11 +562,13 @@ export function lineBreakTest(id, at = [0.2, 0.5, 0.8, 1]) {
           const L = [...t.querySelectorAll('tspan')].map(q => (q.textContent || '').replace(/\\s+/g, ' ').trim()).filter(Boolean);
           if (L.length < 2) continue;
           const full = L.join(' / ');
-          for (const l of L) {
+          // (a glyph can only be stranded on a continuation line: a text that itself starts with a value, such as
+          // "40 hypothetical units (first list)", is not flagged on its first line)
+          L.forEach((l, li) => {
             if (!/\\s/.test(l)) out.push(tg + ' u=' + u + ': one-word line "' + l + '" in "' + full + '"');
             if (l.length <= 2) out.push(tg + ' u=' + u + ': stranded "' + l + '" in "' + full + '"');
-            if (/^[\\d→·.)]/.test(l)) out.push(tg + ' u=' + u + ': line starts with a stranded glyph "' + l + '" in "' + full + '"');
-          }
+            if (li > 0 && /^[\\d→·.)]/.test(l)) out.push(tg + ' u=' + u + ': line starts with a stranded glyph "' + l + '" in "' + full + '"');
+          });
           let depth = 0;
           L.forEach((l, i) => { for (const c of l) { if (c === '(') depth++; if (c === ')') depth--; } if (depth > 0 && i < L.length - 1) out.push(tg + ' u=' + u + ': parenthetical split in "' + full + '"'); });
         }

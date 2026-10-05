@@ -160,11 +160,23 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "pass",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and --safe dense frame strips at all ratios plus labels-hidden 9:16 viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0500/sheet-16x9-baseline.png"
+    ],
+    "findings": [
+      "9:16 fixed: contract and slip fill the safe box (only a thin bare desk strip below the lens); enlarged slip opens mid-frame with large text",
+      "1:1: contract top, slip below, legend right; fills safe box",
+      "16:9: lens parks below the slip, clear of the was: line",
+      "Labels-hidden 9:16 still reads isolate -> substitute (circle to diamond) -> back",
+      "Distinct inspect composition from LAW-0496; neutral wording, no doctrine"
+    ],
+    "sourceHash": "4e4f03dabe23e9a08a0a87e297f4ac2bc7e1eb0f4299f1c7d095ee695f0fc78d",
+    "renderFingerprint": "79200e800512682b3d7541286a229f79cbb6a56f40ba646ee04d9a0328446cf4",
+    "reviewedAt": "2026-10-05T21:47:11.775Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -181,24 +193,9 @@
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
   "thumb": "production/evidence/LAW-0500/thumb.png",
   "captureErrors": [],
-  "previousVisualReview": {
-    "status": "fail",
-    "reviewer": "claude subagent (independent reviewer, session 2)",
-    "method": "contact sheets and --safe dense strips (9:16, 1:1) plus labels-hidden 1:1 viewed as images; no real-time playback",
-    "live": null,
-    "artifacts": [
-      "production/evidence/LAW-0500/sheet-9x16-baseline.png"
-    ],
-    "findings": [
-      "1:1 fixed: contract on top, slip below, fills safe box, lens parked clear",
-      "DEFECT 9:16 t=0.10 and t=0.80 (context/back): lower ~35% of the safe box is bare desk; slip ~18% of width and its text ~8px. Enlarge slip (and lens) into the lower desk, or place the legend chips there during back as well as hold",
-      "DEFECT 9:16 t=0.30-0.70 isolate/substitute: enlarged slip sits in top half and the lower ~35% of the safe box is empty dark desk; center or enlarge the enlarged-slip view",
-      "DEFECT 16:9 t=0.80-1.00: lens rim still overlaps the bottom-left corner of the slip ('was:' line); park the lens fully clear",
-      "Distinct from LAW-0496; neutral wording"
-    ],
-    "sourceHash": "1d024f638957def64a0708ec45432cd77267013c54666c857a318f0b71f1f84e",
-    "renderFingerprint": "4921a8bd39b905862e7632330cab654c447eadfc72a90da4937b7280c27caf37",
-    "reviewedAt": "2026-10-05T21:41:45.784Z",
-    "invalidated": "source changed and rendered output differs from what was reviewed"
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
   }
 }

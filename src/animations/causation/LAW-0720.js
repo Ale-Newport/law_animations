@@ -199,7 +199,7 @@ const scene = {
     // the rail zone grows so the scene fills the box's height (lens to the right) — the lens keeps its size
     // (and the tray row spreads out to use the box's width)
     const minW = Math.max(0, (A.bw || D.w) - (st.lp === 'right' ? LGAP + q0.lw : 0) - 10);
-    const G = st.lp === 'right' ? stageGeom(A.S, M.n, fmax, {...st.go, drop: fillDrop(q0.G, A.bh), minW}) : st.lp === 'above' ? stageGeom(A.S, M.n, fmax, {...st.go, drop: Math.max(q0.drop ?? 0, fillDrop(q0.G, A.bh || D.h, 1.6)), minW}) : stageGeom(A.S, M.n, fmax, {...st.go, minW});
+    const G = st.lp === 'right' ? stageGeom(A.S, M.n, fmax, {...st.go, drop: fillDrop(q0.G, A.bh), minW}) : st.lp === 'above' ? stageGeom(A.S, M.n, fmax, {...st.go, drop: Math.min(1.6, (q0.drop ?? q0.G.dropMin) + Math.max(0, (A.bh || D.h) - q0.G.H) / A.S), minW}) : stageGeom(A.S, M.n, fmax, {...st.go, minW});
     const {z} = q0;
     const MG = 10, GAP = 26;
     const blockW = st.lp === 'right' ? G.W + LGAP + q0.lw : Math.max(G.W, q0.lw);

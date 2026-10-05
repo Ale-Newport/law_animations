@@ -307,7 +307,7 @@ function compose(ctx, base, cfg) {
       blockH = zg.zH + 30 + (arr === 'stack2' ? band.h : split ? Math.max(recH, band.h) : recH + (band.h ? 16 + band.h : 0));
       if (blockH > D.h) { lastWhy = `blockH${Math.round(blockH)}`; continue; }
       // spare height: the context sits high and the record (and band) at the foot of the box, so the scene spans the box
-      const top = Math.max(0, (D.h - blockH) * 0.05);
+      const top = 0;
       const sBack = Math.min(1, (0.45 * FU.w + 8) / full);
       room = {w: full, h: D.h - top - zg.zH * sBack - 16, sBack, top};
     }
