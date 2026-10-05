@@ -114,24 +114,23 @@ function compose(ctx, P, F, opts) {
     if (PL.h > DH) PL.ok = false;
   }
   // margins: the hands rest in the margins on both sides of the board
-  const mHand = Math.max(F * 2.8, 46), mSide = Math.max(F * 0.9, 16);
+  const mHand = opts.tight ? Math.max(F * 1.7, 32) : Math.max(F * 2.4, 42), mSide = Math.max(F * 0.9, 16);
   const inner = H ? {x: desk.x + mSide, y: desk.y + mHand, w: desk.w - mSide * 2, h: desk.h - mHand * 2}
     : {x: desk.x + mHand, y: desk.y + mSide, w: desk.w - mHand * 2, h: desk.h - mSide * 2};
-  const tagW = F * (H ? 13 : 10.5);
+  const tagW = F * (H ? 16 : 12);
   const planFor = cw => {
     const M = cardModel(P, {w: cw, F, showText: showKey});
-    const TM = tagModel(P, {w: tagW, F, maxLines: H ? 4 : 6});
+    const TM = tagModel(P, {w: tagW, F, maxLines: H ? 5 : 6});
     return {M, TM, B: boardPlan(M, TM, {F, orient})};
   };
-  const fits = q => q.B.w <= inner.w + 0.5 && q.B.h <= inner.h + 0.5;
-  let lo = F * 7.5, hi = Math.min(F * 15, H ? inner.w * 0.26 : inner.w * 0.4);
-  let best = planFor(lo);
-  if (fits(best)) {
-    for (let it = 0; it < 8; it++) {
-      const mid = (lo + hi) / 2;
-      const q = planFor(mid);
-      if (fits(q)) { lo = mid; best = q; } else hi = mid;
-    }
+  const fits = q => q.B.w <= inner.w + 0.5 && q.B.h <= inner.h + 0.5 && q.M.ok;
+  // (height falls and length grows with the card width: scan the widths, keep the widest that fits)
+  const lo = F * 8.6, hi = Math.max(lo, Math.min(F * (H ? 19 : 15), H ? inner.w * 0.34 : inner.w * 0.4));
+  let best = null;
+  for (let k = 0; k <= 8; k++) {
+    const q = planFor(hi - ((hi - lo) * k) / 8);
+    if (fits(q)) { best = q; break; }
+    if (!best) best = q;
   }
   let {M, TM, B} = best;
   // stretch the lanes along their axis to use the free length (more travel before the gate and more run after it)
@@ -146,6 +145,7 @@ function compose(ctx, P, F, opts) {
     }
   }
   const ox = inner.x + (inner.w - B.w) / 2, oy = inner.y + Math.max(0, (inner.h - B.h) / 2);
+  if (globalThis.DBG) console.log('  B', Math.round(B.w), Math.round(B.h), 'inner', Math.round(inner.w), Math.round(inner.h), 'M', Math.round(M.w), Math.round(M.h), 'desk', Math.round(desk.h));
   const problems = [!fits(best) && 'board', !M.ok && 'card-text', !TM.ok && 'tag-text', !B.ok && 'tag-calendar', PL && !PL.ok && 'panel-text'].filter(Boolean);
   // hands: grips on the outer edge of each card; shoulders outside the desk, tracking the hand along the lane
   const deskB = desk.y + desk.h, deskR = desk.x + desk.w;
@@ -200,10 +200,11 @@ const scene = {
         const s = B.wd * 0.3;
         return o({x: Math.min(a.x, b.x) - s, y: Math.min(a.y, b.y) - s, w: Math.abs(b.x - a.x) + s * 2, h: Math.abs(b.y - a.y) + s * 2});
       }
-      const p0 = B.pos(0, B.tEnd), p1 = B.pos(1, B.tEnd);
-      return o({x: Math.min(p0.x, p1.x), y: Math.min(p0.y, p1.y), w: Math.max(p0.x, p1.x) + M.w - Math.min(p0.x, p1.x), h: Math.max(p0.y, p1.y) + M.h - Math.min(p0.y, p1.y)});
+      // (cards: one ring round each card where it ends — a single ring would cross the tag between the lanes)
+      const p0 = B.pos(0, P.finalState === 'maintained' ? B.tEnd : B.tWait), p1 = B.pos(1, B.tEnd);
+      return [o({...p0, w: M.w, h: M.h}), o({...p1, w: M.w, h: M.h})];
     };
-    const rings = showAll ? P.annotations.filter(a => a.target !== 'calendar' || B.cal).map((a, i) => ringRect(tgt(a.target), notes[i % 2], 4)) : [];
+    const rings = showAll ? P.annotations.filter(a => a.target !== 'calendar' || B.cal).flatMap((a, i) => [tgt(a.target)].flat().map(b => ringRect(b, notes[i % 2], 4))) : [];
     return {P, C, armP, armR, rings, look: look0, pxu};
   },
   build(ctx, L) {

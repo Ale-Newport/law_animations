@@ -138,9 +138,11 @@ function compose(ctx, P, R, F, v) {
   // is where A's folder comes in (the other supplied points are listed in the shared strip)
   const ez = box.w * v.ez;
   const bbox = {x: box.x + ez, y: box.y, w: box.w - ez, h: box.h};
-  const B = boardModel(ctx, {orient: 'row', box: bbox, F, names: [P.routes.stations[R.target]], origin: P.routes.origin, showText: showKey, target: 0, slipN: R.notes.length, handRoom: F * 0.6, maxFw: 300, reviewW: 1.6, plateLines: v.pl ?? 3, plateExtL: ez * 0.75});
+  const B = boardModel(ctx, {orient: 'row', box: bbox, F, names: [P.routes.stations[R.target]], origin: P.routes.origin, showText: showKey, target: 0, slipN: R.notes.length, handRoom: F * 0.6, maxFw: 340, reviewW: v.rw ?? 1.1, plateLines: v.pl ?? 3, plateExtL: ez * 0.75});
+  // (B's notes slip arrives clipped to the folder, so the review mat needs no room for it: the slip is sized on the folder)
+  B.slipS = B.fw * 0.36;
   // (the calendar stands in the entry zone, left of the tray — the review mat's right side stays free)
-  problems.push(...B.problems.filter(q => q !== 'calendar-small'));
+  problems.push(...B.problems.filter(q => q !== 'calendar-small' && q !== 'slip-small'));
   {
     const S0 = B.slots[0];
     const cw = Math.min(B.fw * 0.42, S0.tray.x - box.x - F * 0.9);
@@ -188,9 +190,9 @@ const scene = {
     const P = localisedDn(ctx, EN, ES);
     const R = resolveDn(P);
     const shape = ctx.view.shape;
-    const vs = shape === 'landscape' ? [3, 2].flatMap(sc => [0.3, 0.24].map(ez => ({arr: 'row', ez, sc})))
-      : shape === 'portrait' ? [0.3, 0.24].map(ez => ({arr: 'column', ez, sc: 2}))
-        : [0.2, 0.15].flatMap(ez => [3, 4].map(pl => ({arr: 'row', ez, sc: 2, pl})));
+    const vs = shape === 'landscape' ? [4].flatMap(sc => [0.24, 0.3].map(ez => ({arr: 'row', ez, sc})))
+      : shape === 'portrait' ? [0.24, 0.3].flatMap(ez => [3, 2].map(sc => ({arr: 'column', ez, sc})))
+        : [0.18, 0.14].flatMap(ez => [3, 4].map(pl => ({arr: 'row', ez, sc: 2, pl})));
     let C = null, best = null;
     outer: for (const F of SIZES) for (const v of vs) {
       const c = compose(ctx, P, R, F, v);

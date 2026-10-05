@@ -17,8 +17,8 @@ import {bannedDataTest, bannedRenderTest, jurisdictionTest, stressLongerTest, li
 
 const ID = 'LAW-0714';
 const P = name => presetsFor(ID).find(q => q.name === name).params;
-// every connector ends on (or at the rim of) its element; the convergence piece → laneB link ends on the strip of the laneB panel
-const ANCHORED = "s.linkEnds.every(l => [['from', l.a], ['to', l.b]].every(([k, pt]) => { const id = l[k]; if (id === 'laneB' && (l.from === 'convergence' || l.to === 'convergence')) return Math.hypot(pt.x - s.spot.x, pt.y - s.spot.y) < 1; const b = s.boxes[id]; if (!b) return false; const dx = Math.max(b.x - pt.x, 0, pt.x - b.x - b.w), dy = Math.max(b.y - pt.y, 0, pt.y - b.y - b.h); return Math.hypot(dx, dy) <= 16 && !(pt.x > b.x + 1 && pt.x < b.x + b.w - 1 && pt.y > b.y + 1 && pt.y < b.y + b.h - 1); }))";
+// every connector ends on (or at the rim of) its element
+const ANCHORED = "s.linkEnds.every(l => [['from', l.a], ['to', l.b]].every(([k, pt]) => { const id = l[k]; const b = s.boxes[id]; if (!b) return false; const dx = Math.max(b.x - pt.x, 0, pt.x - b.x - b.w), dy = Math.max(b.y - pt.y, 0, pt.y - b.y - b.h); return Math.hypot(dx, dy) <= 16 && !(pt.x > b.x + 1 && pt.x < b.x + b.w - 1 && pt.y > b.y + 1 && pt.y < b.y + b.h - 1); }))";
 
 contractSuite(ID, {
   continuity: ['laneA', 'laneB', 'tracer'],
@@ -31,7 +31,7 @@ contractSuite(ID, {
     {at: 1, fn: `s.keyShown && s.focus === 1 && s.tracerOn === 0 && !s.causalShown && s.kinds.includes('relation') && ${ANCHORED}`, label: 'hold: every connector ends on its element; no causal arrow by default; key shown'},
     {at: 1, fn: "s.kinds.every((k, i) => (k === 'relation') === !s.arrows[i])", label: 'a plain relation never gets an arrowhead'},
     {at: 1, params: P('contrast-or-alternative'), fn: `s.causalShown && s.kinds.filter(k => k === 'causal').length === 1 && s.kinds.includes('sequence') && s.kinds.includes('communication') && ${ANCHORED}`, label: 'alternative: the supplied causal, sequence and communication links with their kinds (causal only where supplied)'},
-    {at: 1, params: {relationships: [{from: 'laneA', to: 'laneB', kind: 'causal'}, {from: 'convergence', to: 'laneB', kind: 'relation'}]}, fn: `s.causalShown && s.kinds.filter(k => k === 'causal').length === 1 && ${ANCHORED}`, label: 'a causal arrow appears only when the author supplies kind causal (exactly that one)'},
+    {at: 1, params: {relationships: [{from: 'laneA', to: 'convergence', kind: 'causal'}, {from: 'laneB', to: 'convergence', kind: 'relation'}]}, fn: `s.causalShown && s.kinds.filter(k => k === 'causal').length === 1 && ${ANCHORED}`, label: 'a causal arrow appears only when the author supplies kind causal (exactly that one)'},
     {at: 0.9, params: {textVisibility: 'none'}, fn: 's.split === 1 && s.drawn.every(d => d === 1)', label: 'labels hidden: the same separation and relationships'},
   ],
 });
@@ -110,7 +110,7 @@ ratioChecks(ID, 'no connector through a card or element it does not join (render
 
 
 ratioChecks(ID, 'equal weight of the two lane pieces (rendered)', [
-  {at: [1], dom: "(() => { const a = svg.querySelector('[data-node=\"ob\"]').getBoundingClientRect(), b = svg.querySelector('[data-node=\"oa\"]').getBoundingClientRect(); return Math.abs(a.width - b.width) < 1 && Math.abs(a.height - b.height) < 1; })()", label: 'the lane A and lane B pieces are drawn at the same size'},
+  {at: [1], dom: "(() => { const a = svg.querySelector('[data-node=\"st-laneA\"]').getBoundingClientRect(), b = svg.querySelector('[data-node=\"st-laneB\"]').getBoundingClientRect(); return Math.abs(a.width - b.width) < 1 && Math.abs(a.height - b.height) < 1; })()", label: 'the lane A and lane B pieces stand on plinths of the same size (their slabs are identical; only the supplied steps differ)'},
 ]);
 // no tokens: the convergence piece and each lane piece stay real objects
 noTokenTest(ID, ['el-convergence'], [0.3, 1]);

@@ -2,20 +2,23 @@
  * LAW-0498 — Cláusula de terminación · mechanism
  *
  * Storyboard (the contract taken apart into its parts; no people):
- *  0.00–0.18  separate: the assembled contract (head plate over the two panels) comes apart — the plate lifts, the circumstance
- *             panel ("Circumstance": the circumstance card "Circumstance 1 (supplied)" with its supplied state row, ● provided or ◆ undescribed,
- *             drawn alike) slides left and the section panel ("Section of clauses": the supplied clause cards,
- *             with the bracket "[" standing open in its track at their left) slides right.
+ *  0.00–0.18  separate: the assembled contract (head plate over the two panels) comes apart — the plate lifts, the
+ *             circumstances panel ("Circumstances and communications": the card "Communication 1 (supplied)" with its
+ *             supplied case row, ● provided for or ◆ not described, drawn alike) slides left and the clause panel
+ *             ("Termination clause": its supplied sections, with the connector bracket "[" standing open in its track at
+ *             their left) slides right.
  *  0.18–0.43  relate: only the explicit relations are drawn, all plain (no arrowhead, no causality): the contract with
- *             each panel ("Part of the contract") and the supplied configured link between the circumstance card and the
- *             bracket's knob ("Configured link (as supplied)"), drawn from both ends at once.
- *  0.43–0.75  trace: a neutral marker runs the supplied stages along the relations — contract, circumstance, link, section —
- *             while the focus element enlarges. When it reaches the knob, with the state "provided" the bracket slides
- *             shut on the supplied section (it MARKS the section, nothing else); with "undescribed" it stays open.
- *  0.75–1.00  gather: the parts close in part with every element, relation and label visible; "Section marked as
- *             supplied" (or "Section not marked · as supplied") and the key "As supplied · no conclusion drawn".
- * No rule on conditions: no fulfilment, no automatic effect, no clause becoming due, binding or enforceable; no
- * jurisdiction. The configured link is a plain relation, never a cause.
+ *             each panel ("Part of the contract") and — only where the case is supplied as provided for — the
+ *             communication relation between the card and the bracket's knob ("Communication (as supplied)"), drawn
+ *             from both ends at once.
+ *  0.43–0.75  trace: a neutral marker runs the supplied stages along the relations — contract, communication card, link,
+ *             section — while the focus element enlarges. When it reaches the knob the bracket slides shut on the
+ *             supplied section: the section is connected. With "not described" no link is drawn, the marker stops at the
+ *             card and the bracket stays open — neutral, no conclusion.
+ *  0.75–1.00  gather: the parts close in part with every element, relation and label visible; "Section connected as
+ *             supplied" (or "No connection supplied") and the key "As supplied · no conclusion drawn".
+ * No termination doctrine: no right or ground to terminate, no notice period or time limit, no effect, no validity
+ * judgement, no jurisdiction. The communication link is a plain relation, never a cause.
  * @module animations/contract-terms/LAW-0498
  */
 import {defineAnimation} from '../../core/define.js';
@@ -49,11 +52,11 @@ const CLOSE = 0.06;
 
 const sceneSchema = {
   ...motifFields,
-  caseState: oneOf('The supplied state of the circumstance: provided (the bracket slides shut on the supplied section) or undescribed (the bracket stays open). Equal weight; nothing is inferred from either', STATES),
-  relationships: list('Relations drawn, as supplied: "part" (the contract with each panel) and "config" (the configured link between the circumstance card and the bracket). All are plain relations: no arrowhead, no causality', oneOf('Relation kind', ['part', 'config']), 1, 2),
+  caseState: oneOf('The supplied case: provided (provided for: the communication link is drawn and the bracket slides shut on the supplied section) or undescribed (not described: no link, the bracket stays open). Equal weight; nothing is inferred from either', STATES),
+  relationships: list('Relations drawn, as supplied: "part" (the contract with each panel) and "config" (the communication link between the card and the bracket, drawn only when the case is provided for). All are plain relations: no arrowhead, no causality', oneOf('Relation kind', ['part', 'config']), 1, 2),
   relationLabels: obj('Labels of the relations', {
     part: str('Label of the contract–panel relation', 40),
-    config: str('Label of the configured link', 50),
+    config: str('Label of the communication link', 50),
   }, ['part', 'config']),
   focusElement: oneOf('The element that enlarges while the marker runs', FOCI),
   traversalOrder: list('Stages the marker runs (always along the relations, in this order): contract, circumstance, link, section', oneOf('Stage', STAGES), 1, 4),
@@ -63,14 +66,14 @@ const defaultParams = {
   ...DEFAULT_CONTENT,
   caseState: 'provided',
   relationships: ['part', 'config'],
-  relationLabels: {part: 'Part of the contract', config: 'Configured link (as supplied)'},
+  relationLabels: {part: 'Part of the contract', config: 'Communication (as supplied)'},
   focusElement: 'circumstance',
   traversalOrder: ['contract', 'circumstance', 'link', 'section'],
 };
 
 const defaultParamsEs = {
   ...DEFAULT_CONTENT_ES,
-  relationLabels: {part: 'Parte del contrato', config: 'Enlace configurado (según lo aportado)'},
+  relationLabels: {part: 'Parte del contrato', config: 'Comunicación (según lo aportado)'},
 };
 
 function unitPx(ctx) {
@@ -87,7 +90,7 @@ function solve(ctx, p, F, upx, box, labelMode) {
   const ci = F * 0.42;
   const hasConfig = p.relationships.includes('config');
   const hasPart = p.relationships.includes('part');
-  // the configured link's label (in the gutter, on the link)
+  // the communication link's label (in the gutter, on the link)
   const linkFit = show && hasConfig ? fitG(p.relationLabels.config, {maxWidth: F * 11, size: F, maxLines: 3, weight: 600}) : null;
   if (linkFit && linkFit.bad) return null;
   const lw = linkFit ? linkFit.width + F * 1.2 : F * 2;
@@ -191,10 +194,13 @@ const scene = {
       L.notes.push({name: nm, c});
       y += c.box.h + F * 0.4;
     }
-    L.stages = STAGES.filter(s => p.traversalOrder.includes(s) && (s !== 'link' || L.hasConfig));
-    if (!L.stages.length) L.stages = ['contract'];
-    L.focus = p.focusElement;
     L.provided = p.caseState === 'provided';
+    // (the connection is drawn only where it is supplied: with "not described" no link is drawn and the marker stops at
+    // the communication card — it never runs on to the section; the layout is the same in both cases)
+    L.drawLink = L.hasConfig && L.provided;
+    L.stages = STAGES.filter(s => p.traversalOrder.includes(s) && (s !== 'link' || L.drawLink) && (s !== 'section' || L.drawLink || !L.hasConfig));
+    if (!L.stages.length) L.stages = [STAGES.find(s => p.traversalOrder.includes(s) && s !== 'link' && s !== 'section') ?? 'contract'];
+    L.focus = p.focusElement;
     // when the marker reaches the knob, the bracket slides (provided): the first moment (u step 0.001) at which the marker,
     // on the route as it is drawn then (focus included), has reached the knob; the slide takes CLOSE after it
     let uK = null;
@@ -287,8 +293,8 @@ const scene = {
       nodes[`rel-part-${s}-a`] = {cx: r(ln.a.x), cy: r(ln.a.y), opacity: r(seg(rp, 0.9, 1), 3)};
       nodes[`rel-part-${s}-b`] = {cx: r(ln.b.x), cy: r(ln.b.y), opacity: r(seg(rp, 0.9, 1), 3)};
     }
-    // the configured link: from the circumstance card's port and from the knob at once, joined in the middle
-    const lp = L.hasConfig ? seg(u, ...W.link) : 0;
+    // the communication link: from the circumstance card's port and from the knob at once, joined in the middle
+    const lp = L.drawLink ? seg(u, ...W.link) : 0;
     const lf = L.focus === 'link' ? fz : 0;
     if (L.hasConfig) {
       const pa = G.port, pb = G.knob;
@@ -303,7 +309,7 @@ const scene = {
       nodes['link-pb'] = {cx: r(pb.x, 2), cy: r(pb.y, 2), r: r(Math.max(6, F * 0.24) * (1 + 0.5 * lf), 2), opacity: r(seg(lp, 0, 0.1), 3)};
     }
     for (const lb of L.labels) {
-      const op = lb.k === 'config' ? seg(u, ...W.linkLabel) : seg(u, ...W.relLabels);
+      const op = lb.k === 'config' ? (L.drawLink ? seg(u, ...W.linkLabel) : 0) : seg(u, ...W.relLabels);
       const d = labelShift(L, G, lb);
       nodes[`lab-${lb.k}${lb.s}`] = {opacity: r(op, 3), transform: T(r(d.x, 2), r(d.y, 2))};
     }
@@ -322,7 +328,7 @@ const scene = {
       nodes,
       semantic: {
         beat, exploded: r(ex, 3), focus: L.focus, focusScale: r(fz, 3), relations: rp > 0.99 && L.hasPart ? ['part'] : [],
-        linkProgress: r(lp, 3), tracer: {x: r(q.x), y: r(q.y)}, stages: L.stages,
+        linkProgress: r(lp, 3), linkDrawn: lp > 0, tracer: {x: r(q.x), y: r(q.y)}, stages: L.stages,
         markerPastKnob: route.stageIdx.link === undefined ? null : u >= W.trace[0] && ease.inOutSine(clamp(tr)) >= route.cum[route.stageIdx.link] / (route.tot || 1) - 1e-6,
         bracket: br >= 1 ? 'closed' : br > 0 ? 'moving' : 'open', caseState: L.provided ? 'provided' : 'undescribed',
         linkEnds: L.hasConfig ? [G.port.x, G.port.y, G.knob.x, G.knob.y].map(v => r(v)) : null,
@@ -384,7 +390,7 @@ function geometry(L, {ex, exP = ex, sc, br}) {
 
 /**
  * The marker's route (always along the relations): the plate's left foot → the circumstance panel's top edge → down the
- * panel's right side (in the gutter) to the circumstance card's port → along the configured link to the knob → the bracket's
+ * panel's right side (in the gutter) to the circumstance card's port → along the communication link to the knob → the bracket's
  * spine. The supplied stages pick the part of the route that runs between the first and the last of them.
  */
 function routeOf(L, G) {
@@ -502,15 +508,15 @@ export default defineAnimation({
   metadata: makeMetadata({
     id: ID,
     slug: 'contract-terms-05-mechanism',
-    title: 'Activation circumstance, without a rule — the contract taken apart: circumstance card, configured link, bracket and section as supplied',
+    title: 'Termination clause, without doctrine — the contract taken apart: communication card, communication link, connector bracket and section as supplied',
     titleEs: 'Cláusula de terminación — Mecanismo o relación explicada',
     category: 'contract-terms',
     categoryName: 'Contenido y cláusulas',
     motif: 'Cláusula de terminación',
     treatment: 'mechanism',
     family: 'spatial-mechanism',
-    description: 'The assembled contract comes apart: the head plate lifts, the circumstance panel (the circumstance card "Circumstance 1 (supplied)" with its supplied state, ● provided or ◆ undescribed, drawn alike) slides left and the section panel (the supplied clause cards, with a neutral bracket open in its track) slides right. Only explicit plain relations are drawn, with no arrowheads: the contract with each panel and the supplied configured link between the circumstance card and the bracket\'s knob. A neutral marker runs the supplied stages along the relations while the focus element enlarges; with the state "provided" the bracket then slides shut on the supplied section — it only marks it. The parts close in part with everything visible, "Section marked as supplied" (or not marked) and the key "As supplied · no conclusion drawn".',
-    tags: ['activation circumstance', 'circumstance', 'section', 'bracket', 'exploded view', 'layers', 'relation', 'configured link', 'tracer'],
+    description: 'The assembled contract comes apart: the head plate lifts, the circumstances panel (the card "Communication 1 (supplied)" with its supplied case, ● provided for or ◆ not described, drawn alike) slides left and the termination-clause panel (its supplied sections, with a neutral connector bracket open in its track) slides right. Only explicit plain relations are drawn, with no arrowheads: the contract with each panel and — where the case is provided for — the communication link between the card and the bracket\'s knob. A neutral marker runs the supplied stages along the relations while the focus element enlarges; on reaching the knob the bracket slides shut on the supplied section. With "not described" no link is drawn and the bracket stays open. The parts close in part with everything visible, "Section connected as supplied" (or "No connection supplied") and the key "As supplied · no conclusion drawn".',
+    tags: ['termination clause', 'section', 'communication', 'connector', 'bracket', 'exploded view', 'layers', 'relation', 'tracer'],
     defaultDurationMs: DURATION,
     assets: ['src/animations/contract-terms/kits/clausula-terminacion.js', 'src/primitives/annotate.js'],
   }),

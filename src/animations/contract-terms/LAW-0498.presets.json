@@ -1,50 +1,114 @@
 {
   "animationId": "LAW-0498",
-  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the circumstance and the clauses are generic placeholders, never real contract text. \"Provided\" and \"undescribed\" are supplied states of the circumstance, of equal weight (● and ◆ of the same area, colour and stroke); the configured link is a plain relation (no arrowhead, never a cause) and the bracket only MARKS the supplied section. No rule on conditions is stated: no condition precedent or subsequent, no fulfilment, no automatic effect, no clause that becomes due, binding or enforceable, and no jurisdiction. Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): clauses (the circumstance card and the clause cards stand for the clauses), schedules, definitions, priorities (no priority or order between clauses is drawn) and elements (the elements are the motif's own objects — contract plate, circumstance panel and card, section panel and cards, bracket — whose texts are editable through contract, panels, circumstance, stateLabels and clauses). No stress field is capped.",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the communication and the sections of the termination clause are generic placeholders, never real contract text or notices. \"Provided for\" and \"not described\" are supplied cases of equal weight (● and ◆ of the same area, colour and stroke); the connector bracket and cord only show the connection that is supplied. No termination doctrine is stated: no ground or right to terminate, no notice period or time limit, no effect, no validity or sufficiency judgement, and no jurisdiction; the case \"not described\" is neutral (no conclusion). Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): schedules, definitions and priorities (no priority or order between sections is drawn); clauses = the sections of the termination clause. No stress field is capped.",
   "presets": [
     {
       "name": "baseline-illustrative",
-      "description": "Fictional contract taken apart: circumstance panel, configured link, bracket and section (clauses 1–2 of 3); the state provided, so the bracket slides shut on the section; the circumstance card in focus.",
+      "description": "Fictional contract taken apart: the part relations, the communication link (case provided for, as supplied), the marker along contract → card → link → section, and the bracket shut on section 2 of 3.",
       "params": {}
     },
     {
       "name": "contrast-or-alternative",
-      "description": "Substantive alternative: another contract, two clauses, the section 2–2, the state undescribed (the bracket stays open), the section panel in focus and the marker from the circumstance to the section.",
+      "description": "Substantive alternative: other contract, two sections, section 1, the case not described and the section panel as focus: no communication link is drawn, the marker stops at the card and the bracket stays open — neutral, as supplied.",
       "params": {
-        "contract": {"reference": "CT-604", "title": "Service contract (fictional)"},
-        "circumstance": {"label": "Circumstance 2 (supplied)"},
-        "clauses": ["Task 1 (supplied text)", "Task 2 (supplied text)"],
-        "section": {"from": 2, "to": 2},
         "caseState": "undescribed",
         "focusElement": "section",
-        "traversalOrder": ["circumstance", "link", "section"]
+        "traversalOrder": [
+          "circumstance",
+          "link",
+          "section"
+        ],
+        "contract": {
+          "reference": "CT-608",
+          "title": "Service contract (fictional)"
+        },
+        "circumstance": {
+          "label": "Communication 2 (supplied)"
+        },
+        "clauses": [
+          "Section A (supplied text)",
+          "Section B (supplied text)"
+        ],
+        "section": {
+          "from": 1,
+          "to": 1
+        }
       }
     },
     {
       "name": "long-labels-stress",
-      "description": "Long labels: a long contract heading, long panel headings, a long circumstance label and state wording, three long clauses, the section 1–3 and long relation labels; the link in focus.",
+      "description": "Long labels: a long contract heading, long panel headings, a long card label and case wording, three long sections, sections 2–3 and long relation labels.",
       "params": {
-        "contract": {"reference": "CONTRACT-2026-0517", "title": "Contract with an circumstance panel and a section of clauses (fictional)"},
-        "panels": {"circumstance": "Circumstance named in the contract", "section": "Section of clauses, as listed here"},
-        "circumstance": {"label": "Circumstance 1, as named in this fictional contract (supplied)"},
-        "stateLabels": {"provided": "Circumstance provided, exactly as supplied in this example", "undescribed": "Circumstance undescribed, exactly as supplied in this example"},
-        "clauses": ["Clause 1, first item listed in the section panel (supplied text)", "Clause 2, second item listed in the section panel (supplied text)", "Clause 3, third item listed in the section panel (supplied text)"],
-        "section": {"from": 1, "to": 3},
-        "relationLabels": {"part": "Part of this fictional contract", "config": "Link between card and bracket (as supplied)"},
-        "focusElement": "link"
+        "relationLabels": {
+          "part": "Part of this fictional contract",
+          "config": "Communication from card to bracket (as supplied)"
+        },
+        "focusElement": "link",
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "contract": {
+          "reference": "CONTRACT-2026-0523",
+          "title": "Contract with a panel of communications and a termination clause (fictional)"
+        },
+        "panels": {
+          "circumstance": "Circumstances and communications, as supplied",
+          "section": "Termination clause, sections as listed here"
+        },
+        "circumstance": {
+          "label": "Communication 1, named in this fictional contract (supplied)"
+        },
+        "stateLabels": {
+          "provided": "Case provided for, exactly as supplied in this example",
+          "undescribed": "Case not described, exactly as supplied in this example"
+        },
+        "clauses": [
+          "Section 1, first item listed in the clause panel (supplied text)",
+          "Section 2, second item listed in the clause panel (supplied text)",
+          "Section 3, third item listed in the clause panel (supplied text)"
+        ],
+        "section": {
+          "from": 2,
+          "to": 3
+        }
       }
     },
     {
       "name": "baseline-es",
-      "description": "Línea de base en español: el contrato se separa en sus partes; el enlace configurado une la tarjeta de la comunicación con el corchete, que se cierra sobre el apartado aportado.",
+      "description": "Línea de base en español: el contrato se separa; relaciones de parte, el enlace «Comunicación (según lo aportado)» (supuesto previsto), el marcador y el conector cerrado sobre el apartado 2 de 3.",
       "params": {
         "locale": "es",
-        "contract": {"reference": "CT-517", "title": "Contrato (ficticio)"},
-        "panels": {"circumstance": "Comunicación", "section": "Cláusula de terminación"},
-        "circumstance": {"label": "Comunicación 1 (aportado)"},
-        "stateLabels": {"provided": "Comunicación previsto (según lo aportado)", "undescribed": "Comunicación no descrito (según lo aportado)"},
-        "clauses": ["Apartado 1 (texto aportado)", "Apartado 2 (texto aportado)", "Apartado 3 (texto aportado)"],
-        "relationLabels": {"part": "Parte del contrato", "config": "Enlace configurado (según lo aportado)"}
+        "relationLabels": {
+          "part": "Parte del contrato",
+          "config": "Comunicación (según lo aportado)"
+        },
+        "contract": {
+          "reference": "CT-523",
+          "title": "Contrato (ficticio)"
+        },
+        "panels": {
+          "circumstance": "Circunstancias y comunicaciones",
+          "section": "Cláusula de terminación"
+        },
+        "circumstance": {
+          "label": "Comunicación 1 (aportada)"
+        },
+        "stateLabels": {
+          "provided": "Supuesto previsto (según lo aportado)",
+          "undescribed": "Supuesto no descrito (según lo aportado)"
+        },
+        "clauses": [
+          "Apartado 1 (texto aportado)",
+          "Apartado 2 (texto aportado)",
+          "Apartado 3 (texto aportado)"
+        ]
       }
     }
   ]

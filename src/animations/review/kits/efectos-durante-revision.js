@@ -122,7 +122,7 @@ export function cardModel(P, o) {
     app = {gr, h: gr.height};
   }
   const bodyH = o.showText ? Math.max(dec.h, app.h) : F * 2.6;
-  const hh = Math.max(o.minH ?? 0, stripe + pad * 1.6 + bodyH, w * 0.42);
+  const hh = Math.max(o.minH ?? 0, stripe + pad * 1.6 + bodyH, w * (o.minK ?? 0.3));
   return {w, h: hh, F, pad, stripe, tw, dec, app, ok, showText: o.showText};
 }
 
@@ -294,12 +294,12 @@ export function boardPlan(M, TM, o) {
   const wd = across + pad * 2;
   const disc = Math.min(wd * 0.5, F * 2.4);
   const tStart = pad + disc + pad;
-  const travel = o.travel ?? Math.max(along * 0.6, F * 4.5);
+  const travel = o.travel ?? Math.max(along * 0.3, F * 3.5);
   const tWait = tStart + travel;
   const gThk = Math.max(F * 2.1, 34);
   const gapS = Math.max(F * 0.7, 12);
   const gT = tWait + along + gapS + gThk / 2;
-  const run = o.run ?? Math.max(along * 0.85 + F * 1.5, F * 6);
+  const run = o.run ?? Math.max(along * 0.3, F * 4.5);
   const tEnd = gT + gThk / 2 + gapS + run;
   const len = tEnd + along + pad;
   const calW = F * 3.4, calH = calW * 0.86;

@@ -180,11 +180,28 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0347/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0347/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0347/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0347/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0347/sheet-9x16-alternative.png",
+      "production/evidence/LAW-0347/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0347/sheet-16x9-es.png"
+    ],
+    "findings": [
+      "1:1: both scenes tiny (~130x60px each, cards ~25px), ~50% frame empty below legend - stack A/B vertically at 1:1 and scale up",
+      "16:9: scene cards ~60-100px with no text; lower ~25% empty - enlarge scenes",
+      "9:16: ~20% empty bottom band",
+      "scene cards carry no labels so A/B difference relies on legend"
+    ],
+    "sourceHash": "627f11d5bb926a73502c63e636171398605b361e409e25640901fbec59b514cd",
+    "renderFingerprint": "901ec1414504de0743c0eb38d90abcea531421874d9cc0df5f97bce371fcaea6",
+    "reviewedAt": "2026-10-05T19:01:55.293Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -201,5 +218,10 @@
   "renderFingerprint": "901ec1414504de0743c0eb38d90abcea531421874d9cc0df5f97bce371fcaea6",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.3,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0347/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

@@ -165,11 +165,28 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0346/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0346/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0346/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0346/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0346/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0346/sheet-16x9-es.png"
+    ],
+    "findings": [
+      "1:1: diagram occupies top ~45%; ~50% empty below; slot mini-cards ~50px - scale layout to fill",
+      "16:9: lower ~25% empty, slots/mini-cards small (~90x30px)",
+      "9:16: lower ~20% empty, elements small",
+      "mini-card move between slots not visible in sheets (0.55->0.72 appears as swap) - verify continuous transit path and make it legible",
+      "reads as generic boxes+arrows diagram"
+    ],
+    "sourceHash": "3ce1d0886794a7743e273eeab2917b68caae6921fe48d47b618a35de5bbc2316",
+    "renderFingerprint": "ef1173a71e347d8c0e0eabf181a52946d253b441bc50948412557c761c38a6e9",
+    "reviewedAt": "2026-10-05T19:01:55.133Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -185,5 +202,10 @@
   "renderFingerprint": "ef1173a71e347d8c0e0eabf181a52946d253b441bc50948412557c761c38a6e9",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.12,0.35,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0346/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }
