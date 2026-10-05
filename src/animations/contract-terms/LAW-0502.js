@@ -24,7 +24,7 @@ import {roundRectPath} from '../../core/geometry.js';
 import {str, obj, list, int, oneOf, annotation} from '../../schemas/fields.js';
 import {
   INK, CONTENT, CONTENT_ES, KIT_STRINGS, contractField, clauseTitleField, clausesField, categoriesField, statusLabelsField,
-  localizeScene, unitPx, fitG, chipG, txt, statusGlyph, tileArt, tileTextX, contourGeom, contourNode, clauseOf, worstStatus,
+  localizeScene, unitPx, fitG, chipG, txt, statusGlyph, tileArt, tileTextX, contourGeom, contourNode, clauseOf,
 } from './kits/limitacion-contractual.js';
 
 const ID = 'LAW-0502';
@@ -61,7 +61,7 @@ const defaultParamsEs = {
   layerLabels: {clause: 'Capa 1 · Texto de la cláusula', contour: 'Capa 2 · Contorno', category: 'Capa 3 · Categorías'},
 };
 
-const isStress = p => [...p.clauses, ...p.categories.map(c => c.label), p.contract.title, p.statusLabels.included, p.statusLabels.review, p.clauseTitle].some(t => t.length > 40) || p.annotations.length > 1;
+const isStress = p => [...p.clauses, ...p.categories.map(c => c.label), p.contract.title, p.statusLabels.included, p.statusLabels.review, p.clauseTitle].some(t => t.length > 45) || p.annotations.length > 1;
 
 function geom(ctx, F, minF) {
   const p = ctx.params;
@@ -74,26 +74,30 @@ function geom(ctx, F, minF) {
   const pad = 16;
   // notes
   const notes = [];
+  if (show) ['included', 'review'].forEach((st, i) => notes.push({name: `leg${i}`, kind: 'leg', status: st, text: p.statusLabels[st]}));
   if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
   if (show) p.annotations.forEach((an, i) => notes.push({name: `note${i}`, kind: 'note', text: an.text, target: an.target}));
   const gap = 14;
-  const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: '#ffffff'});
+  const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: Math.max(F * 0.95, minF), minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: '#ffffff', glyph: q.kind === 'leg' ? (gx, gy, rr) => statusGlyph(ctx, q.status, gx, gy, rr) : null});
   // sheets
   const n = p.categories.length;
   let S, S0, S2, pos, notesBox;
+  const gridCols = Math.min(notes.length, wide ? 4 : shape === 'square' ? 3 : 2);
+  const gridW = nw0 => (nw0 - gap * (gridCols - 1)) / Math.max(1, gridCols);
+  const gridH = nw0 => { if (!notes.length) return 0; let hsum = 0; for (let k = 0; k < notes.length; k += gridCols) hsum += Math.max(...notes.slice(k, k + gridCols).map(q => chipOf(q, 0, 0, gridW(nw0)).box.h)) + gap; return hsum - gap; };
   const tabFit = t => fitG(t, {maxWidth: (wide ? D.w * 0.29 : shape === 'square' ? D.w * 0.4 : D.w * 0.7) - 40, size: F, minSize: minF, maxLines: 2, weight: 800});
   const tabs = [tabFit(p.layerLabels.clause), tabFit(p.layerLabels.contour), tabFit(p.layerLabels.category)];
   const tabH = Math.max(...tabs.map(t => t.height), F * 2.36) + 22;
   if (wide) {
     const nw = notes.length ? D.w - pad * 2 : 0;
-    const nh = notes.length ? Math.max(...notes.map(q => chipOf(q, 0, 0, (nw - gap * (notes.length - 1)) / notes.length).box.h)) : 0;
+    const nh = gridH(nw);
     const step = (D.w - pad * 2) / 3.02;
     S = {w: step - 26, h: D.h - pad * 2 - 40 - (nh ? nh + 24 : 0) - tabH};
     pos = [0, 1, 2].map(i => ({x: pad + i * (step + 4) + 2, y: pad + tabH + 40 - i * 20}));
     notesBox = {x: pad, y: D.h - pad - nh, w: nw, h: nh, row: true};
   } else if (shape === 'square') {
     const nw = D.w - pad * 2;
-    const nh = notes.length ? Math.max(...notes.map(q => chipOf(q, 0, 0, (nw - gap * (notes.length - 1)) / notes.length).box.h)) : 0;
+    const nh = gridH(nw);
     const gut = 26 + 18 * n;
     const avH = D.h - pad * 2 - (nh ? nh + 22 : 0) - 2 * tabH - 30;
     const w0 = D.w - pad * 2 - gut;
@@ -109,7 +113,7 @@ function geom(ctx, F, minF) {
     notesBox = {x: pad, y: D.h - pad - nh, w: nw, h: nh, row: true};
   } else {
     const nw = D.w - pad * 2;
-    const nh = notes.length ? notes.reduce((a, q) => a + chipOf(q, 0, 0, nw).box.h + gap, -gap) : 0;
+    const nh = gridH(nw);
     const stepY = (D.h - pad * 2 - (nh ? nh + 24 : 0)) / 3;
     S = {w: D.w - pad * 2 - 70 - 30 - 24 * n, h: stepY - tabH - 22};
     pos = [0, 1, 2].map(i => ({x: pad + i * 35, y: pad + tabH + i * stepY}));
@@ -121,7 +125,10 @@ function geom(ctx, F, minF) {
   if (Math.max(...tabs.map(t => t.height)) + 22 > tabH + 0.5) why.push('tab-height');
   if (S.h < 150) why.push('sheet-small');
   // stacked (start) position: the middle sheet's place
-  const stack = pos[1];
+  // the registered stack at the start: one sheet footprint (layer 3's size), enlarged to fill the free box
+  const top0 = pad + tabH + 10, bot0 = (notesBox.h ? notesBox.y - 20 : D.h - pad);
+  const s0 = Math.max(1, Math.min((D.w - pad * 2 - 30) / S.w, (bot0 - top0) / S.h) * 0.96);
+  const stack = {x: (D.w - S.w * s0) / 2, y: top0 + (bot0 - top0 - S.h * s0) / 2, s: s0};
   // layer 1: contract heading + clause lines
   const padX = 30;
   const head = fitG(`${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`, {maxWidth: S0.w - padX * 2, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 800});
@@ -138,11 +145,10 @@ function geom(ctx, F, minF) {
   const neck = clamp(C.w * 0.12, 44, 80);
   const tileX = C.x + neck + 18, tileW = C.x + C.w - 14 - tileX;
   const gR = Math.min(14, F * 0.6);
-  const labFits = p.categories.map(c => fitG(c.label, {maxWidth: tileW - tileTextX(70) - 10, size: F, minSize: minF, maxLines: 2, weight: 700}));
-  const stFits = p.categories.map(c => fitG(p.statusLabels[c.status], {maxWidth: tileW - tileTextX(70) - gR * 2 - 18, size: F, minSize: minF, maxLines: 2, weight: 600}));
-  const stWorst = fitG(worstStatus(p), {maxWidth: tileW - tileTextX(70) - gR * 2 - 18, size: F, minSize: minF, maxLines: 2, weight: 600});
-  if ([...labFits, ...stFits, stWorst, head, ...clauseFits, ...tabs].some(f => f.bad)) why.push('text');
-  const tileH0 = Math.max(...labFits.map(f => f.height)) + stWorst.height + 30;
+  const labFits = p.categories.map(c => fitG(c.label, {maxWidth: tileW - tileTextX(70) - gR * 2 - 34, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700}));
+  const stFits = p.categories.map(() => null), stWorst = {height: 0, bad: false};
+  if ([...labFits, stWorst, head, ...clauseFits, ...tabs].some(f => f.bad)) why.push('text');
+  const tileH0 = Math.max(...labFits.map(f => f.height)) + 30;
   const tgap0 = 30;
   if (n * tileH0 + (n - 1) * tgap0 + 24 > C.h) why.push('tiles-do-not-fit');
   const tileH = Math.min(tileH0 + F, (C.h - 24 - (n - 1) * tgap0) / n);
@@ -155,9 +161,15 @@ function geom(ctx, F, minF) {
   // notes placement
   let notesPl = null;
   if (notes.length) {
-    if (notesBox.row) {
-      const w = (notesBox.w - gap * (notes.length - 1)) / notes.length;
-      notesPl = notes.map((q, i) => { const c = chipOf(q, notesBox.x + i * (w + gap), notesBox.y, w); if (c.bad) why.push('note-text'); return {q, c}; });
+    if (true) {
+      const w = gridW(notesBox.w);
+      let ny = notesBox.y;
+      notesPl = [];
+      for (let k = 0; k < notes.length; k += gridCols) {
+        let rh = 0;
+        notes.slice(k, k + gridCols).forEach((q, j) => { const c = chipOf(q, notesBox.x + j * (w + gap), ny, w); if (c.bad) why.push('note-text'); rh = Math.max(rh, c.box.h); notesPl.push({q, c}); });
+        ny += rh + gap;
+      }
     } else {
       let ny = notesBox.y;
       notesPl = notes.map(q => { const c = chipOf(q, notesBox.x, ny, notesBox.w); if (c.bad) why.push('note-text'); ny += c.box.h + gap; return {q, c}; });
@@ -234,10 +246,9 @@ const scene = {
     const l3 = g({name: 'l3-text', opacity: 0}, L.tiles.map((t, i) => g({name: `mt${i}`},
       g({transform: T(t.x, t.y)},
         tileArt(ctx, {w: t.w, h: t.h, n: i + 1, fit: null, showText: show}),
-        show ? txt(t.lab, {x: tileTextX(t.h), y: (t.h - t.lab.height - t.st.height - 8) / 2, fill: INK}) : null,
+        show ? txt(t.lab, {x: tileTextX(t.h), y: (t.h - t.lab.height) / 2, fill: INK}) : null,
         g({name: `st${i}`, opacity: 0},
-          statusGlyph(ctx, t.status, show ? tileTextX(t.h) + L.gR : t.w - 20 - L.gR, show ? (t.h + t.lab.height - t.st.height + 8) / 2 + t.st.height / 2 : t.h / 2, L.gR),
-          show ? txt(t.st, {x: tileTextX(t.h) + L.gR * 2 + 10, y: (t.h + t.lab.height - t.st.height + 8) / 2, fill: INK}) : null),
+          statusGlyph(ctx, t.status, t.w - 20 - L.gR, t.h / 2, L.gR)),
       ))));
     const rels = L.rel.map(q => g({name: `rel${q.i}`, opacity: 0},
       h('path', {name: `rel${q.i}-h`, d: q.d, fill: 'none', 'stroke-linejoin': 'round', stroke: '#ffffff', 'stroke-width': 9, 'stroke-linecap': 'round', 'stroke-dasharray': `${r(q.len)} ${r(q.len + 10)}`, 'stroke-dashoffset': r(q.len), opacity: 0.85}),
@@ -250,7 +261,21 @@ const scene = {
       h('circle', {cx: 0, cy: 0, r: 11, fill: th.accent, stroke: '#fff', 'stroke-width': 3}));
     const notes = L.notesPl ? L.notesPl.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node)) : [];
     // stacking order: layer 3 at the bottom, then 2, then 1 (as in the registered stack)
-    return g({name: 'scene'},
+    // the diagonal rail the layers slide along (from layer 1's place to layer 3's place)
+    const Sz = [L.S0, L.S2, L.S];
+    const ends = L.wide ? [{x: L.pos[0].x + 20, y: L.pos[0].y + Sz[0].h / 2}, {x: L.pos[2].x + Sz[2].w - 20, y: L.pos[2].y + Sz[2].h / 2}]
+      : [{x: L.pos[0].x + Sz[0].w / 2, y: L.pos[0].y + 20}, {x: L.pos[2].x + Sz[2].w / 2, y: L.pos[2].y + Sz[2].h - 20}];
+    const [ra, rb] = ends;
+    const ang = Math.atan2(rb.y - ra.y, rb.x - ra.x), nx = -Math.sin(ang) * 9, ny = Math.cos(ang) * 9;
+    const len = Math.hypot(rb.x - ra.x, rb.y - ra.y);
+    const sleepers = [];
+    for (let d = 0; d <= len; d += 46) { const cx = ra.x + Math.cos(ang) * d, cy = ra.y + Math.sin(ang) * d; sleepers.push(`M${r(cx - nx * 1.8)} ${r(cy - ny * 1.8)}L${r(cx + nx * 1.8)} ${r(cy + ny * 1.8)}`); }
+    const rail = g(null,
+      h('path', {d: sleepers.join(''), stroke: '#b8ab92', 'stroke-width': 7, 'stroke-linecap': 'round'}),
+      h('path', {d: `M${r(ra.x + nx)} ${r(ra.y + ny)}L${r(rb.x + nx)} ${r(rb.y + ny)}M${r(ra.x - nx)} ${r(ra.y - ny)}L${r(rb.x - nx)} ${r(rb.y - ny)}`, stroke: '#6f6658', 'stroke-width': 4, 'stroke-linecap': 'round'}),
+      [ra, rb].map(q => h('circle', {cx: r(q.x), cy: r(q.y), r: 15, fill: '#8a7f6c', stroke: INK, 'stroke-width': 2})),
+    );
+    return g({name: 'scene'}, rail,
       g({name: 'L2pos'}, sheet(2, l3)),
       g({name: 'L1pos'}, sheet(1, l2)),
       g({name: 'L0pos'}, sheet(0, l1)),
@@ -260,7 +285,8 @@ const scene = {
     const p = ctx.params;
     const nodes = {};
     const q = ease.inOutCubic(seg(u, ...W.explode));
-    const at = i => ({x: lerp(L.stack.x + (i - 1) * 8, L.pos[i].x, q), y: lerp(L.stack.y + (i - 1) * 8, L.pos[i].y, q)});
+    const at = i => ({x: lerp(L.stack.x + (i - 1) * 10, L.pos[i].x, q), y: lerp(L.stack.y + (i - 1) * 10, L.pos[i].y, q)});
+    const sc = lerp(L.stack.s, 1, q);
     const P = [0, 1, 2].map(at);
     // focus enlargement
     const fe = p.focusElement;
@@ -283,7 +309,7 @@ const scene = {
     const grow = dwellId === fe ? Math.sin(Math.PI * dwellQ) * 0.14 : 0;
     const zoomAbout = (c, k) => `translate(${r(c.x, 2)} ${r(c.y, 2)}) scale(${r(1 + k, 4)}) translate(${r(-c.x, 2)} ${r(-c.y, 2)})`;
     const loc = (id, i) => ({x: L.stops[id].x - L.pos[i].x, y: L.stops[id].y - L.pos[i].y});
-    for (let i = 0; i < 3; i++) nodes[`L${i}pos`] = {transform: T(r(P[i].x, 2), r(P[i].y, 2))};
+    for (let i = 0; i < 3; i++) nodes[`L${i}pos`] = {transform: `${T(r(P[i].x, 2), r(P[i].y, 2))} scale(${r(sc, 4)})`};
     L.clauseRows.forEach((_, j) => { nodes[`crow${j}`] = {transform: fe === 'clause' && j === L.tiles[L.fi].clause ? zoomAbout(loc('clause', 0), grow) : 'translate(0 0)'}; });
     nodes.cont = {transform: fe === 'contour' ? zoomAbout(loc('contour', 1), grow * 0.6) : 'translate(0 0)'};
     L.tiles.forEach((_, i) => { nodes[`mt${i}`] = {transform: fe === 'category' && i === L.fi ? zoomAbout(loc('category', 2), grow) : 'translate(0 0)'}; });
@@ -307,7 +333,7 @@ const scene = {
     nodes.bead = {opacity: beadOn ? 1 : 0, transform: T(r(bead.x, 2), r(bead.y, 2))};
     L.tiles.forEach((_, i) => { nodes[`st${i}`] = {opacity: r(seg(u, W.status[0] + i * 0.01, W.status[0] + i * 0.01 + 0.035), 3)}; });
     const keyO = seg(u, ...W.key), noteO = seg(u, ...W.notes);
-    if (L.notesPl) for (const pl of L.notesPl) nodes[`${pl.q.name}-g`] = {opacity: r(pl.q.kind === 'key' ? keyO : noteO, 3)};
+    if (L.notesPl) for (const pl of L.notesPl) nodes[`${pl.q.name}-g`] = {opacity: r(pl.q.kind === 'key' ? keyO : pl.q.kind === 'leg' ? seg(u, ...W.status) : noteO, 3)};
     const beat = u < BEATS.separate[1] ? 'separate' : u < BEATS.relate[1] ? 'relate' : u < BEATS.trace[1] ? 'trace' : 'hold';
     const P2 = v => ({x: r(v.x), y: r(v.y)});
     const drawnRel = L.rel.filter((_, k) => u >= W.relate[0] + ((k + 0.85) / nR) * (W.relate[1] - W.relate[0])).length;

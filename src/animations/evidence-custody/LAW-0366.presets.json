@@ -1,0 +1,97 @@
+{
+  "animationId": "LAW-0366",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. Only the supplied relationships are drawn; plain relations carry no arrowhead and causal arrows appear only when the author supplies a causal relation. No doctrine on packing, sealing, tampering or custody and no outcome is drawn. Times are illustrative and imply no time limit. Editable brief fields: items, custodians, timestamps, records, elements, relationships, focusElement, relationLabels, traversalOrder.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The sealed pouch comes apart into object, pouch, flap, seal strip, custody label and chain strip; five plain relations in packing order; the seal strip is the focus part.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a mug and two custodians; the relations are configured as a sequence from the object through the pouch to the seal and the label (sequence as configured, illustrative), the focus is the custody label and the tracer runs label-first.",
+      "params": {
+        "items": [{"id": "Item M-11 (fictional)", "label": "Ceramic mug from a kitchen shelf (fictional)", "kind": "cup"}],
+        "custodians": [
+          {"name": "T. Varga (fictional)", "role": "Person packing the item"},
+          {"name": "L. Moreau (fictional)", "role": "Person receiving the pouch"}
+        ],
+        "timestamps": [{"label": "Seal applied", "time": "15:05 (illustrative)"}],
+        "records": [
+          {"field": "Item no.", "value": "M-11"},
+          {"field": "Description", "value": "Ceramic mug"},
+          {"field": "Time", "value": ""}
+        ],
+        "sealNumber": "P-08853",
+        "relationships": [
+          {"from": "object", "to": "bag", "kind": "sequence"},
+          {"from": "bag", "to": "seal", "kind": "sequence"},
+          {"from": "seal", "to": "label", "kind": "relation"},
+          {"from": "label", "to": "chain", "kind": "relation"}
+        ],
+        "focusElement": "label",
+        "traversalOrder": ["label", "chain", "label", "seal", "bag", "object"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: five long label rows, two long custodian names, three timestamps, long part captions, eight relations and a long traversal; a key.",
+      "params": {
+        "items": [{"id": "Item K-0412 (fictional)", "label": "Brass door key found on a hallway shelf (fictional)", "kind": "key"}],
+        "custodians": [
+          {"name": "Alexandra Okonkwo-Lindqvist (fictional)", "role": "Person packing the item in this example"},
+          {"name": "Maximilian Ferreira (fictional)", "role": "Person receiving the pouch in this example"}
+        ],
+        "timestamps": [
+          {"label": "Item packed in this fictional example", "time": "09:41 (illustrative)"},
+          {"label": "Seal strip applied across the flap", "time": "09:44 (illustrative)"},
+          {"label": "Pouch placed on the shelf", "time": "09:52 (illustrative)"}
+        ],
+        "records": [
+          {"field": "Item number", "value": "K-0412 (fictional reference)"},
+          {"field": "Description", "value": "Brass door key with a ring"},
+          {"field": "Packed by", "value": "A. Okonkwo-Lindqvist"},
+          {"field": "Place found", "value": "Shelf in the hallway"},
+          {"field": "Time noted", "value": "09:41 (illustrative)"}
+        ],
+        "sealNumber": "P-0041277-B",
+        "labels": {"key": "As supplied · no conclusion drawn (placeholder content only)", "blank": "(left blank in this example, as supplied)", "seal": "Seal number printed on the strip"},
+        "elements": [
+          {"id": "object", "label": "Brass key (fictional object)"}, {"id": "bag", "label": "Evidence pouch with transparent film"},
+          {"id": "flap", "label": "Fold-over flap of the pouch"}, {"id": "seal", "label": "Seal strip with a printed number"},
+          {"id": "label", "label": "Custody label rows as supplied"}, {"id": "chain", "label": "Chain strip with custodian boxes"}
+        ],
+        "relationships": [
+          {"from": "object", "to": "bag", "kind": "relation"}, {"from": "bag", "to": "flap", "kind": "relation"},
+          {"from": "flap", "to": "seal", "kind": "relation"}, {"from": "bag", "to": "label", "kind": "relation"},
+          {"from": "label", "to": "chain", "kind": "relation"}, {"from": "seal", "to": "label", "kind": "communication"},
+          {"from": "object", "to": "flap", "kind": "relation"}, {"from": "bag", "to": "chain", "kind": "relation"}
+        ],
+        "relationLabels": {"relation": "linked as supplied in this example", "communication": "communicates as supplied (example)", "sequence": "then, as a sequence as configured", "causal": "causes (supplied by the author)"},
+        "focusElement": "seal",
+        "traversalOrder": ["object", "bag", "flap", "seal", "label", "chain", "bag", "object"]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "items": [{"id": "Indicio E-02 (ficticio)", "label": "Caja de madera pequeña de un cajón (ficticia)", "kind": "box"}],
+        "custodians": [{"name": "J. Ferraz (ficticia)", "role": "Persona que embala el objeto"}],
+        "timestamps": [{"label": "Objeto embalado", "time": "11:20 (ilustrativo)"}, {"label": "Precinto puesto", "time": "11:22 (ilustrativo)"}],
+        "records": [
+          {"field": "N.º de indicio", "value": "E-02"},
+          {"field": "Descripción", "value": "Caja de madera"},
+          {"field": "Embalado por", "value": "J. Ferraz"}
+        ],
+        "labels": {"key": "Según lo aportado · sin conclusión", "blank": "(en blanco, según lo aportado)", "seal": "N.º de precinto"},
+        "elements": [
+          {"id": "object", "label": "Objeto (ficticio)"}, {"id": "bag", "label": "Bolsa de pruebas"}, {"id": "flap", "label": "Solapa plegable"},
+          {"id": "seal", "label": "Precinto con número"}, {"id": "label", "label": "Filas de la etiqueta"}, {"id": "chain", "label": "Cadena (custodios)"}
+        ],
+        "relationLabels": {"relation": "unidos (según lo aportado)", "communication": "comunica (según lo aportado)", "sequence": "después (secuencia configurada)", "causal": "causa (aportado)"}
+      }
+    }
+  ]
+}

@@ -222,7 +222,7 @@ const scene = {
       const hd = headerFor(F, roomsW);
       const roomH = arr === 'row' ? area.h - hd.h - chan : (area.h - 2 * (hd.h + chan) - gap) / 2;
       const box = {x: area.x, y: area.y + hd.h + chan, w: roomsW, h: roomH};
-      const C = composeSa(ctx, P, R, box, F, {scale, text: false, letters: showKey, numbers: showKey, courier: true, sign: true, untangle: {clearPx: shape === 'square' ? 17.5 : 18}, signW: four ? 84 : SIGNW[shape], docK, gap: shape === 'square' ? (four ? 42 : 50) : 64, align: {x: 0.5, y: arr === 'row' ? 0 : 0.5}, ...(extraH ? {extraH} : {}), ...(padL ? {padL} : {}), ...(final ? {deepen: R.n <= 2 ? 3.5 : 2.2, spread: 1.8} : {})});
+      const C = composeSa(ctx, P, R, box, F, {scale, text: false, letters: showKey, numbers: showKey, courier: true, sign: true, untangle: {clearPx: shape === 'square' ? 17.5 : 18}, signW: four ? 84 : SIGNW[shape], docK: arr === 'col' && shape === 'square' && R.n <= 2 ? DOCK[shape] : docK, gap: shape === 'square' ? (four ? 42 : 50) : 64, align: {x: 0.5, y: arr === 'row' ? 0 : 0.5}, ...(extraH ? {extraH} : {}), ...(padL ? {padL} : {}), ...(final ? {deepen: R.n <= 2 ? 3.5 : 2.2, spread: 1.8} : {})});
       const problems = [...C.problems];
       // each room stays a real subject: >= 0.21 of the frame's height
       if (C.planRect.h / frameHD < (shape === 'landscape' ? 0.225 : 0.205)) problems.push('subject-short');
@@ -247,6 +247,8 @@ const scene = {
     } else if (shape === 'portrait') {
       for (const cols of [2, 3]) arrangements.push({arr: 'col', panel: 'band', cols});
     } else {
+      // (coordinator decision 2026-10-06: A stacked over B, the legend beside them — the rooms take the square's height)
+      for (const cf of [0.32, 0.35, 0.38]) arrangements.push({arr: 'col', panel: 'column', cf});
       for (const cols of [2, 3, 4]) arrangements.push({arr: 'row', panel: 'band', cols});
       // (side by side only: each room >= 0.40 of the frame width — coordinator, review-03)
     }
@@ -293,7 +295,7 @@ const scene = {
               cc.problems.push(...extra);
               if (personPx < minPerson) cc.problems.push('people-small');
               if (Fpx < minText) cc.problems.push('text-below-baseline');
-              const score = -1000 * cc.problems.length + (Fpx >= 19.5 ? 500 : 0) + (personPx >= 55 ? 450 : 0) + Math.min(personPx, 110) + 3 * Fpx;
+              const score = -1000 * cc.problems.length + (Fpx >= 19.5 ? 500 : 0) + (personPx >= 55 ? 450 : 0) + Math.min(personPx, 110) + 3 * Fpx + (shape === 'square' && A.arr === 'col' ? 300 : 0);
               log.push(`${Fpx} ${A.arr}/${A.panel}${A.cf || A.cols} s${scale} ${personPx.toFixed(2)} ${cc.problems.join('+')}`);
               const cand = {...cc, F, lay: L0, score, personPx, A};
               if (!best || score > best.score) best = cand;

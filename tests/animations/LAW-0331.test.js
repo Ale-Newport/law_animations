@@ -137,7 +137,8 @@ test(`${ID}: the changed fact adds a real object — the decision sheet in B's p
 
 // Item 18 and the contrast layout: side by side at 16:9 (each room >= 0.40 of the frame width) and at 1:1 (each >= 0.40;
 // with labels hidden 1:1 may stack the rooms full width instead), stacked at 9:16 (each >= 0.80 of the width, B below
-// A); the rooms never overlap.
+// A); the rooms never overlap. Coordinator decision 2026-10-06: at 1:1 the rooms may also stack (B below A) with the
+// legend beside them, each >= 0.55 of the frame width.
 test(`${ID}: two complete rooms — side by side on wide and square frames (>= 0.40 W each), stacked on tall ones (>= 0.80 W)`, async ({page}) => {
   test.setTimeout(400000);
   const {bad, stats} = await forAll(page, ID, `
@@ -150,7 +151,7 @@ test(`${ID}: two complete rooms — side by side on wide and square frames (>= 0
     stat('room width share ' + ratio, Math.round(Math.min(wa, wb) * 1000) / 1000);
     if (hit(A, B, 0)) out.push(pr.name + ' ' + ratio + ': the rooms overlap');
     const stacked = B.t >= A.b - 1;
-    if (ratio === '9:16' || (ratio === '1:1' && stacked)) { if (!(B.t >= A.b - 1) || Math.min(wa, wb) < 0.8) out.push(pr.name + ' ' + ratio + ': not stacked full width (' + wa.toFixed(2) + ')'); }
+    if (ratio === '9:16' || (ratio === '1:1' && stacked)) { if (!(B.t >= A.b - 1) || Math.min(wa, wb) < (ratio === '1:1' ? 0.55 : 0.8)) out.push(pr.name + ' ' + ratio + ': not stacked full width (' + wa.toFixed(2) + ')'); }
     else if (!(B.l >= A.r - 1) || Math.min(wa, wb) < 0.4) out.push(pr.name + ' ' + ratio + ': not side by side >= 0.40 W (' + wa.toFixed(3) + ')');
     return out;`, {}, {withHidden: true});
   report(ID, 'rooms', stats);

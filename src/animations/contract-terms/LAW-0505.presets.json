@@ -1,0 +1,63 @@
+{
+  "animationId": "LAW-0505",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the contract, its clause lines and the claim are generic placeholders, never real contract text or real claims. \"Claim covered as per supplied data\" and \"Scope disputed (as supplied)\" are supplied statuses of equal weight (● and ◆ of the same area, colour and stroke; the scope outline has the same colour and width, solid or dashed). No indemnity doctrine is stated: no duty to indemnify or pay, no decision on cover beyond the supplied datum, no amount unless supplied (always labelled hypothetical), no outcome and no jurisdiction; \"scope disputed\" stays an allegation. Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): schedules, definitions and priorities; clauses = the supplied clause lines, promise = the line holding the promise of cover.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "A hand plugs the slip \"Claim 1 (supplied)\" into the socket of clause line 2 of 3 (the supplied promise of cover), reads the joint with the lens, and the scope outline is drawn solid: claim covered as per supplied data.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: another contract and claim with a supplied hypothetical amount, two clause lines, the promise on line 1 and the supplied status scope disputed: the slip is connected and read, and the scope outline is drawn dashed — neutral, as supplied.",
+      "params": {
+        "contract": {"reference": "CT-907", "title": "Services contract (fictional)"},
+        "clauses": ["Clause 9.1 (supplied text)", "Clause 9.2 (supplied text)"],
+        "promise": 1,
+        "claim": {"label": "Claim 2 (supplied)", "amount": "2,400 units"},
+        "actorLabels": {"a": "Reviewer's desk"},
+        "finalState": "disputed"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: a long contract heading and clause heading, three long clause lines with the promise on line 3, a long claim label with a hypothetical amount, long status wording, a long socket label and two annotations; the supplied status is covered as per supplied data.",
+      "params": {
+        "contract": {"reference": "CONTRACT-2026-0412", "title": "Supply contract with an indemnity clause, fictional example"},
+        "clauseTitle": "Indemnity clause, lines exactly as listed",
+        "clauses": [
+          "Clause 14.1, first line listed in the clause (supplied text)",
+          "Clause 14.2, second line listed in the clause (supplied text)",
+          "Clause 14.3, third line listed in the clause (supplied text)"
+        ],
+        "promise": 3,
+        "claim": {"label": "Claim 1, named in this fictional example (supplied)", "amount": "12,500 units"},
+        "stateLabels": {
+          "covered": "Claim covered, exactly as per the supplied data here",
+          "disputed": "Scope disputed, exactly as it was supplied in this example"
+        },
+        "actorLabels": {"a": "Claims desk, fictional"},
+        "objectLabels": {"socket": "Promise of cover, line as supplied in the text"},
+        "annotations": [
+          {"target": "claim", "text": "The slip is connected exactly as it was supplied"},
+          {"target": "clause", "text": "Clause wording kept exactly as it was supplied"}
+        ],
+        "finalState": "covered"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea de base en español: una mano conecta la ficha «Reclamación 1 (aportada)» al enchufe de la línea 2 de 3 (la promesa de cobertura aportada), revisa la unión con la lupa y el contorno de alcance se traza continuo: reclamación cubierta según los datos aportados.",
+      "params": {
+        "locale": "es",
+        "contract": {"reference": "CT-412", "title": "Contrato de suministro (ficticio)"},
+        "clauseTitle": "Cláusula de indemnidad",
+        "clauses": ["Cláusula 14.1 (texto aportado)", "Cláusula 14.2 (texto aportado)", "Cláusula 14.3 (texto aportado)"],
+        "claim": {"label": "Reclamación 1 (aportada)", "amount": ""},
+        "stateLabels": {"covered": "Reclamación cubierta según los datos aportados", "disputed": "Alcance discutido (según lo aportado)"},
+        "actorLabels": {"a": "Mesa de reclamaciones"},
+        "objectLabels": {"socket": "Promesa de cobertura (texto aportado)"}
+      }
+    }
+  ]
+}

@@ -108,7 +108,8 @@ test(`${ID}: visible text >= 16 px at every sampled moment (1080p, every ratio)`
         x.seek((i / 50) * x.durationMs);
         for (const t of svg.querySelectorAll('[data-layer="scene"] text')) {
           if (op(t) < 0.3 || !t.textContent.trim()) continue;
-          const m = t.getScreenCTM(); if (!m) continue;
+          const m0 = t.getScreenCTM(); if (!m0) continue;
+          const m = svg.getScreenCTM().inverse().multiply(m0); // viewBox units (= px of the w×h frame)
           const px = parseFloat(getComputedStyle(t).fontSize) * Math.hypot(m.a, m.b) * k;
           if (px < 15.9) out.push(`${w}x${h} u=${i / 50} ${t.textContent.slice(0, 20)} ${px.toFixed(1)}`);
         }

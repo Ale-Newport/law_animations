@@ -1,0 +1,967 @@
+{
+  "animationId": "LAW-0505",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0505",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "contract.reference",
+        "rejected": "Invalid animation parameters:\n - params.contract.reference: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: slip and lens lie on the desk @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "hand": {
+            "x": 1769.53,
+            "y": 553
+          },
+          "slipTip": {
+            "x": 1321.53,
+            "y": 178.3
+          },
+          "slipGrip": {
+            "x": 1733.53,
+            "y": 178.3
+          },
+          "lensGrip": {
+            "x": 1757.85,
+            "y": 586.54
+          },
+          "lensCentre": {
+            "x": 1499.13,
+            "y": 586.54
+          },
+          "joint": {
+            "x": 883.53,
+            "y": 429.89
+          },
+          "holdsSlip": false,
+          "holdsLens": false,
+          "seated": false,
+          "connected": false,
+          "scope": 0,
+          "scopeClosed": false,
+          "scopeStyle": "solid",
+          "finalState": "covered",
+          "slipAt": "rest",
+          "lensParked": true,
+          "finalShown": 0,
+          "keyShown": 0,
+          "allReached": true,
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lensBox": {
+            "x": 1369.53,
+            "y": 496.92,
+            "w": 259.2,
+            "h": 179.23
+          },
+          "noteBoxes": [
+            {
+              "x": 911.53,
+              "y": 590.19,
+              "w": 370.47,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 34,
+              "w": 279.16,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 136.16,
+              "w": 400.82,
+              "h": 88.16
+            }
+          ],
+          "dockBox": {
+            "x": 911.53,
+            "y": 295.59,
+            "w": 380,
+            "h": 268.6
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the hand carries the slip @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "phase": "carrying",
+          "hand": {
+            "x": 1609.47,
+            "y": 224.09
+          },
+          "slipTip": {
+            "x": 1197.47,
+            "y": 224.09
+          },
+          "slipGrip": {
+            "x": 1609.47,
+            "y": 224.09
+          },
+          "lensGrip": {
+            "x": 1757.85,
+            "y": 586.54
+          },
+          "lensCentre": {
+            "x": 1499.13,
+            "y": 586.54
+          },
+          "joint": {
+            "x": 883.53,
+            "y": 429.89
+          },
+          "holdsSlip": true,
+          "holdsLens": false,
+          "seated": false,
+          "connected": false,
+          "scope": 0,
+          "scopeClosed": false,
+          "scopeStyle": "solid",
+          "finalState": "covered",
+          "slipAt": "hand",
+          "lensParked": true,
+          "finalShown": 0,
+          "keyShown": 0,
+          "allReached": true,
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lensBox": {
+            "x": 1369.53,
+            "y": 496.92,
+            "w": 259.2,
+            "h": 179.23
+          },
+          "noteBoxes": [
+            {
+              "x": 911.53,
+              "y": 590.19,
+              "w": 370.47,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 34,
+              "w": 279.16,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 136.16,
+              "w": 400.82,
+              "h": 88.16
+            }
+          ],
+          "dockBox": {
+            "x": 911.53,
+            "y": 295.59,
+            "w": 380,
+            "h": 268.6
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: seated and connected before the lens is taken @0.45",
+      "pass": false,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "phase": "to-lens",
+          "hand": {
+            "x": 1275.23,
+            "y": 431.72
+          },
+          "slipTip": {
+            "x": 857.53,
+            "y": 429.89
+          },
+          "slipGrip": {
+            "x": 1269.53,
+            "y": 429.89
+          },
+          "lensGrip": {
+            "x": 1757.85,
+            "y": 586.54
+          },
+          "lensCentre": {
+            "x": 1499.13,
+            "y": 586.54
+          },
+          "joint": {
+            "x": 883.53,
+            "y": 429.89
+          },
+          "holdsSlip": false,
+          "holdsLens": false,
+          "seated": true,
+          "connected": false,
+          "scope": 0,
+          "scopeClosed": false,
+          "scopeStyle": "solid",
+          "finalState": "covered",
+          "slipAt": "socket",
+          "lensParked": true,
+          "finalShown": 0,
+          "keyShown": 0,
+          "allReached": true,
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lensBox": {
+            "x": 1369.53,
+            "y": 496.92,
+            "w": 259.2,
+            "h": 179.23
+          },
+          "noteBoxes": [
+            {
+              "x": 911.53,
+              "y": 590.19,
+              "w": 370.47,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 34,
+              "w": 279.16,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 136.16,
+              "w": 400.82,
+              "h": 88.16
+            }
+          ],
+          "dockBox": {
+            "x": 911.53,
+            "y": 295.59,
+            "w": 380,
+            "h": 268.6
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the lens over the joint before the outline is drawn @0.585",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "phase": "reading",
+          "hand": {
+            "x": 1095.47,
+            "y": 578.29
+          },
+          "slipTip": {
+            "x": 857.53,
+            "y": 429.89
+          },
+          "slipGrip": {
+            "x": 1269.53,
+            "y": 429.89
+          },
+          "lensGrip": {
+            "x": 1095.47,
+            "y": 578.29
+          },
+          "lensCentre": {
+            "x": 883.54,
+            "y": 429.89
+          },
+          "joint": {
+            "x": 883.53,
+            "y": 429.89
+          },
+          "holdsSlip": false,
+          "holdsLens": true,
+          "seated": true,
+          "connected": true,
+          "scope": 0.005,
+          "scopeClosed": false,
+          "scopeStyle": "solid",
+          "finalState": "covered",
+          "slipAt": "socket",
+          "lensParked": false,
+          "finalShown": 0,
+          "keyShown": 0,
+          "allReached": true,
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lensBox": {
+            "x": 1369.53,
+            "y": 496.92,
+            "w": 259.2,
+            "h": 179.23
+          },
+          "noteBoxes": [
+            {
+              "x": 911.53,
+              "y": 590.19,
+              "w": 370.47,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 34,
+              "w": 279.16,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 136.16,
+              "w": 400.82,
+              "h": 88.16
+            }
+          ],
+          "dockBox": {
+            "x": 911.53,
+            "y": 295.59,
+            "w": 380,
+            "h": 268.6
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the scope outline is drawn after the lens reached the joint @0.64",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "phase": "reading",
+          "hand": {
+            "x": 1095.47,
+            "y": 578.29
+          },
+          "slipTip": {
+            "x": 857.53,
+            "y": 429.89
+          },
+          "slipGrip": {
+            "x": 1269.53,
+            "y": 429.89
+          },
+          "lensGrip": {
+            "x": 1095.47,
+            "y": 578.29
+          },
+          "lensCentre": {
+            "x": 883.54,
+            "y": 429.89
+          },
+          "joint": {
+            "x": 883.53,
+            "y": 429.89
+          },
+          "holdsSlip": false,
+          "holdsLens": true,
+          "seated": true,
+          "connected": true,
+          "scope": 0.571,
+          "scopeClosed": false,
+          "scopeStyle": "solid",
+          "finalState": "covered",
+          "slipAt": "socket",
+          "lensParked": false,
+          "finalShown": 0,
+          "keyShown": 0,
+          "allReached": true,
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lensBox": {
+            "x": 1369.53,
+            "y": 496.92,
+            "w": 259.2,
+            "h": 179.23
+          },
+          "noteBoxes": [
+            {
+              "x": 911.53,
+              "y": 590.19,
+              "w": 370.47,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 34,
+              "w": 279.16,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 136.16,
+              "w": 400.82,
+              "h": 88.16
+            }
+          ],
+          "dockBox": {
+            "x": 911.53,
+            "y": 295.59,
+            "w": 380,
+            "h": 268.6
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: covered as supplied, solid outline, lens parked, tags shown @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "away",
+          "hand": {
+            "x": 1769.53,
+            "y": 553
+          },
+          "slipTip": {
+            "x": 857.53,
+            "y": 429.89
+          },
+          "slipGrip": {
+            "x": 1269.53,
+            "y": 429.89
+          },
+          "lensGrip": {
+            "x": 1757.85,
+            "y": 586.54
+          },
+          "lensCentre": {
+            "x": 1499.13,
+            "y": 586.54
+          },
+          "joint": {
+            "x": 883.53,
+            "y": 429.89
+          },
+          "holdsSlip": false,
+          "holdsLens": false,
+          "seated": true,
+          "connected": true,
+          "scope": 1,
+          "scopeClosed": true,
+          "scopeStyle": "solid",
+          "finalState": "covered",
+          "slipAt": "socket",
+          "lensParked": true,
+          "finalShown": 1,
+          "keyShown": 1,
+          "allReached": true,
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lensBox": {
+            "x": 1369.53,
+            "y": 496.92,
+            "w": 259.2,
+            "h": 179.23
+          },
+          "noteBoxes": [
+            {
+              "x": 911.53,
+              "y": 590.19,
+              "w": 370.47,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 34,
+              "w": 279.16,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 136.16,
+              "w": 400.82,
+              "h": 88.16
+            }
+          ],
+          "dockBox": {
+            "x": 911.53,
+            "y": 295.59,
+            "w": 380,
+            "h": 268.6
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: disputed: the same outline drawn dashed — neutral @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "away",
+          "hand": {
+            "x": 1769.53,
+            "y": 553
+          },
+          "slipTip": {
+            "x": 857.53,
+            "y": 321.71
+          },
+          "slipGrip": {
+            "x": 1269.53,
+            "y": 321.71
+          },
+          "lensGrip": {
+            "x": 1757.85,
+            "y": 586.54
+          },
+          "lensCentre": {
+            "x": 1499.13,
+            "y": 586.54
+          },
+          "joint": {
+            "x": 883.53,
+            "y": 321.71
+          },
+          "holdsSlip": false,
+          "holdsLens": false,
+          "seated": true,
+          "connected": true,
+          "scope": 1,
+          "scopeClosed": true,
+          "scopeStyle": "dashed",
+          "finalState": "disputed",
+          "slipAt": "socket",
+          "lensParked": true,
+          "finalShown": 1,
+          "keyShown": 1,
+          "allReached": true,
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lensBox": {
+            "x": 1369.53,
+            "y": 496.92,
+            "w": 259.2,
+            "h": 179.23
+          },
+          "noteBoxes": [
+            {
+              "x": 911.53,
+              "y": 482.01,
+              "w": 343.74,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 584.17,
+              "w": 279.16,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 34,
+              "w": 400.82,
+              "h": 88.16
+            }
+          ],
+          "dockBox": {
+            "x": 911.53,
+            "y": 187.41,
+            "w": 380,
+            "h": 268.6
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: stress: connected, layout fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "away",
+          "hand": {
+            "x": 1769.53,
+            "y": 553
+          },
+          "slipTip": {
+            "x": 857.53,
+            "y": 559.92
+          },
+          "slipGrip": {
+            "x": 1269.53,
+            "y": 559.92
+          },
+          "lensGrip": {
+            "x": 1757.85,
+            "y": 592.22
+          },
+          "lensCentre": {
+            "x": 1499.13,
+            "y": 592.22
+          },
+          "joint": {
+            "x": 883.53,
+            "y": 559.92
+          },
+          "holdsSlip": false,
+          "holdsLens": false,
+          "seated": true,
+          "connected": true,
+          "scope": 1,
+          "scopeClosed": true,
+          "scopeStyle": "solid",
+          "finalState": "covered",
+          "slipAt": "socket",
+          "lensParked": true,
+          "finalShown": 1,
+          "keyShown": 1,
+          "allReached": true,
+          "textPx": 23,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lensBox": {
+            "x": 1369.53,
+            "y": 502.61,
+            "w": 259.2,
+            "h": 179.23
+          },
+          "noteBoxes": [
+            {
+              "x": 911.53,
+              "y": 34,
+              "w": 401.6,
+              "h": 72.42
+            },
+            {
+              "x": 911.53,
+              "y": 120.42,
+              "w": 318.35,
+              "h": 72.42
+            },
+            {
+              "x": 911.53,
+              "y": 206.84,
+              "w": 403.25,
+              "h": 43.35
+            },
+            {
+              "x": 911.53,
+              "y": 264.19,
+              "w": 404.56,
+              "h": 72.42
+            },
+            {
+              "x": 1365.53,
+              "y": 40,
+              "w": 394.97,
+              "h": 72.42
+            }
+          ],
+          "dockBox": {
+            "x": 911.53,
+            "y": 425.62,
+            "w": 380,
+            "h": 268.6
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "carrying",
+          "hand": {
+            "x": 1379.12,
+            "y": 392.2
+          },
+          "slipTip": {
+            "x": 967.11,
+            "y": 392.2
+          },
+          "slipGrip": {
+            "x": 1379.12,
+            "y": 392.2
+          },
+          "lensGrip": {
+            "x": 1757.85,
+            "y": 586.54
+          },
+          "lensCentre": {
+            "x": 1499.13,
+            "y": 586.54
+          },
+          "joint": {
+            "x": 883.53,
+            "y": 429.89
+          },
+          "holdsSlip": true,
+          "holdsLens": false,
+          "seated": false,
+          "connected": false,
+          "scope": 0,
+          "scopeClosed": false,
+          "scopeStyle": "solid",
+          "finalState": "covered",
+          "slipAt": "hand",
+          "lensParked": true,
+          "finalShown": 0,
+          "keyShown": 0,
+          "allReached": true,
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": true,
+          "lensBox": {
+            "x": 1369.53,
+            "y": 496.92,
+            "w": 259.2,
+            "h": 179.23
+          },
+          "noteBoxes": [
+            {
+              "x": 911.53,
+              "y": 590.19,
+              "w": 370.47,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 34,
+              "w": 279.16,
+              "h": 88.16
+            },
+            {
+              "x": 911.53,
+              "y": 136.16,
+              "w": 400.82,
+              "h": 88.16
+            }
+          ],
+          "dockBox": {
+            "x": 911.53,
+            "y": 295.59,
+            "w": 380,
+            "h": 268.6
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same action @0.8",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "away",
+          "hand": {
+            "x": 1769.53,
+            "y": 553
+          },
+          "slipTip": {
+            "x": 857.53,
+            "y": 429.89
+          },
+          "slipGrip": {
+            "x": 1269.53,
+            "y": 429.89
+          },
+          "lensGrip": {
+            "x": 1757.85,
+            "y": 662.38
+          },
+          "lensCentre": {
+            "x": 1499.13,
+            "y": 662.38
+          },
+          "joint": {
+            "x": 883.53,
+            "y": 429.89
+          },
+          "holdsSlip": false,
+          "holdsLens": false,
+          "seated": true,
+          "connected": true,
+          "scope": 1,
+          "scopeClosed": true,
+          "scopeStyle": "solid",
+          "finalState": "covered",
+          "slipAt": "socket",
+          "lensParked": true,
+          "finalShown": 1,
+          "keyShown": 1,
+          "allReached": true,
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "lensBox": {
+            "x": 1369.53,
+            "y": 572.77,
+            "w": 259.2,
+            "h": 179.23
+          },
+          "noteBoxes": [],
+          "dockBox": {
+            "x": 911.53,
+            "y": 295.59,
+            "w": 380,
+            "h": 268.6
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

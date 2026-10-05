@@ -97,7 +97,9 @@ export function noTextOverlap(ID) {
               const cp = id && svg.querySelector('#' + CSS.escape(id));
               const shape = cp && cp.firstElementChild;
               if (shape) {
-                const c = shape.getBoundingClientRect();
+                const bb = shape.getBBox(), M = cpHost.getScreenCTM();
+                const pts = [[bb.x, bb.y], [bb.x + bb.width, bb.y], [bb.x, bb.y + bb.height], [bb.x + bb.width, bb.y + bb.height]].map(([px, py]) => ({x: M.a * px + M.c * py + M.e, y: M.b * px + M.d * py + M.f}));
+                const c = {left: Math.min(...pts.map(q => q.x)), right: Math.max(...pts.map(q => q.x)), top: Math.min(...pts.map(q => q.y)), bottom: Math.max(...pts.map(q => q.y))};
                 const l = Math.max(b.left, c.left), rr = Math.min(b.right, c.right), tp = Math.max(b.top, c.top), bt = Math.min(b.bottom, c.bottom);
                 if (rr <= l || bt <= tp) continue;
                 b = {left: l, right: rr, top: tp, bottom: bt, width: rr - l, height: bt - tp};

@@ -135,31 +135,32 @@ function legendFor(ctx, rows, F, opt) {
   return {bench, panel, PL};
 }
 
-/** Lens texts (source units; rendered size = size × zoomPx). */
+/**
+ * Lens texts on the folded flap (source units; rendered size = size × zoomPx): the seal-state line name, its value
+ * (up to two lines) and the "before" trace stacked from the flap's top; everything must fit above the strip.
+ */
 function lensTexts(ctx, P, S, zoomPx, src, x0) {
   const target = 24 / zoomPx, floor = 16 / zoomPx;
-  const pitch = S * 0.13;
-  const size = Math.min(Math.max(target, floor), pitch * 0.82);
+  const size = Math.min(Math.max(target, floor), S * 0.075);
   let ok = size >= floor - 1e-9;
   const maxW = src.x + src.w - x0 - S * 0.04;
-  const fit = (text, weight, sz = size) => {
-    const f = fitG(text || ' ', {maxWidth: maxW, size: sz, minSize: Math.max(floor, Math.min(sz * 0.85, target)), maxLines: 1, weight});
+  const minS = Math.max(floor, Math.min(size * 0.85, target));
+  const fit = (text, weight, lines, sz = size) => {
+    const f = fitG(text || ' ', {maxWidth: maxW, size: sz, minSize: Math.min(sz, minS), maxLines: lines, weight});
     if (!f.ok) ok = false;
     return f;
   };
-  const by = `${P.contextLabels.byField}: ${P.custodians[0].name}`;
   const num0 = P.focusTarget === 'sealNumber';
-  const lab = `${P.contextLabels.stateField}: `;
-  const labFit = fit(lab, 600);
-  const valW = maxW - labFit.width - 4;
-  const fitV = text => {
-    const f = fitG(text || ' ', {maxWidth: valW, size, minSize: Math.max(floor, Math.min(size * 0.85, target)), maxLines: 1, weight: 500});
-    if (!f.ok) ok = false;
-    return f;
-  };
-  const trace = `${ctx.t.before}: ${P.beforeValue.trim() ? P.beforeValue : ctx.t.blankShort}`;
-  const traceFit = fit(trace, 500, Math.max(floor, size * 0.85));
-  return {size, by: fit(by, 500), lab: labFit, before: num0 ? null : fitV(P.beforeValue), after: num0 ? null : fitV(P.afterValue), traceFit, ok};
+  const lab = fit(`${P.contextLabels.stateField}:`, 600, 1);
+  const before = num0 ? null : fit(P.beforeValue, 500, 2);
+  const after = num0 ? null : fit(P.afterValue, 500, 2);
+  const traceFit = fit(`${ctx.t.before}: ${P.beforeValue.trim() ? P.beforeValue : ctx.t.blankShort}`, 500, 1, Math.max(floor, size * 0.85));
+  const top = S * 0.035;
+  const valTop = top + lab.height + size * 0.3;
+  const valH = num0 ? size : Math.max(before.height, after.height);
+  const traceTop = valTop + valH + size * 0.3;
+  if (traceTop + traceFit.height > S * 0.355) ok = false; // the strip starts at 0.37 S
+  return {size, lab, before, after, traceFit, top, valTop, traceTop, ok};
 }
 
 function numberFits(ctx, SM, P, zoomPx) {
@@ -208,7 +209,10 @@ function compose(ctx, P, recs, F, opt, LG) {
   const lensBig = Math.min(dest.w, dest.h) * vs * Math.min(ctx.view.width, ctx.view.height) / 1080 >= 0.355 * Math.min(ctx.view.width, ctx.view.height);
   const textOk = !showText || (TX.ok && NF.ok);
   const ok = (!PL || PL.ok) && M.w <= PM.inner.w && zoomOk && textOk && lensBig;
-  return {F, bench, mat, panel, PL, S, PM, SM, M, bag, objIn, cx, stripC, source, dest, zoom, TX, NF, x0, ok,
+  // smallest lens text (source units): lens texts stay hidden until the growing lens renders it >= 16 px
+  const minT = Math.min(TX.lab.size, TX.traceFit.size, ...(TX.before ? [TX.before.size, TX.after.size] : []), NF.a.size, ...(NF.b ? [NF.b.size] : []));
+  const kText = 16.3 / (minT * vs);
+  return {F, bench, mat, panel, PL, S, PM, SM, M, bag, objIn, cx, stripC, source, dest, zoom, TX, NF, x0, ok, kText,
     problems: [PL && !PL.ok && 'panel-text', !zoomOk && 'zoom', !textOk && 'lens-text', !lensBig && 'lens-small'].filter(Boolean)};
 }
 
@@ -219,31 +223,26 @@ function sceneParts(ctx, L) {
   const num0 = P.focusTarget === 'sealNumber';
   const showText = ctx.show('key');
   const hasB = P.beforeValue.trim().length > 0, hasA = P.afterValue.trim().length > 0;
-  const rowY = k => bag.y + PM.fh * k;
-  // lens content: the seam at the context's coordinates, lines printed as text
+  // lens content: the seam at the context's coordinates; the seal-state line printed as text
   const face = g({transform: T(cx, bag.y)},
     h('path', {d: flapOutline(PM.w, PM.fh, -1), fill: FLAP, stroke: INK, 'stroke-width': 2.2, 'stroke-linejoin': 'round'}),
   );
-  const rowsT = showText ? g(null,
-    textAt(TX.by, {x: x0, y: rowY(0.24) - TX.by.size * 0.86, fill: WRITE_INK}),
-    textAt(TX.lab, {x: x0, y: rowY(0.5) - TX.lab.size * 0.86, fill: '#4a5560'}),
-  ) : g(null,
-    h('path', {d: `M${r(x0)} ${r(rowY(0.24))}h${r(S * 0.7)}M${r(x0)} ${r(rowY(0.5))}h${r(S * 0.3)}`, stroke: '#7d8a94', 'stroke-width': 3, 'stroke-linecap': 'round'}),
-  );
-  const vx = x0 + (showText ? TX.lab.width + 4 : S * 0.36);
-  const vy = rowY(0.5);
-  const scrib = (w0) => h('path', {d: `M${r(vx)} ${r(vy)}q${r(w0 * 0.12)} ${r(-S * 0.05)} ${r(w0 * 0.25)} 0t${r(w0 * 0.25)} 0t${r(w0 * 0.25)} 0t${r(w0 * 0.25)} 0`, fill: 'none', stroke: WRITE_INK, 'stroke-width': 2.4, 'stroke-linecap': 'round'});
-  let lvBefore, lvAfter, lvTrace;
+  const Y = v => bag.y + v;
+  const rowsT = showText ? g(null, textAt(TX.lab, {x: x0, y: Y(TX.top), fill: '#4a5560'}))
+    : g(null, h('path', {d: `M${r(x0)} ${r(Y(S * 0.09))}h${r(S * 0.3)}`, stroke: '#7d8a94', 'stroke-width': 3, 'stroke-linecap': 'round'}));
+  const scrib = (w0) => h('path', {d: `M${r(x0)} ${r(Y(S * 0.2))}q${r(w0 * 0.12)} ${r(-S * 0.05)} ${r(w0 * 0.25)} 0t${r(w0 * 0.25)} 0t${r(w0 * 0.25)} 0t${r(w0 * 0.25)} 0`, fill: 'none', stroke: WRITE_INK, 'stroke-width': 2.4, 'stroke-linecap': 'round'});
+  let lvBefore, lvAfter;
   const plate = SM.plate;
   if (!num0) {
-    lvBefore = g({name: 'lv-before'}, hasB ? (showText ? textAt(TX.before, {x: vx, y: vy - TX.before.size * 0.86, fill: WRITE_INK}) : scrib(S * 0.3)) : null);
-    lvAfter = g({name: 'lv-after', opacity: 0}, hasA ? (showText ? textAt(TX.after, {x: vx, y: vy - TX.after.size * 0.86, fill: WRITE_INK}) : scrib(S * 0.45)) : null);
+    lvBefore = g({name: 'lv-before'}, hasB ? (showText ? textAt(TX.before, {x: x0, y: Y(TX.valTop), fill: WRITE_INK}) : scrib(S * 0.3)) : null);
+    lvAfter = g({name: 'lv-after', opacity: 0}, hasA ? (showText ? textAt(TX.after, {x: x0, y: Y(TX.valTop), fill: WRITE_INK}) : scrib(S * 0.45)) : null);
   } else {
     const pos = (f) => ({x: stripC.x, y: stripC.y - f.height / 2});
     lvBefore = g({name: 'lv-before'}, showText ? textAt(NF.a, {...pos(NF.a), anchor: 'middle', fill: INK}) : g({transform: T(stripC.x, stripC.y)}, plateBars(SM, P.beforeValue)));
     lvAfter = g({name: 'lv-after', opacity: 0}, showText ? textAt(NF.b, {...pos(NF.b), anchor: 'middle', fill: INK}) : g({transform: T(stripC.x, stripC.y)}, plateBars(SM, P.afterValue)));
   }
-  lvTrace = g({name: 'lv-trace', opacity: 0}, showText ? textAt(TX.traceFit, {x: x0, y: rowY(0.5) + S * 0.025, fill: th.fgSoft, italic: true}) : null);
+  const fixedRow = num0 && showText ? h('path', {d: `M${r(x0)} ${r(Y(TX.valTop + TX.size * 0.8))}h${r(S * 0.5)}`, stroke: WRITE_INK, 'stroke-width': 2.4, 'stroke-linecap': 'round'}) : null;
+  const lvTrace = g({name: 'lv-trace', opacity: 0}, showText ? textAt(TX.traceFit, {x: x0, y: Y(num0 ? TX.valTop : TX.traceTop), fill: th.fgSoft, italic: true}) : null);
   const lensStrip = g({transform: T(stripC.x, stripC.y)},
     stripArt(ctx, SM, {name: 'ls', numberFit: !num0 && showText ? NF.a : null, blank: num0, barSeed: P.sealNumber, slit: false}),
   );
@@ -252,8 +251,8 @@ function sceneParts(ctx, L) {
     g({transform: T(bag.x, bag.y)}, pouchBack(ctx, PM, {})),
     g({transform: T(objIn.x, objIn.y)}, objectArt(ctx, M)),
     g({transform: T(bag.x, bag.y)}, pouchFront(ctx, PM, {rows: L.recs, chainN: P.custodians.length, seedKey: 'ep-inspect'})),
-    face, rowsT, lensStrip, lvBefore, lvAfter, lvTrace,
-    h('rect', {name: 'lv-ring', x: r(x0 - S * 0.04), y: r(num0 ? stripC.y - plate.h / 2 : rowY(0.5) - S * 0.09), width: 4, height: r(num0 ? plate.h : S * 0.1), rx: 2, fill: th.accent2, opacity: 0}),
+    face, lensStrip, g({name: 'lv-text'}, rowsT, fixedRow, lvBefore, lvAfter, lvTrace),
+    h('rect', {name: 'lv-ring', x: r(num0 ? stripC.x - plate.w / 2 - S * 0.05 : x0 - S * 0.04), y: r(num0 ? stripC.y - plate.h / 2 : Y(TX.valTop)), width: 4, height: r(num0 ? plate.h : TX.size * 2.2), rx: 2, fill: th.accent2, opacity: 0}),
   );
   const Lz = lens(ctx, {name: 'lens', source: C.source, dest: C.dest, frame: C.bench, content, color: th.accent2});
   return {Lz};
@@ -351,6 +350,10 @@ const scene = {
       nodes['ctx-pb'] = {opacity: ctxBefore};
       nodes['ctx-pa'] = {opacity: ctxAfter};
     }
+    // lens text is shown only while the lens renders it at >= 16 px (never during the first part of the growth)
+    const textOn = lerp(1, C.zoom, pOpen) >= C.kText ? 1 : 0;
+    nodes['lv-text'] = {opacity: textOn};
+    if (!num0 && ctx.show('key')) nodes['ls-num'] = {opacity: textOn};
     const lift = num0 ? C.SM.plate.h * 0.4 : C.S * 0.05;
     nodes['lv-before'] = {opacity: r(1 - kOld, 3), transform: T(0, -kOld * lift)};
     nodes['lv-trace'] = {opacity: r(kTrace * 0.95, 3)};

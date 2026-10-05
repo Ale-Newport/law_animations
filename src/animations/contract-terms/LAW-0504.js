@@ -61,7 +61,7 @@ defaultParams.categories = CONTENT.categories.map((c, i) => (i === 1 ? {...c, st
 const defaultParamsEs = {...strip(CONTENT_ES)};
 defaultParamsEs.categories = CONTENT_ES.categories.map((c, i) => (i === 1 ? {...c, status: 'included'} : c));
 
-const isStress = p => [...p.categories.map(c => c.label), p.contract.title, p.statusLabels.included, p.statusLabels.review, p.sheetLabel, p.clauseTitle].some(t => t.length > 40) || p.annotations.length > 1;
+const isStress = p => [...p.categories.map(c => c.label), p.contract.title, p.statusLabels.included, p.statusLabels.review, p.sheetLabel, p.clauseTitle].some(t => t.length > 45) || p.annotations.length > 1;
 const ciOf = p => clamp(p.changedCategory, 1, p.categories.length) - 1;
 const statuses = (p, which) => p.categories.map((c, i) => (i === ciOf(p) ? p[which] : c.status));
 
@@ -81,7 +81,7 @@ function geom(ctx, F, minF, tw) {
   if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
   if (show) p.annotations.forEach((an, i) => notes.push({name: `ann${i}`, kind: 'ann', text: an.text}));
   const gap = 12;
-  const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: '#ffffff'});
+  const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: Math.max(F * 0.95, minF), minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: '#ffffff'});
   // context sheet
   let sheet, notesBox, lensArea;
   const ctxW = tall || sq ? D.w - pad * 2 : D.w * 0.37;
@@ -100,7 +100,11 @@ function geom(ctx, F, minF, tw) {
   const headH = head.height + sh.height + 40;
   const tileH0 = labH + stH + (sq ? 28 : 40);
   const notesW = tall || sq ? D.w - pad * 2 : D.w - ctxW - pad * 2 - 30;
-  const nh = notes.length ? notes.reduce((a, q) => a + chipOf(q, 0, 0, notesW).box.h + gap, -gap) : 0;
+  const cols = sq && notes.length > 1 ? 2 : 1;
+  const cw = (notesW - gap * (cols - 1)) / cols;
+  let nh = 0;
+  for (let k2 = 0; k2 < notes.length; k2 += cols) nh += Math.max(...notes.slice(k2, k2 + cols).map(q => chipOf(q, 0, 0, cw).box.h)) + gap;
+  nh = Math.max(0, nh - gap);
     if (tall || sq) {
     sheet = {x: pad, y: pad, w: ctxW, h: D.h - pad * 2 - (nh ? nh + 20 : 0)};
     notesBox = {x: pad, y: D.h - pad - nh, w: notesW, h: nh};
@@ -161,7 +165,12 @@ function geom(ctx, F, minF, tw) {
   let notesPl = null;
   if (notes.length) {
     let ny = notesBox.y;
-    notesPl = notes.map(q => { const c = chipOf(q, notesBox.x, ny, notesBox.w); if (c.bad) why.push('note-text'); ny += c.box.h + gap; return {q, c}; });
+    notesPl = [];
+    for (let k2 = 0; k2 < notes.length; k2 += cols) {
+      let rh = 0;
+      notes.slice(k2, k2 + cols).forEach((q, j) => { const c = chipOf(q, notesBox.x + j * (cw + gap), ny, cw); if (c.bad) why.push('note-text'); rh = Math.max(rh, c.box.h); notesPl.push({q, c}); });
+      ny += rh + gap;
+    }
   }
   return {ok: !why.length, why, F, minF, tall, sq, docBox, docL, stH, vm, sheet, head, sh, headH, C, neck, tiles, gR, cgB, cgA, ci, src, dest, k, afterFit, notesPl};
 }

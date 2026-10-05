@@ -38,7 +38,7 @@ const ID = 'LAW-0501';
 const DURATION = 6000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
 const W = {
-  read: [0.15, 0.28], back: [0.28, 0.35], toStart: [0.29, 0.36], draw: [0.36, 0.645], lift: [0.64, 0.7],
+  read: [0.15, 0.3], back: [0.3, 0.4], toStart: [0.3, 0.4], draw: [0.4, 0.65], lift: [0.65, 0.735],
   status: [0.65, 0.73], final: [0.73, 0.78], key: [0.76, 0.81], notes: [0.78, 0.83],
 };
 const ZOOM = 1.6;
@@ -66,7 +66,7 @@ const defaultParamsEs = {
   ...CONTENT_ES,
 };
 
-const isStress = p => [...p.clauses, ...p.categories.map(c => c.label), p.contract.title, p.statusLabels.included, p.statusLabels.review, p.sheetLabel].some(t => t.length > 40) || p.annotations.length > 1;
+const isStress = p => [...p.clauses, ...p.categories.map(c => c.label), p.contract.title, p.statusLabels.included, p.statusLabels.review, p.sheetLabel].some(t => t.length > 45) || p.annotations.length > 1;
 
 /** Geometry for one candidate text size. */
 function geom(ctx, F, minF, legend = false, stack = false) {
@@ -88,14 +88,14 @@ function geom(ctx, F, minF, legend = false, stack = false) {
   if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
   if (show) p.annotations.forEach((an, i) => notes.push({name: `note${i}`, kind: 'note', text: an.text, target: an.target}));
   const gap = 14;
-  const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.kind === 'final' ? ctx.theme.accent2Soft : '#ffffff', glyph: q.kind === 'leg' ? (gx, gy, rr) => statusGlyph(ctx, q.status, gx, gy, rr) : null});
+  const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: Math.max(F * 0.95, minF), minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.kind === 'final' ? ctx.theme.accent2Soft : '#ffffff', glyph: q.kind === 'leg' ? (gx, gy, rr) => statusGlyph(ctx, q.status, gx, gy, rr) : null});
   const notesH = w => notes.reduce((a, q) => a + chipOf(q, 0, 0, w).box.h + gap, 0) - (notes.length ? gap : 0);
   let doc, sheet, notesBox, glassRest, tipRest, shL, shR;
   const m = 34;
   {
     // the contract and the category sheet side by side (landscape, square) or stacked (portrait); the reading glass
     // rest, the notes and the marker rest share a strip along the bottom
-    const restW = glassLen + 24 + mk.len * 0.75 + 30;
+    const restW = glassLen + 24 + mk.len * 0.8 + 30;
     const nw = desk.w - 2 * m - restW;
     const nh = notes.length ? notesH(nw) : 0;
     const strip = Math.max(R * 2 + 56, nh + 36);
@@ -166,7 +166,6 @@ function geom(ctx, F, minF, legend = false, stack = false) {
   const glassStops = rows.map(row => [{x: doc.x + padX + 30, y: doc.y + row.y + row.h / 2}, {x: doc.x + padX + Math.max(60, Math.min(doc.w - padX - 70, row.fit.width - 30)), y: doc.y + row.y + row.h / 2}]);
   const farL = Math.max(...glassStops.flat().map(q => Math.hypot(q.x - shL.x, q.y - shL.y)), Math.hypot(glassRest.x - shL.x, glassRest.y - shL.y)) - (hl + R) * 0.4;
   const farR = Math.max(...cg.pts.map(q => Math.hypot(q.x + mk.len * 0.55 - shR.x, q.y + 40 - shR.y)));
-  if (globalThis.DBG501) console.log(F * unitPx(ctx), legend, stack, why.join());
   return {
     ok: !why.length, why, F, minF, shape, desk, doc, sheet, notesBox, notesPl, glassRest, tipRest, shL, shR,
     legend, padX, head, headH, titleF, titleY, rows, sh, shH, C, neck, tiles, gR, cg, glass: {R, hl}, mk, glassStops,
@@ -272,15 +271,16 @@ const scene = {
     let c = restC, readRow = -1;
     if (u >= W.read[0] && u < W.read[1]) {
       const q = seg(u, ...W.read);
-      const k = pts.length - 1; // legs
-      const lq = q * k;
-      const i = Math.min(k - 1, Math.floor(lq));
-      const t = E(lq - i);
+      const lens = pts.slice(1).map((pt, j) => Math.hypot(pt.x - pts[j].x, pt.y - pts[j].y) + 60);
+      const tot = lens.reduce((a, b) => a + b, 0);
+      let acc = 0, i = 0;
+      while (i < lens.length - 1 && acc + lens[i] < q * tot) { acc += lens[i]; i++; }
+      const t = E(clamp((q * tot - acc) / lens[i]));
       c = {x: lerp(pts[i].x, pts[i + 1].x, t), y: lerp(pts[i].y, pts[i + 1].y, t)};
       if (i >= 1 && (i - 1) % 2 === 0) readRow = (i - 1) / 2;
     } else if (u >= W.read[1]) {
       const last = pts[pts.length - 1];
-      const t = ease.inOutCubic(seg(u, ...W.back));
+      const t = ease.inOutSine(seg(u, ...W.back));
       c = {x: lerp(last.x, restC.x, t), y: lerp(last.y, restC.y, t)};
     }
     const pl = holdPose(armL, L.shL, c, off, 1);
@@ -303,9 +303,9 @@ const scene = {
     const lastPt = L.cg.at(end);
     let tip, lifted = 1;
     if (u < W.toStart[0]) tip = {...L.tipRest};
-    else if (u < W.draw[0]) { const t = ease.inOutCubic(seg(u, ...W.toStart)); tip = {x: lerp(L.tipRest.x, start.x, t), y: lerp(L.tipRest.y, start.y, t)}; lifted = 1 - seg(u, W.toStart[1] - 0.01, W.draw[0]); }
+    else if (u < W.draw[0]) { const t = ease.inOutSine(seg(u, ...W.toStart)); tip = {x: lerp(L.tipRest.x, start.x, t), y: lerp(L.tipRest.y, start.y, t)}; lifted = 1 - seg(u, W.toStart[1] - 0.01, W.draw[0]); }
     else if (u < W.draw[1]) { tip = L.cg.at(drawn); lifted = 0; }
-    else { const t = ease.inOutCubic(seg(u, ...W.lift)); tip = {x: lerp(lastPt.x, L.tipRest.x, t), y: lerp(lastPt.y, L.tipRest.y, t)}; lifted = seg(u, W.lift[0], W.lift[0] + 0.01); }
+    else { const t = ease.inOutSine(seg(u, ...W.lift)); tip = {x: lerp(lastPt.x, L.tipRest.x, t), y: lerp(lastPt.y, L.tipRest.y, t)}; lifted = seg(u, W.lift[0], W.lift[0] + 0.01); }
     const penOff = L.mk.len * 0.55;
     const pr = holdPose(armR, L.shR, tip, penOff, -1);
     Object.assign(nodes, pr.nodes);

@@ -172,8 +172,7 @@ const scene = {
           const z = clamp(Math.max(Math.min(zp, 4), needLens / Math.min(src.w, src.h)), 1.5, 4);
           return {G, src, z, lw: src.w * z, lh: src.h * z};
         };
-        // lens to the right: it may reach over the panel below the scene (an opaque window, only while open), never
-        // over the scene itself; lens below: its room is reserved under the scene
+        // lens to the right / below: its room is reserved beside / under the scene; above: it opens over the rack
         // (the area that counts is the scene's own, at rest: the lens room is empty while the lens is closed)
         const areaOf = (S, bh) => {
           const q = lensOf(S);
@@ -185,7 +184,7 @@ const scene = {
           const q = lensOf(S);
           if (q.lh > D.h - 20) return {w: 1e9, h: 1e9};
           if (lp === 'above') return {w: Math.max(q.G.W, q.lw), h: q.G.H};
-          return lp === 'right' ? {w: q.G.W + LGAP + q.lw, h: q.G.H} : {w: Math.max(q.G.W, q.lw), h: q.G.H + LGAP + q.lh};
+          return lp === 'right' ? {w: q.G.W + LGAP + q.lw, h: Math.max(q.G.H, q.lh)} : {w: Math.max(q.G.W, q.lw), h: q.G.H + LGAP + q.lh};
         }});
       }
       stMemo.set(size, st);
@@ -203,7 +202,7 @@ const scene = {
     const {z} = q0;
     const MG = 10, GAP = 26;
     const blockW = st.lp === 'right' ? G.W + LGAP + q0.lw : Math.max(G.W, q0.lw);
-    const blockH = st.lp === 'right' || st.lp === 'above' ? G.H : G.H + LGAP + q0.lh;
+    const blockH = st.lp === 'above' ? G.H : st.lp === 'right' ? Math.max(G.H, q0.lh) : G.H + LGAP + q0.lh;
     let bx, by, px, py;
     if (A.mode === 'side') { bx = MG; by = (D.h - blockH) / 2; px = MG + A.bw + GAP; py = Math.max(MG, (D.h - A.panel.h) / 2); } else { const tot = blockH + (A.panel.h ? GAP + A.panel.h : 0); by = Math.max(MG, (D.h - tot) / 2); bx = (D.w - blockW) / 2; px = MG; py = by + blockH + GAP; }
     const ox = st.lp === 'right' ? bx : bx + (blockW - G.W) / 2;
@@ -216,7 +215,7 @@ const scene = {
     const dest = st.lp === 'above'
       ? {x: clamp(src.x + src.w / 2 - lw / 2, ox, ox + G.W - lw), y: Math.max(oy + 4, src.y - 16 - lh), w: lw, h: lh}
       : st.lp === 'right'
-      ? {x: ox + G.W + LGAP, y: clamp(src.y + src.h / 2 - lh / 2, 10, D.h - 10 - lh), w: lw, h: lh}
+      ? {x: ox + G.W + LGAP, y: clamp(src.y + src.h / 2 - lh / 2, by, by + blockH - lh), w: lw, h: lh}
       : {x: clamp(src.x + src.w / 2 - lw / 2, bx, bx + blockW - lw), y: oy + G.H + LGAP, w: lw, h: lh};
     const bandNodes = placePanel(ctx, A.panel, px, py, it => (it.key === 'note' ? {fill: ctx.theme.accent2Soft, stroke: ctx.theme.accent2} : {}));
     // value chips (context): the focus chip has a before and an after version and a trace line

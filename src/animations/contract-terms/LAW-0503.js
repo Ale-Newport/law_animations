@@ -66,7 +66,7 @@ const defaultParamsEs = {
 };
 const noSheet = o => { const {sheetLabel, ...rest} = o; void sheetLabel; return rest; };
 
-const isStress = p => [...p.clauses, ...p.categories.map(c => c.label), p.contract.title, p.statusLabels.included, p.statusLabels.review, p.clauseTitle].some(t => t.length > 40) || p.annotations.length > 1;
+const isStress = p => [...p.clauses, ...p.categories.map(c => c.label), p.contract.title, p.statusLabels.included, p.statusLabels.review, p.clauseTitle].some(t => t.length > 45) || p.annotations.length > 1;
 const statusesOf = (p, which) => { const ci = clamp(p.changedCategory, 1, p.categories.length) - 1; return p.categories.map((c, i) => (i === ci ? (which === 'a' ? p.statusA : p.statusB) : c.status)); };
 
 function geom(ctx, F, minF) {
@@ -85,10 +85,10 @@ function geom(ctx, F, minF) {
   if (show) notes.push({name: 'only', kind: 'note0', text: t.only.replace('{x}', p.categories[ci].label)});
   if (showKey) notes.push({name: 'key', kind: 'key', text: t.key});
   if (show) p.annotations.forEach((an, i) => notes.push({name: `ann${i}`, kind: 'ann', text: an.text, target: an.target}));
-  const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.kind === 'note0' ? ctx.theme.accent3Soft : '#ffffff'});
+  const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: Math.max(F * 0.95, minF), minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.kind === 'note0' ? ctx.theme.accent3Soft : '#ffffff'});
   const gap = 12;
   const nw = D.w - pad * 2;
-  const cols = notes.length > 1 && side ? Math.min(notes.length, 3) : 1;
+  const cols = notes.length > 1 && side ? Math.min(notes.length, ctx.view.shape === 'landscape' ? 3 : 2) : 1;
   const cw = (nw - gap * (cols - 1)) / cols;
   const sizes = notes.map(q => chipOf(q, 0, 0, cw).box.h);
   const rowsN = Math.ceil(notes.length / cols);
@@ -122,7 +122,7 @@ function geom(ctx, F, minF) {
   const C = {x: tray.x + 26, y: tray.y + 24, w: tray.w - 52, h: tray.h - 48};
   const neck = clamp(C.w * 0.13, 44, 84);
   const tileX = C.x + neck + 20, tileW = C.x + C.w - 16 - tileX;
-  const labFits = p.categories.map(c => fitG(c.label, {maxWidth: tileW - tileTextX(200) - gR * 2 - 30, size: F, minSize: minF, maxLines: 2, weight: 700}));
+  const labFits = p.categories.map(c => fitG(c.label, {maxWidth: tileW - tileTextX(200) - gR * 2 - 30, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700}));
   const tileH0 = Math.max(...labFits.map(f => f.height)) + 26;
   const minGap = 34;
   if (n * tileH0 + (n - 1) * minGap + 20 > C.h) why.push('tiles-do-not-fit');
@@ -233,8 +233,8 @@ const scene = {
     if (L.notesPl) for (const pl of L.notesPl) nodes[`${pl.q.name}-g`] = {opacity: r(pl.q.kind === 'key' ? keyO : noteO, 3)};
     const beat = u < BEATS.base[1] ? 'base' : u < BEATS.change[1] ? 'change' : u < BEATS.consequence[1] ? 'consequence' : 'hold';
     // the "look" before the change beat: what is visible, identical in both scenes
-    const lookA = u < W.line[0] ? JSON.stringify({cord: look.a.cord, line: look.a.line, pegs: look.a.pegs}) : 'changed';
-    const lookB = u < W.line[0] ? JSON.stringify({cord: look.b.cord, line: look.b.line, pegs: look.b.pegs}) : 'changed';
+    const lookA = u < W.line[0] ? JSON.stringify({cord: look.a.cord, line: look.a.line, pegs: look.a.pegs, bob: look.a.bob}) : 'changed';
+    const lookB = u < W.line[0] ? JSON.stringify({cord: look.b.cord, line: look.b.line, pegs: look.b.pegs, bob: look.b.bob}) : 'changed';
     return {
       nodes,
       semantic: {

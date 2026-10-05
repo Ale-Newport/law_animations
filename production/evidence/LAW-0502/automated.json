@@ -1,0 +1,380 @@
+{
+  "animationId": "LAW-0502",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0502",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "contract.reference",
+        "rejected": "Invalid animation parameters:\n - params.contract.reference: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: start: the layers are stacked, nothing drawn @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "layer0": {
+            "x": 694.66,
+            "y": 123.85
+          },
+          "layer1": {
+            "x": 704.66,
+            "y": 133.85
+          },
+          "layer2": {
+            "x": 714.66,
+            "y": 143.85
+          },
+          "bead": {
+            "x": 231.89,
+            "y": 613.91
+          },
+          "separated": false,
+          "explode": 0,
+          "relationsDrawn": 0,
+          "relations": 3,
+          "arrows": 0,
+          "tracerAt": null,
+          "tracerMoving": false,
+          "beadShown": 0,
+          "focusGrow": 0,
+          "statusesShown": 0,
+          "statuses": "included,review,included",
+          "keyShown": 0,
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: the layers separate before any relation is drawn @0.21",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "layer0": {
+            "x": 18,
+            "y": 149.99
+          },
+          "layer1": {
+            "x": 694.02,
+            "y": 129.99
+          },
+          "layer2": {
+            "x": 1370.04,
+            "y": 109.99
+          },
+          "bead": {
+            "x": 231.89,
+            "y": 613.91
+          },
+          "separated": true,
+          "explode": 1,
+          "relationsDrawn": 0,
+          "relations": 3,
+          "arrows": 0,
+          "tracerAt": null,
+          "tracerMoving": false,
+          "beadShown": 0,
+          "focusGrow": 0,
+          "statusesShown": 0,
+          "statuses": "included,review,included",
+          "keyShown": 0,
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: every supplied relation drawn, as plain lines (no arrows) @0.43",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "layer0": {
+            "x": 18,
+            "y": 149.99
+          },
+          "layer1": {
+            "x": 694.02,
+            "y": 129.99
+          },
+          "layer2": {
+            "x": 1370.04,
+            "y": 109.99
+          },
+          "bead": {
+            "x": 231.89,
+            "y": 613.91
+          },
+          "separated": true,
+          "explode": 1,
+          "relationsDrawn": 3,
+          "relations": 3,
+          "arrows": 0,
+          "tracerAt": null,
+          "tracerMoving": false,
+          "beadShown": 0,
+          "focusGrow": 0,
+          "statusesShown": 0,
+          "statuses": "included,review,included",
+          "keyShown": 0,
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: the bead travels @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "layer0": {
+            "x": 18,
+            "y": 149.99
+          },
+          "layer1": {
+            "x": 694.02,
+            "y": 129.99
+          },
+          "layer2": {
+            "x": 1370.04,
+            "y": 109.99
+          },
+          "bead": {
+            "x": 785.22,
+            "y": 459.49
+          },
+          "separated": true,
+          "explode": 1,
+          "relationsDrawn": 3,
+          "relations": 3,
+          "arrows": 0,
+          "tracerAt": "contour",
+          "tracerMoving": false,
+          "beadShown": 1,
+          "focusGrow": 0.125,
+          "statusesShown": 0,
+          "statuses": "included,review,included",
+          "keyShown": 0,
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: states visible, bead gone @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "layer0": {
+            "x": 18,
+            "y": 149.99
+          },
+          "layer1": {
+            "x": 694.02,
+            "y": 129.99
+          },
+          "layer2": {
+            "x": 1370.04,
+            "y": 109.99
+          },
+          "bead": {
+            "x": 1509.24,
+            "y": 439.49
+          },
+          "separated": true,
+          "explode": 1,
+          "relationsDrawn": 3,
+          "relations": 3,
+          "arrows": 0,
+          "tracerAt": null,
+          "tracerMoving": false,
+          "beadShown": 0,
+          "focusGrow": 0,
+          "statusesShown": 1,
+          "statuses": "included,review,included",
+          "keyShown": 1,
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same mechanism @0.8",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "layer0": {
+            "x": 18,
+            "y": 149.99
+          },
+          "layer1": {
+            "x": 694.02,
+            "y": 129.99
+          },
+          "layer2": {
+            "x": 1370.04,
+            "y": 109.99
+          },
+          "bead": {
+            "x": 1509.24,
+            "y": 476.99
+          },
+          "separated": true,
+          "explode": 1,
+          "relationsDrawn": 3,
+          "relations": 3,
+          "arrows": 0,
+          "tracerAt": null,
+          "tracerMoving": false,
+          "beadShown": 0,
+          "focusGrow": 0,
+          "statusesShown": 1,
+          "statuses": "included,review,included",
+          "keyShown": 0.6,
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

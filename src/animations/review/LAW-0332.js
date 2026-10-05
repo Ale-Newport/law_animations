@@ -9,7 +9,8 @@
  * the bottom wall lies the tray's RECORD plate: the supplied state, its glyph (●
  * authorization requested / ◆ decision supplied, equal weight) over a small
  * two-slot tray icon, and the supplied value):
- *  0.00–0.20  build: the room fills its area beside a text panel; the record plate
+ *  0.00–0.20  build: the petition travels from the first tray along the path into
+ *             the prior-examination tray (0.05–0.15); the room fills its area beside a text panel; the record plate
  *             carries the supplied BEFORE value (by default "authorization
  *             requested"); the petition lies in the prior-examination tray with
  *             its ● pin, the tray's other slot empty.
@@ -45,12 +46,14 @@ import {measure} from '../../core/text.js';
 import {str, num, obj, oneOf} from '../../schemas/fields.js';
 import {changedMarker} from '../../primitives/markers.js';
 import {pxPerUnit, overlaps} from '../hearings/kits/apertura-audiencia.js';
-import {saFields, SA_EN, SA_ES, localisedSa, resolveSa, saRoom, composeSa, searchSa, saRowNode, recordLayout, fitSa, hasLoneWord, SIDES} from './kits/solicitud-autorizacion.js';
+import {saAction, saFields, SA_EN, SA_ES, localisedSa, resolveSa, saRoom, composeSa, searchSa, saRowNode, recordLayout, fitSa, hasLoneWord, SIDES} from './kits/solicitud-autorizacion.js';
 
 const ID = 'LAW-0332';
 /** The record plate's text, a multiple of the text size, largest first: the plate's value fills the lens. */
 const REFS_SIZES = [2.1, 1.85, 1.6, 1.4, 1.2, 1];
 const DURATION = 8000;
+/** The build (coordinator, review-03): the petition is carried into the tray. */
+const WB = {reach: [0.015, 0.035], lift: [0.035, 0.05], carry: [0.05, 0.135], put: [0.135, 0.15], release: [0.15, 0.165], back: [0.16, 0.18]};
 const BEATS = {build: [0, 0.2], isolate: [0.2, 0.45], substitute: [0.45, 0.75], ret: [0.75, 1]};
 const W = {
   frame: [0.18, 0.205], panelOut: [0.185, 0.205], ctxOut: [0.205, 0.209], back: [0.209, 0.224], open: [0.212, 0.24],
@@ -452,16 +455,21 @@ const scene = {
     const o1 = 1 - clamp(cue * 2), i1 = clamp(cue * 2 - 1);
     const A0 = stateLook(L.before), A1 = stateLook(L.after);
     const mix = key => (A0[key] && !A1[key] ? o1 : !A0[key] && A1[key] ? i1 : A0[key]);
-    const stFor = (textk, recState) => ({
+    // (the build, coordinator review-03: the petition leaves the first tray, travels along the configured path — dipping
+    // into each tray it passes — and is laid in the prior-examination tray; the record plate already shows the supplied
+    // state. No participant is drawn: a courier's lane would push the 1:1 composition below its text floor)
+    const ac = saAction(G, WB, u, {mode: 'carry'});
+    const stFor = (textk, recState, live = false) => ({
       textK: textk,
       route: {solid: 1},
-      doc: {x: L.last.x, y: L.last.y, s: 1, op: 1},
+      doc: live ? {x: ac.doc.x, y: ac.doc.y, s: ac.doc.s, op: 1} : {x: L.last.x, y: L.last.y, s: 1, op: 1},
+      ...(live ? {person: ac.person, reach: ac.reach} : {}),
       pin: {a: mix('pinA')},
       dec: {op: mix('dec'), s: lerp(1.12, 1, mix('dec')), pin: {b: mix('dec')}},
-      covers: [],
+      covers: live ? ac.covers : [],
       rec: recState,
     });
-    const rf = L.room.frame(stFor(textK, recFor(ctxT, chip)));
+    const rf = L.room.frame(stFor(textK, recFor(ctxT, chip), true));
     Object.assign(nodes, rf.nodes);
     // (in the lens the dock's tray is there from the opening, empty until the substitution)
     Object.assign(nodes, L.lz.frame(stFor(lensT, recFor(lensT, 1))).nodes);

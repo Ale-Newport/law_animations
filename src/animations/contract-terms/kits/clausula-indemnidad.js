@@ -128,9 +128,9 @@ export function placeRows(S, hh, F) {
   const base = S.rowH.reduce((a, b) => a + b, 0);
   const avail = hh - S.rowsTop - F * 0.9;
   const spare = Math.max(0, avail - base - F * 0.5 * (n - 1));
-  const grow = Math.min(spare * 0.45 / n, F * 1.1);
-  const gap = Math.min(F * 0.5 + (spare - grow * n) / Math.max(1, n), F * 1.6);
-  let y = S.rowsTop + Math.max(0, (avail - (base + grow * n + gap * (n - 1))) * 0.3);
+  const grow = Math.min(spare * 0.5 / n, F * 1.6);
+  const gap = Math.min(F * 0.5 + (spare - grow * n) / Math.max(1, n), F * 2);
+  let y = S.rowsTop + Math.max(0, (avail - (base + grow * n + gap * (n - 1))) * 0.35);
   return S.rows.map((fit, i) => { const row = {y, h: S.rowH[i] + grow, fit}; y += row.h + gap; return row; });
 }
 
@@ -204,13 +204,14 @@ export function socketArt(ctx, name, dir, s = 1) {
 /* ------------------------------------------------------------------------ */
 
 /** Text and size of a claim slip of width w. */
-export function slipText(ctx, p, w, F, minF, stress) {
+export function slipText(ctx, p, w, F, minF, stress, minH = 0) {
   const label = fitG(p.claim.label, {maxWidth: w - 52, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700});
   const at = amountText(ctx, p);
   const amount = at ? fitG(at, {maxWidth: w - 52, size: F * 0.92, minSize: Math.min(minF, F * 0.92), maxLines: 2, weight: 600}) : null;
   const stub = Math.max(34, F * 1.25);
-  const hh = stub + 22 + label.height + (amount ? 14 + amount.height : 0) + 26;
-  return {label, amount, stub, h: hh, w, bad: label.bad || (amount && amount.bad)};
+  const textH = stub + 22 + label.height + (amount ? 14 + amount.height : 0);
+  const hh = Math.max(textH + 26, minH);
+  return {label, amount, stub, textH, h: hh, w, bad: label.bad || (amount && amount.bad)};
 }
 
 /**
@@ -246,6 +247,8 @@ export function claimSlip(ctx, o) {
     ...dots,
   ];
   const ty = by + stub + 22;
+  // simulated body text below the supplied lines (decorative)
+  for (let y = by + o.T.textH + 30, i = 0; y < by + hh - 22; y += 24, i++) parts.push(h('path', {d: `M${r(bx + 26)} ${r(y)}h${r((w - 70) * (0.55 + 0.4 * ((i * 7) % 5) / 5))}`, stroke: '#eadfd4', 'stroke-width': 6, 'stroke-linecap': 'round'}));
   if (o.showText) {
     parts.push(txt(o.T.label, {x: bx + 26, y: ty, fill: INK}));
     if (o.T.amount) parts.push(txt(o.T.amount, {x: bx + 26, y: ty + o.T.label.height + 14, fill: '#4a3b30'}));
@@ -270,10 +273,10 @@ export function readingLens(ctx, o) {
   const {lw, lh, hl} = o;
   const x0 = hl, cx = hl + lw / 2;
   return g({name: o.name},
-    h('rect', {x: r(x0 + 10), y: r(-lh / 2 + 14), width: r(lw), height: r(lh), rx: 16, fill: INK, opacity: 0.12}),
+    h('rect', {x: r(x0 + 8), y: r(-lh / 2 + 10), width: r(lw), height: r(lh), rx: 16, fill: INK, opacity: 0.1}),
     h('path', {d: `M${r(-lh * 0.12)} ${r(-lh * 0.13)}H${r(hl + 6)}V${r(lh * 0.13)}H${r(-lh * 0.12)}Q${r(-lh * 0.24)} 0 ${r(-lh * 0.12)} ${r(-lh * 0.13)}Z`, fill: '#5a4636', stroke: INK, 'stroke-width': 2.4, 'stroke-linejoin': 'round'}),
     h('path', {d: `M${r(hl * 0.25)} ${r(-lh * 0.13)}V${r(lh * 0.13)}M${r(hl * 0.45)} ${r(-lh * 0.13)}V${r(lh * 0.13)}`, stroke: '#3b2d22', 'stroke-width': 2}),
-    h('rect', {x: r(x0), y: r(-lh / 2), width: r(lw), height: r(lh), rx: 16, fill: '#dff0f4', 'fill-opacity': 0.35, stroke: INK, 'stroke-width': r(lh * 0.1 + 3)}),
+    h('rect', {x: r(x0), y: r(-lh / 2), width: r(lw), height: r(lh), rx: 16, fill: '#eef8fa', 'fill-opacity': 0.72, stroke: INK, 'stroke-width': r(lh * 0.1 + 3)}),
     h('rect', {x: r(x0), y: r(-lh / 2), width: r(lw), height: r(lh), rx: 16, fill: 'none', stroke: '#2d4f5c', 'stroke-width': r(lh * 0.1)}),
     h('path', {d: `M${r(x0 + lw * 0.12)} ${r(-lh * 0.28)}L${r(x0 + lw * 0.3)} ${r(-lh * 0.28)}M${r(x0 + lw * 0.12)} ${r(-lh * 0.12)}L${r(x0 + lw * 0.2)} ${r(-lh * 0.12)}`, stroke: '#fff', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.9}),
     h('circle', {cx: r(cx), cy: r(-lh / 2 - 1), r: 4, fill: BRASS, stroke: INK, 'stroke-width': 1.4}),

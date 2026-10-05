@@ -1,0 +1,422 @@
+{
+  "animationId": "LAW-0503",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0503",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "contract.reference",
+        "rejected": "Invalid animation parameters:\n - params.contract.reference: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: identical scenes, nothing changed yet @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "bobA": {
+            "x": 26,
+            "y": 763
+          },
+          "bobB": {
+            "x": 26,
+            "y": 763
+          },
+          "cord": 0,
+          "lookA": "{\"cord\":0,\"line\":0,\"pegs\":0,\"bob\":{\"x\":26,\"y\":763}}",
+          "lookB": "{\"cord\":0,\"line\":0,\"pegs\":0,\"bob\":{\"x\":26,\"y\":763}}",
+          "lineShown": 0,
+          "bayPegs": 0,
+          "baysA": 0,
+          "baysB": 0,
+          "lenA": 2898.29,
+          "lenB": 4601.5,
+          "statusA": "included",
+          "statusB": "review",
+          "changed": 2,
+          "guideShown": 0,
+          "keyShown": 0,
+          "side": true,
+          "sceneA": {
+            "x": 14,
+            "y": 14,
+            "w": 999.75,
+            "h": 803
+          },
+          "sceneB": {
+            "x": 1047.75,
+            "y": 14,
+            "w": 999.75,
+            "h": 803
+          },
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: the changed fact arrives before the cord is laid @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "bobA": {
+            "x": 26,
+            "y": 763
+          },
+          "bobB": {
+            "x": 26,
+            "y": 763
+          },
+          "cord": 0,
+          "lookA": "changed",
+          "lookB": "changed",
+          "lineShown": 1,
+          "bayPegs": 0.625,
+          "baysA": 0,
+          "baysB": 1,
+          "lenA": 2898.29,
+          "lenB": 4601.5,
+          "statusA": "included",
+          "statusB": "review",
+          "changed": 2,
+          "guideShown": 0,
+          "keyShown": 0,
+          "side": true,
+          "sceneA": {
+            "x": 14,
+            "y": 14,
+            "w": 999.75,
+            "h": 803
+          },
+          "sceneB": {
+            "x": 1047.75,
+            "y": 14,
+            "w": 999.75,
+            "h": 803
+          },
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: the cords are laid at the same pace @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "consequence",
+          "bobA": {
+            "x": 700.96,
+            "y": 265.46
+          },
+          "bobB": {
+            "x": 705.58,
+            "y": 422.12
+          },
+          "cord": 0.402,
+          "lookA": "changed",
+          "lookB": "changed",
+          "lineShown": 1,
+          "bayPegs": 1,
+          "baysA": 0,
+          "baysB": 1,
+          "lenA": 2898.29,
+          "lenB": 4601.5,
+          "statusA": "included",
+          "statusB": "review",
+          "changed": 2,
+          "guideShown": 0,
+          "keyShown": 0,
+          "side": true,
+          "sceneA": {
+            "x": 14,
+            "y": 14,
+            "w": 999.75,
+            "h": 803
+          },
+          "sceneB": {
+            "x": 1047.75,
+            "y": 14,
+            "w": 999.75,
+            "h": 803
+          },
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: B has one more bay (longer contour); guide and key shown @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "bobA": {
+            "x": 26,
+            "y": 763
+          },
+          "bobB": {
+            "x": 26,
+            "y": 763
+          },
+          "cord": 1,
+          "lookA": "changed",
+          "lookB": "changed",
+          "lineShown": 1,
+          "bayPegs": 1,
+          "baysA": 0,
+          "baysB": 1,
+          "lenA": 2898.29,
+          "lenB": 4601.5,
+          "statusA": "included",
+          "statusB": "review",
+          "changed": 2,
+          "guideShown": 1,
+          "keyShown": 1,
+          "side": true,
+          "sceneA": {
+            "x": 14,
+            "y": 14,
+            "w": 999.75,
+            "h": 803
+          },
+          "sceneB": {
+            "x": 1047.75,
+            "y": 14,
+            "w": 999.75,
+            "h": 803
+          },
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative (reversed): A has the extra bay @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "bobA": {
+            "x": 26,
+            "y": 763
+          },
+          "bobB": {
+            "x": 26,
+            "y": 763
+          },
+          "cord": 1,
+          "lookA": "changed",
+          "lookB": "changed",
+          "lineShown": 1,
+          "bayPegs": 1,
+          "baysA": 2,
+          "baysB": 1,
+          "lenA": 4589.36,
+          "lenB": 2886.15,
+          "statusA": "review",
+          "statusB": "included",
+          "changed": 2,
+          "guideShown": 1,
+          "keyShown": 1,
+          "side": true,
+          "sceneA": {
+            "x": 14,
+            "y": 14,
+            "w": 999.75,
+            "h": 803
+          },
+          "sceneB": {
+            "x": 1047.75,
+            "y": 14,
+            "w": 999.75,
+            "h": 803
+          },
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same difference @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "bobA": {
+            "x": 26,
+            "y": 832
+          },
+          "bobB": {
+            "x": 26,
+            "y": 832
+          },
+          "cord": 1,
+          "lookA": "changed",
+          "lookB": "changed",
+          "lineShown": 1,
+          "bayPegs": 1,
+          "baysA": 0,
+          "baysB": 1,
+          "lenA": 3036.29,
+          "lenB": 4739.5,
+          "statusA": "included",
+          "statusB": "review",
+          "changed": 2,
+          "guideShown": 1,
+          "keyShown": 1,
+          "side": true,
+          "sceneA": {
+            "x": 14,
+            "y": 14,
+            "w": 999.75,
+            "h": 872
+          },
+          "sceneB": {
+            "x": 1047.75,
+            "y": 14,
+            "w": 999.75,
+            "h": 872
+          },
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}
