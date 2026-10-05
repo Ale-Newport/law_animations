@@ -171,7 +171,7 @@ function geom(ctx, F, minF, hkFrac, styleIn) {
   const tabW = id => (tabFits[id] ? tabFits[id].width : TF * 4) + 30;
   const padX = 50;
   // widths
-  const slipW = style === 'right' ? clamp(D.w * (shape === 'square' ? 0.2 : 0.17), 240, 340) : clamp(D.w * 0.3, 260, 360);
+  const slipW = style === 'right' ? clamp(D.w * (shape === 'square' ? (stress ? 0.26 : 0.2) : 0.17), 240, 340) : clamp(D.w * 0.3, 260, 360);
   let Wk;
   if (style === 'right') Wk = (D.w - 2 * m - (-v.x) - 168 - slipW - 30) / 2;
   else Wk = D.w - 2 * m - (-2 * v.x) - dx - slipW - 30;

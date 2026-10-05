@@ -129,7 +129,7 @@ export function tabChip(ctx, x, y, s, i, letter, show) {
   const fill = hueOf(i);
   return g(null,
     h('rect', {x: r(x), y: r(y), width: r(s), height: r(s), rx: r(s * 0.2), fill, stroke: INK, 'stroke-width': 2}),
-    show ? h('text', {x: r(x + s / 2), y: r(y + s * 0.7), 'text-anchor': 'middle', 'font-size': r(s * 0.6, 2), 'font-weight': 800, 'font-family': "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif", fill: '#ffffff'}, letter)
+    show ? h('text', {x: r(x + s / 2), y: r(y + s * 0.76), 'text-anchor': 'middle', 'font-size': r(s * 0.74, 2), 'font-weight': 800, 'font-family': "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif", fill: '#ffffff'}, letter)
       : h('path', {d: `M${r(x + s * 0.3)} ${r(y + s * 0.5)}h${r(s * 0.4)}`, stroke: '#ffffff', 'stroke-width': r(s * 0.12), 'stroke-linecap': 'round'}),
   );
 }
@@ -150,8 +150,8 @@ export function cardText(p, order, w, F, minF, o = {}) {
   const headH = head.height + F * 0.9;
   const heading = fitG(p.clause.heading, {maxWidth: w - padX * 2 - 30, size: F, minSize: minF, maxLines: 2, weight: 700});
   const text = o.noText ? null : fitG(p.clause.text, {maxWidth: w - padX * 2, size: Math.max(minF, F * 0.92), minSize: minF, maxLines: stress ? 4 : 3, weight: 500});
-  const disc = Math.max(F * 0.78, 17);
-  const tab = F * 1.25;
+  const disc = F * 0.9;
+  const tab = F * 1.4;
   const rowX = padX + lead;
   const labelX = rowX + disc * 2 + 12 + tab + 12;
   const labelW = w - labelX - 22;
@@ -263,7 +263,7 @@ export function binderTop(ctx, o) {
 /** Label geometry of a binder band for width w. */
 export function binderLabel(label, w, F, minF, stress) {
   const spine = Math.min(36, w * 0.1);
-  const s = F * 1.3;
+  const s = F * 1.4;
   const lw = w - (spine + 18 + s + 14) - 22;
   return {fit: fitG(label, {maxWidth: lw, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700}), tabS: s};
 }
