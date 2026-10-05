@@ -592,7 +592,7 @@ export function panelLayout(rows, o) {
   let ok = true;
   const out = rows.map(row => {
     const tw = row.kind === 'state' || row.kind === 'key' ? w - F * 1.4 : w - iconW - F * 0.3;
-    const fit = fitG(row.text, {maxWidth: tw, size: F, minSize: o.minF ?? F, maxLines: o.maxLines ?? 4, weight: row.kind === 'heading' ? 700 : row.kind === 'key' ? 600 : 500});
+    const fit = fitG(row.text, {maxWidth: tw, size: F, minSize: o.minF ?? F, maxLines: o.maxLines ?? 5, weight: row.kind === 'heading' ? 700 : row.kind === 'key' ? 600 : 500});
     if (!fit.ok) ok = false;
     const pad = row.kind === 'state' ? F * 0.45 : 0;
     const hh = Math.max(row.kind === 'item' || row.kind === 'heading' ? F * 1.25 : 0, fit.height + pad * 2);
