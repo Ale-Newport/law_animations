@@ -116,7 +116,7 @@ export function compose(ctx, P, F, opts) {
   // the widest card whose plan fits the desk's width (cards are capped so they never become banners)
   const planFor = (cw, bars) => {
     const M = cardModel(P, {w: cw, F, showText: showKey, bars, foot: opts.tight ? F * 1.3 : undefined});
-    return {M, plan: planDesk(M, {F, mode, align: P.routes.align, restK: opts.restK, tight: opts.tight})};
+    return {M, plan: planDesk(M, {F, mode, align: P.routes.align, restK: opts.restK, tight: opts.tight, avail: inner})};
   };
   let best = null;
   // (quick refusal: even the widest card without filler bars is too tall for this desk)
@@ -125,16 +125,18 @@ export function compose(ctx, P, F, opts) {
   if (quick.plan.needH > inner.h + 0.5) {
     return {F, problems: ['desk-height'], ok: false};
   }
-  for (const bars of [2, 1, 0]) {
-    let lo = F * 9, hi = cap;
-    if (planFor(lo, bars).plan.needW > inner.w) { best = best || planFor(lo, bars); continue; }
+  // (the width does not depend on the filler bars: find the widest card once, then keep as many bars as the height allows)
+  let lo = F * 9, hi = cap;
+  if (planFor(lo, 0).plan.needW > inner.w) best = planFor(lo, 0);
+  else {
     for (let it = 0; it < 7; it++) {
       const mid = (lo + hi) / 2;
-      if (planFor(mid, bars).plan.needW <= inner.w) lo = mid; else hi = mid;
+      if (planFor(mid, 0).plan.needW <= inner.w) lo = mid; else hi = mid;
     }
-    const c = planFor(lo, bars);
-    best = c;
-    if (c.plan.needH <= inner.h) break;
+    for (const bars of [2, 1, 0]) {
+      best = planFor(lo, bars);
+      if (best.plan.needH <= inner.h) break;
+    }
   }
   const {M, plan} = best;
   // a band layout: the desk is only as tall as its block needs (the panel follows it; the whole is centred)

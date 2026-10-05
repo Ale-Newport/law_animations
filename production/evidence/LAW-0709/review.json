@@ -162,11 +162,30 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "pass",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0709/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0709/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0709/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0709/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0709/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0709/sheet-16x9-es.png",
+      "production/scratch/rev-causation-08/r2-09-stress916.png",
+      "production/scratch/rev-causation-08/r2-09-none.png"
+    ],
+    "findings": [
+      "re-review after fix: qa.mjs automated pass; test file alone 24/24 passed; no debug hooks left (grep __dbg/__lbl/__why empty)",
+      "earlier defect fixed: 9:16 long-labels-stress plate now much larger (fills width above the record), stress text 18 px still legible; scene-area test passes",
+      "story reads: inner ring grows from the event pad, objects inside, ● post rises, outer ring grows, ◆ post rises, bracket + grouping chip, readable hold; 16:9/9:16/1:1 genuinely re-laid; labels-hidden 16:9 strip reads",
+      "baseline/alt/es sheets unchanged from previous review and clean",
+      "legal neutral: rings only the supplied grouping, identical stroke/colour, outer 'to be examined', no doctrine/outcome"
+    ],
+    "sourceHash": "9c8713bc6d54cb5423b9140729ede8c18f8d85c43b0c2af0f7a2e18c17126f28",
+    "renderFingerprint": "de7e4de1f4cc3634f0e0f76fe34bbd8fe33aacd574bd0b99fe6754a7515c4dd5",
+    "reviewedAt": "2026-10-05T18:20:14.340Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -182,5 +201,10 @@
   "renderFingerprint": "de7e4de1f4cc3634f0e0f76fe34bbd8fe33aacd574bd0b99fe6754a7515c4dd5",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.05,0.3,0.5,0.68,1",
   "thumb": "production/evidence/LAW-0709/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

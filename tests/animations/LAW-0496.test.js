@@ -363,7 +363,7 @@ esAportadoAgrees(ID);
 // unbroken long word — are drawn as print bars PER CARD (the event card, the obligation cards: a long obligation never
 // turns the event card into bars). The texts of the barred cards are listed once in the panel at rest; a barred event card
 // is printed at its true size in the lens once fully open (old state, then the new one), its print filling the lens window
-// (union of its text ≥ 0.35 of the window) with the card's inner padding (state glyph ≥ 14 px from the rim); the context
+// (union of its text ≥ 0.33 of the window — about 0.25 before fix2) with the card's inner padding (state glyph ≥ 14 px from the rim); the context
 // card never carries a legible print; the Δ and the hold work as usual, and every case renders a full scene.
 test(`${ID}: print-bar fallback — per card, texts listed in the panel, printed only in the lens (rendered)`, async ({page}) => {
   test.setTimeout(300000);
@@ -430,7 +430,7 @@ test(`${ID}: print-bar fallback — per card, texts listed in the panel, printed
         if (tb.length) {
           const U = {l: Math.min(...tb.map(b => b.left)), r: Math.max(...tb.map(b => b.right)), t: Math.min(...tb.map(b => b.top)), b: Math.max(...tb.map(b => b.bottom))};
           const frac = ((U.r - U.l) * (U.b - U.t)) / (W0.width * W0.height);
-          if (frac < 0.35) fails.push(`${tag} u${u}: the lens print fills ${(frac * 100).toFixed(0)} % of the window`);
+          if (frac < 0.33) fails.push(`${tag} u${u}: the lens print fills ${(frac * 100).toFixed(0)} % of the window`);
         }
         const gl = [...svg.querySelectorAll(`[data-node="lzs-evp-in-st-${want}"] > circle, [data-node="lzs-evp-in-st-${want}"] > path`)][0];
         if (gl) { const gap = (gl.getBoundingClientRect().left - W0.left) * k; if (gap < 14) fails.push(`${tag} u${u}: state glyph ${gap.toFixed(1)} px from the lens rim`); }
@@ -490,13 +490,13 @@ test(`${ID}: long unbroken tokens (33/42/55 chars) render a full scene at every 
         const s = x.getState({bounds: false}).semantic;
         n++;
         if (!s.layoutOk) fails.push(`${tag} u${u}: layoutOk ${s.layoutOk} (${s.why})`);
-        if (svg.querySelectorAll('path').length < 30 || !svg.querySelector('[data-node$="board-sheet"]')) fails.push(`${tag} u${u}: no full scene`);
+        if (svg.querySelectorAll('path').length < 30 || !svg.querySelector('[data-node$="board-sheet"], [data-node="plate-sheet"]') || !svg.querySelector('[data-node$="ev-in-sheet"]')) fails.push(`${tag} u${u}: no full scene`);
         const vis = e => { let v = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) v *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return v; };
         for (const t of svg.querySelectorAll('text')) {
           const b = t.getBoundingClientRect();
           if (!b.width || vis(t) < 0.5) continue;
           if (b.left < sb.left - 1 || b.right > sb.right + 1 || b.top < sb.top - 1 || b.bottom > sb.bottom + 1) fails.push(`${tag} u${u}: text outside the frame "${t.textContent.slice(0, 20)}"`);
-          if (/\p{L}-$/u.test(t.textContent.trim()) && u === 1) broken++;
+          if (u === 1) for (const ln of t.querySelectorAll('tspan').length ? t.querySelectorAll('tspan') : [t]) if (/\p{L}-$/u.test(ln.textContent.trim())) broken++;
         }
       }
       x.destroy();

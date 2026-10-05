@@ -71,7 +71,7 @@ function deskPlan(P, M, desk, F, tight, compact) {
   const inner = {x: desk.x + inset, y: desk.y + inset, w: desk.w - 2 * inset, h: desk.h - 2 * inset};
   // compact (square frames): no parking row above the cards — the strip waits below the desk's lower edge and is
   // pushed up into place; no calendar
-  const plan = planDesk(M, {F, mode: 'none', align: P.routes.align, tight, calK: 3.2, noStripRow: compact, cal: !compact});
+  const plan = planDesk(M, {F, mode: 'none', align: P.routes.align, tight, calK: 3.2, noStripRow: compact, cal: !compact, avail: inner});
   const ox = inner.x + (inner.w - plan.needW) / 2, oy = inner.y + Math.max(0, (inner.h - plan.needH) / 2);
   const off = q => ({...q, x: q.x + ox, y: q.y + oy});
   const A = off(plan.A), Bt = off(plan.Bt);
@@ -134,15 +134,17 @@ export function compose(ctx, P, F, opts) {
   const cap = Math.min(F * (showKey ? 22 : 18), innerW * 0.5);
   const q0 = tryCw(cap, 0);
   if (!opts.force && q0.d.plan.needH > deskH - 2 * Math.max(12, F * 0.6) + 0.5) return {F, problems: ['desk-height'], ok: false, dbg: {need: Math.round(q0.d.plan.needH), deskH: Math.round(deskH), ch: Math.round(q0.M.h), cw: Math.round(cap), PL: PL && Math.round(PL.h), hh: Math.round(hh)}};
-  for (const bars of [1, 0]) {
-    let lo = F * 7, hi = cap;
-    if (tryCw(lo, bars).d.plan.needW > innerW) { best = best || tryCw(lo, bars); continue; }
+  let lo = F * 7, hi = cap;
+  if (tryCw(lo, 0).d.plan.needW > innerW) best = tryCw(lo, 0);
+  else {
     for (let it = 0; it < 7; it++) {
       const mid = (lo + hi) / 2;
-      if (tryCw(mid, bars).d.plan.needW <= innerW) lo = mid; else hi = mid;
+      if (tryCw(mid, 0).d.plan.needW <= innerW) lo = mid; else hi = mid;
     }
-    best = tryCw(lo, bars);
-    if (best.d.fits) break;
+    for (const bars of [1, 0]) {
+      best = tryCw(lo, bars);
+      if (best.d.fits) break;
+    }
   }
   const M = best.M;
   const D = desks.map(dk => deskPlan(P, M, dk, F, opts.tight, opts.compact));
@@ -256,7 +258,8 @@ const scene = {
       // the chip sits inside desk B's ring, in its upper part (over the card's header band, never over the result row)
       const cx = R1.x + R1.w / 2;
       // (on the lower edge of desk B's ring: over the card's footer filler, never over its result row)
-      const x = cx - gch.w / 2, y = R1.y + R1.h - gch.h / 2;
+      const dkB = C.desks[1];
+      const x = cx - gch.w / 2, y = Math.min(R1.y + R1.h - gch.h / 2, dkB.y + dkB.h - gch.h - 4);
       guideKids.push(g({name: 'guide-chip'},
         h('path', {d: roundRectPath(x, y, gch.w, gch.h, Math.min(gch.h / 2, C.F * 0.6)), fill: th.card, stroke: gc, 'stroke-width': 3}),
         textAt(gch.fit, {x: cx, y: y + C.F * 0.35, anchor: 'middle', fill: INK})));

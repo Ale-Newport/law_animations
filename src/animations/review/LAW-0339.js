@@ -114,7 +114,7 @@ const scene = {
         label: fitG(sc.label, {maxWidth: Math.max(80, tw - bR0 * 2 - 16), size: F, minSize: F, maxLines: 2, weight: 700}),
         cap: capInHdr && sc.caption && showAll ? fitG(sc.caption, {maxWidth: Math.max(80, tw - bR0 * 2 - 16), size: F, minSize: F, maxLines: 4, weight: 500}) : null,
       } : null);
-      const hOf = fs => (showKey ? Math.max(...fs.map(f => f.label.height + (f.cap ? f.cap.height + F * 0.3 : 0))) + F * 0.6 : F * 1.5);
+      const hOf = fs => (showKey ? Math.max(...fs.map(f => f.label.height + (f.cap ? f.cap.height + F * 0.3 : 0))) + F * 0.6 : F * 2.1);
       let fits = fitsFor(laneW);
       let hdrH = hOf(fits);
       let lanes = [];

@@ -124,8 +124,7 @@ const scene = {
       const {restItems, holdItems} = panelItems(cardText, oblText);
       return [...restItems, ...holdItems].every(it => widestToken(it.text, F, it.kind === 'head' ? 700 : 600) <= Math.max(10, plr.w - F * 0.6 - (it.glyph || it.kind === 'marker' ? F * 1.6 : 0) - F * 1.2));
     };
-    const panels = (F0, plr, cardText, oblText) => {
-      let F = F0;
+    const panels = (F, plr, cardText, oblText) => {
       const {restItems, holdItems} = panelItems(cardText, oblText);
       const placeCol = items => {
         if (!items.length) return {placed: [], h: 0};
@@ -136,20 +135,10 @@ const scene = {
         const placed = chips.map(q => { const ext = q.it.glyph || q.it.kind === 'marker' ? F * 1.6 : 0; const x = plr.x + (plr.w - q.c.box.w - ext) / 2 + ext; const o = {...q, x, y, ext}; y += q.c.box.h + F * 0.45; return o; });
         return {placed, h: hh, bad: chips.some(q => q.c.fit.bad) || hh > plr.h || chips.some(q => q.c.box.w + (q.it.glyph || q.it.kind === 'marker' ? F * 1.6 : 0) > plr.w)};
       };
-      // (the panel's print as large as both the rest and the hold columns allow — up to 1.35× the body size, 1.6× in the
-      // tall frame's lower half — without wrapping any chip onto more lines than at the body size: the panel fills its
-      // region instead of leaving an empty band)
-      const placeAt = (items, Fp) => { const F1 = F; F = Fp; try { return {...placeCol(items), F: Fp}; } finally { F = F1; } };
-      const base = {rest: placeAt(restItems, F), hold: placeAt(holdItems, F)};
-      const nLines = pl => pl.placed.map(q => q.c.fit.lines.length);
-      const sameLines = (a0, b0) => nLines(b0).every((n, i) => n <= nLines(a0)[i]);
-      if (!base.rest.bad && !base.hold.bad) {
-        for (const kf of [1.6, 1.5, 1.42, 1.35, 1.28, 1.2, 1.12, 1.06].filter(k => below || k <= 1.35)) {
-          const rest = placeAt(restItems, F * kf), hold = placeAt(holdItems, F * kf);
-          if (!rest.bad && !hold.bad && Math.max(rest.h, hold.h) <= plr.h * 0.92 && sameLines(base.rest, rest) && sameLines(base.hold, hold)) return {rest, hold};
-        }
-      }
-      return base;
+      // (the panel keeps the body size: its generic captions — the key, the final tag — may never print larger than the
+      // supplied texts on the board)
+      const placeAt = (items, Fp) => ({...placeCol(items), F: Fp});
+      return {rest: placeAt(restItems, F), hold: placeAt(holdItems, F)};
     };
     const sideShares = show ? [0.55, 0.52, 0.5, 0.495, 0.49, 0.48, 0.46, 0.455, 0.58] : [0.7, 0.67, 0.64, 0.61, 0.58, 0.565, 0.55];
     // (1:1: the board's panels side by side, or stacked — the tranche over the event — when the side-by-side panels are too
@@ -179,7 +168,7 @@ const scene = {
       if (showKey && p.parties.some(q => fitG(q.name, {maxWidth: Math.min(cb.w * 0.46, 24 * F) - F * 1.2, size: F, maxLines: 3, weight: 600}).bad)) continue;
       if (!cardText && show && !breakingWords()) {
         const s0 = (F * 1.02) / p.detailGeometry.zoom, cwMax = (Math.min(lr.w * 0.96, lr.h * 0.96 * 3) / zt) - F * 0.7 - 5;
-        if (widestToken(p.event.label, s0 * 0.56, 700) > Math.max(10, cwMax - 0.8 * s0)
+        if (widestToken(p.event.label, Math.min(s0, 17 / upx / p.detailGeometry.zoom), 700) > Math.max(10, cwMax - 0.8 * s0)
           || STATES.some(st => widestToken(p.stateLabels[st], s0, 600) > Math.max(10, cwMax - 0.8 * s0 - 1.15 * s0))) continue;
       }
       // (a printed card that cannot fit the widest card the lens allows: skip at once)
@@ -246,7 +235,7 @@ const scene = {
       // (≥ 1.6 where the frame allows; the 1:1 stacked board ≥ 1.56 — the hard floor is 1.5 against the rest size at every host
       // size, LENS MAGNIFICATION MARGIN decision 2026-10-04)
       if (zoom < (show ? (stack ? 1.56 : 1.6) : growMode ? 1.52 * grow : 1.52)) continue;
-      const lensM = !cardText && show ? lensPrint(p, Lc.G, F, zoom) : null;
+      const lensM = !cardText && show ? lensPrint(p, Lc.G, F, zoom, upx) : null;
       if (!cardText && show && !lensM) continue;
       const dest = {w: src.w * zoom, h: src.h * zoom};
       dest.x = lr.x + (lr.w - dest.w) / 2;
@@ -377,10 +366,10 @@ const scene = {
  * The print of a print-bar event card as the lens shows it (its true size, legible only through the lens): as large as
  * the card holds — from about 3.2× down to the body size once magnified — with the context card's own inner padding (at
  * least 0.6 of the print size) round it, so the state glyph never hugs the card's edge. The state row (the inspected
- * datum) is sized first; the label as large as fits beside it (0.56–1.3× the state’s size, ≤ 3 lines; a long unbroken word
+ * datum) is sized first; the label as large as fits beside it (≤ 1.3× the state’s size, ≥ 17 px, ≤ 3 lines; a long unbroken word
  * may hold it smaller). Null when even the body size does not fit.
  */
-function lensPrint(p, G, F, zoom) {
+function lensPrint(p, G, F, zoom, upx) {
   const padIn = G.ME.padX;
   for (const kf of [3.2, 3, 2.8, 2.6, 2.4, 2.2, 2, 1.85, 1.7, 1.55, 1.4, 1.3, 1.2, 1.1, 1.02]) {
     const sz = (F * kf) / zoom;
@@ -393,9 +382,12 @@ function lensPrint(p, G, F, zoom) {
     };
     if (st.produced.bad || st.pending.bad) continue;
     const stH = Math.max(st.produced.height, st.pending.height);
+    // (the label as large as fits — up to 1.3× the state's size, never under 17 px once magnified)
     let label = null;
-    for (const lk of [1.3, 1.2, 1.1, 1, 0.9, 0.8, 0.72, 0.64, 0.56]) {
-      const f = fitG(p.event.label, {maxWidth: tw, size: sz * lk, maxLines: 3, weight: 700, strict: true});
+    const lMin = Math.min(F * 1.02, 17 / upx) / zoom;
+    for (let ls = sz * 1.3; ls >= lMin - 1e-6; ls = ls > lMin && ls * 0.92 < lMin ? lMin : ls * 0.92) {
+      // (the centred label keeps the card's own inner padding; the wider state padding is for its glyph)
+      const f = fitG(p.event.label, {maxWidth: G.cwE - 2 * padIn, size: ls, maxLines: 3, weight: 700, strict: true});
       if (!f.bad) { label = f; break; }
     }
     if (!label) continue;

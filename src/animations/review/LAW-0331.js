@@ -230,6 +230,15 @@ const scene = {
       const shift = arr === 'row' ? {x: roomsW + rgap, y: 0} : {x: 0, y: roomH + hd.h + chan + gap};
       return {C, problems, hd, box, shift, roomsW, roomH, chan, side, arr, area, scale};
     };
+    // (fix-review-03, cold create: the passes for the people floors try the same candidates — each is composed once per
+    // layout; a copy is handed out, its problems a fresh list the search may add to)
+    const memo = new Map();
+    const composeOnce = (area, arr, F, scale) => {
+      const key = `${r(area.x, 2)}|${r(area.y, 2)}|${r(area.w, 2)}|${r(area.h, 2)}|${arr}|${r(F, 4)}|${scale}`;
+      if (!memo.has(key)) memo.set(key, compose(area, arr, F, scale));
+      const c = memo.get(key);
+      return {...c, problems: [...c.problems]};
+    };
     const arrangements = [];
     if (shape === 'landscape') {
       for (const cf of [0.22, 0.26, 0.3]) arrangements.push({arr: 'row', panel: 'column', cf});
@@ -278,7 +287,7 @@ const scene = {
               }
             }
             for (const scale of [1, 1.15, 1.3]) {
-              const cc = compose(area, A.arr, F, scale);
+              const cc = composeOnce(area, A.arr, F, scale);
               const personPx = 100 * cc.C.k * px;
               cc.problems.push(...extra);
               if (personPx < minPerson) cc.problems.push('people-small');

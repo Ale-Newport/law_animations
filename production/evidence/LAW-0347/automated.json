@@ -1,0 +1,589 @@
+{
+  "animationId": "LAW-0347",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0347",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "decisions.position"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: the same situation twice (card A in each position, trays and pockets empty) @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": {
+            "position": "A",
+            "intake": "empty",
+            "history": "empty",
+            "reach": 0,
+            "person": 161.1
+          },
+          "lookB": {
+            "position": "A",
+            "intake": "empty",
+            "history": "empty",
+            "reach": 0,
+            "person": 161.1
+          },
+          "aCardA": {
+            "x": 342.95,
+            "y": 148.84
+          },
+          "bCardA": {
+            "x": 1192.16,
+            "y": 148.84
+          },
+          "bCardB": {
+            "x": 919.21,
+            "y": 148.84
+          },
+          "aPerson": {
+            "x": 177.07,
+            "y": 328.08
+          },
+          "bPerson": {
+            "x": 1026.28,
+            "y": 328.08
+          },
+          "aHandL": {
+            "x": 137.03,
+            "y": 342.98
+          },
+          "aHandR": {
+            "x": 217.1,
+            "y": 342.98
+          },
+          "bHandL": {
+            "x": 986.24,
+            "y": 342.98
+          },
+          "bHandR": {
+            "x": 1066.31,
+            "y": 342.98
+          },
+          "bGripL": {
+            "x": 979.73,
+            "y": 274.6
+          },
+          "bGripR": {
+            "x": 1072.83,
+            "y": 274.6
+          },
+          "supplied": 0,
+          "guide": 0,
+          "note": 0,
+          "allReached": true,
+          "sameScale": true,
+          "arrangement": "row",
+          "personPx": 93.1,
+          "textPx": 24,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: the one changed fact, localised: only B's tray receives a later card @0.36",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "lookA": {
+            "position": "A",
+            "intake": "empty",
+            "history": "empty",
+            "reach": 0.62,
+            "person": 161.1
+          },
+          "lookB": {
+            "position": "A",
+            "intake": "card B",
+            "history": "empty",
+            "reach": 0.62,
+            "person": 161.1
+          },
+          "aCardA": {
+            "x": 342.95,
+            "y": 148.84
+          },
+          "bCardA": {
+            "x": 1192.16,
+            "y": 148.84
+          },
+          "bCardB": {
+            "x": 919.21,
+            "y": 148.84
+          },
+          "aPerson": {
+            "x": 177.07,
+            "y": 328.08
+          },
+          "bPerson": {
+            "x": 1026.28,
+            "y": 328.08
+          },
+          "aHandL": {
+            "x": 132.96,
+            "y": 300.24
+          },
+          "aHandR": {
+            "x": 221.17,
+            "y": 300.24
+          },
+          "bHandL": {
+            "x": 982.17,
+            "y": 300.24
+          },
+          "bHandR": {
+            "x": 1070.38,
+            "y": 300.24
+          },
+          "bGripL": {
+            "x": 979.73,
+            "y": 274.6
+          },
+          "bGripR": {
+            "x": 1072.83,
+            "y": 274.6
+          },
+          "supplied": 1,
+          "guide": 0,
+          "note": 0,
+          "allReached": true,
+          "sameScale": true,
+          "arrangement": "row",
+          "personPx": 93.1,
+          "textPx": 24,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: in parallel: in B card B occupies the position and card A is kept in the pocket; in A card A stays @0.75",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "lookA": {
+            "position": "A",
+            "intake": "empty",
+            "history": "empty",
+            "reach": 0,
+            "person": 161.1
+          },
+          "lookB": {
+            "position": "B",
+            "intake": "emptied",
+            "history": "A",
+            "reach": 0,
+            "person": 434
+          },
+          "aCardA": {
+            "x": 342.95,
+            "y": 148.84
+          },
+          "bCardA": {
+            "x": 1406.29,
+            "y": 148.84
+          },
+          "bCardB": {
+            "x": 1192.16,
+            "y": 148.84
+          },
+          "aPerson": {
+            "x": 177.07,
+            "y": 328.08
+          },
+          "bPerson": {
+            "x": 1299.23,
+            "y": 328.08
+          },
+          "aHandL": {
+            "x": 137.03,
+            "y": 342.98
+          },
+          "aHandR": {
+            "x": 217.1,
+            "y": 342.98
+          },
+          "bHandL": {
+            "x": 1259.2,
+            "y": 342.98
+          },
+          "bHandR": {
+            "x": 1339.26,
+            "y": 342.98
+          },
+          "bGripL": {
+            "x": 1252.68,
+            "y": 274.6
+          },
+          "bGripR": {
+            "x": 1345.78,
+            "y": 274.6
+          },
+          "supplied": 1,
+          "guide": 0,
+          "note": 0,
+          "allReached": true,
+          "sameScale": true,
+          "arrangement": "row",
+          "personPx": 93.1,
+          "textPx": 24,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: the guide and the neutral note shown; same scale; side by side on 16:9; composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "position": "A",
+            "intake": "empty",
+            "history": "empty",
+            "reach": 0,
+            "person": 161.1
+          },
+          "lookB": {
+            "position": "B",
+            "intake": "emptied",
+            "history": "A",
+            "reach": 0,
+            "person": 434
+          },
+          "aCardA": {
+            "x": 342.95,
+            "y": 148.84
+          },
+          "bCardA": {
+            "x": 1406.29,
+            "y": 148.84
+          },
+          "bCardB": {
+            "x": 1192.16,
+            "y": 148.84
+          },
+          "aPerson": {
+            "x": 177.07,
+            "y": 328.08
+          },
+          "bPerson": {
+            "x": 1299.23,
+            "y": 328.08
+          },
+          "aHandL": {
+            "x": 137.03,
+            "y": 342.98
+          },
+          "aHandR": {
+            "x": 217.1,
+            "y": 342.98
+          },
+          "bHandL": {
+            "x": 1259.2,
+            "y": 342.98
+          },
+          "bHandR": {
+            "x": 1339.26,
+            "y": 342.98
+          },
+          "bGripL": {
+            "x": 1252.68,
+            "y": 274.6
+          },
+          "bGripR": {
+            "x": 1345.78,
+            "y": 274.6
+          },
+          "supplied": 1,
+          "guide": 1,
+          "note": 1,
+          "allReached": true,
+          "sameScale": true,
+          "arrangement": "row",
+          "personPx": 93.1,
+          "textPx": 24,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same localised change @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "lookA": {
+            "position": "A",
+            "intake": "empty",
+            "history": "empty",
+            "reach": 1,
+            "person": 161.1
+          },
+          "lookB": {
+            "position": "moving",
+            "intake": "emptied",
+            "history": "filling",
+            "reach": 1,
+            "person": 224.9
+          },
+          "aCardA": {
+            "x": 342.95,
+            "y": 216.42
+          },
+          "bCardA": {
+            "x": 1197.21,
+            "y": 216.42
+          },
+          "bCardB": {
+            "x": 983.08,
+            "y": 216.42
+          },
+          "aPerson": {
+            "x": 177.07,
+            "y": 519.86
+          },
+          "bPerson": {
+            "x": 1090.14,
+            "y": 519.86
+          },
+          "aHandL": {
+            "x": 130.52,
+            "y": 466.38
+          },
+          "aHandR": {
+            "x": 223.62,
+            "y": 466.38
+          },
+          "bHandL": {
+            "x": 1043.59,
+            "y": 466.38
+          },
+          "bHandR": {
+            "x": 1136.69,
+            "y": 466.38
+          },
+          "bGripL": {
+            "x": 1043.59,
+            "y": 466.38
+          },
+          "bGripR": {
+            "x": 1136.69,
+            "y": 466.38
+          },
+          "supplied": 1,
+          "guide": 0,
+          "note": 0,
+          "allReached": true,
+          "sameScale": true,
+          "arrangement": "row",
+          "personPx": 93.1,
+          "textPx": 24,
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the identical base exactly @0.12",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": {
+            "position": "A",
+            "intake": "empty",
+            "history": "empty",
+            "reach": 0,
+            "person": 161.1
+          },
+          "lookB": {
+            "position": "A",
+            "intake": "empty",
+            "history": "empty",
+            "reach": 0,
+            "person": 161.1
+          },
+          "aCardA": {
+            "x": 342.95,
+            "y": 148.84
+          },
+          "bCardA": {
+            "x": 1192.16,
+            "y": 148.84
+          },
+          "bCardB": {
+            "x": 919.21,
+            "y": 148.84
+          },
+          "aPerson": {
+            "x": 177.07,
+            "y": 328.08
+          },
+          "bPerson": {
+            "x": 1026.28,
+            "y": 328.08
+          },
+          "aHandL": {
+            "x": 137.03,
+            "y": 342.98
+          },
+          "aHandR": {
+            "x": 217.1,
+            "y": 342.98
+          },
+          "bHandL": {
+            "x": 986.24,
+            "y": 342.98
+          },
+          "bHandR": {
+            "x": 1066.31,
+            "y": 342.98
+          },
+          "bGripL": {
+            "x": 979.73,
+            "y": 274.6
+          },
+          "bGripR": {
+            "x": 1072.83,
+            "y": 274.6
+          },
+          "supplied": 0,
+          "guide": 0,
+          "note": 0,
+          "allReached": true,
+          "sameScale": true,
+          "arrangement": "row",
+          "personPx": 93.1,
+          "textPx": 24,
+          "problems": []
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

@@ -154,16 +154,16 @@ function compose(ctx, P, F, opt) {
   if (!CM.ok) problems.push('card-text');
   plateH = Math.max(Fg * 3.8, Math.min(CM.h * 0.7, plateW * 0.6));
   // captions: element label (bold) + description (+ grounds) + reserved state
-  const capW = tall ? colW * 0.44 : colW - 24;
+  const capW = tall ? Math.max(plateW, F * 9) : colW - 24;
   const desc = {intake: P.routes.intake, position: P.decisions.position, history: P.routes.history};
   const states = {position: P.outcomes.position, history: P.outcomes.history};
   const caps = {};
   for (const id of ['intake', 'position', 'history']) {
     const items = [];
-    if (showKey) items.push({k: 'label', fit: fitG(labelOf(P, id), {maxWidth: capW, size: F, minSize: F, maxLines: 2, weight: 700})});
-    if (showAll) items.push({k: 'desc', fit: fitG(desc[id], {maxWidth: capW, size: F, minSize: F, maxLines: 3, weight: 500}), italic: true});
-    if (showAll && id === 'intake') items.push({k: 'grounds', fit: fitG(P.grounds, {maxWidth: capW, size: F, minSize: F, maxLines: 3, weight: 500}), italic: true});
-    if (showKey && states[id]) items.push({k: 'state', fit: fitG(states[id], {maxWidth: capW - F * 0.9, size: F, minSize: F, maxLines: 3, weight: 600}), state: true});
+    if (showKey) items.push({k: 'label', fit: fitG(labelOf(P, id), {maxWidth: capW, size: F, minSize: F, maxLines: tall ? 3 : 2, weight: 700})});
+    if (showAll) items.push({k: 'desc', fit: fitG(desc[id], {maxWidth: capW, size: F, minSize: F, maxLines: tall ? 5 : 3, weight: 500}), italic: true});
+    if (showAll && id === 'intake') items.push({k: 'grounds', fit: fitG(P.grounds, {maxWidth: capW, size: F, minSize: F, maxLines: tall ? 5 : 3, weight: 500}), italic: true});
+    if (showKey && states[id]) items.push({k: 'state', fit: fitG(states[id], {maxWidth: capW - F * 0.9, size: F, minSize: F, maxLines: tall ? 5 : 3, weight: 600}), state: true});
     let y = 0;
     for (const it of items) { if (!it.fit.ok) problems.push(`caption-${id}`); it.y = y; y += it.fit.height + F * 0.3; }
     caps[id] = {items, h: Math.max(0, y - F * 0.3), w: capW};
@@ -244,44 +244,6 @@ function compose(ctx, P, F, opt) {
   }
 }
 
-/** Walk along a rectangle's perimeter (shorter way) between two points on its edge. */
-function perimeterWalk(b, p, q, avoid = null) {
-  const per = 2 * (b.w + b.h);
-  const tOf = pt => {
-    const dl = Math.abs(pt.x - b.x), dr = Math.abs(pt.x - (b.x + b.w)), dt = Math.abs(pt.y - b.y), db = Math.abs(pt.y - (b.y + b.h));
-    const m = Math.min(dl, dr, dt, db);
-    if (m === dt) return clamp(pt.x - b.x, 0, b.w);
-    if (m === dr) return b.w + clamp(pt.y - b.y, 0, b.h);
-    if (m === db) return b.w + b.h + clamp(b.x + b.w - pt.x, 0, b.w);
-    return 2 * b.w + b.h + clamp(b.y + b.h - pt.y, 0, b.h);
-  };
-  const at = t => {
-    let s = ((t % per) + per) % per;
-    if (s <= b.w) return {x: b.x + s, y: b.y};
-    s -= b.w;
-    if (s <= b.h) return {x: b.x + b.w, y: b.y + s};
-    s -= b.h;
-    if (s <= b.w) return {x: b.x + b.w - s, y: b.y + b.h};
-    s -= b.w;
-    return {x: b.x, y: b.y + b.h - s};
-  };
-  const t0 = tOf(p), t1 = tOf(q);
-  let d = t1 - t0;
-  if (d > per / 2) d -= per;
-  if (d < -per / 2) d += per;
-  // prefer the way round that does not run along the avoided side (where the component's caption sits)
-  if (avoid) {
-    const range = avoid === 'bottom' ? [b.w + b.h + 1, 2 * b.w + b.h - 1] : [1, b.w - 1];
-    const crosses = dd => { for (let i = 1; i < 40; i++) { const t = (((t0 + (dd * i) / 40) % per) + per) % per; if (t > range[0] && t < range[1]) return true; } return false; };
-    const alt = d > 0 ? d - per : d + per;
-    if (crosses(d) && !crosses(alt)) d = alt;
-  }
-  const n = Math.max(2, Math.ceil(Math.abs(d) / 12));
-  const out = [];
-  for (let i = 1; i < n; i++) out.push(at(t0 + (d * i) / n));
-  return out;
-}
-
 const scene = {
   sizes: {landscape: [1690, 738], square: [950, 738], portrait: [950, 1359]},
   layout(ctx) {
@@ -312,44 +274,49 @@ const scene = {
       const port = (bx, id, other, gap) => {
         const o = ctr(B[other]);
         if (!isCard(rel.from) === !isCard(rel.to)) return edgeAnchor(bx, o, gap);
-        if (L.tall) return isCard(id) ? {x: bx.x - gap, y: clamp(o.y, bx.y + 14, bx.y + bx.h - 14)} : {x: bx.x + bx.w + gap, y: clamp(o.y, bx.y + 12, bx.y + bx.h - 12)};
+        if (L.tall) return isCard(id) ? {x: bx.x - gap, y: clamp(o.y, bx.y + Math.min(34, bx.h / 2), bx.y + bx.h - 14)} : {x: bx.x + bx.w + gap, y: clamp(o.y, bx.y + 12, bx.y + bx.h - Math.min(32, bx.h / 2))};
         return isCard(id) ? {x: clamp(o.x, bx.x + 18, bx.x + bx.w - 18), y: bx.y + bx.h + gap} : {x: clamp(o.x, bx.x + 18, bx.x + bx.w - 18), y: bx.y - gap - (id === 'history' ? 12 : 9)};
       };
-      const a = port(A, rel.from, rel.to, 6), b = port(Bb, rel.to, rel.from, pad);
-      const len = Math.hypot(b.x - a.x, b.y - a.y);
-      return {i, rel, a, b, len, ang: Math.atan2(b.y - a.y, b.x - a.x)};
+      let pts;
+      const sameKind = !isCard(rel.from) === !isCard(rel.to);
+      if (L.tall && sameKind) {
+        // tall frames: two places (or two cards) are linked round the side, never across a caption
+        const placeSide = !isCard(rel.from);
+        const sx = placeSide ? Math.min(A.x, Bb.x) - Math.max(18, L.F * 0.9) : Math.min(A.x, Bb.x) - Math.max(22, L.F * 1.1);
+        const ya = A.y + A.h * (placeSide ? 0.5 : 0.62), yb = Bb.y + Bb.h * (placeSide ? 0.5 : 0.62);
+        pts = [{x: A.x - 6, y: ya}, {x: sx, y: ya}, {x: sx, y: yb}, {x: Bb.x - pad, y: yb}];
+      } else pts = [port(A, rel.from, rel.to, 6), port(Bb, rel.to, rel.from, pad)];
+      const a = pts[0], b = pts[pts.length - 1];
+      let len = 0;
+      for (let j = 1; j < pts.length; j++) len += Math.hypot(pts[j].x - pts[j - 1].x, pts[j].y - pts[j - 1].y);
+      const pe = pts[pts.length - 2];
+      return {i, rel, a, b, pts, len, ang: Math.atan2(b.y - pe.y, b.x - pe.x)};
     }).filter(Boolean);
-    // the tracer route: along the relationships (edge to edge), around each component's edge between its two anchors
+    // the tracer route: from one component to the next in the supplied order, through the open band between the places
+    // and the cards (where the relationships run), so it never passes over a caption
     const order = (P.traversalOrder || []).filter(id => B[id]);
-    const pts = [];
-    const visits = [];
-    let cur = null; // current point on an edge
-    for (let k = 0; k < order.length; k++) {
-      const id = order[k];
-      if (k === 0) { const nxt = order[1] ? ctr(B[order[1]]) : ctr(B[id]); cur = edgeAnchor(B[id], nxt, 6); pts.push(cur); visits.push({id, idx: 0}); continue; }
-      const prev = order[k - 1];
-      const link = L.links.find(q => (q.rel.from === prev && q.rel.to === id) || (q.rel.from === id && q.rel.to === prev));
-      const out = link ? (link.rel.from === prev ? link.a : link.b) : edgeAnchor(B[prev], ctr(B[id]), 6);
-      const inn = link ? (link.rel.from === prev ? link.b : link.a) : edgeAnchor(B[id], ctr(B[prev]), 6);
-      const pad = 10;
-      const big = b => ({x: b.x - pad, y: b.y - pad, w: b.w + 2 * pad, h: b.h + 2 * pad});
-      pts.push(...perimeterWalk(big(B[prev]), cur, out, prev === 'later' || prev === 'initial' ? 'top' : 'bottom'), out, inn);
-      visits.push({id, idx: pts.length - 1});
-      cur = inn;
-    }
-    if (pts.length < 2) pts.push({x: pts[0] ? pts[0].x + 1 : 0, y: pts[0] ? pts[0].y : 0});
+    const isCard = id => id === 'later' || id === 'initial';
+    const gq = 22;
+    const vpt = id => {
+      const b = B[id];
+      if (tall) return isCard(id) ? {x: b.x - gq, y: b.y + b.h / 2} : {x: b.x + b.w + gq, y: b.y + b.h / 2};
+      return isCard(id) ? {x: b.x + b.w / 2, y: b.y + b.h + gq} : {x: b.x + b.w / 2, y: b.y - gq - 12};
+    };
+    const pts = order.map(vpt);
+    const visits = order.map((id, idx) => ({id, idx}));
     const poly = polyline(pts);
     const cum = [0];
     for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y));
     const tot = cum[cum.length - 1] || 1;
     L.route = {poly, visits: visits.map(v => ({id: v.id, t: cum[v.idx] / tot}))};
     // card start: lying in their places, scaled to fit
-    const fitIn = (card, place) => {
-      const s0 = Math.min(0.94 * place.w / card.w, 0.94 * place.h / card.h);
-      return {s0, x: place.x + (place.w - card.w * s0) / 2, y: place.y + (place.h - card.h * s0) / 2};
-    };
-    L.startB = fitIn(B.later, B.intake);
-    L.startA = fitIn(B.initial, B.position);
+    // start: the cards rest close to their places (just above them on wide frames, nudged out on tall ones), a little
+    // smaller and without text; they then move apart to the upper tier
+    const startOf = card => (tall
+      ? {s0: 0.9, x: card.x + card.w * 0.1, y: card.y + card.h * 0.05}
+      : {s0: 0.9, x: card.x + card.w * 0.05, y: lerp(card.y, B.position.y - card.h * 0.9 - 14, 0.4)});
+    L.startB = startOf(B.later);
+    L.startA = startOf(B.initial);
     L.tokS = Math.min(L.plateH * 0.62, L.plateW * 0.5);
     return L;
   },
@@ -371,14 +338,14 @@ const scene = {
     for (const k of L.links) {
       const color = k.rel.kind === 'sequence' ? th.fg : k.rel.kind === 'communication' ? th.accent2 : k.rel.kind === 'causal' ? INK : th.fgSoft;
       const wdt = k.rel.kind === 'causal' ? 6 : 3.5;
-      const d = `M${r(k.a.x)} ${r(k.a.y)}L${r(k.b.x)} ${r(k.b.y)}`;
+      const d = k.pts.map((q, j) => `${j ? 'L' : 'M'}${r(q.x)} ${r(q.y)}`).join('');
       const dash = {'stroke-dasharray': `${r(k.len)} ${r(k.len + 6)}`, 'stroke-dashoffset': r(k.len), 'data-draw': 1};
       const nx = -Math.sin(k.ang) * 3.5, ny = Math.cos(k.ang) * 3.5;
       links.push(g({name: `mc-l${k.i}`, opacity: 0},
         k.rel.kind === 'communication'
-          ? [h('path', {name: `mc-l${k.i}-p`, d: `M${r(k.a.x + nx)} ${r(k.a.y + ny)}L${r(k.b.x + nx)} ${r(k.b.y + ny)}`, fill: 'none', stroke: color, 'stroke-width': 2.5, ...dash}),
-            h('path', {name: `mc-l${k.i}-q`, d: `M${r(k.a.x - nx)} ${r(k.a.y - ny)}L${r(k.b.x - nx)} ${r(k.b.y - ny)}`, fill: 'none', stroke: color, 'stroke-width': 2.5, ...dash})]
-          : h('path', {name: `mc-l${k.i}-p`, d, fill: 'none', stroke: color, 'stroke-width': wdt, 'stroke-linecap': 'round', ...dash}),
+          ? [h('path', {name: `mc-l${k.i}-p`, d, transform: T(nx, ny), fill: 'none', stroke: color, 'stroke-width': 2.5, 'stroke-linejoin': 'round', ...dash}),
+            h('path', {name: `mc-l${k.i}-q`, d, transform: T(-nx, -ny), fill: 'none', stroke: color, 'stroke-width': 2.5, 'stroke-linejoin': 'round', ...dash})]
+          : h('path', {name: `mc-l${k.i}-p`, d, fill: 'none', stroke: color, 'stroke-width': wdt, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', ...dash}),
         k.rel.kind === 'relation' ? [h('circle', {name: `mc-l${k.i}-d0`, cx: r(k.a.x), cy: r(k.a.y), r: 5.5, fill: color, opacity: 0}), h('circle', {name: `mc-l${k.i}-d1`, cx: r(k.b.x), cy: r(k.b.y), r: 5.5, fill: color, opacity: 0})] : null,
         k.rel.kind !== 'relation' ? h('path', {name: `mc-l${k.i}-h`, d: headPath(k.rel.kind === 'causal' ? 24 : 18), transform: T(k.b.x, k.b.y, (k.ang * 180) / Math.PI), fill: color, opacity: 0}) : null));
     }

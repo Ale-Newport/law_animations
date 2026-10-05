@@ -190,7 +190,7 @@ const scene = {
     L.P = P;
     L.px = px;
     // card model (no text in the scenes: the texts are written once in the strip)
-    L.CM = L.rooms.map(q => cardModel(ctx, {w: q.cw, F: Math.max(12, q.cw * 0.12), a: '', b: '', showText: false, minH: q.RG.ch, bars: 3}));
+    L.CM = L.rooms.map(q => cardModel(ctx, {w: q.cw, F: Math.min(q.cw * 0.12, q.RG.ch / 6.2), a: '', b: '', showText: false, fixH: q.RG.ch, bars: 2}));
     L.looks = [actorLook(ctx, {appearance: {outfit: 0}}, 0), actorLook(ctx, {appearance: {outfit: 0}}, 0)];
     L.rigs = ['ra-p0', 'rb-p0'].map((name, i) => planPerson(ctx, {name, look: L.looks[i]}));
     return L;

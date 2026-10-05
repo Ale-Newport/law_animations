@@ -674,10 +674,16 @@ export function composeRd(ctx, R, box, o = {}) {
   const crop = o.crop ?? 1.15;
   if ((W + 2 * t) / (H + 2 * t) < ar) W = Math.min(W * crop, ar * (H + 2 * t) - 2 * t);
   else H = Math.min(H * crop, (W + 2 * t) / ar - 2 * t);
-  const G = rdGeometry(R, {...o, W, H});
-  const E = G.extents;
-  // (maxK: an upper bound on the scale — a very large room would hurry its walks on screen, item 19)
-  const k = Math.max(1e-6, Math.min(box.w / E.w, box.h / E.h, o.maxK ?? Infinity));
+  let G = rdGeometry(R, {...o, W, H});
+  let E = G.extents;
+  // (maxK: an upper bound on the scale — a very large room would hurry its walks on screen, item 19; the room's floor
+  // then grows to fill the box at that scale, its furniture centred)
+  const kFit = Math.min(box.w / E.w, box.h / E.h);
+  const k = Math.max(1e-6, Math.min(kFit, o.maxK ?? Infinity));
+  if (k < kFit - 1e-9) {
+    G = rdGeometry(R, {...o, W: Math.max(W, box.w / k - 2 * t), H: Math.max(H, box.h / k - 2 * t)});
+    E = G.extents;
+  }
   const al = o.align || {x: 0.5, y: 0.5};
   const ox = box.x + (box.w - E.w * k) * al.x - E.x * k;
   const oy = box.y + (box.h - E.h * k) * al.y - E.y * k;

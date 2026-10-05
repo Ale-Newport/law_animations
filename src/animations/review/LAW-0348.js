@@ -103,7 +103,7 @@ function roomGeometry(ctx, P, w, F, showKey, wasText, chK = 0.68) {
   const cw = (tableW - 2 * edge - 4 * ins - gap - 2 * m) / 3;
   const ch = cw * chK;
   const RG = railGeometry({cw, ch, gap, inset: ins, margin: m});
-  const CM = cardModel(ctx, {w: cw, F: Math.max(12, cw * 0.11), a: '', b: '', showText: false, minH: ch, bars: 3});
+  const CM = cardModel(ctx, {w: cw, F: Math.min(cw * 0.11, ch / 6.2), a: '', b: '', showText: false, fixH: ch, bars: 2});
   // plate and dock under the position (the plate is wider than the slot; it stays inside the table)
   const posCx = (RG.position.x + RG.cards.position.w / 2 + ins);
   const ppad = Math.max(10, F * 0.55);

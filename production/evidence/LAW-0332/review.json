@@ -2,7 +2,7 @@
   "animationId": "LAW-0332",
   "generatedBy": "scripts/qa.mjs",
   "treatment": "inspect",
-  "sourceHash": "763c3df7694b104da9c7c122b5487ca0679a251f8257cf0788ca203203e33f70",
+  "sourceHash": "44f5b3bd49eb0d4febb4db9b36ecf8173018845eb688d5af83e6653e75bdc40e",
   "implementationHash": "f84021405e44ca3a77551fa4952aba4d46b48cf6a761e997892f2b5c55d58292",
   "dependencies": [
     "src/animations/courts/kits/courts-art.js",
@@ -31,16 +31,16 @@
     "src/schemas/fields.js"
   ],
   "environment": {
-    "browser": "chromium 153.0.8010.12",
+    "browser": "chromium 141.0.7390.37",
     "playwright": "@playwright/test 1.63.0",
-    "node": "v26.0.0",
-    "platform": "darwin-arm64",
+    "node": "v22.22.0",
+    "platform": "linux-x64",
     "fonts": "system font stack (see src/core/text.js FONTS)"
   },
   "commands": [
     {
       "command": "npx playwright test tests/animations/LAW-0332.test.js --reporter=line",
-      "exitCode": 0
+      "exitCode": 1
     }
   ],
   "structure": {
@@ -65,12 +65,12 @@
     "requiredPresetsPresent": true
   },
   "automatedChecks": {
-    "status": "pass",
-    "exitCode": 0,
+    "status": "fail",
+    "exitCode": 1,
     "checks": 31,
     "failed": [],
     "details": "production/evidence/LAW-0332/automated.json",
-    "sourceHashAtRun": "763c3df7694b104da9c7c122b5487ca0679a251f8257cf0788ca203203e33f70"
+    "sourceHashAtRun": "44f5b3bd49eb0d4febb4db9b36ecf8173018845eb688d5af83e6653e75bdc40e"
   },
   "captures": [
     {
@@ -165,6 +165,28 @@
     }
   ],
   "visualReview": {
+    "status": "not_reviewed",
+    "reviewer": null,
+    "method": null,
+    "artifacts": [],
+    "findings": []
+  },
+  "legalStatus": "illustrative-unverified",
+  "testedConfigurations": [
+    "16:9 baseline-illustrative editorial-flat paper",
+    "9:16 baseline-illustrative editorial-flat paper",
+    "1:1 baseline-illustrative editorial-flat paper",
+    "16:9 contrast-or-alternative editorial-flat paper",
+    "16:9 long-labels-stress editorial-flat paper",
+    "16:9 baseline-es editorial-flat paper"
+  ],
+  "knownIssues": [],
+  "accepted": false,
+  "renderFingerprint": "4d298dd538fab9fd81158dffc56611e37c31afaaddd98c585f1e8f804070d7c2",
+  "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
+  "thumb": "production/evidence/LAW-0332/thumb.png",
+  "captureErrors": [],
+  "previousVisualReview": {
     "status": "pass",
     "reviewer": "independent QA reviewer (review-03) / Claude Opus 5.5",
     "method": "Viewed composite strips rendered from a loopback server on 127.0.0.1:5838 (16:9 sequences, 1:1 and 9:16 grids of all presets at mid-action and hold, labels hidden, es presets, full-size zooms); reran the full LAW-0329..0332 Playwright suite (158 passed, exit 0) and the DOM-less unit check (4/4); es-only rendered-text dump; independent stress-vs-baseline field comparison; automated warnings []",
@@ -190,26 +212,7 @@
       "fromSourceHash": "4c4061468cc4cf8f034fd650d676aa140b07fcc2893849d3079f1dcbf33d3cc3",
       "toSourceHash": "763c3df7694b104da9c7c122b5487ca0679a251f8257cf0788ca203203e33f70",
       "reason": "render fingerprint identical to the reviewed output"
-    }
-  },
-  "legalStatus": "illustrative-unverified",
-  "testedConfigurations": [
-    "16:9 baseline-illustrative editorial-flat paper",
-    "9:16 baseline-illustrative editorial-flat paper",
-    "1:1 baseline-illustrative editorial-flat paper",
-    "16:9 contrast-or-alternative editorial-flat paper",
-    "16:9 long-labels-stress editorial-flat paper",
-    "16:9 baseline-es editorial-flat paper"
-  ],
-  "knownIssues": [],
-  "accepted": false,
-  "renderFingerprint": "ae97a707d4ab0de4656e0ddef6e7503865be6ba954cfa055c5bf230b40a82ccc",
-  "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
-  "thumb": "production/evidence/LAW-0332/thumb.png",
-  "captureErrors": [],
-  "contentReview": {
-    "status": "pass",
-    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
-    "legalStatus": "illustrative-unverified"
+    },
+    "invalidated": "source changed and rendered output differs from what was reviewed"
   }
 }

@@ -151,8 +151,16 @@ const scene = {
     const f = fitDesign(ctx.view, D.w, D.h);
     const shortD = Math.min(ctx.view.width, ctx.view.height) / f.scale;
     // the record's fits (template units) for a text size Ft (= F / k)
+    const fitsMemo = new Map();
     const fitsFor = Ft => {
       if (!showKey) return null;
+      const key = Ft.toFixed(2);
+      if (fitsMemo.has(key)) return fitsMemo.get(key);
+      const res = fitsFor0(Ft);
+      fitsMemo.set(key, res);
+      return res;
+    };
+    const fitsFor0 = Ft => {
       const pick = (text, weight) => {
         let best = null;
         // (a compact block: the plate is near square in square and tall frames, so its enlarged copy fills the lens)
@@ -172,14 +180,16 @@ const scene = {
       return {label, before, after, was, dock};
     };
     const optsFor = (k0, F) => {
-      const Ft = F / k0;
+      // (rounded UP to half a unit: the plate's text never renders under F, and nearby scales share one measurement)
+      const Ft = Math.ceil((F / k0) * 2) / 2;
       const fits = fitsFor(Ft);
       const RL = recordLayout(fits, Ft);
       return {RL, fits, Ft, o: {arr: 'row', docK: 1.6, person: false, intake: false, covers: false, sign: false, n: R.n + 1, board: {w: RL.w, h: RL.h}, boardSide: ctx.view.shape === 'square' ? 'right' : 'below', crop: 1.25}};
     };
     const composeAt = (box, F) => {
       // (the plate's text is sized for a scale k0 no larger than the room's final scale, so it renders >= F)
-      let k0 = Math.max(0.3, box.w / 500);
+      // (start near the scale of a room without its board, then step down until the text renders >= F)
+      let k0 = Math.max(0.3, composeRd(ctx, R, box, {arr: 'row', docK: 1.6, person: false, intake: false, covers: false, sign: false, n: R.n + 1, crop: 1.25}).k);
       let out = null;
       for (let it = 0; it < 10; it++) {
         const q = optsFor(k0, F);

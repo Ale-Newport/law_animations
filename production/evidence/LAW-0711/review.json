@@ -177,11 +177,31 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "pass",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0711/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0711/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0711/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0711/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0711/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0711/sheet-16x9-es.png",
+      "production/evidence/LAW-0711/sheet-9x16-alternative.png",
+      "production/scratch/rev-causation-08/r2-11-stress11.png",
+      "production/scratch/rev-causation-08/r2-11-none.png"
+    ],
+    "findings": [
+      "re-review after fix: qa.mjs automated pass (batch run under load ~12 failed; re-run with load ~8 passed); test file alone 20/20 passed; __dbg/__dbg2 removed",
+      "earlier defects fixed: 1:1 stress fields larger (field-height and changed-object >= 40 px tests pass)",
+      "minor, not blocking: objects inside each inner ring still overlap partly (crate/jar/tipped crate cluster), most visible in stress 1:1; reserved empty band between floors and legend at rest in 1:1 (filled by late chips at the guide beat) — acceptable to avoid reflow",
+      "contrast reads with labels hidden: identical fields, ● / ◆ stop pads, drum slides to inner slot in both then only in B to the outer slot, ink guide + bracket",
+      "legal neutral: 'No winner, no conclusion', same colours for both rings"
+    ],
+    "sourceHash": "d0a1746163d8f62511d03571d4a916d83412924947ede1392af3e4412c87942c",
+    "renderFingerprint": "d6d4451cdd30c853c995dcb8cf70bf31d520955112d87881c3094e18a6c46ec4",
+    "reviewedAt": "2026-10-05T18:20:14.791Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -198,5 +218,10 @@
   "renderFingerprint": "d6d4451cdd30c853c995dcb8cf70bf31d520955112d87881c3094e18a6c46ec4",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.3,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0711/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

@@ -102,13 +102,16 @@ function fitWRaw(text, o) {
   const shown = t => t.replace(/⁠/g, ' ');
   const m = (t, sz) => measure(shown(t), sz, weight, family);
   let tokens = tokensOf(full);
+  // (pieces of a broken word always end their line: never "piece- piece" on one line)
+  const cut = new Set();
   const wrapAt = (w, sz) => {
     const lines = [];
-    let cur = '';
+    let cur = '', prev = null;
     for (const t of tokens) {
       const cand = cur ? `${cur} ${t}` : t;
-      if (!cur || m(cand, sz) <= w) cur = cand;
+      if (!cur || (!cut.has(prev) && m(cand, sz) <= w)) cur = cand;
       else { lines.push(cur); cur = t; }
+      prev = t;
     }
     if (cur) lines.push(cur);
     return lines;
@@ -120,7 +123,12 @@ function fitWRaw(text, o) {
     // (last resort, only with BREAK on and only when the whole-word pass failed: every token too wide even at the minimum
     // size is broken — after its own hyphens first, else mid-word with a hyphen — into pieces that fit at that size)
     if (!BREAK || !tokens.length || Math.max(...tokens.map(t => m(t, minSize))) <= maxWidth) break;
-    tokens = tokens.flatMap(t => (m(t, minSize) <= maxWidth ? [t] : breakToken(t, maxWidth, q => m(q, minSize))));
+    tokens = tokens.flatMap(t => {
+      if (m(t, minSize) <= maxWidth) return [t];
+      const ps = breakToken(t, maxWidth, q => m(q, minSize));
+      ps.slice(0, -1).filter(q => q.endsWith('-')).forEach(q => cut.add(q));
+      return ps;
+    });
   }
   for (let s = o.size; s >= minSize - 1e-6; s -= step) {
     if (!tokens.length) break;
@@ -169,16 +177,20 @@ function breakToken(t, maxWidth, wd) {
       if (cur) out.push(cur);
       cur = part;
       if (wd(cur) > maxWidth) {
-        // (mid-word cut: the longest head that fits with its hyphen; the tail keeps ≥ 3 letters)
+        // (mid-word cut into the fewest pieces of about equal length that fit, each but the last with its hyphen; no piece
+        // under 3 letters)
         const ch = [...cur];
-        while (ch.length && wd(ch.join('')) > maxWidth) {
-          let n = 1;
-          while (n < ch.length - 1 && wd(`${ch.slice(0, n + 1).join('')}-`) <= maxWidth) n++;
-          n = Math.max(1, Math.min(n, ch.length - 3));
-          out.push(`${ch.slice(0, n).join('')}-`);
-          ch.splice(0, n);
+        let pieces = null;
+        for (let n = 2; n <= ch.length && !pieces; n++) {
+          const len = Math.ceil(ch.length / n);
+          const ps = [];
+          for (let i = 0; i < ch.length; i += len) ps.push(ch.slice(i, i + len).join(''));
+          if (ps.length > 1 && [...ps[ps.length - 1]].length < 3) { ps[ps.length - 2] += ps.pop(); }
+          if (ps.every((q, i) => wd(i < ps.length - 1 ? `${q}-` : q) <= maxWidth)) pieces = ps;
         }
-        cur = ch.join('');
+        if (!pieces) pieces = ch;
+        pieces.slice(0, -1).forEach(q => out.push(`${q}-`));
+        cur = pieces[pieces.length - 1];
       }
     }
     if (cur) out.push(cur);

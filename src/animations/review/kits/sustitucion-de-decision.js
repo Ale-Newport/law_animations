@@ -267,7 +267,7 @@ export function cardModel(ctx, o) {
   const textH = fa && fb ? Math.max(fa.height, fb.height) : F * 1.9;
   const bars = o.bars ?? 2;
   const barH = Math.max(6, F * 0.3);
-  const hh = Math.max(o.minH ?? 0, pad + head + F * 0.35 + textH + (bars ? F * 0.5 + bars * barH + (bars - 1) * barH * 0.9 : 0) + pad);
+  const hh = o.fixH ?? Math.max(o.minH ?? 0, pad + head + F * 0.35 + textH + (bars ? F * 0.5 + bars * barH + (bars - 1) * barH * 0.9 : 0) + pad);
   return {w, h: hh, pad, stripe, inner, head, fits: {a: fa, b: fb}, textH, bars, barH, F, ok: (!fa || fa.ok) && (!fb || fb.ok)};
 }
 

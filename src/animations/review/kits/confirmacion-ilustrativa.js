@@ -379,7 +379,7 @@ export function cardNode(ctx, M, side, o) {
   // header: lane badge with its letter (or, labels hidden, the ●/◆ glyph) and the role caption
   const bx = M.pad + M.badgeR, by = M.header.y + M.header.h / 2;
   parts.push(h('circle', {cx: r(bx), cy: r(by), r: r(M.badgeR), fill: lane, stroke: INK, 'stroke-width': 2.2}));
-  if (M.showText) parts.push(h('text', {x: r(bx), y: r(by + F * 0.36), 'text-anchor': 'middle', 'font-family': FONTS.sans, 'font-size': r(F, 2), 'font-weight': 800, fill: '#fff'}, side.toUpperCase()));
+  if (M.showText) parts.push(h('text', {name: `${P}-badge-t`, x: r(bx), y: r(by + F * 0.36), 'text-anchor': 'middle', 'font-family': FONTS.sans, 'font-size': r(F, 2), 'font-weight': 800, fill: '#fff'}, side.toUpperCase()));
   else parts.push(g({transform: T(bx, by)}, markGlyph(side, M.badgeR * 0.42, {fill: '#fff', stroke: lane})));
   const tx = M.pad + M.badgeR * 2 + F * 0.5;
   if (M.showText) parts.push(textAt(f.role, {x: tx, y: M.header.y + (M.header.h - f.role.height) / 2, fill: INK, name: `${P}-role`}));
@@ -402,7 +402,8 @@ export function cardNode(ctx, M, side, o) {
     parts.push(h('rect', {x: r(M.grounds.x), y: r(M.barsY + b * M.barH * 1.9), width: r(bw), height: r(M.barH), rx: r(M.barH / 2), fill: th.paperLine}));
   }
   // reasons line (as supplied)
-  if (M.showText) parts.push(textAt(f.grounds, {x: M.grounds.x, y: M.grounds.y, fill: '#3d4650', name: `${P}-grounds`, italic: true}));
+  const skip = new Set(o.skipText || []);
+  if (M.showText && skip.has('grounds')) { /* (a lens copy: the reasons line lies outside the crop) */ } else if (M.showText) parts.push(textAt(f.grounds, {x: M.grounds.x, y: M.grounds.y, fill: '#3d4650', name: `${P}-grounds`, italic: true}));
   else for (let b = 0; b < 2; b++) parts.push(h('rect', {x: r(M.grounds.x), y: r(M.grounds.y + F * 0.1 + b * F * 0.62), width: r(M.grounds.w * (b ? 0.48 : 0.8)), height: r(F * 0.34), rx: r(F * 0.17), fill: '#8c959f', opacity: 0.6}));
   // result field: the supplied result, printed once, never animated
   const res = resultBox(M);
@@ -415,7 +416,7 @@ export function cardNode(ctx, M, side, o) {
   parts.push(g({name: `${P}-res`},
     h('path', {d: roundRectPath(res.x, res.y, res.w, res.h, 8), fill: RESULT_FILL, stroke: SLATE, 'stroke-width': 2.4}),
     h('rect', {x: r(res.x + 6), y: r(res.y + 6), width: r(F * 0.34), height: r(res.h - 12), rx: r(F * 0.17), fill: SLATE}),
-    M.showText ? textAt(f.result, {x: res.x + F * 0.95, y: res.y + (res.h - f.result.height) / 2, fill: INK, name: `${P}-res-t`})
+    M.showText && skip.has('result') ? null : M.showText ? textAt(f.result, {x: res.x + F * 0.95, y: res.y + (res.h - f.result.height) / 2, fill: INK, name: `${P}-res-t`})
       : g(null, [0, 1].map(b => h('rect', {x: r(res.x + F * 0.95), y: r(res.y + res.h / 2 - F * 0.5 + b * F * 0.62), width: r((res.w - F * 1.6) * (b ? 0.5 : 0.82)), height: r(F * 0.38), rx: r(F * 0.19), fill: INK, opacity: 0.65})))));
   // footer: a neutral strip of filler (where a hand may hold the card)
   parts.push(h('rect', {x: r(M.pad), y: r(M.footY + M.foot * 0.45), width: r(M.inner * 0.34), height: r(M.barH), rx: r(M.barH / 2), fill: th.paperLine}));
@@ -752,7 +753,10 @@ export function planDesk(M, o) {
     ];
     const free = c => !(c.x < bs.x + bs.w + 6 && c.x + c.w + 6 > bs.x && c.y < bs.y + bs.h + 6 && c.y + c.h + 6 > bs.y);
     const cost = c => Math.max(0, c.x + c.w - right0) + Math.max(0, c.y + c.h - bottom0) * 1.5;
-    cal = cands.filter(free).sort((a, b) => cost(a) - cost(b))[0] || cands[1];
+    const ok = cands.filter(free).sort((a, b) => cost(a) - cost(b));
+    // (with the available box known, the cheapest candidate that keeps the block inside it)
+    const fitsAvail = c => !o.avail || (Math.max(right0, c.x + c.w) + rm <= o.avail.w + 0.5 && Math.max(bottom0, c.y + c.h) + bm <= o.avail.h + 0.5);
+    cal = ok.find(fitsAvail) || ok[0] || cands[1];
   }
   const right = Math.max(strip.x + stripW, Bt.x + cw, bs.x + bs.w, cal ? cal.x + cal.w : 0);
   const bottom = Math.max(yA + ch, bs.y + bs.h, cal ? cal.y + cal.h : 0);

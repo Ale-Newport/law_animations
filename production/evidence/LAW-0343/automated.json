@@ -1,0 +1,1114 @@
+{
+  "animationId": "LAW-0343",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0343",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": false,
+      "detail": [
+        {
+          "preset": "long-labels-stress",
+          "ratio": "1:1",
+          "u": 1,
+          "problems": [],
+          "outsideFrame": [],
+          "outsideSafe": [
+            "Only this place differsbetween the two d @493,833,185x41"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "decisions.a.role"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: both desks identical, no supplied card visible @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": null,
+            "strip": {
+              "x": 47.9,
+              "y": 35.6
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 23.8,
+              "y": 516.6
+            }
+          },
+          "lookB": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": null,
+            "strip": {
+              "x": 47.9,
+              "y": 35.6
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 23.8,
+              "y": 516.6
+            }
+          },
+          "handRA": {
+            "x": 688.69,
+            "y": 607.46
+          },
+          "handLA": {
+            "x": 23.8,
+            "y": 577.2
+          },
+          "handRB": {
+            "x": 1576.41,
+            "y": 607.46
+          },
+          "handLB": {
+            "x": 911.52,
+            "y": 577.2
+          },
+          "gripB": {
+            "x": 1520.15,
+            "y": 994.49
+          },
+          "gripSA": {
+            "x": 64.15,
+            "y": 134.53
+          },
+          "gripSB": {
+            "x": 951.87,
+            "y": 134.53
+          },
+          "cardB": {
+            "x": 1441.48,
+            "y": 823.12
+          },
+          "stripA": {
+            "x": 388.04,
+            "y": 134.53
+          },
+          "stripB": {
+            "x": 1275.75,
+            "y": 134.53
+          },
+          "tipGapB": 440,
+          "bVisible": false,
+          "stripOnRowA": 371.3,
+          "stripOnRowB": 371.3,
+          "slide": 0,
+          "strip": 0,
+          "heldB": false,
+          "heldS": false,
+          "allReached": true,
+          "guide": 0,
+          "note": 0,
+          "arr": "row",
+          "results": [
+            "Result as given (placeholder text)",
+            "Result as given (placeholder text)"
+          ],
+          "desks": [
+            {
+              "x": 0,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            },
+            {
+              "x": 887.72,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            }
+          ],
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: change: only desk B receives the card, held by the hand @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "lookA": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": null,
+            "strip": {
+              "x": 47.9,
+              "y": 35.6
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 23.8,
+              "y": 516.6
+            }
+          },
+          "lookB": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": {
+              "x": 422.7,
+              "y": 314.9
+            },
+            "strip": {
+              "x": 47.9,
+              "y": 35.6
+            },
+            "handR": {
+              "x": 632.4,
+              "y": 672.8
+            },
+            "handL": {
+              "x": 23.8,
+              "y": 516.6
+            }
+          },
+          "handRA": {
+            "x": 688.69,
+            "y": 607.46
+          },
+          "handLA": {
+            "x": 23.8,
+            "y": 577.2
+          },
+          "handRB": {
+            "x": 1520.15,
+            "y": 733.37
+          },
+          "handLB": {
+            "x": 911.52,
+            "y": 577.2
+          },
+          "gripB": {
+            "x": 1520.15,
+            "y": 733.37
+          },
+          "gripSA": {
+            "x": 64.15,
+            "y": 134.53
+          },
+          "gripSB": {
+            "x": 951.87,
+            "y": 134.53
+          },
+          "cardB": {
+            "x": 1441.48,
+            "y": 562
+          },
+          "stripA": {
+            "x": 388.04,
+            "y": 134.53
+          },
+          "stripB": {
+            "x": 1275.75,
+            "y": 134.53
+          },
+          "tipGapB": 178.91,
+          "bVisible": true,
+          "stripOnRowA": 371.3,
+          "stripOnRowB": 371.3,
+          "slide": 0.593,
+          "strip": 0,
+          "heldB": true,
+          "heldS": false,
+          "allReached": true,
+          "guide": 0,
+          "note": 0,
+          "arr": "row",
+          "results": [
+            "Result as given (placeholder text)",
+            "Result as given (placeholder text)"
+          ],
+          "desks": [
+            {
+              "x": 0,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            },
+            {
+              "x": 887.72,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            }
+          ],
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: card B is set square beside card A (arrow marks meet); desk A has none @0.45",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "lookA": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": null,
+            "strip": {
+              "x": 47.9,
+              "y": 35.6
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 44,
+              "y": 295.3
+            }
+          },
+          "lookB": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": {
+              "x": 422.7,
+              "y": 136
+            },
+            "strip": {
+              "x": 47.9,
+              "y": 35.6
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 44,
+              "y": 295.3
+            }
+          },
+          "handRA": {
+            "x": 688.69,
+            "y": 607.46
+          },
+          "handLA": {
+            "x": 43.97,
+            "y": 355.86
+          },
+          "handRB": {
+            "x": 1576.41,
+            "y": 607.46
+          },
+          "handLB": {
+            "x": 931.69,
+            "y": 355.86
+          },
+          "gripB": {
+            "x": 1520.15,
+            "y": 554.51
+          },
+          "gripSA": {
+            "x": 64.15,
+            "y": 134.53
+          },
+          "gripSB": {
+            "x": 951.87,
+            "y": 134.53
+          },
+          "cardB": {
+            "x": 1441.48,
+            "y": 383.14
+          },
+          "stripA": {
+            "x": 388.04,
+            "y": 134.53
+          },
+          "stripB": {
+            "x": 1275.75,
+            "y": 134.53
+          },
+          "tipGapB": 4,
+          "bVisible": true,
+          "stripOnRowA": 371.3,
+          "stripOnRowB": 371.3,
+          "slide": 1,
+          "strip": 0,
+          "heldB": false,
+          "heldS": false,
+          "allReached": true,
+          "guide": 0,
+          "note": 0,
+          "arr": "row",
+          "results": [
+            "Result as given (placeholder text)",
+            "Result as given (placeholder text)"
+          ],
+          "desks": [
+            {
+              "x": 0,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            },
+            {
+              "x": 887.72,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            }
+          ],
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: parallel: the same strip motion on both desks at the same time @0.55",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "lookA": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": null,
+            "strip": {
+              "x": 47.9,
+              "y": 221.3
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 57.7,
+              "y": 259.6
+            }
+          },
+          "lookB": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": {
+              "x": 422.7,
+              "y": 136
+            },
+            "strip": {
+              "x": 47.9,
+              "y": 221.3
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 57.7,
+              "y": 259.6
+            }
+          },
+          "handRA": {
+            "x": 688.69,
+            "y": 607.46
+          },
+          "handLA": {
+            "x": 57.67,
+            "y": 320.17
+          },
+          "handRB": {
+            "x": 1576.41,
+            "y": 607.46
+          },
+          "handLB": {
+            "x": 945.39,
+            "y": 320.17
+          },
+          "gripB": {
+            "x": 1520.15,
+            "y": 554.51
+          },
+          "gripSA": {
+            "x": 57.67,
+            "y": 320.17
+          },
+          "gripSB": {
+            "x": 945.39,
+            "y": 320.17
+          },
+          "cardB": {
+            "x": 1441.48,
+            "y": 383.14
+          },
+          "stripA": {
+            "x": 388.04,
+            "y": 320.17
+          },
+          "stripB": {
+            "x": 1275.75,
+            "y": 320.17
+          },
+          "tipGapB": 4,
+          "bVisible": true,
+          "stripOnRowA": 185.65,
+          "stripOnRowB": 185.65,
+          "slide": 1,
+          "strip": 0.5,
+          "heldB": false,
+          "heldS": true,
+          "allReached": true,
+          "guide": 0,
+          "note": 0,
+          "arr": "row",
+          "results": [
+            "Result as given (placeholder text)",
+            "Result as given (placeholder text)"
+          ],
+          "desks": [
+            {
+              "x": 0,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            },
+            {
+              "x": 887.72,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            }
+          ],
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: the strip lies on the configured row on both desks; guide and neutral note shown @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": null,
+            "strip": {
+              "x": 47.9,
+              "y": 406.9
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 23.8,
+              "y": 516.6
+            }
+          },
+          "lookB": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": {
+              "x": 422.7,
+              "y": 136
+            },
+            "strip": {
+              "x": 47.9,
+              "y": 406.9
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 23.8,
+              "y": 516.6
+            }
+          },
+          "handRA": {
+            "x": 688.69,
+            "y": 607.46
+          },
+          "handLA": {
+            "x": 23.8,
+            "y": 577.2
+          },
+          "handRB": {
+            "x": 1576.41,
+            "y": 607.46
+          },
+          "handLB": {
+            "x": 911.52,
+            "y": 577.2
+          },
+          "gripB": {
+            "x": 1520.15,
+            "y": 554.51
+          },
+          "gripSA": {
+            "x": 64.15,
+            "y": 505.82
+          },
+          "gripSB": {
+            "x": 951.87,
+            "y": 505.82
+          },
+          "cardB": {
+            "x": 1441.48,
+            "y": 383.14
+          },
+          "stripA": {
+            "x": 388.04,
+            "y": 505.82
+          },
+          "stripB": {
+            "x": 1275.75,
+            "y": 505.82
+          },
+          "tipGapB": 4,
+          "bVisible": true,
+          "stripOnRowA": 0,
+          "stripOnRowB": 0,
+          "slide": 1,
+          "strip": 1,
+          "heldB": false,
+          "heldS": false,
+          "allReached": true,
+          "guide": 1,
+          "note": 1,
+          "arr": "row",
+          "results": [
+            "Result as given (placeholder text)",
+            "Result as given (placeholder text)"
+          ],
+          "desks": [
+            {
+              "x": 0,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            },
+            {
+              "x": 887.72,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            }
+          ],
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: both desks have the same size @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": null,
+            "strip": {
+              "x": 47.9,
+              "y": 406.9
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 23.8,
+              "y": 516.6
+            }
+          },
+          "lookB": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": {
+              "x": 422.7,
+              "y": 136
+            },
+            "strip": {
+              "x": 47.9,
+              "y": 406.9
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 23.8,
+              "y": 516.6
+            }
+          },
+          "handRA": {
+            "x": 688.69,
+            "y": 607.46
+          },
+          "handLA": {
+            "x": 23.8,
+            "y": 577.2
+          },
+          "handRB": {
+            "x": 1576.41,
+            "y": 607.46
+          },
+          "handLB": {
+            "x": 911.52,
+            "y": 577.2
+          },
+          "gripB": {
+            "x": 1520.15,
+            "y": 554.51
+          },
+          "gripSA": {
+            "x": 64.15,
+            "y": 505.82
+          },
+          "gripSB": {
+            "x": 951.87,
+            "y": 505.82
+          },
+          "cardB": {
+            "x": 1441.48,
+            "y": 383.14
+          },
+          "stripA": {
+            "x": 388.04,
+            "y": 505.82
+          },
+          "stripB": {
+            "x": 1275.75,
+            "y": 505.82
+          },
+          "tipGapB": 4,
+          "bVisible": true,
+          "stripOnRowA": 0,
+          "stripOnRowB": 0,
+          "slide": 1,
+          "strip": 1,
+          "heldB": false,
+          "heldS": false,
+          "allReached": true,
+          "guide": 1,
+          "note": 1,
+          "arr": "row",
+          "results": [
+            "Result as given (placeholder text)",
+            "Result as given (placeholder text)"
+          ],
+          "desks": [
+            {
+              "x": 0,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            },
+            {
+              "x": 887.72,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            }
+          ],
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: the guide and the note wait for the guide beat @0.76",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "lookA": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": null,
+            "strip": {
+              "x": 47.9,
+              "y": 406.9
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 23.8,
+              "y": 516.6
+            }
+          },
+          "lookB": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": {
+              "x": 422.7,
+              "y": 136
+            },
+            "strip": {
+              "x": 47.9,
+              "y": 406.9
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 23.8,
+              "y": 516.6
+            }
+          },
+          "handRA": {
+            "x": 688.69,
+            "y": 607.46
+          },
+          "handLA": {
+            "x": 23.8,
+            "y": 577.2
+          },
+          "handRB": {
+            "x": 1576.41,
+            "y": 607.46
+          },
+          "handLB": {
+            "x": 911.52,
+            "y": 577.2
+          },
+          "gripB": {
+            "x": 1520.15,
+            "y": 554.51
+          },
+          "gripSA": {
+            "x": 64.15,
+            "y": 505.82
+          },
+          "gripSB": {
+            "x": 951.87,
+            "y": 505.82
+          },
+          "cardB": {
+            "x": 1441.48,
+            "y": 383.14
+          },
+          "stripA": {
+            "x": 388.04,
+            "y": 505.82
+          },
+          "stripB": {
+            "x": 1275.75,
+            "y": 505.82
+          },
+          "tipGapB": 4,
+          "bVisible": true,
+          "stripOnRowA": 0,
+          "stripOnRowB": 0,
+          "slide": 1,
+          "strip": 1,
+          "heldB": false,
+          "heldS": false,
+          "allReached": true,
+          "guide": 0,
+          "note": 0,
+          "arr": "row",
+          "results": [
+            "Result as given (placeholder text)",
+            "Result as given (placeholder text)"
+          ],
+          "desks": [
+            {
+              "x": 0,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            },
+            {
+              "x": 887.72,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            }
+          ],
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the base exactly @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": null,
+            "strip": {
+              "x": 47.9,
+              "y": 35.6
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 23.8,
+              "y": 516.6
+            }
+          },
+          "lookB": {
+            "cardA": {
+              "x": 91.2,
+              "y": 136
+            },
+            "cardB": null,
+            "strip": {
+              "x": 47.9,
+              "y": 35.6
+            },
+            "handR": {
+              "x": 688.7,
+              "y": 546.9
+            },
+            "handL": {
+              "x": 23.8,
+              "y": 516.6
+            }
+          },
+          "handRA": {
+            "x": 688.69,
+            "y": 607.46
+          },
+          "handLA": {
+            "x": 23.8,
+            "y": 577.2
+          },
+          "handRB": {
+            "x": 1576.41,
+            "y": 607.46
+          },
+          "handLB": {
+            "x": 911.52,
+            "y": 577.2
+          },
+          "gripB": {
+            "x": 1520.15,
+            "y": 994.49
+          },
+          "gripSA": {
+            "x": 64.15,
+            "y": 134.53
+          },
+          "gripSB": {
+            "x": 951.87,
+            "y": 134.53
+          },
+          "cardB": {
+            "x": 1441.48,
+            "y": 823.12
+          },
+          "stripA": {
+            "x": 388.04,
+            "y": 134.53
+          },
+          "stripB": {
+            "x": 1275.75,
+            "y": 134.53
+          },
+          "tipGapB": 440,
+          "bVisible": false,
+          "stripOnRowA": 371.3,
+          "stripOnRowB": 371.3,
+          "slide": 0,
+          "strip": 0,
+          "heldB": false,
+          "heldS": false,
+          "allReached": true,
+          "guide": 0,
+          "note": 0,
+          "arr": "row",
+          "results": [
+            "Result as given (placeholder text)",
+            "Result as given (placeholder text)"
+          ],
+          "desks": [
+            {
+              "x": 0,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            },
+            {
+              "x": 887.72,
+              "y": 60.58,
+              "w": 853.1,
+              "h": 562.03
+            }
+          ],
+          "problems": [],
+          "textPx": 21
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}
