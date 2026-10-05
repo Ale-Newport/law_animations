@@ -1,0 +1,448 @@
+{
+  "animationId": "LAW-0376",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0376",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "items.0.label"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: context: before value, no lens, no marker @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "context",
+          "shown": "before",
+          "lensP": 0,
+          "zoom": 3.235,
+          "focus": "caption",
+          "value": "Detail · with scale",
+          "ctxBefore": 1,
+          "ctxAfter": 0,
+          "lensBefore": 1,
+          "lensAfter": 0,
+          "marker": 0,
+          "focusPrint": {
+            "x": 576.05,
+            "y": 156.55
+          },
+          "restK": 1,
+          "source": {
+            "x": 212.88,
+            "y": 63,
+            "w": 167.54,
+            "h": 174.52
+          },
+          "dest": {
+            "x": 562.94,
+            "y": 86.69,
+            "w": 542.03,
+            "h": 564.63
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1152.1,
+            "h": 738
+          },
+          "problems": [],
+          "textPx": 24,
+          "S": 105.2
+        }
+      }
+    },
+    {
+      "name": "semantic: lens open: the datum is shown only in the lens @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "isolate",
+          "shown": "before",
+          "lensP": 1,
+          "zoom": 3.235,
+          "focus": "caption",
+          "value": "Detail · with scale",
+          "ctxBefore": 0,
+          "ctxAfter": 0,
+          "lensBefore": 1,
+          "lensAfter": 0,
+          "marker": 0,
+          "focusPrint": {
+            "x": 296.65,
+            "y": 156.55
+          },
+          "restK": 0,
+          "source": {
+            "x": 212.88,
+            "y": 63,
+            "w": 167.54,
+            "h": 174.52
+          },
+          "dest": {
+            "x": 562.94,
+            "y": 86.69,
+            "w": 542.03,
+            "h": 564.63
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1152.1,
+            "h": 738
+          },
+          "problems": [],
+          "textPx": 24,
+          "S": 105.2
+        }
+      }
+    },
+    {
+      "name": "semantic: substituted: the new value is shown in the lens, still @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "hold-new",
+          "shown": "after",
+          "lensP": 1,
+          "zoom": 3.235,
+          "focus": "caption",
+          "value": "Detail · second angle",
+          "ctxBefore": 0,
+          "ctxAfter": 0,
+          "lensBefore": 0,
+          "lensAfter": 1,
+          "marker": 0,
+          "focusPrint": {
+            "x": 296.65,
+            "y": 156.55
+          },
+          "restK": 0,
+          "source": {
+            "x": 212.88,
+            "y": 63,
+            "w": 167.54,
+            "h": 174.52
+          },
+          "dest": {
+            "x": 562.94,
+            "y": 86.69,
+            "w": 542.03,
+            "h": 564.63
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1152.1,
+            "h": 738
+          },
+          "problems": [],
+          "textPx": 24,
+          "S": 105.2
+        }
+      }
+    },
+    {
+      "name": "semantic: return: after value with the Δ marker; composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "return",
+          "shown": "after",
+          "lensP": 0,
+          "zoom": 3.235,
+          "focus": "caption",
+          "value": "Detail · second angle",
+          "ctxBefore": 0,
+          "ctxAfter": 1,
+          "lensBefore": 0,
+          "lensAfter": 1,
+          "marker": 1,
+          "focusPrint": {
+            "x": 576.05,
+            "y": 156.55
+          },
+          "restK": 1,
+          "source": {
+            "x": 212.88,
+            "y": 63,
+            "w": 167.54,
+            "h": 174.52
+          },
+          "dest": {
+            "x": 562.94,
+            "y": 86.69,
+            "w": 542.03,
+            "h": 564.63
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1152.1,
+            "h": 738
+          },
+          "problems": [],
+          "textPx": 24,
+          "S": 105.2
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the before value exactly @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "context",
+          "shown": "before",
+          "lensP": 0,
+          "zoom": 3.235,
+          "focus": "caption",
+          "value": "Detail · with scale",
+          "ctxBefore": 1,
+          "ctxAfter": 0,
+          "lensBefore": 1,
+          "lensAfter": 0,
+          "marker": 0,
+          "focusPrint": {
+            "x": 576.05,
+            "y": 156.55
+          },
+          "restK": 1,
+          "source": {
+            "x": 212.88,
+            "y": 63,
+            "w": 167.54,
+            "h": 174.52
+          },
+          "dest": {
+            "x": 562.94,
+            "y": 86.69,
+            "w": 542.03,
+            "h": 564.63
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1152.1,
+            "h": 738
+          },
+          "problems": [],
+          "textPx": 24,
+          "S": 105.2
+        }
+      }
+    },
+    {
+      "name": "semantic: the bench has stepped aside while the lens is open @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "isolate",
+          "shown": "before",
+          "lensP": 1,
+          "zoom": 3.235,
+          "focus": "caption",
+          "value": "Detail · with scale",
+          "ctxBefore": 0,
+          "ctxAfter": 0,
+          "lensBefore": 1,
+          "lensAfter": 0,
+          "marker": 0,
+          "focusPrint": {
+            "x": 296.65,
+            "y": 156.55
+          },
+          "restK": 0,
+          "source": {
+            "x": 212.88,
+            "y": 63,
+            "w": 167.54,
+            "h": 174.52
+          },
+          "dest": {
+            "x": 562.94,
+            "y": 86.69,
+            "w": 542.03,
+            "h": 564.63
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1152.1,
+            "h": 738
+          },
+          "problems": [],
+          "textPx": 24,
+          "S": 105.2
+        }
+      }
+    },
+    {
+      "name": "semantic: the photo-number substitution works @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "return",
+          "shown": "after",
+          "lensP": 0,
+          "zoom": 3.235,
+          "focus": "number",
+          "value": "2A",
+          "ctxBefore": 0,
+          "ctxAfter": 1,
+          "lensBefore": 0,
+          "lensAfter": 1,
+          "marker": 1,
+          "focusPrint": {
+            "x": 609.86,
+            "y": 157.72
+          },
+          "restK": 1,
+          "source": {
+            "x": 223.84,
+            "y": 58.3,
+            "w": 178.08,
+            "h": 185.5
+          },
+          "dest": {
+            "x": 595.92,
+            "y": 68.92,
+            "w": 576.14,
+            "h": 600.15
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1219.71,
+            "h": 738
+          },
+          "problems": [],
+          "textPx": 24,
+          "S": 105.2
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

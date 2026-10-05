@@ -1,0 +1,82 @@
+{
+  "animationId": "LAW-0374",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. Only supplied relationships are drawn; causal arrows appear only when the author supplies a causal relation. Nothing is said about what a photograph proves or about any procedure.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Camera, overview print, detail print, mug, scale, tag, chain and bag; plain relations; the tracer goes camera → overview → object → detail → scale; the detail print is the focus.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a brass key; a supplied sequence (camera then overview, camera then detail) and fewer relations; the tracer runs tag → chain → object → overview → camera and the scale is the focus.",
+      "params": {
+        "items": [{"id": "Item K-07 (fictional)", "label": "Brass key found on a windowsill (fictional)", "kind": "key"}],
+        "records": [
+          {"field": "Item no.", "value": "K-07"},
+          {"field": "Description", "value": "Brass key"},
+          {"field": "Photos", "value": ""}
+        ],
+        "relationships": [
+          {"from": "camera", "to": "overview", "kind": "sequence"}, {"from": "camera", "to": "detail", "kind": "sequence"},
+          {"from": "overview", "to": "object", "kind": "relation"}, {"from": "detail", "to": "scale", "kind": "relation"},
+          {"from": "object", "to": "chain", "kind": "relation"}, {"from": "chain", "to": "tag", "kind": "relation"}
+        ],
+        "traversalOrder": ["tag", "chain", "object", "overview", "camera"],
+        "focusElement": "scale"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: long component labels, five tag rows, two custodians, three timestamps, long relation captions, eight relationships; a wooden box.",
+      "params": {
+        "items": [{"id": "Item B-0412 (fictional)", "label": "Small wooden box found under a hallway bench (fictional)", "kind": "box"}],
+        "custodians": [
+          {"name": "Alexandra Okonkwo-Lindqvist (fictional)", "role": "Person photographing the item in this example"},
+          {"name": "Maximilian Ferreira (fictional)", "role": "Person keeping the photo log in this example"}
+        ],
+        "timestamps": [
+          {"label": "Overview photographed in this example", "time": "09:41 (illustrative)"},
+          {"label": "Detail with the scale photographed", "time": "09:44 (illustrative)"},
+          {"label": "Prints laid on the photo board", "time": "09:47 (illustrative)"}
+        ],
+        "records": [
+          {"field": "Item number", "value": "B-0412 (fictional reference)"},
+          {"field": "Description", "value": "Small wooden box with a clasp"},
+          {"field": "Photographed by", "value": "A. Okonkwo-Lindqvist"},
+          {"field": "Place found", "value": "Under the hallway bench"},
+          {"field": "Photos", "value": "Two views (illustrative)"}
+        ],
+        "elements": [
+          {"id": "camera", "label": "Abstract camera on its stand arm"}, {"id": "overview", "label": "Overview print of the cluster"}, {"id": "detail", "label": "Detail print of the box with scale"},
+          {"id": "object", "label": "Wooden box (fictional)"}, {"id": "scale", "label": "L-shaped photo scale"}, {"id": "tag", "label": "Manila tag with rows"},
+          {"id": "chain", "label": "Ball chain to the tag"}, {"id": "bag", "label": "Open evidence bag"}
+        ],
+        "relationLabels": {"relation": "linked in this example (as supplied)", "communication": "communicates (as supplied)", "sequence": "then (sequence as configured)", "causal": "causes (supplied)"},
+        "labels": {"key": "As supplied · no conclusion drawn (placeholder content only)", "blank": "(left blank in this example, as supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "items": [{"id": "Indicio E-04 (ficticio)", "label": "Taza de cerámica dejada en una mesa (ficticia)", "kind": "cup"}],
+        "custodians": [{"name": "M. Haddad (ficticia)", "role": "Persona que fotografía el objeto"}],
+        "timestamps": [{"label": "Vista general tomada", "time": "14:02 (ilustrativo)"}, {"label": "Detalle tomado", "time": "14:04 (ilustrativo)"}],
+        "records": [
+          {"field": "N.º de indicio", "value": "E-04"},
+          {"field": "Descripción", "value": "Taza de cerámica"},
+          {"field": "Fotos", "value": "3 vistas"}
+        ],
+        "labels": {"key": "Según lo aportado · sin conclusión", "blank": "(en blanco, según lo aportado)"},
+        "elements": [
+          {"id": "camera", "label": "Cámara en su brazo"}, {"id": "overview", "label": "Copia de vista general"}, {"id": "detail", "label": "Copia de detalle con escala"},
+          {"id": "object", "label": "Objeto (ficticio)"}, {"id": "scale", "label": "Escala fotográfica"}, {"id": "tag", "label": "Etiqueta"},
+          {"id": "chain", "label": "Cadena de bolas"}, {"id": "bag", "label": "Bolsa de pruebas"}
+        ],
+        "relationLabels": {"relation": "unidos (según lo aportado)", "communication": "comunica (según lo aportado)", "sequence": "después (secuencia configurada)", "causal": "causa (aportado)"}
+      }
+    }
+  ]
+}

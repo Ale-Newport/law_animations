@@ -76,19 +76,19 @@ function geom(ctx, F, minF) {
   const sizes = notes.map(q => chipOf(q, 0, 0, cw).box.h);
   const nh = notes.length ? Array.from({length: rowsN}, (_, k) => Math.max(...sizes.slice(k * cols, k * cols + cols))).reduce((a, b) => a + b + gap, -gap) : 0;
   const A = {x: pad, y: pad + 10, w: D.w - pad * 2, h: D.h - pad * 2 - 10 - (nh ? nh + 22 : 0)};
-  const R = clamp(Math.min(A.w, A.h) * (hz ? 0.1 : 0.125), 48, 112); // dial radius
+  const R = clamp(Math.min(A.w, A.h) * (hz ? 0.135 : ctx.view.shape === 'square' ? 0.1 : 0.13), 48, 130); // dial radius
   const discR = clamp(F * 1.05, 20, 28);
-  const LR = clamp(R * 0.85, 40, 74); // loupe radius
+  let LR = clamp(R * (hz ? 0.85 : 0.6), 40, 74); // loupe radius
   // the sheet
   const sheet = hz
-    ? {x: A.x, y: A.y, w: A.w * (sq ? 0.47 : 0.36), h: A.h}
-    : {x: A.x, y: A.y, w: A.w, h: A.h * (ctx.view.shape === 'square' ? 0.3 : 0.36)};
+    ? {x: A.x, y: A.y, w: A.w * 0.34, h: A.h}
+    : {x: A.x, y: A.y, w: A.w, h: A.h * (ctx.view.shape === 'square' ? 0.29 : 0.33)};
   const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: sheet.w - 48 - 40, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 800});
   const headH = head.height + 30;
   const blockW = hz ? sheet.w - 36 : (sheet.w - 36 - 22) / 2;
   const bFit = k => fitG(p.clauses[k], {maxWidth: blockW - 20 - discR * 2 - 14 - 16, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700});
   const fits = {law: bFit('law'), forum: bFit('forum')};
-  const fl = hz ? 4 : 3;
+  const fl = hz ? 4 : ctx.view.shape === 'square' ? 1 : 3;
   const bh0 = Math.max(blockHeight(fits.law, discR, fl), blockHeight(fits.forum, discR, fl));
   const bh = hz ? Math.max(bh0, Math.min(bh0 * 1.5, (sheet.h - headH - 3 * 46) / 2)) : Math.max(bh0, Math.min(bh0 * 1.6, sheet.h - headH - 2 * 34));
   const blocks = [];
@@ -103,13 +103,13 @@ function geom(ctx, F, minF) {
     kinds.forEach((k, i) => blocks.push({kind: k, x: 18 + i * (blockW + 22), y: headH + free / 2, w: blockW, h: bh, fit: fits[k]}));
   }
   // plaques
-  const pR = discR * (hz ? 1.5 : 1.8);
-  const pFitW = pw => (hz ? pw - plaqueTextX(pR) - 22 : pw - 40);
+  const pR = discR * (hz ? 2 : 1.8);
+  const pFitW = pw => pw - 40;
   let pw, plaques = [];
-  if (hz) pw = A.w * (sq ? 0.4 : 0.3);
+  if (hz) pw = A.w * 0.3;
   else pw = (A.w - 30) / 2;
   const pFits = {law: fitG(p.destinations.law, {maxWidth: pFitW(pw), size: F * 1.05, minSize: minF, maxLines: stress ? 3 : 2, weight: 800}), forum: fitG(p.destinations.forum, {maxWidth: pFitW(pw), size: F * 1.05, minSize: minF, maxLines: stress ? 3 : 2, weight: 800})};
-  const ph = hz ? Math.max(pFits.law.height, pFits.forum.height, pR * 2) + 64 : stackedPlaqueH(pR, pFits.law.height > pFits.forum.height ? pFits.law : pFits.forum);
+  const ph = stackedPlaqueH(pR, pFits.law.height > pFits.forum.height ? pFits.law : pFits.forum);
   const top = plaqueTop(pw);
   if (hz) {
     const px = A.x + A.w - pw - 6;
@@ -125,7 +125,7 @@ function geom(ctx, F, minF) {
       const ex = sheet.x + sheet.w;
       const restC = {x: ex + 30 + R, y: sheet.y + cy};
       const room = plaques[0].x - 70 - R - restC.x;
-      const slide = clamp(room * 0.55, 60, 200);
+      const slide = clamp(room * 0.5, 60, 260);
       if (room < 60) why.push('dial-room');
       return {kind: b.kind, tab0: {x: ex - 40, y: restC.y}, rest: restC, out: {x: restC.x + slide, y: restC.y}, dir: 0, restA: 180, spin: i === 0 ? 1 : -1};
     }
@@ -133,7 +133,7 @@ function geom(ctx, F, minF) {
     const cx = sheet.x + b.x + b.w / 2;
     const restC = {x: cx, y: ey + 30 + R};
     const room = plaques[0].y - top - 60 - R - restC.y;
-    const slide = clamp(room * 0.4, 40, 260);
+    const slide = clamp(room * (ctx.view.shape === 'square' ? 0.12 : 0.4), 20, 260);
     if (room < 60) why.push('dial-room');
     return {kind: b.kind, tab0: {x: cx, y: ey - 40}, rest: restC, out: {x: cx, y: restC.y + slide}, dir: 90, restA: -90, spin: i === 0 ? -1 : 1};
   });
@@ -151,15 +151,25 @@ function geom(ctx, F, minF) {
     d.lineB = d.port;
   });
   // loupe: rest position and reading positions (over each clause heading)
-  const loupeRest = hz
+  let loupeRest = hz
     ? {x: plaques[0].x + pw * 0.25, y: (plaques[0].y + plaques[0].h + plaques[1].y - top) / 2 - LR * 0.5}
-    : {x: A.x + A.w / 2 - LR * 0.4, y: (dials[0].out.y + plaques[0].y - top) / 2 - LR * 0.6};
+    : {x: A.x + A.w / 2 - LR * 0.9, y: Math.max(dials[0].out.y + R + 16 + LR * 1.25, (dials[0].out.y + R + plaques[0].y - top) / 2 - LR * 1.1)};
   const reads = blocks.map(b => ({x: sheet.x + b.x + 20 + discR * 2 + 14 + Math.min(b.fit.width, b.w * 0.5) * 0.55, y: sheet.y + b.y + 18 + discR + 2}));
   // collisions: plaques vs dials/lines, loupe rest vs everything
-  const lb = loupeBox(loupeRest.x, loupeRest.y, LR);
-  const boxes = [...plaques.map(P => ({x: P.x, y: P.y - top, w: P.w, h: P.h + top})), {x: sheet.x, y: sheet.y, w: sheet.w, h: sheet.h}, ...dials.map(d => ({x: d.out.x - R - 6, y: d.out.y - R - 6, w: 2 * R + 12, h: 2 * R + 12}))];
-  if (boxes.some(b => overlaps(b, lb, 4))) why.push('loupe-rest');
-  if (segHitsBox(dials[0].lineA, dials[0].lineB, lb) || segHitsBox(dials[1].lineA, dials[1].lineB, lb)) why.push('loupe-line');
+  const boxes = [...plaques.map(P => ({x: P.x, y: P.y - top, w: P.w, h: P.h + top})), {x: sheet.x, y: sheet.y, w: sheet.w, h: sheet.h}, ...dials.map(d => ({x: d.out.x - R - 6, y: d.out.y - R - 6, w: 2 * R + 12, h: 2 * R + 12})), ...dials.map(d => ({x: d.rest.x - R - 6, y: d.rest.y - R - 6, w: 2 * R + 12, h: 2 * R + 12}))];
+  const okAt = c => { const lb = loupeBox(c.x, c.y, LR); return lb.x >= A.x && lb.y >= A.y && lb.x + lb.w <= A.x + A.w && lb.y + lb.h <= A.y + A.h && !boxes.some(b => overlaps(b, lb, 4)) && !segHitsBox(dials[0].lineA, dials[0].lineB, lb) && !segHitsBox(dials[1].lineA, dials[1].lineB, lb); };
+  for (let tries = 0; tries < 3 && !okAt(loupeRest); tries++) {
+    if (tries) LR *= 0.85;
+    let best = null, bd = Infinity;
+    for (let gx = 0; gx <= 24; gx++) for (let gy = 0; gy <= 24; gy++) {
+      const c = {x: A.x + (A.w * gx) / 24, y: A.y + (A.h * gy) / 24};
+      if (!okAt(c)) continue;
+      const dd = Math.hypot(c.x - loupeRest.x, c.y - loupeRest.y);
+      if (dd < bd) { bd = dd; best = c; }
+    }
+    if (best) { loupeRest.x = best.x; loupeRest.y = best.y; }
+  }
+  if (!okAt(loupeRest)) why.push('loupe-rest');
   if ([head, fits.law, fits.forum, pFits.law, pFits.forum].some(f => f.bad)) why.push('text');
   // notes placement
   let notesPl = null;
@@ -202,7 +212,7 @@ const scene = {
     const dials = L.dials.map((d, i) => g({name: `dialpos${i}`, transform: T(d.rest.x, d.rest.y)}, compassDial(ctx, d.kind, `dial${i}`, L.R)));
     const lines = L.dials.map((d, i) => sightLine(ctx, `line${i}`, d.lineA, d.lineB, laneColor(ctx, d.kind)));
     const plaques = L.plaques.map((P, i) => g({transform: T(P.x, P.y)},
-      plaque(ctx, {kind: P.kind, w: P.w, h: P.h, fit: P.fit, showText: show, discR: L.pR, stack: !L.hz}),
+      plaque(ctx, {kind: P.kind, w: P.w, h: P.h, fit: P.fit, showText: show, discR: L.pR, stack: true}),
       h('path', {name: `rim${i}`, d: `M-8 -8H${r(P.w + 8)}V${r(P.h + 8)}H-8Z`, fill: 'none', stroke: laneColor(ctx, P.kind), 'stroke-width': 5, 'stroke-linejoin': 'round', opacity: 0}),
     ));
     const notes = L.notesPl ? L.notesPl.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node)) : [];

@@ -62,7 +62,7 @@ const KINDS = ['law', 'forum'];
 function geom(ctx, F, minF) {
   const p = ctx.params;
   const D = ctx.design;
-  const hz = ctx.view.shape !== 'portrait';
+  const hz = ctx.view.shape === 'landscape';
   const show = ctx.show('all'), showKey = ctx.show('key');
   const stress = isStress(p);
   const why = [];
@@ -81,21 +81,23 @@ function geom(ctx, F, minF) {
   const A = {x: pad, y: pad + 8, w: D.w - pad * 2, h: D.h - pad * 2 - 8 - (nh ? nh + 22 : 0)};
   const discR = clamp(F * 1.1, 20, 30);
   const pR = discR * (hz ? 1.45 : 1.6);
+  const sqStack = false;
   // boxes
   let root, cards = {}, plq = {};
-  const colW = hz ? A.w * 0.25 : A.w;
+  const sqr = ctx.view.shape === 'square';
+  const colW = hz ? A.w * (sqr ? 0.27 : 0.25) : A.w;
   const rootW = hz ? colW : Math.min(A.w * 0.62, 640);
   const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: rootW - 44, size: F, minSize: minF, maxLines: stress ? 4 : 2, weight: 800});
-  const rootH = head.height + 30 + 2 * (discR * 2 + 22) + (hz ? 30 : 90);
-  const cardW = hz ? A.w * 0.27 : (A.w - 70) / 2;
+  const rootH = head.height + 30 + 2 * (discR * 2 + 22) + (hz ? 30 : sqr ? 40 : 90);
+  const cardW = hz ? A.w * (sqr ? 0.3 : 0.27) : (A.w - 70) / 2;
   const cFit = k => fitG(p.clauses[k], {maxWidth: cardW - 30 - discR * 2 - 14 - 26, size: F, minSize: F, maxLines: stress ? 3 : 2, weight: 700});
   const cFits = {law: cFit('law'), forum: cFit('forum')};
-  const cardH = Math.max(cFits.law.height, cFits.forum.height, discR * 2) + 40 + (hz ? 3 : 7) * 22 + 10;
-  const plW = hz ? A.w * 0.27 : (A.w - 70) / 2;
-  const pFit = k => fitG(p.destinations[k], {maxWidth: hz ? plW - plaqueTextX(pR) - 22 : plW - 40, size: F * 1.05, minSize: F, maxLines: stress ? 3 : 2, weight: 800});
+  const cardH = Math.max(cFits.law.height, cFits.forum.height, discR * 2) + 40 + (hz ? 3 : sqr ? 3 : 7) * 22 + 10;
+  const plW = hz ? A.w * (sqr ? 0.3 : 0.27) : (A.w - 70) / 2;
+  const pFit = k => fitG(p.destinations[k], {maxWidth: hz && !sqStack ? plW - plaqueTextX(pR) - 22 : plW - 40, size: F * 1.05, minSize: F, maxLines: stress ? 3 : 2, weight: 800});
   const pFits = {law: pFit('law'), forum: pFit('forum')};
   const pBig = pFits.law.height > pFits.forum.height ? pFits.law : pFits.forum;
-  const plH = hz ? Math.max(pBig.height, pR * 2) + 56 : stackedPlaqueH(pR, pBig);
+  const plH = hz && !sqStack ? Math.max(pBig.height, pR * 2) + 56 : stackedPlaqueH(pR * (sqStack ? 1.2 : 1), pBig);
   const top = plaqueTop(plW);
   if (hz) {
     root = {x: A.x, y: A.y + (A.h - rootH) / 2, w: rootW, h: rootH};
@@ -112,7 +114,7 @@ function geom(ctx, F, minF) {
     const bandY = root.y + rootH;
     const plY = A.y + A.h - plH - 6;
     const free = plY - top - bandY - cardH;
-    if (free < 200) why.push('rows');
+    if (free < (sqr ? 150 : 200)) why.push('rows');
     cards.law = {x: A.x, y: bandY + free * 0.45, w: cardW, h: cardH};
     cards.forum = {x: A.x + A.w - cardW, y: bandY + free * 0.45, w: cardW, h: cardH};
     plq.law = {x: A.x, y: plY, w: plW, h: plH};
@@ -185,7 +187,7 @@ function geom(ctx, F, minF) {
       ny += rh + gap;
     }
   }
-  return {ok: !why.length, why, F, minF, hz, A, discR, pR, root, head, cards, cFits, plq, pFits, top, links, labs, seam, LR, focus, park, notesPl};
+  return {ok: !why.length, why, sqStack, F, minF, hz, A, discR, pR, root, head, cards, cFits, plq, pFits, top, links, labs, seam, LR, focus, park, notesPl};
 }
 
 const scene = {
@@ -253,7 +255,7 @@ const scene = {
     const plaques = KINDS.map(k => {
       const P = L.plq[k];
       return g({transform: T(P.x, P.y)},
-        plaque(ctx, {kind: k, w: P.w, h: P.h, fit: L.pFits[k], showText: show, discR: L.pR, stack: !L.hz}),
+        plaque(ctx, {kind: k, w: P.w, h: P.h, fit: L.pFits[k], showText: show, discR: L.sqStack ? L.pR * 1.2 : L.pR, stack: !L.hz || L.sqStack}),
         h('path', {name: `lit-${k}`, d: roundRectPath(-9, -9, P.w + 18, P.h + 18, 16), fill: 'none', stroke: laneColor(ctx, k), 'stroke-width': 5, opacity: 0}));
     });
     const labs = L.labs.map(l => g({name: `lg-${l.id}`, opacity: 0}, l.node));

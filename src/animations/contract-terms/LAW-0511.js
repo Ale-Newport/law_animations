@@ -5,7 +5,7 @@
  *  0.00–0.17  base: each board — badge "A" / "B" — shows the same two plaques on top ("Law X (fictional)", "Forum Y
  *             (fictional)") and the same contract card below with two separate clause bands ("Clause 14 · Choice of law",
  *             "Clause 15 · Choice of forum"). On each band stands its own signpost, its board resting level (pointing
- *             inward). A loupe waits beside each card. Both boards are identical.
+ *             outward). A loupe waits beside each card. Both boards are identical.
  *  0.17–0.35  the one changed fact: which clause is examined. The loupe moves onto that band and the band lights — A: the
  *             choice-of-law clause, B: the choice-of-forum clause (default).
  *  0.35–0.70  in each board only the examined clause's signpost swings up to its own plaque and a sight line is drawn to
@@ -80,7 +80,7 @@ function geom(ctx, F, minF) {
   const capFits = ['a', 'b'].map(k => fitG(p.scenarioLabels[k], {maxWidth: S.w - badgeR * 2 - 24, size: F, minSize: minF, maxLines: 1, weight: 800}));
   const headH = badgeR * 2 + 12;
   const discR = clamp(F * 1.0, 18, 26);
-  const pR = discR * 1.35;
+  const pR = discR * 1.6;
   const pw = (S.w - 28) / 2;
   const pFits = KINDS.map(k => fitG(p.destinations[k], {maxWidth: pw - 32, size: F, minSize: F, maxLines: 3, weight: 800}));
   const ph = stackedPlaqueH(pR, pFits[0].height > pFits[1].height ? pFits[0] : pFits[1]);
@@ -97,26 +97,26 @@ function geom(ctx, F, minF) {
   const bands = KINDS.map((k, i) => (rowsB
     ? {kind: k, x: 18, y: card.y + head.height + 26 + i * (bandH + 12), w: bw, h: bandH, fit: bFits[i]}
     : {kind: k, x: 18 + i * (bw + 16), y: card.y + head.height + 26, w: bw, h: bandH, fit: bFits[i]}));
-  // signposts: post from the band top up to the pivot; board rests level pointing inward
-  const pivY = plY + ph + (card.y - (plY + ph)) * 0.38;
+  // signposts: post from the band top up to the pivot; board rests level pointing outward
+  const pivY = plY + ph + (card.y - (plY + ph)) * 0.62;
   const postX = i => (rowsB ? plq[i].x + plq[i].w / 2 : bands[i].x + bands[i].w / 2);
   const postLen = card.y - pivY;
-  const boardL = Math.max(40, Math.min(clamp(S.w * 0.2, 80, 180), (pivY - plY - ph) * 0.6));
+  const boardL = Math.max(40, Math.min(clamp(S.w * 0.26, 90, 220), (pivY - plY - ph) * 0.8, pivY - plY - ph - 44));
   if (postLen < 70) why.push('post');
   const posts = bands.map((b, i) => {
     const piv = {x: postX(i), y: pivY};
     const P = plq[i];
     const port = {x: P.x + P.w / 2, y: P.y + P.h + 8};
-    const restA = i === 0 ? 0 : 180;
+    const restA = i === 0 ? 180 : 0;
     const ta = toDeg(piv, port);
     let delta = ta - restA; while (delta > 180) delta -= 360; while (delta <= -180) delta += 360;
     const rad = (ta * Math.PI) / 180;
     const lineA = {x: piv.x + Math.cos(rad) * (boardL + 6), y: piv.y + Math.sin(rad) * (boardL + 6)};
     return {kind: b.kind, piv, port, restA, delta, lineA};
   });
-  if (posts.some(q => Math.hypot(q.port.x - q.lineA.x, q.port.y - q.lineA.y) < 30)) why.push('line-short');
-  const LR = clamp(discR * 1.9, 34, 56);
-  const loupeRest = {x: S.w / 2 - LR * 0.5, y: pivY + (card.y - pivY) * 0.45};
+  if (posts.some(q => Math.hypot(q.port.x - q.lineA.x, q.port.y - q.lineA.y) < 24)) why.push('line-short');
+  const LR = clamp(discR * 2.2, 40, 66);
+  const loupeRest = {x: S.w / 2 - LR * 0.5, y: pivY + (card.y - pivY) * 0.15};
   const reads = bands.map(b => ({x: b.x + 24 + discR, y: b.y + bandH / 2}));
   if ([...capFits, ...pFits, head, ...bFits].some(f => f.bad)) why.push('text');
   if (card.y < plY + ph + 140) why.push('board-small');
@@ -162,13 +162,13 @@ const scene = {
         // signposts
         L.posts.map((q, i) => {
           const b = L.bands[i];
-          const bt = Math.max(16, L.boardL * 0.24);
+          const bt = Math.max(22, L.boardL * 0.36);
           return g(null,
-            h('rect', {x: r(q.piv.x - 6), y: r(q.piv.y), width: 12, height: r(L.card.y - q.piv.y + 6), rx: 4, fill: '#8a6a45', stroke: INK, 'stroke-width': 2}),
+            h('rect', {x: r(q.piv.x - 9), y: r(q.piv.y), width: 18, height: r(L.card.y - q.piv.y + 6), rx: 4, fill: '#8a6a45', stroke: INK, 'stroke-width': 2}),
             g({name: `${P}-sign${i}`, transform: `${T(q.piv.x, q.piv.y)} rotate(${q.restA})`},
               h('path', {d: `M-14 ${r(-bt / 2)}H${r(L.boardL - bt * 0.6)}L${r(L.boardL)} 0L${r(L.boardL - bt * 0.6)} ${r(bt / 2)}H-14Z`, fill: laneSoft(ctx, q.kind), stroke: INK, 'stroke-width': 2.4, 'stroke-linejoin': 'round'}),
               h('path', {d: `M0 ${r(-bt * 0.18)}H${r(L.boardL - bt * 0.9)}M0 ${r(bt * 0.18)}H${r(L.boardL * 0.6)}`, stroke: laneColor(ctx, q.kind), 'stroke-width': 3, 'stroke-linecap': 'round'})),
-            h('circle', {cx: r(q.piv.x), cy: r(q.piv.y), r: 7, fill: '#3b4148', stroke: INK, 'stroke-width': 1.6}),
+            h('circle', {cx: r(q.piv.x), cy: r(q.piv.y), r: 11, fill: '#3b4148', stroke: INK, 'stroke-width': 1.6}),
           );
         }),
         // contract card

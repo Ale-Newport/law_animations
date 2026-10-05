@@ -225,8 +225,11 @@ function sceneParts(ctx, L) {
   const content = g(null,
     h('rect', {x: r(C.source.x - 40), y: r(C.source.y - 40), width: r(C.source.w + 80), height: r(C.source.h + 80), fill: '#e8e4da'}),
     g({transform: T(slot.x, slot.y)}, tabArt(L, {})),
-    g({transform: T(slot.x + pw / 2, slot.y + ph / 2)}, printArt(ctx, G, F0, {name: 'lzp', pw, ph, index: C.fi, rows: L.recs, ruler: true, numberText: showText && !num0 ? String(C.fi + 1) : null, badgeR: C.badgeR})),
-    g({name: 'lv-text'}, lvBefore, lvAfter, lvTrace),
+    g({transform: T(slot.x + pw / 2, slot.y + ph / 2)}, printArt(ctx, G, F0, {name: 'lzp', pw, ph, index: C.fi, rows: L.recs, ruler: true, numberText: null, badgeR: C.badgeR})),
+    g({name: 'lv-text'}, lvBefore, lvAfter, lvTrace,
+      showText && !num0 ? g(null,
+        h('circle', {cx: r(bx), cy: r(by), r: r(C.badgeR), fill: '#4f6d8a', stroke: INK, 'stroke-width': 1.2}),
+        h('text', {x: r(bx), y: r(by + C.badgeR * 0.42), 'text-anchor': 'middle', 'font-size': r(C.badgeR * 1.2, 2), 'font-weight': 800, 'font-family': FONT, fill: '#fff'}, String(C.fi + 1))) : null),
     h('rect', {name: 'lv-ring', x: r(num0 ? bx - C.badgeR - pw * 0.04 : slot.x + pw * 0.012), y: r(num0 ? by - C.badgeR : vy), width: r(pw * 0.022, 2), height: r(num0 ? C.badgeR * 2 : size * 1.2), rx: 2, fill: th.accent2, opacity: 0}),
   );
   const Lz = lens(ctx, {name: 'lens', source: C.source, dest: C.dest, frame: C.bench, content, color: th.accent2});
