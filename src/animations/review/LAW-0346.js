@@ -47,7 +47,7 @@ const ID = 'LAW-0346';
 const DURATION = 7000;
 const IDS = ['intake', 'later', 'position', 'initial', 'history'];
 const W = {
-  lift: [0.04, 0.15], capsIn: [0.12, 0.17], links: [0.18, 0.43], trace: [0.44, 0.74],
+  lift: [0.0, 0.12], capsIn: [0, 0], links: [0.18, 0.43], trace: [0.44, 0.74],
   tokB: [0.56, 0.68], tokA: [0.6, 0.68], states: [0.75, 0.8],
 };
 const SIZES = [26, 25, 24, 23, 22, 21, 20.5, 19.5, 18.5, 17.5, 16.5, 16];
@@ -139,18 +139,20 @@ function compose(ctx, P, F, opt) {
   const legH = leg.length ? Math.max(...colH) - F * 0.55 : 0;
   // geometry of the components
   let cw, plateW, plateH, colW;
+  // labels hidden: the components grow into the room the texts leave
+  const Fg = showKey ? F : F * 1.45;
   if (!tall) {
     colW = (D.w - 2 * mx) / 3;
-    plateW = Math.min(colW * 0.62, F * 14);
-    cw = Math.min(colW * 0.84, F * opt.cwMax);
+    plateW = Math.min(colW * 0.62, Fg * 14);
+    cw = Math.min(colW * 0.84, Fg * opt.cwMax);
   } else {
     colW = D.w - 2 * mx;
-    plateW = Math.min(colW * 0.4, F * 13);
-    cw = Math.min(colW * 0.48, F * opt.cwMax);
+    plateW = Math.min(colW * (showKey ? 0.4 : 0.44), Fg * 13);
+    cw = Math.min(colW * 0.48, Fg * opt.cwMax);
   }
-  const CM = cardModel(ctx, {w: cw, F, minF: F, maxLines: opt.cardLines, a: P.decisions.initial, b: P.decisions.later, showText: showKey, minH: showKey ? 0 : cw * 0.6});
+  const CM = cardModel(ctx, {w: cw, F, minF: F, maxLines: opt.cardLines, a: P.decisions.initial, b: P.decisions.later, showText: showKey, minH: showKey ? 0 : cw * 0.75});
   if (!CM.ok) problems.push('card-text');
-  plateH = Math.max(F * 3.8, Math.min(CM.h * 0.7, plateW * 0.6));
+  plateH = Math.max(Fg * 3.8, Math.min(CM.h * 0.7, plateW * 0.6));
   // captions: element label (bold) + description (+ grounds) + reserved state
   const capW = tall ? colW * 0.44 : colW - 24;
   const desc = {intake: P.routes.intake, position: P.decisions.position, history: P.routes.history};
@@ -178,7 +180,7 @@ function compose(ctx, P, F, opt) {
   let need, spare;
   if (!tall) {
     const capsH = Math.max(caps.intake.h, caps.position.h, caps.history.h);
-    const corridor = Math.max(F * 4.2, 96);
+    const corridor = Math.max(Fg * 4.2, 96);
     need = cardCapH + CM.h + corridor + 14 + plateH + F * 0.6 + capsH + F * 1.2 + legH;
     spare = D.h - 2 * my - need;
     if (spare < -0.5) problems.push('height');
@@ -243,7 +245,7 @@ function compose(ctx, P, F, opt) {
 }
 
 /** Walk along a rectangle's perimeter (shorter way) between two points on its edge. */
-function perimeterWalk(b, p, q) {
+function perimeterWalk(b, p, q, avoid = null) {
   const per = 2 * (b.w + b.h);
   const tOf = pt => {
     const dl = Math.abs(pt.x - b.x), dr = Math.abs(pt.x - (b.x + b.w)), dt = Math.abs(pt.y - b.y), db = Math.abs(pt.y - (b.y + b.h));
@@ -267,6 +269,13 @@ function perimeterWalk(b, p, q) {
   let d = t1 - t0;
   if (d > per / 2) d -= per;
   if (d < -per / 2) d += per;
+  // prefer the way round that does not run along the avoided side (where the component's caption sits)
+  if (avoid) {
+    const range = avoid === 'bottom' ? [b.w + b.h + 1, 2 * b.w + b.h - 1] : [1, b.w - 1];
+    const crosses = dd => { for (let i = 1; i < 40; i++) { const t = (((t0 + (dd * i) / 40) % per) + per) % per; if (t > range[0] && t < range[1]) return true; } return false; };
+    const alt = d > 0 ? d - per : d + per;
+    if (crosses(d) && !crosses(alt)) d = alt;
+  }
   const n = Math.max(2, Math.ceil(Math.abs(d) / 12));
   const out = [];
   for (let i = 1; i < n; i++) out.push(at(t0 + (d * i) / n));
@@ -322,9 +331,9 @@ const scene = {
       const link = L.links.find(q => (q.rel.from === prev && q.rel.to === id) || (q.rel.from === id && q.rel.to === prev));
       const out = link ? (link.rel.from === prev ? link.a : link.b) : edgeAnchor(B[prev], ctr(B[id]), 6);
       const inn = link ? (link.rel.from === prev ? link.b : link.a) : edgeAnchor(B[id], ctr(B[prev]), 6);
-      const pad = 6;
+      const pad = 10;
       const big = b => ({x: b.x - pad, y: b.y - pad, w: b.w + 2 * pad, h: b.h + 2 * pad});
-      pts.push(...perimeterWalk(big(B[prev]), cur, out), out, inn);
+      pts.push(...perimeterWalk(big(B[prev]), cur, out, prev === 'later' || prev === 'initial' ? 'top' : 'bottom'), out, inn);
       visits.push({id, idx: pts.length - 1});
       cur = inn;
     }
@@ -456,6 +465,7 @@ const scene = {
     // card text only once the cards are full size (never under the text floor)
     const txt = r(seg(u, W.lift[1] - 0.012, W.lift[1]), 3);
     if (L.CM.fits.a) { nodes['mc-a-text'] = {opacity: txt}; nodes['mc-b-text'] = {opacity: txt}; }
+    for (const id of ['later', 'initial']) if (L.cardCaps[id]) nodes[`cap-${id}`] = {opacity: r(seg(u, W.lift[1] - 0.03, W.lift[1]), 3)};
     for (const id of ['intake', 'position', 'history']) {
       const b = B[id], s = scaleFor(id);
       nodes[`mc-${id}-at`] = {transform: `${T(b.x + (b.w * (1 - s)) / 2, b.y + (b.h * (1 - s)) / 2)} scale(${r(s, 4)})`};

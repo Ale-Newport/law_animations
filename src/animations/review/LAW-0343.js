@@ -128,12 +128,12 @@ export function compose(ctx, P, F, opts) {
   const innerW = deskW - 2 * (opts.tight ? Math.max(12, F * 0.6) : Math.max(16, F * 0.8));
   let best = null;
   const tryCw = (cw, bars) => {
-    const M = cardModel(P, {w: cw, F, showText: showKey, bars, foot: F * (opts.compact ? 0.7 : 1.4), layout: opts.wide ? 'wide' : 'tall', secK: opts.compact ? Math.max(0.8, opts.secFloor / F) : 1});
+    const M = cardModel(P, {w: cw, F, showText: showKey, bars, foot: F * (opts.compact ? 0.7 : 1.4), layout: opts.wide ? 'wide' : 'tall', secK: opts.compact ? Math.min(1, Math.max(0.8, opts.secFloor / F)) : 1});
     return {M, d: deskPlan(P, M, desks[0], F, opts.tight, opts.compact)};
   };
   const cap = Math.min(F * (showKey ? 22 : 18), innerW * 0.5);
   const q0 = tryCw(cap, 0);
-  if (q0.d.plan.needH > deskH - 2 * Math.max(12, F * 0.6) + 0.5) return {F, problems: ['desk-height'], ok: false, dbg: {need: Math.round(q0.d.plan.needH), deskH: Math.round(deskH), ch: Math.round(q0.M.h), cw: Math.round(cap), PL: PL && Math.round(PL.h), hh: Math.round(hh)}};
+  if (!opts.force && q0.d.plan.needH > deskH - 2 * Math.max(12, F * 0.6) + 0.5) return {F, problems: ['desk-height'], ok: false, dbg: {need: Math.round(q0.d.plan.needH), deskH: Math.round(deskH), ch: Math.round(q0.M.h), cw: Math.round(cap), PL: PL && Math.round(PL.h), hh: Math.round(hh)}};
   for (const bars of [1, 0]) {
     let lo = F * 7, hi = cap;
     if (tryCw(lo, bars).d.plan.needW > innerW) { best = best || tryCw(lo, bars); continue; }
@@ -157,18 +157,23 @@ const scene = {
     const shape = ctx.view.shape;
     const showKey = ctx.show('key');
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
-    const arrangements = shape === 'landscape' ? [{arr: 'row', cols: 3}, {arr: 'row', cols: 2}, {arr: 'row', cols: 3, tight: true}]
+    const arrangements = shape === 'landscape' ? [{arr: 'row', cols: 3}, {arr: 'row', cols: 2}, {arr: 'row', cols: 3, tight: true}, {arr: 'row', cols: 3, tight: true, compact: true}]
       : shape === 'portrait' ? [{arr: 'column', cols: 1}, {arr: 'column', cols: 2}, {arr: 'column', cols: 2, tight: true}]
-        : [{arr: 'column', pw: 0.3, tight: true, compact: true}, {arr: 'column', pw: 0.26, tight: true, compact: true}, {arr: 'column', pw: 0.23, tight: true, compact: true}, {arr: 'column', cols: 3, tight: true, compact: true, wide: true}];
+        : [{arr: 'column', pw: 0.3, tight: true, compact: true}, {arr: 'column', pw: 0.26, tight: true, compact: true}, {arr: 'column', pw: 0.23, tight: true, compact: true}, {arr: 'column', cols: 3, tight: true, compact: true, wide: true}, {arr: 'column', pw: 0.3, tight: true, compact: true, wide: true}];
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
     let C = null;
-    outer: for (const F of sizes) {
-      for (const a of arrangements) {
+    // (two passes: the full desks — strip parked above the cards, calendar — first; the compact desks only when no full
+    // one fits)
+    const passes = [arrangements.filter(a => !a.compact), arrangements.filter(a => a.compact)].filter(x => x.length);
+    outer: for (const pass of passes) for (const F of sizes) {
+      for (const a of pass) {
         const c = compose(ctx, P, F, {...a, secFloor: 16.5 / pxu});
         if (c.ok) { C = c; break outer; }
         if (c.M && (!C || c.problems.length < C.problems.length)) C = c;
       }
     }
+    // (never without a scene: the smallest size, first arrangement, laid out even if it does not fit — flagged)
+    if (!C) C = compose(ctx, P, sizes[sizes.length - 1], {...arrangements[0], secFloor: 16.5 / pxu, force: true});
     const look = actorLook(ctx, {appearance: {}}, 0);
     // arms per desk (the same rig geometry on both desks)
     const rigs = C.D.map((d, i) => {

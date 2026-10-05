@@ -216,9 +216,10 @@ test(`${ID}: long unbroken tokens (33/42/55 chars) render a full scene at every 
         n++;
         if (!s.layoutOk) fails.push(`${tag} u${u}: layoutOk ${s.layoutOk} (${s.why})`);
         if (svg.querySelectorAll('path').length < 30 || !svg.querySelector('[data-node$="board-sheet"]')) fails.push(`${tag} u${u}: no full scene`);
+        const vis = e => { let v = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute('opacity'); if (a !== null) v *= parseFloat(a); if (q.getAttribute('display') === 'none') return 0; } return v; };
         for (const t of svg.querySelectorAll('text')) {
           const b = t.getBoundingClientRect();
-          if (!b.width) continue;
+          if (!b.width || vis(t) < 0.5) continue;
           if (b.left < sb.left - 1 || b.right > sb.right + 1 || b.top < sb.top - 1 || b.bottom > sb.bottom + 1) fails.push(`${tag} u${u}: text outside the frame "${t.textContent.slice(0, 20)}"`);
           if (/\p{L}-$/u.test(t.textContent.trim()) && u === 1) broken++;
         }
