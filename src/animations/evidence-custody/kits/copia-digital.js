@@ -286,20 +286,28 @@ const TAG_W = 1.05, TAG_H = 0.46, TAG_DROP = 0.42;
  */
 export function dcStage(B, o) {
   const U = {};
-  const bagW = 1.5, bagH = 2.2, dockW = 3.3, dockH = 1.34, zoneW = 1.5;
-  let w, hh;
+  const dockW = 3.3, dockH = 1.34, zoneW = 1.5, bagW = 1.5;
+  let bagH = 2.2, w, hh, spotY = 1.42, lieDy = 0.42;
+  const pad = 0.06;
   if (o.orient === 'v') {
+    w = dockW; hh = bagH + 0.35 + dockH + 0.75;
+    // spare height (tall boxes) spreads the two rows apart and lengthens the bag
+    const extra = clamp(B.h / (B.w / (w + pad * 2)) - (hh + pad * 2), 0, 1.4);
+    bagH += extra * 0.35; spotY += extra * 0.3; lieDy += extra * 0.08;
     U.bag = {x: 0, y: 0};
     U.zone = {x: dockW - zoneW, y: 0};
-    U.dock = {x: 0, y: bagH + 0.35};
-    w = dockW; hh = U.dock.y + dockH + 0.75;
+    U.dock = {x: 0, y: bagH + 0.35 + extra * 0.4};
+    hh = U.dock.y + dockH + 0.75 + extra * 0.25;
   } else {
+    w = bagW + 0.25 + dockW + 0.28 + zoneW; hh = 2.42;
+    // spare height (wide boxes) lengthens the bag and lowers the dock, copy spot and waiting tag
+    const extra = clamp(B.h / (B.w / (w + pad * 2)) - (hh + pad * 2), 0, 1.1);
+    bagH += extra * 0.7; spotY += extra * 0.5; lieDy += extra * 0.35;
     U.bag = {x: 0, y: 0};
-    U.dock = {x: bagW + 0.25, y: 0.72 - dockH / 2 + 0.04};
+    U.dock = {x: bagW + 0.25, y: 0.72 - dockH / 2 + 0.04 + extra * 0.32};
     U.zone = {x: U.dock.x + dockW + 0.28, y: 0};
-    w = U.zone.x + zoneW; hh = 2.42;
+    hh += extra;
   }
-  const pad = 0.06;
   let S = Math.min(B.w / (w + pad * 2), B.h / (hh + pad * 2));
   if (o.sCap) S = Math.min(S, o.sCap);
   const ox = B.x + (B.w - w * S) / 2, oy = B.y + (B.h - hh * S) / 2;
@@ -314,16 +322,14 @@ export function dcStage(B, o) {
   const dstBay = {x: dock.x + D.dst.c.x, y: dock.y + D.dst.c.y};
   const tray = {...P(U.zone.x + 0.08, U.zone.y + 0.06), w: (zoneW - 0.16) * S, h: 1.0 * S};
   const copyRest = {x: tray.x + tray.w / 2, y: tray.y + tray.h / 2};
-  const copySpot = P(U.zone.x + zoneW / 2 + 0.05, U.zone.y + 1.42);
+  const copySpot = P(U.zone.x + zoneW / 2 + 0.05, U.zone.y + spotY);
   const tagModelC = tagModel({w: TAG_W * S, h: TAG_H * S, rows: o.rows});
   const tagModelO = tagModel({w: TAG_W * S, h: TAG_H * S, rows: 3});
   const eyeOf = c => ({x: c.x + M.eye.x, y: c.y + M.eye.y});
   const holeOf = c => ({x: c.x + M.eye.x + 0.02 * S, y: c.y + M.eye.y + TAG_DROP * S});
-  // the copy's tag waits on the mat below the copy spot, a little to the left (unattached, no chain)
+  // the copy's tag waits on the mat below the copy spot (unattached, no chain)
   const tagFinal = holeOf(copySpot);
-  const tagLie = o.orient === 'v'
-    ? {x: tagFinal.x - 0.05 * S, y: Math.min(oy + (bagH + 0.12) * S, tagFinal.y + 0.42 * S), a: -6}
-    : {x: tagFinal.x - 0.05 * S, y: tagFinal.y + 0.42 * S, a: -6};
+  const tagLie = {x: tagFinal.x - 0.05 * S, y: tagFinal.y + lieDy * S, a: 0};
   const ext = {x: ox, y: oy, w: w * S, h: hh * S};
   return {S, M, D, dock, bag, origRest, srcBay, dstBay, tray, copyRest, copySpot, tagC: tagModelC, tagO: tagModelO, eyeOf, holeOf, tagFinal, tagLie, ext, orient: o.orient, fits: S >= 60};
 }

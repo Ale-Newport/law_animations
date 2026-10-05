@@ -107,8 +107,8 @@ function geom(ctx, F, minF) {
   const ch = Math.max(chMin, Math.min(chFree, cw * 0.72));
   if (chFree < chMin) why.push(`card-h:${r(chFree)}/${r(chMin)}`);
   const extra = Math.max(0, S.h - (fixed + 2 * ch) - 12);
-  pressZone += Math.min(extra * 0.45, 130);
-  const cExtra = Math.min(extra * 0.4, 150);
+  pressZone += Math.min(extra * 0.45, 260);
+  const cExtra = Math.min(extra * 0.45, 260);
   const clH = stackC ? clH0 : Math.max(clH0, Math.min(ch, clauseBlockH(clFit, discR, 2)));
   const C = {x: cX, y: hh + 8, w: cW, h: (stackC ? headH + clH + 18 + ch + 36 : headH + Math.max(clH + 4, ch + 30) + 20) + cExtra};
   const clause = {x: 16, y: headH + 12, w: clW, h: clH, fit: clFit};
