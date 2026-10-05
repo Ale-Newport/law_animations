@@ -24,6 +24,12 @@ The first unfinished ID in catalog order is **LAW-0329** (B017 review-03, in pro
 
 LAW-0072 was repaired in round 8 by a single fixer agent plus a separate independent reviewer agent (`production/review-findings/B002-B004-round8.json`); accepted.
 
+## Session 2 (cloud container, started 2026-10-05)
+- Repo now at /home/user/law_animations (Linux cloud container). Playwright 1.63 wants Chromium 1243; the container has 1194, so `/home/user/pw-browsers/` holds symlinks to it. Every Playwright command needs `PLAYWRIGHT_BROWSERS_PATH=/home/user/pw-browsers` (recreate the symlinks in a new container: see production/workflows/AGENT_RULES.md). Renders come from Chromium 1194, not the session-1 macOS browser, so render fingerprints of re-run items can differ.
+- `production/scratch/` (gitignored) from session 1 is NOT in this container; review evidence lists in progress.json that point there are historical.
+- Agents are launched with the Agent tool (no Workflow); shared rules for builders/reviewers live in production/workflows/AGENT_RULES.md. Per motif: builder → independent FINAL reviewer (records review) → fixer + re-review while failing.
+- Wave 1 (2026-10-05): final reviews of causation-08 (0709..0712), review-03 r2 (0329..0331), contract-terms-04 (0493..0496); builds of review-04 (0333..0336) and review-05 (0337..0340).
+
 ## How to continue (another session can start here)
 1. `node scripts/accept.mjs --all` — authoritative statuses.
 2. For each run listed above that is no longer running: read its journal
