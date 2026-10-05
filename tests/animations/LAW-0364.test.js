@@ -4,7 +4,7 @@
 // changes: before → after, with a "before" trace), and seeking back restores the previous datum exactly.
 // Windows (u): context 0–0.20 · lens opens 0.20–0.32 (context copy of the row hidden from 0.20) · old value lifts
 // 0.45–0.51 · before-trace 0.50–0.56 · new value 0.54–0.62 · new value still 0.62–0.75 · lens closes 0.75–0.85 ·
-// context row in the after state from 0.85 · Δ marker 0.84–0.90 · legend lines 0.85–0.90; still from 0.90.
+// context row in the after state from 0.85 · Δ marker 0.86–0.92 · legend lines 0.85–0.90 · the bag steps aside 0.10–0.19 and returns to its centred rest 0.85–0.93; still from 0.93.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
@@ -20,6 +20,8 @@ contractSuite(ID, {
     {at: 0.7, fn: "s.shown === 'after' && s.lensAfter === 1 && s.lensBefore === 0 && s.lensP === 1", label: 'substituted: the new value is shown in the lens, still'},
     {at: 1, fn: "s.lensP === 0 && s.ctxAfter === 1 && s.ctxBefore === 0 && s.marker === 1 && s.problems.length === 0 && s.zoom >= 1.5", label: 'return: context shows the after state with the Δ marker; composition fits'},
     {at: 0.1, fn: "s.shown === 'before' && s.ctxBefore === 1 && s.ctxAfter === 0", label: 'seeking back restores the before value exactly'},
+    {at: 0.4, fn: 's.restK === 0', label: 'the bag has stepped aside while the lens is open'},
+    {at: 1, fn: 's.restK === 1', label: 'context and hold: the bagged object is centred and enlarged on the bench'},
     {at: 1, params: {focusTarget: 0, beforeValue: 'E-01', afterValue: 'E-02'}, fn: 's.focus === 0 && s.value === "E-02"', label: 'the supplied focus row and values alone decide the substitution'},
   ],
 });

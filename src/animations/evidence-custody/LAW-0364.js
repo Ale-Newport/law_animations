@@ -33,7 +33,7 @@ import {
 
 const ID = 'LAW-0364';
 const DURATION = 8000;
-const W = {open: [0.2, 0.32], fadeOld: [0.45, 0.51], trace: [0.5, 0.56], writeNew: [0.54, 0.62], close: [0.75, 0.85], marker: [0.84, 0.9], legend: [0.85, 0.9]};
+const W = {aside: [0.1, 0.19], back: [0.85, 0.93], open: [0.2, 0.32], fadeOld: [0.45, 0.51], trace: [0.5, 0.56], writeNew: [0.54, 0.62], close: [0.75, 0.85], marker: [0.86, 0.92], legend: [0.85, 0.9]};
 const SIZES = [24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 
 const STRINGS = {
@@ -293,7 +293,12 @@ const scene = {
     C.shoulder = {x: C.bench.x + C.bench.w * 0.08, y: bb + 120};
     C.rest = {x: C.shoulder.x + armW * 1.2, y: bb - armW * 0.8};
     const arm = gloveArm(ctx, {name: 'armL', handed: 'left', upper: 120, lower: 120, width: armW});
-    const L = {P, recs, fi, C, arm};
+    // at rest (context / return) the bagged object is centred and enlarged on the bench; it steps aside to the
+    // lens-ready place only while the lens is open, so the lens source keeps its exact coordinates
+    const G = C.G, M0 = C.mat;
+    const rs = clamp(Math.min(M0.h * 0.92 / G.B.h, M0.w * 0.6 / G.B.w), 1, 1.6);
+    const rest = {s: rs, dx: M0.x + M0.w / 2 - rs * (G.bag.x + G.B.w / 2), dy: M0.y + M0.h / 2 - rs * (G.bag.y + G.B.h / 2)};
+    const L = {P, recs, fi, C, arm, rest};
     L.lensF = sceneParts(ctx, L).Lz.frame;
     return L;
   },
@@ -306,13 +311,15 @@ const scene = {
     return g({name: 'scene'},
       bench.surface,
       g({'clip-path': bench.clip},
+        g({name: 'ctxMove'},
         S.back, S.inside,
         g({name: 'ctx-before', transform: T(C.hole.x, C.hole.y)}, beforeScr),
         g({name: 'ctx-after', transform: T(C.hole.x, C.hole.y), opacity: 0}, afterScr),
         S.front,
         S.carried,
-        L.arm.arm, L.arm.palm, L.arm.thumb,
         changedMarker(ctx, {name: 'marker', x: mk.x, y: mk.y, radius: Math.max(16, G.S * 0.11), opacity: 0}),
+        ),
+        L.arm.arm, L.arm.palm, L.arm.thumb,
       ),
       bench.frame,
       Lz.node,
@@ -342,6 +349,12 @@ const scene = {
     nodes['lv-ring'] = {opacity: r(seg(u, 0.34, 0.4), 3)};
     const mk = seg(u, ...W.marker);
     nodes.marker = {opacity: r(mk, 3)};
+    // step aside before the lens opens, come back after it closes (the marker rides with the bag)
+    const kRest = 1 - ease.inOutCubic(seg(u, ...W.aside)) * (1 - ease.inOutCubic(seg(u, ...W.back)));
+    const RS = L.rest;
+    const sc = lerp(1, RS.s, kRest);
+    nodes.ctxMove = {transform: T(RS.dx * kRest, RS.dy * kRest, 0, sc)};
+    const holeW = {x: C.hole.x * sc + RS.dx * kRest, y: C.hole.y * sc + RS.dy * kRest};
     if (C.PL) for (const col of C.PL.cols) for (const row of col.rows) {
       if (row.name === 'lg-after' || row.name === 'lg-marker') nodes[row.name] = {opacity: r(seg(u, ...(row.name === 'lg-after' ? W.writeNew : W.legend)), 3)};
     }
@@ -354,7 +367,7 @@ const scene = {
       semantic: {
         phase, shown, lensP: r(pOpen, 3), lensOn, zoom: r(C.zoom, 3),
         value: shown === 'before' ? P.beforeValue : P.afterValue, ctxBefore, ctxAfter, lensBefore: r(1 - kOld, 3), lensAfter: r(kNew, 3),
-        marker: r(mk, 3), changed, focus: fi, hole: R2(C.hole), source: {x: r(C.source.x), y: r(C.source.y), w: r(C.source.w), h: r(C.source.h)},
+        marker: r(mk, 3), changed, focus: fi, hole: R2(holeW), restK: r(kRest, 3), source: {x: r(C.source.x), y: r(C.source.y), w: r(C.source.w), h: r(C.source.h)},
         dest: {x: r(C.dest.x), y: r(C.dest.y), w: r(C.dest.w), h: r(C.dest.h)}, bench: {x: r(C.bench.x), y: r(C.bench.y), w: r(C.bench.w), h: r(C.bench.h)},
         problems: C.problems, textPx: r(C.F, 1), S: r(G.S, 1), allReached: pr.reached,
       },

@@ -1,0 +1,1438 @@
+{
+  "animationId": "LAW-0719",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0719",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": false,
+      "detail": [
+        {
+          "preset": "long-labels-stress",
+          "ratio": "1:1",
+          "u": 0,
+          "problems": [],
+          "outsideFrame": [
+            "1",
+            "4"
+          ],
+          "outsideSafe": [
+            "1 @-164,530,11x22",
+            "2 @31,530,11x22",
+            "3 @1038,530,11x22",
+            "4 @1232,530,11x22"
+          ]
+        },
+        {
+          "preset": "long-labels-stress",
+          "ratio": "1:1",
+          "u": 0.35,
+          "problems": [],
+          "outsideFrame": [
+            "A · Proposed allocation (first list) — v",
+            "B · Alternative allocation (second list)",
+            "1",
+            "40 (hypothetical units)",
+            "30 (hypothetical units)",
+            "4",
+            "20 (hypothetical units)",
+            "10 (hypothetical units)"
+          ],
+          "outsideSafe": [
+            "A · Proposed allocation (first list) — v @-143,398,590x37",
+            "B · Alternative allocation (second list) @656,398,618x37",
+            "1 @-164,530,11x22",
+            "2 @31,530,11x22",
+            "40 (hypothetical units) @-243,575,171x18",
+            "30 (hypothetical units) @-49,575,171x18",
+            "3 @1038,530,11x22",
+            "4 @1232,530,11x22",
+            "20 (hypothetical units) @959,575,171x18",
+            "10 (hypothetical units) @1153,575,171x18"
+          ]
+        },
+        {
+          "preset": "long-labels-stress",
+          "ratio": "1:1",
+          "u": 0.7,
+          "problems": [],
+          "outsideFrame": [
+            "A · Proposed allocation (first list) — v",
+            "B · Alternative allocation (second list)",
+            "1",
+            "40 (hypothetical units)",
+            "30 (hypothetical units)",
+            "4",
+            "20 (hypothetical units)",
+            "10 (hypothetical units)"
+          ],
+          "outsideSafe": [
+            "A · Proposed allocation (first list) — v @-143,398,590x37",
+            "B · Alternative allocation (second list) @656,398,618x37",
+            "1 @-164,530,11x22",
+            "2 @31,530,11x22",
+            "40 (hypothetical units) @-243,575,171x18",
+            "30 (hypothetical units) @-49,575,171x18",
+            "3 @1038,530,11x22",
+            "4 @1232,530,11x22",
+            "20 (hypothetical units) @959,575,171x18",
+            "10 (hypothetical units) @1153,575,171x18"
+          ]
+        },
+        {
+          "preset": "long-labels-stress",
+          "ratio": "1:1",
+          "u": 1,
+          "problems": [],
+          "outsideFrame": [
+            "A · Proposed allocation (first list) — v",
+            "B · Alternative allocation (second list)",
+            "1",
+            "40 (hypothetical units)",
+            "30 (hypothetical units)",
+            "4",
+            "20 (hypothetical units)",
+            "10 (hypothetical units)"
+          ],
+          "outsideSafe": [
+            "A · Proposed allocation (first list) — v @-143,398,590x37",
+            "B · Alternative allocation (second list) @656,398,618x37",
+            "1 @-164,530,11x22",
+            "2 @31,530,11x22",
+            "40 (hypothetical units) @-243,575,171x18",
+            "30 (hypothetical units) @-49,575,171x18",
+            "3 @1038,530,11x22",
+            "4 @1232,530,11x22",
+            "20 (hypothetical units) @959,575,171x18",
+            "10 (hypothetical units) @1153,575,171x18"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "losses.0.label"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: A and B identical, no values yet @0",
+      "pass": false,
+      "detail": {
+        "semantic": {
+          "bladeA": {
+            "x": 159.61,
+            "y": 188.48
+          },
+          "segA": {
+            "x": 301.32,
+            "y": 241.62
+          },
+          "bladeB": {
+            "x": 943.75,
+            "y": 188.48
+          },
+          "segB": {
+            "x": 1060.15,
+            "y": 241.62
+          },
+          "beat": "base",
+          "lookA": {
+            "blades": [
+              {
+                "x": 81.54,
+                "y": 122.88
+              },
+              {
+                "x": 115.7,
+                "y": 122.88
+              }
+            ],
+            "segs": [
+              {
+                "x": 223.24,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 413.02,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 564.85,
+                "y": 176.02,
+                "q": 0
+              }
+            ],
+            "bar": true
+          },
+          "lookB": {
+            "blades": [
+              {
+                "x": 81.54,
+                "y": 122.88
+              },
+              {
+                "x": 115.7,
+                "y": 122.88
+              }
+            ],
+            "segs": [
+              {
+                "x": 197.94,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 387.72,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 564.85,
+                "y": 176.02,
+                "q": 0
+              }
+            ],
+            "bar": true
+          },
+          "boundariesA": [
+            324.5,
+            501.6
+          ],
+          "boundariesB": [
+            273.9,
+            501.6
+          ],
+          "changedBoundary": 0,
+          "differs": [
+            true,
+            true,
+            false
+          ],
+          "valuesA": [
+            40,
+            35,
+            25
+          ],
+          "valuesB": [
+            30,
+            45,
+            25
+          ],
+          "widthsA": [
+            202.435,
+            177.13,
+            126.522
+          ],
+          "widthsB": [
+            151.826,
+            227.739,
+            126.522
+          ],
+          "valuesShown": 0,
+          "guideShown": false,
+          "keyShown": false,
+          "slide": 0,
+          "cut": 0,
+          "spread": 0,
+          "layout": {
+            "S": 506.09,
+            "size": 21,
+            "mode": "below",
+            "arr": "row"
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: still identical just before the change beat @0.16",
+      "pass": false,
+      "detail": {
+        "semantic": {
+          "bladeA": {
+            "x": 159.61,
+            "y": 188.48
+          },
+          "segA": {
+            "x": 301.32,
+            "y": 241.62
+          },
+          "bladeB": {
+            "x": 943.75,
+            "y": 188.48
+          },
+          "segB": {
+            "x": 1060.15,
+            "y": 241.62
+          },
+          "beat": "base",
+          "lookA": {
+            "blades": [
+              {
+                "x": 81.54,
+                "y": 122.88
+              },
+              {
+                "x": 115.7,
+                "y": 122.88
+              }
+            ],
+            "segs": [
+              {
+                "x": 223.24,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 413.02,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 564.85,
+                "y": 176.02,
+                "q": 0
+              }
+            ],
+            "bar": true
+          },
+          "lookB": {
+            "blades": [
+              {
+                "x": 81.54,
+                "y": 122.88
+              },
+              {
+                "x": 115.7,
+                "y": 122.88
+              }
+            ],
+            "segs": [
+              {
+                "x": 197.94,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 387.72,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 564.85,
+                "y": 176.02,
+                "q": 0
+              }
+            ],
+            "bar": true
+          },
+          "boundariesA": [
+            324.5,
+            501.6
+          ],
+          "boundariesB": [
+            273.9,
+            501.6
+          ],
+          "changedBoundary": 0,
+          "differs": [
+            true,
+            true,
+            false
+          ],
+          "valuesA": [
+            40,
+            35,
+            25
+          ],
+          "valuesB": [
+            30,
+            45,
+            25
+          ],
+          "widthsA": [
+            202.435,
+            177.13,
+            126.522
+          ],
+          "widthsB": [
+            151.826,
+            227.739,
+            126.522
+          ],
+          "valuesShown": 0,
+          "guideShown": false,
+          "keyShown": false,
+          "slide": 0,
+          "cut": 0,
+          "spread": 0,
+          "layout": {
+            "S": 506.09,
+            "size": 21,
+            "mode": "below",
+            "arr": "row"
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: change: exactly one blade stands elsewhere (one changed boundary) @0.36",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "bladeA": {
+            "x": 402.54,
+            "y": 188.48
+          },
+          "segA": {
+            "x": 301.32,
+            "y": 241.62
+          },
+          "bladeB": {
+            "x": 1136.06,
+            "y": 188.48
+          },
+          "segB": {
+            "x": 1060.15,
+            "y": 241.62
+          },
+          "beat": "change",
+          "lookA": {
+            "blades": [
+              {
+                "x": 324.46,
+                "y": 122.88
+              },
+              {
+                "x": 501.59,
+                "y": 122.88
+              }
+            ],
+            "segs": [
+              {
+                "x": 223.24,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 413.02,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 564.85,
+                "y": 176.02,
+                "q": 0
+              }
+            ],
+            "bar": true
+          },
+          "lookB": {
+            "blades": [
+              {
+                "x": 273.85,
+                "y": 122.88
+              },
+              {
+                "x": 501.59,
+                "y": 122.88
+              }
+            ],
+            "segs": [
+              {
+                "x": 197.94,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 387.72,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 564.85,
+                "y": 176.02,
+                "q": 0
+              }
+            ],
+            "bar": true
+          },
+          "boundariesA": [
+            324.5,
+            501.6
+          ],
+          "boundariesB": [
+            273.9,
+            501.6
+          ],
+          "changedBoundary": 0,
+          "differs": [
+            true,
+            true,
+            false
+          ],
+          "valuesA": [
+            40,
+            35,
+            25
+          ],
+          "valuesB": [
+            30,
+            45,
+            25
+          ],
+          "widthsA": [
+            202.435,
+            177.13,
+            126.522
+          ],
+          "widthsB": [
+            151.826,
+            227.739,
+            126.522
+          ],
+          "valuesShown": 1,
+          "guideShown": false,
+          "keyShown": false,
+          "slide": 1,
+          "cut": 0,
+          "spread": 0,
+          "layout": {
+            "S": 506.09,
+            "size": 21,
+            "mode": "below",
+            "arr": "row"
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: only the blade on the changed boundary differs @0.36",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "bladeA": {
+            "x": 402.54,
+            "y": 188.48
+          },
+          "segA": {
+            "x": 301.32,
+            "y": 241.62
+          },
+          "bladeB": {
+            "x": 1136.06,
+            "y": 188.48
+          },
+          "segB": {
+            "x": 1060.15,
+            "y": 241.62
+          },
+          "beat": "change",
+          "lookA": {
+            "blades": [
+              {
+                "x": 324.46,
+                "y": 122.88
+              },
+              {
+                "x": 501.59,
+                "y": 122.88
+              }
+            ],
+            "segs": [
+              {
+                "x": 223.24,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 413.02,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 564.85,
+                "y": 176.02,
+                "q": 0
+              }
+            ],
+            "bar": true
+          },
+          "lookB": {
+            "blades": [
+              {
+                "x": 273.85,
+                "y": 122.88
+              },
+              {
+                "x": 501.59,
+                "y": 122.88
+              }
+            ],
+            "segs": [
+              {
+                "x": 197.94,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 387.72,
+                "y": 176.02,
+                "q": 0
+              },
+              {
+                "x": 564.85,
+                "y": 176.02,
+                "q": 0
+              }
+            ],
+            "bar": true
+          },
+          "boundariesA": [
+            324.5,
+            501.6
+          ],
+          "boundariesB": [
+            273.9,
+            501.6
+          ],
+          "changedBoundary": 0,
+          "differs": [
+            true,
+            true,
+            false
+          ],
+          "valuesA": [
+            40,
+            35,
+            25
+          ],
+          "valuesB": [
+            30,
+            45,
+            25
+          ],
+          "widthsA": [
+            202.435,
+            177.13,
+            126.522
+          ],
+          "widthsB": [
+            151.826,
+            227.739,
+            126.522
+          ],
+          "valuesShown": 1,
+          "guideShown": false,
+          "keyShown": false,
+          "slide": 1,
+          "cut": 0,
+          "spread": 0,
+          "layout": {
+            "S": 506.09,
+            "size": 21,
+            "mode": "below",
+            "arr": "row"
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: run: the same action on both stages in parallel @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "bladeA": {
+            "x": 387.35,
+            "y": 281.57
+          },
+          "segA": {
+            "x": 226.06,
+            "y": 315.74
+          },
+          "bladeB": {
+            "x": 1120.88,
+            "y": 281.57
+          },
+          "segB": {
+            "x": 1001.13,
+            "y": 315.74
+          },
+          "beat": "run",
+          "lookA": {
+            "blades": [
+              {
+                "x": 309.28,
+                "y": 215.97
+              },
+              {
+                "x": 516.77,
+                "y": 215.97
+              }
+            ],
+            "segs": [
+              {
+                "x": 147.98,
+                "y": 250.14,
+                "q": 0.553
+              },
+              {
+                "x": 413.02,
+                "y": 175.77,
+                "q": 0.003
+              },
+              {
+                "x": 595.22,
+                "y": 176.02,
+                "q": 0
+              }
+            ],
+            "bar": false
+          },
+          "lookB": {
+            "blades": [
+              {
+                "x": 258.67,
+                "y": 215.97
+              },
+              {
+                "x": 516.77,
+                "y": 215.97
+              }
+            ],
+            "segs": [
+              {
+                "x": 138.92,
+                "y": 250.14,
+                "q": 0.553
+              },
+              {
+                "x": 387.72,
+                "y": 175.77,
+                "q": 0.003
+              },
+              {
+                "x": 595.22,
+                "y": 176.02,
+                "q": 0
+              }
+            ],
+            "bar": false
+          },
+          "boundariesA": [
+            324.5,
+            501.6
+          ],
+          "boundariesB": [
+            273.9,
+            501.6
+          ],
+          "changedBoundary": 0,
+          "differs": [
+            true,
+            true,
+            false
+          ],
+          "valuesA": [
+            40,
+            35,
+            25
+          ],
+          "valuesB": [
+            30,
+            45,
+            25
+          ],
+          "widthsA": [
+            202.435,
+            177.13,
+            126.522
+          ],
+          "widthsB": [
+            151.826,
+            227.739,
+            126.522
+          ],
+          "valuesShown": 1,
+          "guideShown": false,
+          "keyShown": false,
+          "slide": 1,
+          "cut": 1,
+          "spread": 1,
+          "layout": {
+            "S": 506.09,
+            "size": 21,
+            "mode": "below",
+            "arr": "row"
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: both divided, the guide and the key @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "bladeA": {
+            "x": 387.35,
+            "y": 188.48
+          },
+          "segA": {
+            "x": 201.01,
+            "y": 361.81
+          },
+          "bladeB": {
+            "x": 1120.88,
+            "y": 188.48
+          },
+          "segB": {
+            "x": 985.14,
+            "y": 361.81
+          },
+          "beat": "guide",
+          "lookA": {
+            "blades": [
+              {
+                "x": 309.28,
+                "y": 122.88
+              },
+              {
+                "x": 516.77,
+                "y": 122.88
+              }
+            ],
+            "segs": [
+              {
+                "x": 122.93,
+                "y": 296.21,
+                "q": 1
+              },
+              {
+                "x": 398.75,
+                "y": 296.21,
+                "q": 1
+              },
+              {
+                "x": 650.88,
+                "y": 296.21,
+                "q": 1
+              }
+            ],
+            "bar": false
+          },
+          "lookB": {
+            "blades": [
+              {
+                "x": 258.67,
+                "y": 122.88
+              },
+              {
+                "x": 516.77,
+                "y": 122.88
+              }
+            ],
+            "segs": [
+              {
+                "x": 122.93,
+                "y": 296.21,
+                "q": 1
+              },
+              {
+                "x": 398.75,
+                "y": 296.21,
+                "q": 1
+              },
+              {
+                "x": 650.88,
+                "y": 296.21,
+                "q": 1
+              }
+            ],
+            "bar": false
+          },
+          "boundariesA": [
+            324.5,
+            501.6
+          ],
+          "boundariesB": [
+            273.9,
+            501.6
+          ],
+          "changedBoundary": 0,
+          "differs": [
+            true,
+            true,
+            false
+          ],
+          "valuesA": [
+            40,
+            35,
+            25
+          ],
+          "valuesB": [
+            30,
+            45,
+            25
+          ],
+          "widthsA": [
+            202.435,
+            177.13,
+            126.522
+          ],
+          "widthsB": [
+            151.826,
+            227.739,
+            126.522
+          ],
+          "valuesShown": 1,
+          "guideShown": true,
+          "keyShown": true,
+          "slide": 1,
+          "cut": 1,
+          "spread": 1,
+          "layout": {
+            "S": 506.09,
+            "size": 21,
+            "mode": "below",
+            "arr": "row"
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: both stages divide the same whole bar @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "bladeA": {
+            "x": 387.35,
+            "y": 188.48
+          },
+          "segA": {
+            "x": 201.01,
+            "y": 361.81
+          },
+          "bladeB": {
+            "x": 1120.88,
+            "y": 188.48
+          },
+          "segB": {
+            "x": 985.14,
+            "y": 361.81
+          },
+          "beat": "guide",
+          "lookA": {
+            "blades": [
+              {
+                "x": 309.28,
+                "y": 122.88
+              },
+              {
+                "x": 516.77,
+                "y": 122.88
+              }
+            ],
+            "segs": [
+              {
+                "x": 122.93,
+                "y": 296.21,
+                "q": 1
+              },
+              {
+                "x": 398.75,
+                "y": 296.21,
+                "q": 1
+              },
+              {
+                "x": 650.88,
+                "y": 296.21,
+                "q": 1
+              }
+            ],
+            "bar": false
+          },
+          "lookB": {
+            "blades": [
+              {
+                "x": 258.67,
+                "y": 122.88
+              },
+              {
+                "x": 516.77,
+                "y": 122.88
+              }
+            ],
+            "segs": [
+              {
+                "x": 122.93,
+                "y": 296.21,
+                "q": 1
+              },
+              {
+                "x": 398.75,
+                "y": 296.21,
+                "q": 1
+              },
+              {
+                "x": 650.88,
+                "y": 296.21,
+                "q": 1
+              }
+            ],
+            "bar": false
+          },
+          "boundariesA": [
+            324.5,
+            501.6
+          ],
+          "boundariesB": [
+            273.9,
+            501.6
+          ],
+          "changedBoundary": 0,
+          "differs": [
+            true,
+            true,
+            false
+          ],
+          "valuesA": [
+            40,
+            35,
+            25
+          ],
+          "valuesB": [
+            30,
+            45,
+            25
+          ],
+          "widthsA": [
+            202.435,
+            177.13,
+            126.522
+          ],
+          "widthsB": [
+            151.826,
+            227.739,
+            126.522
+          ],
+          "valuesShown": 1,
+          "guideShown": true,
+          "keyShown": true,
+          "slide": 1,
+          "cut": 1,
+          "spread": 1,
+          "layout": {
+            "S": 506.09,
+            "size": 21,
+            "mode": "below",
+            "arr": "row"
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative: only the last boundary differs @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "bladeA": {
+            "x": 623.62,
+            "y": 185.11
+          },
+          "segA": {
+            "x": 106.28,
+            "y": 371.94
+          },
+          "bladeB": {
+            "x": 1401.01,
+            "y": 185.11
+          },
+          "segB": {
+            "x": 958.49,
+            "y": 371.94
+          },
+          "beat": "guide",
+          "lookA": {
+            "blades": [
+              {
+                "x": 279.42,
+                "y": 121.11
+              },
+              {
+                "x": 458.99,
+                "y": 121.11
+              },
+              {
+                "x": 613.62,
+                "y": 121.11
+              }
+            ],
+            "segs": [
+              {
+                "x": 96.28,
+                "y": 307.94,
+                "q": 1
+              },
+              {
+                "x": 305.78,
+                "y": 307.94,
+                "q": 1
+              },
+              {
+                "x": 513.86,
+                "y": 307.94,
+                "q": 1
+              },
+              {
+                "x": 721.93,
+                "y": 307.94,
+                "q": 1
+              }
+            ],
+            "bar": false
+          },
+          "lookB": {
+            "blades": [
+              {
+                "x": 279.42,
+                "y": 121.11
+              },
+              {
+                "x": 458.99,
+                "y": 121.11
+              },
+              {
+                "x": 538.8,
+                "y": 121.11
+              }
+            ],
+            "segs": [
+              {
+                "x": 96.28,
+                "y": 307.94,
+                "q": 1
+              },
+              {
+                "x": 305.78,
+                "y": 307.94,
+                "q": 1
+              },
+              {
+                "x": 513.86,
+                "y": 307.94,
+                "q": 1
+              },
+              {
+                "x": 721.93,
+                "y": 307.94,
+                "q": 1
+              }
+            ],
+            "bar": false
+          },
+          "boundariesA": [
+            309.3,
+            459,
+            583.7
+          ],
+          "boundariesB": [
+            309.3,
+            459,
+            508.9
+          ],
+          "changedBoundary": 2,
+          "differs": [
+            false,
+            false,
+            true,
+            true
+          ],
+          "valuesA": [
+            30,
+            30,
+            25,
+            15
+          ],
+          "valuesB": [
+            30,
+            30,
+            10,
+            30
+          ],
+          "widthsA": [
+            149.642,
+            149.642,
+            124.702,
+            74.821
+          ],
+          "widthsB": [
+            149.642,
+            149.642,
+            49.881,
+            149.642
+          ],
+          "valuesShown": 1,
+          "guideShown": true,
+          "keyShown": true,
+          "slide": 1,
+          "cut": 1,
+          "spread": 1,
+          "layout": {
+            "S": 498.81,
+            "size": 20,
+            "mode": "below",
+            "arr": "row"
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same contrast @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "bladeA": {
+            "x": 344.41,
+            "y": 241.85
+          },
+          "segA": {
+            "x": 149.04,
+            "y": 592.2
+          },
+          "bladeB": {
+            "x": 1139.16,
+            "y": 241.85
+          },
+          "segB": {
+            "x": 1001.25,
+            "y": 592.2
+          },
+          "beat": "guide",
+          "lookA": {
+            "blades": [
+              {
+                "x": 334.41,
+                "y": 168.25
+              },
+              {
+                "x": 570,
+                "y": 168.25
+              }
+            ],
+            "segs": [
+              {
+                "x": 139.04,
+                "y": 518.6,
+                "q": 1
+              },
+              {
+                "x": 452.2,
+                "y": 518.6,
+                "q": 1
+              },
+              {
+                "x": 722.27,
+                "y": 518.6,
+                "q": 1
+              }
+            ],
+            "bar": false
+          },
+          "lookB": {
+            "blades": [
+              {
+                "x": 276.94,
+                "y": 168.25
+              },
+              {
+                "x": 570,
+                "y": 168.25
+              }
+            ],
+            "segs": [
+              {
+                "x": 139.04,
+                "y": 518.6,
+                "q": 1
+              },
+              {
+                "x": 452.2,
+                "y": 518.6,
+                "q": 1
+              },
+              {
+                "x": 722.27,
+                "y": 518.6,
+                "q": 1
+              }
+            ],
+            "bar": false
+          },
+          "boundariesA": [
+            351.6,
+            552.8
+          ],
+          "boundariesB": [
+            294.2,
+            552.8
+          ],
+          "changedBoundary": 0,
+          "differs": [
+            true,
+            true,
+            false
+          ],
+          "valuesA": [
+            40,
+            35,
+            25
+          ],
+          "valuesB": [
+            30,
+            45,
+            25
+          ],
+          "widthsA": [
+            229.847,
+            201.117,
+            143.655
+          ],
+          "widthsB": [
+            172.386,
+            258.578,
+            143.655
+          ],
+          "valuesShown": 1,
+          "guideShown": true,
+          "keyShown": true,
+          "slide": 1,
+          "cut": 1,
+          "spread": 1,
+          "layout": {
+            "S": 574.62,
+            "size": 26,
+            "mode": "below",
+            "arr": "row"
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

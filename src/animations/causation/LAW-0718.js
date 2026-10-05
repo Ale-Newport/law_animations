@@ -173,7 +173,7 @@ function geomFor(ctx, p, M, size, U, arr, gx0, ex = 0, ey = 0) {
   const cellW = id => Math.max(parts[id].w, parts[id].chipW);
   const cellH = id => parts[id].h + parts[id].chipH;
   // (the gaps between rows hold relation chips: up to three lines)
-  const gy0 = Math.max(0.12 * U, size * (arr === 'diamond' ? 4.2 : 2.6));
+  const gy0 = Math.max(0.12 * U, size * 4.2);
   const gx = gx0 + ex, gy = gy0 + ey;
   const boxes = {};
   let w, hh;

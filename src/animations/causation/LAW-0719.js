@@ -97,10 +97,12 @@ function panelItems(ctx, p, M) {
   if (p.losses[1]) out.push({key: 'loss1', icon: 'note', text: `${t.alsoNoted}: ${p.losses[1].label}`, when: 'shared'});
   M.alternatives.forEach((a, j) => out.push({key: `alt${j}`, icon: 'alt', text: altText(ctx, a), when: 'shared'}));
   linkNotes(ctx, M).forEach(l => out.push({...l, when: 'shared'}));
-  if (p.changedFact) out.push({key: 'changed', icon: 'alloc', side: 'b', text: `${t.changed}: ${p.changedFact}`, when: 'changed'});
-  out.push({key: 'note', icon: 'status', text: p.comparisonLabels.neutral || t.neutral, when: 'note'});
-  out.push({key: 'key', text: t.key, when: 'key'});
-  return out;
+  // the rows that appear late come first, so the chips shown from the first frame take the panel's last rows
+  const late = [];
+  if (p.changedFact) late.push({key: 'changed', icon: 'alloc', side: 'b', text: `${t.changed}: ${p.changedFact}`, when: 'changed'});
+  late.push({key: 'note', icon: 'status', text: p.comparisonLabels.neutral || t.neutral, when: 'note'});
+  late.push({key: 'key', text: t.key, when: 'key'});
+  return [...late, ...out];
 }
 
 /** Head chip: solid ●/◆ cue (equal weight, same colour) + "A · label — caption". */
@@ -323,6 +325,7 @@ const scene = {
     Object.assign(sem, {
       beat: u < BEATS.base[1] ? 'base' : u < BEATS.change[1] ? 'change' : u < BEATS.run[1] ? 'run' : 'guide',
       lookA: look[0], lookB: look[1],
+      boundariesA: G.cutX(M.fA).map(x => r(x, 1)), boundariesB: G.cutX(M.fB).map(x => r(x, 1)),
       changedBoundary: L.cb, differs: L.diff,
       valuesA: M.vA, valuesB: M.vB,
       widthsA: M.fA.map(q => r(q * G.S, 3)), widthsB: M.fB.map(q => r(q * G.S, 3)),

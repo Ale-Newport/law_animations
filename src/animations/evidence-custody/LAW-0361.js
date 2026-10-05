@@ -165,14 +165,15 @@ const scene = {
     const rows = legendRows(ctx, P, recs);
     const shape = ctx.view.shape;
     const opts = shape === 'portrait' ? [{mode: 'below', cols: 1}, {mode: 'below', cols: 2}]
-      : shape === 'square' ? [{mode: 'side', pw: 0.42}, {mode: 'side', pw: 0.48}, {mode: 'below', cols: 2}]
+      : shape === 'square' ? [{mode: 'side', pw: 0.34}, {mode: 'side', pw: 0.38}, {mode: 'side', pw: 0.42}, {mode: 'below', cols: 2}]
         : [{mode: 'side', pw: 0.32}, {mode: 'side', pw: 0.36}, {mode: 'side', pw: 0.4}];
     // score = object size, discounted for smaller text (larger scene first, text never below the floor)
     let C = null, best = null, bestScore = -1;
     for (const F of SIZES) {
       for (const opt of opts) {
         const c = compose(ctx, P, recs, rows, F, opt);
-        const score = c.G.S * Math.sqrt(F / 24) * (F < 19.5 ? 0.7 : 1);
+        const share = (c.bench.w * c.bench.h) / (ctx.design.w * ctx.design.h);
+        const score = c.G.S * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1);
         if (c.ok && score > bestScore) { best = c; bestScore = score; }
         if (!C || c.problems.length < C.problems.length) C = c;
       }
@@ -181,7 +182,7 @@ const scene = {
     // arms: shoulders below the bench's lower edge
     const G = C.G;
     const bb = C.bench.y + C.bench.h;
-    const sOff = Math.max(110, C.bench.h * 0.14);
+    const sOff = Math.max(70, C.bench.h * 0.08);
     C.shoulderR = {x: C.bench.x + C.bench.w * (G.wide ? 0.6 : 0.78), y: bb + sOff};
     C.shoulderL = {x: C.bench.x + C.bench.w * (G.wide ? 0.14 : 0.16), y: bb + sOff};
     const armW = clamp(G.S * 0.24, 38, 54);
@@ -196,7 +197,8 @@ const scene = {
       farL = Math.max(farL, Math.hypot(s.handL.x - C.shoulderL.x, s.handL.y - C.shoulderL.y));
     }
     const far = Math.max(farR, farL);
-    const armLen = far * 0.5 + 20;
+    // longer bones than the farthest reach needs: the elbows stay visibly bent even at full stretch
+    const armLen = far * 0.58 + 20;
     const armR = gloveArm(ctx, {name: 'armR', handed: 'right', upper: armLen, lower: armLen, width: armW});
     const armL = gloveArm(ctx, {name: 'armL', handed: 'left', upper: armLen, lower: armLen, width: armW});
     // rings around the final positions of the note targets
