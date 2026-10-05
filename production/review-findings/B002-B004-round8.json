@@ -1,0 +1,26 @@
+{
+ "motifs": [
+  {
+   "key": "research-08",
+   "category": "research",
+   "motif": "Comprobación de jurisdicción",
+   "slug": "comprobacion-de-jurisdiccion",
+   "ids": [
+    "LAW-0069",
+    "LAW-0070",
+    "LAW-0071",
+    "LAW-0072"
+   ],
+   "defects": {
+    "LAW-0072": [
+     "[verdict: FAIL — latest review, round 8]",
+     "FAIL (new): the lens closes at t~0.80-0.84. After its copy fades out, the empty oversized red lens frame sweeps back through the scene. In 16:9 baseline, alternative, long-labels and es at t=0.80-0.81 it boxes DOC-15 'Purchase order set', an unrelated document; t=0.80 is a contact-sheet keyframe. In 16:9 and 9:16 baseline it then parks over DOC-13's OLD empty slot at 0.82 before reaching the new position at 0.84-0.85. At 16:9 t=0.83 its edges cut across DOC-12's badge and DOC-14's title. In 9:16 long-labels at 0.80 its border cuts through the query card's 'Northvale-upon-Eastmere' datum. In 16:9 alternative at 0.82-0.83 it is wider than DOC-14 and overlaps both neighbours. Fix: send the closing frame by a route clear of documents, the card and chips (reuse the opening route penalty), aimed at the document's current position, or fade it out before it enters the cabinet. Add a closeClearOfDocs semantic check for about 0.78-0.86.",
+     "Minor (partly fixed): at the 16:9 hold the right ~25-30% of the frame, the lens column, is still empty.",
+     "Minor: dashed cone lines cross the header chip text ('Other jurisdiction' in 1:1 at 0.69-0.70; '= Declares the jurisdiction' in 9:16 long-labels at 0.80).",
+     "Verified fixed: the rack transfer no longer crosses or hides under a neighbour in any ratio or preset; the lens-opening copy no longer fades in over documents; the 1:1 mover keeps a clear gap below the header chips.",
+     "Fixer notes from round 7 (unresolved): LAW-0072 minor, not fully fixed: at the 16:9 hold the lens column (right side, about 25% of the frame) is still empty once the lens has folded back. A full fix needs the 16:9 composition redone (for example the lens overlaying the cabinet), which is not a cheap change. It is reduced but still visible. | LAW-0072, left as it was: in 16:9 and 9:16 there is a brief moment, about 0.28 to 0.30, when the lens is not yet visible and only the red source frame and the dim show on the document. Also, when a long route in a non-default setting (16:9 focusTarget doc-1) cannot fully clear the row, the window's first visible point is capped at 80% of the opening and can graze the top margin of DOC-15. That setting has no semantic test. | LAW-0072, left as it was: in the return beat (about 0.80) the empty fold frame, an outline only with no copy, still crosses other documents and, in 9:16 long-labels, the research card on its way back. This fold path was the fix from earlier rounds, and I did not change it."
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,177 @@
+{
+ "motifs": [
+  {
+   "key": "research-02",
+   "category": "research",
+   "motif": "Cita localizada",
+   "slug": "cita-localizada",
+   "ids": [
+    "LAW-0045",
+    "LAW-0046",
+    "LAW-0047",
+    "LAW-0048"
+   ],
+   "defects": {
+    "LAW-0048": [
+     "[verdict: FAIL — latest review]",
+     "FAIL (long-labels-stress, 1:1): the new tag 'paragraph 25 (continued)' is drawn over the new paragraph and hides its highlight completely. On the page at the final hold it spans about 90% of the page width; no highlight pixels are visible, against about 295 at the same spot in the baseline (f48-long-1x1-big t=1, z48-11-long-hold). Inside the lens at t≈0.68-0.75 the enlarged tag fills the lens width, overhangs the lens's left border by a few px and covers the whole highlighted paragraph (f48-long-1x1-big t=0.74, z48-long11-072). As a result, the thing the substitution changes (which paragraph is highlighted) is never visible in this preset × ratio. The accepted sibling LAW-0045 places the same long tag beside the page with the highlight fully visible (f45-long-1x1-hold). In 16:9 and 9:16 long-labels only about 25-30% of the highlight shows. Fix: pin the tag to the paragraph's right end but place it in the page margin or on the desk beside the page, as LAW-0045 does, or cap its width and wrap it to 2 lines so most of the highlight stays visible. In the lens, keep the tag inside the border and leave the highlighted lines readable. Add a check that the highlight stays visible past the tag in every preset × ratio.",
+     "Minor (9:16 long-labels): the 'Paragraph pinpoint' annotation plate covers the whole top bookshelf, including its shelf label. This is decorative context and does not block; a smaller or moved plate would keep it visible."
+    ]
+   }
+  },
+  {
+   "key": "research-07",
+   "category": "research",
+   "motif": "Extracción de hechos",
+   "slug": "extraccion-de-hechos",
+   "ids": [
+    "LAW-0065",
+    "LAW-0066",
+    "LAW-0067",
+    "LAW-0068"
+   ],
+   "defects": {
+    "LAW-0065": [
+     "[verdict: FAIL — latest review]",
+     "contrast-or-alternative preset, hold, all ratios: the leader of the note 'Flagged on the page; not yet copied to the card' ends on the UNFLAGGED sentence ¶4 ('The minutes were circulated on Day 13.'), but the flags are on ¶2 and ¶3. Cause: page-target callouts always anchor to the last sentence (LAW-0065.js, target uses stage.sentenceBox(sentences.length-1)). Fix: anchor on the flagged rows or flags, or drop the leader for a whole-page note.",
+     "long-labels 1:1 hold (measured at 1080): page and filed-strip text is still about 16-17 px (recorded target >= 20 px). The card metadata wraps as 'Day / 7 (filed)'. Both callouts end with a one-word widow ('left', 'from'). The strip word 'delivery' runs into the ¶3 flag stub.",
+     "Minor: long-labels 16:9: the request 'Who signed the delivery note at the loading bay' touches its pill's right border; the card title abuts the 'Facts extracted' tag; the search title wraps with a lone 'file'. 9:16 alternative: 'Day 15.' on ¶3 ends under the flag's translucent base."
+    ],
+    "LAW-0066": [
+     "[verdict: FAIL — latest review]",
+     "long-labels-stress 16:9 hold: the relation chip breaks a word without a hyphen: 'holds the consolidat / ed volume'. Break only at word boundaries.",
+     "contrast-or-alternative 1:1 hold: the 'cites p. 4 ¶2' relation runs UNDER the flag (enters its left base, comes out beside the 'files a copy' line) to the card bottom, so it reads as a second line out of the flag. 'pinpoints ¶2' shares the flag-top port with the 'indicates the fact' arrowhead. Route the cite line around the flag and give the pinpoint its own port.",
+     "contrast-or-alternative 9:16 hold: 'cites p. 4 ¶2' and 'files a copy' run on top of each other for about 100 px beside the card's right edge and cross twice. Use separate lanes, or send the cite line to another card edge.",
+     "Minor: alternative 16:9: the cite line passes under the right end of the 'pinpoints ¶2' chip. Long-labels 16:9 and 1:1: the card metadata wraps 'Day / 7 (filed)'. LL 1:1: the strip word 'at' touches the flag stub, and the library becomes a thin sliver."
+    ],
+    "LAW-0067": [
+     "[verdict: FAIL — latest review]",
+     "long-labels-stress 16:9 hold: key content is cut with ellipses: page ¶2 'from the northern…', ¶3 'delivery note at the…', A's card entry 'from the northern…', B's note 'Day 4 (inferred, no…'. Give requested sentences and entries up to 4 lines, or widen page/card; condense only unrequested text.",
+     "long-labels-stress 1:1 hold: A's request, which is the changed fact, is truncated ('…collected the goods from t…'), and both scenario subtitles are truncated. Page and card text is about 15 px at 1080. B's note splits 'by Day / 4'.",
+     "long-labels 9:16 hold: page sentences and card entries are single lines at about 17 px at 1080 (below 20 px), and the closing caption leaves a widow 'them'.",
+     "Minor: 9:16 default hold: A's entry text touches the ¶2 flag base, and the pen tip touches the end of the 'Quoted from the page' tag. 1:1 t=0.66: B's '¶2+3' flag in transit crosses the card header's top-right border."
+    ],
+    "LAW-0068": [
+     "[verdict: FAIL — latest review]",
+     "All ratios: context entry 2 ('The carrier collected the goods on Day 3.' with its tag) and the docked wording chip go fully invisible at t=0.25-0.43 and 0.76-0.88 (swept entries 'step back' in LAW-0068.js). The page ¶2 trail stays drawn and ends at an open circle in empty card space (16:9 0.26-0.40 and 0.76-0.86; 9:16 0.30/0.38/0.80/0.86; 1:1 0.30/0.85). The context blinks twice and a connector ends on nothing. Keep swept entries at the dim level, or fade the trail and end dot with them, and hide only where the window actually overlaps.",
+     "Minor: at t=0.50-0.58 the old wording is struck in the card while the lens still shows it. At t=0.58-0.62 the new wording shows in the lens with the old 'Quoted from the page · ¶3' tag still attached.",
+     "Minor (recorded earlier, still present): in 9:16 the ¶2/¶3 trails run as long vertical lines down the card's right edge, past the header and entry 1's flag."
+    ]
+   }
+  },
+  {
+   "key": "research-08",
+   "category": "research",
+   "motif": "Comprobación de jurisdicción",
+   "slug": "comprobacion-de-jurisdiccion",
+   "ids": [
+    "LAW-0069",
+    "LAW-0070",
+    "LAW-0071",
+    "LAW-0072"
+   ],
+   "defects": {
+    "LAW-0069": [
+     "[verdict: FAIL — latest review]",
+     "FAIL (new, likely a regression from the enlarged card): t≈0.13–0.17 (about 250–300 ms), in all ratios and presets. On its arc from the waist to the reader slot, the research card passes in front of the researcher's head and hides her face completely (16:9 t=0.15/0.17, alternative t=0.14/0.16, 9:16 t=0.14/0.16). Fix: move the card toward the slot before raising it, or keep its top below the chin until its left edge clears the head, then lower it into the slot.",
+     "Minor: the jurisdiction names on the document chips and the card key are about 9–12 px at 1080p. The seal glyphs carry the identity.",
+     "Minor: 9:16 long-labels, t≈0.5: the waiting document sits partly behind the filter's left post, so its chip is clipped to 'Southhol'.",
+     "Minor: at the 9:16 long-labels hold, the status tag falls back to a spot beside the filter, away from the racks. At the 1:1 long-labels hold, the reader note's leader runs diagonally across the drop rail to a stack of 3 notes."
+    ],
+    "LAW-0070": [
+     "[verdict: FAIL — latest review]",
+     "FAIL (recorded defect #1 not fully fixed): long-labels-stress, 16:9, t≥0.35 through the hold. The 'sets the key of the filter' relation chip still sits on its own dashed card→filter connector. The 'Research card with the marked jurisdiction' name chip covers part of it and hides 'the'. Fix: add the name-chip boxes and the connector corridor to the relation-label obstacles in the wide layout, or move the card's name chip, so the relation chip sits beside the connector on a short leader (as in 9:16 and 1:1).",
+     "Minor: at t≈0.49 the tracer icon briefly covers the source document's 'Northvale' declaration."
+    ],
+    "LAW-0071": [
+     "[verdict: FAIL — latest review]",
+     "FAIL (new): long-labels-stress, 9:16, t=0.1–0.72. The declared-jurisdiction chips on the documents (the one changed fact) are truncated: A reads 'Northvale-up / on-Eastmere' (a mid-word break) and B reads 'Eastmere / Coastal…' (an ellipsis). Fix: use the hyphen-aware fit with 2–3 lines and a lower minimum size, or widen the chip in portrait.",
+     "FAIL (new): long-labels-stress, 1:1, at every time. Both panel headers are cut with an ellipsis ('Declares the jurisdiction…' / 'Declares a jurisdiction other…'), and A's subtitle is truncated too, so the words that tell A from B are lost. Fix: allow 2-line headers and subtitles in the square layout, or shrink them.",
+     "Minor: with labels hidden, the A/B header badges remain as empty dark circles.",
+     "Minor: the document jurisdiction chips are about 11 px at 1080p."
+    ],
+    "LAW-0072": [
+     "[verdict: FAIL — latest review]",
+     "FAIL (new): return beat, t≈0.81–0.84, in every ratio. The folding lens does not land on DOC-13. In 16:9 (baseline and long-labels) at t=0.82, a full-size copy of DOC-13 stands about one slot to the right of the real one, so there are two 'Warehouse lease / Eastmere' documents, then it cross-fades into a translucent offset double. In 1:1 it fades over DOC-12/DOC-14 ('Service terms / Southholm'), and in 9:16 over DOC-14. Fix: end closePath exactly at DOC-13's rendered final position (check endPos against the drawn position) and fade the window only once it coincides with the document.",
+     "Minor: 1:1, t≈0.64–0.66: DOC-13 overlaps DOC-15 as it leaves its slot.",
+     "Minor, content wording: the contrast-or-alternative marker 'Datum corrected' implies the earlier value was wrong. 'Datum changed' would be more neutral."
+    ]
+   }
+  },
+  {
+   "key": "research-09",
+   "category": "research",
+   "motif": "Matriz de autoridades",
+   "slug": "matriz-de-autoridades",
+   "ids": [
+    "LAW-0073",
+    "LAW-0074",
+    "LAW-0075",
+    "LAW-0076"
+   ],
+   "defects": {
+    "LAW-0073": [
+     "[verdict: FAIL — latest review]",
+     "contrast-or-alternative 9:16, from t=0.8 through the held frame: the leader from the 'One row can cite two sources' callout runs about 450 px diagonally across the bookcase and straight through the R1 sheet's title text ('Inspection report', 'Day 12'). Fix: route it around the shelf and sheet (down the right margin, then in along row 1), or place the callout next to row 1 in portrait.",
+     "long-labels-stress 1:1, from t=0.3 through the hold: the column-head source IDs are cut to 'S-…', so S-001, S-002 and S-003 cannot be read. Titles break mid-word ('Registe/d letter from…', 'Warehous/e delivery log,…', 'Minutes of the meeti…', 'Day 3…') and the pending note reads 'Source pendin…'. Fix: never cut the short source ID. Give the square sheet strip more room, with 2–3-line titles at 14 px or more and no mid-word breaks.",
+     "long-labels-stress 9:16, from t=0.5: sheet titles are cut ('Minutes of the meetin…', 'Warehouse delivery log,…', dates 'Day 3…'). The held note reads 'Source pending – a…' at about 12 px at 1080p, so 'ask Party B' is lost. Fix: same as the 1:1 fix, and let the note wrap to 2–3 lines.",
+     "Minor, long-labels 9:16 hold: the leader from 'The search printout lists the same three sources' crosses the 'Reference library – ground floor' plaque and the S-002 spine tag. Fix: route it beside the bookcase."
+    ],
+    "LAW-0074": [
+     "[verdict: FAIL — latest review]",
+     "Held final state, every ratio: the source tab that appears on the proposition card at t≈0.71 ('S1' in baseline and es, 'R2' in alternative) sits behind the card's top edge, so only the top half of its letters shows. Confirmed at 1920 px 16:9, 1080 px 1:1 and in the 16:9 alternative. This marker says the row is now linked to a source, and it reads as a clipped glitch. Fix: raise the tab so its whole label sits above the card edge, or draw it in front as a flag. Label at 20 px or more at 1080p.",
+     "long-labels-stress 9:16, t=1: the 'row of this proposition' chip is squeezed under the row line between card and cell. It touches the card's right edge, the matrix cell's left edge and the top of the 'Matrix cell where row and column meet' chip, with about 0 px clearance. Fix: put the row caption above the line in portrait long-labels, or widen the card-to-cell gap. Keep at least 8 px clearance.",
+     "Minor: the second proposition card ('Party B asked for a replacement unit.') carries the pending side of the comparison but renders at about 17 px at 1080p in 1:1 baseline, and 14–17 px in the 9:16 and 1:1 long-labels presets. Fix: size it like card 1 (20 px or more).",
+     "Verified fixed from round 3: the pin now rides from the card's grommet along the row into the socket. The tracer is visible in 12 of 12 frames at 16:9 (t=0.44–0.74) and 10 of 10 at 9:16 (t=0.46–0.73), drawn above all elements. Connectors are long, with labels beside them. The 9:16 'Pending source' header and 'leads to the shelf' leader collisions are gone, and the long-labels query wraps to 2 lines."
+    ],
+    "LAW-0075": [
+     "[verdict: FAIL — latest review]",
+     "long-labels-stress 9:16, from t=0.8 through the held frame: the new flagClear option raises the 'entry 14–15' flag into row 1. Its box covers the right half of the S-001 pin in row 1 and sits about 3 px under the 'p. 1, ¶2' flag. This is a new collision caused by the fix. Fix: raise the flag only as far as the ring needs, keep it in row 2's band beside the ring, and never place it over another pin or flag.",
+     "contrast-or-alternative 1:1, from about t=0.3 through the hold: the changed source cannot be read. The R1 sheet title 'Inspection report' is squeezed to about 7 px at 1080p, and B's note is cut to 'R1 · Source…' at about 7 px. This is the one fact that differs between A and B. Fix: widen the sheet columns in the 1:1 alternative, or stack the titles, so titles and the pending note are at least 14–16 px and never cut.",
+     "contrast-or-alternative, all ratios, guide beat: the red comparison guide drops from the row-1 ring straight down the R1 column. It is drawn on top of the R1 column thread and through the 'p. 3' pin in row 3 (in B, through row 3's empty socket). The chip says 'Changed fact: rows citing R1', but only row 1 is ringed. Fix: either ring both R1 rows and route the guide outside the grid, or label it 'row 1 × R1' and route the leader beside the column.",
+     "contrast-or-alternative 9:16 hold: the raised 'p. 1' flag overlaps the bottom edge and lines of the R1 sheet. Keep at least 8 px clearance.",
+     "contrast-or-alternative 16:9: proposition cards and sheet titles are about 14–15 px at 1080p, while a large empty band sits under the neutral note. Fix: enlarge the boards so key labels reach about 20 px.",
+     "Minor, 1:1 baseline: sheet titles and the 'S2 · Source pending' note are about 13–14 px at 1080p.",
+     "Verified fixed from round 3 in baseline: the ring no longer crosses the 'entry 14' flag. B's note now peels from the ledge pad and is carried up fully opaque, with no garbled cross-fade. Long-labels 16:9 titles fit whole, and the guide chip no longer touches the neutral note."
+    ],
+    "LAW-0076": [
+     "[not accepted: verify tests/QA and review]"
+    ]
+   }
+  },
+  {
+   "key": "research-10",
+   "category": "research",
+   "motif": "Trazabilidad de una cita",
+   "slug": "trazabilidad-de-una-cita",
+   "ids": [
+    "LAW-0077",
+    "LAW-0078",
+    "LAW-0079",
+    "LAW-0080"
+   ],
+   "defects": {
+    "LAW-0077": [
+     "[verdict: FAIL — latest review]",
+     "9:16 alternative preset, t=0.8-1 (hold): the 'Traced to the intermediate reference' chip collides with the 'Researcher' actor label, which covers the end of 'reference'. The chip also lies on the left forearm at the bottom-left edge. Fix: add the actor label box and the left arm as labelPlacer obstacles for the result chip in portrait, or place the chip right of the card as the baseline 9:16 layout does.",
+     "1:1 alternative preset, t=1: 'Traced to the intermediate reference' is drawn over the resting right fist. The note 'The trail stops at the commentary; the register itself is not opened' sits on the treatise's lower edge and stand, and its leader runs diagonally across the treatise's left page. Fix: add the rest hand/forearm and the treatise+stand box as obstacles in the square layout, and route the leader outside the book.",
+     "9:16 baseline-es, t=1: 'Rastreada hasta el documento de origen' overlaps the treatise's bottom edge and covers part of its footnote box ('Libro de actas de la Junta del Puerto, fol.'). The longer Spanish string needs a collision check against the book and its footnote.",
+     "9:16, all presets, t=0.18-0.30 (reach to the shelf): the forearm passes over the archive box and hides the 'Archive · HB' plate (only 'Ar' is visible at t=0.20) and the folio inside. The fixer's claim that the reach bows left of the box is not true in portrait. Fix: bow the reach path left of the box in the portrait bay placement, or keep the plate above the arm during the reach.",
+     "Minor, 9:16, t=0.40-0.44: the 'Researcher' caption is drawn on top of the vertical forearm while the book is being placed."
+    ],
+    "LAW-0078": [
+     "[verdict: FAIL — latest review]",
+     "9:16, all presets (baseline and long-labels checked), t>=0.2 through the hold: the terminal sits directly above the shelf, so the 'locates the shelf' relation is a stub of about 40 units, almost entirely hidden under its own chip. Only the start dot and a ~15 px tail with the end dot are visible. In long-labels, the 'locates the shelf by shelf mark' chip also overlaps the shelf's top edge. Fix: in the portrait layout leave a real gap between terminal and shelf (or offset the shelf sideways), and place the chip beside the connector, not on it.",
+     "16:9 long-labels-stress, t>=0.35 through the hold: the element label 'Footnote 127 in the quarterly journal article' and its detail chip 'Note 127 · cites pp. 388-389' sit at the article's top-right and overlap the bookshelf's left edge and left shelf plate. The label is also far from the footnote it names and has no leader. Fix: add the shelf box as an obstacle for the note label and anchor the label to the footnote at the bottom of the article with a leader.",
+     "Minor, alternative preset, 16:9 hold: the 'records the entry' relation curve runs along the top edge of the legend ('sequence', 'relation') with only a few px of clearance."
+    ],
+    "LAW-0079": [
+     "[verdict: FAIL — latest review]",
+     "1:1, all presets (baseline and long-labels checked), t=0-0.9: the square keeps the landscape side-by-side layout. The two panels form a thin band about 26% of the frame height, each about 39% of the frame width, and the area between the panels and the 'Same facts' guide stays empty until the insets appear at t~0.9. Panel content renders at about 56% of its 16:9/9:16 scale (a panel is about 423 px wide at 1080, against about 750 px in 16:9 and 9:16). Catalogue text, card rows and the 'Archive' plate come out at about 5-9 px at 1080. This is a fake re-layout with tiny labels. It is visibly thinner than accepted LAW-0443 (1:1 panels about 50% of the height) and LAW-0683 (stacked). Fix: stack A over B in 1:1 as 9:16 does, or enlarge the panels to fill the caption-safe box, with the row-3 insets beside or below.",
+     "Minor, carried over, 16:9 t~0.20-0.24: the hand opening box A's lid covers the 'Archive' plate (only 'Archi' visible).",
+     "Minor: in 16:9 long-labels, the panel-B subtitle wraps and leaves the single word 'it' alone on line 2."
+    ]
+   }
+  }
+ ]
+}

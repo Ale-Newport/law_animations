@@ -1,0 +1,48 @@
+{
+ "motifs": [
+  {
+   "key": "research-07",
+   "category": "research",
+   "motif": "Extracción de hechos",
+   "slug": "extraccion-de-hechos",
+   "ids": [
+    "LAW-0065",
+    "LAW-0066",
+    "LAW-0067",
+    "LAW-0068"
+   ],
+   "defects": {
+    "LAW-0066": [
+     "[verdict: FAIL — latest review, round 7]",
+     "FAIL, new label collision at 1:1: in baseline-es 1:1, from t=0.30 through the hold, the 'Página de origen' page-name chip sits on top of the 'guarda el volumen' relation (library to page). The last ~40 px of the line run under the chip, and half of the end dot is hidden under the chip's lower edge. The same happens in long-labels-stress 1:1, where the two-line 'Source page of the consolidated file' chip covers the last ~60 px of the 'holds the consolidated volume' line and its end dot. The English baseline 1:1 and the alternative 1:1 clear the chip by only a few px. Fix: in the square layout, put the page-name chip to the right of where the relation lands (or land the relation to the left of the chip), and check the chip for collisions in every locale and label length.",
+     "Minor: in the long-labels 9:16 hold the routing is contorted. The dashed 'indicates which fact to extract' arrow bends back to the left and enters the flag from its page side, while the 'pinpoints the sentence ¶3' line dips under the flag and hooks up into its bottom edge. Both lines land, but they come at the flag from the same side.",
+     "Minor: in long-labels 1:1 and es 1:1 the page is shown as an excerpt from t=0: only the target ¶3 has text and the other sentences are grey bars. This picks out the target sentence before the request and flag relations are drawn.",
+     "Verified fixed from round 6: the LL 16:9 relation chip breaks only between words. In the 1:1 alternative the cite line goes around below the flag to the card corner, and 'pinpoints ¶2' has its own leader. In the 9:16 alternative the cite line and 'files a copy' do not cross. In the 16:9 alternative the cite line passes beside the chips. The card metadata breaks between segments, and the LL 1:1 library is a full shelf."
+    ]
+   },
+   "note": "Only the IDs listed in defects need work; the other IDs of this motif are accepted — do not change their rendered output unless a shared kit change is unavoidable (then re-run qa for them too)."
+  },
+  {
+   "key": "research-08",
+   "category": "research",
+   "motif": "Comprobación de jurisdicción",
+   "slug": "comprobacion-de-jurisdiccion",
+   "ids": [
+    "LAW-0069",
+    "LAW-0070",
+    "LAW-0071",
+    "LAW-0072"
+   ],
+   "defects": {
+    "LAW-0072": [
+     "[verdict: FAIL — latest review, round 7]",
+     "FAIL (new): rack transfer at t~0.665-0.69 (5.3-5.5 s), seen in 16:9 baseline, 16:9 alternative, and 9:16 baseline, long-labels and alternative. In the stacked layout the moving document (DOC-13, or DOC-14 in the alternative) travels straight through its right-hand neighbour DOC-15. DOC-15 is drawn ON TOP of the moving document while DOC-15's own text (ID, title, jurisdiction) is hidden. The result is a blank white sheet cutting across the focused document inside its red frame, and in the 16:9 alternative at t=0.68 DOC-14 is almost completely hidden. The code comment says the focused document is drawn on top, but the render shows the reverse. Fix: raise the focused document above every other cdoc node (and above the spotlight cut-out) while it moves, or route movePos in stacked layouts up and over the row, as the 1:1 path does, so it never crosses DOC-15. Hide a neighbour's text only while the mover actually covers it.",
+     "FAIL (new, secondary): lens opening at t~0.26-0.29. In 16:9 the translucent lens copy fades in about half a document to the right of DOC-13, straddling DOC-13 and DOC-15, so ghost 'Warehouse lease'/'Northvale' text overlaps 'Purchase order set'. In 9:16 the rising translucent copy doubles over DOC-13's own title and jurisdiction. Fix: start the copy exactly on DOC-13 and lift it clear of the row before it becomes visible, or fade it in only once it no longer overlaps any document.",
+     "Minor: in 1:1 at t~0.67-0.69, DOC-13 in transit passes over the 'Relevant jurisdiction' chip and the not-equal plate.",
+     "Minor: at the 16:9 hold, the right third of the frame (the lens area) is empty."
+    ]
+   },
+   "note": "Only the IDs listed in defects need work; the other IDs of this motif are accepted — do not change their rendered output unless a shared kit change is unavoidable (then re-run qa for them too)."
+  }
+ ]
+}
