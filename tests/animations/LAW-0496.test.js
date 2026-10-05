@@ -429,3 +429,57 @@ test(`${ID}: print-bar fallback — texts listed in the panel, printed only in t
   expect(out.bars).toBeGreaterThan(3);
   expect(out.fails).toEqual([]);
 });
+
+// Long unbroken tokens (fix2-contract-terms-04, reviewer request 2026-10-05): a 33-, 42- or 55-character word in the event
+// label, an obligation, a state label or a party name — over the default content and over the long-labels-stress content
+// — renders a full scene at 16:9, 9:16 and 1:1 (never the empty group of `no-layout-fits`): the kit breaks a word (after
+// its own hyphens, else mid-word with a hyphen) only in a second layout pass, when no whole-word layout exists; all text
+// stays inside the frame.
+test(`${ID}: long unbroken tokens (33/42/55 chars) render a full scene at every ratio (rendered)`, async ({page}) => {
+  test.setTimeout(600000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const stress = P('long-labels-stress');
+  const out = await page.evaluate(async ([id, stress]) => {
+    const def = await window.__lib.load(id);
+    const d = def.defaultParams;
+    const TOK = ['Vertragserfuellungsbedingungenxyz', 'Gewaehrleistungsverpflichtungsvereinbarung', 'Gewaehrleistungsverpflichtungsvereinbarungsklauselnabcd'];
+    const fails = [];
+    let n = 0, slow = 0, broken = 0;
+    for (const tok of TOK) for (const [bn, base] of [['default', {}], ['stress', stress]]) for (const field of ['event', 'obligation', 'state', 'name']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+      const p = structuredClone(base);
+      if (field === 'event') p.event = {label: `${tok} 1`};
+      if (field === 'obligation') p.obligations = [`${tok} 1`, ...(p.obligations ?? d.obligations).slice(1)];
+      if (field === 'state') p.stateLabels = {produced: tok, pending: (p.stateLabels ?? d.stateLabels).pending};
+      if (field === 'name') p.parties = [{...(p.parties ?? d.parties)[0], name: tok}, (p.parties ?? d.parties)[1]];
+      const tag = `${tok.length} ${bn} ${field} ${ratio}`;
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const t0 = performance.now();
+      const x = def.create(el, {width: w, height: h, params: p});
+      await x.ready;
+      slow = Math.max(slow, performance.now() - t0);
+      const svg = x.element;
+      const sb = svg.getBoundingClientRect();
+      for (const u of [0.6, 1]) {
+        x.seek(u * x.durationMs);
+        const s = x.getState({bounds: false}).semantic;
+        n++;
+        if (!s.layoutOk) fails.push(`${tag} u${u}: layoutOk ${s.layoutOk} (${s.why})`);
+        if (svg.querySelectorAll('path').length < 30 || !svg.querySelector('[data-node$="board-sheet"]')) fails.push(`${tag} u${u}: no full scene`);
+        for (const t of svg.querySelectorAll('text')) {
+          const b = t.getBoundingClientRect();
+          if (!b.width) continue;
+          if (b.left < sb.left - 1 || b.right > sb.right + 1 || b.top < sb.top - 1 || b.bottom > sb.bottom + 1) fails.push(`${tag} u${u}: text outside the frame "${t.textContent.slice(0, 20)}"`);
+          if (/\p{L}-$/u.test(t.textContent.trim()) && u === 1) broken++;
+        }
+      }
+      x.destroy();
+      el.remove();
+    }
+    return {fails, n, slow: Math.round(slow), broken};
+  }, [ID, stress]);
+  console.log(`${ID} long tokens: ${out.n} frames, slowest create ${out.slow} ms, ${out.broken} broken lines seen`);
+  expect(out.n).toBe(144);
+  expect(out.fails).toEqual([]);
+});

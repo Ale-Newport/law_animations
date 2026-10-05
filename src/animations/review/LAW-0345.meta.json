@@ -1,0 +1,424 @@
+{
+  "id": "LAW-0345",
+  "slug": "review-07-story",
+  "title": "Decision substitution — a later card slides into a position and pushes the earlier card into a history pocket, kept visible",
+  "titleEs": "Sustitución de decisión — Microescena con objetos y actores",
+  "category": "review",
+  "categoryName": "Impugnaciones y revisión",
+  "motif": "Sustitución de decisión",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "A registry table seen from above. On a rail lie an intake tray, a position enclosed by a slate holder frame and, abutting it, a history pocket with index tabs. A participant slides card B (◆, the later result supplied) out of the tray; it meets card A (●, the initial result) and pushes it, so B ends in the position and A ends, whole and fully visible, in the history pocket; a neutral thread links them and order pips show which was supplied first. Both cards have the same size, stroke and ink. Supplied state \"pending\": only a dashed outline traces the slide. Substitution is shown as a supplied fact: nothing is evaluated; jurisdiction unspecified.",
+  "tags": [
+    "review",
+    "decision substitution",
+    "story",
+    "history kept",
+    "cards",
+    "rail",
+    "holder frame",
+    "history pocket",
+    "push",
+    "as supplied",
+    "equal weight",
+    "participant"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/review/kits/sustitucion-de-decision.js",
+    "src/animations/courts/kits/courts-art.js",
+    "src/animations/hearings/kits/hearings-art.js",
+    "src/animations/hearings/kits/apertura-audiencia.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "decisions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "position": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Name of the position on the board that the cards occupy (fictional)"
+          },
+          "initial": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Card A (●): the initial result, as supplied (placeholder text)"
+          },
+          "later": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Card B (◆): the later result supplied, as supplied (placeholder text)"
+          }
+        },
+        "required": [
+          "position",
+          "initial",
+          "later"
+        ],
+        "description": "The two placeholder decision cards (fictional; their content is supplied placeholder text only)"
+      },
+      "grounds": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Note supplied with the later card (shown as supplied; never assessed)"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "intake": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of the intake tray where the later card waits"
+          },
+          "history": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of the history pocket where an earlier card is kept, fully visible"
+          }
+        },
+        "required": [
+          "intake",
+          "history"
+        ],
+        "description": "Captions of the places on the rail"
+      },
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "position": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "State of the card now in the position (as supplied)"
+          },
+          "history": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "State of the card kept in the history (as supplied)"
+          }
+        },
+        "required": [
+          "position",
+          "history"
+        ],
+        "description": "Descriptive states shown at the hold (as supplied; no conclusion is drawn)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "order": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Note on the order pips (one dot = supplied first, two dots = supplied later)"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "order",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for the participant at the table"
+          }
+        },
+        "required": [
+          "a"
+        ],
+        "description": "Role caption shown under the participant"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "calendar": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the wall calendar (a fixture; no date is marked)"
+          },
+          "holder": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the holder frame that encloses the position"
+          }
+        },
+        "required": [
+          "calendar",
+          "holder"
+        ],
+        "description": "Captions of the room objects"
+      },
+      "pendingState": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Caption shown in the position when the supplied state is \"pending\""
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the slide is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "intake",
+                "position",
+                "history"
+              ],
+              "description": "Place the note belongs to"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Annotation"
+        },
+        "minItems": 0,
+        "maxItems": 1,
+        "description": "Editorial notes shown in the hold under the caption of their target (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "substituted",
+          "pending"
+        ],
+        "description": "The state supplied by the author: substituted (card B slid into the position, card A kept in the history) or pending (only an outline traces the slide; nothing is moved)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "decisions": {
+      "position": "Position on the board (fictional)",
+      "initial": "Initial result (as supplied; placeholder text)",
+      "later": "Later result supplied (as supplied; placeholder text)"
+    },
+    "grounds": "Note with the later card: supplied by the user (fictional)",
+    "routes": {
+      "intake": "Intake tray: the later card waits here",
+      "history": "History pocket: an earlier card stays visible"
+    },
+    "outcomes": {
+      "position": "Now in the position: card B (as supplied)",
+      "history": "Kept in the history: card A (as supplied)"
+    },
+    "labels": {
+      "order": "Order pips: one dot supplied first, two dots supplied later",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "actorLabels": {
+      "a": "Participant at the registry table (fictional)"
+    },
+    "objectLabels": {
+      "calendar": "Wall calendar (no date marked)",
+      "holder": "Holder frame of the position"
+    },
+    "pendingState": "Substitution pending: shown as an outline (as supplied)",
+    "annotations": [],
+    "actionProgress": 1,
+    "finalState": "substituted"
+  }
+}

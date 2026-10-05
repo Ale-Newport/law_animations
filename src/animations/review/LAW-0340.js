@@ -38,10 +38,10 @@ const ID = 'LAW-0340';
 const DURATION = 8000;
 const BEATS = {build: [0, 0.2], isolate: [0.2, 0.45], substitute: [0.45, 0.75], ret: [0.75, 1]};
 const W = {
-  frame: [0.19, 0.21], panelOut: [0.19, 0.21], ctxOut: [0.21, 0.214], open: [0.212, 0.25], copyIn: [0.228, 0.25],
+  frame: [0.19, 0.205], panelOut: [0.19, 0.205], ctxOut: [0.198, 0.202], open: [0.198, 0.236], copyIn: [0.214, 0.236],
   oldOut: [0.47, 0.53], was: [0.52, 0.54], newIn: [0.545, 0.575], swatch: [0.49, 0.575],
   copyOut: [0.64, 0.652], close: [0.64, 0.668], ctxIn: [0.668, 0.672], frameOut: [0.66, 0.672],
-  restripe: [0.674, 0.69], move: [0.69, 0.745], panelIn: [0.75, 0.775], marker: [0.78, 0.81],
+  restripe: [0.674, 0.69], move: [0.69, 0.745], unback: [0.655, 0.675], panelIn: [0.675, 0.7], marker: [0.78, 0.81],
 };
 
 const STRINGS = {en: {was: 'was'}, es: {was: 'antes'}};
@@ -259,7 +259,8 @@ const scene = {
       return out;
     };
     const cands = [planFor(true), planFor(false)].filter(Boolean);
-    const scoreL = q => (q.zoom >= 1.6 ? 1000 : 0) + Math.min(q.minD / shortD, 0.45) * 1000 + q.zoom;
+    // (a lens that meets the floors with the context stepping back the least wins: the context stays a real scene)
+    const scoreL = q => (q.zoom >= 1.6 ? 1000 : 0) + (q.minD >= 0.36 * shortD ? 1000 : 0) + q.sc * 400 + Math.min(q.minD / shortD, 0.45) * 1000 + q.zoom;
     const pick = cands.sort((a, b) => scoreL(b) - scoreL(a))[0];
     const {wide, sc, region, zoom} = pick;
     const problems = [...best.problems];
@@ -348,14 +349,16 @@ const scene = {
     nodes['src-frame'] = {opacity: r(frameK, 3)};
     nodes.marker = {opacity: r(seg(u, ...W.marker), 3)};
     // the context steps back (when the lens needs the room) and the panel steps out
-    const back = e(seg(u, ...W.frame)) * (1 - e(seg(u, ...W.panelIn)));
+    const back = e(seg(u, ...W.frame)) * (1 - e(seg(u, ...W.unback)));
     const s = lerp(1, L.sc, back);
     nodes.ctx = {transform: s !== 1 ? scaleAbout(L.anchor.x, L.anchor.y, s) : 'translate(0 0)'};
-    // (the context plate's label is hidden while the context, stepped back, would draw it under the 16 px floor)
-    if (L.C.fits) {
-      const small = L.F * L.px * L.sc < 16;
-      nodes['rm-label'] = {opacity: r(small ? 1 - seg(u, W.frame[0], W.frame[0] + 0.01) + seg(u, ...W.panelIn) : 1, 3)};
-    }
+    // (the context plate's text is hidden while the context, stepped back, would draw it under the 16 px floor)
+    if (L.C.fits && L.F * L.px * L.sc < 19.5) {
+      const gate = clamp(1 - seg(u, W.frame[0] - 0.006, W.frame[0]) + seg(u, W.unback[1], W.unback[1] + 0.006));
+      nodes['rm-label'] = {opacity: r(gate, 3)};
+      for (const nm of ['rm-v-before', 'rm-v-after', 'rm-was']) if (nodes[nm]) nodes[nm] = {...nodes[nm], opacity: r(clamp(nodes[nm].opacity) * gate, 3)};
+      vis.rm *= gate;
+    } else if (L.C.fits) nodes['rm-label'] = {opacity: 1};
     const panelK = 1 - seg(u, ...W.panelOut) + seg(u, ...W.panelIn);
     if (L.lay) for (const mm of L.lay.rows) nodes[mm.name] = {opacity: r(clamp(panelK), 3)};
     const beat = u < BEATS.build[1] ? 'build' : u < BEATS.isolate[1] ? 'isolate' : u < BEATS.substitute[1] ? 'substitute' : 'ret';

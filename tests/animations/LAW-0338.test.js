@@ -73,7 +73,8 @@ inFrameTest(ID, {clipped: ['[data-node="mech"]']});
 noOverlapTest(ID, {markers: ['[data-node="tracer"]', '[data-node="pins"]']});
 coldCreateTest(ID);
 equalWeightTest(ID, {at: [1], marks: [['[data-node="lg-sa"] circle', '[data-node="lg-sb"] path:first-of-type'], ['[data-node="pin-a-g"]', '[data-node="pin-b-g"]']]});
-neutralityTest(ID);
+// (connector lines carry a one-dash pattern only to draw on — they render solid; frameworks/annotate.js connector)
+neutralityTest(ID, {dashOk: ['^ln\\d+-line$']});
 noArrowsTest(ID);
 jurisdictionTest(ID);
 stressLongerTest(ID);

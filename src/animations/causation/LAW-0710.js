@@ -191,7 +191,9 @@ function compose(ctx, base, cfg) {
   let rec = null;
   if (base.header !== null) {
     const rk = `${size}|${RW}|${cfg.maxLines}`;
-    rec = memo.rec.get(rk) || recordMeasure(ctx, {w: RW, size, header: base.header, rows: base.rows, kind: base.kind, text: textOn, maxLines: cfg.maxLines});
+    // (a record whose rows all fit in fewer lines is the same record with a higher line limit)
+    const r3 = cfg.maxLines > 3 ? memo.rec.get(`${size}|${RW}|3`) : null;
+    rec = memo.rec.get(rk) || (r3 && !r3.bad ? r3 : null) || recordMeasure(ctx, {w: RW, size, header: base.header, rows: base.rows, kind: base.kind, text: textOn, maxLines: cfg.maxLines});
     memo.rec.set(rk, rec);
     if (rec.bad) return {bad: 'record'};
   }

@@ -245,11 +245,26 @@ function compose(ctx, base, cfg) {
   const flowBand = w => {
     const bk = `${size}|${Math.round(w)}`;
     let b = memo.band.get(bk);
+    // (a band that does not fit a width does not fit a narrower one either: some chip in it would not fit there)
+    const badB = memo.badBand.get(size);
+    if (!b && badB !== undefined && w <= badB) return {sz: [], h: 0, bad: true};
     if (!b) {
-      const sz = textOn ? base.band.map(it => ({it, ...iconChip(ctx, it, {size, maxW: Math.min(w, 760), maxLines: 4})})) : [];
+      // (exact reuse, no change to what is drawn: a chip that fits on one line at a width is the same chip at any
+      // narrower width it still fits; a chip that does not fit a width does not fit a narrower one either)
+      const chipAt = (it, i, mw) => {
+        const one = memo.one.get(`${size}|${i}`), bad = memo.badW.get(`${size}|${i}`);
+        if (one && one.w <= mw + 1e-9) return one;
+        if (bad !== undefined && mw <= bad) return {it, w: 0, h: 0, bad: true};
+        const c = {it, ...iconChip(ctx, it, {size, maxW: mw, maxLines: 4})};
+        if (c.bad) memo.badW.set(`${size}|${i}`, Math.max(bad ?? -1, mw));
+        else if (c.lines === 1 && (!one || mw > one.mw)) memo.one.set(`${size}|${i}`, Object.assign(c, {mw}));
+        return c;
+      };
+      const sz = textOn ? base.band.map((it, i) => chipAt(it, i, Math.min(w, 760))) : [];
       const fl = flowRows(sz, {x: 0, y: 0, w, gap: 16, rowGap: 10});
       b = {sz, h: sz.length ? fl.bottom : 0, bad: sz.some(q => q.bad || q.w > w + 0.5)};
       memo.band.set(bk, b);
+      if (b.bad) memo.badBand.set(size, Math.max(badB ?? -1, w));
     }
     return b;
   };
@@ -344,7 +359,7 @@ const scene = {
       ...M.entries.map(e => ({key: `ev${e.i}`, icon: 'item', item: e.i, ring: e.i === fi ? null : e.ring, text: entryText(e)})),
       {key: 'scale', icon: 'event', text: `${p.origin.name} · ${t.rings}`},
     ];
-    const base = {M, fi, rings, header: t.record, rows, band, memo: {rec: new Map(), band: new Map(), tag: new Map()}};
+    const base = {M, fi, rings, header: t.record, rows, band, memo: {rec: new Map(), band: new Map(), tag: new Map(), one: new Map(), badW: new Map(), badBand: new Map()}};
     const rws = ctx.view.shape === 'portrait' ? [440, 520, 620, 720, 900] : ctx.view.shape === 'square' ? [340, 420, 480, 640, 880] : [420, 480, 540, 600];
     // (wide tags: the tag spans both slots, so it dominates the lens at any field size)
     const tws = ctx.view.shape === 'portrait' ? [300, 360, 420, 480, 560] : ctx.view.shape === 'square' ? [260, 320, 380, 440, 520] : [280, 340, 400, 460, 520];

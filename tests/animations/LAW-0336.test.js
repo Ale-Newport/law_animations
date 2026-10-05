@@ -8,7 +8,8 @@
 // marker 0.84–0.89 · legend back 0.84–0.90; still from 0.90.
 // Legal: one supplied datum substituted; inside / outside is descriptive; neutral Δ marker; no validity or outcome.
 // Coordinator decision (standing rule 2026-09-26, from LAW-0687/0689–0692; see the presets note): long-labels-stress
-// beforeValue / afterValue capped at 60 characters (baseline 40) after the 1:1 fallbacks were tried.
+// beforeValue / afterValue capped at 60 characters (baseline 40) and section tags at 35 (baseline 25) after the 1:1
+// fallbacks were tried (stacked 1:1 composition, compact rows, plate widths, insets).
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';

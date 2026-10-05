@@ -99,7 +99,7 @@ const defaultParams = {...EN};
 export const LOCALES = {en: EN, es: ES};
 
 /** Template geometry (units) for a wide or a tall canvas: exploded and assembled boxes of the five elements. */
-function mechGeometry(tall) {
+function mechGeometry(tall, ar) {
   const Wt = tall ? 720 : 1040, Ht = tall ? 1040 : 720;
   const E = {};
   if (!tall) {
@@ -117,11 +117,25 @@ function mechGeometry(tall) {
     E.divider = {x: 345, y: 320, w: 30, h: 270};
     E.box = {x: 26, y: 800, w: 668, h: 150};
   }
+  // (a box wider / taller than the canvas spreads the elements apart — the sizes stay — so the mechanism fills it)
+  const ar0 = Wt / Ht;
+  const sx = ar && ar > ar0 ? Math.min(1.6, ar / ar0) : 1;
+  const sy = ar && ar < ar0 ? Math.min(1.45, ar0 / ar) : 1;
+  if (sx > 1 || sy > 1) {
+    const cx = Wt / 2, cy = Ht / 2;
+    for (const id of Object.keys(E)) {
+      const b = E[id];
+      if (id === 'box') { E.box = {x: cx + (b.x - cx) * sx, y: cy + (b.y + b.h / 2 - cy) * sy - b.h / 2, w: b.w * sx, h: b.h}; continue; }
+      E[id] = {...b, x: cx + (b.x + b.w / 2 - cx) * sx - b.w / 2, y: cy + (b.y + b.h / 2 - cy) * sy - b.h / 2};
+    }
+    for (const id of Object.keys(E)) E[id] = {...E[id], x: E[id].x + (Wt * sx - Wt) / 2, y: E[id].y + (Ht * sy - Ht) / 2};
+  }
+  const WtS = Wt * sx, HtS = Ht * sy;
   const slotX = E.box.x + E.box.w / 2;
   // assembled: the bundles and the plate sit down in the box, their lower part behind its front panel
   const down = b => E.box.y + E.box.h * 0.55 - (b.y + b.h);
   const asm = {original: down(E.original), additional: down(E.additional), divider: down(E.divider)};
-  return {Wt, Ht, E, slotX, asm};
+  return {Wt: WtS, Ht: HtS, E, slotX, asm};
 }
 
 const scene = {
@@ -150,15 +164,16 @@ const scene = {
     const rows = [];
     if (showKey) {
       rows.push({kind: 'heading', text: P.labels.heading, name: 'heading'});
-      for (const id of IDS) rows.push({kind: 'legend', glyphKind: glyphOf[id], text: labelOf(id), name: `lg-${id}`});
-      rows.push({kind: 'legend', glyphKind: 'decision', text: P.decisions.title, name: 'lg-dec'});
-      rows.push({kind: 'legend', glyphKind: 'piece', text: `${P.labels.pieces}: ${R.pieces.map(q => q.label).join(' · ')}`, name: 'lg-pieces'});
+      // (compact: the decision sheet shares bundle A's row, the list of new pieces bundle B's)
+      for (const id of IDS) {
+        const text = id === 'original' ? `${labelOf(id)} — ${P.decisions.title}` : id === 'additional' ? `${labelOf(id)} — ${P.labels.pieces}: ${R.pieces.map(q => q.label).join(' · ')}` : labelOf(id);
+        rows.push({kind: 'legend', glyphKind: glyphOf[id], text, name: `lg-${id}`});
+      }
       rows.push({kind: 'legend', glyphKind: 'grounds', text: P.grounds, name: 'lg-grounds'});
       for (const k of kinds) rows.push({kind: 'legend', glyphKind: `kind-${k}`, text: P.relationLabels[k], name: `lg-kind-${k}`});
     }
     if (showAll) {
-      rows.push({kind: 'legend', glyphKind: 'tracer', text: P.labels.tracer, name: 'lg-tracer'});
-      rows.push({kind: 'text', text: P.labels.focus, name: 'lg-focus'});
+      rows.push({kind: 'legend', glyphKind: 'tracer', text: `${P.labels.tracer} · ${P.labels.focus}`, name: 'lg-tracer'});
     }
     if (showKey) {
       rows.push({kind: 'legend', glyphKind: 'started', text: P.outcomes.a, name: 'lg-sa'});
@@ -166,14 +181,14 @@ const scene = {
       rows.push({kind: 'key', text: P.labels.key, name: 'key'});
     }
     const compose = (box, tall) => {
-      const M = mechGeometry(tall);
+      const M = mechGeometry(tall, box.w / box.h);
       const k = Math.min(box.w / M.Wt, box.h / M.Ht);
       const ox = box.x + (box.w - M.Wt * k) / 2, oy = box.y + (box.h - M.Ht * k) * (box.y + box.h < ctx.design.h - 1 ? 1 : 0.5);
       return {M, k, ox, oy, problems: k < 0.3 ? ['room-tiny'] : [], planRect: {x: ox, y: oy, w: M.Wt * k, h: M.Ht * k}};
     };
     const search = (tall, sizes = [22.5, 21.6, 20.7, 19.8, 19.5, 18.9, 18, 17.1, 16.4]) => searchSa(ctx, rows, {
       sizes, minF: 16.4, minPersonPx: 0,
-      colFracs: [0.25, 0.3, 0.35, 0.39], bandCols: [2, 3], sidePanels: [[0.38, 2], [0.44, 2], [0.5, 2]], bandMax: ctx.view.shape === 'square' ? 0.6 : 0.5,
+      colFracs: [0.25, 0.3, 0.35, 0.39], bandCols: ctx.view.shape === 'square' ? [1, 2, 3] : [2, 3], sidePanels: [[0.38, 2], [0.44, 2], [0.5, 2]], bandMax: ctx.view.shape === 'square' ? 0.66 : 0.5,
       scales: [1], targetPx: 1e9, scoreOf: C => C.k * 400,
       compose: box => compose(box, tall),
     });

@@ -1,24 +1,24 @@
 {
-  "id": "LAW-0338",
-  "slug": "review-05-mechanism",
-  "title": "Document review — an exploded file box: the original file and the new pieces lift apart on either side of a neutral divider; only the supplied relationships are traced (as supplied)",
-  "titleEs": "Revisión de documentos — Mecanismo o relación explicada",
+  "id": "LAW-0342",
+  "slug": "review-06-mechanism",
+  "title": "Illustrative confirmation — exploded view: the two cards, their result fields and the alignment guide, with only the supplied relationships",
+  "titleEs": "Confirmación ilustrativa — Mecanismo o relación explicada",
   "category": "review",
   "categoryName": "Impugnaciones y revisión",
-  "motif": "Revisión de documentos",
+  "motif": "Confirmación ilustrativa",
   "treatment": "mechanism",
   "family": "spatial-mechanism",
-  "description": "A fictional two-compartment file box seen face-on is exploded: the divider plate lifts out of its slot, the original file (with a placeholder decision sheet) and the proposed additional pieces rise out of their own compartments on either side of it; the index card and a blank calendar hang above. Only the supplied relationships are drawn edge to edge (plain relations without arrowheads); a tracer follows the supplied order while the focus element grows; the supplied states ● / ◆ appear on the two bundles with equal weight. Illustrative; no admissibility rule, assessment, causation by default, time limit or outcome; jurisdiction unspecified.",
+  "description": "An exploded view of the aligned pair of decision cards: card A (original decision) and card B (confirmatory decision as supplied) move apart, their result fields slide out to a row of their own and the filter strip drops below them as the alignment guide. Only the supplied relationships are drawn, anchored to the parts' edges and styled by kind (a plain relation has no arrowhead). A marker follows the supplied traversal order and the focus part is enlarged as it passes; finally B's result field is brought level with A's — position only, the printed results never change. Illustrative; no doctrine on what a confirmation means; jurisdiction unspecified.",
   "tags": [
     "review",
-    "document review",
+    "confirmation",
     "mechanism",
     "exploded view",
-    "file box",
-    "compartments",
-    "divider",
-    "relationships",
-    "as supplied"
+    "decision cards",
+    "result fields",
+    "alignment guide",
+    "relationships as supplied",
+    "traversal"
   ],
   "durations": {
     "defaultMs": 7000,
@@ -70,10 +70,9 @@
   },
   "schemaVersion": 1,
   "assets": [
-    "src/animations/review/kits/revision-de-documentos.js",
-    "src/animations/review/kits/solicitud-autorizacion.js",
-    "src/animations/hearings/kits/apertura-audiencia.js",
-    "src/primitives/annotate.js"
+    "src/animations/review/kits/confirmacion-ilustrativa.js",
+    "src/primitives/paper.js",
+    "src/primitives/markers.js"
   ],
   "license": "Original vector artwork and code created for this project; no third-party assets.",
   "version": "1.0.0",
@@ -191,96 +190,145 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "title": {
-            "type": "string",
-            "maxLength": 100,
-            "description": "Name of the decision sheet (fictional, as supplied)"
+          "a": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "role": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Role caption printed on card A (as supplied)"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 70,
+                "description": "Fictional title printed on card A"
+              },
+              "ref": {
+                "type": "string",
+                "maxLength": 44,
+                "description": "Reference tag printed on card A (fictional)"
+              }
+            },
+            "required": [
+              "role",
+              "title",
+              "ref"
+            ],
+            "description": "Card A (fictional; placeholder content)"
+          },
+          "b": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "role": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Role caption printed on card B (as supplied)"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 70,
+                "description": "Fictional title printed on card B"
+              },
+              "ref": {
+                "type": "string",
+                "maxLength": 44,
+                "description": "Reference tag printed on card B (fictional)"
+              }
+            },
+            "required": [
+              "role",
+              "title",
+              "ref"
+            ],
+            "description": "Card B (fictional; placeholder content)"
           }
         },
         "required": [
-          "title"
+          "a",
+          "b"
         ],
-        "description": "The decision sheet (\"resolución\") lying on top of the original file — a fictional placeholder; its content is never shown"
+        "description": "The two decision cards (fictional; placeholder content). A is the original decision, B the confirmatory decision as supplied; both are drawn at the same size and weight"
       },
       "grounds": {
-        "type": "string",
-        "maxLength": 130,
-        "description": "Reason noted by whoever proposes the additional pieces (as supplied; shown, never assessed)"
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Reasons line printed on card A (as supplied)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Reasons line printed on card B (as supplied)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "The line of reasons printed on each card, as supplied (placeholder; never assessed)"
       },
       "routes": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "original": {
+          "align": {
             "type": "string",
-            "maxLength": 100,
-            "description": "Caption of folder A: the original file"
+            "enum": [
+              "result",
+              "header"
+            ],
+            "description": "Row on which the two cards are aligned: the result rows or the header rows (as configured)"
           },
-          "additional": {
+          "label": {
             "type": "string",
-            "maxLength": 100,
-            "description": "Caption of folder B: the separate folder for the proposed additional pieces"
-          },
-          "divider": {
-            "type": "string",
-            "maxLength": 110,
-            "description": "Caption of the neutral divider standing between the two folders (it decides nothing)"
+            "maxLength": 90,
+            "description": "Caption of the alignment guide (keep \"as configured\")"
           }
         },
         "required": [
-          "original",
-          "additional",
-          "divider"
+          "align",
+          "label"
         ],
-        "description": "Where each kind of material is kept (as configured): a filing arrangement only — nothing is decided about the material"
+        "description": "Alignment as configured: the row of the cards on which the arrow marks and the filter strip sit, and the caption of that guide"
       },
-      "pieces": {
-        "type": "array",
-        "items": {
-          "type": "string",
-          "maxLength": 48,
-          "description": "Label of a piece (fictional)"
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Result printed on card A (as supplied)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Result printed on card B (as supplied)"
+          }
         },
-        "minItems": 1,
-        "maxItems": 4,
-        "description": "Proposed additional pieces (fictional placeholder sheets), in the order they are handled (array replaces the previous value)"
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "The result printed on each card, as supplied. The animation never changes, compares or judges it"
       },
       "labels": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "heading": {
-            "type": "string",
-            "maxLength": 90,
-            "description": "Heading of the panel (keep \"as supplied\")"
-          },
-          "pieces": {
-            "type": "string",
-            "maxLength": 70,
-            "description": "Caption introducing the list of new pieces"
-          },
           "key": {
             "type": "string",
             "maxLength": 90,
             "description": "Neutral key (must say that no conclusion is drawn)"
-          },
-          "tracer": {
-            "type": "string",
-            "maxLength": 70,
-            "description": "Caption of the tracer"
-          },
-          "focus": {
-            "type": "string",
-            "maxLength": 90,
-            "description": "Caption of the focus element"
           }
         },
         "required": [
-          "heading",
-          "pieces",
-          "key",
-          "tracer",
-          "focus"
+          "key"
         ],
         "description": "Editable captions"
       },
@@ -294,28 +342,28 @@
               "type": "string",
               "enum": [
                 "original",
-                "additional",
-                "divider",
-                "index",
-                "calendar"
+                "confirming",
+                "resultA",
+                "resultB",
+                "guide"
               ],
-              "description": "Element id"
+              "description": "Part id"
             },
             "label": {
               "type": "string",
-              "maxLength": 90,
-              "description": "Visible label (in the legend, keyed by the element's glyph)"
+              "maxLength": 70,
+              "description": "Visible label (legend)"
             }
           },
           "required": [
             "id",
             "label"
           ],
-          "description": "Element"
+          "description": "Part"
         },
-        "minItems": 0,
+        "minItems": 2,
         "maxItems": 5,
-        "description": "Labels of the index card and the calendar (ids fixed by the scene); the two bundles and the divider take their captions from `routes` unless an entry here overrides them (array replaces the previous value)"
+        "description": "Parts of the exploded view; ids are fixed by the scene, labels are editable (a part left out is not drawn) (array replaces the previous value)"
       },
       "relationships": {
         "type": "array",
@@ -327,23 +375,23 @@
               "type": "string",
               "enum": [
                 "original",
-                "additional",
-                "divider",
-                "index",
-                "calendar"
+                "confirming",
+                "resultA",
+                "resultB",
+                "guide"
               ],
-              "description": "Source component id"
+              "description": "Source part id"
             },
             "to": {
               "type": "string",
               "enum": [
                 "original",
-                "additional",
-                "divider",
-                "index",
-                "calendar"
+                "confirming",
+                "resultA",
+                "resultB",
+                "guide"
               ],
-              "description": "Target component id"
+              "description": "Target part id"
             },
             "kind": {
               "type": "string",
@@ -365,18 +413,18 @@
         },
         "minItems": 1,
         "maxItems": 8,
-        "description": "Explicit relationships between components; kind controls line style (causal only when supplied) (array replaces the previous value)"
+        "description": "Explicit relationships between parts; the kind sets the line style (causal only when supplied) (array replaces the previous value)"
       },
       "focusElement": {
         "type": "string",
         "enum": [
           "original",
-          "additional",
-          "divider",
-          "index",
-          "calendar"
+          "confirming",
+          "resultA",
+          "resultB",
+          "guide"
         ],
-        "description": "Component enlarged while the tracer passes"
+        "description": "Part enlarged while the marker passes"
       },
       "relationLabels": {
         "type": "object",
@@ -384,23 +432,23 @@
         "properties": {
           "relation": {
             "type": "string",
-            "maxLength": 70,
-            "description": "Caption for plain relations (no arrowhead)"
+            "maxLength": 50,
+            "description": "Caption for plain relations"
           },
           "communication": {
             "type": "string",
-            "maxLength": 70,
+            "maxLength": 50,
             "description": "Caption for communications"
           },
           "sequence": {
             "type": "string",
-            "maxLength": 70,
-            "description": "Caption for sequence links (keep \"as configured\")"
+            "maxLength": 50,
+            "description": "Caption for sequence links"
           },
           "causal": {
             "type": "string",
-            "maxLength": 70,
-            "description": "Caption for causal links (only when supplied)"
+            "maxLength": 50,
+            "description": "Caption for supplied causal links"
           }
         },
         "required": [
@@ -409,7 +457,7 @@
           "sequence",
           "causal"
         ],
-        "description": "Caption of each relation kind in the legend"
+        "description": "Caption used for each relation kind (legend)"
       },
       "traversalOrder": {
         "type": "array",
@@ -417,37 +465,21 @@
           "type": "string",
           "enum": [
             "original",
-            "additional",
-            "divider",
-            "index",
-            "calendar"
+            "confirming",
+            "resultA",
+            "resultB",
+            "guide"
           ],
-          "description": "Component id"
+          "description": "Part id"
         },
         "minItems": 2,
         "maxItems": 8,
-        "description": "Order in which the tracer visits components (array replaces the previous value)"
+        "description": "Order in which the marker visits the parts (array replaces the previous value)"
       },
-      "outcomes": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "a": {
-            "type": "string",
-            "maxLength": 90,
-            "description": "Caption of ● (bundle A, as supplied)"
-          },
-          "b": {
-            "type": "string",
-            "maxLength": 90,
-            "description": "Caption of ◆ (bundle B, as supplied)"
-          }
-        },
-        "required": [
-          "a",
-          "b"
-        ],
-        "description": "Captions of the two supplied states shown at the hold (● on bundle A, ◆ on bundle B — equal weight)"
+      "stateCaption": {
+        "type": "string",
+        "maxLength": 110,
+        "description": "Caption of the gathered state (empty: the built-in caption)"
       }
     }
   },
@@ -469,79 +501,95 @@
     "jurisdiction": "unspecified",
     "contentNotice": true,
     "decisions": {
-      "title": "Decision under review (fictional; content not shown)"
+      "a": {
+        "role": "Original decision",
+        "title": "Decision 1 (fictional)",
+        "ref": "Ref. A-01 (fictional)"
+      },
+      "b": {
+        "role": "Confirmatory decision (as supplied)",
+        "title": "Decision 2 (fictional)",
+        "ref": "Ref. B-01 (fictional)"
+      }
     },
-    "grounds": "Reason noted by the proposer: “later documents” (as supplied)",
+    "grounds": {
+      "a": "Reasons: placeholder text (as supplied)",
+      "b": "Reasons: placeholder text (as supplied)"
+    },
     "routes": {
-      "original": "A · Original file (material original)",
-      "additional": "B · Separate folder: proposed additional material",
-      "divider": "Divider between the folders (neutral; it decides nothing)"
+      "align": "result",
+      "label": "Alignment guide over the result rows (as configured)"
     },
-    "pieces": [
-      "N1 (fictional)",
-      "N2 (fictional)",
-      "N3 (fictional)"
-    ],
+    "outcomes": {
+      "a": "Result as given (placeholder text)",
+      "b": "Result as given (placeholder text)"
+    },
     "labels": {
-      "heading": "Document review (as supplied)",
-      "pieces": "New pieces",
-      "key": "As supplied · no conclusion drawn",
-      "tracer": "Tracer: follows the supplied order",
-      "focus": "The focus element grows while the tracer is on it"
+      "key": "As supplied · no conclusion drawn"
     },
     "elements": [
       {
-        "id": "index",
-        "label": "Index of the pieces (no assessment)"
+        "id": "original",
+        "label": "Card A: original decision (as supplied)"
       },
       {
-        "id": "calendar",
-        "label": "File calendar (no date marked)"
+        "id": "confirming",
+        "label": "Card B: confirmatory decision (as supplied)"
+      },
+      {
+        "id": "resultA",
+        "label": "Result field of card A (printed as supplied)"
+      },
+      {
+        "id": "resultB",
+        "label": "Result field of card B (printed as supplied)"
+      },
+      {
+        "id": "guide",
+        "label": "Alignment guide: the filter strip (neutral)"
       }
     ],
     "relationships": [
       {
         "from": "original",
-        "to": "divider",
+        "to": "resultA",
         "kind": "relation"
       },
       {
-        "from": "additional",
-        "to": "divider",
+        "from": "confirming",
+        "to": "resultB",
         "kind": "relation"
       },
       {
-        "from": "index",
-        "to": "original",
+        "from": "resultA",
+        "to": "guide",
         "kind": "relation"
       },
       {
-        "from": "index",
-        "to": "additional",
+        "from": "resultB",
+        "to": "guide",
         "kind": "relation"
       },
       {
-        "from": "index",
-        "to": "calendar",
+        "from": "original",
+        "to": "confirming",
         "kind": "relation"
       }
     ],
-    "focusElement": "divider",
+    "focusElement": "guide",
     "relationLabels": {
-      "relation": "Relation (as supplied; no arrow)",
-      "communication": "Communication (as supplied)",
+      "relation": "Linked as supplied (no direction)",
+      "communication": "Communication as supplied",
       "sequence": "Sequence as configured (illustrative)",
-      "causal": "Causal link (only as supplied)"
+      "causal": "Causal link as supplied"
     },
     "traversalOrder": [
-      "additional",
-      "divider",
       "original",
-      "index"
+      "resultA",
+      "guide",
+      "resultB",
+      "confirming"
     ],
-    "outcomes": {
-      "a": "Original file unchanged in compartment A (as supplied)",
-      "b": "New pieces kept in compartment B (as supplied)"
-    }
+    "stateCaption": ""
   }
 }

@@ -35,7 +35,7 @@ import {
 const ID = 'LAW-0336';
 const DURATION = 8000;
 const BEATS = {context: [0, 0.2], isolate: [0.2, 0.45], substitute: [0.45, 0.75], back: [0.75, 1]};
-const W = {open: [0.2, 0.38], oldOut: [0.46, 0.5], newIn: [0.5, 0.55], move: [0.55, 0.67], close: [0.76, 0.86], marker: [0.84, 0.89], panelBack: [0.84, 0.9]};
+const W = {up: [0.15, 0.21], open: [0.2, 0.38], oldOut: [0.46, 0.5], newIn: [0.5, 0.55], move: [0.55, 0.67], close: [0.76, 0.86], down: [0.86, 0.92], marker: [0.84, 0.89], panelBack: [0.84, 0.9]};
 const SIZES = [23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 
 const OWN_EN = {
@@ -91,10 +91,10 @@ function resolve(P) {
 
 function compose(ctx, P, R, F, v) {
   const {w: DW, h: DH} = ctx.design;
-  const shape = ctx.view.shape;
   const showKey = ctx.show('key');
   const showAll = ctx.show('all');
   const problems = [];
+  // legend rows (in one column, or two on wide frames)
   const rows = [];
   if (showAll) rows.push({kind: 'heading', icon: 'sheet', text: P.contextLabels.context, name: 'lg-context'});
   if (showKey) rows.push({kind: 'item', icon: 'frame', text: P.labels.frame, name: 'lg-frame'});
@@ -103,17 +103,30 @@ function compose(ctx, P, R, F, v) {
   if (showKey) R.qs.forEach(q => rows.push({kind: 'item', icon: q.side, text: q.text, sub: longer, subIcon: 'inside', name: `lg-q${q.side}`}));
   if (showKey) rows.push({kind: 'item', icon: 'ring', color: ctx.theme.accent2, text: P.contextLabels.marker, name: 'lg-marker'});
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
-  const gap = F * 1.4;
-  let desk, panelBox, PL = null;
-  const portrait = shape === 'portrait';
-  const pw = portrait ? DW : DW * v.pw;
+  // landscape: the desk on the left (>= ~45 % of the frame width) and, on the right, the column shared by the legend
+  // and the lens; portrait and square: stacked — the desk on top, the shared band below
+  const side = ctx.view.shape === 'landscape';
+  const fitS = Math.min(ctx.view.content.w / DW, ctx.view.content.h / DH);
+  const shortD = Math.min(ctx.view.width, ctx.view.height) / fitS;
+  const frameWD = ctx.view.width / fitS;
+  const gap = side ? F * 1.4 : F * 0.5;
+  const sideW = side ? DW - frameWD * 0.46 - gap : DW;
+  const nCols = rows.length && !side && DW > 1200 ? 2 : 1;
+  const colGap = F * 1.6;
+  const colW = (sideW - (nCols - 1) * colGap) / nCols;
+  const split = nCols === 2 ? Math.ceil(rows.length / 2) : rows.length;
+  const cols = [];
   if (rows.length) {
-    PL = panelLayout(ctx, rows, {w: pw - (portrait ? 0 : 0), F});
-    if (!PL.ok) problems.push('panel-text');
+    const parts = nCols === 2 ? [rows.slice(0, split), rows.slice(split)] : [rows];
+    parts.forEach((rs, i) => {
+      const PL = panelLayout(ctx, rs, {w: colW, F});
+      if (!PL.ok) problems.push('panel-text');
+      cols.push({PL, x: i * (colW + colGap)});
+    });
   }
   // the after-state of each question's line: drawn at the same place, swapped while the lens covers the legend
   const after = {};
-  if (PL) for (const rw of PL.rows) {
+  for (const col of cols) for (const rw of col.PL.rows) {
     const q = R.qs.find(x => `lg-q${x.side}` === rw.name);
     if (!q || !rw.sub) continue;
     const fa = fitG(q.inAfter ? P.outcomes.inside : P.outcomes.outside, {maxWidth: rw.tw - F * 1.3, size: F, maxLines: 3, weight: 600});
@@ -121,86 +134,93 @@ function compose(ctx, P, R, F, v) {
     if (!fa.ok || !fb.ok || fa.lines.length > rw.sub.lines.length || fb.lines.length > rw.sub.lines.length) problems.push('after-text');
     after[rw.name] = {A: {fit: fa, icon: q.inAfter ? 'inside' : 'outside'}, B: {fit: fb, icon: q.inBefore ? 'inside' : 'outside'}};
   }
-  const panelH = PL ? PL.h : 0;
-  // lens area: over the legend (the legend fades out while the lens is open)
-  const minLensH = Math.min(ctx.view.width, ctx.view.height) / Math.min(ctx.view.content.w / DW, ctx.view.content.h / DH) * 0.45;
-  if (portrait) {
-    const areaH = Math.max(panelH, minLensH);
-    desk = {x: 0, y: 0, w: DW, h: DH - areaH - gap};
-    panelBox = {x: 0, y: DH - areaH, w: DW, h: areaH};
-  } else {
-    desk = {x: 0, y: 0, w: DW - pw - gap, h: DH};
-    panelBox = {x: DW - pw, y: 0, w: pw, h: DH};
+  const panelH = cols.length ? Math.max(...cols.map(c => c.PL.h)) : 0;
+  // (the frame's short side in design units sizes the lens)
+  const lensMinH = shortD * (ctx.view.shape === 'portrait' ? 0.42 : 0.346);
+  let desk, band, restDx = 0, restDy = 0;
+  if (side) {
+    desk = {x: 0, y: 0, w: DW - sideW - gap, h: DH};
+    band = {x: DW - sideW, y: 4, w: sideW - 6, h: DH - 8};
     if (panelH > DH) problems.push('panel-tall');
+    // (labels hidden: no legend — the desk rests centred and slides aside only while the lens is open)
+    if (!cols.length) restDx = (DW - desk.w) / 2;
+  } else {
+    const Ha = Math.max(panelH + F * 0.5, lensMinH + 4);
+    const Hd = DH - Ha - gap;
+    desk = {x: 0, y: 0, w: DW, h: Hd};
+    band = {x: 8, y: Hd + gap, w: DW - 16, h: Ha};
+    if (!cols.length) restDy = (DH - Hd) / 2;
   }
-  const inset = shape === 'square' ? Math.max(12, F * 0.6) : Math.max(20, F * 1.0);
+  const inset = side ? Math.max(18, F * 0.9) : Math.max(7, F * 0.4);
   const inner = {x: desk.x + inset, y: desk.y + inset, w: desk.w - inset * 2, h: desk.h - inset * 2};
-  const sq = shape === 'square';
-  const AW = sq ? clamp(F * 3.6, 64, 100) : clamp(F * 5.4, 96, 150);
+  const AW = clamp(F * 5.2, 92, 140);
   const gapA = F * 0.4;
   const t = Math.max(12, F * 0.62);
   const m = Math.max(16, F * 0.9);
-  const TW = (sq ? clamp(F * 9, 150, 230) : clamp(F * 12, 200, 320)) * (v.tw ?? 1);
-  const rightRoom = m + TW + 10;
-  const SW = Math.min(shape === 'landscape' ? 560 : 600, inner.w - AW - gapA - rightRoom);
-  if (SW < 220) problems.push('sheet-narrow');
-  const M = sheetModel(ctx, {w: Math.max(220, SW), F, title: P.decisions.title, sections: P.decisions.sections, showText: showKey, bars: v.bars, rowLines: sq ? 3 : 2, titleLines: sq ? 3 : 2});
+  const TWv = F * v.tw;
+  const SW = Math.min(v.sw, inner.w - AW - gapA - m - 12 - TWv);
+  if (SW < 240) problems.push('sheet-narrow');
+  const M = sheetModel(ctx, {w: Math.max(240, SW), F, title: P.decisions.title, sections: P.decisions.sections, showText: showKey, bars: v.bars, compact: v.compact, pips: false, rowLines: 2, titleLines: 2});
   if (!M.ok) problems.push('sheet-text');
-  if (M.h > inner.h) problems.push('sheet-tall');
-  const blockW = AW + gapA + M.w + rightRoom;
+  if (M.h > inner.h + 0.5) problems.push('sheet-tall');
+  // edge plate: pinned beside the frame's right rail at the height of the focus rail (the supplied datum)
+  const tagX0 = M.w + m + 10;
+  const TW = TWv;
+  const blockW = AW + gapA + tagX0 + TW;
   const sx = inner.x + Math.max(0, (inner.w - blockW) / 2) + AW + gapA;
   const sy = inner.y + Math.max(0, (inner.h - M.h) / 2);
+  if (sx + tagX0 + TW > desk.x + desk.w - inset * 0.5) problems.push('tag-right');
   const Eb = frameExtent(M, R.before.from, R.before.to, {t, margin: m});
   const Ea = frameExtent(M, R.after.from, R.after.to, {t, margin: m});
-  // focus rail (sheet-local y of the rail's top) before / after
   const railB = R.lower ? Eb.yBot : Eb.yTop;
   const railA = R.lower ? Ea.yBot : Ea.yTop;
-  // edge tag (hangs right of the frame from the focus rail's end)
-  const tagFitB = showKey ? fitG(P.beforeValue, {maxWidth: TW - F * 1.2, size: F, maxLines: 6, weight: 600}) : null;
-  const tagFitA = showKey ? fitG(P.afterValue, {maxWidth: TW - F * 1.2, size: F, maxLines: 6, weight: 600}) : null;
+  const tagFitB = showKey ? fitG(P.beforeValue, {maxWidth: TW - F * 1.1, size: F, maxLines: 5, weight: 600}) : null;
+  const tagFitA = showKey ? fitG(P.afterValue, {maxWidth: TW - F * 1.1, size: F, maxLines: 5, weight: 600}) : null;
   if ((tagFitB && !tagFitB.ok) || (tagFitA && !tagFitA.ok)) problems.push('tag-text');
-  const tagH = Math.max(tagFitB ? tagFitB.height : F * 1.5, tagFitA ? tagFitA.height : F * 1.5) + F * 1.0;
-  const tagDX = Eb.x + Eb.w + 8; // sheet-local x of the tag's left edge
-  const tagDY = t * 0.5 + F * 0.9; // below the rail's centre (cord length)
-  const sheetBot = sy + M.h;
-  // the tag hangs below the rail, or stands above it when the desk has no room below
-  const tagUp = sy + Math.max(railB, railA) + tagDY + tagH > desk.y + desk.h - 6;
-  const tagBottomMax = tagUp ? sy + Math.max(railB, railA) : sy + Math.max(railB, railA) + tagDY + tagH;
-  const tagTopMin = tagUp ? sy + Math.min(railB, railA) - tagDY - tagH : sy + Math.min(railB, railA);
-  if (tagUp && tagTopMin < desk.y + 6) problems.push('tag-low');
-  if (sx + tagDX + TW > desk.x + desk.w - 6) problems.push('tag-right');
-  // lens source (design coords): the rail's right part, the rows it separates (filler only), the tag
-  const y0 = Math.min(sy + Math.min(railB, railA) - M.rowH * 0.5, tagTopMin - 8);
-  const y1 = Math.max(sy + Math.max(railB, railA) + t + M.rowH * 0.5, tagBottomMax + 8);
-  const x1 = sx + tagDX + TW + 8;
-  // lens destination: inside the legend area, uniformly scaled, magnification >= 1.5
-  const area = {x: panelBox.x + 4, y: panelBox.y + 4, w: panelBox.w - 8, h: panelBox.h - 8};
-  // (the preferred zoom, raised when needed so the lens is a real inspection: >= ~0.36 of the short side; at most 4)
-  const fitS = Math.min(ctx.view.content.w / DW, ctx.view.content.h / DH);
-  const shortD = Math.min(ctx.view.width, ctx.view.height) / fitS; // the frame's short side in design units
-  const want = s2 => Math.min(4, Math.max(1.5, P.detailGeometry.zoom, (shortD * 0.37) / Math.min(s2.w, s2.h)));
-  // crop from wide (part of the sheet) to narrow (rail end and tag) until the lens is large enough
-  let src = null, k = 0;
-  for (const fx of [0.55, 0.68, 0.8, 0.9]) {
-    const x0 = Math.max(sx + M.w * fx, Math.min(sx + M.w * 0.9, x1 - area.w / 1.5));
-    const s2 = {x: fx === 0.55 ? sx + M.w * 0.55 : x0, y: y0, w: 0, h: y1 - y0};
-    s2.w = x1 - s2.x;
-    const k2 = Math.min(area.w / s2.w, area.h / s2.h, want(s2));
-    if (!src || (k2 >= 1.5 && Math.min(s2.w, s2.h) * k2 > Math.min(src.w, src.h) * k + 0.5 && (k < 1.5 || Math.min(src.w, src.h) * k < shortD * 0.35))) { src = s2; k = k2; }
-    if (k >= 1.5 && Math.min(src.w, src.h) * k >= shortD * 0.35) break;
-  }
-  // still short: grow the crop vertically towards the lens area's proportions (more rows of filler around the rail)
-  if (Math.min(src.w, src.h) * k < shortD * 0.35 && src.h < src.w * area.h / area.w) {
-    const nh = Math.min(src.w * area.h / area.w, M.h + 40);
-    const cy = src.y + src.h / 2;
-    src = {...src, y: clamp(cy - nh / 2, sy - 20, sy + M.h + 20 - nh), h: nh};
-    k = Math.min(area.w / src.w, area.h / src.h, want(src));
-  }
+  const tagH = Math.max(tagFitB ? tagFitB.height : F * 1.4, tagFitA ? tagFitA.height : F * 1.4) + F * 0.8;
+  // (centred on the rail, kept inside the desk; a short pin line joins it to the rail's end)
+  const pTopMin = desk.y - sy + 6, pTopMax = desk.y + desk.h - sy - 6 - tagH;
+  const plateTop = rail => clamp(rail + t / 2 - tagH / 2, pTopMin, Math.max(pTopMin, pTopMax)); // sheet-local
+  if (pTopMax < pTopMin) problems.push('tag-outside');
+  // lens source: the full width of the section rows (titles wholly inside, the arrows' tips outside), the frame's
+  // right rail and the plate; rows added around the rail until the lens is a real inspection
+  const x0 = sx + F * 0.62 + 3;
+  const x1 = sx + tagX0 + TW + 8;
+  const touch = rl => {
+    // rows bordering a rail (sheet-local rail top) — the row above and the row below
+    const above = M.rows.filter(rw => rw.y + rw.h <= rl + 0.5).pop();
+    const below = M.rows.find(rw => rw.y >= rl + t - 0.5);
+    return [above, below].filter(Boolean).map(rw => rw.i);
+  };
+  const idx = [...touch(railB), ...touch(railA)];
+  const lo0 = Math.min(...idx), hi0 = Math.max(...idx);
+  const plateMin = sy + Math.min(plateTop(railB), plateTop(railA)) - 6, plateMax = sy + Math.max(plateTop(railB), plateTop(railA)) + tagH + 6;
+  // the smallest crop: the rows bordering the rail (before and after) and the plate
+  const minY0 = Math.min(sy + M.rows[lo0].y - M.rowGap / 2, plateMin);
+  const minY1 = Math.max(sy + M.rows[hi0].y + M.rowH + M.rowGap / 2, plateMax);
+  const srcW = x1 - x0;
+  let k = Math.min(band.w / srcW, band.h / (minY1 - minY0), Math.max(1.5, P.detailGeometry.zoom));
+  // taller crop (more filler rows around the rail) until the lens is a real inspection; rows only partly inside the
+  // crop are copied without their titles (no supplied text is cut by the rim)
+  let srcH = Math.min(band.h / k, Math.max(minY1 - minY0, lensMinH / k));
+  const cyS = (minY0 + minY1) / 2;
+  let y0 = clamp(cyS - srcH / 2, desk.y + 3, desk.y + desk.h - 3 - srcH);
+  if (y0 > minY0) y0 = minY0;
+  if (y0 + srcH < minY1) srcH = minY1 - y0;
+  const src = {x: x0, y: y0, w: srcW, h: Math.min(srcH, desk.y + desk.h - 3 - y0)};
+  k = Math.min(k, band.h / src.h);
+  // (the lens window has rounded corners: a row counts as inside only clear of the corner radius)
+  const cr = 30 / k;
+  const whole = M.rows.filter(rw => sy + rw.y >= src.y + cr && sy + rw.y + rw.h <= src.y + src.h - cr).map(rw => rw.i);
+  const lensRows = {lo: Math.min(...whole, 99), hi: Math.max(...whole, -1)};
+  // the rows bordering the rail (before and after) must be readable in the lens: that is where the edge stands
+  if (showKey && !idx.every(i => whole.includes(i))) problems.push('lens-rows');
   if (k < 1.5 - 1e-6) problems.push('lens-zoom');
   const dest = {w: src.w * k, h: src.h * k};
-  dest.x = area.x + (area.w - dest.w) / 2;
-  dest.y = clamp(src.y + src.h / 2 - dest.h / 2, area.y, area.y + area.h - dest.h);
-  if (Math.min(dest.w, dest.h) < shortD * 0.35) problems.push('lens-small');
+  dest.x = band.x + (band.w - dest.w) / 2;
+  dest.y = band.y + (band.h - dest.h) / 2;
+  if (Math.min(dest.w, dest.h) < shortD * 0.343) problems.push('lens-small');
+  if (src.y < desk.y + 2 || src.y + src.h > desk.y + desk.h - 2) problems.push('src-outside');
   // arrows and calendar as in the desk scene
   const aH = Math.min(M.rowH * 0.62, F * 2.2);
   const arrows = R.qs.map((q, i) => {
@@ -212,8 +232,7 @@ function compose(ctx, P, R, F, v) {
   cal.x = sx - gapA - AW + (AW - cal.w) / 2 - 4;
   placeCalendar(cal, arrows, {top: sy, bottom: sy + M.h, head: M.head});
   if (!cal.ok) problems.push('calendar-arrow');
-  if (PL && PL.h > panelBox.h + 0.5) problems.push('panel-tall');
-  return {F, desk, inner, panelBox, PL, after, tagUp, M, sx, sy, Eb, Ea, t, m, AW, TW, tagFitB, tagFitA, tagH, tagDX, tagDY, railB, railA, src, dest, k, arrows, cal, ok: !problems.length, problems};
+  return {F, desk, band, restDx, restDy, side, cols, after, plateTop, M, sx, sy, Eb, Ea, t, m, AW, TW, tagX0, tagFitB, tagFitA, tagH, railB, railA, src, dest, k, lensRows, arrows, cal, shortD, ok: !problems.length, problems};
 }
 
 const scene = {
@@ -221,10 +240,14 @@ const scene = {
   layout(ctx) {
     const P = localisedLr(ctx, EN, ES);
     const R = resolve(P);
-    const pws = ctx.view.shape === 'square' ? [0.38, 0.42, 0.46] : [0.36, 0.4];
+    const shape = ctx.view.shape;
+    const sws = shape === 'landscape' ? [360, 320, 290, 260] : shape === 'square' ? [440, 425, 410, 380, 350] : [560, 500, 440, 380];
+    const tws = shape === 'square' ? [11, 10, 9] : [12, 10, 8.5];
+    const variants = tws.flatMap(tw => sws.flatMap(sw => [...(shape === 'portrait' ? [{sw, tw, bars: 2}] : []), {sw, tw, bars: 1}, {sw, tw, bars: 0}, {sw, tw, bars: 0, compact: true}]));
+    const sizes = !ctx.show('key') || shape === 'portrait' ? [30, 28, 26, 24.5, ...SIZES] : SIZES;
     let C = null, best = null;
-    outer: for (const F of SIZES) for (const pw of ctx.view.shape === 'portrait' ? [1] : pws) for (const bars of [2, 1, 0]) for (const tw of ctx.view.shape === 'portrait' ? [1, 1.3] : ctx.view.shape === 'square' ? [0.8, 1, 1.25, 1.5] : [1, 1.25]) {
-      const c = compose(ctx, P, R, F, {pw, bars, tw});
+    outer: for (const F of sizes) for (const v of variants) {
+      const c = compose(ctx, P, R, F, v);
       if (c.ok) { C = c; break outer; }
       if (!best || c.problems.length < best.problems.length) best = c;
     }
@@ -234,52 +257,37 @@ const scene = {
     return {P, R, C, lensGeom};
   },
   build(ctx, L) {
-    const {C, R, P} = L;
+    const {C, R} = L;
     const th = ctx.theme;
     const showKey = ctx.show('key');
     const desk = deskWindow(ctx, {prefix: 'desk', x: C.desk.x, y: C.desk.y, w: C.desk.w, h: C.desk.h, radius: 26});
-    const sheet = sheetNode(ctx, C.M, {prefix: 'sheet', showText: showKey});
     const E = C.Eb;
-    const frame = (prefix, knobs) => frameNode(ctx, {prefix, w: E.w, t: C.t, yTop: E.yTop, yBot: E.yBot, knobs});
-    const by = C.tagUp ? -(C.tagDY + C.tagH) : C.tagDY;
-    const hole = C.tagUp ? by + C.tagH - C.F * 0.35 : by + C.F * 0.35;
-    const ty = C.tagUp ? by + C.F * 0.4 : by + C.F * 0.6;
-    const tag = (prefix, fitB, fitA) => g({name: prefix},
-      h('line', {name: `${prefix}-cord`, x1: 0, y1: 0, x2: 0, y2: r(C.tagUp ? -C.tagDY : C.tagDY), stroke: INK, 'stroke-width': 2.5}),
-      h('circle', {cx: 0, cy: 0, r: 5, fill: RAIL, stroke: INK, 'stroke-width': 2}),
-      h('path', {d: roundRectPath(-C.F * 0.6, by, C.TW, C.tagH, 10), fill: '#fff', stroke: INK, 'stroke-width': 2.5}),
-      h('circle', {cx: 0, cy: r(hole), r: 4, fill: 'none', stroke: INK, 'stroke-width': 2}),
-      fitB ? g({name: `${prefix}-b`}, textAt(fitB, {x: 0, y: ty, fill: INK})) : h('rect', {name: `${prefix}-b`, x: 0, y: r(ty + C.F * 0.1), width: r(C.TW * 0.62), height: r(C.F * 0.5), rx: 4, fill: th.paperLine}),
-      fitA ? g({name: `${prefix}-a`, opacity: 0}, textAt(fitA, {x: 0, y: ty, fill: INK})) : h('rect', {name: `${prefix}-a`, opacity: 0, x: 0, y: r(ty + C.F * 0.1), width: r(C.TW * 0.45), height: r(C.F * 0.5), rx: 4, fill: th.paperLine}),
+    const frame = prefix => frameNode(ctx, {prefix, w: E.w, t: C.t, yTop: E.yTop, yBot: E.yBot, knobs: false});
+    const plate = (prefix, fitB, fitA) => g({name: prefix},
+      h('path', {d: roundRectPath(5, 7 - C.tagH / 2, C.TW, C.tagH, 10), fill: th.shadow}),
+      h('path', {d: roundRectPath(0, -C.tagH / 2, C.TW, C.tagH, 10), fill: '#fff', stroke: INK, 'stroke-width': 2.5}),
+      h('circle', {cx: r(C.F * 0.45), cy: 0, r: 4.5, fill: RAIL, stroke: INK, 'stroke-width': 1.5}),
+      h('circle', {cx: r(C.TW - C.F * 0.45), cy: 0, r: 4.5, fill: RAIL, stroke: INK, 'stroke-width': 1.5}),
+      fitB ? g({name: `${prefix}-b`}, textAt(fitB, {x: C.F * 0.9, y: -fitB.height / 2, fill: INK})) : h('rect', {name: `${prefix}-b`, x: r(C.F * 0.9), y: r(-C.F * 0.25), width: r((C.TW - C.F * 1.8) * 0.8), height: r(C.F * 0.5), rx: 4, fill: th.paperLine}),
+      fitA ? g({name: `${prefix}-a`, opacity: 0}, textAt(fitA, {x: C.F * 0.9, y: -fitA.height / 2, fill: INK})) : h('rect', {name: `${prefix}-a`, opacity: 0, x: r(C.F * 0.9), y: r(-C.F * 0.25), width: r((C.TW - C.F * 1.8) * 0.55), height: r(C.F * 0.5), rx: 4, fill: th.paperLine}),
     );
     const ghost = prefix => h('rect', {name: prefix, x: 0, y: 0, width: r(E.w), height: r(C.t), rx: r(C.t * 0.35), fill: 'none', stroke: RAIL, 'stroke-width': 2.5, 'stroke-dasharray': '7 6', opacity: 0});
-    // lens copy: same coordinates as the context (rows as filler only; rail; ghost; tag)
-    const lo = 0, hi = C.M.rows.length - 1;
-    const copyRows = [];
-    for (let i = lo; i <= hi; i++) copyRows.push(rowParts(ctx, C.M, i, {prefix: 'lc', rowText: () => false}));
+    // lens copy: same coordinates as the context; the rows inside the crop keep their titles (wholly inside)
+    const inLens = i => i >= C.lensRows.lo && i <= C.lensRows.hi;
+    const copyRows = C.M.rows.map((rw, i) => rowParts(ctx, C.M, i, {prefix: 'lc', rowText: inLens}));
     const lensContent = g(null,
       h('rect', {x: r(C.src.x - 400), y: r(C.src.y - 400), width: r(C.src.w + 800), height: r(C.src.h + 800), fill: th.woodTop}),
       g({transform: T(C.sx, C.sy)}, h('path', {d: roundRectPath(0, 0, C.M.w, C.M.h, 8), fill: th.paper, stroke: INK, 'stroke-width': 2.5}), copyRows),
-      frame('lf', false),
+      frame('lf'),
       g({name: 'lg-ghostw', transform: T(C.sx + E.x, C.sy + C.railB)}, ghost('lghost')),
-      g({name: 'ltagw'}, tag('ltag', C.tagFitB, C.tagFitA)),
+      h('line', {name: 'llink', stroke: INK, 'stroke-width': 3}),
+      g({name: 'ltagw'}, plate('ltag', C.tagFitB, C.tagFitA)),
     );
     const L2 = makeLens(ctx, {name: 'lens', source: C.src, dest: C.dest, content: lensContent, color: th.accent2});
-    return g({name: 'scene'},
-      desk.surface,
-      g({'clip-path': desk.clip},
-        g({transform: T(C.cal.x, C.cal.y)}, calendarNode(ctx, {prefix: 'calendar', w: C.cal.w, h: C.cal.h})),
-        g({transform: T(C.sx, C.sy)}, sheet),
-        C.arrows.map((a, i) => g({transform: T(a.tip.x, a.tip.y)}, arrowNode(ctx, {prefix: `arrow${R.qs[i].side}`, side: a.side, len: a.len, hgt: a.hgt}))),
-        frame('frame', false),
-        g({name: 'ghostw', transform: T(C.sx + E.x, C.sy + C.railB)}, ghost('ghost')),
-        g({name: 'ctagw'}, tag('ctag', C.tagFitB, C.tagFitA)),
-        g({name: 'markerw', opacity: 0}, changedMarker(ctx, {radius: Math.max(16, C.F * 0.85)})),
-      ),
-      desk.frame,
-      C.PL ? g({name: 'panel', transform: T(C.panelBox.x, C.panelBox.y + (ctx.view.shape === 'portrait' ? 0 : Math.max(0, (C.panelBox.h - C.PL.h) / 2)))},
-        panelNode(ctx, C.PL),
-        C.PL.rows.filter(rw => C.after[rw.name]).flatMap(rw => {
+    const panel = C.cols.length ? g({name: 'panel', transform: T(C.band.x, C.band.y + Math.max(0, (C.band.h - Math.max(...C.cols.map(c => c.PL.h))) / 2))},
+      C.cols.map(col => g({transform: T(col.x, 0)},
+        panelNode(ctx, col.PL),
+        col.PL.rows.filter(rw => C.after[rw.name]).flatMap(rw => {
           const sy = rw.y + rw.fit.height + C.F * 0.3;
           return [['B', 'sub1'], ['A', 'sub2']].map(([k, nm]) => {
             const A = C.after[rw.name][k];
@@ -287,17 +295,41 @@ const scene = {
               g({transform: T(rw.iconW + C.F * 0.55, sy + Math.min(A.fit.height, C.F * 1.2) / 2)}, legendIcon(ctx, A.icon, C.F * 1.0)),
               textAt(A.fit, {x: rw.iconW + C.F * 1.3, y: sy, fill: th.fg}));
           });
-        })) : null,
+        })))) : null;
+    return g({name: 'scene'},
+      g({name: 'context', transform: T(C.restDx, C.restDy)},
+        desk.surface,
+        g({'clip-path': desk.clip},
+          g({transform: T(C.cal.x, C.cal.y)}, calendarNode(ctx, {prefix: 'calendar', w: C.cal.w, h: C.cal.h})),
+          g({transform: T(C.sx, C.sy)}, sheetNode(ctx, C.M, {prefix: 'sheet', showText: showKey})),
+          C.arrows.map((a, i) => g({transform: T(a.tip.x, a.tip.y)}, arrowNode(ctx, {prefix: `arrow${R.qs[i].side}`, side: a.side, len: a.len, hgt: a.hgt}))),
+          frame('frame'),
+          g({name: 'ghostw', transform: T(C.sx + E.x, C.sy + C.railB)}, ghost('ghost')),
+          h('line', {name: 'clink', stroke: INK, 'stroke-width': 3}),
+          g({name: 'ctagw'}, plate('ctag', C.tagFitB, C.tagFitA)),
+          g({name: 'markerw', opacity: 0}, changedMarker(ctx, {radius: Math.max(16, C.F * 0.85)})),
+        ),
+        desk.frame,
+      ),
+      panel,
       L2.node,
     );
   },
   frame(ctx, L, u) {
-    const {C, R, P} = L;
+    const {C, R} = L;
     const nodes = {};
     const kOpen = ease.inOutCubic(seg(u, ...W.open));
     const kClose = ease.inOutCubic(seg(u, ...W.close));
     const p = kOpen * (1 - kClose);
     Object.assign(nodes, L.lensGeom.frame(p, 0));
+    // the lens window is shown from 86 % open on (it grows at its own place, not over the desk's rows)
+    const lensVis = clamp((p - 0.86) / 0.1);
+    nodes.lens = {opacity: r(lensVis, 3)};
+    // labels hidden: the centred desk slides up for the lens and back for the hold
+    const up = ease.inOutCubic(seg(u, ...W.up)), down = ease.inOutCubic(seg(u, ...W.down));
+    const dyNow = C.restDy * (1 - up + down);
+    const dxNow = C.restDx * (1 - up + down);
+    nodes.context = {transform: T(dxNow, dyNow)};
     const kOld = seg(u, ...W.oldOut);
     const kMove = ease.inOutCubic(seg(u, ...W.move));
     const kNew = seg(u, ...W.newIn);
@@ -310,28 +342,31 @@ const scene = {
     const ghostOp = R.changed ? clamp(kMove * 3) : 0;
     nodes.ghost = {opacity: r(ghostOp, 3)};
     nodes.lghost = {opacity: r(ghostOp, 3)};
-    // tag hangs from the rail's right end and moves with it
-    const tagPos = T(C.sx + C.tagDX + C.F * 0.6, C.sy + rail + t / 2);
+    // the plate rides on the rail
+    const pc = C.plateTop(rail) + C.tagH / 2;
+    const tagPos = T(C.sx + C.tagX0, C.sy + pc);
     nodes.ctagw = {transform: tagPos};
     nodes.ltagw = {transform: tagPos};
-    // the datum: in the lens while it is open; in the context otherwise (never both legible)
-    const lensHolds = p > 0.25;
+    const link = {x1: r(C.sx + E.x + E.w), y1: r(C.sy + rail + t / 2), x2: r(C.sx + C.tagX0 + 2), y2: r(C.sy + pc)};
+    nodes.clink = link;
+    nodes.llink = link;
+    // the datum: in the lens while it is shown; in the context otherwise (never both legible)
+    const lensHolds = lensVis > 0;
     const oldOp = 1 - kOld, newOp = kNew;
-    const lift = -C.F * 0.8 * kOld;
-    nodes['ltag-b'] = {opacity: r(oldOp, 3), transform: T(0, lift)};
+    nodes['ltag-b'] = {opacity: r(oldOp, 3), transform: T(0, -C.F * 0.8 * kOld)};
     nodes['ltag-a'] = {opacity: r(newOp, 3), transform: T(0, 0)};
     const ctxOld = !lensHolds && u < W.newIn[0] ? 1 : 0;
     const ctxNew = !lensHolds && u >= W.newIn[0] ? 1 : 0;
     nodes['ctag-b'] = {opacity: ctxOld, transform: T(0, 0)};
     nodes['ctag-a'] = {opacity: ctxNew, transform: T(0, 0)};
     const mk = seg(u, ...W.marker);
-    nodes.markerw = {opacity: r(R.changed ? mk : 0, 3), transform: T(C.sx + E.x + E.w + C.F * 0.2, C.sy + rail - C.F * 0.9)};
+    nodes.markerw = {opacity: r(R.changed ? mk : 0, 3), transform: T(C.sx + E.x + E.w + C.F * 0.1, C.sy + rail + t / 2)};
     // legend: fades out under the opening lens, back with the after-states once it closes
     const panelOp = clamp(1 - kOpen * 3) + clamp((kClose - 0.6) / 0.4);
-    if (C.PL) {
+    if (C.cols.length) {
       nodes.panel = {opacity: r(clamp(panelOp), 3)};
       const after = u >= W.newIn[0] ? 1 : 0;
-      for (const rw of C.PL.rows) {
+      for (const col of C.cols) for (const rw of col.PL.rows) {
         if (rw.sub) nodes[`${rw.name}-sub`] = {opacity: 0};
         if (C.after[rw.name]) { nodes[`${rw.name}-sub1`] = {opacity: after ? 0 : 1}; nodes[`${rw.name}-sub2`] = {opacity: after}; }
         if (rw.name === 'lg-marker') nodes[rw.name] = {opacity: r(R.changed ? mk : 0, 3)};
@@ -339,24 +374,26 @@ const scene = {
     }
     const beat = u < BEATS.context[1] ? 'context' : u < BEATS.isolate[1] ? 'isolate' : u < BEATS.substitute[1] ? 'substitute' : 'back';
     const datum = u < W.newIn[0] ? 'before' : 'after';
-    const tagWorld = {x: C.sx + C.tagDX + C.F * 0.6, y: C.sy + rail + t / 2};
+    const tagWorld = {x: C.sx + C.tagX0 + dxNow, y: C.sy + pc + dyNow};
+    const tagLens = {x: C.sx + C.tagX0, y: C.sy + pc};
     return {
       nodes,
       semantic: {
         beat, datum,
-        lensOpen: r(p, 3), zoom: r(C.k, 3),
+        lensOpen: r(p, 3), lensShown: r(lensVis, 3), zoom: r(C.k, 3),
         src: {x: r(C.src.x), y: r(C.src.y), w: r(C.src.w), h: r(C.src.h)},
         dest: {x: r(C.dest.x), y: r(C.dest.y), w: r(C.dest.w), h: r(C.dest.h)},
         rail: r(C.sy + rail), railBefore: r(C.sy + C.railB), railAfter: r(C.sy + C.railA),
         tag: R2(tagWorld),
-        lensTag: R2({x: C.dest.x + (tagWorld.x - C.src.x) * C.k, y: C.dest.y + (tagWorld.y - C.src.y) * C.k}),
+        lensTag: R2({x: C.dest.x + (tagLens.x - C.src.x) * C.k, y: C.dest.y + (tagLens.y - C.src.y) * C.k}),
+        lensRows: C.lensRows,
         datumInLens: lensHolds, ctxOld, ctxNew, lensOld: r(lensHolds ? oldOp : 0, 3), lensNew: r(lensHolds ? newOp : 0, 3),
-        ghost: r(ghostOp, 3), marker: r(R.changed ? mk : 0, 3),
+        ghost: r(ghostOp, 3), marker: r(R.changed ? mk : 0, 3), deskDy: r(dyNow),
         before: R.before, after: R.after, lower: R.lower, changed: R.changed,
         inside: R.qs.map(q => (u >= W.newIn[0] ? q.inAfter : q.inBefore)),
-        panel: C.PL ? r(clamp(panelOp), 3) : 0,
+        panel: C.cols.length ? r(clamp(panelOp), 3) : 0,
         problems: C.problems, textPx: r(C.F, 1),
-        desk: {x: r(C.desk.x), y: r(C.desk.y), w: r(C.desk.w), h: r(C.desk.h)},
+        desk: {x: r(C.desk.x + dxNow), y: r(C.desk.y + dyNow), w: r(C.desk.w), h: r(C.desk.h)},
       },
     };
   },

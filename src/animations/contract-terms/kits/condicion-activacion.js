@@ -63,7 +63,7 @@ export const breakingWords = () => BREAK;
  * @param {{maxWidth:number, size:number, minSize?:number, maxLines?:number, weight?:number, family?:'sans'|'serif'|'mono', leading?:number, balance?:boolean}} o
  */
 export function fitW(text, o) {
-  const key = `${text}\u0001${o.maxWidth}|${o.size}|${o.minSize}|${o.maxLines}|${o.weight}|${o.family}|${o.leading}|${o.balance}|${BREAK}`;
+  const key = `${text}\u0001${o.maxWidth}|${o.size}|${o.minSize}|${o.maxLines}|${o.weight}|${o.family}|${o.leading}|${o.balance}|${BREAK}|${o.lean}`;
   const hit = FITW.get(key);
   if (hit) return hit;
   const res = fitWRaw(text, o);
@@ -144,6 +144,8 @@ function fitWRaw(text, o) {
   }
   }
   if (!best) {
+    // (o.lean — a strict caller, which discards a text that does not fit —: no ellipsised fallback is computed)
+    if (o.lean) return {lines: [], size: minSize, lineHeight: minSize * leading, width: 0, height: 0, truncated: true, full, weight, family, bad: true};
     const f = fitText(full, {maxWidth, size: minSize, minSize, maxLines, weight, family, leading});
     return {...f, bad: true};
   }
@@ -291,8 +293,22 @@ export function oneWordLine(lines) {
  * fitW on the glued text (glueText + glueParen); when the wrap leaves a one-word line, narrower widths (same line cap)
  * are tried for a wrap without one.
  */
+const FITG = new Map();
 export function fitG(text, o) {
+  // (memoised on every input, the breaking switch included — pure; callers only read the result)
+  const key = `${text}\u0001${o.maxWidth}|${o.size}|${o.minSize}|${o.maxLines}|${o.weight}|${o.family}|${o.leading}|${o.balance}|${o.strict}|${BREAK}`;
+  const hit = FITG.get(key);
+  if (hit) return hit;
+  const res = fitGRaw(text, o);
+  if (FITG.size > 50000) FITG.clear();
+  FITG.set(key, res);
+  return res;
+}
+
+function fitGRaw(text, o0) {
   const s = glueParen(glueText(text));
+  // (strict: a text that does not fit is discarded by the caller — fitW skips its fallback)
+  const o = o0.strict ? {...o0, lean: true} : o0;
   const f = fitW(s, o);
   if (f.bad || !oneWordLine(f.lines)) return f;
   for (let k = 0.96; k >= 0.5; k -= 0.04) {
@@ -612,6 +628,8 @@ export function bracketArt(ctx, {name, bh, B}) {
 export function stageGeom(ctx, o) {
   const {box, F, k, p} = o;
   const show = o.show, cardText = show && o.cardText !== false;
+  // (o.oblText: the obligation cards printed or not, decided apart from the event card — default: as the event card)
+  const oblText = show && (o.oblText ?? o.cardText) !== false;
   const tight = !!o.tight;
   const gapP = Math.max(8, F * 0.3);
   const layerUp = Math.max(10, F * 0.45);
@@ -646,12 +664,12 @@ export function stageGeom(ctx, o) {
   // (o.tokenProbe — layoutStage, at the widest board — : only whether every printed text's widest word can fit the
   // widest cards; the card widths shrink as the figures grow, so a word too wide here is too wide at every scale)
   if (o.tokenProbe) {
-    if (!cardText || BREAK) return {probe: true};
+    if (BREAK) return {probe: true};
     const ew = cwE - 2 * F * (o.noTab ? 0.4 : 0.5), gz = F * (o.noTab ? 1.15 : 1.3);
     const ow = cwO - 2 * F * 0.45 - F * 0.55;
-    const ok = widestToken(p.event.label, F, 700) <= Math.max(10, ew - (o.noTab ? 0 : F * 0.6))
-      && ['produced', 'pending'].every(st => widestToken(p.stateLabels[st], F, 600) <= Math.max(10, ew - gz))
-      && p.obligations.every(t => widestToken(t, F, 600) <= Math.max(10, ow));
+    const ok = (!cardText || (widestToken(p.event.label, F, 700) <= Math.max(10, ew - (o.noTab ? 0 : F * 0.6))
+      && ['produced', 'pending'].every(st => widestToken(p.stateLabels[st], F, 600) <= Math.max(10, ew - gz))))
+      && (!oblText || p.obligations.every(t => widestToken(t, F, 600) <= Math.max(10, ow)));
     return ok ? {probe: true} : null;
   }
   let ME = measureEvent(p, F, cwE, cardText, tight, !!o.noTab);
@@ -660,7 +678,7 @@ export function stageGeom(ctx, o) {
     const M2 = measureEvent(p, F * s0, cwE, cardText, tight, !!o.noTab);
     if (M2 && M2.ch <= (o.minChE ?? 0)) { ME = M2; break; }
   }
-  const MO = measureObl(p.obligations, F, cwO, cardText, tight);
+  const MO = measureObl(p.obligations, F, cwO, oblText, tight);
   if (!ME || !MO) return null;
   const chE = Math.max(ME.ch, o.minChE ?? 0), chO = Math.max(MO.ch, o.minCh ?? 0);
   const headFits = show && o.headings !== false ? [fitG(p.panels.event, {maxWidth: We - 2 * ci, size: F, maxLines: 2, weight: 700, strict: true}), fitG(p.panels.tranche, {maxWidth: Wt - 2 * ci, size: F, maxLines: 2, weight: 700, strict: true})] : [null, null];
@@ -764,7 +782,7 @@ export function stageGeom(ctx, o) {
   return {
     F, k, m, ci, BW, gw, layerUp, lipH, hbH, headFit, headFits, colHH, board, panelE, panelT, rail, We, Wt, cwE, chE, cwO, chO, ME, MO,
     rowY, slot, trayE, ledge: {x: panelE.x + 2, y: ledgeTop, w: We - 4, h: lipH}, ledgeTop, yT, yB, floor, figA, figB, names, nameH, bandBelow,
-    B, knobAt, gripE, gripDy, tabW, tr, cardText, xE, xO, gS, stack,
+    B, knobAt, gripE, gripDy, tabW, tr, cardText, oblText, xE, xO, gS, stack,
   };
 }
 
@@ -906,7 +924,7 @@ export function nameNodes(ctx, L, captions) {
 export function oblNodes(ctx, L, texts) {
   const G = L.G, P = L.P;
   return texts.map((t, i) => g({name: `${P}obl${i}`, transform: T(r(G.xO, 2), r(G.rowY[i], 2))},
-    oblCard(ctx, {name: `${P}obl${i}-in`, cw: G.cwO, ch: G.chO, M: G.MO, F: L.F, fit: G.cardText ? G.MO.fits[i] : null})));
+    oblCard(ctx, {name: `${P}obl${i}-in`, cw: G.cwO, ch: G.chO, M: G.MO, F: L.F, fit: (G.oblText ?? G.cardText) ? G.MO.fits[i] : null})));
 }
 
 /** The event card node (`${P}ev`, inner `${P}ev-in`), placed by the entry's frame. */

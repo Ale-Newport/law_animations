@@ -480,10 +480,15 @@ export function iconChip(ctx, it, o) {
   const iw = it.icon ? iconS + 10 : 0;
   const mw = Math.max(size * 4, o.maxW - iw);
   const maxLines = it.maxLines ?? o.maxLines ?? 3;
-  let bw = mw;
-  const text = unwidow(glueN(it.text), t0 => { bw = balancedG(ctx, t0, {maxWidth: mw, size, maxLines}); return chipG(ctx, t0, {x: 0, y: 0, maxWidth: bw, size, maxLines}).fit; });
-  bw = balancedG(ctx, text, {maxWidth: mw, size, maxLines});
-  const probe = chipG(ctx, text, {x: 0, y: 0, maxWidth: bw, size, maxLines});
+  // (each text is balanced and fitted once: the unwidow pass and the final measure share the results — same output)
+  const seen = new Map();
+  const measureT = t0 => {
+    let q = seen.get(t0);
+    if (!q) { const w0 = balancedG(ctx, t0, {maxWidth: mw, size, maxLines}); q = {bw: w0, probe: chipG(ctx, t0, {x: 0, y: 0, maxWidth: w0, size, maxLines})}; seen.set(t0, q); }
+    return q;
+  };
+  const text = unwidow(glueN(it.text), t0 => measureT(t0).probe.fit);
+  const {bw, probe} = measureT(text);
   const hh = Math.max(probe.box.h, iconS);
   const w = iw + probe.box.w;
   return {

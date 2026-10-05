@@ -246,7 +246,8 @@ function composeList(ctx, base, size, hMin) {
     if (dc && (dc.fit.truncated || dc.fit.broken)) continue;
     const RW = cw - 20;
     const recKey = `${size}|${RW}|4`;
-    const rec = base.memo.rec.get(recKey) || recordMeasure(ctx, {w: RW, size, header: base.header, rows: base.rows, text: textOn, maxLines: 4});
+    const r3 = base.memo.rec.get(`${size}|${RW}|3`);
+    const rec = base.memo.rec.get(recKey) || (r3 && !r3.bad ? r3 : null) || recordMeasure(ctx, {w: RW, size, header: base.header, rows: base.rows, text: textOn, maxLines: 4});
     base.memo.rec.set(recKey, rec);
     if (rec.bad) continue;
     const recW = RW + 20, recH = rec.h + 14 + rec.clipH * 0.35;
@@ -267,7 +268,9 @@ function compose(ctx, base, cfg) {
   const {size, mode, RW} = cfg;
   const textOn = ctx.show('key');
   const recKey = `${size}|${RW}|${cfg.maxLines ?? 3}`;
-  const rec = base.memo.rec.get(recKey) || recordMeasure(ctx, {w: RW, size, header: base.header, rows: base.rows, text: textOn, maxLines: cfg.maxLines ?? 3});
+  // (a record whose rows all fit in three lines is the same record with a four-line limit)
+  const r3 = (cfg.maxLines ?? 3) > 3 ? base.memo.rec.get(`${size}|${RW}|3`) : null;
+  const rec = base.memo.rec.get(recKey) || (r3 && !r3.bad ? r3 : null) || recordMeasure(ctx, {w: RW, size, header: base.header, rows: base.rows, text: textOn, maxLines: cfg.maxLines ?? 3});
   base.memo.rec.set(recKey, rec);
   if (rec.bad && !cfg.force) return {bad: 'record'};
   const recW = RW + 20, recH = rec.h + 14 + rec.clipH * 0.35;

@@ -233,7 +233,15 @@ const scene = {
     const guideCol = ctx.theme.accent3;
     const guide = g({name: 'guide', opacity: 0},
       [bA, bB].map((b, i) => h('path', {name: `guide-box-${SIDES[i]}`, d: roundRectPath(b.x, b.y, b.w, b.h, 10), fill: 'none', stroke: guideCol, 'stroke-width': 5})),
-      h('path', {name: 'guide-link', d: path, fill: 'none', stroke: guideCol, 'stroke-width': 5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'}));
+      // (the link drawn segment by segment: each is a straight stroke, so it only covers what it passes over)
+      path.split(/(?=[MHV])/).reduce((acc, cmd) => {
+        const t = cmd[0], v = parseFloat(cmd.slice(1).split(' ')[0]), v2 = parseFloat(cmd.slice(1).split(' ')[1]);
+        const prev = acc.at;
+        const nxt = t === 'M' ? {x: v, y: v2} : t === 'H' ? {x: v, y: prev.y} : {x: prev.x, y: v};
+        if (t !== 'M') acc.segs.push(h('path', {d: `M${r(prev.x)} ${r(prev.y)}L${r(nxt.x)} ${r(nxt.y)}`, fill: 'none', stroke: guideCol, 'stroke-width': 5, 'stroke-linecap': 'round'}));
+        acc.at = nxt;
+        return acc;
+      }, {at: null, segs: []}).segs);
     const dyC = centreShiftY(ctx.design, [C.planRect, best.panelBox]);
     return {P, R, F, px, C, rooms, plans, headers, guide, lay: best.lay, problems: [...best.problems], dyC, cols: best.cols, guideBoxes: [bA, bB]};
   },
