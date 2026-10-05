@@ -295,7 +295,7 @@ const scene = {
     nodes.ctx = {transform: ctxK === 1 ? 'translate(0 0)' : `translate(${r(dk.x * (1 - ctxK))} ${r(-C.dyC * (1 - ctxK))}) scale(${r(ctxK, 4)})`};
     const S1 = {x: dk.x + (S.x - dk.x) * ctxK, y: (S.y + C.dyC) * ctxK - C.dyC, w: S.w * ctxK, h: S.h * ctxK};
     const R = {x: lerp(S1.x, D.x, kOpen), y: lerp(S1.y, D.y, kOpen), w: lerp(S1.w, D.w, kOpen), h: lerp(S1.h, D.h, kOpen)};
-    const txtK = C.kS < 1 ? clamp((C.F * L.pxu * ctxK - 16.5) / 2.5) : 1;
+    const txtK = C.kS < 1 && ctxK < 0.999 ? clamp((C.F * L.pxu * ctxK - 16.5) / 2.5) : 1;
     const k = R.w / S.w;
     const lensOn = kOpen > 0.001;
     const rect = {x: r(R.x), y: r(R.y), width: r(R.w), height: r(R.h)};

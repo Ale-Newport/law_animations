@@ -110,6 +110,8 @@ function compose(ctx, P, F, v, pxu) {
     const q = tagModel(P, {w: F * k, F, maxLines: 4});
     if (!TM || (q.ok && (!TM.ok || q.h < TM.h - 1))) TM = q;
   }
+  // (labels hidden: the tag is a small blank card with filler bars)
+  if (!showKey) TM = {w: F * 7, h: F * 2.2, pad: F * 0.5, fits: [], ok: true, F};
   if (!TM.ok) problems.push('tag-text');
   const planFor = cw => {
     const M = cardModel(P, {w: cw, F, showText: showKey});
