@@ -161,11 +161,31 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0356/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0356/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0356/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0356/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0356/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0356/sheet-16x9-es.png"
+    ],
+    "findings": [
+      "Also viewed production/scratch/rev-review-09 dense 1:1 strip and labels-hidden 9:16 strip",
+      "Inspect treatment distinct (enlarge gate+tag, substitute datum, gate turns to paused, returns with changed-datum marker)",
+      "9:16 context (t=0.10) and hold (t=1.00): board fills only ~30% of frame height, ~50% empty - enlarge board at context and hold",
+      "1:1 context and hold: board+legend in top ~55%, bottom ~40% empty",
+      "16:9 context/hold: board ~45% of width, empty lower third - enlarge",
+      "Source board tag box shows blank during isolate/substitute while enlargement shows text - keep consistent or clearly dim",
+      "Lens rim cuts chevrons at panel edge (16:9 and 1:1 t=0.40) - minor",
+      "Legal content neutral"
+    ],
+    "sourceHash": "0962a067fccfe882090a18a10bd69675363cabe62bcef87345ce99a68a20c48d",
+    "renderFingerprint": "cda27db52e68523e0254b826c38c5d6c14efb118c0822684795176ce132b723a",
+    "reviewedAt": "2026-10-05T19:53:49.880Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -181,5 +201,10 @@
   "renderFingerprint": "cda27db52e68523e0254b826c38c5d6c14efb118c0822684795176ce132b723a",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
   "thumb": "production/evidence/LAW-0356/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

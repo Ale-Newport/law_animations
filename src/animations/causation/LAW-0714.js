@@ -50,7 +50,7 @@ const BEATS = {separate: [0, 0.18], relate: [0.18, 0.43], trace: [0.43, 0.75], h
 const W = {split: [0.01, 0.14], labels: [0.12, 0.19], relate: [0.19, 0.42], trace: [0.46, 0.73], focusIn: [0.45, 0.52], focusOut: [0.74, 0.8], band: [0, 0.04], key: [0.78, 0.84]};
 const IDS = ['record', 'laneA', 'laneB', 'convergence', 'alternative'];
 // plinth height (× the piece height): low plinths, so the lane pieces themselves dominate
-const PLINTH = 0.2;
+const PLINTH = 0.26;
 
 const strings = {
   en: {...CA_STRINGS.en, convergence: 'Convergence piece: lane ends and connectors (enlarged)', alternative: 'Put forward', relation: 'related (as supplied)', communication: 'noted in the record', sequence: 'then (as supplied)', causal: 'causal (as supplied)'},
@@ -585,11 +585,13 @@ const scene = {
     const hMin = ctx.view.shape === 'portrait' ? 150 : 110;
     const v0 = ctx.view, fs0 = Math.min(v0.content.w / ctx.design.w, v0.content.h / ctx.design.h);
     const subj = q => q.OH * 1.32 * fs0 >= 0.205 * v0.height;
+    // (the narrow lane-to-lane label width only matters when a lane A – lane B relation is supplied)
+    const hasSeq = base.rels.some(q => (q.from === 'laneA' && q.to === 'laneB') || (q.from === 'laneB' && q.to === 'laneA'));
     for (let size = SH.size; size >= SH.minSize - 1e-9; size -= 1) {
       // (smaller sizes are tried only while no configuration yet keeps the ring pieces at the subject floor)
       if (best && size < Math.min(best.size - 3, 20) - 1e-9 && cands.some(subj)) break;
       // (kLeft never 1: the two ring keys — band chips 0 and 1 — stay together, at equal weight, in one place)
-      for (const mode of SH.modes) for (const RW of SH.rws) for (const maxLines of [3, 4]) for (const half of [false, true]) for (const stackChips of [false, true]) for (const narrowSeq of [false, true]) for (const kLeft of mode === 'band' ? [0, 2].filter(k => k <= base.band.length) : [0]) for (const keyLeft of mode === 'band' ? [false, true] : [false]) {
+      for (const mode of SH.modes) for (const RW of SH.rws) for (const maxLines of [3, 4]) for (const half of [false, true]) for (const stackChips of [false, true]) for (const narrowSeq of hasSeq ? [false, true] : [false]) for (const kLeft of mode === 'band' ? [0, 2].filter(k => k <= base.band.length) : [0]) for (const keyLeft of mode === 'band' ? [false, true] : [false]) {
         const X = compose(ctx, base, {mode, size, RW, maxLines, half, stackChips, narrowSeq, kLeft, keyLeft, hMin, dry: true});
         if (!X.cfg) { why.push(`${mode}/${RW}${stackChips ? "s" : ""}@${size}:${X.bad}${X.OH ? Math.round(X.OH) : ""}`); continue; }
         if (!best) best = X;

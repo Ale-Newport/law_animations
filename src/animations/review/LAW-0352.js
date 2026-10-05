@@ -178,7 +178,7 @@ const scene = {
   layout(ctx) {
     const P = localisedDn(ctx, EN, ES);
     const R = resolve(P);
-    const vs = ctx.view.shape === 'landscape' ? [...[0.76, 0.72, 0.68].flatMap(dw => [0.45, 0.4].map(sK => ({dw, step: true, sK}))), ...[0.64, 0.6, 0.56, 0.52].map(dw => ({dw}))] : ctx.view.shape === 'square' ? [{dw: 1, step: true}, {dw: 1}, ...[0.58, 0.56, 0.6].flatMap(dw => [4.4, 4.1].map(fmin => ({dw, side: true, pips: true, relax: true, rw: 1.2, fmin})))] : [{dw: 1, step: true}, {dw: 1}];
+    const vs = ctx.view.shape === 'landscape' ? [0.7, 0.68, 0.66, 0.64, 0.6, 0.56, 0.52].map(dw => ({dw})) : ctx.view.shape === 'square' ? [{dw: 1, step: true}, {dw: 1}, ...[0.58, 0.56, 0.6].flatMap(dw => [4.4, 4.1].map(fmin => ({dw, side: true, pips: true, relax: true, rw: 1.2, fmin})))] : [{dw: 1, step: true}, {dw: 1}];
     const sizes = !ctx.show('key') ? [30, 26, ...SIZES] : SIZES;
     let C = null, best = null;
     outer: for (const F of sizes) for (const v of vs) {
