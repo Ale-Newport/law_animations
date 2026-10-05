@@ -41,7 +41,7 @@ import {measure} from '../../core/text.js';
 import {
   motifFields, DEFAULT_CONTENT, DEFAULT_CONTENT_ES, KIT_STRINGS, STATES, PX_BASE, PX_STRESS,
   layoutStage, stageArt, makeRigs, nameNodes, oblNodes, eventNode, bracketNode, cordGeom, cordNode, cordFrame, stateGlyph, chipG, eventCard, measureEvent, measureObl, bracketMetrics,
-  localizeScene, headBox, overlaps, fitG, widestToken, breakingWords,
+  localizeScene, headBox, overlaps, fitG, widestToken, breakingWords, withWordBreaking,
 } from './kits/clausula-terminacion.js';
 
 const ID = 'LAW-0500';
@@ -88,7 +88,7 @@ function unitPx(ctx) {
 const isStress = p => [...p.clauses, p.circumstance.label].some(t => t.length > 40);
 
 const scene = {
-  sizes: {landscape: [1600, 900], square: [1150, 1000], portrait: [900, 1450]},
+  sizes: {landscape: [1600, 900], square: [1150, 1000], portrait: [900, 1600]},
   layout(ctx) {
     const p = ctx.params;
     const shape = ctx.view.shape;
@@ -111,7 +111,7 @@ const scene = {
       const leg = (s, pre) => ({name: `${pre}leg-${s}`, kind: 'leg', text: p.stateLabels[s], glyph: s});
       // (print-bar cards: their texts are listed once in the panel)
       // (decided per card: only the texts of the cards drawn with print bars)
-      const perfs = pre => (show ? [...(cardText ? [] : [{name: `${pre}-ev`, kind: 'perf', text: `${p.panels.circumstance}: ${p.circumstance.label}`}]), ...(oblText ? [] : p.clauses.map((t, j) => ({name: `${pre}-o${j}`, kind: 'perf', text: t})))] : []);
+      const perfs = pre => (show ? [...(cardText ? [] : [{name: `${pre}-ev`, kind: 'perf', text: `${p.panels.circumstance}: ${p.circumstance.label}`, chk: p.circumstance.label}]), ...(oblText ? [] : p.clauses.map((t, j) => ({name: `${pre}-o${j}`, kind: 'perf', text: t})))] : []);
       const restItems = [];
       if (show) restItems.push({name: 'p-head', kind: 'head', text: p.contextLabels.context}, leg('provided', 'p-'), leg('undescribed', 'p-'), ...perfs('p'));
       if (showKey) restItems.push({name: 'p-key', kind: 'key', text: ctx.t.key});
@@ -125,7 +125,7 @@ const scene = {
     const panelWordsFit = (F, plr, cardText, oblText) => {
       const {restItems, holdItems} = panelItems(cardText, oblText);
       // (a print-bar card's listed text may carry a supplied heading word too wide for any chip: chipG breaks such a word)
-      return [...restItems, ...holdItems].every(it => it.kind === 'perf' || widestToken(it.text, F, it.kind === 'head' ? 700 : 600) <= Math.max(10, plr.w - F * 0.6 - (it.glyph || it.kind === 'marker' ? F * 1.6 : 0) - F * 1.2));
+      return [...restItems, ...holdItems].every(it => widestToken(it.chk ?? it.text, F, it.kind === 'head' ? 700 : 600) <= Math.max(10, plr.w - F * 0.6 - (it.glyph || it.kind === 'marker' ? F * 1.6 : 0) - F * 1.2));
     };
     const panels = (F, plr, cardText, oblText) => {
       const {restItems, holdItems} = panelItems(cardText, oblText);
@@ -148,7 +148,7 @@ const scene = {
     // narrow for the print)
     // (print bars decided per card — the circumstance card, the clause cards —: both printed first, then the clauses in
     // print bars, then the circumstance card, then both)
-    for (const growTo of growMode ? [0.665, 0.655] : [1]) for (const [cardText, oblText] of [[true, true], [true, false], [false, true], [false, false]]) for (const stack of shape === 'square' ? [false, true] : [false]) for (const zt of stack ? (stress ? [2.1, 1.62, 1.57] : [1.57, 1.62, 2.1]) : [1.62, 2.1]) for (const share of below ? (show ? [0.5, 0.46, 0.55] : [0.6, 0.55, 0.5]) : stack && show ? [0.5, 0.48, 0.46, 0.52, 0.55] : sideShares) for (const px of stress ? PX_STRESS : PX_BASE) {
+    for (const growTo of growMode ? [0.665, 0.655] : [1]) for (const [cardText, oblText] of [[true, true], [true, false], [false, true], [false, false]]) for (const stack of shape === 'square' ? [true, false] : [false]) for (const zt of stack ? (stress ? [2.1, 1.62, 1.57] : [1.57, 1.62, 2.1]) : [1.62, 2.1]) for (const share of below ? (show ? [0.5, 0.46, 0.55] : [0.6, 0.55, 0.5]) : stack && show ? [0.5, 0.48, 0.46, 0.52, 0.55] : sideShares) for (const px of stress ? PX_STRESS : PX_BASE) {
       if (best) break;
       // (labels hidden: the cards carry no print either way — one pass)
       if (!show && !(cardText && oblText)) continue;
@@ -400,6 +400,12 @@ function lensPrint(p, G, F, zoom, upx) {
       // (the centred label keeps the card's own inner padding; the wider state padding is for its glyph)
       const f = fitG(p.circumstance.label, {maxWidth: G.cwE - 2 * padIn, size: ls, maxLines: 3, weight: 700, strict: true});
       if (!f.bad) { label = f; break; }
+      // (a word too wide for the lens print at this size: broken — after its own hyphens, else mid-word — so the print can
+      // stay large in the lens rather than shrink to fit the unbroken word)
+      if (widestToken(p.circumstance.label, ls, 700) > G.cwE - 2 * padIn) {
+        const fb = withWordBreaking(() => fitG(p.circumstance.label, {maxWidth: G.cwE - 2 * padIn, size: ls, maxLines: 4, weight: 700, strict: true}));
+        if (!fb.bad) { label = fb; break; }
+      }
     }
     if (!label) continue;
     const ch = padY + label.height + sz * 0.6 + stH + padY;

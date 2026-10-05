@@ -74,7 +74,7 @@ function unitPx(ctx) {
 const isStress = p => [...p.clauses, p.circumstance.label].some(t => t.length > 40) || p.annotations.length > 1;
 
 const scene = {
-  sizes: {landscape: [1600, 900], square: [1150, 1000], portrait: [900, 1450]},
+  sizes: {landscape: [1600, 900], square: [1150, 1000], portrait: [900, 1600]},
   layout(ctx) {
     const p = ctx.params;
     const shape = ctx.view.shape;
@@ -92,16 +92,18 @@ const scene = {
     const stress = isStress(p);
     // (the circumstance panel's share of the board: even, or — where the print does not fit — wider or narrower)
     let L = null;
-    for (const eventShare of [0.5, 0.56, 0.44]) {
+    // (9:16: taller cards first — the board grows down the tall frame instead of leaving empty bands)
+    const mins = shape === 'portrait' ? [[150, 190], [120, 150], [95, 120], [71, 90]] : [[71, 90]];
+    search: for (const [mc, mce] of mins) for (const eventShare of [0.5, 0.56, 0.44]) {
       L = layoutStage(ctx, {
       box: {x: 6, y: 4, w: D.w - 12, h: D.h - 8}, upx, prefix: '', p,
       px: stress ? PX_STRESS : PX_BASE,
       headMin: stress ? 45 : shape === 'square' ? 55 : 60, headTarget: shape === 'square' ? 70 : 100, kMax: 2.2,
       names: showKey ? captions : null, plates: show ? p.objectLabels : null,
-      notes, notesAlt, notesWhere: 'auto', tray: true, minCh: 71 / upx, minChE: 90 / upx, stack: shape === 'portrait', leadGap: p.annotations.length && show ? 0.8 : 0.4,
+      notes, notesAlt, notesWhere: 'auto', tray: true, minCh: mc / upx, minChE: mce / upx, stack: shape === 'portrait', leadGap: p.annotations.length && show ? 0.8 : 0.4,
       eventShare,
       });
-      if (L.ok) break;
+      if (L.ok) break search;
     }
     L.captions = captions;
     L.plates = show ? p.objectLabels : null;

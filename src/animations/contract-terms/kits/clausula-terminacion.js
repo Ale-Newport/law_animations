@@ -59,6 +59,12 @@ const FITW = new Map();
 let BREAK = false;
 /** Whether last-resort word breaking is on (diagnostics / tests). */
 export const breakingWords = () => BREAK;
+/** Run fn with last-resort word breaking on (a caller that must fit an unbroken long word at a legible size). */
+export function withWordBreaking(fn) {
+  const was = BREAK;
+  BREAK = true;
+  try { return fn(); } finally { BREAK = was; }
+}
 /**
  * Fit text into maxWidth × maxLines at the largest size in [size, minSize] that wraps whole words only (glued pairs
  * never split) and leaves no 1–2 character line. Returns a fitText-shaped result plus `bad` when it could not be done.
@@ -584,8 +590,11 @@ export function eventCard(ctx, {name, cw, ch, M, F: F0, state, ring = false, tab
     ...(tabW ? [h('path', {name: `${name}-tab`, d: roundRectPath(x0 - tabW, tabY - tabH / 2, tabW + 8, tabH, 5), fill: th.woodTop, stroke: th.woodDark, 'stroke-width': 2.2})] : []),
     h('path', {d: roundRectPath(x0 + 3, y0 + 5, cw, ch, 9), fill: th.shadow}),
     h('path', {name: `${name}-sheet`, d: roundRectPath(x0, y0, cw, ch, 9), fill: th.card, stroke: INK, 'stroke-width': 2.6}),
-    // (a neutral ink band at the top edge: the circumstance card reads as one object, unlike the clause cards)
-    h('path', {d: `M${r(x0 + 10)} ${r(y0 + 4)}H${r(x0 + cw - 10)}`, stroke: th.inkSoft, 'stroke-width': r(Math.max(5, F * 0.22), 2), 'stroke-linecap': 'round'}),
+    // (the communication drawn as a letter: an airmail border — alternating blue and amber dashes just inside the edge —,
+    // a folded top corner and, on its right edge, the socket the connector cord plugs into; the same in both cases)
+    ...airmail(th, x0 + 4.5, y0 + 4.5, cw - 9, ch - 9, Math.max(4, F * 0.2)),
+    h('path', {d: `M${r(x0 + cw - F * 0.9)} ${r(y0)}L${r(x0 + cw)} ${r(y0 + F * 0.9)}L${r(x0 + cw - F * 0.9)} ${r(y0 + F * 0.9)}Z`, fill: shade(th.card, -0.12), stroke: INK, 'stroke-width': 2, 'stroke-linejoin': 'round'}),
+    h('path', {name: `${name}-socket`, d: `M${r(x0 + cw)} ${r(-F * 0.42)}A${r(F * 0.42)} ${r(F * 0.42)} 0 0 1 ${r(x0 + cw)} ${r(F * 0.42)}Z`, fill: th.accent2Soft, stroke: th.accent2, 'stroke-width': r(Math.max(2.4, F * 0.12), 2)}),
   ];
   // (a card taller than its print centres the print)
   const yL = y0 + M.padY + Math.max(0, (ch - M.ch) / 2);
@@ -615,7 +624,10 @@ export function oblCard(ctx, {name, cw, ch, M, F, fit}) {
   const kids = [
     h('path', {d: roundRectPath(x0 + 3, y0 + 5, cw, ch, 8), fill: th.shadow}),
     h('path', {name: `${name}-sheet`, d: roundRectPath(x0, y0, cw, ch, 8), fill: th.card, stroke: INK, 'stroke-width': 2.4}),
-    h('path', {d: `M${r(x0 + M.tab * 0.45 + 2)} ${r(y0 + 8)}V${r(y0 + ch - 8)}`, stroke: th.inkSoft, 'stroke-width': r(Math.max(4, F * 0.18), 2), 'stroke-linecap': 'round'}),
+    // (a clause tab: an amber section strip down the card's left edge with two ruled notches — the section card of a
+    // termination clause, unlike a plain list card)
+    h('path', {d: roundRectPath(x0 + 3, y0 + 3, M.tab * 0.8, ch - 6, 5), fill: th.accent3, stroke: INK, 'stroke-width': 1.6}),
+    h('path', {d: `M${r(x0 + 3 + M.tab * 0.2)} ${r(y0 + ch * 0.36)}h${r(M.tab * 0.4)}M${r(x0 + 3 + M.tab * 0.2)} ${r(y0 + ch * 0.64)}h${r(M.tab * 0.4)}`, stroke: INK, 'stroke-width': 1.8, 'stroke-linecap': 'round'}),
   ];
   const tx = x0 + M.padX + M.tab;
   if (fit) kids.push(g({name: `${name}-txt`}, textBlock(fit, {x: r(tx), y: r(-fit.height / 2), fill: INK})));
@@ -637,7 +649,16 @@ export function bracketArt(ctx, {name, bh, B}) {
   return g({name},
     h('path', {name: `${name}-brace`, d: `M${r(-B.arm)} 0H0V${r(bh)}H${r(-B.arm)}`, fill: 'none', stroke: INK, 'stroke-width': r(B.sw, 2), 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}),
     h('path', {d: `M${r(B.sw * 0.5 - 1)} ${r(clamp(B.knobY, B.sw, bh - B.sw))}H${r(B.knobDx)}V${r(B.knobY)}`, fill: 'none', stroke: th.woodDark, 'stroke-width': r(B.sw * 0.7, 2), 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}),
-    h('circle', {name: `${name}-knob`, cx: r(B.knobDx), cy: r(B.knobY), r: r(B.hr), fill: th.woodTop, stroke: th.woodDark, 'stroke-width': 2.4}));
+    h('circle', {name: `${name}-knob`, cx: r(B.knobDx), cy: r(B.knobY), r: r(B.hr), fill: th.woodTop, stroke: th.woodDark, 'stroke-width': 2.4}),
+    // (the connector's jacks at both ends of its spine, where the cord leaves it)
+    ...[0, bh].map(y => h('rect', {x: r(-B.sw * 0.9), y: r(y - B.sw * 0.9), width: r(B.sw * 1.8), height: r(B.sw * 1.8), rx: r(B.sw * 0.4), fill: th.accent2, stroke: INK, 'stroke-width': 1.6})));
+}
+
+/** Airmail border: a rounded outline in amber and blue dashes of equal length (decorative; no state meaning). */
+function airmail(th, x, y, w, hh, sw) {
+  const d = roundRectPath(x, y, w, hh, 6), L0 = sw * 2.4;
+  return [h('path', {d, fill: 'none', stroke: th.accent3, 'stroke-width': r(sw, 2), 'stroke-dasharray': `${r(L0, 2)} ${r(L0, 2)}`}),
+    h('path', {d, fill: 'none', stroke: th.accent2, 'stroke-width': r(sw, 2), 'stroke-dasharray': `${r(L0, 2)} ${r(L0, 2)}`, 'stroke-dashoffset': r(L0, 2)})];
 }
 
 /* ======================================================================== */
@@ -934,8 +955,9 @@ export function stageArt(ctx, L) {
   else kids.push(h('rect', {x: r(B.x + B.w / 2 - B.w * 0.18), y: r(hb.y + hb.h / 2 - F * 0.17), width: r(B.w * 0.36), height: r(F * 0.34), rx: 3, fill: INK, opacity: 0.6}));
   // the panels (equal tone: neither is primary)
   [['circumstance', G.panelE, 0], ['section', G.panelT, 1]].forEach(([nm, c, i]) => {
-    kids.push(h('path', {name: `${P}panel-${nm}`, d: roundRectPath(c.x, c.y, c.w, c.h, 9), fill: shade(th.accent2Soft, 0.55), stroke: th.inkSoft, 'stroke-width': 2}));
-    kids.push(h('path', {d: `M${r(c.x + 8)} ${r(c.y + 3)}H${r(c.x + c.w - 8)}`, stroke: th.inkSoft, 'stroke-width': r(Math.max(6, F * 0.26), 2), 'stroke-linecap': 'round'}));
+    // (the communications panel warm, like a mail tray; the clause panel cool — the same lightness, neither primary)
+    kids.push(h('path', {name: `${P}panel-${nm}`, d: roundRectPath(c.x, c.y, c.w, c.h, 9), fill: shade(i ? th.accent2Soft : th.accent3Soft, 0.45), stroke: th.inkSoft, 'stroke-width': 2}));
+    kids.push(h('path', {d: `M${r(c.x + 8)} ${r(c.y + 3)}H${r(c.x + c.w - 8)}`, stroke: i ? th.accent2 : th.accent3, 'stroke-width': r(Math.max(6, F * 0.26), 2), 'stroke-linecap': 'round'}));
     const f = G.headFits[i];
     if (f) kids.push(g({name: `${P}panel-${nm}-head`}, textBlock(f, {x: r(c.x + c.w / 2), y: r(c.y + (G.colHH - f.height) / 2 + 2), anchor: 'middle', fill: INK})));
     else kids.push(h('rect', {x: r(c.x + c.w * 0.3), y: r(c.y + G.colHH / 2 - F * 0.12), width: r(c.w * 0.4), height: r(F * 0.3), rx: 3, fill: INK, opacity: 0.5}));
@@ -1117,13 +1139,13 @@ export function cordGeom(G, card = G.slot) {
  */
 export function cordNode(ctx, L, cg) {
   const th = ctx.theme, F = L.F, P = L.P;
-  const sw = Math.max(4, F * 0.2);
+  const sw = Math.max(5, F * 0.27);
   const plug = (nm, q) => g({name: nm, opacity: 0},
-    h('circle', {cx: r(q.x), cy: r(q.y), r: r(sw * 1.5), fill: th.woodTop, stroke: INK, 'stroke-width': 2.4}),
+    h('circle', {cx: r(q.x), cy: r(q.y), r: r(sw * 1.4), fill: th.accent3, stroke: INK, 'stroke-width': 2.4}),
     h('circle', {cx: r(q.x), cy: r(q.y), r: r(sw * 0.55), fill: INK}));
   return g({name: `${P}cord-g`},
     h('path', {name: `${P}cord-case`, d: cg.d, fill: 'none', stroke: th.paper, 'stroke-width': r(sw * 2.2, 2), 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': '1 1', 'stroke-dashoffset': 1}),
-    h('path', {name: `${P}cord`, d: cg.d, fill: 'none', stroke: INK, 'stroke-width': r(sw, 2), 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': '1 1', 'stroke-dashoffset': 1}),
+    h('path', {name: `${P}cord`, d: cg.d, fill: 'none', stroke: th.accent2, 'stroke-width': r(sw, 2), 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': '1 1', 'stroke-dashoffset': 1}),
     plug(`${P}cord-b`, cg.b), plug(`${P}cord-a`, cg.a));
 }
 

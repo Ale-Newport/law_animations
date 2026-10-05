@@ -166,7 +166,7 @@ function solve(ctx, p, F, upx, box, labelMode) {
 }
 
 const scene = {
-  sizes: {landscape: [1600, 900], square: [1150, 1000], portrait: [900, 1450]},
+  sizes: {landscape: [1600, 900], square: [1150, 1000], portrait: [900, 1600]},
   layout(ctx) {
     const p = ctx.params;
     const D = ctx.design;

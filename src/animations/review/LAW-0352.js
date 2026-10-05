@@ -142,8 +142,8 @@ function compose(ctx, P, R, F, v) {
   let src = {x: t0x - F * 0.8, y: B.lane.a.y - B.lane.w * 0.8, w: TW + F * 1.6, h: tagY + tagH + F * 0.6 - (B.lane.a.y - B.lane.w * 0.8)};
   if (v.step) {
     // the context steps back to scale sK at the top-left; the lens grows in the freed space (zoom measured at rest)
-    const sK = 0.52;
-    const Lb = {x: 4, y: desk.h * sK + gap, w: DW - 8, h: DH - desk.h * sK - gap - 4};
+    const sK = v.sK ?? 0.52;
+    const Lb = side ? {x: 4, y: desk.h * sK + gap, w: desk.w - 8, h: DH - desk.h * sK - gap - 4} : {x: 4, y: desk.h * sK + gap, w: DW - 8, h: DH - desk.h * sK - gap - 4};
     const sw = {x: src.x * sK, y: src.y * sK, w: src.w * sK, h: src.h * sK};
     const kS = Math.min(Lb.w / sw.w, Lb.h / sw.h, Math.max(1.5, P.detailGeometry.zoom) / sK);
     if (kS * sK < 1.5 - 1e-6) problems.push('lens-zoom');
@@ -178,7 +178,7 @@ const scene = {
   layout(ctx) {
     const P = localisedDn(ctx, EN, ES);
     const R = resolve(P);
-    const vs = ctx.view.shape === 'landscape' ? [0.64, 0.6, 0.56, 0.52].map(dw => ({dw})) : ctx.view.shape === 'square' ? [{dw: 1, step: true}, {dw: 1}, ...[0.58, 0.56, 0.6].flatMap(dw => [4.4, 4.1].map(fmin => ({dw, side: true, pips: true, relax: true, rw: 1.2, fmin})))] : [{dw: 1}];
+    const vs = ctx.view.shape === 'landscape' ? [...[0.76, 0.72, 0.68].flatMap(dw => [0.45, 0.4].map(sK => ({dw, step: true, sK}))), ...[0.64, 0.6, 0.56, 0.52].map(dw => ({dw}))] : ctx.view.shape === 'square' ? [{dw: 1, step: true}, {dw: 1}, ...[0.58, 0.56, 0.6].flatMap(dw => [4.4, 4.1].map(fmin => ({dw, side: true, pips: true, relax: true, rw: 1.2, fmin})))] : [{dw: 1, step: true}, {dw: 1}];
     const sizes = !ctx.show('key') ? [30, 26, ...SIZES] : SIZES;
     let C = null, best = null;
     outer: for (const F of sizes) for (const v of vs) {
@@ -279,7 +279,10 @@ const scene = {
     nodes.lcord = cord;
     for (const d of B.doors) d.halves.forEach((hv, k) => {
       const open = d.i === R.target ? 1 - kDoor : d.i === R.after ? kDoor : 0;
-      nodes[`door${d.i}${k}`] = {transform: doorT(hv, d.i === R.target && !R.changed ? 1 : open)};
+      // (no mid-swing bars across the tray floor: a swinging pair fades out at its old pose and back in at the new one)
+      const kk = d.i === R.target && !R.changed ? 1 : open;
+      const moving = kk > 0 && kk < 1;
+      nodes[`door${d.i}${k}`] = {transform: doorT(hv, moving ? (kk < 0.5 ? 0 : 1) : kk), opacity: moving ? r(Math.abs(kk * 2 - 1), 3) : 1};
     });
     nodes.ghost = {opacity: r(R.changed ? clamp(kMove * 3) : 0, 3)};
     const lensHolds = lensVis > 0;

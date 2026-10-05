@@ -110,14 +110,15 @@ function texts(ctx, p, M) {
   const chips = {};
   chips.laneA = {key: 'laneA', icon: 'laneA', text: elementLabel(ctx, p, 'laneA')};
   chips.laneB = {key: 'laneB', icon: 'laneB', text: elementLabel(ctx, p, 'laneB')};
-  // the convergence piece's chip carries the event and the loss exactly as supplied
-  if (has('convergence')) chips.convergence = {key: 'convergence', icon: 'loss', text: `${elementLabel(ctx, p, 'convergence')} · ${p.origin.name} · ${p.losses[0].label}`};
+  // the convergence piece's chip names the event; the loss as supplied is a band chip
+  if (has('convergence')) chips.convergence = {key: 'convergence', icon: 'loss', text: `${elementLabel(ctx, p, 'convergence')} · ${p.origin.name}`};
   if (has('alternative')) chips.alternative = {key: 'alternative', icon: 'alt', text: elementLabel(ctx, p, 'alternative')};
   const band = [];
   // the key of the two lanes (equal chips): what each lane carries, as supplied
   band.push({key: 'innerKey', icon: 'laneA', text: t.laneA});
   band.push({key: 'outerKey', icon: 'laneB', text: t.laneB});
   band.push({key: 'object', icon: 'event', text: `${p.origin.name} · ${t.lanes}`});
+  band.push({key: 'loss0', icon: 'loss', text: p.losses[0].label});
   M.alternatives.forEach((a, j) => band.push({key: `alt${j}`, icon: 'alt', text: altText(ctx, a)}));
   if (p.losses[1]) band.push({key: 'loss1', icon: 'loss', text: `${t.alsoNoted}: ${p.losses[1].label}`});
   linkNotes(ctx, M).forEach(l => band.push({...l}));
@@ -436,6 +437,9 @@ const scene = {
             c = c2; x = roomL >= roomR ? L.pos.convergence.x - gR - 12 - c2.w : right;
           }
           L.chipBox.convergence = chipAt(c, x, L.pos.convergence.y - c.h / 2, 'lab-convergence');
+          // (a chip that would run over the record marks this composition as clashing: the next candidate is tried)
+          const rb0 = L.boxes.record, cb0 = L.chipBox.convergence;
+          if (rb0 && cb0.x < rb0.x + rb0.w && cb0.x + cb0.w > rb0.x && cb0.y < rb0.y + rb0.h && cb0.y + cb0.h > rb0.y) L.labelClash = (L.labelClash || []).concat('convergence-chip-record');
         }
       }
       if (L.cAlt.w) L.chipBox.alternative = chipAt(L.cAlt, altX, altY, 'lab-alternative');

@@ -88,7 +88,7 @@ const isStress = p => [...p.clauses, p.circumstance.label].some(t => t.length > 
 const ROOMS = ['a', 'b'];
 
 const scene = {
-  sizes: {landscape: [1600, 900], square: [1150, 1000], portrait: [900, 1450]},
+  sizes: {landscape: [1600, 900], square: [1150, 1000], portrait: [900, 1600]},
   layout(ctx) {
     const p = ctx.params;
     const shape = ctx.view.shape;

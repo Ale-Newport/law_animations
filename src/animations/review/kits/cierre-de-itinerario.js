@@ -157,11 +157,11 @@ export function originNode(ctx, M, o) {
   parts.push(h('circle', {cx: r(sx), cy: r(sy), r: r(M.seal * 0.22), fill: '#fff'}));
   const tx = M.pad + M.seal * 2 + F * 0.5;
   if (M.showText) parts.push(textAt(f.title, {x: tx, y: M.header.y + (M.header.h - f.title.height) / 2, fill: INK, name: `${P}-title`}));
-  else parts.push(h('rect', {x: r(tx), y: r(sy - F * 0.3), width: r((M.w - M.pad - tx) * 0.8), height: r(F * 0.6), rx: r(F * 0.3), fill: INK, opacity: 0.7}));
+  else parts.push(h('rect', {x: r(tx), y: r(sy - F * 0.3), width: r(Math.max(4, (M.w - M.pad - tx) * 0.8)), height: r(F * 0.6), rx: r(F * 0.3), fill: INK, opacity: 0.7}));
   parts.push(h('line', {x1: r(M.pad), x2: r(M.w - M.pad), y1: r(M.sep), y2: r(M.sep), stroke: th.paperLine, 'stroke-width': 2}));
   parts.push(h('path', {d: roundRectPath(M.ref.x, M.ref.y, M.ref.w, M.ref.h, Math.min(M.ref.h / 2, F * 0.6)), fill: th.paperShade, stroke: SLATE, 'stroke-width': 2}));
   if (M.showText) parts.push(textAt(f.ref, {x: M.ref.x + F * 0.7, y: M.ref.y + F * 0.3, fill: INK, name: `${P}-ref-t`}));
-  else parts.push(h('rect', {x: r(M.ref.x + F * 0.6), y: r(M.ref.y + M.ref.h / 2 - F * 0.2), width: r(M.ref.w - F * 1.2), height: r(F * 0.4), rx: r(F * 0.2), fill: SLATE, opacity: 0.55}));
+  else parts.push(h('rect', {x: r(M.ref.x + F * 0.6), y: r(M.ref.y + M.ref.h / 2 - F * 0.2), width: r(Math.max(4, M.ref.w - F * 1.2)), height: r(F * 0.4), rx: r(F * 0.2), fill: SLATE, opacity: 0.55}));
   if (M.showText) parts.push(textAt(f.grounds, {x: M.grounds.x, y: M.grounds.y, fill: '#3d4650', name: `${P}-grounds`, italic: true}));
   else for (let b = 0; b < 2; b++) parts.push(h('rect', {x: r(M.grounds.x), y: r(M.grounds.y + F * 0.1 + b * F * 0.62), width: r(M.grounds.w * (b ? 0.5 : 0.85)), height: r(F * 0.34), rx: r(F * 0.17), fill: '#8c959f', opacity: 0.6}));
   return g({name: P}, parts);
@@ -229,7 +229,7 @@ export function endNode(ctx, M, i, route, o) {
   const tx = M.pad + M.badgeR * 2 + F * 0.5;
   if (M.showText) parts.push(textAt(f.label, {x: tx, y: M.header.y + (M.header.h - f.label.height) / 2, fill: INK, name: `${P}-label`}));
   else if (o.num) parts.push(h('text', {name: `${P}-num`, x: r(tx), y: r(by + o.num.size * 0.36), 'font-family': FONTS.sans, 'font-size': r(o.num.size, 2), 'font-weight': 800, fill: INK}, o.num.text));
-  else parts.push(h('rect', {x: r(tx), y: r(by - F * 0.28), width: r((M.w - M.pad - tx) * 0.75), height: r(F * 0.56), rx: r(F * 0.28), fill: INK, opacity: 0.7}));
+  else parts.push(h('rect', {x: r(tx), y: r(by - F * 0.28), width: r(Math.max(4, (M.w - M.pad - tx) * 0.75)), height: r(F * 0.56), rx: r(F * 0.28), fill: INK, opacity: 0.7}));
   parts.push(h('line', {x1: r(M.pad), x2: r(M.w - M.pad), y1: r(M.sep), y2: r(M.sep), stroke: th.paperLine, 'stroke-width': 2}));
   if (M.showText) {
     if (!o.skipEnd) parts.push(textAt(f.end, {x: M.end.x, y: M.end.y, fill: '#2f3740', name: `${P}-end`}));
