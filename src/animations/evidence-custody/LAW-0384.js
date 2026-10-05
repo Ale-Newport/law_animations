@@ -140,7 +140,7 @@ function compose(ctx, P, recs, fi, F, LG, opt, vs) {
   const fit = (text, w, weight) => { const f = fitG(text || ' ', {maxWidth: w, size, minSize: floor, maxLines: 1, weight}); if (!f.ok) tOk = false; return f; };
   const texts = recs.map((rw, i) => ({fieldFit: fit(rw.field, fieldW, 500), valueFit: fit(i === fi ? ' ' : rw.value, valW, 600)}));
   const bFit = fit(P.beforeValue, valW, 600), aFit = fit(P.afterValue, valW, 600);
-  const trace = fitG(`${ctx.t.before}: ${P.beforeValue.trim() ? P.beforeValue : ctx.t.blankShort}`, {maxWidth: source.w - pad, size: Math.max(floor, size * 0.9), minSize: floor, maxLines: 1, weight: 500});
+  const trace = fitG(`${ctx.t.before}: ${P.beforeValue.trim() ? P.beforeValue : ctx.t.blankShort}`, {maxWidth: Math.min(source.w - pad, source.x + source.w - (hole.x + T0.x0) - size), size: Math.max(floor, size * 0.9), minSize: floor, maxLines: 1, weight: 500});
   if (!trace.ok) tOk = false;
   void R0;
   const showText = ctx.show('key');
@@ -176,8 +176,8 @@ function lensParts(ctx, L) {
       P.beforeValue.trim() ? val(C.bFit, 'lv-before', 1, 0.55) : g({name: 'lv-before'}),
       P.afterValue.trim() ? val(C.aFit, 'lv-after', 0, 0.85) : g({name: 'lv-after', opacity: 0}),
       g({name: 'lv-trace', opacity: 0}, showText ? g(null,
-        h('path', {d: `M${r(C.source.x + 4)} ${r(hole.y + T0.h / 2 + 4)}h${r(C.source.w - 8)}v${r(C.trace.height + C.size * 0.5)}h${r(-(C.source.w - 8))}Z`, fill: '#f4f1ea', opacity: 0.92}),
-        textAt(C.trace, {x: C.source.x + C.size * 0.4, y: hole.y + T0.h / 2 + 4 + C.size * 0.25, fill: '#4a5560', italic: true})) : null),
+        h('path', {d: `M${r(hole.x + T0.x0)} ${r(hole.y + T0.h / 2 + 4)}h${r(C.trace.width + C.size * 0.8)}v${r(C.trace.height + C.size * 0.5)}h${r(-(C.trace.width + C.size * 0.8))}Z`, fill: '#f4f1ea', opacity: 0.92}),
+        textAt(C.trace, {x: hole.x + T0.x0 + C.size * 0.4, y: hole.y + T0.h / 2 + 4 + C.size * 0.25, fill: '#4a5560', italic: true})) : null),
     ),
     h('rect', {name: 'lv-ring', x: r(hole.x + C.valueX - C.size * 0.3), y: r(hole.y + R.top + 1), width: r(hole.x + T0.rx1 - (hole.x + C.valueX) + C.size * 0.3), height: r(R.h - 2), rx: 4, fill: 'none', stroke: ctx.theme.accent2, 'stroke-width': 2.5, opacity: 0}),
   );

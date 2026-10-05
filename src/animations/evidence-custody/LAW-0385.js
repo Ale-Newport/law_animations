@@ -35,6 +35,7 @@ const ID = 'LAW-0385';
 const DURATION = 7000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
 const TARGETS = ['object', 'cards', 'pairs', 'reader'];
+let TS_FLOOR = 36;
 const SIZES = [24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 const W = {reachL: [0.15, 0.2], carry: [0.2, 0.3], backL: [0.3, 0.36], reachR: [0.17, 0.24], toCol: [0.28, 0.36], steps: [0.36, 0.72], park: [0.73, 0.79], backR: [0.79, 0.85], notes: [0.8, 0.86], state: [0.8, 0.86]};
 
@@ -114,8 +115,8 @@ function compose(ctx, P, recs, LG, arrangement) {
   const inset = Math.max(14, Math.min(bench.w, bench.h) * 0.035);
   const mat = {x: bench.x + inset * 1.6, y: bench.y + inset * 1.6, w: bench.w - inset * 3.2, h: bench.h - inset * 3.2};
   const G = fcStage(mat, {n: P.segments.length, rows: recs.length, kind: P.items[0].kind, arrangement, cardRest: true});
-  const ok = (!LG.PL || LG.PL.ok) && G.fits && G.ts >= 44;
-  return {bench, mat, LG, G, ok, problems: [LG.PL && !LG.PL.ok && 'panel-text', !G.fits && 'stage-fit', G.ts < 44 && 'stage-small'].filter(Boolean)};
+  const ok = (!LG.PL || LG.PL.ok) && G.fits && G.ts >= TS_FLOOR;
+  return {bench, mat, LG, G, ok, problems: [LG.PL && !LG.PL.ok && 'panel-text', !G.fits && 'stage-fit', G.ts < TS_FLOOR && 'stage-small'].filter(Boolean)};
 }
 
 function plan(P) {

@@ -50,8 +50,8 @@ export const fcFields = {
     b: str('Caption of the reference card (chain on the upper row)', 70),
   }, ['a', 'b']),
   matchLabels: obj('Captions of the two pair states (descriptive only)', {
-    same: str('Caption for a pair with equal values (bridge)', 70),
-    differ: str('Caption for a pair with differing values (open stubs)', 70),
+    same: str('Caption for a pair with equal values (bridge)', 90),
+    differ: str('Caption for a pair with differing values (open stubs)', 90),
   }, ['same', 'differ']),
   labels: obj('Editable captions', {
     key: str('Neutral key (must say that no conclusion is drawn)', 80),
