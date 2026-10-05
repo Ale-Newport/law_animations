@@ -75,7 +75,8 @@ const sceneSchema = {
 
 const defaultParams = {
   ...CA_DEFAULTS,
-  actorLabels: {a: 'Lane A: the conduct of A as supplied', b: 'Lane B: the conduct of B as supplied'},
+  // (captions are optional: empty by default; when supplied they are drawn as band chips beside the lane keys)
+  actorLabels: {a: '', b: ''},
   objectLabels: {record: '', laneA: '', laneB: ''},
   actionProgress: 1,
   annotations: [{target: 'lanes', text: 'Both lanes are drawn alike; nothing is weighed'}],
@@ -85,7 +86,6 @@ const defaultParams = {
 // Spanish versions of the default content, used with locale "es" for fields left at their English default
 const defaultParamsEs = {
   ...CA_ES_DEFAULTS,
-  actorLabels: {a: 'Carril A: la conducta de A según lo aportado', b: 'Carril B: la conducta de B según lo aportado'},
   annotations: [{target: 'lanes', text: 'Los dos carriles se dibujan igual; nada se pondera'}],
 };
 

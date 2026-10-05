@@ -205,7 +205,7 @@ export function fieldGeom(left, floorY, PH) {
     PH, cy, K: F.K, xs, xe, xb: xe - 0.07 * PH, px, py, padR, yA, yB, laneY,
     LT: F.LT * PH, itemS: F.item * PH, plateT: F.plate * PH, headS: F.head * PH, cartW: F.cartW * PH,
     at: (l, x) => ({x, y: laneY(l)}),
-    cartX: f => lerp(xs + 0.17 * PH, xe - 0.27 * PH, f),
+    cartX: f => lerp(xs + 0.17 * PH, xe - 0.36 * PH, f),
     stand: l => laneY(l) - (F.LT + 0.015) * PH,
     conn, floorY,
     x0: left, x1: left + fieldW() * PH, top: cy - fieldTop() * PH,

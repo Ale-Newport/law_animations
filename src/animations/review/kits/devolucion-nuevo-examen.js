@@ -485,6 +485,11 @@ export function dnIcon(ctx, kind, s, o = {}) {
       g({transform: T(-k * 0.8, k * 0.15, 90)}, doorArt(ctx, {len: k * 0.85, t: k * 0.3})),
       g({transform: T(k * 0.8, k * 0.15, 90)}, doorArt(ctx, {len: k * 0.85, t: k * 0.3})));
   }
+  if (kind === 'num') {
+    const F = o.F ?? s / 1.2;
+    return g(null, h('circle', {cx: 0, cy: 0, r: r(F * 0.68), fill: th.card, stroke: o.color ?? INK, 'stroke-width': 2.5}),
+      h('text', {x: 0, y: r(F * 0.35), 'text-anchor': 'middle', 'font-size': r(F), 'font-weight': 700, 'font-family': "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif", fill: INK}, String((o.index ?? 0) + 1)));
+  }
   if (kind === 'pip') return g(null, indexPip(o.index ?? 0, k * 0.62));
   if (kind === 'pin') return g({transform: T(0, -k * 0.1)}, pinGlyph(ctx, k * 0.62));
   if (kind === 'calendar') return g({transform: T(-k, -k * 0.82)}, calendarNode(ctx, {w: s, h: s * 0.82}));
@@ -541,7 +546,7 @@ export function panelNode(ctx, PL) {
       parts.push(h('line', {x1: 0, x2: r(PL.w), y1: r(row.y - F * 0.3), y2: r(row.y - F * 0.3), stroke: th.fgSoft, 'stroke-width': 1.5, opacity: 0.6}));
       parts.push(textAt(row.fit, {x: F * 0.25, y: row.y, fill: th.fg, italic: true}));
     } else {
-      if (row.icon) parts.push(g({transform: T(F * 0.72, row.y + Math.min(row.fit.height, F * 1.2) / 2)}, dnIcon(ctx, row.icon, F * 1.2, {color: row.color, index: row.index})));
+      if (row.icon) parts.push(g({transform: T(F * 0.72, row.y + Math.min(row.fit.height, F * 1.2) / 2)}, dnIcon(ctx, row.icon, F * 1.2, {color: row.color, index: row.index, F})));
       parts.push(textAt(row.fit, {x: row.iconW, y: row.y, fill: th.fg}));
       if (row.sub) {
         const sy = row.y + row.fit.height + F * 0.3;

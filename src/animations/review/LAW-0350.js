@@ -22,11 +22,11 @@ import {T} from '../../core/transform.js';
 import {seg, clamp, lerp, ease, r} from '../../core/time.js';
 import {str, list, obj, oneOf} from '../../schemas/fields.js';
 import {roundRectPath} from '../../core/geometry.js';
-import {relationGraph} from '../../frameworks/graph.js';
+import {relationGraph, kindColor} from '../../frameworks/graph.js';
 import {tracer} from '../../primitives/annotate.js';
 import {
   dnFields, DN_EN, DN_ES, localisedDn, resolveDn, folderArt, slipArt, trayArt, doorArt, blankSheetArt, pinGlyph, indexPip,
-  panelLayout, panelNode, fitG, textAt, overlaps, INK, R2,
+  panelLayout, panelNode, fitG, textAt, overlaps, dnIcon, INK, R2,
 } from './kits/devolucion-nuevo-examen.js';
 
 const ID = 'LAW-0350';
@@ -171,6 +171,8 @@ function compose(ctx, P, R, F, v) {
   if (showKey) rows.push({kind: 'heading', icon: 'lane', text: P.labels.route, name: 'sh-route'});
   if (showKey) P.routes.stations.forEach((s, i) => { if (i !== R.target) rows.push({kind: 'item', icon: 'tray', text: s, name: `sh-st${i}`}); });
   if (showKey) rows.push({kind: 'item', icon: 'pin', text: P.labels.point, name: 'sh-point'});
+  const relsF = P.relationships.filter(x => x.from !== x.to && IDS.includes(x.from) && IDS.includes(x.to) && P.elements.some(e => e.id === x.from) && P.elements.some(e => e.id === x.to));
+  if (v.foot && ctx.show('all')) relsF.forEach((x, i) => rows.push({kind: 'item', icon: 'num', index: i, text: x.label || P.relationLabels[x.kind] || x.kind, name: `sh-rel${i}`}));
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
   let strip = null;
   if (rows.length) {
@@ -224,7 +226,7 @@ function compose(ctx, P, R, F, v) {
     return bad;
   };
   for (let pass = 0; pass < 5; pass++) {
-    graph = relationGraph(ctx, {name: 'rel', elements: els, relationships: rels, relationLabels: P.relationLabels, bend: (rel, i) => bend[bi[i]], chipSize: F, chipMax: Math.max(F * 9, cellW * v.chip), bounds: {x: 0, y: 0, w: DW, h: DH - stripH}, separateLabels: true});
+    graph = relationGraph(v.foot ? {...ctx, show: lvl => (lvl === 'all' ? false : ctx.show(lvl))} : ctx, {name: 'rel', elements: els, relationships: rels, relationLabels: P.relationLabels, bend: (rel, i) => bend[bi[i]], chipSize: F, chipMax: Math.max(F * 9, cellW * v.chip), bounds: {x: 0, y: 0, w: DW, h: DH - stripH}, separateLabels: true});
     const bad = crosses(graph);
     if (!bad.size) break;
     if (pass === 4) problems.push('conn-crosses');
@@ -232,7 +234,8 @@ function compose(ctx, P, R, F, v) {
   }
   if (ctx.show('all') && graph.conns.some(c => c.lab && !c.labelClear)) problems.push('label-overlap');
   if (ctx.show('all') && graph.conns.some(c => c.lab && c.lab.fit && (c.lab.fit.size < F - 0.01 || c.lab.fit.truncated))) problems.push('label-shrunk');
-  return {F, cards, els, graph, rels, strip, stripY: DH - (strip ? strip.h : 0), ok: !problems.length, problems};
+  const foot = v.foot && ctx.show('all') ? graph.conns.map((c, i) => ({i, at: c.c.at(0.5)})) : [];
+  return {F, cards, els, graph, rels, foot, strip, stripY: DH - (strip ? strip.h : 0), ok: !problems.length, problems};
 }
 
 const scene = {
@@ -242,7 +245,8 @@ const scene = {
     const R = resolveDn(P);
     const shape = ctx.view.shape;
     const sc0 = shape === 'landscape' ? 3 : 2;
-    const vs = [0.9, 1.3].flatMap(chip => [{gx: 5, gy: 3, cw: 1, sc: sc0, chip}, {gx: 4, gy: 2.5, cw: 1, sc: sc0, chip}, {gx: 5, gy: 3, cw: 0.9, sc: 2, chip}, {gx: 6, gy: 4, cw: 0.85, sc: 2, chip}]);
+    const vs0 = [0.9, 1.3].flatMap(chip => [{gx: 5, gy: 3, cw: 1, sc: sc0, chip}, {gx: 4, gy: 2.5, cw: 1, sc: sc0, chip}, {gx: 5, gy: 3, cw: 0.9, sc: 2, chip}, {gx: 6, gy: 4, cw: 0.85, sc: 2, chip}]);
+    const vs = [...vs0, ...vs0.slice(0, 3).map(v => ({...v, foot: true}))];
     const sizes = !ctx.show('key') ? [30, 26, ...SIZES] : SIZES;
     let C = null, best = null;
     outer: for (const F of sizes) for (const v of vs) {
@@ -267,6 +271,7 @@ const scene = {
       cardEls,
       copy,
       C.graph.labelsNode,
+      C.foot.map(f => g({name: `foot${f.i}`, opacity: 0, transform: T(f.at.x, f.at.y)}, dnIcon(ctx, 'num', C.F * 1.2, {index: f.i, F: C.F, color: kindColor(ctx, C.rels[f.i].kind)}))),
       tracer(ctx, 'tracer', th.accent2),
       C.strip ? g({name: 'strip', transform: T(0, C.stripY)}, C.strip.cols.map(col => g({transform: T(col.x, 0)}, panelNode(ctx, col.PL)))) : null,
     );
@@ -316,6 +321,7 @@ const scene = {
     const n = Math.max(1, C.rels.length);
     const relP = i => ease.inOutCubic(seg(u, W.relate[0] + (i * (W.relate[1] - W.relate[0])) / n, W.relate[0] + ((i + 1) * (W.relate[1] - W.relate[0])) / n));
     Object.assign(nodes, C.graph.frame(relP));
+    for (const f of C.foot) nodes[`foot${f.i}`] = {opacity: r(clamp((relP(f.i) - 0.55) / 0.45), 3)};
     const beat = u < BEATS.separate[1] ? 'separate' : u < BEATS.relate[1] ? 'relate' : u < BEATS.trace[1] ? 'trace' : 'hold';
     return {
       nodes,
