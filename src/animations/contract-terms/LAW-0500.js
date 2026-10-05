@@ -1,30 +1,30 @@
 /**
- * LAW-0496 — Condición de activación · inspect
+ * LAW-0500 — Cláusula de terminación · inspect
  *
- * Storyboard (context = the state produced by the story's action: the contract board with the event card "Event 1
- * (supplied)" seated in its slot, showing its supplied state — ● "Event produced (as supplied)" —, the supplied
- * obligation cards and the bracket shut on the supplied tranche; the two parties stand beside the board):
+ * Storyboard (context = the state provided by the story's action: the contract board with the circumstance card "Circumstance 1
+ * (supplied)" seated in its slot, showing its supplied state — ● "Circumstance provided (as supplied)" —, the supplied
+ * clause cards and the bracket shut on the supplied section; the two parties stand beside the board):
  *  0.00–0.20  context at rest in its part of the frame; the other part holds a panel (headline, the ●/◆ legend at equal
  *             weight, the key).
- *  0.20–0.28  isolate: the panel leaves and a lens grows at its own place: a real enlarged copy (≥ 1.6×) of the event
+ *  0.20–0.28  isolate: the panel leaves and a lens grows at its own place: a real enlarged copy (≥ 1.6×) of the circumstance
  *             card; the context's card is left blank while the lens shows it (one legible copy at a time, glyph included).
  *  0.36–0.42  the old state is struck in the lens.
- *  0.47–0.489 the datum changes: the state row turns over and comes back with the supplied alternative — ◆ "Event
- *             pending (as supplied)" — (no value legible for ≤ ~150 ms).
+ *  0.47–0.489 the datum changes: the state row turns over and comes back with the supplied alternative — ◆ "Circumstance
+ *             undescribed (as supplied)" — (no value legible for ≤ ~150 ms).
  *  0.50–0.56  only then, the new value legible, its dependent geometry follows in the scene: the bracket slides open in
- *             its track, as supplied (with the alternative produced → it slides shut). Nothing else moves.
+ *             its track, as supplied (with the alternative provided → it slides shut). Nothing else moves.
  *  0.74–0.80  return: the lens closes onto the card, which shows the new state at once; a Δ marks it (0.80–0.81); the
  *             panel comes back with the marker label, the struck "was:" value, the legend and the key "As supplied · no
  *             conclusion drawn". Seeking back restores the old datum exactly.
- * Labels hidden: the same lens on the event card — its state glyph turns ● → ◆ inside the lens (a non-text change).
+ * Labels hidden: the same lens on the circumstance card — its state glyph turns ● → ◆ inside the lens (a non-text change).
  * Labels key / none at 1:1 (cf-08 / cf-10 ruling, the LAW-0472/0476/0480/0492 pattern): the context is laid out large
  * (≥ 0.55 of the frame) at rest and at the hold and shrinks only while the lens is open.
- * Texts too long for a printed card (an unbroken long word): print bars decided per card (the event card, the obligation
- * cards); the barred cards' texts are listed once in the panel; a barred event card is printed in the lens, its print
+ * Texts too long for a printed card (an unbroken long word): print bars decided per card (the circumstance card, the clause
+ * cards); the barred cards' texts are listed once in the panel; a barred circumstance card is printed in the lens, its print
  * filling the window. The lens crop never takes in the legs or the floor (the lens copy is clipped to the board).
- * No rule on conditions: nothing about fulfilment, no automatic effect, no obligation becoming due, binding or
- * enforceable; no jurisdiction. Produced and pending have equal weight.
- * @module animations/contract-terms/LAW-0496
+ * No rule on conditions: nothing about fulfilment, no automatic effect, no clause becoming due, binding or
+ * enforceable; no jurisdiction. Provided and undescribed have equal weight.
+ * @module animations/contract-terms/LAW-0500
  */
 import {defineAnimation} from '../../core/define.js';
 import {makeMetadata} from '../../core/meta.js';
@@ -40,9 +40,9 @@ import {
   motifFields, DEFAULT_CONTENT, DEFAULT_CONTENT_ES, KIT_STRINGS, STATES, PX_BASE, PX_STRESS,
   layoutStage, stageArt, makeRigs, nameNodes, oblNodes, eventNode, bracketNode, stateGlyph, chipG, eventCard, measureEvent, measureObl, bracketMetrics,
   localizeScene, headBox, overlaps, fitG, widestToken, breakingWords,
-} from './kits/condicion-activacion.js';
+} from './kits/clausula-terminacion.js';
 
-const ID = 'LAW-0496';
+const ID = 'LAW-0500';
 const DURATION = 8000;
 const W = {
   open: [0.2, 0.28], strike: [0.36, 0.42], turnOut: [0.47, 0.4795], turnIn: [0.4795, 0.489],
@@ -57,25 +57,25 @@ const STRINGS = {
 
 const sceneSchema = {
   ...motifFields,
-  focusTarget: oneOf('The inspected object (the event card: its supplied state row)', ['eventState']),
-  beforeValue: oneOf('The supplied state of the event before the substitution', STATES),
-  afterValue: oneOf('The supplied state of the event after the substitution', STATES),
+  focusTarget: oneOf('The inspected object (the circumstance card: its supplied state row)', ['caseState']),
+  beforeValue: oneOf('The supplied state of the circumstance before the substitution', STATES),
+  afterValue: oneOf('The supplied state of the circumstance after the substitution', STATES),
   detailGeometry: obj('Lens geometry', {zoom: num('Largest magnification of the lens (≥ 1.5; the layout may use less room but never under 1.5)', 1.5, 4), placement: oneOf('Where the lens sits', ['auto', 'right', 'below'])}),
   contextLabels: obj('Labels for the context view', {context: str('Context headline', 80), marker: str('Label of the changed-datum marker', 70)}),
 };
 
 const defaultParams = {
   ...DEFAULT_CONTENT,
-  focusTarget: 'eventState',
-  beforeValue: 'produced',
-  afterValue: 'pending',
+  focusTarget: 'caseState',
+  beforeValue: 'provided',
+  afterValue: 'undescribed',
   detailGeometry: {zoom: 2.4, placement: 'auto'},
-  contextLabels: {context: 'Event card and tranche, as supplied', marker: 'Changed: the supplied state of event 1'},
+  contextLabels: {context: 'Circumstance card and section, as supplied', marker: 'Changed: the supplied state of circumstance 1'},
 };
 
 const defaultParamsEs = {
   ...DEFAULT_CONTENT_ES,
-  contextLabels: {context: 'Tarjeta del evento y tramo, según lo aportado', marker: 'Cambio: el estado aportado del evento 1'},
+  contextLabels: {context: 'Tarjeta del comunicación y apartado, según lo aportado', marker: 'Cambio: el estado aportado del comunicación 1'},
 };
 
 function unitPx(ctx) {
@@ -83,7 +83,7 @@ function unitPx(ctx) {
   return f.scale * (1080 / Math.min(ctx.view.width, ctx.view.height));
 }
 
-const isStress = p => [...p.obligations, p.event.label].some(t => t.length > 40);
+const isStress = p => [...p.clauses, p.circumstance.label].some(t => t.length > 40);
 
 const scene = {
   sizes: {landscape: [1600, 900], square: [1150, 1000], portrait: [900, 1450]},
@@ -109,13 +109,13 @@ const scene = {
       const leg = (s, pre) => ({name: `${pre}leg-${s}`, kind: 'leg', text: p.stateLabels[s], glyph: s});
       // (print-bar cards: their texts are listed once in the panel)
       // (decided per card: only the texts of the cards drawn with print bars)
-      const perfs = pre => (show ? [...(cardText ? [] : [{name: `${pre}-ev`, kind: 'perf', text: `${p.panels.event}: ${p.event.label}`}]), ...(oblText ? [] : p.obligations.map((t, j) => ({name: `${pre}-o${j}`, kind: 'perf', text: t})))] : []);
+      const perfs = pre => (show ? [...(cardText ? [] : [{name: `${pre}-ev`, kind: 'perf', text: `${p.panels.circumstance}: ${p.circumstance.label}`}]), ...(oblText ? [] : p.clauses.map((t, j) => ({name: `${pre}-o${j}`, kind: 'perf', text: t})))] : []);
       const restItems = [];
-      if (show) restItems.push({name: 'p-head', kind: 'head', text: p.contextLabels.context}, leg('produced', 'p-'), leg('pending', 'p-'), ...perfs('p'));
+      if (show) restItems.push({name: 'p-head', kind: 'head', text: p.contextLabels.context}, leg('provided', 'p-'), leg('undescribed', 'p-'), ...perfs('p'));
       if (showKey) restItems.push({name: 'p-key', kind: 'key', text: ctx.t.key});
       const holdItems = [];
-      if (show) holdItems.push({name: 'h-head', kind: 'head', text: p.contextLabels.context}, {name: 'h-marker', kind: 'marker', text: p.contextLabels.marker}, {name: 'h-was', kind: 'was', text: ctx.t.was.replace('{v}', p.stateLabels[p.beforeValue])}, leg('produced', 'h-'), leg('pending', 'h-'), ...perfs('h'));
-      if (show) holdItems.push({name: 'h-final', kind: 'final', text: p.afterValue === 'produced' ? ctx.t.marked : ctx.t.unmarked});
+      if (show) holdItems.push({name: 'h-head', kind: 'head', text: p.contextLabels.context}, {name: 'h-marker', kind: 'marker', text: p.contextLabels.marker}, {name: 'h-was', kind: 'was', text: ctx.t.was.replace('{v}', p.stateLabels[p.beforeValue])}, leg('provided', 'h-'), leg('undescribed', 'h-'), ...perfs('h'));
+      if (show) holdItems.push({name: 'h-final', kind: 'final', text: p.afterValue === 'provided' ? ctx.t.marked : ctx.t.unmarked});
       if (showKey) holdItems.push({name: 'h-key', kind: 'key', text: ctx.t.key});
       return {restItems, holdItems};
     };
@@ -141,10 +141,10 @@ const scene = {
       return {rest: placeAt(restItems, F), hold: placeAt(holdItems, F)};
     };
     const sideShares = show ? [0.55, 0.52, 0.5, 0.495, 0.49, 0.48, 0.46, 0.455, 0.58] : [0.7, 0.67, 0.64, 0.61, 0.58, 0.565, 0.55];
-    // (1:1: the board's panels side by side, or stacked — the tranche over the event — when the side-by-side panels are too
+    // (1:1: the board's panels side by side, or stacked — the section over the circumstance — when the side-by-side panels are too
     // narrow for the print)
-    // (print bars decided per card — the event card, the obligation cards —: both printed first, then the obligations in
-    // print bars, then the event card, then both)
+    // (print bars decided per card — the circumstance card, the clause cards —: both printed first, then the clauses in
+    // print bars, then the circumstance card, then both)
     for (const growTo of growMode ? [0.665, 0.655] : [1]) for (const [cardText, oblText] of [[true, true], [true, false], [false, true], [false, false]]) for (const stack of shape === 'square' ? [false, true] : [false]) for (const zt of stack ? (stress ? [2.1, 1.62, 1.57] : [1.57, 1.62, 2.1]) : [1.62, 2.1]) for (const share of below ? (show ? [0.5, 0.46, 0.55] : [0.6, 0.55, 0.5]) : stack && show ? [0.5, 0.48, 0.46, 0.52, 0.55] : sideShares) for (const px of stress ? PX_STRESS : PX_BASE) {
       if (best) break;
       // (labels hidden: the cards carry no print either way — one pass)
@@ -155,7 +155,7 @@ const scene = {
       if (growMode && box.w * share * grow > box.w * 0.8) continue;
       const lr = below ? {x: box.x, y: box.y + box.h * share + F * 0.4, w: box.w, h: box.h * (1 - share) - F * 0.4} : {x: box.x + box.w * share + F * 0.5, y: box.y, w: box.w * (1 - share) - F * 0.5, h: box.h};
       const pad = F * 0.12;
-      // (the crop is the event card with its grip tab and the slot's dock round it; when that crop is too short for a real
+      // (the crop is the circumstance card with its grip tab and the slot's dock round it; when that crop is too short for a real
       // inspection — under 0.35 of the frame's short side once magnified — the card is laid out taller, its print centred,
       // rather than the crop taking in the heading above it)
       let Lc = null, src = null, zoom = 0, minChE = 90 / upx;
@@ -163,29 +163,29 @@ const scene = {
       const plr = grow > 1 ? (() => { const x0 = box.x + cb.w * grow + F * 0.6; return {x: x0, y: box.y, w: box.x + box.w - x0, h: box.h}; })() : lr;
       // (a panel text — a print-bar card's text listed there among them — whose widest word cannot fit its chip: skip)
       if (!breakingWords() && !panelWordsFit(F, plr, cardText, oblText)) continue;
-      // (the name plates — they depend only on the context's width and the size —, and a print-bar event card whose widest
+      // (the name plates — they depend only on the context's width and the size —, and a print-bar circumstance card whose widest
       // word cannot fit the widest card even at the smallest lens print: skip at once — the same result as the search)
       if (showKey && p.parties.some(q => fitG(q.name, {maxWidth: Math.min(cb.w * 0.46, 24 * F) - F * 1.2, size: F, maxLines: 3, weight: 600}).bad)) continue;
       if (!cardText && show && !breakingWords()) {
         const s0 = (F * 1.02) / p.detailGeometry.zoom, cwMax = (Math.min(lr.w * 0.96, lr.h * 0.96 * 3) / zt) - F * 0.7 - 5;
-        if (widestToken(p.event.label, Math.min(s0, 17 / upx / p.detailGeometry.zoom), 700) > Math.max(10, cwMax - 0.8 * s0)
+        if (widestToken(p.circumstance.label, Math.min(s0, 17 / upx / p.detailGeometry.zoom), 700) > Math.max(10, cwMax - 0.8 * s0)
           || STATES.some(st => widestToken(p.stateLabels[st], s0, 600) > Math.max(10, cwMax - 0.8 * s0 - 1.15 * s0))) continue;
       }
       // (a printed card that cannot fit the widest card the lens allows: skip at once)
       if (cardText && show && !measureEvent(p, F, (Math.min(lr.w * 0.96, lr.h * 0.96 * 3) / zt) - F * 0.7 - 5, true, true, true)) continue;
-      // (stacked: the obligations' print cannot fit the widest tranche panel the board allows — skip at once)
+      // (stacked: the clauses' print cannot fit the widest section panel the board allows — skip at once)
       // (side by side: the same for half the board's inner width)
       if (oblText && show) {
         const kLo = headMin / (82 * upx), Bm = bracketMetrics(F);
         const bw = cb.w - 2 * (98 * kLo + 1 + Math.max(8, F * 0.3)) - 2 * Math.max(12, F * 0.36);
         const wt = stack ? bw - (Bm.gapC + Bm.arm + Bm.gapC + F * 0.45 + Bm.knobDx + Bm.hr + F * 0.35)
           : (bw - Math.max(F, bw * 0.05) - (Bm.gapC + Bm.travel + Bm.knobDx + Bm.hr + F * 0.35)) / 2;
-        if (!measureObl(p.obligations, F, wt - 2 * Math.max(6, F * 0.25), true, true)) continue;
+        if (!measureObl(p.clauses, F, wt - 2 * Math.max(6, F * 0.25), true, true)) continue;
       }
       const stageAt = mc => layoutStage(ctx, {
         box: cb, upx, prefix: 'st-', p, px: [px], headMin, headTarget: 0, kMax: show ? (shape === 'square' ? Math.min(1.4, (headMin + 30) / (90 * upx)) : 1.4) : 2, tight: true,
         names: showKey ? p.parties.map(q => q.name) : null, plates: null, notes: [], tray: false, noReach: true, cardText, oblText, stack, knobInBrace: true, eventTextGrow: true, eventFullWidth: true, noTab: true, compactTrack: stack,
-        // (the event card no wider than the lens can magnify ≥ 1.6× — or, failing that, ≥ 2.1×: a narrower, taller card)
+        // (the circumstance card no wider than the lens can magnify ≥ 1.6× — or, failing that, ≥ 2.1×: a narrower, taller card)
         cwEMax: (Math.min(lr.w * 0.96, lr.h * 0.96 * 3) / zt) - F * 0.7 - 5,
         minCh: 71 / upx, minChE: mc,
       });
@@ -220,8 +220,8 @@ const scene = {
       if (!Lc) continue;
       if (src.h * zoom < shortU * 1.01) {
         // (last resort: the crop takes in the board round the card, centred on it as far as the board allows — never past
-        // the board's edges (the lens copy is clipped to the board: no legs, no floor); with printed obligation cards never
-        // above the event panel's heading, since the lens copy holds the event card's print only)
+        // the board's edges (the lens copy is clipped to the board: no legs, no floor); with printed clause cards never
+        // above the circumstance panel's heading, since the lens copy holds the circumstance card's print only)
         const need = (shortU * 1.03) / zoom - src.h;
         const G = Lc.G, Bd = G.board;
         const down = Math.max(0, Bd.y + Bd.h - 3 - (src.y + src.h));
@@ -270,7 +270,7 @@ const scene = {
     const th = ctx.theme;
     const F = L.F;
     const Lc = L.Lc;
-    const st = g({name: 'st-scene'}, stageArt(ctx, Lc), oblNodes(ctx, Lc, p.obligations), bracketNode(ctx, Lc, L.before === 'produced'), eventNode(ctx, Lc, L.before, {at: Lc.G.slot}), Lc.rigs[0].node, Lc.rigs[1].node, nameNodes(ctx, Lc, Lc.captions));
+    const st = g({name: 'st-scene'}, stageArt(ctx, Lc), oblNodes(ctx, Lc, p.clauses), bracketNode(ctx, Lc, L.before === 'provided'), eventNode(ctx, Lc, L.before, {at: Lc.G.slot}), Lc.rigs[0].node, Lc.rigs[1].node, nameNodes(ctx, Lc, Lc.captions));
     const lzL = {...Lc, P: 'lzs-'};
     const strike = L.show ? (() => {
       const G = Lc.G, M = L.lensM ?? G.ME, f = M.st[L.before], Fe = M.F;
@@ -282,11 +282,11 @@ const scene = {
     })() : null;
     // (print-bar cards: the lens copy also holds the card printed at its true size, shown once the lens is fully open)
     const lzPrint = L.lensM ? g({name: 'lzs-evp', transform: T(r(Lc.G.slot.x, 2), r(Lc.G.slot.y, 2)), opacity: 0}, eventCard(ctx, {name: 'lzs-evp-in', cw: Lc.G.cwE, ch: Lc.G.chE, M: L.lensM, F: L.lensM.F, state: L.before})) : null;
-    // (the lens copy: the board — its obligation cards as print bars unless the context prints them, the lens holding no
-    // print but the event card's — clipped to the board's own outline, so a crop taller than the card never shows the
+    // (the lens copy: the board — its clause cards as print bars unless the context prints them, the lens holding no
+    // print but the circumstance card's — clipped to the board's own outline, so a crop taller than the card never shows the
     // legs or the floor)
     const Bd = Lc.G.board, upL = Lc.G.layerUp;
-    const lzObl = L.show && Lc.G.oblText ? null : oblNodes(ctx, {...lzL, G: {...Lc.G, oblText: false, cardText: false}}, p.obligations);
+    const lzObl = L.show && Lc.G.oblText ? null : oblNodes(ctx, {...lzL, G: {...Lc.G, oblText: false, cardText: false}}, p.clauses);
     const lzContent = g(null,
       h('defs', null, h('clipPath', {id: ctx.id('lens-board')}, h('path', {d: roundRectPath(Bd.x - 4, Bd.y - upL * 2 - 4, Bd.w + 8, Bd.h + upL * 2 + 6, 12)}))),
       g({'clip-path': ctx.ref('lens-board')}, g({name: 'lzs-scene'}, stageArt(ctx, lzL), lzObl, eventNode(ctx, lzL, L.before, {at: Lc.G.slot}), lzPrint), strike));
@@ -299,7 +299,7 @@ const scene = {
       if (q.it.kind === 'was') kids.push(h('path', {d: `M${r(q.x + q.c.box.w * 0.08)} ${r(q.y + q.c.box.h / 2)}H${r(q.x + q.c.box.w * 0.92)}`, stroke: th.inkSoft, 'stroke-width': 2.4}));
       return g({name: q.it.name}, kids);
     }));
-    // the Δ beside the event card (in the gutter between the panels, level with the card's top)
+    // the Δ beside the circumstance card (in the gutter between the panels, level with the card's top)
     const G = Lc.G;
     // (stacked panels: beside the card, in the board's right column under the bracket's track)
     // (side by side: under the card's lower right corner when the panel has room there, else in the gutter by its top)
@@ -307,7 +307,7 @@ const scene = {
     const mk = !G.stack && roomBelow >= F * 1.7 ? changedMarker(ctx, {name: 'st-delta', x: G.slot.x + G.cwE / 2 - F * 0.75, y: G.slot.y + G.chE / 2 + 5 + F * 0.8, radius: F * 0.6, opacity: 0})
       : G.stack ? stackDelta(ctx, G, F)
       : changedMarker(ctx, {name: 'st-delta', x: G.panelE.x + G.panelE.w + G.gw / 2, y: G.slot.y - G.chE / 2 + F * 0.6, radius: Math.min(F * 0.6, G.gw * 0.45), opacity: 0});
-    // (the lens's tie back to its source: a soft callout wedge from the event card's slot to the lens window, behind the
+    // (the lens's tie back to its source: a soft callout wedge from the circumstance card's slot to the lens window, behind the
     // board and the people — it shows between them, so the enlarged copy reads as the card's, not as a new object)
     const link = h('path', {name: 'lens-link', d: 'M0 0', fill: th.fg, 'fill-opacity': 0.07, stroke: th.inkSoft, 'stroke-width': 2.5, 'stroke-dasharray': '9 7', 'stroke-linejoin': 'round', opacity: 0});
     return g({name: 'scene'}, link, st, mk, panel(L.rest, 'panel-rest'), panel(L.hold, 'panel-hold'), lz.node);
@@ -323,7 +323,7 @@ const scene = {
     const hand = handOver(open);
     for (const P of ['st-', 'lzs-']) poseCopy(nodes, L, P, u, hand);
     // the bracket (the context only): its supplied place for the before state, then for the after state
-    const bx = s => (s === 'produced' ? G.B.closedX : G.B.openX);
+    const bx = s => (s === 'provided' ? G.B.closedX : G.B.openX);
     const brX = bx(L.before) + (bx(L.after) - bx(L.before)) * dep;
     nodes['st-br'] = {transform: T(r(brX, 2), r(G.B.top, 2))};
     const posed = [G.figA, G.figB].map((fg, i) => Lc.rigs[i].frame({x: fg.x, y: fg.floor, facing: fg.f, scale: fg.k, headTilt: 3}));
@@ -349,7 +349,7 @@ const scene = {
       nodes,
       semantic: {
         lensOpen: r(open, 3), datum: after ? 'after' : 'before', dep: r(dep, 3),
-        bracket: dep <= 0 ? (L.before === 'produced' ? 'closed' : 'open') : dep >= 1 ? (L.after === 'produced' ? 'closed' : 'open') : 'moving',
+        bracket: dep <= 0 ? (L.before === 'provided' ? 'closed' : 'open') : dep >= 1 ? (L.after === 'provided' ? 'closed' : 'open') : 'moving',
         contextValue: hand.ctx > 0.5 ? p.stateLabels[stateNow] : null, contextState: hand.ctx > 0.5 ? stateNow : null,
         lensValue: hand.copy > 0.5 ? p.stateLabels[stateNow] : null, lensState: hand.copy > 0.5 ? stateNow : null, valueLegible: r(turnV, 3),
         zoom: r(L.zoom, 3), contextFrac: r(L.contextFrac, 3), lensClearOfHeads: L.lensClearOfHeads, lensClearOfContext: L.lensClearOfContext,
@@ -363,7 +363,7 @@ const scene = {
 };
 
 /**
- * The print of a print-bar event card as the lens shows it (its true size, legible only through the lens): as large as
+ * The print of a print-bar circumstance card as the lens shows it (its true size, legible only through the lens): as large as
  * the card holds — from about 3.2× down to the body size once magnified — with the context card's own inner padding (at
  * least 0.6 of the print size) round it, so the state glyph never hugs the card's edge. The state row (the inspected
  * datum) is sized first; the label as large as fits beside it (≤ 1.3× the state’s size, ≥ 17 px, ≤ 3 lines; a long unbroken word
@@ -377,17 +377,17 @@ function lensPrint(p, G, F, zoom, upx) {
     const tw = G.cwE - 2 * padX;
     if (tw < sz * 6) continue;
     const st = {
-      produced: fitG(p.stateLabels.produced, {maxWidth: tw - gz, size: sz, maxLines: 4, weight: 600, strict: true}),
-      pending: fitG(p.stateLabels.pending, {maxWidth: tw - gz, size: sz, maxLines: 4, weight: 600, strict: true}),
+      provided: fitG(p.stateLabels.provided, {maxWidth: tw - gz, size: sz, maxLines: 4, weight: 600, strict: true}),
+      undescribed: fitG(p.stateLabels.undescribed, {maxWidth: tw - gz, size: sz, maxLines: 4, weight: 600, strict: true}),
     };
-    if (st.produced.bad || st.pending.bad) continue;
-    const stH = Math.max(st.produced.height, st.pending.height);
+    if (st.provided.bad || st.undescribed.bad) continue;
+    const stH = Math.max(st.provided.height, st.undescribed.height);
     // (the label as large as fits — up to 1.3× the state's size, never under 17 px once magnified)
     let label = null;
     const lMin = Math.min(F * 1.02, 17 / upx) / zoom;
     for (let ls = sz * 1.3; ls >= lMin - 1e-6; ls = ls > lMin && ls * 0.92 < lMin ? lMin : ls * 0.92) {
       // (the centred label keeps the card's own inner padding; the wider state padding is for its glyph)
-      const f = fitG(p.event.label, {maxWidth: G.cwE - 2 * padIn, size: ls, maxLines: 3, weight: 700, strict: true});
+      const f = fitG(p.circumstance.label, {maxWidth: G.cwE - 2 * padIn, size: ls, maxLines: 3, weight: 700, strict: true});
       if (!f.bad) { label = f; break; }
     }
     if (!label) continue;
@@ -423,7 +423,7 @@ function rebalanceNames(Lc, F) {
 }
 
 /**
- * The Δ of the stacked board (1:1): the event card spans the panel, so the Δ sits in the panel's heading band, at its
+ * The Δ of the stacked board (1:1): the circumstance card spans the panel, so the Δ sits in the panel's heading band, at its
  * right end — clear of the heading's print (or its bar) and above the slot's dock — or, if the heading leaves no room
  * there, at the band's left end.
  */
@@ -510,7 +510,7 @@ function printOn(open) {
   return open >= 0.985 ? 1 : 0;
 }
 
-/** Pose one copy's event card: the state row by the datum (turning over), blank in the context while the lens holds it. */
+/** Pose one copy's circumstance card: the state row by the datum (turning over), blank in the context while the lens holds it. */
 function poseCopy(nodes, L, P0, u, hand) {
   const lens = P0 !== 'st-';
   const P = P0 === 'lzs-evp-' ? 'lzs-evp-in' : `${P0}ev-in`;
@@ -526,9 +526,9 @@ function poseCopy(nodes, L, P0, u, hand) {
     nodes[`${P}-st-${L.after}`] = {opacity: r(after ? v1 * ctxOn : 0, 3)};
   }
   if (P0 === 'lzs-' && L.show) {
-    // (the lens copy shows no printed text but the event card's: the rest of the board stays out of it)
+    // (the lens copy shows no printed text but the circumstance card's: the rest of the board stays out of it)
     nodes['lzs-board-head'] = {opacity: 0};
-    for (const nm of ['event', 'tranche']) if (L.Lc.G.headFits[0]) nodes[`lzs-panel-${nm}-head`] = {opacity: 0};
+    for (const nm of ['circumstance', 'section']) if (L.Lc.G.headFits[0]) nodes[`lzs-panel-${nm}-head`] = {opacity: 0};
   }
 }
 
@@ -538,18 +538,18 @@ export default defineAnimation({
   defaultDurationMs: DURATION,
   metadata: makeMetadata({
     id: ID,
-    slug: 'contract-terms-04-inspect',
-    title: 'Activation event, without a rule — inspecting the event card and substituting its supplied state',
-    titleEs: 'Condición de activación — Inspección y cambio de un dato',
+    slug: 'contract-terms-05-inspect',
+    title: 'Activation circumstance, without a rule — inspecting the circumstance card and substituting its supplied state',
+    titleEs: 'Cláusula de terminación — Inspección y cambio de un dato',
     category: 'contract-terms',
     categoryName: 'Contenido y cláusulas',
-    motif: 'Condición de activación',
+    motif: 'Cláusula de terminación',
     treatment: 'inspect',
     family: 'focus-and-replay',
-    description: 'The contract board after the story\'s action: the event card "Event 1 (supplied)" seated in its slot with its supplied state ● "Event produced (as supplied)", the supplied obligation cards and a neutral bracket shut on the supplied tranche, the two parties beside the board. A lens grows beside the scene with a real enlarged copy of the event card; the old state is struck, the state row turns over to the supplied alternative ◆ "Event pending (as supplied)" and only then the bracket slides open in its track, as supplied. The lens closes onto the card, a Δ marks it and the panel shows the marker, the struck "was:" value, the ●/◆ legend at equal weight and the key "As supplied · no conclusion drawn". Seeking back restores the old datum. No rule and no conclusion.',
-    tags: ['activation event', 'event', 'produced', 'pending', 'tranche', 'bracket', 'lens', 'substitution', 'changed datum', 'characters'],
+    description: 'The contract board after the story\'s action: the circumstance card "Circumstance 1 (supplied)" seated in its slot with its supplied state ● "Circumstance provided (as supplied)", the supplied clause cards and a neutral bracket shut on the supplied section, the two parties beside the board. A lens grows beside the scene with a real enlarged copy of the circumstance card; the old state is struck, the state row turns over to the supplied alternative ◆ "Circumstance undescribed (as supplied)" and only then the bracket slides open in its track, as supplied. The lens closes onto the card, a Δ marks it and the panel shows the marker, the struck "was:" value, the ●/◆ legend at equal weight and the key "As supplied · no conclusion drawn". Seeking back restores the old datum. No rule and no conclusion.',
+    tags: ['activation circumstance', 'circumstance', 'provided', 'undescribed', 'section', 'bracket', 'lens', 'substitution', 'changed datum', 'characters'],
     defaultDurationMs: DURATION,
-    assets: ['src/animations/contract-terms/kits/condicion-activacion.js', 'src/primitives/markers.js', 'src/primitives/person.js', 'src/primitives/annotate.js'],
+    assets: ['src/animations/contract-terms/kits/clausula-terminacion.js', 'src/primitives/markers.js', 'src/primitives/person.js', 'src/primitives/annotate.js'],
   }),
   sceneSchema,
   defaultParams,

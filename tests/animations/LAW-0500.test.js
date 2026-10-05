@@ -1,10 +1,10 @@
-// LAW-0496 — Condición de activación · inspect. Contract battery + ID-specific checks.
+// LAW-0500 — Cláusula de terminación · inspect. Contract battery + ID-specific checks.
 // Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05):
-// clauses (the event card and the obligation cards stand for the clauses), schedules, definitions and priorities (no
-// priority or order between obligations is drawn). focusTarget (one value: the event card's state row), beforeValue /
-// afterValue (the supplied state of the event), detailGeometry and contextLabels are exposed. No stress field is capped.
+// clauses (the circumstance card and the clause cards stand for the clauses), schedules, definitions and priorities (no
+// priority or order between clauses is drawn). focusTarget (one value: the circumstance card's state row), beforeValue /
+// afterValue (the supplied state of the circumstance), detailGeometry and contextLabels are exposed. No stress field is capped.
 // acceptanceCheck (brief): the detail keeps its source coordinates (the lens content is a real copy of the board, laid out
-// and posed identically every frame, mapped from the event card's own box), the change is local (only the card's state
+// and posed identically every frame, mapped from the circumstance card's own box), the change is local (only the card's state
 // row turns and, once the new value is legible, only the bracket slides — open or shut, as supplied; the cards and the
 // people do not move), and seeking back restores the old datum exactly.
 // Lens checklist (docs/AUTHORING.md line 109; SESSION_HANDOFF lens decisions): one legible copy at a time, the state
@@ -16,30 +16,30 @@
 // other text; nothing cut by the rim; panel/lens and context/lens hand-overs ≤ 180 ms; the lens grows at its own place,
 // never over the context; the NEW state in the context right after the close and the Δ right after; labels key / none
 // (cf-08 / cf-10 rulings): the scene ≥ 0.55 of the frame at rest and at the hold, shrinking only while the lens is open.
-// Windows (LAW-0496.js W): panel out 0.18–0.20 · open 0.20–0.28 · strike 0.36–0.42 · turn 0.47–0.489 · dependent
+// Windows (LAW-0500.js W): panel out 0.18–0.20 · open 0.20–0.28 · strike 0.36–0.42 · turn 0.47–0.489 · dependent
 // change (the bracket) 0.50–0.56 · close 0.74–0.80 · Δ 0.799–0.812 · panel back 0.80–0.84 · key 0.81–0.85.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
 import {ratioChecks, times} from '../harness/ratio-checks.js';
-import {textFloor, noTextOverlap, noTextOverProps, seekHistory, fill, headFloor, esDefaults, noConditionRuleWords, conceptNeutral, TERM_BANNED, CONFIG_WORDS, noOneWordLines, noLoneLetterSplit, noTornNumberUnit, esAportadoAgrees, docSize} from './ct04-rendered.js';
+import {textFloor, noTextOverlap, noTextOverProps, seekHistory, fill, headFloor, esDefaults, noConditionRuleWords, conceptNeutral, TERM_BANNED, CONFIG_WORDS, noOneWordLines, noLoneLetterSplit, noTornNumberUnit, esAportadoAgrees, docSize} from './ct05-rendered.js';
 
-const ID = 'LAW-0496';
+const ID = 'LAW-0500';
 const P = name => presetsFor(ID).find(q => q.name === name).params;
 const RATIOS = [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]];
 
 contractSuite(ID, {
   semantic: [
-    {at: 0.1, fn: "s.lensOpen === 0 && s.datum === 'before' && s.contextState === 'produced' && s.bracket === 'closed' && !s.markerVisible", label: 'context: the story end state — produced, the bracket shut on the tranche; no marker'},
-    {at: 0.34, fn: "s.lensOpen === 1 && s.datum === 'before' && s.zoom >= 1.6 && s.lensState === 'produced' && s.contextState === null", label: 'isolate: a real enlarged copy (≥ 1.6×); the context card blank while the lens shows it'},
+    {at: 0.1, fn: "s.lensOpen === 0 && s.datum === 'before' && s.contextState === 'provided' && s.bracket === 'closed' && !s.markerVisible", label: 'context: the story end state — provided, the bracket shut on the section; no marker'},
+    {at: 0.34, fn: "s.lensOpen === 1 && s.datum === 'before' && s.zoom >= 1.6 && s.lensState === 'provided' && s.contextState === null", label: 'isolate: a real enlarged copy (≥ 1.6×); the context card blank while the lens shows it'},
     {at: 0.44, fn: "s.strike === 1 && s.datum === 'before' && s.bracket === 'closed'", label: 'the old value struck before anything changes'},
-    {at: 0.495, fn: "s.datum === 'after' && s.lensState === 'pending' && s.dep === 0 && s.bracket === 'closed'", label: 'the new value legible first; the bracket has not moved yet'},
+    {at: 0.495, fn: "s.datum === 'after' && s.lensState === 'undescribed' && s.dep === 0 && s.bracket === 'closed'", label: 'the new value legible first; the bracket has not moved yet'},
     {at: 0.53, fn: "s.bracket === 'moving'", label: 'then the bracket slides open, as supplied'},
     {at: 0.6, fn: "s.bracket === 'open' && s.lensOpen === 1 && s.datum === 'after'", label: 'the bracket open; the lens still open'},
-    {at: 0.81, fn: "s.lensOpen === 0 && s.contextState === 'pending' && s.bracket === 'open'", label: 'the lens has closed onto the card, which shows the new state'},
+    {at: 0.81, fn: "s.lensOpen === 0 && s.contextState === 'undescribed' && s.bracket === 'open'", label: 'the lens has closed onto the card, which shows the new state'},
     {at: 1, fn: 's.markerVisible && s.layoutOk && s.allReached', label: 'return: Δ marker; nothing concluded'},
     {at: 0.3, fn: "s.datum === 'before' && s.strike === 0 && s.bracket === 'closed'", label: 'seeking back restores the previous datum exactly'},
-    {at: 1, params: P('contrast-or-alternative'), fn: "s.before === 'pending' && s.after === 'produced' && s.bracket === 'closed' && s.contextState === 'produced'", label: 'alternative: pending → produced; the bracket then slides shut'},
+    {at: 1, params: P('contrast-or-alternative'), fn: "s.before === 'undescribed' && s.after === 'provided' && s.bracket === 'closed' && s.contextState === 'provided'", label: 'alternative: undescribed → provided; the bracket then slides shut'},
     {at: 0.6, params: {textVisibility: 'none'}, fn: "s.lensOpen === 1 && s.datum === 'after' && s.bracket === 'open'", label: 'labels hidden: the same isolation and substitution'},
   ],
 });
@@ -52,8 +52,8 @@ ratioChecks(ID, 'lens: zoom, never over the context, the new value still', [
 ]);
 
 suppliedTextSuite(ID, {
-  fields: "return [p.contract.reference + ' · ' + p.contract.title, p.event.label, p.stateLabels[p.afterValue], ...p.obligations, ...p.parties.map(q => q.name), p.contextLabels.context, p.contextLabels.marker]",
-  content: "return [p.event.label, p.stateLabels[p.afterValue], ...p.obligations, p.contextLabels.marker]",
+  fields: "return [p.contract.reference + ' · ' + p.contract.title, p.circumstance.label, p.stateLabels[p.afterValue], ...p.clauses, ...p.parties.map(q => q.name), p.contextLabels.context, p.contextLabels.marker]",
+  content: "return [p.circumstance.label, p.stateLabels[p.afterValue], ...p.clauses, p.contextLabels.marker]",
   captions: "return ['As supplied · no conclusion drawn', 'Según lo aportado · sin conclusión']",
 });
 
@@ -67,7 +67,7 @@ esDefaults(ID);
 noConditionRuleWords(ID);
 conceptNeutral(ID);
 docSize(ID, {cards: '^st-obl\\d-in$', times: [0.1, 1], floor: 70});
-// (the inspected object — the event card — is a real object: ≥ 85 px at 1:1 outside the stress preset)
+// (the inspected object — the circumstance card — is a real object: ≥ 85 px at 1:1 outside the stress preset)
 docSize(ID, {cards: '^st-ev-in$', times: [0.1, 1]});
 
 test(`${ID}: no preset supplies rule, conclusion or condition wording (EN and ES)`, () => {
@@ -110,7 +110,7 @@ test(`${ID}: lens checklist — one copy (glyph included), hand-overs, size, con
         x.seek(t);
         const u = t / x.durationMs;
         const a = legible(ctxM), b = legible(lzM) && eff(svg, svg.querySelector('[data-node="lens-win"]')) > 0;
-        if (a && b) fails.push(`${tag} t${Math.round(t)}: two legible copies of the event card`);
+        if (a && b) fails.push(`${tag} t${Math.round(t)}: two legible copies of the circumstance card`);
         if (!a && !b && u > 0.15 && u < 0.85) { gap += 1000 / 60; worstGap = Math.max(worstGap, gap); } else gap = 0;
         const pv = Math.max(eff(svg, svg.querySelector('[data-node="panel-rest"]')), eff(svg, svg.querySelector('[data-node="panel-hold"]')));
         const lv = eff(svg, svg.querySelector('[data-node="lens-win"]'));
@@ -144,7 +144,7 @@ test(`${ID}: lens checklist — one copy (glyph included), hand-overs, size, con
         if (!inside && !outside) fails.push(`${tag}: "${t.textContent.trim().slice(0, 20)}" cut by the rim`);
       }
       const card = box(svg, 'lzs-ev-in-sheet');
-      if (card.left < W0.left - 0.5 || card.right > W0.right + 0.5 || card.top < W0.top - 0.5 || card.bottom > W0.bottom + 0.5) fails.push(`${tag}: the event card cut by the rim`);
+      if (card.left < W0.left - 0.5 || card.right > W0.right + 0.5 || card.top < W0.top - 0.5 || card.bottom > W0.bottom + 0.5) fails.push(`${tag}: the circumstance card cut by the rim`);
       const N = 30;
       const leaves = [...svg.querySelectorAll('[data-node="lens-content"] path, [data-node="lens-content"] rect, [data-node="lens-content"] circle, [data-node="lens-content"] text, [data-node="lens-content"] line')].filter(e => eff(svg, e) > 0.05).map(e => ({t: e.tagName, b: e.getBoundingClientRect()}));
       let fillN = 0, textN = 0;
@@ -175,7 +175,7 @@ test(`${ID}: lens checklist — one copy (glyph included), hand-overs, size, con
   expect(out.fails.slice(0, 30)).toEqual([]);
 });
 
-// Rest magnification at sized hosts: the lens copy of the event card is ≥ 1.5× the card at rest, in both dimensions, at
+// Rest magnification at sized hosts: the lens copy of the circumstance card is ≥ 1.5× the card at rest, in both dimensions, at
 // a 640×360 element and in 800×600 and 1400×1000 viewports (every preset × labels).
 test(`${ID}: rest magnification ≥ 1.5 at every host size (rendered)`, async ({page}) => {
   test.setTimeout(600000);
@@ -318,9 +318,9 @@ test(`${ID}: the Δ marker is clear of every text (rendered)`, async ({page}) =>
   expect(out).toEqual([]);
 });
 
-// Produced and pending drawn alike (rendered): the panel's ● and ◆ legend glyphs have the same area (± 8 %), fill and
-// stroke; the two state rows of the event card are fitted to one card size.
-test(`${ID}: produced and pending drawn alike (rendered)`, async ({page}) => {
+// Provided and undescribed drawn alike (rendered): the panel's ● and ◆ legend glyphs have the same area (± 8 %), fill and
+// stroke; the two state rows of the circumstance card are fitted to one card size.
+test(`${ID}: provided and undescribed drawn alike (rendered)`, async ({page}) => {
   test.setTimeout(300000);
   await page.goto('/tests/harness/host.html');
   await page.waitForFunction(() => document.body.dataset.ready === '1');
@@ -337,7 +337,7 @@ test(`${ID}: produced and pending drawn alike (rendered)`, async ({page}) => {
       x.seek(x.durationMs);
       const svg = x.element;
       const gl = s => { const g = svg.querySelector(`[data-node="h-leg-${s}"]`); return g ? [...g.children].find(e => e.tagName === 'circle' || (e.tagName === 'path' && e.getAttribute('stroke-linejoin'))) : null; };
-      const a = gl('produced'), b = gl('pending');
+      const a = gl('provided'), b = gl('undescribed');
       if (a && b) {
         n++;
         const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
@@ -360,8 +360,8 @@ noTornNumberUnit(ID);
 esAportadoAgrees(ID);
 
 // Print-bar fallback (reviewer requests, 2026-10-05; fix2): supplied texts too long for a printed card in the context — an
-// unbroken long word — are drawn as print bars PER CARD (the event card, the obligation cards: a long obligation never
-// turns the event card into bars). The texts of the barred cards are listed once in the panel at rest; a barred event card
+// unbroken long word — are drawn as print bars PER CARD (the circumstance card, the clause cards: a long clause never
+// turns the circumstance card into bars). The texts of the barred cards are listed once in the panel at rest; a barred circumstance card
 // is printed at its true size in the lens once fully open (old state, then the new one), its print filling the lens window
 // (union of its text ≥ 0.33 of the window — about 0.25 before fix2) with the card's inner padding (state glyph ≥ 14 px from the rim); the context
 // card never carries a legible print; the Δ and the hold work as usual, and every case renders a full scene.
@@ -371,12 +371,12 @@ test(`${ID}: print-bar fallback — per card, texts listed in the panel, printed
   await page.waitForFunction(() => document.body.dataset.ready === '1');
   const stress = P('long-labels-stress');
   const cands = [
-    {name: 'long-obligation', params: {obligations: ['Obligation-with-an-extraordinarily-long-hyphenated-name 1', 'Obligation 2 (supplied text)', 'Obligation 3 (supplied text)']}},
-    {name: 'obligation-token42', params: {obligations: ['Gewaehrleistungsverpflichtungsvereinbarung 1', 'Obligation 2 (supplied text)']}},
-    {name: 'event-token42', params: {event: {label: 'Event Gewaehrleistungsverpflichtungsvereinbarung 1'}}},
-    {name: 'stress-event-token33', params: {...stress, event: {label: 'Event Vertragserfuellungsbedingungenxyz 1'}}},
-    {name: 'both-tokens', params: {event: {label: 'Event Vertragserfuellungsbedingungenxyz 1'}, obligations: ['Gewaehrleistungsverpflichtungsvereinbarung 1', 'Obligation 2 (supplied text)']}},
-    {name: 'stress-long-word', params: {...stress, obligations: ['Obligation-with-an-extraordinarily-long-hyphenated-name 1', ...stress.obligations.slice(1)]}},
+    {name: 'long-clause', params: {clauses: ['Clause-with-an-extraordinarily-long-hyphenated-name 1', 'Clause 2 (supplied text)', 'Clause 3 (supplied text)']}},
+    {name: 'clause-token42', params: {clauses: ['Gewaehrleistungsverpflichtungsvereinbarung 1', 'Clause 2 (supplied text)']}},
+    {name: 'circumstance-token42', params: {circumstance: {label: 'Circumstance Gewaehrleistungsverpflichtungsvereinbarung 1'}}},
+    {name: 'stress-circumstance-token33', params: {...stress, circumstance: {label: 'Circumstance Vertragserfuellungsbedingungenxyz 1'}}},
+    {name: 'both-tokens', params: {circumstance: {label: 'Circumstance Vertragserfuellungsbedingungenxyz 1'}, clauses: ['Gewaehrleistungsverpflichtungsvereinbarung 1', 'Clause 2 (supplied text)']}},
+    {name: 'stress-long-word', params: {...stress, clauses: ['Clause-with-an-extraordinarily-long-hyphenated-name 1', ...stress.clauses.slice(1)]}},
   ];
   const out = await page.evaluate(async ([id, cands, ratios, HELP]) => {
     eval(HELP.replace(/const /g, 'globalThis.'));
@@ -393,25 +393,25 @@ test(`${ID}: print-bar fallback — per card, texts listed in the panel, printed
       const tag = `${c.name} ${ratio}`;
       x.seek(0.1 * x.durationMs);
       const s0 = x.getState({bounds: false}).semantic;
-      rows.push(`${tag}: event printed ${s0.cardText} · obligations printed ${s0.oblText} · layoutOk ${s0.layoutOk} text ${s0.textPx}px`);
+      rows.push(`${tag}: circumstance printed ${s0.cardText} · clauses printed ${s0.oblText} · layoutOk ${s0.layoutOk} text ${s0.textPx}px`);
       if (!s0.layoutOk || !svg.querySelector('[data-node="st-ev-in-sheet"]')) { fails.push(`${tag}: no full scene (${s0.why})`); x.destroy(); el.remove(); continue; }
       const norm = t => t.replace(/[ ⁠]/g, ' ').replace(/\s+/g, ' ').trim();
       const shown = sel => [...svg.querySelectorAll(sel)].filter(t => eff(svg, t) >= 0.5).map(t => norm(t.textContent)).join(' ');
       const rest = shown('[data-node="panel-rest"] text');
-      const label = c.params.event?.label ?? def.defaultParams.event.label;
-      const obls = c.params.obligations ?? def.defaultParams.obligations;
+      const label = c.params.circumstance?.label ?? def.defaultParams.circumstance.label;
+      const obls = c.params.clauses ?? def.defaultParams.clauses;
       const evText = svg.querySelectorAll('[data-node="st-ev-in"] text').length;
       const oblText = svg.querySelectorAll('[data-node^="st-obl"] text').length;
       // per card: each card printed or barred on its own
-      if (s0.cardText === false && evText) fails.push(`${tag}: the barred event card carries text`);
-      if (s0.cardText !== false && !evText) fails.push(`${tag}: the printed event card has no text`);
-      if (s0.oblText === false && oblText) fails.push(`${tag}: the barred obligation cards carry text`);
-      if (s0.oblText !== false && !oblText) fails.push(`${tag}: the printed obligation cards have no text`);
+      if (s0.cardText === false && evText) fails.push(`${tag}: the barred circumstance card carries text`);
+      if (s0.cardText !== false && !evText) fails.push(`${tag}: the printed circumstance card has no text`);
+      if (s0.oblText === false && oblText) fails.push(`${tag}: the barred clause cards carry text`);
+      if (s0.oblText !== false && !oblText) fails.push(`${tag}: the printed clause cards have no text`);
       if (s0.cardText !== s0.oblText) perCard++;
       if (s0.oblText === false) {
         oblBars++;
-        for (const t of obls) if (!rest.includes(norm(t).split(' ')[0].slice(0, 12))) fails.push(`${tag}: panel at rest lacks the obligation "${t.slice(0, 20)}"`);
-      } else if (rest.includes(norm(obls[0]).slice(0, 18))) fails.push(`${tag}: a printed obligation is listed in the panel as well`);
+        for (const t of obls) if (!rest.includes(norm(t).split(' ')[0].slice(0, 12))) fails.push(`${tag}: panel at rest lacks the clause "${t.slice(0, 20)}"`);
+      } else if (rest.includes(norm(obls[0]).slice(0, 18))) fails.push(`${tag}: a printed clause is listed in the panel as well`);
       if (s0.cardText !== false) { x.destroy(); el.remove(); continue; }
       evBars++;
       for (const word of norm(label).split(' ').slice(0, 3)) if (!rest.includes(word)) fails.push(`${tag}: panel at rest lacks "${word}"`);
@@ -423,7 +423,7 @@ test(`${ID}: print-bar fallback — per card, texts listed in the panel, printed
         if (s.lensOpen !== 1 || s.lensState !== want) fails.push(`${tag} u${u}: lens ${s.lensOpen} state ${s.lensState}`);
         if (eff(svg, svg.querySelector('[data-node="lzs-evp"]')) < 0.99) fails.push(`${tag} u${u}: the lens print is not shown`);
         const lens = shown('[data-node="lzs-evp"] text');
-        if (!lens.includes(norm(label).split(' ')[0])) fails.push(`${tag} u${u}: the lens print lacks the event label`);
+        if (!lens.includes(norm(label).split(' ')[0])) fails.push(`${tag} u${u}: the lens print lacks the circumstance label`);
         const W0 = box(svg, 'lens-border');
         const tb = [...svg.querySelectorAll('[data-node="lzs-evp"] text')].filter(t => eff(svg, t) >= 0.5).map(t => t.getBoundingClientRect()).filter(b => b.width);
         for (const b of tb) if (b.left < W0.left - 0.5 || b.right > W0.right + 0.5 || b.top < W0.top - 0.5 || b.bottom > W0.bottom + 0.5) fails.push(`${tag} u${u}: lens print cut by the rim`);
@@ -454,8 +454,8 @@ test(`${ID}: print-bar fallback — per card, texts listed in the panel, printed
   expect(out.fails).toEqual([]);
 });
 
-// Long unbroken tokens (fix2-contract-terms-04, reviewer request 2026-10-05): a 33-, 42- or 55-character word in the event
-// label, an obligation, a state label or a party name — over the default content and over the long-labels-stress content
+// Long unbroken tokens (fix2-contract-terms-05, reviewer request 2026-10-05): a 33-, 42- or 55-character word in the circumstance
+// label, an clause, a state label or a party name — over the default content and over the long-labels-stress content
 // — renders a full scene at 16:9, 9:16 and 1:1 (never the empty group of `no-layout-fits`): the kit breaks a word (after
 // its own hyphens, else mid-word with a hyphen) only in a second layout pass, when no whole-word layout exists; all text
 // stays inside the frame.
@@ -470,11 +470,11 @@ test(`${ID}: long unbroken tokens (33/42/55 chars) render a full scene at every 
     const TOK = ['Vertragserfuellungsbedingungenxyz', 'Gewaehrleistungsverpflichtungsvereinbarung', 'Gewaehrleistungsverpflichtungsvereinbarungsklauselnabcd'];
     const fails = [];
     let n = 0, slow = 0, broken = 0;
-    for (const tok of TOK) for (const [bn, base] of [['default', {}], ['stress', stress]]) for (const field of ['event', 'obligation', 'state', 'name']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+    for (const tok of TOK) for (const [bn, base] of [['default', {}], ['stress', stress]]) for (const field of ['circumstance', 'clause', 'state', 'name']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
       const p = structuredClone(base);
-      if (field === 'event') p.event = {label: `${tok} 1`};
-      if (field === 'obligation') p.obligations = [`${tok} 1`, ...(p.obligations ?? d.obligations).slice(1)];
-      if (field === 'state') p.stateLabels = {produced: tok, pending: (p.stateLabels ?? d.stateLabels).pending};
+      if (field === 'circumstance') p.circumstance = {label: `${tok} 1`};
+      if (field === 'clause') p.clauses = [`${tok} 1`, ...(p.clauses ?? d.clauses).slice(1)];
+      if (field === 'state') p.stateLabels = {provided: tok, undescribed: (p.stateLabels ?? d.stateLabels).undescribed};
       if (field === 'name') p.parties = [{...(p.parties ?? d.parties)[0], name: tok}, (p.parties ?? d.parties)[1]];
       const tag = `${tok.length} ${bn} ${field} ${ratio}`;
       const el = document.createElement('div');

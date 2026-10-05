@@ -1,22 +1,22 @@
 /**
- * LAW-0494 — Condición de activación · mechanism
+ * LAW-0498 — Cláusula de terminación · mechanism
  *
  * Storyboard (the contract taken apart into its parts; no people):
- *  0.00–0.18  separate: the assembled contract (head plate over the two panels) comes apart — the plate lifts, the event
- *             panel ("Event": the event card "Event 1 (supplied)" with its supplied state row, ● produced or ◆ pending,
- *             drawn alike) slides left and the tranche panel ("Tranche of obligations": the supplied obligation cards,
+ *  0.00–0.18  separate: the assembled contract (head plate over the two panels) comes apart — the plate lifts, the circumstance
+ *             panel ("Circumstance": the circumstance card "Circumstance 1 (supplied)" with its supplied state row, ● provided or ◆ undescribed,
+ *             drawn alike) slides left and the section panel ("Section of clauses": the supplied clause cards,
  *             with the bracket "[" standing open in its track at their left) slides right.
  *  0.18–0.43  relate: only the explicit relations are drawn, all plain (no arrowhead, no causality): the contract with
- *             each panel ("Part of the contract") and the supplied configured link between the event card and the
+ *             each panel ("Part of the contract") and the supplied configured link between the circumstance card and the
  *             bracket's knob ("Configured link (as supplied)"), drawn from both ends at once.
- *  0.43–0.75  trace: a neutral marker runs the supplied stages along the relations — contract, event, link, tranche —
- *             while the focus element enlarges. When it reaches the knob, with the state "produced" the bracket slides
- *             shut on the supplied tranche (it MARKS the tranche, nothing else); with "pending" it stays open.
- *  0.75–1.00  gather: the parts close in part with every element, relation and label visible; "Tranche marked as
- *             supplied" (or "Tranche not marked · as supplied") and the key "As supplied · no conclusion drawn".
- * No rule on conditions: no fulfilment, no automatic effect, no obligation becoming due, binding or enforceable; no
+ *  0.43–0.75  trace: a neutral marker runs the supplied stages along the relations — contract, circumstance, link, section —
+ *             while the focus element enlarges. When it reaches the knob, with the state "provided" the bracket slides
+ *             shut on the supplied section (it MARKS the section, nothing else); with "undescribed" it stays open.
+ *  0.75–1.00  gather: the parts close in part with every element, relation and label visible; "Section marked as
+ *             supplied" (or "Section not marked · as supplied") and the key "As supplied · no conclusion drawn".
+ * No rule on conditions: no fulfilment, no automatic effect, no clause becoming due, binding or enforceable; no
  * jurisdiction. The configured link is a plain relation, never a cause.
- * @module animations/contract-terms/LAW-0494
+ * @module animations/contract-terms/LAW-0498
  */
 import {defineAnimation} from '../../core/define.js';
 import {makeMetadata} from '../../core/meta.js';
@@ -30,10 +30,10 @@ import {textBlock} from '../../primitives/annotate.js';
 import {shade} from '../../primitives/paper.js';
 import {
   motifFields, DEFAULT_CONTENT, DEFAULT_CONTENT_ES, KIT_STRINGS, STATES, PX_BASE, PX_STRESS, INK,
-  measureEvent, measureObl, eventCard, oblCard, bracketArt, bracketMetrics, trancheRows, fitG, chipG, localizeScene, overlaps,
-} from './kits/condicion-activacion.js';
+  measureEvent, measureObl, eventCard, oblCard, bracketArt, bracketMetrics, sectionRows, fitG, chipG, localizeScene, overlaps,
+} from './kits/clausula-terminacion.js';
 
-const ID = 'LAW-0494';
+const ID = 'LAW-0498';
 const DURATION = 7000;
 const W = {
   explode: [0.04, 0.16],
@@ -42,30 +42,30 @@ const W = {
   gather: [0.77, 0.86], final: [0.8, 0.85], key: [0.84, 0.89],
 };
 const BEATS = {separate: [0, 0.18], relate: [0.18, 0.43], trace: [0.43, 0.75], gather: [0.75, 1]};
-const STAGES = ['contract', 'event', 'link', 'tranche'];
-const FOCI = ['event', 'link', 'tranche'];
+const STAGES = ['contract', 'circumstance', 'link', 'section'];
+const FOCI = ['circumstance', 'link', 'section'];
 const GATHER = 0.2;
 const CLOSE = 0.06;
 
 const sceneSchema = {
   ...motifFields,
-  eventState: oneOf('The supplied state of the event: produced (the bracket slides shut on the supplied tranche) or pending (the bracket stays open). Equal weight; nothing is inferred from either', STATES),
-  relationships: list('Relations drawn, as supplied: "part" (the contract with each panel) and "config" (the configured link between the event card and the bracket). All are plain relations: no arrowhead, no causality', oneOf('Relation kind', ['part', 'config']), 1, 2),
+  caseState: oneOf('The supplied state of the circumstance: provided (the bracket slides shut on the supplied section) or undescribed (the bracket stays open). Equal weight; nothing is inferred from either', STATES),
+  relationships: list('Relations drawn, as supplied: "part" (the contract with each panel) and "config" (the configured link between the circumstance card and the bracket). All are plain relations: no arrowhead, no causality', oneOf('Relation kind', ['part', 'config']), 1, 2),
   relationLabels: obj('Labels of the relations', {
     part: str('Label of the contract–panel relation', 40),
     config: str('Label of the configured link', 50),
   }, ['part', 'config']),
   focusElement: oneOf('The element that enlarges while the marker runs', FOCI),
-  traversalOrder: list('Stages the marker runs (always along the relations, in this order): contract, event, link, tranche', oneOf('Stage', STAGES), 1, 4),
+  traversalOrder: list('Stages the marker runs (always along the relations, in this order): contract, circumstance, link, section', oneOf('Stage', STAGES), 1, 4),
 };
 
 const defaultParams = {
   ...DEFAULT_CONTENT,
-  eventState: 'produced',
+  caseState: 'provided',
   relationships: ['part', 'config'],
   relationLabels: {part: 'Part of the contract', config: 'Configured link (as supplied)'},
-  focusElement: 'event',
-  traversalOrder: ['contract', 'event', 'link', 'tranche'],
+  focusElement: 'circumstance',
+  traversalOrder: ['contract', 'circumstance', 'link', 'section'],
 };
 
 const defaultParamsEs = {
@@ -78,7 +78,7 @@ function unitPx(ctx) {
   return f.scale * (1080 / Math.min(ctx.view.width, ctx.view.height));
 }
 
-const isStress = p => [...p.obligations, p.event.label].some(t => t.length > 40);
+const isStress = p => [...p.clauses, p.circumstance.label].some(t => t.length > 40);
 
 /** Solve the exploded layout at body size F. Returns null when it does not fit. */
 function solve(ctx, p, F, upx, box, labelMode) {
@@ -99,11 +99,11 @@ function solve(ctx, p, F, upx, box, labelMode) {
   const colW = (box.w - gw) / 2;
   const cw = colW - 2 * ci;
   const ME = measureEvent(p, F, cw, show);
-  const MO = measureObl(p.obligations, F, cw, show);
+  const MO = measureObl(p.clauses, F, cw, show);
   if (!ME || !MO) return null;
   let chO = Math.max(MO.ch, 71 / upx);
   let chE = Math.max(ME.ch, 90 / upx);
-  const headFits = show ? [fitG(p.panels.event, {maxWidth: colW - F * 1.2, size: F, maxLines: 2, weight: 700, strict: true}), fitG(p.panels.tranche, {maxWidth: colW - F * 1.2, size: F, maxLines: 2, weight: 700, strict: true})] : [null, null];
+  const headFits = show ? [fitG(p.panels.circumstance, {maxWidth: colW - F * 1.2, size: F, maxLines: 2, weight: 700, strict: true}), fitG(p.panels.section, {maxWidth: colW - F * 1.2, size: F, maxLines: 2, weight: 700, strict: true})] : [null, null];
   if (headFits.some(f => f && f.bad)) return null;
   const colHH = show ? Math.max(...headFits.map(f => f.height)) + F * 0.8 : F * 1.6;
   // the plate
@@ -116,10 +116,10 @@ function solve(ctx, p, F, upx, box, labelMode) {
   if (partFit && partFit.bad) return null;
   const labH = partFit ? partFit.height + F * 0.72 : 0;
   // bottom notes
-  const finFit = show ? fitG(p.eventState === 'pending' ? ctx.t.unmarked : ctx.t.marked, {maxWidth: box.w - F * 2, size: F, maxLines: 2, weight: 600}) : null;
+  const finFit = show ? fitG(p.caseState === 'undescribed' ? ctx.t.unmarked : ctx.t.marked, {maxWidth: box.w - F * 2, size: F, maxLines: 2, weight: 600}) : null;
   const keyFit = showKey ? fitG(ctx.t.key, {maxWidth: box.w - F * 2, size: F, maxLines: 2, weight: 600}) : null;
   const bottomH = (finFit ? finFit.height + F * 1.12 : 0) + (keyFit ? keyFit.height + F * 1.12 : 0) + linkLabH;
-  const n = p.obligations.length;
+  const n = p.clauses.length;
   let gS = Math.max(F * 0.6, Bm.sw + F * 0.4);
   const colH0 = colHH + F * 0.4 + Math.max(n * chO + (n - 1) * gS, chE + F * 0.4) + F * 0.5;
   const gapMin = Math.max(F * 2.4, labH * 1.3 + F * 1.2);
@@ -130,7 +130,7 @@ function solve(ctx, p, F, upx, box, labelMode) {
   const gapRel = gapMin + spare * 0.35;
   let left = spare * 0.65;
   if (n > 1) { const add = Math.min(chO * 0.9, (left * 0.45) / (n - 1)); gS += add; left -= add * (n - 1); }
-  // (more height still: the obligation cards grow — real objects, never thin strips — up to 2×)
+  // (more height still: the clause cards grow — real objects, never thin strips — up to 2×)
   const grow = Math.max(0, Math.min(chO, left / n));
   chO += grow;
   left -= grow * n;
@@ -140,22 +140,22 @@ function solve(ctx, p, F, upx, box, labelMode) {
   const cols = [{x: box.x, y: colY, w: colW, h: colH}, {x: box.x + box.w - colW, y: colY, w: colW, h: colH}];
   const rows0 = colY + colHH + F * 0.4 + (colH - colHH - F * 0.9 - Math.max(Hr, chE + F * 0.4)) / 2 + Math.max(0, (chE + F * 0.4 - Hr) / 2);
   const rowY = [...Array(n).keys()].map(i => rows0 + chO / 2 + i * (chO + gS));
-  const tr = trancheRows(p);
+  const tr = sectionRows(p);
   const e = Math.min(gS * 0.5, F * 0.45);
   const brTop = rowY[tr.i0] - chO / 2 - e, brH = rowY[tr.i1] + chO / 2 + e - brTop;
-  // the event card: level with the bracket's middle (a straight link), inside its panel's rows area
-  // (the event card as tall as the bracket's span, when its panel allows: the link joins the two middles)
+  // the circumstance card: level with the bracket's middle (a straight link), inside its panel's rows area
+  // (the circumstance card as tall as the bracket's span, when its panel allows: the link joins the two middles)
   chE = Math.max(chE, Math.min(brH, colH - colHH - F * 1.3));
   const evY = clamp(brTop + brH / 2, colY + colHH + F * 0.4 + chE / 2, colY + colH - F * 0.5 - chE / 2);
   const ev = {x: cols[0].x + colW / 2, y: evY};
-  // the bracket "[" at the tranche's left: closed against the cards, open by `travel` to the left
+  // the bracket "[" at the section's left: closed against the cards, open by `travel` to the left
   const cardsL = cols[1].x + colW / 2 - cw / 2;
   const closedX = cardsL - Bm.gapC, openX = closedX - Bm.travel;
   const knobY = clamp(evY - brTop, Bm.hr + Bm.sw, Math.max(Bm.hr + Bm.sw, brH - Bm.hr - Bm.sw));
   const B = {...Bm, top: brTop, h: brH, closedX, openX, knobY: evY - brTop};
   void knobY;
   const plate = {x: box.x + box.w / 2 - plateW / 2, y: plateY, w: plateW, h: plateH};
-  // the assembled state: the panels close in (the track against the event panel), the plate on them
+  // the assembled state: the panels close in (the track against the circumstance panel), the plate on them
   const g0 = trackW + F * 1.4;
   const asmD = (gw - g0) / 2;
   const asmDy = colY - F * 0.3 - plateH - plateY;
@@ -194,8 +194,8 @@ const scene = {
     L.stages = STAGES.filter(s => p.traversalOrder.includes(s) && (s !== 'link' || L.hasConfig));
     if (!L.stages.length) L.stages = ['contract'];
     L.focus = p.focusElement;
-    L.produced = p.eventState === 'produced';
-    // when the marker reaches the knob, the bracket slides (produced): the first moment (u step 0.001) at which the marker,
+    L.provided = p.caseState === 'provided';
+    // when the marker reaches the knob, the bracket slides (provided): the first moment (u step 0.001) at which the marker,
     // on the route as it is drawn then (focus included), has reached the knob; the slide takes CLOSE after it
     let uK = null;
     if (L.stages.includes('link')) {
@@ -232,14 +232,14 @@ const scene = {
       else kids.push(h('rect', {x: r(c.x + c.w * 0.3), y: r(c.y + L.colHH / 2 - F * 0.12), width: r(c.w * 0.4), height: r(F * 0.3), rx: 3, fill: INK, opacity: 0.5}));
       return kids;
     };
-    const evG = g({name: 'grp-event'}, panel(0, 'event'),
-      g({transform: T(r(L.ev.x, 2), r(L.ev.y, 2))}, eventCard(ctx, {name: 'ev-in', cw: L.cw, ch: L.chE, M: L.ME, F, state: p.eventState})));
+    const evG = g({name: 'grp-circumstance'}, panel(0, 'circumstance'),
+      g({transform: T(r(L.ev.x, 2), r(L.ev.y, 2))}, eventCard(ctx, {name: 'ev-in', cw: L.cw, ch: L.chE, M: L.ME, F, state: p.caseState})));
     const B = L.B;
     const tx0 = B.openX - B.knobDx - B.hr - F * 0.3, tx1 = B.closedX + B.sw;
-    const trG = g({name: 'grp-tranche'}, panel(1, 'tranche'),
+    const trG = g({name: 'grp-section'}, panel(1, 'section'),
       h('path', {name: 'track', d: roundRectPath(tx0, B.top - B.sw * 1.2, tx1 - tx0, B.h + B.sw * 2.4, 10), fill: shade(th.paperShade, -0.05), stroke: th.inkSoft, 'stroke-width': 1.8}),
-      p.obligations.map((t, i) => g({transform: T(r(L.cols[1].x + L.colW / 2, 2), r(L.rowY[i], 2))}, oblCard(ctx, {name: `obl${i}-in`, cw: L.cw, ch: L.chO, M: L.MO, F, fit: L.show ? fitG(t, {maxWidth: L.MO.tw, size: F, maxLines: 3, weight: 600}) : null}))),
-      // (the bracket "[": the stage's "]" mirrored about its spine — its knob faces the event panel)
+      p.clauses.map((t, i) => g({transform: T(r(L.cols[1].x + L.colW / 2, 2), r(L.rowY[i], 2))}, oblCard(ctx, {name: `obl${i}-in`, cw: L.cw, ch: L.chO, M: L.MO, F, fit: L.show ? fitG(t, {maxWidth: L.MO.tw, size: F, maxLines: 3, weight: 600}) : null}))),
+      // (the bracket "[": the stage's "]" mirrored about its spine — its knob faces the circumstance panel)
       g({name: 'br', transform: brT(L, 0)}, bracketArt(ctx, {name: 'br-art', bh: B.h, B})));
     const plate = g({name: 'plate'},
       h('path', {d: roundRectPath(L.plate.x + 16, L.plate.y - 14, L.plate.w, L.plate.h, 10), fill: shade(th.card, -0.1), stroke: INK, 'stroke-width': 2}),
@@ -271,10 +271,10 @@ const scene = {
     const ex = exP * (1 - GATHER * ease.inOutSine(seg(u, ...W.gather)));
     const fz = focusAt(u);
     const sc = focusScales(L, u);
-    const br = L.produced ? ease.inOutSine(seg(u, ...L.closeW)) : 0;
+    const br = L.provided ? ease.inOutSine(seg(u, ...L.closeW)) : 0;
     const G = geometry(L, {ex, exP, sc, br});
-    nodes['grp-event'] = {transform: G.T.e};
-    nodes['grp-tranche'] = {transform: G.T.t};
+    nodes['grp-circumstance'] = {transform: G.T.e};
+    nodes['grp-section'] = {transform: G.T.t};
     nodes.plate = {transform: G.T.plate};
     nodes.br = {transform: brT(L, br)};
     // relations: from both ends at once — plain, no arrowhead
@@ -287,7 +287,7 @@ const scene = {
       nodes[`rel-part-${s}-a`] = {cx: r(ln.a.x), cy: r(ln.a.y), opacity: r(seg(rp, 0.9, 1), 3)};
       nodes[`rel-part-${s}-b`] = {cx: r(ln.b.x), cy: r(ln.b.y), opacity: r(seg(rp, 0.9, 1), 3)};
     }
-    // the configured link: from the event card's port and from the knob at once, joined in the middle
+    // the configured link: from the circumstance card's port and from the knob at once, joined in the middle
     const lp = L.hasConfig ? seg(u, ...W.link) : 0;
     const lf = L.focus === 'link' ? fz : 0;
     if (L.hasConfig) {
@@ -324,7 +324,7 @@ const scene = {
         beat, exploded: r(ex, 3), focus: L.focus, focusScale: r(fz, 3), relations: rp > 0.99 && L.hasPart ? ['part'] : [],
         linkProgress: r(lp, 3), tracer: {x: r(q.x), y: r(q.y)}, stages: L.stages,
         markerPastKnob: route.stageIdx.link === undefined ? null : u >= W.trace[0] && ease.inOutSine(clamp(tr)) >= route.cum[route.stageIdx.link] / (route.tot || 1) - 1e-6,
-        bracket: br >= 1 ? 'closed' : br > 0 ? 'moving' : 'open', eventState: L.produced ? 'produced' : 'pending',
+        bracket: br >= 1 ? 'closed' : br > 0 ? 'moving' : 'open', caseState: L.provided ? 'provided' : 'undescribed',
         linkEnds: L.hasConfig ? [G.port.x, G.port.y, G.knob.x, G.knob.y].map(v => r(v)) : null,
         plate: {x: r(L.plate.x + L.plate.w / 2), y: r(L.plate.y + G.dy.plate)},
         colE: {x: r(L.cols[0].x + G.dx.e), y: r(L.cols[0].y)}, colT: {x: r(L.cols[1].x + G.dx.t), y: r(L.cols[1].y)},
@@ -341,12 +341,12 @@ function focusAt(u) {
   return ease.inOutSine(seg(u, ...W.focusUp)) * (1 - ease.inOutSine(seg(u, ...W.focusDown)));
 }
 
-/** The panels' focus scales at time u (the event panel or the tranche panel enlarges; the link thickens instead). */
+/** The panels' focus scales at time u (the circumstance panel or the section panel enlarges; the link thickens instead). */
 function focusScales(L, u) {
   const fz = focusAt(u);
   const sc = {};
-  if (L.focus === 'event') sc.e = 1 + 0.08 * fz;
-  if (L.focus === 'tranche') sc.t = 1 + 0.06 * fz;
+  if (L.focus === 'circumstance') sc.e = 1 + 0.08 * fz;
+  if (L.focus === 'section') sc.t = 1 + 0.06 * fz;
   return sc;
 }
 
@@ -383,12 +383,12 @@ function geometry(L, {ex, exP = ex, sc, br}) {
 }
 
 /**
- * The marker's route (always along the relations): the plate's left foot → the event panel's top edge → down the
- * panel's right side (in the gutter) to the event card's port → along the configured link to the knob → the bracket's
+ * The marker's route (always along the relations): the plate's left foot → the circumstance panel's top edge → down the
+ * panel's right side (in the gutter) to the circumstance card's port → along the configured link to the knob → the bracket's
  * spine. The supplied stages pick the part of the route that runs between the first and the last of them.
  */
 function routeOf(L, G) {
-  // (the marker's halo stays clear of the event panel's heading: it leaves the part relation just above the panel's top
+  // (the marker's halo stays clear of the circumstance panel's heading: it leaves the part relation just above the panel's top
   // edge, runs above it to the gutter and goes down the gutter wholly outside the panel)
   // (where the part chip leaves less than the halo's height above the panel, the leg runs midway in that gap and the
   // marker is drawn smaller, ringK, so that it touches neither the chip's rim nor the panel's heading)
@@ -406,9 +406,9 @@ function routeOf(L, G) {
     {p: mix(e.a, e.b, tA)},
     {p: {x: gx, y: Math.min(yA, e.b.y)}},
     {p: {x: gx, y: G.port.y}},
-    {s: 'event', p: G.port},
+    {s: 'circumstance', p: G.port},
     {s: 'link', p: G.knob},
-    {s: 'tranche', p: G.spineMid},
+    {s: 'section', p: G.spineMid},
   ];
   // (without the part relations the route starts on the plate's foot and drops straight into the gutter)
   const idx = s => full.findIndex(q => q.s === s);
@@ -449,7 +449,7 @@ function placeLabels(L) {
       return {x: clamp(x, box.x, box.x + box.w - w), y: q.y - hh / 2, w, h: hh};
     };
     let pick = null;
-    // (preferred: the chips high enough on their lines that the marker, running just above the event panel's top edge,
+    // (preferred: the chips high enough on their lines that the marker, running just above the circumstance panel's top edge,
     // passes under them clear of their rims — see routeOf; else anywhere clear of the parts)
     const ringRoom = 2 * (F * 0.8 + 3) + 4;
     for (const roomy of [true, false]) for (let i = 0; i < ts.length * 3 && !pick; i++) {
@@ -461,7 +461,7 @@ function placeLabels(L) {
     ['e', 't'].forEach((s, i) => { placed.push(pick[i]); L.labels.push({k: 'part', s, box: pick[i], fit: f}); });
   }
   if (L.hasConfig && L.linkFit) {
-    // (centred on the link, in the gutter between the event card's port and the open knob, also when gathered)
+    // (centred on the link, in the gutter between the circumstance card's port and the open knob, also when gathered)
     const f = L.linkFit, w = L.lw, hh = f.height + F * 0.72;
     const Gg = geometry(L, {ex: 1 - GATHER, sc: {}, br: 0});
     const x0 = Gg.port.x + F * 0.35, x1 = Gg.knob.x - L.B.hr - F * 0.35;
@@ -501,18 +501,18 @@ export default defineAnimation({
   defaultDurationMs: DURATION,
   metadata: makeMetadata({
     id: ID,
-    slug: 'contract-terms-04-mechanism',
-    title: 'Activation event, without a rule — the contract taken apart: event card, configured link, bracket and tranche as supplied',
-    titleEs: 'Condición de activación — Mecanismo o relación explicada',
+    slug: 'contract-terms-05-mechanism',
+    title: 'Activation circumstance, without a rule — the contract taken apart: circumstance card, configured link, bracket and section as supplied',
+    titleEs: 'Cláusula de terminación — Mecanismo o relación explicada',
     category: 'contract-terms',
     categoryName: 'Contenido y cláusulas',
-    motif: 'Condición de activación',
+    motif: 'Cláusula de terminación',
     treatment: 'mechanism',
     family: 'spatial-mechanism',
-    description: 'The assembled contract comes apart: the head plate lifts, the event panel (the event card "Event 1 (supplied)" with its supplied state, ● produced or ◆ pending, drawn alike) slides left and the tranche panel (the supplied obligation cards, with a neutral bracket open in its track) slides right. Only explicit plain relations are drawn, with no arrowheads: the contract with each panel and the supplied configured link between the event card and the bracket\'s knob. A neutral marker runs the supplied stages along the relations while the focus element enlarges; with the state "produced" the bracket then slides shut on the supplied tranche — it only marks it. The parts close in part with everything visible, "Tranche marked as supplied" (or not marked) and the key "As supplied · no conclusion drawn".',
-    tags: ['activation event', 'event', 'tranche', 'bracket', 'exploded view', 'layers', 'relation', 'configured link', 'tracer'],
+    description: 'The assembled contract comes apart: the head plate lifts, the circumstance panel (the circumstance card "Circumstance 1 (supplied)" with its supplied state, ● provided or ◆ undescribed, drawn alike) slides left and the section panel (the supplied clause cards, with a neutral bracket open in its track) slides right. Only explicit plain relations are drawn, with no arrowheads: the contract with each panel and the supplied configured link between the circumstance card and the bracket\'s knob. A neutral marker runs the supplied stages along the relations while the focus element enlarges; with the state "provided" the bracket then slides shut on the supplied section — it only marks it. The parts close in part with everything visible, "Section marked as supplied" (or not marked) and the key "As supplied · no conclusion drawn".',
+    tags: ['activation circumstance', 'circumstance', 'section', 'bracket', 'exploded view', 'layers', 'relation', 'configured link', 'tracer'],
     defaultDurationMs: DURATION,
-    assets: ['src/animations/contract-terms/kits/condicion-activacion.js', 'src/primitives/annotate.js'],
+    assets: ['src/animations/contract-terms/kits/clausula-terminacion.js', 'src/primitives/annotate.js'],
   }),
   sceneSchema,
   defaultParams,

@@ -1,56 +1,56 @@
-// LAW-0493 — Condición de activación · story. Contract battery + ID-specific checks.
+// LAW-0497 — Cláusula de terminación · story. Contract battery + ID-specific checks.
 // Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05):
-// clauses (the event card and the obligation cards stand for the clauses: event, obligations), schedules, definitions
-// and priorities (no priority or order between obligations is drawn). The motif's core content — the event, its two
-// supplied states, the obligations, the supplied tranche and the hold configuration — stays editable (test-comment
+// clauses (the circumstance card and the clause cards stand for the clauses: circumstance, clauses), schedules, definitions
+// and priorities (no priority or order between clauses is drawn). The motif's core content — the circumstance, its two
+// supplied states, the clauses, the supplied section and the hold configuration — stays editable (test-comment
 // note only). No stress field is capped.
-// acceptanceCheck (brief): continuity of the motion (60 fps, every tracked point — both hands, the event card and the
-// bracket), anchored objects (the event card moves only in Party A's hand, held by its grip tab at a constant offset; the
+// acceptanceCheck (brief): continuity of the motion (60 fps, every tracked point — both hands, the circumstance card and the
+// bracket), anchored objects (the circumstance card moves only in Party A's hand, held by its grip tab at a constant offset; the
 // bracket moves only in Party B's hand, held by its knob at a constant offset) and a transformation recognisable with the
-// labels hidden (the card is seated, the bracket slides shut: semantic state and rendered geometry). The event card is
+// labels hidden (the card is seated, the bracket slides shut: semantic state and rendered geometry). The circumstance card is
 // seated before the bracket moves.
 // Legal content (very high risk: conditions): no rule on conditions — no condition precedent / subsequent, no
 // fulfilment, no "deemed" fulfilment, no automatic effect, nothing becomes due, binding or enforceable
-// (noConditionRuleWords, EN and ES, rendered and in the presets); no jurisdiction (conceptNeutral); produced and pending
+// (noConditionRuleWords, EN and ES, rendered and in the presets); no jurisdiction (conceptNeutral); provided and undescribed
 // are supplied states of equal weight (● and ◆ of the same area, colour and stroke; the card the same size); the bracket
-// only marks the supplied tranche; the key reads "As supplied · no conclusion drawn".
-// Windows (LAW-0493.js): the event card 0.16–0.40 · the bracket 0.44–0.66 (produced only) · final state 0.75–0.80 ·
+// only marks the supplied section; the key reads "As supplied · no conclusion drawn".
+// Windows (LAW-0497.js): the circumstance card 0.16–0.40 · the bracket 0.44–0.66 (provided only) · final state 0.75–0.80 ·
 // key 0.78–0.83 · notes 0.80–0.85.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
 import {ratioChecks, times} from '../harness/ratio-checks.js';
-import {textFloor, noTextOverlap, noTextOverProps, seekHistory, fill, headFloor, esDefaults, noConditionRuleWords, peopleNeutral, conceptNeutral, TERM_BANNED, CONFIG_WORDS, CONFIG_LABELS, CONFIG_LABEL, noOneWordLines, noLoneLetterSplit, noTornNumberUnit, esAportadoAgrees, docSize} from './ct04-rendered.js';
+import {textFloor, noTextOverlap, noTextOverProps, seekHistory, fill, headFloor, esDefaults, noConditionRuleWords, peopleNeutral, conceptNeutral, TERM_BANNED, CONFIG_WORDS, CONFIG_LABELS, CONFIG_LABEL, noOneWordLines, noLoneLetterSplit, noTornNumberUnit, esAportadoAgrees, docSize} from './ct05-rendered.js';
 
-const ID = 'LAW-0493';
+const ID = 'LAW-0497';
 const P = name => presetsFor(ID).find(q => q.name === name).params;
 const RATIOS = [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]];
 
 contractSuite(ID, {
   continuity: ['handA', 'handB', 'evPos', 'brPos'],
   semantic: [
-    {at: 0, fn: "s.eventAt === 'tray' && s.bracket === 'open' && s.finalShown === 0", label: 'rest: the event card in its tray; the bracket open'},
-    {at: 0.3, fn: "s.eventAt === 'moving' && s.heldA && s.bracket === 'open'", label: 'Party A seats the event card'},
-    {at: 0.42, fn: "s.eventAt === 'slot' && s.bracket === 'open'", label: 'the card seated before the bracket moves'},
+    {at: 0, fn: "s.cardAt === 'tray' && s.bracket === 'open' && s.finalShown === 0", label: 'rest: the circumstance card in its tray; the bracket open'},
+    {at: 0.3, fn: "s.cardAt === 'moving' && s.heldA && s.bracket === 'open'", label: 'Party A seats the circumstance card'},
+    {at: 0.42, fn: "s.cardAt === 'slot' && s.bracket === 'open'", label: 'the card seated before the bracket moves'},
     {at: 0.55, fn: "s.bracket === 'moving' && s.heldB", label: 'Party B slides the bracket'},
-    {at: 1, fn: "s.bracket === 'closed' && s.finalState === 'produced' && s.finalShown === 1 && s.keyShown === 1 && s.layoutOk && s.allReached", label: 'hold: the bracket marks the tranche as supplied; key'},
+    {at: 1, fn: "s.bracket === 'closed' && s.finalState === 'provided' && s.finalShown === 1 && s.keyShown === 1 && s.layoutOk && s.allReached", label: 'hold: the bracket marks the section as supplied; key'},
     {at: 0.2, fn: "s.bracket === 'open' && s.finalShown === 0", label: 'seeking back: the bracket and the final state follow the time only'},
-    {at: 1, params: P('contrast-or-alternative'), fn: "s.finalState === 'pending' && s.bracket === 'open' && s.eventAt === 'slot' && !s.heldB", label: 'alternative: pending as supplied — the bracket stays open'},
-    {at: 1, params: P('long-labels-stress'), fn: "s.bracket === 'closed' && JSON.stringify(s.tranche) === '[2,3]' && s.layoutOk", label: 'stress: the tranche 2–3 marked'},
-    {at: 1, params: {actionProgress: 0.3}, fn: "s.eventAt !== 'slot' && s.bracket === 'open'", label: 'actionProgress freezes the action part-way'},
-    {at: 0.8, params: {textVisibility: 'none'}, fn: "s.eventAt === 'slot' && s.bracket === 'closed'", label: 'labels hidden: the same action'},
+    {at: 1, params: P('contrast-or-alternative'), fn: "s.finalState === 'undescribed' && s.bracket === 'open' && s.cardAt === 'slot' && !s.heldB", label: 'alternative: undescribed as supplied — the bracket stays open'},
+    {at: 1, params: P('long-labels-stress'), fn: "s.bracket === 'closed' && JSON.stringify(s.section) === '[2,3]' && s.layoutOk", label: 'stress: the section 2–3 marked'},
+    {at: 1, params: {actionProgress: 0.3}, fn: "s.cardAt !== 'slot' && s.bracket === 'open'", label: 'actionProgress freezes the action part-way'},
+    {at: 0.8, params: {textVisibility: 'none'}, fn: "s.cardAt === 'slot' && s.bracket === 'closed'", label: 'labels hidden: the same action'},
   ],
 });
 
 ratioChecks(ID, 'layout fits, reach, order', [
   {at: times(0, 1, 0.05), fn: 's.allReached && s.armsClear', label: 'every hand reaches its target; arms clear of the faces'},
   {at: [1], fn: 's.layoutOk', label: 'layout fits'},
-  {at: [0.43], fn: "s.eventAt === 'slot' && s.bracket === 'open'", label: 'the card seated before the bracket moves'},
+  {at: [0.43], fn: "s.cardAt === 'slot' && s.bracket === 'open'", label: 'the card seated before the bracket moves'},
 ]);
 
 suppliedTextSuite(ID, {
-  fields: "return [p.contract.reference + ' · ' + p.contract.title, p.panels.event, p.panels.tranche, p.event.label, p.stateLabels[p.finalState], ...p.obligations, ...p.parties.map(q => q.name), p.objectLabels.tray, ...p.annotations.map(a => a.text)]",
-  content: "return [p.event.label, p.stateLabels[p.finalState], ...p.obligations]",
+  fields: "return [p.contract.reference + ' · ' + p.contract.title, p.panels.circumstance, p.panels.section, p.circumstance.label, p.stateLabels[p.finalState], ...p.clauses, ...p.parties.map(q => q.name), p.objectLabels.tray, ...p.annotations.map(a => a.text)]",
+  content: "return [p.circumstance.label, p.stateLabels[p.finalState], ...p.clauses]",
   captions: "return ['As supplied · no conclusion drawn', 'Según lo aportado · sin conclusión']",
 });
 
@@ -64,7 +64,7 @@ esDefaults(ID);
 noConditionRuleWords(ID);
 conceptNeutral(ID);
 docSize(ID, {cards: '^(ev-in|obl\\d-in)$', times: [0, 0.4, 1], floor: 70});
-peopleNeutral(ID, [[{finalState: 'produced'}, {finalState: 'pending'}], [P('contrast-or-alternative'), {...P('contrast-or-alternative'), finalState: 'produced'}]], ['']);
+peopleNeutral(ID, [[{finalState: 'provided'}, {finalState: 'undescribed'}], [P('contrast-or-alternative'), {...P('contrast-or-alternative'), finalState: 'provided'}]], ['']);
 
 // The supplied parameters of every preset carry no banned wording either (EN and ES); the configuration words appear
 // only in the exact supplied labels.
@@ -77,18 +77,18 @@ test(`${ID}: no preset supplies rule, conclusion or condition wording (EN and ES
 
 // The banned-word list itself catches the wording it must catch (EN and ES) and passes the motif's own wording.
 test(`${ID}: the banned-word list catches condition and conclusion wording and passes the supplied wording`, () => {
-  for (const w of ['condition precedent', 'condition subsequent', 'subject to the condition', 'condición suspensiva', 'condición resolutoria', 'condicion', 'the condition is fulfilled', 'condición cumplida', 'cumplimiento', 'deemed fulfilled', 'due', 'now due', 'exigible', 'binding', 'vinculante', 'enforceable', 'triggered liability', 'activated', 'obligación activada', 'automatic effect', 'efecto automático', 'breach', 'incumplimiento', 'must', 'debe', 'valid', 'válido', 'outcome', 'resultado', 'law', 'ley']) expect(w, w).toMatch(TERM_BANNED);
-  for (const w of [...CONFIG_LABELS, 'Event 1 (supplied)', 'Evento 1 (aportado)', 'Event produced (as supplied)', 'Evento producido (según lo aportado)', 'Event pending (as supplied)', 'Evento pendiente (según lo aportado)', 'Obligation 1 (supplied text)', 'Obligación 1 (texto aportado)', 'Tranche of obligations', 'Tramo de obligaciones', 'Contract (fictional)', 'Contrato (ficticio)', 'As supplied · no conclusion drawn', 'Según lo aportado · sin conclusión', 'Event tray', 'Bandeja del evento', 'Lucía Ferrer · Party A', 'The bracket marks the supplied tranche']) expect(w, w).not.toMatch(TERM_BANNED);
+  for (const w of ['condition precedent', 'condition subsequent', 'subject to the condition', 'condición suspensiva', 'condición resolutoria', 'condicion', 'the condition is fulfilled', 'condición cumplida', 'cumplimiento', 'deemed fulfilled', 'due', 'now due', 'exigible', 'binding', 'vinculante', 'enforceable', 'triggered liability', 'activated', 'apartado activada', 'automatic effect', 'efecto automático', 'breach', 'incumplimiento', 'must', 'debe', 'valid', 'válido', 'outcome', 'resultado', 'law', 'ley']) expect(w, w).toMatch(TERM_BANNED);
+  for (const w of [...CONFIG_LABELS, 'Circumstance 1 (supplied)', 'Comunicación 1 (aportado)', 'Circumstance provided (as supplied)', 'Comunicación previsto (según lo aportado)', 'Circumstance undescribed (as supplied)', 'Comunicación no descrito (según lo aportado)', 'Clause 1 (supplied text)', 'Apartado 1 (texto aportado)', 'Section of clauses', 'Cláusula de terminación', 'Contract (fictional)', 'Contrato (ficticio)', 'As supplied · no conclusion drawn', 'Según lo aportado · sin conclusión', 'Circumstance tray', 'Bandeja del comunicación', 'Lucía Ferrer · Party A', 'The bracket marks the supplied section']) expect(w, w).not.toMatch(TERM_BANNED);
   for (const w of CONFIG_LABELS) { expect(w).toMatch(CONFIG_WORDS); expect(w).toMatch(CONFIG_LABEL); }
-  expect('A: tranche marked as supplied').toMatch(CONFIG_LABEL);
-  expect('Tranche marked as supplied, now due').not.toMatch(CONFIG_LABEL);
+  expect('A: section marked as supplied').toMatch(CONFIG_LABEL);
+  expect('Section marked as supplied, now due').not.toMatch(CONFIG_LABEL);
 });
 
 /** In-page helper: effective opacity of an element. */
 const EFF = 'const eff = (svg, e) => { let v = 1; for (let q = e; q && q !== svg; q = q.parentNode) { if (!q.getAttribute) continue; const a = q.getAttribute("opacity"); if (a !== null) v *= parseFloat(a); if (q.getAttribute("display") === "none") return 0; } return v; };';
 
 // 60 fps, every preset (+ es-only) × ratio × labels all / none: an object never moves without its party's hand on it.
-// Whenever the event card (Party A) or the bracket (Party B) moves, the semantic names it as held, the hand is at the held
+// Whenever the circumstance card (Party A) or the bracket (Party B) moves, the semantic names it as held, the hand is at the held
 // grip (≤ 2 design units: the card's grip tab; the bracket's knob) and the hand stays at a constant offset from the object
 // (± 2 units). Both arms of both people stay clear of their heads at every frame (AUTHORING item 6).
 test(`${ID}: the card and the bracket move only in their party's hand, at a constant grip; arms never cross a face (60 fps, rendered)`, async ({page}) => {
@@ -179,10 +179,10 @@ test(`${ID}: the hands never cover a label or a plate (60 fps, rendered)`, async
   expect(out.fails.slice(0, 20)).toEqual([]);
 });
 
-// The bracket marks exactly the supplied tranche (rendered, at the hold, every preset × ratio × labels all / none):
-// closed, its brace spans the tranche's first card top to its last card bottom (within a row gap) and stays right of
-// the cards' print; open (pending), its arms keep clear of every card. No arrowhead, no dash.
-test(`${ID}: the bracket marks the supplied tranche only, solid and plain (rendered)`, async ({page}) => {
+// The bracket marks exactly the supplied section (rendered, at the hold, every preset × ratio × labels all / none):
+// closed, its brace spans the section's first card top to its last card bottom (within a row gap) and stays right of
+// the cards' print; open (undescribed), its arms keep clear of every card. No arrowhead, no dash.
+test(`${ID}: the bracket marks the supplied section only, solid and plain (rendered)`, async ({page}) => {
   test.setTimeout(300000);
   await page.goto('/tests/harness/host.html');
   await page.waitForFunction(() => document.body.dataset.ready === '1');
@@ -204,12 +204,12 @@ test(`${ID}: the bracket marks the supplied tranche only, solid and plain (rende
       const B = brace.getBoundingClientRect();
       if (brace.getAttribute('stroke-dasharray') || brace.getAttribute('marker-end')) fails.push(`${pr.name} ${ratio} ${tv}: dashed or arrowed bracket`);
       const cards = [...svg.querySelectorAll('[data-node$="-in-sheet"]')].filter(e => /^obl\d-in-sheet$/.test(e.getAttribute('data-node'))).map(e => e.getBoundingClientRect());
-      const [i0, i1] = [s.tranche[0] - 1, s.tranche[1] - 1];
+      const [i0, i1] = [s.section[0] - 1, s.section[1] - 1];
       n++;
       if (s.bracket === 'closed') {
-        if (B.top > cards[i0].top + 1 || B.bottom < cards[i1].bottom - 1) fails.push(`${pr.name} ${ratio} ${tv}: the brace does not span the tranche`);
+        if (B.top > cards[i0].top + 1 || B.bottom < cards[i1].bottom - 1) fails.push(`${pr.name} ${ratio} ${tv}: the brace does not span the section`);
         const gap = (cards.length > 1 ? (cards[1].top - cards[0].bottom) : 30) + 2;
-        if (cards[i0].top - B.top > gap || B.bottom - cards[i1].bottom > gap) fails.push(`${pr.name} ${ratio} ${tv}: the brace reaches past the tranche`);
+        if (cards[i0].top - B.top > gap || B.bottom - cards[i1].bottom > gap) fails.push(`${pr.name} ${ratio} ${tv}: the brace reaches past the section`);
         // (the spine: the brace's right edge less its stroke; the arms: its top and bottom strips)
         const sw = parseFloat(brace.getAttribute('stroke-width')) * brace.getScreenCTM().a;
         for (const t of svg.querySelectorAll('[data-node^="obl"] text')) {
@@ -227,10 +227,10 @@ test(`${ID}: the bracket marks the supplied tranche only, solid and plain (rende
   expect(out.fails).toEqual([]);
 });
 
-// Equal weight of the two supplied states (rendered): the same scene with "produced" and with "pending" draws the event
+// Equal weight of the two supplied states (rendered): the same scene with "provided" and with "undescribed" draws the circumstance
 // card at the same size and the ● and ◆ glyphs with the same area (± 8 %), the same fill and the same stroke; the two
 // people at the same figure scale — every ratio.
-test(`${ID}: produced and pending at equal weight; the two people alike (rendered)`, async ({page}) => {
+test(`${ID}: provided and undescribed at equal weight; the two people alike (rendered)`, async ({page}) => {
   test.setTimeout(300000);
   await page.goto('/tests/harness/host.html');
   await page.waitForFunction(() => document.body.dataset.ready === '1');
@@ -239,7 +239,7 @@ test(`${ID}: produced and pending at equal weight; the two people alike (rendere
     const fails = [];
     for (const [ratio, w, h] of ratios) {
       const got = {};
-      for (const st of ['produced', 'pending']) {
+      for (const st of ['provided', 'undescribed']) {
         const el = document.createElement('div');
         document.getElementById('slots').appendChild(el);
         const x = def.create(el, {width: w, height: h, params: {finalState: st}});
@@ -248,17 +248,17 @@ test(`${ID}: produced and pending at equal weight; the two people alike (rendere
         const g = x.element.querySelector(`[data-node="ev-in-st-${st}"]`);
         const gl = g.querySelector('circle, path');
         const b = gl.getBoundingClientRect();
-        got[st] = {area: st === 'produced' ? Math.PI * (b.width / 2) ** 2 : b.width * b.height / 2, fill: gl.getAttribute('fill'), sw: gl.getAttribute('stroke-width'), card: x.element.querySelector('[data-node="ev-in-sheet"]').getBoundingClientRect()};
+        got[st] = {area: st === 'provided' ? Math.PI * (b.width / 2) ** 2 : b.width * b.height / 2, fill: gl.getAttribute('fill'), sw: gl.getAttribute('stroke-width'), card: x.element.querySelector('[data-node="ev-in-sheet"]').getBoundingClientRect()};
         const ka = x.element.querySelector('[data-node="A"]').getAttribute('transform'), kb = x.element.querySelector('[data-node="B"]').getAttribute('transform');
         const sc = t => Math.abs(parseFloat((t.match(/scale\(([-0-9.]+)/) || [])[1]));
         if (Math.abs(sc(ka) - sc(kb)) > 1e-6) fails.push(`${ratio}: people scales differ`);
         x.destroy();
         el.remove();
       }
-      const a = got.produced, b = got.pending;
+      const a = got.provided, b = got.undescribed;
       if (Math.abs(a.area - b.area) / a.area > 0.08) fails.push(`${ratio}: ● ${a.area.toFixed(0)} vs ◆ ${b.area.toFixed(0)} px²`);
       if (a.fill !== b.fill || a.sw !== b.sw) fails.push(`${ratio}: glyph fill / stroke differ`);
-      if (Math.abs(a.card.width - b.card.width) > 1 || Math.abs(a.card.height - b.card.height) > 1) fails.push(`${ratio}: the event card changes size with the state`);
+      if (Math.abs(a.card.width - b.card.width) > 1 || Math.abs(a.card.height - b.card.height) > 1) fails.push(`${ratio}: the circumstance card changes size with the state`);
     }
     return fails;
   }, [ID, RATIOS]);
@@ -308,8 +308,8 @@ noLoneLetterSplit(ID);
 noTornNumberUnit(ID);
 esAportadoAgrees(ID);
 
-// Long unbroken tokens (fix2-contract-terms-04, reviewer request 2026-10-05): a 33-, 42- or 55-character word in the event
-// label, an obligation, a state label or a party name — over the default content and over the long-labels-stress content
+// Long unbroken tokens (fix2-contract-terms-05, reviewer request 2026-10-05): a 33-, 42- or 55-character word in the circumstance
+// label, an clause, a state label or a party name — over the default content and over the long-labels-stress content
 // — renders a full scene at 16:9, 9:16 and 1:1 (never the empty group of `no-layout-fits`): the kit breaks a word (after
 // its own hyphens, else mid-word with a hyphen) only in a second layout pass, when no whole-word layout exists; all text
 // stays inside the frame.
@@ -324,11 +324,11 @@ test(`${ID}: long unbroken tokens (33/42/55 chars) render a full scene at every 
     const TOK = ['Vertragserfuellungsbedingungenxyz', 'Gewaehrleistungsverpflichtungsvereinbarung', 'Gewaehrleistungsverpflichtungsvereinbarungsklauselnabcd'];
     const fails = [];
     let n = 0, slow = 0, broken = 0;
-    for (const tok of TOK) for (const [bn, base] of [['default', {}], ['stress', stress]]) for (const field of ['event', 'obligation', 'state', 'name']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+    for (const tok of TOK) for (const [bn, base] of [['default', {}], ['stress', stress]]) for (const field of ['circumstance', 'clause', 'state', 'name']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
       const p = structuredClone(base);
-      if (field === 'event') p.event = {label: `${tok} 1`};
-      if (field === 'obligation') p.obligations = [`${tok} 1`, ...(p.obligations ?? d.obligations).slice(1)];
-      if (field === 'state') p.stateLabels = {produced: tok, pending: (p.stateLabels ?? d.stateLabels).pending};
+      if (field === 'circumstance') p.circumstance = {label: `${tok} 1`};
+      if (field === 'clause') p.clauses = [`${tok} 1`, ...(p.clauses ?? d.clauses).slice(1)];
+      if (field === 'state') p.stateLabels = {provided: tok, undescribed: (p.stateLabels ?? d.stateLabels).undescribed};
       if (field === 'name') p.parties = [{...(p.parties ?? d.parties)[0], name: tok}, (p.parties ?? d.parties)[1]];
       const tag = `${tok.length} ${bn} ${field} ${ratio}`;
       const el = document.createElement('div');

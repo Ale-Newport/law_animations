@@ -1,23 +1,23 @@
 /**
- * LAW-0495 — Condición de activación · contrast
+ * LAW-0499 — Cláusula de terminación · contrast
  *
- * Storyboard (two complete rooms, identical except one supplied fact: the state of the event — "Event produced (as
- * supplied)" in room A, "Event pending (as supplied)" in room B):
- *  0.00–0.17  base: both rooms show the same contract board, the same two people, the same event card "Event 1
- *             (supplied)" seated in its slot with its state window still blank, and the same obligation cards with the
+ * Storyboard (two complete rooms, identical except one supplied fact: the state of the circumstance — "Circumstance provided (as
+ * supplied)" in room A, "Circumstance undescribed (as supplied)" in room B):
+ *  0.00–0.17  base: both rooms show the same contract board, the same two people, the same circumstance card "Circumstance 1
+ *             (supplied)" seated in its slot with its state window still blank, and the same clause cards with the
  *             bracket open in its track — identical.
- *  0.17–0.40  change: the state row appears on each event card, ringed — ● "Event produced (as supplied)" in room A,
- *             ◆ "Event pending (as supplied)" in room B (same glyph area, colour, stroke and type); the room headers
+ *  0.17–0.40  change: the state row appears on each circumstance card, ringed — ● "Circumstance provided (as supplied)" in room A,
+ *             ◆ "Circumstance undescribed (as supplied)" in room B (same glyph area, colour, stroke and type); the room headers
  *             name the supplied variant.
- *  0.42–0.66  the concrete action, as the supplied configuration: in the room whose event is produced, Party B's hand
- *             slides the bracket shut on the supplied tranche (it marks the tranche, nothing else); in the room whose
- *             event is pending the bracket stays open and the hand stays at rest. The geometry differs only there.
+ *  0.42–0.66  the concrete action, as the supplied configuration: in the room whose circumstance is provided, Party B's hand
+ *             slides the bracket shut on the supplied section (it marks the section, nothing else); in the room whose
+ *             circumstance is undescribed the bracket stays open and the hand stays at rest. The geometry differs only there.
  *  0.77–1.00  guide: the state row ringed in both rooms with the same tag "Only this differs"; the shared strip names the
  *             changed fact, each room's supplied configuration (equal chips), the parties, the shared facts and the key
  *             "As supplied · no conclusion drawn". No winner, score or outcome.
- * No rule on conditions: no fulfilment, no automatic effect, no obligation becoming due, binding or enforceable; no
- * jurisdiction. Produced and pending have equal weight.
- * @module animations/contract-terms/LAW-0495
+ * No rule on conditions: no fulfilment, no automatic effect, no clause becoming due, binding or enforceable; no
+ * jurisdiction. Provided and undescribed have equal weight.
+ * @module animations/contract-terms/LAW-0499
  */
 import {defineAnimation} from '../../core/define.js';
 import {makeMetadata} from '../../core/meta.js';
@@ -32,21 +32,21 @@ import {
   motifFields, DEFAULT_CONTENT, DEFAULT_CONTENT_ES, KIT_STRINGS, STATES, PX_BASE, PX_STRESS, INK,
   layoutStage, stageArt, makeRigs, oblNodes, eventNode, bracketNode, moveAt, grabFor, handOf, holding,
   localizeScene, fitG, chipG, placeNotes, notesHeight, headBox, overlaps, armClear,
-} from './kits/condicion-activacion.js';
+} from './kits/clausula-terminacion.js';
 
-const ID = 'LAW-0495';
+const ID = 'LAW-0499';
 const DURATION = 7500;
 const W = {head: [0.17, 0.22], state: [0.2, 0.3], ringIn: [0.22, 0.28], ringOut: [0.36, 0.4], br: [0.42, 0.66], guide: [0.78, 0.83], strip: [0.8, 0.85]};
 const BEATS = {base: [0, 0.17], change: [0.17, 0.4], parallel: [0.4, 0.77], guide: [0.77, 1]};
 
 const STRINGS = {
-  en: {...KIT_STRINGS.en, only: 'Only this differs', partiesT: 'Left: {a} · right: {b}', changedIs: 'Changed fact: {fact}', roomMarked: '{b}: tranche marked as supplied', roomUnmarked: '{b}: tranche not marked · as supplied', stateIs: '{b}: {s}'},
-  es: {...KIT_STRINGS.es, only: 'Solo esto cambia', partiesT: 'Izquierda: {a} · derecha: {b}', changedIs: 'Hecho que cambia: {fact}', roomMarked: '{b}: tramo marcado según lo aportado', roomUnmarked: '{b}: tramo sin marcar · según lo aportado', stateIs: '{b}: {s}'},
+  en: {...KIT_STRINGS.en, only: 'Only this differs', partiesT: 'Left: {a} · right: {b}', changedIs: 'Changed fact: {fact}', roomMarked: '{b}: section marked as supplied', roomUnmarked: '{b}: section not marked · as supplied', stateIs: '{b}: {s}'},
+  es: {...KIT_STRINGS.es, only: 'Solo esto cambia', partiesT: 'Izquierda: {a} · derecha: {b}', changedIs: 'Hecho que cambia: {fact}', roomMarked: '{b}: apartado marcado según lo aportado', roomUnmarked: '{b}: apartado sin marcar · según lo aportado', stateIs: '{b}: {s}'},
 };
 
 const scenario = d => obj(d, {
   label: str('Header of the room: the supplied variant', 70),
-  state: oneOf('The supplied state of the event in this room', STATES),
+  state: oneOf('The supplied state of the circumstance in this room', STATES),
 }, ['label', 'state']);
 
 const sceneSchema = {
@@ -60,22 +60,22 @@ const sceneSchema = {
 
 const defaultParams = {
   ...DEFAULT_CONTENT,
-  obligations: ['Obligation 1 (supplied text)', 'Obligation 2 (supplied text)'],
-  tranche: {from: 1, to: 2},
-  changedFact: {label: 'the state of event 1'},
-  scenarioA: {label: 'Event 1 produced (as supplied)', state: 'produced'},
-  scenarioB: {label: 'Event 1 pending (as supplied)', state: 'pending'},
-  sharedFacts: ['Same contract, parties, obligations and tranche'],
+  clauses: ['Clause 1 (supplied text)', 'Clause 2 (supplied text)'],
+  section: {from: 1, to: 2},
+  changedFact: {label: 'the state of circumstance 1'},
+  scenarioA: {label: 'Circumstance 1 provided (as supplied)', state: 'provided'},
+  scenarioB: {label: 'Circumstance 1 undescribed (as supplied)', state: 'undescribed'},
+  sharedFacts: ['Same contract, parties, clauses and section'],
   comparisonLabels: {a: 'A', b: 'B'},
 };
 
 const defaultParamsEs = {
   ...DEFAULT_CONTENT_ES,
-  obligations: ['Obligación 1 (texto aportado)', 'Obligación 2 (texto aportado)'],
-  changedFact: {label: 'el estado del evento 1'},
-  scenarioA: {label: 'Evento 1 producido (según lo aportado)', state: 'produced'},
-  scenarioB: {label: 'Evento 1 pendiente (según lo aportado)', state: 'pending'},
-  sharedFacts: ['Mismo contrato, partes, obligaciones y tramo'],
+  clauses: ['Apartado 1 (texto aportado)', 'Apartado 2 (texto aportado)'],
+  changedFact: {label: 'el estado del comunicación 1'},
+  scenarioA: {label: 'Comunicación 1 previsto (según lo aportado)', state: 'provided'},
+  scenarioB: {label: 'Comunicación 1 no descrito (según lo aportado)', state: 'undescribed'},
+  sharedFacts: ['Mismo contrato, partes, apartados y apartado'],
 };
 
 function unitPx(ctx) {
@@ -83,7 +83,7 @@ function unitPx(ctx) {
   return f.scale * (1080 / Math.min(ctx.view.width, ctx.view.height));
 }
 
-const isStress = p => [...p.obligations, p.event.label].some(t => t.length > 40);
+const isStress = p => [...p.clauses, p.circumstance.label].some(t => t.length > 40);
 const ROOMS = ['a', 'b'];
 
 const scene = {
@@ -103,8 +103,8 @@ const scene = {
     // arrangements, preferred first: [rooms side by side | stacked, cards printed | print bars with their texts in the strip]
     // [rooms side by side | stacked, cards printed | print bars, panel = strip below | column at the right (1:1: CF
     // CONTRAST 1:1 STAGE SHARE decision, 2026-10-04)]
-    // 1:1 'compact' fallback (three obligations, where the stacked rooms cannot hold three rows and the people): the rooms
-    // side by side, each a tall board — printed cards stacked (tranche and its track on top, the event card under them,
+    // 1:1 'compact' fallback (three clauses, where the stacked rooms cannot hold three rows and the people): the rooms
+    // side by side, each a tall board — printed cards stacked (section and its track on top, the circumstance card under them,
     // its tag in the heading band above it) or, for the longest texts, print bars with their texts in the strip —; the
     // contract heading moves to the strip, the track is shorter, the people's heads ≥ 48 px and the text ≥ 16 px.
     const arrs = shape === 'landscape' ? [['side', true, 'strip'], ['side', false, 'strip']]
@@ -124,11 +124,11 @@ const scene = {
       const items = [];
       if (show && (!cardText || panel === 'col' || compact)) items.push({name: 'contract', kind: 'legend', text: `${p.contract.reference} · ${p.contract.title}`});
       if (show && !cardText) {
-        items.push({name: 'legend-ev', kind: 'legend', text: `${p.panels.event}: ${p.event.label}`});
-        p.obligations.forEach((t, j) => items.push({name: `legend-o${j}`, kind: 'legend', text: `${p.panels.tranche}: ${t}`}));
+        items.push({name: 'legend-ev', kind: 'legend', text: `${p.panels.circumstance}: ${p.circumstance.label}`});
+        p.clauses.forEach((t, j) => items.push({name: `legend-o${j}`, kind: 'legend', text: `${p.panels.section}: ${t}`}));
       }
       if (show) items.push({name: 'changed', kind: 'changed', text: ctx.t.changedIs.replace('{fact}', p.changedFact.label)});
-      if (show) ROOMS.forEach(s => items.push({name: `cfg-${s}`, kind: 'cfg', text: (scen[s].state === 'produced' ? ctx.t.roomMarked : ctx.t.roomUnmarked).replace('{b}', p.comparisonLabels[s])}));
+      if (show) ROOMS.forEach(s => items.push({name: `cfg-${s}`, kind: 'cfg', text: (scen[s].state === 'provided' ? ctx.t.roomMarked : ctx.t.roomUnmarked).replace('{b}', p.comparisonLabels[s])}));
       if (showKey) items.push({name: 'parties', kind: 'shared', text: ctx.t.partiesT.replace('{a}', p.parties[0].name).replace('{b}', p.parties[1].name)});
       if (show) p.sharedFacts.forEach((t, i) => items.push({name: `shared${i}`, kind: 'shared', text: t}));
       if (showKey) items.push({name: 'key', kind: 'key', text: ctx.t.key});
@@ -168,13 +168,13 @@ const scene = {
     });
     const sb = {x: box.x + F * 0.5, y: box.y + box.h - stripH, w: box.w - F, h: stripH};
     L.strip = best.colPl || (items.length ? placeNotes(ctx, items, sb, F, 2) : null);
-    // the "only this differs" tags: under each room's event card
+    // the "only this differs" tags: under each room's circumstance card
     L.tags = Ls.map((Lr, i) => {
       if (!show || !L.cardText) return null;
       const G = Lr.G;
       const c = chipG(ctx, ctx.t.only, {x: G.slot.x, y: 0, anchor: 'middle', maxWidth: G.We - F * 0.4, size: F, maxLines: 2, weight: 700, stroke: ctx.theme.accent, name: `${ROOMS[i]}-tag`});
       if (G.stack) {
-        // (the compact 1:1 fallback — a stacked board —: the tag in the event panel's heading band, above the card)
+        // (the compact 1:1 fallback — a stacked board —: the tag in the circumstance panel's heading band, above the card)
         const room = G.slot.y - G.chE / 2 - G.panelE.y;
         return {c, y: G.panelE.y + (room - c.box.h) / 2, ok: c.box.h <= room - 2};
       }
@@ -209,7 +209,7 @@ const scene = {
         h('path', {name: `${s}-frame`, d: roundRectPath(rb.x, rb.y, rb.w, rb.h, 16), fill: th.dark ? 'rgba(255,255,255,0.04)' : 'rgba(255,253,248,0.55)', stroke: th.inkSoft, 'stroke-width': 2}),
         head,
         stageArt(ctx, Lr),
-        oblNodes(ctx, Lr, p.obligations),
+        oblNodes(ctx, Lr, p.clauses),
         bracketNode(ctx, Lr, false),
         eventNode(ctx, Lr, Lr.state, {at: Lr.G.slot, ring: true}),
         tag,
@@ -226,19 +226,19 @@ const scene = {
     L.Ls.forEach((Lr, i) => {
       const s = ROOMS[i];
       const G = Lr.G, P = Lr.P;
-      const produced = Lr.state === 'produced';
+      const provided = Lr.state === 'provided';
       // the state row appears (the changed fact), ringed
       const st = seg(u, ...W.state);
       nodes[`${P}ev-in-st-${Lr.state}`] = {opacity: r(st, 3)};
       const ring = Math.max(seg(u, ...W.ringIn) * (1 - seg(u, ...W.ringOut)), seg(u, ...W.guide));
       nodes[`${P}ev-in-ring`] = {opacity: r(ring, 3)};
-      // the bracket: shut by Party B's hand where the event is produced; open where it is pending
+      // the bracket: shut by Party B's hand where the circumstance is provided; open where it is undescribed
       const from = {x: G.B.openX, y: G.B.top}, to = {x: G.B.closedX, y: G.B.top};
-      const br = moveAt(produced ? W.br : null, from, to, u);
+      const br = moveAt(provided ? W.br : null, from, to, u);
       nodes[`${P}br`] = {transform: T(r(br.pos.x, 2), r(br.pos.y, 2))};
       const rest = [G.figA, G.figB].map((fg, k) => Lr.rigs[k].frame({x: fg.x, y: fg.floor, facing: fg.f, scale: fg.k}).hands.near);
       const knob = q => G.knobAt(q.x);
-      const hB = produced ? handOf([grabFor(W.br, from, to, knob)], rest[1], u) : null;
+      const hB = provided ? handOf([grabFor(W.br, from, to, knob)], rest[1], u) : null;
       const pa = Lr.rigs[0].frame({x: G.figA.x, y: G.figA.floor, facing: 1, scale: G.k, headTilt: 3});
       const pb = Lr.rigs[1].frame({x: G.figB.x, y: G.figB.floor, facing: -1, scale: G.k, near: hB, headTilt: br.moving ? -4 : 3});
       Object.assign(nodes, pa.nodes, pb.nodes);
@@ -248,7 +248,7 @@ const scene = {
       sem[`br${S}`] = {x: r(br.pos.x), y: r(br.pos.y)};
       sem[`hand${S}B`] = {x: r(pb.hands.near.x), y: r(pb.hands.near.y)};
       sem[`hand${S}A`] = {x: r(pa.hands.near.x), y: r(pa.hands.near.y)};
-      sem[`held${S}`] = produced && holding(W.br, u) ? {grip: {x: r(knob(br.pos).x), y: r(knob(br.pos).y)}} : null;
+      sem[`held${S}`] = provided && holding(W.br, u) ? {grip: {x: r(knob(br.pos).x), y: r(knob(br.pos).y)}} : null;
       sem[`reached${s}`] = pa.reached && pb.reached;
       sem[`armsClear${s}`] = armClear(pa.nodes, `${P}A`) && armClear(pb.nodes, `${P}B`);
       sem[`state${S}`] = st > 0 ? Lr.state : 'none';
@@ -282,18 +282,18 @@ export default defineAnimation({
   defaultDurationMs: DURATION,
   metadata: makeMetadata({
     id: ID,
-    slug: 'contract-terms-04-contrast',
-    title: 'Activation event, without a rule — the same contract with the event produced or pending, in two rooms',
-    titleEs: 'Condición de activación — Comparación de dos supuestos',
+    slug: 'contract-terms-05-contrast',
+    title: 'Activation circumstance, without a rule — the same contract with the circumstance provided or undescribed, in two rooms',
+    titleEs: 'Cláusula de terminación — Comparación de dos supuestos',
     category: 'contract-terms',
     categoryName: 'Contenido y cláusulas',
-    motif: 'Condición de activación',
+    motif: 'Cláusula de terminación',
     treatment: 'contrast',
     family: 'paired-comparison',
-    description: 'Two rooms with the same contract board, the same two parties, the same event card "Event 1 (supplied)" seated in its slot and the same obligation cards with a neutral bracket open in its track. Only the supplied state of the event differs: the state row appears ringed — ● "Event produced (as supplied)" in room A, ◆ "Event pending (as supplied)" in room B, drawn alike. As the supplied configuration, in the room whose event is produced Party B slides the bracket shut on the supplied tranche (it only marks it); in the other room the bracket stays open. The state row is ringed in both rooms with "Only this differs"; the shared strip names the changed fact, each room\'s configuration, the shared facts and the key "As supplied · no conclusion drawn". No winner, score or outcome.',
-    tags: ['activation event', 'event', 'produced', 'pending', 'tranche', 'bracket', 'comparison', 'changed fact', 'equal weight', 'characters'],
+    description: 'Two rooms with the same contract board, the same two parties, the same circumstance card "Circumstance 1 (supplied)" seated in its slot and the same clause cards with a neutral bracket open in its track. Only the supplied state of the circumstance differs: the state row appears ringed — ● "Circumstance provided (as supplied)" in room A, ◆ "Circumstance undescribed (as supplied)" in room B, drawn alike. As the supplied configuration, in the room whose circumstance is provided Party B slides the bracket shut on the supplied section (it only marks it); in the other room the bracket stays open. The state row is ringed in both rooms with "Only this differs"; the shared strip names the changed fact, each room\'s configuration, the shared facts and the key "As supplied · no conclusion drawn". No winner, score or outcome.',
+    tags: ['activation circumstance', 'circumstance', 'provided', 'undescribed', 'section', 'bracket', 'comparison', 'changed fact', 'equal weight', 'characters'],
     defaultDurationMs: DURATION,
-    assets: ['src/animations/contract-terms/kits/condicion-activacion.js', 'src/primitives/person.js', 'src/primitives/annotate.js', 'src/primitives/people-style.js'],
+    assets: ['src/animations/contract-terms/kits/clausula-terminacion.js', 'src/primitives/person.js', 'src/primitives/annotate.js', 'src/primitives/people-style.js'],
   }),
   sceneSchema,
   defaultParams,

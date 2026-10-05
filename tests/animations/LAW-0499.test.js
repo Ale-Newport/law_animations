@@ -1,25 +1,25 @@
-// LAW-0495 — Condición de activación · contrast. Contract battery + ID-specific checks.
+// LAW-0499 — Cláusula de terminación · contrast. Contract battery + ID-specific checks.
 // Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05):
-// clauses (the event card and the obligation cards stand for the clauses), schedules, definitions and priorities (no
-// priority or order between obligations is drawn). scenarioA / scenarioB (header and supplied state of each room),
+// clauses (the circumstance card and the clause cards stand for the clauses), schedules, definitions and priorities (no
+// priority or order between clauses is drawn). scenarioA / scenarioB (header and supplied state of each room),
 // changedFact, sharedFacts and comparisonLabels are exposed. No stress field is capped.
 // acceptanceCheck (brief): both scenes exist (two complete rooms, identical before the change beat — semantic look and
-// rendered), exactly the indicated fact changes (the supplied state of the event: the state row of each room's event
-// card; as the supplied configuration of each room, the bracket is slid shut by Party B's hand only where the event is
-// produced — the geometry differs only there), and no legal consequence is invented (no rule or conclusion wording, EN
-// and ES; no jurisdiction; no winner, score or outcome; produced and pending drawn alike).
+// rendered), exactly the indicated fact changes (the supplied state of the circumstance: the state row of each room's circumstance
+// card; as the supplied configuration of each room, the bracket is slid shut by Party B's hand only where the circumstance is
+// provided — the geometry differs only there), and no legal consequence is invented (no rule or conclusion wording, EN
+// and ES; no jurisdiction; no winner, score or outcome; provided and undescribed drawn alike).
 // Layouts: 16:9 rooms side by side (each ≥ 0.40 of the width) with the shared strip below; 9:16 rooms stacked with the
 // strip below; 1:1 rooms stacked beside a right-hand column holding the strip (CF CONTRAST 1:1 STAGE SHARE decision,
 // 2026-10-04), with print-bar cards whose texts are listed once in that column when the printed cards do not fit.
-// Windows (LAW-0495.js W): headers 0.17–0.22 · the state row appears 0.20–0.30 (ring 0.22–0.40) · Party B's hand slides
-// the bracket 0.42–0.66 (produced rooms only) · guide 0.78–0.83 · strip 0.80–0.85.
+// Windows (LAW-0499.js W): headers 0.17–0.22 · the state row appears 0.20–0.30 (ring 0.22–0.40) · Party B's hand slides
+// the bracket 0.42–0.66 (provided rooms only) · guide 0.78–0.83 · strip 0.80–0.85.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite, identicalBeforeChange} from '../harness/supplied-text.js';
 import {ratioChecks, times} from '../harness/ratio-checks.js';
-import {textFloor, noTextOverlap, noTextOverProps, seekHistory, fill, headFloor, esDefaults, noConditionRuleWords, conceptNeutral, TERM_BANNED, CONFIG_WORDS, noOneWordLines, noLoneLetterSplit, noTornNumberUnit, esAportadoAgrees, docSize, stagesStackedTall} from './ct04-rendered.js';
+import {textFloor, noTextOverlap, noTextOverProps, seekHistory, fill, headFloor, esDefaults, noConditionRuleWords, conceptNeutral, TERM_BANNED, CONFIG_WORDS, noOneWordLines, noLoneLetterSplit, noTornNumberUnit, esAportadoAgrees, docSize, stagesStackedTall} from './ct05-rendered.js';
 
-const ID = 'LAW-0495';
+const ID = 'LAW-0499';
 const P = name => presetsFor(ID).find(q => q.name === name).params;
 const RATIOS = [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]];
 
@@ -27,11 +27,11 @@ contractSuite(ID, {
   continuity: ['brA', 'brB', 'handAA', 'handAB', 'handBA', 'handBB'],
   semantic: [
     {at: 0.1, fn: "s.stateA === 'none' && s.stateB === 'none' && s.lookA === s.lookB && s.bracketA === 'open' && s.bracketB === 'open'", label: 'base: the two rooms are identical; no state shown yet'},
-    {at: 0.35, fn: "s.stateA === 'produced' && s.stateB === 'pending'", label: 'change: produced in room A, pending in room B'},
+    {at: 0.35, fn: "s.stateA === 'provided' && s.stateB === 'undescribed'", label: 'change: provided in room A, undescribed in room B'},
     {at: 0.55, fn: "s.bracketA === 'moving' && s.heldA && s.bracketB === 'open' && !s.heldB", label: 'room A: Party B slides the bracket; room B: it stays open'},
     {at: 1, fn: "s.guide === 1 && s.bracketA === 'closed' && s.bracketB === 'open' && s.allReached && s.layoutOk", label: 'guide: the state rows ringed in both rooms; nothing concluded'},
     {at: 0.15, fn: "s.stateA === 'none' && s.guide === 0 && s.bracketA === 'open'", label: 'seeking back restores the base'},
-    {at: 1, params: P('contrast-or-alternative'), fn: "s.stateA === 'pending' && s.stateB === 'produced' && s.bracketA === 'open' && s.bracketB === 'closed'", label: 'alternative: the other way round'},
+    {at: 1, params: P('contrast-or-alternative'), fn: "s.stateA === 'undescribed' && s.stateB === 'provided' && s.bracketA === 'open' && s.bracketB === 'closed'", label: 'alternative: the other way round'},
     {at: 0.8, params: {textVisibility: 'none'}, fn: "s.bracketA === 'closed' && s.bracketB === 'open'", label: 'labels hidden: the same action'},
   ],
 });
@@ -46,8 +46,8 @@ ratioChecks(ID, 'layout fits, reach, room share', [
 ]);
 
 suppliedTextSuite(ID, {
-  fields: "return [p.changedFact.label, p.scenarioA.label, p.scenarioB.label, ...p.sharedFacts, p.event.label, ...p.obligations, ...p.parties.map(q => q.name)]",
-  content: "return [p.scenarioA.label, p.scenarioB.label, p.event.label, ...p.obligations]",
+  fields: "return [p.changedFact.label, p.scenarioA.label, p.scenarioB.label, ...p.sharedFacts, p.circumstance.label, ...p.clauses, ...p.parties.map(q => q.name)]",
+  content: "return [p.scenarioA.label, p.scenarioB.label, p.circumstance.label, ...p.clauses]",
   captions: "return ['As supplied · no conclusion drawn', 'Según lo aportado · sin conclusión']",
 });
 
@@ -60,7 +60,7 @@ headFloor(ID, {count: 4, floors: Object.fromEntries(['default', 'baseline-illust
 esDefaults(ID);
 noConditionRuleWords(ID);
 conceptNeutral(ID);
-// (the event card — the changed object — is a real object: ≥ 85 px at 1:1 outside the stress preset, ≥ 70 px otherwise)
+// (the circumstance card — the changed object — is a real object: ≥ 85 px at 1:1 outside the stress preset, ≥ 70 px otherwise)
 docSize(ID, {cards: '^[ab]-ev-in$', times: [0.35, 0.7, 1]});
 docSize(ID, {cards: '^[ab]-obl\\d-in$', times: [0.35, 1], floor: 70});
 stagesStackedTall(ID, {panels: ['a-frame', 'b-frame']});
@@ -149,10 +149,10 @@ test(`${ID}: a bracket moves only in Party B's hand, at a constant grip; arms ne
   expect([...new Set(out.fails.map(f => f.replace(/ t\d+:/, ':').replace(/[0-9.]+ from/, '')))].slice(0, 30)).toEqual([]);
 });
 
-// Equal weight (rendered, at the hold, every preset × ratio): the ● of the produced room and the ◆ of the pending room
-// have the same area (± 8 %), fill and stroke; the two event cards and the two rooms the same size; the glyph stays
+// Equal weight (rendered, at the hold, every preset × ratio): the ● of the provided room and the ◆ of the undescribed room
+// have the same area (± 8 %), fill and stroke; the two circumstance cards and the two rooms the same size; the glyph stays
 // ≥ 4 px clear of the print.
-test(`${ID}: produced and pending drawn alike in the two rooms (rendered)`, async ({page}) => {
+test(`${ID}: provided and undescribed drawn alike in the two rooms (rendered)`, async ({page}) => {
   test.setTimeout(300000);
   await page.goto('/tests/harness/host.html');
   await page.waitForFunction(() => document.body.dataset.ready === '1');
@@ -238,11 +238,11 @@ noLoneLetterSplit(ID);
 noTornNumberUnit(ID);
 esAportadoAgrees(ID);
 
-// Every valid obligation count renders a full scene (reviewer finding, 2026-10-05: three obligations at 1:1 used to leave
-// the scene empty): 1–3 obligations × every tranche × every preset (+ ES defaults) × ratio × labels all / none — the
+// Every valid clause count renders a full scene (reviewer finding, 2026-10-05: three clauses at 1:1 used to leave
+// the scene empty): 1–3 clauses × every section × every preset (+ ES defaults) × ratio × labels all / none — the
 // layout fits, both rooms with their boards, cards and people are drawn inside the frame, the text ≥ 16 px (≥ 19.5 px on
-// the non-stress presets' own two-obligation content) and the heads ≥ 45 px.
-test(`${ID}: one to three obligations render a full, legible scene at every ratio (rendered)`, async ({page}) => {
+// the non-stress presets' own two-clause content) and the heads ≥ 45 px.
+test(`${ID}: one to three clauses render a full, legible scene at every ratio (rendered)`, async ({page}) => {
   test.setTimeout(600000);
   await page.goto('/tests/harness/host.html');
   await page.waitForFunction(() => document.body.dataset.ready === '1');
@@ -253,12 +253,12 @@ test(`${ID}: one to three obligations render a full, legible scene at every rati
     let n = 0;
     for (const pr of presets) for (let k = 1; k <= 3; k++) for (const [from, to] of [[1, k], [k, k]]) for (const [ratio, w, h] of ratios) for (const tv of ['all', 'none']) {
       const es = (pr.params.locale || def.defaultParams.locale) === 'es';
-      const base = pr.params.obligations || (es ? [] : def.defaultParams.obligations);
-      const word = es ? 'Obligación' : 'Obligation';
-      const obligations = [...Array(k).keys()].map(i => base[i] ?? `${word} ${i + 1}${es ? ' (texto aportado)' : ' (supplied text)'}`);
+      const base = pr.params.clauses || (es ? [] : def.defaultParams.clauses);
+      const word = es ? 'Apartado' : 'Clause';
+      const clauses = [...Array(k).keys()].map(i => base[i] ?? `${word} ${i + 1}${es ? ' (texto aportado)' : ' (supplied text)'}`);
       const el = document.createElement('div');
       document.getElementById('slots').appendChild(el);
-      const x = def.create(el, {width: w, height: h, params: {...pr.params, obligations, tranche: {from, to}, textVisibility: tv}});
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, clauses, section: {from, to}, textVisibility: tv}});
       await x.ready;
       x.seek(x.durationMs);
       n++;
@@ -267,7 +267,7 @@ test(`${ID}: one to three obligations render a full, legible scene at every rati
       if (!s.layoutOk) fails.push(`${tag}: layout ${s.why}`);
       if (!(s.textPx >= 16)) fails.push(`${tag}: text ${s.textPx} px`);
       if (!(s.headPx >= 45)) fails.push(`${tag}: heads ${s.headPx} px`);
-      if (s.bracketA !== (pr.params.scenarioA?.state === 'pending' ? 'open' : 'closed')) fails.push(`${tag}: room A bracket ${s.bracketA}`);
+      if (s.bracketA !== (pr.params.scenarioA?.state === 'undescribed' ? 'open' : 'closed')) fails.push(`${tag}: room A bracket ${s.bracketA}`);
       const svg = x.element;
       const fr = svg.getBoundingClientRect();
       const k1080 = 1080 / Math.min(w, h) * (w / fr.width);
@@ -285,7 +285,7 @@ test(`${ID}: one to three obligations render a full, legible scene at every rati
           if (b.left < fr.left - 1 || b.right > fr.right + 1 || b.top < fr.top - 1 || b.bottom > fr.bottom + 1) fails.push(`${tag}: text "${t.textContent.slice(0, 30)}" outside the frame`);
         }
         const all = svg.textContent.replace(/[\u00a0\u2060]/g, ' ');
-        for (const txt of obligations) if (!txt.split(/\s+/).slice(0, 2).every(wd => all.includes(wd))) fails.push(`${tag}: "${txt}" not drawn`);
+        for (const txt of clauses) if (!txt.split(/\s+/).slice(0, 2).every(wd => all.includes(wd))) fails.push(`${tag}: "${txt}" not drawn`);
       }
       x.destroy();
       el.remove();
@@ -296,8 +296,8 @@ test(`${ID}: one to three obligations render a full, legible scene at every rati
   expect(out.fails.slice(0, 30)).toEqual([]);
 });
 
-// Long unbroken tokens (fix2-contract-terms-04, reviewer request 2026-10-05): a 33-, 42- or 55-character word in the event
-// label, an obligation, a state label or a party name — over the default content and over the long-labels-stress content
+// Long unbroken tokens (fix2-contract-terms-05, reviewer request 2026-10-05): a 33-, 42- or 55-character word in the circumstance
+// label, an clause, a state label or a party name — over the default content and over the long-labels-stress content
 // — renders a full scene at 16:9, 9:16 and 1:1 (never the empty group of `no-layout-fits`): the kit breaks a word (after
 // its own hyphens, else mid-word with a hyphen) only in a second layout pass, when no whole-word layout exists; all text
 // stays inside the frame.
@@ -312,11 +312,11 @@ test(`${ID}: long unbroken tokens (33/42/55 chars) render a full scene at every 
     const TOK = ['Vertragserfuellungsbedingungenxyz', 'Gewaehrleistungsverpflichtungsvereinbarung', 'Gewaehrleistungsverpflichtungsvereinbarungsklauselnabcd'];
     const fails = [];
     let n = 0, slow = 0, broken = 0;
-    for (const tok of TOK) for (const [bn, base] of [['default', {}], ['stress', stress]]) for (const field of ['event', 'obligation', 'state', 'name']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
+    for (const tok of TOK) for (const [bn, base] of [['default', {}], ['stress', stress]]) for (const field of ['circumstance', 'clause', 'state', 'name']) for (const [ratio, w, h] of [['16:9', 1920, 1080], ['9:16', 1080, 1920], ['1:1', 1080, 1080]]) {
       const p = structuredClone(base);
-      if (field === 'event') p.event = {label: `${tok} 1`};
-      if (field === 'obligation') p.obligations = [`${tok} 1`, ...(p.obligations ?? d.obligations).slice(1)];
-      if (field === 'state') p.stateLabels = {produced: tok, pending: (p.stateLabels ?? d.stateLabels).pending};
+      if (field === 'circumstance') p.circumstance = {label: `${tok} 1`};
+      if (field === 'clause') p.clauses = [`${tok} 1`, ...(p.clauses ?? d.clauses).slice(1)];
+      if (field === 'state') p.stateLabels = {provided: tok, undescribed: (p.stateLabels ?? d.stateLabels).undescribed};
       if (field === 'name') p.parties = [{...(p.parties ?? d.parties)[0], name: tok}, (p.parties ?? d.parties)[1]];
       const tag = `${tok.length} ${bn} ${field} ${ratio}`;
       const el = document.createElement('div');

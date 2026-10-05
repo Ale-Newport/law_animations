@@ -1,0 +1,506 @@
+{
+  "id": "LAW-0498",
+  "slug": "contract-terms-05-mechanism",
+  "title": "Activation circumstance, without a rule — the contract taken apart: circumstance card, configured link, bracket and section as supplied",
+  "titleEs": "Cláusula de terminación — Mecanismo o relación explicada",
+  "category": "contract-terms",
+  "categoryName": "Contenido y cláusulas",
+  "motif": "Cláusula de terminación",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "The assembled contract comes apart: the head plate lifts, the circumstance panel (the circumstance card \"Circumstance 1 (supplied)\" with its supplied state, ● provided or ◆ undescribed, drawn alike) slides left and the section panel (the supplied clause cards, with a neutral bracket open in its track) slides right. Only explicit plain relations are drawn, with no arrowheads: the contract with each panel and the supplied configured link between the circumstance card and the bracket's knob. A neutral marker runs the supplied stages along the relations while the focus element enlarges; with the state \"provided\" the bracket then slides shut on the supplied section — it only marks it. The parts close in part with everything visible, \"Section marked as supplied\" (or not marked) and the key \"As supplied · no conclusion drawn\".",
+  "tags": [
+    "activation circumstance",
+    "circumstance",
+    "section",
+    "bracket",
+    "exploded view",
+    "layers",
+    "relation",
+    "configured link",
+    "tracer"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/contract-terms/kits/clausula-terminacion.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Party A (by the circumstance panel) and Party B (by the track); fictional by default, equal weight (array replaces the previous value)"
+      },
+      "contract": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Reference printed on the contract (fictional)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Heading of the contract, as supplied (generic, e.g. \"Contract (fictional)\")"
+          }
+        },
+        "required": [
+          "reference",
+          "title"
+        ],
+        "description": "The contract board"
+      },
+      "panels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "circumstance": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Heading of the circumstance panel (e.g. \"Circumstance\")"
+          },
+          "section": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Heading of the section panel (e.g. \"Section of clauses\")"
+          }
+        },
+        "required": [
+          "circumstance",
+          "section"
+        ],
+        "description": "Headings of the two panels, as supplied"
+      },
+      "circumstance": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the circumstance (e.g. \"Circumstance 1 (supplied)\")"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "The circumstance, as supplied (a generic, fictional placeholder; never a real clause)"
+      },
+      "stateLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "provided": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "State \"provided\", as supplied (e.g. \"Circumstance provided (as supplied)\")"
+          },
+          "undescribed": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "State \"undescribed\", as supplied (e.g. \"Circumstance undescribed (as supplied)\")"
+          }
+        },
+        "required": [
+          "provided",
+          "undescribed"
+        ],
+        "description": "Wording of the two supplied states of the circumstance (equal weight; ● provided, ◆ undescribed)"
+      },
+      "clauses": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Clause, as supplied"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Clauses listed in the section panel, as supplied (generic, fictional placeholders, e.g. \"Clause 1 (supplied text)\"; never real contract text) (array replaces the previous value)"
+      },
+      "section": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "from": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "First clause of the section (1–3)"
+          },
+          "to": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "Last clause of the section (1–3)"
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "description": "The supplied section the bracket marks: clauses from…to (1 = top; clamped to the list)"
+      },
+      "caseState": {
+        "type": "string",
+        "enum": [
+          "provided",
+          "undescribed"
+        ],
+        "description": "The supplied state of the circumstance: provided (the bracket slides shut on the supplied section) or undescribed (the bracket stays open). Equal weight; nothing is inferred from either"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "part",
+            "config"
+          ],
+          "description": "Relation kind"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Relations drawn, as supplied: \"part\" (the contract with each panel) and \"config\" (the configured link between the circumstance card and the bracket). All are plain relations: no arrowhead, no causality (array replaces the previous value)"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "part": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the contract–panel relation"
+          },
+          "config": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label of the configured link"
+          }
+        },
+        "required": [
+          "part",
+          "config"
+        ],
+        "description": "Labels of the relations"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "circumstance",
+          "link",
+          "section"
+        ],
+        "description": "The element that enlarges while the marker runs"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "contract",
+            "circumstance",
+            "link",
+            "section"
+          ],
+          "description": "Stage"
+        },
+        "minItems": 1,
+        "maxItems": 4,
+        "description": "Stages the marker runs (always along the relations, in this order): contract, circumstance, link, section (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Lucía Ferrer",
+        "role": "Party A"
+      },
+      {
+        "name": "Tomás Ibarra",
+        "role": "Party B"
+      }
+    ],
+    "contract": {
+      "reference": "CT-517",
+      "title": "Contract (fictional)"
+    },
+    "panels": {
+      "circumstance": "Circumstance",
+      "section": "Section of clauses"
+    },
+    "circumstance": {
+      "label": "Circumstance 1 (supplied)"
+    },
+    "stateLabels": {
+      "provided": "Circumstance provided (as supplied)",
+      "undescribed": "Circumstance undescribed (as supplied)"
+    },
+    "clauses": [
+      "Clause 1 (supplied text)",
+      "Clause 2 (supplied text)",
+      "Clause 3 (supplied text)"
+    ],
+    "section": {
+      "from": 1,
+      "to": 2
+    },
+    "caseState": "provided",
+    "relationships": [
+      "part",
+      "config"
+    ],
+    "relationLabels": {
+      "part": "Part of the contract",
+      "config": "Configured link (as supplied)"
+    },
+    "focusElement": "circumstance",
+    "traversalOrder": [
+      "contract",
+      "circumstance",
+      "link",
+      "section"
+    ]
+  }
+}

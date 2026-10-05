@@ -1,22 +1,22 @@
 /**
- * LAW-0493 — Condición de activación · story
+ * LAW-0497 — Cláusula de terminación · story
  *
  * Storyboard (standing microscene; the contract board between the two parties):
  *  0.00–0.15  rest: the contract board (head band "CT-517 · Contract (fictional)", its layers behind) with two panels —
- *             "Event" (an empty slot; below it, in the event tray, the event card "Event 1 (supplied)" printed with its
- *             supplied state: ● "Event produced (as supplied)" or ◆ "Event pending (as supplied)", drawn alike) and
- *             "Tranche of obligations" (the supplied obligation cards seated in rows). Right of the tranche, the bracket
+ *             "Circumstance" (an empty slot; below it, in the circumstance tray, the circumstance card "Circumstance 1 (supplied)" printed with its
+ *             supplied state: ● "Circumstance provided (as supplied)" or ◆ "Circumstance undescribed (as supplied)", drawn alike) and
+ *             "Section of clauses" (the supplied clause cards seated in rows). Right of the section, the bracket
  *             stands open in its track. Party A stands at the left, Party B at the right.
- *  0.16–0.40  Party A's hand takes the event card by its outer end and seats it in the event slot (the hand holds it
+ *  0.16–0.40  Party A's hand takes the circumstance card by its outer end and seats it in the circumstance slot (the hand holds it
  *             all the way at a constant grip).
- *  0.44–0.66  the concrete action, shown only as the supplied configuration: with the state "produced" Party B's hand
- *             takes the bracket by its knob and slides it shut on the supplied tranche (obligations from…to) — the
- *             bracket MARKS the tranche, nothing else. With "pending" the bracket stays open, as supplied.
- *  0.73–1.00  hold: "Tranche marked as supplied" (or "Tranche not marked · as supplied") and the key "As supplied · no
+ *  0.44–0.66  the concrete action, shown only as the supplied configuration: with the state "provided" Party B's hand
+ *             takes the bracket by its knob and slides it shut on the supplied section (clauses from…to) — the
+ *             bracket MARKS the section, nothing else. With "undescribed" the bracket stays open, as supplied.
+ *  0.73–1.00  hold: "Section marked as supplied" (or "Section not marked · as supplied") and the key "As supplied · no
  *             conclusion drawn".
- * No rule on conditions: nothing about fulfilment, no automatic effect, no obligation that becomes due, binding or
+ * No rule on conditions: nothing about fulfilment, no automatic effect, no clause that becomes due, binding or
  * enforceable; no jurisdiction. The two states have equal weight (● and ◆ of the same area, colour and stroke).
- * @module animations/contract-terms/LAW-0493
+ * @module animations/contract-terms/LAW-0497
  */
 import {defineAnimation} from '../../core/define.js';
 import {makeMetadata} from '../../core/meta.js';
@@ -29,9 +29,9 @@ import {
   motifFields, DEFAULT_CONTENT, DEFAULT_CONTENT_ES, KIT_STRINGS, STATES, PX_BASE, PX_STRESS,
   layoutStage, stageArt, makeRigs, nameNodes, oblNodes, eventNode, bracketNode, moveAt, grabFor, handOf, holding,
   localizeScene, headBox, figureBox, overlaps, armClear,
-} from './kits/condicion-activacion.js';
+} from './kits/clausula-terminacion.js';
 
-const ID = 'LAW-0493';
+const ID = 'LAW-0497';
 const DURATION = 6000;
 
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
@@ -42,26 +42,26 @@ const W = {final: [0.75, 0.8], key: [0.78, 0.83], notes: [0.8, 0.85]};
 const sceneSchema = {
   ...motifFields,
   actorLabels: obj('Role captions shown under each party', {a: str('Caption for Party A', 50), b: str('Caption for Party B', 50)}),
-  objectLabels: obj('Plate on the event tray', {tray: str('Plate on the event tray', 30)}),
+  objectLabels: obj('Plate on the circumstance tray', {tray: str('Plate on the circumstance tray', 30)}),
   actionProgress: num('How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)', 0, 1),
-  annotations: list('Editorial callouts shown in the final hold', annotation(['event', 'tranche', 'bracket']), 0, 2),
-  finalState: oneOf('The supplied state of the event at the hold: produced (the bracket is slid shut on the supplied tranche; a tag "Tranche marked as supplied") or pending (the bracket stays open; a tag "Tranche not marked · as supplied"). Both are supplied states of equal weight; nothing is inferred from either', STATES),
+  annotations: list('Editorial callouts shown in the final hold', annotation(['circumstance', 'section', 'bracket']), 0, 2),
+  finalState: oneOf('The supplied state of the circumstance at the hold: provided (the bracket is slid shut on the supplied section; a tag "Section marked as supplied") or undescribed (the bracket stays open; a tag "Section not marked · as supplied"). Both are supplied states of equal weight; nothing is inferred from either', STATES),
 };
 
 const defaultParams = {
   ...DEFAULT_CONTENT,
   actorLabels: {a: 'Party A', b: 'Party B'},
-  objectLabels: {tray: 'Event tray'},
+  objectLabels: {tray: 'Circumstance tray'},
   actionProgress: 1,
   annotations: [],
-  finalState: 'produced',
+  finalState: 'provided',
 };
 
 /** Spanish defaults (the baseline-es content): used for every parameter left at its default when locale is 'es'. */
 const defaultParamsEs = {
   ...DEFAULT_CONTENT_ES,
   actorLabels: {a: 'Parte A', b: 'Parte B'},
-  objectLabels: {tray: 'Bandeja del evento'},
+  objectLabels: {tray: 'Bandeja del comunicación'},
 };
 
 function unitPx(ctx) {
@@ -69,7 +69,7 @@ function unitPx(ctx) {
   return f.scale * (1080 / Math.min(ctx.view.width, ctx.view.height));
 }
 
-const isStress = p => [...p.obligations, p.event.label].some(t => t.length > 40) || p.annotations.length > 1;
+const isStress = p => [...p.clauses, p.circumstance.label].some(t => t.length > 40) || p.annotations.length > 1;
 
 const scene = {
   sizes: {landscape: [1600, 900], square: [1150, 1000], portrait: [900, 1450]},
@@ -82,13 +82,13 @@ const scene = {
     const captions = [0, 1].map(i => (p.actorLabels[i ? 'b' : 'a'] ? `${p.parties[i].name} · ${p.actorLabels[i ? 'b' : 'a']}` : p.parties[i].name));
     const notes = [];
     // (the annotations first, ordered by their target from left to right: the first row, nearest the board, holds them)
-    const ORDER = ['event', 'tranche', 'bracket'];
+    const ORDER = ['circumstance', 'section', 'bracket'];
     if (show) p.annotations.map((an, i) => ({name: `note${i}`, kind: 'note', text: an.text, target: an.target})).sort((x, y) => ORDER.indexOf(x.target) - ORDER.indexOf(y.target)).forEach(q => notes.push(q));
-    if (show) notes.push({name: 'final', kind: 'final', text: p.finalState === 'pending' ? ctx.t.unmarked : ctx.t.marked});
+    if (show) notes.push({name: 'final', kind: 'final', text: p.finalState === 'undescribed' ? ctx.t.unmarked : ctx.t.marked});
     if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
-    const notesAlt = notes.map(q => (q.kind === 'final' ? {...q, text: p.finalState === 'pending' ? ctx.t.marked : ctx.t.unmarked} : q));
+    const notesAlt = notes.map(q => (q.kind === 'final' ? {...q, text: p.finalState === 'undescribed' ? ctx.t.marked : ctx.t.unmarked} : q));
     const stress = isStress(p);
-    // (the event panel's share of the board: even, or — where the print does not fit — wider or narrower)
+    // (the circumstance panel's share of the board: even, or — where the print does not fit — wider or narrower)
     let L = null;
     for (const eventShare of [0.5, 0.56, 0.44]) {
       L = layoutStage(ctx, {
@@ -111,7 +111,7 @@ const scene = {
     if (L.notesPl) {
       for (const q of L.notesPl.placed) {
         if (q.it.kind !== 'note') continue;
-        const tb = q.it.target === 'event' ? G.panelE : q.it.target === 'tranche' ? G.panelT : G.rail;
+        const tb = q.it.target === 'circumstance' ? G.panelE : q.it.target === 'section' ? G.panelT : G.rail;
         // (a leader from the chip's edge to the target panel's edge: up (or down) from the chip, across in the gap between
         // the board and the chips, then on to the target)
         const tx = Math.min(Math.max(q.x + q.c.box.w / 2, tb.x + 10), tb.x + tb.w - 10);
@@ -140,7 +140,7 @@ const scene = {
     const leads = L.leads.map(ld => h('path', {name: ld.name, opacity: 0, d: ld.d, fill: 'none', stroke: th.inkSoft, 'stroke-width': 2.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}));
     return g({name: 'scene'},
       stageArt(ctx, L),
-      oblNodes(ctx, L, p.obligations),
+      oblNodes(ctx, L, p.clauses),
       bracketNode(ctx, L, false),
       eventNode(ctx, L, p.finalState),
       L.rigs[0].node, L.rigs[1].node,
@@ -157,26 +157,26 @@ const scene = {
     const a = Math.min(u, capU);
     const done = p.actionProgress >= 1;
     const nodes = {};
-    const produced = p.finalState === 'produced';
-    // the event card: from the tray to the slot in Party A's hand
+    const provided = p.finalState === 'provided';
+    // the circumstance card: from the tray to the slot in Party A's hand
     const ev = moveAt(EV, G.trayE, G.slot, a);
     nodes.ev = {transform: T(r(ev.pos.x, 2), r(ev.pos.y, 2))};
-    // the bracket: slid shut on the tranche in Party B's hand (produced); open, as supplied (pending)
+    // the bracket: slid shut on the section in Party B's hand (provided); open, as supplied (undescribed)
     const brFrom = {x: G.B.openX, y: G.B.top}, brTo = {x: G.B.closedX, y: G.B.top};
-    const br = moveAt(produced ? BR : null, brFrom, brTo, a);
+    const br = moveAt(provided ? BR : null, brFrom, brTo, a);
     nodes.br = {transform: T(r(br.pos.x, 2), r(br.pos.y, 2))};
     // hands
     const rest = [G.figA, G.figB].map((fg, i) => L.rigs[i].frame({x: fg.x, y: fg.floor, facing: fg.f, scale: fg.k}).hands.near);
     const hA = handOf([grabFor(EV, G.trayE, G.slot, G.gripE)], rest[0], a);
     const knob = q => G.knobAt(q.x);
-    const hB = produced ? handOf([grabFor(BR, brFrom, brTo, knob)], rest[1], a) : null;
+    const hB = provided ? handOf([grabFor(BR, brFrom, brTo, knob)], rest[1], a) : null;
     const posedA = L.rigs[0].frame({x: G.figA.x, y: G.figA.floor, facing: 1, scale: G.k, near: hA, headTilt: ev.moving ? -4 : 3});
     const posedB = L.rigs[1].frame({x: G.figB.x, y: G.figB.floor, facing: -1, scale: G.k, near: hB, headTilt: br.moving ? -4 : 3});
     Object.assign(nodes, posedA.nodes, posedB.nodes);
     const armsClear = armClear(posedA.nodes, 'A') && armClear(posedB.nodes, 'B');
     const P2 = q => ({x: r(q.x), y: r(q.y)});
     const heldA = holding(EV, a) ? {i: 0, grip: P2(G.gripE(ev.pos))} : null;
-    const heldB = produced && holding(BR, a) ? {i: 0, grip: P2(knob(br.pos))} : null;
+    const heldB = provided && holding(BR, a) ? {i: 0, grip: P2(knob(br.pos))} : null;
     // hold
     const fin = done ? seg(u, ...W.final) : 0;
     const keyO = done ? seg(u, ...W.key) : 0;
@@ -193,9 +193,9 @@ const scene = {
         handA: P2(posedA.hands.near), handB: P2(posedB.hands.near),
         heldA, heldB, armsClear, cardH: r(G.chE, 2), lifter: false,
         allReached: posedA.reached && posedB.reached,
-        eventAt: ev.where === 'to' ? 'slot' : ev.where === 'from' ? 'tray' : 'moving',
+        cardAt: ev.where === 'to' ? 'slot' : ev.where === 'from' ? 'tray' : 'moving',
         bracket: brClosed ? 'closed' : br.moving ? 'moving' : 'open',
-        tranche: [G.tr.from, G.tr.to],
+        section: [G.tr.from, G.tr.to],
         finalState: p.finalState, finalShown: r(fin, 3), keyShown: r(keyO, 3),
         layoutOk: L.ok, why: L.why.join(','), problems: L.ok ? [] : L.why,
         textPx: r(L.F * L.upx, 2), headPx: r(90 * G.k * L.upx, 1),
@@ -211,18 +211,18 @@ export default defineAnimation({
   defaultDurationMs: DURATION,
   metadata: makeMetadata({
     id: ID,
-    slug: 'contract-terms-04-story',
-    title: 'Activation event, without a rule — an event card seated and a bracket slid onto the supplied tranche of obligations',
-    titleEs: 'Condición de activación — Microescena con objetos y actores',
+    slug: 'contract-terms-05-story',
+    title: 'Activation circumstance, without a rule — an circumstance card seated and a bracket slid onto the supplied section of clauses',
+    titleEs: 'Cláusula de terminación — Microescena con objetos y actores',
     category: 'contract-terms',
     categoryName: 'Contenido y cláusulas',
-    motif: 'Condición de activación',
+    motif: 'Cláusula de terminación',
     treatment: 'story',
     family: 'staged-scene',
-    description: 'Two standing parties on either side of a contract board with two panels, "Event" and "Tranche of obligations". Party A takes the event card ("Event 1 (supplied)", printed with its supplied state: ● produced or ◆ pending, drawn alike) from the event tray and seats it in the event slot. With the state "produced" Party B then slides a neutral bracket shut on the supplied tranche of obligation cards: it only marks the tranche as supplied. With "pending" the bracket stays open. The hold shows "Tranche marked as supplied" (or "Tranche not marked · as supplied") and the key "As supplied · no conclusion drawn". No rule on conditions, no obligation becoming due or binding, no conclusion.',
-    tags: ['activation event', 'event', 'tranche', 'obligations', 'bracket', 'contract', 'layers', 'equal weight', 'characters'],
+    description: 'Two standing parties on either side of a contract board with two panels, "Circumstance" and "Section of clauses". Party A takes the circumstance card ("Circumstance 1 (supplied)", printed with its supplied state: ● provided or ◆ undescribed, drawn alike) from the circumstance tray and seats it in the circumstance slot. With the state "provided" Party B then slides a neutral bracket shut on the supplied section of clause cards: it only marks the section as supplied. With "undescribed" the bracket stays open. The hold shows "Section marked as supplied" (or "Section not marked · as supplied") and the key "As supplied · no conclusion drawn". No rule on conditions, no clause becoming due or binding, no conclusion.',
+    tags: ['activation circumstance', 'circumstance', 'section', 'clauses', 'bracket', 'contract', 'layers', 'equal weight', 'characters'],
     defaultDurationMs: DURATION,
-    assets: ['src/animations/contract-terms/kits/condicion-activacion.js', 'src/primitives/person.js', 'src/primitives/annotate.js', 'src/primitives/people-style.js'],
+    assets: ['src/animations/contract-terms/kits/clausula-terminacion.js', 'src/primitives/person.js', 'src/primitives/annotate.js', 'src/primitives/people-style.js'],
   }),
   sceneSchema,
   defaultParams,

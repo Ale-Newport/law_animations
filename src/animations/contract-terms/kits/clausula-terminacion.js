@@ -1,26 +1,26 @@
 /**
- * Kit for the "Condición de activación" motif (contract-terms-04, LAW-0493..0496).
+ * Kit for the "Cláusula de terminación" motif (contract-terms-05, LAW-0497..0496).
  * Art, text fitting and pure geometry only: every entry owns its timeline, layout choices and semantics. The text
  * fitting, rig metrics, notes placement and Spanish-defaults wrapper are copied from the contract-terms-03 kit
- * (contract-terms/kits/obligaciones-reciprocas.js, read-only; copied, never imported).
+ * (contract-terms/kits/apartados-reciprocas.js, read-only; copied, never imported).
  *
  * Objects (original vector art, the category's editorial-flat language):
  *  - the CONTRACT BOARD (the contract): a standing board with its head band ("CT-517 · Contract (fictional)") and two
  *    layer sheets behind it (its layers). It holds two panels: the EVENT panel (left: an empty slot, a dock outline,
- *    and below it a tray where the event card rests) and the TRANCHE panel (right: the supplied obligation cards,
- *    "Obligation 1 (supplied text)" …, seated in rows). Right of the tranche runs a TRACK in which the BRACKET slides.
- *  - the EVENT CARD (the clause that names the event): a card printed with the supplied, generic event label ("Event 1
- *    (supplied)") and its supplied STATE row: ● "Event produced (as supplied)" or ◆ "Event pending (as supplied)". The
+ *    and below it a tray where the circumstance card rests) and the TRANCHE panel (right: the supplied clause cards,
+ *    "Clause 1 (supplied text)" …, seated in rows). Right of the section runs a TRACK in which the BRACKET slides.
+ *  - the EVENT CARD (the clause that names the circumstance): a card printed with the supplied, generic circumstance label ("Circumstance 1
+ *    (supplied)") and its supplied STATE row: ● "Circumstance provided (as supplied)" or ◆ "Circumstance undescribed (as supplied)". The
  *    two states are drawn alike — same glyph area, same colour, same stroke, same type; neither looks deficient.
  *  - OBLIGATION CARDS: plain cards with the supplied placeholders, all of the same size.
  *  - the BRACKET: a neutral ink "]" brace with a wooden knob on its spine. Open, it stands in the track, clear of the
- *    cards; closed, its arms clasp the supplied tranche (rows from…to): it MARKS the tranche as supplied — nothing else.
- *  - two standing PEOPLE, one on each side of the board (Party A by the event panel, Party B by the track).
+ *    cards; closed, its arms clasp the supplied section (rows from…to): it MARKS the section as supplied — nothing else.
+ *  - two standing PEOPLE, one on each side of the board (Party A by the circumstance panel, Party B by the track).
  * Legal content (very high risk: conditions): no rule on conditions — no condition precedent / subsequent, no
- * fulfilment, no "deemed" fulfilment, no automatic effect, no obligation that becomes due, binding or enforceable, no
- * jurisdiction. The event is a fictional placeholder; produced and pending are supplied states of equal weight; the
- * bracket only marks the supplied tranche. The key reads "As supplied · no conclusion drawn".
- * @module animations/contract-terms/kits/condicion-activacion
+ * fulfilment, no "deemed" fulfilment, no automatic effect, no clause that becomes due, binding or enforceable, no
+ * jurisdiction. The circumstance is a fictional placeholder; provided and undescribed are supplied states of equal weight; the
+ * bracket only marks the supplied section. The key reads "As supplied · no conclusion drawn".
+ * @module animations/contract-terms/kits/clausula-terminacion
  */
 import {h, g} from '../../../core/svg.js';
 import {T} from '../../../core/transform.js';
@@ -34,7 +34,7 @@ import {str, list, obj, int, party} from '../../../schemas/fields.js';
 import {measure, fitText} from '../../../core/text.js';
 
 /* ======================================================================== */
-/* Shared helpers (copied from contract-terms/kits/obligaciones-reciprocas.js — read-only, never imported) */
+/* Shared helpers (copied from contract-terms/kits/apartados-reciprocas.js — read-only, never imported) */
 /* ======================================================================== */
 
 const GLUE = '⁠';
@@ -277,14 +277,14 @@ export function armClear(nodes, N) {
 
 /**
  * Glue the tokens that must never part with no-break spaces (fitW keeps a no-break space as one token): a lone capital
- * letter with the word before it ("Party B"), a name word with its letter or number ("Event 1", "Obligación 2").
+ * letter with the word before it ("Party B"), a name word with its letter or number ("Circumstance 1", "Apartado 2").
  */
 export function glueText(text) {
   return String(text ?? '')
     .replace(/(\d)[ \t]+(h|hrs?|min|am|pm|AM|PM|%)(?=$|[\s),.;:·])/gu, '$1\u00a0$2')
     .replace(/(\S)[ \t]+(\(?[A-Z]\)?(?:['’]s)?)(?=$|[,.;:)·]|[ \t]+[^\p{Ll}\s])/gu, '$1\u00a0$2')
     .replace(/(\S)[ \t]+([A-Z]['’]s)(?=$|[\s,.;:)·])/gu, '$1\u00a0$2')
-    .replace(/(^|[\s(])(Party|Parte|party|parte|Event|Evento|event|evento|Obligation|Obligación|obligation|obligación|Room|Sala|room|sala|of|de|in|en)[ \t]+([A-Z]|\d+)(?=$|[\s,.;:)·'’–-])/gu, '$1$2 $3');
+    .replace(/(^|[\s(])(Party|Parte|party|parte|Circumstance|Comunicación|circumstance|comunicación|Clause|Apartado|clause|apartado|Room|Sala|room|sala|of|de|in|en)[ \t]+([A-Z]|\d+)(?=$|[\s,.;:)·'’–-])/gu, '$1$2 $3');
 }
 
 /** A short closing parenthetical — "(supplied text)", "(as supplied)", "(texto aportado)" — kept on one line. */
@@ -428,80 +428,80 @@ export function localizeScene(scene, defaults, es) {
 /* Fields, defaults and strings                                             */
 /* ======================================================================== */
 
-/** The two supplied states of the event, of equal weight. */
-export const STATES = ['produced', 'pending'];
+/** The two supplied states of the circumstance, of equal weight. */
+export const STATES = ['provided', 'undescribed'];
 
 /** Motif fields shared by the four treatments. */
 export const motifFields = {
-  parties: list('Party A (by the event panel) and Party B (by the track); fictional by default, equal weight', party, 2, 2),
+  parties: list('Party A (by the circumstance panel) and Party B (by the track); fictional by default, equal weight', party, 2, 2),
   contract: obj('The contract board', {
     reference: str('Reference printed on the contract (fictional)', 32),
     title: str('Heading of the contract, as supplied (generic, e.g. "Contract (fictional)")', 80),
   }, ['reference', 'title']),
   panels: obj('Headings of the two panels, as supplied', {
-    event: str('Heading of the event panel (e.g. "Event")', 50),
-    tranche: str('Heading of the tranche panel (e.g. "Tranche of obligations")', 50),
-  }, ['event', 'tranche']),
-  event: obj('The event, as supplied (a generic, fictional placeholder; never a real clause)', {
-    label: str('Label of the event (e.g. "Event 1 (supplied)")', 60),
+    circumstance: str('Heading of the circumstance panel (e.g. "Circumstance")', 50),
+    section: str('Heading of the section panel (e.g. "Section of clauses")', 50),
+  }, ['circumstance', 'section']),
+  circumstance: obj('The circumstance, as supplied (a generic, fictional placeholder; never a real clause)', {
+    label: str('Label of the circumstance (e.g. "Circumstance 1 (supplied)")', 60),
   }, ['label']),
-  stateLabels: obj('Wording of the two supplied states of the event (equal weight; ● produced, ◆ pending)', {
-    produced: str('State "produced", as supplied (e.g. "Event produced (as supplied)")', 60),
-    pending: str('State "pending", as supplied (e.g. "Event pending (as supplied)")', 60),
-  }, ['produced', 'pending']),
-  obligations: list('Obligations listed in the tranche panel, as supplied (generic, fictional placeholders, e.g. "Obligation 1 (supplied text)"; never real contract text)', str('Obligation, as supplied', 70), 1, 3),
-  tranche: obj('The supplied tranche the bracket marks: obligations from…to (1 = top; clamped to the list)', {
-    from: int('First obligation of the tranche (1–3)', 1, 3),
-    to: int('Last obligation of the tranche (1–3)', 1, 3),
+  stateLabels: obj('Wording of the two supplied states of the circumstance (equal weight; ● provided, ◆ undescribed)', {
+    provided: str('State "provided", as supplied (e.g. "Circumstance provided (as supplied)")', 60),
+    undescribed: str('State "undescribed", as supplied (e.g. "Circumstance undescribed (as supplied)")', 60),
+  }, ['provided', 'undescribed']),
+  clauses: list('Clauses listed in the section panel, as supplied (generic, fictional placeholders, e.g. "Clause 1 (supplied text)"; never real contract text)', str('Clause, as supplied', 70), 1, 3),
+  section: obj('The supplied section the bracket marks: clauses from…to (1 = top; clamped to the list)', {
+    from: int('First clause of the section (1–3)', 1, 3),
+    to: int('Last clause of the section (1–3)', 1, 3),
   }, ['from', 'to']),
 };
 
 export const DEFAULT_CONTENT = {
   parties: [{name: 'Lucía Ferrer', role: 'Party A'}, {name: 'Tomás Ibarra', role: 'Party B'}],
   contract: {reference: 'CT-517', title: 'Contract (fictional)'},
-  panels: {event: 'Event', tranche: 'Tranche of obligations'},
-  event: {label: 'Event 1 (supplied)'},
-  stateLabels: {produced: 'Event produced (as supplied)', pending: 'Event pending (as supplied)'},
-  obligations: ['Obligation 1 (supplied text)', 'Obligation 2 (supplied text)', 'Obligation 3 (supplied text)'],
-  tranche: {from: 1, to: 2},
+  panels: {circumstance: 'Circumstance', section: 'Section of clauses'},
+  circumstance: {label: 'Circumstance 1 (supplied)'},
+  stateLabels: {provided: 'Circumstance provided (as supplied)', undescribed: 'Circumstance undescribed (as supplied)'},
+  clauses: ['Clause 1 (supplied text)', 'Clause 2 (supplied text)', 'Clause 3 (supplied text)'],
+  section: {from: 1, to: 2},
 };
 
 /** The Spanish counterpart of DEFAULT_CONTENT (the baseline-es content). */
 export const DEFAULT_CONTENT_ES = {
   parties: [{name: 'Lucía Ferrer', role: 'Parte A'}, {name: 'Tomás Ibarra', role: 'Parte B'}],
   contract: {reference: 'CT-517', title: 'Contrato (ficticio)'},
-  panels: {event: 'Evento', tranche: 'Tramo de obligaciones'},
-  event: {label: 'Evento 1 (aportado)'},
-  stateLabels: {produced: 'Evento producido (según lo aportado)', pending: 'Evento pendiente (según lo aportado)'},
-  obligations: ['Obligación 1 (texto aportado)', 'Obligación 2 (texto aportado)', 'Obligación 3 (texto aportado)'],
-  tranche: {from: 1, to: 2},
+  panels: {circumstance: 'Comunicación', section: 'Cláusula de terminación'},
+  circumstance: {label: 'Comunicación 1 (aportado)'},
+  stateLabels: {provided: 'Comunicación previsto (según lo aportado)', undescribed: 'Comunicación no descrito (según lo aportado)'},
+  clauses: ['Apartado 1 (texto aportado)', 'Apartado 2 (texto aportado)', 'Apartado 3 (texto aportado)'],
+  section: {from: 1, to: 2},
 };
 
 export const KIT_STRINGS = {
   en: {
-    marked: 'Tranche marked as supplied',
-    unmarked: 'Tranche not marked · as supplied',
+    marked: 'Section marked as supplied',
+    unmarked: 'Section not marked · as supplied',
     key: 'As supplied · no conclusion drawn',
   },
   es: {
-    marked: 'Tramo marcado según lo aportado',
-    unmarked: 'Tramo sin marcar · según lo aportado',
+    marked: 'Apartado marcado según lo aportado',
+    unmarked: 'Apartado sin marcar · según lo aportado',
     key: 'Según lo aportado · sin conclusión',
   },
 };
 
-/** The supplied tranche, clamped to the obligations list (from ≤ to). Zero-based rows. */
-export function trancheRows(p) {
-  const n = p.obligations.length;
-  const a = clamp(Math.min(p.tranche.from, p.tranche.to), 1, n), b = clamp(Math.max(p.tranche.from, p.tranche.to), 1, n);
+/** The supplied section, clamped to the clauses list (from ≤ to). Zero-based rows. */
+export function sectionRows(p) {
+  const n = p.clauses.length;
+  const a = clamp(Math.min(p.section.from, p.section.to), 1, n), b = clamp(Math.max(p.section.from, p.section.to), 1, n);
   return {i0: a - 1, i1: b - 1, from: a, to: b};
 }
 
-/** The state glyph: ● for produced, ◆ for pending — same area, same fill, same stroke (neither state is deficient). */
+/** The state glyph: ● for provided, ◆ for undescribed — same area, same fill, same stroke (neither state is deficient). */
 export function stateGlyph(ctx, state, x, y, R, o = {}) {
   const fill = o.fill ?? ctx.theme.accent2;
   const sw = Math.max(2, R * 0.16);
-  if (state === 'produced') return h('circle', {name: o.name, cx: r(x), cy: r(y), r: r(R), fill, stroke: INK, 'stroke-width': r(sw, 2)});
+  if (state === 'provided') return h('circle', {name: o.name, cx: r(x), cy: r(y), r: r(R), fill, stroke: INK, 'stroke-width': r(sw, 2)});
   // (a diamond of the same area as the disc: half-diagonal R·√(π/2))
   const d = R * 1.2533;
   return h('path', {name: o.name, d: `M${r(x)} ${r(y - d)}L${r(x + d)} ${r(y)}L${r(x)} ${r(y + d)}L${r(x - d)} ${r(y)}Z`, fill, stroke: INK, 'stroke-width': r(sw, 2), 'stroke-linejoin': 'round'});
@@ -512,7 +512,7 @@ export function stateGlyph(ctx, state, x, y, R, o = {}) {
 /* ======================================================================== */
 
 /**
- * Event card metrics for body size F and card width cw: the label and BOTH state rows are fitted, and the card is sized
+ * Circumstance card metrics for body size F and card width cw: the label and BOTH state rows are fitted, and the card is sized
  * for the larger state (the card never changes size with the state). Returns null when a text does not fit.
  */
 export function measureEvent(p, F, cw, show, tight = false, noTab = false) {
@@ -520,24 +520,24 @@ export function measureEvent(p, F, cw, show, tight = false, noTab = false) {
   const gz = F * (noTab ? 1.15 : 1.3);
   const tw = cw - 2 * padX;
   if (tw < F * (show ? 6 : 2.5)) return null;
-  if (!show) return {label: null, st: {produced: null, pending: null}, stH: F, ch: padY * 2 + F * 1.2 + F * 0.5 + F, padX, padY, gz, tw, labH: F * 1.2, F};
+  if (!show) return {label: null, st: {provided: null, undescribed: null}, stH: F, ch: padY * 2 + F * 1.2 + F * 0.5 + F, padX, padY, gz, tw, labH: F * 1.2, F};
   // (the label, centred, keeps a wider margin at the card's ends: the grip tab's hand stays clear of it)
-  let label = fitG(p.event.label, {maxWidth: tw - (noTab ? 0 : F * 0.6), size: F, maxLines: 4, weight: 700, strict: true});
+  let label = fitG(p.circumstance.label, {maxWidth: tw - (noTab ? 0 : F * 0.6), size: F, maxLines: 4, weight: 700, strict: true});
   // (a card no hand carries — an inspected card —: its label as large as fits in one more line at most, up to 1.4×)
   if (noTab && !label.bad) for (const s0 of [1.4, 1.3, 1.2, 1.1]) {
-    const l2 = fitG(p.event.label, {maxWidth: tw, size: F * s0, maxLines: Math.min(3, label.lines.length + 1), weight: 700, strict: true});
+    const l2 = fitG(p.circumstance.label, {maxWidth: tw, size: F * s0, maxLines: Math.min(3, label.lines.length + 1), weight: 700, strict: true});
     if (!l2.bad) { label = l2; break; }
   }
   const st = {
-    produced: fitG(p.stateLabels.produced, {maxWidth: tw - gz, size: F, maxLines: 4, weight: 600, strict: true}),
-    pending: fitG(p.stateLabels.pending, {maxWidth: tw - gz, size: F, maxLines: 4, weight: 600, strict: true}),
+    provided: fitG(p.stateLabels.provided, {maxWidth: tw - gz, size: F, maxLines: 4, weight: 600, strict: true}),
+    undescribed: fitG(p.stateLabels.undescribed, {maxWidth: tw - gz, size: F, maxLines: 4, weight: 600, strict: true}),
   };
-  if (label.bad || st.produced.bad || st.pending.bad) return null;
-  const stH = Math.max(st.produced.height, st.pending.height);
+  if (label.bad || st.provided.bad || st.undescribed.bad) return null;
+  const stH = Math.max(st.provided.height, st.undescribed.height);
   return {label, st, stH, ch: padY + label.height + F * 0.6 + stH + padY, padX, padY, gz, tw, labH: label.height, F};
 }
 
-/** Obligation card metrics: every card the same size (the larger need). Null when a text does not fit in 3 lines. */
+/** Clause card metrics: every card the same size (the larger need). Null when a text does not fit in 3 lines. */
 export function measureObl(texts, F, cw, show, tight = false) {
   const padX = F * 0.45, padY = F * (tight ? 0.4 : 0.55), tab = F * 0.55;
   const tw = cw - 2 * padX - tab;
@@ -556,8 +556,8 @@ export function measureObl(texts, F, cw, show, tight = false) {
 }
 
 /**
- * Event card (local origin = its centre). The label sits in `${name}-label`; each state row (glyph + text, or glyph +
- * print bar with labels hidden) in `${name}-st-produced` / `${name}-st-pending` (the entry shows the supplied one).
+ * Circumstance card (local origin = its centre). The label sits in `${name}-label`; each state row (glyph + text, or glyph +
+ * print bar with labels hidden) in `${name}-st-provided` / `${name}-st-undescribed` (the entry shows the supplied one).
  * o.ring: a solid accent outline round the STATE row (a contrast scene's highlight), `${name}-ring`, opacity 0.
  */
 export function eventCard(ctx, {name, cw, ch, M, F: F0, state, ring = false, tabW = 0, tabY = 0}) {
@@ -571,7 +571,7 @@ export function eventCard(ctx, {name, cw, ch, M, F: F0, state, ring = false, tab
     ...(tabW ? [h('path', {name: `${name}-tab`, d: roundRectPath(x0 - tabW, tabY - tabH / 2, tabW + 8, tabH, 5), fill: th.woodTop, stroke: th.woodDark, 'stroke-width': 2.2})] : []),
     h('path', {d: roundRectPath(x0 + 3, y0 + 5, cw, ch, 9), fill: th.shadow}),
     h('path', {name: `${name}-sheet`, d: roundRectPath(x0, y0, cw, ch, 9), fill: th.card, stroke: INK, 'stroke-width': 2.6}),
-    // (a neutral ink band at the top edge: the event card reads as one object, unlike the obligation cards)
+    // (a neutral ink band at the top edge: the circumstance card reads as one object, unlike the clause cards)
     h('path', {d: `M${r(x0 + 10)} ${r(y0 + 4)}H${r(x0 + cw - 10)}`, stroke: th.inkSoft, 'stroke-width': r(Math.max(5, F * 0.22), 2), 'stroke-linecap': 'round'}),
   ];
   // (a card taller than its print centres the print)
@@ -581,7 +581,7 @@ export function eventCard(ctx, {name, cw, ch, M, F: F0, state, ring = false, tab
   if (M.label) kids.push(g({name: `${name}-label`}, textBlock(M.label, {x: r(0), y: r(yL), anchor: 'middle', fill: INK})));
   else kids.push(g({name: `${name}-label`}, h('rect', {x: r(-M.tw * 0.36), y: r(yL + F * 0.3), width: r(M.tw * 0.72), height: r(F * 0.34), rx: 3, fill: INK, opacity: 0.7})));
   const gx = x0 + M.padX + F * 0.45;
-  for (const s of ['produced', 'pending']) {
+  for (const s of ['provided', 'undescribed']) {
     const f = M.st[s];
     const gy = yS + F * 0.5;
     const body = f ? textBlock(f, {x: r(x0 + M.padX + M.gz), y: r(yS), fill: INK})
@@ -595,7 +595,7 @@ export function eventCard(ctx, {name, cw, ch, M, F: F0, state, ring = false, tab
   return g({name, 'data-occludes': 1}, kids);
 }
 
-/** Obligation card (local origin = its centre): a plain card with a neutral tab at its left edge and the print. */
+/** Clause card (local origin = its centre): a plain card with a neutral tab at its left edge and the print. */
 export function oblCard(ctx, {name, cw, ch, M, F, fit}) {
   const th = ctx.theme;
   const x0 = -cw / 2, y0 = -ch / 2;
@@ -633,14 +633,14 @@ export function bracketArt(ctx, {name, bh, B}) {
 
 /**
  * Solve one stage in `o.box` (design units) at body size F and figure scale k. Returns the geometry or null.
- * o: {box, F, k, upx, show, cardText, tight, p (content: contract, panels, event, stateLabels, obligations, tranche),
- *     names [2] | null, plates {tray} | null, notesH [below, top], tray (the event tray), noReach, minCh, minChE,
+ * o: {box, F, k, upx, show, cardText, tight, p (content: contract, panels, circumstance, stateLabels, clauses, section),
+ *     names [2] | null, plates {tray} | null, notesH [below, top], tray (the circumstance tray), noReach, minCh, minChE,
  *     reserveBelow (F => {w, h}), gutter, rowGap, eventShare}
  */
 export function stageGeom(ctx, o) {
   const {box, F, k, p} = o;
   const show = o.show, cardText = show && o.cardText !== false;
-  // (o.oblText: the obligation cards printed or not, decided apart from the event card — default: as the event card)
+  // (o.oblText: the clause cards printed or not, decided apart from the circumstance card — default: as the circumstance card)
   const oblText = show && (o.oblText ?? o.cardText) !== false;
   const tight = !!o.tight;
   const gapP = Math.max(8, F * 0.3);
@@ -662,16 +662,16 @@ export function stageGeom(ctx, o) {
   const railW = gapC + travel + knobDx + hr + F * 0.35;
   const stack = !!o.stack;
   const gw = stack ? 0 : Math.max(F * (tight ? 1 : 1.4), BW * (o.gutter ?? 0.05));
-  // (side by side: event panel | gutter | tranche panel | track; stacked (tall frames): the tranche panel and its track
-  // on top, the event panel under them across the board's width)
+  // (side by side: circumstance panel | gutter | section panel | track; stacked (tall frames): the section panel and its track
+  // on top, the circumstance panel under them across the board's width)
   const inner = stack ? BW - 2 * m - railW : BW - 2 * m - gw - railW;
   const share = o.eventShare ?? 0.5;
-  // (o.eventFullWidth, stacked: the event panel across the board's width, under the tranche and its track)
+  // (o.eventFullWidth, stacked: the circumstance panel across the board's width, under the section and its track)
   const We = stack ? (o.eventFullWidth ? BW - 2 * m : inner) : inner * share, Wt = stack ? inner : inner - We;
-  // (the grip tab at the event card's outer end — none on a card no hand carries, o.noTab)
+  // (the grip tab at the circumstance card's outer end — none on a card no hand carries, o.noTab)
   const tabW = o.noTab ? 0 : F * 1.0;
   const cwO = Wt - 2 * ci, cwE = Math.min(We - 2 * ci - tabW * (stack ? 1.4 : 0.6), o.cwEMax ?? Infinity);
-  // (o.minCwE: the event card a real object in both dimensions)
+  // (o.minCwE: the circumstance card a real object in both dimensions)
   if ((o.minCwE && cwE < o.minCwE) || (o.minCwO && cwO < o.minCwO)) return null;
   // (o.tokenProbe — layoutStage, at the widest board — : only whether every printed text's widest word can fit the
   // widest cards; the card widths shrink as the figures grow, so a word too wide here is too wide at every scale)
@@ -679,9 +679,9 @@ export function stageGeom(ctx, o) {
     if (BREAK) return {probe: true};
     const ew = cwE - 2 * F * (o.noTab ? 0.4 : 0.5), gz = F * (o.noTab ? 1.15 : 1.3);
     const ow = cwO - 2 * F * 0.45 - F * 0.55;
-    const ok = (!cardText || (widestToken(p.event.label, F, 700) <= Math.max(10, ew - (o.noTab ? 0 : F * 0.6))
-      && ['produced', 'pending'].every(st => widestToken(p.stateLabels[st], F, 600) <= Math.max(10, ew - gz))))
-      && (!oblText || p.obligations.every(t => widestToken(t, F, 600) <= Math.max(10, ow)));
+    const ok = (!cardText || (widestToken(p.circumstance.label, F, 700) <= Math.max(10, ew - (o.noTab ? 0 : F * 0.6))
+      && ['provided', 'undescribed'].every(st => widestToken(p.stateLabels[st], F, 600) <= Math.max(10, ew - gz))))
+      && (!oblText || p.clauses.every(t => widestToken(t, F, 600) <= Math.max(10, ow)));
     return ok ? {probe: true} : null;
   }
   let ME = measureEvent(p, F, cwE, cardText, tight, !!o.noTab);
@@ -690,10 +690,10 @@ export function stageGeom(ctx, o) {
     const M2 = measureEvent(p, F * s0, cwE, cardText, tight, !!o.noTab);
     if (M2 && M2.ch <= (o.minChE ?? 0)) { ME = M2; break; }
   }
-  const MO = measureObl(p.obligations, F, cwO, oblText, tight);
+  const MO = measureObl(p.clauses, F, cwO, oblText, tight);
   if (!ME || !MO) return null;
   const chE = Math.max(ME.ch, o.minChE ?? 0), chO = Math.max(MO.ch, o.minCh ?? 0);
-  const headFits = show && o.headings !== false ? [fitG(p.panels.event, {maxWidth: We - 2 * ci, size: F, maxLines: 2, weight: 700, strict: true}), fitG(p.panels.tranche, {maxWidth: Wt - 2 * ci, size: F, maxLines: 2, weight: 700, strict: true})] : [null, null];
+  const headFits = show && o.headings !== false ? [fitG(p.panels.circumstance, {maxWidth: We - 2 * ci, size: F, maxLines: 2, weight: 700, strict: true}), fitG(p.panels.section, {maxWidth: Wt - 2 * ci, size: F, maxLines: 2, weight: 700, strict: true})] : [null, null];
   if (headFits.some(f => f && f.bad)) return null;
   const colHH = headFits[0] ? Math.max(...headFits.map(f => f.height)) + F * (tight ? 0.5 : 0.7) : F * 1.2;
   const headFit = show && o.headText !== false ? fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: BW - 2 * m - F, size: F, maxLines: 3, weight: 700}) : null;
@@ -707,10 +707,10 @@ export function stageGeom(ctx, o) {
   const floor = box.y + box.h - (nameH ? nameH + F * 0.35 : 4);
   const figA = {x: xA, floor, f: 1, k}, figB = {x: xB, floor, f: -1, k};
   const sA = shoulderAt(figA), sB = shoulderAt(figB);
-  const n = p.obligations.length;
+  const n = p.clauses.length;
   let gS = Math.max(F * 0.55, sw + F * 0.35) * (o.rowGap ?? 1);
-  // (o.slotRoom: room above and below the seated event card — e.g. for a tag — taken from wider row gaps)
-  // (o.slotRoom: room under the seated event card — e.g. for a tag —: the card sits at the rows' top, the rows block at
+  // (o.slotRoom: room above and below the seated circumstance card — e.g. for a tag — taken from wider row gaps)
+  // (o.slotRoom: room under the seated circumstance card — e.g. for a tag —: the card sits at the rows' top, the rows block at
   // least as tall as the card and that room)
   const slotRoom = o.slotRoom ? o.slotRoom(F, We - F * 0.4) : 0;
   if (slotRoom && n > 1) gS = Math.max(gS, (chE + slotRoom - n * chO) / (n - 1));
@@ -742,7 +742,7 @@ export function stageGeom(ctx, o) {
   }
   R.yB = R.ledge + lipH + m * 0.45;
   // vertical placement: A's action (slot ↔ tray) at A's shoulder height — stacked, the middle between A's action and
-  // B's tranche at the shoulders' height — then nudged into the box
+  // B's section at the shoulders' height — then nudged into the box
   const midA = tray ? (R.slot + R.tray) / 2 : R.slot;
   const mid = stack ? (midA + R.rows0 + Hr / 2) / 2 : midA;
   let y0 = sA.y - mid;
@@ -762,8 +762,8 @@ export function stageGeom(ctx, o) {
   const rowY = [...Array(n).keys()].map(i => y0 + R.rows0 + chO / 2 + i * (chO + gS));
   const slot = {x: xE, y: y0 + R.slot};
   const trayE = tray ? {x: xE, y: y0 + R.tray} : null;
-  // bracket geometry: spans the supplied tranche rows
-  const tr = trancheRows(p);
+  // bracket geometry: spans the supplied section rows
+  const tr = sectionRows(p);
   const e = Math.min(gS * 0.5, F * 0.45);
   const brTop = rowY[tr.i0] - chO / 2 - e, brH = rowY[tr.i1] + chO / 2 + e - brTop;
   const closedX = xO + cwO / 2 + gapC, openX = closedX + travel;
@@ -774,7 +774,7 @@ export function stageGeom(ctx, o) {
   const knobY = clamp(sB.y - brTop, knobLo, knobHi);
   const B = {sw, arm, hr, knobDx, knobY, travel, gapC, top: brTop, h: brH, closedX, openX};
   const knobAt = x => ({x: x + knobDx, y: brTop + knobY});
-  // the event card's grip: its outer (left) end, at a fixed height on the card (nearest the shoulder)
+  // the circumstance card's grip: its outer (left) end, at a fixed height on the card (nearest the shoulder)
   // (on the card's end at the height nearest the shoulder; the label keeps a margin clear of the hand)
   const gripDy = tray ? clamp(sA.y - (slot.y + trayE.y) / 2, -chE * 0.3, chE * 0.32) : chE * 0.2;
   const gripE = c => ({x: c.x - cwE / 2 - tabW * 0.6, y: c.y + gripDy});
@@ -863,8 +863,8 @@ export function layoutStage(ctx, o) {
 /* ======================================================================== */
 
 /**
- * Board art: layers behind, frame, head band, the two panels with their headings, the event slot (a dock outline),
- * the event tray (ledge, with its plate), the bracket's track, legs.
+ * Board art: layers behind, frame, head band, the two panels with their headings, the circumstance slot (a dock outline),
+ * the circumstance tray (ledge, with its plate), the bracket's track, legs.
  */
 export function stageArt(ctx, L) {
   const th = ctx.theme;
@@ -886,14 +886,14 @@ export function stageArt(ctx, L) {
   if (G.headFit) kids.push(g({name: `${P}board-head`}, textBlock(G.headFit, {x: r(B.x + B.w / 2), y: r(hb.y + (hb.h - G.headFit.height) / 2), anchor: 'middle', fill: INK})));
   else kids.push(h('rect', {x: r(B.x + B.w / 2 - B.w * 0.18), y: r(hb.y + hb.h / 2 - F * 0.17), width: r(B.w * 0.36), height: r(F * 0.34), rx: 3, fill: INK, opacity: 0.6}));
   // the panels (equal tone: neither is primary)
-  [['event', G.panelE, 0], ['tranche', G.panelT, 1]].forEach(([nm, c, i]) => {
+  [['circumstance', G.panelE, 0], ['section', G.panelT, 1]].forEach(([nm, c, i]) => {
     kids.push(h('path', {name: `${P}panel-${nm}`, d: roundRectPath(c.x, c.y, c.w, c.h, 9), fill: shade(th.accent2Soft, 0.55), stroke: th.inkSoft, 'stroke-width': 2}));
     kids.push(h('path', {d: `M${r(c.x + 8)} ${r(c.y + 3)}H${r(c.x + c.w - 8)}`, stroke: th.inkSoft, 'stroke-width': r(Math.max(6, F * 0.26), 2), 'stroke-linecap': 'round'}));
     const f = G.headFits[i];
     if (f) kids.push(g({name: `${P}panel-${nm}-head`}, textBlock(f, {x: r(c.x + c.w / 2), y: r(c.y + (G.colHH - f.height) / 2 + 2), anchor: 'middle', fill: INK})));
     else kids.push(h('rect', {x: r(c.x + c.w * 0.3), y: r(c.y + G.colHH / 2 - F * 0.12), width: r(c.w * 0.4), height: r(F * 0.3), rx: 3, fill: INK, opacity: 0.5}));
   });
-  // the event slot: a dock outline the card is seated in
+  // the circumstance slot: a dock outline the card is seated in
   const sl = G.slot;
   kids.push(h('path', {name: `${P}slot`, d: roundRectPath(sl.x - G.cwE / 2 - 5, sl.y - G.chE / 2 - 5, G.cwE + 10, G.chE + 10, 12), fill: shade(th.paperShade, -0.03), stroke: th.inkSoft, 'stroke-width': 2.4}));
   // the track of the bracket (a groove from its closed to its open place)
@@ -903,7 +903,7 @@ export function stageArt(ctx, L) {
   const tyT = Math.min(Bk.top - Bk.sw * 1.2, Bk.top + Bk.knobY - Bk.hr - F * 0.25);
   kids.push(h('path', {name: `${P}track`, d: roundRectPath(tx0, tyT, tx1 - tx0, tyB - tyT, 10), fill: shade(th.paperShade, -0.05), stroke: th.inkSoft, 'stroke-width': 1.8}));
   for (const y of [Bk.top, Bk.top + Bk.h]) kids.push(h('path', {d: `M${r(tx0 + 6)} ${r(y)}H${r(tx1 - 6)}`, stroke: th.paperLine, 'stroke-width': 3, 'stroke-linecap': 'round'}));
-  // the event tray (ledge) with its plate
+  // the circumstance tray (ledge) with its plate
   if (G.trayE) {
     const lg = G.ledge;
     kids.push(h('path', {name: `${P}tray`, d: roundRectPath(lg.x, lg.y, lg.w, lg.h, 4), fill: th.woodTop, stroke: th.woodDark, 'stroke-width': 2}));
@@ -932,14 +932,14 @@ export function nameNodes(ctx, L, captions) {
   });
 }
 
-/** Obligation card nodes (seated rows; names `${P}obl${i}` with inner `${P}obl${i}-in`). */
+/** Clause card nodes (seated rows; names `${P}obl${i}` with inner `${P}obl${i}-in`). */
 export function oblNodes(ctx, L, texts) {
   const G = L.G, P = L.P;
   return texts.map((t, i) => g({name: `${P}obl${i}`, transform: T(r(G.xO, 2), r(G.rowY[i], 2))},
     oblCard(ctx, {name: `${P}obl${i}-in`, cw: G.cwO, ch: G.chO, M: G.MO, F: L.F, fit: (G.oblText ?? G.cardText) ? G.MO.fits[i] : null})));
 }
 
-/** The event card node (`${P}ev`, inner `${P}ev-in`), placed by the entry's frame. */
+/** The circumstance card node (`${P}ev`, inner `${P}ev-in`), placed by the entry's frame. */
 export function eventNode(ctx, L, state, o = {}) {
   const G = L.G, P = L.P;
   const at = o.at ?? G.trayE ?? G.slot;

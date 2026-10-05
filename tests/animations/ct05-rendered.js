@@ -1,4 +1,4 @@
-// Rendered checks shared by the contract-terms-04 tests (LAW-0493..0496, "Condición de activación").
+// Rendered checks shared by the contract-terms-05 tests (LAW-0497..0496, "Cláusula de terminación").
 // (Adapted from tests/animations/ct03-rendered.js — copied, not imported.)
 // Every check measures the RENDERED DOM (getScreenCTM × computed font size at 1080p; getBoundingClientRect boxes) in
 // every preset × 16:9 / 9:16 / 1:1:
@@ -9,8 +9,8 @@
 //    precedent / suspensiva, condition subsequent / resolutoria (any "condition / condición"), fulfilled / cumplida,
 //    deemed, due / exigible, binding / vinculante, enforceable, triggered / activated / automatic effect, breach /
 //    incumplimiento, must / debe, valid / válido, outcome / resultado …; the configuration words appear only in the exact
-//    supplied labels "Tranche marked as supplied" / "Tramo marcado según lo aportado" and "Tranche not marked · as
-//    supplied" / "Tramo sin marcar · según lo aportado" (optionally prefixed by a room badge, "A: …").
+//    supplied labels "Section marked as supplied" / "Apartado marcado según lo aportado" and "Section not marked · as
+//    supplied" / "Apartado sin marcar · según lo aportado" (optionally prefixed by a room badge, "A: …").
 import {test, expect} from '@playwright/test';
 import {presetsFor} from '../harness/contract.js';
 
@@ -318,7 +318,7 @@ export function esDefaults(ID) {
     await open(page);
     const out = await page.evaluate(async ([id, ratios]) => {
       const def = await window.__lib.load(id);
-      const english = /\b(Event|event|Obligation|obligation|Contract|contract|Tranche|tranche|marked|supplied|text|fictional|Party [AB]|Tray|tray|Configured|link|Link|Changed|changed|was|Same|same|Only|differs|Left|right|produced|pending|Part|conclusion|drawn|the|and|of|by|with|as)\b/;
+      const english = /\b(Circumstance|circumstance|Clause|clause|Contract|contract|Section|section|marked|supplied|text|fictional|Party [AB]|Tray|tray|Configured|link|Link|Changed|changed|was|Same|same|Only|differs|Left|right|provided|undescribed|Part|conclusion|drawn|the|and|of|by|with|as)\b/;
       const bad = [];
       let n = 0;
       for (const [ratio, w, h] of ratios) {
@@ -390,9 +390,9 @@ export function cardsApart(ID, pairs) {
 }
 
 /**
- * No rule on conditions (contract-terms-04, very high legal risk): no rendered text, EN or ES, in any preset (and the
+ * No rule on conditions (contract-terms-05, very high legal risk): no rendered text, EN or ES, in any preset (and the
  * default en / es) at any of 21 times, names a condition doctrine or states a fulfilment, an automatic effect, an
- * obligation that becomes due, binding or enforceable, a breach, a validity or an outcome. The configuration words
+ * clause that becomes due, binding or enforceable, a breach, a validity or an outcome. The configuration words
  * appear only in the exact supplied labels (see CONFIG_LABEL).
  */
 export function noConditionRuleWords(ID) {
@@ -435,10 +435,10 @@ export function noConditionRuleWords(ID) {
 /** Banned wording, EN and ES (exported so that a test can check the regex itself). */
 export const TERM_BANNED = /(\bconditions?\b|conditional|condici(ó|o)n|condicional|precedent|subsequent|suspensiv|resolutori|fulfil|\bcumplid|cumplimiento|incumpl|\bsatisf|deemed|se tiene por|se tendr(á|a) por|\bdue\b|\bowed?\b|payable|exigib|vencid|devengad|binding|vinculant|obligatori[oa]|enforce|ejecutab|trigger|disparad|activat|activad|\bactiva\b|automatic|autom(á|a)tic|in force|en vigor|takes effect|\beffect|surte efecto|\befecto|breach|default|\bmust\b|\bshall\b|\bdebe|\bdeber|\btiene que\b|\bvalid|\binvalid|v(á|a)lid[oa]s?\b|validez|nulidad|\boutcome|\bresult\b|resultado|consequen|consecuencia|\bliab|responsab|\blaw\b|\bley\b|statut|c(ó|o)digo|\bremed|damages|\bdaños|penalt|sanci(ó|o)n)/i;
 /** The configuration words (allowed only inside the exact supplied labels). */
-export const CONFIG_WORDS = /(tranche marked|tranche not marked|tramo marcado|tramo sin marcar)/i;
+export const CONFIG_WORDS = /(section marked|section not marked|apartado marcado|apartado sin marcar)/i;
 /** The exact supplied labels (optionally after a room badge, "A: …"). */
-export const CONFIG_LABEL = /^(\S{1,3}: )?(Tranche marked as supplied|Tranche not marked · as supplied|tranche marked as supplied|tranche not marked · as supplied|Tramo marcado según lo aportado|Tramo sin marcar · según lo aportado|tramo marcado según lo aportado|tramo sin marcar · según lo aportado)$/;
-export const CONFIG_LABELS = ['Tranche marked as supplied', 'Tranche not marked · as supplied', 'Tramo marcado según lo aportado', 'Tramo sin marcar · según lo aportado'];
+export const CONFIG_LABEL = /^(\S{1,3}: )?(Section marked as supplied|Section not marked · as supplied|section marked as supplied|section not marked · as supplied|Apartado marcado según lo aportado|Apartado sin marcar · según lo aportado|apartado marcado según lo aportado|apartado sin marcar · según lo aportado)$/;
+export const CONFIG_LABELS = ['Section marked as supplied', 'Section not marked · as supplied', 'Apartado marcado según lo aportado', 'Apartado sin marcar · según lo aportado'];
 
 /**
  * The supplied configuration says nothing about a person (contract-terms-03): for each pair of parameter sets that
@@ -625,7 +625,7 @@ const wordsOf = lines => lines.join(' ').split(/\s+/).map(w => w.replace(/^[(«"
 
 /**
  * No one-word lines: in a wrapped block holding three words or more, the last line is never a single bare word (a widow:
- * "Order to be / examined"), and no two lines are single bare words ("Formalidad / pendiente / (aportado)"). A
+ * "Order to be / examined"), and no two lines are single bare words ("Formalidad / no descrito / (aportado)"). A
  * parenthetical tag, a number or an ID alone on its line is not a bare word.
  */
 export function noOneWordLines(ID) {
