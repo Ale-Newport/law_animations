@@ -322,7 +322,7 @@ function compose(ctx, base, cfg) {
     const ar = room.w / room.h;
     // (only as far as the tag's text keeps >= 0.30 of the window: the lens stays text-dominated)
     const tA0 = tg.textArea / (crop.w * crop.h);
-    if (crop.w / crop.h < ar) { const nw = Math.max(crop.w, Math.min(crop.h * ar, crop.w * (textOn ? 1.6 : 1.4), textOn ? crop.w * tA0 / 0.33 : Infinity)); crop = {...crop, x: crop.x - (nw - crop.w) / 2, w: nw}; }
+    if (crop.w / crop.h < ar) { const nw = Math.max(crop.w, Math.min(crop.h * ar, crop.w * (textOn ? 1.6 : 1.7), textOn ? crop.w * tA0 / 0.33 : Infinity)); crop = {...crop, x: crop.x - (nw - crop.w) / 2, w: nw}; }
     // (a crop wider than the room deepens downward into the plate, up to 1.6× — never below the floor line)
     // (labels hidden only: with labels shown the text-coverage gate keeps the crop on the tag)
     // (labels hidden: the crop is not deepened — the lens stays on the tag, the step and its leader)
@@ -341,7 +341,7 @@ function compose(ctx, base, cfg) {
     const spanH = arr === 'side' ? Math.max(zg.zH, crop.h * Z) : zg.zH * room.sBack + 16 + crop.h * Z + 14;
     if (spanH < (arr === 'side' ? 0.9 : 0.9) * (D.h - (room.top || 0)) && !cfg.force) { lastWhy = `span${Math.round(spanH)}`; continue; }
     // (stacked: the union of the stepped-back context and the lens also spans most of the box's width)
-    if (arr !== 'side' && Math.max(zg.zW * room.sBack, crop.w * Z) < 0.9 * full && !cfg.force) { lastWhy = 'unionW'; continue; }
+    if (arr !== 'side' && Math.max(zg.zW * room.sBack, crop.w * Z) < 0.93 * full && !cfg.force) { lastWhy = 'unionW'; continue; }
     if ((Z < 1.62 || lensMin < 0.37 * FU.short + 4 || fill < 0.42) && !cfg.force) { lastWhy = `Z${Z.toFixed(2)}/${Math.round(lensMin)}/f${fill.toFixed(2)}`; continue; }
     found = {PH, zg, band, room, crop, Z, blockH, split, bandW, fill};
     break;

@@ -1,6 +1,6 @@
 {
   "animationId": "LAW-0504",
-  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (generic liability categories, never real contract text). The substitution changes one supplied datum (the status of one category: 'Category included' ↔ 'Exclusion to be reviewed', ● and ◆ alike); only the contour beside that tile follows. No doctrine on limitation or exclusion clauses: no enforceability, validity or effect, no cap or amount, no outcome. Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): clauses (the context is the delimited sheet; the clause heading is shown), schedules, definitions, priorities, actorLabels (no actors), objectLabels (the props carry no names), finalState (the hold is the after-value with the changed marker).",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (generic liability categories, never real contract text). The substitution changes one supplied datum (the status of one category: 'Category included' ↔ 'Exclusion to be reviewed', ● and ◆ alike); only the contour beside that tile follows. No doctrine on limitation or exclusion clauses: no enforceability, validity or effect, no cap or amount, no outcome. Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): schedules, definitions, priorities, actorLabels (no actors), objectLabels (the props carry no names), finalState (the hold is the after-value with the changed marker).",
   "presets": [
     {
       "name": "baseline-illustrative",
@@ -9,7 +9,7 @@
     },
     {
       "name": "contrast-or-alternative",
-      "description": "Substantive alternative: another contract, four categories; Category D changes from 'Exclusion to be reviewed' to 'Category included', so its bay closes.",
+      "description": "Substantive alternative: another contract and other categories; Category C changes from 'Exclusion to be reviewed' to 'Category included', so its bay closes (Category A keeps its bay).",
       "params": {
         "contract": {
           "reference": "CT-519",
@@ -28,23 +28,23 @@
           },
           {
             "label": "Category C (supplied)",
-            "status": "included",
-            "clause": 2
-          },
-          {
-            "label": "Category D (supplied)",
             "status": "review",
             "clause": 3
           }
         ],
-        "changedCategory": 4,
+        "changedCategory": 3,
         "beforeValue": "review",
-        "afterValue": "included"
+        "afterValue": "included",
+        "clauses": [
+          "Clause 4.1 (supplied text)",
+          "Clause 4.2 (supplied text)",
+          "Clause 4.3 (supplied text)"
+        ]
       }
     },
     {
       "name": "long-labels-stress",
-      "description": "Long labels: long headings, four long categories, long status wording and two annotations.",
+      "description": "Long labels: long headings, three long categories (the baseline count; four do not fit the 1:1 lens floor, see test note), long status wording and two annotations.",
       "params": {
         "contract": {
           "reference": "CONTRACT-2026-0246",
@@ -67,11 +67,6 @@
             "label": "Category 3, third one named in the text (supplied)",
             "status": "review",
             "clause": 2
-          },
-          {
-            "label": "Category 4, fourth one named in the text (supplied)",
-            "status": "included",
-            "clause": 1
           }
         ],
         "statusLabels": {
@@ -87,6 +82,11 @@
             "target": "contour",
             "text": "The contour beside the tile follows the status"
           }
+        ],
+        "clauses": [
+          "Clause 9.1, first line listed in the clause (supplied text)",
+          "Clause 9.2, second line listed in the clause (supplied text)",
+          "Clause 9.3, third line listed in the clause (supplied text)"
         ]
       }
     },
@@ -121,7 +121,11 @@
         "statusLabels": {
           "included": "Categoría incluida (según lo aportado)",
           "review": "Exclusión por revisar (según lo aportado)"
-        }
+        },
+        "clauses": [
+          "Cláusula 9.1 (texto aportado)",
+          "Cláusula 9.2 (texto aportado)"
+        ]
       }
     }
   ]

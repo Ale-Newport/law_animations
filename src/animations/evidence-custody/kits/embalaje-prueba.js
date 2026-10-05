@@ -154,6 +154,12 @@ export function pouchFront(ctx, PM, o) {
   return g({name: o.name}, parts);
 }
 
+/** Flap outline (hinge-local; open flap towards -y; pass sy = -1 for the folded flap). */
+export function flapOutline(w, fh, sy = 1) {
+  const y = v => r(v * sy);
+  return `M${r(-w / 2)} 0V${y(-fh * 0.72)}Q${r(-w / 2)} ${y(-fh)} ${r(-w / 2 + fh * 0.3)} ${y(-fh)}H${r(w / 2 - fh * 0.3)}Q${r(w / 2)} ${y(-fh)} ${r(w / 2)} ${y(-fh * 0.72)}V0Z`;
+}
+
 /**
  * Flap (local origin = hinge centre; the flap extends towards -y when open). Animate `${name}` with
  * T(hx, hy, 0, 1, sy): sy = 1 open, -1 folded. Faces swap with `${name}-in` / `${name}-out` opacity.
@@ -163,7 +169,7 @@ export function pouchFront(ctx, PM, o) {
 export function flapNode(ctx, PM, o) {
   const N = o.name;
   const w = PM.w, fh = PM.fh, S = PM.S;
-  const outline = `M${r(-w / 2)} 0V${r(-fh * 0.72)}Q${r(-w / 2)} ${r(-fh)} ${r(-w / 2 + fh * 0.3)} ${r(-fh)}H${r(w / 2 - fh * 0.3)}Q${r(w / 2)} ${r(-fh)} ${r(w / 2)} ${r(-fh * 0.72)}V0Z`;
+  const outline = flapOutline(w, fh);
   // outer face: lines are drawn mirrored (the face is seen after the fold flips y)
   const ln = k => -fh * k;
   return g({name: N},
@@ -192,6 +198,26 @@ export function stripModel(len, hh, S) {
   return {len, h: hh, plate: {w: S * 0.66, h: hh * 0.7}, slitX: len * 0.27, S};
 }
 
+/** Barcode-like bars on a plate (a different seed text gives a different pattern: a changed number reads with labels hidden). */
+export function barsPath(Pl, seed = '') {
+  let hsh = 7;
+  for (const ch of String(seed)) hsh = (hsh * 31 + ch.charCodeAt(0)) % 9973;
+  const out = [];
+  let bx = -Pl.w * 0.4;
+  let i = 0;
+  while (bx < Pl.w * 0.4) { const k = (i * 7 + hsh) % 5; out.push(`M${r(bx)} ${r(-Pl.h * 0.3)}v${r(Pl.h * 0.6)}`); bx += (k < 2 ? 3.5 : 1.8) + 3 + ((i * 5 + hsh) % 4); i++; }
+  return out.join('');
+}
+
+/** Plate overlay with bars for a seed (drawn over a strip whose plate is blank). */
+export function plateBars(SM, seed, o = {}) {
+  const Pl = SM.plate;
+  return g({name: o.name, opacity: o.opacity},
+    h('rect', {x: r(-Pl.w / 2), y: r(-Pl.h / 2), width: r(Pl.w), height: r(Pl.h), rx: 4, fill: '#fffdf6', stroke: INK, 'stroke-width': 1.6}),
+    h('path', {d: barsPath(Pl, seed), stroke: INK, 'stroke-width': 2.2}),
+  );
+}
+
 /** Zig-zag slit across the strip at local x (a supplied mark). */
 export function slitPath(SM) {
   const x = SM.slitX, hh = SM.h;
@@ -210,12 +236,7 @@ export function stripArt(ctx, SM, o) {
   const L = SM.len, hh = SM.h, Pl = SM.plate;
   const ticks = [];
   for (let x = -L / 2 + SM.S * 0.05; x < L / 2 - 4; x += SM.S * 0.07) ticks.push(`M${r(x)} ${r(-hh / 2)}v${r(hh * 0.13)}M${r(x)} ${r(hh / 2)}v${r(-hh * 0.13)}`);
-  const bars = [];
-  if (!o.numberFit) {
-    let bx = -Pl.w * 0.4;
-    let i = 0;
-    while (bx < Pl.w * 0.4) { const bw = (i * 7) % 3 === 0 ? 3.5 : 1.8; bars.push(`M${r(bx)} ${r(-Pl.h * 0.3)}v${r(Pl.h * 0.6)}`); bx += bw + 3 + ((i * 5) % 4); i++; }
-  }
+  const bars = !o.numberFit && !o.blank ? barsPath(Pl, o.barSeed || '') : '';
   return g({name: N},
     h('rect', {x: r(-L / 2 + 4), y: r(-hh / 2 + 5), width: r(L), height: r(hh), rx: 3, fill: '#000', opacity: 0.14}),
     h('rect', {x: r(-L / 2), y: r(-hh / 2), width: r(L), height: r(hh), rx: 3, fill: TAPE, stroke: INK, 'stroke-width': 2}),
@@ -223,7 +244,7 @@ export function stripArt(ctx, SM, o) {
     h('path', {d: `M${r(-L / 2 + 6)} ${r(-hh * 0.22)}H${r(L / 2 - 6)}M${r(-L / 2 + 6)} ${r(hh * 0.22)}H${r(L / 2 - 6)}`, stroke: shade(TAPE, 0.25), 'stroke-width': 1.6}),
     o.press ? h('rect', {name: `${N}-press`, x: r(-L / 2), y: r(-hh / 2), width: 0, height: r(hh), rx: 3, fill: TAPE_DARK, opacity: 0.28}) : null,
     h('rect', {x: r(-Pl.w / 2), y: r(-Pl.h / 2), width: r(Pl.w), height: r(Pl.h), rx: 4, fill: '#fffdf6', stroke: INK, 'stroke-width': 1.6}),
-    o.numberFit ? textAt(o.numberFit, {x: 0, y: -o.numberFit.height / 2, anchor: 'middle', fill: INK, name: `${N}-num`}) : h('path', {d: bars.join(''), stroke: INK, 'stroke-width': 2.2}),
+    o.numberFit ? textAt(o.numberFit, {x: 0, y: -o.numberFit.height / 2, anchor: 'middle', fill: INK, name: `${N}-num`}) : o.blank ? null : h('path', {d: bars, stroke: INK, 'stroke-width': 2.2}),
     g({name: `${N}-slit`, opacity: o.slit ? 1 : 0},
       h('path', {d: slitPath(SM), fill: 'none', stroke: '#fffdf6', 'stroke-width': r(Math.max(5, hh * 0.12), 2), 'stroke-linejoin': 'round'}),
       h('path', {d: slitPath(SM), fill: 'none', stroke: INK, 'stroke-width': 2.4, 'stroke-linejoin': 'round'}),
@@ -242,8 +263,11 @@ export function numberFit(ctx, SM, text, F, vs = 1) {
   if (F * vs < 16) return null;
   const f = fitG(text, {maxWidth: SM.len * 0.4, size: F, minSize: F, maxLines: 1, weight: 700, family: 'mono'});
   if (!f.ok || F * 1.18 > SM.h * 0.92) return null;
-  SM.plate = {w: Math.max(SM.plate.w, f.width + F * 0.9), h: Math.max(SM.plate.h, F * 1.18)};
-  SM.slitX = Math.min(SM.len / 2 - SM.h * 0.3, Math.max(SM.slitX, SM.plate.w / 2 + SM.h * 0.35));
+  const pw = Math.max(SM.plate.w, f.width + F * 0.9);
+  const sx = Math.max(SM.slitX, pw / 2 + SM.h * 0.4);
+  if (sx > SM.len / 2 - SM.h * 0.35) return null; // the marked slit must never cross the printed number
+  SM.plate = {w: pw, h: Math.max(SM.plate.h, F * 1.18)};
+  SM.slitX = sx;
   return f;
 }
 

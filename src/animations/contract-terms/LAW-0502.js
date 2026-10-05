@@ -139,8 +139,8 @@ function geom(ctx, F, minF) {
   const tileX = C.x + neck + 18, tileW = C.x + C.w - 14 - tileX;
   const gR = Math.min(14, F * 0.6);
   const labFits = p.categories.map(c => fitG(c.label, {maxWidth: tileW - tileTextX(70) - 10, size: F, minSize: minF, maxLines: 2, weight: 700}));
-  const stFits = p.categories.map(c => fitG(p.statusLabels[c.status], {maxWidth: tileW - tileTextX(70) - gR * 2 - 18, size: F * 0.9, minSize: minF, maxLines: 2, weight: 600}));
-  const stWorst = fitG(worstStatus(p), {maxWidth: tileW - tileTextX(70) - gR * 2 - 18, size: F * 0.9, minSize: minF, maxLines: 2, weight: 600});
+  const stFits = p.categories.map(c => fitG(p.statusLabels[c.status], {maxWidth: tileW - tileTextX(70) - gR * 2 - 18, size: F, minSize: minF, maxLines: 2, weight: 600}));
+  const stWorst = fitG(worstStatus(p), {maxWidth: tileW - tileTextX(70) - gR * 2 - 18, size: F, minSize: minF, maxLines: 2, weight: 600});
   if ([...labFits, ...stFits, stWorst, head, ...clauseFits, ...tabs].some(f => f.bad)) why.push('text');
   const tileH0 = Math.max(...labFits.map(f => f.height)) + stWorst.height + 30;
   const tgap0 = 30;

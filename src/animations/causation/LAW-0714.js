@@ -268,7 +268,7 @@ function compose(ctx, base, cfg) {
     const R = OH * (mode === 'stack' ? 0.32 : 0.42);
     const colB = stackChips ? pw : Math.max(pw, cB.w), colA = stackChips ? pw : Math.max(pw, cA.w);
     // (stack: the convergence piece stands above the pieces, so the gap only holds the link between them and its label)
-    const gapX = Math.max(OH * (mode === 'band' ? 0.55 : mode === 'stack' ? 0.3 : 0.9), mode === 'band' || mode === 'stack' ? 0 : 2 * R + 40, (colB + colA) / 2 - pw + 24, seqW + 40);
+    const gapX = Math.max(OH * (mode === 'band' ? 0.55 : mode === 'stack' ? 0.3 : 0.65), mode === 'band' || mode === 'stack' ? 0 : R + 30, (colB + colA) / 2 - pw + 24, seqW + 40);
     return {w: colB / 2 + pw + gapX + colA / 2, pw, R, gapX, ow};
   };
   const chipsH = stackChips ? cB.h + (cB.h && cA.h ? 8 : 0) + cA.h : Math.max(cB.h, cA.h);

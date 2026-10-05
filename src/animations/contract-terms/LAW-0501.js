@@ -38,7 +38,7 @@ const ID = 'LAW-0501';
 const DURATION = 6000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
 const W = {
-  read: [0.15, 0.29], back: [0.29, 0.33], toStart: [0.31, 0.35], draw: [0.35, 0.64], lift: [0.64, 0.7],
+  read: [0.15, 0.28], back: [0.28, 0.35], toStart: [0.29, 0.36], draw: [0.36, 0.645], lift: [0.64, 0.7],
   status: [0.65, 0.73], final: [0.73, 0.78], key: [0.76, 0.81], notes: [0.78, 0.83],
 };
 const ZOOM = 1.6;
@@ -69,7 +69,7 @@ const defaultParamsEs = {
 const isStress = p => [...p.clauses, ...p.categories.map(c => c.label), p.contract.title, p.statusLabels.included, p.statusLabels.review, p.sheetLabel].some(t => t.length > 40) || p.annotations.length > 1;
 
 /** Geometry for one candidate text size. */
-function geom(ctx, F, minF) {
+function geom(ctx, F, minF, legend = false) {
   const p = ctx.params;
   const D = ctx.design;
   const shape = ctx.view.shape;
@@ -84,10 +84,11 @@ function geom(ctx, F, minF) {
   // notes (final chip, key, annotations)
   const notes = [];
   if (show) notes.push({name: 'final', kind: 'final', text: ctx.t[p.finalState]});
+  if (show && legend) ['included', 'review'].forEach((st, i) => notes.push({name: `leg${i}`, kind: 'leg', status: st, text: p.statusLabels[st]}));
   if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
   if (show) p.annotations.forEach((an, i) => notes.push({name: `note${i}`, kind: 'note', text: an.text, target: an.target}));
   const gap = 14;
-  const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.kind === 'final' ? ctx.theme.accent2Soft : '#ffffff'});
+  const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.kind === 'final' ? ctx.theme.accent2Soft : '#ffffff', glyph: q.kind === 'leg' ? (gx, gy, rr) => statusGlyph(ctx, q.status, gx, gy, rr) : null});
   const notesH = w => notes.reduce((a, q) => a + chipOf(q, 0, 0, w).box.h + gap, 0) - (notes.length ? gap : 0);
   let doc, sheet, notesBox, glassRest, tipRest, shL, shR;
   const m = 34;
@@ -138,11 +139,12 @@ function geom(ctx, F, minF) {
   const tileW = C.x + C.w - 20 - tileX;
   const n = p.categories.length;
   const gR = Math.min(15, F * 0.6);
-  const labFits = p.categories.map(c => fitG(c.label, {maxWidth: tileW - tileTextX(80) - 10, size: F, minSize: minF, maxLines: 2, weight: 700}));
-  const stFits = p.categories.map(c => fitG(p.statusLabels[c.status], {maxWidth: tileW - tileTextX(80) - gR * 2 - 22, size: F * 0.9, minSize: minF, maxLines: 2, weight: 600}));
-  const stWorst = fitG(worstStatus(p), {maxWidth: tileW - tileTextX(80) - gR * 2 - 22, size: F * 0.9, minSize: minF, maxLines: 2, weight: 600});
+  const labFits = p.categories.map(c => fitG(c.label, {maxWidth: tileW - tileTextX(80) - 10 - (legend ? gR * 2 + 30 : 0), size: F, minSize: minF, maxLines: 2, weight: 700}));
+  const NONE = {height: 0, width: 0, lines: [], size: F, lineHeight: F, bad: false};
+  const stFits = legend ? p.categories.map(() => NONE) : p.categories.map(c => fitG(p.statusLabels[c.status], {maxWidth: tileW - tileTextX(80) - gR * 2 - 22, size: F, minSize: minF, maxLines: 2, weight: 600}));
+  const stWorst = legend ? NONE : fitG(worstStatus(p), {maxWidth: tileW - tileTextX(80) - gR * 2 - 22, size: F, minSize: minF, maxLines: 2, weight: 600});
   if (labFits.some(f => f.bad) || stFits.some(f => f.bad) || stWorst.bad || sh.bad) why.push('tile-text');
-  const tileH0 = Math.max(...labFits.map(f => f.height)) + stWorst.height + 44;
+  const tileH0 = Math.max(...labFits.map(f => f.height)) + (legend ? 34 : stWorst.height + 44);
   const minGap = 40;
   const needH = n * tileH0 + (n - 1) * minGap + 40;
   if (needH > C.h + 0.5) why.push('tiles-do-not-fit');
@@ -166,7 +168,7 @@ function geom(ctx, F, minF) {
   const farR = Math.max(...cg.pts.map(q => Math.hypot(q.x + mk.len * 0.55 - shR.x, q.y + 40 - shR.y)));
   return {
     ok: !why.length, why, F, minF, shape, desk, doc, sheet, notesBox, notesPl, glassRest, tipRest, shL, shR,
-    padX, head, headH, titleF, titleY, rows, sh, shH, C, neck, tiles, gR, cg, glass: {R, hl}, mk, glassStops,
+    legend, padX, head, headH, titleF, titleY, rows, sh, shH, C, neck, tiles, gR, cg, glass: {R, hl}, mk, glassStops,
     armL: {len: Math.max(260, farL * 0.53)}, armR: {len: Math.max(260, farR * 0.53)},
   };
 }
@@ -174,13 +176,14 @@ function geom(ctx, F, minF) {
 /** Pose an arm so that a prop rigidly held along the forearm puts its working point on `target`. */
 function holdPose(arm, shoulder, target, off, bend) {
   let ang = Math.atan2(target.y - shoulder.y, target.x - shoulder.x);
-  let posed = null;
-  for (let k = 0; k < 4; k++) {
-    const palm = {x: target.x - Math.cos(ang) * off, y: target.y - Math.sin(ang) * off};
+  let posed = null, palm = null, used = ang;
+  for (let k = 0; k < 5; k++) {
+    used = ang;
+    palm = {x: target.x - Math.cos(ang) * off, y: target.y - Math.sin(ang) * off};
     posed = arm.pose(shoulder, palm, bend);
     ang = posed.angle;
   }
-  return posed;
+  return {...posed, angle: used, palm};
 }
 
 const scene = {
@@ -192,7 +195,9 @@ const scene = {
     const minF = (stress ? 16.6 : 20) / upx;
     let L = null;
     for (const fpx of stress ? [21, 19.5, 18, 17] : [26, 24, 22, 20.5]) {
-      L = geom(ctx, fpx / upx, minF);
+      L = geom(ctx, fpx / upx, minF, false);
+      if (L.ok) break;
+      L = geom(ctx, fpx / upx, minF, true);
       if (L.ok) break;
     }
     L.upx = upx;
@@ -218,11 +223,11 @@ const scene = {
     };
     const tiles = L.tiles.map((t, i) => g({transform: T(t.x, t.y)},
       tileArt(ctx, {name: `tile${i}`, w: t.w, h: t.h, n: i + 1, fit: null, showText: show}),
-      show ? txt(t.lab, {x: tileTextX(t.h), y: (t.h - t.lab.height - t.st.height - 12) / 2, fill: INK}) : null,
+      show ? txt(t.lab, {x: tileTextX(t.h), y: L.legend ? (t.h - t.lab.height) / 2 : (t.h - t.lab.height - t.st.height - 12) / 2, fill: INK}) : null,
       // the status line (glyph + supplied status wording), hidden until the statuses are shown
       g({name: `st${i}`, opacity: 0},
-        statusGlyph(ctx, t.status, show ? tileTextX(t.h) + L.gR : t.w - 20 - L.gR, show ? (t.h + t.lab.height - t.st.height + 12) / 2 + t.st.height / 2 : t.h / 2, L.gR),
-        show ? txt(t.st, {x: tileTextX(t.h) + L.gR * 2 + 12, y: (t.h + t.lab.height - t.st.height + 12) / 2, fill: INK}) : null,
+        statusGlyph(ctx, t.status, show && !L.legend ? tileTextX(t.h) + L.gR : t.w - 20 - L.gR, show && !L.legend ? (t.h + t.lab.height - t.st.height + 12) / 2 + t.st.height / 2 : t.h / 2, L.gR),
+        show && !L.legend ? txt(t.st, {x: tileTextX(t.h) + L.gR * 2 + 12, y: (t.h + t.lab.height - t.st.height + 12) / 2, fill: INK}) : null,
       ),
     ));
     const contour = contourNode(ctx, 'contour', L.cg);
@@ -310,7 +315,7 @@ const scene = {
     L.tiles.forEach((_, i) => { nodes[`st${i}`] = {opacity: r(seg(u, W.status[0] + i * 0.012, W.status[0] + i * 0.012 + 0.04), 3)}; });
     const fin = seg(u, ...W.final), keyO = seg(u, ...W.key), noteO = seg(u, ...W.notes);
     if (L.notesPl) for (const q of L.notesPl) {
-      nodes[`${q.q.name}-g`] = {opacity: r(q.q.kind === 'final' ? fin : q.q.kind === 'key' ? keyO : noteO, 3)};
+      nodes[`${q.q.name}-g`] = {opacity: r(q.q.kind === 'final' || q.q.kind === 'leg' ? fin : q.q.kind === 'key' ? keyO : noteO, 3)};
       if (q.q.kind === 'note') nodes[`${q.q.name}-lead`] = {opacity: r(noteO, 3)};
     }
     const beat = u < BEATS.rest[1] ? 'rest' : u < BEATS.action[1] ? 'action' : u < BEATS.complete[1] ? 'complete' : 'hold';
@@ -320,7 +325,7 @@ const scene = {
       nodes,
       semantic: {
         beat,
-        lensCentre: P2(c), glassGrip: P2(gripL), handL: P2(pl.hand), penTip: P2(tip), penGrip: P2({x: tip.x + Math.cos(pa) * penOff, y: tip.y + Math.sin(pa) * penOff}), handR: P2(pr.hand),
+        lensCentre: P2(c), glassGrip: P2(gripL), handL: P2(pl.hand), penTip: P2(tip), penGrip: P2({x: tip.x - Math.cos(pa) * penOff, y: tip.y - Math.sin(pa) * penOff}), handR: P2(pr.hand),
         allReached: pl.reached && pr.reached,
         glassAt: onDoc ? 'reading' : 'rest', readRow, lensShown: onDoc ? 1 : 0, zoom: ZOOM,
         drawn: r(u >= W.draw[1] ? end : drawn, 4), contourEnd: r(end, 3), penOnLine: u >= W.draw[0] && u < W.draw[1],

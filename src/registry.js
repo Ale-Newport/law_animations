@@ -367,6 +367,7 @@ export const registry = {
   'LAW-0364': () => import('./animations/evidence-custody/LAW-0364.js'),
   'LAW-0365': () => import('./animations/evidence-custody/LAW-0365.js'),
   'LAW-0367': () => import('./animations/evidence-custody/LAW-0367.js'),
+  'LAW-0368': () => import('./animations/evidence-custody/LAW-0368.js'),
   'LAW-0441': () => import('./animations/contract-formation/LAW-0441.js'),
   'LAW-0442': () => import('./animations/contract-formation/LAW-0442.js'),
   'LAW-0443': () => import('./animations/contract-formation/LAW-0443.js'),

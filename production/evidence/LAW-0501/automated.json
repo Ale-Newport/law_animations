@@ -1,0 +1,745 @@
+{
+  "animationId": "LAW-0501",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0501",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "contract.reference",
+        "rejected": "Invalid animation parameters:\n - params.contract.reference: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "16:9",
+          "k": "lensCentre",
+          "f": 112,
+          "d": 101
+        },
+        {
+          "ratio": "16:9",
+          "k": "glassGrip",
+          "f": 112,
+          "d": 103
+        },
+        {
+          "ratio": "16:9",
+          "k": "handL",
+          "f": 112,
+          "d": 103
+        },
+        {
+          "ratio": "16:9",
+          "k": "penTip",
+          "f": 117,
+          "d": 90
+        },
+        {
+          "ratio": "16:9",
+          "k": "penGrip",
+          "f": 117,
+          "d": 103
+        },
+        {
+          "ratio": "16:9",
+          "k": "penTip",
+          "f": 118,
+          "d": 130
+        },
+        {
+          "ratio": "16:9",
+          "k": "penGrip",
+          "f": 118,
+          "d": 132
+        },
+        {
+          "ratio": "16:9",
+          "k": "handR",
+          "f": 118,
+          "d": 137
+        }
+      ]
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "16:9",
+          "u": 0,
+          "a": "glassGrip",
+          "b": "handL"
+        },
+        {
+          "ratio": "16:9",
+          "u": 0,
+          "a": "penGrip",
+          "b": "handR"
+        },
+        {
+          "ratio": "16:9",
+          "u": 0.003,
+          "a": "glassGrip",
+          "b": "handL"
+        },
+        {
+          "ratio": "16:9",
+          "u": 0.003,
+          "a": "penGrip",
+          "b": "handR"
+        },
+        {
+          "ratio": "16:9",
+          "u": 0.006,
+          "a": "glassGrip",
+          "b": "handL"
+        },
+        {
+          "ratio": "16:9",
+          "u": 0.006,
+          "a": "penGrip",
+          "b": "handR"
+        },
+        {
+          "ratio": "16:9",
+          "u": 0.008,
+          "a": "glassGrip",
+          "b": "handL"
+        },
+        {
+          "ratio": "16:9",
+          "u": 0.008,
+          "a": "penGrip",
+          "b": "handR"
+        }
+      ]
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: nothing drawn, glass at rest @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "lensCentre": {
+            "x": 211.18,
+            "y": 775.51
+          },
+          "glassGrip": {
+            "x": 128.3,
+            "y": 926.37
+          },
+          "handL": {
+            "x": 122.57,
+            "y": 923.07
+          },
+          "penTip": {
+            "x": 1877.49,
+            "y": 803.5
+          },
+          "penGrip": {
+            "x": 1825.15,
+            "y": 719.47
+          },
+          "handR": {
+            "x": 1930.19,
+            "y": 887.31
+          },
+          "allReached": true,
+          "glassAt": "rest",
+          "readRow": -1,
+          "lensShown": 0,
+          "zoom": 1.6,
+          "drawn": 0,
+          "contourEnd": 1,
+          "penOnLine": false,
+          "statusesShown": 0,
+          "statuses": "included,review,included",
+          "bays": 1,
+          "finalState": "closed",
+          "finalShown": 0,
+          "keyShown": 0,
+          "textPx": 26,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "glassBox": {
+            "x": 119.38,
+            "y": 683.71,
+            "w": 183.6,
+            "h": 183.6
+          },
+          "tiles": [
+            {
+              "x": 1074.5,
+              "y": 131.72,
+              "w": 901,
+              "h": 121.14
+            },
+            {
+              "x": 1074.5,
+              "y": 323.79,
+              "w": 901,
+              "h": 121.14
+            },
+            {
+              "x": 1074.5,
+              "y": 515.86,
+              "w": 901,
+              "h": 121.14
+            }
+          ],
+          "contourBox": {
+            "x": 962.5,
+            "y": 111.72,
+            "w": 1033,
+            "h": 545.28
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the glass reads the clause first (cause before effect) @0.22",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "lensCentre": {
+            "x": 436.48,
+            "y": 231.89
+          },
+          "glassGrip": {
+            "x": 319.79,
+            "y": 358.42
+          },
+          "handL": {
+            "x": 315.93,
+            "y": 354.75
+          },
+          "penTip": {
+            "x": 1877.49,
+            "y": 803.5
+          },
+          "penGrip": {
+            "x": 1825.15,
+            "y": 719.47
+          },
+          "handR": {
+            "x": 1930.19,
+            "y": 887.31
+          },
+          "allReached": true,
+          "glassAt": "reading",
+          "readRow": -1,
+          "lensShown": 1,
+          "zoom": 1.6,
+          "drawn": 0,
+          "contourEnd": 1,
+          "penOnLine": false,
+          "statusesShown": 0,
+          "statuses": "included,review,included",
+          "bays": 1,
+          "finalState": "closed",
+          "finalShown": 0,
+          "keyShown": 0,
+          "textPx": 26,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "glassBox": {
+            "x": 344.68,
+            "y": 140.09,
+            "w": 183.6,
+            "h": 183.6
+          },
+          "tiles": [
+            {
+              "x": 1074.5,
+              "y": 131.72,
+              "w": 901,
+              "h": 121.14
+            },
+            {
+              "x": 1074.5,
+              "y": 323.79,
+              "w": 901,
+              "h": 121.14
+            },
+            {
+              "x": 1074.5,
+              "y": 515.86,
+              "w": 901,
+              "h": 121.14
+            }
+          ],
+          "contourBox": {
+            "x": 962.5,
+            "y": 111.72,
+            "w": 1033,
+            "h": 545.28
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the marker draws the contour @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "lensCentre": {
+            "x": 211.18,
+            "y": 775.51
+          },
+          "glassGrip": {
+            "x": 128.3,
+            "y": 926.37
+          },
+          "handL": {
+            "x": 122.57,
+            "y": 923.07
+          },
+          "penTip": {
+            "x": 1129.66,
+            "y": 288.33
+          },
+          "penGrip": {
+            "x": 1032.61,
+            "y": 268.79
+          },
+          "handR": {
+            "x": 1226.76,
+            "y": 307.65
+          },
+          "allReached": true,
+          "glassAt": "rest",
+          "readRow": -1,
+          "lensShown": 0,
+          "zoom": 1.6,
+          "drawn": 0.5172,
+          "contourEnd": 1,
+          "penOnLine": true,
+          "statusesShown": 0,
+          "statuses": "included,review,included",
+          "bays": 1,
+          "finalState": "closed",
+          "finalShown": 0,
+          "keyShown": 0,
+          "textPx": 26,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "glassBox": {
+            "x": 119.38,
+            "y": 683.71,
+            "w": 183.6,
+            "h": 183.6
+          },
+          "tiles": [
+            {
+              "x": 1074.5,
+              "y": 131.72,
+              "w": 901,
+              "h": 121.14
+            },
+            {
+              "x": 1074.5,
+              "y": 323.79,
+              "w": 901,
+              "h": 121.14
+            },
+            {
+              "x": 1074.5,
+              "y": 515.86,
+              "w": 901,
+              "h": 121.14
+            }
+          ],
+          "contourBox": {
+            "x": 962.5,
+            "y": 111.72,
+            "w": 1033,
+            "h": 545.28
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: closed contour, one bay, statuses and key @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "lensCentre": {
+            "x": 211.18,
+            "y": 775.51
+          },
+          "glassGrip": {
+            "x": 128.3,
+            "y": 926.37
+          },
+          "handL": {
+            "x": 122.57,
+            "y": 923.07
+          },
+          "penTip": {
+            "x": 1877.49,
+            "y": 803.5
+          },
+          "penGrip": {
+            "x": 1825.15,
+            "y": 719.47
+          },
+          "handR": {
+            "x": 1930.19,
+            "y": 887.31
+          },
+          "allReached": true,
+          "glassAt": "rest",
+          "readRow": -1,
+          "lensShown": 0,
+          "zoom": 1.6,
+          "drawn": 1,
+          "contourEnd": 1,
+          "penOnLine": false,
+          "statusesShown": 1,
+          "statuses": "included,review,included",
+          "bays": 1,
+          "finalState": "closed",
+          "finalShown": 1,
+          "keyShown": 1,
+          "textPx": 26,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "glassBox": {
+            "x": 119.38,
+            "y": 683.71,
+            "w": 183.6,
+            "h": 183.6
+          },
+          "tiles": [
+            {
+              "x": 1074.5,
+              "y": 131.72,
+              "w": 901,
+              "h": 121.14
+            },
+            {
+              "x": 1074.5,
+              "y": 323.79,
+              "w": 901,
+              "h": 121.14
+            },
+            {
+              "x": 1074.5,
+              "y": 515.86,
+              "w": 901,
+              "h": 121.14
+            }
+          ],
+          "contourBox": {
+            "x": 962.5,
+            "y": 111.72,
+            "w": 1033,
+            "h": 545.28
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative: partial contour, two bays @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "lensCentre": {
+            "x": 211.18,
+            "y": 775.51
+          },
+          "glassGrip": {
+            "x": 128.35,
+            "y": 926.39
+          },
+          "handL": {
+            "x": 122.57,
+            "y": 923.07
+          },
+          "penTip": {
+            "x": 1877.49,
+            "y": 803.5
+          },
+          "penGrip": {
+            "x": 1825.12,
+            "y": 719.49
+          },
+          "handR": {
+            "x": 1930.22,
+            "y": 887.29
+          },
+          "allReached": true,
+          "glassAt": "rest",
+          "readRow": -1,
+          "lensShown": 0,
+          "zoom": 1.6,
+          "drawn": 0.7,
+          "contourEnd": 0.7,
+          "penOnLine": false,
+          "statusesShown": 1,
+          "statuses": "review,included,included,review",
+          "bays": 2,
+          "finalState": "partial",
+          "finalShown": 1,
+          "keyShown": 1,
+          "textPx": 22,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "glassBox": {
+            "x": 119.38,
+            "y": 683.71,
+            "w": 183.6,
+            "h": 183.6
+          },
+          "tiles": [
+            {
+              "x": 1074.5,
+              "y": 126.84,
+              "w": 901,
+              "h": 96.14
+            },
+            {
+              "x": 1074.5,
+              "y": 264.85,
+              "w": 901,
+              "h": 96.14
+            },
+            {
+              "x": 1074.5,
+              "y": 402.85,
+              "w": 901,
+              "h": 96.14
+            },
+            {
+              "x": 1074.5,
+              "y": 540.86,
+              "w": 901,
+              "h": 96.14
+            }
+          ],
+          "contourBox": {
+            "x": 962.5,
+            "y": 106.84,
+            "w": 1033,
+            "h": 550.16
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same action @0.8",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "lensCentre": {
+            "x": 211.18,
+            "y": 775.51
+          },
+          "glassGrip": {
+            "x": 128.3,
+            "y": 926.37
+          },
+          "handL": {
+            "x": 122.57,
+            "y": 923.07
+          },
+          "penTip": {
+            "x": 1877.49,
+            "y": 803.5
+          },
+          "penGrip": {
+            "x": 1825.15,
+            "y": 719.47
+          },
+          "handR": {
+            "x": 1930.19,
+            "y": 887.31
+          },
+          "allReached": true,
+          "glassAt": "rest",
+          "readRow": -1,
+          "lensShown": 0,
+          "zoom": 1.6,
+          "drawn": 1,
+          "contourEnd": 1,
+          "penOnLine": false,
+          "statusesShown": 1,
+          "statuses": "included,review,included",
+          "bays": 1,
+          "finalState": "closed",
+          "finalShown": 1,
+          "keyShown": 0.8,
+          "textPx": 26,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "glassBox": {
+            "x": 119.38,
+            "y": 683.71,
+            "w": 183.6,
+            "h": 183.6
+          },
+          "tiles": [
+            {
+              "x": 1074.5,
+              "y": 131.72,
+              "w": 901,
+              "h": 121.14
+            },
+            {
+              "x": 1074.5,
+              "y": 323.79,
+              "w": 901,
+              "h": 121.14
+            },
+            {
+              "x": 1074.5,
+              "y": 515.86,
+              "w": 901,
+              "h": 121.14
+            }
+          ],
+          "contourBox": {
+            "x": 962.5,
+            "y": 111.72,
+            "w": 1033,
+            "h": 545.28
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "truncated-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        "CONTRACT-2026-0246 · Contract laid on th"
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

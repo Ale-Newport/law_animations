@@ -548,10 +548,10 @@ export function arrangeScene(ctx, o) {
   if (!cands.length) return null;
   // text at >= 20 (the 19.5 px baseline floor) whenever any arrangement allows it; then the largest text whose stage
   // stays >= keep of the largest stage found
-  // (baseline-length text — up to ~520 characters in the panel — keeps >= 20 even at a real cost to the stage; long
+  // (baseline-length text — up to ~620 characters in the panel — keeps >= 20 even at a real cost to the stage; long
   // texts only when it costs little)
   const chars = o.items.reduce((a, it) => a + String(it.text || '').length, 0) + (o.extraChars ?? 0);
-  const keep20 = o.keep20 ?? (chars <= 520 ? 0.35 : 0.8);
+  const keep20 = o.keep20 ?? (chars <= 620 ? 0.35 : 0.8);
   const c20 = cands.filter(c => c.size >= 20 - 1e-9);
   const pool = c20.length && Math.max(...c20.map(c => c.score)) >= keep20 * Math.max(...cands.map(c => c.score)) ? c20 : cands;
   const Sbest = Math.max(...pool.map(c => c.score));

@@ -29,7 +29,7 @@ import {list, int, oneOf, annotation} from '../../schemas/fields.js';
 import {lens} from '../../frameworks/lens.js';
 import {changedMarker} from '../../primitives/markers.js';
 import {
-  INK, CONTENT, CONTENT_ES, STATUSES, contractField, clauseTitleField, categoriesField, statusLabelsField, sheetLabelField,
+  INK, CONTENT, CONTENT_ES, STATUSES, contractField, clauseTitleField, clausesField, categoriesField, contractDoc, statusLabelsField, sheetLabelField,
   localizeScene, unitPx, fitG, chipG, txt, statusGlyph, tileArt, tileTextX, contourGeom, contourNode, contourFrame,
 } from './kits/limitacion-contractual.js';
 
@@ -46,6 +46,7 @@ const STRINGS = {
 const sceneSchema = {
   contract: contractField,
   clauseTitle: clauseTitleField,
+  clauses: clausesField,
   sheetLabel: sheetLabelField,
   categories: categoriesField,
   statusLabels: statusLabelsField,
@@ -54,7 +55,7 @@ const sceneSchema = {
   afterValue: oneOf('Supplied status of the changed category after the substitution', STATUSES),
   annotations: list('Editorial callouts shown in the final hold', annotation(['tile', 'contour']), 0, 2),
 };
-const strip = o => { const {clauses, ...rest} = o; void clauses; return rest; };
+const strip = o => o;
 const defaultParams = {...strip(CONTENT), changedCategory: 2, beforeValue: 'included', afterValue: 'review', annotations: []};
 defaultParams.categories = CONTENT.categories.map((c, i) => (i === 1 ? {...c, status: 'included'} : c));
 const defaultParamsEs = {...strip(CONTENT_ES)};
@@ -64,10 +65,11 @@ const isStress = p => [...p.categories.map(c => c.label), p.contract.title, p.st
 const ciOf = p => clamp(p.changedCategory, 1, p.categories.length) - 1;
 const statuses = (p, which) => p.categories.map((c, i) => (i === ciOf(p) ? p[which] : c.status));
 
-function geom(ctx, F, minF) {
+function geom(ctx, F, minF, tw) {
   const p = ctx.params;
   const D = ctx.design;
   const tall = ctx.view.shape === 'portrait';
+  const sq = ctx.view.shape === 'square';
   const show = ctx.show('all'), showKey = ctx.show('key');
   const why = [];
   const pad = 14;
@@ -82,24 +84,24 @@ function geom(ctx, F, minF) {
   const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: '#ffffff'});
   // context sheet
   let sheet, notesBox, lensArea;
-  const ctxW = tall ? D.w - pad * 2 : D.w * 0.44;
+  const ctxW = tall || sq ? D.w - pad * 2 : D.w * 0.37;
   const gR = Math.min(14, F * 0.6);
   // tile text widths (independent of the tile height)
   const textMax0 = ctxW - 52 - clamp((ctxW - 52) * 0.12, 44, 80) - 20 - 16 - 98 - gR * 2 - 18;
-  const textMax = Math.min(textMax0, F * 12.5);
-  const labFits = p.categories.map(c => fitG(c.label, {maxWidth: textMax + gR * 2 + 12, size: F, minSize: minF, maxLines: 2, weight: 700}));
-  const stFit = st => fitG(p.statusLabels[st], {maxWidth: textMax, size: F * 0.92, minSize: minF, maxLines: 2, weight: 600});
+  const textMax = Math.min(textMax0, F * tw);
+  const labFits = p.categories.map(c => fitG(c.label, {maxWidth: textMax + gR * 2 + 12, size: F, minSize: minF, maxLines: 3, weight: 700}));
+  const stFit = st => fitG(p.statusLabels[st], {maxWidth: textMax, size: F, minSize: minF, maxLines: 3, weight: 600});
   const stFits = statuses(p, 'beforeValue').map(stFit);
   const afterFit = stFit(p.afterValue);
   const stH = Math.max(...[...stFits, afterFit, stFit('included'), stFit('review')].map(f => f.height));
   const labH = Math.max(...labFits.map(f => f.height));
-  const head = fitG(`${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`, {maxWidth: ctxW - 50, size: F, minSize: minF, maxLines: 2, weight: 800});
+  const head = fitG(`${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`, {maxWidth: ctxW - 50, size: F, minSize: minF, maxLines: 3, weight: 800});
   const sh = fitG(p.sheetLabel, {maxWidth: ctxW - 50, size: F, minSize: minF, maxLines: 2, weight: 700});
   const headH = head.height + sh.height + 40;
-  const tileH = labH + stH + 40;
-  const notesW = tall ? D.w - pad * 2 : D.w - ctxW - pad * 2 - 30;
+  const tileH0 = labH + stH + (sq ? 28 : 40);
+  const notesW = tall || sq ? D.w - pad * 2 : D.w - ctxW - pad * 2 - 30;
   const nh = notes.length ? notes.reduce((a, q) => a + chipOf(q, 0, 0, notesW).box.h + gap, -gap) : 0;
-    if (tall) {
+    if (tall || sq) {
     sheet = {x: pad, y: pad, w: ctxW, h: D.h - pad * 2 - (nh ? nh + 20 : 0)};
     notesBox = {x: pad, y: D.h - pad - nh, w: notesW, h: nh};
   } else {
@@ -108,11 +110,13 @@ function geom(ctx, F, minF) {
     lensArea = {x: sheet.x + sheet.w + 30, y: pad, w: notesW, h: notesBox.y - 20 - pad};
   }
   const C = {x: sheet.x + 26, y: sheet.y + headH + 14, w: sheet.w - 52, h: sheet.h - headH - 34};
-  const neck = clamp(C.w * 0.12, 44, 80);
+  const tileH = Math.max(tileH0, Math.min(tileH0 * (tall || sq ? 1.15 : 1.5), (C.h - 20 - (n - 1) * 90) / n));
+  const neck = clamp(C.w * 0.12, 44, sq ? 56 : 80);
   const tileX = C.x + neck + 20, tileW = C.x + C.w - 16 - tileX;
   const free = C.h - 20 - n * tileH;
-  if (free < (n - 1) * 34) why.push('tiles-do-not-fit');
-  const tg = n > 1 ? Math.max(34, free / (n - 1)) : 0;
+  const minTg = sq ? 26 : 34;
+  if (free < (n - 1) * minTg) why.push('tiles-do-not-fit');
+  const tg = n > 1 ? Math.max(minTg, free / (n - 1)) : 0;
   const top = n > 1 ? C.y + 10 : C.y + (C.h - tileH) / 2;
   const tiles = p.categories.map((c, i) => ({x: tileX, y: top + i * (tileH + tg), w: tileW, h: tileH, lab: labFits[i], st: stFits[i]}));
   const rows = tiles.map(q => ({y: q.y - 8, h: q.h + 16}));
@@ -121,25 +125,45 @@ function geom(ctx, F, minF) {
   // the crop: the changed tile's band, from the contour's left side to the end of its text (whole fields only)
   const t = tiles[ci];
   const textEnd = t.x + tileTextX(t.h) + Math.max(t.lab.width, gR * 2 + 12 + Math.max(t.st.width, afterFit.width)) + 26;
-  const vm = Math.min(tg / 2 - 2, 60);
-  const src = {x: C.x - 16, y: t.y - vm, w: Math.min(C.x + C.w + 14, Math.max(textEnd, C.x + neck + 60)) - (C.x - 16), h: t.h + vm * 2};
+  const vm = Math.min(tg / 2 - 2, tall || sq ? 50 : 90);
+  const sx = C.x + neck - 22;
+  const src = {x: sx, y: t.y - vm, w: Math.min(C.x + C.w + 14, Math.max(textEnd, C.x + neck + 60)) - sx, h: t.h + vm * 2};
   if (tall) {
     // the lens opens over the half of the sheet away from the tile (the context stays visible round it)
     const up = src.y + src.h / 2 > sheet.y + sheet.h / 2;
     lensArea = up ? {x: pad, y: sheet.y + headH, w: D.w - pad * 2, h: src.y - 30 - (sheet.y + headH)} : {x: pad, y: src.y + src.h + 30, w: D.w - pad * 2, h: sheet.y + sheet.h - 10 - (src.y + src.h + 30)};
   }
-  const k = Math.min(lensArea.w / src.w, lensArea.h / src.h, 2.6);
-  if (k < 1.5) why.push('lens-small');
+  if (sq) {
+    // square: the lens opens over the right part of the sheet, beside the tile's text (the source stays uncovered)
+    const x0 = src.x + src.w + 30;
+    lensArea = {x: x0, y: sheet.y + headH, w: sheet.x + sheet.w - 10 - x0, h: sheet.h - headH - 10};
+  }
+  const k = Math.min(lensArea.w / src.w, lensArea.h / src.h, 3);
+  if (k < 1.5) why.push(`lens-small`);
   const dest = {w: src.w * k, h: src.h * k};
   dest.x = lensArea.x + (lensArea.w - dest.w) / 2;
-  dest.y = tall ? lensArea.y + (lensArea.h - dest.h) / 2 : clamp(src.y + src.h / 2 - dest.h / 2, lensArea.y, lensArea.y + lensArea.h - dest.h);
+  dest.y = tall && !sq ? lensArea.y + (lensArea.h - dest.h) / 2 : clamp(src.y + src.h / 2 - dest.h / 2, lensArea.y, lensArea.y + lensArea.h - dest.h);
+  // landscape: the contract lies on the right (the lens opens over it, the contract dimmed beneath)
+  let docBox = null, docL = null;
+  if (!tall && !sq) {
+    const dw = Math.min(lensArea.w * 0.86, 760);
+    docBox = {x: lensArea.x + (lensArea.w - dw) / 2, y: lensArea.y + 40, w: dw, h: lensArea.h - 50};
+    const padX = 44;
+    const dh = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: dw - padX - 20, size: F, minSize: minF, maxLines: 2, weight: 700});
+    const tf = fitG(p.clauseTitle, {maxWidth: dw - padX - 24, size: F, minSize: minF, maxLines: 2, weight: 800});
+    const dHeadH = dh.height + 34, titleY = dHeadH + 22;
+    let ry = titleY + tf.height + 20;
+    const drows = p.clauses.map(c => { const f = fitG(c, {maxWidth: dw - padX - 40, size: F, minSize: minF, maxLines: 3, weight: 600}); const row = {y: ry, h: f.height + 26, fit: f}; ry += row.h + 14; return row; });
+    if (ry > docBox.h || dh.bad || tf.bad || drows.some(q => q.fit.bad)) why.push('doc');
+    docL = {head: dh, headH: dHeadH, title: tf, titleY, rows: drows, padX};
+  }
   if ([...labFits, ...stFits, afterFit, head, sh].some(f => f.bad)) why.push('text');
   let notesPl = null;
   if (notes.length) {
     let ny = notesBox.y;
     notesPl = notes.map(q => { const c = chipOf(q, notesBox.x, ny, notesBox.w); if (c.bad) why.push('note-text'); ny += c.box.h + gap; return {q, c}; });
   }
-  return {ok: !why.length, why, F, minF, tall, sheet, head, sh, headH, C, neck, tiles, gR, cgB, cgA, ci, src, dest, k, afterFit, notesPl};
+  return {ok: !why.length, why, F, minF, tall, sq, docBox, docL, stH, vm, sheet, head, sh, headH, C, neck, tiles, gR, cgB, cgA, ci, src, dest, k, afterFit, notesPl};
 }
 
 const scene = {
@@ -150,7 +174,7 @@ const scene = {
     const stress = isStress(p);
     const minF = (stress ? 16.6 : 20) / upx;
     let L = null;
-    for (const fpx of stress ? [20, 18.5, 17.5, 16.8] : [25, 23, 21.5, 20.2]) { L = geom(ctx, fpx / upx, minF); if (L.ok) break; }
+    search: for (const fpx of stress ? [20, 18.5, 17.5, 16.8] : [25, 23, 21.5, 20.2]) for (const tw of [9.5, 11, 12.5, 16]) { L = geom(ctx, fpx / upx, minF, tw); if (L.ok) break search; }
     L.upx = upx;
     return L;
   },
@@ -161,7 +185,7 @@ const scene = {
     const S = L.sheet;
     const stB = statuses(p, 'beforeValue');
     const statusLine = (t, st, fit, name, op) => {
-      const y = (t.h + t.lab.height - fit.height + 10) / 2;
+      const y = (t.h - t.lab.height - L.stH - 10) / 2 + t.lab.height + 10;
       return g({name, opacity: op},
         statusGlyph(ctx, st, show ? tileTextX(t.h) + L.gR : t.w - 20 - L.gR, show ? y + Math.min(fit.height, fit.lineHeight) / 2 : t.h / 2, L.gR),
         show ? txt(fit, {x: tileTextX(t.h) + L.gR * 2 + 12, y, fill: INK}) : null);
@@ -176,7 +200,7 @@ const scene = {
       show ? txt(L.sh, {x: S.x + 24, y: S.y + 22 + L.head.height, fill: th.fgSoft ?? INK}) : null,
       L.tiles.map((t, i) => g({transform: T(t.x, t.y)},
         tileArt(ctx, {w: t.w, h: t.h, n: i + 1, fit: null, showText: show}),
-        show ? txt(t.lab, {x: tileTextX(t.h), y: (t.h - t.lab.height - t.st.height - 10) / 2, fill: INK}) : null,
+        show ? txt(t.lab, {x: tileTextX(t.h), y: (t.h - t.lab.height - L.stH - 10) / 2, fill: INK}) : null,
         i === L.ci
           ? g(null, statusLine(t, p.beforeValue, t.st, `${P}-before`, 1), statusLine(t, p.afterValue, L.afterFit, `${P}-after`, 0))
           : statusLine(t, stB[i], t.st, undefined, 1),
@@ -186,11 +210,12 @@ const scene = {
     );
     const t = L.tiles[L.ci];
     const lz = lens(ctx, {name: 'lens', source: L.src, dest: L.dest, content: g(null, content('l'),
-      g({name: 'l-was', opacity: 0}, show ? chipG(ctx, `${ctx.t.was}: ${p.statusLabels[p.beforeValue]}`, {x: t.x + tileTextX(t.h), y: t.y + t.h + 4, maxWidth: Math.max(120, L.src.x + L.src.w - (t.x + tileTextX(t.h)) - 4), size: L.F * 0.68 > 16.2 / L.upx / L.k ? L.F * 0.68 : 16.2 / L.upx / L.k, maxLines: 2, weight: 600, fill: '#ffffff'}).node : null)),
+      g({name: 'l-was', opacity: 0}, show ? chipG(ctx, `${ctx.t.was}: ${p.statusLabels[p.beforeValue]}`, {x: t.x + tileTextX(t.h) - 30, y: t.y + t.h + 5, maxWidth: L.src.x + L.src.w - (t.x + tileTextX(t.h) - 30) - 4, size: Math.max(16.4 / L.upx / L.k, Math.min(L.F * 0.6, (L.vm - 9) / 1.8)), padY: 3, maxLines: 1, weight: 600, fill: '#ffffff'}).node : null)),
     frame: {x: 0, y: 0, w: ctx.design.w, h: ctx.design.h}, color: th.accent2});
     const marker = changedMarker(ctx, {name: 'marker', x: t.x + t.w - 6, y: t.y + 6, radius: 18, opacity: 0});
     const notes = L.notesPl ? L.notesPl.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node)) : [];
-    return g({name: 'scene'}, g({name: 'ctx'}, content('c')), marker, g({'data-occludes': 1}, lz.node), notes);
+    const doc = L.docBox ? g({transform: T(L.docBox.x, L.docBox.y)}, contractDoc(ctx, {w: L.docBox.w, h: L.docBox.h, head: L.docL.head, headH: L.docL.headH, title: L.docL.title, titleY: L.docL.titleY, rows: L.docL.rows, padX: L.docL.padX, showText: show})) : null;
+    return g({name: 'scene'}, g({name: 'ctx'}, doc, content('c')), marker, g({'data-occludes': 1}, lz.node), notes);
   },
   frame(ctx, L, u) {
     const nodes = {};

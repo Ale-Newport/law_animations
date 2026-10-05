@@ -1,0 +1,525 @@
+{
+  "animationId": "LAW-0368",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0368",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "items.0.label"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: context: before value, strip unbroken, no lens, no marker @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "context",
+          "shown": "before",
+          "lensP": 0,
+          "zoom": 1.968,
+          "focus": "sealState",
+          "value": "Seal intact",
+          "ctxBefore": 1,
+          "ctxAfter": 0,
+          "lensBefore": 1,
+          "lensAfter": 0,
+          "slitLens": 0,
+          "slitCtx": 0,
+          "marker": 0,
+          "seam": {
+            "x": 592.95,
+            "y": 200.03
+          },
+          "restK": 1,
+          "source": {
+            "x": 154.86,
+            "y": 149.5,
+            "w": 316.34,
+            "h": 136.65
+          },
+          "dest": {
+            "x": 531.25,
+            "y": 234.55,
+            "w": 622.47,
+            "h": 268.89
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1185.91,
+            "h": 738
+          },
+          "problems": [
+            "lens-small"
+          ],
+          "textPx": 24,
+          "S": 215.2
+        }
+      }
+    },
+    {
+      "name": "semantic: lens open: the datum is shown only in the lens (before value) @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "isolate",
+          "shown": "before",
+          "lensP": 1,
+          "zoom": 1.968,
+          "focus": "sealState",
+          "value": "Seal intact",
+          "ctxBefore": 0,
+          "ctxAfter": 0,
+          "lensBefore": 1,
+          "lensAfter": 0,
+          "slitLens": 0,
+          "slitCtx": 0,
+          "marker": 0,
+          "seam": {
+            "x": 275.36,
+            "y": 250.64
+          },
+          "restK": 0,
+          "source": {
+            "x": 154.86,
+            "y": 149.5,
+            "w": 316.34,
+            "h": 136.65
+          },
+          "dest": {
+            "x": 531.25,
+            "y": 234.55,
+            "w": 622.47,
+            "h": 268.89
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1185.91,
+            "h": 738
+          },
+          "problems": [
+            "lens-small"
+          ],
+          "textPx": 24,
+          "S": 215.2
+        }
+      }
+    },
+    {
+      "name": "semantic: substituted: the new value and its dependent slit are shown in the lens, still @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "hold-new",
+          "shown": "after",
+          "lensP": 1,
+          "zoom": 1.968,
+          "focus": "sealState",
+          "value": "Alteration marked",
+          "ctxBefore": 0,
+          "ctxAfter": 0,
+          "lensBefore": 0,
+          "lensAfter": 1,
+          "slitLens": 1,
+          "slitCtx": 0,
+          "marker": 0,
+          "seam": {
+            "x": 275.36,
+            "y": 250.64
+          },
+          "restK": 0,
+          "source": {
+            "x": 154.86,
+            "y": 149.5,
+            "w": 316.34,
+            "h": 136.65
+          },
+          "dest": {
+            "x": 531.25,
+            "y": 234.55,
+            "w": 622.47,
+            "h": 268.89
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1185.91,
+            "h": 738
+          },
+          "problems": [
+            "lens-small"
+          ],
+          "textPx": 24,
+          "S": 215.2
+        }
+      }
+    },
+    {
+      "name": "semantic: return: context shows the after state with the Δ marker; composition fits @1",
+      "pass": false,
+      "detail": {
+        "semantic": {
+          "phase": "return",
+          "shown": "after",
+          "lensP": 0,
+          "zoom": 1.968,
+          "focus": "sealState",
+          "value": "Alteration marked",
+          "ctxBefore": 0,
+          "ctxAfter": 1,
+          "lensBefore": 0,
+          "lensAfter": 1,
+          "slitLens": 1,
+          "slitCtx": 1,
+          "marker": 1,
+          "seam": {
+            "x": 592.95,
+            "y": 200.03
+          },
+          "restK": 1,
+          "source": {
+            "x": 154.86,
+            "y": 149.5,
+            "w": 316.34,
+            "h": 136.65
+          },
+          "dest": {
+            "x": 531.25,
+            "y": 234.55,
+            "w": 622.47,
+            "h": 268.89
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1185.91,
+            "h": 738
+          },
+          "problems": [
+            "lens-small"
+          ],
+          "textPx": 24,
+          "S": 215.2
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the before value exactly @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "context",
+          "shown": "before",
+          "lensP": 0,
+          "zoom": 1.968,
+          "focus": "sealState",
+          "value": "Seal intact",
+          "ctxBefore": 1,
+          "ctxAfter": 0,
+          "lensBefore": 1,
+          "lensAfter": 0,
+          "slitLens": 0,
+          "slitCtx": 0,
+          "marker": 0,
+          "seam": {
+            "x": 592.95,
+            "y": 200.03
+          },
+          "restK": 1,
+          "source": {
+            "x": 154.86,
+            "y": 149.5,
+            "w": 316.34,
+            "h": 136.65
+          },
+          "dest": {
+            "x": 531.25,
+            "y": 234.55,
+            "w": 622.47,
+            "h": 268.89
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1185.91,
+            "h": 738
+          },
+          "problems": [
+            "lens-small"
+          ],
+          "textPx": 24,
+          "S": 215.2
+        }
+      }
+    },
+    {
+      "name": "semantic: the pouch has stepped aside while the lens is open @0.4",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "isolate",
+          "shown": "before",
+          "lensP": 1,
+          "zoom": 1.968,
+          "focus": "sealState",
+          "value": "Seal intact",
+          "ctxBefore": 0,
+          "ctxAfter": 0,
+          "lensBefore": 1,
+          "lensAfter": 0,
+          "slitLens": 0,
+          "slitCtx": 0,
+          "marker": 0,
+          "seam": {
+            "x": 275.36,
+            "y": 250.64
+          },
+          "restK": 0,
+          "source": {
+            "x": 154.86,
+            "y": 149.5,
+            "w": 316.34,
+            "h": 136.65
+          },
+          "dest": {
+            "x": 531.25,
+            "y": 234.55,
+            "w": 622.47,
+            "h": 268.89
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1185.91,
+            "h": 738
+          },
+          "problems": [
+            "lens-small"
+          ],
+          "textPx": 24,
+          "S": 215.2
+        }
+      }
+    },
+    {
+      "name": "semantic: context and hold: the pouch is centred and enlarged on the bench @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "return",
+          "shown": "after",
+          "lensP": 0,
+          "zoom": 1.968,
+          "focus": "sealState",
+          "value": "Alteration marked",
+          "ctxBefore": 0,
+          "ctxAfter": 1,
+          "lensBefore": 0,
+          "lensAfter": 1,
+          "slitLens": 1,
+          "slitCtx": 1,
+          "marker": 1,
+          "seam": {
+            "x": 592.95,
+            "y": 200.03
+          },
+          "restK": 1,
+          "source": {
+            "x": 154.86,
+            "y": 149.5,
+            "w": 316.34,
+            "h": 136.65
+          },
+          "dest": {
+            "x": 531.25,
+            "y": 234.55,
+            "w": 622.47,
+            "h": 268.89
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1185.91,
+            "h": 738
+          },
+          "problems": [
+            "lens-small"
+          ],
+          "textPx": 24,
+          "S": 215.2
+        }
+      }
+    },
+    {
+      "name": "semantic: the seal-number substitution changes only the number (no slit) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "phase": "return",
+          "shown": "after",
+          "lensP": 0,
+          "zoom": 1.968,
+          "focus": "sealNumber",
+          "value": "P-2",
+          "ctxBefore": 0,
+          "ctxAfter": 1,
+          "lensBefore": 0,
+          "lensAfter": 1,
+          "slitLens": 0,
+          "slitCtx": 0,
+          "marker": 1,
+          "seam": {
+            "x": 592.95,
+            "y": 200.03
+          },
+          "restK": 1,
+          "source": {
+            "x": 154.86,
+            "y": 149.5,
+            "w": 316.34,
+            "h": 136.65
+          },
+          "dest": {
+            "x": 531.25,
+            "y": 234.55,
+            "w": 622.47,
+            "h": 268.89
+          },
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1185.91,
+            "h": 738
+          },
+          "problems": [
+            "lens-small"
+          ],
+          "textPx": 24,
+          "S": 215.2
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

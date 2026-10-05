@@ -396,7 +396,7 @@ export function laneConnector(ctx, {name, G, l, kind = 'relation', disputed = fa
 /* ------------------------------------------------------------------------ */
 
 /** A lane piece: one lane on its own slab strip with its trolley at the barrier and its steps (static). */
-const PIECE = {L: 0.7};
+const PIECE = {L: 0.8};
 /** Width of a lane piece relative to its height. */
 export const MINI_W = (PIECE.L + 0.14) / (CART_TOP + FIELD.LT + 0.16 + FIELD.plate);
 
