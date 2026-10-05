@@ -5,14 +5,14 @@
  * centre with its tag on a ball chain, the open bag and the laid photo scale; the camera on its stand arm; a photo
  * board with two slots; every component carries its editable label chip; a legend lists item, custodians, times,
  * tag rows, the relation kinds in use and the key):
- *  0.00–0.18  assemble: no hands — the camera swings on its arm to the far station (wide wedge, overview field) and
+ *  0.00–0.30  assemble: no hands — the camera swings on its arm to the far station (wide wedge, overview field) and
  *             its print flies to slot 1, then to the near station (narrow wedge onto the object and scale) and the
  *             detail print flies to slot 2. Label chips fade in once their parts are in place.
- *  0.18–0.43  only the explicit relationships are drawn, one after another, anchored to the components' edges; a
+ *  0.30–0.50  only the explicit relationships are drawn, one after another, anchored to the components' edges; a
  *             plain relation has no arrowhead (causal arrows only when the author supplies a causal relation).
- *  0.43–0.75  a tracer follows the supplied traversal order along the drawn relations (by default camera → overview →
+ *  0.50–0.76  a tracer follows the supplied traversal order along the drawn relations (by default camera → overview →
  *             object → detail → scale: several views, one object); the focus component (the detail print) enlarges.
- *  0.75–1.00  hold: the map stays with every relation and label visible; line kinds keyed in the legend. No doctrine
+ *  0.76–1.00  hold: the map stays with every relation and label visible; line kinds keyed in the legend. No doctrine
  *             on photographic evidence and no outcome.
  * @module animations/evidence-custody/LAW-0374
  */
@@ -36,7 +36,7 @@ import {
 const ID = 'LAW-0374';
 const DURATION = 7000;
 const EL = ['camera', 'overview', 'detail', 'object', 'scale', 'tag', 'chain', 'bag'];
-const W = {mv1: [0.02, 0.06], sh1: [0.065, 0.075], fl1: [0.075, 0.11], mv2: [0.1, 0.13], sh2: [0.135, 0.145], fl2: [0.145, 0.18], labels: [0.16, 0.2], draw: [0.19, 0.43], trace: [0.43, 0.75], focus: [0.43, 0.49], unfocus: [0.75, 0.8]};
+const W = {mv1: [0.02, 0.07], sh1: [0.075, 0.09], fl1: [0.09, 0.17], mv2: [0.15, 0.2], sh2: [0.205, 0.22], fl2: [0.22, 0.3], labels: [0.28, 0.32], draw: [0.31, 0.5], trace: [0.5, 0.76], focus: [0.5, 0.56], unfocus: [0.76, 0.81]};
 const mechColor = (ctx, k) => ({relation: ctx.theme.accent3, communication: '#7fb0d8', sequence: '#e58e73', causal: ctx.theme.accent}[k] || ctx.theme.accent3);
 const SIZES = [24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 
@@ -49,8 +49,8 @@ const OWN_EN = {
   relationships: [
     {from: 'camera', to: 'overview', kind: 'relation'}, {from: 'camera', to: 'detail', kind: 'relation'},
     {from: 'overview', to: 'object', kind: 'relation'}, {from: 'detail', to: 'object', kind: 'relation'},
-    {from: 'detail', to: 'scale', kind: 'relation'}, {from: 'object', to: 'chain', kind: 'relation'},
-    {from: 'chain', to: 'tag', kind: 'relation'}, {from: 'object', to: 'bag', kind: 'relation'},
+    {from: 'detail', to: 'scale', kind: 'relation'}, {from: 'object', to: 'tag', kind: 'relation'},
+    {from: 'object', to: 'bag', kind: 'relation'},
   ],
   focusElement: 'detail',
   relationLabels: {relation: 'linked (as supplied)', communication: 'communicates (as supplied)', sequence: 'then (sequence as configured)', causal: 'causes (supplied)'},
@@ -121,7 +121,7 @@ function boxesOf(G) {
   return {
     object: {x: G.objC.x - M.w / 2, y: G.objC.y - M.h / 2, w: M.w, h: M.h},
     tag: {x: G.hole.x + T0.x0, y: G.hole.y - T0.h / 2, w: T0.w, h: T0.h + T0.w * 0.14},
-    chain: {x: Math.min(G.anchor.x, G.hole.x), y: Math.min(G.anchor.y, G.hole.y), w: Math.abs(G.hole.x - G.anchor.x), h: Math.abs(G.hole.y - G.anchor.y) + G.S * 0.12},
+    chain: (() => { const m = {x: (G.anchor.x + G.hole.x) / 2, y: (G.anchor.y + G.hole.y) / 2 + G.S * 0.06}, e = G.S * 0.09; return {x: m.x - e, y: m.y - e, w: e * 2, h: e * 2}; })(),
     bag: {x: G.bag.x, y: G.bag.y, w: G.bag.w, h: G.bag.h},
     scale: {x: R0.x, y: R0.y - G.ruler.Lv, w: G.ruler.L, h: G.ruler.Lv},
     camera: {x: cam.x - cr, y: cam.y - cr, w: cr * 2, h: cr * 2},

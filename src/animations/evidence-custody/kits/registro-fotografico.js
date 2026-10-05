@@ -140,7 +140,7 @@ export function rfStage(B, o) {
   const Mu = objectModel(o.kind, 1);
   const anchorU = {x: o.kind === 'key' ? -Mu.anchor.x : Mu.anchor.x, y: Mu.anchor.y};
   const T0u = tagModel({w: 1.12, h: 0.5, rows: Math.max(2, o.rows)});
-  const holeU = {x: 0.78, y: -0.62};
+  const holeU = {x: 0.9, y: -0.72};
   const bagU = {x: -1.68, y: -0.52, w: 0.84, h: 1.06};
   const rulerU = {L: 0.82, Lv: 0.6, w: 0.1};
   const rulerPlacedU = {x: -0.62, y: 0.47, a: 0};

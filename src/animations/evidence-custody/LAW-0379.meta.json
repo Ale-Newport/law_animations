@@ -1,29 +1,27 @@
 {
-  "id": "LAW-0374",
-  "slug": "evidence-custody-04-mechanism",
-  "title": "Photographic record — a spatial map: the camera produces an overview and a detail print, and only the supplied relations join camera, prints, object, scale, tag, chain and bag; a tracer follows them",
-  "titleEs": "Registro fotográfico — Mecanismo o relación explicada",
+  "id": "LAW-0379",
+  "slug": "evidence-custody-05-contrast",
+  "title": "Object inventory — two identical inventory stations; only whether one object has a row on the list differs, so only that cell's tag is joined to the list in A",
+  "titleEs": "Inventario de objetos — Comparación de dos supuestos",
   "category": "evidence-custody",
   "categoryName": "Recogida y custodia de pruebas",
-  "motif": "Registro fotográfico",
-  "treatment": "mechanism",
-  "family": "spatial-mechanism",
-  "description": "A spatial map on the evidence bench. Without hands, the camera swings on its stand arm to a far station (wide wedge, overview) and a near one (narrow wedge onto the object and its scale); each exposure becomes a print that flies to the photo board. Every component — camera, overview print, detail print, object, scale, tag, ball chain, bag — carries its editable label. Only the supplied relationships are drawn, anchored to the components' edges (plain relations without arrowheads; causal only when supplied); a tracer follows the supplied order (several views, one object) and the focus component enlarges. No doctrine and no outcome; fictional; jurisdiction unspecified.",
+  "motif": "Inventario de objetos",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two complete inventory stations (bag with the same fictional objects, compartment rack with tagged cells, clipboard list, gloved hand), side by side on wide frames and stacked on tall ones. The one changed fact: in A the chosen object has a row on the list (object inventoried), in B its row space stays empty (object without entry). Both hands then place the objects in parallel; listed objects are joined to their rows, so only the changed object's tag and line differ. A guide rings the changed cell and row space; the neutral note draws no winner, score or consequence. Fictional; jurisdiction unspecified.",
   "tags": [
     "evidence",
     "custody",
-    "photography",
-    "mechanism",
-    "relations",
-    "tracer",
-    "camera",
-    "overview",
-    "detail",
-    "prints",
-    "scale"
+    "inventory",
+    "list",
+    "comparison",
+    "missing entry",
+    "rack",
+    "cells",
+    "tag"
   ],
   "durations": {
-    "defaultMs": 7000,
+    "defaultMs": 7500,
     "minMs": 1000,
     "maxMs": 60000,
     "designedFor": [
@@ -73,8 +71,9 @@
   "schemaVersion": 1,
   "assets": [
     "src/animations/evidence-custody/kits/evidence-art.js",
-    "src/animations/evidence-custody/kits/registro-fotografico.js",
-    "src/primitives/annotate.js"
+    "src/animations/evidence-custody/kits/inventario-objetos.js",
+    "src/frameworks/paired.js",
+    "src/primitives/desk.js"
   ],
   "license": "Original vector artwork and code created for this project; no third-party assets.",
   "version": "1.0.0",
@@ -87,7 +86,7 @@
         "type": "number",
         "minimum": 1000,
         "maximum": 60000,
-        "default": 7000,
+        "default": 7500,
         "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
       },
       "seed": {
@@ -197,21 +196,24 @@
             "id": {
               "type": "string",
               "maxLength": 24,
-              "description": "Item reference printed in the legend (fictional)"
+              "description": "Object reference (fictional)"
             },
             "label": {
               "type": "string",
-              "maxLength": 70,
-              "description": "Short description of the item (fictional)"
+              "maxLength": 60,
+              "description": "Short description of the object (fictional)"
             },
             "kind": {
               "type": "string",
               "enum": [
                 "key",
                 "cup",
-                "box"
+                "box",
+                "phone",
+                "wallet",
+                "notebook"
               ],
-              "description": "Drawn object: key, cup or box"
+              "description": "Drawn object"
             }
           },
           "required": [
@@ -219,11 +221,11 @@
             "label",
             "kind"
           ],
-          "description": "Item"
+          "description": "Object"
         },
-        "minItems": 1,
-        "maxItems": 1,
-        "description": "The item handled in the scene (fictional). kind picks the drawn object (array replaces the previous value)"
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Objects taken out of the bag and put into the cells, top cell first (fictional). kind picks the drawing (array replaces the previous value)"
       },
       "custodians": {
         "type": "array",
@@ -287,24 +289,24 @@
           "properties": {
             "field": {
               "type": "string",
-              "maxLength": 30,
-              "description": "Field name printed on the tag"
+              "maxLength": 18,
+              "description": "Entry reference, printed on the list row and written on the cell tag"
             },
             "value": {
               "type": "string",
-              "maxLength": 50,
-              "description": "Value written in the row (empty = left blank)"
+              "maxLength": 60,
+              "description": "Entry text on the list (empty = no entry, as supplied)"
             }
           },
           "required": [
             "field",
             "value"
           ],
-          "description": "Record row"
+          "description": "List row"
         },
-        "minItems": 2,
+        "minItems": 1,
         "maxItems": 5,
-        "description": "Rows written on the tag, top to bottom. An empty value leaves that row blank (as supplied) (array replaces the previous value)"
+        "description": "Rows of the inventory list, matched to the objects in order (row 1 = top cell). An object with no row, or a row with an empty text, has no entry (as supplied) (array replaces the previous value)"
       },
       "labels": {
         "type": "object",
@@ -315,176 +317,102 @@
             "maxLength": 80,
             "description": "Neutral key (must say that no conclusion is drawn)"
           },
-          "blank": {
+          "noEntry": {
             "type": "string",
-            "maxLength": 50,
-            "description": "Text shown for a tag row the author left blank"
+            "maxLength": 60,
+            "description": "Words used for an object without a list entry"
           }
         },
         "required": [
           "key",
-          "blank"
+          "noEntry"
         ],
         "description": "Editable captions"
       },
-      "elements": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "id": {
-              "type": "string",
-              "enum": [
-                "camera",
-                "overview",
-                "detail",
-                "object",
-                "scale",
-                "tag",
-                "chain",
-                "bag"
-              ],
-              "description": "Component id"
-            },
-            "label": {
-              "type": "string",
-              "maxLength": 50,
-              "description": "Visible label"
-            }
-          },
-          "required": [
-            "id",
-            "label"
-          ],
-          "description": "Component"
-        },
-        "minItems": 2,
-        "maxItems": 8,
-        "description": "Component labels; ids are fixed by the scene, labels are editable (array replaces the previous value)"
-      },
-      "relationships": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "from": {
-              "type": "string",
-              "enum": [
-                "camera",
-                "overview",
-                "detail",
-                "object",
-                "scale",
-                "tag",
-                "chain",
-                "bag"
-              ],
-              "description": "Source component id"
-            },
-            "to": {
-              "type": "string",
-              "enum": [
-                "camera",
-                "overview",
-                "detail",
-                "object",
-                "scale",
-                "tag",
-                "chain",
-                "bag"
-              ],
-              "description": "Target component id"
-            },
-            "kind": {
-              "type": "string",
-              "enum": [
-                "relation",
-                "communication",
-                "sequence",
-                "causal"
-              ],
-              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
-            }
-          },
-          "required": [
-            "from",
-            "to",
-            "kind"
-          ],
-          "description": "Relationship"
-        },
-        "minItems": 1,
-        "maxItems": 8,
-        "description": "Explicit relationships between components; kind controls line style (causal only when supplied) (array replaces the previous value)"
-      },
-      "focusElement": {
-        "type": "string",
-        "enum": [
-          "camera",
-          "overview",
-          "detail",
-          "object",
-          "scale",
-          "tag",
-          "chain",
-          "bag"
-        ],
-        "description": "Component enlarged while the tracer passes"
-      },
-      "relationLabels": {
+      "scenarioA": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "relation": {
+          "label": {
             "type": "string",
-            "maxLength": 40,
-            "description": "Caption for plain relations"
+            "maxLength": 50,
+            "description": "Short label for scenario A"
           },
-          "communication": {
+          "caption": {
             "type": "string",
-            "maxLength": 40,
-            "description": "Caption for communications"
-          },
-          "sequence": {
-            "type": "string",
-            "maxLength": 40,
-            "description": "Caption for sequence links"
-          },
-          "causal": {
-            "type": "string",
-            "maxLength": 40,
-            "description": "Caption for supplied causal links"
+            "maxLength": 90,
+            "description": "One-line description"
           }
         },
-        "required": [],
-        "description": "Override the caption used for each relation kind"
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
       },
-      "traversalOrder": {
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
         "type": "array",
         "items": {
           "type": "string",
-          "enum": [
-            "camera",
-            "overview",
-            "detail",
-            "object",
-            "scale",
-            "tag",
-            "chain",
-            "bag"
-          ],
-          "description": "Component id"
+          "maxLength": 70,
+          "description": "Shared fact"
         },
-        "minItems": 2,
-        "maxItems": 8,
-        "description": "Order in which the tracer visits components (array replaces the previous value)"
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      },
+      "changedItem": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5,
+        "description": "Which object (1 = top cell) has a list row in A and none in B; its row in `records` is A's row"
       }
     }
   },
   "defaultParams": {
-    "durationMs": 7000,
+    "durationMs": 7500,
     "seed": 1,
     "locale": "en",
     "theme": "editorial-flat",
@@ -502,129 +430,68 @@
     "contentNotice": true,
     "items": [
       {
-        "id": "Item E-04 (fictional)",
-        "label": "Ceramic mug left on a table (fictional)",
-        "kind": "cup"
+        "id": "Object 1 (fictional)",
+        "label": "Brass key from a drawer",
+        "kind": "key"
+      },
+      {
+        "id": "Object 2 (fictional)",
+        "label": "Mobile phone from a coat",
+        "kind": "phone"
+      },
+      {
+        "id": "Object 3 (fictional)",
+        "label": "Leather wallet from a desk",
+        "kind": "wallet"
       }
     ],
     "custodians": [
       {
-        "name": "M. Haddad (fictional)",
-        "role": "Person photographing the item"
+        "name": "D. Haddad (fictional)",
+        "role": "Person making the inventory"
       }
     ],
     "timestamps": [
       {
-        "label": "Overview taken",
-        "time": "14:02 (illustrative)"
-      },
-      {
-        "label": "Detail taken",
-        "time": "14:04 (illustrative)"
+        "label": "Inventory started",
+        "time": "09:40 (illustrative)"
       }
     ],
     "records": [
       {
-        "field": "Item no.",
-        "value": "E-04"
+        "field": "No. 1",
+        "value": "Brass key"
       },
       {
-        "field": "Description",
-        "value": "Ceramic mug"
+        "field": "No. 2",
+        "value": "Mobile phone, black"
       },
       {
-        "field": "Photos",
-        "value": "3 views"
+        "field": "No. 3",
+        "value": "Leather wallet"
       }
     ],
     "labels": {
       "key": "As supplied · no conclusion drawn",
-      "blank": "(left blank, as supplied)"
+      "noEntry": "no list entry (as supplied)"
     },
-    "elements": [
-      {
-        "id": "camera",
-        "label": "Camera on its arm"
-      },
-      {
-        "id": "overview",
-        "label": "Overview print"
-      },
-      {
-        "id": "detail",
-        "label": "Detail print with scale"
-      },
-      {
-        "id": "object",
-        "label": "Object (fictional)"
-      },
-      {
-        "id": "scale",
-        "label": "Photo scale"
-      },
-      {
-        "id": "tag",
-        "label": "Tag"
-      },
-      {
-        "id": "chain",
-        "label": "Ball chain"
-      },
-      {
-        "id": "bag",
-        "label": "Evidence bag"
-      }
-    ],
-    "relationships": [
-      {
-        "from": "camera",
-        "to": "overview",
-        "kind": "relation"
-      },
-      {
-        "from": "camera",
-        "to": "detail",
-        "kind": "relation"
-      },
-      {
-        "from": "overview",
-        "to": "object",
-        "kind": "relation"
-      },
-      {
-        "from": "detail",
-        "to": "object",
-        "kind": "relation"
-      },
-      {
-        "from": "detail",
-        "to": "scale",
-        "kind": "relation"
-      },
-      {
-        "from": "object",
-        "to": "tag",
-        "kind": "relation"
-      },
-      {
-        "from": "object",
-        "to": "bag",
-        "kind": "relation"
-      }
-    ],
-    "focusElement": "detail",
-    "relationLabels": {
-      "relation": "linked (as supplied)",
-      "communication": "communicates (as supplied)",
-      "sequence": "then (sequence as configured)",
-      "causal": "causes (supplied)"
+    "changedItem": 3,
+    "scenarioA": {
+      "label": "A · Object inventoried",
+      "caption": "Object 3 has a row on the list"
     },
-    "traversalOrder": [
-      "camera",
-      "overview",
-      "object",
-      "detail",
-      "scale"
-    ]
+    "scenarioB": {
+      "label": "B · Object without entry",
+      "caption": "Object 3 has no row on the list"
+    },
+    "changedFact": "Only difference: whether Object 3 has a row on the inventory list",
+    "sharedFacts": [
+      "Same bag, same three objects, same rack and list",
+      "Same hand, same order of placing"
+    ],
+    "comparisonLabels": {
+      "guide": "Only this cell and row space differ",
+      "neutral": "Two supplied situations side by side · no winner, score or consequence is drawn"
+    }
   }
 }

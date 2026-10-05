@@ -134,8 +134,8 @@ const scene = {
     const armW = Math.max(28, Math.min(50, G.S * 0.26));
     const rackMid = X(G.rackX + G.rackW / 2);
     const bagMid = G.bag ? X(G.bag.x + G.bag.w / 2) : rackMid;
-    const shoulder = {x: clamp(Math.min(rackMid, bagMid + G.S * 0.6), C.bench.x + 60, C.bench.x + C.bench.w - 60), y: bb + Math.max(60, C.bench.h * 0.08)};
-    world.rest = {x: shoulder.x + armW * 0.6, y: bb - armW * 1.0};
+    const shoulder = {x: clamp(G.bagMode === 'left' ? (rackMid + bagMid) / 2 : rackMid + G.S * 0.3, C.bench.x + 60, C.bench.x + C.bench.w - 60), y: bb + Math.max(60, C.bench.h * 0.08)};
+    world.rest = {x: shoulder.x + armW * 0.3, y: bb - armW * 1.6};
     const W = itemWindows(n, ACT[0], ACT[1], 0.06);
     const L0 = {P, n, W, world, G, linked};
     let far = 0;

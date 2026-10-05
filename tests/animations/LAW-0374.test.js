@@ -1,9 +1,9 @@
 // LAW-0374 — Registro fotográfico · mechanism. Contract battery + ID-specific checks.
 // acceptanceCheck (brief): spatial composition with object, tag and connectors anchored to their edges; continuity of
 // the camera, the prints and the tracer; recognisable with labels hidden (two framings, two prints, relations drawn).
-// Windows (u, 7 s): camera to far station 0.02–0.06, exposure 0.065–0.075, print 1 flies 0.075–0.11 · near station
-// 0.10–0.13, exposure 0.135–0.145, print 2 flies 0.145–0.18 · label chips 0.16–0.20 · relations drawn 0.19–0.43 ·
-// tracer 0.43–0.75 (focus enlarged 0.43–0.49 … 0.75–0.80) · hold.
+// Windows (u, 7 s): camera to far station 0.02–0.07, exposure 0.075–0.09, print 1 flies 0.09–0.17 · near station
+// 0.15–0.20, exposure 0.205–0.22, print 2 flies 0.22–0.30 · label chips 0.28–0.32 · relations drawn 0.31–0.50 ·
+// tracer 0.50–0.76 (focus enlarged 0.50–0.56 … 0.76–0.81) · hold.
 // Legal: plain relations have no arrowhead; causal only when supplied; no doctrine.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
@@ -16,10 +16,10 @@ contractSuite(ID, {
   continuity: ['cam', 'print0', 'print1', 'tracer'],
   semantic: [
     {at: 0, fn: "s.phase === 'assemble' && s.prints.every(p => p === 'none') && s.drawn.every(k => k === 0)", label: 'start: no prints, no relations'},
-    {at: 0.09, fn: "s.prints[0] === 'flying' && s.prints[1] === 'none'", label: 'the overview print exists only after the first exposure'},
-    {at: 0.2, fn: "s.prints.every(p => p === 'placed') && s.fields[0] > s.fields[1] * 1.8", label: 'both prints placed; overview field wider than detail field'},
-    {at: 0.3, fn: 's.drawn.some(k => k > 0) && s.drawn.some(k => k === 0)', label: 'relations are drawn one after another'},
-    {at: 0.46, fn: "s.focusScale > 1 && s.tracerAt !== null", label: 'the tracer runs and the focus component enlarges'},
+    {at: 0.12, fn: "s.prints[0] === 'flying' && s.prints[1] === 'none'", label: 'the overview print exists only after the first exposure'},
+    {at: 0.31, fn: "s.prints.every(p => p === 'placed') && s.fields[0] > s.fields[1] * 1.8", label: 'both prints placed; overview field wider than detail field'},
+    {at: 0.4, fn: 's.drawn.some(k => k > 0) && s.drawn.some(k => k === 0)', label: 'relations are drawn one after another'},
+    {at: 0.58, fn: "s.focusScale > 1 && s.tracerAt !== null", label: 'the tracer runs and the focus component enlarges'},
     {at: 1, fn: 's.drawn.every(k => k === 1) && s.arrows.length === 0 && s.focusScale === 1 && s.problems.length === 0', label: 'hold: every supplied relation drawn, plain relations without arrows; composition fits'},
     {at: 1, params: {relationships: [{from: 'camera', to: 'overview', kind: 'causal'}, {from: 'overview', to: 'object', kind: 'relation'}]}, fn: "s.arrows.length === 1 && s.arrows[0] === 'causal'", label: 'a causal arrow only when supplied'},
   ],
@@ -33,7 +33,7 @@ suppliedTextSuite(ID, {
 
 ratioChecks(ID, 'composition fits; connectors anchored at component edges', [
   {at: [1], fn: 's.problems.length === 0', label: 'a composition fits'},
-  {at: [1], fn: 's.connectors.every(c => Math.hypot(c.a.x - c.b.x, c.a.y - c.b.y) > 20)', label: 'every connector has a readable length'},
+  {at: [1], fn: 's.connectors.every(c => Math.hypot(c.a.x - c.b.x, c.a.y - c.b.y) > 10)', label: 'every connector has a visible length (adjacent parts such as object and tag sit close)'},
 ]);
 
 test(`${ID}: every object kind / records count / relation set composes at every ratio`, async ({page}) => {
