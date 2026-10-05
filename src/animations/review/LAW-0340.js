@@ -39,9 +39,9 @@ const DURATION = 8000;
 const BEATS = {build: [0, 0.2], isolate: [0.2, 0.45], substitute: [0.45, 0.75], ret: [0.75, 1]};
 const W = {
   frame: [0.19, 0.21], panelOut: [0.19, 0.21], ctxOut: [0.21, 0.214], open: [0.212, 0.25], copyIn: [0.228, 0.25],
-  oldOut: [0.48, 0.54], was: [0.53, 0.55], newIn: [0.555, 0.585], swatch: [0.5, 0.585],
-  copyOut: [0.62, 0.632], close: [0.62, 0.65], ctxIn: [0.65, 0.654], frameOut: [0.64, 0.655],
-  restripe: [0.656, 0.672], move: [0.672, 0.74], panelIn: [0.75, 0.775], marker: [0.78, 0.81],
+  oldOut: [0.47, 0.53], was: [0.52, 0.54], newIn: [0.545, 0.575], swatch: [0.49, 0.575],
+  copyOut: [0.64, 0.652], close: [0.64, 0.668], ctxIn: [0.668, 0.672], frameOut: [0.66, 0.672],
+  restripe: [0.674, 0.69], move: [0.69, 0.745], panelIn: [0.75, 0.775], marker: [0.78, 0.81],
 };
 
 const STRINGS = {en: {was: 'was'}, es: {was: 'antes'}};
@@ -53,7 +53,7 @@ const OWN_EN = {
   afterValue: 'Mark: proposed additional material (as supplied)',
   detailGeometry: {zoom: 3, placement: 'auto'},
   outcomes: {a: 'Before: X lies with the original file in folder A', b: 'After: X lies in folder B, apart from the original file'},
-  objectLabels: {record: 'Record plate of piece X on the board', calendar: 'Wall calendar (no date marked)'},
+  objectLabels: {record: 'Record card of piece X on the board', calendar: 'Wall calendar (no date marked)'},
   contextLabels: {context: 'The room after the filing (as supplied)', marker: 'Changed: the supplied mark of X'},
 };
 const OWN_ES = {
@@ -63,7 +63,7 @@ const OWN_ES = {
   afterValue: 'Marca: material adicional propuesto (según lo aportado)',
   detailGeometry: {zoom: 3, placement: 'auto'},
   outcomes: {a: 'Antes: X está con el expediente original en la carpeta A', b: 'Después: X está en la carpeta B, aparte del original'},
-  objectLabels: {record: 'Placa de registro de la pieza X en el tablero', calendar: 'Calendario de pared (sin fechas marcadas)'},
+  objectLabels: {record: 'Ficha de registro de la pieza X en el tablero', calendar: 'Calendario de pared (sin fechas marcadas)'},
   contextLabels: {context: 'La sala tras el archivo (según lo aportado)', marker: 'Cambio: la marca aportada de X'},
 };
 const EN = {...RD_EN, ...OWN_EN};
@@ -178,14 +178,15 @@ const scene = {
       return {RL, fits, Ft, o: {arr: 'row', docK: 1.6, person: false, intake: false, covers: false, sign: false, n: R.n + 1, board: {w: RL.w, h: RL.h}, boardSide: ctx.view.shape === 'square' ? 'right' : 'below', crop: 1.25}};
     };
     const composeAt = (box, F) => {
-      let k0 = Math.max(0.3, box.w / 700);
+      // (the plate's text is sized for a scale k0 no larger than the room's final scale, so it renders >= F)
+      let k0 = Math.max(0.3, box.w / 500);
       let out = null;
-      for (let it = 0; it < 4; it++) {
+      for (let it = 0; it < 10; it++) {
         const q = optsFor(k0, F);
         const C = composeRd(ctx, R, box, {...q.o, align: {x: 0.5, y: 0.5}});
         out = {...C, RL: q.RL, fits: q.fits, Ft: q.Ft};
-        if (Math.abs(C.k - k0) < 1e-3) break;
-        k0 = C.k;
+        if (C.k >= k0 - 1e-6) break;
+        k0 = C.k * 0.995;
       }
       return out;
     };
@@ -198,7 +199,7 @@ const scene = {
     });
     const F = best.F;
     // (labels hidden: no panel — the room keeps part of the frame free for the lens to open in)
-    if (!best.lay) best.roomBox = D.w >= D.h * 1.2 ? {x: 0, y: 0, w: D.w * 0.6, h: D.h} : {x: 0, y: 0, w: D.w, h: D.h * 0.56};
+    if (!best.lay) best.roomBox = ctx.view.shape === 'landscape' ? {x: 0, y: 0, w: D.w * 0.6, h: D.h} : {x: 0, y: 0, w: D.w, h: D.h * 0.56};
     const C = composeAt(best.roomBox, F);
     const G = C.G;
     const k = C.k;
@@ -323,6 +324,7 @@ const scene = {
     // the substitution, in the lens (and mirrored on the context plate once the lens has closed)
     const oldOut = seg(u, ...W.oldOut), newIn = seg(u, ...W.newIn), wasK = seg(u, ...W.was), swK = seg(u, ...W.swatch);
     const subst = u >= W.oldOut[0];
+    const vis = {};
     for (const pre of ['ln', 'rm']) {
       const isCtx = pre === 'rm';
       // the context plate's value is hidden while the lens shows its copy (one legible copy at a time)
@@ -334,6 +336,7 @@ const scene = {
         nodes[`${pre}-v-before`] = {opacity: r(clamp(bOp), 3), transform: T(0, isCtx ? 0 : (L.C.RL.dock.y - (L.C.RL.valY ?? 0)) * e(lift) * 0.6)};
         nodes[`${pre}-v-after`] = {opacity: r(clamp(aOp), 3)};
       }
+      vis[pre] = Math.max(clamp(bOp), clamp(aOp)) * (isCtx ? 1 : copyK * (lensOn ? 1 : 0));
       const sw = isCtx ? (u >= W.ctxIn[0] ? 1 : 0) : swK;
       nodes[`${pre}-sw-a`] = {opacity: r(1 - sw, 3)};
       nodes[`${pre}-sw-b`] = {opacity: r(sw, 3)};
@@ -348,6 +351,11 @@ const scene = {
     const back = e(seg(u, ...W.frame)) * (1 - e(seg(u, ...W.panelIn)));
     const s = lerp(1, L.sc, back);
     nodes.ctx = {transform: s !== 1 ? scaleAbout(L.anchor.x, L.anchor.y, s) : 'translate(0 0)'};
+    // (the context plate's label is hidden while the context, stepped back, would draw it under the 16 px floor)
+    if (L.C.fits) {
+      const small = L.F * L.px * L.sc < 16;
+      nodes['rm-label'] = {opacity: r(small ? 1 - seg(u, W.frame[0], W.frame[0] + 0.01) + seg(u, ...W.panelIn) : 1, 3)};
+    }
     const panelK = 1 - seg(u, ...W.panelOut) + seg(u, ...W.panelIn);
     if (L.lay) for (const mm of L.lay.rows) nodes[mm.name] = {opacity: r(clamp(panelK), 3)};
     const beat = u < BEATS.build[1] ? 'build' : u < BEATS.isolate[1] ? 'isolate' : u < BEATS.substitute[1] ? 'substitute' : 'ret';
@@ -359,6 +367,8 @@ const scene = {
       semantic: {
         beat,
         lensOpen: r(open, 3),
+        ctxValueOp: r(vis.rm, 3),
+        lensValueOp: r(vis.ln, 3),
         zoom: r(L.zoom, 3),
         value,
         lensValue,

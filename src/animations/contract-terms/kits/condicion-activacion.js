@@ -49,19 +49,46 @@ export function keepNumbers(text) {
 /** fitW results memoised on every input (pure; callers only read them). */
 const FITW = new Map();
 /**
+ * Last-resort word breaking (off by default). localizeScene turns it on only for a second layout pass after the normal
+ * pass found no layout at all (`no-layout-fits`) — e.g. an unbroken 40–55 character token — and keeps it on for that
+ * scene's build and frames. Every scene the normal pass can lay out is unchanged.
+ */
+let BREAK = false;
+/** Whether last-resort word breaking is on (diagnostics / tests). */
+export const breakingWords = () => BREAK;
+/**
  * Fit text into maxWidth × maxLines at the largest size in [size, minSize] that wraps whole words only (glued pairs
  * never split) and leaves no 1–2 character line. Returns a fitText-shaped result plus `bad` when it could not be done.
  * @param {string} text
  * @param {{maxWidth:number, size:number, minSize?:number, maxLines?:number, weight?:number, family?:'sans'|'serif'|'mono', leading?:number, balance?:boolean}} o
  */
 export function fitW(text, o) {
-  const key = `${text}\u0001${o.maxWidth}|${o.size}|${o.minSize}|${o.maxLines}|${o.weight}|${o.family}|${o.leading}|${o.balance}`;
+  const key = `${text}\u0001${o.maxWidth}|${o.size}|${o.minSize}|${o.maxLines}|${o.weight}|${o.family}|${o.leading}|${o.balance}|${BREAK}`;
   const hit = FITW.get(key);
   if (hit) return hit;
   const res = fitWRaw(text, o);
   if (FITW.size > 50000) FITW.clear();
   FITW.set(key, res);
   return res;
+}
+
+/** fitW's unbreakable tokens (glued pairs and lone separators kept with their word). */
+function tokensOf(full) {
+  const tokens = [];
+  for (const w of keepNumbers(full).replace(/\u00a0/g, GLUE).replace(/\s+/g, ' ').trim().split(' ').filter(Boolean)) {
+    if (/^[·•–—|:]$/.test(w) && tokens.length) tokens[tokens.length - 1] += `${GLUE}${w}`;
+    else tokens.push(w);
+  }
+  return tokens;
+}
+
+/**
+ * Width of the widest unbreakable token fitG would wrap (glued as fitG glues it) at size sz: when it exceeds a maxWidth,
+ * fitG at that size and width is bad whatever else (word breaking off).
+ */
+export function widestToken(text, sz, weight = 400, family = 'sans') {
+  const tk = tokensOf(glueParen(glueText(text)));
+  return tk.length ? Math.max(...tk.map(t => measure(t.replace(/⁠/g, ' '), sz, weight, family))) : 0;
 }
 
 function fitWRaw(text, o) {
@@ -74,11 +101,7 @@ function fitWRaw(text, o) {
   const maxWidth = Math.max(10, o.maxWidth);
   const shown = t => t.replace(/⁠/g, ' ');
   const m = (t, sz) => measure(shown(t), sz, weight, family);
-  const tokens = [];
-  for (const w of keepNumbers(full).replace(/\u00a0/g, GLUE).replace(/\s+/g, ' ').trim().split(' ').filter(Boolean)) {
-    if (/^[·•–—|:]$/.test(w) && tokens.length) tokens[tokens.length - 1] += `${GLUE}${w}`;
-    else tokens.push(w);
-  }
+  let tokens = tokensOf(full);
   const wrapAt = (w, sz) => {
     const lines = [];
     let cur = '';
@@ -92,6 +115,13 @@ function fitWRaw(text, o) {
   };
   const step = Math.max(0.5, o.size * 0.035);
   let best = null;
+  for (let pass = 0; pass < 2 && !best; pass++) {
+  if (pass === 1) {
+    // (last resort, only with BREAK on and only when the whole-word pass failed: every token too wide even at the minimum
+    // size is broken — after its own hyphens first, else mid-word with a hyphen — into pieces that fit at that size)
+    if (!BREAK || !tokens.length || Math.max(...tokens.map(t => m(t, minSize))) <= maxWidth) break;
+    tokens = tokens.flatMap(t => (m(t, minSize) <= maxWidth ? [t] : breakToken(t, maxWidth, q => m(q, minSize))));
+  }
   for (let s = o.size; s >= minSize - 1e-6; s -= step) {
     if (!tokens.length) break;
     if (Math.max(...tokens.map(t => m(t, s))) > maxWidth) continue;
@@ -112,6 +142,7 @@ function fitWRaw(text, o) {
     best = {lines: lines.map(shown), size: s};
     break;
   }
+  }
   if (!best) {
     const f = fitText(full, {maxWidth, size: minSize, minSize, maxLines, weight, family, leading});
     return {...f, bad: true};
@@ -119,6 +150,38 @@ function fitWRaw(text, o) {
   const width = Math.max(...best.lines.map(l => measure(l, best.size, weight, family)));
   const lineHeight = best.size * leading;
   return {lines: best.lines, size: best.size, lineHeight, width, height: lineHeight * (best.lines.length - 1) + best.size, truncated: false, full, weight, family, bad: false};
+}
+
+/**
+ * Break one token too wide for maxWidth (wd = its width function at the minimum size) into pieces that each fit: the
+ * glued words (no-break spaces) part first, then a word parts after its own hyphens (parts grouped greedily), and a part
+ * still too wide is cut mid-word with a hyphen (never leaving a piece of 1–2 letters). Greedy pieces never share a line.
+ */
+function breakToken(t, maxWidth, wd) {
+  const out = [];
+  for (const w of t.split(GLUE).filter(Boolean)) {
+    if (wd(w) <= maxWidth) { out.push(w); continue; }
+    let cur = '';
+    for (const part of w.split(/(?<=-)/u)) {
+      if (cur && wd(cur + part) <= maxWidth) { cur += part; continue; }
+      if (cur) out.push(cur);
+      cur = part;
+      if (wd(cur) > maxWidth) {
+        // (mid-word cut: the longest head that fits with its hyphen; the tail keeps ≥ 3 letters)
+        const ch = [...cur];
+        while (ch.length && wd(ch.join('')) > maxWidth) {
+          let n = 1;
+          while (n < ch.length - 1 && wd(`${ch.slice(0, n + 1).join('')}-`) <= maxWidth) n++;
+          n = Math.max(1, Math.min(n, ch.length - 3));
+          out.push(`${ch.slice(0, n).join('')}-`);
+          ch.splice(0, n);
+        }
+        cur = ch.join('');
+      }
+    }
+    if (cur) out.push(cur);
+  }
+  return out;
 }
 
 /** A rounded chip with whole-word fitted text (never ellipsised). */
@@ -258,7 +321,8 @@ export const PX_STRESS = [30, 28, 26, 24, 22, 21, 20, 19.6, 18.5, 17.5, 16.6, 16
 /** Free placement of the notes (final tag, key, annotations) in a band: rows of centred chips. */
 export function placeNotes(ctx, items, band, F, cols = 1) {
   const maxW = Math.min(cols > 1 ? (band.w - F * 0.8 * (cols - 1)) / cols : band.w, 30 * F);
-  const chips = items.map(it => ({it, c: chipG(ctx, it.text, {x: 0, y: 0, maxWidth: maxW, size: F, maxLines: 3, weight: it.weight ?? 600})}));
+  // (last-resort pass: a broken long word may take one more line)
+  const chips = items.map(it => ({it, c: chipG(ctx, it.text, {x: 0, y: 0, maxWidth: maxW, size: F, maxLines: BREAK ? 4 : 3, weight: it.weight ?? 600})}));
   if (chips.some(q => q.c.fit.bad)) return null;
   const rows = [];
   let cur = [], cw = 0;
@@ -307,11 +371,28 @@ export function localizeScene(scene, defaults, es) {
     cache.set(ctx, c);
     return c;
   };
+  // (the last-resort pass: only when the normal pass found no layout at all, a second pass with word breaking on; the
+  // scene it lays out keeps breaking on for its build and frames)
+  const withBreak = (on, fn) => {
+    if (!on) return fn();
+    const was = BREAK;
+    BREAK = true;
+    try { return fn(); } finally { BREAK = was; }
+  };
+  const noFit = L => !!L && L.ok === false && (L.why || []).includes('no-layout-fits');
   return {
     ...scene,
-    layout: (ctx, ...a) => scene.layout(view(ctx), ...a),
-    build: (ctx, ...a) => scene.build(view(ctx), ...a),
-    frame: (ctx, ...a) => scene.frame(view(ctx), ...a),
+    layout: (ctx, ...a) => {
+      const c = view(ctx);
+      const L = scene.layout(c, ...a);
+      if (!noFit(L)) return L;
+      const L2 = withBreak(true, () => scene.layout(c, ...a));
+      if (noFit(L2)) return L;
+      L2.breakWords = true;
+      return L2;
+    },
+    build: (ctx, L, ...a) => withBreak(L && L.breakWords, () => scene.build(view(ctx), L, ...a)),
+    frame: (ctx, L, ...a) => withBreak(L && L.breakWords, () => scene.frame(view(ctx), L, ...a)),
   };
 }
 
@@ -562,6 +643,17 @@ export function stageGeom(ctx, o) {
   const cwO = Wt - 2 * ci, cwE = Math.min(We - 2 * ci - tabW * (stack ? 1.4 : 0.6), o.cwEMax ?? Infinity);
   // (o.minCwE: the event card a real object in both dimensions)
   if ((o.minCwE && cwE < o.minCwE) || (o.minCwO && cwO < o.minCwO)) return null;
+  // (o.tokenProbe — layoutStage, at the widest board — : only whether every printed text's widest word can fit the
+  // widest cards; the card widths shrink as the figures grow, so a word too wide here is too wide at every scale)
+  if (o.tokenProbe) {
+    if (!cardText || BREAK) return {probe: true};
+    const ew = cwE - 2 * F * (o.noTab ? 0.4 : 0.5), gz = F * (o.noTab ? 1.15 : 1.3);
+    const ow = cwO - 2 * F * 0.45 - F * 0.55;
+    const ok = widestToken(p.event.label, F, 700) <= Math.max(10, ew - (o.noTab ? 0 : F * 0.6))
+      && ['produced', 'pending'].every(st => widestToken(p.stateLabels[st], F, 600) <= Math.max(10, ew - gz))
+      && p.obligations.every(t => widestToken(t, F, 600) <= Math.max(10, ow));
+    return ok ? {probe: true} : null;
+  }
   let ME = measureEvent(p, F, cwE, cardText, tight, !!o.noTab);
   // (o.eventTextGrow: on a card laid out taller than its print — an inspected card — the print grows, up to 1.7×)
   if (ME && o.eventTextGrow && cardText) for (const s0 of [1.7, 1.6, 1.5, 1.4, 1.3, 1.2, 1.15, 1.1, 1.05]) {
@@ -693,8 +785,13 @@ export function layoutStage(ctx, o) {
   const tries = [];
   for (const px of pxs) {
     const F = px / o.upx;
+    // (the name plates do not depend on the figure scale: names that cannot fit at this size skip it at once — the same
+    // result as trying every scale, without the search)
+    if (o.names && o.names.some(c => c && fitG(c, {maxWidth: Math.min(box.w * 0.46, 24 * F) - F * 1.2, size: F, maxLines: 3, weight: 600}).bad)) continue;
     const kHi = Math.min(o.kMax ?? 2.2, (box.h - (o.names ? F * 2.6 : 6)) / 418);
     const kLo = (o.headMin ?? 45) / (82 * o.upx);
+    // (a printed word too wide for the widest cards — the smallest scale tried — fits at no scale: skip this size at once)
+    if (!stageGeom(ctx, {...o, F, k: o.kOnly ?? Math.min(kLo, kHi), show, notesH: null, tokenProbe: true})) continue;
     for (let k = o.kOnly ?? kHi; k >= (o.kOnly ?? kLo) - 1e-9; k = o.kOnly ? -1 : k - 0.02 < kLo && k > kLo + 1e-6 ? kLo : k - 0.02) {
       const bw = box.w - 2 * (98 * k + Math.max(8, F * 0.3));
       // (o.notesAlt: the notes of the other supplied configuration — the room is reserved for the larger, so that the

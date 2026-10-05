@@ -161,11 +161,34 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0336/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0336/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0336/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0336/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0336/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0336/sheet-16x9-es.png",
+      "production/scratch/rev-review-04/rev-0336.png",
+      "production/scratch/rev-review-04/rev-0336-notext.png",
+      "production/scratch/rev-review-04/x-0336-1x1-baseline-es.png",
+      "production/scratch/rev-review-04/x-0336-1x1-contrast-or-alternative.png",
+      "production/scratch/rev-review-04/x-0336-1x1-long-labels-stress.png",
+      "production/scratch/rev-review-04/x-0336-9x16-contrast-or-alternative.png"
+    ],
+    "findings": [
+      "Lens content thin: the magnified window covers only the paper's icon column plus bare desk; ~50-60% of the open lens is empty desk texture at 1:1 (baseline, es, alternative t=0.55) and in the upper-edge alternative at 16:9 (t=0.40-0.60); no row title is visible in the lens, so the magnified view does not show which section the frame edge stands at. Fix: move/scale the lens source window left so it includes the row titles next to the rail (or crop to paper+rail only) and enlarge the paper strip inside the lens",
+      "1:1 tag wraps into 5 narrow lines ('Frame / ends / after / Section 4 / (as supplied)') at t=0.10 and t=1.0 while desk space to the right is free; widen the desk tag box",
+      "Labels-hidden 16:9: at hold (t=1.0) the desk stays on the left ~55% and the right ~45% of the canvas is empty once the lens closes; lens is only ~30% of width with a blank tag box. Re-centre/enlarge the scene when the legend is hidden (as LAW-0333 does)",
+      "Minor transient: at 9:16/1:1 isolate (t~0.30) the growing lens overlaps the desk's lower rows; source-outline rect extends below the desk edge in 1:1 long-labels",
+      "60-char before/after cap is justified (fits lens at 1:1); tests pass singly (7/7); content neutral"
+    ],
+    "sourceHash": "1dfc5314765448aba95e35043e8040b878aa3c26a7597dcdce9dc3b7450bed9d",
+    "renderFingerprint": "545c6c44320961aced0ab5d25d9fba0f268708f52552790adac000bdb2fbf61e",
+    "reviewedAt": "2026-10-05T17:28:17.480Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -181,5 +204,10 @@
   "renderFingerprint": "545c6c44320961aced0ab5d25d9fba0f268708f52552790adac000bdb2fbf61e",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
   "thumb": "production/evidence/LAW-0336/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

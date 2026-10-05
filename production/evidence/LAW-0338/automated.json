@@ -1,0 +1,1516 @@
+{
+  "animationId": "LAW-0338",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0338",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": false,
+      "detail": [
+        {
+          "preset": "long-labels-stress",
+          "ratio": "16:9",
+          "error": "Invalid animation parameters:\n - params.relationLabels.relation: must have at most 60 characters (received 65)\n - params.relationLabels.communication: must have at most 60 characters (received 61)"
+        },
+        {
+          "preset": "long-labels-stress",
+          "ratio": "9:16",
+          "error": "Invalid animation parameters:\n - params.relationLabels.relation: must have at most 60 characters (received 65)\n - params.relationLabels.communication: must have at most 60 characters (received 61)"
+        },
+        {
+          "preset": "long-labels-stress",
+          "ratio": "1:1",
+          "error": "Invalid animation parameters:\n - params.relationLabels.relation: must have at most 60 characters (received 65)\n - params.relationLabels.communication: must have at most 60 characters (received 61)"
+        }
+      ]
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "decisions.title"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: the box assembled, nothing drawn @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "lifted": {
+            "divider": 0,
+            "original": 0,
+            "additional": 0
+          },
+          "drawn": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "rels": [
+            "original-relation-divider",
+            "additional-relation-divider",
+            "index-relation-original",
+            "index-relation-additional",
+            "index-relation-calendar"
+          ],
+          "ends": [
+            {
+              "from": "original",
+              "to": "divider",
+              "a": {
+                "x": 369.21,
+                "y": 387.39
+              },
+              "b": {
+                "x": 526.49,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "additional",
+              "to": "divider",
+              "a": {
+                "x": 732.32,
+                "y": 387.39
+              },
+              "b": {
+                "x": 575.04,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "index",
+              "to": "original",
+              "a": {
+                "x": 447.32,
+                "y": 199.78
+              },
+              "b": {
+                "x": 363.9,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "additional",
+              "a": {
+                "x": 654.21,
+                "y": 199.78
+              },
+              "b": {
+                "x": 737.64,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "calendar",
+              "a": {
+                "x": 654.21,
+                "y": 110.17
+              },
+              "b": {
+                "x": 922.32,
+                "y": 97.49
+              }
+            }
+          ],
+          "boxes": {
+            "original": {
+              "x": 75.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "additional": {
+              "x": 740.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "divider": {
+              "x": 534.93,
+              "y": 261.78,
+              "w": 31.67,
+              "h": 251.22
+            },
+            "index": {
+              "x": 455.77,
+              "y": 35.89,
+              "w": 190,
+              "h": 158.33
+            },
+            "calendar": {
+              "x": 930.77,
+              "y": 46.44,
+              "w": 88.67,
+              "h": 97.11
+            }
+          },
+          "tracer": {
+            "x": 883.27,
+            "y": 387.39
+          },
+          "tracerOn": 0,
+          "visited": [
+            "additional"
+          ],
+          "order": [
+            "additional",
+            "divider",
+            "original",
+            "index"
+          ],
+          "focus": "divider",
+          "focusK": 1,
+          "divider": {
+            "x": 550.77,
+            "y": 540.97
+          },
+          "original": {
+            "x": 218.27,
+            "y": 555.75
+          },
+          "additional": {
+            "x": 883.27,
+            "y": 555.75
+          },
+          "pins": 0,
+          "arrows": 0,
+          "problems": [],
+          "textPx": 20.7,
+          "k": 1.056,
+          "tall": false,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: separated before any relationship is drawn @0.18",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "relate",
+          "lifted": {
+            "divider": 1,
+            "original": 1,
+            "additional": 1
+          },
+          "drawn": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "rels": [
+            "original-relation-divider",
+            "additional-relation-divider",
+            "index-relation-original",
+            "index-relation-additional",
+            "index-relation-calendar"
+          ],
+          "ends": [
+            {
+              "from": "original",
+              "to": "divider",
+              "a": {
+                "x": 369.21,
+                "y": 387.39
+              },
+              "b": {
+                "x": 526.49,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "additional",
+              "to": "divider",
+              "a": {
+                "x": 732.32,
+                "y": 387.39
+              },
+              "b": {
+                "x": 575.04,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "index",
+              "to": "original",
+              "a": {
+                "x": 447.32,
+                "y": 199.78
+              },
+              "b": {
+                "x": 363.9,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "additional",
+              "a": {
+                "x": 654.21,
+                "y": 199.78
+              },
+              "b": {
+                "x": 737.64,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "calendar",
+              "a": {
+                "x": 654.21,
+                "y": 110.17
+              },
+              "b": {
+                "x": 922.32,
+                "y": 97.49
+              }
+            }
+          ],
+          "boxes": {
+            "original": {
+              "x": 75.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "additional": {
+              "x": 740.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "divider": {
+              "x": 534.93,
+              "y": 261.78,
+              "w": 31.67,
+              "h": 251.22
+            },
+            "index": {
+              "x": 455.77,
+              "y": 35.89,
+              "w": 190,
+              "h": 158.33
+            },
+            "calendar": {
+              "x": 930.77,
+              "y": 46.44,
+              "w": 88.67,
+              "h": 97.11
+            }
+          },
+          "tracer": {
+            "x": 883.27,
+            "y": 387.39
+          },
+          "tracerOn": 0,
+          "visited": [
+            "additional"
+          ],
+          "order": [
+            "additional",
+            "divider",
+            "original",
+            "index"
+          ],
+          "focus": "divider",
+          "focusK": 1,
+          "divider": {
+            "x": 550.77,
+            "y": 387.39
+          },
+          "original": {
+            "x": 218.27,
+            "y": 387.39
+          },
+          "additional": {
+            "x": 883.27,
+            "y": 387.39
+          },
+          "pins": 0,
+          "arrows": 0,
+          "problems": [],
+          "textPx": 20.7,
+          "k": 1.056,
+          "tall": false,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: every supplied relationship drawn by the end of the relate beat @0.43",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": {
+            "divider": 1,
+            "original": 1,
+            "additional": 1
+          },
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "rels": [
+            "original-relation-divider",
+            "additional-relation-divider",
+            "index-relation-original",
+            "index-relation-additional",
+            "index-relation-calendar"
+          ],
+          "ends": [
+            {
+              "from": "original",
+              "to": "divider",
+              "a": {
+                "x": 369.21,
+                "y": 387.39
+              },
+              "b": {
+                "x": 526.49,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "additional",
+              "to": "divider",
+              "a": {
+                "x": 732.32,
+                "y": 387.39
+              },
+              "b": {
+                "x": 575.04,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "index",
+              "to": "original",
+              "a": {
+                "x": 447.32,
+                "y": 199.78
+              },
+              "b": {
+                "x": 363.9,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "additional",
+              "a": {
+                "x": 654.21,
+                "y": 199.78
+              },
+              "b": {
+                "x": 737.64,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "calendar",
+              "a": {
+                "x": 654.21,
+                "y": 110.17
+              },
+              "b": {
+                "x": 922.32,
+                "y": 97.49
+              }
+            }
+          ],
+          "boxes": {
+            "original": {
+              "x": 75.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "additional": {
+              "x": 740.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "divider": {
+              "x": 534.93,
+              "y": 261.78,
+              "w": 31.67,
+              "h": 251.22
+            },
+            "index": {
+              "x": 455.77,
+              "y": 35.89,
+              "w": 190,
+              "h": 158.33
+            },
+            "calendar": {
+              "x": 930.77,
+              "y": 46.44,
+              "w": 88.67,
+              "h": 97.11
+            }
+          },
+          "tracer": {
+            "x": 883.27,
+            "y": 387.39
+          },
+          "tracerOn": 0,
+          "visited": [
+            "additional"
+          ],
+          "order": [
+            "additional",
+            "divider",
+            "original",
+            "index"
+          ],
+          "focus": "divider",
+          "focusK": 1,
+          "divider": {
+            "x": 550.77,
+            "y": 387.39
+          },
+          "original": {
+            "x": 218.27,
+            "y": 387.39
+          },
+          "additional": {
+            "x": 883.27,
+            "y": 387.39
+          },
+          "pins": 0,
+          "arrows": 0,
+          "problems": [],
+          "textPx": 20.7,
+          "k": 1.056,
+          "tall": false,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: the tracer visits the elements in the supplied order @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": {
+            "divider": 1,
+            "original": 1,
+            "additional": 1
+          },
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "rels": [
+            "original-relation-divider",
+            "additional-relation-divider",
+            "index-relation-original",
+            "index-relation-additional",
+            "index-relation-calendar"
+          ],
+          "ends": [
+            {
+              "from": "original",
+              "to": "divider",
+              "a": {
+                "x": 369.21,
+                "y": 387.39
+              },
+              "b": {
+                "x": 526.49,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "additional",
+              "to": "divider",
+              "a": {
+                "x": 732.32,
+                "y": 387.39
+              },
+              "b": {
+                "x": 575.04,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "index",
+              "to": "original",
+              "a": {
+                "x": 447.32,
+                "y": 199.78
+              },
+              "b": {
+                "x": 363.9,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "additional",
+              "a": {
+                "x": 654.21,
+                "y": 199.78
+              },
+              "b": {
+                "x": 737.64,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "calendar",
+              "a": {
+                "x": 654.21,
+                "y": 110.17
+              },
+              "b": {
+                "x": 922.32,
+                "y": 97.49
+              }
+            }
+          ],
+          "boxes": {
+            "original": {
+              "x": 75.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "additional": {
+              "x": 740.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "divider": {
+              "x": 534.93,
+              "y": 261.78,
+              "w": 31.67,
+              "h": 251.22
+            },
+            "index": {
+              "x": 455.77,
+              "y": 35.89,
+              "w": 190,
+              "h": 158.33
+            },
+            "calendar": {
+              "x": 930.77,
+              "y": 46.44,
+              "w": 88.67,
+              "h": 97.11
+            }
+          },
+          "tracer": {
+            "x": 227.69,
+            "y": 387.39
+          },
+          "tracerOn": 1,
+          "visited": [
+            "additional",
+            "divider"
+          ],
+          "order": [
+            "additional",
+            "divider",
+            "original",
+            "index"
+          ],
+          "focus": "divider",
+          "focusK": 1.16,
+          "divider": {
+            "x": 550.77,
+            "y": 387.39
+          },
+          "original": {
+            "x": 218.27,
+            "y": 387.39
+          },
+          "additional": {
+            "x": 883.27,
+            "y": 387.39
+          },
+          "pins": 0,
+          "arrows": 0,
+          "problems": [],
+          "textPx": 20.7,
+          "k": 1.056,
+          "tall": false,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: the focus element is enlarged once the tracer reached it @0.72",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": {
+            "divider": 1,
+            "original": 1,
+            "additional": 1
+          },
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "rels": [
+            "original-relation-divider",
+            "additional-relation-divider",
+            "index-relation-original",
+            "index-relation-additional",
+            "index-relation-calendar"
+          ],
+          "ends": [
+            {
+              "from": "original",
+              "to": "divider",
+              "a": {
+                "x": 369.21,
+                "y": 387.39
+              },
+              "b": {
+                "x": 526.49,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "additional",
+              "to": "divider",
+              "a": {
+                "x": 732.32,
+                "y": 387.39
+              },
+              "b": {
+                "x": 575.04,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "index",
+              "to": "original",
+              "a": {
+                "x": 447.32,
+                "y": 199.78
+              },
+              "b": {
+                "x": 363.9,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "additional",
+              "a": {
+                "x": 654.21,
+                "y": 199.78
+              },
+              "b": {
+                "x": 737.64,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "calendar",
+              "a": {
+                "x": 654.21,
+                "y": 110.17
+              },
+              "b": {
+                "x": 922.32,
+                "y": 97.49
+              }
+            }
+          ],
+          "boxes": {
+            "original": {
+              "x": 75.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "additional": {
+              "x": 740.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "divider": {
+              "x": 534.93,
+              "y": 261.78,
+              "w": 31.67,
+              "h": 251.22
+            },
+            "index": {
+              "x": 455.77,
+              "y": 35.89,
+              "w": 190,
+              "h": 158.33
+            },
+            "calendar": {
+              "x": 930.77,
+              "y": 46.44,
+              "w": 88.67,
+              "h": 97.11
+            }
+          },
+          "tracer": {
+            "x": 550.61,
+            "y": 115.18
+          },
+          "tracerOn": 1,
+          "visited": [
+            "additional",
+            "divider",
+            "original"
+          ],
+          "order": [
+            "additional",
+            "divider",
+            "original",
+            "index"
+          ],
+          "focus": "divider",
+          "focusK": 1.16,
+          "divider": {
+            "x": 550.77,
+            "y": 387.39
+          },
+          "original": {
+            "x": 218.27,
+            "y": 387.39
+          },
+          "additional": {
+            "x": 883.27,
+            "y": 387.39
+          },
+          "pins": 0,
+          "arrows": 0,
+          "problems": [],
+          "textPx": 20.7,
+          "k": 1.056,
+          "tall": false,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: every relationship and both states visible; no arrowed link by default @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "lifted": {
+            "divider": 1,
+            "original": 1,
+            "additional": 1
+          },
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "rels": [
+            "original-relation-divider",
+            "additional-relation-divider",
+            "index-relation-original",
+            "index-relation-additional",
+            "index-relation-calendar"
+          ],
+          "ends": [
+            {
+              "from": "original",
+              "to": "divider",
+              "a": {
+                "x": 369.21,
+                "y": 387.39
+              },
+              "b": {
+                "x": 526.49,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "additional",
+              "to": "divider",
+              "a": {
+                "x": 732.32,
+                "y": 387.39
+              },
+              "b": {
+                "x": 575.04,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "index",
+              "to": "original",
+              "a": {
+                "x": 447.32,
+                "y": 199.78
+              },
+              "b": {
+                "x": 363.9,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "additional",
+              "a": {
+                "x": 654.21,
+                "y": 199.78
+              },
+              "b": {
+                "x": 737.64,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "calendar",
+              "a": {
+                "x": 654.21,
+                "y": 110.17
+              },
+              "b": {
+                "x": 922.32,
+                "y": 97.49
+              }
+            }
+          ],
+          "boxes": {
+            "original": {
+              "x": 75.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "additional": {
+              "x": 740.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "divider": {
+              "x": 534.93,
+              "y": 261.78,
+              "w": 31.67,
+              "h": 251.22
+            },
+            "index": {
+              "x": 455.77,
+              "y": 35.89,
+              "w": 190,
+              "h": 158.33
+            },
+            "calendar": {
+              "x": 930.77,
+              "y": 46.44,
+              "w": 88.67,
+              "h": 97.11
+            }
+          },
+          "tracer": {
+            "x": 550.77,
+            "y": 115.06
+          },
+          "tracerOn": 0,
+          "visited": [
+            "additional",
+            "divider",
+            "original",
+            "index"
+          ],
+          "order": [
+            "additional",
+            "divider",
+            "original",
+            "index"
+          ],
+          "focus": "divider",
+          "focusK": 1,
+          "divider": {
+            "x": 550.77,
+            "y": 387.39
+          },
+          "original": {
+            "x": 218.27,
+            "y": 387.39
+          },
+          "additional": {
+            "x": 883.27,
+            "y": 387.39
+          },
+          "pins": 1,
+          "arrows": 0,
+          "problems": [],
+          "textPx": 20.7,
+          "k": 1.056,
+          "tall": false,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: a supplied sequence is drawn as one @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "gather",
+          "lifted": {
+            "divider": 1,
+            "original": 1,
+            "additional": 1
+          },
+          "drawn": [
+            1
+          ],
+          "rels": [
+            "index-sequence-additional"
+          ],
+          "ends": [
+            {
+              "from": "index",
+              "to": "additional",
+              "a": {
+                "x": 654.21,
+                "y": 199.78
+              },
+              "b": {
+                "x": 729.9,
+                "y": 261.78
+              }
+            }
+          ],
+          "boxes": {
+            "original": {
+              "x": 75.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "additional": {
+              "x": 740.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "divider": {
+              "x": 534.93,
+              "y": 261.78,
+              "w": 31.67,
+              "h": 251.22
+            },
+            "index": {
+              "x": 455.77,
+              "y": 35.89,
+              "w": 190,
+              "h": 158.33
+            },
+            "calendar": {
+              "x": 930.77,
+              "y": 46.44,
+              "w": 88.67,
+              "h": 97.11
+            }
+          },
+          "tracer": {
+            "x": 550.77,
+            "y": 115.06
+          },
+          "tracerOn": 0,
+          "visited": [
+            "additional",
+            "divider",
+            "original",
+            "index"
+          ],
+          "order": [
+            "additional",
+            "divider",
+            "original",
+            "index"
+          ],
+          "focus": "divider",
+          "focusK": 1,
+          "divider": {
+            "x": 550.77,
+            "y": 387.39
+          },
+          "original": {
+            "x": 218.27,
+            "y": 387.39
+          },
+          "additional": {
+            "x": 883.27,
+            "y": 387.39
+          },
+          "pins": 1,
+          "arrows": 1,
+          "problems": [],
+          "textPx": 20.7,
+          "k": 1.056,
+          "tall": false,
+          "cols": 1
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same mechanism @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "trace",
+          "lifted": {
+            "divider": 1,
+            "original": 1,
+            "additional": 1
+          },
+          "drawn": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "rels": [
+            "original-relation-divider",
+            "additional-relation-divider",
+            "index-relation-original",
+            "index-relation-additional",
+            "index-relation-calendar"
+          ],
+          "ends": [
+            {
+              "from": "original",
+              "to": "divider",
+              "a": {
+                "x": 688.85,
+                "y": 387.39
+              },
+              "b": {
+                "x": 846.13,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "additional",
+              "to": "divider",
+              "a": {
+                "x": 1051.96,
+                "y": 387.39
+              },
+              "b": {
+                "x": 894.69,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "index",
+              "to": "original",
+              "a": {
+                "x": 766.96,
+                "y": 199.78
+              },
+              "b": {
+                "x": 683.54,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "additional",
+              "a": {
+                "x": 973.85,
+                "y": 199.78
+              },
+              "b": {
+                "x": 1057.28,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "calendar",
+              "a": {
+                "x": 973.85,
+                "y": 110.17
+              },
+              "b": {
+                "x": 1241.96,
+                "y": 97.49
+              }
+            }
+          ],
+          "boxes": {
+            "original": {
+              "x": 395.41,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "additional": {
+              "x": 1060.41,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "divider": {
+              "x": 854.57,
+              "y": 261.78,
+              "w": 31.67,
+              "h": 251.22
+            },
+            "index": {
+              "x": 775.41,
+              "y": 35.89,
+              "w": 190,
+              "h": 158.33
+            },
+            "calendar": {
+              "x": 1250.41,
+              "y": 46.44,
+              "w": 88.67,
+              "h": 97.11
+            }
+          },
+          "tracer": {
+            "x": 547.33,
+            "y": 387.39
+          },
+          "tracerOn": 1,
+          "visited": [
+            "additional",
+            "divider"
+          ],
+          "order": [
+            "additional",
+            "divider",
+            "original",
+            "index"
+          ],
+          "focus": "divider",
+          "focusK": 1.16,
+          "divider": {
+            "x": 870.41,
+            "y": 387.39
+          },
+          "original": {
+            "x": 537.91,
+            "y": 387.39
+          },
+          "additional": {
+            "x": 1202.91,
+            "y": 387.39
+          },
+          "pins": 0,
+          "arrows": 0,
+          "problems": [],
+          "textPx": 22.5,
+          "k": 1.056,
+          "tall": false,
+          "cols": 0
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the separate beat @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "separate",
+          "lifted": {
+            "divider": 0.992,
+            "original": 0.192,
+            "additional": 0.108
+          },
+          "drawn": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "rels": [
+            "original-relation-divider",
+            "additional-relation-divider",
+            "index-relation-original",
+            "index-relation-additional",
+            "index-relation-calendar"
+          ],
+          "ends": [
+            {
+              "from": "original",
+              "to": "divider",
+              "a": {
+                "x": 369.21,
+                "y": 387.39
+              },
+              "b": {
+                "x": 526.49,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "additional",
+              "to": "divider",
+              "a": {
+                "x": 732.32,
+                "y": 387.39
+              },
+              "b": {
+                "x": 575.04,
+                "y": 387.39
+              }
+            },
+            {
+              "from": "index",
+              "to": "original",
+              "a": {
+                "x": 447.32,
+                "y": 199.78
+              },
+              "b": {
+                "x": 363.9,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "additional",
+              "a": {
+                "x": 654.21,
+                "y": 199.78
+              },
+              "b": {
+                "x": 737.64,
+                "y": 268.11
+              }
+            },
+            {
+              "from": "index",
+              "to": "calendar",
+              "a": {
+                "x": 654.21,
+                "y": 110.17
+              },
+              "b": {
+                "x": 922.32,
+                "y": 97.49
+              }
+            }
+          ],
+          "boxes": {
+            "original": {
+              "x": 75.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "additional": {
+              "x": 740.77,
+              "y": 276.56,
+              "w": 285,
+              "h": 221.67
+            },
+            "divider": {
+              "x": 534.93,
+              "y": 261.78,
+              "w": 31.67,
+              "h": 251.22
+            },
+            "index": {
+              "x": 455.77,
+              "y": 35.89,
+              "w": 190,
+              "h": 158.33
+            },
+            "calendar": {
+              "x": 930.77,
+              "y": 46.44,
+              "w": 88.67,
+              "h": 97.11
+            }
+          },
+          "tracer": {
+            "x": 883.27,
+            "y": 387.39
+          },
+          "tracerOn": 0,
+          "visited": [
+            "additional"
+          ],
+          "order": [
+            "additional",
+            "divider",
+            "original",
+            "index"
+          ],
+          "focus": "divider",
+          "focusK": 1,
+          "divider": {
+            "x": 550.77,
+            "y": 388.59
+          },
+          "original": {
+            "x": 218.27,
+            "y": 523.37
+          },
+          "additional": {
+            "x": 883.27,
+            "y": 537.57
+          },
+          "pins": 0,
+          "arrows": 0,
+          "problems": [],
+          "textPx": 20.7,
+          "k": 1.056,
+          "tall": false,
+          "cols": 1
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

@@ -86,6 +86,7 @@ const scene = {
     const showAll = ctx.show('all');
     const showKey = ctx.show('key');
     // (the scenario captions are drawn in each room's header, under its label; the panel holds the rest)
+    let capInHdr = true;
     const rows = [];
     if (showKey) {
       rows.push({kind: 'heading', text: P.labels.heading, name: 'heading'});
@@ -107,13 +108,18 @@ const scene = {
     const pairAt = (box, F, arrangement) => {
       const gap = 44;
       const laneW = arrangement === 'row' ? (box.w - gap) / 2 : box.w;
-      const bR0 = F * 0.8;
-      const fits = [P.scenarioA, P.scenarioB].map(sc => showKey ? {
-        label: fitG(sc.label, {maxWidth: Math.max(80, laneW - bR0 * 2 - 16), size: F, minSize: F, maxLines: 2, weight: 700}),
-        cap: sc.caption && showAll ? fitG(sc.caption, {maxWidth: Math.max(80, laneW - bR0 * 2 - 16), size: F, minSize: F, maxLines: 3, weight: 500}) : null,
+      const bR0 = F * 0.85;
+      // (the header text keeps to its room's width, so nothing drawn beside a room crosses it; two passes)
+      const fitsFor = tw => [P.scenarioA, P.scenarioB].map(sc => showKey ? {
+        label: fitG(sc.label, {maxWidth: Math.max(80, tw - bR0 * 2 - 16), size: F, minSize: F, maxLines: 2, weight: 700}),
+        cap: capInHdr && sc.caption && showAll ? fitG(sc.caption, {maxWidth: Math.max(80, tw - bR0 * 2 - 16), size: F, minSize: F, maxLines: 4, weight: 500}) : null,
       } : null);
-      const hdrH = showKey ? Math.max(...fits.map(f => f.label.height + (f.cap ? f.cap.height + F * 0.3 : 0))) + F * 0.6 : F * 1.5;
-      const lanes = [];
+      const hOf = fs => (showKey ? Math.max(...fs.map(f => f.label.height + (f.cap ? f.cap.height + F * 0.3 : 0))) + F * 0.6 : F * 1.5);
+      let fits = fitsFor(laneW);
+      let hdrH = hOf(fits);
+      let lanes = [];
+      for (let pass = 0; pass < 2; pass++) {
+      lanes = [];
       const arr = arrangement === 'row' ? 'stack' : 'row';
       for (let i = 0; i < 2; i++) {
         const sb = arrangement === 'row'
@@ -121,6 +127,9 @@ const scene = {
           : {x: box.x, y: box.y + i * ((box.h - gap) / 2 + gap), w: box.w, h: (box.h - gap) / 2};
         const rb = {x: sb.x, y: sb.y + hdrH, w: sb.w, h: sb.h - hdrH};
         lanes.push({sb, rb, C: composeRd(ctx, R, rb, {arr, docK: arr === 'row' ? 1.42 : 1.6, person: true, n: 1, sign: false, calendar: false, covers: false, crop: 1.3, maxK: 150 / (100 * px), align: {x: 0.5, y: 0}})});
+      }
+      const roomW = Math.min(...lanes.map(l => l.C.planRect.w));
+      if (pass === 0 && roomW < laneW - 1) { fits = fitsFor(roomW); hdrH = hOf(fits); } else break;
       }
       const k = Math.min(lanes[0].C.k, lanes[1].C.k);
       const pr = lanes.map(l => l.C.planRect);
@@ -148,6 +157,16 @@ const scene = {
       const b = search([22.5, 21.6, 20.7, 19.8, 19.5, 18.9, 18, 17.1, 16.4], 45.5);
       if (b.problems.length < best.problems.length) best = b;
     }
+    if (best.problems.length && showAll) {
+      // (near-maximum captions in a square frame: the scenario captions move from the headers into the panel, keyed by
+      // each lane's strip glyph, so the rooms keep the stress people floor)
+      capInHdr = false;
+      const at = rows.findIndex(q => q.name === 'lg-same') + 1 || 1;
+      rows.splice(at, 0, {kind: 'legend', glyphKind: 'pieceA', text: P.scenarioA.caption || P.scenarioA.label, name: 'lg-capA'}, {kind: 'legend', glyphKind: 'piece', text: P.scenarioB.caption || P.scenarioB.label, name: 'lg-capB'});
+      const b = search([22.5, 21.6, 20.7, 19.8, 19.5, 18.9, 18, 17.1, 16.4], 45.5);
+      if (b.problems.length < best.problems.length) best = b;
+      else { capInHdr = true; rows.splice(at, 2); }
+    }
     const C = compose(best.roomBox, best.F);
     const rooms = C.lanes.map((l, i) => rdRoom(ctx, l.C.G, {prefix: i ? 'rb' : 'ra', R, person: true, slotO: true, slotsN: 1, trayStripes: true, heldKinds: [SIDES[i]]}));
     const plans = C.lanes.map((l, i) => {
@@ -167,14 +186,14 @@ const scene = {
     const lc = laneColors(ctx);
     const headers = C.lanes.map((l, i) => {
       const sb = l.sb;
-      const bR = F * 0.8;
+      const bR = F * 0.85;
       const ft = C.fits[i];
       const cxB = l.C.planRect.x + bR;
       const cy = sb.y + bR + F * 0.1;
       const tx = cxB + bR + 12;
       return g({name: `hdr-${SIDES[i]}`},
         h('circle', {cx: r(cxB), cy: r(cy), r: r(bR), fill: lc[SIDES[i]], stroke: '#1f2328', 'stroke-width': 2.4}),
-        showKey ? h('text', {x: r(cxB), y: r(cy + bR * 0.42), 'text-anchor': 'middle', 'font-size': r(bR * 1.15, 2), 'font-weight': 800, 'font-family': FONT, fill: '#ffffff'}, i ? 'B' : 'A') : null,
+        showKey ? h('text', {x: r(cxB), y: r(cy + F * 0.36), 'text-anchor': 'middle', 'font-size': r(F, 2), 'font-weight': 800, 'font-family': FONT, fill: '#ffffff'}, i ? 'B' : 'A') : null,
         ft ? textAt(ft.label, tx, sb.y + F * 0.1, ctx.theme.fg) : null,
         ft && ft.cap ? textAt(ft.cap, tx, sb.y + F * 0.1 + ft.label.height + F * 0.3, ctx.theme.fgSoft) : null);
     });

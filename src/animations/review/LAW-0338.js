@@ -76,10 +76,10 @@ const sceneSchema = {
     label: str('Visible label (in the legend, keyed by the element\'s glyph)', 90),
   }, ['id', 'label']), 0, IDS.length),
   relationLabels: obj('Caption of each relation kind in the legend', {
-    relation: str('Caption for plain relations (no arrowhead)', 60),
-    communication: str('Caption for communications', 60),
-    sequence: str('Caption for sequence links (keep "as configured")', 60),
-    causal: str('Caption for causal links (only when supplied)', 60),
+    relation: str('Caption for plain relations (no arrowhead)', 70),
+    communication: str('Caption for communications', 70),
+    sequence: str('Caption for sequence links (keep "as configured")', 70),
+    causal: str('Caption for causal links (only when supplied)', 70),
   }, ['relation', 'communication', 'sequence', 'causal']),
   outcomes: obj('Captions of the two supplied states shown at the hold (● on bundle A, ◆ on bundle B — equal weight)', {
     a: str('Caption of ● (bundle A, as supplied)', 90),

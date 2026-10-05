@@ -235,7 +235,6 @@ function compose(ctx, base, cfg) {
   const tk = `${size}|${tagW}`;
   let tg = memo.tag.get(tk);
   if (!tg) { tg = tagMeasure(ctx, p, size, tagW, textOn); memo.tag.set(tk, tg); }
-  if (tg.bad && globalThis.__dbg2) globalThis.__dbg2.push(`${size}/${tagW}: ` + [tg.fh, tg.fb, tg.fa].map(f => f && `${f.lines.join('|')}${f.truncated ? ' T' : ''}${f.broken ? ' B' : ''}`).join(' ## '));
   if (tg.bad && !cfg.force) return {bad: 'tag'};
   const rk = `${size}|${RW}`;
   let rec = memo.rec.get(rk);
@@ -381,7 +380,7 @@ const scene = {
       }
     }
     L.fallback = !pick;
-    L.why = why.filter(w0 => /@17:/.test(w0) || globalThis.__whyAll).slice(0, globalThis.__whyAll ? 4000 : 40);
+    L.why = why.filter(w0 => /@17:/.test(w0)).slice(0, 40);
     L.M = M; L.fi = fi; L.rings = rings;
     const full = Dv.w - 2 * MARGIN;
     let zx, F, recX, recY, bandX, bandY, bandW;
