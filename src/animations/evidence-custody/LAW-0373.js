@@ -151,7 +151,7 @@ function compose(ctx, P, recs, LG, st) {
   const inset = Math.max(14, Math.min(bench.w, bench.h) * 0.035);
   const mat = {x: bench.x + inset * 1.6, y: bench.y + inset * 1.6, w: bench.w - inset * 3.2, h: bench.h - inset * 3.2};
   const G = bench.h > 200 && bench.w > 200 ? rfStage(mat, {kind: P.items[0].kind, targets: P.views.map(v => v.target), slots: P.views.length, rows: recs.length, ...st}) : null;
-  const printOk = G && G.tray.pw >= G.S * 1.05;
+  const printOk = G && G.tray.pw >= G.S * 1.2;
   const ok = (!PL || PL.ok) && G && G.fits && G.S >= 95 && printOk;
   return {bench, mat, panel: LG.panel, PL, G, ok, problems: [PL && !PL.ok && 'panel-text', (!G || !G.fits) && 'stage-fit', (!G || G.S < 95) && 'stage-small', G && !printOk && 'print-small'].filter(Boolean)};
 }
@@ -177,7 +177,7 @@ const scene = {
         : [{mode: 'side', pw: 0.26}, {mode: 'side', pw: 0.3}, {mode: 'side', pw: 0.35}];
     const stages = shape === 'landscape'
       ? [0.26, 0.3, 0.34].flatMap(f => [{tray: 'right', trayFrac: f, approach: 'left'}, {tray: 'right', trayFrac: f, approach: 'down'}])
-      : [{tray: 'right', trayFrac: 0.3, approach: 'down'}, {tray: 'right', trayFrac: 0.36, approach: 'down'}, {tray: 'top', trayFrac: 0.24, approach: 'down'}, {tray: 'top', trayFrac: 0.3, approach: 'down'}];
+      : [{tray: 'right', trayFrac: 0.3, approach: 'down'}, {tray: 'right', trayFrac: 0.36, approach: 'down'}, {tray: 'top', trayFrac: 0.24, approach: 'down'}, {tray: 'top', trayFrac: 0.3, approach: 'down'}, {tray: 'top', trayFrac: 0.36, approach: 'down'}, {tray: 'top', trayFrac: 0.42, approach: 'down'}];
     let C = null, best = null, bestScore = -1, firstOk = -1;
     for (const [fi, F] of SIZES.entries()) {
       if (firstOk >= 0 && fi > firstOk + 2) break;

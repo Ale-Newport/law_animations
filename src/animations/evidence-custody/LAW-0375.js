@@ -107,27 +107,33 @@ function compose(ctx, P, recs, F, opt, cache) {
   const SW = DW - (side ? side + F * 1.2 : 0);
   const showKey = ctx.show('key'), showAll = ctx.show('all');
   const badgeR = F * 0.95;
-  const hw = (opt.arr === 'row' ? (SW - F * 1.4) / 2 : SW) - badgeR * 2 - F * 0.8;
+  const HW = opt.hs ? SW * opt.hs : 0;
+  const hw = opt.hs ? HW - 4 : (opt.arr === 'row' ? (SW - F * 1.4) / 2 : SW) - badgeR * 2 - F * 0.8;
   const heads = [P.scenarioA, P.scenarioB].map(sc => ({
-    lab: showKey ? fitG(sc.label, {maxWidth: hw, size: F * 1.08, minSize: F, maxLines: 1, weight: 700}) : null,
-    cap: showAll && sc.caption ? fitG(sc.caption, {maxWidth: hw, size: F, minSize: F, maxLines: 2, weight: 500}) : null,
+    lab: showKey ? fitG(sc.label, {maxWidth: hw, size: F * 1.08, minSize: F, maxLines: opt.hs ? 3 : 1, weight: 700}) : null,
+    cap: showAll && sc.caption ? fitG(sc.caption, {maxWidth: hw, size: F, minSize: F, maxLines: opt.hs ? 5 : 2, weight: 500}) : null,
   }));
   const headOk = heads.every(hd => (!hd.lab || hd.lab.ok) && (!hd.cap || hd.cap.ok));
-  const headH = Math.max(badgeR * 2 + 8, ...heads.map(hd => (hd.lab ? hd.lab.height : 0) + (hd.cap ? hd.cap.height + F * 0.25 : 0) + 10));
+  const headH0 = Math.max(badgeR * 2 + 8, ...heads.map(hd => (hd.lab ? hd.lab.height : 0) + (hd.cap ? hd.cap.height + F * 0.25 : 0) + 10));
+  const headH = opt.hs ? 0 : headH0;
   const gap = opt.arr === 'row' ? F * 1.4 : F * 0.9;
   const avH = side ? DH : DH - (ph ? ph + gapP : 0);
-  const stage = opt.arr === 'row' ? {w: (SW - gap) / 2, h: avH - headH} : {w: SW, h: (avH - gap) / 2 - headH};
-  const benches = [0, 1].map(i => (opt.arr === 'row'
+  const gapH = F * 0.8;
+  const stage = opt.arr === 'row' ? {w: (SW - gap) / 2, h: avH - headH} : {w: SW - (opt.hs ? HW + gapH : 0), h: (avH - gap) / 2 - headH};
+  const headFits = !opt.hs || heads.every(hd => (hd.lab ? hd.lab.height : 0) + (hd.cap ? hd.cap.height + F * 0.25 : 0) + badgeR * 2 + 12 <= stage.h);
+  const benches = [0, 1].map(i => (opt.hs
+    ? {x: HW + gapH, y: i * (stage.h + gap), w: stage.w, h: stage.h, headY: i * (stage.h + gap), hx: 0, side: true}
+    : opt.arr === 'row'
     ? {x: i * (stage.w + gap), y: headH, w: stage.w, h: stage.h, headY: 0}
     : {x: 0, y: i * (stage.h + headH + gap) + headH, w: stage.w, h: stage.h, headY: i * (stage.h + headH + gap)}));
   const inset = Math.max(12, Math.min(stage.w, stage.h) * 0.035);
   const st = {kind: P.items[0].kind, targets: ['scene', 'object'], slots: 1, rows: recs.length, restRuler: false, ...opt.st};
   const G = stage.h > 150 && stage.w > 150 ? benches.map(b => rfStage({x: b.x + inset * 1.5, y: b.y + inset * 1.5, w: b.w - inset * 3, h: b.h - inset * 3}, st)) : null;
   const panelOk = !side || ph <= DH;
-  const printOk = G && G[0].tray.pw >= G[0].S * 1.25;
-  const ok = panelOk && PLs.every(q => q.ok) && headOk && G && G[0].fits && G[0].S >= 62 && printOk;
+  const printOk = G && G[0].tray.pw >= G[0].S * 1.4;
+  const ok = panelOk && PLs.every(q => q.ok) && headOk && headFits && G && G[0].fits && G[0].S >= 70 && printOk;
   return {F, rows, PLs, ph, colW, headH, heads, badgeR, benches, stage, G, panelY: side ? Math.max(0, (DH - ph) / 2) : DH - ph, panelX: side ? DW - side : null, ok, arr: opt.arr,
-    problems: [!PLs.every(q => q.ok) && 'panel-text', !headOk && 'head-text', (!G || G[0].S < 62) && 'stage-small', G && !printOk && 'print-small'].filter(Boolean)};
+    problems: [!PLs.every(q => q.ok) && 'panel-text', !headOk && 'head-text', (!G || G[0].S < 70) && 'stage-small', !headFits && 'head-fit', G && !printOk && 'print-small'].filter(Boolean)};
 }
 
 const scene = {
@@ -138,7 +144,7 @@ const scene = {
     const shape = ctx.view.shape;
     const sts = [{tray: 'right', trayFrac: 0.34, approach: 'down'}, {tray: 'right', trayFrac: 0.4, approach: 'down'}, {tray: 'top', trayFrac: 0.3, approach: 'down'}, {tray: 'right', trayFrac: 0.28, approach: 'left'}, {tray: 'right', trayFrac: 0.34, approach: 'left'}, {tray: 'inset', trayFrac: 0, approach: 'down'}];
     const opts0 = shape === 'portrait' ? [{arr: 'col', cols: 1}, {arr: 'col', cols: 2}]
-      : shape === 'square' ? [{arr: 'col', cols: 1, pw: 0.36}, {arr: 'col', cols: 1, pw: 0.42}, {arr: 'row', cols: 2}, {arr: 'col', cols: 2}, {arr: 'row', cols: 1, pw: 0.3}, {arr: 'row', cols: 1, pw: 0.36}]
+      : shape === 'square' ? [{arr: 'col', cols: 1, pw: 0.36}, {arr: 'col', cols: 1, pw: 0.42}, {arr: 'row', cols: 2}, {arr: 'col', cols: 2}, {arr: 'row', cols: 1, pw: 0.3}, {arr: 'row', cols: 1, pw: 0.36}, {arr: 'col', cols: 2, hs: 0.2}, {arr: 'col', cols: 2, hs: 0.24}, {arr: 'col', cols: 1, pw: 0.32, hs: 0.26}]
         : [{arr: 'row', cols: 2}, {arr: 'row', cols: 3}, {arr: 'row', cols: 1, pw: 0.22}, {arr: 'row', cols: 1, pw: 0.26}];
     let C = null, best = null, bestScore = -1, firstOk = -1;
     const cache = new Map();
@@ -160,7 +166,9 @@ const scene = {
       const camX = (G.park.x + G.stations.scene.x + G.stations.object.x) / 3;
       const lx = clamp(camX - G.S * 0.6, b.x + b.w * 0.08, b.x + b.w * 0.6);
       const rx = clamp(Math.max(camX + G.S * 1.2, lx + b.w * 0.25), b.x + b.w * 0.3, b.x + b.w * 0.92);
-      return {L: {x: lx, y: bb + sOff}, R: {x: rx, y: bb + sOff}, restCam: {x: lx + armW * 0.6, y: bb - armW * 0.9}, restAux: {x: rx - armW * 0.6, y: bb - armW * 0.9}};
+      const slot = G.tray.slots[0];
+      const rx2 = slot.y + slot.h > bb - b.h * 0.35 && rx + armW > slot.x ? Math.max(lx + b.w * 0.15, slot.x - armW * 1.6) : rx;
+      return {L: {x: lx, y: bb + sOff}, R: {x: rx2, y: bb + sOff}, restCam: {x: lx + armW * 0.6, y: bb - armW * 0.9}, restAux: {x: rx2 - armW * 0.6, y: bb - armW * 0.9}};
     });
     let far = 0;
     for (let i = 0; i < 2; i++) for (let k = 0; k <= 80; k++) {
@@ -216,12 +224,14 @@ const scene = {
         bench.frame,
       ));
       const hd = C.heads[i], R = C.badgeR;
-      const tx = b.x + R * 2 + C.F * 0.6;
+      const hx0 = b.side ? b.hx : b.x;
+      const tx = b.side ? hx0 : b.x + R * 2 + C.F * 0.6;
+      const ty = b.side ? b.headY + R * 2 + 12 : b.headY + 4;
       parts.push(g({name: `head${pfx}`},
-        h('circle', {cx: r(b.x + R + 2), cy: r(b.headY + R + 2), r: r(R), fill: i ? th.accent2 : th.accent3, stroke: th.ink, 'stroke-width': 2.5}),
-        ctx.show('key') ? h('text', {x: r(b.x + R + 2), y: r(b.headY + R + 2 + R * 0.42), 'text-anchor': 'middle', 'font-size': r(R * 1.2), 'font-weight': 800, 'font-family': "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif", fill: '#fff'}, pfx) : null,
-        hd.lab ? textAt(hd.lab, {x: tx, y: b.headY + 4, fill: th.fg}) : null,
-        hd.cap ? textAt(hd.cap, {x: tx, y: b.headY + 4 + (hd.lab ? hd.lab.height + C.F * 0.25 : 0), fill: th.fgSoft}) : null,
+        h('circle', {cx: r(hx0 + R + 2), cy: r(b.headY + R + 2), r: r(R), fill: i ? th.accent2 : th.accent3, stroke: th.ink, 'stroke-width': 2.5}),
+        ctx.show('key') ? h('text', {x: r(hx0 + R + 2), y: r(b.headY + R + 2 + R * 0.42), 'text-anchor': 'middle', 'font-size': r(R * 1.2), 'font-weight': 800, 'font-family': "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif", fill: '#fff'}, pfx) : null,
+        hd.lab ? textAt(hd.lab, {x: tx, y: ty, fill: th.fg}) : null,
+        hd.cap ? textAt(hd.cap, {x: tx, y: ty + (hd.lab ? hd.lab.height + C.F * 0.25 : 0), fill: th.fgSoft}) : null,
       ));
     });
     const [ga, gb] = L.guides;

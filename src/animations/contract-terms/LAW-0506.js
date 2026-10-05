@@ -209,8 +209,8 @@ function geom(ctx, F, minF, hkFrac, styleIn) {
     hk = Math.max(hkNat, (avail - band) * hkFrac);
     TT = slipText(ctx, p, slipW, F, minF, stress, Math.min(hk * 0.75, avail - 20));
   } else {
-    const slipH0 = Math.max(TT0.h, F * 6);
-    const fixed = top0 + band + 30 + hfNat + 24 + prong + slipH0 + m;
+    const slipH0 = Math.max(TT0.h, F * 4.6);
+    const fixed = top0 + band + 20 + hfNat + 16 + prong + slipH0 + m;
     hk = Math.max(hkNat, (D.h - fixed) * hkFrac);
     TT = slipText(ctx, p, slipW, F, minF, stress, slipH0);
   }
@@ -245,8 +245,8 @@ function geom(ctx, F, minF, hkFrac, styleIn) {
     exp.claim = {x: fr + 44, y: asm.claim.y};
     if (exp.claim.x + prong + sb.w > D.w - m + 0.5) why.push('too-wide');
   } else {
-    exp.promise = {x: asm.promise.x, y: exp.clause.y + hk + 30};
-    exp.claim = {x: asm.claim.x, y: exp.promise.y + hf + 26};
+    exp.promise = {x: asm.promise.x, y: exp.clause.y + hk + 20};
+    exp.claim = {x: asm.claim.x, y: exp.promise.y + hf + 16};
     if (exp.claim.y + prong + sb.h > D.h - m + 0.5) why.push('too-tall');
   }
   if (asm.clause.y + hk > D.h - m + 0.5 || asmBottom > D.h - m + 0.5) why.push('assembly-too-tall');
@@ -272,8 +272,10 @@ function geom(ctx, F, minF, hkFrac, styleIn) {
     const f = {x: A0.x + (ddx / len0) * Math.min(tabW(a0) / 2 + 10, len0 * 0.3), y: A0.y + (ddy / len0) * Math.min(tabH / 2 + 8, len0 * 0.3)};
     const t = {x: B0.x - (ddx / len0) * Math.min(tabW(b0) / 2 + 10, len0 * 0.3), y: B0.y - (ddy / len0) * Math.min(tabH / 2 + 8, len0 * 0.3)};
     void out;
-    const bow = Math.min(60, len0 * 0.18);
-    return {from: f, to: t, c1: {x: lerp(f.x, t.x, 0.3) + nx * bow, y: lerp(f.y, t.y, 0.3) + ny * bow}, c2: {x: lerp(f.x, t.x, 0.7) + nx * bow, y: lerp(f.y, t.y, 0.7) + ny * bow}};
+    let bnx = nx, bny = ny;
+    if (style === 'right' ? bny > 0 : bnx < 0) { bnx = -bnx; bny = -bny; }
+    const bow = Math.min(70, len0 * 0.25);
+    return {from: f, to: t, c1: {x: lerp(f.x, t.x, 0.3) + bnx * bow, y: lerp(f.y, t.y, 0.3) + bny * bow}, c2: {x: lerp(f.x, t.x, 0.7) + bnx * bow, y: lerp(f.y, t.y, 0.7) + bny * bow}};
   };
   // hold notes: beside the assembly (16:9) or below it (other), in the room the exploded parts leave
   const placed = [];
@@ -289,7 +291,7 @@ function geom(ctx, F, minF, hkFrac, styleIn) {
   for (const col of cols) {
     const total = colH(col.items, col.w);
     if (col.w < 200 || total > availN + 0.5) why.push('notes-do-not-fit');
-    let ny = notesBox.top + Math.max(0, (availN - total) / 2);
+    let ny = style === 'right' ? notesBox.top + Math.max(0, (availN - total) / 2) : notesBox.top;
     for (const q of col.items) {
       const c = chipOf(q, col.x, ny, col.w, null, 'middle');
       if (c.bad) why.push('note-text');

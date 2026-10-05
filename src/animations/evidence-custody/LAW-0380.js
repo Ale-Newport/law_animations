@@ -113,9 +113,9 @@ const scene = {
     const tip = {x: X(t.hole.x) + Math.cos(a) * (TG.x1 + 4), y: Y(t.hole.y) + Math.sin(a) * (TG.x1 + 4)};
     const badge = i => ({x: X(G.sheet.x) + 14, y: Y(G.rows[i].y)});
     // lens source: the focus tag, its line and two whole list rows (focus + neighbour)
-    const k2 = k + 1 < n ? k + 1 : k - 1;
-    const r0 = Math.min(k, k2), r1 = Math.max(k, k2);
-    const src = {x: X(G.cells[k].x + G.cells[k].w) - 4, y: Y(G.rows[r0].top), w: X(G.sheet.x + G.sheet.w) - X(G.cells[k].x + G.cells[k].w) + 8, h: G.rows[r1].top + G.rows[r1].h - G.rows[r0].top};
+    // (the crop stops before the row text starts, so no row text is ever cut by the rim)
+    const sx0 = X(G.cells[k].x + G.cells[k].w) - 4;
+    const src = {x: sx0, y: Y(G.rows[k].top), w: X(G.sheet.x) + 14 + N.badgeR * 2 + 6 - sx0, h: G.rows[k].h};
     const {w: DW, h: DH} = ctx.design;
     const gap = 18;
     const regions = {
@@ -126,12 +126,10 @@ const scene = {
     };
     let bestP = null, bz = 0;
     const pref = P.detailGeometry.placement;
-    for (const [name, R] of Object.entries(regions)) {
-      if (pref !== 'auto' && pref !== name && pref !== (name === 'bottom' ? 'bottom' : name)) continue;
-      if (R.w <= 0 || R.h <= 0) continue;
-      const z = Math.min(P.detailGeometry.zoom * 1.4, R.w / src.w, R.h / src.h);
-      if (z > bz) { bz = z; bestP = name; }
-    }
+    const zOf = R => (R.w <= 0 || R.h <= 0 ? 0 : Math.min(P.detailGeometry.zoom * 1.4, R.w / src.w, R.h / src.h));
+    // a preferred placement is honoured when it allows a real (>= 1.5x) lens; otherwise the best side is used
+    if (pref !== 'auto' && zOf(regions[pref]) >= 1.5) { bestP = pref; bz = zOf(regions[pref]); }
+    else for (const [name, R] of Object.entries(regions)) { const z = zOf(R); if (z > bz) { bz = z; bestP = name; } }
     if (!bestP) bestP = 'right';
     const zoom = Math.max(0.5, Math.min(bz, Math.max(P.detailGeometry.zoom, 1.5)));
     const R = regions[bestP];
@@ -191,7 +189,7 @@ const scene = {
     const lensOpen = u >= W.open[0] && u < W.close[1];
     const shown = u < W.write[0] ? 'before' : 'after';
     const items = Array.from({length: n}, (_, i) => ({state: 'placed', link: i === k ? 0 : (L.N.linkC && L.P.records[i] && String(L.P.records[i].value || '').trim() ? 1 : 0), write: 1}));
-    const nodes = {...stationProps(G, L.N, {prefix: 'st', ox: L.C.ox, oy: L.C.oy, noBag: true}, items), ...stationProps(G, L.NL, {prefix: 'lz', ox: L.C.ox, oy: L.C.oy, noBag: true}, items)};
+    const nodes = {...stationProps(G, L.N, {prefix: 'st', ox: L.C.ox, oy: L.C.oy, noBag: true, noCarry: true}, items), ...stationProps(G, L.NL, {prefix: 'lz', ox: L.C.ox, oy: L.C.oy, noBag: true, noCarry: true}, items)};
     for (const pref of ['st', 'lz']) {
       if (L.before >= 0) Object.assign(nodes, linkLine(`${pref}-lb`, L.tip, L.badge(L.before), 4).frame(unlink, unlink > 0 ? 1 : 0));
       if (L.after >= 0) Object.assign(nodes, linkLine(`${pref}-la`, L.tip, L.badge(L.after), 4).frame(relink, relink > 0 ? 1 : 0));

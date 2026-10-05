@@ -33,7 +33,7 @@ suppliedTextSuite(ID, {
 
 ratioChecks(ID, 'composition fits; connectors anchored at component edges', [
   {at: [1], fn: 's.problems.length === 0', label: 'a composition fits'},
-  {at: [1], fn: 's.connectors.every(c => Math.hypot(c.a.x - c.b.x, c.a.y - c.b.y) > 10)', label: 'every connector has a visible length (adjacent parts such as object and tag sit close)'},
+  {at: [1], fn: 's.connectors.every(c => Math.hypot(c.a.x - c.b.x, c.a.y - c.b.y) > 20)', label: 'every connector has a readable length'},
 ]);
 
 test(`${ID}: every object kind / records count / relation set composes at every ratio`, async ({page}) => {

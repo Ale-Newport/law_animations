@@ -419,7 +419,7 @@ export function stationProps(G, N, o, st) {
     if (!o.noBag) out[`${P}-ib${i}`] = {opacity: s.state === 'bag' ? 1 : 0};
     out[`${P}-pl${i}`] = {opacity: s.state === 'placed' ? 1 : 0};
     const pos = s.pos || {x: o.ox + G.cells[i].cx, y: o.oy + G.cells[i].cy};
-    out[`${P}-ca${i}`] = {opacity: s.state === 'carried' ? 1 : 0, transform: T(pos.x, pos.y, s.angle || 0)};
+    if (!o.noCarry) out[`${P}-ca${i}`] = {opacity: s.state === 'carried' ? 1 : 0, transform: T(pos.x, pos.y, s.angle || 0)};
     Object.assign(out, N.linkC[i].frame(clamp(s.link), s.link > 0 ? 1 : 0));
     if (N.hasW[i]) out[`${P}-tg${i}-w0`] = {'stroke-dashoffset': r(100 * (1 - clamp(s.write)), 2)};
     out[`${P}-tt${i}`] = {opacity: r(clamp(s.write * 1.6 - 0.6), 3)};

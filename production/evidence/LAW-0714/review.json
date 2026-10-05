@@ -164,11 +164,27 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "all contact sheets (16:9 baseline/alternative/long-labels/es, 9:16, 1:1) and labels-hidden frame strips with safe box viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0714/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0714/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0714/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0714/sheet-16x9-es.png",
+      "production/evidence/LAW-0714/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0714/sheet-1x1-baseline.png"
+    ],
+    "findings": [
+      "Legal wording fixed: both lanes now 'related as supplied' in alternative - OK",
+      "1:1 (all t>=0.35): convergence inset still ~45px (~17% of safe-box width) while it is the focus of the trace; record board dominates top band. Enlarge inset (e.g. centre it between/above the pieces at ~35% width) or reflow so pieces+inset share the safe box",
+      "16:9: lane pieces ~17% of safe width each, inset ~15%; lower ~25% of safe box under the legend row unused at baseline/es - scale the row up",
+      "9:16 acceptable"
+    ],
+    "sourceHash": "ff7d29064117ba9d70f11beb973fcb4f237bead23d6000131bed45ed8440629a",
+    "renderFingerprint": "0abcf46ce75755e6e25a9b0f5278b9a8edfc774b7a2eb78fc4170f99251ace3f",
+    "reviewedAt": "2026-10-05T23:14:32.695Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -184,5 +200,10 @@
   "renderFingerprint": "0abcf46ce75755e6e25a9b0f5278b9a8edfc774b7a2eb78fc4170f99251ace3f",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.12,0.35,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0714/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "not_confirmed",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }
