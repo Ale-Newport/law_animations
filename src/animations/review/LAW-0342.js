@@ -148,13 +148,13 @@ export function compose(ctx, P, R, F, opts) {
   }
   const m = Math.max(10, F * 0.5);
   const inner = {x: box.x + m, y: box.y + m, w: box.w - 2 * m, h: box.h - 2 * m};
-  const cardGap = Math.max(F * 5, inner.w * 0.1);
+  const cardGap = Math.max(F * 5.2, F * 3.6 + F * 1.8, inner.w * 0.1);
   const gapR0 = Math.max(F * 3.2, 58), tab0 = Math.max(F * 1.5, 24);
   const cw = Math.min(F * (showKey ? 20 : 17), (inner.w - cardGap) / 2, (inner.w - gapR0 - 2 * tab0 - F) / 2 - 2);
   let M = null;
   for (const bars of [1, 0]) {
     M = cardModel(P, {w: cw, F, showText: showKey, bars, foot: F * 1.0});
-    if (M.h < inner.h * 0.62) break;
+    if (M.h < inner.h * 0.56) break;
   }
   const res = resultBox(M);
   const rw = res.w, rh = res.h;
@@ -163,7 +163,7 @@ export function compose(ctx, P, R, F, opts) {
   const reg = registerRow(M, 'result');
   const gh = reg.half * 2;
   const gw = 2 * rw + gapR + 1.4 * M.pad + 2 * (tab + F * 0.5);
-  const dyB = rh * 0.55;
+  const dyB = rh * 0.5;
   const minV1 = Math.max(F * 2.6, 44), minV2 = Math.max(F * 2.2, 36);
   const baseH = M.h + minV1 + rh + dyB + minV2 + gh;
   const fitsH = baseH <= inner.h + 0.5;
