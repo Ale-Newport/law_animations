@@ -1,0 +1,196 @@
+{
+  "animationId": "LAW-0284",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the substituted session state, labels and order are as supplied and carry no legal meaning. 'Pending' is only a waiting state of the configured example.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three participants after the opening; the lens isolates the wall control unit and the supplied state 'Session started' is substituted by 'Session pending': the frame becomes dashed, the switch moves to ◆ and the lamps go off.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the substitution runs the other way (the supplied state before is pending, after it is started: the frame becomes solid, the switch moves to ●, the lamps come on), four participants with another configured sequence, a statement in front of participant B, two exhibits and a lower zoom.",
+      "params": {
+        "hearing": {
+          "room": "Meeting room B (fictional)"
+        },
+        "speakers": [
+          {
+            "label": "Participant A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 3,
+              "outfit": 2
+            }
+          },
+          {
+            "label": "Participant B",
+            "appearance": {
+              "skin": 4,
+              "hair": "buzz",
+              "hairColor": 5,
+              "outfit": 0,
+              "glasses": true
+            }
+          },
+          {
+            "label": "Participant C",
+            "appearance": {
+              "skin": 2,
+              "hair": "bun",
+              "hairColor": 1,
+              "outfit": 3
+            }
+          },
+          {
+            "label": "Participant D",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "hairColor": 0,
+              "outfit": 7
+            }
+          }
+        ],
+        "statements": [
+          {
+            "speaker": 1,
+            "text": "Written note (fictional)"
+          }
+        ],
+        "exhibits": [
+          "Exhibit 1 (fictional)",
+          "Exhibit 2 (fictional)"
+        ],
+        "sequence": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "beforeState": "pending",
+        "beforeValue": "Pending (as supplied)",
+        "afterValue": "Started (as supplied)",
+        "detailGeometry": {
+          "zoom": 2.0,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "The room while its state is pending (as supplied)",
+          "marker": "Changed: the supplied session state"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: four participants with long labels, two statements, two exhibits, long before/after values, captions and key.",
+      "params": {
+        "hearing": {
+          "room": "Multipurpose hearing room 3, second floor, east (fictional)"
+        },
+        "speakers": [
+          {
+            "label": "Participant A, seated at the left side (fictional)"
+          },
+          {
+            "label": "Participant B, seated at the right end (fictional)"
+          },
+          {
+            "label": "Participant C, seated near the door (fictional)"
+          },
+          {
+            "label": "Participant D, seated near the window (fictional)"
+          }
+        ],
+        "statements": [
+          {
+            "speaker": 0,
+            "text": "Written statement of A (fictional)"
+          },
+          {
+            "speaker": 2,
+            "text": "Written statement of C (fictional)"
+          }
+        ],
+        "exhibits": [
+          "Exhibit 1: sealed box (fictional)",
+          "Exhibit 2: folder (fictional)"
+        ],
+        "sequence": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "labels": {
+          "sequence": "Order of the name cards: a sequence as configured by the author (illustrative)",
+          "key": "States, labels and order are shown exactly as supplied by the author · no conclusion drawn"
+        },
+        "beforeValue": "Session started, as supplied in this fictional example",
+        "afterValue": "Session pending, as supplied in this fictional example",
+        "contextLabels": {
+          "context": "The generic room after its opening, with every card and label as supplied",
+          "marker": "Changed: one supplied datum, the session state"
+        },
+        "actorLabels": {
+          "participant": "Participant seated at the shared table (fictional)"
+        },
+        "objectLabels": {
+          "lights": "Wall lamps that come on when the room is activated",
+          "card": "Name card that carries the label supplied for its holder",
+          "clock": "Wall clock (support only; no time span is implied)"
+        }
+      },
+      "coordinatorDecision": "Standing coordinator rule (2026-09-26, from LAW-0687/0689-0692; docs/AUTHORING.md item 20). TRUE DRIVER: at 1:1 the context room keeps the floor under the wall unit free for the docked old value and the space beside the unit for the changed-datum marker, the lens needs about 0.37-0.42 of the frame's short side beside the context (which keeps >= 0.46 of the frame width), and the remaining free floor of the room cannot hold four near-maximum participant chips (two of them with 54-character statements) plus two near-maximum exhibit tags. Tried before capping (1:1, text 22.5 down to 16.4 px): right-hand text column at 0.25-0.39 of the width; text band under the room (the lens then has 0.28-0.37 of the short side); room scale 1, 1.25, 1.55; exhibit cabinet on the left wall, bottom wall and right wall; participant chips first or exhibit tags first; five chip widths per participant; a narrower, taller wall display; shortening only the exhibit tags (chip-sp0 still unplaced), only the participant labels (chip-sp0 still unplaced). Rendered numbers (final code, re-measured 2026-09-27 at the hold with production/scratch/hearings-01/capmeasure.mjs, 1080p-normalised) BEFORE the cap: 16:9 20.7 px text / people 66.7 px, 9:16 19.8 px / 82.5 px, 1:1 16.4 px / 68.1 px with participant A's chip and the second exhibit tag unplaced (chip-sp0, chip-ex1 flagged). AFTER the cap (exhibit tags 33/29 characters, statements 34/34): every chip placed — 16:9 20.7 px / 82.1 px, 9:16 19.8 px / 125.7 px, 1:1 16.4 px / 68.1 px. Only the exhibit tags and the two statements are shortened; they stay longer than the baseline (tag 21, statement 29 characters); counts unchanged (4 participants, 2 statements, 2 exhibits); participant labels, before/after values, captions and key keep their near-maximum length. Pre-cap preset kept at production/scratch/hearings-01/LAW-0284.presets.precap.json."
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español (etiquetas y contenido ficticios).",
+      "params": {
+        "locale": "es",
+        "hearing": {
+          "room": "Sala de audiencias 3 (ficticia)"
+        },
+        "speakers": [
+          {
+            "label": "Participante A"
+          },
+          {
+            "label": "Participante B"
+          },
+          {
+            "label": "Participante C"
+          }
+        ],
+        "statements": [
+          {
+            "speaker": 0,
+            "text": "Declaración escrita (ficticia)"
+          }
+        ],
+        "exhibits": [
+          "Prueba 1 (ficticia)"
+        ],
+        "labels": {
+          "sequence": "Secuencia según la configuración (ilustrativa)",
+          "key": "Según lo aportado · sin conclusión"
+        },
+        "beforeValue": "Sesión iniciada",
+        "afterValue": "Sesión pendiente",
+        "contextLabels": {
+          "context": "La sala tras la apertura (según lo aportado)",
+          "marker": "Cambio: un dato aportado, el estado de la sesión"
+        },
+        "actorLabels": {
+          "participant": "Participante (ficticio)"
+        },
+        "objectLabels": {
+          "lights": "Luces de la sala",
+          "card": "Tarjeta con la etiqueta aportada",
+          "clock": "Reloj de pared"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,358 @@
+{
+  "animationId": "LAW-0286",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; states, items, exhibits and order are as supplied and carry no legal assessment (no proof, weight, burden or outcome).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three supplied relationships (lectern to presentation table as a sequence as configured, table to the participants as communication, exhibit cabinet to the table as a plain relation); the clock stands as support; the tracer visits lectern, table and participants; the table is the focus.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four participants, another presenting participant, two exhibits, other links (the clock linked to the room, no exhibit link), the tracer starting at the exhibit cabinet and the participants as the focus element.",
+      "params": {
+        "hearing": {
+          "room": "Meeting room D (fictional)"
+        },
+        "speakers": [
+          {
+            "label": "Participant A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 3,
+              "outfit": 2
+            }
+          },
+          {
+            "label": "Participant B",
+            "appearance": {
+              "skin": 4,
+              "hair": "buzz",
+              "hairColor": 5,
+              "outfit": 0,
+              "glasses": true
+            }
+          },
+          {
+            "label": "Participant C",
+            "appearance": {
+              "skin": 2,
+              "hair": "curly",
+              "hairColor": 1,
+              "outfit": 4
+            }
+          },
+          {
+            "label": "Participant D",
+            "appearance": {
+              "skin": 3,
+              "hair": "bun",
+              "hairColor": 2,
+              "outfit": 7
+            }
+          }
+        ],
+        "presenter": 1,
+        "statements": [
+          {
+            "kind": "question",
+            "text": "When was the gate first opened?"
+          },
+          {
+            "kind": "fact",
+            "text": "The gate has two keys",
+            "state": "support",
+            "exhibit": 1
+          },
+          {
+            "kind": "fact",
+            "text": "One key was lent out",
+            "state": "claim"
+          },
+          {
+            "kind": "fact",
+            "text": "The lock was changed once",
+            "state": "support",
+            "exhibit": 0
+          }
+        ],
+        "exhibits": [
+          "Exhibit 1: lock invoice",
+          "Exhibit 2: key log"
+        ],
+        "sequence": [
+          1,
+          2,
+          0,
+          3
+        ],
+        "states": {
+          "claim": "Stated (as supplied)",
+          "support": "With an exhibit (as supplied)"
+        },
+        "labels": {
+          "question": "Open question (as supplied)",
+          "sequence": "Order as configured (illustrative)",
+          "key": "As supplied · no conclusion drawn"
+        },
+        "relationships": [
+          {
+            "from": "exhibit",
+            "to": "ledge",
+            "kind": "relation"
+          },
+          {
+            "from": "ledge",
+            "to": "participants",
+            "kind": "communication"
+          },
+          {
+            "from": "clock",
+            "to": "room",
+            "kind": "relation"
+          }
+        ],
+        "traversalOrder": [
+          "exhibit",
+          "ledge",
+          "participants"
+        ],
+        "focusElement": "participants"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths: four participants, four items, two exhibits, long element labels, long relation captions and three relationships.",
+      "coordinatorDecision": "Standing coordinator rule (AUTHORING item 20). TRUE DRIVER: at 1:1 the exploded plan (band above the room) plus the panel cannot hold five near-maximum cards, four relationships with near-maximum captions, four participants and two exhibits: every composition left the people at 34-49 px or a caption without a place beside its own line. Tried before capping (1:1, 22.5 down to 16.4 px): text column 0.24-0.32 and band 2-3 columns; band shares 0.24-0.42; extra floor under the table (0, 140, 280 units); cabinet first or last in the band; room width searched 680-2600; caption offsets 10-64 px at nine places along each line; shorter item texts alone (people 48.9 px); three relationships alone (people 33.9 px). Rendered BEFORE (capmeasure, hold): 16:9 17.1 px / 69.7 px, 9:16 16.4 / 106.1, 1:1 16.4 / 33.8 (people-small). AFTER the cap (item texts 34-42 characters, 5 -> 4 items, 4 -> 3 relationships; participant labels 38-41 characters): 16:9 19.8 / 74.9, 9:16 22.5 / 76.0, 1:1 16.4 / 63.0. Counts stay >= baseline (4 participants vs 3, 4 items vs 3, 3 relationships vs 3, 2 exhibits vs 1); element labels and relation captions keep their near-maximum lengths. Pre-cap preset: production/scratch/hearings-02/LAW-0286.presets.precap.json.",
+      "params": {
+        "hearing": {
+          "room": "Multipurpose hearing room 2, third floor, west (fictional)"
+        },
+        "speakers": [
+          {
+            "label": "Participant A, at the lectern (fictional)"
+          },
+          {
+            "label": "Participant B, at the table (fictional)"
+          },
+          {
+            "label": "Participant C, near the window (fict.)"
+          },
+          {
+            "label": "Participant D, near the door (fictional)"
+          }
+        ],
+        "presenter": 0,
+        "statements": [
+          {
+            "kind": "fact",
+            "text": "The parcel came to the front desk on 3 May",
+            "state": "claim"
+          },
+          {
+            "kind": "fact",
+            "text": "It was opened at the desk before a clerk",
+            "state": "support",
+            "exhibit": 0
+          },
+          {
+            "kind": "question",
+            "text": "Who signed the receipt for the parcel?"
+          },
+          {
+            "kind": "fact",
+            "text": "The receipt names a second address",
+            "state": "support",
+            "exhibit": 1
+          }
+        ],
+        "exhibits": [
+          "Exhibit 1: delivery note with a stamp (fictional)",
+          "Exhibit 2: photograph of the receipt (fictional)"
+        ],
+        "sequence": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "states": {
+          "claim": "Claim made, as supplied in this fictional example",
+          "support": "Support supplied, as supplied in this example"
+        },
+        "labels": {
+          "question": "Question put to the room, as supplied (fictional)",
+          "sequence": "Order of the cards on the table: a sequence as configured by the author (illustrative)",
+          "key": "States, items and order are shown exactly as supplied by the author · no conclusion drawn"
+        },
+        "elements": [
+          {
+            "id": "room",
+            "label": "Multipurpose room in this example (fictional)"
+          },
+          {
+            "id": "lectern",
+            "label": "Lectern holding the stack of folded slips"
+          },
+          {
+            "id": "ledge",
+            "label": "Presentation table with facts and questions"
+          },
+          {
+            "id": "clock",
+            "label": "Wall clock (support only; no time implied)"
+          },
+          {
+            "id": "exhibit",
+            "label": "Cabinet with the exhibits of the example"
+          },
+          {
+            "id": "participants",
+            "label": "Participants seated at the shared table"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "lectern",
+            "to": "ledge",
+            "kind": "sequence"
+          },
+          {
+            "from": "ledge",
+            "to": "participants",
+            "kind": "communication"
+          },
+          {
+            "from": "exhibit",
+            "to": "ledge",
+            "kind": "relation"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Linked, as supplied in this example",
+          "communication": "Shown to the seated participants",
+          "sequence": "Laid out in a sequence as configured (illustrative)",
+          "causal": "Causal link, only as supplied"
+        },
+        "traversalOrder": [
+          "lectern",
+          "ledge",
+          "participants"
+        ],
+        "focusElement": "ledge"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "hearing": {
+          "room": "Sala de audiencias 2 (ficticia)"
+        },
+        "speakers": [
+          {
+            "label": "Participante A"
+          },
+          {
+            "label": "Participante B"
+          },
+          {
+            "label": "Participante C"
+          }
+        ],
+        "presenter": 0,
+        "statements": [
+          {
+            "kind": "fact",
+            "text": "El paquete llegó el 3 de mayo",
+            "state": "claim"
+          },
+          {
+            "kind": "fact",
+            "text": "Se abrió en el mostrador",
+            "state": "support",
+            "exhibit": 0
+          },
+          {
+            "kind": "question",
+            "text": "¿Quién firmó el recibo?"
+          }
+        ],
+        "exhibits": [
+          "Prueba 1: albarán"
+        ],
+        "sequence": [
+          0,
+          1,
+          2
+        ],
+        "states": {
+          "claim": "Afirmación formulada",
+          "support": "Apoyo aportado"
+        },
+        "labels": {
+          "question": "Pregunta (según lo aportado)",
+          "sequence": "Orden en la mesa: secuencia según lo configurado (ilustrativa)",
+          "key": "Según lo aportado · sin conclusión"
+        },
+        "elements": [
+          {
+            "id": "room",
+            "label": "La sala (ficticia)"
+          },
+          {
+            "id": "lectern",
+            "label": "Atril con las hojas plegadas"
+          },
+          {
+            "id": "ledge",
+            "label": "Mesa de exposición: hechos y preguntas"
+          },
+          {
+            "id": "clock",
+            "label": "Reloj de pared (soporte)"
+          },
+          {
+            "id": "exhibit",
+            "label": "Armario de pruebas"
+          },
+          {
+            "id": "participants",
+            "label": "Participantes en la mesa común"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "lectern",
+            "to": "ledge",
+            "kind": "sequence"
+          },
+          {
+            "from": "ledge",
+            "to": "participants",
+            "kind": "communication"
+          },
+          {
+            "from": "exhibit",
+            "to": "ledge",
+            "kind": "relation"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Vinculado (según lo aportado)",
+          "communication": "Se muestra a",
+          "sequence": "Secuencia según lo configurado (ilustrativa)",
+          "causal": "Vínculo causal (según lo aportado)"
+        },
+        "traversalOrder": [
+          "lectern",
+          "ledge",
+          "participants"
+        ],
+        "focusElement": "ledge"
+      }
+    }
+  ]
+}

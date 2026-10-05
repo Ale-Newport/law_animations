@@ -1,0 +1,208 @@
+{
+  "animationId": "LAW-0281",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; labels, session states and the order of the cards are as supplied and carry no legal meaning.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three participants, one written statement and one exhibit: the switch activates the room, the display changes from the supplied pending state to the supplied started state, and each participant receives their label in the configured sequence.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four participants with a different configured sequence (C, A, D, B), a statement in front of participant B, two exhibits, different people, other supplied state wording, and the supplied final state in which the last card is still in the tray.",
+      "params": {
+        "hearing": {
+          "room": "Meeting room B (fictional)"
+        },
+        "speakers": [
+          {
+            "label": "Participant A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 3,
+              "outfit": 2
+            }
+          },
+          {
+            "label": "Participant B",
+            "appearance": {
+              "skin": 4,
+              "hair": "buzz",
+              "hairColor": 5,
+              "outfit": 0,
+              "glasses": true
+            }
+          },
+          {
+            "label": "Participant C",
+            "appearance": {
+              "skin": 2,
+              "hair": "bun",
+              "hairColor": 1,
+              "outfit": 3
+            }
+          },
+          {
+            "label": "Participant D",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "hairColor": 0,
+              "outfit": 7
+            }
+          }
+        ],
+        "statements": [
+          {
+            "speaker": 1,
+            "text": "Written note (fictional)"
+          }
+        ],
+        "exhibits": [
+          "Exhibit 1 (fictional)",
+          "Exhibit 2 (fictional)"
+        ],
+        "sequence": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "session": {
+          "started": "Started (as supplied)",
+          "pending": "Pending (as supplied)"
+        },
+        "annotations": [
+          {
+            "target": "lastCard",
+            "text": "This card is still in the tray in the supplied final state"
+          }
+        ],
+        "finalState": "last-waiting"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: four participants with long labels, two statements, two exhibits, long state wording, captions and two notes.",
+      "params": {
+        "hearing": {
+          "room": "Multipurpose hearing room 3, second floor, east (fictional)"
+        },
+        "speakers": [
+          {
+            "label": "Participant A, seated at the left side (fictional)"
+          },
+          {
+            "label": "Participant B, seated at the right end (fictional)"
+          },
+          {
+            "label": "Participant C, seated near the door (fictional)"
+          },
+          {
+            "label": "Participant D, seated near the window (fictional)"
+          }
+        ],
+        "statements": [
+          {
+            "speaker": 0,
+            "text": "Written statement of participant A (fictional example)"
+          },
+          {
+            "speaker": 2,
+            "text": "Written statement of participant C (fictional example)"
+          }
+        ],
+        "exhibits": [
+          "Exhibit 1: box of papers (fictional)",
+          "Exhibit 2: photographs (fictional)"
+        ],
+        "sequence": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "session": {
+          "started": "Session started, as supplied in this fictional example",
+          "pending": "Session pending, as supplied in this fictional example"
+        },
+        "labels": {
+          "sequence": "Order of the name cards: a sequence as configured by the author (illustrative)",
+          "key": "States, labels and order are shown exactly as supplied by the author · no conclusion drawn"
+        },
+        "actorLabels": {
+          "participant": "Participant seated at the shared table (fictional)"
+        },
+        "objectLabels": {
+          "lights": "Wall lamps that come on when the room is activated",
+          "card": "Name card that carries the label supplied for its holder",
+          "clock": "Wall clock (support only; no time span is implied)"
+        },
+        "annotations": [
+          {
+            "target": "switch",
+            "text": "The switch on the wall activates the lamps and the display, as configured in this example"
+          },
+          {
+            "target": "firstCard",
+            "text": "The first card handed over follows the sequence configured by the author, not a rule"
+          }
+        ]
+      },
+      "coordinatorDecision": "Standing coordinator rule (2026-09-26, from LAW-0687/0689-0692; docs/AUTHORING.md item 20). TRUE DRIVER: at 1:1 the free floor of the room beside the right-hand text column cannot hold four near-maximum participant chips (two of them with a statement) AND two near-maximum exhibit tags: with the exhibit tags at 43 and 46 characters one tag (or, in other orders, participant A's chip) has no clear place in any tried composition. Tried before capping (all at 1:1, text 22.5 down to 16.4 px): right-hand text column at 0.25-0.39 of the width; text band under the room in 2 and 3 columns; room scale 1, 1.25 and 1.55 (smaller people, more free floor); exhibit cabinet on the left wall, along the bottom wall and on the right wall; diagonal seats in tall rooms; participant chips first or exhibit tags first (both tag orders); five chip widths per participant and three per tag. Rendered numbers (final code, re-measured 2026-09-27 at the hold with production/scratch/hearings-01/capmeasure.mjs, 1080p-normalised) BEFORE the cap (43/46-character tags): 16:9 19.8 px text / people 82.1 px, 9:16 21.6 px / 80.0 px, 1:1 16.4 px / 84.3 px with participant C's chip unplaced (chip-sp2 flagged, fallback chip). AFTER the cap (36/34-character tags): every chip placed — 16:9 19.8 px / 82.1 px, 9:16 20.7 px / 101.5 px, 1:1 16.4 px / 68.1 px. Only the two exhibit tags are shortened; they stay longer than the baseline tag (21 characters); counts are unchanged (4 participants, 2 statements, 2 exhibits); every other field keeps its near-maximum length. Pre-cap preset kept at production/scratch/hearings-01/LAW-0281.presets.precap.json."
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "hearing": {
+          "room": "Sala de audiencias 3 (ficticia)"
+        },
+        "speakers": [
+          {
+            "label": "Participante A"
+          },
+          {
+            "label": "Participante B"
+          },
+          {
+            "label": "Participante C"
+          }
+        ],
+        "statements": [
+          {
+            "speaker": 0,
+            "text": "Declaración escrita (ficticia)"
+          }
+        ],
+        "exhibits": [
+          "Prueba 1 (ficticia)"
+        ],
+        "session": {
+          "started": "Sesión iniciada",
+          "pending": "Sesión pendiente"
+        },
+        "labels": {
+          "sequence": "Secuencia según la configuración (ilustrativa)",
+          "key": "Según lo aportado · sin conclusión"
+        },
+        "actorLabels": {
+          "participant": "Participante (ficticio)"
+        },
+        "objectLabels": {
+          "lights": "Luces de la sala",
+          "card": "Tarjeta con la etiqueta aportada",
+          "clock": "Reloj de pared"
+        },
+        "annotations": [
+          {
+            "target": "switch",
+            "text": "El interruptor activa la sala (según la configuración)"
+          }
+        ]
+      }
+    }
+  ]
+}

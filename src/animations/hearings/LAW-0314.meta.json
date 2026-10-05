@@ -1,0 +1,703 @@
+{
+  "id": "LAW-0314",
+  "slug": "hearings-09-mechanism",
+  "title": "Closing arguments — the pieces of linking an argument to the evidence it invokes, and their relationships",
+  "titleEs": "Conclusiones de las partes — Mecanismo o relación explicada",
+  "category": "hearings",
+  "categoryName": "Audiencias y desarrollo del juicio",
+  "motif": "Conclusiones de las partes",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "An exploded view of a generic hearing room: the two argument cards leave the board through the top wall to a band above the room, card A to one side and card B, mirrored, to the other, and the numbered exhibits lift off the evidence table to a row between them; the parties stay at their identical lecterns. Each piece is labelled on the plan. Only the supplied relationships are drawn, with their kind captioned on the plan (a party puts its card forward; each card is linked to every exhibit it invokes, as supplied); a relationship and its mirror on the other side are drawn together. A tracer follows the supplied traversal and a second one its mirror, at the same time; the element reached enlarges, the focus most. Both cards get the same neutral frame. Illustrative; nothing is proved, weighed or decided and no side is preferred.",
+  "tags": [
+    "hearing",
+    "closing arguments",
+    "mechanism",
+    "exploded view",
+    "relationships",
+    "tracer",
+    "arguments",
+    "exhibits",
+    "invoked as supplied",
+    "equal weight",
+    "labels on the plan"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/hearings/kits/conclusiones-partes.js",
+    "src/animations/hearings/kits/hearings-art.js",
+    "src/animations/hearings/kits/apertura-audiencia.js",
+    "src/animations/courts/kits/courts-art.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "hearing": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "room": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the room (fictional)"
+          }
+        },
+        "required": [
+          "room"
+        ],
+        "description": "Generic, fictional hearing room"
+      },
+      "speakers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Label of this participant (as supplied)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed (never tied to a role)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Participant"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Participants (generic, fictional): the two parties stand at the two identical lecterns, any others sit facing the board. No rank, role rule or order of speaking is implied (array replaces the previous value)"
+      },
+      "parties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Index of the party of argument A"
+          },
+          "b": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Index of the party of argument B"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Which participants are the two parties (indices in `speakers`): a puts forward argument A (●), b argument B (◆)"
+      },
+      "statements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "side": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "a (argument A, ●) or b (argument B, ◆)"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 70,
+              "description": "Argument text (fictional, as supplied)"
+            }
+          },
+          "required": [
+            "side",
+            "text"
+          ],
+          "description": "Argument"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "The two arguments on the board, one per party (fictional, as supplied). Neither is weighed, preferred or decided (array replaces the previous value)"
+      },
+      "exhibits": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Exhibit tag (fictional)"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Exhibits lying on the evidence table, numbered in this order (fictional tags) (array replaces the previous value)"
+      },
+      "links": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index in `exhibits`"
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "description": "Exhibits invoked in argument A (as supplied) (array replaces the previous value)"
+          },
+          "b": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index in `exhibits`"
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "description": "Exhibits invoked in argument B (as supplied) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "The exhibits each argument invokes (indices in `exhibits`, as supplied). A link means only \"invoked by the party (as supplied)\" — never that anything is proved or supported"
+      },
+      "sequence": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Index in `statements`"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Order of the two arguments along the board (indices in `statements`): a sequence as configured (illustrative), never an order of speaking (array replaces the previous value)"
+      },
+      "states": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of ● (invoked in argument A, as supplied)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of ◆ (invoked in argument B, as supplied)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Captions of the two link markers (equal weight)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sequence": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the order of the cards on the board (keep \"as configured\")"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "sequence",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "room",
+                "party-a",
+                "party-b",
+                "argument-a",
+                "argument-b",
+                "evidence",
+                "clock"
+              ],
+              "description": "Element id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Element"
+        },
+        "minItems": 2,
+        "maxItems": 7,
+        "description": "Labels of the pieces of the mechanism (drawn on the plan beside each piece); ids are fixed by the scene, labels are editable (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "room",
+                "party-a",
+                "party-b",
+                "argument-a",
+                "argument-b",
+                "evidence",
+                "clock"
+              ],
+              "description": "Source element"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "room",
+                "party-a",
+                "party-b",
+                "argument-a",
+                "argument-b",
+                "evidence",
+                "clock"
+              ],
+              "description": "Target element"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "Relationship"
+        },
+        "minItems": 1,
+        "maxItems": 8,
+        "description": "Explicit relationships between pieces; the kind sets the line (a plain relation has no arrowhead; causal only when supplied). Between an argument card and the evidence the line runs to every exhibit that argument invokes (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "room",
+          "party-a",
+          "party-b",
+          "argument-a",
+          "argument-b",
+          "evidence",
+          "clock"
+        ],
+        "description": "Element enlarged most when the tracer reaches it"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption for sequence links (keep \"as configured\")"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Caption of each relation kind (drawn on the plan between the lines it names)"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "room",
+            "party-a",
+            "party-b",
+            "argument-a",
+            "argument-b",
+            "evidence",
+            "clock"
+          ],
+          "description": "Element id"
+        },
+        "minItems": 2,
+        "maxItems": 8,
+        "description": "Order in which the tracer visits the elements (consecutive elements should be related); its mirror on the other side is traced at the same time (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "hearing": {
+      "room": "Hearing room 2 (fictional)"
+    },
+    "speakers": [
+      {
+        "label": "Party A"
+      },
+      {
+        "label": "Party B"
+      },
+      {
+        "label": "Participant C"
+      }
+    ],
+    "parties": {
+      "a": 0,
+      "b": 1
+    },
+    "statements": [
+      {
+        "side": "a",
+        "text": "Argument A: the parcel was handed over (as supplied)"
+      },
+      {
+        "side": "b",
+        "text": "Argument B: the parcel was not handed over (as supplied)"
+      }
+    ],
+    "exhibits": [
+      "Exhibit 1: delivery note",
+      "Exhibit 2: email from the depot",
+      "Exhibit 3: gate camera log"
+    ],
+    "links": {
+      "a": [
+        0,
+        1
+      ],
+      "b": [
+        1,
+        2
+      ]
+    },
+    "sequence": [
+      0,
+      1
+    ],
+    "states": {
+      "a": "Invoked in argument A (as supplied)",
+      "b": "Invoked in argument B (as supplied)"
+    },
+    "labels": {
+      "sequence": "Order on the board as configured (illustrative)",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "elements": [
+      {
+        "id": "party-a",
+        "label": "Party A at its lectern"
+      },
+      {
+        "id": "argument-a",
+        "label": "Card of argument A"
+      },
+      {
+        "id": "evidence",
+        "label": "Exhibits from the evidence table"
+      },
+      {
+        "id": "argument-b",
+        "label": "Card of argument B"
+      },
+      {
+        "id": "party-b",
+        "label": "Party B at its lectern"
+      }
+    ],
+    "relationships": [
+      {
+        "from": "party-a",
+        "to": "argument-a",
+        "kind": "communication"
+      },
+      {
+        "from": "party-b",
+        "to": "argument-b",
+        "kind": "communication"
+      },
+      {
+        "from": "argument-a",
+        "to": "evidence",
+        "kind": "relation"
+      },
+      {
+        "from": "argument-b",
+        "to": "evidence",
+        "kind": "relation"
+      }
+    ],
+    "focusElement": "evidence",
+    "relationLabels": {
+      "relation": "Invoked by the party (as supplied)",
+      "communication": "Put forward by the party (as supplied)",
+      "sequence": "Sequence as configured (illustrative)",
+      "causal": "Causal link (as supplied)"
+    },
+    "traversalOrder": [
+      "party-a",
+      "argument-a",
+      "evidence"
+    ]
+  }
+}

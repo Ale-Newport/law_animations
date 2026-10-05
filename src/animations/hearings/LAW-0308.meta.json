@@ -1,0 +1,600 @@
+{
+  "id": "LAW-0308",
+  "slug": "hearings-07-inspect",
+  "title": "Expert statement at a hearing — inspecting the explained span and substituting it",
+  "titleEs": "Declaración experta en audiencia — Inspección y cambio de un dato",
+  "category": "hearings",
+  "categoryName": "Audiencias y desarrollo del juicio",
+  "motif": "Declaración experta en audiencia",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The generic hearing room after the action: the chart on the display board with its reference, its supplied span marked and connected to the specialist's explanation card with its caption. A lens (a window with a rim, distinct from the board's card) opens on the card (a real enlarged copy of the same room coordinates) and one supplied datum is substituted: the span the explanation refers to (its caption). The old value moves, unchanged, to a dock as \"was\"; the new value arrives; only its dependent geometry follows (the band on the chart, the card's line and the connector). The context returns with a neutral changed-datum marker. Fictional data; the interpretation is neither right nor wrong; no rule, weight or outcome.",
+  "tags": [
+    "hearing",
+    "specialist",
+    "expert statement",
+    "chart",
+    "measurement",
+    "interpretation",
+    "inspect",
+    "lens",
+    "display board",
+    "marked span",
+    "substitution",
+    "changed datum",
+    "as supplied",
+    "room plan"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/hearings/kits/declaracion-experta.js",
+    "src/animations/hearings/kits/interrogatorio-directo.js",
+    "src/animations/hearings/kits/exposicion-inicial.js",
+    "src/animations/hearings/kits/hearings-art.js",
+    "src/animations/hearings/kits/apertura-audiencia.js",
+    "src/animations/courts/kits/courts-art.js",
+    "src/primitives/markers.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "hearing": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "room": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the room (fictional)"
+          }
+        },
+        "required": [
+          "room"
+        ],
+        "description": "Generic, fictional hearing room"
+      },
+      "speakers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Label of this participant (as supplied)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed (never tied to a role)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Participant"
+        },
+        "minItems": 3,
+        "maxItems": 4,
+        "description": "Participants (generic, fictional): one is the specialist who explains at the lectern beside the board, the others sit at the shared table on the same chairs. No rank, role rule or speaking order is implied (array replaces the previous value)"
+      },
+      "specialist": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 3,
+        "description": "Index in `speakers` of the specialist at the lectern beside the board (generic)"
+      },
+      "statements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "measurement",
+                "interpretation"
+              ],
+              "description": "measurement (the chart, ●) or interpretation (the specialist's explanation, ◆) — supplied states only"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Reference of the chart, or caption of the explanation (fictional, as supplied)"
+            }
+          },
+          "required": [
+            "kind",
+            "text"
+          ],
+          "description": "Place"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "The two places on the board: the measurement (● the chart with its fictional reference, as supplied) and the specialist's interpretation (◆ the caption of the explanation, as supplied). Neither is assessed, accepted or rejected (array replaces the previous value)"
+      },
+      "exhibits": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Exhibit tag (fictional)"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Exhibits on the low cabinet by the wall, each with its supplied tag (array replaces the previous value)"
+      },
+      "chart": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "exhibit": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Index in `exhibits` of the exhibit the chart comes from"
+          },
+          "points": {
+            "type": "integer",
+            "minimum": 5,
+            "maximum": 12,
+            "description": "Number of generic points on the chart"
+          },
+          "span": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "from": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 12,
+                "description": "First point of the span"
+              },
+              "to": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 12,
+                "description": "Last point of the span"
+              }
+            },
+            "required": [
+              "from",
+              "to"
+            ],
+            "description": "The supplied span of points (first and last point, counted from 1) that the explanation refers to: only a span, nothing is inferred from it"
+          }
+        },
+        "required": [
+          "exhibit",
+          "points",
+          "span"
+        ],
+        "description": "The chart shown (generic axes, points and a line; fictional data, no real measurement)"
+      },
+      "sequence": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Index in `statements`"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Order of the two places along the board (indices in `statements`): a sequence as configured (illustrative), not a rule (array replaces the previous value)"
+      },
+      "states": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "measurement": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption of ● (measurement, as supplied)"
+          },
+          "interpretation": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption of ◆ (the specialist's interpretation, as supplied)"
+          }
+        },
+        "required": [
+          "measurement",
+          "interpretation"
+        ],
+        "description": "Captions of the two supplied states"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "span": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the marked span (only a supplied span)"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the order of the places (keep \"as configured\")"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "span",
+          "sequence",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "span"
+        ],
+        "description": "Detail that is enlarged and substituted: the supplied span of the chart that the explanation refers to (its band, the card's line and the connector follow it)"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 50,
+        "description": "Caption of the explanation before the substitution (as supplied)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 50,
+        "description": "Caption of the explanation after the substitution (the alternative datum, as supplied)"
+      },
+      "afterSpan": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "from": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12,
+            "description": "First point of the alternative span"
+          },
+          "to": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12,
+            "description": "Last point of the alternative span"
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "description": "The alternative span (first and last point, counted from 1): only a span, nothing is inferred from it"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.6,
+            "maximum": 4,
+            "description": "Largest magnification of the lens, relative to the context at rest (never below 1.6)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Alignment of the lens inside the space it opens in"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [
+          "context",
+          "marker"
+        ],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "hearing": {
+      "room": "Hearing room 7 (fictional)"
+    },
+    "speakers": [
+      {
+        "label": "Specialist (fictional)"
+      },
+      {
+        "label": "Participant B"
+      },
+      {
+        "label": "Participant C"
+      }
+    ],
+    "specialist": 0,
+    "statements": [
+      {
+        "kind": "measurement",
+        "text": "Chart 1, readings (fictional)"
+      },
+      {
+        "kind": "interpretation",
+        "text": "On points 4 to 6 (as supplied)"
+      }
+    ],
+    "exhibits": [
+      "Exhibit 1: chart of readings"
+    ],
+    "chart": {
+      "exhibit": 0,
+      "points": 8,
+      "span": {
+        "from": 4,
+        "to": 6
+      }
+    },
+    "sequence": [
+      0,
+      1
+    ],
+    "states": {
+      "measurement": "Measurement (as supplied)",
+      "interpretation": "Specialist's interpretation (as supplied)"
+    },
+    "labels": {
+      "span": "Marked span (as supplied)",
+      "sequence": "Sequence as configured (illustrative)",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "focusTarget": "span",
+    "beforeValue": "On points 4 to 6 (as supplied)",
+    "afterValue": "On points 6 to 8 (as supplied)",
+    "afterSpan": {
+      "from": 6,
+      "to": 8
+    },
+    "contextLabels": {
+      "context": "The room after the chart and the explanation were connected (as supplied)",
+      "marker": "Changed: one datum, the marked span"
+    },
+    "detailGeometry": {
+      "zoom": 3,
+      "placement": "auto"
+    }
+  }
+}

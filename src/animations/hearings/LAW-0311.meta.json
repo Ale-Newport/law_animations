@@ -1,0 +1,527 @@
+{
+  "id": "LAW-0311",
+  "slug": "hearings-08-contrast",
+  "title": "Hearing pause — a session that stays active and a recess, in two identical rooms",
+  "titleEs": "Pausa de audiencia — Comparación de dos supuestos",
+  "category": "hearings",
+  "categoryName": "Audiencias y desarrollo del juicio",
+  "motif": "Pausa de audiencia",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical generic hearing rooms. At the same moment one supplied difference is introduced at the recess card's place on the panel: in B a ◆ marks that a recess is supplied there, in A it stays plain. The same time runs in both: the wall clocks and the session clocks turn alike and everybody keeps their place. Only in B does the operator signal, does the session clock slow down and stop at the supplied, fictional time with a pause badge, does the recess card come out connected to the clock and are the positions marked; in A the session clock keeps running (● session active). A guide links the two places. No winner, problem, penalty, rule, duration or time limit.",
+  "tags": [
+    "hearing",
+    "recess",
+    "pause",
+    "session active",
+    "session clock",
+    "contrast",
+    "two rooms",
+    "session panel",
+    "positions kept",
+    "as supplied",
+    "sequence as configured"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/hearings/kits/pausa-audiencia.js",
+    "src/animations/hearings/kits/hearings-art.js",
+    "src/animations/hearings/kits/apertura-audiencia.js",
+    "src/animations/courts/kits/courts-art.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "hearing": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "room": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the room (fictional)"
+          }
+        },
+        "required": [
+          "room"
+        ],
+        "description": "Generic, fictional hearing room"
+      },
+      "speakers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Label of this participant (as supplied)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed (never tied to a role)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Participant"
+        },
+        "minItems": 3,
+        "maxItems": 4,
+        "description": "Participants (generic, fictional): one stands at the lectern beside the session panel, the others sit at the shared table on the same chairs. No rank, role rule or speaking order is implied (array replaces the previous value)"
+      },
+      "operator": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 3,
+        "description": "Index in `speakers` of the participant at the lectern who signals the recess at the panel (generic; no rank implied)"
+      },
+      "statements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "active",
+                "recess"
+              ],
+              "description": "active (the session clock, ●) or recess (the recess card, ◆) — supplied states only"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Plate of the session clock, or caption of the recess (fictional, as supplied)"
+            }
+          },
+          "required": [
+            "kind",
+            "text"
+          ],
+          "description": "Place"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "The two places on the session panel: the session clock (● session active, its plate as supplied) and the recess card (◆ recess, its caption as supplied). Neither is a rule, a problem or an end of the proceedings (array replaces the previous value)"
+      },
+      "exhibits": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Exhibit tag (fictional)"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Exhibits on the low cabinet by the wall, each with its supplied tag (they stay where they lie) (array replaces the previous value)"
+      },
+      "clock": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23,
+            "description": "Hour shown by the hands (fictional, 0–23)"
+          },
+          "minute": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 59,
+            "description": "Minute shown by the hands (fictional)"
+          }
+        },
+        "required": [
+          "hour",
+          "minute"
+        ],
+        "description": "The session clock (fictional time, as supplied): its hands run and stop at this time"
+      },
+      "sequence": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Index in `statements`"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Order of the two places along the panel (indices in `statements`): a sequence as configured (illustrative), not a rule (array replaces the previous value)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "positions": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of the floor rings (the participants keep their positions, as supplied)"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the order of the places (keep \"as configured\")"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "positions",
+          "sequence",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "State of A (as supplied)"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Optional one-line description of A"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A: the session stays active (● its session clock keeps running), with an optional one-line caption"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "State of B (as supplied)"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Optional one-line description of B"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B: a recess (◆): the session clock stops at the supplied time, the recess card is connected and the positions are kept, with an optional one-line caption"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 130,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Facts that stay identical in both rooms (drawn once) (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label of the guide linking the changed place"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (nothing follows from the difference)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "hearing": {
+      "room": "Hearing room 4 (fictional)"
+    },
+    "speakers": [
+      {
+        "label": "Participant A"
+      },
+      {
+        "label": "Participant B"
+      },
+      {
+        "label": "Participant C"
+      }
+    ],
+    "operator": 0,
+    "statements": [
+      {
+        "kind": "active",
+        "text": "Session clock (as supplied)"
+      },
+      {
+        "kind": "recess",
+        "text": "Recess from 10:40 (as supplied)"
+      }
+    ],
+    "exhibits": [
+      "Exhibit 1: binder of papers"
+    ],
+    "clock": {
+      "hour": 10,
+      "minute": 40
+    },
+    "sequence": [
+      0,
+      1
+    ],
+    "labels": {
+      "positions": "Positions kept (as supplied)",
+      "sequence": "Sequence as configured (illustrative)",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "scenarioA": {
+      "label": "Session active (as supplied)"
+    },
+    "scenarioB": {
+      "label": "Recess (as supplied)"
+    },
+    "changedFact": "Only whether the session is active or in recess differs",
+    "sharedFacts": [],
+    "comparisonLabels": {
+      "guide": "The one supplied difference",
+      "neutral": "Neither room is preferred"
+    }
+  }
+}

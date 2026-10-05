@@ -1,0 +1,585 @@
+{
+  "id": "LAW-0315",
+  "slug": "hearings-09-contrast",
+  "title": "Closing arguments — argument A and argument B laid out in two identical rooms",
+  "titleEs": "Conclusiones de las partes — Comparación de dos supuestos",
+  "category": "hearings",
+  "categoryName": "Audiencias y desarrollo del juicio",
+  "motif": "Conclusiones de las partes",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical generic hearing rooms: the same participants, the same identical lecterns, the same empty argument board and the same exhibits. At the same moment one supplied difference is introduced: in A party A lays out card A (●) at its place on the board, in B party B lays out card B (◆) at its place. The same action then runs in both rooms at the same pace: lines run from the card to the exhibits that argument invokes, as supplied. A guide links the two cards. A link only means \"invoked by the party (as supplied)\"; no winner, score, stronger side or outcome; nothing is proved or weighed.",
+  "tags": [
+    "hearing",
+    "closing arguments",
+    "contrast",
+    "two rooms",
+    "argument A",
+    "argument B",
+    "exhibits",
+    "invoked as supplied",
+    "equal weight",
+    "evidence table",
+    "sequence as configured"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/hearings/kits/conclusiones-partes.js",
+    "src/animations/hearings/kits/hearings-art.js",
+    "src/animations/hearings/kits/apertura-audiencia.js",
+    "src/animations/courts/kits/courts-art.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "hearing": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "room": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the room (fictional)"
+          }
+        },
+        "required": [
+          "room"
+        ],
+        "description": "Generic, fictional hearing room"
+      },
+      "speakers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Label of this participant (as supplied)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed (never tied to a role)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Participant"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Participants (generic, fictional): the two parties stand at the two identical lecterns, any others sit facing the board. No rank, role rule or order of speaking is implied (array replaces the previous value)"
+      },
+      "parties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Index of the party of argument A"
+          },
+          "b": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Index of the party of argument B"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Which participants are the two parties (indices in `speakers`): a puts forward argument A (●), b argument B (◆)"
+      },
+      "statements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "side": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "a (argument A, ●) or b (argument B, ◆)"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 70,
+              "description": "Argument text (fictional, as supplied)"
+            }
+          },
+          "required": [
+            "side",
+            "text"
+          ],
+          "description": "Argument"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "The two arguments on the board, one per party (fictional, as supplied). Neither is weighed, preferred or decided (array replaces the previous value)"
+      },
+      "exhibits": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Exhibit tag (fictional)"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Exhibits lying on the evidence table, numbered in this order (fictional tags) (array replaces the previous value)"
+      },
+      "links": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index in `exhibits`"
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "description": "Exhibits invoked in argument A (as supplied) (array replaces the previous value)"
+          },
+          "b": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index in `exhibits`"
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "description": "Exhibits invoked in argument B (as supplied) (array replaces the previous value)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "The exhibits each argument invokes (indices in `exhibits`, as supplied). A link means only \"invoked by the party (as supplied)\" — never that anything is proved or supported"
+      },
+      "sequence": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Index in `statements`"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Order of the two arguments along the board (indices in `statements`): a sequence as configured (illustrative), never an order of speaking (array replaces the previous value)"
+      },
+      "states": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of ● (invoked in argument A, as supplied)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Caption of ◆ (invoked in argument B, as supplied)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Captions of the two link markers (equal weight)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sequence": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the order of the cards on the board (keep \"as configured\")"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "sequence",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Name of scenario A (as supplied)"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Optional one-line description of A"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A: argument A (●) is laid out and linked to the exhibits it invokes, with an optional one-line caption"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Name of scenario B (as supplied)"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Optional one-line description of B"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B: argument B (◆) is laid out and linked to the exhibits it invokes, with an optional one-line caption"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 130,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Facts that stay identical in both rooms (drawn once) (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label of the guide linking the two cards"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (nothing follows from the difference)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "hearing": {
+      "room": "Hearing room 2 (fictional)"
+    },
+    "speakers": [
+      {
+        "label": "Party A"
+      },
+      {
+        "label": "Party B"
+      },
+      {
+        "label": "Participant C"
+      }
+    ],
+    "parties": {
+      "a": 0,
+      "b": 1
+    },
+    "statements": [
+      {
+        "side": "a",
+        "text": "Argument A: the parcel was handed over (as supplied)"
+      },
+      {
+        "side": "b",
+        "text": "Argument B: the parcel was not handed over (as supplied)"
+      }
+    ],
+    "exhibits": [
+      "Exhibit 1: delivery note",
+      "Exhibit 2: email from the depot",
+      "Exhibit 3: gate camera log"
+    ],
+    "links": {
+      "a": [
+        0,
+        1
+      ],
+      "b": [
+        1,
+        2
+      ]
+    },
+    "sequence": [
+      0,
+      1
+    ],
+    "states": {
+      "a": "Invoked in argument A (as supplied)",
+      "b": "Invoked in argument B (as supplied)"
+    },
+    "labels": {
+      "sequence": "Order on the board as configured (illustrative)",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "scenarioA": {
+      "label": "Argument A laid out (as supplied)"
+    },
+    "scenarioB": {
+      "label": "Argument B laid out (as supplied)"
+    },
+    "changedFact": "Only which argument is laid out, and the exhibits it invokes, differs",
+    "sharedFacts": [],
+    "comparisonLabels": {
+      "guide": "The one supplied difference",
+      "neutral": "Neither argument is preferred"
+    }
+  }
+}

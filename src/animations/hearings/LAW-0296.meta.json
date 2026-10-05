@@ -1,0 +1,584 @@
+{
+  "id": "LAW-0296",
+  "slug": "hearings-04-inspect",
+  "title": "Contrasting questions — inspecting the supplied source of one answer and substituting it",
+  "titleEs": "Preguntas de contraste — Inspección y cambio de un dato",
+  "category": "hearings",
+  "categoryName": "Audiencias y desarrollo del juicio",
+  "motif": "Preguntas de contraste",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The generic hearing room after two answers lined up on the rail, the supplied differing words marked the same way in both. A lens opens on one answer's card (a real enlarged copy of the same room coordinates, with the other answer beside it) and one supplied datum is substituted: the source of that answer (previous ↔ current). The old value moves, unchanged, to a dock as \"was\"; the new value arrives; only its dependent state follows (the card's cue). The context returns with a neutral changed-datum marker. Fictional and illustrative; nothing is assessed.",
+  "tags": [
+    "hearing",
+    "contrasting questions",
+    "inspect",
+    "lens",
+    "previous answer",
+    "current answer",
+    "textual difference",
+    "substitution",
+    "changed datum",
+    "turn rail",
+    "witness box",
+    "room plan"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/hearings/kits/preguntas-contraste.js",
+    "src/animations/hearings/kits/interrogatorio-directo.js",
+    "src/animations/hearings/kits/exposicion-inicial.js",
+    "src/animations/hearings/kits/hearings-art.js",
+    "src/animations/hearings/kits/apertura-audiencia.js",
+    "src/animations/courts/kits/courts-art.js",
+    "src/primitives/markers.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "hearing": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "room": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the room (fictional)"
+          }
+        },
+        "required": [
+          "room"
+        ],
+        "description": "Generic, fictional hearing room"
+      },
+      "speakers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Label of this participant (as supplied)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed (never tied to a role)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Participant"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Participants (generic, fictional): one asks, one answers from the witness box, the others sit at the shared table. No rank, role rules or speaking order is implied (array replaces the previous value)"
+      },
+      "questioner": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 3,
+        "description": "Index in `speakers` of the participant who puts the questions and lays out the previous answer (generic)"
+      },
+      "witness": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 3,
+        "description": "Index in `speakers` of the participant in the witness box who gives the current answer (generic)"
+      },
+      "statements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "question",
+                "previous",
+                "current"
+              ],
+              "description": "question, previous (previous answer, ●) or current (current answer, ◆) — supplied sources only, never an assessment"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Text of the turn (fictional)"
+            },
+            "exhibit": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Optional: index in `exhibits` the turn comes from or refers to (as supplied)"
+            }
+          },
+          "required": [
+            "kind",
+            "text"
+          ],
+          "description": "Turn"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Turns on the rail: a question, a PREVIOUS answer (as supplied, from a written record) or the CURRENT answer (given now). Nothing is assessed (array replaces the previous value)"
+      },
+      "exhibits": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Exhibit tag (fictional)"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Exhibits on the low cabinet by the wall, each with its supplied tag (array replaces the previous value)"
+      },
+      "sequence": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4,
+          "description": "Index in `statements`"
+        },
+        "minItems": 1,
+        "maxItems": 5,
+        "description": "Order in which the turns reach the rail (indices in `statements`): a sequence as configured (illustrative), not a rule. Turns left out follow in list order (array replaces the previous value)"
+      },
+      "difference": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "previous": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Words as they appear in the previous answer"
+          },
+          "current": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Words as they appear in the current answer"
+          }
+        },
+        "required": [
+          "previous",
+          "current"
+        ],
+        "description": "The one textual difference supplied by the author: the words that differ, as they appear in the previous and in the current answer (marked the same way in both; nothing is concluded from it)"
+      },
+      "states": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "previous": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption of ● (previous answer, as supplied)"
+          },
+          "current": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption of ◆ (current answer, as supplied)"
+          }
+        },
+        "required": [
+          "previous",
+          "current"
+        ],
+        "description": "Captions of the two supplied sources of an answer"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption of a question"
+          },
+          "difference": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the highlight (keep it a textual difference, as supplied)"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the order of the turns (keep \"as configured\")"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "question",
+          "difference",
+          "sequence",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "answer-source"
+        ],
+        "description": "Detail that is enlarged and substituted: the supplied source of one answer on the rail (its cue follows it)"
+      },
+      "focusItem": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 4,
+        "description": "Index in `statements` of the answer whose supplied source is substituted"
+      },
+      "beforeState": {
+        "type": "string",
+        "enum": [
+          "previous",
+          "current"
+        ],
+        "description": "Which supplied source the BEFORE value is: \"previous\" (● previous answer) or \"current\" (◆ current answer); the AFTER value takes the other one"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 50,
+        "description": "Source shown on the card before the substitution (as supplied)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 50,
+        "description": "Source shown on the card after the substitution (the alternative datum, as supplied)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Largest magnification of the lens, relative to the context at rest (never below 1.5)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Alignment of the lens inside the space it opens in"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [
+          "context",
+          "marker"
+        ],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "hearing": {
+      "room": "Hearing room 4 (fictional)"
+    },
+    "speakers": [
+      {
+        "label": "Questioner (fictional)"
+      },
+      {
+        "label": "Witness (fictional)"
+      },
+      {
+        "label": "Participant C"
+      }
+    ],
+    "questioner": 0,
+    "witness": 1,
+    "statements": [
+      {
+        "kind": "question",
+        "text": "What colour was the van?"
+      },
+      {
+        "kind": "previous",
+        "text": "The van was grey",
+        "exhibit": 0
+      },
+      {
+        "kind": "current",
+        "text": "The van was white"
+      }
+    ],
+    "exhibits": [
+      "Exhibit 1: earlier written answer"
+    ],
+    "sequence": [
+      0,
+      1,
+      2
+    ],
+    "difference": {
+      "previous": "grey",
+      "current": "white"
+    },
+    "states": {
+      "previous": "Previous answer (as supplied)",
+      "current": "Current answer (as supplied)"
+    },
+    "labels": {
+      "question": "Question (as supplied)",
+      "difference": "Words that differ (as supplied)",
+      "sequence": "Sequence as configured (illustrative)",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "focusItem": 1,
+    "beforeState": "previous",
+    "beforeValue": "Previous answer (as supplied)",
+    "afterValue": "Current answer (as supplied)",
+    "contextLabels": {
+      "context": "The room after the two answers lined up (as supplied)",
+      "marker": "Changed: one datum, the source of the second turn"
+    },
+    "focusTarget": "answer-source",
+    "detailGeometry": {
+      "zoom": 2.6,
+      "placement": "auto"
+    }
+  }
+}

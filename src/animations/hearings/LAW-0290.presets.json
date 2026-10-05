@@ -1,0 +1,376 @@
+{
+  "animationId": "LAW-0290",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; forms, turns, exhibits and order are as supplied and carry no legal assessment (no examination rules, objection, admissibility, credibility, weight or outcome).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Exploded plan with the default pieces: the questioner puts the turns to the witness (communication), the turns advance from the witness box onto the rail (sequence as configured) and the exhibit is referred to on the rail (relation); the tracer visits questioner, witness box and rail.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four participants, another questioner and witness, five turns and two exhibits; another order of the relationships, other captions, a traversal from the exhibit to the questioner and the rail as focus.",
+      "params": {
+        "hearing": {
+          "room": "Meeting room E (fictional)"
+        },
+        "speakers": [
+          {
+            "label": "Participant A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 3,
+              "outfit": 2
+            }
+          },
+          {
+            "label": "Participant B",
+            "appearance": {
+              "skin": 4,
+              "hair": "buzz",
+              "hairColor": 5,
+              "outfit": 0,
+              "glasses": true
+            }
+          },
+          {
+            "label": "Participant C",
+            "appearance": {
+              "skin": 2,
+              "hair": "curly",
+              "hairColor": 1,
+              "outfit": 4
+            }
+          },
+          {
+            "label": "Participant D",
+            "appearance": {
+              "skin": 3,
+              "hair": "bun",
+              "hairColor": 2,
+              "outfit": 7
+            }
+          }
+        ],
+        "questioner": 2,
+        "witness": 0,
+        "statements": [
+          {
+            "kind": "question",
+            "text": "When did the shop open?",
+            "form": "plain"
+          },
+          {
+            "kind": "answer",
+            "text": "At nine, as usual",
+            "form": "bounded",
+            "exhibit": 1
+          },
+          {
+            "kind": "question",
+            "text": "Tell us about the delivery",
+            "form": "open"
+          },
+          {
+            "kind": "answer",
+            "text": "It arrived after ten",
+            "form": "plain"
+          },
+          {
+            "kind": "answer",
+            "text": "The van was white",
+            "form": "bounded",
+            "exhibit": 0
+          }
+        ],
+        "exhibits": [
+          "Exhibit 1: delivery log",
+          "Exhibit 2: shop rota"
+        ],
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "states": {
+          "open": "Open-ended (as supplied)",
+          "bounded": "Short and bounded (as supplied)"
+        },
+        "labels": {
+          "question": "Question (as supplied)",
+          "answer": "Answer (as supplied)",
+          "sequence": "Order as configured (illustrative)",
+          "key": "As supplied · no conclusion drawn"
+        },
+        "relationships": [
+          {
+            "from": "witnessBox",
+            "to": "rail",
+            "kind": "sequence"
+          },
+          {
+            "from": "questioner",
+            "to": "witnessBox",
+            "kind": "communication"
+          },
+          {
+            "from": "exhibit",
+            "to": "rail",
+            "kind": "relation"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Linked (as supplied)",
+          "communication": "Directed to (as supplied)",
+          "sequence": "Order as configured (illustrative)",
+          "causal": "Causal link (as supplied)"
+        },
+        "traversalOrder": [
+          "exhibit",
+          "rail",
+          "witnessBox",
+          "questioner"
+        ],
+        "focusElement": "rail"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths: four participants with long labels, five turns, two exhibits, long element labels, four relationships with long captions and a four-step traversal.",
+      "coordinatorDecision": "Standing coordinator rule (AUTHORING item 20). TRUE DRIVER: the exploded plan keeps every caption beside its own line and every label nearer its own piece; with six near-maximum turns listed in the panel, four 45–49 character participant labels, 33–45 character element labels and a fourth relationship, the panel overflows at 16:9 and 1:1 and, at 1:1, the questioner label and a fourth relationship caption find no free floor. Tried before capping (text 22.5 down to 16.4 px at every ratio): text column and bands of 2–4 columns, room width searched with narrower card wrapping, room scales, table beside or below the witness box, label/badge orders. Rendered BEFORE (hold, 1080p): 16:9 16.4 px / people 80.6 px with panel-overflow; 9:16 19.8 / 84.0; 1:1 16.4 / 75.5 with panel-overflow. AFTER the cap (five turns of 30–36 characters, participant labels 35–37, element labels 30–41, three relationships with 37–54 character captions, a three-step traversal): 16:9 17.1 / 80.4; 9:16 19.8 / 87.7; 1:1 16.4 / 53.5 (1:1 stress floor 45 px); no problems. Every capped field stays longer than its baseline. Pre-cap preset: production/scratch/hearings-03/LAW-0290.presets.precap.json.",
+      "params": {
+        "hearing": {
+          "room": "Multipurpose hearing room 3, second floor, east (fict.)"
+        },
+        "speakers": [
+          {
+            "label": "Participant A, at the counter (fict.)"
+          },
+          {
+            "label": "Participant B, in the box (fictional)"
+          },
+          {
+            "label": "Participant C, at the table (fict.)"
+          },
+          {
+            "label": "Participant D, by the window (fict.)"
+          }
+        ],
+        "questioner": 0,
+        "witness": 1,
+        "statements": [
+          {
+            "kind": "question",
+            "text": "What did you see from the side door?",
+            "form": "open"
+          },
+          {
+            "kind": "answer",
+            "text": "A grey van stopped at the gate",
+            "form": "bounded"
+          },
+          {
+            "kind": "question",
+            "text": "Where exactly were you standing?",
+            "form": "plain"
+          },
+          {
+            "kind": "answer",
+            "text": "By the side door, near the bay",
+            "form": "plain",
+            "exhibit": 0
+          },
+          {
+            "kind": "question",
+            "text": "What happened after the van stopped?",
+            "form": "open"
+          }
+        ],
+        "exhibits": [
+          "Exhibit 1: site plan, side door marked (fict.)",
+          "Exhibit 2: photo of the loading bay (fictional)"
+        ],
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "states": {
+          "open": "Open question, as supplied in this example",
+          "bounded": "Bounded answer, as supplied in this example"
+        },
+        "labels": {
+          "question": "Question, form not marked (as supplied, fict.)",
+          "answer": "Answer, form not marked (as supplied, fict.)",
+          "sequence": "Order of the turns on the rail: a sequence as configured by the author (illustrative)",
+          "key": "Forms, turns and order are shown exactly as supplied by the author · no conclusion drawn"
+        },
+        "elements": [
+          {
+            "id": "room",
+            "label": "The multipurpose hearing room (fictional)"
+          },
+          {
+            "id": "questioner",
+            "label": "Questioner with the question slips"
+          },
+          {
+            "id": "witnessBox",
+            "label": "Witness box with the turn tray"
+          },
+          {
+            "id": "rail",
+            "label": "Turn rail: the turns in their order"
+          },
+          {
+            "id": "clock",
+            "label": "Wall clock (support only; no time span)"
+          },
+          {
+            "id": "exhibit",
+            "label": "Low cabinet with the two exhibits"
+          },
+          {
+            "id": "participants",
+            "label": "Other participants at the shared table"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "questioner",
+            "to": "witnessBox",
+            "kind": "communication"
+          },
+          {
+            "from": "witnessBox",
+            "to": "rail",
+            "kind": "sequence"
+          },
+          {
+            "from": "exhibit",
+            "to": "rail",
+            "kind": "relation"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Referred to by an answer (as supplied here)",
+          "communication": "Put to or shown to (as supplied here)",
+          "sequence": "Turns advance: a sequence as configured (illustrative)",
+          "causal": "Causal link (only as supplied here)"
+        },
+        "traversalOrder": [
+          "questioner",
+          "witnessBox",
+          "rail"
+        ],
+        "focusElement": "witnessBox"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "hearing": {
+          "room": "Sala de audiencias 3 (ficticia)"
+        },
+        "speakers": [
+          {
+            "label": "Persona que pregunta (ficticia)"
+          },
+          {
+            "label": "Testigo (ficticio)"
+          },
+          {
+            "label": "Participante C"
+          }
+        ],
+        "questioner": 0,
+        "witness": 1,
+        "statements": [
+          {
+            "kind": "question",
+            "text": "¿Qué vio aquella mañana?",
+            "form": "open"
+          },
+          {
+            "kind": "answer",
+            "text": "Una furgoneta gris en la verja",
+            "form": "bounded"
+          },
+          {
+            "kind": "question",
+            "text": "¿Dónde se encontraba?",
+            "form": "plain"
+          },
+          {
+            "kind": "answer",
+            "text": "Junto a la puerta lateral",
+            "form": "plain",
+            "exhibit": 0
+          }
+        ],
+        "exhibits": [
+          "Prueba 1: plano del lugar"
+        ],
+        "sequence": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "states": {
+          "open": "Pregunta abierta",
+          "bounded": "Respuesta delimitada"
+        },
+        "labels": {
+          "question": "Pregunta (según lo aportado)",
+          "answer": "Respuesta (según lo aportado)",
+          "sequence": "Turnos en el riel: secuencia según lo configurado (ilustrativa)",
+          "key": "Según lo aportado · sin conclusión"
+        },
+        "elements": [
+          {
+            "id": "room",
+            "label": "La sala (ficticia)"
+          },
+          {
+            "id": "questioner",
+            "label": "Quien pregunta y sus hojas"
+          },
+          {
+            "id": "witnessBox",
+            "label": "Estrado y bandeja"
+          },
+          {
+            "id": "rail",
+            "label": "Riel de turnos: los turnos en orden"
+          },
+          {
+            "id": "clock",
+            "label": "Reloj de pared (soporte)"
+          },
+          {
+            "id": "exhibit",
+            "label": "Armario de pruebas"
+          },
+          {
+            "id": "participants",
+            "label": "Participantes en la mesa común"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Referido (según lo aportado)",
+          "communication": "Se dirige a (según lo aportado)",
+          "sequence": "Secuencia según lo configurado (ilustrativa)",
+          "causal": "Vínculo causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}
