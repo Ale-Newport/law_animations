@@ -1,0 +1,96 @@
+{
+  "animationId": "LAW-0718",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). The total and every value are hypothetical placeholders labelled as such. Only the supplied relationships are drawn; a plain relation has no arrowhead and a causal link appears only when supplied. No share rule, percentage, apportionment doctrine, fault, liability or outcome is stated; the two supplied allocations are drawn at equal weight.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The four parts of the division (loss, barriers, connectors, events) pulled apart; loss related to barriers, then barriers → connectors → events in sequence; the barriers enlarge as the tracer passes.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four events, a supplied causal link from the barriers to the connectors, a plain relation between loss and events, the connectors as focus and a different traversal order.",
+      "params": {
+        "losses": [{"label": "Total repair bill (hypothetical)"}],
+        "events": [
+          {"label": "Event 1 (fictional): a valve sticks", "valueA": 30, "valueB": 20},
+          {"label": "Event 2 (fictional): a hose splits", "valueA": 30, "valueB": 40},
+          {"label": "Event 3 (fictional): a gauge misreads", "valueA": 25, "valueB": 15},
+          {"label": "Event 4 (fictional): a lid is left off", "valueA": 15, "valueB": 25}
+        ],
+        "causalLinks": [{"from": 1, "kind": "relation", "status": "disputed", "label": "link to the hose contested"}],
+        "alternatives": [{"label": "A different list of events put forward", "status": "alleged"}],
+        "elements": [
+          {"id": "loss", "label": "Loss: the repair bill"},
+          {"id": "barriers", "label": "Barriers: three blades"},
+          {"id": "connectors", "label": "Connectors: four rails"},
+          {"id": "events", "label": "Events: four trays"}
+        ],
+        "relationships": [
+          {"from": "loss", "to": "barriers", "kind": "relation"},
+          {"from": "barriers", "to": "connectors", "kind": "causal"},
+          {"from": "connectors", "to": "events", "kind": "sequence"},
+          {"from": "loss", "to": "events", "kind": "relation"}
+        ],
+        "focusElement": "connectors",
+        "relationLabels": {"causal": "causal, as supplied by one side"},
+        "traversalOrder": ["events", "loss", "barriers", "connectors"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Stress: near-maximum lengths, four events, two totals described, a labelled connector, two accounts put forward and long part names and relation captions.",
+      "params": {
+        "losses": [{"label": "Total cost of the water damage in the storeroom (hypothetical)"}, {"label": "A separate cleaning invoice was mentioned, not supplied in full"}],
+        "events": [
+          {"label": "Event 1 (fictional): the upstairs pipe joint gives out", "valueA": 40, "valueB": 30},
+          {"label": "Event 2 (fictional): the metal storage shelf gives way", "valueA": 30, "valueB": 40},
+          {"label": "Event 3 (fictional): the storeroom door is left open", "valueA": 20, "valueB": 15},
+          {"label": "Event 4 (fictional): the floor drain is found blocked", "valueA": 10, "valueB": 15}
+        ],
+        "causalLinks": [{"from": 2, "kind": "sequence", "status": "disputed", "label": "order as given in the caretaker's notes"}],
+        "alternatives": [
+          {"label": "A different order of the first two events put forward", "status": "alleged"},
+          {"label": "A fifth event (a power cut) put forward by the tenant", "status": "proposed"}
+        ],
+        "unit": "hypothetical units",
+        "allocationLabels": {"a": "Proposed allocation (first list as supplied)", "b": "Alternative allocation (second list as supplied)"},
+        "elements": [
+          {"id": "loss", "label": "Loss: the hypothetical total of the storeroom"},
+          {"id": "barriers", "label": "Barriers: the blades at each boundary"},
+          {"id": "connectors", "label": "Connectors: one guide rail for each event"},
+          {"id": "events", "label": "Events: one numbered tray for each event"}
+        ],
+        "relationships": [
+          {"from": "loss", "to": "barriers", "kind": "relation"},
+          {"from": "barriers", "to": "connectors", "kind": "sequence"},
+          {"from": "connectors", "to": "events", "kind": "sequence"}
+        ],
+        "focusElement": "barriers",
+        "relationLabels": {"relation": "related exactly as supplied", "communication": "communication exactly as supplied", "sequence": "then, in the order supplied", "causal": "causal, exactly as supplied"},
+        "traversalOrder": ["loss", "barriers", "connectors", "events"]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "losses": [{"label": "Pérdida total (hipotética)"}],
+        "events": [
+          {"label": "Evento 1 (ficticio): gotea una tubería", "valueA": 40, "valueB": 30},
+          {"label": "Evento 2 (ficticio): cede un estante", "valueA": 35, "valueB": 45},
+          {"label": "Evento 3 (ficticio): queda abierta una puerta", "valueA": 25, "valueB": 25}
+        ],
+        "unit": "hipotético",
+        "allocationLabels": {"a": "Asignación propuesta", "b": "Asignación alternativa"},
+        "elements": [
+          {"id": "loss", "label": "Pérdida: el total hipotético"},
+          {"id": "barriers", "label": "Barreras: cuchillas en los límites"},
+          {"id": "connectors", "label": "Conectores: una guía por evento"},
+          {"id": "events", "label": "Eventos: una bandeja cada uno"}
+        ]
+      }
+    }
+  ]
+}

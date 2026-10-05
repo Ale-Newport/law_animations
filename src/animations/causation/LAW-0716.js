@@ -187,16 +187,17 @@ function tagArt(ctx, m, x, y, P, textOn) {
 function zoneGeom(M, PH, tg, rec, RW, arr, minW, tagSide = false) {
   // the field stands right of the tag; the focus step stands at the lanes' start, midway between them, with a short
   // LEADER to the lane it is supplied for (the datum); the tag hangs at the slab's left, level with it
-  const G = fieldGeom(tg.w + 30, 0, PH);
+  // (tagSide false — tall boxes: the tag hangs ABOVE the slab's left end instead, and the field takes the width)
+  const G = fieldGeom(tagSide ? tg.w + 30 : 0, 0, PH);
   const fx = G.xs + 0.16 * PH;
   const ih = G.itemS * ITEM_K, iw = ih * 0.82;
   const sy = G.cy + ih / 2; // the step's base
   // the leader's two ends: the lower edge of lane A's strip, the upper edge of lane B's strip
   const ys = [G.yA + G.LT, G.yB - G.LT];
   const itemTop = sy - ih;
-  const tagX = 6;
-  const tagY = Math.min(G.cy - tg.h / 2, -tg.h - 12);
-  let right = G.x1 + 12;
+  const tagX = tagSide ? 6 : G.x0 + 6;
+  const tagY = tagSide ? Math.min(G.cy - tg.h / 2, -tg.h - 12) : G.slabTop - 12 - tg.h;
+  let right = Math.max(G.x1, tagX + tg.w) + 12;
   let recX = null, recY = null, recTop = 0;
   if (arr === 'side' || arr === 'stack2') {
     recX = right + 30;
@@ -206,8 +207,7 @@ function zoneGeom(M, PH, tg, rec, RW, arr, minW, tagSide = false) {
   }
   if (right < minW) right = minW;
   const top = Math.min(tagY - tg.hole * 1.45, G.top, arr === 'side' || arr === 'stack2' ? recTop : 0);
-  void tagSide;
-  return {G, fx, ys, sy, iw, ih, itemTop, tagX, tagY, recX, recY, zW: right + 6, zH: -top + 16, top, tagSide: true};
+  return {G, fx, ys, sy, iw, ih, itemTop, tagX, tagY, recX, recY, zW: right + 6, zH: -top + 16, top, tagSide};
 }
 
 /** A slot pad on the slab (● / ◆, identical shape and weight) under a step position `at`. */
@@ -226,6 +226,7 @@ function stringD(L, y) {
 
 /** The tag's tie: from the tag's right edge (fixed) to the step's left side (fixed). */
 function tieD(L) {
+  if (!L.tagSide) return `M${r(L.fxw)} ${r(L.tagAt.y + L.tg.h)}L${r(L.fxw)} ${r(L.syw - L.zg0.ih)}`;
   return `M${r(L.tagAt.x + L.tg.w)} ${r(L.tagAt.y + L.tg.h / 2)}L${r(L.fxw - L.zg0.iw / 2 - 2)} ${r(L.syw - L.zg0.ih / 2)}`;
 }
 
@@ -309,7 +310,7 @@ function compose(ctx, base, cfg) {
     const G = zg.G;
     // (the tag, the step and both leader ends with their slot pads: the moving leader stays in view)
     const c0 = {x: zg.tagX - 6, y: Math.min(zg.tagY, zg.ys[0] - G.LT * 0.6) - 6};
-    const c1 = {x: zg.fx + zg.iw / 2 + G.headS + 10, y: Math.max(zg.tagY + tg.h, zg.ys[1] + G.LT * 0.6) + 6};
+    const c1 = {x: Math.max(zg.tagX + tg.w, zg.fx + zg.iw / 2 + G.headS) + 10, y: Math.max(zg.tagY + tg.h, zg.ys[1] + G.LT * 0.6) + 6};
     let crop = {x: c0.x, y: c0.y, w: c1.x - c0.x, h: c1.y - c0.y};
     // (a crop narrower than the room widens, centred, up to 1.6× — so the open lens spans the room)
     const ar = room.w / room.h;
@@ -437,7 +438,7 @@ const scene = {
       }
     }
     L.F = F; L.zx = zx;
-    L.Gw = fieldGeom(zx, F, L.PH);
+    L.Gw = fieldGeom(zx + (L.tagSide ? L.tg.w + 30 : 0), F, L.PH);
     L.places = itemPlaces(L.Gw, M, [fi], 0.42);
     L.fxw = zx + L.fx;
     L.zg0 = {iw: L.iw, ih: L.ih};

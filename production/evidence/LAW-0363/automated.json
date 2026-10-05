@@ -1,0 +1,1458 @@
+{
+  "animationId": "LAW-0363",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0363",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "items.0.label"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "16:9",
+          "k": "handA",
+          "f": 95,
+          "d": 189
+        },
+        {
+          "ratio": "16:9",
+          "k": "handB",
+          "f": 95,
+          "d": 189
+        },
+        {
+          "ratio": "16:9",
+          "k": "penA",
+          "f": 95,
+          "d": 189
+        },
+        {
+          "ratio": "16:9",
+          "k": "penB",
+          "f": 95,
+          "d": 189
+        },
+        {
+          "ratio": "9:16",
+          "k": "handA",
+          "f": 95,
+          "d": 221
+        },
+        {
+          "ratio": "9:16",
+          "k": "handB",
+          "f": 95,
+          "d": 221
+        },
+        {
+          "ratio": "9:16",
+          "k": "penA",
+          "f": 95,
+          "d": 221
+        },
+        {
+          "ratio": "9:16",
+          "k": "penB",
+          "f": 95,
+          "d": 221
+        }
+      ]
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: identical benches, all rows blank @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "handA": {
+            "x": 480.94,
+            "y": 467.25
+          },
+          "handLA": {
+            "x": 134.42,
+            "y": 467.25
+          },
+          "objA": {
+            "x": 207.62,
+            "y": 190.87
+          },
+          "holeA": {
+            "x": 111.55,
+            "y": 363.61
+          },
+          "penA": {
+            "x": 351.73,
+            "y": 388.29
+          },
+          "penGripA": {
+            "x": 382.98,
+            "y": 414.51
+          },
+          "penHeldA": false,
+          "tagGripA": {
+            "x": 170.99,
+            "y": 353.13
+          },
+          "objGripA": {
+            "x": 226.71,
+            "y": 190.87
+          },
+          "steadyA": {
+            "x": 248.18,
+            "y": 190.87
+          },
+          "reachedA": true,
+          "chainLenA": 181.81,
+          "handB": {
+            "x": 1339.8,
+            "y": 467.25
+          },
+          "handLB": {
+            "x": 993.28,
+            "y": 467.25
+          },
+          "objB": {
+            "x": 1066.49,
+            "y": 190.87
+          },
+          "holeB": {
+            "x": 970.41,
+            "y": 363.61
+          },
+          "penB": {
+            "x": 1210.6,
+            "y": 388.29
+          },
+          "penGripB": {
+            "x": 1241.84,
+            "y": 414.51
+          },
+          "penHeldB": false,
+          "tagGripB": {
+            "x": 1029.85,
+            "y": 353.13
+          },
+          "objGripB": {
+            "x": 1085.57,
+            "y": 190.87
+          },
+          "steadyB": {
+            "x": 1107.04,
+            "y": 190.87
+          },
+          "reachedB": true,
+          "chainLenB": 181.81,
+          "lookA": {
+            "obj": {
+              "x": 207.6,
+              "y": 138.9
+            },
+            "hole": {
+              "x": 111.6,
+              "y": 311.6
+            },
+            "tagAngle": -10,
+            "hand": {
+              "x": 480.9,
+              "y": 415.3
+            },
+            "handL": {
+              "x": 134.4,
+              "y": 415.3
+            },
+            "pen": {
+              "x": 351.7,
+              "y": 336.3
+            },
+            "lifted": true,
+            "write": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "inside": false,
+            "attached": false
+          },
+          "lookB": {
+            "obj": {
+              "x": 207.6,
+              "y": 138.9
+            },
+            "hole": {
+              "x": 111.6,
+              "y": 311.6
+            },
+            "tagAngle": -10,
+            "hand": {
+              "x": 480.9,
+              "y": 415.3
+            },
+            "handL": {
+              "x": 134.4,
+              "y": 415.3
+            },
+            "pen": {
+              "x": 351.7,
+              "y": 336.3
+            },
+            "lifted": true,
+            "write": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "inside": false,
+            "attached": false
+          },
+          "guide": 0,
+          "changedRecord": 3,
+          "writtenA": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "writtenB": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 19.5,
+          "S": 119.3,
+          "arrangement": "row",
+          "stages": [
+            {
+              "x": 0,
+              "y": 52,
+              "w": 831.56,
+              "h": 442.25
+            },
+            {
+              "x": 858.86,
+              "y": 52,
+              "w": 831.56,
+              "h": 442.25
+            }
+          ],
+          "chainL": 40.55
+        }
+      }
+    },
+    {
+      "name": "semantic: only the changed row differs (written in A, blank in B) @0.37",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "handA": {
+            "x": 263.18,
+            "y": 398.03
+          },
+          "handLA": {
+            "x": 134.42,
+            "y": 467.25
+          },
+          "objA": {
+            "x": 207.62,
+            "y": 190.87
+          },
+          "holeA": {
+            "x": 111.55,
+            "y": 363.61
+          },
+          "penA": {
+            "x": 231.93,
+            "y": 371.81
+          },
+          "penGripA": {
+            "x": 263.18,
+            "y": 398.03
+          },
+          "penHeldA": true,
+          "tagGripA": {
+            "x": 170.99,
+            "y": 353.13
+          },
+          "objGripA": {
+            "x": 226.71,
+            "y": 190.87
+          },
+          "steadyA": {
+            "x": 248.18,
+            "y": 190.87
+          },
+          "reachedA": true,
+          "chainLenA": 181.81,
+          "handB": {
+            "x": 1122.05,
+            "y": 398.03
+          },
+          "handLB": {
+            "x": 993.28,
+            "y": 467.25
+          },
+          "objB": {
+            "x": 1066.49,
+            "y": 190.87
+          },
+          "holeB": {
+            "x": 970.41,
+            "y": 363.61
+          },
+          "penB": {
+            "x": 1090.8,
+            "y": 371.81
+          },
+          "penGripB": {
+            "x": 1122.05,
+            "y": 398.03
+          },
+          "penHeldB": true,
+          "tagGripB": {
+            "x": 1029.85,
+            "y": 353.13
+          },
+          "objGripB": {
+            "x": 1085.57,
+            "y": 190.87
+          },
+          "steadyB": {
+            "x": 1107.04,
+            "y": 190.87
+          },
+          "reachedB": true,
+          "chainLenB": 181.81,
+          "lookA": {
+            "obj": {
+              "x": 207.6,
+              "y": 138.9
+            },
+            "hole": {
+              "x": 111.6,
+              "y": 311.6
+            },
+            "tagAngle": -10,
+            "hand": {
+              "x": 263.2,
+              "y": 346
+            },
+            "handL": {
+              "x": 134.4,
+              "y": 415.3
+            },
+            "pen": {
+              "x": 231.9,
+              "y": 319.8
+            },
+            "lifted": true,
+            "write": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "inside": false,
+            "attached": false
+          },
+          "lookB": {
+            "obj": {
+              "x": 207.6,
+              "y": 138.9
+            },
+            "hole": {
+              "x": 111.6,
+              "y": 311.6
+            },
+            "tagAngle": -10,
+            "hand": {
+              "x": 263.2,
+              "y": 346
+            },
+            "handL": {
+              "x": 134.4,
+              "y": 415.3
+            },
+            "pen": {
+              "x": 231.9,
+              "y": 319.8
+            },
+            "lifted": true,
+            "write": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "inside": false,
+            "attached": false
+          },
+          "guide": 0,
+          "changedRecord": 3,
+          "writtenA": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "writtenB": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 19.5,
+          "S": 119.3,
+          "arrangement": "row",
+          "stages": [
+            {
+              "x": 0,
+              "y": 52,
+              "w": 831.56,
+              "h": 442.25
+            },
+            {
+              "x": 858.86,
+              "y": 52,
+              "w": 831.56,
+              "h": 442.25
+            }
+          ],
+          "chainL": 40.55
+        }
+      }
+    },
+    {
+      "name": "semantic: the tag-and-bag action runs identically in parallel @0.6",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "parallel",
+          "handA": {
+            "x": 240.96,
+            "y": 258.7
+          },
+          "handLA": {
+            "x": 248.18,
+            "y": 190.87
+          },
+          "objA": {
+            "x": 207.62,
+            "y": 190.87
+          },
+          "holeA": {
+            "x": 191.52,
+            "y": 224.09
+          },
+          "penA": {
+            "x": 351.73,
+            "y": 388.29
+          },
+          "penGripA": {
+            "x": 382.98,
+            "y": 414.51
+          },
+          "penHeldA": false,
+          "tagGripA": {
+            "x": 240.96,
+            "y": 258.7
+          },
+          "objGripA": {
+            "x": 226.71,
+            "y": 190.87
+          },
+          "steadyA": {
+            "x": 248.18,
+            "y": 190.87
+          },
+          "reachedA": true,
+          "chainLenA": 40.55,
+          "handB": {
+            "x": 1099.82,
+            "y": 258.7
+          },
+          "handLB": {
+            "x": 1107.04,
+            "y": 190.87
+          },
+          "objB": {
+            "x": 1066.49,
+            "y": 190.87
+          },
+          "holeB": {
+            "x": 1050.39,
+            "y": 224.09
+          },
+          "penB": {
+            "x": 1210.6,
+            "y": 388.29
+          },
+          "penGripB": {
+            "x": 1241.84,
+            "y": 414.51
+          },
+          "penHeldB": false,
+          "tagGripB": {
+            "x": 1099.82,
+            "y": 258.7
+          },
+          "objGripB": {
+            "x": 1085.57,
+            "y": 190.87
+          },
+          "steadyB": {
+            "x": 1107.04,
+            "y": 190.87
+          },
+          "reachedB": true,
+          "chainLenB": 40.55,
+          "lookA": {
+            "obj": {
+              "x": 207.6,
+              "y": 138.9
+            },
+            "hole": {
+              "x": 191.5,
+              "y": 172.1
+            },
+            "tagAngle": 35,
+            "hand": {
+              "x": 241,
+              "y": 206.7
+            },
+            "handL": {
+              "x": 248.2,
+              "y": 138.9
+            },
+            "pen": {
+              "x": 351.7,
+              "y": 336.3
+            },
+            "lifted": true,
+            "write": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "inside": false,
+            "attached": true
+          },
+          "lookB": {
+            "obj": {
+              "x": 207.6,
+              "y": 138.9
+            },
+            "hole": {
+              "x": 191.5,
+              "y": 172.1
+            },
+            "tagAngle": 35,
+            "hand": {
+              "x": 241,
+              "y": 206.7
+            },
+            "handL": {
+              "x": 248.2,
+              "y": 138.9
+            },
+            "pen": {
+              "x": 351.7,
+              "y": 336.3
+            },
+            "lifted": true,
+            "write": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "inside": false,
+            "attached": true
+          },
+          "guide": 0,
+          "changedRecord": 3,
+          "writtenA": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "writtenB": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 19.5,
+          "S": 119.3,
+          "arrangement": "row",
+          "stages": [
+            {
+              "x": 0,
+              "y": 52,
+              "w": 831.56,
+              "h": 442.25
+            },
+            {
+              "x": 858.86,
+              "y": 52,
+              "w": 831.56,
+              "h": 442.25
+            }
+          ],
+          "chainL": 40.55
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: both objects bagged with tags attached; guide shown; composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "handA": {
+            "x": 480.94,
+            "y": 467.25
+          },
+          "handLA": {
+            "x": 134.42,
+            "y": 467.25
+          },
+          "objA": {
+            "x": 636.46,
+            "y": 189.59
+          },
+          "holeA": {
+            "x": 620.36,
+            "y": 222.81
+          },
+          "penA": {
+            "x": 351.73,
+            "y": 388.29
+          },
+          "penGripA": {
+            "x": 382.98,
+            "y": 414.51
+          },
+          "penHeldA": false,
+          "tagGripA": {
+            "x": 669.8,
+            "y": 257.43
+          },
+          "objGripA": {
+            "x": 655.55,
+            "y": 189.59
+          },
+          "steadyA": {
+            "x": 248.18,
+            "y": 190.87
+          },
+          "reachedA": true,
+          "chainLenA": 40.55,
+          "handB": {
+            "x": 1339.8,
+            "y": 467.25
+          },
+          "handLB": {
+            "x": 993.28,
+            "y": 467.25
+          },
+          "objB": {
+            "x": 1495.33,
+            "y": 189.59
+          },
+          "holeB": {
+            "x": 1479.23,
+            "y": 222.81
+          },
+          "penB": {
+            "x": 1210.6,
+            "y": 388.29
+          },
+          "penGripB": {
+            "x": 1241.84,
+            "y": 414.51
+          },
+          "penHeldB": false,
+          "tagGripB": {
+            "x": 1528.67,
+            "y": 257.43
+          },
+          "objGripB": {
+            "x": 1514.41,
+            "y": 189.59
+          },
+          "steadyB": {
+            "x": 1107.04,
+            "y": 190.87
+          },
+          "reachedB": true,
+          "chainLenB": 40.55,
+          "lookA": {
+            "obj": {
+              "x": 636.5,
+              "y": 137.6
+            },
+            "hole": {
+              "x": 620.4,
+              "y": 170.8
+            },
+            "tagAngle": 35,
+            "hand": {
+              "x": 480.9,
+              "y": 415.3
+            },
+            "handL": {
+              "x": 134.4,
+              "y": 415.3
+            },
+            "pen": {
+              "x": 351.7,
+              "y": 336.3
+            },
+            "lifted": true,
+            "write": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "inside": true,
+            "attached": true
+          },
+          "lookB": {
+            "obj": {
+              "x": 636.5,
+              "y": 137.6
+            },
+            "hole": {
+              "x": 620.4,
+              "y": 170.8
+            },
+            "tagAngle": 35,
+            "hand": {
+              "x": 480.9,
+              "y": 415.3
+            },
+            "handL": {
+              "x": 134.4,
+              "y": 415.3
+            },
+            "pen": {
+              "x": 351.7,
+              "y": 336.3
+            },
+            "lifted": true,
+            "write": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "inside": true,
+            "attached": true
+          },
+          "guide": 1,
+          "changedRecord": 3,
+          "writtenA": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "writtenB": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 19.5,
+          "S": 119.3,
+          "arrangement": "row",
+          "stages": [
+            {
+              "x": 0,
+              "y": 52,
+              "w": 831.56,
+              "h": 442.25
+            },
+            {
+              "x": 858.86,
+              "y": 52,
+              "w": 831.56,
+              "h": 442.25
+            }
+          ],
+          "chainL": 40.55
+        }
+      }
+    },
+    {
+      "name": "semantic: the supplied changedRecord alone decides the blank row @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "handA": {
+            "x": 480.94,
+            "y": 467.25
+          },
+          "handLA": {
+            "x": 134.42,
+            "y": 467.25
+          },
+          "objA": {
+            "x": 636.46,
+            "y": 189.59
+          },
+          "holeA": {
+            "x": 620.36,
+            "y": 222.81
+          },
+          "penA": {
+            "x": 351.73,
+            "y": 388.29
+          },
+          "penGripA": {
+            "x": 382.98,
+            "y": 414.51
+          },
+          "penHeldA": false,
+          "tagGripA": {
+            "x": 669.8,
+            "y": 257.43
+          },
+          "objGripA": {
+            "x": 655.55,
+            "y": 189.59
+          },
+          "steadyA": {
+            "x": 248.18,
+            "y": 190.87
+          },
+          "reachedA": true,
+          "chainLenA": 40.55,
+          "handB": {
+            "x": 1339.8,
+            "y": 467.25
+          },
+          "handLB": {
+            "x": 993.28,
+            "y": 467.25
+          },
+          "objB": {
+            "x": 1495.33,
+            "y": 189.59
+          },
+          "holeB": {
+            "x": 1479.23,
+            "y": 222.81
+          },
+          "penB": {
+            "x": 1210.6,
+            "y": 388.29
+          },
+          "penGripB": {
+            "x": 1241.84,
+            "y": 414.51
+          },
+          "penHeldB": false,
+          "tagGripB": {
+            "x": 1528.67,
+            "y": 257.43
+          },
+          "objGripB": {
+            "x": 1514.41,
+            "y": 189.59
+          },
+          "steadyB": {
+            "x": 1107.04,
+            "y": 190.87
+          },
+          "reachedB": true,
+          "chainLenB": 40.55,
+          "lookA": {
+            "obj": {
+              "x": 636.5,
+              "y": 137.6
+            },
+            "hole": {
+              "x": 620.4,
+              "y": 170.8
+            },
+            "tagAngle": 35,
+            "hand": {
+              "x": 480.9,
+              "y": 415.3
+            },
+            "handL": {
+              "x": 134.4,
+              "y": 415.3
+            },
+            "pen": {
+              "x": 351.7,
+              "y": 336.3
+            },
+            "lifted": true,
+            "write": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "inside": true,
+            "attached": true
+          },
+          "lookB": {
+            "obj": {
+              "x": 636.5,
+              "y": 137.6
+            },
+            "hole": {
+              "x": 620.4,
+              "y": 170.8
+            },
+            "tagAngle": 35,
+            "hand": {
+              "x": 480.9,
+              "y": 415.3
+            },
+            "handL": {
+              "x": 134.4,
+              "y": 415.3
+            },
+            "pen": {
+              "x": 351.7,
+              "y": 336.3
+            },
+            "lifted": true,
+            "write": [
+              0,
+              1,
+              1,
+              1
+            ],
+            "inside": true,
+            "attached": true
+          },
+          "guide": 1,
+          "changedRecord": 0,
+          "writtenA": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "writtenB": [
+            0,
+            1,
+            1,
+            1
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 19.5,
+          "S": 119.3,
+          "arrangement": "row",
+          "stages": [
+            {
+              "x": 0,
+              "y": 52,
+              "w": 831.56,
+              "h": 442.25
+            },
+            {
+              "x": 858.86,
+              "y": 52,
+              "w": 831.56,
+              "h": 442.25
+            }
+          ],
+          "chainL": 40.55
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the base @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "handA": {
+            "x": 480.94,
+            "y": 467.25
+          },
+          "handLA": {
+            "x": 134.42,
+            "y": 467.25
+          },
+          "objA": {
+            "x": 207.62,
+            "y": 190.87
+          },
+          "holeA": {
+            "x": 111.55,
+            "y": 363.61
+          },
+          "penA": {
+            "x": 351.73,
+            "y": 388.29
+          },
+          "penGripA": {
+            "x": 382.98,
+            "y": 414.51
+          },
+          "penHeldA": false,
+          "tagGripA": {
+            "x": 170.99,
+            "y": 353.13
+          },
+          "objGripA": {
+            "x": 226.71,
+            "y": 190.87
+          },
+          "steadyA": {
+            "x": 248.18,
+            "y": 190.87
+          },
+          "reachedA": true,
+          "chainLenA": 181.81,
+          "handB": {
+            "x": 1339.8,
+            "y": 467.25
+          },
+          "handLB": {
+            "x": 993.28,
+            "y": 467.25
+          },
+          "objB": {
+            "x": 1066.49,
+            "y": 190.87
+          },
+          "holeB": {
+            "x": 970.41,
+            "y": 363.61
+          },
+          "penB": {
+            "x": 1210.6,
+            "y": 388.29
+          },
+          "penGripB": {
+            "x": 1241.84,
+            "y": 414.51
+          },
+          "penHeldB": false,
+          "tagGripB": {
+            "x": 1029.85,
+            "y": 353.13
+          },
+          "objGripB": {
+            "x": 1085.57,
+            "y": 190.87
+          },
+          "steadyB": {
+            "x": 1107.04,
+            "y": 190.87
+          },
+          "reachedB": true,
+          "chainLenB": 181.81,
+          "lookA": {
+            "obj": {
+              "x": 207.6,
+              "y": 138.9
+            },
+            "hole": {
+              "x": 111.6,
+              "y": 311.6
+            },
+            "tagAngle": -10,
+            "hand": {
+              "x": 480.9,
+              "y": 415.3
+            },
+            "handL": {
+              "x": 134.4,
+              "y": 415.3
+            },
+            "pen": {
+              "x": 351.7,
+              "y": 336.3
+            },
+            "lifted": true,
+            "write": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "inside": false,
+            "attached": false
+          },
+          "lookB": {
+            "obj": {
+              "x": 207.6,
+              "y": 138.9
+            },
+            "hole": {
+              "x": 111.6,
+              "y": 311.6
+            },
+            "tagAngle": -10,
+            "hand": {
+              "x": 480.9,
+              "y": 415.3
+            },
+            "handL": {
+              "x": 134.4,
+              "y": 415.3
+            },
+            "pen": {
+              "x": 351.7,
+              "y": 336.3
+            },
+            "lifted": true,
+            "write": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "inside": false,
+            "attached": false
+          },
+          "guide": 0,
+          "changedRecord": 3,
+          "writtenA": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "writtenB": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "allReached": true,
+          "problems": [],
+          "textPx": 19.5,
+          "S": 119.3,
+          "arrangement": "row",
+          "stages": [
+            {
+              "x": 0,
+              "y": 52,
+              "w": 831.56,
+              "h": 442.25
+            },
+            {
+              "x": 858.86,
+              "y": 52,
+              "w": 831.56,
+              "h": 442.25
+            }
+          ],
+          "chainL": 40.55
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Every row of the tag is writte",
+          "px": 12.9
+        },
+        {
+          "text": "One row of the tag is left bla",
+          "px": 12.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "default",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Every row of the tag is writte",
+          "px": 13.2
+        },
+        {
+          "text": "One row of the tag is left bla",
+          "px": 13.2
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Every row of the tag is writte",
+          "px": 12.9
+        },
+        {
+          "text": "One row of the tag is left bla",
+          "px": 12.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-illustrative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Every row of the tag is writte",
+          "px": 13.2
+        },
+        {
+          "text": "One row of the tag is left bla",
+          "px": 13.2
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "The collector row is written",
+          "px": 12.9
+        },
+        {
+          "text": "The collector row is left blan",
+          "px": 12.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "contrast-or-alternative",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "The collector row is written",
+          "px": 13.5
+        },
+        {
+          "text": "The collector row is left blan",
+          "px": 13.5
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Every row of the tag is writte",
+          "px": 12.9
+        },
+        {
+          "text": "The time row of the tag is lef",
+          "px": 12.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Every row of the tag is writte",
+          "px": 12.9
+        },
+        {
+          "text": "The time row of the tag is lef",
+          "px": 12.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "long-labels-stress",
+      "ratio": "1:1",
+      "texts": [
+        {
+          "text": "Every row of the tag is writte",
+          "px": 12.9
+        },
+        {
+          "text": "The time row of the tag is lef",
+          "px": 12.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "16:9",
+      "texts": [
+        {
+          "text": "Todas las filas de la etiqueta",
+          "px": 12.9
+        },
+        {
+          "text": "Una fila de la etiqueta queda ",
+          "px": 12.9
+        }
+      ]
+    },
+    {
+      "kind": "small-text",
+      "preset": "baseline-es",
+      "ratio": "9:16",
+      "texts": [
+        {
+          "text": "Todas las filas de la etiqueta",
+          "px": 13.2
+        },
+        {
+          "text": "Una fila de la etiqueta queda ",
+          "px": 13.2
+        }
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

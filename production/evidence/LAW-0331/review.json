@@ -40,7 +40,7 @@
   "commands": [
     {
       "command": "npx playwright test tests/animations/LAW-0331.test.js --reporter=line",
-      "exitCode": 1
+      "exitCode": 0
     }
   ],
   "structure": {
@@ -65,8 +65,8 @@
     "requiredPresetsPresent": true
   },
   "automatedChecks": {
-    "status": "fail",
-    "exitCode": 1,
+    "status": "pass",
+    "exitCode": 0,
     "checks": 29,
     "failed": [],
     "details": "production/evidence/LAW-0331/automated.json",
@@ -180,11 +180,28 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0331/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0331/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0331/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0331/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0331/sheet-9x16-alternative.png",
+      "production/evidence/LAW-0331/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0331/sheet-16x9-es.png",
+      "production/scratch/rev3-review-03/nolabel-0331.png"
+    ],
+    "findings": [
+      "Step disc fade fixed (no empty white circle); 16:9 and 9:16 stacked rooms read; identical rooms with only supplied state differing, neutral",
+      "1:1 baseline (labels on): the two side-by-side rooms occupy only the top ~30% of the frame (y~0.17-0.48); petition ~35 px, stations ~45 px at 1080 - stack A over B at 1:1 (as in 9:16) or put the legend beside the rooms so each room is >=0.45 of frame height",
+      "qa once exited 1 with no failed checks (transient, pass on rerun); cold-create failed once under load 13, passed on rerun (worst 591 ms)"
+    ],
+    "sourceHash": "0b202f0951faf986a1ea944a20f336e7d5568139ad4fc35c4679ae053160b011",
+    "renderFingerprint": "741aaa0262c7f5308d1b9cf398797a74220195afb42e0492ea1eec4814635571",
+    "reviewedAt": "2026-10-05T20:42:29.374Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -201,5 +218,10 @@
   "renderFingerprint": "741aaa0262c7f5308d1b9cf398797a74220195afb42e0492ea1eec4814635571",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.3,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0331/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

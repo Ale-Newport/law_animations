@@ -23,9 +23,8 @@ import {seg, clamp, lerp, ease, r} from '../../core/time.js';
 import {str, int, list, obj} from '../../schemas/fields.js';
 import {T} from '../../core/transform.js';
 import {pen} from '../../primitives/paper.js';
-import {scenarioHeader} from '../../frameworks/paired.js';
 import {
-  ecFields, EC_EN, EC_ES, localised, benchNode, gloveArm, panelLayout, panelNode, R2, pathAt,
+  ecFields, EC_EN, EC_ES, localised, benchNode, gloveArm, panelLayout, panelNode, R2, pathAt, fitG, textAt,
 } from './kits/evidence-art.js';
 import {
   EI_LABELS_EN, EI_LABELS_ES, eiLabelFields, resolveRecords, stageModel, stageNodes, stageProps, local, actionPose,
@@ -35,7 +34,7 @@ const ID = 'LAW-0363';
 const DURATION = 7500;
 const CHANGE_AT = 0.17;
 const W = {
-  toPen: [0.17, 0.21], write: [0.21, 0.36], penBack: [0.36, 0.4],
+  toPen: [0.17, 0.2], write: [0.225, 0.36], penBack: [0.36, 0.4],
   reachTag: [0.4, 0.46], carryTag: [0.46, 0.53], steadyIn: [0.42, 0.52], clip: [0.53, 0.58], release: [0.58, 0.6],
   steadyOut: [0.6, 0.67], toObj: [0.6, 0.64], lift: [0.64, 0.66], carry: [0.66, 0.74], lower: [0.74, 0.77], back: [0.77, 0.83],
   guide: [0.79, 0.85], note: [0.82, 0.87],
@@ -116,7 +115,16 @@ function compose(ctx, P, recs, ci, F, opt) {
   const cols = opt.cols;
   const colW = (DW - 8 - (cols - 1) * F * 1.2) / cols;
   if (rows.length) { PLs = splitCols(ctx, rows, colW, F, cols); ph = Math.max(...PLs.map(q => q.h)); }
-  const headH = clamp(F * 2.6, 52, 70);
+  const showKey = ctx.show('key'), showAll = ctx.show('all');
+  const badgeR = F * 0.95;
+  const hw = (opt.arr === 'row' ? (DW - F * 1.4) / 2 : DW) - badgeR * 2 - F * 0.8;
+  const heads = [P.scenarioA, P.scenarioB].map(sc => {
+    const lab = showKey ? fitG(sc.label, {maxWidth: hw, size: F * 1.08, minSize: F, maxLines: 1, weight: 700}) : null;
+    const cap = showAll && sc.caption ? fitG(sc.caption, {maxWidth: hw, size: F, minSize: F, maxLines: 2, weight: 500}) : null;
+    return {lab, cap};
+  });
+  const headOk = heads.every(hd => (!hd.lab || hd.lab.ok) && (!hd.cap || hd.cap.ok));
+  const headH = Math.max(badgeR * 2 + 8, ...heads.map(hd => (hd.lab ? hd.lab.height : 0) + (hd.cap ? hd.cap.height + F * 0.25 : 0) + 10));
   const gap = opt.arr === 'row' ? F * 1.4 : F * 0.9;
   const avH = DH - (ph ? ph + gapP : 0);
   let stage;
@@ -132,8 +140,8 @@ function compose(ctx, P, recs, ci, F, opt) {
   const inset = Math.max(12, Math.min(stage.w, stage.h) * 0.035);
   const mat = b => ({x: b.x + inset, y: b.y + inset, w: b.w - inset * 2, h: b.h - inset * 2});
   const G = benches.map(b => stageModel(mat(b), {kind: P.items[0].kind, rows: recs.length}));
-  const ok = PLs.every(q => q.ok) && stage.h > 220 && G[0].fitsBag;
-  return {F, rows, PLs, ph, colW, headH, benches, stage, G, panelY: DH - ph, ok, arr: opt.arr,
+  const ok = PLs.every(q => q.ok) && headOk && stage.h > 220 && G[0].fitsBag;
+  return {F, rows, PLs, ph, colW, headH, heads, badgeR, benches, stage, G, panelY: DH - ph, ok, arr: opt.arr,
     problems: [!PLs.every(q => q.ok) && 'panel-text', stage.h <= 220 && 'stage-small', !G[0].fitsBag && 'bag-fit'].filter(Boolean)};
 }
 
@@ -251,7 +259,6 @@ const scene = {
       const pfx = i ? 'B' : 'A';
       const bench = benchNode(ctx, {prefix: `bench${pfx}`, x: b.x, y: b.y, w: b.w, h: b.h});
       const S = stageNodes(ctx, G, {prefix: pfx, rows: L.recs.map((_, k) => ({filled: false, len: L.lens[k]})), seedKey: 'ei-contrast'});
-      const sc = i ? P.scenarioB : P.scenarioA;
       const A = L.arms[i];
       parts.push(g({name: `stage${pfx}`},
         bench.surface,
@@ -264,7 +271,14 @@ const scene = {
         ),
         bench.frame,
       ));
-      parts.push(scenarioHeader(ctx, {name: `head${pfx}`, letter: pfx, label: sc.label, caption: sc.caption, x: b.x + 4, y: b.headY, w: b.w - 8, h: C.headH, color: i ? th.accent2 : th.accent3}));
+      const hd = C.heads[i], R = C.badgeR;
+      const tx = b.x + R * 2 + C.F * 0.6;
+      parts.push(g({name: `head${pfx}`},
+        h('circle', {cx: r(b.x + R + 2), cy: r(b.headY + R + 2), r: r(R), fill: i ? th.accent2 : th.accent3, stroke: th.ink, 'stroke-width': 2.5}),
+        ctx.show('key') ? h('text', {x: r(b.x + R + 2), y: r(b.headY + R + 2 + R * 0.42), 'text-anchor': 'middle', 'font-size': r(R * 1.2), 'font-weight': 800, 'font-family': "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif", fill: '#fff'}, pfx) : null,
+        hd.lab ? textAt(hd.lab, {x: tx, y: b.headY + 4, fill: th.fg}) : null,
+        hd.cap ? textAt(hd.cap, {x: tx, y: b.headY + 4 + (hd.lab ? hd.lab.height + C.F * 0.25 : 0), fill: th.fgSoft}) : null,
+      ));
     });
     // comparison guide (drawn at the hold between the changed row in A and in B)
     parts.push(g({name: 'guide', opacity: 0},

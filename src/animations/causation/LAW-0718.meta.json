@@ -1,0 +1,571 @@
+{
+  "id": "LAW-0718",
+  "slug": "causation-10-mechanism",
+  "title": "Illustrative loss distribution — the hypothetical total, the barrier blades, the guide rails and the event trays pulled apart, related only as supplied",
+  "titleEs": "Distribución ilustrativa de pérdidas — Mecanismo espacial",
+  "category": "causation",
+  "categoryName": "Causalidad y daño",
+  "motif": "Distribución ilustrativa de pérdidas",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "An exploded view of the division of a hypothetical total: the bar (with the boundaries of both supplied allocations as ● and ◆ ticks of equal weight), the barrier blades, the guide rails and one tray per fictional event move apart into a ring. Only the supplied relationships are drawn, each with its kind (a plain relation has no arrowhead); a tracer follows the traversal order while the focus part enlarges. No share rule, percentage, fault or outcome; no conclusion drawn.",
+  "tags": [
+    "causation",
+    "loss distribution",
+    "mechanism",
+    "barriers",
+    "connectors",
+    "events",
+    "supplied values",
+    "hypothetical"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/causation/kits/distribucion-perdidas.js",
+    "src/animations/causation/kits/alcance-dano.js",
+    "src/animations/causation/kits/prueba-contrafactual.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "losses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Description of the hypothetical total"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Total"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "The total being divided: the first entry describes the hypothetical total (a placeholder, never a real figure); an optional second entry is a noted detail. (array replaces the previous value)"
+      },
+      "events": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 56,
+              "description": "Event name (fictional, descriptive)"
+            },
+            "valueA": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 999,
+              "description": "Hypothetical value supplied for this event under allocation A"
+            },
+            "valueB": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 999,
+              "description": "Hypothetical value supplied for this event under allocation B"
+            }
+          },
+          "required": [
+            "label",
+            "valueA",
+            "valueB"
+          ],
+          "description": "Event"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "The fictional events the total is divided among, in the supplied order, each with the hypothetical value supplied under allocation A and under allocation B. Segment lengths follow these values only; nothing is computed, weighed or decided. (array replaces the previous value)"
+      },
+      "causalLinks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Index (0-based) of the event the connector reaches"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation (default), sequence or causal; a causal link is only named when supplied here"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "proposed",
+                "disputed"
+              ],
+              "description": "proposed (put forward) or disputed (contested); never resolved"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Optional caption for this connector"
+            }
+          },
+          "required": [
+            "from"
+          ],
+          "description": "Link"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Per-connector data. Connector i joins the total to event i. Connectors not listed are a plain relation as supplied. (array replaces the previous value)"
+      },
+      "alternatives": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Account put forward"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "alleged",
+                "proposed"
+              ],
+              "description": "Descriptive status"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Alternative"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Other accounts put forward by someone; drawn with a barrier icon, never decided (array replaces the previous value)"
+      },
+      "unit": {
+        "type": "string",
+        "maxLength": 24,
+        "description": "Word printed after every value, e.g. \"hypothetical\" (values are never real figures)"
+      },
+      "allocationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 48,
+            "description": "Allocation A (●)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 48,
+            "description": "Allocation B (◆)"
+          }
+        },
+        "required": [],
+        "description": "Names of the two supplied allocations (equal weight, neither preferred)"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "loss",
+                "barriers",
+                "connectors",
+                "events"
+              ],
+              "description": "Component id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Component"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Component labels; ids are fixed by the scene, labels are editable (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "loss",
+                "barriers",
+                "connectors",
+                "events"
+              ],
+              "description": "Source component id"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "loss",
+                "barriers",
+                "connectors",
+                "events"
+              ],
+              "description": "Target component id"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "Relationship"
+        },
+        "minItems": 1,
+        "maxItems": 8,
+        "description": "Explicit relationships between components; kind controls line style (causal only when supplied) (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "loss",
+          "barriers",
+          "connectors",
+          "events"
+        ],
+        "description": "Component enlarged while the tracer passes"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for sequence links"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Override the caption used for each relation kind"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "loss",
+            "barriers",
+            "connectors",
+            "events"
+          ],
+          "description": "Component id"
+        },
+        "minItems": 2,
+        "maxItems": 8,
+        "description": "Order in which the tracer visits components (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "losses": [
+      {
+        "label": "Total loss (hypothetical)"
+      }
+    ],
+    "events": [
+      {
+        "label": "Event 1 (fictional): a pipe leaks",
+        "valueA": 40,
+        "valueB": 30
+      },
+      {
+        "label": "Event 2 (fictional): a shelf gives way",
+        "valueA": 35,
+        "valueB": 45
+      },
+      {
+        "label": "Event 3 (fictional): a door is left open",
+        "valueA": 25,
+        "valueB": 25
+      }
+    ],
+    "causalLinks": [],
+    "alternatives": [],
+    "unit": "hypothetical",
+    "allocationLabels": {
+      "a": "Proposed allocation",
+      "b": "Alternative allocation"
+    },
+    "elements": [
+      {
+        "id": "loss",
+        "label": "Loss: the hypothetical total"
+      },
+      {
+        "id": "barriers",
+        "label": "Barriers: blades at the boundaries"
+      },
+      {
+        "id": "connectors",
+        "label": "Connectors: one guide rail per event"
+      },
+      {
+        "id": "events",
+        "label": "Events: one tray each"
+      }
+    ],
+    "relationships": [
+      {
+        "from": "loss",
+        "to": "barriers",
+        "kind": "relation"
+      },
+      {
+        "from": "barriers",
+        "to": "connectors",
+        "kind": "sequence"
+      },
+      {
+        "from": "connectors",
+        "to": "events",
+        "kind": "sequence"
+      }
+    ],
+    "focusElement": "barriers",
+    "relationLabels": {
+      "relation": "",
+      "communication": "",
+      "sequence": "",
+      "causal": ""
+    },
+    "traversalOrder": [
+      "loss",
+      "barriers",
+      "connectors",
+      "events"
+    ]
+  }
+}
