@@ -103,7 +103,7 @@ const defaultParams = {...EN};
 /** Grid cells per shape: [col, row] in a cols × rows grid (cards placed where they sit on the route). */
 const GRID = {
   landscape: {cols: 4, rows: 2, cells: {point: [0, 0], renewed: [0, 1], doors: [1, 0.5], folder: [2, 0.5], notes: [3, 0.5]}},
-  square: {cols: 3, rows: 2, cells: {notes: [2, 0], folder: [1, 0], doors: [0, 0], point: [0, 1], renewed: [1.5, 1]}},
+  square: {cols: 3, rows: 2, cells: {notes: [2, 0.5, 2], folder: [1, 0], doors: [0, 0], point: [0, 1], renewed: [1, 1]}},
   portrait: {cols: 2, rows: 3, cells: {notes: [1, 0], folder: [0, 0], doors: [0.5, 1], point: [0, 2], renewed: [1, 2]}},
 };
 
@@ -195,11 +195,12 @@ function compose(ctx, P, R, F, v) {
   const cards = {};
   for (const id of IDS) {
     if (!P.elements.some(e => e.id === id)) continue;
-    const [c, rr] = G.cells[id];
-    const K = cardContent(ctx, P, R, id, cellW * v.cw, F, cellH * 0.94);
+    const [c, rr, span = 1] = G.cells[id];
+    const hMax = cellH * span + gy * (span - 1);
+    const K = cardContent(ctx, P, R, id, cellW * v.cw, F, Math.min(hMax, cellH * 1.4) * 0.94);
     K.F = F;
     if (!K.ok) problems.push('card-text');
-    if (K.h > cellH + 0.5) problems.push('card-tall');
+    if (K.h > hMax + 0.5) problems.push('card-tall');
     const cx = area.x + c * (cellW + gx) + cellW / 2, cy = area.y + rr * (cellH + gy) + cellH / 2;
     K.x = cx - K.w / 2; K.y = clamp(cy - K.h / 2, 0, area.h - K.h);
     cards[id] = K;

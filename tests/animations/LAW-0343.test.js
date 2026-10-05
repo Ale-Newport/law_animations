@@ -34,13 +34,18 @@ contractSuite(ID, {
 
 identicalBeforeChange(ID, 0.17);
 
+// Coordinator decision (2026-10-05, precedent LAW-0211): at 1:1 ONLY (default, baseline-illustrative, baseline-es) key
+// text may be >= 18 px (title/reasons >= 16.5 px) as a documented limit; 16:9 and 9:16 keep the 19.5 px floor, checked
+// separately below (the shared suite takes one floor for all ratios).
 suppliedTextSuite(ID, {
+  baselineMin: 18,
   fields: "return [p.decisions.a.role, p.decisions.a.title, p.decisions.a.ref, p.decisions.b.role, p.decisions.b.title, p.decisions.b.ref, p.grounds.a, p.grounds.b, p.outcomes.a, p.outcomes.b, p.scenarioA.label, p.scenarioA.caption, p.scenarioB.label, p.scenarioB.caption, p.changedFact, ...p.sharedFacts, p.comparisonLabels.guide, p.comparisonLabels.neutral, p.routes.label, p.labels.key];",
   content: 'return [p.decisions.a.role, p.decisions.a.ref, p.decisions.b.role, p.decisions.b.ref, p.outcomes.a, p.outcomes.b, p.scenarioA.label, p.scenarioB.label, p.changedFact];',
   captions: 'return [];',
 });
 
 ratioChecks(ID, 'only desk B changes; equal desks; composition fits', [
+  {at: [1], fn: 's.textPx >= 19.5', label: '16:9 and 9:16 keep the 19.5 px baseline floor (coordinator decision 2026-10-05 limits the exception to 1:1)', presets: ['baseline-illustrative', 'baseline-es'], ratios: ['16:9', '9:16'], tv: ['all']},
   {at: times(0, 0.165, 0.015), fn: 'JSON.stringify(s.lookA) === JSON.stringify(s.lookB)', label: 'identical desks before the change beat'},
   {at: times(0.17, 1, 0.03), fn: 's.lookA.cardB === null', label: 'desk A never receives a second card'},
   {at: times(0.4, 1, 0.03), fn: 'JSON.stringify(s.lookA.strip) === JSON.stringify(s.lookB.strip)', label: 'the shared strip action is identical on both desks'},

@@ -170,7 +170,7 @@ export function lossText(ctx, p) {
  * lane offset D from the middle line, lane half-thickness LT, slab margin beyond the lanes, slab thickness, step-object
  * height, trolley parts (wheel radius, body height, mast, flag head).
  */
-export const FIELD = {side: 0.03, laneL: 1.5, conn: 0.38, ev: 0.2, K: 0.62, D: 0.34, LT: 0.08, marg: 0.12, plate: 0.07, item: 0.28, wheel: 0.035, body: 0.11, mast: 0.22, head: 0.15, cartW: 0.26, brace: 0.16};
+export const FIELD = {side: 0.03, laneL: 1.2, conn: 0.34, ev: 0.2, K: 0.62, D: 0.42, LT: 0.08, marg: 0.12, plate: 0.07, item: 0.28, wheel: 0.035, body: 0.11, mast: 0.22, head: 0.15, cartW: 0.26, brace: 0.16};
 /** Height of the trolley above its lane line (× PH): wheels, body, mast and flag head. */
 export const CART_TOP = 2 * FIELD.wheel + FIELD.body + FIELD.mast + FIELD.head;
 
