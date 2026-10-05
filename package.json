@@ -1,0 +1,26 @@
+{
+  "name": "law-animation-kit",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Library of deterministic JavaScript/SVG educational law animations (in production; see production/SESSION_HANDOFF.md for real counts).",
+  "scripts": {
+    "kit:check": "node scripts/check-kit.mjs",
+    "catalog": "node scripts/catalog.mjs",
+    "dev": "node scripts/serve.mjs",
+    "registry": "node scripts/build-registry.mjs",
+    "test": "node scripts/build-registry.mjs && node --test tests/unit/*.test.mjs && playwright test",
+    "test:unit": "node --test tests/unit/*.test.mjs",
+    "test:browser": "playwright test",
+    "test:gallery": "playwright test tests/gallery.test.js",
+    "gallery": "node scripts/serve.mjs --port 5210",
+    "shot": "node scripts/shot.mjs",
+    "qa": "node scripts/qa.mjs",
+    "review": "node scripts/review.mjs",
+    "accept": "node scripts/accept.mjs",
+    "library:validate": "node scripts/catalog.mjs audit && node scripts/accept.mjs --all"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}

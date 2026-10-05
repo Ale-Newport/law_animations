@@ -1,0 +1,77 @@
+{
+  "validated": "2026-09-21",
+  "scope": "Instruction kit and planning tools only. No animation runtime implemented or tested. No installation in the user’s Claude Code environment performed.",
+  "counts": {
+    "customSkills": 2,
+    "categories": 50,
+    "motifs": 500,
+    "animationBriefs": 2000,
+    "batches": 100,
+    "pilotIds": 16,
+    "implementedAnimations": 0
+  },
+  "cliChecks": [
+    {
+      "command": "node scripts/catalog.mjs stats",
+      "expectedExit": 0,
+      "actualExit": 0,
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/catalog.mjs show LAW-0441",
+      "expectedExit": 0,
+      "actualExit": 0,
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/catalog.mjs batch B100",
+      "expectedExit": 0,
+      "actualExit": 0,
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/catalog.mjs pilot",
+      "expectedExit": 0,
+      "actualExit": 0,
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/catalog.mjs next --limit 20",
+      "expectedExit": 0,
+      "actualExit": 0,
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/catalog.mjs audit",
+      "expectedExit": 0,
+      "actualExit": 0,
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/catalog.mjs show LAW-9999",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/catalog.mjs batch ../../private",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/catalog.mjs next --limit 0",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "result": "pass"
+    },
+    {
+      "command": "node scripts/catalog.mjs audit --require-complete",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "result": "pass"
+    }
+  ],
+  "yamlFrontmatter": "valid",
+  "filesWithNoFontOrVideoPayload": true
+}
