@@ -88,10 +88,14 @@ function stripRows(ctx, P, k) {
   const showKey = ctx.show('key'), showAll = ctx.show('all');
   const rows = [];
   if (showKey) rows.push({kind: 'heading', text: P.changedFact, name: 'changed'});
-  if (showAll) P.items.forEach((it, i) => rows.push({kind: 'item', icon: `item-${it.kind}`, text: `${it.id} — ${it.label}${i === k ? ` · B: ${P.labels.noEntry}` : ''}`, name: `lg-item${i}`}));
+  if (showAll && P.scenarioA.caption) rows.push({kind: 'item', icon: 'row-filled', text: `A: ${P.scenarioA.caption}`, name: 'capA'});
+  if (showAll && P.scenarioB.caption) rows.push({kind: 'item', icon: 'row-blank', text: `B: ${P.scenarioB.caption}`, name: 'capB'});
+  if (showKey) rows.push({kind: 'item', icon: 'ring', color: ctx.theme.accent3, text: P.comparisonLabels.guide, name: 'guide-row'});
+  // compact: shared content is drawn once, one row per field (items, custodians, times)
+  if (showAll) rows.push({kind: 'item', icon: `item-${P.items[k].kind}`, text: P.items.map((it, i) => (i === k ? `${it.id} (B: ${P.labels.noEntry})` : it.id)).join(' · '), name: 'lg-items'});
   if (showAll) P.sharedFacts.forEach((f, i) => rows.push({kind: 'item', icon: 'row-filled', text: f, name: `shared${i}`}));
-  if (showAll) P.custodians.forEach((c, i) => rows.push({kind: 'item', icon: i === 0 ? 'glove' : 'custodian', text: `${c.name} · ${c.role}`, name: `lg-cus${i}`}));
-  if (showAll) P.timestamps.forEach((t, i) => rows.push({kind: 'item', icon: 'clock', text: `${t.label} · ${t.time}`, name: `lg-time${i}`}));
+  if (showAll) rows.push({kind: 'item', icon: 'glove', text: P.custodians.map(c => `${c.name} (${c.role})`).join(' · '), name: 'lg-cus'});
+  if (showAll) rows.push({kind: 'item', icon: 'clock', text: P.timestamps.map(t => `${t.label} ${t.time}`).join(' · '), name: 'lg-time'});
   if (showKey) rows.push({kind: 'state', text: P.comparisonLabels.neutral, name: 'neutral'});
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
   return rows;
@@ -119,8 +123,8 @@ function compose(ctx, P, k) {
   const opts = shape === 'portrait'
     ? [{arr: 'column', strip: 'below', cols: 1}, {arr: 'column', strip: 'below', cols: 2}]
     : shape === 'square'
-      ? [{arr: 'row', strip: 'below', cols: 2}, {arr: 'row', strip: 'below', cols: 1}, {arr: 'column', strip: 'side', pw: 0.36}]
-      : [{arr: 'row', strip: 'below', cols: 2}, {arr: 'row', strip: 'side', pw: 0.24}];
+      ? [{arr: 'row', strip: 'below', cols: 2}, {arr: 'row', strip: 'below', cols: 1}, {arr: 'column', strip: 'side', pw: 0.36}, {arr: 'row', strip: 'side', pw: 0.3}, {arr: 'column', strip: 'side', pw: 0.3}]
+      : [{arr: 'row', strip: 'below', cols: 2}, {arr: 'row', strip: 'side', pw: 0.24}, {arr: 'row', strip: 'side', pw: 0.3}];
   let best = null, bestScore = -1, fallback = null;
   for (const F of F_SIZES) {
     const rows = stripRows(ctx, P, k);
@@ -154,7 +158,7 @@ function compose(ctx, P, k) {
       const box = {w: b0.w - pad * 2, h: b0.h - pad * 2 - Math.min(40, b0.h * 0.06)};
       let st = null;
       for (const bagMode of ['left', 'top']) {
-        const sA = fitStation(box, {n, texts: tA, F, bagMode, title: null, tagText: ctx.show('key'), sheetFrac: [0.34, 0.44]});
+        const sA = fitStation(box, {n, texts: tA, F, bagMode, title: null, tagText: ctx.show('key'), sheetFrac: [0.34, 0.44, 0.54, 0.62], minS: 26});
         if (!sA) continue;
         // B uses the same S and sheet width as A (identical scale); only its row texts differ
         if (!st || sA.G.S > st.G.S) st = sA;
@@ -240,7 +244,7 @@ const scene = {
       const bench = benchNode(ctx, {prefix: `bench${sd.pref}`, x: sd.bench.x, y: sd.bench.y, w: sd.bench.w, h: sd.bench.h});
       const sc = C.scenes[si];
       const sTxt = si === 0 ? P.scenarioA : P.scenarioB;
-      parts.push(scenarioHeader(ctx, {name: `hdr${sd.pref}`, letter: si === 0 ? 'A' : 'B', label: sTxt.label, caption: sTxt.caption, x: sc.x, y: sc.y, w: sc.w, h: C.headerH, color: colors[si]}));
+      parts.push(scenarioHeader(ctx, {name: `hdr${sd.pref}`, letter: si === 0 ? 'A' : 'B', label: sTxt.label, x: sc.x, y: sc.y, w: sc.w, h: C.headerH, color: colors[si]}));
       const N = sd.N;
       parts.push(bench.surface,
         g({'clip-path': bench.clip},
@@ -252,20 +256,6 @@ const scene = {
         h('path', {name: `guide${sd.pref}`, d: roundRectPath(L.guide[si].x, L.guide[si].y, L.guide[si].w, L.guide[si].h, 14), fill: 'none', stroke: th.accent3, 'stroke-width': 5, opacity: 0}),
       );
     });
-    // guide label: centred between the two guide rings (on the gap / at the first scene's lower edge)
-    if (L.guideFit) {
-      const f = L.guideFit;
-      const gA = L.guide[0];
-      const pw = f.width + 28, ph = f.height + 18;
-      let x, y;
-      if (C.opt.arr === 'row') { x = clamp(gA.x + gA.w / 2 - pw / 2, 4, ctx.design.w - pw - 4); y = gA.y + gA.h + 8; }
-      else { x = clamp(gA.x + gA.w / 2 - pw / 2, 4, ctx.design.w - pw - 4); y = gA.y + gA.h + 8; }
-      if (y + ph > C.benches[0].y + C.benches[0].h - 6) y = gA.y - ph - 8;
-      L.guideBox = {x, y, w: pw, h: ph};
-      parts.push(g({name: 'guide-label', opacity: 0},
-        h('path', {d: roundRectPath(x, y, pw, ph, 10), fill: th.card, stroke: th.accent3, 'stroke-width': 3}),
-        textAt(f, {x: x + 14, y: y + 9, fill: INK})));
-    }
     if (C.PL) C.PL.cols.forEach((PLc, i) => parts.push(g({name: `strip${i}`, transform: T(C.strip.x + i * (C.PL.colW + C.F * 1.2), C.strip.y)}, legendNodes(ctx, PLc))));
     return g({name: 'scene'}, parts);
   },
@@ -292,8 +282,7 @@ const scene = {
       sem[`grip${si ? 'B' : 'A'}`] = R2(s.holding >= 0 ? s.items[s.holding].pos : s.hand);
       sem[`reached${si ? 'B' : 'A'}`] = pa.reached;
     });
-    if (L.guideFit) nodes['guide-label'] = {opacity: r(guideK, 3)};
-    if (C.PL) for (const col of C.PL.cols) for (const row of col.rows) if (row.name === 'neutral') nodes[row.name] = {opacity: r(seg(u, ...W_NOTE), 3)};
+    if (C.PL) for (const col of C.PL.cols) for (const row of col.rows) { if (row.name === 'neutral') nodes[row.name] = {opacity: r(seg(u, ...W_NOTE), 3)}; if (row.name === 'guide-row') nodes[row.name] = {opacity: r(guideK, 3)}; }
     const beat = u < BEATS.base[1] ? 'base' : u < BEATS.change[1] ? 'change' : u < BEATS.parallel[1] ? 'parallel' : 'guide';
     return {
       nodes,

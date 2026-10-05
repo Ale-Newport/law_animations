@@ -267,7 +267,7 @@ export function fitSheet(G, texts, F, title) {
 export function fitStation(box, o) {
   let best = null;
   for (const frac of o.sheetFrac || [0.32, 0.4, 0.48, 0.56]) {
-    let hi = 260, lo = 40;
+    let hi = 260, lo = o.minS ?? 40;
     // geometry scales linearly in S except the sheet width; binary search the largest S that fits
     const tryS = S => {
       const sheetW = Math.max(box.w * frac, 0);

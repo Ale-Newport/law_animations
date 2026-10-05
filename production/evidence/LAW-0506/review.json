@@ -160,11 +160,30 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0506/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0506/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0506/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0506/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0506/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0506/sheet-16x9-es.png"
+    ],
+    "findings": [
+      "Re-review after rework: no layout jump now (straight moves), film overprint gone, plates have depth - improvements confirmed",
+      "16:9 t=0.55: ~40% of safe-box width empty between plate stack and slip; t=0.72: assembly + slip a small cluster at left, right ~45% of safe box empty; plates ~1/3 width at rest/action - scale the assembly up during the mid phase and travel the slip less far",
+      "9:16 t=0.55-0.72: lower ~35% of safe box empty; labels-hidden hold (t=0.75-1.0) lower ~40% of safe box empty - scale hold assembly to fill height or stack slip below plates larger",
+      "1:1 hold ~20% empty below the assembly; mid-phase t=0.55 leaves empty centre",
+      "Overall still a flat diagram below the reference motifs' fill and object size",
+      "Legal wording neutral",
+      "also viewed --safe strips (16:9, 9:16, 1:1) and labels-hidden 9:16 in production/scratch/rev-contract-terms-07/r2-*"
+    ],
+    "sourceHash": "67698f60479d0cba72b6127db5dd51a7787094c656654404bd8a727e692b2866",
+    "renderFingerprint": "191acae9ec1b75ac443795658c50bc78b0775871a478c934f83287ab7997ffdb",
+    "reviewedAt": "2026-10-05T23:25:03.638Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -181,30 +200,9 @@
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.12,0.35,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0506/thumb.png",
   "captureErrors": [],
-  "previousVisualReview": {
-    "status": "fail",
-    "reviewer": "claude subagent (independent reviewer, session 2)",
-    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
-    "live": null,
-    "artifacts": [
-      "production/evidence/LAW-0506/sheet-16x9-baseline.png",
-      "production/evidence/LAW-0506/sheet-9x16-baseline.png",
-      "production/evidence/LAW-0506/sheet-1x1-baseline.png",
-      "production/evidence/LAW-0506/sheet-16x9-alternative.png",
-      "production/evidence/LAW-0506/sheet-16x9-long-labels.png",
-      "production/evidence/LAW-0506/sheet-16x9-es.png"
-    ],
-    "findings": [
-      "9:16 hold (t=0.75-1.0): assembly fills only ~25-55% of safe-box height; empty band between slip and notes; labels-hidden leaves lower ~40% of safe box empty - scale assembly up and move notes into the gap",
-      "16:9: right ~35-40% of safe box empty at rest and hold; 1:1 lower ~30% empty; plates/slip small flat cards - enlarge and use width",
-      "16:9 t=0.45-0.60: whole assembly jumps position (top-left -> center -> lower-left) and promise film overprints clause text at t=0.50 - make the move a continuous translate, avoid overprint",
-      "Visual quality below accepted references (diagram-like, no staging)",
-      "Legal wording neutral",
-      "also viewed dense 16:9 strip and labels-hidden 9:16 strip in production/scratch/rev-contract-terms-07/"
-    ],
-    "sourceHash": "ccaf7420e47b486fb46ccf3c07e75753c80d39b101f9f9c6658376ad98a167d5",
-    "renderFingerprint": "0cca303e87a579c7c4a3a9f466a1c2cc3814fdd5f629d15a0f42e93f79556d50",
-    "reviewedAt": "2026-10-05T23:06:00.028Z",
-    "invalidated": "source changed and rendered output differs from what was reviewed"
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
   }
 }

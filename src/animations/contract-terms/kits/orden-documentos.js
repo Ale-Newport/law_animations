@@ -159,7 +159,7 @@ export function cardText(p, order, w, F, minF, o = {}) {
   const padX = 34;
   const lead = o.lead ?? 0;
   const stress = !!o.stress;
-  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: w - padX * 2, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700});
+  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: w - padX * 2, size: F, minSize: minF, maxLines: stress ? 4 : 2, weight: 700});
   const headH = head.height + F * 0.9;
   const heading = fitG(p.clause.heading, {maxWidth: w - padX * 2 - 30, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700});
   const text = o.noText ? null : fitG(p.clause.text, {maxWidth: w - padX * 2, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 500});
@@ -168,7 +168,7 @@ export function cardText(p, order, w, F, minF, o = {}) {
   const rowX = padX + lead;
   const labelX = rowX + disc * 2 + 12 + tab + 12;
   const labelW = w - labelX - 22;
-  const rows = order.map((si, k) => fitK(o.rowText ? o.rowText(k, si) : p.schedules[si].label, {maxWidth: labelW, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 600}));
+  const rows = order.map((si, k) => fitK(o.rowText ? o.rowText(k, si) : p.schedules[si].label, {maxWidth: labelW, size: F, minSize: minF, maxLines: stress ? 5 : 3, weight: 600}));
   const rowH = rows.map(f => Math.max(f.height, disc * 2, tab) + F * 0.8);
   const headingY = headH + F * 0.75;
   const textY = headingY + heading.height + F * 0.45;
@@ -279,7 +279,7 @@ export function binderTop(ctx, o) {
 export function binderLabel(label, w, F, minF, stress) {
   const s = F * 1.4;
   const lw = w - (s + 14 + 22) - 22;
-  return {fit: fitK(label, {maxWidth: lw, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 700}), tabS: s};
+  return {fit: fitK(label, {maxWidth: lw, size: F, minSize: minF, maxLines: stress ? 5 : 3, weight: 700}), tabS: s};
 }
 
 /* ------------------------------------------------------------------------ */

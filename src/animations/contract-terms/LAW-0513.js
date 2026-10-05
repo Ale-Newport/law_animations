@@ -110,7 +110,7 @@ function geom(ctx, F, minF, arr, cols) {
   const rowsN = Math.ceil(n / cols);
   const srcH = zone.h - capH;
   let bh = Math.min((srcH - (rowsN - 1) * g2) / rowsN, bw * 0.78, bandH + 220);
-  const coverMin = Math.max(54, F * 2.1);
+  const coverMin = stress ? Math.max(36, F * 1.5) : Math.max(54, F * 2.1);
   if (bh < bandH + coverMin) why.push('binder-height');
   bh = Math.max(bh, bandH + coverMin);
   const dy = clamp((srcH - bh - 8) / Math.max(1, n - 1), bandH + 12, bh * 0.6);

@@ -1,0 +1,1094 @@
+{
+  "animationId": "LAW-0513",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0513",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "contract.reference",
+        "rejected": "Invalid animation parameters:\n - params.contract.reference: must have at most 32 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "16:9",
+          "k": "binder0",
+          "f": 76,
+          "d": 528
+        },
+        {
+          "ratio": "16:9",
+          "k": "hand",
+          "f": 279,
+          "d": 100
+        },
+        {
+          "ratio": "16:9",
+          "k": "hand",
+          "f": 280,
+          "d": 100
+        },
+        {
+          "ratio": "9:16",
+          "k": "binder0",
+          "f": 76,
+          "d": 392
+        },
+        {
+          "ratio": "1:1",
+          "k": "binder0",
+          "f": 76,
+          "d": 311
+        }
+      ]
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "9:16",
+          "u": 0.692,
+          "a": "hand",
+          "b": "carriedGrip"
+        },
+        {
+          "ratio": "9:16",
+          "u": 0.694,
+          "a": "hand",
+          "b": "carriedGrip"
+        },
+        {
+          "ratio": "9:16",
+          "u": 0.697,
+          "a": "hand",
+          "b": "carriedGrip"
+        },
+        {
+          "ratio": "9:16",
+          "u": 0.7,
+          "a": "hand",
+          "b": "carriedGrip"
+        },
+        {
+          "ratio": "9:16",
+          "u": 0.703,
+          "a": "hand",
+          "b": "carriedGrip"
+        }
+      ]
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "9:16",
+          "f": 248
+        },
+        {
+          "ratio": "9:16",
+          "f": 249
+        },
+        {
+          "ratio": "9:16",
+          "f": 250
+        },
+        {
+          "ratio": "9:16",
+          "f": 251
+        },
+        {
+          "ratio": "9:16",
+          "f": 252
+        }
+      ]
+    },
+    {
+      "name": "semantic: rest: three binders on the desk, the tray empty @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "hand": {
+            "x": 2069.53,
+            "y": 474
+          },
+          "carrying": null,
+          "carried": null,
+          "carriedGrip": {
+            "x": 1737.03,
+            "y": 535.28
+          },
+          "loupe": {
+            "x": 174.36,
+            "y": 640.07
+          },
+          "loupeRow": -1,
+          "placed": 0,
+          "pileTop": null,
+          "order": [
+            1,
+            0,
+            2
+          ],
+          "pileOrder": [],
+          "binder0": {
+            "x": 1293.03,
+            "y": 480.77
+          },
+          "restCount": 3,
+          "tagsShown": 0,
+          "keyShown": 0,
+          "allReached": true,
+          "arrangement": "side-1",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "noteBoxes": [
+            {
+              "x": 1287.03,
+              "y": 236.89,
+              "w": 485.57,
+              "h": 52.78
+            },
+            {
+              "x": 1287.03,
+              "y": 594.89,
+              "w": 412.31,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 339.05,
+              "w": 369.09,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 441.21,
+              "w": 490.77,
+              "h": 52.78
+            }
+          ],
+          "pileBox": {
+            "x": 733.03,
+            "y": 231.91,
+            "w": 502,
+            "h": 456.25
+          },
+          "loupeBox": {
+            "x": 137.38,
+            "y": 603.08,
+            "w": 73.98,
+            "h": 73.98
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the last-listed annex is carried first while the loupe reads line 3 @0.268",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "phase": "carrying",
+          "hand": {
+            "x": 1407.38,
+            "y": 489.75
+          },
+          "carrying": 0,
+          "carried": {
+            "x": 963.38,
+            "y": 435.24
+          },
+          "carriedGrip": {
+            "x": 1407.38,
+            "y": 489.75
+          },
+          "loupe": {
+            "x": 174.36,
+            "y": 640.07
+          },
+          "loupeRow": 2,
+          "placed": 0,
+          "pileTop": null,
+          "order": [
+            1,
+            0,
+            2
+          ],
+          "pileOrder": [],
+          "binder0": {
+            "x": 765.03,
+            "y": 480.77
+          },
+          "restCount": 2,
+          "tagsShown": 0,
+          "keyShown": 0,
+          "allReached": true,
+          "arrangement": "side-1",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "noteBoxes": [
+            {
+              "x": 1287.03,
+              "y": 236.89,
+              "w": 485.57,
+              "h": 52.78
+            },
+            {
+              "x": 1287.03,
+              "y": 594.89,
+              "w": 412.31,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 339.05,
+              "w": 369.09,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 441.21,
+              "w": 490.77,
+              "h": 52.78
+            }
+          ],
+          "pileBox": {
+            "x": 733.03,
+            "y": 231.91,
+            "w": 502,
+            "h": 456.25
+          },
+          "loupeBox": {
+            "x": 137.38,
+            "y": 603.08,
+            "w": 73.98,
+            "h": 73.98
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: after the first carry the last-listed annex lies on the tray @0.44499999999999995",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "phase": "carrying",
+          "hand": {
+            "x": 1632.4,
+            "y": 357.81
+          },
+          "carrying": 1,
+          "carried": {
+            "x": 1188.4,
+            "y": 303.29
+          },
+          "carriedGrip": {
+            "x": 1632.4,
+            "y": 357.81
+          },
+          "loupe": {
+            "x": 174.36,
+            "y": 483.67
+          },
+          "loupeRow": 1,
+          "placed": 1,
+          "pileTop": 2,
+          "order": [
+            1,
+            0,
+            2
+          ],
+          "pileOrder": [
+            2
+          ],
+          "binder0": {
+            "x": 765.03,
+            "y": 480.77
+          },
+          "restCount": 1,
+          "tagsShown": 0,
+          "keyShown": 0,
+          "allReached": true,
+          "arrangement": "side-1",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "noteBoxes": [
+            {
+              "x": 1287.03,
+              "y": 236.89,
+              "w": 485.57,
+              "h": 52.78
+            },
+            {
+              "x": 1287.03,
+              "y": 594.89,
+              "w": 412.31,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 339.05,
+              "w": 369.09,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 441.21,
+              "w": 490.77,
+              "h": 52.78
+            }
+          ],
+          "pileBox": {
+            "x": 733.03,
+            "y": 231.91,
+            "w": 502,
+            "h": 456.25
+          },
+          "loupeBox": {
+            "x": 137.38,
+            "y": 446.68,
+            "w": 73.98,
+            "h": 73.98
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the carried binder has left its rest spot (no teleport: low copy hidden) @0.268",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "phase": "carrying",
+          "hand": {
+            "x": 1407.38,
+            "y": 489.75
+          },
+          "carrying": 0,
+          "carried": {
+            "x": 963.38,
+            "y": 435.24
+          },
+          "carriedGrip": {
+            "x": 1407.38,
+            "y": 489.75
+          },
+          "loupe": {
+            "x": 174.36,
+            "y": 640.07
+          },
+          "loupeRow": 2,
+          "placed": 0,
+          "pileTop": null,
+          "order": [
+            1,
+            0,
+            2
+          ],
+          "pileOrder": [],
+          "binder0": {
+            "x": 765.03,
+            "y": 480.77
+          },
+          "restCount": 2,
+          "tagsShown": 0,
+          "keyShown": 0,
+          "allReached": true,
+          "arrangement": "side-1",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "noteBoxes": [
+            {
+              "x": 1287.03,
+              "y": 236.89,
+              "w": 485.57,
+              "h": 52.78
+            },
+            {
+              "x": 1287.03,
+              "y": 594.89,
+              "w": 412.31,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 339.05,
+              "w": 369.09,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 441.21,
+              "w": 490.77,
+              "h": 52.78
+            }
+          ],
+          "pileBox": {
+            "x": 733.03,
+            "y": 231.91,
+            "w": 502,
+            "h": 456.25
+          },
+          "loupeBox": {
+            "x": 137.38,
+            "y": 603.08,
+            "w": 73.98,
+            "h": 73.98
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: the pile matches the supplied order, the first-listed on top @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "away",
+          "hand": {
+            "x": 2069.53,
+            "y": 474
+          },
+          "carrying": null,
+          "carried": null,
+          "carriedGrip": {
+            "x": 1737.03,
+            "y": 535.28
+          },
+          "loupe": {
+            "x": 174.36,
+            "y": 332.96
+          },
+          "loupeRow": 0,
+          "placed": 3,
+          "pileTop": 1,
+          "order": [
+            1,
+            0,
+            2
+          ],
+          "pileOrder": [
+            1,
+            0,
+            2
+          ],
+          "binder0": {
+            "x": 765.03,
+            "y": 480.77
+          },
+          "restCount": 0,
+          "tagsShown": 1,
+          "keyShown": 1,
+          "allReached": true,
+          "arrangement": "side-1",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "noteBoxes": [
+            {
+              "x": 1287.03,
+              "y": 236.89,
+              "w": 485.57,
+              "h": 52.78
+            },
+            {
+              "x": 1287.03,
+              "y": 594.89,
+              "w": 412.31,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 339.05,
+              "w": 369.09,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 441.21,
+              "w": 490.77,
+              "h": 52.78
+            }
+          ],
+          "pileBox": {
+            "x": 733.03,
+            "y": 231.91,
+            "w": 502,
+            "h": 456.25
+          },
+          "loupeBox": {
+            "x": 137.38,
+            "y": 295.97,
+            "w": 73.98,
+            "h": 73.98
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative: four annexes piled in the order D, C, A, B @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "away",
+          "hand": {
+            "x": 2069.53,
+            "y": 474
+          },
+          "carrying": null,
+          "carried": null,
+          "carriedGrip": {
+            "x": 1753.03,
+            "y": 575.15
+          },
+          "loupe": {
+            "x": 174.36,
+            "y": 294.77
+          },
+          "loupeRow": 0,
+          "placed": 4,
+          "pileTop": 3,
+          "order": [
+            3,
+            2,
+            0,
+            1
+          ],
+          "pileOrder": [
+            3,
+            2,
+            0,
+            1
+          ],
+          "binder0": {
+            "x": 781.03,
+            "y": 537.11
+          },
+          "restCount": 0,
+          "tagsShown": 1,
+          "keyShown": 1,
+          "allReached": true,
+          "arrangement": "side-1",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "noteBoxes": [
+            {
+              "x": 1303.03,
+              "y": 255.4,
+              "w": 344.06,
+              "h": 88.16
+            },
+            {
+              "x": 1303.03,
+              "y": 595.99,
+              "w": 412.31,
+              "h": 88.16
+            },
+            {
+              "x": 1303.03,
+              "y": 357.56,
+              "w": 439.03,
+              "h": 88.16
+            },
+            {
+              "x": 1303.03,
+              "y": 459.72,
+              "w": 400.82,
+              "h": 88.16
+            }
+          ],
+          "pileBox": {
+            "x": 733.03,
+            "y": 265.25,
+            "w": 518,
+            "h": 422.91
+          },
+          "loupeBox": {
+            "x": 137.38,
+            "y": 257.78,
+            "w": 73.98,
+            "h": 73.98
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: stress: four annexes, layout fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "away",
+          "hand": {
+            "x": 2069.53,
+            "y": 474
+          },
+          "carrying": null,
+          "carried": null,
+          "carriedGrip": {
+            "x": 1743.39,
+            "y": 577.21
+          },
+          "loupe": {
+            "x": 158.94,
+            "y": 307.95
+          },
+          "loupeRow": 0,
+          "placed": 4,
+          "pileTop": 2,
+          "order": [
+            2,
+            0,
+            3,
+            1
+          ],
+          "pileOrder": [
+            2,
+            0,
+            3,
+            1
+          ],
+          "binder0": {
+            "x": 771.39,
+            "y": 541.38
+          },
+          "restCount": 0,
+          "tagsShown": 1,
+          "keyShown": 1,
+          "allReached": true,
+          "arrangement": "side-1",
+          "textPx": 23,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "noteBoxes": [
+            {
+              "x": 1293.39,
+              "y": 262.99,
+              "w": 471.58,
+              "h": 72.42
+            },
+            {
+              "x": 1293.39,
+              "y": 617.23,
+              "w": 472.92,
+              "h": 72.42
+            },
+            {
+              "x": 1293.39,
+              "y": 349.41,
+              "w": 463.42,
+              "h": 72.42
+            },
+            {
+              "x": 1293.39,
+              "y": 435.83,
+              "w": 403.25,
+              "h": 43.35
+            },
+            {
+              "x": 1293.39,
+              "y": 493.18,
+              "w": 470.26,
+              "h": 72.42
+            },
+            {
+              "x": 1293.39,
+              "y": 34,
+              "w": 385.36,
+              "h": 72.42
+            }
+          ],
+          "pileBox": {
+            "x": 723.39,
+            "y": 266.95,
+            "w": 518,
+            "h": 426.89
+          },
+          "loupeBox": {
+            "x": 126.77,
+            "y": 275.78,
+            "w": 64.34,
+            "h": 64.34
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "carrying",
+          "hand": {
+            "x": 1736.03,
+            "y": 328.67
+          },
+          "carrying": 1,
+          "carried": {
+            "x": 1292.03,
+            "y": 274.16
+          },
+          "carriedGrip": {
+            "x": 1736.03,
+            "y": 328.67
+          },
+          "loupe": {
+            "x": 174.36,
+            "y": 483.67
+          },
+          "loupeRow": 1,
+          "placed": 1,
+          "pileTop": 2,
+          "order": [
+            1,
+            0,
+            2
+          ],
+          "pileOrder": [
+            2
+          ],
+          "binder0": {
+            "x": 765.03,
+            "y": 480.77
+          },
+          "restCount": 1,
+          "tagsShown": 0,
+          "keyShown": 0,
+          "allReached": true,
+          "arrangement": "side-1",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": true,
+          "noteBoxes": [
+            {
+              "x": 1287.03,
+              "y": 236.89,
+              "w": 485.57,
+              "h": 52.78
+            },
+            {
+              "x": 1287.03,
+              "y": 594.89,
+              "w": 412.31,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 339.05,
+              "w": 369.09,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 441.21,
+              "w": 490.77,
+              "h": 52.78
+            }
+          ],
+          "pileBox": {
+            "x": 733.03,
+            "y": 231.91,
+            "w": 502,
+            "h": 456.25
+          },
+          "loupeBox": {
+            "x": 137.38,
+            "y": 446.68,
+            "w": 73.98,
+            "h": 73.98
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same pile @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "away",
+          "hand": {
+            "x": 2069.53,
+            "y": 474
+          },
+          "carrying": null,
+          "carried": null,
+          "carriedGrip": {
+            "x": 1737.03,
+            "y": 595.15
+          },
+          "loupe": {
+            "x": 174.36,
+            "y": 332.96
+          },
+          "loupeRow": 0,
+          "placed": 3,
+          "pileTop": 1,
+          "order": [
+            1,
+            0,
+            2
+          ],
+          "pileOrder": [
+            1,
+            0,
+            2
+          ],
+          "binder0": {
+            "x": 765.03,
+            "y": 528.67
+          },
+          "restCount": 0,
+          "tagsShown": 1,
+          "keyShown": 1,
+          "allReached": true,
+          "arrangement": "side-1",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "noteBoxes": [],
+          "pileBox": {
+            "x": 733.03,
+            "y": 251.07,
+            "w": 502,
+            "h": 508.93
+          },
+          "loupeBox": {
+            "x": 137.38,
+            "y": 295.97,
+            "w": 73.98,
+            "h": 73.98
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: repeats / out-of-range numbers ignored, missing annexes appended @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "away",
+          "hand": {
+            "x": 2069.53,
+            "y": 474
+          },
+          "carrying": null,
+          "carried": null,
+          "carriedGrip": {
+            "x": 1737.03,
+            "y": 535.28
+          },
+          "loupe": {
+            "x": 174.36,
+            "y": 338.66
+          },
+          "loupeRow": 0,
+          "placed": 3,
+          "pileTop": 2,
+          "order": [
+            2,
+            0,
+            1
+          ],
+          "pileOrder": [
+            2,
+            0,
+            1
+          ],
+          "binder0": {
+            "x": 765.03,
+            "y": 480.77
+          },
+          "restCount": 0,
+          "tagsShown": 1,
+          "keyShown": 1,
+          "allReached": true,
+          "arrangement": "side-1",
+          "textPx": 28,
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "actionCapped": false,
+          "noteBoxes": [
+            {
+              "x": 1287.03,
+              "y": 236.89,
+              "w": 485.57,
+              "h": 52.78
+            },
+            {
+              "x": 1287.03,
+              "y": 594.89,
+              "w": 412.31,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 339.05,
+              "w": 369.09,
+              "h": 88.16
+            },
+            {
+              "x": 1287.03,
+              "y": 441.21,
+              "w": 490.77,
+              "h": 52.78
+            }
+          ],
+          "pileBox": {
+            "x": 733.03,
+            "y": 231.91,
+            "w": 502,
+            "h": 456.25
+          },
+          "loupeBox": {
+            "x": 137.38,
+            "y": 301.67,
+            "w": 73.98,
+            "h": 73.98
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

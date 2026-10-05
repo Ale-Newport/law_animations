@@ -92,7 +92,7 @@ const scene = {
     const notes = L.notesPl ? L.notesPl.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node)) : [];
     const clipW = Math.min(64, L.sw * 0.3);
     return g({name: 'scene'},
-      g({transform: T(C.x, C.y)}, contractDoc(ctx, {w: C.w, h: C.h, head: L.head, headH: L.headH, clause: L.clause, attach: L.attachArea, showText: show, prefix: '', discR: L.discR})),
+      g({transform: T(C.x, C.y)}, contractDoc(ctx, {w: C.w, h: C.h, head: L.head, headH: L.headH, headX: L.headX, clause: L.clause, attach: L.attachArea, showText: show, prefix: '', discR: L.discR})),
       railNode(ctx, L, ''),
       g({transform: T(S0.x, S0.y)}, trayBack(ctx, L.sw, L.sh)),
       st.map(s => s.under),

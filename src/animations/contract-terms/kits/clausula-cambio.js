@@ -107,8 +107,9 @@ export function contractDoc(ctx, o) {
     h('path', {d: `M10 2H${r(w - fold - 2)}V${r(o.headH - 1)}H2V10Q2 2 10 2Z`, fill: th.accent4Soft, opacity: 0.9}),
     h('path', {d: `M2 ${r(o.headH)}H${r(w - 2)}`, stroke: INK, 'stroke-width': 2}),
   ];
-  if (o.showText) parts.push(txt(o.head, {x: 22, y: (o.headH - o.head.height) / 2, fill: INK}));
-  else parts.push(h('path', {d: `M22 ${r(o.headH / 2)}h${r(Math.min(w * 0.55, 300))}`, stroke: shade(th.accent4Soft, -0.3), 'stroke-width': 11, 'stroke-linecap': 'round'}));
+  const hx = o.headX ?? 22;
+  if (o.showText) parts.push(txt(o.head, {x: hx, y: (o.headH - o.head.height) / 2, fill: INK}));
+  else parts.push(h('path', {d: `M${r(hx)} ${r(o.headH / 2)}h${r(Math.min(w - hx - 60, w * 0.55, 300))}`, stroke: shade(th.accent4Soft, -0.3), 'stroke-width': 11, 'stroke-linecap': 'round'}));
   // filler lines outside the clause block (they continue under the attach area)
   const fl = [];
   const inClause = (x0, x1, y) => y > c.y - 14 && y < c.y + c.h + 14 && x1 > c.x - 10 && x0 < c.x + c.w + 10;
@@ -226,8 +227,9 @@ export const loupeBox = (x, y, R) => ({x: x - R * 2.3, y: y - R * 1.3, w: R * 3.
 export function trayBack(ctx, w, h0) {
   return g(null,
     h('rect', {x: -14, y: -10, width: r(w + 34), height: r(h0 + 30), rx: 12, fill: ctx.theme.shadow}),
-    h('path', {d: roundRectPath(-18, -16, w + 36, h0 + 32, 12), fill: '#b8916a', stroke: INK, 'stroke-width': 2.4}),
-    h('path', {d: roundRectPath(-8, -6, w + 16, h0 + 12, 8), fill: '#9c7550', stroke: INK, 'stroke-width': 1.6}),
+    h('path', {d: roundRectPath(-18, -16, w + 36, h0 + 32, 12), fill: '#c9a47c', stroke: INK, 'stroke-width': 2.4}),
+    h('path', {d: roundRectPath(-8, -6, w + 16, h0 + 12, 8), fill: '#e2cfb4', stroke: INK, 'stroke-width': 1.6}),
+    h('path', {d: Array.from({length: 4}, (_, i) => `M${r(4)} ${r(h0 * (0.2 + i * 0.2))}H${r(w - 4)}`).join(''), stroke: '#cdb592', 'stroke-width': 3, 'stroke-linecap': 'round'}),
   );
 }
 export function trayLip(ctx, w, h0) {
@@ -339,8 +341,9 @@ export function trackGeom(ctx, A, F, minF, p, o = {}) {
   } else if (shape === 'square') {
     const ch0 = A.h * 0.36;
     const C = {x: A.x, y: A.y + A.h - ch0, w: A.w, h: ch0};
-    const head = fitG(headTxt, {maxWidth: C.w - 44 - 30, size: F, minSize: minF, maxLines: maxL, weight: 800});
+    const head = fitG(headTxt, {maxWidth: C.w * 0.5 - 50, size: F, minSize: minF, maxLines: maxL + 1, weight: 800});
     const headH = head.height + 26;
+    G.headX = 22;
     const cl = {x: 18, w: C.w * 0.5 - 30};
     const clFit = fitG(p.clause, {maxWidth: cl.w - 18 - discR * 2 - 14 - 14, size: F, minSize: minF, maxLines: 3, weight: 700});
     cl.y = headH + 18; cl.h = Math.max(clauseBlockH(clFit, discR, 1), Math.min(C.h - headH - 36, clauseBlockH(clFit, discR, 3))); cl.fit = clFit;
@@ -375,7 +378,9 @@ export function trackGeom(ctx, A, F, minF, p, o = {}) {
   } else {
     const C0h = A.h * 0.29;
     const C = {x: A.x, y: A.y + A.h - C0h, w: A.w, h: C0h};
-    const head = fitG(headTxt, {maxWidth: C.w - 44 - 30, size: F, minSize: minF, maxLines: maxL, weight: 800});
+    const sw0 = Math.min(A.w * 0.4, 330);
+    G.headX = 30 + sw0 + 34;
+    const head = fitG(headTxt, {maxWidth: C.w - G.headX - 56, size: F, minSize: minF, maxLines: maxL + 1, weight: 800});
     const headH = head.height + 26;
     const cl = {x: C.w * 0.5 + 6, w: C.w * 0.5 - 24};
     const clFit = fitG(p.clause, {maxWidth: cl.w - 18 - discR * 2 - 14 - 14, size: F, minSize: minF, maxLines: 4, weight: 700});
@@ -384,7 +389,7 @@ export function trackGeom(ctx, A, F, minF, p, o = {}) {
     const regionH = C.y - 26 - A.y;
     const slotH = regionH / (n + 1);
     const colX = A.x + 30;
-    const sw = Math.min(A.w * 0.4, 330);
+    const sw = sw0;
     const propFit = fitG(p.proposal, {maxWidth: sw - 24, size: F, minSize: minF, maxLines: 2, weight: 800});
     const shMin = sheetMinH(propFit, sheetHeadH);
     const sh = Math.min(slotH - 34, sw * 0.8);
@@ -417,13 +422,13 @@ export function trackGeom(ctx, A, F, minF, p, o = {}) {
   G.stations.forEach((st, k) => {
     const s = G.stops[k + 1], t = G.tabs[k];
     if (G.edge === 'top') {
-      const hw = t.w + 26, hh = 50;
+      const hw = t.w + 40, hh = 60;
       st.head = {w: hw, h: hh};
       st.contact = {x: s.x + t.cx, y: s.y - hh / 2 + 10};
       st.rest = {x: s.x + t.cx, y: Math.min(st.contact.y - 46, st.top + 30 + hh / 2)};
       if (st.contact.y - st.rest.y < 30) why.push('press-travel');
     } else {
-      const hw = 46, hh = t.h + 26;
+      const hw = 60, hh = t.h + 40;
       st.head = {w: hw, h: hh};
       st.contact = {x: s.x + G.sw + hw / 2 - 10, y: s.y + t.cy};
       st.rest = {x: st.contact.x + Math.max(36, G.pressZone - hw - 4), y: s.y + t.cy};
@@ -450,10 +455,14 @@ export function stationNode(ctx, G, st, pre, show) {
     h('path', {d: roundRectPath(P.x, P.y, P.w, P.h, 10), fill: '#fffdf7', stroke: INK, 'stroke-width': 2.4}),
     h('path', {d: roundRectPath(P.x + 6, P.y + 6, P.w - 12, P.h - 12, 7), fill: 'none', stroke: th.accent2Soft, 'stroke-width': 3}),
     pips(k + 1, P.x + 16 + (k * pipR * 2.8) / 2 + pipR, P.y + 22, pipR, th.accent2),
-    show ? g({name: `${pre}steptext${k}`}, txt(st.fit, {x: P.x + 15, y: P.y + 38, fill: INK})) : h('path', {d: `M${r(P.x + 15)} ${r(P.y + 46)}h${r(Math.min(P.w - 30, 150))}`, stroke: '#d6cfc0', 'stroke-width': 10, 'stroke-linecap': 'round'}),
+    show ? g({name: `${pre}steptext${k}`}, txt(st.fit, {x: P.x + 15, y: P.y + 36 + Math.max(0, (P.h - 50 - st.fit.height) / 2), fill: INK})) : h('path', {d: `M${r(P.x + 15)} ${r(P.y + 46)}h${r(Math.min(P.w - 30, 150))}`, stroke: '#d6cfc0', 'stroke-width': 10, 'stroke-linecap': 'round'}),
   );
   // stop pad
-  parts.push(h('path', {d: roundRectPath(s.x - 9, s.y - 9, G.sw + 18, G.sh + 18, 12), fill: '#e7e1d4', stroke: '#b7ad99', 'stroke-width': 2}));
+  {
+    const x0 = s.x - 9, y0 = s.y - 9, w0 = G.sw + 18, h0 = G.sh + 18, c = Math.min(26, G.sw * 0.14);
+    parts.push(h('path', {d: roundRectPath(x0, y0, w0, h0, 12), fill: '#f2ede3', stroke: '#c9bfab', 'stroke-width': 2}));
+    parts.push(h('path', {d: `M${r(x0 + 6)} ${r(y0 + 6 + c)}V${r(y0 + 6)}H${r(x0 + 6 + c)}M${r(x0 + w0 - 6 - c)} ${r(y0 + h0 - 6)}H${r(x0 + w0 - 6)}V${r(y0 + h0 - 6 - c)}M${r(x0 + w0 - 6 - c)} ${r(y0 + 6)}H${r(x0 + w0 - 6)}V${r(y0 + 6 + c)}M${r(x0 + 6)} ${r(y0 + h0 - 6 - c)}V${r(y0 + h0 - 6)}H${r(x0 + 6 + c)}`, fill: 'none', stroke: th.accent2Soft, 'stroke-width': 4, 'stroke-linecap': 'round'}));
+  }
   if (G.edge === 'top') {
     const gx0 = st.x + 6, gx1 = st.x + st.w - 6;
     const by = st.top + 6;
