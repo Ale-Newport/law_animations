@@ -593,9 +593,9 @@ export function composeScene(ctx, o, panelLayoutFn) {
   const {w: DW, h: DH} = ctx.design;
   const shape = ctx.view.shape;
   const opts = o.opts || (shape === 'portrait'
-    ? [{legend: 'below', cols: 1, bag: 'top'}, {legend: 'below', cols: 2, bag: 'top'}, {legend: 'below', cols: 1, bag: 'left'}, {legend: 'below', cols: 2, bag: 'left'}]
+    ? [{legend: 'below', cols: 1, bag: 'top'}, {legend: 'below', cols: 2, bag: 'top'}, {legend: 'below', cols: 1, bag: 'left'}, {legend: 'below', cols: 2, bag: 'left'}, ...(o.allowH ? [{legend: 'below', cols: 2, bag: 'left', orient: 'h'}, {legend: 'below', cols: 1, bag: 'left', orient: 'h'}] : [])]
     : shape === 'square'
-      ? [{legend: 'side', pw: 0.36, bag: 'top'}, {legend: 'side', pw: 0.42, bag: 'top'}, {legend: 'below', cols: 2, bag: 'left'}, {legend: 'side', pw: 0.36, bag: 'left'}, {legend: 'below', cols: 2, bag: 'top'}, {legend: 'side', pw: 0.3, bag: 'top'}]
+      ? [{legend: 'side', pw: 0.36, bag: 'top'}, {legend: 'side', pw: 0.42, bag: 'top'}, {legend: 'below', cols: 2, bag: 'left'}, {legend: 'side', pw: 0.36, bag: 'left'}, {legend: 'below', cols: 2, bag: 'top'}, {legend: 'side', pw: 0.3, bag: 'top'}, ...(o.allowH ? [{legend: 'below', cols: 2, bag: 'left', orient: 'h'}, {legend: 'side', pw: 0.34, bag: 'left', orient: 'h'}] : [])]
       : [{legend: 'side', pw: 0.27, bag: 'left'}, {legend: 'side', pw: 0.32, bag: 'left'}, {legend: 'side', pw: 0.3, bag: 'top'}]);
   let best = null, bestScore = -1, fallback = null;
   for (const F of F_SIZES) {
@@ -630,7 +630,7 @@ export function composeScene(ctx, o, panelLayoutFn) {
       const inset = Math.max(14, Math.min(bench.w, bench.h) * 0.035);
       const pad = inset + (o.benchPad ?? 16);
       const box = {x: bench.x + pad, y: bench.y + pad, w: bench.w - pad * 2, h: bench.h - pad * 2 - (o.armRoom ? Math.min(60, bench.h * 0.06) : 0)};
-      const st = fitStation(box, {n: o.n, texts: o.texts, F, bagMode: opt.bag, noBag: o.noBag, title: o.title, tagText: o.tagText, noExpand: o.noExpand, sheetFrac: o.sheetFrac, minS: o.minS, maxS: o.maxS, tagTextW: o.tagTextW});
+      const st = fitStation(box, {n: o.n, texts: o.texts, F, bagMode: opt.bag, orient: opt.orient, noBag: o.noBag, title: o.title, tagText: o.tagText, noExpand: o.noExpand, sheetFrac: o.sheetFrac, minS: o.minS, maxS: o.maxS, tagTextW: o.tagTextW});
       const c = {F, opt, bench, panel, PL, st, box};
       c.ok = Boolean(st) && (!PL || PL.ok);
       c.problems = [!st && 'station-fit', PL && !PL.ok && 'panel-text'].filter(Boolean);

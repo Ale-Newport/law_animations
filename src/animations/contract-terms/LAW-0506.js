@@ -258,7 +258,6 @@ function model(ctx, F, Pw, mode, AB, stress, show) {
   const Wc = clamp(Pw + ox + exC - tabW('clause') - 2.2 * F, Math.min(Pw * 0.8, Pw + ox - 0.8 * F), Pw + ox - 0.8 * F);
   const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: Wc - 2.6 * F, size: F, minSize: F * 0.92, maxLines: ml + 1, weight: 700});
   if (title.bad || head.bad || rowFits.some(f => f.bad)) why.push('plate-text');
-  if (globalThis.DBG506 > 2) console.log('   bad', title.bad, head.bad, rowFits.map(q => q.bad), r(Wc / F, 1), r(Pw / F, 1));
   const band = head.height + 0.9 * F, oy = band + 0.45 * F;
   const titleY = 0.85 * F, rowsTop = titleY + title.height + 16 + 0.7 * F;
   const natRows = rowFits.map(f => f.height + 0.95 * F);
@@ -396,7 +395,6 @@ function geom(ctx, fpx, mode, panel) {
     // prefer readable plates: few wrapped lines, then fill, then type size
     const wraps = [M.head, M.title, ...M.rows.map(q => q.fit)].reduce((s0, q) => s0 + (q.lines ? q.lines.length - 1 : 0), 0);
     const score = (M.ok ? 0 : -1000) + (px >= floorPx ? 0 : -100) + Math.min(fillMin, 0.92) * 40 + Math.min(px, 28) - 1.2 * wraps;
-    if (globalThis.DBG506 > 1) console.log('  k', r(k, 1), M.why.join(','), px.toFixed(1), fillMin.toFixed(2), wraps, JSON.stringify(M.E), JSON.stringify(M.Aplug));
     if (!best || score > best.score) best = {...M, score, px, fillMin};
   }
   const why = [...N.why, ...best.why];
@@ -415,7 +413,6 @@ const scene = {
     search: for (const fpx of stress ? [22, 20.5, 19, 18] : [26, 25, 24, 23, 22]) {
       for (const [mode, panel] of opts) {
         const c = geom(ctx, fpx, mode, panel);
-        if (globalThis.DBG506) console.log(fpx, mode, panel, c.why.join(','), c.px.toFixed(1), c.fillMin.toFixed(2), r(c.Pw / c.F, 1), JSON.stringify(c.AB));
         if (!L || (c.ok && (!L.ok || c.score > L.score + 2))) L = c;
         if (c.ok && !firstOk) firstOk = c;
       }
@@ -599,7 +596,7 @@ const scene = {
         filmRegistered: spread === 0, contract: S(P.contract), clause: S(P.clause), promise: S(P.promise),
         tabsShown: r(tabsO, 3), relations: L.rels.length, finalShown: r(fin, 3), keyShown: r(legO, 3), mode: L.mode, panel: L.panel,
         arrangement: 'depth', textPx: r(L.px, 2), routeHits: L.routeHits, layoutOk: L.ok, why: L.why.join(','), problems: L.ok ? [] : L.why,
-        actionCapped: p.actionProgress < 1 && u > capU, DBG: {Pw: r(L.Pw), Ph: r(L.Ph), F: r(L.F), AB: L.AB, A: L.Aplug, E: L.E, fills: [L.fillE, L.fillA, L.fillR], TTh: L.TT.h},
+        actionCapped: p.actionProgress < 1 && u > capU
       },
     };
   },

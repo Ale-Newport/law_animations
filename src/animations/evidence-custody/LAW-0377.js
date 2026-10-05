@@ -117,7 +117,7 @@ const scene = {
     const P = localised(ctx, EN, ES);
     const n = P.items.length;
     const texts = P.items.map((_, i) => rowText(P, i));
-    const C = composeScene(ctx, {n, texts, title: ctx.show('key') ? P.objectLabels.list : null, rows: () => legendRows(ctx, P), tagText: ctx.show('key'), armRoom: true, minS: 34, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...P.records.map(rw => rw.field).map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null}, panelLayout);
+    const C = composeScene(ctx, {n, texts, title: ctx.show('key') ? P.objectLabels.list : null, rows: () => legendRows(ctx, P), tagText: ctx.show('key'), armRoom: true, allowH: true, minS: 34, tagTextW: ctx.show('key') ? (sz => Math.max(0, ...P.records.map(rw => rw.field).map(t => measure(String(t || ''), Math.max(17, sz), 700)))) : null}, panelLayout);
     // panel layouts were computed per F inside composeScene; recompute for the chosen F
     const G = C.st.G, SF = C.st.SF;
     const linked = P.items.map((_, i) => Boolean(entryOf(P, i)));
@@ -135,8 +135,12 @@ const scene = {
     const armW = Math.max(28, Math.min(50, G.S * 0.26));
     const rackMid = X(G.rackX + G.rackW / 2);
     const bagMid = G.bag ? X(G.bag.x + G.bag.w / 2) : rackMid;
-    const shoulder = {x: clamp(G.bagMode === 'left' ? (rackMid + bagMid) / 2 : rackMid + G.S * 0.3, C.bench.x + 60, C.bench.x + C.bench.w - 60), y: bb + Math.max(60, C.bench.h * 0.08)};
-    world.rest = {x: shoulder.x + armW * 0.3, y: bb - Math.max(armW * 1.6, C.bench.h * 0.1)};
+    // a horizontal station keeps its list along the bench's lower edge, so the arm then enters from the upper edge
+    const fromTop = G.orient === 'h';
+    const shoulder = fromTop
+      ? {x: clamp((rackMid + bagMid) / 2, C.bench.x + 60, C.bench.x + C.bench.w - 60), y: C.bench.y - Math.max(60, C.bench.h * 0.08)}
+      : {x: clamp(G.bagMode === 'left' ? (rackMid + bagMid) / 2 : rackMid + G.S * 0.3, C.bench.x + 60, C.bench.x + C.bench.w - 60), y: bb + Math.max(60, C.bench.h * 0.08)};
+    world.rest = fromTop ? {x: shoulder.x + armW * 0.3, y: C.bench.y + Math.max(armW * 1.6, C.bench.h * 0.08)} : {x: shoulder.x + armW * 0.3, y: bb - Math.max(armW * 1.6, C.bench.h * 0.1)};
     const W = itemWindows(n, ACT[0], ACT[1], 0.06, travelWeights(world));
     const L0 = {P, n, W, world, G, linked};
     let far = 0;
