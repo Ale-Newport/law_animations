@@ -116,7 +116,7 @@ function geom(ctx, F, minF, place, stack = false, upx = 1) {
   const rowFits = p.clauses.map(c => fitG(c, {maxWidth: rowW - 40, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600}));
   if (head.bad || title.fit.bad || rowFits.some(f => f.bad) || sheetW < 300) why.push('sheet-text');
   // the magnifier rests below the slip
-  const R = clamp(F * 2.1, 44, 70), hl = R * 1.5;
+  const R = place === 'top' ? clamp(F * 1.5, 34, 56) : clamp(F * 2.1, 44, 70), hl = R * 1.5;
   const sheet = {x: ctxBox.x + 18, y: ctxBox.y + 24, w: sheetW, h: tall ? D.h * (ctx.view.shape === 'square' ? 0.56 : 0.5) - 40 : stack ? ctxBox.h - 44 - slipH - 70 : ctxBox.h - 44};
   if (tall) lensArea = {x: pad, y: pad, w: D.w - pad * 2, h: sheet.y + sheet.h - pad};
   const rowH0 = rowFits.map(f => f.height + 28);
@@ -170,10 +170,20 @@ function geom(ctx, F, minF, place, stack = false, upx = 1) {
   // notes for the hold, placed where the lens was (empty once it has closed)
   const notes = [];
   if (show) notes.push({name: 'final', kind: 'final', text: p.finalState === 'provided' ? ctx.t.linked : ctx.t.unlinked});
-  if (show) notes.push({name: 'markerNote', kind: 'marker', text: p.contextLabels.marker});
-  if (show) notes.push({name: 'ctxNote', kind: 'note', text: p.contextLabels.context});
+  if (show && tall) notes.push({name: 'markerNote', kind: 'marker', text: `${p.contextLabels.marker} · ${p.contextLabels.context}`});
+  else if (show) {
+    notes.push({name: 'markerNote', kind: 'marker', text: p.contextLabels.marker});
+    notes.push({name: 'ctxNote', kind: 'note', text: p.contextLabels.context});
+  }
   if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
-  const nb = tall ? {x: pad + 10, y: slip.y + slipH + 34, w: D.w - pad * 2 - 20, h: D.h - pad - (slip.y + slipH + 34)} : {x: lensArea.x + 10, y: lensArea.y + 10, w: lensArea.w - 20, h: lensArea.h - 20};
+  const belowH = D.h - pad - (slip.y + slipH + 34);
+  if (tall && belowH < 230) {
+    // (no room under the slip: the notes go in the column left of it, the magnifier rests at the bottom left)
+    if (belowH >= 2 * R + 12) { lupaRest.x = slip.x + 10; lupaRest.y = slip.y + slipH + 8 + R; lupaRest.a = 0; }
+    else { lupaRest.x = pad + 10; lupaRest.y = D.h - pad - R - 8; lupaRest.a = 0; }
+  }
+  const nb = tall && belowH < 230 ? {x: pad + 10, y: slip.y, w: slip.x - 30 - pad, h: (lupaRest.x < slip.x ? lupaRest.y - R - 16 : D.h - pad) - slip.y}
+    : tall ? {x: pad + 10, y: slip.y + slipH + 34, w: D.w - pad * 2 - 20, h: belowH} : {x: lensArea.x + 10, y: lensArea.y + 10, w: lensArea.w - 20, h: lensArea.h - 20};
   let ny = nb.y;
   const placed = notes.map(q => {
     const c = chipG(ctx, q.text, {x: right ? nb.x : nb.x + nb.w / 2, anchor: right ? 'start' : 'middle', y: ny, maxWidth: nb.w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name,

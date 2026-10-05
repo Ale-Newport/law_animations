@@ -112,7 +112,7 @@ function headChip(ctx, side, label, caption, size, maxW, unit) {
   const R = size * 0.8;
   // (the values under the trays are bare numbers: the head names their unit, e.g. "values (hypothetical)")
   const text = ctx.show('key') ? glueN(`${side === 'a' ? 'A' : 'B'} · ${label} · ${ctx.t.values} (${unit})${caption && ctx.show('all') ? ` — ${caption}` : ''}`) : null;
-  const fo = {maxWidth: maxW - 2 * R - 34, size, minSize: size, maxLines: 2, weight: 700};
+  const fo = {maxWidth: maxW - 2 * R - 34, size, minSize: size, maxLines: 3, weight: 700};
   const fit = text ? fitG(ctx, unwidow(text, t0 => fitG(ctx, t0, fo)), fo) : null;
   const w = 2 * R + 30 + (fit ? fit.width : 0) + (fit ? 6 : 0);
   const hh = Math.max(2 * R + 12, fit ? fit.height + size * 0.7 : 0);

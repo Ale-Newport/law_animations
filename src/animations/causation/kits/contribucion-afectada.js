@@ -26,6 +26,8 @@ import {clamp, ease, lerp, r, seg} from '../../../core/time.js';
 import {roundRectPath} from '../../../core/geometry.js';
 import {shade} from '../../../primitives/paper.js';
 import {textBlock} from '../../../primitives/annotate.js';
+import {personRig} from '../../../primitives/person.js';
+import {actorLook} from '../../../primitives/people-style.js';
 import {str, oneOf, list, obj} from '../../../schemas/fields.js';
 import {fitG, chipG, balancedG} from './prueba-contrafactual.js';
 import {barrierArt as barrierArt0} from './causal-chain.js';
@@ -170,7 +172,30 @@ export function lossText(ctx, p) {
  * lane offset D from the middle line, lane half-thickness LT, slab margin beyond the lanes, slab thickness, step-object
  * height, trolley parts (wheel radius, body height, mast, flag head).
  */
-export const FIELD = {side: 0.03, laneL: 1.2, conn: 0.34, ev: 0.2, K: 0.62, D: 0.5, LT: 0.08, marg: 0.12, margB: 0.38, plate: 0.07, item: 0.28, wheel: 0.035, body: 0.11, mast: 0.22, head: 0.15, cartW: 0.35, brace: 0.16};
+export const FIELD = {side: 0.03, laneL: 1.5, conn: 0.34, ev: 0.2, K: 0.62, D: 0.56, LT: 0.08, marg: 0.12, margB: 0.38, plate: 0.07, item: 0.28, wheel: 0.035, body: 0.11, mast: 0.22, head: 0.15, cartW: 0.35, brace: 0.16};
+/** The trolley's push-bar grip, local to its wheel contact (× PH). */
+export const CART_HANDLE = {x: -(0.35 / 2 + 0.07), y: -0.3};
+/** Actor height (× PH): the stylized figure walking behind a trolley. */
+export const ACTOR_H = 0.62;
+
+/**
+ * An actor (stylized person rig, seeded look by index; equal size for both lanes). `frame(cx, laneY, PH)` places the
+ * figure behind the trolley at cx with both hands on its push-bar grip and returns {nodes, reached, hand}.
+ */
+export function actorArt(ctx, {name, idx}) {
+  const rig = personRig(ctx, {name, look: actorLook(ctx, null, idx)});
+  return {
+    node: rig.node,
+    frame(cx, laneY, PH, step = 0) {
+      const k = (ACTOR_H * PH) / 410;
+      const hand = {x: cx + CART_HANDLE.x * PH, y: laneY + CART_HANDLE.y * PH};
+      const x = cx - (FIELD.cartW * 0.5 + 0.17) * PH;
+      const f = rig.frame({x, y: laneY, scale: k, lean: 6 + 2 * Math.sin(step), near: hand, far: {x: hand.x - 0.01 * PH, y: hand.y + 0.004 * PH}});
+      return {nodes: f.nodes, reached: f.reached, hand, x};
+    },
+  };
+}
+
 /** Height of the trolley above its lane line (× PH): wheels, body, mast and flag head. */
 export const CART_TOP = 2 * FIELD.wheel + FIELD.body + FIELD.mast + FIELD.head;
 
@@ -178,7 +203,7 @@ export const CART_TOP = 2 * FIELD.wheel + FIELD.body + FIELD.mast + FIELD.head;
 /** (the right-hand margin holds the brace beside the event pad) */
 export const fieldW = () => FIELD.side + 0.04 + FIELD.laneL + FIELD.conn + 2 * FIELD.ev + FIELD.brace;
 /** Height of the field's top above the middle line (× PH): lane A's trolley flag. */
-export const fieldTop = () => FIELD.D + CART_TOP;
+export const fieldTop = () => FIELD.D + Math.max(CART_TOP, ACTOR_H) + 0.02;
 /** Depth below the middle line to the floor (× PH). */
 export const fieldBelow = () => FIELD.D + FIELD.LT + FIELD.margB + FIELD.plate;
 export const fieldH = () => fieldTop() + fieldBelow();
@@ -206,7 +231,9 @@ export function fieldGeom(left, floorY, PH) {
     PH, cy, K: F.K, xs, xe, xb: xe - 0.07 * PH, px, py, padR, yA, yB, laneY,
     LT: F.LT * PH, itemS: F.item * PH, plateT: F.plate * PH, headS: F.head * PH, cartW: F.cartW * PH,
     at: (l, x) => ({x, y: laneY(l)}),
-    cartX: f => lerp(xs + 0.17 * PH, xe - 0.36 * PH, f),
+    cartX: f => lerp(xs + 0.36 * PH, xe - 0.36 * PH, f),
+    // the actor walks behind the trolley, hands on its push bar
+    actorX: cx => cx - (F.cartW * 0.5 + 0.17) * PH,
     stand: l => laneY(l) + (F.LT + 0.03 + F.item) * PH,
     conn, floorY,
     x0: left, x1: left + fieldW() * PH, top: cy - fieldTop() * PH,
@@ -320,9 +347,11 @@ export function cartArt(ctx, {name, PH, side}) {
     h('path', {d: roundRectPath(-w * 0.38, bodyTop + bh * 0.22, w * 0.5, bh * 0.56, 3), fill: th.paperShade, stroke: th.inkSoft, 'stroke-width': Math.max(1.2, sw * 0.6)}),
     h('path', {d: roundRectPath(w * 0.1, bodyTop - bh * 0.9, w * 0.32, bh * 0.9, 3), fill: th.wood, stroke: th.ink, 'stroke-width': sw}),
     [-0.3, 0.3].map(f => h('circle', {cx: r(f * w), cy: r(-wr), r: r(wr), fill: th.metalDark, stroke: th.ink, 'stroke-width': Math.max(1.5, sw * 0.8)})),
+    // the push bar (the actor's hands hold its grip)
+    h('path', {d: `M${r(-w / 2)} ${r(bodyTop + bh * 0.3)}L${r(CART_HANDLE.x * PH)} ${r(CART_HANDLE.y * PH)}`, stroke: th.ink, 'stroke-width': r(Math.max(3, PH * 0.016)), 'stroke-linecap': 'round'}),
     g({name: name ? `${name}-flag` : undefined},
-      h('path', {d: `M${r(-w * 0.3)} ${r(bodyTop)}V${r(mastTop)}`, stroke: th.ink, 'stroke-width': r(Math.max(3, PH * 0.018)), 'stroke-linecap': 'round'}),
-      sideMark(ctx, {cx: -w * 0.3, cy: mastTop - hs * 0.5, s: hs, side})),
+      h('path', {d: `M${r(-w * 0.12)} ${r(bodyTop)}V${r(mastTop)}`, stroke: th.ink, 'stroke-width': r(Math.max(3, PH * 0.018)), 'stroke-linecap': 'round'}),
+      sideMark(ctx, {cx: -w * 0.12, cy: mastTop - hs * 0.5, s: hs, side})),
   );
 }
 

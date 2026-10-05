@@ -42,7 +42,7 @@ import {T} from '../../core/transform.js';
 import {str, num, obj, list, oneOf, annotation} from '../../schemas/fields.js';
 import {
   caFields, CA_STRINGS, CA_DEFAULTS, CA_ES_DEFAULTS, resolveCA, entryRow, lossText, linkNotes, altText,
-  fieldGeom, fieldW, fieldH, itemPlaces, slabArt, cartArt, eventArt, itemArt, laneBarrier, laneConnector, glueN, unwidow, floorArt,
+  fieldGeom, fieldW, fieldH, itemPlaces, slabArt, cartArt, actorArt, eventArt, itemArt, laneBarrier, laneConnector, glueN, unwidow, floorArt,
   iconChip, flowRows, recordMeasure, recordBuild, chipG, linkIcon, adIcon,
   clamp, ease, lerp, r, seg, localizeScene,
 } from './kits/contribucion-afectada.js';
@@ -529,6 +529,7 @@ const scene = {
     const G = fieldGeom(cx, F, PH);
     L.G = G;
     L.places = itemPlaces(G, M);
+    L.actors = ['a', 'b'].map((l, i) => actorArt(ctx, {name: `ac${l}`, idx: i}));
     // the two connectors (lane end → event), each with its supplied kind and status
     L.links = M.links.map(l => ({lane: l.lane, kind: l.kind, art: laneConnector(ctx, {name: `cn${l.lane.toUpperCase()}`, G, l: l.lane, kind: l.kind, disputed: l.status === 'disputed'})}));
     // the brace beside the pad joins the two lanes; the loss chip hangs beside the field (or heads the right-hand
@@ -606,6 +607,8 @@ const scene = {
       ...L.places.map(q => ({y: q.y, node: g({name: `item${q.i}`, transform: T(q.x, q.y)}, itemArt(ctx, {i: q.i, s: q.s}))})),
       ...['a', 'b'].map(l => ({y: G.laneY(l) + 0.01, node: g({name: `bar${l.toUpperCase()}`, transform: T(G.xb, G.laneY(l))}, laneBarrier(ctx, {name: `lb${l}`, G}))})),
       ...['a', 'b'].map(l => ({y: G.laneY(l) + 0.02, node: g({name: `cart${l.toUpperCase()}`, transform: T(G.cartX(0), G.laneY(l))}, cartArt(ctx, {name: `ct${l}`, PH: G.PH, side: l}))})),
+      // the two actors (equal size), each walking behind its trolley with both hands on the push bar
+      ...['a', 'b'].map((l, i) => ({y: G.laneY(l) + 0.015, node: g({name: `actor${l.toUpperCase()}`}, L.actors[i].node)})),
     ].sort((a, b) => a.y - b.y);
     const tick = G.PH * 0.05;
     const bD = `M${r(G.braceX - tick)} ${r(G.yA)}H${r(G.braceX)}V${r(G.yB)}H${r(G.braceX - tick)}`;
@@ -638,6 +641,14 @@ const scene = {
     const f = ease.inOutCubic(seg(a, ...W.roll));
     const cx = G.cartX(f);
     for (const l of ['a', 'b']) nodes[`cart${l.toUpperCase()}`] = {transform: T(cx, G.laneY(l))};
+    // the actors push their trolleys (same pose, same timing; a small walking sway while they move)
+    let allReached = true;
+    const acts = ['a', 'b'].map((l, i) => {
+      const fr = L.actors[i].frame(cx, G.laneY(l), G.PH, f * 18);
+      Object.assign(nodes, fr.nodes);
+      if (!fr.reached) allReached = false;
+      return {x: r(fr.x), hand: {x: r(fr.hand.x), y: r(fr.hand.y)}};
+    });
     // each step object hops as its lane's trolley passes it; its record row lights while the trolley is beside it
     const hopH = G.PH * 0.06, hopW = G.PH * 0.24;
     const moving = f > 0 && f < 1;
@@ -667,6 +678,7 @@ const scene = {
       roll: r(f, 3), conn: r(cp, 3),
       cartA: {x: r(cx), y: r(G.yA)}, cartB: {x: r(cx), y: r(G.yB)},
       atBarrier: f >= 1,
+      allReached, actorA: {x: acts[0].x, y: r(G.yA)}, actorB: {x: acts[1].x, y: r(G.yB)}, handA: acts[0].hand, handB: acts[1].hand,
       // the trolleys never pass their barriers (nothing reaches the event physically)
       beforeBarrier: cx < G.xb - G.cartW * 0.5,
       nA: M.nA, nB: M.nB,

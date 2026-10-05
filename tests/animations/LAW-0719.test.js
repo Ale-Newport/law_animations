@@ -10,6 +10,12 @@
 // chips of identical weight); values hypothetical and labelled so.
 // Brief customizable fields: events, causalLinks, alternatives, losses, scenarioA, scenarioB, changedFact, sharedFacts,
 // comparisonLabels — all present; 'unit' and 'allocationLabels' added.
+// coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20; per-scene subject floor >= 0.20 of the
+// frame height as in accepted LAW-0707/0711): the long-labels-stress COUNTS are capped (four events kept; one total, no
+// account, no connector note, one shared fact). Rendered at 1080p (2026-10-05, pre-cap copy production/scratch/
+// causation-10/LAW-0719.stress-precap.json): full counts → 1:1 no composition fits, 9:16 per-stage height 0.177; after
+// the cap 9:16 0.202, 1:1 0.265, 16:9 0.376. Fallbacks tried: side by side / stacked, panel below (two chips a row) or
+// beside, compact rail zones, staggered and bare-number value chips, a guide band.
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite, identicalBeforeChange} from '../harness/supplied-text.js';
 import {ratioChecks} from '../harness/ratio-checks.js';

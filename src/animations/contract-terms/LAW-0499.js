@@ -180,7 +180,7 @@ function geom(ctx, F, minF, arrangement) {
 }
 
 const scene = {
-  sizes: {landscape: [1600, 900], square: [1200, 1050], portrait: [900, 1600]},
+  sizes: {landscape: [1600, 900], square: [1000, 860], portrait: [900, 1600]},
   layout(ctx) {
     const p = ctx.params;
     const upx = unitPx(ctx);
@@ -201,7 +201,9 @@ const scene = {
     // the guide: the same slot outlined in both walls, joined by a line through the gap
     const G = L.G;
     const box = {x: G.slot.x - 14, y: Math.min(G.row.y, G.hungTop) - 12, w: G.colX + G.slipW / 2 + 16 - (G.slot.x - 14), h: Math.max(G.row.y + G.row.h, G.hungTop + G.slipH) + 12 - (Math.min(G.row.y, G.hungTop) - 12)};
-    const boxes = L.lanes.map(ln => ({x: ln.x + box.x, y: ln.y + box.y, w: box.w, h: box.h}));
+    // (in B the outline marks only the slot's row and ends above the slip resting in the tray)
+    const boxB = {x: box.x, y: G.row.y - 12, w: box.w, h: Math.min(G.row.y + G.row.h + 12, G.trayTop - 8) - (G.row.y - 12)};
+    const boxes = L.lanes.map((ln, i) => { const b0 = i === 0 ? box : boxB; return {x: ln.x + b0.x, y: ln.y + b0.y, w: b0.w, h: b0.h}; });
     const th = ctx.theme;
     const guide = g({name: 'guide', opacity: 0},
       boxes.map(bx => h('path', {d: roundRectPath(bx.x, bx.y, bx.w, bx.h, 14), fill: 'none', stroke: th.accent3, 'stroke-width': 5})),
