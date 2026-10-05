@@ -186,7 +186,7 @@ const scene = {
       stMemo.set(size, st);
       return st;
     };
-    let A = arrangeScene(ctx, {items, stage, modes: SH.modes, sizes: SH.sizes, sideWs: SH.sideWs, memo, sMax: 1200, areaSat: 0.55});
+    let A = arrangeScene(ctx, {items, stage, modes: SH.modes, sizes: SH.sizes, sideWs: SH.sideWs, memo, sMax: 1200, areaSat: items.length ? 0.55 : 0.85, areaW: items.length ? 0.3 : 0.5});
     const problems = [];
     if (!A) {
       problems.push('no-layout-fits');

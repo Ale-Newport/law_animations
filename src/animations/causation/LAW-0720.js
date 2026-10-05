@@ -39,7 +39,7 @@ import {lens as lensFw} from '../../frameworks/lens.js';
 import {changedMarker} from '../../primitives/markers.js';
 import {
   dpFields, DP_STRINGS, DP_DEFAULTS, DP_ES_DEFAULTS, resolveDP, linkNotes, altText, allocText, valueText,
-  stageGeom, stageArt, pieceArt, pieceFrame, bladeArt, dropPos, ST, trayBack, trayFront, valueChip, valueChipSize, arrangeScene, placePanel, fillDrop,
+  stageGeom, stageArt, pieceArt, pieceFrame, bladeArt, dropPos, ST, trayBack, trayFront, valueChip, valueChipSize, arrangeScene, placePanel, fillDrop, DROP_CAP,
   chipG, glueN, fitG,
   clamp, ease, lerp, r, seg, localizeScene,
 } from './kits/distribucion-perdidas.js';
@@ -86,9 +86,9 @@ const defaultParamsEs = {
 };
 
 const SHAPES = {
-  landscape: {sizes: [26, 16], modes: ['below', 'side'], sideWs: [0.24, 0.3], lens: ['right']},
+  landscape: {sizes: [26, 16], modes: ['below', 'side'], sideWs: [0.24, 0.3], lens: ['right', 'above']},
   square: {sizes: [24, 16], modes: ['side', 'below'], sideWs: [0.34, 0.4, 0.46], lens: ['above', 'right']},
-  portrait: {sizes: [25, 16], modes: ['below'], sideWs: [], lens: ['below']},
+  portrait: {sizes: [25, 16], modes: ['below'], sideWs: [], lens: ['above', 'below']},
 };
 
 const num0 = s => { const m = String(s).match(/-?\d+(?:[.,]\d+)?/); return m ? parseFloat(m[0].replace(',', '.')) : NaN; };
@@ -106,10 +106,9 @@ function panelItems(ctx, p, M) {
   if (p.losses[1]) out.push({key: 'loss1', icon: 'note', text: `${t.alsoNoted}: ${p.losses[1].label}`, when: 'legend'});
   M.alternatives.forEach((a, j) => out.push({key: `alt${j}`, icon: 'alt', text: altText(ctx, a), when: 'legend'}));
   linkNotes(ctx, M).forEach(l => out.push({...l, when: 'legend'}));
-  // the single editorial annotation (the changed-datum note), then the key
-  out.push({key: 'note', icon: 'note', text: p.contextLabels.marker || t.changed, when: 'note'});
-  out.push({key: 'key', text: t.key, when: 'key'});
-  return out;
+  // the single editorial annotation (the changed-datum note) and the key appear late: they come first, so the chips
+  // shown from the first frame take the panel's last rows
+  return [{key: 'note', icon: 'note', text: p.contextLabels.marker || t.changed, when: 'note'}, {key: 'key', text: t.key, when: 'key'}, ...out];
 }
 
 /** Text of the "before: …" trace line. */
@@ -171,7 +170,14 @@ const scene = {
         };
         // lens to the right: it may reach over the panel below the scene (an opaque window, only while open), never
         // over the scene itself; lens below: its room is reserved under the scene
-        st.push({lp, go, bad: cs.some(c => c.bad), lensOf, dims: S => {
+        // (the area that counts is the scene's own, at rest: the lens room is empty while the lens is closed)
+        const areaOf = (S, bh) => {
+          const q = lensOf(S);
+          if (lp === 'below') return q.G.W * q.G.H;
+          const Hf = Math.min(bh, stageGeom(S, M.n, fmax, {...go, drop: Math.max(q.drop ?? 0, DROP_CAP)}).H);
+          return q.G.W * Math.max(q.G.H, Hf);
+        };
+        st.push({lp, go, bad: cs.some(c => c.bad), lensOf, areaOf, dims: S => {
           const q = lensOf(S);
           if (q.lh > D.h - 20) return {w: 1e9, h: 1e9};
           if (lp === 'above') return {w: Math.max(q.G.W, q.lw), h: q.G.H};
@@ -181,13 +187,15 @@ const scene = {
       stMemo.set(size, st);
       return st;
     };
-    let A = arrangeScene(ctx, {items, stage, modes: SH.modes, sizes: SH.sizes, sideWs: SH.sideWs, memo, sMax: 1200});
+    let A = arrangeScene(ctx, {items, stage, modes: SH.modes, sizes: SH.sizes, sideWs: SH.sideWs, memo, sMax: 1200, areaSat: items.length ? 0.4 : 0.85, areaW: items.length ? 0.3 : 0.5});
     const problems = [];
     if (!A) { problems.push('no-layout-fits'); A = {size: SH.sizes[1], mode: 'below', S: 120, pw: D.w - 20, panel: {placed: [], h: 0}, st: stage(SH.sizes[1])[0], bw: D.w, bh: D.h}; }
     const st = A.st;
     const q0 = st.lensOf(A.S);
     // the rail zone grows so the scene fills the box's height (lens to the right) — the lens keeps its size
-    const G = st.lp === 'right' ? stageGeom(A.S, M.n, fmax, {...st.go, drop: fillDrop(q0.G, A.bh)}) : st.lp === 'above' ? stageGeom(A.S, M.n, fmax, {...st.go, drop: Math.max(q0.drop ?? 0, fillDrop(q0.G, A.bh || D.h, 1.6))}) : q0.G;
+    // (and the tray row spreads out to use the box's width)
+    const minW = Math.max(0, (A.bw || D.w) - (st.lp === 'right' ? LGAP + q0.lw : 0) - 10);
+    const G = st.lp === 'right' ? stageGeom(A.S, M.n, fmax, {...st.go, drop: fillDrop(q0.G, A.bh), minW}) : st.lp === 'above' ? stageGeom(A.S, M.n, fmax, {...st.go, drop: Math.max(q0.drop ?? 0, fillDrop(q0.G, A.bh || D.h, 1.6)), minW}) : stageGeom(A.S, M.n, fmax, {...st.go, minW});
     const {z} = q0;
     const MG = 10, GAP = 26;
     const blockW = st.lp === 'right' ? G.W + LGAP + q0.lw : Math.max(G.W, q0.lw);

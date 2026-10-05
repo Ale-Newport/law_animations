@@ -184,9 +184,10 @@ function geom(ctx, F, minF, place, stack = false, upx = 1) {
   }
   const nb = tall && belowH < 230 ? {x: pad + 10, y: slip.y, w: slip.x - 30 - pad, h: (lupaRest.x < slip.x ? lupaRest.y - R - 16 : D.h - pad) - slip.y}
     : tall ? {x: pad + 10, y: slip.y + slipH + 34, w: D.w - pad * 2 - 20, h: belowH} : {x: lensArea.x + 10, y: lensArea.y + 10, w: lensArea.w - 20, h: lensArea.h - 20};
+  const NF = Math.min(F, label.size, before.size, after.size, head.size, title.fit.size, ...rowFits.map(f => f.size));
   let ny = nb.y;
   const placed = notes.map(q => {
-    const c = chipG(ctx, q.text, {x: right ? nb.x : nb.x + nb.w / 2, anchor: right ? 'start' : 'middle', y: ny, maxWidth: nb.w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name,
+    const c = chipG(ctx, q.text, {x: right ? nb.x : nb.x + nb.w / 2, anchor: right ? 'start' : 'middle', y: ny, maxWidth: nb.w, size: NF, minSize: Math.min(NF, minF), maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name,
       glyph: q.kind === 'final' ? (gx, gy, rr) => caseGlyph(ctx, p.finalState, gx, gy, rr) : q.kind === 'marker' ? (gx, gy, rr) => changedMarker(ctx, {x: gx, y: gy, radius: rr * 1.5}) : null,
       fill: q.kind === 'final' ? ctx.theme.accent2Soft : ctx.theme.card});
     if (c.bad) why.push('note-text');
@@ -233,7 +234,9 @@ const scene = {
     const lupa = magnifier(ctx, {name: 'lupa', R: L.lupa.R, hl: L.lupa.hl});
     const marker = changedMarker(ctx, {name: 'marker', x: L.slip.x + L.slip.w - 4, y: L.slip.y + 4, radius: Math.max(18, L.F * 0.75), opacity: 0});
     const notes = L.placed.map(pl => g({name: `${pl.q.name}-g`, opacity: 0, transform: T(0, pl.dy)}, pl.c.node));
-    return g({name: 'scene'}, desk, contextArt(ctx, L, 'c'), marker, lupa, ln.node, notes);
+    // (an opaque stand-in under the lens window, so the text checks treat the context under the open lens as covered)
+    const occ = g({name: 'lensOcc', opacity: 0, 'data-occludes': 1}, h('rect', {name: 'lensOccR', x: 0, y: 0, width: 1, height: 1, rx: 26, fill: th.paper}));
+    return g({name: 'scene'}, desk, contextArt(ctx, L, 'c'), marker, lupa, occ, ln.node, notes);
   },
   frame(ctx, L, u) {
     const p = ctx.params;
@@ -246,6 +249,11 @@ const scene = {
     const pOpen = u < W.close[0] ? op : 1 - cl;
     const ln = lens(ctx, {name: 'lens', source: L.src, dest: L.dest, content: null, frame: {x: 0, y: 0, w: D.w, h: D.h}});
     Object.assign(nodes, ln.frame(pOpen, pOpen));
+    const bg = nodes['lens-bg'];
+    nodes.lensOccR = {x: bg.x, y: bg.y, width: bg.width, height: bg.height};
+    nodes.lensOcc = {opacity: pOpen > 0.25 ? 1 : 0};
+    // (9:16 / 1:1 'top' layout: the lens opens over the sheet; the sheet under it steps back while the lens is open)
+    nodes['c-sheet'] = {opacity: L.place === 'top' ? r(1 - seg(pOpen, 0.2, 0.45), 3) : 1};
     // the enlarged copy fades in from ~55% open (no double image over the source), out on close
     const copyO = seg(pOpen, 0.55, 0.8);
     nodes['l-all'] = {opacity: r(copyO, 3)};
@@ -308,7 +316,7 @@ function contextArt(ctx, L, P) {
   const beforeState = p.finalState === 'provided' ? 'undescribed' : 'provided';
   const row = L.rows[L.si];
   const rowHi = h('rect', {name: `${P}-rowHi`, x: r(sheet.x + L.rowX - 7), y: r(sheet.y + row.y - 7), width: r(L.rowW + 14), height: r(row.h + 14), rx: 12, fill: 'none', stroke: th.accent, 'stroke-width': 5, opacity: 0});
-  const sheetNode = g({transform: T(sheet.x, sheet.y)}, contractSheet(ctx, {
+  const sheetNode = g({name: P === 'c' ? 'c-sheet' : undefined, transform: T(sheet.x, sheet.y)}, contractSheet(ctx, {
     w: sheet.w, h: sheet.h, head: L.head, headH: L.headH, title: L.title, rows: L.rows, rowX: L.rowX, rowW: L.rowW, F: L.F, layers: 1,
     // (the lens copy draws the sheet without its text: no supplied field is ever partly inside the lens)
     showText: P === 'c' ? show : false,

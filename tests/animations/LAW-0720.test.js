@@ -69,12 +69,14 @@ suppliedTextSuite(ID, {
   content: "return [...p.events.map(e => e.label), p.afterValue]",
   captions: "return ['As supplied · no conclusion drawn', 'Según lo aportado · sin conclusión']",
 });
-// the before value (the replaced datum) is drawn while the lens holds it
-suppliedTextSuite(ID, {
-  fields: 'return [p.beforeValue]',
-  at: [0.4],
-  keyNote: false,
-});
+// the before value (the replaced datum) is drawn, un-truncated and readable, while the lens holds it (labels shown)
+sweep(ID, 'the replaced value is drawn in the lens before the substitution (rendered)', `
+  x.seek(0.42 * x.durationMs);
+  const p = x.getState({bounds: false}).params;
+  const norm = q => String(q).replace(/\\s+/g, '').toLowerCase();
+  const hit = [...svg.querySelectorAll('[data-node="lz"] text')].filter(t => eff(t) >= 0.5 && norm(t.textContent).includes(norm(p.beforeValue)) && !t.textContent.includes('…'));
+  if (!hit.length) out.push(tag + ': before value not visible in the lens');
+`, {tvs: ['all']});
 
 renderedTextFloor(ID, ['default', 'baseline-illustrative', 'baseline-es'], 19.5, 0.01);
 textSizeOverTime(ID, 0.01);

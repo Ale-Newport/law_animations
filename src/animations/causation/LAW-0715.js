@@ -39,7 +39,7 @@ import {contrastFields} from '../../schemas/fields.js';
 import {textBlock} from '../../primitives/annotate.js';
 import {
   caFields, CA_STRINGS, CA_DEFAULTS, CA_ES_DEFAULTS, resolveCA, entryText, linkNotes, altText, glueN as gp, unwidow,
-  CART_TOP, fieldGeom, fieldW, fieldH, itemPlaces, slabArt, cartArt, eventArt, itemArt, laneBarrier, floorArt,
+  CART_TOP, fieldGeom, fieldW, fieldH, itemPlaces, slabArt, cartArt, actorArt, eventArt, itemArt, laneBarrier, floorArt,
   iconChip, flowRows, fitG, chipG, sideMark,
   clamp, ease, lerp, r, seg, localizeScene,
 } from './kits/contribucion-afectada.js';
@@ -86,7 +86,7 @@ const defaultParamsEs = {
 const MARGIN = 10;
 const SHAPES = {
   landscape: {size: 26, minSize: 17, arr: ['row']},
-  square: {size: 24, minSize: 17, arr: ['row', 'column', 'textcol']},
+  square: {size: 24, minSize: 17, arr: ['column', 'textcol', 'row']},
   portrait: {size: 25, minSize: 17, arr: ['column']},
 };
 const RW_ = fieldW(), RH_ = fieldH();
@@ -124,7 +124,10 @@ function headChip(ctx, it, size, maxW, textOn, hMin = 0) {
 function stopArt(ctx, {name, G, side}) {
   const th = ctx.theme;
   const rx = G.cartW * 0.72, ry = G.LT * 1.25;
+  // (with it, an outline round the whole running lane: the one contrasted fact, the same cue in both scenes)
+  const x0 = G.xs - G.cartX(0) - 6, x1 = G.xe - G.cartX(0) + 6;
   return g({name, opacity: 0},
+    h('path', {d: roundRectPath(x0, -G.LT - 8, x1 - x0, 2 * G.LT + 16, G.LT), fill: 'none', stroke: th.accent2, 'stroke-width': 5}),
     h('ellipse', {cx: 0, cy: 0, rx: r(rx), ry: r(ry), fill: th.accent2Soft, stroke: th.accent2, 'stroke-width': 3}),
     sideMark(ctx, {cx: 0, cy: 0, s: G.headS * 0.7, side}),
   );
@@ -321,7 +324,7 @@ const scene = {
       const head = L.headSide ? hd.build(G.x1 + 24, G.top + 2, i ? 'hB' : 'hA') : hd.build(x0 + (L.laneW - hd.w) / 2, y0, i ? 'hB' : 'hA');
       // the running lane of this scene: lane a in A, lane b in B (the one contrasted fact)
       const run = i ? 'b' : 'a';
-      return {i, x0, y0, head, F, G, mx0, run, places: itemPlaces(G, M)};
+      return {i, x0, y0, head, F, G, mx0, run, places: itemPlaces(G, M), actors: ['a', 'b'].map((l, j) => actorArt(ctx, {name: `ac${i ? 'B' : 'A'}${l}`, idx: j}))};
     });
     const [, lb] = L.lanes;
     // B's bracket spans its running trolley's path, just above the trolley's flag
@@ -387,6 +390,8 @@ const scene = {
         ...ln.places.map(q => ({y: q.y, node: g({transform: T(q.x, q.y)}, itemArt(ctx, {i: q.i, s: q.s}))})),
         ...['a', 'b'].map(l => ({y: G.laneY(l) + 0.01, node: g({transform: T(G.xb, G.laneY(l))}, laneBarrier(ctx, {name: `lb${n}${l}`, G}))})),
         ...['a', 'b'].map(l => ({y: G.laneY(l) + 0.02, node: g({name: `cart${n}${l}`, transform: T(G.cartX(0), G.laneY(l))}, cartArt(ctx, {name: `ct${n}${l}`, PH: G.PH, side: l}))})),
+        // the actors (equal size): in each scene only the one of the running lane walks
+        ...['a', 'b'].map((l, i) => ({y: G.laneY(l) + 0.015, node: g({name: `actor${n}${l}`}, ln.actors[i].node)})),
       ].sort((a, b) => a.y - b.y);
       return g({name: `lane${n}`},
         floorArt(ctx, {name: `floor${n}`, x0: ln.x0 + 6, x1: ln.x0 + L.laneW - 6, floorY: ln.F}),
@@ -428,12 +433,14 @@ const scene = {
     const f = ease.inOutCubic(seg(u, ...W.roll));
     const st = ease.outCubic(seg(u, ...W.stops));
     const pos = {};
+    let allReached = true;
     L.lanes.forEach(ln => {
       const n = ln.i ? 'B' : 'A';
       const G = ln.G;
       // the same roll, at the same time and speed, only on this scene's running lane; the other trolley stays parked
       const xs = {a: G.cartX(ln.run === 'a' ? f : 0), b: G.cartX(ln.run === 'b' ? f : 0)};
       for (const l of ['a', 'b']) nodes[`cart${n}${l}`] = {transform: T(xs[l], G.laneY(l))};
+      ['a', 'b'].forEach((l, j) => { const fr = ln.actors[j].frame(xs[l], G.laneY(l), G.PH, l === ln.run ? f * 18 : 0); Object.assign(nodes, fr.nodes); if (!fr.reached) allReached = false; });
       pos[n] = {a: {x: r(xs.a), y: r(G.yA)}, b: {x: r(xs.b), y: r(G.yB)}};
       nodes[`stop${n}-art`] = {opacity: st > 0 ? 1 : 0};
       nodes[`stop${n}`] = {transform: T(G.cartX(0), G.laneY(ln.run) - (1 - st) * G.PH * 0.1)};
@@ -456,7 +463,7 @@ const scene = {
       lookA: u < W.stops[0] ? {...look[0], stop: 0} : look[0], lookB: u < W.stops[0] ? {...look[1], stop: 0} : look[1],
       stops: r(st, 3), roll: r(f, 3),
       cartAa: pos.A.a, cartAb: pos.A.b, cartBa: pos.B.a, cartBb: pos.B.b,
-      runA: L.lanes[0].run, runB: L.lanes[1].run,
+      runA: L.lanes[0].run, runB: L.lanes[1].run, allReached,
       guideShown: seg(u, ...W.guide) >= 1, keyShown: seg(u, ...W.key) >= 1,
       arrangement: L.arr,
       layout: {PH: r(L.PH), size: r(L.size), k: r(L.k, 3), fallback: L.fallback, why: L.why},

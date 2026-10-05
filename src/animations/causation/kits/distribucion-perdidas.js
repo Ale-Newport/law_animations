@@ -534,8 +534,9 @@ export function arrangeScene(ctx, o) {
         const hMax = st.dimsMax ? Math.min(bh, st.dimsMax(S).h) : st.dims(S).h;
         const used = mode === 'side' ? Math.max(hMax, panel.h) / fullH : (hMax + (panel.h ? panel.h + GAP : 0)) / fullH;
         // (and a bonus for a stage that covers a real share of the box: >= 30 % of it gets the full bonus)
-        const area = (st.dims(S).w * hMax) / (full * fullH);
-        const score = S * (0.7 + 0.3 * Math.min(1, used)) * (0.7 + 0.3 * Math.min(1, area / (o.areaSat ?? 0.3)));
+        const area = (st.areaOf ? st.areaOf(S, bh) : st.dims(S).w * hMax) / (full * fullH);
+        const aw = o.areaW ?? 0.3;
+        const score = S * (0.7 + 0.3 * Math.min(1, used)) * (1 - aw + aw * Math.min(1, area / (o.areaSat ?? 0.3)));
         if (!best || score > best.score + 1e-6) best = {size, mode, S, pw, panel, bw, bh, st, score};
       }
     }

@@ -180,8 +180,7 @@ export function tileArt(ctx, o) {
     const rr = o.n === 1 ? 0 : disc * 0.42;
     parts.push(h('circle', {cx: r(22 + disc + Math.cos(a) * rr), cy: r(hh / 2 + Math.sin(a) * rr), r: r(disc * 0.2), fill: INK}));
   }
-  if (o.showText) parts.push(txt(o.fit, {x: textX, y: (hh - o.fit.height) / 2, fill: INK}));
-  else parts.push(h('path', {d: `M${r(textX)} ${r(hh / 2)}h${r(Math.max(20, w - textX - gR * 2 - 40))}`, stroke: '#d6cfc0', 'stroke-width': 10, 'stroke-linecap': 'round'}));
+  if (o.showText) { if (o.fit) parts.push(txt(o.fit, {x: textX, y: (hh - o.fit.height) / 2, fill: INK})); } else parts.push(h('path', {d: `M${r(textX)} ${r(hh / 2)}h${r(Math.max(20, w - textX - gR * 2 - 40))}`, stroke: '#d6cfc0', 'stroke-width': 10, 'stroke-linecap': 'round'}));
   if (o.status) parts.push(g({name: o.stName, opacity: o.stOpacity}, statusGlyph(ctx, o.status, w - 16 - gR, hh / 2, gR)));
   return g({name: o.name}, parts.filter(Boolean));
 }
