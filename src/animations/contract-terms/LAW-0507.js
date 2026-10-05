@@ -92,7 +92,7 @@ function benchGeom(ctx, p, bw, bh, F, minF, stress, headerTextH) {
   const beamGap = 34, trackH = 18;
   const stackH = beamGap + TT.h + trackH + 10;
   const contentH = Math.max(ch + 40, stackH + 30);
-  if (contentH > panel.h - 16) why.push('bench-too-short'); if (globalThis.DBG07) console.log('bench', {F: r(F), bh: r(bh), headerH: r(headerH), ch: r(ch), slipH: r(TT.h), stackH: r(stackH), panel: r(panel.h)});
+  if (contentH > panel.h - 16) why.push('bench-too-short');
   const cy = panel.y + 16 + (panel.h - 16) / 2; // slip centre / promise row centre
   const card = {x: pad, y: cy - (bandH + 22 + rowH / 2), w: cw, h: ch};
   const row = {x: card.x + 20, y: card.y + bandH + 22, w: cw - 30, h: rowH};
