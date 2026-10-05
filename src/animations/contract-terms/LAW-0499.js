@@ -262,6 +262,7 @@ const scene = {
         slipA, slipB, carrierA: {x: r(L.lanes[0].x + cx), y: r(L.lanes[0].y + G.railY)}, carrierB: {x: r(L.lanes[1].x + cx), y: r(L.lanes[1].y + G.railY)},
         hookA: r(ch, 3), coverB: r(ch, 3), slipAAt: low >= 1 ? 'hook' : low > 0 ? 'lowering' : run > 0 ? 'running' : 'rail', slipBAt: low >= 1 ? 'tray' : low > 0 ? 'lowering' : run > 0 ? 'running' : 'rail',
         linkedA: low >= 1 ? G.si + 1 : null, linkedB: null,
+        guideBBottom: r(L.lanes[1].y + Math.min(G.row.y + G.row.h + 12, G.trayTop - 8)), slipBTopAtTray: r(L.lanes[1].y + G.trayTop),
         guideShown: r(gq, 3), tagsShown: r(tq, 3), keyShown: r(nq, 3),
         arrangement: L.arrangement, textPx: r(L.F * L.upx, 2),
         layoutOk: L.ok, why: L.why.join(','), problems: L.ok ? [] : L.why,

@@ -27,6 +27,10 @@ contractSuite(ID, {
     {at: 0.1, fn: "s.value === 'before' && s.markerShown === 0 && s.linked", label: 'seeking back restores the before-value'},
     {at: 1, params: P('contrast-or-alternative'), fn: "s.finalState === 'provided' && s.linked && s.value === 'after'", label: 'reverse substitution: a thread is drawn'},
     {at: 0, params: P('contrast-or-alternative'), fn: "!s.linked", label: 'reverse: no thread before'},
+    {at: 0.8, fn: "s.lupaParked && s.lensOpen < 1", label: 'the magnifier is parked beside the slip before the lens closes over the new value'},
+    {at: 0.5, fn: "s.thread === 1 && s.value !== 'after'", label: 'the thread changes only after the substitution'},
+    {at: 0.75, fn: "s.thread === 0 && s.value === 'after'", label: 'the thread has retracted once the new value holds'},
+    {at: 0.3, fn: "s.lensOpen > 0 && s.lensOpen < 1 && !(s.copyShown >= 0.15 && s.contextDatum >= 0.15)", label: 'opening: never two legible copies'},
     {at: 0.8, params: {textVisibility: 'none'}, fn: "s.value === 'after'", label: 'labels hidden: same sequence'},
   ],
 });
@@ -37,6 +41,7 @@ ratioChecks(ID, 'lens is a real inspection; one datum place', [
   {dom: "(() => { const r = svg.querySelector('[data-node=\"lens-border\"]').getBoundingClientRect(); const R = svg.getBoundingClientRect(); const vb = svg.viewBox.baseVal; const k = Math.min(R.width / vb.width, R.height / vb.height); return Math.min(r.width, r.height) / (k * Math.min(vb.width, vb.height)) >= 0.35; })()", at: [0.5], label: 'lens smaller side ≥ 35 % of the frame short side'},
   {at: times(0.2, 0.84, 0.01), fn: '!(s.copyShown >= 0.15 && s.contextDatum >= 0.15)', label: 'never two legible copies of the datum'},
   {at: [1], fn: 's.layoutOk', label: 'layout fits'},
+  {at: [1], fn: "s.place === 'top'", ratios: ['9:16'], presets: ['baseline-illustrative', 'baseline-es'], label: '9:16: contract on top, slip large in the lower half'},
 ]);
 
 suppliedTextSuite(ID, {
