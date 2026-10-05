@@ -1,0 +1,98 @@
+{
+  "animationId": "LAW-0195",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; where a piece sits is shown as supplied and no legal consequence is drawn.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Piece 3 requested; A: it sits in its own slot 3; B (as supplied): it sits in slot 5, in front of piece 5, and slot 3 is empty. Both end with piece 3 back in slot 3.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a four-piece file; piece 2 is requested and, in B, supplied as sitting in slot 4 (the top step); different people and wording.",
+      "params": {
+        "actors": [
+          {"name": "Tomás Idowu", "role": "Registry assistant", "appearance": {"skin": 4, "hair": "short", "hairColor": 5, "outfit": 3, "glasses": true}},
+          {"name": "Mei Sato", "role": "Requester", "appearance": {"skin": 1, "hair": "bun", "hairColor": 0, "outfit": 1}}
+        ],
+        "roles": {"assistant": "Registry assistant", "requester": "Requester"},
+        "relationships": [{"from": "requester", "to": "assistant", "kind": "communication", "label": "asks for piece 2"}],
+        "props": {
+          "pieces": [
+            {"number": 1, "title": "Claim form"},
+            {"number": 2, "title": "Site photos"},
+            {"number": 3, "title": "Expert notes"},
+            {"number": 4, "title": "Letters"}
+          ],
+          "target": 2,
+          "request": "May I see piece 2, the site photos?",
+          "fileLabel": "Case file 31/008 (fictional)"
+        },
+        "scenarioA": {"label": "Piece in its slot", "caption": "Piece 2 sits in slot 2", "foundAt": 2},
+        "scenarioB": {"label": "Piece in another slot", "caption": "As supplied, piece 2 sits in slot 4", "foundAt": 4},
+        "changedFact": "Which slot holds piece 2 when it is looked up",
+        "sharedFacts": ["Same request, assistant and four pieces"],
+        "comparisonLabels": {"guide": "The one difference", "neutral": "The comparison shows positions only; it draws no consequence"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, captions, five long piece titles, a long request, long scenario texts, shared facts, guide and neutral note.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Senior court records assistant"},
+          {"name": "Bartholomew Oyelaran-Whitfield", "role": "Person requesting the piece"}
+        ],
+        "roles": {"assistant": "Senior court records assistant", "requester": "Person requesting the piece"},
+        "relationships": [{"from": "requester", "to": "assistant", "kind": "communication", "label": "asks to consult one numbered piece"}],
+        "props": {
+          "pieces": [
+            {"number": 1, "title": "Initial filing with annexes and cover letter"},
+            {"number": 2, "title": "Reply and supporting correspondence"},
+            {"number": 3, "title": "Inventory of items listed in the file"},
+            {"number": 4, "title": "Minutes of the preliminary hearing"},
+            {"number": 5, "title": "Correspondence received after the hearing"}
+          ],
+          "target": 3,
+          "request": "Could I please consult piece 3, the inventory of items listed in the file?",
+          "fileLabel": "Case file 2024/117-B, registry copy (fictional)"
+        },
+        "scenarioA": {"label": "Piece located in its own numbered slot", "caption": "Piece 3 sits in slot 3, the slot that carries its number", "foundAt": 3},
+        "scenarioB": {"label": "Piece supplied as misfiled in another slot", "caption": "As supplied, piece 3 sits in slot 5, in front of piece 5", "foundAt": 5},
+        "changedFact": "Which numbered slot holds piece 3 at the moment the assistant looks it up",
+        "sharedFacts": ["Same request, same assistant and the same five numbered pieces", "Both scenes end with piece 3 back in slot 3"],
+        "comparisonLabels": {"guide": "Only this detail differs between the two scenes", "neutral": "Neither scene is ranked; the comparison shows positions only and draws no consequence from them"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Versión en español del ejemplo base (contenido ficticio).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Lucía Ferrer", "role": "Auxiliar"},
+          {"name": "Omar Haddad", "role": "Solicitante"}
+        ],
+        "roles": {"assistant": "Auxiliar", "requester": "Solicitante"},
+        "relationships": [{"from": "requester", "to": "assistant", "kind": "communication", "label": "pide consultar"}],
+        "props": {
+          "pieces": [
+            {"number": 1, "title": "Escrito inicial"},
+            {"number": 2, "title": "Contestación"},
+            {"number": 3, "title": "Inventario"},
+            {"number": 4, "title": "Acta de vista"},
+            {"number": 5, "title": "Correspondencia"}
+          ],
+          "target": 3,
+          "request": "¿Puedo consultar la pieza 3?",
+          "fileLabel": "Expediente 24/117 (ficticio)"
+        },
+        "scenarioA": {"label": "Pieza localizada", "caption": "La pieza 3 está en su casilla 3", "foundAt": 3},
+        "scenarioB": {"label": "Pieza mal archivada", "caption": "Según lo aportado, la pieza 3 está en la casilla 5", "foundAt": 5},
+        "changedFact": "Dónde está la pieza 3 cuando se busca",
+        "sharedFacts": ["Misma petición, auxiliar y cinco piezas", "Ambas acaban con la pieza 3 en la casilla 3"],
+        "comparisonLabels": {"guide": "Solo cambia esto", "neutral": "Ninguna escena se clasifica; no se deduce ninguna consecuencia de la posición"}
+      }
+    }
+  ]
+}

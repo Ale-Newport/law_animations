@@ -1,0 +1,262 @@
+{
+  "animationId": "LAW-0162",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; only the supplied relationships are drawn and nothing is assessed.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional interview decomposed on the table plan: the interviewer works from the question list, which is asked of the client; the client tells the account and clarifies a detail. The marker follows that order; the clarified detail enlarges.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: different people and content, a sequence link from the question list to the clarified detail, the focus on the question list and a traversal that starts at the client.",
+      "params": {
+        "actors": [
+          {
+            "name": "Amara Osei",
+            "role": "Client",
+            "appearance": {
+              "skin": 4,
+              "hair": "curly",
+              "hairColor": 0,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Lena Varga",
+            "role": "Interviewer",
+            "appearance": {
+              "skin": 0,
+              "hair": "bun",
+              "hairColor": 3,
+              "outfit": 5,
+              "glasses": true
+            }
+          }
+        ],
+        "props": {
+          "account": "I lent my bike to a friend and it came back with a bent wheel.",
+          "question": "Which day was the bike returned?",
+          "clarification": "It came back on day 4"
+        },
+        "elements": [
+          {
+            "id": "client",
+            "label": "Client"
+          },
+          {
+            "id": "interviewer",
+            "label": "Interviewer"
+          },
+          {
+            "id": "account",
+            "label": "First account"
+          },
+          {
+            "id": "questions",
+            "label": "Intake questions"
+          },
+          {
+            "id": "detail",
+            "label": "Detail clarified"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "client",
+            "to": "account",
+            "kind": "communication",
+            "label": "tells"
+          },
+          {
+            "from": "questions",
+            "to": "client",
+            "kind": "communication",
+            "label": "asked of"
+          },
+          {
+            "from": "questions",
+            "to": "detail",
+            "kind": "sequence",
+            "label": "followed by"
+          },
+          {
+            "from": "interviewer",
+            "to": "questions",
+            "kind": "relation",
+            "label": "keeps"
+          }
+        ],
+        "focusElement": "questions",
+        "traversalOrder": [
+          "client",
+          "account",
+          "client",
+          "questions",
+          "detail",
+          "questions",
+          "interviewer"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, long component labels, long content, long relation labels and kind captions.",
+      "params": {
+        "actors": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Person giving the account"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Person asking the questions"
+          }
+        ],
+        "roles": {
+          "client": "Person giving the account",
+          "interviewer": "Person asking the questions"
+        },
+        "props": {
+          "account": "The lamp arrived with a broken base and I wrote to the online seller that same week.",
+          "question": "On which day exactly did you send the first email to the seller?",
+          "clarification": "The first email was sent on day 3, the Wednesday after delivery"
+        },
+        "elements": [
+          {
+            "id": "client",
+            "label": "Person giving the account"
+          },
+          {
+            "id": "interviewer",
+            "label": "Person asking the questions"
+          },
+          {
+            "id": "account",
+            "label": "Account as first given"
+          },
+          {
+            "id": "questions",
+            "label": "Prepared question list"
+          },
+          {
+            "id": "detail",
+            "label": "Detail clarified in the answer"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "interviewer",
+            "to": "questions",
+            "kind": "relation",
+            "label": "works from the prepared list"
+          },
+          {
+            "from": "questions",
+            "to": "client",
+            "kind": "communication",
+            "label": "questions asked of the client"
+          },
+          {
+            "from": "client",
+            "to": "account",
+            "kind": "communication",
+            "label": "gives the first account"
+          },
+          {
+            "from": "client",
+            "to": "detail",
+            "kind": "communication",
+            "label": "clarifies one detail as supplied"
+          }
+        ],
+        "relationLabels": {
+          "relation": "plain relation (no direction shown)",
+          "communication": "communication between the people",
+          "sequence": "sequence of steps in the exchange",
+          "causal": "causal link (only when supplied)"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {
+            "name": "Rosa Delgado",
+            "role": "Clienta"
+          },
+          {
+            "name": "Kenji Arai",
+            "role": "Entrevistador"
+          }
+        ],
+        "roles": {
+          "client": "Clienta",
+          "interviewer": "Entrevistador"
+        },
+        "props": {
+          "account": "El paquete llegó dañado; escribí al vendedor esa misma semana.",
+          "question": "¿Cuándo escribió al vendedor?",
+          "clarification": "El correo se envió el día 3"
+        },
+        "elements": [
+          {
+            "id": "client",
+            "label": "Clienta"
+          },
+          {
+            "id": "interviewer",
+            "label": "Entrevistador"
+          },
+          {
+            "id": "account",
+            "label": "Relato"
+          },
+          {
+            "id": "questions",
+            "label": "Lista de preguntas"
+          },
+          {
+            "id": "detail",
+            "label": "Dato aclarado"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "interviewer",
+            "to": "questions",
+            "kind": "relation",
+            "label": "trabaja con"
+          },
+          {
+            "from": "questions",
+            "to": "client",
+            "kind": "communication",
+            "label": "se formulan a"
+          },
+          {
+            "from": "client",
+            "to": "account",
+            "kind": "communication",
+            "label": "expone"
+          },
+          {
+            "from": "client",
+            "to": "detail",
+            "kind": "communication",
+            "label": "aclara"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación simple (sin dirección)",
+          "communication": "comunicación",
+          "sequence": "secuencia",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

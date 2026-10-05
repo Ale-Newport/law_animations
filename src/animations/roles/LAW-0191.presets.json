@@ -1,0 +1,70 @@
+{
+  "animationId": "LAW-0191",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; statuses are shown as supplied and no consequence is inferred.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Two identical registry windows: in A every checklist item is received as supplied; in B the third item is supplied as pending, so B's bundle holds one sheet fewer and that row gets a dashed ring. Both slips are printed and handed back.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four supplied items and the FIRST one pending in B, so B's fan misses the front-most checked sheet and the dashed ring comes first in the sequence; different people and wording.",
+      "params": {
+        "actors": [
+          {"name": "Ibrahim Mensah", "role": "Person filing", "appearance": {"skin": 4, "hair": "buzz", "hairColor": 5, "outfit": 2, "glasses": true}},
+          {"name": "Lena Kowalczyk", "role": "Registry clerk", "appearance": {"skin": 0, "hair": "bun", "hairColor": 3, "outfit": 3}}
+        ],
+        "props": {"items": ["Filing form", "Cover letter", "Annex 2 · photos", "Copy of receipt"], "changedItem": 0, "reference": "REF-0958 (fictional)"},
+        "scenarioA": {"label": "All items received", "caption": "Four of four items received as supplied"},
+        "scenarioB": {"label": "One item pending", "caption": "The filing form is supplied as pending"},
+        "changedFact": "Filing form: received in A, pending in B (as supplied)",
+        "sharedFacts": ["Same people, window and checklist", "Both intakes end with a slip handed back"],
+        "comparisonLabels": {"guide": "The only differing row", "neutral": "Both situations are shown as supplied; no winner, score or outcome is drawn"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, long role captions, four long checklist items, long scenario labels and captions, a long changed fact, two long shared facts and a long neutral note.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Person filing"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Registry clerk"}
+        ],
+        "roles": {"filer": "Person filing for a tenants' association", "clerk": "Registry clerk at the intake window"},
+        "relationships": [{"from": "filer", "to": "clerk", "kind": "communication", "label": "hands the documents over the ledge to the registry clerk"}],
+        "props": {
+          "items": ["Completed filing form with all sections signed and dated", "Cover letter explaining the purpose of the submission", "Annex 1 · site plan with the surveyor's measurements", "Annex 2 · photographs of the building's front entrance"],
+          "changedItem": 2,
+          "reference": "REF-2026-0427-B (fictional)"
+        },
+        "objectLabels": {"checklist": "Intake checklist for the association's filing", "slip": "Entry reference slip (fictional)"},
+        "scenarioA": {"label": "Filing received in full", "caption": "Every listed item received as supplied"},
+        "scenarioB": {"label": "Documentation pending", "caption": "One listed item supplied as still pending"},
+        "changedFact": "Annex 1 · site plan with the surveyor's measurements: received in A, pending in B",
+        "sharedFacts": ["The same window, the same clerk and the same checklist", "In both scenes a slip is printed and handed back"],
+        "comparisonLabels": {"guide": "Only this checklist row differs between A and B", "neutral": "Two supplied situations shown side by side: the scene draws no winner, no score and no outcome"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Noor Haddad", "role": "Persona que presenta"},
+          {"name": "Tomás Rivera", "role": "Personal del registro"}
+        ],
+        "roles": {"filer": "Persona que presenta", "clerk": "Personal del registro"},
+        "relationships": [{"from": "filer", "to": "clerk", "kind": "communication", "label": "entrega documentos a"}],
+        "props": {"items": ["Formulario de presentación", "Carta de presentación", "Anexo 1 · plano"], "changedItem": 2, "reference": "REF-0427 (ficticia)"},
+        "objectLabels": {"checklist": "Lista de entrada", "slip": "Referencia de entrada"},
+        "scenarioA": {"label": "Presentación recibida", "caption": "Todo recibido según lo aportado"},
+        "scenarioB": {"label": "Documentación pendiente", "caption": "Un documento pendiente (aportado)"},
+        "changedFact": "Anexo 1 · plano: recibido en A, pendiente en B (según lo aportado)",
+        "sharedFacts": ["Misma ventanilla, mismo personal, misma lista", "En ambas se imprime y entrega un justificante"],
+        "comparisonLabels": {"guide": "Solo cambia esta fila", "neutral": "Dos supuestos aportados, uno junto a otro: sin ganador, puntuación ni desenlace"}
+      }
+    }
+  ]
+}

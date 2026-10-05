@@ -1,0 +1,94 @@
+{
+  "animationId": "LAW-0182",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; only supplied relationships are drawn (causal only when supplied), and nothing states that a rendering is accurate, faithful, certified, sufficient or valid.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The path of the words: A's bubble, the interpreter and her notes, her rendering and the listener; a relation keeps the rendering tied to speaker A.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: different people, languages and words; no notes relation (the interpreter renders directly), the focus is the rendering and the marker follows a shorter order.",
+      "params": {
+        "actors": [
+          {"name": "Grace Adeyemi", "role": "Speaker A", "appearance": {"skin": 5, "hair": "curly", "hairColor": 0, "outfit": 2}},
+          {"name": "Pavel Novak", "role": "Speaker B", "appearance": {"skin": 0, "hair": "short", "hairColor": 3, "outfit": 5, "glasses": true}},
+          {"name": "Samira Haddad", "role": "Interpreter", "appearance": {"skin": 2, "hair": "scarf", "hairColor": 1, "outfit": 3}}
+        ],
+        "languages": {"a": "Language 3", "b": "Language 4"},
+        "props": {"utterance": "Ich habe den Vertrag am Montag erhalten.", "rendering": "I received the contract on Monday."},
+        "relationships": [
+          {"from": "utterance", "to": "interpreter", "kind": "communication", "label": "Listened to"},
+          {"from": "utterance", "to": "rendering", "kind": "sequence", "label": "Rendered next"},
+          {"from": "rendering", "to": "b", "kind": "communication", "label": "Heard by the listener"},
+          {"from": "a", "to": "rendering", "kind": "relation", "label": "Same speaker"}
+        ],
+        "focusElement": "rendering",
+        "traversalOrder": ["a", "utterance", "interpreter", "rendering", "b"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, element labels, language labels, words and relation labels.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Person speaking first"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Person listening"},
+          {"name": "Anna-Katharina Rosenthal-Okonkwo", "role": "Interpreter"}
+        ],
+        "languages": {"a": "Language 1 (as supplied by the author)", "b": "Language 2 (as supplied by the author)"},
+        "props": {
+          "utterance": "Dejé las llaves del almacén en la recepción a las nueve y volví a la oficina.",
+          "rendering": "I left the storeroom keys at the reception desk at nine and went back to the office."
+        },
+        "elements": [
+          {"id": "a", "label": "Person speaking first"},
+          {"id": "utterance", "label": "Words as spoken by the speaker"},
+          {"id": "interpreter", "label": "Interpreter for the meeting"},
+          {"id": "notes", "label": "Consecutive working notes"},
+          {"id": "rendering", "label": "Rendering given for the listener"},
+          {"id": "b", "label": "Person listening"}
+        ],
+        "relationships": [
+          {"from": "utterance", "to": "interpreter", "kind": "communication", "label": "Heard in full by the interpreter"},
+          {"from": "interpreter", "to": "notes", "kind": "relation", "label": "Shorthand notes kept while listening"},
+          {"from": "utterance", "to": "rendering", "kind": "sequence", "label": "Followed by the rendering"},
+          {"from": "rendering", "to": "b", "kind": "communication", "label": "Addressed to the person listening"},
+          {"from": "a", "to": "rendering", "kind": "relation", "label": "The words remain the first speaker’s words"}
+        ],
+        "relationLabels": {"relation": "Plain relation (no direction)", "communication": "Communication between people", "sequence": "Sequence in time", "causal": "Cause (only when supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Lucía Ferrer", "role": "Hablante A"},
+          {"name": "Daniel Mensah", "role": "Hablante B"},
+          {"name": "Aiko Tanaka", "role": "Intérprete"}
+        ],
+        "languages": {"a": "Lengua 1", "b": "Lengua 2"},
+        "props": {"utterance": "I left the keys at the reception desk at nine.", "rendering": "Dejé las llaves en la recepción a las nueve."},
+        "elements": [
+          {"id": "a", "label": "Hablante A"},
+          {"id": "utterance", "label": "Palabras dichas"},
+          {"id": "interpreter", "label": "Intérprete"},
+          {"id": "notes", "label": "Notas"},
+          {"id": "rendering", "label": "Interpretación"},
+          {"id": "b", "label": "Hablante B"}
+        ],
+        "relationships": [
+          {"from": "utterance", "to": "interpreter", "kind": "communication", "label": "Escuchadas por la intérprete"},
+          {"from": "interpreter", "to": "notes", "kind": "relation", "label": "Notas tomadas"},
+          {"from": "utterance", "to": "rendering", "kind": "sequence", "label": "Después, interpretadas"},
+          {"from": "rendering", "to": "b", "kind": "communication", "label": "Dirigida a quien escucha"},
+          {"from": "a", "to": "rendering", "kind": "relation", "label": "Siguen siendo palabras de A"}
+        ],
+        "relationLabels": {"relation": "Relación", "communication": "Comunicación", "sequence": "Secuencia", "causal": "Causa (según lo aportado)"}
+      }
+    }
+  ]
+}

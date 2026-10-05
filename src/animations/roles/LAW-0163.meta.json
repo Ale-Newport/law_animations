@@ -1,0 +1,560 @@
+{
+  "id": "LAW-0163",
+  "slug": "roles-01-contrast",
+  "title": "Client interview — initial account vs clarified detail",
+  "titleEs": "Entrevista a cliente — Comparación de dos supuestos",
+  "category": "roles",
+  "categoryName": "Personas y funciones jurídicas",
+  "motif": "Entrevista a cliente",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two complete interview scenes run in parallel: the same people, the same question and the same question board with a day strip. Only the detail the client gives differs (initial account vs clarified detail), and it changes geometry: the interviewer’s pen loops the supplied span of days in A and rings one supplied day in B. Shared content is drawn once; a guide joins the two marks through the changed-fact label. No winner or conclusion.",
+  "tags": [
+    "client interview",
+    "contrast",
+    "initial account",
+    "clarified detail",
+    "question board",
+    "day strip",
+    "pen",
+    "speech bubble",
+    "paired scenes"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/roles/kits/entrevista-a-cliente.js",
+    "src/animations/roles/kits/mediation-labels.js",
+    "src/animations/roles/kits/mediation-table.js",
+    "src/primitives/person.js",
+    "src/primitives/paper.js",
+    "src/primitives/markers.js",
+    "src/primitives/annotate.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "actors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "The client and the interviewer, in this order (fictional people) (array replaces the previous value)"
+      },
+      "roles": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "client": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Role caption for the person giving the account"
+          },
+          "interviewer": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Role caption for the person asking the questions"
+          }
+        },
+        "required": [],
+        "description": "Descriptive role captions (never a legal finding)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "client",
+                "interviewer"
+              ],
+              "description": "Source person"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "client",
+                "interviewer"
+              ],
+              "description": "Target person"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal. A sequence link between the two people sets who opens the exchange (its \"from\"): the client’s account or the interviewer’s first question. Other kinds are descriptive only"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "A relationship between the two people"
+        },
+        "minItems": 1,
+        "maxItems": 4,
+        "description": "Explicit relationships between the two people. A sequence link sets who opens the exchange (array replaces the previous value)"
+      },
+      "props": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "The question the interviewer asks in both scenes (supplied text)"
+          },
+          "listRows": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 4,
+            "description": "Rows on the question board (the asked question is the last one)"
+          },
+          "days": {
+            "type": "integer",
+            "minimum": 3,
+            "maximum": 7,
+            "description": "Cells of the day strip at the foot of the board"
+          }
+        },
+        "required": [],
+        "description": "Shared props (identical in both scenes)"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      },
+      "detailSpans": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "from": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 7,
+                "description": "First day"
+              },
+              "to": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 7,
+                "description": "Last day"
+              }
+            },
+            "required": [
+              "from",
+              "to"
+            ],
+            "description": "Days of the strip marked for this scene (1-based, inclusive)"
+          },
+          "b": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "from": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 7,
+                "description": "First day"
+              },
+              "to": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 7,
+                "description": "Last day"
+              }
+            },
+            "required": [
+              "from",
+              "to"
+            ],
+            "description": "Days of the strip marked for this scene (1-based, inclusive)"
+          }
+        },
+        "required": [],
+        "description": "Geometry of the changed fact: the strip cells the interviewer marks in each scene (supplied, never inferred from the wording)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "actors": [
+      {
+        "name": "Rosa Delgado",
+        "role": "Client"
+      },
+      {
+        "name": "Kenji Arai",
+        "role": "Interviewer"
+      }
+    ],
+    "roles": {
+      "client": "Client",
+      "interviewer": "Interviewer"
+    },
+    "relationships": [
+      {
+        "from": "interviewer",
+        "to": "client",
+        "kind": "communication"
+      },
+      {
+        "from": "client",
+        "to": "interviewer",
+        "kind": "communication"
+      },
+      {
+        "from": "interviewer",
+        "to": "client",
+        "kind": "sequence"
+      }
+    ],
+    "props": {
+      "question": "When did you email the seller?",
+      "listRows": 3,
+      "days": 7
+    },
+    "scenarioA": {
+      "label": "Initial account",
+      "caption": "“I emailed the seller the same week.”"
+    },
+    "scenarioB": {
+      "label": "Detail clarified",
+      "caption": "“I emailed the seller on day 3.”"
+    },
+    "changedFact": "When the email was sent",
+    "sharedFacts": [
+      "The parcel arrived damaged",
+      "The seller was contacted by email"
+    ],
+    "comparisonLabels": {
+      "guide": "Only this detail differs",
+      "neutral": "Two versions of one exchange, side by side"
+    },
+    "detailSpans": {
+      "a": {
+        "from": 1,
+        "to": 7
+      },
+      "b": {
+        "from": 3,
+        "to": 3
+      }
+    }
+  }
+}

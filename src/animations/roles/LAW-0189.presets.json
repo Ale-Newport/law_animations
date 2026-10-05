@@ -1,0 +1,83 @@
+{
+  "animationId": "LAW-0189",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; statuses are shown as supplied and no consequence is inferred.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional intake: a person walks to the registry window, hands in three tabbed sheets, the clerk checks each against the supplied checklist (all received as supplied), prints an entry-reference slip and hands it back.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: four supplied items, the third supplied as pending — only three sheets are in the bundle, the clerk marks that row with a dashed empty ring, and the slip is still printed and handed back as supplied. Different people and speech.",
+      "params": {
+        "actors": [
+          {"name": "Ibrahim Mensah", "role": "Person filing", "appearance": {"skin": 4, "hair": "buzz", "hairColor": 5, "outfit": 2, "glasses": true}},
+          {"name": "Lena Kowalczyk", "role": "Registry clerk", "appearance": {"skin": 0, "hair": "bun", "hairColor": 3, "outfit": 3}}
+        ],
+        "props": {
+          "items": [
+            {"label": "Filing form", "status": "received"},
+            {"label": "Cover letter", "status": "received"},
+            {"label": "Annex 2 · photos", "status": "pending"},
+            {"label": "Copy of receipt", "status": "received"}
+          ],
+          "reference": "REF-0958 (fictional)",
+          "speech": {"filer": "Here are my documents for filing.", "clerk": "This is your entry reference."}
+        },
+        "annotations": [{"target": "checklist", "text": "The dashed ring marks the item supplied as pending"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, long role captions, four long checklist items, a long reference, long bubble text, a long relationship label and two callouts.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Person filing"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Registry clerk"}
+        ],
+        "roles": {"filer": "Person filing for a tenants' association", "clerk": "Registry clerk at the intake window"},
+        "relationships": [{"from": "filer", "to": "clerk", "kind": "communication", "label": "hands the documents over the ledge to the registry clerk"}],
+        "props": {
+          "items": [
+            {"label": "Completed filing form with all sections signed and dated", "status": "received"},
+            {"label": "Cover letter explaining the purpose of the submission", "status": "received"},
+            {"label": "Annex 1 · site plan with the surveyor's measurements", "status": "received"},
+            {"label": "Annex 2 · photographs of the building's front entrance", "status": "received"}
+          ],
+          "reference": "REF-2026-0427-B (fictional)",
+          "speech": {"filer": "Good morning, I would like to file these documents for the association.", "clerk": "Thank you, here is your entry reference for the documents you handed in."}
+        },
+        "objectLabels": {"checklist": "Intake checklist for the association's filing", "slip": "Entry reference slip (fictional)"},
+        "annotations": [
+          {"target": "checklist", "text": "Each dot records one sheet of the bundle as received at the window"},
+          {"target": "slip", "text": "The slip carries the entry reference printed at the window"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Noor Haddad", "role": "Persona que presenta"},
+          {"name": "Tomás Rivera", "role": "Personal del registro"}
+        ],
+        "roles": {"filer": "Persona que presenta", "clerk": "Personal del registro"},
+        "relationships": [{"from": "filer", "to": "clerk", "kind": "communication", "label": "entrega documentos a"}],
+        "props": {
+          "items": [
+            {"label": "Formulario de presentación", "status": "received"},
+            {"label": "Carta de presentación", "status": "received"},
+            {"label": "Anexo 1 · plano", "status": "received"}
+          ],
+          "reference": "REF-0427 (ficticia)",
+          "speech": {"filer": "Vengo a presentar estos documentos.", "clerk": "Aquí tiene su referencia de entrada."}
+        },
+        "objectLabels": {"checklist": "Lista de entrada", "slip": "Referencia de entrada"},
+        "annotations": [{"target": "checklist", "text": "Cada punto registra una hoja como recibida"}]
+      }
+    }
+  ]
+}

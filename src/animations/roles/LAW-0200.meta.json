@@ -1,0 +1,496 @@
+{
+  "id": "LAW-0200",
+  "slug": "roles-10-inspect",
+  "title": "Legal team meeting — inspecting one task card and substituting its assignee",
+  "titleEs": "Reunión de equipo jurídico — Inspección y cambio de un dato",
+  "category": "roles",
+  "categoryName": "Personas y funciones jurídicas",
+  "motif": "Reunión de equipo jurídico",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The meeting scene after every task card received a name magnet. A lens enlarges one card; its assignee (or its wording) is struck and replaced by the supplied alternative. For an assignee change the magnet leaves the ring and the owner takes it back to the chest in the context, so the card keeps an empty, dashed slot. The lens closes onto the identical card; a Δ marker and the struck old value stay. Nothing is concluded.",
+  "tags": [
+    "team meeting",
+    "task board",
+    "assignee",
+    "lens",
+    "substitution",
+    "changed marker",
+    "name magnet"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/roles/kits/reunion-de-equipo.js",
+    "src/animations/roles/kits/mediation-labels.js",
+    "src/frameworks/lens.js",
+    "src/primitives/markers.js",
+    "src/primitives/badges.js",
+    "src/primitives/annotate.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "actors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "The three fictional team members, left to right (a, b, c) (array replaces the previous value)"
+      },
+      "roles": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for person a"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for person b"
+          },
+          "c": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for person c"
+          }
+        },
+        "required": [],
+        "description": "Generic, fictional job captions shown with the names (never a legal duty)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b",
+                "c"
+              ],
+              "description": "Person id (a, b, c = left, middle, right at the table)"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "t1",
+                "t2",
+                "t3"
+              ],
+              "description": "Task id (t1, t2, t3 = the order of props.tasks)"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation"
+              ],
+              "description": "Kind of relation (drawn as a plain link; never causal)"
+            }
+          },
+          "required": [
+            "from",
+            "to"
+          ],
+          "description": "A link between a person and a task card, as supplied (the person puts their name tag in the card’s assignee slot; no duty or consequence is implied)"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Supplied links in the context: who has put their name magnet on which task card (array replaces the previous value)"
+      },
+      "props": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Task label"
+            },
+            "minItems": 3,
+            "maxItems": 3,
+            "description": "Task labels on the three cards (fictional, neutral) (array replaces the previous value)"
+          },
+          "focusCard": {
+            "type": "string",
+            "enum": [
+              "a",
+              "b",
+              "c"
+            ],
+            "description": "Whose card is inspected (the card above person a, b or c)"
+          },
+          "document": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label on the case-file folder"
+          }
+        },
+        "required": [
+          "tasks",
+          "focusCard",
+          "document"
+        ],
+        "description": "Supplied content"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "assignee",
+          "task"
+        ],
+        "description": "Datum that is enlarged and substituted: the assignee shown on the card, or the task wording"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution (assignee: the name shown beside the magnet; task: the card wording)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (assignee: text of the now empty slot; task: the new wording)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens (≥ 1.5)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "right",
+              "top"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Board title / context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "actors": [
+      {
+        "name": "Ana Duarte",
+        "role": "Team member"
+      },
+      {
+        "name": "Sam Okafor",
+        "role": "Case assistant"
+      },
+      {
+        "name": "Lena Park",
+        "role": "Researcher"
+      }
+    ],
+    "roles": {
+      "a": "Team member",
+      "b": "Case assistant",
+      "c": "Researcher"
+    },
+    "relationships": [
+      {
+        "from": "a",
+        "to": "t1",
+        "kind": "relation"
+      },
+      {
+        "from": "b",
+        "to": "t2",
+        "kind": "relation"
+      },
+      {
+        "from": "c",
+        "to": "t3",
+        "kind": "relation"
+      }
+    ],
+    "props": {
+      "tasks": [
+        "Review exhibit list (fictional)",
+        "Draft chronology (fictional)",
+        "Collect contact details (fictional)"
+      ],
+      "focusCard": "c",
+      "document": "Case file (fictional)"
+    },
+    "focusTarget": "assignee",
+    "beforeValue": "Lena Park",
+    "afterValue": "No assignee (as supplied)",
+    "detailGeometry": {
+      "zoom": 1.8,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Case file 24-017 · task board (fictional)",
+      "marker": "Changed: who is linked to this card"
+    }
+  }
+}

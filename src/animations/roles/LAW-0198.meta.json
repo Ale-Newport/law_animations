@@ -1,0 +1,568 @@
+{
+  "id": "LAW-0198",
+  "slug": "roles-10-mechanism",
+  "title": "Legal team meeting — who is linked to which task card, as a map",
+  "titleEs": "Reunión de equipo jurídico — Mecanismo o relación explicada",
+  "category": "roles",
+  "categoryName": "Personas y funciones jurídicas",
+  "motif": "Reunión de equipo jurídico",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "A map of the team meeting: the case file feeds the task board (sequence arrow); each team member’s portrait badge is joined to the assignee slot of one task card by a plain relation line (no arrow). A small name magnet travels the supplied order and stays in the slot it reaches; a card without a supplied link keeps an empty slot. Nothing is concluded.",
+  "tags": [
+    "team meeting",
+    "task board",
+    "assignment",
+    "relation map",
+    "tracer",
+    "case file",
+    "speech bubble"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/roles/kits/reunion-de-equipo.js",
+    "src/animations/roles/kits/mediation-labels.js",
+    "src/primitives/badges.js",
+    "src/primitives/annotate.js",
+    "src/frameworks/graph.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "actors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "description": "The three fictional team members (a, b, c) (array replaces the previous value)"
+      },
+      "roles": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for person a"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for person b"
+          },
+          "c": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for person c"
+          }
+        },
+        "required": [],
+        "description": "Generic, fictional job captions shown with the names (never a legal duty)"
+      },
+      "props": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Task label"
+            },
+            "minItems": 3,
+            "maxItems": 3,
+            "description": "Task labels on the three cards (t1, t2, t3; fictional, neutral) (array replaces the previous value)"
+          },
+          "openSlot": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Text shown in an empty assignee slot"
+          },
+          "speech": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "What person a asks (speech bubble beside their badge)"
+          }
+        },
+        "required": [
+          "tasks",
+          "openSlot",
+          "speech"
+        ],
+        "description": "Supplied content"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "file",
+                "board"
+              ],
+              "description": "Component id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Component"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Component labels; ids are fixed by the scene, labels are editable (file = the case file, board = the task board title) (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "file",
+                "board",
+                "a",
+                "b",
+                "c",
+                "t1",
+                "t2",
+                "t3"
+              ],
+              "description": "Source component"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "file",
+                "board",
+                "a",
+                "b",
+                "c",
+                "t1",
+                "t2",
+                "t3"
+              ],
+              "description": "Target component"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Label drawn beside the connector (as supplied; empty = the caption of its kind)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "A supplied relationship between two components"
+        },
+        "minItems": 1,
+        "maxItems": 6,
+        "description": "Explicit relationships between components; kind controls the line style (causal only when supplied). A person → task relation is drawn from the badge to that card’s assignee slot (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "file",
+          "board",
+          "a",
+          "b",
+          "c",
+          "t1",
+          "t2",
+          "t3"
+        ],
+        "description": "Component enlarged while the tracer passes"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for sequence links"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Caption used for each relation kind (on connectors without their own label)"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "file",
+            "board",
+            "a",
+            "b",
+            "c",
+            "t1",
+            "t2",
+            "t3"
+          ],
+          "description": "Component id"
+        },
+        "minItems": 2,
+        "maxItems": 8,
+        "description": "Order in which the tracer visits the components (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "actors": [
+      {
+        "name": "Ana Duarte",
+        "role": "Team member"
+      },
+      {
+        "name": "Sam Okafor",
+        "role": "Case assistant"
+      },
+      {
+        "name": "Lena Park",
+        "role": "Researcher"
+      }
+    ],
+    "roles": {
+      "a": "Team member",
+      "b": "Case assistant",
+      "c": "Researcher"
+    },
+    "props": {
+      "tasks": [
+        "Review exhibit list (fictional)",
+        "Draft chronology (fictional)",
+        "Collect contact details (fictional)"
+      ],
+      "openSlot": "No assignee",
+      "speech": "Who takes which task?"
+    },
+    "elements": [
+      {
+        "id": "file",
+        "label": "Case file 24-017 (fictional)"
+      },
+      {
+        "id": "board",
+        "label": "Task board (fictional)"
+      }
+    ],
+    "relationships": [
+      {
+        "from": "file",
+        "to": "board",
+        "kind": "sequence",
+        "label": "tasks listed from the file"
+      },
+      {
+        "from": "a",
+        "to": "t1",
+        "kind": "relation",
+        "label": ""
+      },
+      {
+        "from": "b",
+        "to": "t2",
+        "kind": "relation",
+        "label": ""
+      },
+      {
+        "from": "c",
+        "to": "t3",
+        "kind": "relation",
+        "label": ""
+      }
+    ],
+    "focusElement": "b",
+    "relationLabels": {
+      "relation": "name magnet on the card",
+      "communication": "asks",
+      "sequence": "listed from",
+      "causal": "causes (as supplied)"
+    },
+    "traversalOrder": [
+      "file",
+      "board",
+      "a",
+      "t1",
+      "b",
+      "t2",
+      "c",
+      "t3"
+    ]
+  }
+}

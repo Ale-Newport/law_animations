@@ -1,0 +1,259 @@
+{
+  "animationId": "LAW-0178",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. Only the supplied relationships are drawn; causal arrows appear only when supplied; no validity, sufficiency or effect is stated.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Form → client → (ribbon: acts on behalf of, as supplied) → representative → (communication) → counter. The representative enlarges while the tracer passes.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: no representative link; the client hands the form over personally (communication client → counter). The tracer goes form → client → counter; the representative stands apart with only a plain relation; focus on the client.",
+      "params": {
+        "actors": [
+          {
+            "name": "Priya Lindqvist",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 3,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Jonah Adeyemi",
+            "role": "Agent",
+            "appearance": {
+              "skin": 4,
+              "hair": "buzz",
+              "hairColor": 5,
+              "outfit": 0,
+              "glasses": true
+            }
+          },
+          {
+            "name": "Marta Sousa",
+            "role": "Registry desk",
+            "appearance": {
+              "skin": 2,
+              "hair": "bun",
+              "hairColor": 1,
+              "outfit": 3
+            }
+          }
+        ],
+        "roles": {
+          "client": "Tenant · Party A",
+          "representative": "Agent (not acting here)",
+          "clerk": "Registry desk"
+        },
+        "props": {
+          "document": "Parking permit request",
+          "documentId": "Form PK-17",
+          "counterSign": "Counter 4 · Permits"
+        },
+        "elements": [
+          {
+            "id": "form",
+            "label": "The act: the request"
+          },
+          {
+            "id": "client",
+            "label": "Party A acts personally"
+          },
+          {
+            "id": "representative",
+            "label": "Agent"
+          },
+          {
+            "id": "clerk",
+            "label": "Registry counter"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "client",
+            "to": "form",
+            "kind": "relation",
+            "label": "Party A’s request"
+          },
+          {
+            "from": "client",
+            "to": "clerk",
+            "kind": "communication",
+            "label": "hands it over in person"
+          },
+          {
+            "from": "form",
+            "to": "clerk",
+            "kind": "sequence",
+            "label": "filed next"
+          }
+        ],
+        "focusElement": "client",
+        "traversalOrder": [
+          "form",
+          "client",
+          "clerk"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, roles, component labels, relation labels, legend captions, form title and counter sign; four relationships.",
+      "params": {
+        "actors": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Representative"
+          },
+          {
+            "name": "Anne-Katrin Vandenberghe-Østergaard",
+            "role": "Counter clerk"
+          }
+        ],
+        "roles": {
+          "client": "Client and applicant · Party A",
+          "representative": "Person acting for the applicant",
+          "clerk": "Staff member at the filings counter"
+        },
+        "props": {
+          "document": "Application to update the registered postal address",
+          "documentId": "Form RF-208 / annex B",
+          "counterSign": "Counter 2 · Filings and applications"
+        },
+        "elements": [
+          {
+            "id": "form",
+            "label": "The act: the application form"
+          },
+          {
+            "id": "client",
+            "label": "Party A, the applicant (client)"
+          },
+          {
+            "id": "representative",
+            "label": "The person acting for Party A"
+          },
+          {
+            "id": "clerk",
+            "label": "The filings counter and its clerk"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "client",
+            "to": "form",
+            "kind": "relation",
+            "label": "the application belongs to Party A"
+          },
+          {
+            "from": "representative",
+            "to": "client",
+            "kind": "relation",
+            "label": "acts on behalf of Party A (link as supplied)"
+          },
+          {
+            "from": "representative",
+            "to": "form",
+            "kind": "relation",
+            "label": "carries the application form"
+          },
+          {
+            "from": "representative",
+            "to": "clerk",
+            "kind": "communication",
+            "label": "hands the application over at the counter"
+          }
+        ],
+        "relationLabels": {
+          "relation": "plain relation without any direction",
+          "communication": "communication between two people",
+          "sequence": "sequence of steps in the example",
+          "causal": "causal link (only as supplied)"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {
+            "name": "Alex Moreno",
+            "role": "Parte A"
+          },
+          {
+            "name": "Rosa Delgado",
+            "role": "Representante"
+          },
+          {
+            "name": "Kim Osei",
+            "role": "Personal de ventanilla"
+          }
+        ],
+        "roles": {
+          "client": "Cliente · Parte A",
+          "representative": "Representante",
+          "clerk": "Ventanilla"
+        },
+        "props": {
+          "document": "Solicitud de cambio de domicilio",
+          "documentId": "Impreso RF-208",
+          "counterSign": "Ventanilla 2 · Registro"
+        },
+        "elements": [
+          {
+            "id": "form",
+            "label": "El acto: el impreso"
+          },
+          {
+            "id": "client",
+            "label": "Parte A (cliente)"
+          },
+          {
+            "id": "representative",
+            "label": "Representante"
+          },
+          {
+            "id": "clerk",
+            "label": "Ventanilla"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "client",
+            "to": "form",
+            "kind": "relation",
+            "label": "impreso de la Parte A"
+          },
+          {
+            "from": "representative",
+            "to": "client",
+            "kind": "relation",
+            "label": "actúa en su nombre (según lo aportado)"
+          },
+          {
+            "from": "representative",
+            "to": "clerk",
+            "kind": "communication",
+            "label": "entrega el impreso"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación (sin dirección)",
+          "communication": "comunicación",
+          "sequence": "secuencia",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

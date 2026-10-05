@@ -1,0 +1,92 @@
+{
+  "animationId": "LAW-0193",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; where a piece sits is shown as supplied and no legal consequence is drawn.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional case file with five numbered pieces; a visitor asks for piece 3; the assistant finds it by its tab, reads it at the desk and slides it back into slot 3.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a four-piece file, the visitor asks for piece 2, and the supplied final state leaves the piece open on the desk (its slot stays empty); different people and a callout on the cabinet.",
+      "params": {
+        "actors": [
+          {"name": "Tomás Idowu", "role": "Registry assistant", "appearance": {"skin": 4, "hair": "short", "hairColor": 5, "outfit": 3, "glasses": true}},
+          {"name": "Mei Sato", "role": "Requester", "appearance": {"skin": 1, "hair": "bun", "hairColor": 0, "outfit": 1}}
+        ],
+        "roles": {"assistant": "Registry assistant", "requester": "Requester"},
+        "relationships": [{"from": "requester", "to": "assistant", "kind": "communication", "label": "asks for piece 2"}],
+        "props": {
+          "pieces": [
+            {"number": 1, "title": "Claim form"},
+            {"number": 2, "title": "Site photos"},
+            {"number": 3, "title": "Expert notes"},
+            {"number": 4, "title": "Letters"}
+          ],
+          "target": 2,
+          "request": "May I see piece 2, the site photos?"
+        },
+        "objectLabels": {"cabinet": "Case file 31/008 (fictional)"},
+        "annotations": [{"target": "cabinet", "text": "Every piece has its own numbered slot"}],
+        "finalState": "open-on-desk"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, role captions, five long piece titles, a long request, a long link caption, a long cabinet label and two callouts.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Senior court records assistant"},
+          {"name": "Bartholomew Oyelaran-Whitfield", "role": "Person requesting the piece"}
+        ],
+        "roles": {"assistant": "Senior court records assistant", "requester": "Person requesting the piece"},
+        "relationships": [{"from": "requester", "to": "assistant", "kind": "communication", "label": "asks to consult one numbered piece"}],
+        "props": {
+          "pieces": [
+            {"number": 1, "title": "Initial filing with annexes and cover letter"},
+            {"number": 2, "title": "Reply and supporting correspondence"},
+            {"number": 3, "title": "Inventory of items listed in the file"},
+            {"number": 4, "title": "Minutes of the preliminary hearing"},
+            {"number": 5, "title": "Correspondence received after the hearing"}
+          ],
+          "target": 3,
+          "request": "Could I please consult piece 3, the inventory of items listed in the file?"
+        },
+        "actorLabels": {"assistant": "", "requester": ""},
+        "objectLabels": {"cabinet": "Case file 2024/117-B, registry copy (fictional)"},
+        "annotations": [
+          {"target": "piece", "text": "Located by the number on its tab and returned to the slot with the same number"},
+          {"target": "cabinet", "text": "The cabinet keeps each numbered piece in its own numbered slot"}
+        ],
+        "finalState": "returned"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Versión en español del ejemplo base (contenido ficticio).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Lucía Ferrer", "role": "Auxiliar"},
+          {"name": "Omar Haddad", "role": "Solicitante"}
+        ],
+        "roles": {"assistant": "Auxiliar", "requester": "Solicitante"},
+        "relationships": [{"from": "requester", "to": "assistant", "kind": "communication", "label": "pide consultar"}],
+        "props": {
+          "pieces": [
+            {"number": 1, "title": "Escrito inicial"},
+            {"number": 2, "title": "Contestación"},
+            {"number": 3, "title": "Inventario"},
+            {"number": 4, "title": "Acta de vista"},
+            {"number": 5, "title": "Correspondencia"}
+          ],
+          "target": 3,
+          "request": "¿Puedo consultar la pieza 3?"
+        },
+        "objectLabels": {"cabinet": "Expediente 24/117 (ficticio)"},
+        "annotations": [{"target": "piece", "text": "Localizada por su pestaña y devuelta a su propia casilla"}]
+      }
+    }
+  ]
+}

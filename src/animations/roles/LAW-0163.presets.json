@@ -1,0 +1,69 @@
+{
+  "animationId": "LAW-0163",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the two scenes are shown side by side without a winner or conclusion.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional interview: in A the client gives the detail as 'the same week' (the pen loops days 1–7); in B the detail is clarified as 'day 3' (the pen rings day 3).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the client speaks first (sequence client→interviewer), a five-day strip, different people and content; A gives a span of days 2–4, B clarifies day 4.",
+      "params": {
+        "actors": [
+          {"name": "Amara Osei", "role": "Client", "appearance": {"skin": 4, "hair": "curly", "hairColor": 0, "outfit": 2}},
+          {"name": "Lena Varga", "role": "Interviewer", "appearance": {"skin": 0, "hair": "bun", "hairColor": 3, "outfit": 5, "glasses": true}}
+        ],
+        "relationships": [
+          {"from": "client", "to": "interviewer", "kind": "communication"},
+          {"from": "interviewer", "to": "client", "kind": "communication"},
+          {"from": "client", "to": "interviewer", "kind": "sequence"}
+        ],
+        "props": {"question": "Which day was the bike returned?", "listRows": 2, "days": 5},
+        "scenarioA": {"label": "As first told", "caption": "“Some time in the middle of the week.”"},
+        "scenarioB": {"label": "Detail clarified", "caption": "“It came back on day 4.”"},
+        "changedFact": "The day the bike was returned",
+        "sharedFacts": ["The bike was lent to a friend", "It came back with a bent wheel"],
+        "comparisonLabels": {"guide": "The only difference", "neutral": "Same people, same question; only the answer’s detail differs"},
+        "detailSpans": {"a": {"from": 2, "to": 4}, "b": {"from": 4, "to": 4}}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names and roles, long question, long captions, four long shared facts, long guide labels and note.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Person giving the account"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Person asking the questions"}
+        ],
+        "roles": {"client": "Person giving the account", "interviewer": "Person asking the questions"},
+        "props": {"question": "On which day exactly did you send the first email to the online seller?", "listRows": 4, "days": 7},
+        "scenarioA": {"label": "Account as it was first given at the meeting", "caption": "“I wrote to the online seller at some point during that same week, before the weekend.”"},
+        "scenarioB": {"label": "Detail clarified later in the same interview", "caption": "“I wrote to the online seller on day 3, the Wednesday after the delivery.”"},
+        "changedFact": "The day on which the first email to the online seller was sent",
+        "sharedFacts": ["The parcel with the ceramic lamp arrived with a broken base", "The online seller was contacted by email about it", "The original packaging was kept by the client", "Both versions come from the same interview"],
+        "comparisonLabels": {"guide": "Only this detail of the answer differs between the two scenes", "neutral": "Two versions of one exchange shown side by side; nothing about them is assessed"},
+        "detailSpans": {"a": {"from": 1, "to": 7}, "b": {"from": 3, "to": 3}}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Rosa Delgado", "role": "Clienta"},
+          {"name": "Kenji Arai", "role": "Entrevistador"}
+        ],
+        "roles": {"client": "Clienta", "interviewer": "Entrevistador"},
+        "props": {"question": "¿Cuándo escribió al vendedor?", "listRows": 3, "days": 7},
+        "scenarioA": {"label": "Relato inicial", "caption": "“Escribí al vendedor esa misma semana.”"},
+        "scenarioB": {"label": "Dato aclarado", "caption": "“Escribí al vendedor el día 3.”"},
+        "changedFact": "Cuándo se envió el correo",
+        "sharedFacts": ["El paquete llegó dañado", "Se contactó al vendedor por correo"],
+        "comparisonLabels": {"guide": "Solo cambia este dato", "neutral": "Dos versiones de un mismo intercambio, lado a lado"}
+      }
+    }
+  ]
+}

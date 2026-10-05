@@ -1,0 +1,68 @@
+{
+  "animationId": "LAW-0179",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. The two scenes differ only in the supplied performer; no winner, outcome or validity is shown.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "A: the client hands the address change form over personally (own action). B: the client clips the ribbon to the representative (supplied link) and the representative hands it over (represented action).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other people, another form and counter, a differently worded link, other speech, two shared facts.",
+      "params": {
+        "actors": [
+          {"name": "Priya Lindqvist", "role": "Party A", "appearance": {"skin": 1, "hair": "long", "hairColor": 3, "outfit": 2}},
+          {"name": "Jonah Adeyemi", "role": "Representative", "appearance": {"skin": 4, "hair": "buzz", "hairColor": 5, "outfit": 0, "glasses": true}},
+          {"name": "Marta Sousa", "role": "Counter clerk", "appearance": {"skin": 2, "hair": "bun", "hairColor": 1, "outfit": 3}}
+        ],
+        "roles": {"client": "Tenant · Party A", "representative": "Agent", "clerk": "Registry desk"},
+        "relationships": [{"from": "representative", "to": "client", "kind": "relation", "label": "files for Party A (link as supplied)"}],
+        "props": {"document": "Parking permit request", "documentId": "Form PK-17", "counterSign": "Counter 4 · Permits", "speech": {"a": "My own request", "b": "Filing for Priya Lindqvist"}},
+        "scenarioA": {"label": "Party files personally", "caption": "Priya walks up with the request"},
+        "scenarioB": {"label": "Agent files for Party A", "caption": "Jonah walks up with the request"},
+        "sharedFacts": ["Same request form", "Same registry counter"],
+        "comparisonLabels": {"guide": "Different person at the counter", "neutral": "Shown side by side without any ranking or outcome"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, roles, link label, labels, captions, changed fact, four shared facts and long notes.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Representative"},
+          {"name": "Anne-Katrin Vandenberghe-Østergaard", "role": "Counter clerk"}
+        ],
+        "roles": {"client": "Client and applicant · Party A", "representative": "Person acting for the applicant", "clerk": "Staff member at the filings counter"},
+        "relationships": [{"from": "representative", "to": "client", "kind": "relation", "label": "acts on behalf of the applicant Party A for this filing (as supplied)"}],
+        "props": {"document": "Application to update the registered postal address", "documentId": "Form RF-208 / annex B", "counterSign": "Counter 2 · Filings and applications", "speech": {"a": "I am filing my own application today", "b": "I am filing this for Maria-Fernanda"}},
+        "scenarioA": {"label": "The applicant acts in person at the counter", "caption": "Party A picks up the form and hands it over at the filings counter"},
+        "scenarioB": {"label": "The representative acts for the applicant", "caption": "The representative, linked by the ribbon, hands the form over at the counter"},
+        "changedFact": "Who performs the act at the filings counter: the applicant in person or the representative (as supplied)",
+        "sharedFacts": ["Same people and same address change form", "Same counter, same clerk and same tray", "Same order of steps on the same clock", "No decision on the filing is shown"],
+        "comparisonLabels": {"guide": "Only the person who stands at the counter differs in the two scenes", "neutral": "Two illustrative situations shown side by side; nothing about validity, effect or outcome is stated"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Alex Moreno", "role": "Parte A"},
+          {"name": "Rosa Delgado", "role": "Representante"},
+          {"name": "Kim Osei", "role": "Personal de ventanilla"}
+        ],
+        "roles": {"client": "Cliente · Parte A", "representative": "Representante", "clerk": "Ventanilla"},
+        "relationships": [{"from": "representative", "to": "client", "kind": "relation", "label": "actúa en nombre de la Parte A (según lo aportado)"}],
+        "props": {"document": "Solicitud de cambio de domicilio", "documentId": "Impreso RF-208", "counterSign": "Ventanilla 2 · Registro", "speech": {"a": "Es mi propia solicitud", "b": "Vengo en nombre de Alex Moreno"}},
+        "scenarioA": {"label": "Actuación propia", "caption": "La Parte A entrega el impreso en persona"},
+        "scenarioB": {"label": "Actuación representada", "caption": "La representante lo entrega por la Parte A"},
+        "changedFact": "Quién realiza el acto en la ventanilla (según lo aportado)",
+        "sharedFacts": ["Mismo impreso, misma ventanilla, mismas personas"],
+        "comparisonLabels": {"guide": "Solo cambia la persona en la ventanilla", "neutral": "Dos situaciones lado a lado; no se afirma resultado ni validez"}
+      }
+    }
+  ]
+}

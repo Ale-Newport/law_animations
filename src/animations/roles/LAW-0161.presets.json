@@ -1,0 +1,84 @@
+{
+  "animationId": "LAW-0161",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; nothing is assessed.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional interview: the client gives the account first, the interviewer asks and marks two questions, and the client's answer adds the clarified detail (as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the interviewer opens with the first question (sequence interviewer→client), three questions are asked before the clarification, different people and content; the hold shows the clarified detail.",
+      "params": {
+        "actors": [
+          {"name": "Amara Osei", "role": "Client", "appearance": {"skin": 4, "hair": "curly", "hairColor": 0, "outfit": 2}},
+          {"name": "Lena Varga", "role": "Interviewer", "appearance": {"skin": 0, "hair": "bun", "hairColor": 3, "outfit": 5, "glasses": true}}
+        ],
+        "relationships": [
+          {"from": "interviewer", "to": "client", "kind": "communication"},
+          {"from": "client", "to": "interviewer", "kind": "communication"},
+          {"from": "interviewer", "to": "client", "kind": "sequence"}
+        ],
+        "props": {
+          "listTitle": "Intake questions",
+          "questions": ["What happened first?", "Who else was present?", "Where was the bike left?", "Was anything signed?"],
+          "account": "I lent my bike to a friend and it came back with a bent wheel.",
+          "clarification": "It was left at the station rack, not at home",
+          "clarifies": 2
+        },
+        "objectLabels": {"clarified": "Detail clarified"},
+        "annotations": [{"target": "list", "text": "Each mark means the question was asked"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names and roles, four long questions, a long account, a long clarified detail and two callouts.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Person giving the account"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Person asking the questions"}
+        ],
+        "roles": {"client": "Person giving the account", "interviewer": "Person asking the questions"},
+        "props": {
+          "listTitle": "Questions prepared before the first meeting",
+          "questions": [
+            "On which exact day did the damaged parcel arrive at your address?",
+            "On which day did you send the first email to the online seller?",
+            "Did anyone from the seller reply to that first email, and when?",
+            "Do you still have the original packaging and the delivery note?"
+          ],
+          "account": "The parcel with the ceramic lamp arrived with a broken base, and I wrote an email to the online seller sometime during that same week, before the weekend started.",
+          "clarification": "The first email to the seller was sent on day 3, the Wednesday after delivery",
+          "clarifies": 1
+        },
+        "objectLabels": {"clarified": "Detail clarified in the answer"},
+        "annotations": [
+          {"target": "clarified", "text": "The clarified detail is added below the account exactly as supplied by the client"},
+          {"target": "list", "text": "A pen mark next to a question only records that it was asked"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Rosa Delgado", "role": "Clienta"},
+          {"name": "Kenji Arai", "role": "Entrevistador"}
+        ],
+        "roles": {"client": "Clienta", "interviewer": "Entrevistador"},
+        "props": {
+          "listTitle": "Preguntas",
+          "questions": ["¿Cuándo llegó el paquete?", "¿Cuándo escribió al vendedor?", "¿Respondió el vendedor?"],
+          "account": "El paquete llegó dañado y escribí al vendedor esa misma semana.",
+          "clarification": "El correo se envió el día 3",
+          "clarifies": 1
+        },
+        "objectLabels": {"clarified": "Dato aclarado"},
+        "annotations": [{"target": "clarified", "text": "Se añade al relato tal como se aporta"}]
+      }
+    }
+  ]
+}

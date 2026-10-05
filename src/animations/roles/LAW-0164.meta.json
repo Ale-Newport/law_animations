@@ -1,0 +1,536 @@
+{
+  "id": "LAW-0164",
+  "slug": "roles-01-inspect",
+  "title": "Client interview — inspecting and substituting a noted detail",
+  "titleEs": "Entrevista a cliente — Inspección y cambio de un dato",
+  "category": "roles",
+  "categoryName": "Personas y funciones jurídicas",
+  "motif": "Entrevista a cliente",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "Context: the interview table after the exchange, with the account in the bubble and the interviewer’s notes board (question, a note line, a day strip with a pen loop). A lens copies the note line and strip at the same coordinates; the old value is struck but kept readable, the supplied alternative is written below and only the dependent strip mark changes (loop → ring). Back in context the pen redraws the ring and a neutral Δ marks the changed datum. Seeking back restores the old datum.",
+  "tags": [
+    "client interview",
+    "inspect",
+    "lens",
+    "note",
+    "day strip",
+    "substitution",
+    "changed datum",
+    "pen",
+    "speech bubble"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/roles/kits/entrevista-a-cliente.js",
+    "src/animations/roles/kits/mediation-labels.js",
+    "src/animations/roles/kits/mediation-table.js",
+    "src/frameworks/lens.js",
+    "src/primitives/person.js",
+    "src/primitives/paper.js",
+    "src/primitives/markers.js",
+    "src/primitives/annotate.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "actors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "The client and the interviewer, in this order (fictional people) (array replaces the previous value)"
+      },
+      "roles": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "client": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Role caption for the person giving the account"
+          },
+          "interviewer": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Role caption for the person asking the questions"
+          }
+        },
+        "required": [],
+        "description": "Descriptive role captions (never a legal finding)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "client",
+                "interviewer"
+              ],
+              "description": "Source person"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "client",
+                "interviewer"
+              ],
+              "description": "Target person"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal. A sequence link between the two people sets who opens the exchange (its \"from\"): the client’s account or the interviewer’s first question. Other kinds are descriptive only"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "A relationship between the two people"
+        },
+        "minItems": 1,
+        "maxItems": 4,
+        "description": "Explicit relationships between the two people. A sequence link sets who opens the exchange (array replaces the previous value)"
+      },
+      "props": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "account": {
+            "type": "string",
+            "maxLength": 170,
+            "description": "The client’s account shown in the speech bubble"
+          },
+          "question": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "The question printed on the interviewer’s notes board"
+          },
+          "detailLabel": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the note line whose value is substituted"
+          }
+        },
+        "required": [],
+        "description": "Context content (supplied text)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "detail"
+        ],
+        "description": "Detail that is enlarged and substituted: the note line (its value and the dependent strip mark)"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value of the note line before the substitution (as first given)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value after the substitution (the alternative datum supplied by the preset)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Maximum magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens sits relative to its source"
+          },
+          "days": {
+            "type": "integer",
+            "minimum": 3,
+            "maximum": 7,
+            "description": "Cells of the day strip"
+          },
+          "beforeSpan": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "from": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 7,
+                "description": "First day"
+              },
+              "to": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 7,
+                "description": "Last day"
+              }
+            },
+            "required": [
+              "from",
+              "to"
+            ],
+            "description": "Strip cells marked for the value before the substitution"
+          },
+          "afterSpan": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "from": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 7,
+                "description": "First day"
+              },
+              "to": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 7,
+                "description": "Last day"
+              }
+            },
+            "required": [
+              "from",
+              "to"
+            ],
+            "description": "Strip cells marked for the value after the substitution"
+          }
+        },
+        "required": [],
+        "description": "Lens and dependent geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of the context view"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels of the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "actors": [
+      {
+        "name": "Rosa Delgado",
+        "role": "Client"
+      },
+      {
+        "name": "Kenji Arai",
+        "role": "Interviewer"
+      }
+    ],
+    "roles": {
+      "client": "Client",
+      "interviewer": "Interviewer"
+    },
+    "relationships": [
+      {
+        "from": "client",
+        "to": "interviewer",
+        "kind": "communication"
+      },
+      {
+        "from": "interviewer",
+        "to": "client",
+        "kind": "communication"
+      },
+      {
+        "from": "client",
+        "to": "interviewer",
+        "kind": "sequence"
+      }
+    ],
+    "props": {
+      "account": "The parcel arrived damaged and I emailed the seller the same week.",
+      "question": "When did you email the seller?",
+      "detailLabel": "Email sent"
+    },
+    "focusTarget": "detail",
+    "beforeValue": "the same week",
+    "afterValue": "day 3",
+    "detailGeometry": {
+      "zoom": 2.6,
+      "placement": "auto",
+      "days": 7,
+      "beforeSpan": {
+        "from": 1,
+        "to": 7
+      },
+      "afterSpan": {
+        "from": 3,
+        "to": 3
+      }
+    },
+    "contextLabels": {
+      "context": "Interview notes after the exchange",
+      "marker": "Changed datum (as supplied)"
+    }
+  }
+}

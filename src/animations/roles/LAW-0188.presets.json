@@ -1,0 +1,60 @@
+{
+  "animationId": "LAW-0188",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The turn-order rows of the agenda are enlarged; turn 1 changes from Party A to Party B, and back at the table the mediator passes the token to Party B.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the substituted datum is the hypothetical slot length of turn 1 (5 → 10 minutes); the slot bar doubles on the agenda and the token stays with the first speaker.",
+      "params": {
+        "focusTarget": "slotLength",
+        "beforeValue": "5 min (hypothetical)",
+        "afterValue": "10 min (hypothetical)",
+        "props": {"agendaTitle": "Session plan", "agendaItems": ["Party A: opening", "Party B: opening", "Questions"], "speech": {"a": "", "b": ""}},
+        "contextLabels": {"context": "Joint session, Party A speaking", "marker": "Slot changed"},
+        "detailGeometry": {"zoom": 3.5, "placement": "auto"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, long agenda items, long before/after values and context labels.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Party B"},
+          {"name": "Anne-Katrin Vandenberghe-Østergaard", "role": "Mediator"}
+        ],
+        "roles": {"a": "Tenant association representative", "b": "Property manager representative", "mediator": "Neutral third person"},
+        "props": {
+          "agendaTitle": "Agenda for the joint session",
+          "agendaItems": ["Opening account by the tenant association representative", "Opening account by the property manager representative", "Questions and clarifications from both sides"],
+          "speech": {"a": "", "b": ""}
+        },
+        "beforeValue": "Tenant association representative speaks first",
+        "afterValue": "Property manager representative speaks first",
+        "contextLabels": {"context": "Joint session in the community room, first speaking turn in progress", "marker": "Order of speaking turns changed"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Alex Moreno", "role": "Parte A"},
+          {"name": "Sam Okafor", "role": "Parte B"},
+          {"name": "Dana Reyes", "role": "Mediadora"}
+        ],
+        "roles": {"a": "Parte A", "b": "Parte B", "mediator": "Mediadora"},
+        "props": {"agendaTitle": "Orden del día", "agendaItems": ["Parte A: exposición", "Parte B: exposición", "Preguntas"], "speech": {"a": "", "b": ""}},
+        "beforeValue": "Parte A",
+        "afterValue": "Parte B",
+        "contextLabels": {"context": "Sesión conjunta, primer turno en curso", "marker": "Dato cambiado"}
+      }
+    }
+  ]
+}

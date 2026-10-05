@@ -1,0 +1,64 @@
+{
+  "animationId": "LAW-0177",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. The link and the performer are supplied data: nothing states that a representation is valid, sufficient or binding.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional office: the client passes the ribbon clip to the representative (supplied link), hands over the address change form, and the representative walks to the counter and hands it over (represented action). The form ends in the counter tray.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: no link is supplied and the client is the performer (own action). Nobody is clipped to anyone; the client picks the form up, walks to the counter and holds it out (final state: presented). Different people and form.",
+      "params": {
+        "actors": [
+          {"name": "Priya Lindqvist", "role": "Party A", "appearance": {"skin": 1, "hair": "long", "hairColor": 3, "outfit": 2}},
+          {"name": "Jonah Adeyemi", "role": "Representative", "appearance": {"skin": 4, "hair": "buzz", "hairColor": 5, "outfit": 0, "glasses": true}},
+          {"name": "Marta Sousa", "role": "Counter clerk", "appearance": {"skin": 2, "hair": "bun", "hairColor": 1, "outfit": 3}}
+        ],
+        "roles": {"client": "Client · Party A", "representative": "Representative", "clerk": "Counter clerk"},
+        "relationships": [],
+        "performer": "client",
+        "props": {"document": "Parking permit request", "documentId": "Form PK-17", "counterSign": "Counter 4 · Permits", "speech": "I am filing my own request"},
+        "finalState": "presented",
+        "annotations": [{"target": "form", "text": "Party A holds out the form personally"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, roles, link label, form title, counter sign, speech and act tag, and two callouts (represented action).",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Representative"},
+          {"name": "Anne-Katrin Vandenberghe-Østergaard", "role": "Counter clerk"}
+        ],
+        "roles": {"client": "Client and applicant · Party A", "representative": "Person acting for the applicant", "clerk": "Staff member at the filings counter"},
+        "relationships": [{"from": "representative", "to": "client", "kind": "relation", "label": "acts on behalf of the applicant Party A for this filing (as supplied)"}],
+        "props": {"document": "Application to update the registered postal address", "documentId": "Form RF-208 / annex B", "counterSign": "Counter 2 · Filings and applications", "speech": "I am here on behalf of Maria-Fernanda Castellanos"},
+        "objectLabels": {"ownAction": "Own action of the party (as supplied)", "representedAction": "Represented action (as supplied by the author)"},
+        "annotations": [
+          {"target": "ribbon", "text": "The ribbon marks the link that the author supplied between the two people"},
+          {"target": "form", "text": "The same form travels from the table to the tray on the filings counter"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Alex Moreno", "role": "Parte A"},
+          {"name": "Rosa Delgado", "role": "Representante"},
+          {"name": "Kim Osei", "role": "Personal de ventanilla"}
+        ],
+        "roles": {"client": "Cliente · Parte A", "representative": "Representante", "clerk": "Ventanilla"},
+        "relationships": [{"from": "representative", "to": "client", "kind": "relation", "label": "actúa en nombre de la Parte A (según lo aportado)"}],
+        "props": {"document": "Solicitud de cambio de domicilio", "documentId": "Impreso RF-208", "counterSign": "Ventanilla 2 · Registro", "speech": "Vengo en nombre de Alex Moreno"},
+        "objectLabels": {"ownAction": "Actuación propia", "representedAction": "Actuación representada"},
+        "annotations": [{"target": "ribbon", "text": "La cinta muestra el vínculo aportado"}]
+      }
+    }
+  ]
+}

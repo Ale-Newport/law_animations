@@ -1,0 +1,93 @@
+{
+  "animationId": "LAW-0175",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified; hypothetical values are labelled).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Same specialist, gear wheel item 7, magnifier and report page in both scenes; only the linked slot differs: the data slot (A) or the fenced opinion slot (B). No winner or outcome.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a sealed sample jar and a different specialist; the scenarios are swapped (A links the tag to the bounded opinion, B to the examined data) with other supplied values and shared facts.",
+      "params": {
+        "actors": [{"name": "Tomás Ferreira-Lind", "role": "Specialist", "appearance": {"skin": 1, "hair": "curly", "hairColor": 1, "outfit": 3, "glasses": true}}],
+        "props": {
+          "objectKind": "jar",
+          "object": "Sealed sample jar, item 12 (fictional)",
+          "tag": "Item 12",
+          "report": {
+            "title": "Specialist report on item 12",
+            "figure": "Fig. 1 · item 12 as drawn",
+            "dataHeading": "Data examined (as supplied)",
+            "measurements": ["Jar height: 11 cm (hypothetical)", "Seal label number: S-448 (fictional)"],
+            "opinionHeading": "Opinion, scope as stated",
+            "opinion": "The fibres of the swatch look similar to reference sample B",
+            "scope": "Scope: visual check through the glass only"
+          }
+        },
+        "relationships": [{"scenario": "a", "from": "object", "to": "opinion"}, {"scenario": "b", "from": "object", "to": "data"}],
+        "scenarioA": {"label": "Opinion, scope as stated", "caption": "The tag links item 12 to a bounded opinion"},
+        "scenarioB": {"label": "Data examined", "caption": "The tag links item 12 to recorded data"},
+        "changedFact": "Only change: which slot of the report the tag of item 12 is linked to",
+        "sharedFacts": ["Same sealed jar and hand magnifier", "Same report layout"],
+        "comparisonLabels": {"guide": "Only this slot differs", "neutral": "The two slots are shown side by side; neither is ranked or preferred"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths: long name and role, object, tag, title, three long measurements, long opinion and scope, long scenario labels and captions, four shared facts, long changed fact, guide and neutral note.",
+      "params": {
+        "actors": [{"name": "Dr. Anne-Katrin Vandenberghe-Østergaard Castellanos", "role": "Specialist"}],
+        "roles": {"specialist": "Appointed technical specialist"},
+        "props": {
+          "objectKind": "gear",
+          "object": "Transmission gear wheel from shelf B, item 7 (fictional)",
+          "tag": "Item 7 · bag 3 · shelf B",
+          "report": {
+            "title": "Report of the appointed specialist on item 7 and its tag string",
+            "figure": "Fig. 1 · item 7 drawn from the front with its diameter",
+            "dataHeading": "Data examined by the specialist (as supplied)",
+            "measurements": ["Outer diameter across the teeth: 42 mm (hypothetical value)", "Teeth counted around the whole rim: 14 (hypothetical value)", "Surface marks noted on the teeth: 3 (hypothetical value)"],
+            "opinionHeading": "Opinion of the specialist, scope as stated",
+            "opinion": "The marks on three neighbouring teeth look alike in shape, spacing and depth when seen under the magnifier",
+            "scope": "Scope as stated: the teeth of item 7 only, surface seen under magnification"
+          }
+        },
+        "scenarioA": {"label": "Data examined by the appointed specialist", "caption": "The tag of item 7 is linked to the measured values recorded in the report"},
+        "scenarioB": {"label": "Opinion of the specialist, scope as stated", "caption": "The tag of item 7 is linked to an opinion whose scope is stated in the report"},
+        "changedFact": "Only change: which slot of the report page the tag string of item 7 is linked to by the specialist",
+        "sharedFacts": ["Same specialist, same bench and same magnifier", "Same gear wheel, item 7, on the same stand", "Same report page with the same two slots", "Same moment in the fictional session"],
+        "comparisonLabels": {"guide": "Only the linked slot of the report differs between A and B", "neutral": "Neither slot is ranked, accepted or rejected; nothing is decided about item 7 or the report"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [{"name": "Noor Haddad", "role": "Perita"}],
+        "roles": {"specialist": "Perita"},
+        "props": {
+          "objectKind": "gear",
+          "object": "Rueda dentada, pieza 7 (ficticia)",
+          "tag": "Pieza 7",
+          "report": {
+            "title": "Informe pericial sobre la pieza 7",
+            "figure": "Fig. 1 · la pieza 7 dibujada",
+            "dataHeading": "Dato examinado (según lo aportado)",
+            "measurements": ["Diámetro exterior: 42 mm (hipotético)", "Dientes contados: 14 (hipotético)"],
+            "opinionHeading": "Opinión, con el alcance indicado",
+            "opinion": "Las marcas de los dientes se ven parecidas en su forma",
+            "scope": "Alcance: dientes de la pieza 7, solo la superficie"
+          }
+        },
+        "scenarioA": {"label": "Dato examinado", "caption": "La etiqueta une la pieza 7 a un valor medido"},
+        "scenarioB": {"label": "Opinión delimitada", "caption": "La etiqueta une la pieza 7 a una opinión con alcance"},
+        "changedFact": "Único cambio: la parte del informe a la que se une la etiqueta",
+        "sharedFacts": ["Misma lupa y misma mesa", "Misma página del informe"],
+        "comparisonLabels": {"guide": "Solo esta parte cambia", "neutral": "Ninguna parte se clasifica, acepta ni rechaza"}
+      }
+    }
+  ]
+}

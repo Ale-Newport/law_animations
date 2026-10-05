@@ -1,0 +1,538 @@
+{
+  "id": "LAW-0176",
+  "slug": "roles-04-inspect",
+  "title": "Specialist intervention — inspect and replace one supplied datum of the report",
+  "titleEs": "Intervención de perito — Inspección y cambio de un dato",
+  "category": "roles",
+  "categoryName": "Personas y funciones jurídicas",
+  "motif": "Intervención de perito",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "After the specialist has pinned the tagged object to the report, a lens lifts a real copy of the scope line (or a measurement row) from its place; one supplied datum is replaced (the old value leaves as a struck slip), only the dependent scope zone on the figure and on the object is redrawn (or the dimension lines re-traced), and the view returns with a neutral Δ marker and the struck old value. As supplied; no conclusion drawn.",
+  "tags": [
+    "specialist",
+    "expert",
+    "report",
+    "lens",
+    "scope",
+    "measurement",
+    "substitution",
+    "changed datum",
+    "tag string",
+    "person"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/roles/kits/intervencion-de-perito.js",
+    "src/animations/roles/kits/mediation-labels.js",
+    "src/primitives/markers.js",
+    "src/primitives/person.js",
+    "src/primitives/people-style.js",
+    "src/primitives/paper.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "actors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "The specialist (one fictional person; appearance defaults to the seed) (array replaces the previous value)"
+      },
+      "roles": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "specialist": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Role caption for the specialist"
+          }
+        },
+        "required": [],
+        "description": "Descriptive role caption (never a legal finding)"
+      },
+      "props": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "objectKind": {
+            "type": "string",
+            "enum": [
+              "gear",
+              "jar"
+            ],
+            "description": "Examined object drawn on the bench and mirrored in the report figure"
+          },
+          "object": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Name of the examined object (fictional)"
+          },
+          "tag": {
+            "type": "string",
+            "maxLength": 24,
+            "description": "Text written on the tag tied to the object"
+          },
+          "report": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "type": "string",
+                "maxLength": 70,
+                "description": "Report title printed at the top of the page"
+              },
+              "figure": {
+                "type": "string",
+                "maxLength": 60,
+                "description": "Caption of the figure that mirrors the object"
+              },
+              "dataHeading": {
+                "type": "string",
+                "maxLength": 50,
+                "description": "Heading of the data section (e.g. \"Data examined (as supplied)\")"
+              },
+              "measurements": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 70,
+                  "description": "Measurement"
+                },
+                "minItems": 1,
+                "maxItems": 3,
+                "description": "Measurements or observations examined, as supplied. Label numbers as hypothetical (array replaces the previous value)"
+              },
+              "opinionHeading": {
+                "type": "string",
+                "maxLength": 50,
+                "description": "Heading of the opinion section (e.g. \"Opinion, scope as stated\")"
+              },
+              "opinion": {
+                "type": "string",
+                "maxLength": 120,
+                "description": "Opinion text as supplied. Shown only as stated; never as correct, decisive or accepted"
+              },
+              "scope": {
+                "type": "string",
+                "maxLength": 90,
+                "description": "Scope of the opinion as stated by the specialist"
+              }
+            },
+            "required": [],
+            "description": "Report page sections (all supplied text; illustrative)"
+          }
+        },
+        "required": [],
+        "description": "The examined object, its tag and the illustrated report (supplied text)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "object"
+              ],
+              "description": "Source (the examined object)"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "figure",
+                "data",
+                "opinion"
+              ],
+              "description": "Report section"
+            }
+          },
+          "required": [
+            "from",
+            "to"
+          ],
+          "description": "Link from the object to a report section"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Which report sections the tag links the object to (a small tag glyph marks each linked section) (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "scope",
+          "measurement"
+        ],
+        "description": "Datum that is enlarged and substituted: the stated scope of the opinion, or one measurement row"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution (replaces the scope, or the chosen measurement row, as supplied)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative supplied datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Maximum magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens window opens (auto = the largest free area that leaves the figure visible)"
+          },
+          "row": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "description": "Measurement row substituted when the focus is a measurement (0-based)"
+          },
+          "zoneBefore": {
+            "type": "string",
+            "enum": [
+              "outer",
+              "inner",
+              "whole"
+            ],
+            "description": "Part of the object covered by the scope before (outer = rim/lid, inner = hub/contents)"
+          },
+          "zoneAfter": {
+            "type": "string",
+            "enum": [
+              "outer",
+              "inner",
+              "whole"
+            ],
+            "description": "Part of the object covered by the scope after"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry and the dependent scope zone"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "actors": [
+      {
+        "name": "Noor Haddad",
+        "role": "Specialist"
+      }
+    ],
+    "roles": {
+      "specialist": "Specialist"
+    },
+    "props": {
+      "objectKind": "gear",
+      "object": "Gear wheel, item 7 (fictional)",
+      "tag": "Item 7",
+      "report": {
+        "title": "Specialist report on item 7",
+        "figure": "Fig. 1 · item 7 as drawn",
+        "dataHeading": "Data examined (as supplied)",
+        "measurements": [
+          "Outer diameter: 42 mm (hypothetical)",
+          "Teeth counted: 14 (hypothetical)"
+        ],
+        "opinionHeading": "Opinion, scope as stated",
+        "opinion": "The marks on the teeth look alike in shape",
+        "scope": "Scope: teeth of item 7, surface only"
+      }
+    },
+    "relationships": [
+      {
+        "from": "object",
+        "to": "figure"
+      },
+      {
+        "from": "object",
+        "to": "opinion"
+      }
+    ],
+    "focusTarget": "scope",
+    "beforeValue": "Scope: teeth of item 7, surface only",
+    "afterValue": "Scope: the whole of item 7, surface only",
+    "detailGeometry": {
+      "zoom": 2.4,
+      "placement": "auto",
+      "row": 0,
+      "zoneBefore": "outer",
+      "zoneAfter": "whole"
+    },
+    "contextLabels": {
+      "context": "Context: item 7 tagged and pinned to its report",
+      "marker": "Scope changed (as supplied)"
+    }
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "animationId": "LAW-0171",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; source types are shown as stated by the witness, never assessed or ranked.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional pair: the same statement, once as seen by the witness and once as told to the witness by a neighbour.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different statement and people; in B the information comes from a shop owner and reaches the witness by a sequence link (drawn as a solid arrow, still not causal).",
+      "params": {
+        "actors": [
+          {
+            "name": "Priya Lindqvist",
+            "role": "Witness",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 3,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Jonah Adeyemi",
+            "role": "Clerk",
+            "appearance": {
+              "skin": 4,
+              "hair": "buzz",
+              "hairColor": 5,
+              "outfit": 0,
+              "glasses": true
+            }
+          },
+          {
+            "name": "Rosa Mendel",
+            "role": "Shop owner",
+            "appearance": {
+              "skin": 2,
+              "hair": "curly",
+              "hairColor": 1,
+              "outfit": 5
+            }
+          }
+        ],
+        "roles": {
+          "witness": "Witness",
+          "clerk": "Clerk",
+          "informant": "Shop owner"
+        },
+        "relationships": [
+          {
+            "from": "event",
+            "to": "witness",
+            "kind": "relation"
+          },
+          {
+            "from": "event",
+            "to": "informant",
+            "kind": "relation"
+          },
+          {
+            "from": "informant",
+            "to": "witness",
+            "kind": "sequence"
+          }
+        ],
+        "props": {
+          "statement": "The shop shutter was already half open",
+          "via": "the shop owner",
+          "sourceLabels": {
+            "observed": "direct observation (as stated)",
+            "received": "information received (as stated)"
+          }
+        },
+        "scenarioA": {
+          "label": "Seen by the witness",
+          "caption": "The witness says they saw the shutter"
+        },
+        "scenarioB": {
+          "label": "Heard from the shop owner",
+          "caption": "The witness says the shop owner told them"
+        },
+        "changedFact": "Who saw the shutter, as stated",
+        "sharedFacts": [
+          "Same witness and clerk",
+          "Same words in the statement",
+          "Same card and rail"
+        ],
+        "comparisonLabels": {
+          "guide": "Only the stated source differs",
+          "neutral": "The two cards are kept side by side, as stated; nothing is weighed"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names and roles, a longer statement, longer source labels and origin, long scenario labels, captions, changed fact, shared facts and notes (each at least as long as the baseline).",
+      "params": {
+        "actors": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Witness"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Clerk"
+          },
+          {
+            "name": "Anne-Katrin Vandenberghe-Østergaard",
+            "role": "Neighbour"
+          }
+        ],
+        "roles": {
+          "witness": "Person giving the account",
+          "clerk": "Person writing the fact card",
+          "informant": "Neighbour from the third floor"
+        },
+        "props": {
+          "statement": "The same delivery van drove away from the yard before midnight",
+          "via": "the neighbour upstairs",
+          "sourceLabels": {
+            "observed": "a direct observation (as stated)",
+            "received": "the information received (as stated)"
+          }
+        },
+        "scenarioA": {
+          "label": "Direct observation from the window",
+          "caption": "The witness says they watched the van leave from the window"
+        },
+        "scenarioB": {
+          "label": "Information received next morning",
+          "caption": "The witness says the neighbour upstairs told them the next day"
+        },
+        "changedFact": "How the witness says they came to know the van had left",
+        "sharedFacts": [
+          "Same person giving the account and same clerk",
+          "Same words in the statement"
+        ],
+        "comparisonLabels": {
+          "guide": "Only the stated source of the information differs",
+          "neutral": "Both cards record the source exactly as stated; neither scene is ranked or weighed"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {
+            "name": "Ana Duarte",
+            "role": "Testigo"
+          },
+          {
+            "name": "Leo Brandt",
+            "role": "Secretario"
+          },
+          {
+            "name": "Sam Osei",
+            "role": "Vecino"
+          }
+        ],
+        "roles": {
+          "witness": "Testigo",
+          "clerk": "Secretario",
+          "informant": "Vecino"
+        },
+        "props": {
+          "statement": "La furgoneta se fue antes de medianoche",
+          "via": "un vecino",
+          "sourceLabels": {
+            "observed": "observación directa (según declara)",
+            "received": "información recibida (según declara)"
+          }
+        },
+        "scenarioA": {
+          "label": "Observación directa",
+          "caption": "El testigo dice que lo vio"
+        },
+        "scenarioB": {
+          "label": "Información recibida",
+          "caption": "El testigo dice que se lo contó un vecino"
+        },
+        "changedFact": "Cómo dice saberlo el testigo",
+        "sharedFacts": [
+          "Mismo testigo y secretario",
+          "Mismas palabras en la declaración"
+        ],
+        "comparisonLabels": {
+          "guide": "Solo cambia la fuente declarada",
+          "neutral": "Ambas tarjetas recogen la fuente tal como se declara; ninguna se clasifica"
+        }
+      }
+    }
+  ]
+}

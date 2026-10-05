@@ -1,0 +1,292 @@
+{
+  "animationId": "LAW-0190",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; only supplied relationships are drawn and no causality is added.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Counter plan: the request bubble (its tail on the person filing), hand-over, check against the checklist, slip printed and handed back; the marker follows filer → bundle → checklist → slip → filer and the checklist enlarges.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: one checklist item supplied as pending (its row takes a dashed ring, the bundle holds one sheet fewer), the slip is the focus element, and the marker starts at the clerk (clerk → checklist → slip → filer); fewer relationships.",
+      "params": {
+        "props": {
+          "items": [
+            {
+              "label": "Filing form",
+              "status": "received"
+            },
+            {
+              "label": "Cover letter",
+              "status": "pending"
+            },
+            {
+              "label": "Annex 1 · site plan",
+              "status": "received"
+            }
+          ],
+          "reference": "REF-0958 (fictional)",
+          "speech": {
+            "filer": "Here are my documents for filing.",
+            "clerk": "This is your entry reference."
+          }
+        },
+        "relationships": [
+          {
+            "from": "filer",
+            "to": "bundle",
+            "kind": "sequence",
+            "label": "hands over"
+          },
+          {
+            "from": "clerk",
+            "to": "checklist",
+            "kind": "relation",
+            "label": "keeps"
+          },
+          {
+            "from": "bundle",
+            "to": "checklist",
+            "kind": "relation",
+            "label": "counted against"
+          },
+          {
+            "from": "checklist",
+            "to": "slip",
+            "kind": "sequence",
+            "label": "then prints"
+          },
+          {
+            "from": "slip",
+            "to": "filer",
+            "kind": "communication",
+            "label": "handed back"
+          }
+        ],
+        "focusElement": "slip",
+        "traversalOrder": [
+          "clerk",
+          "checklist",
+          "slip",
+          "filer"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, long component labels, four long checklist items, long relation labels, a long request and long kind captions.",
+      "params": {
+        "actors": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Person filing"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Registry clerk"
+          }
+        ],
+        "roles": {
+          "filer": "Person filing for a tenants' association",
+          "clerk": "Registry clerk at the intake window"
+        },
+        "props": {
+          "items": [
+            {
+              "label": "Completed filing form with all sections signed and dated",
+              "status": "received"
+            },
+            {
+              "label": "Cover letter explaining the purpose of the submission",
+              "status": "received"
+            },
+            {
+              "label": "Annex 1 · site plan with the surveyor's measurements",
+              "status": "received"
+            },
+            {
+              "label": "Annex 2 · photographs of the building's front entrance",
+              "status": "received"
+            }
+          ],
+          "reference": "REF-2026-0427-B (fictional)",
+          "speech": {
+            "filer": "Good morning, I would like to file these documents for the association.",
+            "clerk": "Thank you, here is your entry reference for the documents you handed in."
+          }
+        },
+        "elements": [
+          {
+            "id": "filer",
+            "label": "Person handing in the documents"
+          },
+          {
+            "id": "request",
+            "label": "Spoken request at the window"
+          },
+          {
+            "id": "bundle",
+            "label": "Bundle of tabbed sheets as handed in"
+          },
+          {
+            "id": "checklist",
+            "label": "Intake checklist (items as supplied)"
+          },
+          {
+            "id": "slip",
+            "label": "Printed entry-reference slip (fictional)"
+          },
+          {
+            "id": "clerk",
+            "label": "Registry clerk behind the glass"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "filer",
+            "to": "bundle",
+            "kind": "sequence",
+            "label": "hands the bundle over the ledge"
+          },
+          {
+            "from": "bundle",
+            "to": "checklist",
+            "kind": "relation",
+            "label": "each sheet checked against a row"
+          },
+          {
+            "from": "clerk",
+            "to": "checklist",
+            "kind": "relation",
+            "label": "keeps the supplied checklist"
+          },
+          {
+            "from": "checklist",
+            "to": "slip",
+            "kind": "sequence",
+            "label": "afterwards the slip is printed"
+          },
+          {
+            "from": "slip",
+            "to": "filer",
+            "kind": "communication",
+            "label": "handed back through the gap"
+          }
+        ],
+        "relationLabels": {
+          "relation": "plain relation (no direction)",
+          "communication": "communication between people",
+          "sequence": "sequence of steps (as supplied)",
+          "causal": "causal link (only as supplied)"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {
+            "name": "Noor Haddad",
+            "role": "Persona que presenta"
+          },
+          {
+            "name": "Tomás Rivera",
+            "role": "Personal del registro"
+          }
+        ],
+        "roles": {
+          "filer": "Persona que presenta",
+          "clerk": "Personal del registro"
+        },
+        "props": {
+          "items": [
+            {
+              "label": "Formulario de presentación",
+              "status": "received"
+            },
+            {
+              "label": "Carta de presentación",
+              "status": "received"
+            },
+            {
+              "label": "Anexo 1 · plano",
+              "status": "received"
+            }
+          ],
+          "reference": "REF-0427 (ficticia)",
+          "speech": {
+            "filer": "Vengo a presentar estos documentos.",
+            "clerk": "Aquí tiene su referencia de entrada."
+          }
+        },
+        "elements": [
+          {
+            "id": "filer",
+            "label": "Persona que presenta"
+          },
+          {
+            "id": "request",
+            "label": "Petición (bocadillo)"
+          },
+          {
+            "id": "bundle",
+            "label": "Juego de hojas"
+          },
+          {
+            "id": "checklist",
+            "label": "Lista (según lo aportado)"
+          },
+          {
+            "id": "slip",
+            "label": "Justificante de entrada"
+          },
+          {
+            "id": "clerk",
+            "label": "Personal del registro"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "filer",
+            "to": "bundle",
+            "kind": "sequence",
+            "label": "entrega"
+          },
+          {
+            "from": "bundle",
+            "to": "checklist",
+            "kind": "relation",
+            "label": "se coteja con"
+          },
+          {
+            "from": "clerk",
+            "to": "checklist",
+            "kind": "relation",
+            "label": "lleva"
+          },
+          {
+            "from": "checklist",
+            "to": "slip",
+            "kind": "sequence",
+            "label": "después imprime"
+          },
+          {
+            "from": "slip",
+            "to": "filer",
+            "kind": "communication",
+            "label": "se devuelve"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación",
+          "communication": "comunicación",
+          "sequence": "secuencia",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "animationId": "LAW-0180",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. Values are supplied data; nothing states that a representation is valid, sufficient or binding.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Lens on the representative's badge where the ribbon is clipped: the supplied capacity 'Acting for Alex Moreno' becomes 'Acting in own name'; the clip unfastens and the ribbon winds back into the client's reel (in the lens, then in the context).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: focus on the form in the counter tray; only its title changes (address change → parking permit request). The link is untouched. Different people and zoom.",
+      "params": {
+        "actors": [
+          {"name": "Priya Lindqvist", "role": "Party A", "appearance": {"skin": 1, "hair": "long", "hairColor": 3, "outfit": 2}},
+          {"name": "Jonah Adeyemi", "role": "Representative", "appearance": {"skin": 4, "hair": "buzz", "hairColor": 5, "outfit": 0, "glasses": true}},
+          {"name": "Marta Sousa", "role": "Counter clerk", "appearance": {"skin": 2, "hair": "bun", "hairColor": 1, "outfit": 3}}
+        ],
+        "roles": {"client": "Tenant · Party A", "representative": "Agent", "clerk": "Registry desk"},
+        "relationships": [{"from": "representative", "to": "client", "kind": "relation", "label": "files for Party A (link as supplied)"}],
+        "props": {"document": "Parking permit request", "documentId": "Form PK-17", "counterSign": "Counter 4 · Permits"},
+        "focusTarget": "document",
+        "beforeValue": "Address change form",
+        "afterValue": "Parking permit request",
+        "detailGeometry": {"zoom": 2.0, "placement": "auto"},
+        "contextLabels": {"context": "The agent has handed the form over at the counter", "marker": "Form title changed"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, roles, link label, before/after capacity values, context caption and marker label.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Representative"},
+          {"name": "Anne-Katrin Vandenberghe-Østergaard", "role": "Counter clerk"}
+        ],
+        "roles": {"client": "Client and applicant · Party A", "representative": "Person acting for the applicant", "clerk": "Staff member at the filings counter"},
+        "relationships": [{"from": "representative", "to": "client", "kind": "relation", "label": "acts on behalf of the applicant Party A for this filing (as supplied)"}],
+        "props": {"document": "Application to update the registered postal address", "documentId": "Form RF-208 / annex B", "counterSign": "Counter 2 · Filings and applications"},
+        "beforeValue": "Acting for Maria-Fernanda Castellanos Villavicencio, as supplied by the author",
+        "afterValue": "Acting in the representative's own name for this filing, as supplied by the author",
+        "contextLabels": {"context": "The representative has handed the application over at the filings counter", "marker": "Capacity datum changed here"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Alex Moreno", "role": "Parte A"},
+          {"name": "Rosa Delgado", "role": "Representante"},
+          {"name": "Kim Osei", "role": "Personal de ventanilla"}
+        ],
+        "roles": {"client": "Cliente · Parte A", "representative": "Representante", "clerk": "Ventanilla"},
+        "relationships": [{"from": "representative", "to": "client", "kind": "relation", "label": "actúa en nombre de la Parte A (según lo aportado)"}],
+        "props": {"document": "Solicitud de cambio de domicilio", "documentId": "Impreso RF-208", "counterSign": "Ventanilla 2 · Registro"},
+        "beforeValue": "Actúa por Alex Moreno (según lo aportado)",
+        "afterValue": "Actúa en nombre propio (según lo aportado)",
+        "contextLabels": {"context": "El impreso se ha entregado en la ventanilla", "marker": "Dato cambiado"}
+      }
+    }
+  ]
+}

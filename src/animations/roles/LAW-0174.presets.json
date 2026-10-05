@@ -1,0 +1,124 @@
+{
+  "animationId": "LAW-0174",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified; hypothetical values are labelled).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Exploded view of the specialist, gear wheel item 7 and the three report parts; the tag tracer goes specialist → object → data → opinion; the opinion enlarges while the tag passes. As supplied; no conclusion drawn.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a sealed sample jar, a different specialist, other supplied relationships (the figure is linked to the opinion, no sequence link), the tracer visits the figure first and the figure is the focus element.",
+      "params": {
+        "actors": [{"name": "Tomás Ferreira-Lind", "role": "Specialist", "appearance": {"skin": 1, "hair": "curly", "hairColor": 1, "outfit": 3, "glasses": true}}],
+        "props": {
+          "objectKind": "jar",
+          "object": "Sealed sample jar, item 12 (fictional)",
+          "tag": "Item 12",
+          "report": {
+            "title": "Specialist report on item 12",
+            "figure": "Fig. 1 · item 12 as drawn",
+            "dataHeading": "Data examined (as supplied)",
+            "measurements": ["Jar height: 11 cm (hypothetical)", "Seal label number: S-448 (fictional)"],
+            "opinionHeading": "Opinion, scope as stated",
+            "opinion": "The fibres of the swatch look similar to reference sample B",
+            "scope": "Scope: visual check through the glass only"
+          }
+        },
+        "elements": [
+          {"id": "specialist", "label": "Specialist"},
+          {"id": "object", "label": "Sample"},
+          {"id": "data", "label": "Recorded data"},
+          {"id": "figure", "label": "Drawing"},
+          {"id": "opinion", "label": "Opinion (bounded)"}
+        ],
+        "relationships": [
+          {"from": "specialist", "to": "object", "kind": "relation", "label": "looks through the glass"},
+          {"from": "object", "to": "figure", "kind": "relation", "label": "drawn as Fig. 1"},
+          {"from": "object", "to": "data", "kind": "relation", "label": "measured"},
+          {"from": "specialist", "to": "opinion", "kind": "communication", "label": "states"},
+          {"from": "opinion", "to": "data", "kind": "relation", "label": "cites the data"}
+        ],
+        "focusElement": "figure",
+        "traversalOrder": ["specialist", "object", "figure", "object", "data"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths: long element labels, relationship labels and legend captions, long names, object, tag, title, three measurements, long opinion and scope, a longer traversal order.",
+      "params": {
+        "actors": [{"name": "Dr. Anne-Katrin Vandenberghe-Østergaard Castellanos", "role": "Specialist"}],
+        "roles": {"specialist": "Appointed technical specialist"},
+        "props": {
+          "objectKind": "gear",
+          "object": "Transmission gear wheel from shelf B, item 7 (fictional)",
+          "tag": "Item 7 · bag 3 · shelf B",
+          "report": {
+            "title": "Report of the appointed specialist on item 7 and its tag string",
+            "figure": "Fig. 1 · item 7 drawn from the front with its diameter",
+            "dataHeading": "Data examined by the specialist (as supplied)",
+            "measurements": ["Outer diameter across the teeth: 42 mm (hypothetical value)", "Teeth counted around the whole rim: 14 (hypothetical value)", "Surface marks noted on the teeth: 3 (hypothetical value)"],
+            "opinionHeading": "Opinion of the specialist, scope as stated",
+            "opinion": "The marks on three neighbouring teeth look alike in shape, spacing and depth when seen under the magnifier",
+            "scope": "Scope as stated: the teeth of item 7 only, surface seen under magnification"
+          }
+        },
+        "elements": [
+          {"id": "specialist", "label": "Appointed specialist (fictional person)"},
+          {"id": "object", "label": "Examined object with its tag string"},
+          {"id": "data", "label": "Data examined, recorded as supplied"},
+          {"id": "figure", "label": "Figure that mirrors the examined object"},
+          {"id": "opinion", "label": "Opinion of the specialist, scope as stated"}
+        ],
+        "relationships": [
+          {"from": "specialist", "to": "object", "kind": "relation", "label": "examines the object under the lens"},
+          {"from": "object", "to": "data", "kind": "sequence", "label": "measured first, then recorded"},
+          {"from": "object", "to": "figure", "kind": "relation", "label": "drawn from the front as Fig. 1"},
+          {"from": "specialist", "to": "opinion", "kind": "communication", "label": "states an opinion with its scope"},
+          {"from": "opinion", "to": "data", "kind": "relation", "label": "refers to the data as supplied"}
+        ],
+        "relationLabels": {"relation": "plain relation, no direction implied", "communication": "communication between components", "sequence": "sequence of steps in time", "causal": "causal link, only when supplied"},
+        "traversalOrder": ["specialist", "object", "figure", "object", "data", "opinion"]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [{"name": "Noor Haddad", "role": "Perita"}],
+        "roles": {"specialist": "Perita"},
+        "props": {
+          "objectKind": "gear",
+          "object": "Rueda dentada, pieza 7 (ficticia)",
+          "tag": "Pieza 7",
+          "report": {
+            "title": "Informe pericial sobre la pieza 7",
+            "figure": "Fig. 1 · la pieza 7 dibujada",
+            "dataHeading": "Dato examinado (según lo aportado)",
+            "measurements": ["Diámetro exterior: 42 mm (hipotético)", "Dientes contados: 14 (hipotético)"],
+            "opinionHeading": "Opinión, con el alcance indicado",
+            "opinion": "Las marcas de los dientes se ven parecidas en su forma",
+            "scope": "Alcance: dientes de la pieza 7, solo la superficie"
+          }
+        },
+        "elements": [
+          {"id": "specialist", "label": "Perita"},
+          {"id": "object", "label": "Objeto examinado"},
+          {"id": "data", "label": "Dato examinado"},
+          {"id": "figure", "label": "Figura del objeto"},
+          {"id": "opinion", "label": "Opinión delimitada"}
+        ],
+        "relationships": [
+          {"from": "specialist", "to": "object", "kind": "relation", "label": "examina"},
+          {"from": "object", "to": "data", "kind": "sequence", "label": "medido y anotado"},
+          {"from": "object", "to": "figure", "kind": "relation", "label": "dibujado como Fig. 1"},
+          {"from": "specialist", "to": "opinion", "kind": "communication", "label": "expone, con su alcance"},
+          {"from": "opinion", "to": "data", "kind": "relation", "label": "se refiere al dato"}
+        ],
+        "relationLabels": {"relation": "relación (sin dirección)", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

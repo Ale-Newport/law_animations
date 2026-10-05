@@ -1,0 +1,88 @@
+{
+  "animationId": "LAW-0173",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified; hypothetical values are labelled).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional specialist examines gear wheel item 7 with a magnifier, pins its tag next to Fig. 1 of the report; the supplied data rows and the opinion with its stated scope appear. As supplied; no conclusion drawn.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a sealed sample jar instead of the gear (different figure and dimension line), a different specialist, the tag linked to the figure and to the opinion (not the data), and a supplied opinion with a visual-only scope.",
+      "params": {
+        "actors": [{"name": "Tomás Ferreira-Lind", "role": "Specialist", "appearance": {"skin": 1, "hair": "curly", "hairColor": 1, "outfit": 3, "glasses": true}}],
+        "props": {
+          "objectKind": "jar",
+          "object": "Sealed sample jar, item 12 (fictional)",
+          "tag": "Item 12",
+          "report": {
+            "title": "Specialist report on item 12",
+            "figure": "Fig. 1 · item 12 as drawn",
+            "dataHeading": "Data examined (as supplied)",
+            "measurements": ["Jar height: 11 cm (hypothetical)", "Seal label number: S-448 (fictional)"],
+            "opinionHeading": "Opinion, scope as stated",
+            "opinion": "The fibres of the swatch look similar to reference sample B",
+            "scope": "Scope: visual check through the glass only"
+          }
+        },
+        "relationships": [{"from": "object", "to": "figure"}, {"from": "object", "to": "opinion"}],
+        "objectLabels": {"tool": "Hand magnifier"},
+        "annotations": [{"target": "object", "text": "The tag string stays tied to the jar"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths in every field: long name and role, long object name and tag, long report title, three long measurements, long opinion and scope, long tool label and two callouts.",
+      "params": {
+        "actors": [{"name": "Dr. Anne-Katrin Vandenberghe-Østergaard Castellanos", "role": "Specialist"}],
+        "roles": {"specialist": "Appointed technical specialist"},
+        "props": {
+          "objectKind": "gear",
+          "object": "Transmission gear wheel from shelf B, item 7 (fictional)",
+          "tag": "Item 7 · bag 3 · shelf B",
+          "report": {
+            "title": "Report of the appointed specialist on item 7 and its tag string",
+            "figure": "Fig. 1 · item 7 drawn from the front with its diameter",
+            "dataHeading": "Data examined by the specialist (as supplied)",
+            "measurements": ["Outer diameter across the teeth: 42 mm (hypothetical value)", "Teeth counted around the whole rim: 14 (hypothetical value)", "Surface marks noted on the teeth: 3 (hypothetical value)"],
+            "opinionHeading": "Opinion of the specialist, scope as stated",
+            "opinion": "The marks on three neighbouring teeth look alike in shape, spacing and depth when seen under the magnifier",
+            "scope": "Scope as stated: the teeth of item 7 only, surface seen under magnification"
+          }
+        },
+        "relationships": [{"from": "object", "to": "figure"}, {"from": "object", "to": "data"}, {"from": "object", "to": "opinion"}],
+        "objectLabels": {"tool": "Illuminated hand magnifier, 3× lens"},
+        "annotations": [
+          {"target": "report", "text": "Fig. 1 in the report mirrors the gear wheel that stands on the bench"},
+          {"target": "object", "text": "The tag string still runs from the examined gear wheel to the pinned tag"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [{"name": "Noor Haddad", "role": "Perita"}],
+        "roles": {"specialist": "Perita"},
+        "props": {
+          "objectKind": "gear",
+          "object": "Rueda dentada, pieza 7 (ficticia)",
+          "tag": "Pieza 7",
+          "report": {
+            "title": "Informe pericial sobre la pieza 7",
+            "figure": "Fig. 1 · la pieza 7 dibujada",
+            "dataHeading": "Dato examinado (según lo aportado)",
+            "measurements": ["Diámetro exterior: 42 mm (hipotético)", "Dientes contados: 14 (hipotético)"],
+            "opinionHeading": "Opinión, con el alcance indicado",
+            "opinion": "Las marcas de los dientes se ven parecidas en su forma",
+            "scope": "Alcance: dientes de la pieza 7, solo la superficie"
+          }
+        },
+        "objectLabels": {"tool": "Lupa"},
+        "annotations": [{"target": "report", "text": "La Fig. 1 reproduce el objeto de la mesa"}]
+      }
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "animationId": "LAW-0181",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; language labels are generic or supplied, and nothing states that a rendering is accurate, faithful, certified, sufficient or valid.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional meeting: speaker A says the supplied words in Language 1; the interpreter listens, takes notes and gives the supplied rendering in Language 2 for speaker B.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: speaker B speaks first (sequence B→A), so the interpreter turns to B, takes notes, then renders towards A; different people, languages and words.",
+      "params": {
+        "actors": [
+          {"name": "Grace Adeyemi", "role": "Speaker A", "appearance": {"skin": 5, "hair": "curly", "hairColor": 0, "outfit": 2}},
+          {"name": "Pavel Novak", "role": "Speaker B", "appearance": {"skin": 0, "hair": "short", "hairColor": 3, "outfit": 5, "glasses": true}},
+          {"name": "Samira Haddad", "role": "Interpreter", "appearance": {"skin": 2, "hair": "scarf", "hairColor": 1, "outfit": 3}}
+        ],
+        "relationships": [
+          {"from": "b", "to": "interpreter", "kind": "communication"},
+          {"from": "interpreter", "to": "a", "kind": "communication"},
+          {"from": "b", "to": "a", "kind": "sequence"}
+        ],
+        "languages": {"a": "Language 3 (as supplied)", "b": "Language 4 (as supplied)"},
+        "props": {
+          "utterance": "Ich habe den Vertrag am Montag erhalten.",
+          "rendering": "I received the contract on Monday."
+        },
+        "objectLabels": {"notes": "Working notes", "link": "Rendered for the listener · same speaker"},
+        "annotations": [{"target": "rendering", "text": "The rendering keeps the first speaker as the speaker"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names and roles, long language labels, long utterance and rendering, long notepad heading, link label and two long callouts.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Person speaking first"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Person listening to the rendering"},
+          {"name": "Anna-Katharina Rosenthal-Okonkwo", "role": "Interpreter for the meeting"}
+        ],
+        "roles": {"a": "Person speaking first", "b": "Person listening to the rendering", "interpreter": "Interpreter for the meeting"},
+        "languages": {"a": "Language 1 (as supplied by the author)", "b": "Language 2 (as supplied by the author)"},
+        "props": {
+          "utterance": "Dejé las llaves del almacén en la recepción a las nueve y después volví a mi oficina del segundo piso.",
+          "rendering": "I left the storeroom keys at the reception desk at nine and afterwards went back to my office on the second floor."
+        },
+        "objectLabels": {"notes": "Interpreter’s notes (consecutive mode)", "link": "Rendered for the person listening · the speaker stays the same"},
+        "annotations": [
+          {"target": "notes", "text": "Shorthand notes taken on the pad while the first person was speaking"},
+          {"target": "rendering", "text": "The rendering is given in the second language exactly as supplied"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Lucía Ferrer", "role": "Hablante A"},
+          {"name": "Daniel Mensah", "role": "Hablante B"},
+          {"name": "Aiko Tanaka", "role": "Intérprete"}
+        ],
+        "roles": {"a": "Hablante A", "b": "Hablante B", "interpreter": "Intérprete"},
+        "languages": {"a": "Lengua 1", "b": "Lengua 2"},
+        "props": {
+          "utterance": "I left the keys at the reception desk at nine.",
+          "rendering": "Dejé las llaves en la recepción a las nueve."
+        },
+        "objectLabels": {"notes": "Notas de la intérprete", "link": "Interpretado para quien escucha · mismo hablante"},
+        "annotations": [{"target": "notes", "text": "Notas tomadas mientras escucha"}]
+      }
+    }
+  ]
+}

@@ -1,0 +1,613 @@
+{
+  "id": "LAW-0167",
+  "slug": "roles-02-contrast",
+  "title": "Consultation between professionals — matching reading vs open question",
+  "titleEs": "Consulta entre profesionales — Comparación de dos supuestos",
+  "category": "roles",
+  "categoryName": "Personas y funciones jurídicas",
+  "motif": "Consulta entre profesionales",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical consultation tables. In both, one professional flags the same passage. Then the other professional places their flag: in A level with the first flag (a highlighter band joins them: same point noted); in B alone on another passage with an open ring and an empty outline opposite (open question). The document, people, shared note and facts are drawn once in a plate; a guide joins the one differing flag through the supplied changed fact. No winner or conclusion.",
+  "tags": [
+    "consultation",
+    "professionals",
+    "comparison",
+    "margin flags",
+    "shared document",
+    "open question",
+    "same point",
+    "paired scenes"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/roles/kits/consulta-entre-profesionales.js",
+    "src/animations/roles/kits/mediation-labels.js",
+    "src/primitives/person.js",
+    "src/primitives/people-style.js",
+    "src/primitives/paper.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "actors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Professional A (left end of the table) and professional B (right end), in this order (fictional people) (array replaces the previous value)"
+      },
+      "roles": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 48,
+            "description": "Role caption for professional A"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 48,
+            "description": "Role caption for professional B"
+          }
+        },
+        "required": [],
+        "description": "Descriptive role captions (never a finding about who is right)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "Source professional"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "Target professional"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal. A sequence link sets who lays the first flag (its \"from\"); other kinds are descriptive."
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "A relationship between the two professionals"
+        },
+        "minItems": 1,
+        "maxItems": 4,
+        "description": "Explicit relationships between the two professionals. A sequence link sets who lays the first flag (array replaces the previous value)"
+      },
+      "props": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "document": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "reference": {
+                "type": "string",
+                "maxLength": 24,
+                "description": "Reference printed at the top of the document (fictional)"
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 90,
+                "description": "Title printed on the document"
+              },
+              "passages": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "maxLength": 16,
+                      "description": "Short reference printed in the margin chip (e.g. \"Cl. 2\")"
+                    },
+                    "text": {
+                      "type": "string",
+                      "maxLength": 72,
+                      "description": "Passage heading printed on the document"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "text"
+                  ],
+                  "description": "A passage of the shared document"
+                },
+                "minItems": 3,
+                "maxItems": 4,
+                "description": "Passages printed on the document (3–4); flags point at them by index (array replaces the previous value)"
+              }
+            },
+            "required": [
+              "reference",
+              "title",
+              "passages"
+            ],
+            "description": "The shared document both professionals annotate"
+          },
+          "same": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "passage": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3,
+                "description": "Zero-based index of the passage both flagged"
+              },
+              "noteA": {
+                "type": "string",
+                "maxLength": 84,
+                "description": "Professional A’s note on it (supplied text)"
+              },
+              "noteB": {
+                "type": "string",
+                "maxLength": 84,
+                "description": "Professional B’s note on it (supplied text)"
+              }
+            },
+            "required": [
+              "passage",
+              "noteA",
+              "noteB"
+            ],
+            "description": "A passage BOTH professionals flagged; their notes coincide on this point (as supplied, no conclusion)"
+          },
+          "open": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "passage": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3,
+                "description": "Zero-based index of the passage (a different one from the shared point)"
+              },
+              "by": {
+                "type": "string",
+                "enum": [
+                  "a",
+                  "b"
+                ],
+                "description": "Who flagged the open question"
+              },
+              "note": {
+                "type": "string",
+                "maxLength": 84,
+                "description": "The open question (supplied text)"
+              }
+            },
+            "required": [
+              "passage",
+              "by",
+              "note"
+            ],
+            "description": "A question ONE professional flagged that stays open (as supplied, no conclusion)"
+          }
+        },
+        "required": [
+          "document",
+          "same",
+          "open"
+        ],
+        "description": "The ONE shared document and the professionals’ supplied notes"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs: where the flag of the professional who raises the open question (props.open.by) goes — level with the other flag on the shared passage (A) or alone on the open passage (B)"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "actors": [
+      {
+        "name": "Leila Haddad",
+        "role": "Lawyer"
+      },
+      {
+        "name": "Marco Bellini",
+        "role": "Colleague"
+      }
+    ],
+    "roles": {
+      "a": "Lawyer who asks",
+      "b": "Colleague consulted"
+    },
+    "relationships": [
+      {
+        "from": "a",
+        "to": "b",
+        "kind": "communication"
+      },
+      {
+        "from": "a",
+        "to": "b",
+        "kind": "sequence"
+      }
+    ],
+    "props": {
+      "document": {
+        "reference": "DRAFT 07",
+        "title": "Supply agreement (fictional draft)",
+        "passages": [
+          {
+            "ref": "Cl. 1",
+            "text": "Parties and purpose"
+          },
+          {
+            "ref": "Cl. 2",
+            "text": "Delivery window after each order"
+          },
+          {
+            "ref": "Cl. 3",
+            "text": "Storage if collection is late"
+          },
+          {
+            "ref": "Cl. 4",
+            "text": "Notices between the parties"
+          }
+        ]
+      },
+      "same": {
+        "passage": 1,
+        "noteA": "Window counts from the order date",
+        "noteB": "Same reading: from the order date"
+      },
+      "open": {
+        "passage": 2,
+        "by": "b",
+        "note": "Who pays for storage? Left open"
+      }
+    },
+    "scenarioA": {
+      "label": "Matching reading",
+      "caption": "B’s flag goes level with A’s on Cl. 2"
+    },
+    "scenarioB": {
+      "label": "Open question",
+      "caption": "B’s flag goes alone on Cl. 3"
+    },
+    "changedFact": "Where B places the flag: beside A’s, or alone on another clause",
+    "sharedFacts": [
+      "Same draft and clauses",
+      "Same two professionals",
+      "A’s flag on Cl. 2 in both"
+    ],
+    "comparisonLabels": {
+      "guide": "Only this flag differs",
+      "neutral": "Both states are supplied with the example; neither reading is shown to be right."
+    }
+  }
+}

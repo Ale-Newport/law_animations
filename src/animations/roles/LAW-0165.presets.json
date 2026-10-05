@@ -1,0 +1,98 @@
+{
+  "animationId": "LAW-0165",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional consultation: the lawyer and the consulted colleague each flag clause 2 of one draft (same point noted, as supplied); the colleague flags clause 3 as a question that stays open.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a different document and people; B lays the first flag (sequence B→A), the shared point is the first passage and A raises the open question on the last passage.",
+      "params": {
+        "actors": [
+          {"name": "Priya Lindqvist", "role": "Notary", "appearance": {"skin": 1, "hair": "bun", "hairColor": 3, "outfit": 2}},
+          {"name": "Jonah Adeyemi", "role": "Tax adviser", "appearance": {"skin": 4, "hair": "short", "hairColor": 5, "outfit": 5, "glasses": true}}
+        ],
+        "roles": {"a": "Notary", "b": "Tax adviser"},
+        "relationships": [
+          {"from": "b", "to": "a", "kind": "communication"},
+          {"from": "b", "to": "a", "kind": "sequence"}
+        ],
+        "props": {
+          "document": {
+            "reference": "DEED-3",
+            "title": "Gift of a flat (fictional deed)",
+            "passages": [
+              {"ref": "§ 1", "text": "Description of the flat"},
+              {"ref": "§ 2", "text": "Value stated by the parties"},
+              {"ref": "§ 3", "text": "Costs of the deed"}
+            ]
+          },
+          "same": {"passage": 0, "noteA": "Floor area matches the plan", "noteB": "Area as in the plan, too"},
+          "open": {"passage": 2, "by": "a", "note": "Who carries the costs? Still open"}
+        },
+        "annotations": [{"target": "openQuestion", "text": "Only one flag here: the question stays open"}]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, long role captions, four long passages, long notes and two callouts.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Lawyer"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Colleague"}
+        ],
+        "roles": {"a": "Lawyer asking for a second reading of the draft", "b": "Colleague consulted on the delivery clauses"},
+        "props": {
+          "document": {
+            "reference": "DRAFT 07 · REV 12",
+            "title": "Framework supply agreement for office furniture (fictional draft)",
+            "passages": [
+              {"ref": "Cl. 1.1", "text": "Parties, purpose and the documents that form the agreement"},
+              {"ref": "Cl. 2.4", "text": "Delivery window after each order confirmed in writing"},
+              {"ref": "Cl. 3.2", "text": "Storage of goods when collection is later than agreed"},
+              {"ref": "Cl. 4.1", "text": "Notices between the parties and the addresses to use"}
+            ]
+          },
+          "same": {"passage": 1, "noteA": "The delivery window is counted from the written order confirmation", "noteB": "Same reading here: the window runs from the written confirmation"},
+          "open": {"passage": 2, "by": "b", "note": "Who pays for storage after the agreed collection date? Left open"}
+        },
+        "objectLabels": {"samePoint": "Same point noted by both professionals", "openQuestion": "Question that stays open for now"},
+        "annotations": [
+          {"target": "document", "text": "One shared draft: every flag stands for a note supplied by one of the two professionals"},
+          {"target": "openQuestion", "text": "A single flag with an empty outline opposite: the question stays open"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Leila Haddad", "role": "Abogada"},
+          {"name": "Marco Bellini", "role": "Colega"}
+        ],
+        "roles": {"a": "Abogada que consulta", "b": "Colega consultado"},
+        "props": {
+          "document": {
+            "reference": "BORRADOR 07",
+            "title": "Contrato de suministro (borrador ficticio)",
+            "passages": [
+              {"ref": "Cl. 1", "text": "Partes y objeto"},
+              {"ref": "Cl. 2", "text": "Plazo de entrega tras cada pedido"},
+              {"ref": "Cl. 3", "text": "Almacenaje si la recogida se retrasa"},
+              {"ref": "Cl. 4", "text": "Notificaciones entre las partes"}
+            ]
+          },
+          "same": {"passage": 1, "noteA": "El plazo cuenta desde el pedido", "noteB": "Misma lectura: desde el pedido"},
+          "open": {"passage": 2, "by": "b", "note": "¿Quién paga el almacenaje? Queda abierta"}
+        },
+        "objectLabels": {"samePoint": "Mismo punto anotado", "openQuestion": "Cuestión abierta"},
+        "annotations": [{"target": "document", "text": "Un único borrador; cada banderita es una nota aportada"}]
+      }
+    }
+  ]
+}

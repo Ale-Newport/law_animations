@@ -1,0 +1,198 @@
+{
+  "animationId": "LAW-0184",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; language labels are generic or supplied; the substitution changes only a supplied label and its dependent glyph and colour. Nothing states that a rendering is accurate, faithful, certified, sufficient or valid.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional meeting after the exchange: the rendering's language label 'Language 2' is replaced by the supplied alternative 'Language 3'.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: different people and words; the supplied label changes from 'Language 4 (as supplied)' to 'Language 5 (as supplied)', with a different lens placement and zoom.",
+      "params": {
+        "actors": [
+          {
+            "name": "Grace Adeyemi",
+            "role": "Speaker A",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "hairColor": 0,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Pavel Novak",
+            "role": "Speaker B",
+            "appearance": {
+              "skin": 0,
+              "hair": "short",
+              "hairColor": 3,
+              "outfit": 5,
+              "glasses": true
+            }
+          },
+          {
+            "name": "Samira Haddad",
+            "role": "Interpreter",
+            "appearance": {
+              "skin": 2,
+              "hair": "scarf",
+              "hairColor": 1,
+              "outfit": 3
+            }
+          }
+        ],
+        "props": {
+          "sourceLanguage": "Language 3",
+          "utterance": "Ich habe den Vertrag am Montag erhalten.",
+          "rendering": "I received the contract on Monday."
+        },
+        "beforeValue": "Language 4 (as supplied)",
+        "afterValue": "Language 5 (as supplied)",
+        "detailGeometry": {
+          "zoom": 2.3,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "The table after the rendering was given",
+          "marker": "Label replaced (as supplied)"
+        },
+        "relationships": [
+          {
+            "from": "a",
+            "to": "interpreter",
+            "kind": "communication",
+            "label": "Listened to"
+          },
+          {
+            "from": "interpreter",
+            "to": "b",
+            "kind": "sequence",
+            "label": "Then given to the listener"
+          },
+          {
+            "from": "a",
+            "to": "b",
+            "kind": "relation",
+            "label": "Same meeting"
+          }
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names and roles, long language labels and words, long context caption and marker label.",
+      "params": {
+        "actors": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Person speaking first"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Person listening to the rendering"
+          },
+          {
+            "name": "Anna-Katharina Rosenthal-Okonkwo",
+            "role": "Interpreter for the meeting"
+          }
+        ],
+        "roles": {
+          "a": "Person speaking first",
+          "b": "Person listening to the rendering",
+          "interpreter": "Interpreter for the meeting"
+        },
+        "props": {
+          "sourceLanguage": "Language 1 (as supplied by the author)",
+          "utterance": "Dejé las llaves del almacén en la recepción a las nueve y volví a la oficina.",
+          "rendering": "I left the storeroom keys at the reception desk at nine and went back to the office."
+        },
+        "beforeValue": "Language 2 (as supplied by the author)",
+        "afterValue": "Language 3 (as supplied by the author)",
+        "contextLabels": {
+          "context": "The meeting table after the interpreter gave the rendering to the listener",
+          "marker": "Changed datum: the label (as supplied)"
+        },
+        "relationships": [
+          {
+            "from": "a",
+            "to": "interpreter",
+            "kind": "communication",
+            "label": "Heard in full by the interpreter at the table"
+          },
+          {
+            "from": "interpreter",
+            "to": "b",
+            "kind": "communication",
+            "label": "Rendered for the person listening to the words"
+          },
+          {
+            "from": "a",
+            "to": "b",
+            "kind": "sequence",
+            "label": "The first speaker speaks before the listener"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {
+            "name": "Lucía Ferrer",
+            "role": "Hablante A"
+          },
+          {
+            "name": "Daniel Mensah",
+            "role": "Hablante B"
+          },
+          {
+            "name": "Aiko Tanaka",
+            "role": "Intérprete"
+          }
+        ],
+        "roles": {
+          "a": "Hablante A",
+          "b": "Hablante B",
+          "interpreter": "Intérprete"
+        },
+        "props": {
+          "sourceLanguage": "Lengua 1",
+          "utterance": "I left the keys at the reception desk at nine.",
+          "rendering": "Dejé las llaves en la recepción a las nueve."
+        },
+        "beforeValue": "Lengua 2",
+        "afterValue": "Lengua 3",
+        "contextLabels": {
+          "context": "Tras el intercambio: dos bocadillos unidos por la intérprete",
+          "marker": "Dato cambiado (según lo aportado)"
+        },
+        "relationships": [
+          {
+            "from": "a",
+            "to": "interpreter",
+            "kind": "communication",
+            "label": "Escuchadas por la intérprete"
+          },
+          {
+            "from": "interpreter",
+            "to": "b",
+            "kind": "communication",
+            "label": "Trasladadas a quien escucha"
+          },
+          {
+            "from": "a",
+            "to": "b",
+            "kind": "sequence",
+            "label": "Habla primero"
+          }
+        ]
+      }
+    }
+  ]
+}

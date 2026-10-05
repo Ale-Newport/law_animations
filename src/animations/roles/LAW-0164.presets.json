@@ -1,0 +1,66 @@
+{
+  "animationId": "LAW-0164",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the substituted value is supplied by the preset and nothing is assessed.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional interview notes: the note 'Email sent: the same week' (loop over days 1–7) is replaced by the supplied 'day 3' (ring on day 3); the old value stays struck and readable.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: different people and content, a five-day strip, the lens placed below its source; a span of days 2–4 becomes day 4.",
+      "params": {
+        "actors": [
+          {"name": "Amara Osei", "role": "Client", "appearance": {"skin": 4, "hair": "curly", "hairColor": 0, "outfit": 2}},
+          {"name": "Lena Varga", "role": "Interviewer", "appearance": {"skin": 0, "hair": "bun", "hairColor": 3, "outfit": 5, "glasses": true}}
+        ],
+        "relationships": [
+          {"from": "interviewer", "to": "client", "kind": "communication"},
+          {"from": "client", "to": "interviewer", "kind": "communication"},
+          {"from": "interviewer", "to": "client", "kind": "sequence"}
+        ],
+        "props": {"account": "I lent my bike to a friend and it came back with a bent wheel.", "question": "Which day was the bike returned?", "detailLabel": "Bike returned"},
+        "beforeValue": "mid-week",
+        "afterValue": "day 4",
+        "detailGeometry": {"zoom": 2.2, "placement": "bottom", "days": 5, "beforeSpan": {"from": 2, "to": 4}, "afterSpan": {"from": 4, "to": 4}},
+        "contextLabels": {"context": "Intake notes after the conversation", "marker": "Changed datum"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names and roles, long account, question, label, values and context labels.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Person giving the account"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Person asking the questions"}
+        ],
+        "roles": {"client": "Person giving the account", "interviewer": "Person asking the questions"},
+        "props": {
+          "account": "The parcel with the ceramic lamp arrived with a broken base, and I wrote an email to the online seller sometime during that same week, before the weekend started.",
+          "question": "On which day exactly did you send the first email to the online seller?",
+          "detailLabel": "First email to the online seller"
+        },
+        "beforeValue": "some time during that same week, before the weekend",
+        "afterValue": "day 3, the Wednesday after the delivery",
+        "contextLabels": {"context": "Notes kept by the interviewer after the first exchange", "marker": "Changed datum, as supplied by the client"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Rosa Delgado", "role": "Clienta"},
+          {"name": "Kenji Arai", "role": "Entrevistador"}
+        ],
+        "roles": {"client": "Clienta", "interviewer": "Entrevistador"},
+        "props": {"account": "El paquete llegó dañado y escribí al vendedor esa misma semana.", "question": "¿Cuándo escribió al vendedor?", "detailLabel": "Correo enviado"},
+        "beforeValue": "esa misma semana",
+        "afterValue": "el día 3",
+        "contextLabels": {"context": "Notas de la entrevista tras el intercambio", "marker": "Dato cambiado (según lo aportado)"}
+      }
+    }
+  ]
+}

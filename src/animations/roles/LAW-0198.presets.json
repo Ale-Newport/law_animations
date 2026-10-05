@@ -1,0 +1,75 @@
+{
+  "animationId": "LAW-0198",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional map: the case file feeds the task board; Ana, Sam and Lena are each linked to one task card; the tracer (a name magnet) delivers each link in the supplied order; Sam's badge enlarges as it passes.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: only two person → task links are supplied (c → t3, a → t1), so the middle card keeps an empty slot; the tracer visits c first; the case file is the focus element.",
+      "params": {
+        "actors": [
+          {"name": "Priya Lindqvist", "role": "Team member", "appearance": {"skin": 1, "hair": "long", "hairColor": 3, "outfit": 2}},
+          {"name": "Jonah Adeyemi", "role": "Team member", "appearance": {"skin": 4, "hair": "buzz", "hairColor": 5, "outfit": 0, "glasses": true}},
+          {"name": "Marta Sousa", "role": "Team member", "appearance": {"skin": 2, "hair": "bun", "hairColor": 1, "outfit": 3}}
+        ],
+        "roles": {"a": "Team member", "b": "Paralegal (fictional)", "c": "Team member"},
+        "props": {"tasks": ["Index the photo set (fictional)", "Check meeting notes (fictional)", "Prepare the binder (fictional)"], "openSlot": "No assignee", "speech": "Who takes the binder?"},
+        "elements": [{"id": "file", "label": "Case file 31-204 (fictional)"}, {"id": "board", "label": "Task board (fictional)"}],
+        "relationships": [
+          {"from": "file", "to": "board", "kind": "sequence", "label": "tasks listed from the file"},
+          {"from": "c", "to": "t3", "kind": "relation", "label": ""},
+          {"from": "a", "to": "t1", "kind": "relation", "label": ""}
+        ],
+        "focusElement": "file",
+        "traversalOrder": ["file", "board", "c", "t3", "a", "t1"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, long job captions, long task labels, long component labels, long relation labels and a long question.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Team member"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Team member"},
+          {"name": "Anne-Katrin Vandenberghe-Østergaard", "role": "Team member"}
+        ],
+        "roles": {"a": "Team member for document review", "b": "Case assistant for scheduling", "c": "Researcher for background material"},
+        "props": {
+          "tasks": ["Review the full exhibit list and number every item (fictional)", "Draft a first chronology of the supplied events (fictional)", "Collect the contact details of every listed person (fictional)"],
+          "openSlot": "No assignee has been supplied yet",
+          "speech": "Who would like to take which task card on the board?"
+        },
+        "elements": [{"id": "file", "label": "Case file 24-017 with supporting papers (fictional)"}, {"id": "board", "label": "Shared task board for the whole case team (fictional)"}],
+        "relationships": [
+          {"from": "file", "to": "board", "kind": "sequence", "label": "tasks listed from the case file as supplied"},
+          {"from": "a", "to": "t1", "kind": "relation", "label": "name magnet placed on this card"},
+          {"from": "b", "to": "t2", "kind": "relation", "label": "name magnet placed on this card"},
+          {"from": "c", "to": "t3", "kind": "relation", "label": "name magnet placed on this card"}
+        ],
+        "relationLabels": {"relation": "name magnet placed on the card", "communication": "asks the rest of the team", "sequence": "listed from the case file", "causal": "causes (only as supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [{"name": "Ana Duarte", "role": "Miembro del equipo"}, {"name": "Sam Okafor", "role": "Asistente del caso"}, {"name": "Lena Park", "role": "Investigadora"}],
+        "roles": {"a": "Miembro del equipo", "b": "Asistente del caso", "c": "Investigadora"},
+        "props": {"tasks": ["Revisar lista de pruebas (ficticio)", "Redactar cronología (ficticio)", "Reunir datos de contacto (ficticio)"], "openSlot": "Sin responsable", "speech": "¿Quién se queda cada tarea?"},
+        "elements": [{"id": "file", "label": "Expediente 24-017 (ficticio)"}, {"id": "board", "label": "Tablero de tareas (ficticio)"}],
+        "relationships": [
+          {"from": "file", "to": "board", "kind": "sequence", "label": "tareas sacadas del expediente"},
+          {"from": "a", "to": "t1", "kind": "relation", "label": ""},
+          {"from": "b", "to": "t2", "kind": "relation", "label": ""},
+          {"from": "c", "to": "t3", "kind": "relation", "label": ""}
+        ],
+        "relationLabels": {"relation": "imán con nombre en la tarjeta", "communication": "pregunta", "sequence": "sacadas de", "causal": "causa (según lo aportado)"}
+      }
+    }
+  ]
+}

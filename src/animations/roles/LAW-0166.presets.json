@@ -1,0 +1,133 @@
+{
+  "animationId": "LAW-0166",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional consultation decomposed: A consults B (communication); each writes notes (relation); each note flags a passage of the one shared draft (relation). The tracer goes A → A's notes → draft → B's notes → B.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: B consults A, A raises the open question on another deed, a supplied sequence link (B's notes then A's notes) and a different traversal starting from the document; focus on A's notes.",
+      "params": {
+        "actors": [
+          {"name": "Priya Lindqvist", "role": "Notary", "appearance": {"skin": 1, "hair": "bun", "hairColor": 3, "outfit": 2}},
+          {"name": "Jonah Adeyemi", "role": "Tax adviser", "appearance": {"skin": 4, "hair": "short", "hairColor": 5, "outfit": 5, "glasses": true}}
+        ],
+        "roles": {"a": "Notary", "b": "Tax adviser"},
+        "props": {
+          "document": {
+            "reference": "DEED-3",
+            "title": "Gift of a flat (fictional deed)",
+            "passages": [
+              {"ref": "§ 1", "text": "Description of the flat"},
+              {"ref": "§ 2", "text": "Value stated by the parties"},
+              {"ref": "§ 3", "text": "Costs of the deed"}
+            ]
+          },
+          "same": {"passage": 0, "noteA": "Floor area matches the plan", "noteB": "Area as in the plan, too"},
+          "open": {"passage": 2, "by": "a", "note": "Who carries the costs? Still open"}
+        },
+        "elements": [
+          {"id": "a", "label": "Notary"},
+          {"id": "b", "label": "Adviser"},
+          {"id": "notesA", "label": "Notary’s notes"},
+          {"id": "notesB", "label": "Adviser’s notes"},
+          {"id": "document", "label": "Deed under review"}
+        ],
+        "relationships": [
+          {"from": "b", "to": "a", "kind": "communication", "label": "asks for a reading"},
+          {"from": "a", "to": "notesA", "kind": "relation", "label": "writes"},
+          {"from": "b", "to": "notesB", "kind": "relation", "label": "writes"},
+          {"from": "notesB", "to": "notesA", "kind": "sequence", "label": "written first"},
+          {"from": "notesA", "to": "document", "kind": "relation", "label": "flags"},
+          {"from": "notesB", "to": "document", "kind": "relation", "label": "flags"}
+        ],
+        "focusElement": "notesA",
+        "traversalOrder": ["document", "notesB", "b", "a", "notesA"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, roles, element labels, relation labels, four long passages and long notes.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Lawyer"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Colleague"}
+        ],
+        "roles": {"a": "Lawyer asking for a second reading of the draft", "b": "Colleague consulted on the delivery clauses"},
+        "props": {
+          "document": {
+            "reference": "DRAFT 07 · REV 12",
+            "title": "Framework supply agreement for office furniture (fictional draft)",
+            "passages": [
+              {"ref": "Cl. 1.1", "text": "Parties, purpose and the documents that form the agreement"},
+              {"ref": "Cl. 2.4", "text": "Delivery window after each order confirmed in writing"},
+              {"ref": "Cl. 3.2", "text": "Storage of goods when collection is later than agreed"},
+              {"ref": "Cl. 4.1", "text": "Notices between the parties and the addresses to use"}
+            ]
+          },
+          "same": {"passage": 1, "noteA": "The delivery window is counted from the written order confirmation", "noteB": "Same reading here: the window runs from the written confirmation"},
+          "open": {"passage": 2, "by": "b", "note": "Who pays for storage after the agreed collection date? Left open"}
+        },
+        "elements": [
+          {"id": "a", "label": "Professional A who asks"},
+          {"id": "b", "label": "Professional B who is consulted"},
+          {"id": "notesA", "label": "Notes written by professional A"},
+          {"id": "notesB", "label": "Notes written by professional B"},
+          {"id": "document", "label": "The one shared draft under review"}
+        ],
+        "relationships": [
+          {"from": "a", "to": "b", "kind": "communication", "label": "consults on the draft"},
+          {"from": "a", "to": "notesA", "kind": "relation", "label": "writes the notes"},
+          {"from": "b", "to": "notesB", "kind": "relation", "label": "writes the notes"},
+          {"from": "notesA", "to": "document", "kind": "relation", "label": "each note flags one passage"},
+          {"from": "notesB", "to": "document", "kind": "relation", "label": "each note flags one passage"}
+        ],
+        "relationLabels": {"relation": "plain relation (no direction)", "communication": "communication between the two", "sequence": "sequence as supplied", "causal": "causal link (as supplied only)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Leila Haddad", "role": "Abogada"},
+          {"name": "Marco Bellini", "role": "Colega"}
+        ],
+        "roles": {"a": "Abogada que consulta", "b": "Colega consultado"},
+        "props": {
+          "document": {
+            "reference": "BORRADOR 07",
+            "title": "Contrato de suministro (borrador ficticio)",
+            "passages": [
+              {"ref": "Cl. 1", "text": "Partes y objeto"},
+              {"ref": "Cl. 2", "text": "Plazo de entrega tras cada pedido"},
+              {"ref": "Cl. 3", "text": "Almacenaje si la recogida se retrasa"},
+              {"ref": "Cl. 4", "text": "Notificaciones entre las partes"}
+            ]
+          },
+          "same": {"passage": 1, "noteA": "El plazo cuenta desde el pedido", "noteB": "Misma lectura: desde el pedido"},
+          "open": {"passage": 2, "by": "b", "note": "¿Quién paga el almacenaje? Queda abierta"}
+        },
+        "elements": [
+          {"id": "a", "label": "Profesional A"},
+          {"id": "b", "label": "Profesional B"},
+          {"id": "notesA", "label": "Notas de A"},
+          {"id": "notesB", "label": "Notas de B"},
+          {"id": "document", "label": "Borrador común"}
+        ],
+        "relationships": [
+          {"from": "a", "to": "b", "kind": "communication", "label": "consulta"},
+          {"from": "a", "to": "notesA", "kind": "relation", "label": "escribe"},
+          {"from": "b", "to": "notesB", "kind": "relation", "label": "escribe"},
+          {"from": "notesA", "to": "document", "kind": "relation", "label": "marca un pasaje"},
+          {"from": "notesB", "to": "document", "kind": "relation", "label": "marca un pasaje"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

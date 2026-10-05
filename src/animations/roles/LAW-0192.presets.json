@@ -1,0 +1,65 @@
+{
+  "animationId": "LAW-0192",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the substituted status is a supplied datum and no consequence is inferred.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The third checklist row is inspected: its supplied status 'Received' is substituted by 'Pending (as supplied)'; the filled dot becomes a dashed ring.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the FIRST row is inspected in the opposite direction — 'Pending (as supplied)' becomes 'Received on a second visit (as supplied)', so the dashed ring becomes a filled dot; four items, different people.",
+      "params": {
+        "actors": [
+          {"name": "Ibrahim Mensah", "role": "Person filing", "appearance": {"skin": 4, "hair": "buzz", "hairColor": 5, "outfit": 2, "glasses": true}},
+          {"name": "Lena Kowalczyk", "role": "Registry clerk", "appearance": {"skin": 0, "hair": "bun", "hairColor": 3, "outfit": 3}}
+        ],
+        "props": {"items": ["Filing form", "Cover letter", "Annex 2 · photos", "Copy of receipt"], "focusIndex": 0, "reference": "REF-0958 (fictional)"},
+        "beforeValue": "Pending (as supplied)",
+        "afterValue": "Received on a second visit (as supplied)",
+        "detailGeometry": {"zoom": 2.4, "placement": "auto", "states": {"before": "pending", "after": "received"}},
+        "contextLabels": {"context": "Checklist status at the registry window", "marker": "Status changed (as supplied)"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names and roles, four long checklist items, long before/after values and long context and marker labels.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Person filing"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Registry clerk"}
+        ],
+        "roles": {"filer": "Person filing for a tenants' association", "clerk": "Registry clerk at the intake window"},
+        "relationships": [{"from": "filer", "to": "clerk", "kind": "communication", "label": "hands the documents over the ledge to the registry clerk"}],
+        "props": {
+          "items": ["Completed filing form with all sections signed and dated", "Cover letter explaining the purpose of the submission", "Annex 1 · site plan with the surveyor's measurements", "Annex 2 · photographs of the building's front entrance"],
+          "focusIndex": 2,
+          "reference": "REF-2026-0427-B (fictional)"
+        },
+        "objectLabels": {"checklist": "Intake checklist for the association's filing", "slip": "Entry reference slip (fictional)"},
+        "beforeValue": "Received at the window together with the other sheets",
+        "afterValue": "Pending as supplied by the author of this illustrative example",
+        "contextLabels": {"context": "The registry window right after the intake of the association's documents", "marker": "Changed datum, exactly as supplied"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Noor Haddad", "role": "Persona que presenta"},
+          {"name": "Tomás Rivera", "role": "Personal del registro"}
+        ],
+        "roles": {"filer": "Persona que presenta", "clerk": "Personal del registro"},
+        "relationships": [{"from": "filer", "to": "clerk", "kind": "communication", "label": "entrega documentos a"}],
+        "props": {"items": ["Formulario de presentación", "Carta de presentación", "Anexo 1 · plano"], "focusIndex": 2, "reference": "REF-0427 (ficticia)"},
+        "objectLabels": {"checklist": "Lista de entrada", "slip": "Referencia de entrada"},
+        "beforeValue": "Recibido",
+        "afterValue": "Pendiente (según lo aportado)",
+        "contextLabels": {"context": "Ventanilla del registro tras la entrega", "marker": "Dato cambiado (según lo aportado)"}
+      }
+    }
+  ]
+}

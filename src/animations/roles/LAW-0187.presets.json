@@ -1,0 +1,68 @@
+{
+  "animationId": "LAW-0187",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Same mediation table twice: ordered turns (token passed A → B) versus both parties speaking at once; speaking-interval charts show sequence versus overlap.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: in the ordered scene Party B speaks first (sequence B → A), so the token and the first bar go to B; different people and agenda.",
+      "params": {
+        "actors": [
+          {"name": "Priya Lindqvist", "role": "Party A", "appearance": {"skin": 1, "hair": "long", "hairColor": 3, "outfit": 2}},
+          {"name": "Jonah Adeyemi", "role": "Party B", "appearance": {"skin": 4, "hair": "buzz", "hairColor": 5, "outfit": 0, "glasses": true}},
+          {"name": "Marta Sousa", "role": "Mediator", "appearance": {"skin": 2, "hair": "bun", "hairColor": 1, "outfit": 3}}
+        ],
+        "relationships": [
+          {"from": "mediator", "to": "a", "kind": "communication"},
+          {"from": "mediator", "to": "b", "kind": "communication"},
+          {"from": "b", "to": "a", "kind": "sequence"}
+        ],
+        "props": {"agendaTitle": "Session plan", "agendaItems": ["Party B: opening", "Party A: opening", "Next meeting date"], "speech": {"a": "", "b": ""}},
+        "scenarioA": {"label": "One speaker at a time", "caption": "Party B has the first turn, then Party A"},
+        "scenarioB": {"label": "Both at once", "caption": "Neither party waits for a turn"},
+        "changedFact": "Only whether the parties wait for a turn differs",
+        "comparisonLabels": {"guide": "Changed fact: waiting for a turn", "neutral": "Both situations are illustrative; no outcome is stated"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long scenario labels, captions, changed fact, shared facts and names.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Party B"},
+          {"name": "Anne-Katrin Vandenberghe-Østergaard", "role": "Mediator"}
+        ],
+        "roles": {"a": "Tenant association representative", "b": "Property manager representative", "mediator": "Neutral third person"},
+        "scenarioA": {"label": "Turns organised one after the other", "caption": "The wooden token is passed from the first speaker to the second speaker"},
+        "scenarioB": {"label": "Both representatives speaking at once", "caption": "Both representatives speak at once while the mediator raises both hands"},
+        "changedFact": "Only the timing of the two interventions differs; people, table, agenda and token are identical",
+        "sharedFacts": ["Same three people at the same table", "Same agenda for the joint session", "Same wooden turn token on the table", "Same neutral third person"],
+        "comparisonLabels": {"guide": "Changed fact: when each representative speaks during the session", "neutral": "Two illustrative situations shown side by side — no outcome, winner or assessment is stated"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Alex Moreno", "role": "Parte A"},
+          {"name": "Sam Okafor", "role": "Parte B"},
+          {"name": "Dana Reyes", "role": "Mediadora"}
+        ],
+        "roles": {"a": "Parte A", "b": "Parte B", "mediator": "Mediadora"},
+        "props": {"agendaTitle": "Orden del día", "agendaItems": ["Parte A: exposición", "Parte B: exposición", "Preguntas"], "speech": {"a": "", "b": ""}},
+        "scenarioA": {"label": "Turnos ordenados", "caption": "La ficha pasa de un interlocutor al otro"},
+        "scenarioB": {"label": "Intervenciones simultáneas", "caption": "Ambas partes hablan a la vez"},
+        "changedFact": "Solo cambia el momento de las intervenciones",
+        "sharedFacts": ["Mismas personas", "Misma mesa y orden del día", "Misma mediadora"],
+        "comparisonLabels": {"guide": "Hecho cambiado: cuándo habla cada parte", "neutral": "Dos situaciones lado a lado — no se indica ningún desenlace"}
+      }
+    }
+  ]
+}

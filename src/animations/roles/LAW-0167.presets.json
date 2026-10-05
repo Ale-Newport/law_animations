@@ -1,0 +1,101 @@
+{
+  "animationId": "LAW-0167",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional consultation on one draft: in A the colleague's flag goes level with the lawyer's on clause 2 (same point noted); in B it goes alone on clause 3 as an open question.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other people and a three-passage deed; professional A is the one whose flag changes (A: level with B's flag on the first passage; B: alone on the last passage).",
+      "params": {
+        "actors": [
+          {"name": "Priya Lindqvist", "role": "Notary", "appearance": {"skin": 1, "hair": "bun", "hairColor": 3, "outfit": 2}},
+          {"name": "Jonah Adeyemi", "role": "Tax adviser", "appearance": {"skin": 4, "hair": "short", "hairColor": 5, "outfit": 5, "glasses": true}}
+        ],
+        "roles": {"a": "Notary", "b": "Tax adviser"},
+        "props": {
+          "document": {
+            "reference": "DEED-3",
+            "title": "Gift of a flat (fictional deed)",
+            "passages": [
+              {"ref": "§ 1", "text": "Description of the flat"},
+              {"ref": "§ 2", "text": "Value stated by the parties"},
+              {"ref": "§ 3", "text": "Costs of the deed"}
+            ]
+          },
+          "same": {"passage": 0, "noteA": "Floor area matches the plan", "noteB": "Area as in the plan, too"},
+          "open": {"passage": 2, "by": "a", "note": "Who carries the costs? Still open"}
+        },
+        "scenarioA": {"label": "Same point", "caption": "A’s flag goes level with B’s on § 1"},
+        "scenarioB": {"label": "Question left open", "caption": "A’s flag goes alone on § 3"},
+        "changedFact": "Where the notary places the flag: beside the adviser’s, or alone on § 3",
+        "sharedFacts": ["Same deed and sections", "Same adviser’s flag on § 1"],
+        "comparisonLabels": {"guide": "Only the notary’s flag differs", "neutral": "Both states are supplied; the animation does not say which reading is right."}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, roles, four long passages, long notes, long scenario labels, changed fact, shared facts and notes.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Lawyer"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Colleague"}
+        ],
+        "roles": {"a": "Lawyer asking for a second reading of the draft", "b": "Colleague consulted on the delivery clauses"},
+        "props": {
+          "document": {
+            "reference": "DRAFT 07 · REV 12",
+            "title": "Framework supply agreement for office furniture (fictional draft)",
+            "passages": [
+              {"ref": "Cl. 1.1", "text": "Parties, purpose and the documents that form the agreement"},
+              {"ref": "Cl. 2.4", "text": "Delivery window after each order confirmed in writing"},
+              {"ref": "Cl. 3.2", "text": "Storage of goods when collection is later than agreed"},
+              {"ref": "Cl. 4.1", "text": "Notices between the parties and the addresses to use"}
+            ]
+          },
+          "same": {"passage": 1, "noteA": "The delivery window is counted from the written order confirmation", "noteB": "Same reading here: the window runs from the written confirmation"},
+          "open": {"passage": 2, "by": "b", "note": "Who pays for storage after the agreed collection date? Left open"}
+        },
+        "scenarioA": {"label": "Matching reading of the delivery clause", "caption": "The colleague’s flag goes level with the lawyer’s flag on Cl. 2.4"},
+        "scenarioB": {"label": "Open question on the storage clause", "caption": "The colleague’s flag goes alone on Cl. 3.2 and the question stays open"},
+        "changedFact": "Where the colleague places the flag: beside the lawyer’s flag on Cl. 2.4, or alone on Cl. 3.2 as an open question",
+        "sharedFacts": ["Same draft, same revision and the same four clauses", "Same two professionals at the same table", "The lawyer’s flag on Cl. 2.4 is identical in both scenes"],
+        "comparisonLabels": {"guide": "Only the colleague’s flag differs between the two scenes", "neutral": "Both states are supplied with the example; the animation does not say which reading is right or what follows from it."}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Leila Haddad", "role": "Abogada"},
+          {"name": "Marco Bellini", "role": "Colega"}
+        ],
+        "roles": {"a": "Abogada que consulta", "b": "Colega consultado"},
+        "props": {
+          "document": {
+            "reference": "BORRADOR 07",
+            "title": "Contrato de suministro (borrador ficticio)",
+            "passages": [
+              {"ref": "Cl. 1", "text": "Partes y objeto"},
+              {"ref": "Cl. 2", "text": "Plazo de entrega tras cada pedido"},
+              {"ref": "Cl. 3", "text": "Almacenaje si la recogida se retrasa"},
+              {"ref": "Cl. 4", "text": "Notificaciones entre las partes"}
+            ]
+          },
+          "same": {"passage": 1, "noteA": "El plazo cuenta desde el pedido", "noteB": "Misma lectura: desde el pedido"},
+          "open": {"passage": 2, "by": "b", "note": "¿Quién paga el almacenaje? Queda abierta"}
+        },
+        "scenarioA": {"label": "Criterio coincidente", "caption": "La banderita de B va a la altura de la de A en la Cl. 2"},
+        "scenarioB": {"label": "Cuestión abierta", "caption": "La banderita de B va sola en la Cl. 3"},
+        "changedFact": "Dónde coloca B su banderita: junto a la de A o sola en otra cláusula",
+        "sharedFacts": ["Mismo borrador y cláusulas", "Mismos dos profesionales", "La banderita de A en la Cl. 2"],
+        "comparisonLabels": {"guide": "Solo cambia esta banderita", "neutral": "Ambos estados vienen dados en el ejemplo; no se muestra qué lectura es la correcta."}
+      }
+    }
+  ]
+}

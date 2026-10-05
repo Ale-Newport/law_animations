@@ -1,0 +1,97 @@
+{
+  "animationId": "LAW-0170",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; source types are shown as stated by the witness, never assessed.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional plan: one fact seen and one told by a neighbour; the tracer runs from each channel through the witness and the clerk into the fact rail.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: three facts, the told channel is traced first, the clerk is the focus element, and the rail link is a plain relation (no arrowhead); different people.",
+      "params": {
+        "actors": [
+          {"name": "Priya Lindqvist", "role": "Witness", "appearance": {"skin": 1, "hair": "long", "hairColor": 3, "outfit": 2}},
+          {"name": "Jonah Adeyemi", "role": "Clerk", "appearance": {"skin": 4, "hair": "buzz", "hairColor": 5, "outfit": 0, "glasses": true}},
+          {"name": "Rosa Mendel", "role": "Shop owner", "appearance": {"skin": 2, "hair": "curly", "hairColor": 1, "outfit": 5}}
+        ],
+        "roles": {"witness": "Witness", "clerk": "Clerk", "informant": "Shop owner"},
+        "relationships": [
+          {"from": "informant", "to": "witness", "kind": "communication", "label": "told, as stated"},
+          {"from": "event", "to": "witness", "kind": "relation", "label": "seen, as stated"},
+          {"from": "witness", "to": "clerk", "kind": "communication", "label": "recounts"},
+          {"from": "clerk", "to": "cards", "kind": "relation", "label": "keeps the cards"}
+        ],
+        "props": {
+          "facts": [
+            {"text": "The shop shutter was already half open", "source": "received", "via": "the shop owner"},
+            {"text": "A cyclist waited under the street lamp", "source": "observed", "via": ""},
+            {"text": "The lamp went off at eleven", "source": "observed", "via": ""}
+          ],
+          "sourceLabels": {"observed": "direct observation (as stated)", "received": "information received (as stated)"}
+        },
+        "elements": [{"id": "event", "label": "The street (as described)"}, {"id": "cards", "label": "Cards of the account"}],
+        "focusElement": "clerk",
+        "traversalOrder": ["informant", "witness", "clerk", "cards", "event", "witness", "clerk", "cards", "event", "witness", "clerk", "cards"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names and roles, long part labels, long link captions, three long facts with long source labels and a long origin.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Witness"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Clerk"},
+          {"name": "Anne-Katrin Vandenberghe-Østergaard", "role": "Neighbour"}
+        ],
+        "roles": {"witness": "Person giving the account", "clerk": "Person writing the fact cards", "informant": "Neighbour from the third floor"},
+        "relationships": [
+          {"from": "event", "to": "witness", "kind": "relation", "label": "seen from the window, as stated"},
+          {"from": "informant", "to": "witness", "kind": "communication", "label": "told the next morning, as stated"},
+          {"from": "witness", "to": "clerk", "kind": "communication", "label": "recounts the evening in order"},
+          {"from": "clerk", "to": "cards", "kind": "sequence", "label": "writes each fact with its source"}
+        ],
+        "props": {
+          "facts": [
+            {"text": "A dark blue delivery van parked beside the north gate of the warehouse yard", "source": "observed", "via": ""},
+            {"text": "Two people in grey jackets carried several cardboard boxes into the building", "source": "observed", "via": ""},
+            {"text": "The same delivery van drove away from the yard some time before midnight", "source": "received", "via": "the neighbour from the third floor"}
+          ],
+          "sourceLabels": {"observed": "direct observation, as the witness stated it", "received": "information received, as the witness stated it"}
+        },
+        "elements": [{"id": "event", "label": "What happened in the yard (as described)"}, {"id": "cards", "label": "Rail of fact cards in stated order"}],
+        "relationLabels": {"relation": "plain relation, no direction", "communication": "communication between people", "sequence": "sequence of steps in order", "causal": "causal link, only as supplied"},
+        "traversalOrder": ["event", "witness", "clerk", "cards", "event", "witness", "clerk", "cards", "informant", "witness", "clerk", "cards"]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Ana Duarte", "role": "Testigo"},
+          {"name": "Leo Brandt", "role": "Secretario"},
+          {"name": "Sam Osei", "role": "Vecino"}
+        ],
+        "roles": {"witness": "Testigo", "clerk": "Secretario", "informant": "Vecino"},
+        "relationships": [
+          {"from": "event", "to": "witness", "kind": "relation", "label": "visto, según declara"},
+          {"from": "informant", "to": "witness", "kind": "communication", "label": "contado, según declara"},
+          {"from": "witness", "to": "clerk", "kind": "communication", "label": "relata"},
+          {"from": "clerk", "to": "cards", "kind": "sequence", "label": "escribe cada hecho"}
+        ],
+        "props": {
+          "facts": [
+            {"text": "Una furgoneta azul aparcó junto a la puerta norte", "source": "observed", "via": ""},
+            {"text": "La furgoneta se fue antes de medianoche", "source": "received", "via": "un vecino"}
+          ],
+          "sourceLabels": {"observed": "observación directa (según declara)", "received": "información recibida (según declara)"}
+        },
+        "elements": [{"id": "event", "label": "Lo ocurrido (según se describe)"}, {"id": "cards", "label": "Fila de hechos"}],
+        "relationLabels": {"relation": "relación simple", "communication": "comunicación", "sequence": "secuencia de pasos", "causal": "causal (según lo aportado)"}
+      }
+    }
+  ]
+}

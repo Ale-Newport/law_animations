@@ -1,0 +1,93 @@
+{
+  "animationId": "LAW-0186",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Seating plan with the mediator at the head of the table: the token goes mediator → Party A → mediator → Party B and fills the two slots of the turn-order card.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the order starts from the agenda (supplied sequence link agenda → mediator), Party B receives the first turn, the agenda card is the focus element; different people.",
+      "params": {
+        "actors": [
+          {"name": "Priya Lindqvist", "role": "Party A", "appearance": {"skin": 1, "hair": "long", "hairColor": 3, "outfit": 2}},
+          {"name": "Jonah Adeyemi", "role": "Party B", "appearance": {"skin": 4, "hair": "buzz", "hairColor": 5, "outfit": 0, "glasses": true}},
+          {"name": "Marta Sousa", "role": "Mediator", "appearance": {"skin": 2, "hair": "bun", "hairColor": 1, "outfit": 3}}
+        ],
+        "props": {"agendaTitle": "Session plan", "agendaItems": ["Party B: opening", "Party A: opening", "Next meeting date"], "speech": {"a": "", "b": ""}},
+        "elements": [
+          {"id": "mediator", "label": "Mediator"},
+          {"id": "a", "label": "Party A"},
+          {"id": "b", "label": "Party B"},
+          {"id": "agenda", "label": "Session plan"}
+        ],
+        "relationships": [
+          {"from": "agenda", "to": "mediator", "kind": "sequence", "label": "sets the order"},
+          {"from": "mediator", "to": "b", "kind": "communication", "label": "gives the floor"},
+          {"from": "mediator", "to": "a", "kind": "communication", "label": "gives the floor"},
+          {"from": "a", "to": "b", "kind": "relation", "label": "no direct exchange"}
+        ],
+        "focusElement": "agenda",
+        "traversalOrder": ["agenda", "mediator", "b", "mediator", "a"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long element labels, long relationship captions and long names.",
+      "params": {
+        "actors": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Party B"},
+          {"name": "Anne-Katrin Vandenberghe-Østergaard", "role": "Mediator"}
+        ],
+        "props": {
+          "agendaTitle": "Agenda for the joint session",
+          "agendaItems": ["Opening account by the tenant association representative", "Opening account by the property manager representative", "Questions and clarifications from both sides"],
+          "speech": {"a": "", "b": ""}
+        },
+        "elements": [
+          {"id": "mediator", "label": "Neutral third person organising turns"},
+          {"id": "a", "label": "Tenant association representative"},
+          {"id": "b", "label": "Property manager representative"},
+          {"id": "agenda", "label": "Agenda and order of speaking turns"}
+        ],
+        "relationships": [
+          {"from": "mediator", "to": "a", "kind": "communication", "label": "gives the floor for the first turn"},
+          {"from": "mediator", "to": "b", "kind": "communication", "label": "gives the floor for the second turn"},
+          {"from": "a", "to": "b", "kind": "relation", "label": "address each other through the mediator"},
+          {"from": "mediator", "to": "agenda", "kind": "relation", "label": "follows the written order"}
+        ],
+        "relationLabels": {"relation": "plain relation (no direction)", "communication": "communication between people", "sequence": "sequence of steps", "causal": "causal link (as supplied)"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "actors": [
+          {"name": "Alex Moreno", "role": "Parte A"},
+          {"name": "Sam Okafor", "role": "Parte B"},
+          {"name": "Dana Reyes", "role": "Mediadora"}
+        ],
+        "roles": {"a": "Parte A", "b": "Parte B", "mediator": "Mediadora"},
+        "props": {"agendaTitle": "Orden del día", "agendaItems": ["Parte A: exposición", "Parte B: exposición", "Preguntas"], "speech": {"a": "", "b": ""}},
+        "elements": [
+          {"id": "mediator", "label": "Mediadora"},
+          {"id": "a", "label": "Parte A"},
+          {"id": "b", "label": "Parte B"},
+          {"id": "agenda", "label": "Orden del día: turnos"}
+        ],
+        "relationships": [
+          {"from": "mediator", "to": "a", "kind": "communication", "label": "da la palabra"},
+          {"from": "mediator", "to": "b", "kind": "communication", "label": "da la palabra"},
+          {"from": "a", "to": "b", "kind": "relation", "label": "hablan a través de la mediadora"},
+          {"from": "mediator", "to": "agenda", "kind": "relation", "label": "sigue"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"}
+      }
+    }
+  ]
+}
