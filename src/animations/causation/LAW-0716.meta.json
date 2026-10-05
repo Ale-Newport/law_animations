@@ -1,0 +1,481 @@
+{
+  "id": "LAW-0716",
+  "slug": "causation-09-inspect",
+  "title": "Affected person's contribution — a lens on the lane tag of one supplied step; one supplied datum is substituted",
+  "titleEs": "Contribución de la persona afectada — Inspección y cambio de un dato",
+  "category": "causation",
+  "categoryName": "Causalidad y daño",
+  "motif": "Contribución de la persona afectada",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "A fictional slab after both supplied conducts ran: two identical lanes, both trolleys at their barriers, both connectors to the event, the supplied steps under their lanes, and Step 1 on the ● slot under lane A with a value tag on a string, beside the record. A real enlarged copy of the tag, the string, both slots and the step grows from its source; the supplied value is struck and replaced by the alternative value, and only then the step slides to the ◆ slot under lane B. The lens returns to its source; a Δ marker and a before/after trace keep the old value traceable. Nothing is weighed, shared out or decided.",
+  "tags": [
+    "causation",
+    "affected person",
+    "inspect",
+    "lens",
+    "datum substitution",
+    "parallel lanes",
+    "before and after",
+    "as supplied"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/causation/kits/contribucion-afectada.js",
+    "src/animations/causation/kits/dano-material.js",
+    "src/animations/causation/kits/prueba-contrafactual.js",
+    "src/animations/causation/kits/causal-chain.js",
+    "src/primitives/markers.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "origin": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 48,
+            "description": "Name of the event, e.g. \"Event X (fictional)\""
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "description": "The fictional event both lanes run toward (a generic object event; nobody is drawn or injured)"
+      },
+      "events": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Step text (fictional, descriptive)"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 20,
+              "description": "Optional fictional relative label, e.g. \"Day 2\" (shown as supplied; never a time limit)"
+            },
+            "lane": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "Supplied lane: a (conduct of A) or b (conduct of B)"
+            }
+          },
+          "required": [
+            "label",
+            "lane"
+          ],
+          "description": "Step"
+        },
+        "minItems": 2,
+        "maxItems": 6,
+        "description": "The supplied steps of each conduct, in the supplied order (fictional, neutral, descriptive). Each stands beside the lane it is SUPPLIED for: lane A (conduct of A) or lane B (conduct of B, the affected person). Nothing is weighed or decided. (array replaces the previous value)"
+      },
+      "causalLinks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "lane": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "Lane whose connector this describes"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "causal"
+              ],
+              "description": "relation (default) or causal; a causal arrow is only drawn when supplied here"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "proposed",
+                "disputed"
+              ],
+              "description": "proposed (put forward) or disputed (contested); never resolved"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Optional caption for this connector"
+            }
+          },
+          "required": [
+            "lane"
+          ],
+          "description": "Connector"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Per-lane connector data. The connector of a lane joins its end to the event; a lane not listed keeps a plain relation as supplied. (array replaces the previous value)"
+      },
+      "alternatives": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 64,
+              "description": "Account put forward"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "alleged",
+                "proposed"
+              ],
+              "description": "Descriptive status"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Alternative"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Other accounts put forward by someone; drawn with a barrier icon, never decided (array replaces the previous value)"
+      },
+      "losses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 72,
+              "description": "Description of the loss as supplied (no amount, no share)"
+            }
+          },
+          "required": [
+            "label"
+          ],
+          "description": "Loss"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "The loss at the event as supplied: the first entry describes it (a placeholder, no amount, no share); an optional second entry is a noted detail. (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "lane-tag"
+        ],
+        "description": "Detail that is enlarged and substituted"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown before the substitution"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "Value shown after the substitution (the alternative datum)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      },
+      "focusItem": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 5,
+        "description": "Index (0-based) of the step whose supplied lane is the datum (its own \"lane\" value is not used here)"
+      },
+      "focusLanes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "before": {
+            "type": "string",
+            "enum": [
+              "a",
+              "b"
+            ],
+            "description": "Lane drawn with the before value"
+          },
+          "after": {
+            "type": "string",
+            "enum": [
+              "a",
+              "b"
+            ],
+            "description": "Lane drawn with the after value"
+          }
+        },
+        "required": [],
+        "description": "Lane the focus step stands under with each value (only this geometry changes with the datum)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "origin": {
+      "name": "Event X (fictional)"
+    },
+    "events": [
+      {
+        "label": "Step 1 (supplied): A pushes a trolley",
+        "lane": "a"
+      },
+      {
+        "label": "Step 2 (supplied): B walks a trolley",
+        "lane": "b"
+      }
+    ],
+    "causalLinks": [],
+    "alternatives": [],
+    "losses": [
+      {
+        "label": "Loss described as supplied (no amount)"
+      }
+    ],
+    "focusTarget": "lane-tag",
+    "beforeValue": "Step 1: supplied for lane A (conduct of A)",
+    "afterValue": "Step 1: supplied for lane B (conduct of B)",
+    "detailGeometry": {
+      "zoom": 1.8,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "The two lanes after both conducts ran, with the record, as supplied",
+      "marker": "Changed datum"
+    },
+    "focusItem": 0,
+    "focusLanes": {
+      "before": "a",
+      "after": "b"
+    }
+  }
+}

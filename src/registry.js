@@ -456,6 +456,7 @@ export const registry = {
   'LAW-0713': () => import('./animations/causation/LAW-0713.js'),
   'LAW-0714': () => import('./animations/causation/LAW-0714.js'),
   'LAW-0715': () => import('./animations/causation/LAW-0715.js'),
+  'LAW-0716': () => import('./animations/causation/LAW-0716.js'),
 };
 
 /** @param {string} id */

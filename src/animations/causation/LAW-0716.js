@@ -105,6 +105,19 @@ const defaultParamsEs = {
 };
 
 const MARGIN = 10;
+
+/** Bake a connector's completed frame (a record of node name → attributes) into its static vnode tree. */
+function applyStatic(node, rec) {
+  const walk = v => {
+    if (!v || typeof v !== 'object') return;
+    if (Array.isArray(v)) { v.forEach(walk); return; }
+    if (v.attrs && v.attrs.name && rec[v.attrs.name]) { Object.assign(v.attrs, rec[v.attrs.name]); delete v.attrs.name; }
+    else if (v.attrs && v.attrs.name) delete v.attrs.name;
+    (v.children || []).forEach(walk);
+  };
+  walk(node);
+  return node;
+}
 const SHAPES = {
   landscape: {size: 26, minSize: 17, arr: ['side', 'stack']},
   square: {size: 24, minSize: 17, arr: ['stack', 'stack2', 'side']},
@@ -418,7 +431,7 @@ const scene = {
       }
     }
     L.F = F; L.zx = zx;
-    L.Gw = fieldGeom(zx, F, L.PH);
+    L.Gw = fieldGeom(zx + L.tg.w + 30, F, L.PH);
     L.places = itemPlaces(L.Gw, M, [fi]);
     L.fxw = zx + L.fx;
     L.zg0 = {iw: L.iw, ih: L.ih};
@@ -497,28 +510,26 @@ const scene = {
     // the zone (floor, field, markers, slots, consequences, string, tag) — drawn twice: scene and lens copy
     const zone = (P, tagP) => {
       const tag = tagArt(ctx, L.tg, L.tagAt.x, L.tagAt.y, tagP, textOn);
-      const m1 = G.at(G.R1, MARK_A), m2 = G.at(G.R2, MARK_A);
-      const pIn = G.at(G.rIn, PATH_A), pOut = G.at(G.rOut, PATH_A);
-      const p0 = L.rings[0] === 'inner' ? pIn : pOut;
+      const y0 = L.ysw[L.lanes[0] === 'b' ? 1 : 0];
+      // the state produced by the action: both trolleys at their barriers, both connectors drawn (identical)
+      const links = M.links.map(l => laneConnector(ctx, {name: `${P}cn${l.lane}`, G, l: l.lane, kind: l.kind, disputed: l.status === 'disputed'}));
       const stand = [
-        {y: G.cy, node: g({transform: T(G.cx, G.cy)}, eventArt(ctx, {s: G.PH}))},
-        ...L.places.map(q => ({y: q.y, node: g({transform: T(q.x, q.y)}, itemArt(ctx, {i: q.i, s: G.itemS * ITEM_K}))})),
-        {y: m1.y, node: g({name: `${P}flagA`, transform: T(m1.x, m1.y)}, postArt(ctx, {name: `${P}fa`, G, side: 'before', stem: MARK_STEM}))},
-        {y: m2.y, node: g({name: `${P}flagB`, transform: T(m2.x, m2.y)}, postArt(ctx, {name: `${P}fb`, G, side: 'after', stem: MARK_STEM}))},
-        {y: G.cy + 0.01, node: g({name: `${P}item`, transform: T(p0.x, p0.y)}, itemArt(ctx, {i: L.fi, s: G.itemS * ITEM_K}))},
-      ].sort((a, b) => a.y - b.y);
+        {y: G.py, node: g({transform: T(G.px, G.py)}, eventArt(ctx, {R: G.padR}))},
+        ...L.places.map(q => ({y: q.y, node: g({transform: T(q.x, q.y)}, itemArt(ctx, {i: q.i, s: q.s}))})),
+        ...['a', 'b'].map(l => ({y: G.laneY(l) + 0.01, node: g({transform: T(G.xb, G.laneY(l))}, laneBarrier(ctx, {name: `${P}lb${l}`, G}))})),
+        ...['a', 'b'].map(l => ({y: G.laneY(l) + 0.02, node: g({name: `${P}cart${l}`, transform: T(G.cartX(1), G.laneY(l))}, cartArt(ctx, {PH: G.PH, side: l}))})),
+        {y: 1e9, node: g({name: `${P}item`, transform: T(L.fxw, y0)}, itemArt(ctx, {i: L.fi, s: G.itemS * ITEM_K}))},
+      ].sort((a0, b0) => a0.y - b0.y);
       return g(null,
         L.arr !== 'side' || P ? floorArt(ctx, {name: `${P}floor`, x0: MARGIN, x1: L.Dv.w - MARGIN, floorY: L.F}) : null,
         g({name: `${P || 'z'}field`},
-          plateArt(ctx, {G}),
-          g({transform: T(G.cx, G.cy)}, ringArt(ctx, {R: G.R1, w: Math.max(5, G.PH * 0.028)})),
-          g({transform: T(G.cx, G.cy)}, ringArt(ctx, {R: G.R2, w: Math.max(5, G.PH * 0.028)})),
-          // the two slots of the focus consequence's path: a ● pad in the inner ring, a ◆ pad in the outer ring (same
-          // shape and weight)
-          slotArt(ctx, {G, at: pIn, side: 'before'}),
-          slotArt(ctx, {G, at: pOut, side: 'after'}),
+          slabArt(ctx, {G}),
+          links.map(lk => { const fr = lk.frame(1); return g(null, applyStatic(lk.node, fr)); }),
+          // the two slots of the focus step: a ● pad under lane A, a ◆ pad under lane B (same shape and weight)
+          slotArt(ctx, {G, at: {x: L.fxw, y: L.ysw[0]}, side: 'a'}),
+          slotArt(ctx, {G, at: {x: L.fxw, y: L.ysw[1]}, side: 'b'}),
           stand.map(q => q.node)),
-        h('path', {name: `${P}string`, d: stringD(L, p0.x), fill: 'none', stroke: th.inkSoft, 'stroke-width': 2.5}),
+        h('path', {name: `${P}string`, d: stringD(L, y0), fill: 'none', stroke: th.inkSoft, 'stroke-width': 2.5}),
         tag.node,
       );
     };
@@ -605,13 +616,12 @@ const scene = {
     // dependent geometry only, AFTER the new value is legible: the consequence slides between the slots (across the
     // inner ring), its string following
     const gp0 = ease.inOutQuad(seg(u, ...W.geo));
-    const G = L.Gw;
-    const rad = q => (q === 'inner' ? G.rIn : G.rOut);
-    const rNow = lerp(rad(L.rings[0]), rad(L.rings[1]), gp0);
-    const pt = G.at(rNow, PATH_A);
+    const yOf = l => L.ysw[l === 'b' ? 1 : 0];
+    const yNow = lerp(yOf(L.lanes[0]), yOf(L.lanes[1]), gp0);
+    const pt = {x: L.fxw, y: yNow};
     for (const P of ['', 'lzs-']) {
       nodes[`${P}item`] = {transform: T(pt.x, pt.y)};
-      nodes[`${P}string`] = {d: stringD(L, pt.x)};
+      nodes[`${P}string`] = {d: stringD(L, yNow)};
     }
     const txt = u < W.textOut[1] ? Math.min(seg(u, ...W.textIn), 1 - seg(u, ...W.textOut)) : u < W.textBack[0] ? 0 : seg(u, ...W.textBack);
     nodes['rec-g'] = {opacity: r(L.arr === 'side' ? 1 : txt, 3)};
@@ -639,8 +649,8 @@ const scene = {
       lensFill: r(L.fill, 3),
       ctxValues: r(ctxVals, 3),
       geo: r(gp0, 3),
-      ring: gp0 >= 1 ? L.rings[1] : gp0 <= 0 ? L.rings[0] : 'changing',
-      rings: L.rings, focusItem: L.fi,
+      lane: gp0 >= 1 ? L.lanes[1] : gp0 <= 0 ? L.lanes[0] : 'changing',
+      lanes: L.lanes, focusItem: L.fi,
       item: {x: r(pt.x), y: r(pt.y)},
       markerVisible: mOn >= 1,
       keyShown: seg(u, ...W.key) >= 1,
@@ -661,18 +671,18 @@ export default defineAnimation({
   defaultDurationMs: DURATION,
   metadata: makeMetadata({
     id: ID,
-    slug: 'causation-08-inspect',
-    title: 'Scope of damage — a lens on the grouping tag of one supplied consequence; one supplied datum is substituted',
-    titleEs: 'Alcance del daño — Inspección y cambio de un dato',
+    slug: 'causation-09-inspect',
+    title: 'Affected person\'s contribution — a lens on the lane tag of one supplied step; one supplied datum is substituted',
+    titleEs: 'Contribución de la persona afectada — Inspección y cambio de un dato',
     category: 'causation',
     categoryName: 'Causalidad y daño',
-    motif: 'Alcance del daño',
+    motif: 'Contribución de la persona afectada',
     treatment: 'inspect',
     family: 'focus-and-replay',
-    description: 'A fictional ring field after the rings were drawn: Event A, two rings of identical stroke and weight with ● / ◆ markers, the supplied consequences in their rings, and Consequence 3 on the ◆ pad in the outer ring with a value tag on a string, beside the record. A real enlarged copy of the tag, the string, the two slot pads and the consequence grows from its source; the supplied value is struck and replaced by the alternative value, and only then does the dependent geometry follow — the consequence slides across the inner ring to the ● pad. The lens returns to its source; a Δ marker and a before/after trace keep the old value traceable. The rings are only a supplied grouping; nothing is tested, valued or decided.',
-    tags: ['causation', 'scope of damage', 'inspect', 'lens', 'datum substitution', 'rings', 'grouping as supplied', 'before and after', 'as supplied'],
+    description: 'A fictional slab after both supplied conducts ran: two identical lanes, both trolleys at their barriers, both connectors to the event, the supplied steps under their lanes, and Step 1 on the ● slot under lane A with a value tag on a string, beside the record. A real enlarged copy of the tag, the string, both slots and the step grows from its source; the supplied value is struck and replaced by the alternative value, and only then the step slides to the ◆ slot under lane B. The lens returns to its source; a Δ marker and a before/after trace keep the old value traceable. Nothing is weighed, shared out or decided.',
+    tags: ['causation', 'affected person', 'inspect', 'lens', 'datum substitution', 'parallel lanes', 'before and after', 'as supplied'],
     defaultDurationMs: DURATION,
-    assets: ['src/animations/causation/kits/alcance-dano.js', 'src/animations/causation/kits/dano-material.js', 'src/animations/causation/kits/prueba-contrafactual.js', 'src/animations/causation/kits/causal-chain.js', 'src/primitives/markers.js'],
+    assets: ['src/animations/causation/kits/contribucion-afectada.js', 'src/animations/causation/kits/dano-material.js', 'src/animations/causation/kits/prueba-contrafactual.js', 'src/animations/causation/kits/causal-chain.js', 'src/primitives/markers.js'],
   }),
   sceneSchema,
   defaultParams,

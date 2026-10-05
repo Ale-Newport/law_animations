@@ -39,7 +39,7 @@ ratioChecks(ID, 'scenes equal, one fact differs, composition fits', [
   {at: times(0, 0.399, 0.02), fn: 'JSON.stringify(s.lookA) === JSON.stringify(s.lookB)', label: 'nothing differs before the change beat'},
 ]);
 
-test(`${ID}: scenes side by side on wide frames (each >= 40 % of the width), stacked on tall frames`, async ({page}) => {
+test(`${ID}: scenes side by side on wide frames (each >= 40 % of the width), stacked on tall frames (1:1 either)`, async ({page}) => {
   await page.goto('/tests/harness/host.html');
   await page.waitForFunction(() => document.body.dataset.ready === '1');
   const presets = [{name: 'default', params: {}}, ...presetsFor(ID)];
@@ -57,8 +57,12 @@ test(`${ID}: scenes side by side on wide frames (each >= 40 % of the width), sta
     }
     return res;
   }, [ID, presets]);
+  // (1:1 may stack A over B beside a side legend — coordinator request 2026-10-05 re-review; each stacked board then
+  // keeps >= 0.55 of the frame width)
   for (const r of out) {
+    const square = /1080x1080/.test(r.tag);
     if (r.tall) { expect(r.side, r.tag).toBe(false); expect(r.share, r.tag).toBeGreaterThanOrEqual(0.8); }
+    else if (square && !r.side) expect(r.share, r.tag).toBeGreaterThanOrEqual(0.55);
     else { expect(r.side, r.tag).toBe(true); expect(r.share, r.tag).toBeGreaterThanOrEqual(0.4); }
   }
 });

@@ -146,6 +146,8 @@ function compose(ctx, P, F, v) {
   // (the narrowest tag that holds both data texts: a narrow tag keeps the middle column of a 'v' board slim)
   let TM = null;
   for (const k of H ? [12, 15] : [7.5, 9, 10.5]) { TM = tagModel(P, {w: F * k, F, maxLines: H ? 4 : 7}); if (TM.ok) break; }
+  // (side legend: the widest tag that still fits keeps the middle gap low)
+  if (v.side) for (const k of [20, 17, 14]) { const q = tagModel(P, {w: F * k, F, maxLines: 4}); if (q.ok && q.h < TM.h - 1) { TM = q; break; } }
   if (!TM.ok) problems.push('tag-text');
   const planFor = (cw, mk = 0.3) => {
     const M = cardModel(P, {w: cw, F, showText: showKey && !v.list, compact: v.list, minK: mk});
@@ -162,7 +164,6 @@ function compose(ctx, P, F, v) {
   }
   // (then the tallest card height that still fits: the board uses the free height)
   if (H && fits(best)) for (const mk of [1.3, 1.0, 0.8, 0.6, 0.45]) { const q = planFor(best.M.w, mk); if (fits(q)) { best = q; break; } }
-  if (globalThis.DBG && v.side) console.log('  B', Math.round(best.B.w), Math.round(best.B.h), 'inner', Math.round(inner.w), Math.round(inner.h), 'M', Math.round(best.M.w), Math.round(best.M.h), 'TM', Math.round(TM.h));
   let {M, B} = best;
  
   if (!fits(best)) problems.push('board');
@@ -182,7 +183,7 @@ function compose(ctx, P, F, v) {
   const bx = (plateW - B.w) / 2, by = m;
   const stripY = strip && v.side ? Math.max(0, (DH - strip.h) / 2) : dy + total - (strip ? strip.h : 0);
   const post = Math.max(12, B.gThk * 0.55), pr = Math.max(F * 0.95, post * 0.9);
-  const pauseK = 1.9, pauseOff = (!H || B.top > 0 ? 1 : -1) * (B.gateSpan / 2 + pr * pauseK * 0.85);
+  const pauseK = v.side ? 1.6 : H ? 1.9 : 1.7, pauseOff = v.side || !H ? 0 : (B.top > 0 ? 1 : -1) * (B.gateSpan / 2 + pr * pauseK * 0.85);
   return {pauseK, pauseOff, F, H, row, M, TM, B, bx, by, m, stages, heads, headH, badgeR, guideChip, chipH, midBand, strip, stripY, sceneW, ok: !problems.length, problems, v};
 }
 
@@ -193,15 +194,16 @@ const scene = {
     const shape = ctx.view.shape;
     const showKey = ctx.show('key');
     const vs = shape === 'portrait' ? [{arr: 'column', orient: 'h'}, {arr: 'column', orient: 'h', stripCols: 2}, {arr: 'column', orient: 'h', list: true, stripCols: 2}]
-      : shape === 'square' ? [{arr: 'column', orient: 'h', list: true, side: 0.3}, {arr: 'column', orient: 'h', list: true, side: 0.34, tight: true}, {arr: 'column', orient: 'h', list: true, stripCols: 3, tight: true}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3, tight: true}, {arr: 'row', orient: 'v', list: true}, {arr: 'row', orient: 'v', list: true, tight: true}, {arr: 'column', orient: 'h', list: true, stripCols: 2, tight: true}]
+      : shape === 'square' ? [{arr: 'column', orient: 'h', list: true, side: 0.3, tight: true}, {arr: 'column', orient: 'h', list: true, side: 0.34, tight: true}, {arr: 'column', orient: 'h', list: true, stripCols: 3, tight: true}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3, tight: true}, {arr: 'row', orient: 'v', list: true}, {arr: 'row', orient: 'v', list: true, tight: true}, {arr: 'column', orient: 'h', list: true, stripCols: 2, tight: true}]
         : [{arr: 'row', orient: 'v', cols: 1, stripCols: 3}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3}, {arr: 'row', orient: 'v', list: true, cols: 1, stripCols: 3, tight: true}, {arr: 'row', orient: 'h', list: true}];
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [36, 32, 28, ...SIZES] : SIZES).map(x => x / pxu);
     let C = null, best = null;
-    outer: for (const F of sizes) for (const v of vs.flatMap(x => [0.3].map(mk => ({...x, minK: mk})))) {
+    // (1:1: the stacked boards with a side legend are preferred at any baseline size before the other layouts)
+    const groups = [vs.filter(x => x.side), vs.filter(x => !x.side)].filter(gr => gr.length);
+    outer: for (const gr of groups) for (const F of sizes) for (const v of gr.map(x => ({...x, minK: 0.3}))) {
+      if (v.side && F * pxu < 19.5 - 1e-6) continue;
       const c = compose(ctx, P, F, v);
-     
-      if (globalThis.DBG && v.side) console.log(r(F * pxu, 1), v.side, c.problems.join(','));
       if (c.ok) { C = c; break outer; }
       if (!best || c.problems.length < best.problems.length) best = c;
     }
@@ -288,7 +290,7 @@ const scene = {
       const closed = lerp(0.5, maintained ? 0 : 1, kSet);
       Object.assign(nodes, gateFrame(`bd${k}-gate`, closed, maintained ? 0 : kSet));
       // (the pause glyph of a closed gate is drawn larger here so A/B read apart at every ratio)
-      nodes[`bd${k}-gate-pause`].transform = `${T(0, C.pauseOff)} scale(${C.pauseK})`;
+      nodes[`bd${k}-gate-pause`].transform = `${T(0, C.pauseOff)}${C.H ? '' : ' rotate(-90)'} scale(${C.pauseK})`;
       const kLit = maintained ? seg(u, ...W.lit) : 0;
       Object.assign(nodes, litFrame(`bd${k}`, B, kLit));
       // (a placeholder until the datum arrives: its filler lines leave before the supplied text comes in)
