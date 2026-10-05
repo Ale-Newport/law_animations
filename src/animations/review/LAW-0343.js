@@ -91,15 +91,22 @@ export function compose(ctx, P, F, opts) {
   if (showKey) rows.push({kind: 'state', text: P.comparisonLabels.neutral, name: 'neutral'});
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
   const gap = F * 1.1;
-  let PL = null, top = DH;
-  if (rows.length) {
+  let PL = null, top = DH, stageW = DW, panel = null;
+  if (rows.length && opts.pw) {
+    const PW = DW * opts.pw;
+    PL = panelLayout(rows, {w: PW, F, tight: opts.tight});
+    stageW = DW - PW - gap;
+    panel = {x: DW - PW, y: Math.max(0, (DH - PL.h) / 2)};
+    if (PL.h > DH) PL.ok = false;
+  } else if (rows.length) {
     PL = panelLayout(rows, {w: DW - 8, F, cols: opts.cols, tight: opts.tight});
     top = DH - PL.h - gap - F * 0.4;
+    panel = {x: 4, y: DH - PL.h - F * 0.4};
   }
   // scenario headers: badge + label (bold) + caption
   const arr = opts.arr;
   const pairGap = Math.max(F * 1.6, 28);
-  const sw = arr === 'row' ? (DW - pairGap) / 2 : DW;
+  const sw = arr === 'row' ? (stageW - pairGap) / 2 : stageW;
   const badgeR = F * 1.0;
   const hdr = ['a', 'b'].map(s => {
     const sc = s === 'a' ? P.scenarioA : P.scenarioB;
@@ -121,7 +128,7 @@ export function compose(ctx, P, F, opts) {
   const innerW = deskW - 2 * (opts.tight ? Math.max(12, F * 0.6) : Math.max(16, F * 0.8));
   let best = null;
   const tryCw = (cw, bars) => {
-    const M = cardModel(P, {w: cw, F, showText: showKey, bars, foot: F * (opts.compact ? 0.7 : 1.4), layout: opts.compact ? 'wide' : 'tall', secK: opts.compact ? Math.max(0.8, opts.secFloor / F) : 1});
+    const M = cardModel(P, {w: cw, F, showText: showKey, bars, foot: F * (opts.compact ? 0.7 : 1.4), layout: opts.wide ? 'wide' : 'tall', secK: opts.compact ? Math.max(0.8, opts.secFloor / F) : 1});
     return {M, d: deskPlan(P, M, desks[0], F, opts.tight, opts.compact)};
   };
   const cap = Math.min(F * (showKey ? 22 : 18), innerW * 0.5);
@@ -139,7 +146,6 @@ export function compose(ctx, P, F, opts) {
   }
   const M = best.M;
   const D = desks.map(dk => deskPlan(P, M, dk, F, opts.tight, opts.compact));
-  const panel = PL ? {x: 4, y: DH - PL.h - F * 0.4} : null;
   const problems = [!D[0].fits && 'desk', !M.ok && 'card-text', PL && !PL.ok && 'panel-text', hdr.some(x => x.ok === false) && 'header-text'].filter(Boolean);
   return {F, arr, PL, panel, hdr, hh, heads, desks, D, M, sw, badgeR, pairGap, ok: !problems.length, problems};
 }
@@ -153,7 +159,7 @@ const scene = {
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const arrangements = shape === 'landscape' ? [{arr: 'row', cols: 3}, {arr: 'row', cols: 2}, {arr: 'row', cols: 3, tight: true}]
       : shape === 'portrait' ? [{arr: 'column', cols: 1}, {arr: 'column', cols: 2}, {arr: 'column', cols: 2, tight: true}]
-        : [{arr: 'column', cols: 3, tight: true, compact: true}, {arr: 'column', cols: 2, tight: true, compact: true}];
+        : [{arr: 'column', pw: 0.3, tight: true, compact: true}, {arr: 'column', pw: 0.26, tight: true, compact: true}, {arr: 'column', pw: 0.23, tight: true, compact: true}, {arr: 'column', cols: 3, tight: true, compact: true, wide: true}];
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
     let C = null;
     outer: for (const F of sizes) {
