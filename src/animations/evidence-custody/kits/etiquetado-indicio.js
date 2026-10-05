@@ -54,7 +54,7 @@ export function recordLine(rw, blank) {
 export function stageModel(box, o) {
   const wide = box.w / box.h > 1.12;
   const k = o.scale ?? 1;
-  const S = (wide ? Math.min(box.w * 0.2, box.h * 0.29) : Math.min(box.w * 0.3, box.h * 0.2)) * k;
+  const S = (wide ? Math.min(box.w * 0.2, box.h * 0.29) : Math.min(box.w * 0.37, box.h * 0.23)) * k;
   const M = objectModel(o.kind, S);
   const TG = tagModel({w: S * 1.28, h: S * 0.66, rows: o.rows});
   const B = bagModel(S * 1.9, S * 2.8);
