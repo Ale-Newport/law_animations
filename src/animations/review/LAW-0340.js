@@ -105,9 +105,9 @@ function recordLayout(fits, Ft) {
   const sw = Math.max(14, Ft * 0.6);
   const m = 8;
   if (!fits) {
-    const plate = {x: m, y: m, w: 220, h: 120};
-    const dock = {x: m, y: plate.y + plate.h + 8, w: 220, h: 54};
-    return {w: 220 + 2 * m, h: dock.y + dock.h + m, plate, dock, sw, pad, text: {x: plate.x + pad + sw + 12, y: plate.y + pad}};
+    const plate = {x: m, y: m, w: 200, h: 130};
+    const dock = {x: m, y: plate.y + plate.h + 8, w: 200, h: 60};
+    return {w: 200 + 2 * m, h: dock.y + dock.h + m, plate, dock, sw, pad, text: {x: plate.x + pad + sw + 12, y: plate.y + pad}};
   }
   const textW = Math.max(fits.label.width, fits.before.width, fits.after.width);
   const valH = Math.max(fits.before.height, fits.after.height);

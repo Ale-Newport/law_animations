@@ -231,9 +231,17 @@ function compose(ctx, base, cfg) {
   // (half: 1 = chips at most half the band wide, 2 = at most a third — three short chips to a row)
   const measureBand = (items, w, lines, half) => {
     const mw = half === 2 ? (w - 36) / 3 : half ? (w - 18) / 2 : Math.min(w, 760);
-    const bsz = textOn ? items.map(it => rangedChip(ctx, memo, `${it.key}|${lines}`, it, size, it.key === 'sharedHead' ? w : mw, lines)) : [];
+    // (measured longest text first: a band with a chip that does not fit is given up without measuring the rest)
+    const bsz = [];
+    const order = textOn ? items.map((it, i) => i).sort((a0, b0) => String(items[b0].text).length - String(items[a0].text).length) : [];
+    for (const i of order) {
+      const it = items[i];
+      const c = rangedChip(ctx, memo, `${it.key}|${lines}`, it, size, it.key === 'sharedHead' ? w : mw, lines);
+      if (c.bad || c.w > w + 0.5) return {bsz: [], bandH: 0, bad: true};
+      bsz[i] = c;
+    }
     const fl = flowRows(bsz, {x: 0, y: 0, w, gap: 18, rowGap: ROW_GAP});
-    return {bsz, bandH: bsz.length ? fl.bottom : 0, bad: bsz.some(q => q.bad || q.w > w + 0.5)};
+    return {bsz, bandH: bsz.length ? fl.bottom : 0, bad: false};
   };
   const items = gband ? [base.guideItem, ...base.band] : base.band;
   const sk = `${size}|${Math.round(bw)}|${cfg.half}|${low}|${gband}`;
