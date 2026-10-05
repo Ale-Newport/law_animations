@@ -44,7 +44,7 @@ const ID = 'LAW-0717';
 const DURATION = 6000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
 const W = {
-  legend: [0, 0.04], vals: [0.15, 0.2], label: [0.15, 0.19], slide: [0.19, 0.27], cut: [0.27, 0.33], spread: [0.33, 0.41],
+  legend: [0, 0.04], vals: [0.15, 0.19], label: [0.15, 0.19], slide: [0.19, 0.27], cut: [0.27, 0.33], spread: [0.33, 0.41],
   drop: [0.42, 0.66], lift: [0.66, 0.71], status: [0.74, 0.78], notes: [0.76, 0.8], key: [0.78, 0.82],
 };
 const FINAL = ['divided-as-supplied', 'division-disputed'];
@@ -108,10 +108,11 @@ function panelItems(ctx, p, M) {
   linkNotes(ctx, M).forEach(l => out.push({...l, when: 'legend'}));
   if (allOn && p.actorLabels.a) out.push({key: 'actA', icon: 'alt', text: p.actorLabels.a, when: 'legend'});
   if (allOn && p.actorLabels.b) out.push({key: 'actB', icon: 'tray', i: 0, text: p.actorLabels.b, when: 'legend'});
-  out.push({key: 'status', icon: 'status', text: p.finalState === 'division-disputed' ? t.disputedState : t.shown, when: 'status'});
-  if (allOn) p.annotations.forEach((a, i) => out.push({key: `note${i}`, icon: a.target === 'bar' ? 'bar' : a.target === 'trays' ? 'tray' : 'note', i: 0, text: a.text, when: 'notes'}));
-  out.push({key: 'key', text: t.key, when: 'key'});
-  return out;
+  // the rows that appear late come first, so the chips shown from the first frame take the panel's last rows
+  const late = [{key: 'status', icon: 'status', text: p.finalState === 'division-disputed' ? t.disputedState : t.shown, when: 'status'}];
+  if (allOn) p.annotations.forEach((a, i) => late.push({key: `note${i}`, icon: a.target === 'bar' ? 'bar' : a.target === 'trays' ? 'tray' : 'note', i: 0, text: a.text, when: 'notes'}));
+  late.push({key: 'key', text: t.key, when: 'key'});
+  return [...late, ...out];
 }
 
 const scene = {
@@ -155,7 +156,7 @@ const scene = {
     const go = A.st ? A.st.go : stage(A.size)[0].go;
     const G0 = stageGeom(A.S, M.n, f, go);
     // the guide-rail zone grows so the stage fills its box's height
-    const G = stageGeom(A.S, M.n, f, {...go, drop: A.bh ? fillDrop(G0, A.bh) : undefined});
+    const G = stageGeom(A.S, M.n, f, {...go, drop: A.bh ? fillDrop(G0, A.bh) : undefined, minW: A.bw ? A.bw - 10 : 0});
     const D = ctx.design;
     const MG = 10, GAP = 26;
     let ox, oy, px, py;
@@ -282,7 +283,7 @@ export default defineAnimation({
     motif: 'Distribución ilustrativa de pérdidas',
     treatment: 'story',
     family: 'staged-scene',
-    description: 'A fictional hypothetical total is one bar on a shelf. The supplied value of each fictional event appears under its tray; barrier blades slide to the boundaries those values give, cut the bar and push the pieces apart; each piece runs down its guide rail into its own tray. Both supplied allocations (A proposed, B alternative) are listed at equal weight; only supplied values set the lengths. No share rule, percentage, fault or outcome is stated and no conclusion is drawn.',
+    description: 'A fictional hypothetical total is one bar on a shelf. The supplied value of each fictional event appears under its tray; barrier blades slide to the boundaries those values give, cut the bar and push the pieces apart; each piece runs down its guide rail into its own tray. Both supplied allocations (A proposed, B alternative) are listed at equal weight; only supplied values set the lengths. Nothing is computed, attributed or decided and no conclusion is drawn.',
     tags: ['causation', 'loss distribution', 'segments', 'supplied values', 'hypothetical', 'allocation', 'as supplied'],
     defaultDurationMs: DURATION,
     assets: ['src/animations/causation/kits/distribucion-perdidas.js', 'src/animations/causation/kits/alcance-dano.js', 'src/animations/causation/kits/prueba-contrafactual.js'],

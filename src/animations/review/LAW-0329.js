@@ -126,11 +126,14 @@ const scene = {
       if (showAll) P.annotations.forEach((a, i) => rows.push({kind: 'note', color: noteColors[i % 2], text: a.text, name: `note${i}`}));
       if (showKey) rows.push({kind: 'state', text: P.stateCaption ? P.stateCaption : ctx.t[side === 'a' ? 'requested' : 'supplied'], name: 'state-tag'});
       if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
+      // (fix-review-03, 1:1: a legend row's first two words stay together, so the panel can take three narrower columns
+      // without a one-word first line — and the room above it grows)
+      if (ctx.view.shape === 'square') for (const rw of rows) if (rw.kind === 'legend' && rw.text) rw.text = rw.text.replace(/^(\S+) (\S+)/, '$1\u00a0$2');
       return rows;
     };
     // (two-slot trays make a station twice as wide as in a one-slot room: with four stations the sheets are drawn a little
     // smaller, so the people keep their floors)
-    const docK0 = DOCK[ctx.view.shape] * (R.n >= 4 ? (ctx.view.shape === 'square' ? 0.66 : 1) : R.n === 3 ? (ctx.view.shape === 'portrait' ? 1.06 : 0.9) : ctx.view.shape === 'landscape' ? 1.7 : 1.2);
+    const docK0 = DOCK[ctx.view.shape] * (R.n >= 4 ? (ctx.view.shape === 'square' ? 0.66 : 1) : R.n === 3 ? (ctx.view.shape === 'portrait' ? 1.06 : 0.9) : ctx.view.shape === 'landscape' ? 1.7 : ctx.view.shape === 'square' ? 1.5 : 1.2);
     // (item 18, four stations: at 1:1 — a room bound by its height — the letters stand beside the trays, so the stations
     // are shorter and the trays and sheets larger; at 9:16 — bound by its width — the sign and calendar stand low on the
     // left wall and the gaps are narrower, so the row's width goes to larger trays and sheets)
@@ -178,7 +181,7 @@ const scene = {
       // small as well)
       const tiny = composed.find(q => q.tiny && q.names === names && q.box.w >= box.w - 0.01 && q.box.h >= box.h - 0.01 && q.F <= F + 1e-6);
       if (tiny) { const Ct = {...tiny.C, problems: [...tiny.C.problems], usedScale: scale}; memo.set(key, Ct); return Ct; }
-      const C0 = composeSa(ctx, P, R, box, F, {scale, text: showKey, names, numbers: showKey, courier: true, sign: true, untangle: {clearPx: ctx.view.shape === 'square' ? 16.5 : 18}, docK: docKFor(names), gap: gapFor(names), ...sideFor(names), tabPad: 9, depthK: DEPTH[ctx.view.shape], crop: 1.12, align: {x: 0.5, y: box.y + box.h < ctx.design.h - 1 ? 1 : 0.5}});
+      const C0 = composeSa(ctx, P, R, box, F, {scale, text: showKey, names, numbers: showKey, courier: true, sign: true, untangle: {clearPx: ctx.view.shape === 'square' ? 16.5 : 18}, docK: docKFor(names), gap: gapFor(names), ...sideFor(names), tabPad: 9, ...(ctx.view.shape === 'square' ? {minH: 200} : {}), depthK: DEPTH[ctx.view.shape] * (ctx.view.shape === 'square' && R.n <= 3 ? 0.55 : 1), crop: 1.12, align: {x: 0.5, y: box.y + box.h < ctx.design.h - 1 ? 1 : 0.5}});
       C0.usedScale = scale;
       memo.set(key, C0);
       if (!C0.problems.length || C0.problems.includes('room-tiny')) composed.push({names, box, F, C: C0, tiny: C0.problems.includes('room-tiny')});
@@ -215,7 +218,7 @@ const scene = {
     // (the chosen composition only: spare height deepens the route, spare width spreads the stations)
     const {F, lay} = best;
     const box = best.roomBox;
-    const C = composeSa(ctx, P, R, box, F, {scale: best.C.usedScale ?? best.scale, text: showKey, names, numbers: showKey, courier: true, sign: true, untangle: {clearPx: ctx.view.shape === 'square' ? 16.5 : 18}, docK: docKFor(names), gap: gapFor(names), ...sideFor(names), tabPad: 9, depthK: DEPTH[ctx.view.shape], crop: 1.12, deepen: ctx.view.shape === 'portrait' ? 4.2 : R.n <= 2 ? 3.5 : 2.2, spread: R.n <= 2 ? 4 : 2.4, align: {x: 0.5, y: box.y + box.h < ctx.design.h - 1 ? 1 : 0.5}});
+    const C = composeSa(ctx, P, R, box, F, {scale: best.C.usedScale ?? best.scale, text: showKey, names, numbers: showKey, courier: true, sign: true, untangle: {clearPx: ctx.view.shape === 'square' ? 16.5 : 18}, docK: docKFor(names), gap: gapFor(names), ...sideFor(names), tabPad: 9, ...(ctx.view.shape === 'square' ? {minH: 200} : {}), depthK: DEPTH[ctx.view.shape] * (ctx.view.shape === 'square' && R.n <= 3 ? 0.55 : 1), crop: 1.12, deepen: ctx.view.shape === 'portrait' ? 4.2 : R.n <= 2 ? 3.5 : 2.2, spread: R.n <= 2 ? 4 : 2.4, align: {x: 0.5, y: box.y + box.h < ctx.design.h - 1 ? 1 : 0.5}});
     if (C.problems.length) best.problems.push(...C.problems.filter(q => !best.problems.includes(q)));
     const G = C.G;
     const room = saRoom(ctx, G, {prefix: 'rm', R, Ft: G.Ft, numbers: showKey, dec: true, ghost: false});

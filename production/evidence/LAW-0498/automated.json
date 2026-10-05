@@ -7,7 +7,7 @@
       "pass": true,
       "detail": {
         "id": "LAW-0498",
-        "version": "1.0.0"
+        "version": "2.0.0"
       }
     },
     {
@@ -31,7 +31,7 @@
       "name": "scene state changes over time (not a static card)",
       "pass": true,
       "detail": {
-        "distinctStates": 6
+        "distinctStates": 5
       }
     },
     {
@@ -89,7 +89,8 @@
       "name": "user text is inserted as text nodes (no markup injection)",
       "pass": true,
       "detail": {
-        "field": "parties.0.name"
+        "field": "contract.reference",
+        "rejected": "Invalid animation parameters:\n - params.contract.reference: must have at most 32 characters (received 53)"
       }
     },
     {
@@ -111,8 +112,57 @@
     },
     {
       "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
-      "pass": true,
-      "detail": []
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "16:9",
+          "k": "lensCentre",
+          "f": 181,
+          "d": 130
+        },
+        {
+          "ratio": "16:9",
+          "k": "lupaGrip",
+          "f": 181,
+          "d": 128
+        },
+        {
+          "ratio": "16:9",
+          "k": "lensCentre",
+          "f": 182,
+          "d": 187
+        },
+        {
+          "ratio": "16:9",
+          "k": "lupaGrip",
+          "f": 182,
+          "d": 185
+        },
+        {
+          "ratio": "16:9",
+          "k": "lensCentre",
+          "f": 183,
+          "d": 252
+        },
+        {
+          "ratio": "16:9",
+          "k": "lupaGrip",
+          "f": 183,
+          "d": 250
+        },
+        {
+          "ratio": "16:9",
+          "k": "lensCentre",
+          "f": 184,
+          "d": 228
+        },
+        {
+          "ratio": "16:9",
+          "k": "lupaGrip",
+          "f": 184,
+          "d": 226
+        }
+      ]
     },
     {
       "name": "attached pairs coincide during their attachment windows (all ratios)",
@@ -125,530 +175,359 @@
       "detail": []
     },
     {
-      "name": "semantic: the contract assembled: plate on the panels, nothing related yet; the bracket open @0",
+      "name": "semantic: separated: both layers folded back, magnifier parked @0",
       "pass": true,
       "detail": {
         "semantic": {
           "beat": "separate",
-          "exploded": 0,
-          "focus": "circumstance",
-          "focusScale": 0,
-          "relations": [],
-          "linkProgress": 0,
-          "linkDrawn": false,
-          "tracer": {
-            "x": 869.84,
-            "y": 255.5
+          "layerA": {
+            "x": 439.18,
+            "y": 57.78
           },
-          "stages": [
-            "contract",
-            "circumstance",
-            "link",
-            "section"
-          ],
-          "markerPastKnob": false,
-          "bracket": "open",
-          "caseState": "provided",
-          "linkEnds": [
-            910.87,
-            526.44,
-            1025.81,
-            526.44
-          ],
-          "plate": {
-            "x": 1030.75,
-            "y": 178.64
+          "layerB": {
+            "x": 1111.55,
+            "y": 57.78
           },
-          "colE": {
-            "x": 220.84,
-            "y": 266.49
+          "lensCentre": {
+            "x": 1789.96,
+            "y": 730.29
           },
-          "colT": {
-            "x": 1135.25,
-            "y": 266.49
+          "lupaGrip": {
+            "x": 1558.73,
+            "y": 779.44
           },
-          "keyShown": 0,
+          "layerAAt": "folded",
+          "layerBAt": "folded",
+          "layerAScale": -0.22,
+          "layerBScale": -0.22,
+          "joined": false,
+          "outline": 0,
+          "outlines": "section2",
+          "tracerAt": null,
+          "tracerMoving": false,
+          "lensShown": 0,
+          "zoom": 1.6,
+          "lupaParked": true,
+          "finalState": "provided",
           "finalShown": 0,
+          "keyShown": 0,
+          "textPx": 25,
+          "mode": "side",
           "layoutOk": true,
           "why": "",
           "problems": [],
-          "textPx": 30
+          "lupaBox": {
+            "x": 1695.41,
+            "y": 635.73,
+            "w": 189.12,
+            "h": 189.12
+          }
         }
       }
     },
     {
-      "name": "semantic: separate: the parts apart @0.18",
+      "name": "semantic: the circumstance layer turns down first @0.25",
       "pass": true,
       "detail": {
         "semantic": {
           "beat": "relate",
-          "exploded": 1,
-          "focus": "circumstance",
-          "focusScale": 0,
-          "relations": [],
-          "linkProgress": 0,
-          "linkDrawn": false,
-          "tracer": {
-            "x": 869.84,
-            "y": 115.81
+          "layerA": {
+            "x": 439.18,
+            "y": 589.32
           },
-          "stages": [
-            "contract",
-            "circumstance",
-            "link",
-            "section"
-          ],
-          "markerPastKnob": false,
-          "bracket": "open",
-          "caseState": "provided",
-          "linkEnds": [
-            698.03,
-            526.44,
-            1238.65,
-            526.44
-          ],
-          "plate": {
-            "x": 1030.75,
-            "y": 38.94
+          "layerB": {
+            "x": 1111.55,
+            "y": 57.78
           },
-          "colE": {
-            "x": 8,
-            "y": 266.49
+          "lensCentre": {
+            "x": 1789.96,
+            "y": 730.29
           },
-          "colT": {
-            "x": 1348.09,
-            "y": 266.49
+          "lupaGrip": {
+            "x": 1558.73,
+            "y": 779.44
           },
-          "keyShown": 0,
+          "layerAAt": "turning",
+          "layerBAt": "folded",
+          "layerAScale": 0.647,
+          "layerBScale": -0.22,
+          "joined": false,
+          "outline": 0,
+          "outlines": "section2",
+          "tracerAt": null,
+          "tracerMoving": false,
+          "lensShown": 0,
+          "zoom": 1.6,
+          "lupaParked": true,
+          "finalState": "provided",
           "finalShown": 0,
+          "keyShown": 0,
+          "textPx": 25,
+          "mode": "side",
           "layoutOk": true,
           "why": "",
           "problems": [],
-          "textPx": 30
+          "lupaBox": {
+            "x": 1695.41,
+            "y": 635.73,
+            "w": 189.12,
+            "h": 189.12
+          }
         }
       }
     },
     {
-      "name": "semantic: relate: the part relations drawn, the communication link drawing on @0.38",
+      "name": "semantic: then the communication layer @0.36",
       "pass": true,
       "detail": {
         "semantic": {
           "beat": "relate",
-          "exploded": 1,
-          "focus": "circumstance",
-          "focusScale": 0,
-          "relations": [
-            "part"
-          ],
-          "linkProgress": 0.6,
-          "linkDrawn": true,
-          "tracer": {
-            "x": 869.84,
-            "y": 115.81
+          "layerA": {
+            "x": 439.18,
+            "y": 805.75
           },
-          "stages": [
-            "contract",
-            "circumstance",
-            "link",
-            "section"
-          ],
-          "markerPastKnob": false,
-          "bracket": "open",
-          "caseState": "provided",
-          "linkEnds": [
-            698.03,
-            526.44,
-            1238.65,
-            526.44
-          ],
-          "plate": {
-            "x": 1030.75,
-            "y": 38.94
+          "layerB": {
+            "x": 1111.55,
+            "y": 431.76
           },
-          "colE": {
-            "x": 8,
-            "y": 266.49
+          "lensCentre": {
+            "x": 1789.96,
+            "y": 730.29
           },
-          "colT": {
-            "x": 1348.09,
-            "y": 266.49
+          "lupaGrip": {
+            "x": 1558.73,
+            "y": 779.44
           },
-          "keyShown": 0,
+          "layerAAt": "registered",
+          "layerBAt": "turning",
+          "layerAScale": 1,
+          "layerBScale": 0.39,
+          "joined": false,
+          "outline": 0,
+          "outlines": "section2",
+          "tracerAt": null,
+          "tracerMoving": false,
+          "lensShown": 0,
+          "zoom": 1.6,
+          "lupaParked": true,
+          "finalState": "provided",
           "finalShown": 0,
+          "keyShown": 0,
+          "textPx": 25,
+          "mode": "side",
           "layoutOk": true,
           "why": "",
           "problems": [],
-          "textPx": 30
+          "lupaBox": {
+            "x": 1695.41,
+            "y": 635.73,
+            "w": 189.12,
+            "h": 189.12
+          }
         }
       }
     },
     {
-      "name": "semantic: trace: the focus element enlarged while the marker runs @0.6",
+      "name": "semantic: the half-frames close around section 2 before the tracer @0.44",
       "pass": true,
       "detail": {
         "semantic": {
           "beat": "trace",
-          "exploded": 1,
-          "focus": "circumstance",
-          "focusScale": 1,
-          "relations": [
-            "part"
-          ],
-          "linkProgress": 1,
-          "linkDrawn": true,
-          "tracer": {
-            "x": 769.11,
-            "y": 528.92
+          "layerA": {
+            "x": 439.18,
+            "y": 805.75
           },
-          "stages": [
-            "contract",
-            "circumstance",
-            "link",
-            "section"
-          ],
-          "markerPastKnob": false,
-          "bracket": "open",
-          "caseState": "provided",
-          "linkEnds": [
-            725.02,
-            528.92,
-            1238.65,
-            526.44
-          ],
-          "plate": {
-            "x": 1030.75,
-            "y": 38.94
+          "layerB": {
+            "x": 1111.55,
+            "y": 805.75
           },
-          "colE": {
-            "x": 8,
-            "y": 266.49
+          "lensCentre": {
+            "x": 1789.96,
+            "y": 730.29
           },
-          "colT": {
-            "x": 1348.09,
-            "y": 266.49
+          "lupaGrip": {
+            "x": 1558.73,
+            "y": 779.44
           },
-          "keyShown": 0,
+          "layerAAt": "registered",
+          "layerBAt": "registered",
+          "layerAScale": 1,
+          "layerBScale": 1,
+          "joined": true,
+          "outline": 0.75,
+          "outlines": "section2",
+          "tracerAt": null,
+          "tracerMoving": false,
+          "lensShown": 0,
+          "zoom": 1.6,
+          "lupaParked": true,
+          "finalState": "provided",
           "finalShown": 0,
+          "keyShown": 0,
+          "textPx": 25,
+          "mode": "side",
           "layoutOk": true,
           "why": "",
           "problems": [],
-          "textPx": 30
+          "lupaBox": {
+            "x": 1695.41,
+            "y": 635.73,
+            "w": 189.12,
+            "h": 189.12
+          }
         }
       }
     },
     {
-      "name": "semantic: the bracket shut after the marker reached the knob (provided, as supplied) @0.77",
+      "name": "semantic: the magnifier travels with a real enlargement @0.6",
       "pass": true,
       "detail": {
         "semantic": {
-          "beat": "gather",
-          "exploded": 1,
-          "focus": "circumstance",
-          "focusScale": 0,
-          "relations": [
-            "part"
-          ],
-          "linkProgress": 1,
-          "linkDrawn": true,
-          "tracer": {
-            "x": 1348.82,
-            "y": 526.44
+          "beat": "trace",
+          "layerA": {
+            "x": 439.18,
+            "y": 805.75
           },
-          "stages": [
-            "contract",
-            "circumstance",
-            "link",
-            "section"
-          ],
-          "markerPastKnob": true,
-          "bracket": "closed",
-          "caseState": "provided",
-          "linkEnds": [
-            698.03,
-            526.44,
-            1319.17,
-            526.44
-          ],
-          "plate": {
-            "x": 1030.75,
-            "y": 38.94
+          "layerB": {
+            "x": 1111.55,
+            "y": 805.75
           },
-          "colE": {
-            "x": 8,
-            "y": 266.49
+          "lensCentre": {
+            "x": 774.37,
+            "y": 474.24
           },
-          "colT": {
-            "x": 1348.09,
-            "y": 266.49
+          "lupaGrip": {
+            "x": 573.89,
+            "y": 599.51
           },
-          "keyShown": 0,
+          "layerAAt": "registered",
+          "layerBAt": "registered",
+          "layerAScale": 1,
+          "layerBScale": 1,
+          "joined": true,
+          "outline": 1,
+          "outlines": "section2",
+          "tracerAt": "section",
+          "tracerMoving": false,
+          "lensShown": 1,
+          "zoom": 1.6,
+          "lupaParked": false,
+          "finalState": "provided",
           "finalShown": 0,
+          "keyShown": 0,
+          "textPx": 25,
+          "mode": "side",
           "layoutOk": true,
           "why": "",
           "problems": [],
-          "textPx": 30
+          "lupaBox": {
+            "x": 1695.41,
+            "y": 635.73,
+            "w": 189.12,
+            "h": 189.12
+          }
         }
       }
     },
     {
-      "name": "semantic: gather: the parts close in part; everything visible; final state and key @1",
+      "name": "semantic: hold: joined, magnifier parked, case and key shown @1",
       "pass": true,
       "detail": {
         "semantic": {
-          "beat": "gather",
-          "exploded": 0.8,
-          "focus": "circumstance",
-          "focusScale": 0,
-          "relations": [
-            "part"
-          ],
-          "linkProgress": 1,
-          "linkDrawn": true,
-          "tracer": {
-            "x": 1306.25,
-            "y": 526.44
+          "beat": "hold",
+          "layerA": {
+            "x": 439.18,
+            "y": 805.75
           },
-          "stages": [
-            "contract",
-            "circumstance",
-            "link",
-            "section"
-          ],
-          "markerPastKnob": true,
-          "bracket": "closed",
-          "caseState": "provided",
-          "linkEnds": [
-            740.6,
-            526.44,
-            1276.61,
-            526.44
-          ],
-          "plate": {
-            "x": 1030.75,
-            "y": 38.94
+          "layerB": {
+            "x": 1111.55,
+            "y": 805.75
           },
-          "colE": {
-            "x": 50.57,
-            "y": 266.49
+          "lensCentre": {
+            "x": 1789.96,
+            "y": 730.29
           },
-          "colT": {
-            "x": 1305.52,
-            "y": 266.49
+          "lupaGrip": {
+            "x": 1558.73,
+            "y": 779.44
           },
-          "keyShown": 1,
+          "layerAAt": "registered",
+          "layerBAt": "registered",
+          "layerAScale": 1,
+          "layerBScale": 1,
+          "joined": true,
+          "outline": 1,
+          "outlines": "section2",
+          "tracerAt": null,
+          "tracerMoving": false,
+          "lensShown": 0,
+          "zoom": 1.6,
+          "lupaParked": true,
+          "finalState": "provided",
           "finalShown": 1,
-          "layoutOk": true,
-          "why": "",
-          "problems": [],
-          "textPx": 30
-        }
-      }
-    },
-    {
-      "name": "semantic: seeking back restores the earlier state @0.3",
-      "pass": true,
-      "detail": {
-        "semantic": {
-          "beat": "relate",
-          "exploded": 1,
-          "focus": "circumstance",
-          "focusScale": 0,
-          "relations": [
-            "part"
-          ],
-          "linkProgress": 0,
-          "linkDrawn": false,
-          "tracer": {
-            "x": 869.84,
-            "y": 115.81
-          },
-          "stages": [
-            "contract",
-            "circumstance",
-            "link",
-            "section"
-          ],
-          "markerPastKnob": false,
-          "bracket": "open",
-          "caseState": "provided",
-          "linkEnds": [
-            698.03,
-            526.44,
-            1238.65,
-            526.44
-          ],
-          "plate": {
-            "x": 1030.75,
-            "y": 38.94
-          },
-          "colE": {
-            "x": 8,
-            "y": 266.49
-          },
-          "colT": {
-            "x": 1348.09,
-            "y": 266.49
-          },
-          "keyShown": 0,
-          "finalShown": 0,
-          "layoutOk": true,
-          "why": "",
-          "problems": [],
-          "textPx": 30
-        }
-      }
-    },
-    {
-      "name": "semantic: alternative: not described — no link drawn, the marker stays at the card, the bracket stays open @1",
-      "pass": true,
-      "detail": {
-        "semantic": {
-          "beat": "gather",
-          "exploded": 0.8,
-          "focus": "section",
-          "focusScale": 0,
-          "relations": [
-            "part"
-          ],
-          "linkProgress": 0,
-          "linkDrawn": false,
-          "tracer": {
-            "x": 884.14,
-            "y": 416.72
-          },
-          "stages": [
-            "circumstance"
-          ],
-          "markerPastKnob": null,
-          "bracket": "open",
-          "caseState": "undescribed",
-          "linkEnds": [
-            884.14,
-            416.72,
-            1044.22,
-            416.72
-          ],
-          "plate": {
-            "x": 1030.75,
-            "y": 41.14
-          },
-          "colE": {
-            "x": 12.69,
-            "y": 257.43
-          },
-          "colT": {
-            "x": 1160.96,
-            "y": 257.43
-          },
           "keyShown": 1,
+          "textPx": 25,
+          "mode": "side",
+          "layoutOk": true,
+          "why": "",
+          "problems": [],
+          "lupaBox": {
+            "x": 1695.41,
+            "y": 635.73,
+            "w": 189.12,
+            "h": 189.12
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: not described: the outline closes around the empty band @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "layerA": {
+            "x": 439.18,
+            "y": 805.75
+          },
+          "layerB": {
+            "x": 1111.55,
+            "y": 805.75
+          },
+          "lensCentre": {
+            "x": 1789.96,
+            "y": 730.29
+          },
+          "lupaGrip": {
+            "x": 1558.73,
+            "y": 779.44
+          },
+          "layerAAt": "registered",
+          "layerBAt": "registered",
+          "layerAScale": 1,
+          "layerBScale": 1,
+          "joined": true,
+          "outline": 1,
+          "outlines": "empty-band",
+          "tracerAt": null,
+          "tracerMoving": false,
+          "lensShown": 0,
+          "zoom": 1.6,
+          "lupaParked": true,
+          "finalState": "undescribed",
           "finalShown": 1,
+          "keyShown": 1,
+          "textPx": 25,
+          "mode": "side",
           "layoutOk": true,
           "why": "",
           "problems": [],
-          "textPx": 32
-        }
-      }
-    },
-    {
-      "name": "semantic: not described (default stages): the marker runs contract → card only @0.6",
-      "pass": true,
-      "detail": {
-        "semantic": {
-          "beat": "trace",
-          "exploded": 1,
-          "focus": "circumstance",
-          "focusScale": 1,
-          "relations": [
-            "part"
-          ],
-          "linkProgress": 0,
-          "linkDrawn": false,
-          "tracer": {
-            "x": 773.9,
-            "y": 229.33
-          },
-          "stages": [
-            "contract",
-            "circumstance"
-          ],
-          "markerPastKnob": null,
-          "bracket": "open",
-          "caseState": "undescribed",
-          "linkEnds": [
-            725.02,
-            528.92,
-            1238.65,
-            526.44
-          ],
-          "plate": {
-            "x": 1030.75,
-            "y": 38.94
-          },
-          "colE": {
-            "x": 8,
-            "y": 266.49
-          },
-          "colT": {
-            "x": 1348.09,
-            "y": 266.49
-          },
-          "keyShown": 0,
-          "finalShown": 0,
-          "layoutOk": true,
-          "why": "",
-          "problems": [],
-          "textPx": 30
-        }
-      }
-    },
-    {
-      "name": "semantic: alternative: the section panel in focus @0.6",
-      "pass": true,
-      "detail": {
-        "semantic": {
-          "beat": "trace",
-          "exploded": 1,
-          "focus": "section",
-          "focusScale": 1,
-          "relations": [
-            "part"
-          ],
-          "linkProgress": 0,
-          "linkDrawn": false,
-          "tracer": {
-            "x": 879.45,
-            "y": 416.72
-          },
-          "stages": [
-            "circumstance"
-          ],
-          "markerPastKnob": null,
-          "bracket": "open",
-          "caseState": "undescribed",
-          "linkEnds": [
-            879.45,
-            416.72,
-            1015.26,
-            417.07
-          ],
-          "plate": {
-            "x": 1030.75,
-            "y": 41.14
-          },
-          "colE": {
-            "x": 8,
-            "y": 257.43
-          },
-          "colT": {
-            "x": 1165.64,
-            "y": 257.43
-          },
-          "keyShown": 0,
-          "finalShown": 0,
-          "layoutOk": true,
-          "why": "",
-          "problems": [],
-          "textPx": 32
+          "lupaBox": {
+            "x": 1695.41,
+            "y": 635.73,
+            "w": 189.12,
+            "h": 189.12
+          }
         }
       }
     },
@@ -657,52 +536,49 @@
       "pass": true,
       "detail": {
         "semantic": {
-          "beat": "gather",
-          "exploded": 0.95,
-          "focus": "circumstance",
-          "focusScale": 0,
-          "relations": [
-            "part"
-          ],
-          "linkProgress": 1,
-          "linkDrawn": true,
-          "tracer": {
-            "x": 1200.86,
-            "y": 610.69
+          "beat": "hold",
+          "layerA": {
+            "x": 439.18,
+            "y": 805.75
           },
-          "stages": [
-            "contract",
-            "circumstance",
-            "link",
-            "section"
-          ],
-          "markerPastKnob": true,
-          "bracket": "closed",
-          "caseState": "provided",
-          "linkEnds": [
-            845.02,
-            610.69,
-            1169.23,
-            610.69
-          ],
-          "plate": {
-            "x": 1030.75,
-            "y": 41.14
+          "layerB": {
+            "x": 1111.55,
+            "y": 805.75
           },
-          "colE": {
-            "x": 11.05,
-            "y": 284.43
+          "lensCentre": {
+            "x": 1789.96,
+            "y": 730.29
           },
-          "colT": {
-            "x": 1200.08,
-            "y": 284.43
+          "lupaGrip": {
+            "x": 1558.73,
+            "y": 779.44
           },
-          "keyShown": 0,
-          "finalShown": 0,
+          "layerAAt": "registered",
+          "layerBAt": "registered",
+          "layerAScale": 1,
+          "layerBScale": 1,
+          "joined": true,
+          "outline": 1,
+          "outlines": "section2",
+          "tracerAt": null,
+          "tracerMoving": false,
+          "lensShown": 0,
+          "zoom": 1.6,
+          "lupaParked": true,
+          "finalState": "provided",
+          "finalShown": 0.8,
+          "keyShown": 0.2,
+          "textPx": 25,
+          "mode": "side",
           "layoutOk": true,
           "why": "",
           "problems": [],
-          "textPx": 32
+          "lupaBox": {
+            "x": 1695.41,
+            "y": 635.73,
+            "w": 189.12,
+            "h": 189.12
+          }
         }
       }
     }
@@ -711,5 +587,5 @@
   "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
   "consoleErrors": [],
   "externalRequests": [],
-  "passed": true
+  "passed": false
 }

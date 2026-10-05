@@ -1,29 +1,29 @@
 {
   "id": "LAW-0499",
   "slug": "contract-terms-05-contrast",
-  "title": "Termination clause, without doctrine — the same contract with the case provided for or not described, in two rooms",
+  "title": "Termination clause, without doctrine — two identical filing walls: a communication slip hangs on a section's hook (A) or settles in the tray (B), as supplied",
   "titleEs": "Cláusula de terminación — Comparación de dos supuestos",
   "category": "contract-terms",
   "categoryName": "Contenido y cláusulas",
   "motif": "Cláusula de terminación",
   "treatment": "contrast",
   "family": "paired-comparison",
-  "description": "Two rooms with the same contract board, the same two parties, the same card \"Communication 1 (supplied)\" seated in its slot and the same sections of the termination clause with a neutral connector bracket open in its track. Only the supplied case differs: the case row appears ringed — ● \"Case provided for (as supplied)\" in room A, ◆ \"Case not described (as supplied)\" in room B, drawn alike. As the supplied configuration, in the room whose case is provided for Party B slides the bracket shut on the supplied section and a connector cord is drawn to the card; in the other room the bracket stays open and no cord is drawn. The case row is ringed in both rooms with \"Only this differs\"; the shared strip names the changed fact, each room's configuration, the shared facts and the key \"As supplied · no conclusion drawn\". No winner, score or outcome.",
+  "description": "Two identical filing walls (side by side on wide boxes, stacked on tall ones), each with the contract plate, an overhead rail whose carrier holds the slip \"Communication 1 (supplied)\", the supplied sections as plates with a closed slot at their right end, and a tray. The one changed fact appears at the same slot: in A (\"Case provided for (as supplied)\") a hook swings out; in B (\"Case not described (as supplied)\") a flush cover slides over it. Both carriers then run identically and lower their slips for the same time: in A the slip hangs on the hook beside the supplied section, in B it settles in the tray. A guide outlines the same slot in both walls (\"Only this differs: the supplied case\") and a neutral note reads \"Same communication and clause · as supplied · no conclusion drawn\". No termination doctrine, no winner, no outcome.",
   "tags": [
     "termination clause",
     "section",
     "communication",
-    "provided for",
-    "not described",
-    "connector",
-    "bracket",
-    "comparison",
-    "changed fact",
-    "equal weight",
-    "characters"
+    "slip",
+    "filing wall",
+    "rail",
+    "hook",
+    "tray",
+    "contract",
+    "paired",
+    "equal weight"
   ],
   "durations": {
-    "defaultMs": 7500,
+    "defaultMs": 6500,
     "minMs": 1000,
     "maxMs": 60000,
     "designedFor": [
@@ -72,13 +72,11 @@
   },
   "schemaVersion": 1,
   "assets": [
-    "src/animations/contract-terms/kits/clausula-terminacion.js",
-    "src/primitives/person.js",
-    "src/primitives/annotate.js",
-    "src/primitives/people-style.js"
+    "src/animations/contract-terms/kits/terminacion-comunicaciones.js",
+    "src/primitives/annotate.js"
   ],
   "license": "Original vector artwork and code created for this project; no third-party assets.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "paramsSchema": {
     "type": "object",
     "additionalProperties": false,
@@ -88,7 +86,7 @@
         "type": "number",
         "minimum": 1000,
         "maximum": 60000,
-        "default": 7500,
+        "default": 6500,
         "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
       },
       "seed": {
@@ -189,74 +187,6 @@
         "default": true,
         "description": "Shows a small \"illustrative example\" tag inside the safe area."
       },
-      "parties": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "name": {
-              "type": "string",
-              "maxLength": 60,
-              "description": "Display name (fictional by default)"
-            },
-            "role": {
-              "type": "string",
-              "maxLength": 60,
-              "description": "Descriptive role label (not a legal finding)"
-            },
-            "appearance": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "skin": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 5,
-                  "description": "Skin tone index 0–5"
-                },
-                "hair": {
-                  "type": "string",
-                  "enum": [
-                    "short",
-                    "long",
-                    "bun",
-                    "curly",
-                    "buzz",
-                    "scarf"
-                  ],
-                  "description": "Hair style"
-                },
-                "hairColor": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 6,
-                  "description": "Hair colour index 0–6"
-                },
-                "outfit": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 7,
-                  "description": "Outfit colour index 0–7"
-                },
-                "glasses": {
-                  "type": "boolean",
-                  "description": "Wears glasses"
-                }
-              },
-              "required": [],
-              "description": "Optional appearance overrides; defaults derive from the seed"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "description": "A fictional person or party"
-        },
-        "minItems": 2,
-        "maxItems": 2,
-        "description": "Party A (by the circumstances panel) and Party B (by the connector track); fictional by default, equal weight (array replaces the previous value)"
-      },
       "contract": {
         "type": "object",
         "additionalProperties": false,
@@ -276,64 +206,12 @@
           "reference",
           "title"
         ],
-        "description": "The contract board"
+        "description": "The contract sheet"
       },
-      "panels": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "circumstance": {
-            "type": "string",
-            "maxLength": 50,
-            "description": "Heading of the circumstances panel (e.g. \"Circumstances and communications\")"
-          },
-          "section": {
-            "type": "string",
-            "maxLength": 50,
-            "description": "Heading of the clause panel (e.g. \"Termination clause\")"
-          }
-        },
-        "required": [
-          "circumstance",
-          "section"
-        ],
-        "description": "Headings of the two panels, as supplied"
-      },
-      "circumstance": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "label": {
-            "type": "string",
-            "maxLength": 60,
-            "description": "Label of the circumstance card (e.g. \"Communication 1 (supplied)\")"
-          }
-        },
-        "required": [
-          "label"
-        ],
-        "description": "The supplied circumstance or communication (a generic, fictional placeholder; never a real notice)"
-      },
-      "stateLabels": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "provided": {
-            "type": "string",
-            "maxLength": 60,
-            "description": "Case \"provided for\", as supplied (e.g. \"Case provided for (as supplied)\")"
-          },
-          "undescribed": {
-            "type": "string",
-            "maxLength": 60,
-            "description": "Case \"not described\", as supplied (e.g. \"Case not described (as supplied)\")"
-          }
-        },
-        "required": [
-          "provided",
-          "undescribed"
-        ],
-        "description": "Wording of the two supplied cases (equal weight; ● provided for, ◆ not described)"
+      "clauseTitle": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "Heading of the clause, as supplied (e.g. \"Termination clause\")"
       },
       "clauses": {
         "type": "array",
@@ -344,45 +222,28 @@
         },
         "minItems": 1,
         "maxItems": 3,
-        "description": "Sections of the termination clause, as supplied (generic, fictional placeholders, e.g. \"Section 1 (supplied text)\"; never real contract text) (array replaces the previous value)"
+        "description": "Sections of the clause, as supplied (generic, fictional placeholders such as \"Section 1 (supplied text)\"; never real contract text) (array replaces the previous value)"
       },
       "section": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "from": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 3,
-            "description": "First connected section (1–3)"
-          },
-          "to": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 3,
-            "description": "Last connected section (1–3)"
-          }
-        },
-        "required": [
-          "from",
-          "to"
-        ],
-        "description": "The supplied section(s) the connector joins to the circumstance card: sections from…to (1 = top; clamped to the list)"
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 3,
+        "description": "The supplied section the communication is linked to when the case is \"provided for\" (1 = top; clamped to the list)"
       },
-      "changedFact": {
+      "communication": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "label": {
             "type": "string",
-            "maxLength": 70,
-            "description": "Name of the changed fact, shown in the shared strip"
+            "maxLength": 60,
+            "description": "Label printed on the communication (e.g. \"Communication 1 (supplied)\")"
           }
         },
         "required": [
           "label"
         ],
-        "description": "The single changed fact"
+        "description": "The supplied communication (a generic, fictional placeholder; never a real notice)"
       },
       "scenarioA": {
         "type": "object",
@@ -390,23 +251,14 @@
         "properties": {
           "label": {
             "type": "string",
-            "maxLength": 70,
-            "description": "Header of the room: the supplied variant"
-          },
-          "state": {
-            "type": "string",
-            "enum": [
-              "provided",
-              "undescribed"
-            ],
-            "description": "The supplied state of the circumstance in this room"
+            "maxLength": 60,
+            "description": "Label of scenario A"
           }
         },
         "required": [
-          "label",
-          "state"
+          "label"
         ],
-        "description": "Room A"
+        "description": "Scenario A (left / top): the supplied case \"provided for\""
       },
       "scenarioB": {
         "type": "object",
@@ -414,57 +266,54 @@
         "properties": {
           "label": {
             "type": "string",
-            "maxLength": 70,
-            "description": "Header of the room: the supplied variant"
-          },
-          "state": {
-            "type": "string",
-            "enum": [
-              "provided",
-              "undescribed"
-            ],
-            "description": "The supplied state of the circumstance in this room"
+            "maxLength": 60,
+            "description": "Label of scenario B"
           }
         },
         "required": [
-          "label",
-          "state"
+          "label"
         ],
-        "description": "Room B"
+        "description": "Scenario B (right / bottom): the supplied case \"not described\""
       },
-      "sharedFacts": {
-        "type": "array",
-        "items": {
-          "type": "string",
-          "maxLength": 70,
-          "description": "Shared fact"
-        },
-        "minItems": 0,
-        "maxItems": 2,
-        "description": "Facts shared by both rooms, shown in the shared strip (array replaces the previous value)"
+      "changedFact": {
+        "type": "string",
+        "maxLength": 90,
+        "description": "The single fact that differs between A and B (the label of the guide)"
       },
       "comparisonLabels": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "a": {
+          "neutral": {
             "type": "string",
-            "maxLength": 3,
-            "description": "Badge of room A"
-          },
-          "b": {
-            "type": "string",
-            "maxLength": 3,
-            "description": "Badge of room B"
+            "maxLength": 110,
+            "description": "Neutral note (no winner, no outcome)"
           }
         },
-        "required": [],
-        "description": "Badge letters of the two rooms"
+        "required": [
+          "neutral"
+        ],
+        "description": "Neutral note under the comparison"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tray": {
+            "type": "string",
+            "maxLength": 34,
+            "description": "Label of the tray at the bottom of each wall"
+          }
+        },
+        "required": [
+          "tray"
+        ],
+        "description": "Label of the tray"
       }
     }
   },
   "defaultParams": {
-    "durationMs": 7500,
+    "durationMs": 6500,
     "seed": 1,
     "locale": "en",
     "theme": "editorial-flat",
@@ -480,56 +329,32 @@
     "textVisibility": "all",
     "jurisdiction": "unspecified",
     "contentNotice": true,
-    "parties": [
-      {
-        "name": "Lucía Ferrer",
-        "role": "Party A"
-      },
-      {
-        "name": "Tomás Ibarra",
-        "role": "Party B"
-      }
-    ],
     "contract": {
-      "reference": "CT-523",
+      "reference": "CT-731",
       "title": "Contract (fictional)"
     },
-    "panels": {
-      "circumstance": "Circumstances and communications",
-      "section": "Termination clause"
-    },
-    "circumstance": {
-      "label": "Communication 1 (supplied)"
-    },
-    "stateLabels": {
-      "provided": "Case provided for (as supplied)",
-      "undescribed": "Case not described (as supplied)"
-    },
+    "clauseTitle": "Termination clause",
     "clauses": [
       "Section 1 (supplied text)",
-      "Section 2 (supplied text)"
+      "Section 2 (supplied text)",
+      "Section 3 (supplied text)"
     ],
-    "section": {
-      "from": 2,
-      "to": 2
-    },
-    "changedFact": {
-      "label": "the supplied case of communication 1"
+    "section": 2,
+    "communication": {
+      "label": "Communication 1 (supplied)"
     },
     "scenarioA": {
-      "label": "Case provided for (as supplied)",
-      "state": "provided"
+      "label": "Case provided for (as supplied)"
     },
     "scenarioB": {
-      "label": "Case not described (as supplied)",
-      "state": "undescribed"
+      "label": "Case not described (as supplied)"
     },
-    "sharedFacts": [
-      "Same contract, parties, communication and sections"
-    ],
+    "changedFact": "Only this differs: the supplied case",
     "comparisonLabels": {
-      "a": "A",
-      "b": "B"
+      "neutral": "Same communication and clause · as supplied · no conclusion drawn"
+    },
+    "objectLabels": {
+      "tray": "Tray"
     }
   }
 }

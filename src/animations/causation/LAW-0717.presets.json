@@ -1,6 +1,6 @@
 {
   "animationId": "LAW-0717",
-  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). The total and every value are hypothetical placeholders labelled as such; segment lengths follow only the supplied values. No share rule, percentage, apportionment doctrine, fault, liability or outcome is stated; the two supplied allocations (A proposed, B alternative) are listed at equal weight and neither is preferred.",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative (jurisdiction unspecified). The total and every value are hypothetical placeholders labelled as such; segment lengths follow only the supplied values. No share rule or legal doctrine is stated and nothing is attributed or decided; the two supplied allocations (A proposed, B alternative) are listed at equal weight and neither is preferred. Long-labels-stress: coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20, from LAW-0687/0689–0692; scene-area floor >= 0.20 of the frame as in accepted LAW-0701/0705). True driver: the 1:1 box — the physical scene (rail, shelf, trays, floor) must cover >= 0.20 of the frame area while every text stays >= 16 px. Fallbacks tried: panel beside the scene (four-line chips) and below it, a compact rail zone, value chips staggered on two rows, a taller rail zone that fills the box. Measured, rendered at 1080p (2026-10-05; pre-cap copy production/scratch/causation-10/LAW-0717.stress-precap.json): full counts (four events, two totals described, two accounts put forward, one labelled connector, two notes) → 1:1 scene area 0.086 (16 px), 9:16 0.189; one total, one account, one note → 1:1 0.175; three events, one account, no connector note → 1:1 0.266. The stress therefore keeps the maximum four events and caps the other counts at the baseline's: one total described, no account put forward, no connector note, one note (baseline 1 / 0 / 0 / 1); every text field keeps its near-maximum length. After the cap: 1:1 16 px, scene area 0.235; 9:16 0.226; 16:9 20 px, 0.321.",
   "presets": [
     {
       "name": "baseline-illustrative",
@@ -71,14 +71,11 @@
     },
     {
       "name": "long-labels-stress",
-      "description": "Stress: near-maximum lengths with four events, two totals described, a labelled connector, two accounts put forward and two notes.",
+      "description": "Stress: near-maximum lengths (long event names, total, unit, allocation names, captions and note) with the maximum of four events; other counts capped — see the coordinator decision note.",
       "params": {
         "losses": [
           {
             "label": "Total cost of the water damage in the storeroom (hypothetical)"
-          },
-          {
-            "label": "A separate cleaning invoice was mentioned, not supplied in full"
           }
         ],
         "events": [
@@ -103,24 +100,8 @@
             "valueB": 15
           }
         ],
-        "causalLinks": [
-          {
-            "from": 2,
-            "kind": "sequence",
-            "status": "disputed",
-            "label": "order as given in the caretaker's notes"
-          }
-        ],
-        "alternatives": [
-          {
-            "label": "A different order of the first two events put forward",
-            "status": "alleged"
-          },
-          {
-            "label": "A fifth event (a power cut) put forward by the tenant",
-            "status": "proposed"
-          }
-        ],
+        "causalLinks": [],
+        "alternatives": [],
         "unit": "hypothetical units",
         "allocationLabels": {
           "a": "Proposed allocation (first list as supplied)",
@@ -137,12 +118,9 @@
           {
             "target": "values",
             "text": "Each piece is only as long as its supplied value, nothing more is computed or weighed"
-          },
-          {
-            "target": "trays",
-            "text": "The other supplied allocation stays listed beside this one and is never ranked"
           }
-        ]
+        ],
+        "allocation": "a"
       }
     },
     {

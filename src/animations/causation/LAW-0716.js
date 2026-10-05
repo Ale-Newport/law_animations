@@ -139,10 +139,10 @@ const glueLv = t => glueN(t);
 function tagMeasure(ctx, p, size, w, textOn) {
   const pad = size * 0.6;
   const fit = (t0, o) => fitG(ctx, unwidow(glueLv(t0), q => fitG(ctx, q, o)), o);
-  const hs = size * 1.1;
+  const hs = size * 1.4;
   const fh = textOn ? fit(p.losses[0].label, {maxWidth: w - 2 * pad - size * 1.3, size: hs, minSize: hs, maxLines: 4, weight: 600}) : null;
   // (the value — the datum — is set a fifth larger than the heading: it is what the lens is for)
-  const vs = size * 1.2;
+  const vs = size * 1.75;
   const fb = textOn ? fit(p.beforeValue, {maxWidth: w - 2 * pad, size: vs, minSize: vs, maxLines: 6, weight: 700}) : null;
   const fa = textOn ? fit(p.afterValue, {maxWidth: w - 2 * pad, size: vs, minSize: vs, maxLines: 6, weight: 700}) : null;
   const headH = textOn ? fh.height + size * 0.3 : size * 1.1;
@@ -247,7 +247,7 @@ function compose(ctx, base, cfg) {
   if (!rec) { rec = recordMeasure(ctx, {w: RW, size, header: base.header, rows: base.rows, text: textOn, maxLines: 4}); memo.rec.set(rk, rec); }
   if (rec.bad && !cfg.force) return {bad: 'record'};
   const recW = RW + 20, recH = rec.h + 14 + rec.clipH * 0.35;
-  const minCtx = 0.45 * FU.w + 4;
+  const minCtx = 0.47 * FU.w + 4;
   const flowBand = w => {
     const bk = `${size}|${Math.round(w)}`;
     let b = memo.band.get(bk);
@@ -283,6 +283,8 @@ function compose(ctx, base, cfg) {
   for (let PH = Math.min(D.h, 520); PH >= cfg.hMin; PH *= 0.985) {
     const zg = zoneGeom(base.M, PH, tg, rec, RW, arr, minCtx, Boolean(cfg.tagSide));
     if (zg.zW > full) { lastWhy = 'zW'; continue; }
+    // (the field part of the context — the record steps out while the lens is open — keeps >= minCtx)
+    if ((arr === 'side' || arr === 'stack2') && zg.zW - (RW + 56) < minCtx) { lastWhy = 'ctxW'; continue; }
     let room, blockH;
     const split = Boolean(cfg.split);
     const bandW = split ? Math.floor((arr === 'stack' ? full - recW - 20 : full - zg.zW - 12) / 24) * 24 : full;
@@ -301,7 +303,7 @@ function compose(ctx, base, cfg) {
       blockH = zg.zH + 30 + (arr === 'stack2' ? band.h : split ? Math.max(recH, band.h) : recH + (band.h ? 16 + band.h : 0));
       if (blockH > D.h) { lastWhy = `blockH${Math.round(blockH)}`; continue; }
       // spare height: the context sits high and the record (and band) at the foot of the box, so the scene spans the box
-      const top = Math.max(0, (D.h - blockH) * 0.2);
+      const top = Math.max(0, (D.h - blockH) * 0.05);
       const sBack = Math.min(1, (0.45 * FU.w + 8) / full);
       room = {w: full, h: D.h - top - zg.zH * sBack - 16, sBack, top};
     }
@@ -316,23 +318,26 @@ function compose(ctx, base, cfg) {
     const ar = room.w / room.h;
     // (only as far as the tag's text keeps >= 0.30 of the window: the lens stays text-dominated)
     const tA0 = tg.textArea / (crop.w * crop.h);
-    if (crop.w / crop.h < ar) { const nw = Math.max(crop.w, Math.min(crop.h * ar, crop.w * 1.6, textOn ? crop.w * tA0 / 0.305 : Infinity)); crop = {...crop, x: crop.x - (nw - crop.w) / 2, w: nw}; }
+    if (crop.w / crop.h < ar) { const nw = Math.max(crop.w, Math.min(crop.h * ar, crop.w * (textOn ? 1.6 : 1.4), textOn ? crop.w * tA0 / 0.33 : Infinity)); crop = {...crop, x: crop.x - (nw - crop.w) / 2, w: nw}; }
     // (a crop wider than the room deepens downward into the plate, up to 1.6× — never below the floor line)
     // (labels hidden only: with labels shown the text-coverage gate keeps the crop on the tag)
-    else if (!textOn) { const nh = Math.min(crop.w / ar, crop.h * 1.6, -4 - crop.y); if (nh > crop.h) crop = {...crop, h: nh}; }
+    // (labels hidden: the crop is not deepened — the lens stays on the tag, the step and its leader)
     // (text coverage target: the tag's text blocks cover >= 0.29 of the crop by this estimate; the rendered text boxes run taller, the rendered gate is 0.30)
     const textA = tg.textArea / (crop.w * crop.h);
-    if (textOn && textA < 0.29 && !cfg.force) { lastWhy = `text${textA.toFixed(2)}`; continue; }
+    if (textOn && textA < 0.315 && !cfg.force) { lastWhy = `text${textA.toFixed(2)}`; continue; }
     const Z = Math.min(room.w / crop.w, room.h / crop.h);
     const lensMin = Math.min(crop.w, crop.h) * Z;
     // (lens-content fill: the tag card and the rig parts inside the crop cover >= 0.40 of it — LENS FILL METRIC)
     // (the tag card, the two slot pads, the consequence and the plate strip under the path)
-    const fill = Math.min(1, (tg.w * tg.h + zg.iw * zg.ih + (zg.ys[1] - zg.ys[0]) * zg.iw * 0.6) / (crop.w * crop.h));
+    // (the drawn content inside the crop: the tag card plus the slab under it — lanes, slots, the step and its leader)
+    const pb = G.plateBox;
+    const ov = Math.max(0, Math.min(crop.x + crop.w, pb.x + pb.w) - Math.max(crop.x, pb.x)) * Math.max(0, Math.min(crop.y + crop.h, pb.y + pb.h) - Math.max(crop.y, pb.y));
+    const fill = Math.min(1, (tg.w * tg.h + ov) / (crop.w * crop.h));
     // (context + lens fill the box while the lens is open: >= 0.82 of its height)
     const spanH = arr === 'side' ? Math.max(zg.zH, crop.h * Z) : zg.zH * room.sBack + 16 + crop.h * Z + 14;
-    if (spanH < (arr === 'side' ? 0.9 : 0.82) * (D.h - (room.top || 0)) && !cfg.force) { lastWhy = `span${Math.round(spanH)}`; continue; }
+    if (spanH < (arr === 'side' ? 0.9 : 0.88) * (D.h - (room.top || 0)) && !cfg.force) { lastWhy = `span${Math.round(spanH)}`; continue; }
     // (stacked: the union of the stepped-back context and the lens also spans most of the box's width)
-    if (arr !== 'side' && Math.max(zg.zW * room.sBack, crop.w * Z) < 0.86 * full && !cfg.force) { lastWhy = 'unionW'; continue; }
+    if (arr !== 'side' && Math.max(zg.zW * room.sBack, crop.w * Z) < 0.9 * full && !cfg.force) { lastWhy = 'unionW'; continue; }
     if ((Z < 1.62 || lensMin < 0.37 * FU.short + 4 || fill < 0.42) && !cfg.force) { lastWhy = `Z${Z.toFixed(2)}/${Math.round(lensMin)}/f${fill.toFixed(2)}`; continue; }
     found = {PH, zg, band, room, crop, Z, blockH, split, bandW, fill};
     break;
@@ -454,7 +459,8 @@ const scene = {
     } else {
       const backBottom = L.pivot.y + (F + 16 - L.pivot.y) * L.sBack;
       // the lens takes the foot of the room below the stepped-back context (context + lens then span the box)
-      L.dest = {x: MARGIN + (full - dw) / 2, y: Math.max(backBottom + 14, Dv.h - dh), w: dw, h: dh};
+      // (a lens narrower than the box stands at its right, so context + lens span the box's width)
+      L.dest = {x: MARGIN + full - dw, y: Math.max(backBottom + 14, Dv.h - dh), w: dw, h: dh};
     }
     L.recOnFloor = L.arr === 'side' || L.arr === 'stack2';
     L.recNode = recordBuild(ctx, L.rec, {prefix: 'rec', x: recX, y: recY});

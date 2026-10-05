@@ -146,6 +146,7 @@ const scene = {
     const items = panelItems(ctx, p, M);
     const memo = new Map();
     const stMemo = new Map();
+    const headMemo = new Map();
     const stage = size => {
       let st = stMemo.get(size);
       if (st) return st;
@@ -155,7 +156,10 @@ const scene = {
       for (const arr of SH.arr) for (const compact of [false, true]) for (const stagger of [false, true]) {
         const go = {chipWs, chipH, compact, stagger: stagger && cs.length > 0};
         const dims0 = S => stageGeom(S, M.n, fmax, go);
-        const head = S => { const G = dims0(S); const mw = arr === 'row' ? G.W : G.W; return [headChip(ctx, 'a', p.scenarioA.label, p.scenarioA.caption, size, mw), headChip(ctx, 'b', p.scenarioB.label, p.scenarioB.caption, size, mw)]; };
+        // head chips: measured once per size at a few widths (the narrowest that keeps them in two lines is used)
+        const hk = `${size}`;
+        if (!headMemo.has(hk)) headMemo.set(hk, [1400, 900, 700, 560, 440, 360].map(mw => [headChip(ctx, 'a', p.scenarioA.label, p.scenarioA.caption, size, mw), headChip(ctx, 'b', p.scenarioB.label, p.scenarioB.caption, size, mw)]));
+        const head = S => { const G = dims0(S); const opts = headMemo.get(hk).filter(hc => hc.every(q => !q.bad && q.w <= G.W + 1)); return opts.length ? opts[0] : headMemo.get(hk)[headMemo.get(hk).length - 1]; };
         const pairDims = (S, G) => {
           const hc = head(S);
           if (hc.some(q => q.bad || q.w > G.W + 1)) return {w: 1e9, h: 1e9};
@@ -345,7 +349,7 @@ export default defineAnimation({
     motif: 'Distribución ilustrativa de pérdidas',
     treatment: 'contrast',
     family: 'paired-comparison',
-    description: 'Two identical stages (a hypothetical total bar, barrier blades, guide rails and one tray per fictional event) receive their own supplied values: A the proposed allocation, B the alternative one. Only the blade on the changed boundary stands elsewhere; in parallel both bars are cut and the pieces run into their trays. A guide joins the changed blade on both stages. Equal weight, no winner, no percentage, no conclusion drawn.',
+    description: 'Two identical stages (a hypothetical total bar, barrier blades, guide rails and one tray per fictional event) receive their own supplied values: A the proposed allocation, B the alternative one. Only the blade on the changed boundary stands elsewhere; in parallel both bars are cut and the pieces run into their trays. A guide joins the changed blade on both stages. Equal weight, no winner, nothing computed, no conclusion drawn.',
     tags: ['causation', 'loss distribution', 'contrast', 'proposed allocation', 'alternative allocation', 'supplied values', 'hypothetical', 'as supplied'],
     defaultDurationMs: DURATION,
     assets: ['src/animations/causation/kits/distribucion-perdidas.js', 'src/animations/causation/kits/alcance-dano.js', 'src/animations/causation/kits/prueba-contrafactual.js'],

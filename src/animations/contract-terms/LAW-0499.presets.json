@@ -1,175 +1,103 @@
 {
   "animationId": "LAW-0499",
-  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the communication and the sections of the termination clause are generic placeholders, never real contract text or notices. \"Provided for\" and \"not described\" are supplied cases of equal weight (● and ◆ of the same area, colour and stroke); the connector bracket and cord only show the connection that is supplied. No termination doctrine is stated: no ground or right to terminate, no notice period or time limit, no effect, no validity or sufficiency judgement, and no jurisdiction; the case \"not described\" is neutral (no conclusion). Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): schedules, definitions and priorities (no priority or order between sections is drawn); clauses = the sections of the termination clause. No stress field is capped.",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the communication and the sections of the termination clause are generic placeholders, never real contract text or notices. A (\"provided for\") and B (\"not described\") are supplied cases of equal weight (lane badges in their lane colours, ● and ◆ of the same area, colour and stroke, the hook and the cover of the same size and timing); the only difference is the one supplied fact at the same slot. No termination doctrine is stated: no ground or right to terminate, no notice period or time limit, no effect, no validity or sufficiency judgement, no jurisdiction, no winner and no outcome; B ends neutral (the slip rests in the tray, no conclusion). Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): schedules, definitions, priorities and sharedFacts (the shared content is the contract plate, the sections and the communication, all editable). Stress cap (standing coordinator rule 2026-09-26, AUTHORING item 20): after trying the fallbacks (the contract plate drawn once for both walls, row and column arrangements at 1:1, a wider slip column, text down to 16.6 px), the three stress sections did not fit the 1:1 side-by-side walls at ≥ 16 px with 58 characters each; they are capped at 51–52 characters (\"Section 1, first item in the clause (supplied text)\"), still about twice the baseline (25). Measured in Chromium: 58 characters → rows-do-not-fit at 16.6 px in both arrangements; 51–52 characters → fits at 16.6 px (row arrangement).",
   "presets": [
     {
       "name": "baseline-illustrative",
-      "description": "Two identical rooms; only the supplied case differs: room A provided for (the bracket shut on section 2 and the cord drawn to the card), room B not described (the bracket open, no cord).",
+      "description": "Two identical filing walls: in A a hook swings out of section 2's slot and the slip hangs on it; in B a cover closes the same slot and the slip settles in the tray.",
       "params": {}
     },
     {
       "name": "contrast-or-alternative",
-      "description": "Substantive alternative: other parties and contract, other card and sections, section 1, and the rooms swapped — room A not described, room B provided for.",
+      "description": "Substantive alternative: another contract, two sections, the changed fact at section 1, other wording of the two cases.",
       "params": {
-        "parties": [
-          {
-            "name": "Ines Duarte",
-            "role": "Party A",
-            "appearance": {
-              "skin": 1,
-              "hair": "long",
-              "hairColor": 4,
-              "outfit": 2
-            }
-          },
-          {
-            "name": "Kwame Asante",
-            "role": "Party B",
-            "appearance": {
-              "skin": 5,
-              "hair": "curly",
-              "outfit": 6,
-              "glasses": true
-            }
-          }
-        ],
-        "changedFact": {
-          "label": "the supplied case of communication 2"
-        },
-        "scenarioA": {
-          "label": "Case not described (as supplied)",
-          "state": "undescribed"
-        },
-        "scenarioB": {
-          "label": "Case provided for (as supplied)",
-          "state": "provided"
-        },
-        "sharedFacts": [
-          "Same contract, parties, communication and sections"
-        ],
         "contract": {
           "reference": "CT-608",
           "title": "Service contract (fictional)"
         },
-        "circumstance": {
+        "communication": {
           "label": "Communication 2 (supplied)"
         },
         "clauses": [
           "Section A (supplied text)",
           "Section B (supplied text)"
         ],
-        "section": {
-          "from": 1,
-          "to": 1
+        "section": 1,
+        "scenarioA": {
+          "label": "A: case provided for (as supplied)"
+        },
+        "scenarioB": {
+          "label": "B: case not described (as supplied)"
+        },
+        "objectLabels": {
+          "tray": "Tray of slips"
         }
       }
     },
     {
       "name": "long-labels-stress",
-      "description": "Long labels: long names, a long contract heading, long panel headings, a long card label and case wording, two long sections, long room headers, a long changed fact, two shared facts and two-letter badges.",
+      "description": "Long labels: a long contract heading and clause heading, a long slip label, long scenario labels, three long sections, the changed fact at section 3, a long guide label and neutral note.",
       "params": {
-        "parties": [
-          {
-            "name": "Maria-Fernanda Castellanos-Villavicencio",
-            "role": "Party A"
-          },
-          {
-            "name": "Oluwaseun Bartholomew-Nakamura",
-            "role": "Party B"
-          }
-        ],
-        "changedFact": {
-          "label": "the supplied case of communication 1, and nothing else"
-        },
-        "scenarioA": {
-          "label": "Case provided for, exactly as supplied in this example",
-          "state": "provided"
-        },
-        "scenarioB": {
-          "label": "Case not described, exactly as supplied in this example",
-          "state": "undescribed"
-        },
-        "sharedFacts": [
-          "Same contract, same parties, same communication and sections",
-          "Same board, same bracket and same track in both rooms"
-        ],
-        "comparisonLabels": {
-          "a": "A1",
-          "b": "B1"
-        },
         "contract": {
-          "reference": "CONTRACT-2026-0523",
-          "title": "Contract with a panel of communications and a termination clause (fictional)"
+          "reference": "CONTRACT-2026-0731",
+          "title": "Contract on a filing wall (fictional)"
         },
-        "panels": {
-          "circumstance": "Circumstances and communications, as supplied",
-          "section": "Termination clause, sections as listed"
-        },
-        "circumstance": {
+        "clauseTitle": "Termination clause, sections as listed",
+        "communication": {
           "label": "Communication 1, named in this fictional contract (supplied)"
         },
-        "stateLabels": {
-          "provided": "Case provided for, exactly as supplied in this example",
-          "undescribed": "Case not described, exactly as supplied in this example"
-        },
         "clauses": [
-          "Section 1, first item listed in the clause panel (supplied text)",
-          "Section 2, second item listed in the clause panel (supplied text)"
+          "Section 1, first item in the clause (supplied text)",
+          "Section 2, second item in the clause (supplied text)",
+          "Section 3, third item in the clause (supplied text)"
         ],
-        "section": {
-          "from": 1,
-          "to": 2
+        "section": 3,
+        "scenarioA": {
+          "label": "Case provided for, exactly as supplied in this example"
+        },
+        "scenarioB": {
+          "label": "Case not described, exactly as supplied in this example"
+        },
+        "changedFact": "Only this differs between the two walls: the case supplied for this slot",
+        "comparisonLabels": {
+          "neutral": "Same communication, same clause and same slot in both walls · as supplied · no conclusion drawn"
+        },
+        "objectLabels": {
+          "tray": "Tray for communication slips"
         }
       }
     },
     {
       "name": "baseline-es",
-      "description": "Línea de base en español: dos salas idénticas; solo cambia el supuesto aportado — sala A supuesto previsto (conector cerrado sobre el apartado 2 y cable trazado), sala B supuesto no descrito (sin cable).",
+      "description": "Línea de base en español: en A sale un gancho del apartado 2 y la ficha queda colgada en él; en B una tapa cierra la misma ranura y la ficha baja a la bandeja.",
       "params": {
         "locale": "es",
-        "parties": [
-          {
-            "name": "Lucía Ferrer",
-            "role": "Parte A"
-          },
-          {
-            "name": "Tomás Ibarra",
-            "role": "Parte B"
-          }
-        ],
-        "changedFact": {
-          "label": "el supuesto aportado de la comunicación 1"
-        },
-        "scenarioA": {
-          "label": "Supuesto previsto (según lo aportado)",
-          "state": "provided"
-        },
-        "scenarioB": {
-          "label": "Supuesto no descrito (según lo aportado)",
-          "state": "undescribed"
-        },
-        "sharedFacts": [
-          "Mismo contrato, partes, comunicación y apartados"
-        ],
         "contract": {
-          "reference": "CT-523",
+          "reference": "CT-731",
           "title": "Contrato (ficticio)"
         },
-        "panels": {
-          "circumstance": "Circunstancias y comunicaciones",
-          "section": "Cláusula de terminación"
-        },
-        "circumstance": {
+        "clauseTitle": "Cláusula de terminación",
+        "communication": {
           "label": "Comunicación 1 (aportada)"
-        },
-        "stateLabels": {
-          "provided": "Supuesto previsto (según lo aportado)",
-          "undescribed": "Supuesto no descrito (según lo aportado)"
         },
         "clauses": [
           "Apartado 1 (texto aportado)",
-          "Apartado 2 (texto aportado)"
-        ]
+          "Apartado 2 (texto aportado)",
+          "Apartado 3 (texto aportado)"
+        ],
+        "scenarioA": {
+          "label": "Supuesto previsto (según lo aportado)"
+        },
+        "scenarioB": {
+          "label": "Supuesto no descrito (según lo aportado)"
+        },
+        "changedFact": "Solo esto cambia: el supuesto aportado",
+        "comparisonLabels": {
+          "neutral": "Misma comunicación y cláusula · según lo aportado · sin conclusión"
+        },
+        "objectLabels": {
+          "tray": "Bandeja"
+        }
       }
     }
   ]

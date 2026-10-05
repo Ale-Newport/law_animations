@@ -49,16 +49,16 @@ import {
 const ID = 'LAW-0718';
 const DURATION = 7000;
 const BEATS = {separate: [0, 0.18], relate: [0.18, 0.43], trace: [0.43, 0.75], gather: [0.75, 1]};
-const W = {legend: [0, 0.04], explode: [0.02, 0.16], names: [0.12, 0.18], rel: [0.19, 0.42], trace: [0.44, 0.73], gather: [0.75, 0.82], state: [0.78, 0.84], key: [0.82, 0.87]};
+const W = {legend: [0, 0.04], explode: [0.02, 0.16], names: [0.15, 0.19], rel: [0.19, 0.42], trace: [0.44, 0.73], gather: [0.75, 0.82], state: [0.78, 0.84], key: [0.82, 0.87]};
 const IDS = ['loss', 'barriers', 'connectors', 'events'];
 // clockwise ring of places: 0 top-left, 1 top-right, 2 bottom-right, 3 bottom-left
 const PLACE = {loss: 0, barriers: 1, connectors: 2, events: 3};
 
 const strings = {
   en: {...DP_STRINGS.en, relation: 'related as supplied', sequence: 'then, as supplied', causal: 'causal (as supplied)', communication: 'communication (as supplied)',
-    stLoss: '● A boundaries above, ◆ B below (as supplied)', stBarriers: 'One blade per supplied boundary', stConnectors: 'One rail per event, in order', stEvents: 'Values', forA: 'for A:', forB: 'for B:', and: 'and'},
+    ticksA: 'ticks above the bar', ticksB: 'ticks below the bar', stEvents: 'Values', forA: 'for A:', forB: 'for B:', and: 'and'},
   es: {...DP_STRINGS.es, relation: 'relacionado según lo aportado', sequence: 'después, según lo aportado', causal: 'causal (según lo aportado)', communication: 'comunicación (según lo aportado)',
-    stLoss: 'Límites ● A arriba, ◆ B abajo (según lo aportado)', stBarriers: 'Una cuchilla por límite aportado', stConnectors: 'Una guía por evento, en orden', stEvents: 'Valores', forA: 'para A:', forB: 'para B:', and: 'y'},
+    ticksA: 'marcas sobre la barra', ticksB: 'marcas bajo la barra', stEvents: 'Valores', forA: 'para A:', forB: 'para B:', and: 'y'},
 };
 
 const sceneSchema = {
@@ -109,17 +109,27 @@ function panelItems(ctx, p, M) {
   const t = ctx.t;
   if (!ctx.show('key')) return [];
   const out = [];
-  out.push({key: 'alloc-a', icon: 'alloc', side: 'a', text: allocText(ctx, p, M, 'a'), when: 'legend'});
-  out.push({key: 'alloc-b', icon: 'alloc', side: 'b', text: allocText(ctx, p, M, 'b'), when: 'legend'});
+  // the two supplied allocations: identical chips (their values are the events' state chip)
+  out.push({key: 'alloc-a', icon: 'alloc', side: 'a', text: `A · ${p.allocationLabels.a} · ${t.ticksA}`, when: 'legend'});
+  out.push({key: 'alloc-b', icon: 'alloc', side: 'b', text: `B · ${p.allocationLabels.b} · ${t.ticksB}`, when: 'legend'});
   p.events.forEach((e, i) => out.push({key: `ev${i}`, icon: 'tray', i, text: e.label, when: 'legend'}));
   out.push({key: 'bar', icon: 'bar', text: `${p.losses[0].label}: ${t.total}`, when: 'legend'});
   if (p.losses[1]) out.push({key: 'loss1', icon: 'note', text: `${t.alsoNoted}: ${p.losses[1].label}`, when: 'legend'});
   M.alternatives.forEach((a, j) => out.push({key: `alt${j}`, icon: 'alt', text: altText(ctx, a), when: 'legend'}));
   linkNotes(ctx, M).forEach(l => out.push({...l, when: 'legend'}));
-  out.push({key: 'key', text: t.key, when: 'key'});
-  return out;
+  // (the key appears late: it comes first, so the chips shown from the first frame take the panel's last rows)
+  return [{key: 'key', text: t.key, when: 'key'}, ...out];
 }
 
+/** A relation chip: balanced, up to three lines, no one-word line. */
+function relChip(ctx, text, o) {
+  const oo = {maxLines: 3, ...o};
+  const t0 = unwidow(glueN(text), q => chipG(ctx, q, {...oo, x: 0, y: 0}).fit);
+  return chipG(ctx, t0, oo);
+}
+
+/** Widest relation chip (two lines): narrower in square and tall boxes so the gap between parts stays small. */
+const labMax = (ctx, size) => size * (ctx.view.shape === 'landscape' ? 11 : 9.5);
 const relText = (ctx, p, kind) => (p.relationLabels && p.relationLabels[kind]) || ctx.t[kind] || kind;
 const kindCol = (th, kind) => (kind === 'communication' ? th.accent2 : kind === 'relation' ? th.inkSoft : th.ink);
 
@@ -129,16 +139,18 @@ function partChips(ctx, p, M, size, U, arr = 'ring') {
   const out = {};
   for (const id of IDS) {
     const wh = partWH(id, M.n);
-    const mw = Math.max((arr === 'ring' ? wh.w : id === 'loss' || id === 'events' ? 0.9 : 0.44) * U, size * 13);
+    // (wide boxes: wider chips, fewer lines — the ring's two rows of chips then cost less height)
+    const mw = Math.max((arr === 'ring' ? wh.w : id === 'loss' || id === 'events' ? 0.9 : 0.44) * U, size * (ctx.view.shape === 'landscape' ? 19 : 13));
     const el = p.elements.find(e => e.id === id);
     const nameT = el ? el.label : id;
-    const st = id === 'loss' ? t.stLoss : id === 'barriers' ? t.stBarriers : id === 'connectors' ? t.stConnectors
-      : `${t.stEvents} ${t.forA} ${M.vA.map(fmtV).join(' · ')} ${t.and} ${t.forB} ${M.vB.map(fmtV).join(' · ')} (${p.unit})`;
+    // the state shown at the end: the events hold the supplied values of A and B (the bar shows both sets of
+    // boundaries as ● / ◆ ticks; the blades and rails have no state of their own)
+    const st = id === 'events' ? `${t.stEvents} ${t.forA} ${M.vA.map(fmtV).join('\u00a0·\u00a0')} ${t.and} ${t.forB} ${M.vB.map(fmtV).join('\u00a0·\u00a0')} (${p.unit})` : null;
     const show = ctx.show('key');
-    const o1 = {x: 0, y: 0, maxWidth: mw, size, maxLines: 2, weight: 700};
-    const o2 = {x: 0, y: 0, maxWidth: mw, size, maxLines: 4, weight: 600};
+    const o1 = {x: 0, y: 0, maxWidth: mw, size, maxLines: 3, weight: 700};
+    const o2 = {x: 0, y: 0, maxWidth: Math.max(mw, size * 15), size, maxLines: 4, weight: 600};
     const n0 = show ? unwidow(glueN(nameT), q => chipG(ctx, q, o1).fit) : null;
-    const s0 = show && ctx.show('all') ? unwidow(glueN(st), q => chipG(ctx, q, o2).fit) : null;
+    const s0 = show && st ? unwidow(glueN(st), q => chipG(ctx, q, o2).fit) : null;
     const nc = n0 ? chipG(ctx, n0, o1) : null, sc = s0 ? chipG(ctx, s0, o2) : null;
     out[id] = {n0, s0, o1, o2, nh: nc ? nc.box.h : 0, sh: sc ? sc.box.h : 0, nw: nc ? nc.box.w : 0, sw: sc ? sc.box.w : 0, bad: (nc && (nc.fit.truncated || nc.fit.broken)) || (sc && (sc.fit.truncated || sc.fit.broken))};
   }
@@ -232,7 +244,7 @@ const scene = {
     const ringMemo = new Map();
     const stage = size => {
       // the gap between the columns holds the relation chips (measured at this size)
-      const labW = ctx.show('all') ? Math.max(0, ...rels.map(q => chipG(ctx, glueN(q.text), {x: 0, y: 0, maxWidth: size * 11, size, maxLines: 2}).box.w)) : 0;
+      const labW = ctx.show('all') ? Math.max(0, ...rels.map(q => relChip(ctx, q.text, {x: 0, y: 0, maxWidth: labMax(ctx, size), size}).box.w)) : 0;
       const gx = Math.max(size * 5, labW + 40);
       return SH.arr.map(arr => ({go: {gx, arr}, dims: U => { const k = `${arr}|${size}|${Math.round(U)}`; let R = ringMemo.get(k); if (!R) { R = geomFor(ctx, p, M, size, U, arr, gx); ringMemo.set(k, R); } return R.bad ? {w: 1e9, h: 1e9} : {w: R.w, h: R.h}; }}));
     };
@@ -244,7 +256,7 @@ const scene = {
     const D = ctx.design;
     const MG = 10, GAP = 26;
     // spread the composition over its whole box (extra room goes into the gaps, capped)
-    const ex = Math.min(Math.max(0, A.bw - R0.w), U * 0.5), ey = Math.min(Math.max(0, A.bh - R0.h), U * 0.6) * (A.st.go.arr === 'ring' ? 1 : 0.5);
+    const ex = Math.min(Math.max(0, A.bw - R0.w), U * 1.2), ey = Math.min(Math.max(0, A.bh - R0.h), U * 0.6) * (A.st.go.arr === 'ring' ? 1 : 0.5);
     const R = geomFor(ctx, p, M, A.size, U, A.st.go.arr, A.st.go.gx, ex, ey);
     const rw = R.w, rh = R.h;
     let ox, oy, px, py;
@@ -275,30 +287,39 @@ const scene = {
       return {q, c};
     });
     // relation chips: in free space beside their connector's midpoint (clear of parts, chips and other labels)
-    const obst = [...IDS.map(id => boxes[id]), ...IDS.flatMap(id => [nodesChips[id].nc, nodesChips[id].sc].filter(Boolean).map(x => x.box))];
+    const bandNodes = placePanel(ctx, A.panel, px, py);
+    const obst = [...bandNodes.map(b => b.box), ...IDS.map(id => boxes[id]), ...IDS.flatMap(id => [nodesChips[id].nc, nodesChips[id].sc].filter(Boolean).map(x => x.box))];
     const placed = [];
     const meet = (a, b, pad = 6) => a.x < b.x + b.w + pad && a.x + a.w + pad > b.x && a.y < b.y + b.h + pad && a.y + a.h + pad > b.y;
     const labs = conns.map(({q, c}) => {
       if (!ctx.show('all')) return null;
-      const dx = c.to.x - c.from.x, dy = c.to.y - c.from.y, L0 = Math.hypot(dx, dy) || 1;
-      const nx = -dy / L0, ny = dx / L0;
-      const lo = {maxWidth: A.size * 11, size: A.size, maxLines: 2, fill: ctx.theme.card, stroke: kindCol(ctx.theme, q.kind), name: `rlab${q.i}`};
-      const m0 = chipG(ctx, glueN(q.text), {...lo, x: 0, y: 0});
+      const lo = {maxWidth: labMax(ctx, A.size), size: A.size, fill: ctx.theme.card, stroke: kindCol(ctx.theme, q.kind), name: `rlab${q.i}`};
+      const m0 = relChip(ctx, q.text, {...lo, x: 0, y: 0});
       const bw = m0.box.w, bh = m0.box.h;
-      const boxAtD = d => ({x: c.mid.x + nx * d - bw / 2, y: c.mid.y + ny * d - bh / 2, w: bw, h: bh});
-      let best = null;
-      for (let d = 0; d <= 420 && best === null; d += 12) for (const sgn of d ? [1, -1] : [1]) {
-        const b2 = boxAtD(sgn * d);
-        if (b2.x < 4 || b2.y < 4 || b2.x + b2.w > D.w - 4 || b2.y + b2.h > D.h - 4) continue;
-        if (obst.some(o => meet(b2, o)) || placed.some(o => meet(b2, o))) continue;
-        best = sgn * d;
-        break;
+      // candidates: along the connector (middle first), pushed off it on both sides; the first clear one wins, else
+      // the one with the least overlap
+      const cands = [];
+      for (const tt of [0.5, 0.4, 0.6, 0.3, 0.7]) {
+        const P0 = c.at(tt), P1 = c.at(Math.min(1, tt + 0.02));
+        const dx = P1.x - P0.x, dy = P1.y - P0.y, L0 = Math.hypot(dx, dy) || 1;
+        const nx = -dy / L0, ny = dx / L0;
+        for (let d = 0; d <= 420; d += 12) for (const sgn of d ? [1, -1] : [1]) cands.push({P0, d: sgn * d, b: {x: P0.x + nx * sgn * d - bw / 2, y: P0.y + ny * sgn * d - bh / 2, w: bw, h: bh}});
       }
-      const d = best ?? 0;
-      const b2 = boxAtD(d);
-      const ch = chipG(ctx, glueN(q.text), {...lo, x: b2.x + bw / 2, y: b2.y, anchor: 'middle'});
+      const ov = (a, b) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x) + 6) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y) + 6);
+      let best = null, bestOv = Infinity;
+      for (const cd of cands) {
+        const b2 = cd.b;
+        if (b2.x < 4 || b2.y < 4 || b2.x + b2.w > D.w - 4 || b2.y + b2.h > D.h - 4) continue;
+        const o = [...obst, ...placed].reduce((a, q2) => a + ov(b2, q2), 0);
+        if (o === 0) { best = cd; bestOv = 0; break; }
+        if (o < bestOv) { best = cd; bestOv = o; }
+      }
+      const b2 = best ? best.b : {x: c.mid.x - bw / 2, y: c.mid.y - bh / 2, w: bw, h: bh};
+      const ch = relChip(ctx, q.text, {...lo, x: b2.x + bw / 2, y: b2.y, anchor: 'middle'});
       placed.push(b2);
-      return {ch, lead: Math.abs(d) > bh * 0.5 + 8 ? {x1: r(c.mid.x), y1: r(c.mid.y), x2: r(b2.x + bw / 2 - nx * 0), y2: r(b2.y + bh / 2)} : null, clear: best !== null};
+      const P0 = best ? best.P0 : c.mid;
+      const far = best && Math.abs(best.d) > bh * 0.5 + 8;
+      return {ch, lead: far ? {x1: r(P0.x), y1: r(P0.y), x2: r(b2.x + bw / 2), y2: r(b2.y + bh / 2)} : null, clear: bestOv === 0};
     });
     // tracer route through the traversal order: along a drawn connector when consecutive parts are related
     const centre = id => ({x: boxes[id].x + boxes[id].w / 2, y: boxes[id].y + boxes[id].h / 2});
@@ -315,7 +336,6 @@ const scene = {
     for (let i = 1; i < pts.length; i++) cuml.push(cuml[i - 1] + Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y));
     const tot = cuml[cuml.length - 1] || 1;
     const route = {pts, cuml, tot, visits: visits.map(v => ({id: v.id, t: cuml[v.i] / tot}))};
-    const bandNodes = placePanel(ctx, A.panel, px, py);
     return {M, U, R, boxes, nodesChips, conns, labs, route, pull, gpos, C, bandNodes, size: A.size, mode: A.mode, problems};
   },
   build(ctx, L) {
@@ -357,13 +377,14 @@ const scene = {
       // packed start: towards the centre (C) by 55 %, scaled 0.8; gathered end: L.gpos
       const k0 = 1 - ex;
       const gp0 = L.gpos(id);
-      const dx = (L.C.x - cx) * 0.35 * k0 + gp0.dx * ga, dy = (L.C.y - cy) * 0.35 * k0 + gp0.dy * ga;
-      const sc = (1 - 0.15 * k0) * (id === p.focusElement ? 1 + 0.14 * ease.inOutCubic(near[id] || 0) : 1);
+      const dx = (L.C.x - cx) * 0.22 * k0 + gp0.dx * ga, dy = (L.C.y - cy) * 0.22 * k0 + gp0.dy * ga;
+      const sc = (id === p.focusElement ? 1 + 0.14 * ease.inOutCubic(near[id] || 0) : 1);
       nodes[`part-${id}`] = {transform: `${T(cx + dx, cy + dy)} scale(${r(sc, 4)}) ${T(-cx, -cy)}`};
       const nm = seg(u, ...W.names);
       if (L.nodesChips[id].nc) nodes[`nameg-${id}`] = {opacity: r(nm, 3)};
       if (L.nodesChips[id].sc) nodes[`stateg-${id}`] = {opacity: r(seg(u, ...W.state), 3)};
       sem.parts[id] = {x: r(cx + dx), y: r(cy + dy), scale: r(sc, 3)};
+      sem[`part_${id}`] = {x: r(cx + dx), y: r(cy + dy)};
     }
     // relationships draw one after another, then follow the gathered parts (redrawn by a translate of the group: the
     // pull is small and symmetric, so each connector keeps both ends on its parts — they are drawn at the gathered
@@ -410,7 +431,7 @@ export default defineAnimation({
     motif: 'Distribución ilustrativa de pérdidas',
     treatment: 'mechanism',
     family: 'spatial-mechanism',
-    description: 'An exploded view of the division of a hypothetical total: the bar (with the boundaries of both supplied allocations as ● and ◆ ticks of equal weight), the barrier blades, the guide rails and one tray per fictional event move apart into a ring. Only the supplied relationships are drawn, each with its kind (a plain relation has no arrowhead); a tracer follows the traversal order while the focus part enlarges. No share rule, percentage, fault or outcome; no conclusion drawn.',
+    description: 'An exploded view of the division of a hypothetical total: the bar (with the boundaries of both supplied allocations as ● and ◆ ticks of equal weight), the barrier blades, the guide rails and one tray per fictional event move apart into a ring. Only the supplied relationships are drawn, each with its kind (a plain relation has no arrowhead); a tracer follows the traversal order while the focus part enlarges. Nothing is computed, attributed or decided; no conclusion drawn.',
     tags: ['causation', 'loss distribution', 'mechanism', 'barriers', 'connectors', 'events', 'supplied values', 'hypothetical'],
     defaultDurationMs: DURATION,
     assets: ['src/animations/causation/kits/distribucion-perdidas.js', 'src/animations/causation/kits/alcance-dano.js', 'src/animations/causation/kits/prueba-contrafactual.js'],

@@ -151,7 +151,8 @@ export const altText = (ctx, a) => `${ctx.t.other}: ${a.label} (${a.status === '
 /** "● A · Proposed allocation: 40 · 35 · 25 (hypothetical)". */
 export function allocText(ctx, p, M, side) {
   const vs = side === 'a' ? M.vA : M.vB;
-  return `${side === 'a' ? 'A' : 'B'} · ${p.allocationLabels[side]}: ${vs.map(fmtV).join(' · ')} (${p.unit})`;
+  // (the values stay together: never a line that starts with a number)
+  return `${side === 'a' ? 'A' : 'B'} · ${p.allocationLabels[side]}: ${vs.map(fmtV).join('\u00a0·\u00a0')} (${p.unit})`;
 }
 
 /* ------------------------------------------------------------------------ */
@@ -170,16 +171,32 @@ export function sideMark(ctx, {cx, cy, s, side}) {
   return h('circle', {cx: r(cx), cy: r(cy), r: r(s * 0.42), fill: th.accent2, stroke: th.ink, 'stroke-width': 2});
 }
 
-/** A bar piece (segment) of width w and thickness t, local origin = its centre. */
-export function pieceArt(ctx, {w, t, name, tint}) {
-  const th = ctx.theme;
+/** Path data of a bar piece's three parts (body, edge line, top face) for width w and thickness t. */
+export function pieceD(w, t) {
   const ww = Math.max(3, w);
   const top = Math.min(t * 0.28, ww * 0.4);
+  return {
+    body: roundRectPath(-ww / 2, -t / 2, ww, t, Math.min(5, ww / 4)),
+    edge: `M${r(-ww / 2 + 2)} ${r(-t / 2 + top)}H${r(ww / 2 - 2)}`,
+    top: roundRectPath(-ww / 2 + 2, -t / 2 + 2, ww - 4, Math.max(1, top - 2), 3),
+  };
+}
+
+/** A bar piece (segment) of width w and thickness t, local origin = its centre. Named parts: `${name}-body|edge|top`. */
+export function pieceArt(ctx, {w, t, name, tint}) {
+  const th = ctx.theme;
+  const d = pieceD(w, t);
   return g({name},
-    h('path', {d: roundRectPath(-ww / 2, -t / 2, ww, t, Math.min(5, ww / 4)), fill: tint || BAR, stroke: th.ink, 'stroke-width': 2.5}),
-    h('path', {d: `M${r(-ww / 2 + 2)} ${r(-t / 2 + top)}H${r(ww / 2 - 2)}`, stroke: BAR_EDGE, 'stroke-width': 2}),
-    h('path', {d: roundRectPath(-ww / 2 + 2, -t / 2 + 2, ww - 4, Math.max(1, top - 2), 3), fill: BAR_TOP, stroke: 'none'}),
+    h('path', {name: name ? `${name}-body` : undefined, d: d.body, fill: tint || BAR, stroke: th.ink, 'stroke-width': 2.5}),
+    h('path', {name: name ? `${name}-edge` : undefined, d: d.edge, stroke: BAR_EDGE, 'stroke-width': 2}),
+    h('path', {name: name ? `${name}-top` : undefined, d: d.top, fill: BAR_TOP, stroke: 'none'}),
   );
+}
+
+/** Frame record re-shaping a named piece to width w. */
+export function pieceFrame(name, w, t) {
+  const d = pieceD(w, t);
+  return {[`${name}-body`]: {d: d.body}, [`${name}-edge`]: {d: d.edge}, [`${name}-top`]: {d: d.top}};
 }
 
 /** A barrier blade, local origin = its bottom edge centre; height bh, width bw. */
@@ -239,8 +256,8 @@ export function trayBack(ctx, {tw, td, ph, i}) {
 }
 export function trayFront(ctx, {tw, td, ph, i, numText}) {
   const th = ctx.theme;
-  // (the number keeps >= 17 px: the disc grows to hold it)
-  const fs = Math.max(17, Math.min(ph * 0.34, tw * 0.2) * 1.1);
+  // (the number keeps >= 20 px: the disc grows to hold it)
+  const fs = Math.max(20, Math.min(ph * 0.34, tw * 0.2) * 1.1);
   const R = fs / 1.1;
   return g(null,
     h('path', {d: `M${r(-tw / 2)} ${r(td * 0.3)}H${r(tw / 2)}V${r(td)}Q${r(tw / 2)} ${r(td + 4)} ${r(tw / 2 - 4)} ${r(td + 4)}H${r(-tw / 2 + 4)}Q${r(-tw / 2)} ${r(td + 4)} ${r(-tw / 2)} ${r(td)}Z`, fill: eventTint(th, i), stroke: th.ink, 'stroke-width': 2.5}),
@@ -341,7 +358,15 @@ export function panelFlow(ctx, items, size, w, memo, {gap = 14, rowGap = 9, cent
 /** Largest scale S in [lo, hi] with fits(S) true (fits monotone decreasing in S); lo when none. */
 export function maxScale(fits, lo, hi) {
   if (fits(hi)) return hi;
-  if (!fits(lo)) return 0;
+  if (!fits(lo)) {
+    // not monotone at the small end (e.g. a lens that must keep a minimum size): scan down from hi for a fit
+    let found = 0;
+    for (let i = 1; i <= 40 && !found; i++) { const sc = hi * Math.pow(lo / hi, i / 40); if (fits(sc)) found = sc; }
+    if (!found) return 0;
+    lo = found;
+    hi = Math.min(hi, found * Math.pow(hi / lo, 1 / 40) * 1.2);
+    if (fits(hi)) return hi;
+  }
   for (let i = 0; i < 26; i++) { const m = (lo + hi) / 2; if (fits(m)) lo = m; else hi = m; }
   return lo;
 }
@@ -352,14 +377,14 @@ export function maxScale(fits, lo, hi) {
  */
 export function valueChip(ctx, text, {x, y, size, mw, name, stroke}) {
   const th = ctx.theme;
-  const o = {x, y, anchor: 'middle', maxWidth: mw, size, minSize: size, maxLines: 2, fill: th.card, stroke: stroke ?? th.ink, name, weight: 700};
+  const o = {x, y, anchor: 'middle', maxWidth: mw, size, minSize: size, maxLines: 2, fill: th.card, stroke: stroke ?? th.ink, name, weight: 650, padX: size * 0.42, padY: size * 0.3};
   const c = chipG(ctx, text, o);
   return {...c, bad: c.fit.truncated || c.fit.broken};
 }
 
 /** Measure a value chip without building (width / height). */
 export function valueChipSize(ctx, text, size, mw) {
-  const c = chipG(ctx, text, {x: 0, y: 0, maxWidth: mw, size, minSize: size, maxLines: 2, weight: 700});
+  const c = chipG(ctx, text, {x: 0, y: 0, maxWidth: mw, size, minSize: size, maxLines: 2, weight: 650, padX: size * 0.42, padY: size * 0.3});
   return {w: c.box.w, h: c.box.h, bad: c.fit.truncated || c.fit.broken};
 }
 
@@ -376,7 +401,7 @@ export const ST = {t: 0.15, rail: 0.028, bladeH: 0.22, bladeW: 0.045, gapTop: 0.
  * row height (px, under the floor; 0 = none). `drop` (× S) is the height of the guide-rail zone (>= ST.drop).
  * Origin = stage top-left. Trays fixed; `restX(f)` / `spreadX(f)` give segment centres for a fraction list.
  */
-export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, drop, compact = false, stagger = false} = {}) {
+export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, drop, compact = false, stagger = false, minW = 0} = {}) {
   const t = ST.t * S;
   const dropMin = compact ? 0.12 : ST.drop;
   const bladeH = (compact ? 0.17 : ST.bladeH) * S;
@@ -390,18 +415,28 @@ export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, dro
   const pedH = ST.ped * S;
   const floorY = trayTop + td + 4 + pedH;
   const tws = fmax.map(f => f * S + 0.07 * S);
-  const gap = ST.trayGap * S;
+  let gap = ST.trayGap * S;
   // (staggered value chips alternate between two rows, so a slot only needs about half its chip's width)
   const slot = tws.map((tw, i) => Math.max(tw, ((chipWs[i] ?? 0) + 6) * (stagger ? 0.56 : 1)));
-  const rowW = slot.reduce((a, b) => a + b, 0) + gap * (n - 1);
+  let rowW = slot.reduce((a, b) => a + b, 0) + gap * (n - 1);
   const spreadW = S + (n - 1) * ST.spread * S;
   const shelfW = spreadW + 2 * ST.side * S;
   // value chips may overhang their slot (staggered rows): the stage box holds them
-  const rel = [];
-  let x = 0;
-  slot.forEach(sw => { rel.push(x + sw / 2); x += sw + gap; });
-  const lo = Math.min(0, ...rel.map((c, i) => c - (chipWs[i] ?? 0) / 2 - 2));
-  const hi = Math.max(rowW, ...rel.map((c, i) => c + (chipWs[i] ?? 0) / 2 + 2));
+  const span = () => {
+    const rel = [];
+    let x = 0;
+    slot.forEach(sw => { rel.push(x + sw / 2); x += sw + gap; });
+    const lo = Math.min(0, ...rel.map((c, i) => c - (chipWs[i] ?? 0) / 2 - 2));
+    const hi = Math.max(rowW, ...rel.map((c, i) => c + (chipWs[i] ?? 0) / 2 + 2));
+    return {rel, lo, hi};
+  };
+  let {rel, lo, hi} = span();
+  // (minW: the tray row spreads out — wider gaps, up to 1.7 × its natural width — so the stage can fill a wider box)
+  if (minW > hi - lo && n > 1) {
+    const add = Math.min(minW - (hi - lo), rowW * 0.7);
+    gap += add / (n - 1); rowW += add;
+    ({rel, lo, hi} = span());
+  }
   const rowSpan = hi - lo;
   const W = Math.max(rowSpan, shelfW) + 8;
   const cx = W / 2;
@@ -418,7 +453,7 @@ export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, dro
     S, n, t, W, H, cx, bx0, railY, bladeTopRest, barTop, barMid, shelfY, trayTop, td, pedH, floorY, tws, slot, trayX, gap,
     shelfX0: cx - shelfW / 2, shelfX1: cx + shelfW / 2, rowW, rowX0,
     bladeW: ST.bladeW * S, bladeH,
-    bladeRestY: bladeTopRest + bladeH, dropMin, stagger,
+    bladeRestY: bladeTopRest + bladeH, dropMin, stagger, chipH,
     chipRowY: i => floorY + ST.floor + chipGap + (stagger && i % 2 ? chipH + 6 : 0), bladeCutY: barTop + t + 2,
     chipY: floorY + ST.floor + chipGap,
     restX, spreadX, cutX, gapX,
@@ -427,7 +462,7 @@ export function stageGeom(S, n, fmax, {chipWs = [], chipH = 0, chipGap = 10, dro
 }
 
 /** Extra guide-rail height (× S) that makes a stage of scale S exactly fill height bh (capped). */
-export const DROP_CAP = 0.55;
+export const DROP_CAP = 0.95;
 export function fillDrop(G, bh, cap = DROP_CAP) {
   return clamp(G.dropMin + (bh - G.H) / G.S, G.dropMin, cap);
 }
@@ -478,7 +513,9 @@ export function arrangeScene(ctx, o) {
   for (let size = o.sizes[0]; size >= o.sizes[1] - 1e-9; size -= 1) {
     const sts = [].concat(o.stage(size) || []).filter(q => !q.bad);
     let best = null;
-    for (const st of sts) for (const mode of o.modes) {
+    // (no panel — labels hidden — : the stage takes the whole box)
+    const modes = o.items.length ? o.modes : ['below'];
+    for (const st of sts) for (const mode of modes) {
       const pws = mode === 'side' ? (o.sideWs ?? [0.3, 0.36, 0.42, 0.5]).map(f => Math.round(full * f)) : [full];
       for (const pw of pws) {
         const panel = o.items.length ? panelFlow(ctx, o.items, size, pw, o.memo, {center: mode !== 'side', maxLines: mode === 'side' ? 4 : 3}) : {placed: [], h: 0, bad: false};
@@ -491,7 +528,9 @@ export function arrangeScene(ctx, o) {
         // (score: the stage's scale, with a bonus for using the box's height once the rail zone grows — st.dimsMax)
         const hMax = st.dimsMax ? Math.min(bh, st.dimsMax(S).h) : st.dims(S).h;
         const used = mode === 'side' ? Math.max(hMax, panel.h) / fullH : (hMax + (panel.h ? panel.h + GAP : 0)) / fullH;
-        const score = S * (0.7 + 0.3 * Math.min(1, used));
+        // (and a bonus for a stage that covers a real share of the box: >= 30 % of it gets the full bonus)
+        const area = (st.dims(S).w * hMax) / (full * fullH);
+        const score = S * (0.7 + 0.3 * Math.min(1, used)) * (0.75 + 0.25 * Math.min(1, area / 0.3));
         if (!best || score > best.score + 1e-6) best = {size, mode, S, pw, panel, bw, bh, st, score};
       }
     }
@@ -500,8 +539,12 @@ export function arrangeScene(ctx, o) {
   if (!cands.length) return null;
   // text at >= 20 (the 19.5 px baseline floor) whenever any arrangement allows it; then the largest text whose stage
   // stays >= keep of the largest stage found
+  // (baseline-length text — up to ~520 characters in the panel — keeps >= 20 even at a real cost to the stage; long
+  // texts only when it costs little)
+  const chars = o.items.reduce((a, it) => a + String(it.text || '').length, 0) + (o.extraChars ?? 0);
+  const keep20 = o.keep20 ?? (chars <= 520 ? 0.35 : 0.8);
   const c20 = cands.filter(c => c.size >= 20 - 1e-9);
-  const pool = c20.length && Math.max(...c20.map(c => c.score)) >= (o.keep20 ?? 0.7) * Math.max(...cands.map(c => c.score)) ? c20 : cands;
+  const pool = c20.length && Math.max(...c20.map(c => c.score)) >= keep20 * Math.max(...cands.map(c => c.score)) ? c20 : cands;
   const Sbest = Math.max(...pool.map(c => c.score));
   const keep = o.keep ?? 0.88;
   const ok = pool.filter(c => c.score >= keep * Sbest - 1e-6);

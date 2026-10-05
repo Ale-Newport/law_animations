@@ -214,7 +214,10 @@ function stackList(ctx, base, items, size, slots, gap) {
       const S = slots[si];
       const c = listItem(ctx, base, it, size, S.w);
       if (c.bad) return null;
-      if (y + c.h <= S.y + S.h + 0.5) { placed.push({c, x: S.x, y}); y += c.h + gap; break; }
+      // (the two lane keys stay together in one slot: lane A only goes where lane B fits right under it)
+      const nx = it.key === 'laneA' ? items.find(q => q.key === 'laneB') : null;
+      const need = nx ? c.h + gap + listItem(ctx, base, nx, size, S.w).h : c.h;
+      if (y + need <= S.y + S.h + 0.5) { placed.push({c, x: S.x, y}); y += c.h + gap; break; }
       si++;
       if (si < slots.length) y = slots[si].y;
     }

@@ -7,7 +7,7 @@
       "pass": true,
       "detail": {
         "id": "LAW-0499",
-        "version": "1.0.0"
+        "version": "2.0.0"
       }
     },
     {
@@ -89,7 +89,8 @@
       "name": "user text is inserted as text nodes (no markup injection)",
       "pass": true,
       "detail": {
-        "field": "parties.0.name"
+        "field": "contract.reference",
+        "rejected": "Invalid animation parameters:\n - params.contract.reference: must have at most 32 characters (received 53)"
       }
     },
     {
@@ -125,455 +126,330 @@
       "detail": []
     },
     {
-      "name": "semantic: base: the two rooms are identical; no state shown yet @0.1",
+      "name": "semantic: base: the two walls are the same scene @0",
       "pass": true,
       "detail": {
         "semantic": {
           "beat": "base",
-          "brA": {
-            "x": 849.29,
-            "y": 530.46
+          "lookA": "175.21|168.8|168.8|0",
+          "lookB": "175.21|168.8|168.8|0",
+          "slipA": {
+            "x": 189.21,
+            "y": 253.31
           },
-          "handAB": {
-            "x": 944.58,
-            "y": 626.33
+          "slipB": {
+            "x": 1227.96,
+            "y": 253.31
           },
-          "handAA": {
-            "x": 81.43,
-            "y": 626.33
+          "carrierA": {
+            "x": 189.21,
+            "y": 189.31
           },
-          "heldA": null,
-          "reacheda": true,
-          "armsCleara": true,
-          "stateA": "none",
-          "bracketA": "open",
-          "cordA": 0,
-          "brB": {
-            "x": 1884.78,
-            "y": 530.46
+          "carrierB": {
+            "x": 1227.96,
+            "y": 189.31
           },
-          "handBB": {
-            "x": 1980.07,
-            "y": 626.33
-          },
-          "handBA": {
-            "x": 1116.91,
-            "y": 626.33
-          },
-          "heldB": null,
-          "reachedb": true,
-          "armsClearb": true,
-          "stateB": "none",
-          "bracketB": "open",
-          "cordB": 0,
-          "lookA": "{\"st\":\"none\",\"ring\":0,\"cord\":0,\"br\":[843.29,526.46],\"hB\":null}",
-          "lookB": "{\"st\":\"none\",\"ring\":0,\"cord\":0,\"br\":[843.29,526.46],\"hB\":null}",
-          "allReached": true,
-          "armsClear": true,
-          "guide": 0,
+          "hookA": 0,
+          "coverB": 0,
+          "slipAAt": "rail",
+          "slipBAt": "rail",
+          "linkedA": null,
+          "linkedB": null,
+          "guideShown": 0,
+          "tagsShown": 0,
+          "keyShown": 0,
+          "arrangement": "row",
+          "textPx": 25,
           "layoutOk": true,
           "why": "",
-          "problems": [],
-          "textPx": 22,
-          "headPx": 68,
-          "roomShare": 0.495
+          "problems": []
         }
       }
     },
     {
-      "name": "semantic: change: provided for in room A, not described in room B @0.35",
+      "name": "semantic: identical before the change beat @0.15",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": "175.21|168.8|168.8|0",
+          "lookB": "175.21|168.8|168.8|0",
+          "slipA": {
+            "x": 189.21,
+            "y": 253.31
+          },
+          "slipB": {
+            "x": 1227.96,
+            "y": 253.31
+          },
+          "carrierA": {
+            "x": 189.21,
+            "y": 189.31
+          },
+          "carrierB": {
+            "x": 1227.96,
+            "y": 189.31
+          },
+          "hookA": 0,
+          "coverB": 0,
+          "slipAAt": "rail",
+          "slipBAt": "rail",
+          "linkedA": null,
+          "linkedB": null,
+          "guideShown": 0,
+          "tagsShown": 0,
+          "keyShown": 0,
+          "arrangement": "row",
+          "textPx": 25,
+          "layoutOk": true,
+          "why": "",
+          "problems": []
+        }
+      }
+    },
+    {
+      "name": "semantic: the one changed fact appears at the same slot before the slips move @0.36",
       "pass": true,
       "detail": {
         "semantic": {
           "beat": "change",
-          "brA": {
-            "x": 849.29,
-            "y": 530.46
+          "lookA": "A:175.21|168.8|168.8|1",
+          "lookB": "B:175.21|168.8|168.8|1",
+          "slipA": {
+            "x": 189.21,
+            "y": 253.31
           },
-          "handAB": {
-            "x": 944.58,
-            "y": 626.33
+          "slipB": {
+            "x": 1227.96,
+            "y": 253.31
           },
-          "handAA": {
-            "x": 81.43,
-            "y": 626.33
+          "carrierA": {
+            "x": 189.21,
+            "y": 189.31
           },
-          "heldA": null,
-          "reacheda": true,
-          "armsCleara": true,
-          "stateA": "provided",
-          "bracketA": "open",
-          "cordA": 0,
-          "brB": {
-            "x": 1884.78,
-            "y": 530.46
+          "carrierB": {
+            "x": 1227.96,
+            "y": 189.31
           },
-          "handBB": {
-            "x": 1980.07,
-            "y": 626.33
-          },
-          "handBA": {
-            "x": 1116.91,
-            "y": 626.33
-          },
-          "heldB": null,
-          "reachedb": true,
-          "armsClearb": true,
-          "stateB": "undescribed",
-          "bracketB": "open",
-          "cordB": 0,
-          "lookA": "{\"st\":\"shown\",\"ring\":1,\"cord\":0,\"br\":[843.29,526.46],\"hB\":null}",
-          "lookB": "{\"st\":\"shown\",\"ring\":1,\"cord\":0,\"br\":[843.29,526.46],\"hB\":null}",
-          "allReached": true,
-          "armsClear": true,
-          "guide": 0,
+          "hookA": 1,
+          "coverB": 1,
+          "slipAAt": "rail",
+          "slipBAt": "rail",
+          "linkedA": null,
+          "linkedB": null,
+          "guideShown": 0,
+          "tagsShown": 0,
+          "keyShown": 0,
+          "arrangement": "row",
+          "textPx": 25,
           "layoutOk": true,
           "why": "",
-          "problems": [],
-          "textPx": 22,
-          "headPx": 68,
-          "roomShare": 0.495
+          "problems": []
         }
       }
     },
     {
-      "name": "semantic: room A: Party B slides the bracket; room B: it stays open @0.55",
+      "name": "semantic: both carriers run together @0.5",
       "pass": true,
       "detail": {
         "semantic": {
           "beat": "parallel",
-          "brA": {
-            "x": 816.19,
-            "y": 530.46
+          "lookA": "A:667.84|168.8|168.8|1",
+          "lookB": "B:667.84|168.8|168.8|1",
+          "slipA": {
+            "x": 681.84,
+            "y": 253.31
           },
-          "handAB": {
-            "x": 837.93,
-            "y": 491.73
+          "slipB": {
+            "x": 1720.59,
+            "y": 253.31
           },
-          "handAA": {
-            "x": 81.43,
-            "y": 626.33
+          "carrierA": {
+            "x": 681.84,
+            "y": 189.31
           },
-          "heldA": {
-            "grip": {
-              "x": 837.93,
-              "y": 491.73
-            }
+          "carrierB": {
+            "x": 1720.59,
+            "y": 189.31
           },
-          "reacheda": true,
-          "armsCleara": true,
-          "stateA": "provided",
-          "bracketA": "moving",
-          "cordA": 0,
-          "brB": {
-            "x": 1884.78,
-            "y": 530.46
-          },
-          "handBB": {
-            "x": 1980.07,
-            "y": 626.33
-          },
-          "handBA": {
-            "x": 1116.91,
-            "y": 626.33
-          },
-          "heldB": null,
-          "reachedb": true,
-          "armsClearb": true,
-          "stateB": "undescribed",
-          "bracketB": "open",
-          "cordB": 0,
-          "lookA": "{\"st\":\"shown\",\"ring\":0,\"cord\":0,\"br\":[810.19,526.46],\"hB\":[831.93,487.73]}",
-          "lookB": "{\"st\":\"shown\",\"ring\":0,\"cord\":0,\"br\":[843.29,526.46],\"hB\":null}",
-          "allReached": true,
-          "armsClear": true,
-          "guide": 0,
+          "hookA": 1,
+          "coverB": 1,
+          "slipAAt": "running",
+          "slipBAt": "running",
+          "linkedA": null,
+          "linkedB": null,
+          "guideShown": 0,
+          "tagsShown": 0,
+          "keyShown": 0,
+          "arrangement": "row",
+          "textPx": 25,
           "layoutOk": true,
           "why": "",
-          "problems": [],
-          "textPx": 22,
-          "headPx": 68,
-          "roomShare": 0.495
+          "problems": []
         }
       }
     },
     {
-      "name": "semantic: guide: the case rows ringed in both rooms; the cord only in room A; nothing concluded @1",
-      "pass": true,
-      "detail": {
-        "semantic": {
-          "beat": "guide",
-          "brA": {
-            "x": 790.24,
-            "y": 530.46
-          },
-          "handAB": {
-            "x": 944.58,
-            "y": 626.33
-          },
-          "handAA": {
-            "x": 81.43,
-            "y": 626.33
-          },
-          "heldA": null,
-          "reacheda": true,
-          "armsCleara": true,
-          "stateA": "provided",
-          "bracketA": "closed",
-          "cordA": 1,
-          "brB": {
-            "x": 1884.78,
-            "y": 530.46
-          },
-          "handBB": {
-            "x": 1980.07,
-            "y": 626.33
-          },
-          "handBA": {
-            "x": 1116.91,
-            "y": 626.33
-          },
-          "heldB": null,
-          "reachedb": true,
-          "armsClearb": true,
-          "stateB": "undescribed",
-          "bracketB": "open",
-          "cordB": 0,
-          "lookA": "{\"st\":\"shown\",\"ring\":1,\"cord\":1,\"br\":[784.24,526.46],\"hB\":null}",
-          "lookB": "{\"st\":\"shown\",\"ring\":1,\"cord\":0,\"br\":[843.29,526.46],\"hB\":null}",
-          "allReached": true,
-          "armsClear": true,
-          "guide": 1,
-          "layoutOk": true,
-          "why": "",
-          "problems": [],
-          "textPx": 22,
-          "headPx": 68,
-          "roomShare": 0.495
-        }
-      }
-    },
-    {
-      "name": "semantic: no cord before the bracket has clasped @0.65",
+      "name": "semantic: both slips are lowered for the same time @0.65",
       "pass": true,
       "detail": {
         "semantic": {
           "beat": "parallel",
-          "brA": {
-            "x": 790.24,
-            "y": 530.46
+          "lookA": "A:799.53|284.04|284.04|1",
+          "lookB": "B:799.53|340.12|340.12|1",
+          "slipA": {
+            "x": 813.53,
+            "y": 368.54
           },
-          "handAB": {
-            "x": 930.88,
-            "y": 612.42
+          "slipB": {
+            "x": 1852.28,
+            "y": 424.62
           },
-          "handAA": {
-            "x": 81.43,
-            "y": 626.33
+          "carrierA": {
+            "x": 813.53,
+            "y": 189.31
           },
-          "heldA": null,
-          "reacheda": true,
-          "armsCleara": true,
-          "stateA": "provided",
-          "bracketA": "closed",
-          "cordA": 0,
-          "brB": {
-            "x": 1884.78,
-            "y": 530.46
+          "carrierB": {
+            "x": 1852.28,
+            "y": 189.31
           },
-          "handBB": {
-            "x": 1980.07,
-            "y": 626.33
-          },
-          "handBA": {
-            "x": 1116.91,
-            "y": 626.33
-          },
-          "heldB": null,
-          "reachedb": true,
-          "armsClearb": true,
-          "stateB": "undescribed",
-          "bracketB": "open",
-          "cordB": 0,
-          "lookA": "{\"st\":\"shown\",\"ring\":0,\"cord\":0,\"br\":[784.24,526.46],\"hB\":[924.88,608.42]}",
-          "lookB": "{\"st\":\"shown\",\"ring\":0,\"cord\":0,\"br\":[843.29,526.46],\"hB\":null}",
-          "allReached": true,
-          "armsClear": true,
-          "guide": 0,
+          "hookA": 1,
+          "coverB": 1,
+          "slipAAt": "lowering",
+          "slipBAt": "lowering",
+          "linkedA": null,
+          "linkedB": null,
+          "guideShown": 0,
+          "tagsShown": 0,
+          "keyShown": 0,
+          "arrangement": "row",
+          "textPx": 25,
           "layoutOk": true,
           "why": "",
-          "problems": [],
-          "textPx": 22,
-          "headPx": 68,
-          "roomShare": 0.495
+          "problems": []
         }
       }
     },
     {
-      "name": "semantic: seeking back restores the base @0.15",
+      "name": "semantic: hold: A hangs on section 2's hook, B rests in the tray; guide and neutral note @1",
       "pass": true,
       "detail": {
         "semantic": {
-          "beat": "base",
-          "brA": {
-            "x": 849.29,
-            "y": 530.46
+          "beat": "hold",
+          "lookA": "A:799.53|399.28|142.8|1",
+          "lookB": "B:799.53|511.43|142.8|1",
+          "slipA": {
+            "x": 813.53,
+            "y": 483.78
           },
-          "handAB": {
-            "x": 944.58,
-            "y": 626.33
+          "slipB": {
+            "x": 1852.28,
+            "y": 595.93
           },
-          "handAA": {
-            "x": 81.43,
-            "y": 626.33
+          "carrierA": {
+            "x": 813.53,
+            "y": 189.31
           },
-          "heldA": null,
-          "reacheda": true,
-          "armsCleara": true,
-          "stateA": "none",
-          "bracketA": "open",
-          "cordA": 0,
-          "brB": {
-            "x": 1884.78,
-            "y": 530.46
+          "carrierB": {
+            "x": 1852.28,
+            "y": 189.31
           },
-          "handBB": {
-            "x": 1980.07,
-            "y": 626.33
-          },
-          "handBA": {
-            "x": 1116.91,
-            "y": 626.33
-          },
-          "heldB": null,
-          "reachedb": true,
-          "armsClearb": true,
-          "stateB": "none",
-          "bracketB": "open",
-          "cordB": 0,
-          "lookA": "{\"st\":\"none\",\"ring\":0,\"cord\":0,\"br\":[843.29,526.46],\"hB\":null}",
-          "lookB": "{\"st\":\"none\",\"ring\":0,\"cord\":0,\"br\":[843.29,526.46],\"hB\":null}",
-          "allReached": true,
-          "armsClear": true,
-          "guide": 0,
+          "hookA": 1,
+          "coverB": 1,
+          "slipAAt": "hook",
+          "slipBAt": "tray",
+          "linkedA": 2,
+          "linkedB": null,
+          "guideShown": 1,
+          "tagsShown": 1,
+          "keyShown": 1,
+          "arrangement": "row",
+          "textPx": 25,
           "layoutOk": true,
           "why": "",
-          "problems": [],
-          "textPx": 22,
-          "headPx": 68,
-          "roomShare": 0.495
+          "problems": []
         }
       }
     },
     {
-      "name": "semantic: alternative: the other way round @1",
+      "name": "semantic: stress: section 3 @1",
       "pass": true,
       "detail": {
         "semantic": {
-          "beat": "guide",
-          "brA": {
-            "x": 849.29,
-            "y": 401.81
+          "beat": "hold",
+          "lookA": "A:719.95|499.48|135|1",
+          "lookB": "B:719.95|511.48|135|1",
+          "slipA": {
+            "x": 733.95,
+            "y": 579.1
           },
-          "handAB": {
-            "x": 944.58,
-            "y": 626.33
+          "slipB": {
+            "x": 1772.7,
+            "y": 591.1
           },
-          "handAA": {
-            "x": 81.43,
-            "y": 626.33
+          "carrierA": {
+            "x": 733.95,
+            "y": 176.62
           },
-          "heldA": null,
-          "reacheda": true,
-          "armsCleara": true,
-          "stateA": "undescribed",
-          "bracketA": "open",
-          "cordA": 0,
-          "brB": {
-            "x": 1825.72,
-            "y": 401.81
+          "carrierB": {
+            "x": 1772.7,
+            "y": 176.62
           },
-          "handBB": {
-            "x": 1980.07,
-            "y": 626.33
-          },
-          "handBA": {
-            "x": 1116.91,
-            "y": 626.33
-          },
-          "heldB": null,
-          "reachedb": true,
-          "armsClearb": true,
-          "stateB": "provided",
-          "bracketB": "closed",
-          "cordB": 1,
-          "lookA": "{\"st\":\"shown\",\"ring\":1,\"cord\":0,\"br\":[843.29,397.81],\"hB\":null}",
-          "lookB": "{\"st\":\"shown\",\"ring\":1,\"cord\":1,\"br\":[784.24,397.81],\"hB\":null}",
-          "allReached": true,
-          "armsClear": true,
-          "guide": 1,
+          "hookA": 1,
+          "coverB": 1,
+          "slipAAt": "hook",
+          "slipBAt": "tray",
+          "linkedA": 3,
+          "linkedB": null,
+          "guideShown": 1,
+          "tagsShown": 1,
+          "keyShown": 1,
+          "arrangement": "row",
+          "textPx": 21,
           "layoutOk": true,
           "why": "",
-          "problems": [],
-          "textPx": 22,
-          "headPx": 68,
-          "roomShare": 0.495
+          "problems": []
         }
       }
     },
     {
-      "name": "semantic: labels hidden: the same action @0.8",
+      "name": "semantic: labels hidden: the same contrast @1",
       "pass": true,
       "detail": {
         "semantic": {
-          "beat": "guide",
-          "brA": {
-            "x": 790.24,
-            "y": 608.23
+          "beat": "hold",
+          "lookA": "A:799.53|429.37|142.8|1",
+          "lookB": "B:799.53|585.11|142.8|1",
+          "slipA": {
+            "x": 813.53,
+            "y": 513.87
           },
-          "handAB": {
-            "x": 944.58,
-            "y": 742.82
+          "slipB": {
+            "x": 1852.28,
+            "y": 669.62
           },
-          "handAA": {
-            "x": 81.43,
-            "y": 742.82
+          "carrierA": {
+            "x": 813.53,
+            "y": 189.31
           },
-          "heldA": null,
-          "reacheda": true,
-          "armsCleara": true,
-          "stateA": "provided",
-          "bracketA": "closed",
-          "cordA": 1,
-          "brB": {
-            "x": 1884.78,
-            "y": 608.23
+          "carrierB": {
+            "x": 1852.28,
+            "y": 189.31
           },
-          "handBB": {
-            "x": 1980.07,
-            "y": 742.82
-          },
-          "handBA": {
-            "x": 1116.91,
-            "y": 742.82
-          },
-          "heldB": null,
-          "reachedb": true,
-          "armsClearb": true,
-          "stateB": "undescribed",
-          "bracketB": "open",
-          "cordB": 0,
-          "lookA": "{\"st\":\"shown\",\"ring\":0.4,\"cord\":1,\"br\":[784.24,604.23],\"hB\":null}",
-          "lookB": "{\"st\":\"shown\",\"ring\":0.4,\"cord\":0,\"br\":[843.29,604.23],\"hB\":null}",
-          "allReached": true,
-          "armsClear": true,
-          "guide": 0.4,
+          "hookA": 1,
+          "coverB": 1,
+          "slipAAt": "hook",
+          "slipBAt": "tray",
+          "linkedA": 2,
+          "linkedB": null,
+          "guideShown": 1,
+          "tagsShown": 1,
+          "keyShown": 1,
+          "arrangement": "row",
+          "textPx": 25,
           "layoutOk": true,
           "why": "",
-          "problems": [],
-          "textPx": 22,
-          "headPx": 68,
-          "roomShare": 0.495
+          "problems": []
         }
       }
     }

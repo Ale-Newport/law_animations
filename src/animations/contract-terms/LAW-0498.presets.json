@@ -1,114 +1,55 @@
 {
   "animationId": "LAW-0498",
-  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the communication and the sections of the termination clause are generic placeholders, never real contract text or notices. \"Provided for\" and \"not described\" are supplied cases of equal weight (● and ◆ of the same area, colour and stroke); the connector bracket and cord only show the connection that is supplied. No termination doctrine is stated: no ground or right to terminate, no notice period or time limit, no effect, no validity or sufficiency judgement, and no jurisdiction; the case \"not described\" is neutral (no conclusion). Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): schedules, definitions and priorities (no priority or order between sections is drawn); clauses = the sections of the termination clause. No stress field is capped.",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the circumstance, the communication and the sections of the termination clause are generic placeholders, never real contract text or notices. \"Provided for\" and \"not described\" are supplied cases of equal weight (● and ◆ of the same area, colour and stroke); the joined outline only shows the link that is supplied, drawn without arrows. No termination doctrine is stated: no ground or right to terminate, no notice period or time limit, no effect, no validity or sufficiency judgement, and no jurisdiction; the case \"not described\" is neutral (the outline closes around the empty band, no conclusion). Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): schedules, definitions, priorities, relationships and relationLabels (the only relation drawn is the supplied link, as a plain relation), elements (the element labels are the contract, clause, circumstance and communication fields).",
   "presets": [
     {
       "name": "baseline-illustrative",
-      "description": "Fictional contract taken apart: the part relations, the communication link (case provided for, as supplied), the marker along contract → card → link → section, and the bracket shut on section 2 of 3.",
+      "description": "Light table: the circumstance and communication layers slide onto the contract sheet and their half-frames close around section 2 of 3 (case provided for, as supplied); the magnifier traces circumstance → section → communication.",
       "params": {}
     },
     {
       "name": "contrast-or-alternative",
-      "description": "Substantive alternative: other contract, two sections, section 1, the case not described and the section panel as focus: no communication link is drawn, the marker stops at the card and the bracket stays open — neutral, as supplied.",
+      "description": "Substantive alternative: another contract, two sections and the supplied case not described: the half-frames close around the empty band below the sections; the magnifier traces communication → section and dwells on the communication.",
       "params": {
-        "caseState": "undescribed",
-        "focusElement": "section",
-        "traversalOrder": [
-          "circumstance",
-          "link",
-          "section"
-        ],
-        "contract": {
-          "reference": "CT-608",
-          "title": "Service contract (fictional)"
-        },
-        "circumstance": {
-          "label": "Communication 2 (supplied)"
-        },
-        "clauses": [
-          "Section A (supplied text)",
-          "Section B (supplied text)"
-        ],
-        "section": {
-          "from": 1,
-          "to": 1
-        }
+        "contract": {"reference": "CT-608", "title": "Service contract (fictional)"},
+        "circumstance": {"label": "Circumstance 2 (supplied)"},
+        "communication": {"label": "Communication 2 (supplied)"},
+        "clauses": ["Section A (supplied text)", "Section B (supplied text)"],
+        "section": 1,
+        "focusElement": "communication",
+        "traversalOrder": ["communication", "section"],
+        "finalState": "undescribed"
       }
     },
     {
       "name": "long-labels-stress",
-      "description": "Long labels: a long contract heading, long panel headings, a long card label and case wording, three long sections, sections 2–3 and long relation labels.",
+      "description": "Long labels: a long contract heading and clause heading, long layer labels and case wording, three long sections, section 3 and two annotations; the supplied case is provided for.",
       "params": {
-        "relationLabels": {
-          "part": "Part of this fictional contract",
-          "config": "Communication from card to bracket (as supplied)"
-        },
-        "focusElement": "link",
-        "parties": [
-          {
-            "name": "Maria-Fernanda Castellanos Villavicencio",
-            "role": "Party A"
-          },
-          {
-            "name": "Oluwaseun Bartholomew-Nakamura",
-            "role": "Party B"
-          }
+        "contract": {"reference": "CONTRACT-2026-0731", "title": "Contract laid on a light table with a termination clause (fictional)"},
+        "clauseTitle": "Termination clause, sections exactly as listed",
+        "circumstance": {"label": "Circumstance 1, named in this fictional contract (supplied)"},
+        "communication": {"label": "Communication 1, named in this fictional contract (supplied)"},
+        "stateLabels": {"provided": "Case provided for, exactly as supplied in this example", "undescribed": "Case not described, exactly as supplied in this example"},
+        "clauses": ["Section 1, first item listed in the clause (supplied text)", "Section 2, second item listed in the clause (supplied text)", "Section 3, third item listed in the clause (supplied text)"],
+        "section": 3,
+        "annotations": [
+          {"target": "section", "text": "The outline joins at the section exactly as it was supplied"},
+          {"target": "communication", "text": "The communication layer exactly as it was supplied here"}
         ],
-        "contract": {
-          "reference": "CONTRACT-2026-0523",
-          "title": "Contract with a panel of communications and a termination clause (fictional)"
-        },
-        "panels": {
-          "circumstance": "Circumstances and communications, as supplied",
-          "section": "Termination clause, sections as listed"
-        },
-        "circumstance": {
-          "label": "Communication 1, named in this fictional contract (supplied)"
-        },
-        "stateLabels": {
-          "provided": "Case provided for, exactly as supplied in this example",
-          "undescribed": "Case not described, exactly as supplied in this example"
-        },
-        "clauses": [
-          "Section 1, first item listed in the clause panel (supplied text)",
-          "Section 2, second item listed in the clause panel (supplied text)",
-          "Section 3, third item listed in the clause panel (supplied text)"
-        ],
-        "section": {
-          "from": 2,
-          "to": 3
-        }
+        "finalState": "provided"
       }
     },
     {
       "name": "baseline-es",
-      "description": "Línea de base en español: el contrato se separa; relaciones de parte, el enlace «Comunicación (según lo aportado)» (supuesto previsto), el marcador y el conector cerrado sobre el apartado 2 de 3.",
+      "description": "Línea de base en español: las capas de circunstancia y de comunicación se deslizan sobre el contrato y sus medios marcos se cierran alrededor del apartado 2 de 3 (supuesto previsto, según lo aportado).",
       "params": {
         "locale": "es",
-        "relationLabels": {
-          "part": "Parte del contrato",
-          "config": "Comunicación (según lo aportado)"
-        },
-        "contract": {
-          "reference": "CT-523",
-          "title": "Contrato (ficticio)"
-        },
-        "panels": {
-          "circumstance": "Circunstancias y comunicaciones",
-          "section": "Cláusula de terminación"
-        },
-        "circumstance": {
-          "label": "Comunicación 1 (aportada)"
-        },
-        "stateLabels": {
-          "provided": "Supuesto previsto (según lo aportado)",
-          "undescribed": "Supuesto no descrito (según lo aportado)"
-        },
-        "clauses": [
-          "Apartado 1 (texto aportado)",
-          "Apartado 2 (texto aportado)",
-          "Apartado 3 (texto aportado)"
-        ]
+        "contract": {"reference": "CT-731", "title": "Contrato (ficticio)"},
+        "clauseTitle": "Cláusula de terminación",
+        "circumstance": {"label": "Circunstancia 1 (aportada)"},
+        "communication": {"label": "Comunicación 1 (aportada)"},
+        "stateLabels": {"provided": "Supuesto previsto (según lo aportado)", "undescribed": "Supuesto no descrito (según lo aportado)"},
+        "clauses": ["Apartado 1 (texto aportado)", "Apartado 2 (texto aportado)", "Apartado 3 (texto aportado)"]
       }
     }
   ]

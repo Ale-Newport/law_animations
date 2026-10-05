@@ -293,7 +293,8 @@ export function saGeometry(W, H, R, o = {}) {
   const needW = Math.ceil(Math.max(mL + rowW + Math.max(mR, courier ? BACK + PERSON.half + 14 - (SW / 2 - CARRY_DX) : 0), bd ? bd.w + 120 : 0, 520) / 4) * 4;
   // (the wall calendar hangs on the left wall: in the top corner, or under the status sign when there is one)
   const clock = low ? {cx: sign.x + sign.w + 48, cy: sign.y + sign.h - 34, R: 28} : {cx: 56, cy: sign ? sign.y + sign.h + 52 : 58, R: 28};
-  const needH = Math.ceil(Math.max(needH0, 380, low ? 0 : clock.cy + clock.R * 1.1 + 28) / 4) * 4;
+  // (opt-in minH — LAW-0329 1:1: a shallower minimum room, so a room bound by its height scales its objects up)
+  const needH = Math.ceil(Math.max(needH0, o.minH ?? 380, low ? 0 : clock.cy + clock.R * 1.1 + 28) / 4) * 4;
   const Cx = x0 + rowW / 2;
   const board = bd ? {x: clamp(Cx - bd.w / 2, 30, W - 30 - bd.w), y: boardY + Math.max(0, (H - needH) * 0.5), w: bd.w, h: bd.h} : null;
   const problems = [];
@@ -910,7 +911,7 @@ export function composeSa(ctx, P, R, box, F, o = {}) {
     }
     const bd = o.board ? o.board(withText ? Ft : null, k) : null;
     const G = saGeometry(W, H, R, {Ft: withText || o.numbers || o.letters ? Ft : null, nameFits, letters: (withText && o.names === 'letters') || o.letters ? Ft : 0, docK: o.docK, gap: gapNow, courier: o.courier, board: bd, sign: o.sign, signW: o.signW, extraH: o.extraH, depthK: dkNow,
-      ...(o.letterSide ? {letterSide: true} : {}), ...(o.signLow ? {signLow: true} : {}), ...(o.padL ? {padL: o.padL} : {}), ...(o.tabPad ? {tabPad: o.tabPad} : {}),
+      ...(o.letterSide ? {letterSide: true} : {}), ...(o.signLow ? {signLow: true} : {}), ...(o.padL ? {padL: o.padL} : {}), ...(o.tabPad ? {tabPad: o.tabPad} : {}), ...(o.minH != null ? {minH: o.minH} : {}),
       untangle: o.untangle ? {clear: (o.untangle.clearPx ?? 16) / (pxPerUnit(ctx) * k)} : null});
     G.depthK = dkNow;
     G.Ft = withText || o.numbers || o.letters ? Ft : null;
@@ -931,7 +932,7 @@ export function composeSa(ctx, P, R, box, F, o = {}) {
   for (let it = 0; it < 4; it++) {
     const G0 = geoAt(2000, 2000, k);
     W = Math.max(G0.needW * sc, 520 * sc);
-    H = Math.max(G0.needH * sc, 380 * sc);
+    H = Math.max(G0.needH * sc, (o.minH ?? 380) * sc);
     fill();
     const k2 = kOk(Math.min(box.w / (W + 2 * t), box.h / (H + 2 * t)));
     if (Math.abs(k2 - k) < 1e-4) { k = k2; break; }

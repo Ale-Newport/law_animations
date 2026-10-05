@@ -28,7 +28,7 @@ contractSuite(ID, {
     {at: 0.67, fn: "s.datum === 'after' && s.tagValue === 'after' && s.lensOpen === 1 && s.lane === s.lanes[1]", label: 'then only its dependent geometry follows'},
     {at: 1, fn: "s.lensOpen === 0 && !s.lensOn && s.tagValue === 'after' && s.markerVisible && s.keyShown && s.ctxValues === 1 && s.shift === 0 && s.back === 1", label: 'return: changed tag in the context, Δ marker, key'},
     {at: 0.34, fn: "s.datum === 'before' && s.strike === 0 && s.tagValue === 'before' && s.lane === s.lanes[0]", label: 'seeking back restores the previous datum exactly'},
-    {at: 1, params: P('contrast-or-alternative'), fn: "s.tagValue === 'after' && s.lanes[0] === 'b' && s.lanes[1] === 'a' && s.lane === 'a' && s.markerVisible && s.focusItem === 1", label: 'alternative: Step 4 moves from the lane B slot to the lane A slot'},
+    {at: 1, params: P('contrast-or-alternative'), fn: "s.tagValue === 'after' && s.lanes[0] === 'b' && s.lanes[1] === 'a' && s.lane === 'a' && s.markerVisible && s.focusItem === 3", label: 'alternative: Step 4 moves from the lane B slot to the lane A slot'},
     {at: 0.67, params: {textVisibility: 'none'}, fn: "s.lensOpen === 1 && s.lane === s.lanes[1]", label: 'labels hidden: the same isolation and change'},
   ],
 });

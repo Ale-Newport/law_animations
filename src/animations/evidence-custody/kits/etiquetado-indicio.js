@@ -54,14 +54,14 @@ export function recordLine(rw, blank) {
 export function stageModel(box, o) {
   const wide = box.w / box.h > 1.12;
   const k = o.scale ?? 1;
-  const hangAngle = o.kind === 'cup' ? 80 : o.kind === 'box' ? 70 : 55; // degrees: chain direction (anchor -> hole) once released
-  const tagAngle = o.kind === 'cup' ? 68 : o.kind === 'box' ? 55 : 35; // the tag's own angle when clipped and released
+  const hangAngle = o.hangAngle ?? (o.kind === 'cup' ? 80 : o.kind === 'box' ? 70 : 55); // degrees: chain direction (anchor -> hole) once released
+  const tagAngle = o.tagAngle ?? (o.kind === 'cup' ? 68 : o.kind === 'box' ? 55 : 35); // the tag's own angle when clipped and released
   // extent of object + hanging tag for S = 1 (everything scales linearly with S)
   const ext = s => {
     const M = objectModel(o.kind, s);
-    const TG = tagModel({w: s * 1.28, h: s * 0.66, rows: o.rows});
+    const TG = tagModel({w: s * 1.28 * (o.tagScale ?? 1) * (o.tagLong ?? 1), h: s * 0.66 * (o.tagScale ?? 1), rows: o.rows});
     const ha = (hangAngle * Math.PI) / 180, ta = (tagAngle * Math.PI) / 180;
-    const hx = M.anchor.x + Math.cos(ha) * s * 0.34, hy = M.anchor.y + Math.sin(ha) * s * 0.34;
+    const hx = M.anchor.x + Math.cos(ha) * s * 0.34 * (o.chainScale ?? 1), hy = M.anchor.y + Math.sin(ha) * s * 0.34 * (o.chainScale ?? 1);
     const pts = [[TG.x0, -TG.h / 2], [TG.x1, -TG.h / 2], [TG.x1, TG.h / 2], [TG.x0, TG.h / 2]].map(([x, y]) => ({x: hx + x * Math.cos(ta) - y * Math.sin(ta), y: hy + x * Math.sin(ta) + y * Math.cos(ta)}));
     return {minX: Math.min(-M.w / 2, ...pts.map(p => p.x)), maxX: Math.max(M.w / 2, ...pts.map(p => p.x)), minY: Math.min(-M.h / 2, ...pts.map(p => p.y)), maxY: Math.max(M.h / 2, ...pts.map(p => p.y))};
   };
@@ -70,7 +70,7 @@ export function stageModel(box, o) {
   const bwR = Math.max(1.9, (e1.maxX - e1.minX) / 0.84 + 0.08);
   const S = (wide ? Math.min(box.w * 0.2, box.h * 0.29, box.h * 0.9 / bhR) : Math.min(box.w * 0.37, box.h * 0.23, box.h * 0.6 / bhR, box.w * 0.8 / bwR)) * k;
   const M = objectModel(o.kind, S);
-  const TG = tagModel({w: S * 1.28, h: S * 0.66, rows: o.rows});
+  const TG = tagModel({w: S * 1.28 * (o.tagScale ?? 1) * (o.tagLong ?? 1), h: S * 0.66 * (o.tagScale ?? 1), rows: o.rows});
   const B = bagModel(S * bwR, S * bhR);
   let obj0, tagHole0, bag;
   if (wide) {
@@ -82,12 +82,12 @@ export function stageModel(box, o) {
     obj0 = {x: box.x + box.w * 0.3, y: box.y + box.h * 0.15};
     tagHole0 = {x: box.x + box.w * 0.08 + TG.h * 0.3, y: box.y + box.h * 0.36};
   }
-  const chainL = S * 0.34;
+  const chainL = S * 0.34 * (o.chainScale ?? 1);
   const e = ext(S);
   const I = B.inner;
   const objIn = {x: bag.x + I.x + (I.w - (e.maxX - e.minX)) / 2 - e.minX, y: bag.y + I.y + Math.max(0, (I.h - (e.maxY - e.minY)) / 2) - e.minY};
   const fitsBag = e.maxX - e.minX <= I.w + 2 && e.maxY - e.minY <= I.h + 2;
-  return {wide, S, M, TG, B, bag, obj0, objIn, tagHole0, chainL, hangAngle, tagAngle, tableAngle: -10, fitsBag, box};
+  return {wide, S, M, TG, B, bag, obj0, objIn, tagHole0, chainL, hangAngle, tagAngle, tableAngle: -10, fitsBag, box, bhR, bwR};
 }
 
 /** Where the hand grips the tag (tag-local) and the object (object-local). */

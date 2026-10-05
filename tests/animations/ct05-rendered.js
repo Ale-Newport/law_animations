@@ -1,15 +1,15 @@
-// Rendered checks shared by the contract-terms-05 tests (LAW-0497..0500, "Cláusula de terminación").
-// (Adapted from tests/animations/ct04-rendered.js (itself from ct03-rendered.js) — copied, not imported.)
-// Every check measures the RENDERED DOM (getScreenCTM × computed font size at 1080p; getBoundingClientRect boxes) in
-// every preset × 16:9 / 9:16 / 1:1:
-//  - textFloor, noTextOverlap, noTextOverProps, seekHistory, fill, headFloor, esDefaults, cardsApart, noEmptyPanel,
-//    conceptNeutral (jurisdiction), noOneWordLines, noLoneLetterSplit, noTornNumberUnit, esAportadoAgrees, docSize,
-//    stagesStackedTall — as in contract-terms-03;
+// Rendered checks shared by the contract-terms-05 tests (LAW-0497..0500, "Cláusula de terminación", rebuilt motif:
+// cork board / light table / filing walls / reading desk). Generic test infrastructure adapted from
+// tests/animations/ct03-rendered.js (copied, not imported). Every check measures the RENDERED DOM (getScreenCTM ×
+// computed font size at 1080p; getBoundingClientRect boxes) in every preset × 16:9 / 9:16 / 1:1:
+//  - textFloor, noTextOverlap, noTextOverProps, seekHistory, fill, headFloor, esDefaults, conceptNeutral (jurisdiction),
+//    noOneWordLines, noLoneLetterSplit, noTornNumberUnit, esAportadoAgrees, docSize (generic helpers; not every test uses
+//    every helper);
 //  - noConditionRuleWords (kept name): no rendered text (EN and ES) states a termination rule or a conclusion — a right,
-//    ground or power to terminate, a notice period / preaviso, a time limit (days, plazo …), resolved / rescinded, an effect,
-//    valid / sufficient, breach, must / debe, outcome …; the configuration words appear only in the exact supplied labels
-//    "Section connected as supplied" / "Apartado conectado según lo aportado" and "No connection supplied" / "Sin conexión
-//    aportada" (optionally prefixed by a room badge, "A: …").
+//    ground or power to terminate, a notice period / preaviso, a time limit (days, plazo …), resolved / rescinded, an
+//    effect, valid / sufficient, breach, must / debe, outcome …; the configuration words appear only in the exact
+//    built-in labels "Section linked as supplied" / "Apartado vinculado según lo aportado" and "No section linked · as
+//    supplied" / "Ningún apartado vinculado · según lo aportado".
 import {test, expect} from '@playwright/test';
 import {presetsFor} from '../harness/contract.js';
 
@@ -434,10 +434,10 @@ export function noConditionRuleWords(ID) {
 /** Banned wording, EN and ES (exported so that a test can check the regex itself). */
 export const TERM_BANNED = /(\bterminated\b|\bterminates\b|\bto terminate\b|may terminate|can terminate|terminable|termination (right|power|notice|period|date|takes)|\bterminad[oa]s?\b|terminar(á|a)\b|podr(á|a) terminar|derecho a (terminar|resolver)|facultad de|\bnotice period|\bpreaviso|\bplazo|\bdays?\b|\bd(í|i)as?\b|\bweeks?\b|\bsemanas?\b|\bmonths?\b|\bmeses\b|\bgrounds?\b|justa causa|causa justa|\bresolved|\bresuelt|resoluci(ó|o)n|rescind|rescisi(ó|o)n|extingu|extinci(ó|o)n|\bconditions?\b|condici(ó|o)n|fulfil|cumplimiento|incumpl|deemed|se tiene por|\bdue\b|binding|vinculant|enforce|ejecutab|trigger|disparad|activat|activad|automatic|autom(á|a)tic|in force|en vigor|takes effect|\beffect|surte efecto|\befecto|\beficaz|breach|default|\bmust\b|\bshall\b|\bdebe|\bdeber|\btiene que\b|\bvalid|\binvalid|v(á|a)lid[oa]s?\b|validez|nulidad|lawful|wrongful|il(í|i)cit|\bl(í|i)cit|sufficient|suficiente|\bentitled|\bright to\b|tiene derecho|\boutcome|\bresult\b|resultado|consequen|consecuencia|\bliab|responsab|\blaw\b|\bley\b|statut|c(ó|o)digo|\bremed|damages|\bdaños|penalt|sanci(ó|o)n|indemn)/i;
 /** The configuration words (allowed only inside the exact supplied labels). */
-export const CONFIG_WORDS = /(section connected|no connection supplied|apartado conectado|sin conexi(ó|o)n aportada)/i;
+export const CONFIG_WORDS = /(section linked|apartado vinculado)/i;
 /** The exact supplied labels (optionally after a room badge, "A: …"). */
-export const CONFIG_LABEL = /^(\S{1,3}: )?(Section connected as supplied|No connection supplied|section connected as supplied|no connection supplied|Apartado conectado según lo aportado|Sin conexión aportada|apartado conectado según lo aportado|sin conexión aportada)$/;
-export const CONFIG_LABELS = ['Section connected as supplied', 'No connection supplied', 'Apartado conectado según lo aportado', 'Sin conexión aportada'];
+export const CONFIG_LABEL = /^(Section linked as supplied|No section linked · as supplied|Apartado vinculado según lo aportado|Ningún apartado vinculado · según lo aportado)$/;
+export const CONFIG_LABELS = ['Section linked as supplied', 'No section linked · as supplied', 'Apartado vinculado según lo aportado', 'Ningún apartado vinculado · según lo aportado'];
 
 /**
  * The supplied configuration says nothing about a person (contract-terms-03): for each pair of parameter sets that

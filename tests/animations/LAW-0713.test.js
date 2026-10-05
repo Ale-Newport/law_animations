@@ -12,7 +12,7 @@
 // actionProgress, annotations, finalState); 'origin' added.
 // coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20; scene-area floor >= 0.20 of the frame as in
 // accepted LAW-0701..0712): the long-labels-stress step COUNT is capped at four (baseline 2). Rendered at 1080p
-// (2026-10-05): six steps → 1:1 scene area 0.137; four steps with every other field at full count → 0.209.
+// (2026-10-05): six steps → 1:1 scene area 0.137 (0.194 after the final lane geometry); four steps with every other field at full count → >= 0.20.
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
 import {ratioChecks} from '../harness/ratio-checks.js';

@@ -1,524 +1,379 @@
 /**
  * LAW-0498 — Cláusula de terminación · mechanism
  *
- * Storyboard (the contract taken apart into its parts; no people):
- *  0.00–0.18  separate: the assembled contract (head plate over the two panels) comes apart — the plate lifts, the
- *             circumstances panel ("Circumstances and communications": the card "Communication 1 (supplied)" with its
- *             supplied case row, ● provided for or ◆ not described, drawn alike) slides left and the clause panel
- *             ("Termination clause": its supplied sections, with the connector bracket "[" standing open in its track at
- *             their left) slides right.
- *  0.18–0.43  relate: only the explicit relations are drawn, all plain (no arrowhead, no causality): the contract with
- *             each panel ("Part of the contract") and — only where the case is supplied as provided for — the
- *             communication relation between the card and the bracket's knob ("Communication (as supplied)"), drawn
- *             from both ends at once.
- *  0.43–0.75  trace: a neutral marker runs the supplied stages along the relations — contract, communication card, link,
- *             section — while the focus element enlarges. When it reaches the knob the bracket slides shut on the
- *             supplied section: the section is connected. With "not described" no link is drawn, the marker stops at the
- *             card and the bracket stays open — neutral, no conclusion.
- *  0.75–1.00  gather: the parts close in part with every element, relation and label visible; "Section connected as
- *             supplied" (or "No connection supplied") and the key "As supplied · no conclusion drawn".
- * No termination doctrine: no right or ground to terminate, no notice period or time limit, no effect, no validity
- * judgement, no jurisdiction. The communication link is a plain relation, never a cause.
+ * Storyboard (top-down light table; transparent layers — capas — whose printed half-frames join):
+ *  0.00–0.18  separated: on a glowing light table lies the contract sheet ("CT-731 · Contract (fictional)",
+ *             "Termination clause", its supplied sections and an empty band below them). Beside it (left and right
+ *             wings in 16:9 and 1:1; above it in 9:16) wait two transparent layers: "Circumstance 1 (supplied)"
+ *             (amber) and "Communication 1 (supplied)" (blue). Each carries one printed half-frame — "[" on the
+ *             circumstance layer, "]" on the communication layer — at the height of the supplied target. A
+ *             magnifier rests on the table.
+ *  0.18–0.43  the only relation drawn is the supplied one: the circumstance layer slides onto the sheet and registers,
+ *             then the communication layer; their half-frames close into one outline around the supplied section
+ *             (provided for) — or around the empty band below the sections (not described: no section is outlined,
+ *             nothing else changes). No arrows (a plain relation, not a cause).
+ *  0.43–0.75  tracer: the magnifier travels the traversal order (default: circumstance tab → joined outline →
+ *             communication tab), enlarging what lies under its glass (a real 1.7× copy) and dwelling on the focus
+ *             element; then it is parked back on the table, clear of all text.
+ *  0.75–1.00  hold: the case chip (● "Case provided for (as supplied)" or ◆ "Case not described (as supplied)",
+ *             drawn alike) and the key "As supplied · no conclusion drawn".
+ * No termination doctrine: no ground or right to terminate, no notice period or time limit, no effect, no validity
+ * judgement, no jurisdiction. The two cases have equal weight.
  * @module animations/contract-terms/LAW-0498
  */
 import {defineAnimation} from '../../core/define.js';
 import {makeMetadata} from '../../core/meta.js';
-import {fitDesign} from '../../core/layout.js';
-import {r, seg, ease, clamp} from '../../core/time.js';
+import {ease, lerp, r, seg, clamp} from '../../core/time.js';
 import {h, g} from '../../core/svg.js';
 import {T} from '../../core/transform.js';
-import {roundRectPath, mix} from '../../core/geometry.js';
-import {str, obj, list, oneOf} from '../../schemas/fields.js';
-import {textBlock} from '../../primitives/annotate.js';
-import {shade} from '../../primitives/paper.js';
+import {roundRectPath} from '../../core/geometry.js';
+import {list, oneOf, annotation, obj, str} from '../../schemas/fields.js';
 import {
-  motifFields, DEFAULT_CONTENT, DEFAULT_CONTENT_ES, KIT_STRINGS, STATES, PX_BASE, PX_STRESS, INK,
-  measureEvent, measureObl, eventCard, oblCard, bracketArt, bracketMetrics, sectionRows, fitG, chipG, localizeScene, overlaps,
-} from './kits/clausula-terminacion.js';
+  INK, CONTENT, CONTENT_ES, KIT_STRINGS, contractField, clauseTitleField, clausesField, sectionField, communicationField,
+  stateLabelsField, finalStateField, sectionIndex, localizeScene, unitPx, fitG, chipG, txt, caseGlyph, contractSheet,
+  magnifier, lensCentre,
+} from './kits/terminacion-comunicaciones.js';
 
 const ID = 'LAW-0498';
-const DURATION = 7000;
-const W = {
-  explode: [0.04, 0.16],
-  rel: [0.2, 0.3], relLabels: [0.28, 0.34], link: [0.32, 0.42], linkLabel: [0.4, 0.44],
-  trace: [0.46, 0.72], focusUp: [0.45, 0.52], focusDown: [0.72, 0.77],
-  gather: [0.77, 0.86], final: [0.8, 0.85], key: [0.84, 0.89],
-};
-const BEATS = {separate: [0, 0.18], relate: [0.18, 0.43], trace: [0.43, 0.75], gather: [0.75, 1]};
-const STAGES = ['contract', 'circumstance', 'link', 'section'];
-const FOCI = ['circumstance', 'link', 'section'];
-const GATHER = 0.2;
-const CLOSE = 0.06;
+const DURATION = 6500;
+const BEATS = {separate: [0, 0.18], relate: [0.18, 0.43], trace: [0.43, 0.75], hold: [0.75, 1]};
+const W = {layerA: [0.18, 0.3], layerB: [0.3, 0.42], joined: [0.41, 0.45], trace: [0.45, 0.72], park: [0.72, 0.79], final: [0.76, 0.81], key: [0.79, 0.84], notes: [0.81, 0.86]};
+const ELEMENTS = ['circumstance', 'section', 'communication'];
+const ZOOM = 1.6;
+const FOLD = 0.22;
 
 const sceneSchema = {
-  ...motifFields,
-  caseState: oneOf('The supplied case: provided (provided for: the communication link is drawn and the bracket slides shut on the supplied section) or undescribed (not described: no link, the bracket stays open). Equal weight; nothing is inferred from either', STATES),
-  relationships: list('Relations drawn, as supplied: "part" (the contract with each panel) and "config" (the communication link between the card and the bracket, drawn only when the case is provided for). All are plain relations: no arrowhead, no causality', oneOf('Relation kind', ['part', 'config']), 1, 2),
-  relationLabels: obj('Labels of the relations', {
-    part: str('Label of the contract–panel relation', 40),
-    config: str('Label of the communication link', 50),
-  }, ['part', 'config']),
-  focusElement: oneOf('The element that enlarges while the marker runs', FOCI),
-  traversalOrder: list('Stages the marker runs (always along the relations, in this order): contract, circumstance, link, section', oneOf('Stage', STAGES), 1, 4),
+  contract: contractField,
+  clauseTitle: clauseTitleField,
+  clauses: clausesField,
+  section: sectionField,
+  circumstance: obj('The supplied circumstance, printed on the amber layer (a generic, fictional placeholder)', {label: str('Label of the circumstance layer (e.g. "Circumstance 1 (supplied)")', 60)}, ['label']),
+  communication: communicationField,
+  stateLabels: stateLabelsField,
+  focusElement: oneOf('Element the magnifier dwells on longest (it is enlarged under the glass)', ELEMENTS),
+  traversalOrder: list('Order in which the magnifier visits the elements', oneOf('Element id', ELEMENTS), 2, 3),
+  annotations: list('Editorial callouts shown in the final hold', annotation(ELEMENTS), 0, 2),
+  finalState: finalStateField({provided: 'the two half-frames close around the supplied section', undescribed: 'the two half-frames close around the empty band below the sections; no section is outlined'}),
 };
 
 const defaultParams = {
-  ...DEFAULT_CONTENT,
-  caseState: 'provided',
-  relationships: ['part', 'config'],
-  relationLabels: {part: 'Part of the contract', config: 'Communication (as supplied)'},
-  focusElement: 'circumstance',
-  traversalOrder: ['contract', 'circumstance', 'link', 'section'],
+  ...CONTENT,
+  circumstance: {label: 'Circumstance 1 (supplied)'},
+  focusElement: 'section',
+  traversalOrder: ['circumstance', 'section', 'communication'],
+  annotations: [],
+  finalState: 'provided',
 };
-
 const defaultParamsEs = {
-  ...DEFAULT_CONTENT_ES,
-  relationLabels: {part: 'Parte del contrato', config: 'Comunicación (según lo aportado)'},
+  ...CONTENT_ES,
+  circumstance: {label: 'Circunstancia 1 (aportada)'},
 };
 
-function unitPx(ctx) {
-  const f = fitDesign(ctx.view, ctx.design.w, ctx.design.h);
-  return f.scale * (1080 / Math.min(ctx.view.width, ctx.view.height));
-}
+const isStress = p => [...p.clauses, p.communication.label, p.circumstance.label, p.contract.title, p.stateLabels.provided, p.stateLabels.undescribed].some(t => t.length > 40) || p.annotations.length > 1;
 
-const isStress = p => [...p.clauses, p.circumstance.label].some(t => t.length > 40);
-
-/** Solve the exploded layout at body size F. Returns null when it does not fit. */
-function solve(ctx, p, F, upx, box, labelMode) {
+function geom(ctx, F, minF, mode) {
+  const p = ctx.params;
+  const D = ctx.design;
   const show = ctx.show('all'), showKey = ctx.show('key');
-  const Bm = bracketMetrics(F);
-  const ci = F * 0.42;
-  const hasConfig = p.relationships.includes('config');
-  const hasPart = p.relationships.includes('part');
-  // the communication link's label (in the gutter, on the link)
-  const linkFit = show && hasConfig ? fitG(p.relationLabels.config, {maxWidth: F * 11, size: F, maxLines: 3, weight: 600}) : null;
-  if (linkFit && linkFit.bad) return null;
-  const lw = linkFit ? linkFit.width + F * 1.2 : F * 2;
-  const trackW = Bm.gapC + Bm.travel + Bm.knobDx + Bm.hr + F * 0.4;
-  // (the link's label on the link, in the gutter; or, where the gutter cannot hold it, under the panels with a leader)
-  const onLink = labelMode === 'on' || !linkFit;
-  const gw = onLink ? F * 0.8 + lw * (1 + GATHER * 1.3) + F * 1.2 + trackW : F * 2.6 + trackW;
-  const linkLabH = onLink ? 0 : linkFit.height + F * 0.72 + F * 0.9;
-  const colW = (box.w - gw) / 2;
-  const cw = colW - 2 * ci;
-  const ME = measureEvent(p, F, cw, show);
-  const MO = measureObl(p.clauses, F, cw, show);
-  if (!ME || !MO) return null;
-  let chO = Math.max(MO.ch, 71 / upx);
-  let chE = Math.max(ME.ch, 90 / upx);
-  const headFits = show ? [fitG(p.panels.circumstance, {maxWidth: colW - F * 1.2, size: F, maxLines: 2, weight: 700, strict: true}), fitG(p.panels.section, {maxWidth: colW - F * 1.2, size: F, maxLines: 2, weight: 700, strict: true})] : [null, null];
-  if (headFits.some(f => f && f.bad)) return null;
-  const colHH = show ? Math.max(...headFits.map(f => f.height)) + F * 0.8 : F * 1.6;
-  // the plate
-  const plateFit = show ? fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: Math.min(box.w * 0.7, F * 26), size: F, maxLines: 3, weight: 700}) : null;
-  if (plateFit && plateFit.bad) return null;
-  const plateW = plateFit ? plateFit.width + F * 1.6 : Math.min(box.w * 0.4, F * 10);
-  const plateH = plateFit ? plateFit.height + F * 1.1 : F * 1.8;
-  // relation labels
-  const partFit = show && hasPart ? fitG(p.relationLabels.part, {maxWidth: Math.min(colW * 0.7, F * 12), size: F, maxLines: 2, weight: 600}) : null;
-  if (partFit && partFit.bad) return null;
-  const labH = partFit ? partFit.height + F * 0.72 : 0;
-  // bottom notes
-  const finFit = show ? fitG(p.caseState === 'undescribed' ? ctx.t.unmarked : ctx.t.marked, {maxWidth: box.w - F * 2, size: F, maxLines: 2, weight: 600}) : null;
-  const keyFit = showKey ? fitG(ctx.t.key, {maxWidth: box.w - F * 2, size: F, maxLines: 2, weight: 600}) : null;
-  const bottomH = (finFit ? finFit.height + F * 1.12 : 0) + (keyFit ? keyFit.height + F * 1.12 : 0) + linkLabH;
-  const n = p.clauses.length;
-  let gS = Math.max(F * 0.6, Bm.sw + F * 0.4);
-  const colH0 = colHH + F * 0.4 + Math.max(n * chO + (n - 1) * gS, chE + F * 0.4) + F * 0.5;
-  const gapMin = Math.max(F * 2.4, labH * 1.3 + F * 1.2);
-  const layersUp = F * 0.9;
-  const plateY = box.y + layersUp;
-  const spare = box.y + box.h - (plateY + plateH + gapMin + colH0 + bottomH + F * 0.4);
-  if (spare < -0.5) return null;
-  const gapRel = gapMin + spare * 0.35;
-  let left = spare * 0.65;
-  if (n > 1) { const add = Math.min(chO * 0.9, (left * 0.45) / (n - 1)); gS += add; left -= add * (n - 1); }
-  // (more height still: the clause cards grow — real objects, never thin strips — up to 2×)
-  const grow = Math.max(0, Math.min(chO, left / n));
-  chO += grow;
-  left -= grow * n;
-  const Hr = n * chO + (n - 1) * gS;
-  const colY = plateY + plateH + gapRel;
-  const colH = colHH + F * 0.4 + Math.max(Hr, chE + F * 0.4) + F * 0.5 + Math.max(0, left * 0.6);
-  const cols = [{x: box.x, y: colY, w: colW, h: colH}, {x: box.x + box.w - colW, y: colY, w: colW, h: colH}];
-  const rows0 = colY + colHH + F * 0.4 + (colH - colHH - F * 0.9 - Math.max(Hr, chE + F * 0.4)) / 2 + Math.max(0, (chE + F * 0.4 - Hr) / 2);
-  const rowY = [...Array(n).keys()].map(i => rows0 + chO / 2 + i * (chO + gS));
-  const tr = sectionRows(p);
-  const e = Math.min(gS * 0.5, F * 0.45);
-  const brTop = rowY[tr.i0] - chO / 2 - e, brH = rowY[tr.i1] + chO / 2 + e - brTop;
-  // the circumstance card: level with the bracket's middle (a straight link), inside its panel's rows area
-  // (the circumstance card as tall as the bracket's span, when its panel allows: the link joins the two middles)
-  chE = Math.max(chE, Math.min(brH, colH - colHH - F * 1.3));
-  const evY = clamp(brTop + brH / 2, colY + colHH + F * 0.4 + chE / 2, colY + colH - F * 0.5 - chE / 2);
-  const ev = {x: cols[0].x + colW / 2, y: evY};
-  // the bracket "[" at the section's left: closed against the cards, open by `travel` to the left
-  const cardsL = cols[1].x + colW / 2 - cw / 2;
-  const closedX = cardsL - Bm.gapC, openX = closedX - Bm.travel;
-  const knobY = clamp(evY - brTop, Bm.hr + Bm.sw, Math.max(Bm.hr + Bm.sw, brH - Bm.hr - Bm.sw));
-  const B = {...Bm, top: brTop, h: brH, closedX, openX, knobY: evY - brTop};
-  void knobY;
-  const plate = {x: box.x + box.w / 2 - plateW / 2, y: plateY, w: plateW, h: plateH};
-  // the assembled state: the panels close in (the track against the circumstance panel), the plate on them
-  const g0 = trackW + F * 1.4;
-  const asmD = (gw - g0) / 2;
-  const asmDy = colY - F * 0.3 - plateH - plateY;
-  return {onLink, linkLabH, F, upx, Bm, B, ci, cw, ME, MO, chO, chE, colHH, headFits, plate, plateFit, partFit, labH, linkFit, lw, finFit, keyFit, bottomH, cols, colW, gw, rowY, ev, tr, n, asmD, asmDy, box, show, showKey, trackW, hasConfig, hasPart, gS};
+  const stress = isStress(p);
+  const why = [];
+  const pad = 14;
+  const portraitish = mode === 'top';
+  // notes (annotations, the case chip, the key)
+  const notes = [];
+  if (show) p.annotations.forEach((an, i) => notes.push({name: `note${i}`, kind: 'note', text: an.text, target: an.target}));
+  if (show) notes.push({name: 'final', kind: 'final', text: p.stateLabels[p.finalState]});
+  if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
+  const worst = q => (q.kind === 'final' ? (p.stateLabels.provided.length > p.stateLabels.undescribed.length ? p.stateLabels.provided : p.stateLabels.undescribed) : q.text);
+  const chipOf = (q, x, y, w, text) => chipG(ctx, text ?? q.text, {x, y, maxWidth: w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name,
+    glyph: q.kind === 'final' ? (gx, gy, rr) => caseGlyph(ctx, p.finalState, gx, gy, rr) : null,
+    fill: q.kind === 'final' ? ctx.theme.accent2Soft : ctx.theme.card});
+  const gap = 16;
+  const groupH = w => notes.reduce((acc, q) => acc + chipOf(q, 0, 0, w, worst(q)).box.h + gap, 0) - (notes.length ? gap : 0);
+  const R = clamp(F * 3.1, 70, 120);
+  const hl = R * 1.5;
+  const lupaZone = 2 * R + 36;
+  let table, notesBox, lupaRest;
+  if (!portraitish) {
+    const nw = clamp(D.w * 0.24, 340, 500);
+    table = {x: pad, y: pad, w: D.w - pad * 2 - nw - 24, h: D.h - pad * 2};
+    notesBox = {x: table.x + table.w + 24, y: pad, w: nw, h: D.h - pad * 2 - lupaZone - 10};
+    lupaRest = {x: notesBox.x + 6, y: D.h - pad - R - 12, a: -12};
+  } else {
+    const nh = notes.length ? groupH(D.w - pad * 2) : 0;
+    table = {x: pad, y: pad, w: D.w - pad * 2, h: D.h - pad * 2 - lupaZone - (nh ? nh + 20 : 0)};
+    lupaRest = {x: pad + 20, y: table.y + table.h + 18 + R, a: 0};
+    notesBox = {x: pad, y: table.y + table.h + lupaZone, w: D.w - pad * 2, h: nh};
+  }
+  const fr = 22;
+  const surf = {x: table.x + fr, y: table.y + fr, w: table.w - fr * 2, h: table.h - fr * 2};
+  // the layers are hinged at the sheet's top edge: folded back (up) at rest, they show as a short band above the sheet
+  const rowX = 40;
+  const sheetH = (surf.h - 48) / (1 + FOLD);
+  const sheet = {x: surf.x + 40, y: surf.y + surf.h - 26 - sheetH, w: surf.w - 80, h: sheetH};
+  const rowW = sheet.w - rowX - 34;
+  const head = fitG(`${p.contract.reference} · ${p.contract.title}`, {maxWidth: sheet.w - 90, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700});
+  const headH = head.height + 26;
+  const title = {fit: fitG(p.clauseTitle, {maxWidth: rowW, size: F, minSize: minF, maxLines: 2, weight: 700}), y: headH + 16};
+  const rowsTop = title.y + title.fit.height + 22;
+  const rowFits = p.clauses.map(c => fitG(c, {maxWidth: rowW - 44, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600}));
+  const halfW = rowW / 2 + 34;
+  const tabW = halfW - 22;
+  const tabFit = lab => fitG(lab, {maxWidth: tabW - 34, size: F, minSize: minF, maxLines: 3, weight: 700});
+  const tabs = [tabFit(p.circumstance.label), tabFit(p.communication.label)];
+  const tabH = Math.max(tabs[0].height, tabs[1].height) + 22;
+  const tabPad = 12;
+  if (head.bad || title.fit.bad || rowFits.some(f => f.bad) || tabs.some(f => f.bad)) why.push('text');
+  const rowH0 = rowFits.map(f => f.height + 30);
+  const blankH0 = Math.max(...rowH0);
+  const need = rowH0.reduce((a2, b2) => a2 + b2, 0) + blankH0 + 18 * rowFits.length;
+  const tail = 14 + tabH + tabPad + 6;
+  const rowsH = sheet.h - rowsTop - tail;
+  if (need > rowsH + 0.5) why.push('rows-do-not-fit');
+  const spare = Math.max(0, rowsH - need);
+  const n = rowFits.length + 1;
+  const grow = Math.min(spare * 0.5 / n, F * 1.8);
+  const rgap = 18 + Math.min((spare - grow * n) / n, F * 2);
+  let y = rowsTop + Math.max(0, (rowsH - (need + grow * n + (rgap - 18) * n)) / 2);
+  const rows = rowFits.map((fit, i) => { const row = {y, h: rowH0[i] + grow, fit}; y += row.h + rgap; return row; });
+  const blank = {y, h: blankH0 + grow};
+  const si = sectionIndex(p);
+  const tgtRow = p.finalState === 'provided' ? rows[si] : blank;
+  const RX = sheet.x + rowX - 12, RW = rowW + 24;
+  const target = {x: RX, y: sheet.y + tgtRow.y - 10, w: RW, h: tgtRow.h + 20};
+  const hinge = sheet.y - 6;
+  const bottom = sheet.y + sheet.h + 6;
+  const mid = RX + RW / 2;
+  const layerFinal = [
+    {x: RX - 22, y: hinge, w: mid + 10 - (RX - 22), h: bottom - hinge},
+    {x: mid - 10, y: hinge, w: RX + RW + 22 - (mid - 10), h: bottom - hinge},
+  ];
+  if (hinge - FOLD * (bottom - hinge) < surf.y + 4) why.push('fold-band');
+  if (notes.length && groupH(notesBox.w) > notesBox.h + 0.5) why.push('notes-do-not-fit');
+  if (lupaRest.y + R > D.h - 4) why.push('lupa-rest');
+  // tracer stops (lens centres)
+  const stops = {
+    section: {x: mid, y: target.y + target.h / 2},
+    circumstance: {x: layerFinal[0].x + 22 + tabW / 2, y: bottom - tabPad - tabH / 2},
+    communication: {x: layerFinal[1].x + 12 + tabW / 2, y: bottom - tabPad - tabH / 2},
+  };
+  const tabY = bottom - tabPad - tabH;
+  // notes placement
+  let notesPl = null;
+  if (notes.length) {
+    const hh = groupH(notesBox.w);
+    let ny = notesBox.y + (portraitish ? 0 : Math.max(0, (notesBox.h - hh) / 2));
+    notesPl = notes.map(q => { const c = chipOf(q, notesBox.x, ny, notesBox.w); if (c.bad) why.push('note-text'); ny += c.box.h + gap; return {q, c}; });
+  }
+  return {ok: !why.length, why, F, minF, mode, table, surf, sheet, rowX, rowW, head, headH, title, rows, blank, tabs, tabW, tabH, tabPad, tabY, layerFinal, hinge, target, si, mid, stops, lupa: {R, hl}, lupaRest, notesPl, notesBox};
 }
 
 const scene = {
-  sizes: {landscape: [1600, 900], square: [1150, 1000], portrait: [900, 1600]},
+  sizes: {landscape: [1600, 900], square: [1200, 1000], portrait: [900, 1600]},
   layout(ctx) {
     const p = ctx.params;
-    const D = ctx.design;
     const upx = unitPx(ctx);
     const stress = isStress(p);
-    const box = {x: 8, y: 6, w: D.w - 16, h: D.h - 12};
-    let L = null, fallback = null;
-    for (const px of stress ? PX_STRESS : PX_BASE) for (const mode of ['on', 'below']) {
-      if (L) break;
-      const S = solve(ctx, p, px / upx, upx, box, mode);
-      if (!S) continue;
-      const Lc = {ok: true, why: [], ...S};
-      placeLabels(Lc);
-      if (Lc.ok) { L = Lc; break; }
-      if (!fallback) fallback = Lc;
+    const minF = (stress ? 16.6 : 20) / upx;
+    const modes = ctx.view.shape === 'portrait' ? ['top'] : ['side', 'top'];
+    let L = null;
+    search: for (const fpx of stress ? [21, 19.5, 18, 17] : [25, 23, 21.5]) for (const mode of modes) {
+      L = geom(ctx, fpx / upx, minF, mode);
+      if (L.ok) break search;
     }
-    if (!L) L = fallback;
-    if (!L) return {ok: false, why: ['no-layout-fits'], problems: ['no-layout-fits']};
-    const F = L.F;
-    let y = L.box.y + L.box.h - L.bottomH + F * 0.4 + L.linkLabH;
-    L.notes = [];
-    for (const [nm, f] of [['final', L.finFit], ['key', L.keyFit]]) {
-      if (!f) continue;
-      const c = chipG(ctx, f.full, {x: L.box.x + L.box.w / 2, y, anchor: 'middle', maxWidth: L.box.w - F, size: F, fit: f, weight: 600});
-      L.notes.push({name: nm, c});
-      y += c.box.h + F * 0.4;
-    }
-    L.provided = p.caseState === 'provided';
-    // (the connection is drawn only where it is supplied: with "not described" no link is drawn and the marker stops at
-    // the communication card — it never runs on to the section; the layout is the same in both cases)
-    L.drawLink = L.hasConfig && L.provided;
-    L.stages = STAGES.filter(s => p.traversalOrder.includes(s) && (s !== 'link' || L.drawLink) && (s !== 'section' || L.drawLink || !L.hasConfig));
-    if (!L.stages.length) L.stages = [STAGES.find(s => p.traversalOrder.includes(s) && s !== 'link' && s !== 'section') ?? 'contract'];
-    L.focus = p.focusElement;
-    // when the marker reaches the knob, the bracket slides (provided): the first moment (u step 0.001) at which the marker,
-    // on the route as it is drawn then (focus included), has reached the knob; the slide takes CLOSE after it
-    let uK = null;
-    if (L.stages.includes('link')) {
-      for (let uu = W.trace[0]; uu <= W.trace[1] + 1e-9; uu += 0.001) {
-        const Gu = geometry(L, {ex: 1, sc: focusScales(L, uu), br: 0});
-        const ru = routeOf(L, Gu);
-        if (ease.inOutSine(seg(uu, ...W.trace)) >= ru.cum[ru.stageIdx.link] / (ru.tot || 1) - 1e-6) { uK = uu; break; }
-      }
-    }
-    if (uK === null) uK = (W.trace[0] + W.trace[1]) / 2;
-    L.closeW = [uK, Math.min(uK + CLOSE, W.gather[0] - 0.005)];
-    L.problems = L.why;
+    L.upx = upx;
     return L;
   },
   build(ctx, L) {
     const p = ctx.params;
-    if (!L.cols) return g({name: 'scene'});
     const th = ctx.theme;
-    const F = L.F;
-    const relW = r(Math.max(4, 3.4 / L.upx), 2);
-    const rels = L.hasPart ? ['e', 't'].flatMap(s => [
-      h('line', {name: `rel-part-${s}`, stroke: th.inkSoft, 'stroke-width': relW, 'stroke-linecap': 'round', opacity: 0}),
-      h('circle', {name: `rel-part-${s}-a`, r: r(Math.max(5, F * 0.2), 2), fill: th.inkSoft, opacity: 0}),
-      h('circle', {name: `rel-part-${s}-b`, r: r(Math.max(5, F * 0.2), 2), fill: th.inkSoft, opacity: 0})]) : [];
-    const panel = (i, nm) => {
-      const c = L.cols[i];
-      const kids = [
-        h('path', {d: roundRectPath(c.x + 4, c.y + 6, c.w, c.h, 12), fill: th.shadow}),
-        h('path', {name: `${nm}-panel`, d: roundRectPath(c.x, c.y, c.w, c.h, 12), fill: shade(th.accent2Soft, 0.55), stroke: INK, 'stroke-width': 2.6}),
-        h('path', {d: `M${r(c.x + 10)} ${r(c.y + 4)}H${r(c.x + c.w - 10)}`, stroke: th.inkSoft, 'stroke-width': r(Math.max(7, F * 0.28), 2), 'stroke-linecap': 'round'}),
-      ];
-      const f = L.headFits[i];
-      if (f) kids.push(g({name: `${nm}-head`}, textBlock(f, {x: r(c.x + c.w / 2), y: r(c.y + (L.colHH - f.height) / 2 + 2), anchor: 'middle', fill: INK})));
-      else kids.push(h('rect', {x: r(c.x + c.w * 0.3), y: r(c.y + L.colHH / 2 - F * 0.12), width: r(c.w * 0.4), height: r(F * 0.3), rx: 3, fill: INK, opacity: 0.5}));
-      return kids;
-    };
-    const evG = g({name: 'grp-circumstance'}, panel(0, 'circumstance'),
-      g({transform: T(r(L.ev.x, 2), r(L.ev.y, 2))}, eventCard(ctx, {name: 'ev-in', cw: L.cw, ch: L.chE, M: L.ME, F, state: p.caseState})));
-    const B = L.B;
-    const tx0 = B.openX - B.knobDx - B.hr - F * 0.3, tx1 = B.closedX + B.sw;
-    const trG = g({name: 'grp-section'}, panel(1, 'section'),
-      h('path', {name: 'track', d: roundRectPath(tx0, B.top - B.sw * 1.2, tx1 - tx0, B.h + B.sw * 2.4, 10), fill: shade(th.paperShade, -0.05), stroke: th.inkSoft, 'stroke-width': 1.8}),
-      p.clauses.map((t, i) => g({transform: T(r(L.cols[1].x + L.colW / 2, 2), r(L.rowY[i], 2))}, oblCard(ctx, {name: `obl${i}-in`, cw: L.cw, ch: L.chO, M: L.MO, F, fit: L.show ? fitG(t, {maxWidth: L.MO.tw, size: F, maxLines: 3, weight: 600}) : null}))),
-      // (the bracket "[": the stage's "]" mirrored about its spine — its knob faces the circumstance panel)
-      g({name: 'br', transform: brT(L, 0)}, bracketArt(ctx, {name: 'br-art', bh: B.h, B})));
-    const plate = g({name: 'plate'},
-      h('path', {d: roundRectPath(L.plate.x + 16, L.plate.y - 14, L.plate.w, L.plate.h, 10), fill: shade(th.card, -0.1), stroke: INK, 'stroke-width': 2}),
-      h('path', {d: roundRectPath(L.plate.x + 8, L.plate.y - 7, L.plate.w, L.plate.h, 10), fill: shade(th.card, -0.05), stroke: INK, 'stroke-width': 2}),
-      h('path', {name: 'plate-sheet', d: roundRectPath(L.plate.x, L.plate.y, L.plate.w, L.plate.h, 10), fill: th.paperShade, stroke: INK, 'stroke-width': 2.6}),
-      L.plateFit ? textBlock(L.plateFit, {x: r(L.plate.x + L.plate.w / 2), y: r(L.plate.y + (L.plate.h - L.plateFit.height) / 2), anchor: 'middle', fill: INK})
-        : h('rect', {x: r(L.plate.x + L.plate.w * 0.2), y: r(L.plate.y + L.plate.h / 2 - F * 0.17), width: r(L.plate.w * 0.6), height: r(F * 0.34), rx: 3, fill: INK, opacity: 0.6}));
-    const sw = r(Math.max(5, 4 / L.upx), 2);
-    const link = L.hasConfig ? g({name: 'link', opacity: 0},
-      h('path', {name: 'link-a', fill: 'none', stroke: INK, 'stroke-width': sw, 'stroke-linecap': 'round'}),
-      h('path', {name: 'link-b', fill: 'none', stroke: INK, 'stroke-width': sw, 'stroke-linecap': 'round'}),
-      h('circle', {name: 'link-pa', r: r(Math.max(6, F * 0.24), 2), fill: INK, opacity: 0}),
-      h('circle', {name: 'link-pb', r: r(Math.max(6, F * 0.24), 2), fill: INK, opacity: 0})) : null;
-    const labels = L.labels.map(lb => g({name: `lab-${lb.k}${lb.s}`, opacity: 0},
-      lb.lead ? h('path', {d: `M${r(lb.lead.x)} ${r(lb.lead.y0)}V${r(lb.lead.y1)}`, stroke: th.inkSoft, 'stroke-width': 2.4, 'stroke-linecap': 'round'}) : null,
-      h('path', {d: roundRectPath(lb.box.x, lb.box.y, lb.box.w, lb.box.h, Math.min(lb.box.h / 2, F * 0.7)), fill: th.card, stroke: th.inkSoft, 'stroke-width': 2}),
-      textBlock(lb.fit, {x: r(lb.box.x + lb.box.w / 2), y: r(lb.box.y + F * 0.36), anchor: 'middle', fill: INK})));
-    const tracer = g({name: 'tracer', opacity: 0},
-      h('circle', {r: r(F * 0.8, 2), fill: th.accent2Soft, opacity: 0.55}),
-      h('circle', {r: r(F * 0.42, 2), fill: th.paper, stroke: INK, 'stroke-width': r(Math.max(3, F * 0.14), 2)}),
-      h('circle', {r: r(F * 0.16, 2), fill: INK}));
-    return g({name: 'scene'}, rels, plate, evG, trG, link, tracer, labels, L.notes.map(q => g({name: q.name, opacity: 0}, q.c.node)));
+    const show = ctx.show('all');
+    const {table, surf, sheet} = L;
+    const tableNode = g(null,
+      h('rect', {x: r(table.x + 10), y: r(table.y + 14), width: r(table.w), height: r(table.h), rx: 26, fill: th.shadow}),
+      h('rect', {x: r(table.x), y: r(table.y), width: r(table.w), height: r(table.h), rx: 26, fill: '#3d4852', stroke: INK, 'stroke-width': 3}),
+      h('rect', {x: r(surf.x), y: r(surf.y), width: r(surf.w), height: r(surf.h), rx: 12, fill: '#eef8fc', stroke: '#9fc3d3', 'stroke-width': 3}),
+      h('rect', {x: r(surf.x + 16), y: r(surf.y + 16), width: r(surf.w - 32), height: r(surf.h - 32), rx: 10, fill: '#ffffff', opacity: 0.55}),
+      // the registration pins (where layers register) at the corners of the sheet's rows area
+
+    );
+    const sheetArt = (named) => contractSheet(ctx, {
+      w: sheet.w, h: sheet.h, head: L.head, headH: L.headH, title: L.title, rows: L.rows, rowX: L.rowX, rowW: L.rowW, F: L.F, showText: show,
+      pegs: false, blank: L.blank, rowName: named ? i => `row${i}` : undefined, layers: 1,
+    });
+    const sheetNode = g({transform: T(sheet.x, sheet.y)}, sheetArt(true));
+    const layerArt = (i, named) => layerNode(ctx, L, i, named);
+    const lupa = magnifier(ctx, {name: 'lupa', R: L.lupa.R, hl: L.lupa.hl, glass: false});
+    // the magnified copy under the glass: the sheet and both layers at their final places
+    const lensCopy = g({name: 'lens', opacity: 0, 'data-occludes': 1},
+      h('defs', null, h('clipPath', {id: ctx.id('lensclip')}, h('circle', {name: 'lens-clip', cx: 0, cy: 0, r: r(L.lupa.R * 0.92)}))),
+      g({'clip-path': ctx.ref('lensclip')},
+        h('circle', {name: 'lens-bg', cx: 0, cy: 0, r: r(L.lupa.R), fill: '#eef8fc'}),
+        g({name: 'lens-content'}, g({transform: T(sheet.x, sheet.y)}, sheetArt(false)), layerArt(0, false), layerArt(1, false)),
+      ),
+    );
+    const notes = L.notesPl ? L.notesPl.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node)) : [];
+    const leads = L.notesPl ? L.notesPl.filter(pl => pl.q.kind === 'note').map(pl => leader(ctx, L, pl)) : [];
+    return g({name: 'scene'}, tableNode, sheetNode, layerArt(0, true), layerArt(1, true), lensCopy, lupa, leads, notes);
   },
   frame(ctx, L, u) {
-    if (!L.cols) return {nodes: {}, semantic: {layoutOk: false, why: L.why.join(','), problems: L.problems}};
-    const F = L.F;
+    const p = ctx.params;
     const nodes = {};
-    const exP = ease.inOutSine(seg(u, ...W.explode));
-    const ex = exP * (1 - GATHER * ease.inOutSine(seg(u, ...W.gather)));
-    const fz = focusAt(u);
-    const sc = focusScales(L, u);
-    const br = L.provided ? ease.inOutSine(seg(u, ...L.closeW)) : 0;
-    const G = geometry(L, {ex, exP, sc, br});
-    nodes['grp-circumstance'] = {transform: G.T.e};
-    nodes['grp-section'] = {transform: G.T.t};
-    nodes.plate = {transform: G.T.plate};
-    nodes.br = {transform: brT(L, br)};
-    // relations: from both ends at once — plain, no arrowhead
-    const rp = ease.inOutSine(seg(u, ...W.rel));
-    if (L.hasPart) for (const s of ['e', 't']) {
-      const ln = G[`part-${s}`];
-      const m = mix(ln.a, ln.b, 0.5);
-      const a = mix(m, ln.a, rp), b = mix(m, ln.b, rp);
-      nodes[`rel-part-${s}`] = {x1: r(a.x), y1: r(a.y), x2: r(b.x), y2: r(b.y), opacity: rp > 0 ? 1 : 0};
-      nodes[`rel-part-${s}-a`] = {cx: r(ln.a.x), cy: r(ln.a.y), opacity: r(seg(rp, 0.9, 1), 3)};
-      nodes[`rel-part-${s}-b`] = {cx: r(ln.b.x), cy: r(ln.b.y), opacity: r(seg(rp, 0.9, 1), 3)};
+    const E = ease.inOutCubic;
+    const qa = E(seg(u, ...W.layerA)), qb = E(seg(u, ...W.layerB));
+    const sc = q => { const v = lerp(-FOLD, 1, q); return Math.abs(v) < 0.01 ? (v < 0 ? -0.01 : 0.01) : v; };
+    const sa = sc(qa), sb = sc(qb);
+    const flip = v => `translate(0 ${r(L.hinge, 2)}) scale(1 ${r(v, 4)}) translate(0 ${r(-L.hinge, 2)})`;
+    nodes.layer0 = {transform: flip(sa)};
+    nodes.layer1 = {transform: flip(sb)};
+    if (ctx.show('all')) { nodes['layer0-text'] = {opacity: r(seg(sa, 0.85, 0.98), 3)}; nodes['layer1-text'] = {opacity: r(seg(sb, 0.85, 0.98), 3)}; }
+    const tabC = (i, v) => ({x: i === 0 ? L.stops.circumstance.x : L.stops.communication.x, y: L.hinge + v * (L.stops.circumstance.y - L.hinge)});
+    const A = tabC(0, sa), B = tabC(1, sb);
+    const joined = qa >= 1 && qb >= 1;
+    const jq = seg(u, ...W.joined);
+    nodes.joint = {opacity: r(joined ? jq : 0, 3)};
+    // the tracer: the magnifier visits the traversal order; the focus element gets a longer dwell
+    const order = p.traversalOrder;
+    const stops = order.map(id => L.stops[id]);
+    const rest = lensCentre(L.lupaRest, L.lupaRest.a, L.lupa);
+    const pts = [rest, ...stops, rest];
+    const weights = [];
+    for (let i = 0; i < pts.length - 1; i++) weights.push(1); // moves
+    const dwell = order.map(id => (id === p.focusElement ? 2.2 : 1));
+    // timeline inside W.trace: move0, dwell0, move1, dwell1, ..., move back (in W.park)
+    const segs = [];
+    const dist = (a, b) => Math.hypot(b.x - a.x, b.y - a.y);
+    order.forEach((id, i) => { segs.push({kind: 'move', from: pts[i], to: pts[i + 1], w: Math.max(0.6, dist(pts[i], pts[i + 1]) / 380)}); segs.push({kind: 'dwell', at: pts[i + 1], id, w: dwell[i]}); });
+    const total = segs.reduce((a, s) => a + s.w, 0);
+    const tq = seg(u, ...W.trace);
+    let acc = 0, c = rest, dwellId = null, moving = false;
+    if (u >= W.trace[0] && u < W.trace[1]) {
+      for (const s of segs) {
+        const s0 = acc / total, s1 = (acc + s.w) / total;
+        if (tq <= s1 || s === segs[segs.length - 1]) {
+          const lq = clamp((tq - s0) / (s1 - s0));
+          if (s.kind === 'move') { c = {x: lerp(s.from.x, s.to.x, ease.inOutSine(lq)), y: lerp(s.from.y, s.to.y, ease.inOutSine(lq))}; moving = true; } else { c = s.at; dwellId = s.id; }
+          break;
+        }
+        acc += s.w;
+      }
+    } else if (u >= W.trace[1]) {
+      const last = pts[pts.length - 2];
+      const pq = ease.inOutSine(seg(u, ...W.park));
+      c = {x: lerp(last.x, rest.x, pq), y: lerp(last.y, rest.y, pq)};
+      moving = pq > 0 && pq < 1;
     }
-    // the communication link: from the circumstance card's port and from the knob at once, joined in the middle
-    const lp = L.drawLink ? seg(u, ...W.link) : 0;
-    const lf = L.focus === 'link' ? fz : 0;
-    if (L.hasConfig) {
-      const pa = G.port, pb = G.knob;
-      const mid = mix(pa, pb, 0.5);
-      const dr = ease.inOutSine(seg(lp, 0.1, 1));
-      const qa = mix(pa, mid, dr), qb = mix(pb, mid, dr);
-      const swl = Math.max(5, 4 / L.upx) * (1 + 0.6 * lf);
-      nodes.link = {opacity: lp > 0 ? 1 : 0};
-      nodes['link-a'] = {d: `M${r(pa.x, 2)} ${r(pa.y, 2)}L${r(qa.x, 2)} ${r(qa.y, 2)}`, 'stroke-width': r(swl, 2)};
-      nodes['link-b'] = {d: `M${r(pb.x, 2)} ${r(pb.y, 2)}L${r(qb.x, 2)} ${r(qb.y, 2)}`, 'stroke-width': r(swl, 2)};
-      nodes['link-pa'] = {cx: r(pa.x, 2), cy: r(pa.y, 2), r: r(Math.max(6, F * 0.24) * (1 + 0.5 * lf), 2), opacity: r(seg(lp, 0, 0.1), 3)};
-      nodes['link-pb'] = {cx: r(pb.x, 2), cy: r(pb.y, 2), r: r(Math.max(6, F * 0.24) * (1 + 0.5 * lf), 2), opacity: r(seg(lp, 0, 0.1), 3)};
+    void weights;
+    const out = u >= W.trace[0] && u < W.park[1];
+    const ang = out ? lerp(L.lupaRest.a, -32, clamp(seg(u, W.trace[0], W.trace[0] + 0.03)) * (1 - seg(u, ...W.park))) : L.lupaRest.a;
+    const a = (ang * Math.PI) / 180;
+    const grip = {x: c.x - Math.cos(a) * (L.lupa.hl + L.lupa.R), y: c.y - Math.sin(a) * (L.lupa.hl + L.lupa.R)};
+    nodes.lupa = {transform: T(r(grip.x, 2), r(grip.y, 2), r(ang, 2))};
+    const lensOn = out && seg(u, ...W.park) < 0.5 ? 1 : 0;
+    nodes.lens = {opacity: r(lensOn, 3)};
+    nodes['lens-clip'] = {cx: r(c.x, 2), cy: r(c.y, 2)};
+    nodes['lens-bg'] = {cx: r(c.x, 2), cy: r(c.y, 2)};
+    nodes['lens-content'] = {transform: `translate(${r(c.x, 2)} ${r(c.y, 2)}) scale(${ZOOM}) translate(${r(-c.x, 2)} ${r(-c.y, 2)})`};
+    // hold
+    const fin = seg(u, ...W.final), keyO = seg(u, ...W.key), noteO = seg(u, ...W.notes);
+    if (L.notesPl) for (const pl of L.notesPl) {
+      nodes[`${pl.q.name}-g`] = {opacity: r(pl.q.kind === 'final' ? fin : pl.q.kind === 'key' ? keyO : noteO, 3)};
+      if (pl.q.kind === 'note') nodes[`${pl.q.name}-lead`] = {opacity: r(noteO, 3)};
     }
-    for (const lb of L.labels) {
-      const op = lb.k === 'config' ? (L.drawLink ? seg(u, ...W.linkLabel) : 0) : seg(u, ...W.relLabels);
-      const d = labelShift(L, G, lb);
-      nodes[`lab-${lb.k}${lb.s}`] = {opacity: r(op, 3), transform: T(r(d.x, 2), r(d.y, 2))};
-    }
-    // the marker
-    const tr = seg(u, ...W.trace);
-    const trOp = u >= W.trace[0] && u < W.trace[1] + 0.02 ? 1 : 0;
-    const route = routeOf(L, G);
-    const q = tracePos(route, tr);
-    // (smaller only through the tight gap between the part chip and the panel's top edge; full size elsewhere)
-    const out = Math.max(route.band[0] - q.y, q.y - route.band[1], 0);
-    const rk = route.ringK + (1 - route.ringK) * clamp(out / route.R0);
-    nodes.tracer = {transform: `${T(r(q.x, 2), r(q.y, 2))}${rk < 1 ? ` scale(${r(rk, 3)})` : ''}`, opacity: trOp};
-    for (const nt of L.notes) nodes[nt.name] = {opacity: r(seg(u, ...(nt.name === 'key' ? W.key : W.final)), 3)};
-    const beat = u < BEATS.separate[1] ? 'separate' : u < BEATS.relate[1] ? 'relate' : u < BEATS.trace[1] ? 'trace' : 'gather';
+    const beat = u < BEATS.separate[1] ? 'separate' : u < BEATS.relate[1] ? 'relate' : u < BEATS.trace[1] ? 'trace' : 'hold';
+    const P2 = q => ({x: r(q.x), y: r(q.y)});
     return {
       nodes,
       semantic: {
-        beat, exploded: r(ex, 3), focus: L.focus, focusScale: r(fz, 3), relations: rp > 0.99 && L.hasPart ? ['part'] : [],
-        linkProgress: r(lp, 3), linkDrawn: lp > 0, tracer: {x: r(q.x), y: r(q.y)}, stages: L.stages,
-        markerPastKnob: route.stageIdx.link === undefined ? null : u >= W.trace[0] && ease.inOutSine(clamp(tr)) >= route.cum[route.stageIdx.link] / (route.tot || 1) - 1e-6,
-        bracket: br >= 1 ? 'closed' : br > 0 ? 'moving' : 'open', caseState: L.provided ? 'provided' : 'undescribed',
-        linkEnds: L.hasConfig ? [G.port.x, G.port.y, G.knob.x, G.knob.y].map(v => r(v)) : null,
-        plate: {x: r(L.plate.x + L.plate.w / 2), y: r(L.plate.y + G.dy.plate)},
-        colE: {x: r(L.cols[0].x + G.dx.e), y: r(L.cols[0].y)}, colT: {x: r(L.cols[1].x + G.dx.t), y: r(L.cols[1].y)},
-        keyShown: r(seg(u, ...W.key), 3), finalShown: r(seg(u, ...W.final), 3),
-        layoutOk: L.ok, why: L.why.join(','), problems: L.problems,
-        textPx: r(F * L.upx, 2),
+        beat,
+        layerA: P2(A), layerB: P2(B), lensCentre: P2(c), lupaGrip: P2(grip),
+        layerAAt: qa >= 1 ? 'registered' : qa > 0 ? 'turning' : 'folded', layerBAt: qb >= 1 ? 'registered' : qb > 0 ? 'turning' : 'folded', layerAScale: r(sa, 3), layerBScale: r(sb, 3),
+        joined, outline: r(joined ? jq : 0, 3), outlines: p.finalState === 'provided' ? `section${L.si + 1}` : 'empty-band',
+        tracerAt: dwellId, tracerMoving: moving, lensShown: r(lensOn, 3), zoom: ZOOM,
+        lupaParked: !out,
+        finalState: p.finalState, finalShown: r(fin, 3), keyShown: r(keyO, 3),
+        textPx: r(L.F * L.upx, 2), mode: L.mode,
+        layoutOk: L.ok, why: L.why.join(','), problems: L.ok ? [] : L.why,
+        lupaBox: (() => { const cc = lensCentre(L.lupaRest, L.lupaRest.a, L.lupa); return {x: r(cc.x - L.lupa.R), y: r(cc.y - L.lupa.R), w: r(2 * L.lupa.R), h: r(2 * L.lupa.R)}; })(),
       },
     };
   },
 };
 
-/** The focus element's enlargement at time u (0..1). */
-function focusAt(u) {
-  return ease.inOutSine(seg(u, ...W.focusUp)) * (1 - ease.inOutSine(seg(u, ...W.focusDown)));
-}
-
-/** The panels' focus scales at time u (the circumstance panel or the section panel enlarges; the link thickens instead). */
-function focusScales(L, u) {
-  const fz = focusAt(u);
-  const sc = {};
-  if (L.focus === 'circumstance') sc.e = 1 + 0.08 * fz;
-  if (L.focus === 'section') sc.t = 1 + 0.06 * fz;
-  return sc;
-}
-
-/** The bracket's transform at close progress q (0 open, 1 closed): the "]" art mirrored about its spine. */
-function brT(L, q) {
-  const B = L.B;
-  const x = B.openX + (B.closedX - B.openX) * q;
-  return `translate(${r(x, 2)} ${r(B.top, 2)}) scale(-1 1)`;
-}
-
-/** Geometry at explode ex (1 = exploded), focus scales and bracket progress: group transforms, ports, relation ends. */
-function geometry(L, {ex, exP = ex, sc, br}) {
-  const dx = {e: L.asmD * (1 - ex), t: -L.asmD * (1 - ex)};
-  const dy = {plate: L.asmDy * (1 - exP)};
-  const cE = {x: L.cols[0].x + L.colW / 2 + dx.e, y: L.cols[0].y + L.cols[0].h / 2};
-  const cT = {x: L.cols[1].x + L.colW / 2 + dx.t, y: L.cols[1].y + L.cols[1].h / 2};
-  const ke = sc.e ?? 1, kt = sc.t ?? 1;
-  const tf = (c, k, d) => q => ({x: c.x + (q.x + d - c.x) * k, y: c.y + (q.y - c.y) * k});
-  const tE = tf(cE, ke, dx.e), tT = tf(cT, kt, dx.t);
-  const gT = (c, k, d) => `translate(${r(c.x * (1 - k) + d * k, 2)} ${r(c.y * (1 - k), 2)}) scale(${r(k, 4)})`;
-  const out = {dx, dy, T: {e: gT(cE, ke, dx.e), t: gT(cT, kt, dx.t), plate: `translate(0 ${r(dy.plate, 2)})`}};
-  const B = L.B;
-  const plateB = {x: L.plate.x + L.plate.w / 2, y: L.plate.y + L.plate.h + dy.plate};
-  out['part-e'] = {a: {x: plateB.x - L.plate.w * 0.3, y: plateB.y}, b: tE({x: L.cols[0].x + L.colW * 0.72, y: L.cols[0].y})};
-  out['part-t'] = {a: {x: plateB.x + L.plate.w * 0.3, y: plateB.y}, b: tT({x: L.cols[1].x + L.colW * 0.28, y: L.cols[1].y})};
-  out.port = tE({x: L.ev.x + L.cw / 2, y: L.ev.y});
-  const bx = B.openX + (B.closedX - B.openX) * br;
-  // (the knob of the mirrored bracket: left of its spine)
-  out.knob = tT({x: bx - B.knobDx, y: B.top + B.knobY});
-  out.knobOpen = tT({x: B.openX - B.knobDx, y: B.top + B.knobY});
-  out.spineMid = tT({x: bx, y: B.top + B.h / 2});
-  out.panelE = tE({x: L.cols[0].x + L.colW, y: L.cols[0].y});
-  return out;
-}
-
-/**
- * The marker's route (always along the relations): the plate's left foot → the circumstance panel's top edge → down the
- * panel's right side (in the gutter) to the circumstance card's port → along the communication link to the knob → the bracket's
- * spine. The supplied stages pick the part of the route that runs between the first and the last of them.
- */
-function routeOf(L, G) {
-  // (the marker's halo stays clear of the circumstance panel's heading: it leaves the part relation just above the panel's top
-  // edge, runs above it to the gutter and goes down the gutter wholly outside the panel)
-  // (where the part chip leaves less than the halo's height above the panel, the leg runs midway in that gap and the
-  // marker is drawn smaller, ringK, so that it touches neither the chip's rim nor the panel's heading)
-  const R0 = L.F * 0.8 + 3;
-  const e = G['part-e'];
-  const lb = (L.labels || []).find(q => q.k === 'part' && q.s === 'e');
-  const chipB = lb ? lb.box.y + lb.box.h + labelShift(L, G, lb).y : -Infinity;
-  const gap = e.b.y - chipB;
-  const ringK = gap >= 2 * R0 + 6 ? 1 : clamp((gap - 6) / (2 * R0), 0.45, 1);
-  const yA = gap >= 2 * R0 + 6 ? e.b.y - R0 - 2 : (chipB + e.b.y) / 2;
-  const tA = e.b.y === e.a.y ? 1 : clamp((yA - e.a.y) / (e.b.y - e.a.y));
-  const gx = Math.max(G.panelE.x + L.F * 0.4, Math.min(G.panelE.x + R0, G.knobOpen.x - L.B.hr - R0));
-  const full = [
-    {s: 'contract', p: e.a},
-    {p: mix(e.a, e.b, tA)},
-    {p: {x: gx, y: Math.min(yA, e.b.y)}},
-    {p: {x: gx, y: G.port.y}},
-    {s: 'circumstance', p: G.port},
-    {s: 'link', p: G.knob},
-    {s: 'section', p: G.spineMid},
+/** One transparent layer: tinted acetate, its printed half-frame and its label tab. Drawn at its FINAL place. */
+function layerNode(ctx, L, i, named) {
+  const th = ctx.theme;
+  const F0 = L.layerFinal[i];
+  const col = i === 0 ? th.accent3 : th.accent2;
+  const tint = i === 0 ? th.accent3Soft : th.accent2Soft;
+  const tg = L.target;
+  const parts = [
+    h('rect', {x: r(F0.x), y: r(F0.y), width: r(F0.w), height: r(F0.h), rx: 10, fill: tint, opacity: 0.2}),
+    h('rect', {x: r(F0.x), y: r(F0.y), width: r(F0.w), height: r(F0.h), rx: 10, fill: 'none', stroke: shadeHex(col), 'stroke-width': 2.4}),
+    // the hinge tape along the top edge (the layer turns about it)
+    h('rect', {x: r(F0.x + 16), y: r(F0.y - 9), width: r(F0.w - 32), height: 18, rx: 3, fill: '#f3e9c6', stroke: '#b9a874', 'stroke-width': 1.5, opacity: 0.95}),
   ];
-  // (without the part relations the route starts on the plate's foot and drops straight into the gutter)
-  const idx = s => full.findIndex(q => q.s === s);
-  const i0 = idx(L.stages[0]), i1 = idx(L.stages[L.stages.length - 1]);
-  const pts = full.slice(i0, i1 + 1);
-  const cum = [0];
-  for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i].p.x - pts[i - 1].p.x, pts[i].p.y - pts[i - 1].p.y));
-  const stageIdx = {};
-  pts.forEach((q, i) => { if (q.s) stageIdx[q.s] = i; });
-  return {pts: pts.map(q => q.p), cum, tot: cum[cum.length - 1], stageIdx, ringK, band: [chipB - R0, e.b.y + R0], R0};
+  // the half-frame: "[" on the left layer, "]" on the right layer, meeting at the middle of the target
+  const m = L.mid;
+  const rr = 14;
+  const d = i === 0
+    ? `M${r(m)} ${r(tg.y)}H${r(tg.x + rr)}Q${r(tg.x)} ${r(tg.y)} ${r(tg.x)} ${r(tg.y + rr)}V${r(tg.y + tg.h - rr)}Q${r(tg.x)} ${r(tg.y + tg.h)} ${r(tg.x + rr)} ${r(tg.y + tg.h)}H${r(m)}`
+    : `M${r(m)} ${r(tg.y)}H${r(tg.x + tg.w - rr)}Q${r(tg.x + tg.w)} ${r(tg.y)} ${r(tg.x + tg.w)} ${r(tg.y + rr)}V${r(tg.y + tg.h - rr)}Q${r(tg.x + tg.w)} ${r(tg.y + tg.h)} ${r(tg.x + tg.w - rr)} ${r(tg.y + tg.h)}H${r(m)}`;
+  parts.push(h('path', {d, fill: 'none', stroke: '#fff', 'stroke-width': 11, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', opacity: 0.8}));
+  parts.push(h('path', {d, fill: 'none', stroke: shadeHex(col), 'stroke-width': 6.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}));
+  // the joint mark at the meeting points (shown once both layers are registered)
+  if (i === 1) {
+    parts.push(g({name: named ? 'joint' : undefined, opacity: named ? 0 : 1},
+      h('circle', {cx: r(m), cy: r(tg.y), r: 9, fill: '#fff', stroke: INK, 'stroke-width': 2.4}),
+      h('circle', {cx: r(m), cy: r(tg.y + tg.h), r: 9, fill: '#fff', stroke: INK, 'stroke-width': 2.4}),
+    ));
+  }
+  // the label tab
+  const tab = {x: i === 0 ? F0.x + 22 : F0.x + 12, y: L.tabY, w: L.tabW, h: L.tabH};
+  parts.push(h('path', {d: roundRectPath(tab.x, tab.y, tab.w, tab.h, 10), fill: '#ffffff', stroke: shadeHex(col), 'stroke-width': 3}));
+  parts.push(h('rect', {x: r(tab.x), y: r(tab.y), width: 12, height: r(tab.h), rx: 5, fill: col}));
+  const f = L.tabs[i];
+  if (ctx.show('all')) parts.push(g({name: named ? `layer${i}-text` : undefined}, txt(f, {x: tab.x + 22 + (tab.w - 28) / 2, y: tab.y + (tab.h - f.height) / 2, anchor: 'middle', fill: INK})));
+  else parts.push(h('path', {d: `M${r(tab.x + 30)} ${r(tab.y + tab.h / 2)}h${r(tab.w - 60)}`, stroke: '#cfd6dc', 'stroke-width': 9, 'stroke-linecap': 'round'}));
+  return g({name: named ? `layer${i}` : undefined}, parts);
 }
 
-function tracePos(route, t) {
-  const {pts, cum, tot} = route;
-  if (pts.length === 1 || !tot) return pts[0];
-  const d = ease.inOutSine(clamp(t)) * tot;
-  for (let i = 1; i < pts.length; i++) if (d <= cum[i] || i === pts.length - 1) return mix(pts[i - 1], pts[i], cum[i] > cum[i - 1] ? clamp((d - cum[i - 1]) / (cum[i] - cum[i - 1])) : 1);
-  return pts[pts.length - 1];
+function shadeHex(c) {
+  const n = parseInt(c.slice(1), 16);
+  const f = v => Math.round(v * 0.72);
+  return `#${((1 << 24) | (f((n >> 16) & 255) << 16) | (f((n >> 8) & 255) << 8) | f(n & 255)).toString(16).slice(1)}`;
 }
 
-/** Place the relation labels (the two part labels on their lines, mirrored; the link's label on the link). */
-function placeLabels(L) {
-  const F = L.F, box = L.box;
-  L.labels = [];
-  if (!L.show) return;
-  const G0 = geometry(L, {ex: 1, sc: {}, br: 0});
-  const obst = [L.plate, ...L.cols];
-  const placed = [];
-  if (L.hasPart) {
-    const f = L.partFit, w = f.width + F * 1.2, hh = f.height + F * 0.72;
-    const ts = [0, 0.08, -0.08, 0.16, -0.16, 0.24, -0.24, 0.32, -0.32];
-    const cand = (s, i) => {
-      const ln = G0[`part-${s}`];
-      const q = mix(ln.a, ln.b, 0.5 + ts[i % ts.length]);
-      const side = Math.floor(i / ts.length);
-      const out = s === 'e' ? -1 : 1;
-      const x = side === 0 ? q.x - w / 2 : side === 1 ? (out < 0 ? q.x - w - F * 0.5 : q.x + F * 0.5) : (out < 0 ? q.x + F * 0.5 : q.x - w - F * 0.5);
-      return {x: clamp(x, box.x, box.x + box.w - w), y: q.y - hh / 2, w, h: hh};
-    };
-    let pick = null;
-    // (preferred: the chips high enough on their lines that the marker, running just above the circumstance panel's top edge,
-    // passes under them clear of their rims — see routeOf; else anywhere clear of the parts)
-    const ringRoom = 2 * (F * 0.8 + 3) + 4;
-    for (const roomy of [true, false]) for (let i = 0; i < ts.length * 3 && !pick; i++) {
-      const a = cand('e', i), b = cand('t', i);
-      if (roomy && (a.y + a.h > L.cols[0].y - ringRoom || b.y + b.h > L.cols[1].y - ringRoom)) continue;
-      if (![...obst].some(o => overlaps(a, o, 2) || overlaps(b, o, 2)) && !overlaps(a, b, 4)) pick = [a, b];
-    }
-    if (!pick) { L.why.push('label-part'); L.ok = false; pick = [cand('e', 0), cand('t', 0)]; }
-    ['e', 't'].forEach((s, i) => { placed.push(pick[i]); L.labels.push({k: 'part', s, box: pick[i], fit: f}); });
-  }
-  if (L.hasConfig && L.linkFit) {
-    // (centred on the link, in the gutter between the circumstance card's port and the open knob, also when gathered)
-    const f = L.linkFit, w = L.lw, hh = f.height + F * 0.72;
-    const Gg = geometry(L, {ex: 1 - GATHER, sc: {}, br: 0});
-    const x0 = Gg.port.x + F * 0.35, x1 = Gg.knob.x - L.B.hr - F * 0.35;
-    const cx = (G0.port.x + G0.knobOpen.x) / 2;
-    if (L.onLink) {
-      const b = {x: cx - w / 2, y: G0.port.y - hh / 2, w, h: hh};
-      if (b.x < x0 - 0.5 || b.x + w > x1 + 0.5) { L.why.push('label-config'); L.ok = false; }
-      placed.push(b);
-      L.labels.push({k: 'config', s: '', box: b, fit: f});
-    } else {
-      // (under the panels, centred under the gutter, with a leader up the gutter to the link's middle)
-      const colB = L.cols[0].y + L.cols[0].h;
-      const b = {x: clamp(cx - w / 2, box.x, box.x + box.w - w), y: colB + F * 0.5, w, h: hh};
-      if (cx < x0 || cx > x1) { L.why.push('label-config-lead'); L.ok = false; }
-      placed.push(b);
-      L.labels.push({k: 'config', s: '', box: b, fit: f, lead: {x: cx, y0: b.y, y1: G0.port.y + Math.max(6, F * 0.24)}});
-    }
-  }
-}
-
-/** A label's displacement: it follows its line's middle as the parts move (placed when exploded). */
-function labelShift(L, G, lb) {
-  const G0 = geometry(L, {ex: 1, sc: {}, br: 0});
-  if (lb.k === 'config') {
-    // (the link's label stays centred between the port and the knob's open place)
-    const k0 = {x: (G0.port.x + G0.knobOpen.x) / 2, y: G0.port.y};
-    return {x: (G.port.x + G.knobOpen.x) / 2 - k0.x, y: G.port.y - k0.y};
-  }
-  const ln0 = G0[`part-${lb.s}`], ln = G[`part-${lb.s}`];
-  const m0 = mix(ln0.a, ln0.b, 0.5), m = mix(ln.a, ln.b, 0.5);
-  return {x: m.x - m0.x, y: m.y - m0.y};
+function leader(ctx, L, pl) {
+  const b = pl.c.box;
+  const tg = pl.q.target === 'section' ? {x: L.target.x + L.target.w, y: L.target.y + L.target.h / 2}
+    : pl.q.target === 'communication' ? {x: L.layerFinal[1].x + 12 + L.tabW, y: L.stops.communication.y}
+      : {x: L.layerFinal[0].x + 22 + L.tabW / 2, y: L.stops.circumstance.y + L.tabH / 2};
+  const from = {x: tg.x < b.x ? b.x : tg.x > b.x + b.w ? b.x + b.w : clamp(tg.x, b.x + 12, b.x + b.w - 12), y: tg.y < b.y ? b.y : tg.y > b.y + b.h ? b.y + b.h : b.y + b.h / 2};
+  return g({name: `${pl.q.name}-lead`, opacity: 0},
+    h('path', {d: `M${r(from.x)} ${r(from.y)}L${r(tg.x)} ${r(tg.y)}`, stroke: ctx.theme.inkSoft, 'stroke-width': 2.6, 'stroke-linecap': 'round'}),
+    h('circle', {cx: r(tg.x), cy: r(tg.y), r: 6, fill: ctx.theme.inkSoft, stroke: '#fff', 'stroke-width': 2}),
+  );
 }
 
 export default defineAnimation({
   id: ID,
-  version: '1.0.0',
+  version: '2.0.0',
   defaultDurationMs: DURATION,
   metadata: makeMetadata({
     id: ID,
     slug: 'contract-terms-05-mechanism',
-    title: 'Termination clause, without doctrine — the contract taken apart: communication card, communication link, connector bracket and section as supplied',
+    title: 'Termination clause, without doctrine — two transparent layers on a light table join their half-frames around a section, as supplied',
     titleEs: 'Cláusula de terminación — Mecanismo o relación explicada',
     category: 'contract-terms',
     categoryName: 'Contenido y cláusulas',
     motif: 'Cláusula de terminación',
     treatment: 'mechanism',
     family: 'spatial-mechanism',
-    description: 'The assembled contract comes apart: the head plate lifts, the circumstances panel (the card "Communication 1 (supplied)" with its supplied case, ● provided for or ◆ not described, drawn alike) slides left and the termination-clause panel (its supplied sections, with a neutral connector bracket open in its track) slides right. Only explicit plain relations are drawn, with no arrowheads: the contract with each panel and — where the case is provided for — the communication link between the card and the bracket\'s knob. A neutral marker runs the supplied stages along the relations while the focus element enlarges; on reaching the knob the bracket slides shut on the supplied section. With "not described" no link is drawn and the bracket stays open. The parts close in part with everything visible, "Section connected as supplied" (or "No connection supplied") and the key "As supplied · no conclusion drawn".',
-    tags: ['termination clause', 'section', 'communication', 'connector', 'bracket', 'exploded view', 'layers', 'relation', 'tracer'],
+    description: 'Top-down light table: the contract sheet with the heading "Termination clause", its supplied sections and an empty band below them. Two transparent layers — "Circumstance 1 (supplied)" and "Communication 1 (supplied)" — slide in from beside the sheet and register; their printed half-frames close into one outline around the supplied section (provided for) or around the empty band (not described). The only relation shown is the supplied one, drawn without arrows. A magnifier then travels the traversal order, enlarging what lies under its glass, and is parked. The hold shows the supplied case (● or ◆, drawn alike) and the key "As supplied · no conclusion drawn". No termination doctrine, no notice period, no validity judgement.',
+    tags: ['termination clause', 'section', 'communication', 'circumstance', 'layers', 'light table', 'magnifier', 'tracer', 'contract', 'equal weight', 'mechanism'],
     defaultDurationMs: DURATION,
-    assets: ['src/animations/contract-terms/kits/clausula-terminacion.js', 'src/primitives/annotate.js'],
+    assets: ['src/animations/contract-terms/kits/terminacion-comunicaciones.js', 'src/primitives/annotate.js'],
   }),
   sceneSchema,
   defaultParams,

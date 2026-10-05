@@ -27,6 +27,8 @@ import {str, list, obj, oneOf} from '../../../schemas/fields.js';
 import {FONTS, measure} from '../../../core/text.js';
 import {shade} from '../../../primitives/paper.js';
 import {topArm} from '../../../primitives/desk.js';
+import {LINK_STYLES} from '../../../primitives/annotate.js';
+import {kindColor} from '../../../frameworks/graph.js';
 
 /* ------------------------------------------------------------------ */
 /* Category fields (brief: items, custodians, timestamps, records)     */
@@ -369,9 +371,9 @@ export function tagArt(ctx, T0, o) {
     const R = T0.rows[i];
     if (o.texts) {
       const t = o.texts[i];
-      parts.push(h('line', {x1: r(T0.rx0 + T0.stub + 4), x2: r(T0.rx1), y1: r(R.y + 2), y2: r(R.y + 2), stroke: MANILA_DARK, 'stroke-width': 1.2}));
+      parts.push(h('line', {x1: r((o.valueX ?? T0.rx0 + T0.stub + 8) - 4), x2: r(T0.rx1), y1: r(R.y + 2), y2: r(R.y + 2), stroke: MANILA_DARK, 'stroke-width': 1.2}));
       parts.push(textAt(t.fieldFit, {x: T0.rx0, y: R.y - t.fieldFit.size * 0.86, fill: '#5b4a2a'}));
-      if (row.filled) parts.push(g({name: `${P}-w${i}`}, textAt(t.valueFit, {x: T0.rx0 + T0.stub + 8, y: R.y - t.valueFit.size * 0.86, fill: WRITE_INK})));
+      if (row.filled) parts.push(g({name: `${P}-w${i}`}, textAt(t.valueFit, {x: o.valueX ?? T0.rx0 + T0.stub + 8, y: R.y - t.valueFit.size * 0.86, fill: WRITE_INK})));
       else parts.push(g({name: `${P}-w${i}`}));
       return;
     }
@@ -500,6 +502,17 @@ export function legendIcon(ctx, kind, s, o = {}) {
     return g(null,
       h('circle', {cx: 0, cy: 0, r: r(s * 0.38), fill: '#fbfaf6', stroke: INK, 'stroke-width': 2}),
       h('path', {d: `M0 ${r(-s * 0.24)}V0L${r(s * 0.16)} ${r(s * 0.1)}`, fill: 'none', stroke: INK, 'stroke-width': 2, 'stroke-linecap': 'round'}),
+    );
+  }
+  if (kind.startsWith('line-')) {
+    const k = kind.slice(5);
+    const st = LINK_STYLES[k] || LINK_STYLES.relation;
+    const c = o.color || kindColor(ctx, k);
+    return g(null,
+      h('line', {x1: r(-s * 0.45), y1: 0, x2: r(st.arrow ? s * 0.22 : s * 0.45), y2: 0, stroke: c, 'stroke-width': st.width, 'stroke-dasharray': st.dash || undefined, 'stroke-linecap': 'round'}),
+      st.arrow ? h('path', {d: `M${r(s * 0.45)} 0l${r(-s * 0.26)} ${r(-s * 0.15)}v${r(s * 0.3)}z`, fill: c}) : null,
+      st.endDots ? h('circle', {cx: r(-s * 0.45), cy: 0, r: r(st.width * 1.6), fill: c}) : null,
+      st.endDots ? h('circle', {cx: r(s * 0.45), cy: 0, r: r(st.width * 1.6), fill: c}) : null,
     );
   }
   if (kind === 'ring') {

@@ -1,0 +1,983 @@
+{
+  "animationId": "LAW-0717",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0717",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "losses.0.label"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: the whole bar, the blades parked, the trays empty @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "allocation": "a",
+          "finalState": "divided-as-supplied",
+          "values": [
+            40,
+            35,
+            25
+          ],
+          "widths": [
+            316.16,
+            276.64,
+            197.6
+          ],
+          "valueTexts": [
+            "40 (hypothetical)",
+            "35 (hypothetical)",
+            "25 (hypothetical)"
+          ],
+          "slide": 0,
+          "cut": 0,
+          "spread": 0,
+          "lift": 0,
+          "drops": [
+            0,
+            0,
+            0
+          ],
+          "valuesShown": 0,
+          "inTray": [
+            false,
+            false,
+            false
+          ],
+          "barWhole": true,
+          "keyShown": false,
+          "statusShown": false,
+          "actionCapped": false,
+          "trayX": [
+            199.74,
+            590.99,
+            922.96
+          ],
+          "landY": 497.97,
+          "layout": {
+            "S": 790.4,
+            "size": 25,
+            "mode": "side"
+          },
+          "seg0": {
+            "x": 294.59,
+            "y": 284.9
+          },
+          "seg1": {
+            "x": 590.99,
+            "y": 284.9
+          },
+          "seg2": {
+            "x": 828.11,
+            "y": 284.9
+          },
+          "blade0": {
+            "x": 73.28,
+            "y": 201.91
+          },
+          "blade1": {
+            "x": 126.63,
+            "y": 201.91
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the supplied values appear before any blade moves @0.19",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "allocation": "a",
+          "finalState": "divided-as-supplied",
+          "values": [
+            40,
+            35,
+            25
+          ],
+          "widths": [
+            316.16,
+            276.64,
+            197.6
+          ],
+          "valueTexts": [
+            "40 (hypothetical)",
+            "35 (hypothetical)",
+            "25 (hypothetical)"
+          ],
+          "slide": 0,
+          "cut": 0,
+          "spread": 0,
+          "lift": 0,
+          "drops": [
+            0,
+            0,
+            0
+          ],
+          "valuesShown": 1,
+          "inTray": [
+            false,
+            false,
+            false
+          ],
+          "barWhole": true,
+          "keyShown": false,
+          "statusShown": false,
+          "actionCapped": false,
+          "trayX": [
+            199.74,
+            590.99,
+            922.96
+          ],
+          "landY": 497.97,
+          "layout": {
+            "S": 790.4,
+            "size": 25,
+            "mode": "side"
+          },
+          "seg0": {
+            "x": 294.59,
+            "y": 284.9
+          },
+          "seg1": {
+            "x": 590.99,
+            "y": 284.9
+          },
+          "seg2": {
+            "x": 828.11,
+            "y": 284.9
+          },
+          "blade0": {
+            "x": 73.28,
+            "y": 201.91
+          },
+          "blade1": {
+            "x": 126.63,
+            "y": 201.91
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the blades reach the boundaries and cut @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "allocation": "a",
+          "finalState": "divided-as-supplied",
+          "values": [
+            40,
+            35,
+            25
+          ],
+          "widths": [
+            316.16,
+            276.64,
+            197.6
+          ],
+          "valueTexts": [
+            "40 (hypothetical)",
+            "35 (hypothetical)",
+            "25 (hypothetical)"
+          ],
+          "slide": 1,
+          "cut": 0.5,
+          "spread": 0,
+          "lift": 0,
+          "drops": [
+            0,
+            0,
+            0
+          ],
+          "valuesShown": 1,
+          "inTray": [
+            false,
+            false,
+            false
+          ],
+          "barWhole": true,
+          "keyShown": false,
+          "statusShown": false,
+          "actionCapped": false,
+          "trayX": [
+            199.74,
+            590.99,
+            922.96
+          ],
+          "landY": 497.97,
+          "layout": {
+            "S": 790.4,
+            "size": 25,
+            "mode": "side"
+          },
+          "seg0": {
+            "x": 294.59,
+            "y": 284.9
+          },
+          "seg1": {
+            "x": 590.99,
+            "y": 284.9
+          },
+          "seg2": {
+            "x": 828.11,
+            "y": 284.9
+          },
+          "blade0": {
+            "x": 452.67,
+            "y": 274.05
+          },
+          "blade1": {
+            "x": 729.31,
+            "y": 274.05
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the pieces spread apart on the shelf @0.38",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "allocation": "a",
+          "finalState": "divided-as-supplied",
+          "values": [
+            40,
+            35,
+            25
+          ],
+          "widths": [
+            316.16,
+            276.64,
+            197.6
+          ],
+          "valueTexts": [
+            "40 (hypothetical)",
+            "35 (hypothetical)",
+            "25 (hypothetical)"
+          ],
+          "slide": 1,
+          "cut": 1,
+          "spread": 0.789,
+          "lift": 0,
+          "drops": [
+            0,
+            0,
+            0
+          ],
+          "valuesShown": 1,
+          "inTray": [
+            false,
+            false,
+            false
+          ],
+          "barWhole": false,
+          "keyShown": false,
+          "statusShown": false,
+          "actionCapped": false,
+          "trayX": [
+            199.74,
+            590.99,
+            922.96
+          ],
+          "landY": 497.97,
+          "layout": {
+            "S": 790.4,
+            "size": 25,
+            "mode": "side"
+          },
+          "seg0": {
+            "x": 257.17,
+            "y": 284.9
+          },
+          "seg1": {
+            "x": 590.99,
+            "y": 284.9
+          },
+          "seg2": {
+            "x": 865.53,
+            "y": 284.9
+          },
+          "blade0": {
+            "x": 433.96,
+            "y": 346.18
+          },
+          "blade1": {
+            "x": 748.02,
+            "y": 346.18
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the pieces run down their rails one after another @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "allocation": "a",
+          "finalState": "divided-as-supplied",
+          "values": [
+            40,
+            35,
+            25
+          ],
+          "widths": [
+            316.16,
+            276.64,
+            197.6
+          ],
+          "valueTexts": [
+            "40 (hypothetical)",
+            "35 (hypothetical)",
+            "25 (hypothetical)"
+          ],
+          "slide": 1,
+          "cut": 1,
+          "spread": 1,
+          "lift": 0,
+          "drops": [
+            0.7,
+            0.15,
+            0
+          ],
+          "valuesShown": 1,
+          "inTray": [
+            false,
+            false,
+            false
+          ],
+          "barWhole": false,
+          "keyShown": false,
+          "statusShown": false,
+          "actionCapped": false,
+          "trayX": [
+            199.74,
+            590.99,
+            922.96
+          ],
+          "landY": 497.97,
+          "layout": {
+            "S": 790.4,
+            "size": 25,
+            "mode": "side"
+          },
+          "seg0": {
+            "x": 204.87,
+            "y": 474.96
+          },
+          "seg1": {
+            "x": 590.99,
+            "y": 270.53
+          },
+          "seg2": {
+            "x": 875.54,
+            "y": 284.9
+          },
+          "blade0": {
+            "x": 428.96,
+            "y": 346.18
+          },
+          "blade1": {
+            "x": 753.02,
+            "y": 346.18
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: every piece rests in its own tray @0.7",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "allocation": "a",
+          "finalState": "divided-as-supplied",
+          "values": [
+            40,
+            35,
+            25
+          ],
+          "widths": [
+            316.16,
+            276.64,
+            197.6
+          ],
+          "valueTexts": [
+            "40 (hypothetical)",
+            "35 (hypothetical)",
+            "25 (hypothetical)"
+          ],
+          "slide": 1,
+          "cut": 1,
+          "spread": 1,
+          "lift": 0.968,
+          "drops": [
+            1,
+            1,
+            1
+          ],
+          "valuesShown": 1,
+          "inTray": [
+            true,
+            true,
+            true
+          ],
+          "barWhole": false,
+          "keyShown": false,
+          "statusShown": false,
+          "actionCapped": false,
+          "trayX": [
+            199.74,
+            590.99,
+            922.96
+          ],
+          "landY": 497.97,
+          "layout": {
+            "S": 790.4,
+            "size": 25,
+            "mode": "side"
+          },
+          "seg0": {
+            "x": 199.74,
+            "y": 497.97
+          },
+          "seg1": {
+            "x": 590.99,
+            "y": 497.97
+          },
+          "seg2": {
+            "x": 922.96,
+            "y": 497.97
+          },
+          "blade0": {
+            "x": 428.96,
+            "y": 206.53
+          },
+          "blade1": {
+            "x": 753.02,
+            "y": 206.53
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: pieces in trays, lengths proportional to the supplied values, status and key @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "allocation": "a",
+          "finalState": "divided-as-supplied",
+          "values": [
+            40,
+            35,
+            25
+          ],
+          "widths": [
+            316.16,
+            276.64,
+            197.6
+          ],
+          "valueTexts": [
+            "40 (hypothetical)",
+            "35 (hypothetical)",
+            "25 (hypothetical)"
+          ],
+          "slide": 1,
+          "cut": 1,
+          "spread": 1,
+          "lift": 1,
+          "drops": [
+            1,
+            1,
+            1
+          ],
+          "valuesShown": 1,
+          "inTray": [
+            true,
+            true,
+            true
+          ],
+          "barWhole": false,
+          "keyShown": true,
+          "statusShown": true,
+          "actionCapped": false,
+          "trayX": [
+            199.74,
+            590.99,
+            922.96
+          ],
+          "landY": 497.97,
+          "layout": {
+            "S": 790.4,
+            "size": 25,
+            "mode": "side"
+          },
+          "seg0": {
+            "x": 199.74,
+            "y": 497.97
+          },
+          "seg1": {
+            "x": 590.99,
+            "y": 497.97
+          },
+          "seg2": {
+            "x": 922.96,
+            "y": 497.97
+          },
+          "blade0": {
+            "x": 428.96,
+            "y": 201.91
+          },
+          "blade1": {
+            "x": 753.02,
+            "y": 201.91
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: piece 1 ends centred in tray 1 @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "allocation": "a",
+          "finalState": "divided-as-supplied",
+          "values": [
+            40,
+            35,
+            25
+          ],
+          "widths": [
+            316.16,
+            276.64,
+            197.6
+          ],
+          "valueTexts": [
+            "40 (hypothetical)",
+            "35 (hypothetical)",
+            "25 (hypothetical)"
+          ],
+          "slide": 1,
+          "cut": 1,
+          "spread": 1,
+          "lift": 1,
+          "drops": [
+            1,
+            1,
+            1
+          ],
+          "valuesShown": 1,
+          "inTray": [
+            true,
+            true,
+            true
+          ],
+          "barWhole": false,
+          "keyShown": true,
+          "statusShown": true,
+          "actionCapped": false,
+          "trayX": [
+            199.74,
+            590.99,
+            922.96
+          ],
+          "landY": 497.97,
+          "layout": {
+            "S": 790.4,
+            "size": 25,
+            "mode": "side"
+          },
+          "seg0": {
+            "x": 199.74,
+            "y": 497.97
+          },
+          "seg1": {
+            "x": 590.99,
+            "y": 497.97
+          },
+          "seg2": {
+            "x": 922.96,
+            "y": 497.97
+          },
+          "blade0": {
+            "x": 428.96,
+            "y": 201.91
+          },
+          "blade1": {
+            "x": 753.02,
+            "y": 201.91
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative: divided by allocation B, marked disputed as supplied (never decided) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "allocation": "b",
+          "finalState": "division-disputed",
+          "values": [
+            20,
+            40,
+            15,
+            25
+          ],
+          "widths": [
+            157.638,
+            315.276,
+            118.228,
+            197.047
+          ],
+          "valueTexts": [
+            "20 (hypothetical)",
+            "40 (hypothetical)",
+            "15 (hypothetical)",
+            "25 (hypothetical)"
+          ],
+          "slide": 1,
+          "cut": 1,
+          "spread": 1,
+          "lift": 1,
+          "drops": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "valuesShown": 1,
+          "inTray": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "barWhole": false,
+          "keyShown": true,
+          "statusShown": true,
+          "actionCapped": false,
+          "trayX": [
+            120.41,
+            451.44,
+            766.94,
+            1023.31
+          ],
+          "landY": 506.42,
+          "layout": {
+            "S": 788.19,
+            "size": 20,
+            "mode": "side"
+          },
+          "seg0": {
+            "x": 120.41,
+            "y": 506.42
+          },
+          "seg1": {
+            "x": 451.44,
+            "y": 506.42
+          },
+          "seg2": {
+            "x": 766.94,
+            "y": 506.42
+          },
+          "seg3": {
+            "x": 1023.31,
+            "y": 506.42
+          },
+          "blade0": {
+            "x": 297.96,
+            "y": 201.37
+          },
+          "blade1": {
+            "x": 660.53,
+            "y": 201.37
+          },
+          "blade2": {
+            "x": 826.05,
+            "y": 201.37
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "allocation": "a",
+          "finalState": "divided-as-supplied",
+          "values": [
+            40,
+            35,
+            25
+          ],
+          "widths": [
+            316.16,
+            276.64,
+            197.6
+          ],
+          "valueTexts": [
+            "40 (hypothetical)",
+            "35 (hypothetical)",
+            "25 (hypothetical)"
+          ],
+          "slide": 1,
+          "cut": 0.996,
+          "spread": 0,
+          "lift": 0,
+          "drops": [
+            0,
+            0,
+            0
+          ],
+          "valuesShown": 1,
+          "inTray": [
+            false,
+            false,
+            false
+          ],
+          "barWhole": true,
+          "keyShown": true,
+          "statusShown": false,
+          "actionCapped": true,
+          "trayX": [
+            199.74,
+            590.99,
+            922.96
+          ],
+          "landY": 497.97,
+          "layout": {
+            "S": 790.4,
+            "size": 25,
+            "mode": "side"
+          },
+          "seg0": {
+            "x": 294.59,
+            "y": 284.9
+          },
+          "seg1": {
+            "x": 590.99,
+            "y": 284.9
+          },
+          "seg2": {
+            "x": 828.11,
+            "y": 284.9
+          },
+          "blade0": {
+            "x": 452.67,
+            "y": 345.6
+          },
+          "blade1": {
+            "x": 729.31,
+            "y": 345.6
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same transformation @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "allocation": "a",
+          "finalState": "divided-as-supplied",
+          "values": [
+            40,
+            35,
+            25
+          ],
+          "widths": [
+            354.296,
+            310.009,
+            221.435
+          ],
+          "valueTexts": [
+            "40 (hypothetical)",
+            "35 (hypothetical)",
+            "25 (hypothetical)"
+          ],
+          "slide": 1,
+          "cut": 1,
+          "spread": 1,
+          "lift": 1,
+          "drops": [
+            1,
+            1,
+            1
+          ],
+          "valuesShown": null,
+          "inTray": [
+            true,
+            true,
+            true
+          ],
+          "barWhole": false,
+          "keyShown": true,
+          "statusShown": true,
+          "actionCapped": false,
+          "trayX": [
+            223.15,
+            911.64,
+            1533.71
+          ],
+          "landY": 528.42,
+          "layout": {
+            "S": 885.74,
+            "size": 30,
+            "mode": "below"
+          },
+          "seg0": {
+            "x": 223.15,
+            "y": 528.42
+          },
+          "seg1": {
+            "x": 911.64,
+            "y": 528.42
+          },
+          "seg2": {
+            "x": 1533.71,
+            "y": 528.42
+          },
+          "blade0": {
+            "x": 730.07,
+            "y": 225.06
+          },
+          "blade1": {
+            "x": 1093.22,
+            "y": 225.06
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

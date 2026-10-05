@@ -249,8 +249,9 @@ const scene = {
     // (the plate's value wraps to at most this many lines: four, or six for a taller block when the lens opens beside a
     // 1:1 context — a near-square plate fills the lens window with text instead of floor)
     let maxRecLines = 4, tryFlip = false;
-    const rsMax = Infinity;
-    let rsList = REFS_SIZES.filter(v => v >= 1.4 && v <= rsMax);
+    // (fix-review-03, 1:1: a plate of smaller text multiples first, so the board leaves the room's width to the stations)
+    const rsMax = ctx.view.shape === 'square' ? 1.4 : Infinity;
+    let rsList = REFS_SIZES.filter(v => v >= (rsMax < 1.5 ? 1 : 1.4) && v <= rsMax);
     const memo = new Map();
     // (text coverage of the lens: >= 0.31 estimated; at 1:1 only, when no composition reaches it, the documented 1:1
     // limit — coordinator decision "LENS TEXT COVERAGE 1:1 LIMIT", 2026-10-05 — of >= 0.21)
@@ -259,7 +260,7 @@ const scene = {
     let boardCheck = true;
     const compose1 = (box, F, scale, rs, names) => {
       let rec = null;
-      const C = composeSa(ctx, P, R, box, F, {scale, text: showKey, names, numbers: showKey, courier: false, untangle: {clearPx: ctx.view.shape === 'square' ? (R.n >= 4 ? 17.5 : 16) : 18}, docK: R.n >= 4 && ctx.view.shape === 'square' ? 0.95 : R.n <= 2 ? 1.9 : 1.35, gap: R.n <= 2 ? 150 : 70, crop: 1.1, spread: 1.8, deepen: ctx.view.shape === 'portrait' ? 3.5 : 0,
+      const C = composeSa(ctx, P, R, box, F, {scale, text: showKey, names, numbers: showKey, courier: false, untangle: {clearPx: ctx.view.shape === 'square' ? (R.n >= 4 ? 17.5 : 16) : 18}, docK: R.n >= 4 && ctx.view.shape === 'square' ? 0.95 : ctx.view.shape === 'square' ? (R.n <= 2 ? 2.8 : 1.9) : R.n <= 2 ? 1.9 : 1.35, gap: R.n <= 2 ? 150 : 70, crop: 1.1, spread: 1.8, deepen: ctx.view.shape === 'portrait' ? 3.5 : 0,
         ...(approx && showKey ? {fitsBand: true} : {}), board: Ft => { rec = recordFor(Ft || F, rs); return {w: rec.layout.w, h: rec.layout.h}; }});
       C.rec = rec;
       C.refsSize = rs;
@@ -413,7 +414,7 @@ const scene = {
     const back = ease.inOutCubic(seg(u, ...W.back)) * (1 - ease.inOutCubic(seg(u, ...W.forward)));
     const sc = lerp(1, L.s, back);
     const a = L.anchor;
-    nodes.ctx = {transform: `${T(a.x - a.x * sc, a.y - a.y * sc)} scale(${r(sc, 4)})`, opacity: r(1 - 0.42 * Math.min(1, open * 1.4), 3)};
+    nodes.ctx = {transform: `${T(a.x - a.x * sc, a.y - a.y * sc)} scale(${r(sc, 4)})`, opacity: r(1 - 0.2 * Math.min(1, open * 1.4), 3)};
     const move = ease.inOutCubic(seg(u, ...W.move)), chip = seg(u, ...W.chip), was = seg(u, ...W.was);
     const newIn = seg(u, ...W.newIn);
     // context texts stay while they are still at their floor and leave just before

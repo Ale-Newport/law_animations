@@ -1,29 +1,29 @@
 {
   "id": "LAW-0500",
   "slug": "contract-terms-05-inspect",
-  "title": "Termination clause, without doctrine — inspecting the communication card and substituting its supplied case",
+  "title": "Termination clause, without doctrine — a lens isolates the case printed on a communication slip, one datum is replaced and only its thread follows",
   "titleEs": "Cláusula de terminación — Inspección y cambio de un dato",
   "category": "contract-terms",
   "categoryName": "Contenido y cláusulas",
   "motif": "Cláusula de terminación",
   "treatment": "inspect",
   "family": "focus-and-replay",
-  "description": "The contract board after the story's action: the card \"Communication 1 (supplied)\" seated in its slot with its supplied case ● \"Case provided for (as supplied)\", the sections of the termination clause, a neutral connector bracket shut on the supplied section and the connector cord drawn to the card, the two parties beside the board. A lens grows beside the scene with a real enlarged copy of the card; the old case is struck, the case row turns over to the supplied alternative ◆ \"Case not described (as supplied)\" and only then the cord is withdrawn and the bracket slides open, as supplied. The lens closes onto the card, a Δ marks it and the panel shows the marker, the struck \"was:\" value, the ●/◆ legend at equal weight and the key \"As supplied · no conclusion drawn\". Seeking back restores the old datum. No termination doctrine and no conclusion.",
+  "description": "A reading desk seen from above: the contract sheet with the heading \"Termination clause\" and its supplied sections (pegs at their right edges) and, beside it, the slip \"Communication 1 (supplied)\" whose case line reads \"Case provided for (as supplied)\", with a thread to the supplied section. A magnifier slides onto the slip and a lens opens a real enlarged copy beside the context (≥ 1.5×). In the lens the one datum is replaced by \"Case not described (as supplied)\" (the old value stays traceable as \"was: …\") and only its dependent geometry follows: the thread retracts. The lens closes; the context shows the new value with the neutral changed-datum marker. The hold shows \"No section linked · as supplied\", the editorial note and the key \"As supplied · no conclusion drawn\". No termination doctrine, no notice period, no validity judgement.",
   "tags": [
     "termination clause",
-    "communication",
-    "provided for",
-    "not described",
     "section",
-    "connector",
-    "bracket",
+    "communication",
+    "slip",
     "lens",
-    "substitution",
+    "magnifier",
+    "thread",
     "changed datum",
-    "characters"
+    "contract",
+    "equal weight",
+    "inspect"
   ],
   "durations": {
-    "defaultMs": 8000,
+    "defaultMs": 6500,
     "minMs": 1000,
     "maxMs": 60000,
     "designedFor": [
@@ -72,13 +72,13 @@
   },
   "schemaVersion": 1,
   "assets": [
-    "src/animations/contract-terms/kits/clausula-terminacion.js",
+    "src/animations/contract-terms/kits/terminacion-comunicaciones.js",
+    "src/frameworks/lens.js",
     "src/primitives/markers.js",
-    "src/primitives/person.js",
     "src/primitives/annotate.js"
   ],
   "license": "Original vector artwork and code created for this project; no third-party assets.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "paramsSchema": {
     "type": "object",
     "additionalProperties": false,
@@ -88,7 +88,7 @@
         "type": "number",
         "minimum": 1000,
         "maximum": 60000,
-        "default": 8000,
+        "default": 6500,
         "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
       },
       "seed": {
@@ -189,74 +189,6 @@
         "default": true,
         "description": "Shows a small \"illustrative example\" tag inside the safe area."
       },
-      "parties": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "name": {
-              "type": "string",
-              "maxLength": 60,
-              "description": "Display name (fictional by default)"
-            },
-            "role": {
-              "type": "string",
-              "maxLength": 60,
-              "description": "Descriptive role label (not a legal finding)"
-            },
-            "appearance": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "skin": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 5,
-                  "description": "Skin tone index 0–5"
-                },
-                "hair": {
-                  "type": "string",
-                  "enum": [
-                    "short",
-                    "long",
-                    "bun",
-                    "curly",
-                    "buzz",
-                    "scarf"
-                  ],
-                  "description": "Hair style"
-                },
-                "hairColor": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 6,
-                  "description": "Hair colour index 0–6"
-                },
-                "outfit": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 7,
-                  "description": "Outfit colour index 0–7"
-                },
-                "glasses": {
-                  "type": "boolean",
-                  "description": "Wears glasses"
-                }
-              },
-              "required": [],
-              "description": "Optional appearance overrides; defaults derive from the seed"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "description": "A fictional person or party"
-        },
-        "minItems": 2,
-        "maxItems": 2,
-        "description": "Party A (by the circumstances panel) and Party B (by the connector track); fictional by default, equal weight (array replaces the previous value)"
-      },
       "contract": {
         "type": "object",
         "additionalProperties": false,
@@ -276,64 +208,12 @@
           "reference",
           "title"
         ],
-        "description": "The contract board"
+        "description": "The contract sheet"
       },
-      "panels": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "circumstance": {
-            "type": "string",
-            "maxLength": 50,
-            "description": "Heading of the circumstances panel (e.g. \"Circumstances and communications\")"
-          },
-          "section": {
-            "type": "string",
-            "maxLength": 50,
-            "description": "Heading of the clause panel (e.g. \"Termination clause\")"
-          }
-        },
-        "required": [
-          "circumstance",
-          "section"
-        ],
-        "description": "Headings of the two panels, as supplied"
-      },
-      "circumstance": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "label": {
-            "type": "string",
-            "maxLength": 60,
-            "description": "Label of the circumstance card (e.g. \"Communication 1 (supplied)\")"
-          }
-        },
-        "required": [
-          "label"
-        ],
-        "description": "The supplied circumstance or communication (a generic, fictional placeholder; never a real notice)"
-      },
-      "stateLabels": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "provided": {
-            "type": "string",
-            "maxLength": 60,
-            "description": "Case \"provided for\", as supplied (e.g. \"Case provided for (as supplied)\")"
-          },
-          "undescribed": {
-            "type": "string",
-            "maxLength": 60,
-            "description": "Case \"not described\", as supplied (e.g. \"Case not described (as supplied)\")"
-          }
-        },
-        "required": [
-          "provided",
-          "undescribed"
-        ],
-        "description": "Wording of the two supplied cases (equal weight; ● provided for, ◆ not described)"
+      "clauseTitle": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "Heading of the clause, as supplied (e.g. \"Termination clause\")"
       },
       "clauses": {
         "type": "array",
@@ -344,53 +224,53 @@
         },
         "minItems": 1,
         "maxItems": 3,
-        "description": "Sections of the termination clause, as supplied (generic, fictional placeholders, e.g. \"Section 1 (supplied text)\"; never real contract text) (array replaces the previous value)"
+        "description": "Sections of the clause, as supplied (generic, fictional placeholders such as \"Section 1 (supplied text)\"; never real contract text) (array replaces the previous value)"
       },
       "section": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 3,
+        "description": "The supplied section the communication is linked to when the case is \"provided for\" (1 = top; clamped to the list)"
+      },
+      "communication": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "from": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 3,
-            "description": "First connected section (1–3)"
-          },
-          "to": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 3,
-            "description": "Last connected section (1–3)"
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label printed on the communication (e.g. \"Communication 1 (supplied)\")"
           }
         },
         "required": [
-          "from",
-          "to"
+          "label"
         ],
-        "description": "The supplied section(s) the connector joins to the circumstance card: sections from…to (1 = top; clamped to the list)"
+        "description": "The supplied communication (a generic, fictional placeholder; never a real notice)"
       },
       "focusTarget": {
         "type": "string",
         "enum": [
-          "caseState"
+          "case"
         ],
-        "description": "The inspected object (the communication card: its supplied case row)"
+        "description": "Detail that is enlarged and substituted (the supplied case printed on the communication slip)"
       },
       "beforeValue": {
         "type": "string",
-        "enum": [
-          "provided",
-          "undescribed"
-        ],
-        "description": "The supplied case before the substitution (provided = provided for, undescribed = not described)"
+        "maxLength": 70,
+        "description": "Case shown before the substitution, as supplied"
       },
       "afterValue": {
+        "type": "string",
+        "maxLength": 70,
+        "description": "Case shown after the substitution (the alternative supplied case)"
+      },
+      "finalState": {
         "type": "string",
         "enum": [
           "provided",
           "undescribed"
         ],
-        "description": "The supplied case after the substitution (provided = provided for, undescribed = not described)"
+        "description": "The supplied case AFTER the substitution: undescribed (the thread to the supplied section retracts) or provided (a thread is drawn to the supplied section). The case before is the other one. Both have equal weight; nothing is inferred"
       },
       "detailGeometry": {
         "type": "object",
@@ -400,16 +280,16 @@
             "type": "number",
             "minimum": 1.5,
             "maximum": 4,
-            "description": "Largest magnification of the lens (≥ 1.5; the layout may use less room but never under 1.5)"
+            "description": "Preferred magnification of the lens (it is kept ≥ 1.5×; reduced only to fit)"
           },
           "placement": {
             "type": "string",
             "enum": [
               "auto",
               "right",
-              "below"
+              "bottom"
             ],
-            "description": "Where the lens sits"
+            "description": "Where the lens opens"
           }
         },
         "required": [],
@@ -421,22 +301,25 @@
         "properties": {
           "context": {
             "type": "string",
-            "maxLength": 80,
-            "description": "Context headline"
+            "maxLength": 90,
+            "description": "Editorial note shown in the hold"
           },
           "marker": {
             "type": "string",
-            "maxLength": 70,
+            "maxLength": 40,
             "description": "Label of the changed-datum marker"
           }
         },
-        "required": [],
+        "required": [
+          "context",
+          "marker"
+        ],
         "description": "Labels for the context view"
       }
     }
   },
   "defaultParams": {
-    "durationMs": 8000,
+    "durationMs": 6500,
     "seed": 1,
     "locale": "en",
     "theme": "editorial-flat",
@@ -452,50 +335,31 @@
     "textVisibility": "all",
     "jurisdiction": "unspecified",
     "contentNotice": true,
-    "parties": [
-      {
-        "name": "Lucía Ferrer",
-        "role": "Party A"
-      },
-      {
-        "name": "Tomás Ibarra",
-        "role": "Party B"
-      }
-    ],
     "contract": {
-      "reference": "CT-523",
+      "reference": "CT-731",
       "title": "Contract (fictional)"
     },
-    "panels": {
-      "circumstance": "Circumstances and communications",
-      "section": "Termination clause"
-    },
-    "circumstance": {
-      "label": "Communication 1 (supplied)"
-    },
-    "stateLabels": {
-      "provided": "Case provided for (as supplied)",
-      "undescribed": "Case not described (as supplied)"
-    },
+    "clauseTitle": "Termination clause",
     "clauses": [
       "Section 1 (supplied text)",
       "Section 2 (supplied text)",
       "Section 3 (supplied text)"
     ],
-    "section": {
-      "from": 2,
-      "to": 2
+    "section": 2,
+    "communication": {
+      "label": "Communication 1 (supplied)"
     },
-    "focusTarget": "caseState",
-    "beforeValue": "provided",
-    "afterValue": "undescribed",
+    "focusTarget": "case",
+    "beforeValue": "Case provided for (as supplied)",
+    "afterValue": "Case not described (as supplied)",
+    "finalState": "undescribed",
     "detailGeometry": {
-      "zoom": 2.4,
+      "zoom": 2.2,
       "placement": "auto"
     },
     "contextLabels": {
-      "context": "Communication card, connector and sections, as supplied",
-      "marker": "Changed: the supplied case of communication 1"
+      "context": "Only the supplied case on the slip was changed",
+      "marker": "Changed datum"
     }
   }
 }

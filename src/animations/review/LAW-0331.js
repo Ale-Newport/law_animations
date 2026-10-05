@@ -212,7 +212,8 @@ const scene = {
     };
     // (four bodies at 1:1: a slightly smaller sheet and sign, so two rooms of four stations keep the people floors)
     const four = R.n >= 4 && shape === 'square';
-    const docK = four ? 0.5 : DOCK[shape] * (R.n >= 4 ? 0.85 : R.n === 3 && shape === 'square' ? 0.74 : 1);
+    // (fix-review-03, 1:1: two stations side by side get larger sheets and trays — the rooms are bound by their width)
+    const docK = four ? 0.5 : DOCK[shape] * (R.n >= 4 ? 0.85 : R.n === 3 && shape === 'square' ? 0.74 : R.n <= 2 && shape === 'square' ? 1.15 : 1);
     // ---- one candidate: rooms area (for the pair), arrangement, size, room scale
     const compose = (area, arr, F, scale, final = false, extraH = 0, padL = 0) => {
       const chan = 30, side = arr === 'row' ? 0 : 44;

@@ -1,23 +1,25 @@
 {
   "id": "LAW-0497",
   "slug": "contract-terms-05-story",
-  "title": "Termination clause, without doctrine — a communication card seated and a section of the clause connected to it, as supplied",
+  "title": "Termination clause, without doctrine — a messenger pins a letter on the contract board and a thread links it to a section, as supplied",
   "titleEs": "Cláusula de terminación — Microescena con objetos y actores",
   "category": "contract-terms",
   "categoryName": "Contenido y cláusulas",
   "motif": "Cláusula de terminación",
   "treatment": "story",
   "family": "staged-scene",
-  "description": "Two standing parties on either side of a contract board with two panels, \"Circumstances and communications\" and \"Termination clause\". Party A takes the card \"Communication 1 (supplied)\" (printed with its supplied case: ● provided for or ◆ not described, drawn alike) from the tray and seats it in the slot. With \"provided for\" Party B slides a neutral connector bracket shut on the supplied section of the clause and a connector cord is drawn from the bracket to the seated card: the section is connected with the supplied communication. With \"not described\" the bracket stays open and no cord is drawn. The hold shows \"Section connected as supplied\" (or \"No connection supplied\") and the key \"As supplied · no conclusion drawn\". No termination doctrine, no notice period, no validity judgement, no conclusion.",
+  "description": "A messenger walks up to a cork board that holds the contract sheet with the heading \"Termination clause\" and its supplied sections. The folded letter \"Communication 1 (supplied)\" is lifted onto a pin spot, unfolded to show its supplied case (● provided for or ◆ not described, drawn alike) and pinned. The messenger takes the magnifier from the ledge, holds it over the case line, and lays it back. With \"provided for\" a thread is drawn from the letter's pin to the peg of the supplied section; with \"not described\" no thread is drawn. The hold shows \"Section linked as supplied\" (or \"No section linked · as supplied\") and the key \"As supplied · no conclusion drawn\". No termination doctrine, no notice period, no validity judgement.",
   "tags": [
     "termination clause",
     "section",
     "communication",
-    "circumstance",
-    "connector",
-    "bracket",
+    "letter",
+    "messenger",
+    "cork board",
+    "magnifier",
+    "pin",
+    "thread",
     "contract",
-    "layers",
     "equal weight",
     "characters"
   ],
@@ -71,13 +73,13 @@
   },
   "schemaVersion": 1,
   "assets": [
-    "src/animations/contract-terms/kits/clausula-terminacion.js",
+    "src/animations/contract-terms/kits/terminacion-comunicaciones.js",
     "src/primitives/person.js",
     "src/primitives/annotate.js",
     "src/primitives/people-style.js"
   ],
   "license": "Original vector artwork and code created for this project; no third-party assets.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "paramsSchema": {
     "type": "object",
     "additionalProperties": false,
@@ -188,73 +190,67 @@
         "default": true,
         "description": "Shows a small \"illustrative example\" tag inside the safe area."
       },
-      "parties": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "name": {
-              "type": "string",
-              "maxLength": 60,
-              "description": "Display name (fictional by default)"
-            },
-            "role": {
-              "type": "string",
-              "maxLength": 60,
-              "description": "Descriptive role label (not a legal finding)"
-            },
-            "appearance": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "skin": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 5,
-                  "description": "Skin tone index 0–5"
-                },
-                "hair": {
-                  "type": "string",
-                  "enum": [
-                    "short",
-                    "long",
-                    "bun",
-                    "curly",
-                    "buzz",
-                    "scarf"
-                  ],
-                  "description": "Hair style"
-                },
-                "hairColor": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 6,
-                  "description": "Hair colour index 0–6"
-                },
-                "outfit": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 7,
-                  "description": "Outfit colour index 0–7"
-                },
-                "glasses": {
-                  "type": "boolean",
-                  "description": "Wears glasses"
-                }
-              },
-              "required": [],
-              "description": "Optional appearance overrides; defaults derive from the seed"
-            }
+      "messenger": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Display name (fictional by default)"
           },
-          "required": [
-            "name"
-          ],
-          "description": "A fictional person or party"
+          "role": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Descriptive role label (not a legal finding)"
+          },
+          "appearance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "skin": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5,
+                "description": "Skin tone index 0–5"
+              },
+              "hair": {
+                "type": "string",
+                "enum": [
+                  "short",
+                  "long",
+                  "bun",
+                  "curly",
+                  "buzz",
+                  "scarf"
+                ],
+                "description": "Hair style"
+              },
+              "hairColor": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 6,
+                "description": "Hair colour index 0–6"
+              },
+              "outfit": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7,
+                "description": "Outfit colour index 0–7"
+              },
+              "glasses": {
+                "type": "boolean",
+                "description": "Wears glasses"
+              }
+            },
+            "required": [],
+            "description": "Optional appearance overrides; defaults derive from the seed"
+          }
         },
-        "minItems": 2,
-        "maxItems": 2,
-        "description": "Party A (by the circumstances panel) and Party B (by the connector track); fictional by default, equal weight (array replaces the previous value)"
+        "required": [
+          "name"
+        ],
+        "description": "A fictional person or party"
       },
       "contract": {
         "type": "object",
@@ -275,64 +271,12 @@
           "reference",
           "title"
         ],
-        "description": "The contract board"
+        "description": "The contract sheet"
       },
-      "panels": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "circumstance": {
-            "type": "string",
-            "maxLength": 50,
-            "description": "Heading of the circumstances panel (e.g. \"Circumstances and communications\")"
-          },
-          "section": {
-            "type": "string",
-            "maxLength": 50,
-            "description": "Heading of the clause panel (e.g. \"Termination clause\")"
-          }
-        },
-        "required": [
-          "circumstance",
-          "section"
-        ],
-        "description": "Headings of the two panels, as supplied"
-      },
-      "circumstance": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "label": {
-            "type": "string",
-            "maxLength": 60,
-            "description": "Label of the circumstance card (e.g. \"Communication 1 (supplied)\")"
-          }
-        },
-        "required": [
-          "label"
-        ],
-        "description": "The supplied circumstance or communication (a generic, fictional placeholder; never a real notice)"
-      },
-      "stateLabels": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "provided": {
-            "type": "string",
-            "maxLength": 60,
-            "description": "Case \"provided for\", as supplied (e.g. \"Case provided for (as supplied)\")"
-          },
-          "undescribed": {
-            "type": "string",
-            "maxLength": 60,
-            "description": "Case \"not described\", as supplied (e.g. \"Case not described (as supplied)\")"
-          }
-        },
-        "required": [
-          "provided",
-          "undescribed"
-        ],
-        "description": "Wording of the two supplied cases (equal weight; ● provided for, ◆ not described)"
+      "clauseTitle": {
+        "type": "string",
+        "maxLength": 60,
+        "description": "Heading of the clause, as supplied (e.g. \"Termination clause\")"
       },
       "clauses": {
         "type": "array",
@@ -343,30 +287,49 @@
         },
         "minItems": 1,
         "maxItems": 3,
-        "description": "Sections of the termination clause, as supplied (generic, fictional placeholders, e.g. \"Section 1 (supplied text)\"; never real contract text) (array replaces the previous value)"
+        "description": "Sections of the clause, as supplied (generic, fictional placeholders such as \"Section 1 (supplied text)\"; never real contract text) (array replaces the previous value)"
       },
       "section": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 3,
+        "description": "The supplied section the communication is linked to when the case is \"provided for\" (1 = top; clamped to the list)"
+      },
+      "communication": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "from": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 3,
-            "description": "First connected section (1–3)"
-          },
-          "to": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 3,
-            "description": "Last connected section (1–3)"
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label printed on the communication (e.g. \"Communication 1 (supplied)\")"
           }
         },
         "required": [
-          "from",
-          "to"
+          "label"
         ],
-        "description": "The supplied section(s) the connector joins to the circumstance card: sections from…to (1 = top; clamped to the list)"
+        "description": "The supplied communication (a generic, fictional placeholder; never a real notice)"
+      },
+      "stateLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "provided": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Case \"provided for\", as supplied"
+          },
+          "undescribed": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Case \"not described\", as supplied"
+          }
+        },
+        "required": [
+          "provided",
+          "undescribed"
+        ],
+        "description": "Wording of the two supplied cases (equal weight; ● provided for, ◆ not described)"
       },
       "actorLabels": {
         "type": "object",
@@ -375,29 +338,24 @@
           "a": {
             "type": "string",
             "maxLength": 50,
-            "description": "Caption for Party A"
-          },
-          "b": {
-            "type": "string",
-            "maxLength": 50,
-            "description": "Caption for Party B"
+            "description": "Caption for the messenger"
           }
         },
         "required": [],
-        "description": "Role captions shown under each party"
+        "description": "Role caption shown under the messenger"
       },
       "objectLabels": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "tray": {
+          "ledge": {
             "type": "string",
             "maxLength": 30,
-            "description": "Plate on the circumstance tray"
+            "description": "Plate on the board ledge (e.g. \"Communications\")"
           }
         },
         "required": [],
-        "description": "Plate on the circumstance tray"
+        "description": "Plate on the board ledge"
       },
       "actionProgress": {
         "type": "number",
@@ -414,9 +372,9 @@
             "target": {
               "type": "string",
               "enum": [
-                "circumstance",
+                "letter",
                 "section",
-                "bracket"
+                "magnifier"
               ],
               "description": "Scene element the annotation points at"
             },
@@ -442,7 +400,7 @@
           "provided",
           "undescribed"
         ],
-        "description": "The supplied case at the hold: provided (provided for: the bracket is slid shut on the supplied section and the connector cord drawn to the card; a tag \"Section connected as supplied\") or undescribed (not described: the bracket stays open, no cord; a tag \"No connection supplied\"). Both are supplied cases of equal weight; nothing is inferred from either"
+        "description": "The supplied case: provided (provided for: a thread is drawn from the pinned letter to the supplied section; tag \"Section linked as supplied\") or undescribed (not described: the letter stays pinned with no thread; tag \"No section linked · as supplied\"). Both cases have equal weight; nothing is inferred from either"
       }
     }
   },
@@ -463,46 +421,33 @@
     "textVisibility": "all",
     "jurisdiction": "unspecified",
     "contentNotice": true,
-    "parties": [
-      {
-        "name": "Lucía Ferrer",
-        "role": "Party A"
-      },
-      {
-        "name": "Tomás Ibarra",
-        "role": "Party B"
-      }
-    ],
+    "messenger": {
+      "name": "Irene Valdés",
+      "role": "Messenger"
+    },
     "contract": {
-      "reference": "CT-523",
+      "reference": "CT-731",
       "title": "Contract (fictional)"
     },
-    "panels": {
-      "circumstance": "Circumstances and communications",
-      "section": "Termination clause"
-    },
-    "circumstance": {
+    "clauseTitle": "Termination clause",
+    "clauses": [
+      "Section 1 (supplied text)",
+      "Section 2 (supplied text)",
+      "Section 3 (supplied text)"
+    ],
+    "section": 2,
+    "communication": {
       "label": "Communication 1 (supplied)"
     },
     "stateLabels": {
       "provided": "Case provided for (as supplied)",
       "undescribed": "Case not described (as supplied)"
     },
-    "clauses": [
-      "Section 1 (supplied text)",
-      "Section 2 (supplied text)",
-      "Section 3 (supplied text)"
-    ],
-    "section": {
-      "from": 2,
-      "to": 2
-    },
     "actorLabels": {
-      "a": "Party A",
-      "b": "Party B"
+      "a": "Messenger"
     },
     "objectLabels": {
-      "tray": "Communications tray"
+      "ledge": "Communications"
     },
     "actionProgress": 1,
     "annotations": [],

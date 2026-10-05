@@ -358,21 +358,19 @@ export function letterCard(ctx, o) {
   return g({name: o.name}, g({name: `${o.name}-top`}, top), low);
 }
 
-/** A sagging thread from a to b (quadratic). */
-export function threadPath(a, b, sag = 0.12, ctrl = null) {
+/** A thread from a to b: quadratic (sagging, or through `ctrl`), or cubic through `ctrl` and `ctrl2`. */
+export function threadPath(a, b, sag = 0.12, ctrl = null, ctrl2 = null) {
   const c = ctrl ?? {x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 + Math.hypot(b.x - a.x, b.y - a.y) * sag};
-  const L = quadLen(a, c, b);
-  return {d: `M${r(a.x)} ${r(a.y)}Q${r(c.x)} ${r(c.y)} ${r(b.x)} ${r(b.y)}`, len: L, c};
-}
-function quadLen(a, c, b) {
+  const c2 = ctrl2 ?? null;
+  const at = t => (c2
+    ? {x: (1 - t) ** 3 * a.x + 3 * (1 - t) ** 2 * t * c.x + 3 * (1 - t) * t * t * c2.x + t ** 3 * b.x, y: (1 - t) ** 3 * a.y + 3 * (1 - t) ** 2 * t * c.y + 3 * (1 - t) * t * t * c2.y + t ** 3 * b.y}
+    : {x: (1 - t) * (1 - t) * a.x + 2 * (1 - t) * t * c.x + t * t * b.x, y: (1 - t) * (1 - t) * a.y + 2 * (1 - t) * t * c.y + t * t * b.y});
   let L = 0, prev = a;
-  for (let i = 1; i <= 24; i++) {
-    const t = i / 24;
-    const q = {x: (1 - t) * (1 - t) * a.x + 2 * (1 - t) * t * c.x + t * t * b.x, y: (1 - t) * (1 - t) * a.y + 2 * (1 - t) * t * c.y + t * t * b.y};
-    L += Math.hypot(q.x - prev.x, q.y - prev.y);
-    prev = q;
-  }
-  return L;
+  for (let i = 1; i <= 32; i++) { const q = at(i / 32); L += Math.hypot(q.x - prev.x, q.y - prev.y); prev = q; }
+  const d = c2
+    ? `M${r(a.x)} ${r(a.y)}C${r(c.x)} ${r(c.y)} ${r(c2.x)} ${r(c2.y)} ${r(b.x)} ${r(b.y)}`
+    : `M${r(a.x)} ${r(a.y)}Q${r(c.x)} ${r(c.y)} ${r(b.x)} ${r(b.y)}`;
+  return {d, len: L, c, at};
 }
 
 /** A drawable thread node (draw progress via `stroke-dashoffset`). */
