@@ -254,7 +254,7 @@
         },
         "minItems": 2,
         "maxItems": 2,
-        "description": "Party A (by the circumstance panel) and Party B (by the track); fictional by default, equal weight (array replaces the previous value)"
+        "description": "Party A (by the circumstances panel) and Party B (by the connector track); fictional by default, equal weight (array replaces the previous value)"
       },
       "contract": {
         "type": "object",
@@ -284,12 +284,12 @@
           "circumstance": {
             "type": "string",
             "maxLength": 50,
-            "description": "Heading of the circumstance panel (e.g. \"Circumstance\")"
+            "description": "Heading of the circumstances panel (e.g. \"Circumstances and communications\")"
           },
           "section": {
             "type": "string",
             "maxLength": 50,
-            "description": "Heading of the section panel (e.g. \"Section of clauses\")"
+            "description": "Heading of the clause panel (e.g. \"Termination clause\")"
           }
         },
         "required": [
@@ -305,13 +305,13 @@
           "label": {
             "type": "string",
             "maxLength": 60,
-            "description": "Label of the circumstance (e.g. \"Circumstance 1 (supplied)\")"
+            "description": "Label of the circumstance card (e.g. \"Communication 1 (supplied)\")"
           }
         },
         "required": [
           "label"
         ],
-        "description": "The circumstance, as supplied (a generic, fictional placeholder; never a real clause)"
+        "description": "The supplied circumstance or communication (a generic, fictional placeholder; never a real notice)"
       },
       "stateLabels": {
         "type": "object",
@@ -320,30 +320,30 @@
           "provided": {
             "type": "string",
             "maxLength": 60,
-            "description": "State \"provided\", as supplied (e.g. \"Circumstance provided (as supplied)\")"
+            "description": "Case \"provided for\", as supplied (e.g. \"Case provided for (as supplied)\")"
           },
           "undescribed": {
             "type": "string",
             "maxLength": 60,
-            "description": "State \"undescribed\", as supplied (e.g. \"Circumstance undescribed (as supplied)\")"
+            "description": "Case \"not described\", as supplied (e.g. \"Case not described (as supplied)\")"
           }
         },
         "required": [
           "provided",
           "undescribed"
         ],
-        "description": "Wording of the two supplied states of the circumstance (equal weight; ● provided, ◆ undescribed)"
+        "description": "Wording of the two supplied cases (equal weight; ● provided for, ◆ not described)"
       },
       "clauses": {
         "type": "array",
         "items": {
           "type": "string",
           "maxLength": 70,
-          "description": "Clause, as supplied"
+          "description": "Section, as supplied"
         },
         "minItems": 1,
         "maxItems": 3,
-        "description": "Clauses listed in the section panel, as supplied (generic, fictional placeholders, e.g. \"Clause 1 (supplied text)\"; never real contract text) (array replaces the previous value)"
+        "description": "Sections of the termination clause, as supplied (generic, fictional placeholders, e.g. \"Section 1 (supplied text)\"; never real contract text) (array replaces the previous value)"
       },
       "section": {
         "type": "object",
@@ -353,20 +353,20 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 3,
-            "description": "First clause of the section (1–3)"
+            "description": "First connected section (1–3)"
           },
           "to": {
             "type": "integer",
             "minimum": 1,
             "maximum": 3,
-            "description": "Last clause of the section (1–3)"
+            "description": "Last connected section (1–3)"
           }
         },
         "required": [
           "from",
           "to"
         ],
-        "description": "The supplied section the bracket marks: clauses from…to (1 = top; clamped to the list)"
+        "description": "The supplied section(s) the connector joins to the circumstance card: sections from…to (1 = top; clamped to the list)"
       },
       "changedFact": {
         "type": "object",
@@ -490,19 +490,19 @@
       }
     ],
     "contract": {
-      "reference": "CT-517",
+      "reference": "CT-523",
       "title": "Contract (fictional)"
     },
     "panels": {
-      "circumstance": "Circumstance",
-      "section": "Section of clauses"
+      "circumstance": "Circumstances and communications",
+      "section": "Termination clause"
     },
     "circumstance": {
-      "label": "Circumstance 1 (supplied)"
+      "label": "Communication 1 (supplied)"
     },
     "stateLabels": {
-      "provided": "Circumstance provided (as supplied)",
-      "undescribed": "Circumstance undescribed (as supplied)"
+      "provided": "Case provided for (as supplied)",
+      "undescribed": "Case not described (as supplied)"
     },
     "clauses": [
       "Clause 1 (supplied text)",

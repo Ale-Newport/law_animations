@@ -288,7 +288,7 @@ const scene = {
         lensOpen: r(p, 3), lensShown: r(lensVis, 3), zoom: r(C.k, 3),
         src: {x: r(C.src.x), y: r(C.src.y), w: r(C.src.w), h: r(C.src.h)},
         dest: {x: r(C.dest.x), y: r(C.dest.y), w: r(C.dest.w), h: r(C.dest.h)},
-        tag: R2(tagW), lensTag: R2({x: C.dest.x + (tagW.x - C.src.x) * C.k, y: C.dest.y + (tagW.y - C.src.y) * C.k}),
+        tag: R2(tagW), lensTag: lensHolds ? R2({x: C.dest.x + (tagW.x - C.src.x) * C.k, y: C.dest.y + (tagW.y - C.src.y) * C.k}) : null,
         folderC: R2(f), atBefore: atRest(R.target), atAfter: atRest(R.after), move: r(kMove, 3),
         datumInLens: lensHolds, ctxOld, ctxNew, lensOld: r(lensHolds ? oldOp : 0, 3), lensNew: r(lensHolds ? newOp : 0, 3),
         ghost: r(R.changed ? clamp(kMove * 3) : 0, 3), marker: r(mk, 3), changed: R.changed,

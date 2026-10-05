@@ -72,7 +72,7 @@ const defaultParams = {
 const defaultParamsEs = {
   ...DEFAULT_CONTENT_ES,
   clauses: ['Apartado 1 (texto aportado)', 'Apartado 2 (texto aportado)'],
-  changedFact: {label: 'el estado del comunicación 1'},
+  changedFact: {label: 'el estado de la comunicación 1'},
   scenarioA: {label: 'Comunicación 1 previsto (según lo aportado)', state: 'provided'},
   scenarioB: {label: 'Comunicación 1 no descrito (según lo aportado)', state: 'undescribed'},
   sharedFacts: ['Mismo contrato, partes, apartados y apartado'],

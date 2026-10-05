@@ -1,21 +1,20 @@
 // LAW-0497 — Cláusula de terminación · story. Contract battery + ID-specific checks.
 // Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05):
-// clauses (the circumstance card and the clause cards stand for the clauses: circumstance, clauses), schedules, definitions
-// and priorities (no priority or order between clauses is drawn). The motif's core content — the circumstance, its two
-// supplied states, the clauses, the supplied section and the hold configuration — stays editable (test-comment
-// note only). No stress field is capped.
-// acceptanceCheck (brief): continuity of the motion (60 fps, every tracked point — both hands, the circumstance card and the
-// bracket), anchored objects (the circumstance card moves only in Party A's hand, held by its grip tab at a constant offset; the
+// schedules, definitions and priorities (no priority or order between sections is drawn); clauses = the sections of the
+// termination clause. The motif's core content — the communication card, its two supplied cases, the sections, the
+// supplied connected section and the hold configuration — stays editable. No stress field is capped.
+// acceptanceCheck (brief): continuity of the motion (60 fps, every tracked point — both hands, the card and the
+// bracket), anchored objects (the card moves only in Party A's hand, held by its grip tab at a constant offset; the
 // bracket moves only in Party B's hand, held by its knob at a constant offset) and a transformation recognisable with the
-// labels hidden (the card is seated, the bracket slides shut: semantic state and rendered geometry). The circumstance card is
-// seated before the bracket moves.
-// Legal content (very high risk: conditions): no rule on conditions — no condition precedent / subsequent, no
-// fulfilment, no "deemed" fulfilment, no automatic effect, nothing becomes due, binding or enforceable
-// (noConditionRuleWords, EN and ES, rendered and in the presets); no jurisdiction (conceptNeutral); provided and undescribed
-// are supplied states of equal weight (● and ◆ of the same area, colour and stroke; the card the same size); the bracket
-// only marks the supplied section; the key reads "As supplied · no conclusion drawn".
-// Windows (LAW-0497.js): the circumstance card 0.16–0.40 · the bracket 0.44–0.66 (provided only) · final state 0.75–0.80 ·
-// key 0.78–0.83 · notes 0.80–0.85.
+// labels hidden (the card is seated, the bracket slides shut, the cord is drawn: semantic state and rendered geometry).
+// Cause precedes effect: the card is seated before the bracket moves; the cord is drawn only after the bracket clasps.
+// Legal content (very high risk: termination): no termination doctrine — no right, ground or power to terminate, no
+// notice period or time limit, no effect, no validity or sufficiency judgement (noConditionRuleWords with the
+// termination list, EN and ES, rendered and in the presets); no jurisdiction (conceptNeutral); "provided for" and "not
+// described" are supplied cases of equal weight; "not described" is neutral (no cord, no conclusion); the key reads
+// "As supplied · no conclusion drawn".
+// Windows (LAW-0497.js): the card 0.16–0.40 · the bracket 0.44–0.66 (provided only) · the cord 0.66–0.73 · final
+// state 0.75–0.80 · key 0.78–0.83 · notes 0.80–0.85.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
@@ -33,12 +32,15 @@ contractSuite(ID, {
     {at: 0.3, fn: "s.cardAt === 'moving' && s.heldA && s.bracket === 'open'", label: 'Party A seats the circumstance card'},
     {at: 0.42, fn: "s.cardAt === 'slot' && s.bracket === 'open'", label: 'the card seated before the bracket moves'},
     {at: 0.55, fn: "s.bracket === 'moving' && s.heldB", label: 'Party B slides the bracket'},
-    {at: 1, fn: "s.bracket === 'closed' && s.finalState === 'provided' && s.finalShown === 1 && s.keyShown === 1 && s.layoutOk && s.allReached", label: 'hold: the bracket marks the section as supplied; key'},
+    {at: 1, fn: "s.bracket === 'closed' && s.connected && s.finalState === 'provided' && s.finalShown === 1 && s.keyShown === 1 && s.layoutOk && s.allReached", label: 'hold: the bracket clasps the section and the cord connects it to the card; key'},
+    {at: 0.65, fn: "s.cord === 0", label: 'the cord is not drawn before the bracket has clasped'},
+    {at: 0.7, fn: "s.bracket === 'closed' && s.cord > 0 && s.cord < 1 && !s.heldB", label: 'the cord is drawn after the clasp'},
     {at: 0.2, fn: "s.bracket === 'open' && s.finalShown === 0", label: 'seeking back: the bracket and the final state follow the time only'},
-    {at: 1, params: P('contrast-or-alternative'), fn: "s.finalState === 'undescribed' && s.bracket === 'open' && s.cardAt === 'slot' && !s.heldB", label: 'alternative: undescribed as supplied — the bracket stays open'},
-    {at: 1, params: P('long-labels-stress'), fn: "s.bracket === 'closed' && JSON.stringify(s.section) === '[2,3]' && s.layoutOk", label: 'stress: the section 2–3 marked'},
+    {at: 1, params: P('contrast-or-alternative'), fn: "s.finalState === 'undescribed' && s.bracket === 'open' && s.cord === 0 && !s.connected && s.cardAt === 'slot' && !s.heldB", label: 'alternative: not described, as supplied — the bracket stays open, no cord'},
+    {at: 1, params: P('long-labels-stress'), fn: "s.bracket === 'closed' && JSON.stringify(s.section) === '[2,3]' && s.layoutOk", label: 'stress: the sections 2–3 clasped'},
     {at: 1, params: {actionProgress: 0.3}, fn: "s.cardAt !== 'slot' && s.bracket === 'open'", label: 'actionProgress freezes the action part-way'},
     {at: 0.8, params: {textVisibility: 'none'}, fn: "s.cardAt === 'slot' && s.bracket === 'closed'", label: 'labels hidden: the same action'},
+    {at: 1, params: {textVisibility: 'none'}, fn: "s.connected", label: 'labels hidden: the cord drawn'},
   ],
 });
 
@@ -56,7 +58,7 @@ suppliedTextSuite(ID, {
 
 textFloor(ID);
 noTextOverlap(ID);
-noTextOverProps(ID, ['[data-node="ev"]', '[data-node="br"]', '[data-node="A-head"]', '[data-node="B-head"]']);
+noTextOverProps(ID, ['[data-node="ev"]', '[data-node="br"]', '[data-node="cord-a"]', '[data-node="cord-b"]', '[data-node="A-head"]', '[data-node="B-head"]']);
 seekHistory(ID);
 fill(ID, [0.05, 1], {short: 0.5});
 headFloor(ID, {floors: Object.fromEntries(['default', 'baseline-illustrative', 'contrast-or-alternative', 'baseline-es'].flatMap(n => [[`${n}|1:1`, 55], [`${n}|16:9`, 60], [`${n}|9:16`, 60]]))});
@@ -68,7 +70,7 @@ peopleNeutral(ID, [[{finalState: 'provided'}, {finalState: 'undescribed'}], [P('
 
 // The supplied parameters of every preset carry no banned wording either (EN and ES); the configuration words appear
 // only in the exact supplied labels.
-test(`${ID}: no preset supplies rule, conclusion or condition wording (EN and ES)`, () => {
+test(`${ID}: no preset supplies termination-rule or conclusion wording (EN and ES)`, () => {
   for (const pr of presetsFor(ID)) {
     expect(JSON.stringify(pr.params).match(TERM_BANNED), pr.name).toBeNull();
     expect(JSON.stringify(pr.params).match(CONFIG_WORDS), pr.name).toBeNull();
@@ -76,12 +78,12 @@ test(`${ID}: no preset supplies rule, conclusion or condition wording (EN and ES
 });
 
 // The banned-word list itself catches the wording it must catch (EN and ES) and passes the motif's own wording.
-test(`${ID}: the banned-word list catches condition and conclusion wording and passes the supplied wording`, () => {
-  for (const w of ['condition precedent', 'condition subsequent', 'subject to the condition', 'condición suspensiva', 'condición resolutoria', 'condicion', 'the condition is fulfilled', 'condición cumplida', 'cumplimiento', 'deemed fulfilled', 'due', 'now due', 'exigible', 'binding', 'vinculante', 'enforceable', 'triggered liability', 'activated', 'apartado activada', 'automatic effect', 'efecto automático', 'breach', 'incumplimiento', 'must', 'debe', 'valid', 'válido', 'outcome', 'resultado', 'law', 'ley']) expect(w, w).toMatch(TERM_BANNED);
-  for (const w of [...CONFIG_LABELS, 'Circumstance 1 (supplied)', 'Comunicación 1 (aportado)', 'Circumstance provided (as supplied)', 'Comunicación previsto (según lo aportado)', 'Circumstance undescribed (as supplied)', 'Comunicación no descrito (según lo aportado)', 'Clause 1 (supplied text)', 'Apartado 1 (texto aportado)', 'Section of clauses', 'Cláusula de terminación', 'Contract (fictional)', 'Contrato (ficticio)', 'As supplied · no conclusion drawn', 'Según lo aportado · sin conclusión', 'Circumstance tray', 'Bandeja del comunicación', 'Lucía Ferrer · Party A', 'The bracket marks the supplied section']) expect(w, w).not.toMatch(TERM_BANNED);
+test(`${ID}: the banned-word list catches termination-rule and conclusion wording and passes the supplied wording`, () => {
+  for (const w of ['the contract is terminated', 'Party A may terminate', 'right to terminate', 'termination notice', 'notice period', 'preaviso', 'plazo de 30', '30 days', '15 días', 'grounds for', 'justa causa', 'resolved', 'resuelto', 'resolución', 'rescinded', 'rescisión', 'extinguished', 'extinción', 'condition precedent', 'condición resolutoria', 'takes effect', 'efecto', 'binding', 'enforceable', 'breach', 'incumplimiento', 'must', 'debe', 'valid', 'válido', 'lawful', 'sufficient', 'suficiente', 'entitled', 'tiene derecho', 'outcome', 'resultado', 'law', 'ley']) expect(w, w).toMatch(TERM_BANNED);
+  for (const w of [...CONFIG_LABELS, 'Communication 1 (supplied)', 'Comunicación 1 (aportada)', 'Case provided for (as supplied)', 'Supuesto previsto (según lo aportado)', 'Case not described (as supplied)', 'Supuesto no descrito (según lo aportado)', 'Section 1 (supplied text)', 'Apartado 1 (texto aportado)', 'Termination clause', 'Cláusula de terminación', 'Circumstances and communications', 'Circunstancias y comunicaciones', 'Contract (fictional)', 'Contrato (ficticio)', 'As supplied · no conclusion drawn', 'Según lo aportado · sin conclusión', 'Communications tray', 'Bandeja de comunicaciones', 'Lucía Ferrer · Party A', 'The connector joins the supplied sections']) expect(w, w).not.toMatch(TERM_BANNED);
   for (const w of CONFIG_LABELS) { expect(w).toMatch(CONFIG_WORDS); expect(w).toMatch(CONFIG_LABEL); }
-  expect('A: section marked as supplied').toMatch(CONFIG_LABEL);
-  expect('Section marked as supplied, now due').not.toMatch(CONFIG_LABEL);
+  expect('A: section connected as supplied').toMatch(CONFIG_LABEL);
+  expect('Section connected as supplied, so terminated').not.toMatch(CONFIG_LABEL);
 });
 
 /** In-page helper: effective opacity of an element. */
@@ -360,5 +362,63 @@ test(`${ID}: long unbroken tokens (33/42/55 chars) render a full scene at every 
   }, [ID, stress]);
   console.log(`${ID} long tokens: ${out.n} frames, slowest create ${out.slow} ms, ${out.broken} broken lines seen`);
   expect(out.n).toBe(144);
+  expect(out.fails).toEqual([]);
+});
+
+// The connector cord (rendered, at the hold, every preset × ratio × labels all / none): drawn (dashoffset 0, both plugs
+// shown) exactly when the case is "provided for"; with "not described" nothing of it is visible. Its line never crosses
+// a printed text or a section card's print, and its two ends sit on the bracket's spine and on the seated card's edge.
+test(`${ID}: the cord connects the clasped section to the seated card only when supplied, clear of every print (rendered)`, async ({page}) => {
+  test.setTimeout(300000);
+  await page.goto('/tests/harness/host.html');
+  await page.waitForFunction(() => document.body.dataset.ready === '1');
+  const presets = [{name: 'default', params: {}}, {name: 'es-only', params: {locale: 'es'}}, ...presetsFor(ID), {name: 'undescribed', params: {finalState: 'undescribed'}}];
+  const out = await page.evaluate(async ([id, presets, ratios]) => {
+    const def = await window.__lib.load(id);
+    const fails = [];
+    let n = 0;
+    for (const pr of presets) for (const [ratio, w, h] of ratios) for (const tv of ['all', 'none']) {
+      const el = document.createElement('div');
+      document.getElementById('slots').appendChild(el);
+      const x = def.create(el, {width: w, height: h, params: {...pr.params, textVisibility: tv}});
+      await x.ready;
+      x.seek(x.durationMs);
+      const svg = x.element;
+      const s = x.getState({bounds: false}).semantic;
+      const tag = `${pr.name} ${ratio} ${tv}`;
+      const cord = svg.querySelector('[data-node="cord"]');
+      const shown = parseFloat(cord.getAttribute('opacity') ?? '1') > 0.5 && parseFloat(cord.getAttribute('stroke-dashoffset')) < 0.01;
+      const plugs = ['cord-a', 'cord-b'].map(nm => parseFloat(svg.querySelector(`[data-node="${nm}"]`).getAttribute('opacity') ?? '1'));
+      n++;
+      if (s.finalState === 'provided' && !(shown && plugs.every(o => o > 0.99))) fails.push(`${tag}: cord not drawn though supplied`);
+      if (s.finalState !== 'provided' && (shown || plugs.some(o => o > 0.01) || parseFloat(cord.getAttribute('opacity') ?? '1') > 0)) fails.push(`${tag}: cord visible with "not described"`);
+      if (shown) {
+        const len = cord.getTotalLength();
+        const ctm = cord.getScreenCTM();
+        const pts = [];
+        for (let i = 0; i <= 200; i++) { const q = cord.getPointAtLength((i / 200) * len); pts.push(new DOMPoint(q.x, q.y).matrixTransform(ctm)); }
+        for (const t of svg.querySelectorAll('text')) {
+          if (t.closest('[data-layer="content-notice"]')) continue;
+          const b = t.getBoundingClientRect();
+          if (!b.width) continue;
+          if (pts.some(q => q.x > b.left + 1 && q.x < b.right - 1 && q.y > b.top + 1 && q.y < b.bottom - 1)) fails.push(`${tag}: the cord crosses "${t.textContent.trim().slice(0, 20)}"`);
+        }
+        const card = svg.querySelector('[data-node="ev-in-sheet"]').getBoundingClientRect();
+        const a = svg.querySelector('[data-node="cord-a"] circle').getBoundingClientRect();
+        const ax = a.left + a.width / 2, ay = a.top + a.height / 2;
+        const onEdge = (Math.abs(ax - card.right) < 4 && ay > card.top && ay < card.bottom) || (Math.abs(ay - card.top) < 4 && ax > card.left && ax < card.right);
+        if (!onEdge) fails.push(`${tag}: the socket plug is not on the card's edge`);
+        for (const c of svg.querySelectorAll('[data-node$="-in-sheet"]')) {
+          if (!/^obl\d-in-sheet$/.test(c.getAttribute('data-node'))) continue;
+          const b = c.getBoundingClientRect();
+          if (pts.some(q => q.x > b.left + 3 && q.x < b.right - 3 && q.y > b.top + 3 && q.y < b.bottom - 3)) fails.push(`${tag}: the cord crosses a section card`);
+        }
+      }
+      x.destroy();
+      el.remove();
+    }
+    return {fails: [...new Set(fails)], n};
+  }, [ID, presets, RATIOS]);
+  expect(out.n).toBeGreaterThan(20);
   expect(out.fails).toEqual([]);
 });

@@ -2,20 +2,21 @@
  * LAW-0497 — Cláusula de terminación · story
  *
  * Storyboard (standing microscene; the contract board between the two parties):
- *  0.00–0.15  rest: the contract board (head band "CT-517 · Contract (fictional)", its layers behind) with two panels —
- *             "Circumstance" (an empty slot; below it, in the circumstance tray, the circumstance card "Circumstance 1 (supplied)" printed with its
- *             supplied state: ● "Circumstance provided (as supplied)" or ◆ "Circumstance undescribed (as supplied)", drawn alike) and
- *             "Section of clauses" (the supplied clause cards seated in rows). Right of the section, the bracket
- *             stands open in its track. Party A stands at the left, Party B at the right.
- *  0.16–0.40  Party A's hand takes the circumstance card by its outer end and seats it in the circumstance slot (the hand holds it
- *             all the way at a constant grip).
- *  0.44–0.66  the concrete action, shown only as the supplied configuration: with the state "provided" Party B's hand
- *             takes the bracket by its knob and slides it shut on the supplied section (clauses from…to) — the
- *             bracket MARKS the section, nothing else. With "undescribed" the bracket stays open, as supplied.
- *  0.73–1.00  hold: "Section marked as supplied" (or "Section not marked · as supplied") and the key "As supplied · no
+ *  0.00–0.15  rest: the contract board (head band "CT-523 · Contract (fictional)", its layers behind) with two panels —
+ *             "Circumstances and communications" (an empty slot; below it, in the tray, the card "Communication 1
+ *             (supplied)" printed with its supplied case: ● "Case provided for (as supplied)" or ◆ "Case not described
+ *             (as supplied)", drawn alike) and "Termination clause" (its supplied sections seated in rows). Right of the
+ *             sections the connector bracket stands open in its track. Party A stands at the left, Party B at the right.
+ *  0.16–0.40  Party A's hand takes the circumstance card by its outer end and seats it in the slot (constant grip).
+ *  0.44–0.66  the concrete action, shown only as the supplied configuration: with "provided for" Party B's hand takes
+ *             the bracket by its knob and slides it shut on the supplied section (from…to);
+ *  0.66–0.73  then the connector cord is drawn from the clasped bracket to the socket on the seated card: the section is
+ *             connected with the supplied communication. With "not described" the bracket stays open and no cord is
+ *             drawn, as supplied — neutral, no conclusion.
+ *  0.73–1.00  hold: "Section connected as supplied" (or "No connection supplied") and the key "As supplied · no
  *             conclusion drawn".
- * No rule on conditions: nothing about fulfilment, no automatic effect, no clause that becomes due, binding or
- * enforceable; no jurisdiction. The two states have equal weight (● and ◆ of the same area, colour and stroke).
+ * No termination doctrine: no ground or right to terminate, no notice period or time limit, no effect, no validity
+ * judgement, no jurisdiction. The two cases have equal weight (● and ◆ of the same area, colour and stroke).
  * @module animations/contract-terms/LAW-0497
  */
 import {defineAnimation} from '../../core/define.js';
@@ -27,7 +28,7 @@ import {T} from '../../core/transform.js';
 import {str, obj, list, num, oneOf, annotation} from '../../schemas/fields.js';
 import {
   motifFields, DEFAULT_CONTENT, DEFAULT_CONTENT_ES, KIT_STRINGS, STATES, PX_BASE, PX_STRESS,
-  layoutStage, stageArt, makeRigs, nameNodes, oblNodes, eventNode, bracketNode, moveAt, grabFor, handOf, holding,
+  layoutStage, stageArt, makeRigs, nameNodes, oblNodes, eventNode, bracketNode, cordGeom, cordNode, cordFrame, moveAt, grabFor, handOf, holding,
   localizeScene, headBox, figureBox, overlaps, armClear,
 } from './kits/clausula-terminacion.js';
 
@@ -37,6 +38,7 @@ const DURATION = 6000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
 const EV = [0.16, 0.4];
 const BR = [0.44, 0.66];
+const CORD = [0.66, 0.73];
 const W = {final: [0.75, 0.8], key: [0.78, 0.83], notes: [0.8, 0.85]};
 
 const sceneSchema = {
@@ -45,13 +47,13 @@ const sceneSchema = {
   objectLabels: obj('Plate on the circumstance tray', {tray: str('Plate on the circumstance tray', 30)}),
   actionProgress: num('How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)', 0, 1),
   annotations: list('Editorial callouts shown in the final hold', annotation(['circumstance', 'section', 'bracket']), 0, 2),
-  finalState: oneOf('The supplied state of the circumstance at the hold: provided (the bracket is slid shut on the supplied section; a tag "Section marked as supplied") or undescribed (the bracket stays open; a tag "Section not marked · as supplied"). Both are supplied states of equal weight; nothing is inferred from either', STATES),
+  finalState: oneOf('The supplied case at the hold: provided (provided for: the bracket is slid shut on the supplied section and the connector cord drawn to the card; a tag "Section connected as supplied") or undescribed (not described: the bracket stays open, no cord; a tag "No connection supplied"). Both are supplied cases of equal weight; nothing is inferred from either', STATES),
 };
 
 const defaultParams = {
   ...DEFAULT_CONTENT,
   actorLabels: {a: 'Party A', b: 'Party B'},
-  objectLabels: {tray: 'Circumstance tray'},
+  objectLabels: {tray: 'Communications tray'},
   actionProgress: 1,
   annotations: [],
   finalState: 'provided',
@@ -61,7 +63,7 @@ const defaultParams = {
 const defaultParamsEs = {
   ...DEFAULT_CONTENT_ES,
   actorLabels: {a: 'Parte A', b: 'Parte B'},
-  objectLabels: {tray: 'Bandeja del comunicación'},
+  objectLabels: {tray: 'Bandeja de comunicaciones'},
 };
 
 function unitPx(ctx) {
@@ -106,6 +108,7 @@ const scene = {
     if (!L.G) { L.ok = false; return L; }
     L.rigs = makeRigs(ctx, L, p.parties);
     const G = L.G;
+    L.cord = cordGeom(G);
     // annotation leaders: from the chip's top (or bottom, in the top band) to the target's edge
     L.leads = [];
     if (L.notesPl) {
@@ -143,6 +146,7 @@ const scene = {
       oblNodes(ctx, L, p.clauses),
       bracketNode(ctx, L, false),
       eventNode(ctx, L, p.finalState),
+      cordNode(ctx, L, L.cord),
       L.rigs[0].node, L.rigs[1].node,
       nameNodes(ctx, L, L.captions),
       leads,
@@ -185,6 +189,9 @@ const scene = {
     for (const ld of L.leads) nodes[ld.name] = {opacity: r(noteO, 3)};
     const beat = u < BEATS.rest[1] ? 'rest' : u < BEATS.action[1] ? 'action' : u < BEATS.complete[1] ? 'complete' : 'hold';
     const brClosed = br.where === 'to';
+    // the connector cord: drawn on only after the bracket has clasped the section (provided for), never otherwise
+    const cordQ = provided ? seg(a, ...CORD) : 0;
+    Object.assign(nodes, cordFrame(L.P, r(cordQ, 4)));
     return {
       nodes,
       semantic: {
@@ -195,6 +202,7 @@ const scene = {
         allReached: posedA.reached && posedB.reached,
         cardAt: ev.where === 'to' ? 'slot' : ev.where === 'from' ? 'tray' : 'moving',
         bracket: brClosed ? 'closed' : br.moving ? 'moving' : 'open',
+        cord: r(cordQ, 3), connected: cordQ >= 1,
         section: [G.tr.from, G.tr.to],
         finalState: p.finalState, finalShown: r(fin, 3), keyShown: r(keyO, 3),
         layoutOk: L.ok, why: L.why.join(','), problems: L.ok ? [] : L.why,
@@ -212,15 +220,15 @@ export default defineAnimation({
   metadata: makeMetadata({
     id: ID,
     slug: 'contract-terms-05-story',
-    title: 'Activation circumstance, without a rule — an circumstance card seated and a bracket slid onto the supplied section of clauses',
+    title: 'Termination clause, without doctrine — a communication card seated and a section of the clause connected to it, as supplied',
     titleEs: 'Cláusula de terminación — Microescena con objetos y actores',
     category: 'contract-terms',
     categoryName: 'Contenido y cláusulas',
     motif: 'Cláusula de terminación',
     treatment: 'story',
     family: 'staged-scene',
-    description: 'Two standing parties on either side of a contract board with two panels, "Circumstance" and "Section of clauses". Party A takes the circumstance card ("Circumstance 1 (supplied)", printed with its supplied state: ● provided or ◆ undescribed, drawn alike) from the circumstance tray and seats it in the circumstance slot. With the state "provided" Party B then slides a neutral bracket shut on the supplied section of clause cards: it only marks the section as supplied. With "undescribed" the bracket stays open. The hold shows "Section marked as supplied" (or "Section not marked · as supplied") and the key "As supplied · no conclusion drawn". No rule on conditions, no clause becoming due or binding, no conclusion.',
-    tags: ['activation circumstance', 'circumstance', 'section', 'clauses', 'bracket', 'contract', 'layers', 'equal weight', 'characters'],
+    description: 'Two standing parties on either side of a contract board with two panels, "Circumstances and communications" and "Termination clause". Party A takes the card "Communication 1 (supplied)" (printed with its supplied case: ● provided for or ◆ not described, drawn alike) from the tray and seats it in the slot. With "provided for" Party B slides a neutral connector bracket shut on the supplied section of the clause and a connector cord is drawn from the bracket to the seated card: the section is connected with the supplied communication. With "not described" the bracket stays open and no cord is drawn. The hold shows "Section connected as supplied" (or "No connection supplied") and the key "As supplied · no conclusion drawn". No termination doctrine, no notice period, no validity judgement, no conclusion.',
+    tags: ['termination clause', 'section', 'communication', 'circumstance', 'connector', 'bracket', 'contract', 'layers', 'equal weight', 'characters'],
     defaultDurationMs: DURATION,
     assets: ['src/animations/contract-terms/kits/clausula-terminacion.js', 'src/primitives/person.js', 'src/primitives/annotate.js', 'src/primitives/people-style.js'],
   }),

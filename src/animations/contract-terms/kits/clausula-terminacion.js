@@ -1,25 +1,28 @@
 /**
- * Kit for the "Cláusula de terminación" motif (contract-terms-05, LAW-0497..0496).
- * Art, text fitting and pure geometry only: every entry owns its timeline, layout choices and semantics. The text
- * fitting, rig metrics, notes placement and Spanish-defaults wrapper are copied from the contract-terms-03 kit
- * (contract-terms/kits/apartados-reciprocas.js, read-only; copied, never imported).
+ * Kit for the "Cláusula de terminación" motif (contract-terms-05, LAW-0497..0500).
+ * Art, text fitting and pure geometry only: every entry owns its timeline, layout choices and semantics. The stage
+ * geometry, text fitting, rig metrics, notes placement and Spanish-defaults wrapper are copied from the contract-terms-04
+ * kit (contract-terms/kits/condicion-activacion.js, read-only; copied, never imported) and re-dressed for this motif.
  *
  * Objects (original vector art, the category's editorial-flat language):
- *  - the CONTRACT BOARD (the contract): a standing board with its head band ("CT-517 · Contract (fictional)") and two
- *    layer sheets behind it (its layers). It holds two panels: the EVENT panel (left: an empty slot, a dock outline,
- *    and below it a tray where the circumstance card rests) and the TRANCHE panel (right: the supplied clause cards,
- *    "Clause 1 (supplied text)" …, seated in rows). Right of the section runs a TRACK in which the BRACKET slides.
- *  - the EVENT CARD (the clause that names the circumstance): a card printed with the supplied, generic circumstance label ("Circumstance 1
- *    (supplied)") and its supplied STATE row: ● "Circumstance provided (as supplied)" or ◆ "Circumstance undescribed (as supplied)". The
- *    two states are drawn alike — same glyph area, same colour, same stroke, same type; neither looks deficient.
- *  - OBLIGATION CARDS: plain cards with the supplied placeholders, all of the same size.
- *  - the BRACKET: a neutral ink "]" brace with a wooden knob on its spine. Open, it stands in the track, clear of the
- *    cards; closed, its arms clasp the supplied section (rows from…to): it MARKS the section as supplied — nothing else.
- *  - two standing PEOPLE, one on each side of the board (Party A by the circumstance panel, Party B by the track).
- * Legal content (very high risk: conditions): no rule on conditions — no condition precedent / subsequent, no
- * fulfilment, no "deemed" fulfilment, no automatic effect, no clause that becomes due, binding or enforceable, no
- * jurisdiction. The circumstance is a fictional placeholder; provided and undescribed are supplied states of equal weight; the
- * bracket only marks the supplied section. The key reads "As supplied · no conclusion drawn".
+ *  - the CONTRACT BOARD (the contract): a standing board with its head band ("CT-523 · Contract (fictional)") and two
+ *    layer sheets behind it (its layers). It holds two panels: the CIRCUMSTANCES panel (left: "Circumstances and
+ *    communications" — an empty slot, a dock outline, and below it a tray where the circumstance card rests) and the
+ *    CLAUSE panel (right: "Termination clause" — its supplied sections, "Section 1 (supplied text)" …, seated in rows).
+ *    Right of the sections runs a TRACK in which the connector BRACKET slides.
+ *  - the CIRCUMSTANCE CARD: a card printed with the supplied, generic label ("Communication 1 (supplied)") and its
+ *    supplied CASE row: ● "Case provided for (as supplied)" or ◆ "Case not described (as supplied)". The two cases are
+ *    drawn alike — same glyph area, same colour, same stroke, same type; neither looks deficient.
+ *  - SECTION CARDS: plain cards with the supplied placeholders, all of the same size.
+ *  - the connector BRACKET: a neutral ink "]" brace with a wooden knob on its spine. Open, it stands in the track, clear
+ *    of the cards; closed, its arms clasp the supplied section(s) (rows from…to).
+ *  - the CONNECTOR CORD (cordGeom/cordNode): a plain ink line with a plug at each end, drawn on from the clasped
+ *    bracket's spine to a socket on the seated circumstance card: the supplied connection, nothing more.
+ *  - two standing PEOPLE, one on each side of the board (Party A by the circumstances panel, Party B by the track).
+ * Legal content (very high risk: termination): no termination doctrine — no ground, right or power to terminate, no
+ * notice period, no time limit, no effect, no validity or sufficiency judgement, no jurisdiction. The connection is
+ * only what is supplied; "case not described" is neutral (no conclusion of any kind is drawn from it). The key reads
+ * "As supplied · no conclusion drawn".
  * @module animations/contract-terms/kits/clausula-terminacion
  */
 import {h, g} from '../../../core/svg.js';
@@ -281,6 +284,7 @@ export function armClear(nodes, N) {
  */
 export function glueText(text) {
   return String(text ?? '')
+    .replace(/\b(provided|not|no)[ \t]+(for|described|descrito)\b/gu, '$1\u00a0$2')
     .replace(/(\d)[ \t]+(h|hrs?|min|am|pm|AM|PM|%)(?=$|[\s),.;:·])/gu, '$1\u00a0$2')
     .replace(/(\S)[ \t]+(\(?[A-Z]\)?(?:['’]s)?)(?=$|[,.;:)·]|[ \t]+[^\p{Ll}\s])/gu, '$1\u00a0$2')
     .replace(/(\S)[ \t]+([A-Z]['’]s)(?=$|[\s,.;:)·])/gu, '$1\u00a0$2')
@@ -433,59 +437,59 @@ export const STATES = ['provided', 'undescribed'];
 
 /** Motif fields shared by the four treatments. */
 export const motifFields = {
-  parties: list('Party A (by the circumstance panel) and Party B (by the track); fictional by default, equal weight', party, 2, 2),
+  parties: list('Party A (by the circumstances panel) and Party B (by the connector track); fictional by default, equal weight', party, 2, 2),
   contract: obj('The contract board', {
     reference: str('Reference printed on the contract (fictional)', 32),
     title: str('Heading of the contract, as supplied (generic, e.g. "Contract (fictional)")', 80),
   }, ['reference', 'title']),
   panels: obj('Headings of the two panels, as supplied', {
-    circumstance: str('Heading of the circumstance panel (e.g. "Circumstance")', 50),
-    section: str('Heading of the section panel (e.g. "Section of clauses")', 50),
+    circumstance: str('Heading of the circumstances panel (e.g. "Circumstances and communications")', 50),
+    section: str('Heading of the clause panel (e.g. "Termination clause")', 50),
   }, ['circumstance', 'section']),
-  circumstance: obj('The circumstance, as supplied (a generic, fictional placeholder; never a real clause)', {
-    label: str('Label of the circumstance (e.g. "Circumstance 1 (supplied)")', 60),
+  circumstance: obj('The supplied circumstance or communication (a generic, fictional placeholder; never a real notice)', {
+    label: str('Label of the circumstance card (e.g. "Communication 1 (supplied)")', 60),
   }, ['label']),
-  stateLabels: obj('Wording of the two supplied states of the circumstance (equal weight; ● provided, ◆ undescribed)', {
-    provided: str('State "provided", as supplied (e.g. "Circumstance provided (as supplied)")', 60),
-    undescribed: str('State "undescribed", as supplied (e.g. "Circumstance undescribed (as supplied)")', 60),
+  stateLabels: obj('Wording of the two supplied cases (equal weight; ● provided for, ◆ not described)', {
+    provided: str('Case "provided for", as supplied (e.g. "Case provided for (as supplied)")', 60),
+    undescribed: str('Case "not described", as supplied (e.g. "Case not described (as supplied)")', 60),
   }, ['provided', 'undescribed']),
-  clauses: list('Clauses listed in the section panel, as supplied (generic, fictional placeholders, e.g. "Clause 1 (supplied text)"; never real contract text)', str('Clause, as supplied', 70), 1, 3),
-  section: obj('The supplied section the bracket marks: clauses from…to (1 = top; clamped to the list)', {
-    from: int('First clause of the section (1–3)', 1, 3),
-    to: int('Last clause of the section (1–3)', 1, 3),
+  clauses: list('Sections of the termination clause, as supplied (generic, fictional placeholders, e.g. "Section 1 (supplied text)"; never real contract text)', str('Section, as supplied', 70), 1, 3),
+  section: obj('The supplied section(s) the connector joins to the circumstance card: sections from…to (1 = top; clamped to the list)', {
+    from: int('First connected section (1–3)', 1, 3),
+    to: int('Last connected section (1–3)', 1, 3),
   }, ['from', 'to']),
 };
 
 export const DEFAULT_CONTENT = {
   parties: [{name: 'Lucía Ferrer', role: 'Party A'}, {name: 'Tomás Ibarra', role: 'Party B'}],
-  contract: {reference: 'CT-517', title: 'Contract (fictional)'},
-  panels: {circumstance: 'Circumstance', section: 'Section of clauses'},
-  circumstance: {label: 'Circumstance 1 (supplied)'},
-  stateLabels: {provided: 'Circumstance provided (as supplied)', undescribed: 'Circumstance undescribed (as supplied)'},
-  clauses: ['Clause 1 (supplied text)', 'Clause 2 (supplied text)', 'Clause 3 (supplied text)'],
-  section: {from: 1, to: 2},
+  contract: {reference: 'CT-523', title: 'Contract (fictional)'},
+  panels: {circumstance: 'Circumstances and communications', section: 'Termination clause'},
+  circumstance: {label: 'Communication 1 (supplied)'},
+  stateLabels: {provided: 'Case provided for (as supplied)', undescribed: 'Case not described (as supplied)'},
+  clauses: ['Section 1 (supplied text)', 'Section 2 (supplied text)', 'Section 3 (supplied text)'],
+  section: {from: 2, to: 2},
 };
 
 /** The Spanish counterpart of DEFAULT_CONTENT (the baseline-es content). */
 export const DEFAULT_CONTENT_ES = {
   parties: [{name: 'Lucía Ferrer', role: 'Parte A'}, {name: 'Tomás Ibarra', role: 'Parte B'}],
-  contract: {reference: 'CT-517', title: 'Contrato (ficticio)'},
-  panels: {circumstance: 'Comunicación', section: 'Cláusula de terminación'},
-  circumstance: {label: 'Comunicación 1 (aportado)'},
-  stateLabels: {provided: 'Comunicación previsto (según lo aportado)', undescribed: 'Comunicación no descrito (según lo aportado)'},
+  contract: {reference: 'CT-523', title: 'Contrato (ficticio)'},
+  panels: {circumstance: 'Circunstancias y comunicaciones', section: 'Cláusula de terminación'},
+  circumstance: {label: 'Comunicación 1 (aportada)'},
+  stateLabels: {provided: 'Supuesto previsto (según lo aportado)', undescribed: 'Supuesto no descrito (según lo aportado)'},
   clauses: ['Apartado 1 (texto aportado)', 'Apartado 2 (texto aportado)', 'Apartado 3 (texto aportado)'],
-  section: {from: 1, to: 2},
+  section: {from: 2, to: 2},
 };
 
 export const KIT_STRINGS = {
   en: {
-    marked: 'Section marked as supplied',
-    unmarked: 'Section not marked · as supplied',
+    marked: 'Section connected as supplied',
+    unmarked: 'No connection supplied',
     key: 'As supplied · no conclusion drawn',
   },
   es: {
-    marked: 'Apartado marcado según lo aportado',
-    unmarked: 'Apartado sin marcar · según lo aportado',
+    marked: 'Apartado conectado según lo aportado',
+    unmarked: 'Sin conexión aportada',
     key: 'Según lo aportado · sin conclusión',
   },
 };
@@ -1015,4 +1019,61 @@ export function bracketMetrics(F) {
   const travel = Math.max(F * 2.2, arm + gapC + F * 0.9);
   const knobDx = sw / 2 + hr + F * 0.15;
   return {sw, arm, hr, gapC, travel, knobDx};
+}
+
+/* ======================================================================== */
+/* Connector cord                                                           */
+/* ======================================================================== */
+
+/**
+ * The connector cord's route (design units) from the clasped bracket's spine foot to a socket on the circumstance card
+ * seated at `card` (default the slot): orthogonal, through free board space only — side by side: down the spine to a
+ * channel under the section rows, across under them, up the gutter and into the card's right edge; stacked: from the
+ * spine foot straight down (or down and left) to the card's right edge or top edge. Returns {d, a (socket), b (spine)}.
+ */
+export function cordGeom(G, card = G.slot) {
+  const F = G.F;
+  const bx = G.B.closedX, bBot = G.B.top + G.B.h;
+  const cr = card.x + G.cwE / 2, ct = card.y - G.chE / 2;
+  const n = G.rowY.length;
+  if (!G.stack) {
+    const rowsBot = G.rowY[n - 1] + G.chO / 2;
+    const yc = Math.min(Math.max(rowsBot, bBot) + F * 0.55, G.panelT.y + G.panelT.h - F * 0.35);
+    const gx = G.panelE.x + G.We + G.gw / 2;
+    const a = {x: cr, y: card.y}, b = {x: bx, y: bBot};
+    return {d: `M${r(b.x)} ${r(b.y)}V${r(yc)}H${r(gx)}V${r(a.y)}H${r(a.x)}`, a, b};
+  }
+  if (bx > cr + F * 0.25) {
+    const a = {x: cr, y: card.y}, b = {x: bx, y: bBot};
+    return {d: `M${r(b.x)} ${r(b.y)}V${r(a.y)}H${r(a.x)}`, a, b};
+  }
+  const a = {x: bx, y: ct}, b = {x: bx, y: bBot};
+  return {d: `M${r(b.x)} ${r(b.y)}V${r(a.y)}`, a, b};
+}
+
+/**
+ * Cord nodes: `${P}cord` (the line, drawn on by 'stroke-dashoffset' 1 → 0 on pathLength 1), `${P}cord-a` (the socket
+ * plug on the card) and `${P}cord-b` (the plug at the spine), all at opacity 0.
+ */
+export function cordNode(ctx, L, cg) {
+  const th = ctx.theme, F = L.F, P = L.P;
+  const sw = Math.max(4, F * 0.2);
+  const plug = (nm, q) => g({name: nm, opacity: 0},
+    h('circle', {cx: r(q.x), cy: r(q.y), r: r(sw * 1.5), fill: th.woodTop, stroke: INK, 'stroke-width': 2.4}),
+    h('circle', {cx: r(q.x), cy: r(q.y), r: r(sw * 0.55), fill: INK}));
+  return g({name: `${P}cord-g`},
+    h('path', {name: `${P}cord-case`, d: cg.d, fill: 'none', stroke: th.paper, 'stroke-width': r(sw * 2.2, 2), 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': '1 1', 'stroke-dashoffset': 1}),
+    h('path', {name: `${P}cord`, d: cg.d, fill: 'none', stroke: INK, 'stroke-width': r(sw, 2), 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': '1 1', 'stroke-dashoffset': 1}),
+    plug(`${P}cord-b`, cg.b), plug(`${P}cord-a`, cg.a));
+}
+
+/** Frame values of the cord nodes for draw-on fraction q (0 hidden … 1 drawn and both plugs seated). */
+export function cordFrame(P, q) {
+  const off = r(1 - q, 4);
+  return {
+    [`${P}cord`]: {'stroke-dashoffset': off, opacity: q > 0 ? 1 : 0},
+    [`${P}cord-case`]: {'stroke-dashoffset': off, opacity: q > 0 ? 0.9 : 0},
+    [`${P}cord-b`]: {opacity: r(clamp(q * 6, 0, 1), 3)},
+    [`${P}cord-a`]: {opacity: r(clamp((q - 0.85) * 6.67, 0, 1), 3)},
+  };
 }

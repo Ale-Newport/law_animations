@@ -75,7 +75,7 @@ const defaultParams = {
 
 const defaultParamsEs = {
   ...DEFAULT_CONTENT_ES,
-  contextLabels: {context: 'Tarjeta del comunicación y apartado, según lo aportado', marker: 'Cambio: el estado aportado del comunicación 1'},
+  contextLabels: {context: 'Tarjeta de la comunicación y apartado, según lo aportado', marker: 'Cambio: el estado aportado de la comunicación 1'},
 };
 
 function unitPx(ctx) {

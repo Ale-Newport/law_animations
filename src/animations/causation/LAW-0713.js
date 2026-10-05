@@ -118,7 +118,7 @@ function bandItems(ctx, p, M) {
   out.push({key: 'laneA', icon: 'laneA', text: p.objectLabels.laneA || t.laneA, when: 'legend'});
   out.push({key: 'laneB', icon: 'laneB', text: p.objectLabels.laneB || t.laneB, when: 'legend'});
   out.push({key: 'object', icon: 'event', text: `${p.origin.name} · ${t.lanes}`, when: 'legend'});
-  if (p.losses[1]) out.push({key: 'loss1', icon: 'loss', text: `${t.alsoNoted}: ${p.losses[1].label}`, when: 'legend'});
+  if (p.losses[1]) out.push({key: 'loss1', icon: 'loss', text: `${t.alsoNoted.replace(/ /g, '\u00a0')}: ${p.losses[1].label}`, when: 'legend'});
   M.alternatives.forEach((a, j) => out.push({key: `alt${j}`, icon: 'alt', text: altText(ctx, a), when: 'legend'}));
   linkNotes(ctx, M).forEach(l => out.push({...l, when: 'legend'}));
   if (allOn && p.actorLabels.a) out.push({key: 'actA', icon: 'laneA', text: p.actorLabels.a, when: 'legend'});
@@ -380,9 +380,9 @@ const scene = {
       // (bounded, deterministic: wide and tall boxes stop three sizes below the first size that fits, and never search
       // below 20 px once a size >= 20 fitted; the first size under that bound is still measured, and in tall boxes the
       // search goes on (to the minimum size at most) while no measured size keeps the scene area — see the pick below)
-      if (ctx.view.shape !== 'square' && bySize.size) {
+      if (bySize.size) {
         const first = [...bySize.values()][0];
-        if (size < Math.max(first.size - 3, Math.min(first.size, 20)) - 1e-9 && (ctx.view.shape !== 'portrait' || areaOK())) break;
+        if (size < Math.max(first.size - 3, Math.min(first.size, 20)) - 1e-9 && (ctx.view.shape === 'landscape' || areaOK())) break;
       }
     }
     // the field (slab, lanes, trolleys, event) stays >= 0.21 of the frame height when any configuration allows it
@@ -398,8 +398,9 @@ const scene = {
         pick = (ok.filter(c => c.size >= 20).length ? ok.filter(c => c.size >= 20) : ok).sort((a, b) => b.size - a.size)[0];
         if (pick.size < 20) { const c20 = cands.filter(c => c.size >= 20).sort((a, b) => b.PH - a.PH)[0]; if (c20 && c20.PH >= 0.8 * maxPH) pick = c20; }
         // the physical scene keeps >= 0.205 of the frame's area when a measured size allows it (largest text first)
-        if (sceneShare(ctx, pick) < 0.205) {
-          const big = cands.filter(c => sceneShare(ctx, c) >= 0.205).sort((a0, b0) => b0.size - a0.size || b0.PH - a0.PH)[0];
+        // (estimate margin: the rendered union runs ~15 % under the estimate in square boxes)
+        if (sceneShare(ctx, pick) < 0.235) {
+          const big = cands.filter(c => sceneShare(ctx, c) >= 0.235).sort((a0, b0) => b0.size - a0.size || b0.PH - a0.PH)[0];
           if (big) pick = big;
         }
       } else {
@@ -433,7 +434,8 @@ const scene = {
         const shareL = q => ((RW_ * q.PH + 20) * (RH_ * q.PH + 16) * fs1 * fs1) / (v1.width * v1.height);
         const lA = ls.filter(q => shareL(q) >= 0.205).sort((a, b) => b.size - a.size || b.PH - a.PH)[0];
         const lp = (l20 && shareL(l20) >= 0.205 ? l20 : lA) || l20 || ls.sort((a, b) => b.PH - a.PH || b.size - a.size)[0];
-        if (!L || lp.PH > L.PH) { L = lp; pick = lp; }
+        const shareCur = L ? sceneShare(ctx, {...L, dcW: L.dc ? L.dc.box.w : 0}) : 0;
+        if (!L || lp.PH > L.PH || (shareL(lp) >= 0.205 && shareCur < 0.235)) { L = lp; pick = lp; }
       }
     }
     let Dv = ctx.design;
