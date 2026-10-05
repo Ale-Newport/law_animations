@@ -66,7 +66,7 @@ const defaultParamsEs = {
   relationLabels: {position: 'Línea = figura en esta posición (según lo aportado)'},
 };
 
-const isStress = p => p.clause.text.length > 60 || [p.contract.title, p.clause.heading, p.stateLabels.priority, p.stateLabels.subordinate, p.relationLabels.position, ...p.schedules.map(s => s.label)].some(t => t.length > 46);
+const isStress = p => p.clause.text.length > 60 || [p.contract.title, p.clause.heading, p.stateLabels.priority, p.stateLabels.subordinate, ...p.schedules.map(s => s.label)].some(t => t.length > 46) || p.relationLabels.position.length > 56;
 
 /* ---------------------------------------------------------------------- */
 /* Layout                                                                  */
@@ -160,6 +160,7 @@ function geom(ctx, F, minF, mode, cwPick) {
   return {
     ok: !why.length, why, F, minF, mode, side: 'left', order, n, card, C, rows, area, lw, sk, ld, th, tabS, labs, levels, parks, baseY, baseH,
     rackX, parkX, colW, discR, discX, rowA, layerB, placed, stress, pitch,
+    parkBoard: mode === 'beside' ? {x: parkX - 16, y: area.y, w: colW + 24, h: area.h} : {x: parkX - 16, y: parkTop - ld - 12, w: area.w + 16, h: parkBot - parkTop + ld + th + 24},
   };
 }
 
@@ -251,8 +252,15 @@ const scene = {
     const layers = zOrder.map(si => g({name: `lay${si}`, transform: T(L.parks[si].x, L.parks[si].y)}, layerArt(ctx, L, si, show, `art${si}`)));
     const lp = loupe(ctx, {name: 'loupe', R: Math.min(L.ld * 0.62, 70), a: 35, handle: 60, opacity: 0});
     const notes = L.placed.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node));
+    const pb = L.parkBoard;
+    const board = g(null,
+      h('rect', {x: r(pb.x + 6), y: r(pb.y + 8), width: r(pb.w), height: r(pb.h), rx: 18, fill: th.shadow}),
+      h('rect', {x: r(pb.x), y: r(pb.y), width: r(pb.w), height: r(pb.h), rx: 18, fill: '#efe7d8', stroke: '#b9ab90', 'stroke-width': 2.4}),
+      L.order.map(si => h('path', {d: `M${r(L.parks[si].x)} ${r(L.parks[si].y)}L${r(L.parks[si].x + L.lw)} ${r(L.parks[si].y)}L${r(L.parks[si].x + L.lw + L.sk)} ${r(L.parks[si].y - L.ld)}L${r(L.parks[si].x + L.sk)} ${r(L.parks[si].y - L.ld)}Z`, fill: '#e3d8c3', stroke: '#c9bb9f', 'stroke-width': 2})),
+    );
     return g({name: 'scene'},
       cardNode,
+      board,
       base, backRods, ticks, discs,
       layers,
       frontRods,

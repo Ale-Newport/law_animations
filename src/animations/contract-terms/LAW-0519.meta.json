@@ -1,0 +1,332 @@
+{
+  "id": "LAW-0519",
+  "slug": "contract-terms-10-contrast",
+  "title": "Change clause, procedure only — two identical desks; only the route of the proposal differs: in A the card travels the supplied steps and is clipped to the contract, in B it is set down beside the contract",
+  "titleEs": "Cláusula de cambio — Comparación de dos supuestos",
+  "category": "contract-terms",
+  "categoryName": "Contenido y cláusulas",
+  "motif": "Cláusula de cambio",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two complete, identical desks: the contract card with its change clause, a short procedure track (tray, one station per supplied step, rail) and the same proposal card in the tray. One fact differs: the route of the card. A (\"Documented change\"): it travels the stations, taking one tab at each, and is clipped onto the contract. B (\"Informal change\"): it is set down beside the contract, off the track. Both settle at the same moment; a guide rings where each card ended; shared step legend; note \"Only the route of the proposal differs · nothing is concluded about either\"; key \"As supplied · no conclusion drawn\". No doctrine, no validity or effect, no preference.",
+  "tags": [
+    "change clause",
+    "amendment",
+    "informal change",
+    "documented change",
+    "contrast",
+    "procedure track",
+    "equal weight"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/contract-terms/kits/clausula-cambio.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "contract": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Reference printed on the contract (fictional)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Heading of the contract, as supplied (generic, e.g. \"Supply contract (fictional)\")"
+          }
+        },
+        "required": [
+          "reference",
+          "title"
+        ],
+        "description": "The contract sheet"
+      },
+      "clause": {
+        "type": "string",
+        "maxLength": 64,
+        "description": "Heading of the change clause, as supplied (generic, e.g. \"Clause 18 · Changes procedure\"; never real contract text)"
+      },
+      "steps": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "A step, as supplied"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "The steps of the agreed change procedure, as supplied (one station each, in order; generic, fictional wording) (array replaces the previous value)"
+      },
+      "proposal": {
+        "type": "string",
+        "maxLength": 48,
+        "description": "Label printed on the amendment proposal sheet (objectLabels; fictional, e.g. \"Amendment 1 (fictional)\")"
+      },
+      "routeA": {
+        "type": "string",
+        "enum": [
+          "procedure",
+          "beside"
+        ],
+        "description": "Route of the proposal in scenario A: procedure (through the supplied steps, then clipped to the contract) or beside (set down beside the contract, off the track)"
+      },
+      "routeB": {
+        "type": "string",
+        "enum": [
+          "procedure",
+          "beside"
+        ],
+        "description": "Route of the proposal in scenario B (procedure or beside)"
+      },
+      "scenarioLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 44,
+            "description": "Caption of scenario A"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 44,
+            "description": "Caption of scenario B"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Scenario captions (comparison labels; neutral, as supplied)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "contract": {
+      "reference": "CT-517",
+      "title": "Supply contract (fictional)"
+    },
+    "clause": "Clause 18 · Changes procedure",
+    "steps": [
+      "Proposal in writing",
+      "Reviewed by both parties",
+      "Signed by both parties"
+    ],
+    "proposal": "Amendment 1 (fictional)",
+    "routeA": "procedure",
+    "routeB": "beside",
+    "scenarioLabels": {
+      "a": "A · Documented change",
+      "b": "B · Informal change"
+    },
+    "annotations": []
+  }
+}
