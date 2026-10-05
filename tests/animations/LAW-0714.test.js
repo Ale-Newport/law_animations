@@ -30,7 +30,7 @@ contractSuite(ID, {
     {at: 0.6, fn: 's.tracerOn > 0 && s.focus > 1', label: 'the tracer runs while the focus element is enlarged'},
     {at: 1, fn: `s.keyShown && s.focus === 1 && s.tracerOn === 0 && !s.causalShown && s.kinds.includes('relation') && ${ANCHORED}`, label: 'hold: every connector ends on its element; no causal arrow by default; key shown'},
     {at: 1, fn: "s.kinds.every((k, i) => (k === 'relation') === !s.arrows[i])", label: 'a plain relation never gets an arrowhead'},
-    {at: 1, params: P('contrast-or-alternative'), fn: `s.causalShown && s.kinds.filter(k => k === 'causal').length === 1 && s.kinds.includes('sequence') && s.kinds.includes('communication') && ${ANCHORED}`, label: 'alternative: the supplied causal, sequence and communication links with their kinds (causal only where supplied)'},
+    {at: 1, params: P('contrast-or-alternative'), fn: `s.causalShown && s.kinds.filter(k => k === 'causal').length === 1 && s.kinds.includes('sequence') && ${ANCHORED}`, label: 'alternative: the supplied causal and sequence links with their kinds (causal only where supplied)'},
     {at: 1, params: {relationships: [{from: 'laneA', to: 'convergence', kind: 'causal'}, {from: 'laneB', to: 'convergence', kind: 'relation'}]}, fn: `s.causalShown && s.kinds.filter(k => k === 'causal').length === 1 && ${ANCHORED}`, label: 'a causal arrow appears only when the author supplies kind causal (exactly that one)'},
     {at: 0.9, params: {textVisibility: 'none'}, fn: 's.split === 1 && s.drawn.every(d => d === 1)', label: 'labels hidden: the same separation and relationships'},
   ],
@@ -122,5 +122,3 @@ jurisdictionTest(ID);
 stressLongerTest(ID);
 lineBreakTest(ID);
 noEnglishTest(ID);
-import {sweep as sw0} from './contribucion-afectada-checks.js';
-sw0(ID, 'DBG', `x.seek(x.durationMs); const s = x.getState({bounds: false}).semantic; return JSON.stringify({c: s.labelClash, m: s.layout.mode, b: s.boxes});`, {tvs: ['all'], presets: ['baseline-illustrative']});

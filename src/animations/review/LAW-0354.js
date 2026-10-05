@@ -105,7 +105,7 @@ function planMech(P, M, TM, box, F, H) {
   const map = (u, v) => (H ? {x: box.x + u, y: box.y + v} : {x: box.x + v, y: box.y + u});
   const mapBox = (u, v, eu, ev) => (H ? {x: box.x + u, y: box.y + v, w: eu, h: ev} : {x: box.x + v, y: box.y + u, w: ev, h: eu});
   const cu = H ? M.w : M.h, cv = H ? M.h : M.w; // card extents along u / v
-  const laneW = Math.max(F * 2, 32);
+  const laneW = Math.max(F * 2.7, 44);
   const bay = laneW * 1.75;
   const gapC = Math.max(F * 1.2, 20);
   const vMid = V / 2;
@@ -124,10 +124,10 @@ function planMech(P, M, TM, box, F, H) {
   };
   const lanes = [curve(vD + cv / 2, vTop), curve(vA + cv / 2, vBot)];
   const uGate = u1 + (uEnd - u1) * 0.42;
-  const gThk = Math.max(F * 2, 30), gSpan = laneW + F * 1.4;
+  const gThk = Math.max(F * 2.6, 40), gSpan = laneW + F * 1.8;
   const gate = {...map(uGate, vTop), rot: H ? 0 : 90};
   const sGate = lanes[0].total ? (lanes[0].total - (uEnd - uGate)) / lanes[0].total : 0.5;
-  const tokR = laneW * 0.42;
+  const tokR = laneW * 0.46;
   const sStop = sGate - (gThk * FOCUS * 0.5 + tokR + F * 0.5) / lanes[0].total;
   const sStart = (tokR + 4) / Math.max(1, lanes[0].total);
   // tag: hanging into the free space between the lanes, just past the gate

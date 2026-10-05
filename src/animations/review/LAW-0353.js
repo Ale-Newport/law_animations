@@ -151,7 +151,7 @@ function compose(ctx, P, F, opts) {
   const deskB = desk.y + desk.h, deskR = desk.x + desk.w;
   const sOff = Math.max(100, F * 4.5);
   // (the hands push from behind each card's trailing edge: they never cover its text)
-  const grip = H ? [{x: -F * 0.45, y: Math.min(M.h * 0.4, F * 1.4)}, {x: -F * 0.45, y: M.h - Math.min(M.h * 0.4, F * 1.4)}] : [{x: Math.min(M.w * 0.4, F * 1.4), y: -F * 0.45}, {x: M.w - Math.min(M.w * 0.4, F * 1.4), y: -F * 0.45}];
+  const grip = H ? [{x: -F * 1.1, y: M.h * 0.6}, {x: -F * 1.1, y: M.h * 0.4}] : [{x: M.w * 0.6, y: -F * 1.1}, {x: M.w * 0.4, y: -F * 1.1}];
   const at = (i, t) => { const p = B.pos(i, t); return {x: p.x + ox, y: p.y + oy}; };
   const gripAt = (i, t) => { const p = at(i, t); return {x: p.x + grip[i].x, y: p.y + grip[i].y}; };
   const lead = F * 2.2;
@@ -179,7 +179,7 @@ const scene = {
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
     let C = null;
     outer: for (const F of sizes) {
-      for (const a of arrangements.flatMap(x => [0.8, 0.6, 0.45, 0.3].map(mk => ({...x, minK: mk})))) {
+      for (const a of arrangements.flatMap(x => [1.3, 1.0, 0.8, 0.6, 0.45, 0.3].map(mk => ({...x, minK: mk})))) {
         const c = compose(ctx, P, F, a);
         if (c.ok) { C = c; break outer; }
         if (!C || c.problems.length < C.problems.length) C = c;

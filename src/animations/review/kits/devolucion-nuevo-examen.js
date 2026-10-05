@@ -292,7 +292,71 @@ export function boardModel(ctx, o) {
   const M = {};
   const slipN = o.slipN ?? 2;
   const sep = Math.max(F * 9, 180);
-  if (o.orient === 'row') {
+  if (o.orient === 'row' && o.matBelow) {
+    // (opt-in, off by default) stations in a row across the whole width; the review mat sits in a row BELOW the
+    // lane (its plate and the calendar to its left), joined to the lane by a drop strip
+    const gx = F * 0.7;
+    const unit = (box.w - (n - 1) * gx) / n;
+    const fits = names.map((nm, i) => plateFit(nm, unit + (i ? 0 : (o.plateExtL ?? 0)) - tm * 2 - (i === o.target ? F * 1.55 : F * 0.5) - F * 0.5));
+    const plateH = Math.max(F * 1.9, ...fits.map(f => (f ? f.height + F * 0.9 : 0)));
+    const g1 = F * 0.45;
+    const above = o.matPlate === 'under'; // (plate in its own row under the mat, clear of the mat's drop to the lane)
+    const pfA = above ? plateFit(o.origin, box.w * 0.62 - F * 2.6) : null;
+    if (pfA && !pfA.ok) problems.push('plate-text');
+    const phA = above ? Math.max(F * 1.9, pfA ? pfA.height + F * 0.9 : 0) + g1 : 0;
+    const matGap = o.matGap ?? 0;
+    const clear0 = doorT * 0.6 + F * 0.3;
+    // heights: plate, tray (fh+2fm), clear, lane band (fh), clear, [matGap], mat (fh+2fm), hand room
+    const fixed = plateH + g1 + 4 * fm + clear0 * 2 + matGap + phA + handMin;
+    fh = Math.min((unit - 2 * tm - 2 * fm) * 0.68, (box.h - fixed) / 3, (o.maxFw ?? 1e9) * 0.68);
+    fw = fh / 0.68;
+    if (fw < F * (o.folderMin ?? 5)) problems.push('folder-small');
+    const S = Math.max(0, box.h - fixed - 3 * fh);
+    extra = Math.min(S * 0.3, fh * 0.5);
+    const clear = clear0 + Math.min(S * 0.2, fh * 0.4);
+    const tw = fw + 2 * fm, th = fh + 2 * fm + extra;
+    const used = plateH + g1 + th + clear + fh + clear + matGap + (fh + 2 * fm) + phA;
+    const y0 = box.y + Math.max(0, (box.h - used - handMin) / 2);
+    const trayY = y0 + plateH + g1;
+    const yL = trayY + th + clear + fh / 2;
+    const laneW = fh * 0.5;
+    for (let i = 0; i < n; i++) {
+      const cx = box.x + i * (unit + gx);
+      const tx = cx + (unit - tw) / 2;
+      slots.push({i, station: true, plate: {x: cx + tm - (i ? 0 : (o.plateExtL ?? 0)), y: y0, w: unit - tm * 2 + (i ? 0 : (o.plateExtL ?? 0)), h: plateH, fit: fits[i]}, tray: {x: tx, y: trayY, w: tw, h: th}, rest: {x: tx + tw / 2, y: trayY + th / 2}, mouth: {x: tx + tw / 2, y: trayY + th}});
+    }
+    // mat row
+    const mh = fh + 2 * fm;
+    const s0 = slipSize(slipN, fw * 0.36);
+    const mw = above ? Math.max(box.w * 0.62, Math.min(box.w - tm * 2, tw + s0.w + fm)) : Math.min(box.w * 0.6, tw + s0.w + fm);
+    const my = yL + fh / 2 + clear + matGap;
+    const mx = box.x + box.w - mw - tm;
+    const cw = above ? Math.min(fw * 0.42, mx - box.x - tm - F * 0.5) : Math.min(fw * 0.42, (mx - box.x) * 0.3);
+    let plate;
+    if (above) plate = {x: mx + F * 1.6, y: my + mh + g1, w: mw - F * 1.6, h: phA - g1, fit: pfA};
+    else {
+      const px = box.x + tm + (cw >= F * 2.4 ? cw + F * 0.6 : 0);
+      const pw = mx - px - F * 0.6;
+      const pf = plateFit(o.origin, pw - F);
+      if (pf && !pf.ok) problems.push('plate-text');
+      const ph = Math.max(F * 1.9, pf ? pf.height + F * 0.9 : 0);
+      plate = {x: px, y: my + (mh - ph) / 2, w: pw, h: ph, fit: pf};
+    }
+    slots.push({i: n, station: false, plate, tray: {x: mx, y: my, w: mw, h: mh}, rest: {x: mx + fm + fw / 2, y: my + mh / 2}, mouth: {x: mx + fm + fw / 2, y: my}});
+    const R = slots[n];
+    const xs = slots.map(q => q.rest.x);
+    lane = {orient: 'row', w: laneW, a: {x: Math.min(...xs) - laneW * 0.9, y: yL}, b: {x: Math.max(...xs) + laneW * 0.9, y: yL}, drop: {x: R.rest.x, y: yL}};
+    M.slipS = fw * 0.36;
+    M.slipRest = {x: mx + fm * 2 + fw + s0.w / 2, y: R.rest.y};
+    M.cal = {w: cw, h: cw * 0.82, x: box.x + tm, y: my + (mh - cw * 0.82) / 2};
+    if (cw < F * 2.4) problems.push('calendar-small');
+    const cx = box.x + box.w * 0.55;
+    const sy = box.y + box.h + Math.max(110, box.h * 0.16);
+    M.shoulders = {R: {x: cx + sep / 2, y: sy}, L: {x: cx - sep / 2, y: sy}};
+    M.rests = {R: {x: cx + sep * 0.55, y: box.y + box.h - F * 0.5}, L: {x: cx - sep * 0.55, y: box.y + box.h - F * 0.5}};
+    M.used = {x: box.x, y: y0, w: box.w, h: used};
+    if (y0 + used > box.y + box.h + 0.5) problems.push('board-tall');
+  } else if (o.orient === 'row') {
     const gx = F * 0.7;
     const rw = o.reviewW ?? 1.45;
     const unit = (box.w - (N - 1) * gx) / (n + rw);
@@ -434,7 +498,7 @@ export function laneArt(ctx, B, o = {}) {
   const strip = (x, y, ww, hh) => h('path', {d: roundRectPath(x, y, ww, hh, Math.min(ww, hh) / 2), fill: LANE, stroke: shade(LANE, -0.3), 'stroke-width': 2});
   const R = B.slots[B.n];
   if (L.orient === 'row') {
-    for (const s of B.slots) parts.push(strip(s.rest.x - w / 2, s.tray.y + s.tray.h - 4, w, L.a.y - (s.tray.y + s.tray.h) + 4));
+    for (const s of B.slots) parts.push(s.tray.y > L.a.y ? strip(s.rest.x - w / 2, L.a.y, w, s.tray.y - L.a.y + 4) : strip(s.rest.x - w / 2, s.tray.y + s.tray.h - 4, w, L.a.y - (s.tray.y + s.tray.h) + 4));
     parts.push(strip(L.a.x - w / 2, L.a.y - w / 2, L.b.x - L.a.x + w, w));
     const step = w * 1.5;
     for (let x = R.rest.x - step; o.chev !== false && x > L.a.x + w * 0.2; x -= step) {

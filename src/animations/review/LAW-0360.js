@@ -136,7 +136,7 @@ function compose(ctx, P, F, opts) {
     EM = endModel(P2, {w: ew, F, showText: showKey, alt});
     plan = mapPlan(P2, OM, EM, {F, orient, gap: F * 6.5, slots: Math.max(1, np), tray: false});
     const spareV = mapHmax - plan.needH;
-    if (spareV > 1) plan = mapPlan(P2, OM, EM, {F, orient, gap: F * 6.5 + Math.min(F * 16, spareV), slots: Math.max(1, np), tray: false});
+    if (spareV > 1) plan = mapPlan(P2, OM, EM, {F, orient, gap: F * 6.5 + Math.min(F * (opts.spreadV || 6), spareV), slots: Math.max(1, np), tray: false});
   }
   const fitsW = plan.needW <= mapW + 0.5, fitsH = plan.needH <= mapHmax + 0.5;
   folder.h = plan.needH + 2 * pF;
@@ -207,7 +207,7 @@ const scene = {
     const showKey = ctx.show('key');
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const arrangements = shape === 'portrait' ? [{band: true, orient: 'v', mapK: 0.6}, {band: true, cols: 2, orient: 'v', mapK: 0.6}, {band: true, cols: 2, orient: 'h', mapK: 0.6}]
-      : shape === 'square' ? [{band: true, cols: 2, orient: 'v', shrink: 0.56}, {band: true, cols: 2, orient: 'v', shrink: 0.5}, {band: true, cols: 2, orient: 'h', shrink: 0.55}, {band: true, cols: 2, orient: 'h', shrink: 0.5}, {band: true, cols: 3, tight: true, orient: 'v', shrink: 0.48}, {band: true, cols: 3, tight: true, orient: 'h', shrink: 0.48}]
+      : shape === 'square' ? [{band: true, cols: 2, orient: 'v', shrink: 0.56, spreadV: 16}, {band: true, cols: 2, orient: 'v', shrink: 0.5, spreadV: 16}, {band: true, cols: 2, orient: 'h', shrink: 0.55}, {band: true, cols: 2, orient: 'h', shrink: 0.5}, {band: true, cols: 3, tight: true, orient: 'v', shrink: 0.48, spreadV: 16}, {band: true, cols: 3, tight: true, orient: 'h', shrink: 0.48}]
         : [{pw: 0.4, orient: 'v'}, {pw: 0.44, orient: 'v'}, {pw: 0.36, orient: 'h'}, {pw: 0.3, orient: 'h', shrink: 0.62}, {pw: 0.3, orient: 'h', shrink: 0.56}, {pw: 0.36, orient: 'h', shrink: 0.56}, {pw: 0.44, orient: 'h'}];
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
     let C = null;

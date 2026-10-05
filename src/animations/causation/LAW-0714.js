@@ -83,7 +83,7 @@ const defaultParams = {
 const defaultParamsEs = {
   ...CA_ES_DEFAULTS,
   elements: [
-    {id: 'record', label: 'Registro de las dos conductas (según lo aportado)'},
+    {id: 'record', label: 'Registro de las conductas (aportado)'},
     {id: 'laneA', label: 'Carril A: conducta de A'},
     {id: 'laneB', label: 'Carril B: conducta de B'},
     {id: 'convergence', label: 'Pieza de convergencia (ampliada)'},
@@ -114,9 +114,7 @@ function texts(ctx, p, M) {
   if (has('convergence')) chips.convergence = {key: 'convergence', icon: 'loss', text: `${elementLabel(ctx, p, 'convergence')} · ${p.origin.name}`};
   if (has('alternative')) chips.alternative = {key: 'alternative', icon: 'alt', text: elementLabel(ctx, p, 'alternative')};
   const band = [];
-  // the key of the two lanes (equal chips): what each lane carries, as supplied
-  band.push({key: 'innerKey', icon: 'laneA', text: t.laneA});
-  band.push({key: 'outerKey', icon: 'laneB', text: t.laneB});
+  // (the two lanes are named by their own chips under the pieces; the band keeps the event, loss and notes)
   band.push({key: 'object', icon: 'event', text: `${p.origin.name} · ${t.lanes}`});
   band.push({key: 'loss0', icon: 'loss', text: p.losses[0].label});
   M.alternatives.forEach((a, j) => band.push({key: `alt${j}`, icon: 'alt', text: altText(ctx, a)}));
@@ -584,7 +582,7 @@ const scene = {
     const why = [];
     const hMin = ctx.view.shape === 'portrait' ? 150 : 110;
     const v0 = ctx.view, fs0 = Math.min(v0.content.w / ctx.design.w, v0.content.h / ctx.design.h);
-    const subj = q => q.OH * 1.32 * fs0 >= 0.205 * v0.height;
+    const subj = q => q.OH * (1.02 + PLINTH) * fs0 >= 0.208 * v0.height;
     // (the narrow lane-to-lane label width only matters when a lane A – lane B relation is supplied)
     const hasSeq = base.rels.some(q => (q.from === 'laneA' && q.to === 'laneB') || (q.from === 'laneB' && q.to === 'laneA'));
     for (let size = SH.size; size >= SH.minSize - 1e-9; size -= 1) {

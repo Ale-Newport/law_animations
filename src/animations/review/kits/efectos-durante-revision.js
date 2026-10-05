@@ -224,7 +224,7 @@ export function gateArt(ctx, o) {
     slats.push(g({transform: T(0, cy)}, g({name: `${o.prefix}-slat${i}`, transform: 'scale(1 1)'},
       h('rect', {x: r(-thk * 0.42), y: r(-sh * 0.5 + 1.5), width: r(thk * 0.84), height: r(sh - 3), rx: 3, fill: '#c9d2da', stroke: SLATE, 'stroke-width': 2}))));
   }
-  const pr = Math.max(F * 0.7, post * 0.75);
+  const pr = Math.max(F * 0.95, post * 0.9);
   return g({name: o.prefix},
     h('rect', {x: r(-thk * 0.08), y: r(-inner / 2), width: r(thk * 0.16), height: r(inner), fill: SLATE, opacity: 0.8}),
     slats,
@@ -274,7 +274,7 @@ export function tagNode(ctx, TM, o) {
     h('path', {d: roundRectPath(0, 0, TM.w, TM.h, 10), fill: '#fff', stroke: INK, 'stroke-width': 2.4}),
     h('circle', {cx: r(holeX), cy: r(TM.h / 2), r: r(TM.F * 0.26), fill: th.paperShade, stroke: INK, 'stroke-width': 1.8}),
     o.showText ? TM.fits.map((f, i) => textAt(f, {name: `${o.prefix}-v${i}`, x: TM.F * 1.4, y: (TM.h - f.height) / 2, fill: INK, opacity: o.ops ? o.ops[i] : undefined})) : null,
-    !o.showText ? g({name: `${o.prefix}-bars`}, [0, 1].map(i => h('rect', {x: r(TM.F * 1.4), y: r(TM.h / 2 - TM.F * 0.55 + i * TM.F * 0.7), width: r((TM.w - TM.F * 2.2) * (i ? 0.6 : 0.9)), height: r(TM.F * 0.4), rx: 3, fill: shade(SLATE, 0.6)}))) : null,
+    !o.showText || o.placeholder ? g({name: `${o.prefix}-bars`, opacity: o.barsOp}, [0, 1].map(i => h('rect', {x: r(TM.F * 1.4), y: r(TM.h / 2 - TM.F * 0.55 + i * TM.F * 0.7), width: r((TM.w - TM.F * 2.2) * (i ? 0.6 : 0.9)), height: r(TM.F * 0.4), rx: 3, fill: shade(SLATE, 0.6)}))) : null,
   );
 }
 
@@ -374,7 +374,7 @@ export function boardNodes(ctx, B, TM, o) {
   return {
     lanes: [lane(0), lane(1)],
     gate,
-    tag: g({name: `${p}-tagg`}, leader, g({transform: T(B.tag.x, B.tag.y)}, tagNode(ctx, TM, {prefix: `${p}-tag`, showText: o.showText, ops: o.tagOps}))),
+    tag: g({name: `${p}-tagg`}, leader, g({transform: T(B.tag.x, B.tag.y)}, tagNode(ctx, TM, {prefix: `${p}-tag`, showText: o.showText, ops: o.tagOps, placeholder: o.placeholder}))),
     cal: B.cal ? g({transform: T(B.cal.x, B.cal.y)}, calendarNode(ctx, {prefix: `${p}-cal`, w: B.cal.w, h: B.cal.h})) : null,
   };
 }

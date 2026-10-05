@@ -697,6 +697,8 @@ function headFitRaw(text, maxWidth, F) {
     const f = fitW(t, {maxWidth: maxWidth * k, size: F, maxLines: ml, weight: 700, lean: true});
     if (f.bad) return {...f, bad: true};
     const bare = l => { const w = l.trim().split(/\s+/); return w.length === 1 && BAREW.test(w[0]); };
+    // (never a line ending with a word that names an ID — "Cláusula / de terminación" —, the same rule as the rendered checks)
+    if (f.lines.slice(0, -1).some(l => /(^|\s)(Document|Documento|Party|Parte|Step|Paso|Day|Día|Clause|Cláusula|Section|Sección|Annex|Anexo)$/u.test(l.trim()))) continue;
     if (f.lines.length < 2 || f.lines.some(l => /\p{L}-$/u.test(l.trim())) || (!bare(f.lines[f.lines.length - 1]) && f.lines.filter(bare).length < 2)) return f;
   }
   return {lines: [], bad: true, size: F, height: 0, width: 0};

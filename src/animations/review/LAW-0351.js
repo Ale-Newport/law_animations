@@ -89,7 +89,7 @@ function compose(ctx, P, R, F, v) {
   const headH = Math.max(heads[0].h, heads[1].h);
   // state lines under each scene (the scenario captions)
   const capW = stageW - hx - F * 0.4;
-  const caps = ['a', 'b'].map(k => (showKey ? fitG((k === 'a' ? P.scenarioA : P.scenarioB).caption, {maxWidth: capW, size: F, minSize: F, maxLines: 3, weight: 600}) : null));
+  const caps = ['a', 'b'].map(k => (showKey ? fitG((k === 'a' ? P.scenarioA : P.scenarioB).caption, {maxWidth: capW, size: F, minSize: F, maxLines: v.side ? 5 : 3, weight: 600}) : null));
   caps.forEach(c => { if (c && !c.ok) problems.push('caption-text'); });
   const capH = showKey ? Math.max(...caps.map(c => c.height)) + F * 0.5 : 0;
   // guide band
@@ -115,7 +115,7 @@ function compose(ctx, P, R, F, v) {
   let SW = 0; // width taken by a side-column strip (the boards use the rest)
   if (all.length && v.side) {
     const cw = DW * v.side;
-    const PLc = panelLayout(ctx, all, {w: cw, F});
+    const PLc = panelLayout(ctx, all, {w: cw, F, maxLines: 5});
     if (!PLc.ok) problems.push('strip-text');
     if (PLc.h > DH) problems.push('strip-tall');
     SW = cw + F * 1.4;
@@ -149,12 +149,20 @@ function compose(ctx, P, R, F, v) {
   // is where A's folder comes in (the other supplied points are listed in the shared strip)
   const ez = box.w * v.ez;
   const bbox = {x: box.x + ez, y: box.y, w: box.w - ez, h: box.h};
-  const B = boardModel(ctx, {orient: 'row', box: bbox, F, names: [P.routes.stations[R.target]], origin: P.routes.origin, showText: showKey, target: 0, slipN: R.notes.length, handRoom: F * 0.6, maxFw: 340, reviewW: v.rw ?? 1.1, plateLines: v.pl ?? 3, plateExtL: ez * 0.75});
+  const B = boardModel(ctx, {orient: 'row', box: bbox, F, names: [P.routes.stations[R.target]], origin: P.routes.origin, showText: showKey, target: 0, slipN: R.notes.length, handRoom: F * 0.6, maxFw: 340, reviewW: v.rw ?? 1.1, plateLines: v.pl ?? 3, plateExtL: ez * 0.75, matBelow: !!v.mb, matPlate: v.mb ? 'under' : undefined});
   // (B's notes slip arrives clipped to the folder, so the review mat needs no room for it: the slip is sized on the folder)
   B.slipS = B.fw * 0.36;
   // (the calendar stands in the entry zone, left of the tray — the review mat's right side stays free)
   problems.push(...B.problems.filter(q => q !== 'calendar-small' && q !== 'slip-small'));
-  {
+  if (v.mb) {
+    // (mat below: the calendar stands beside the tray, in the room the narrow board leaves on either side of it)
+    const T0 = B.slots[0].tray;
+    const rightRoom = box.x + box.w - (T0.x + T0.w) - F * 0.8, leftRoom = T0.x - box.x - F * 0.8;
+    const cw = Math.min(B.fw * 0.42, Math.max(rightRoom, leftRoom));
+    const cx = rightRoom >= leftRoom ? T0.x + T0.w + F * 0.5 : box.x + F * 0.3;
+    B.cal = {w: cw, h: cw * 0.82, x: cx, y: T0.y + T0.h * 0.15};
+    if (cw < F * 2.2) problems.push('calendar-small');
+  } else {
     const S0 = B.slots[0];
     const cw = Math.min(B.fw * 0.42, S0.tray.x - box.x - F * 0.9);
     B.cal = {w: cw, h: cw * 0.82, x: box.x + F * 0.4, y: S0.tray.y + S0.tray.h * 0.2};
@@ -184,7 +192,8 @@ function compose(ctx, P, R, F, v) {
   const L = B.lane;
   const S = B.slots[0];
   const Rv = B.slots[B.n];
-  const entry = {x: Math.max(box.x + B.fw * 0.5 + F * 0.2, S.rest.x - B.fw * 1.15), y: L.a.y};
+  // (mat below: A's folder waits on the lane's entry, partly under the desk's left rim as it slides in)
+  const entry = {x: v.mb ? Math.max(box.x - B.fw * 0.2, S.rest.x - B.fw * 1.0) : Math.max(box.x + B.fw * 0.5 + F * 0.2, S.rest.x - B.fw * 1.15), y: L.a.y};
   const offL = {x: -B.fw * 0.75, y: L.a.y};
   const offR = {x: stageW + B.fw * 0.9, y: Rv.rest.y};
   const enterA = polyline([offL, entry]);
@@ -193,7 +202,7 @@ function compose(ctx, P, R, F, v) {
   const runB = polyline([Rv.rest, {x: Rv.rest.x, y: L.a.y}, {x: S.rest.x, y: L.a.y}, S.rest]);
   if (S.rest.x - entry.x < B.fw * 0.7) problems.push('entry-close');
   const slipOff = {x: B.fw * 0.3, y: -B.fh * 0.2};
-  return {F, arr, stageW, stageH, stages, heads, headH, hx, badgeR, caps, capY, capH, bandY, bandH, guideChip, strip, stripY, box, B, enterA, enterB, runA, runB, entry, slipOff, inset, ok: !problems.length, problems};
+  return {F, mb: !!v.mb, arr, stageW, stageH, stages, heads, headH, hx, badgeR, caps, capY, capH, bandY, bandH, guideChip, strip, stripY, box, B, enterA, enterB, runA, runB, entry, slipOff, inset, ok: !problems.length, problems};
 }
 
 const scene = {
@@ -206,7 +215,7 @@ const scene = {
     const colV = [0.14, 0.24, 0.3].flatMap(ez => [3, 4].map(pl => ({arr: 'column', ez, pl})));
     const vs = shape === 'landscape' ? [3, 4].flatMap(sc => rowV.map(x => ({...x, sc})))
       : shape === 'portrait' ? [3, 2].flatMap(sc => colV.map(x => ({...x, sc})))
-        : [...[3, 2].flatMap(sc => colV.map(x => ({...x, sc}))), ...[0.3, 0.36].flatMap(side => colV.map(x => ({...x, side}))), ...rowV.map(x => ({...x, sc: 2}))];
+        : [...[3, 2].flatMap(sc => colV.map(x => ({...x, sc}))), ...[0.3, 0.36].flatMap(side => colV.map(x => ({...x, side}))), ...rowV.map(x => ({...x, sc: 2})), ...[0.12, 0.18].flatMap(ez => [3, 4].flatMap(pl => [0.34, 0.38].map(side => ({arr: 'row', ez, pl, side, mb: true}))))];
     let C = null, best = null;
     // the boards are the subject: among the sizes that compose, keep the composition with the largest folder (weighted
     // mildly by the text size); text starts at 20.5 so the strip stays compact
@@ -273,7 +282,8 @@ const scene = {
     const bandMid = C.bandY + C.bandH / 2;
     let chipNode = null;
     if (C.arr === 'row') {
-      const lx = ob.map(b => b.x + C.F * 0.8);
+      // (mat below: the leaders drop just left of the outline, clear of the review desk's mat and plate)
+      const lx = ob.map(b => (C.mb ? b.x - C.F * 0.4 : b.x + C.F * 0.8));
       ob.forEach((b, i) => parts.push(h('path', {d: `M${r(lx[i])} ${r(b.y + b.h)}V${r(bandMid)}`, fill: 'none', stroke: gc, 'stroke-width': 4})));
       parts.push(h('path', {d: `M${r(lx[0])} ${r(bandMid)}H${r(lx[1])}`, fill: 'none', stroke: gc, 'stroke-width': 4}));
       if (C.guideChip) chipNode = chip(ctx, P.comparisonLabels.guide, {x: (C.stages[0].x + C.stages[0].w + C.stages[1].x) / 2, y: bandMid - C.guideChip.box.h / 2, anchor: 'middle', maxWidth: Math.min(ctx.design.w * 0.5, 420), size: C.F, minSize: C.F, maxLines: 2, weight: 600, stroke: gc}).node;

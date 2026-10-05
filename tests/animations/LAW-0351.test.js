@@ -38,7 +38,7 @@ ratioChecks(ID, 'scenes equal, one fact differs, composition fits', [
   {at: [1], fn: 's.inTargetA && s.inTargetB', label: 'both end in the configured tray'},
 ]);
 
-test(`${ID}: side by side on wide frames (each >= 40 % of the width), stacked on tall frames`, async ({page}) => {
+test(`${ID}: side by side on wide frames (each >= 40 % of the width; >= 30 % at 1:1), stacked on tall frames`, async ({page}) => {
   await page.goto('/tests/harness/host.html');
   await page.waitForFunction(() => document.body.dataset.ready === '1');
   const presets = [{name: 'default', params: {}}, ...presetsFor(ID)];
@@ -57,7 +57,9 @@ test(`${ID}: side by side on wide frames (each >= 40 % of the width), stacked on
   }, [ID, presets]);
   for (const r of out) {
     if (r.tall) { expect(r.side, r.tag).toBe(false); expect(r.share, r.tag).toBeGreaterThanOrEqual(0.8); }
-    else { expect(r.side, r.tag).toBe(true); expect(r.share, r.tag).toBeGreaterThanOrEqual(0.4); }
+    // (1:1 may use the mat-below boards beside a side legend: narrower (>= 30 %) but full-height boards with larger
+    // folders — reviewed visually as clearly better than two short 40 % boards over a tall strip)
+    else { expect(r.side, r.tag).toBe(true); expect(r.share, r.tag).toBeGreaterThanOrEqual(r.tag.endsWith('1080x1080') ? 0.3 : 0.4); }
   }
 });
 

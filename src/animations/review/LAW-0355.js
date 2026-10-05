@@ -188,7 +188,7 @@ const scene = {
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [36, 32, 28, ...SIZES] : SIZES).map(x => x / pxu);
     let C = null, best = null;
-    outer: for (const F of sizes) for (const v of vs.flatMap(x => [0.8, 0.6, 0.45, 0.3].map(mk => ({...x, minK: mk})))) {
+    outer: for (const F of sizes) for (const v of vs.flatMap(x => [1.3, 1.0, 0.8, 0.6, 0.45, 0.3].map(mk => ({...x, minK: mk})))) {
       const c = compose(ctx, P, F, v);
      
       if (c.ok) { C = c; break outer; }
@@ -203,7 +203,7 @@ const scene = {
     const {B, M, TM} = C;
     const nodesFor = (S, i) => {
       const k = i ? 'B' : 'A';
-      const bn = boardNodes(ctx, B, TM, {prefix: `bd${k}`, showText: showKey, tagOps: [0, 0]});
+      const bn = boardNodes(ctx, B, TM, {prefix: `bd${k}`, showText: showKey, tagOps: [0, 0], placeholder: true});
       const hd = C.heads[i];
       const header = g({name: `head${k}`, transform: T(S.x, S.headY)},
         h('circle', {cx: r(C.badgeR), cy: r(C.badgeR + 2), r: r(C.badgeR), fill: laneColor(th, i), stroke: INK, 'stroke-width': 2.5}),
@@ -278,10 +278,13 @@ const scene = {
       Object.assign(nodes, gateFrame(`bd${k}-gate`, closed, maintained ? 0 : kSet));
       const kLit = maintained ? seg(u, ...W.lit) : 0;
       Object.assign(nodes, litFrame(`bd${k}`, B, kLit));
+      // (a placeholder until the datum arrives: its filler lines leave before the supplied text comes in)
+      const kTxt = Math.min(1, Math.max(0, kTag * 2 - 1));
       if (ctx.show('key')) {
-        nodes[`bd${k}-tag-v0`] = {opacity: r(maintained ? kTag : 0, 3)};
-        nodes[`bd${k}-tag-v1`] = {opacity: r(maintained ? 0 : kTag, 3)};
-      } else nodes[`bd${k}-tag-bars`] = {opacity: r(kTag, 3)};
+        nodes[`bd${k}-tag-v0`] = {opacity: r(maintained ? kTxt : 0, 3)};
+        nodes[`bd${k}-tag-v1`] = {opacity: r(maintained ? 0 : kTxt, 3)};
+        nodes[`bd${k}-tag-bars`] = {opacity: r(1 - Math.min(1, kTag * 2), 3)};
+      } else nodes[`bd${k}-tag-bars`] = {opacity: 1};
       looks[k] = {tP: r(tP, 2), tR: r(tR, 2), closed: r(closed, 3), pause: r(maintained ? 0 : kSet, 3), lit: r(kLit, 3), tag: r(kTag, 3), datum: kTag > 0 ? DATA[i] : 'none',
         cardP: R2({x: S.x + C.bx + pP.x + C.M.w / 2, y: S.y + C.by + pP.y + C.M.h / 2}), cardR: R2({x: S.x + C.bx + pR.x + C.M.w / 2, y: S.y + C.by + pR.y + C.M.h / 2})};
     });

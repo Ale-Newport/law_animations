@@ -156,7 +156,7 @@ function compose(ctx, P, F, opts) {
   const orient = opts.orient;
   let OM, EM, plan;
   // (compact desks: the cards carry no text, so the map's geometry may be drawn at a smaller unit)
-  const G = opts.compact && showKey ? F * (orient === 'v' ? 0.46 : 0.62) : F;
+  const G = opts.compact && showKey ? F * (opts.gk || (orient === 'v' ? 0.46 : 0.62)) : F;
   const routesB = deskRoutes(P, fi, 'b');
   if (orient === 'h') {
     const gapM = Math.max(G * 6.5, mapW * 0.15);
@@ -271,7 +271,7 @@ const scene = {
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const arrangements = shape === 'landscape' ? [{arr: 'row', cols: 3, orient: 'h', capHead: true}, {arr: 'row', cols: 3, orient: 'h'}, {arr: 'row', cols: 3, orient: 'v'}, {arr: 'row', cols: 2, orient: 'h'}, {arr: 'row', cols: 3, tight: true, orient: 'v'}]
       : shape === 'portrait' ? [{arr: 'column', cols: 2, orient: 'h', capHead: true}, {arr: 'column', cols: 2, orient: 'v', capHead: true}, {arr: 'column', cols: 1, orient: 'v', capHead: true}, {arr: 'column', cols: 2, orient: 'h'}, {arr: 'column', cols: 1, orient: 'h'}, {arr: 'column', cols: 2, tight: true, orient: 'h'}]
-        : [{arr: 'column', pw: 0.3, tight: true, orient: 'h'}, {arr: 'column', pw: 0.42, tight: true, orient: 'h', compact: true}, {arr: 'column', pw: 0.48, tight: true, orient: 'h', compact: true}, {arr: 'row', cols: 2, tight: true, orient: 'v', compact: true, capHead: true}, {arr: 'row', cols: 3, tight: true, orient: 'v', compact: true, capHead: true}, {arr: 'row', cols: 3, tight: true, orient: 'h', compact: true}];
+        : [{arr: 'column', pw: 0.3, tight: true, orient: 'h'}, {arr: 'column', pw: 0.42, tight: true, orient: 'h', compact: true}, {arr: 'column', pw: 0.48, tight: true, orient: 'h', compact: true}, {arr: 'row', cols: 2, tight: true, orient: 'v', compact: true, capHead: true, gk: 0.62}, {arr: 'row', cols: 2, tight: true, orient: 'v', compact: true, capHead: true, gk: 0.54}, {arr: 'row', cols: 2, tight: true, orient: 'v', compact: true, capHead: true}, {arr: 'row', cols: 3, tight: true, orient: 'v', compact: true, capHead: true}, {arr: 'row', cols: 3, tight: true, orient: 'h', compact: true}];
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
     let C = null;
     outer: for (const F of sizes) {

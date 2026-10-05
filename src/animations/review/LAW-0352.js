@@ -130,7 +130,7 @@ function compose(ctx, P, R, F, v) {
   const fitA = showKey ? fitG(P.afterValue, {maxWidth: TW - F * 1.2, size: F, minSize: F, maxLines: v.relax ? 5 : 3, weight: 600}) : null;
   if ((fitB && !fitB.ok) || (fitA && !fitA.ok)) problems.push('tag-text');
   const tagH = Math.max(fitB ? fitB.height : F * 1.4, fitA ? fitA.height : F * 1.4) + F * 0.9;
-  const B = boardModel(ctx, {orient: 'row', box, F, names: P.routes.stations, origin: P.routes.origin, showText: showKey && !v.pips, target: R.target, slipN: R.notes.length, handRoom: tagH + F * 1.4, maxFw: 320, plateLines: v.pl ?? 3, reviewW: v.rw, folderMin: v.fmin});
+  const B = boardModel(ctx, {orient: 'row', box, F, names: P.routes.stations, origin: P.routes.origin, showText: showKey && !v.pips, target: R.target, slipN: R.notes.length, handRoom: v.mb ? F * 0.6 : tagH + F * 1.4, matBelow: !!v.mb, matGap: tagH + F * 1.6, matPlate: v.mb ? 'under' : undefined, maxFw: v.mb ? 400 : 320, plateLines: v.pl ?? 3, reviewW: v.rw, folderMin: v.fmin});
   problems.push(...B.problems.filter(q => !(v.relax && (q === 'slip-small' || q === 'calendar-small'))));
   const tagY = B.lane.a.y + B.fh / 2 + F * 0.9; // top of the tag
   if (tagY + tagH > box.y + box.h + inset * 0.5) problems.push('tag-low');
@@ -178,7 +178,7 @@ const scene = {
   layout(ctx) {
     const P = localisedDn(ctx, EN, ES);
     const R = resolve(P);
-    const vs = ctx.view.shape === 'landscape' ? [0.7, 0.68, 0.66, 0.64, 0.6, 0.56, 0.52].map(dw => ({dw})) : ctx.view.shape === 'square' ? [{dw: 1, step: true}, {dw: 1}, ...[0.58, 0.56, 0.6].flatMap(dw => [4.4, 4.1].map(fmin => ({dw, side: true, pips: true, relax: true, rw: 1.2, fmin})))] : [{dw: 1, step: true}, {dw: 1}];
+    const vs = ctx.view.shape === 'landscape' ? [0.7, 0.68, 0.66, 0.64, 0.6, 0.56, 0.52].map(dw => ({dw})) : ctx.view.shape === 'square' ? [{dw: 1, step: true}, {dw: 1}, ...[0.58, 0.56, 0.6].flatMap(dw => [4.4, 4.1].map(fmin => ({dw, side: true, pips: true, relax: true, rw: 1.2, fmin})))] : [{dw: 1, step: true, mb: true}, {dw: 1, step: true}, {dw: 1}];
     const sizes = !ctx.show('key') ? [30, 26, ...SIZES] : SIZES;
     let C = null, best = null;
     outer: for (const F of sizes) for (const v of vs) {

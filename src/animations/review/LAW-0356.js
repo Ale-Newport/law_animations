@@ -174,7 +174,7 @@ const scene = {
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [34, 30, 27, ...SIZES] : SIZES).map(x => x / pxu);
     let C = null, best = null;
-    outer: for (const F of sizes) for (const v of vs.flatMap(x => [0.8, 0.6, 0.45, 0.3].map(mk => ({...x, minK: mk})))) {
+    outer: for (const F of sizes) for (const v of vs.flatMap(x => [1.3, 1.0, 0.8, 0.6, 0.45, 0.3].map(mk => ({...x, minK: mk})))) {
       const c = compose(ctx, P, F, v, pxu);
      
       if (c.ok) { C = c; break outer; }
@@ -190,7 +190,7 @@ const scene = {
     const showKey = ctx.show('key');
     const {B, M, TM} = C;
     const copy = (p, named) => {
-      const bn = boardNodes(ctx, B, TM, {prefix: p, showText: showKey, tagOps: [0, 0]});
+      const bn = boardNodes(ctx, B, TM, {prefix: p, showText: showKey, tagOps: [0, 0], placeholder: showKey && p === 'cx'});
       const s0 = B.pos(0, B.tWait), s1 = B.pos(1, B.tEnd);
       return g({transform: T(C.ox, C.oy)},
         bn.lanes, bn.cal, bn.tag,
@@ -245,6 +245,8 @@ const scene = {
       nodes[`ln-tag${va}`] = {opacity: r(newOp, 3), transform: T(0, C.F * 0.4 * (1 - kNew))};
       nodes[`cx-tag${vb}`] = {opacity: ctxOld, transform: T(0, 0)};
       nodes[`cx-tag${va}`] = {opacity: ctxNew, transform: T(0, 0)};
+      // (while the lens holds the datum, the source tag shows placeholder lines, dimmed with the context)
+      nodes['cx-tag-bars'] = {opacity: lensHolds ? 1 : 0};
     }
     const mk = seg(u, ...W.marker);
     nodes['cx-mk'] = {opacity: r(mk, 3)};
