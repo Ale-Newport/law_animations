@@ -212,7 +212,7 @@ export function contourGeom(C, rows, statuses, neckX, rad = 18) {
     if (xs[i] !== xs[i + 1]) { P.push({x: xs[i], y: cuts[i]}); P.push({x: xs[i + 1], y: cuts[i]}); }
   }
   P.push({x: xs[xs.length - 1], y: B});
-  return roundedLoop(P, rad);
+  return {...roundedLoop(P, rad), corners: P};
 }
 
 /** A closed polygon with rounded corners, sampled densely; returns {d, len, at(q), pts}. */

@@ -35,12 +35,12 @@ import {
 } from './kits/embalaje-prueba.js';
 
 const ID = 'LAW-0365';
-const DURATION = 7000;
+const DURATION = 8000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
 const W = {
-  reachObj: [0.15, 0.2], steadyIn: [0.15, 0.21], lift: [0.2, 0.225], carry: [0.225, 0.31], lower: [0.31, 0.345],
-  toFlap: [0.345, 0.39], fold: [0.39, 0.46], holdFlap: [0.46, 0.5], steadyOut: [0.36, 0.43],
-  toStrip: [0.42, 0.48], carryStrip: [0.48, 0.58], lay: [0.58, 0.61], press: [0.62, 0.71], back: [0.71, 0.78],
+  reachObj: [0.15, 0.215], steadyIn: [0.15, 0.215], lift: [0.215, 0.235], carry: [0.235, 0.31], lower: [0.31, 0.34],
+  toFlap: [0.34, 0.385], fold: [0.385, 0.45], holdFlap: [0.45, 0.49], steadyOut: [0.36, 0.43],
+  toStrip: [0.4, 0.48], carryStrip: [0.48, 0.58], lay: [0.58, 0.61], press: [0.62, 0.71], back: [0.71, 0.78],
   slit: [0.76, 0.8], marker: [0.78, 0.83], notes: [0.76, 0.82], state: [0.77, 0.83],
 };
 const TARGETS = ['object', 'bag', 'seal', 'label'];
@@ -90,7 +90,7 @@ const sceneSchema = {
     text: str('Note text', 80),
   }, ['target', 'text']), 0, 2),
   finalState: oneOf('The state supplied by the author (no conclusion is inferred): sealed — the pouch is closed with the seal intact; altered — the pouch is closed and a supplied alteration mark is shown on the seal; open — the object is in the pouch, which is not sealed', ['sealed', 'altered', 'open']),
-  stateCaption: str('Caption of the supplied state in the hold (empty: the built-in caption of that state)', 110),
+  stateCaption: str('Caption of the supplied state in the hold (empty: the built-in caption of that state)', 120),
 };
 
 const defaultParams = {...EN, actionProgress: 1, finalState: 'sealed'};
@@ -197,7 +197,7 @@ const scene = {
     const armR = gloveArm(ctx, {name: 'armR', handed: 'right', upper: armLen, lower: armLen, width: armW});
     const armL = gloveArm(ctx, {name: 'armL', handed: 'left', upper: armLen, lower: armLen, width: armW});
     const vs = Math.min(ctx.view.content.w / ctx.design.w, ctx.view.content.h / ctx.design.h) * 1080 / Math.min(ctx.view.width, ctx.view.height);
-    const nf = numberFit(ctx, G.SM, P.sealNumber, vs);
+    const nf = numberFit(ctx, G.SM, P.sealNumber, C.F, vs);
     // rings around the final positions of the note targets
     const notes = noteColors(ctx.theme);
     const end = poseAt(L0, 1);

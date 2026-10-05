@@ -10,6 +10,12 @@
 // by the supplied alternative datum, the old one kept traceable; neutral changed-datum marker (Δ on the accent disc).
 // Brief customizable fields: events, causalLinks, alternatives, losses, focusTarget, beforeValue, afterValue,
 // detailGeometry, contextLabels — all present; 'unit' and 'allocationLabels' added.
+// coordinator decision (standing stress-cap rule, docs/AUTHORING.md item 20; scene-area floor >= 0.20 of the frame as in
+// accepted LAW-0701/0705; lens >= 0.35 of the short side): the long-labels-stress COUNTS are capped (three events, one
+// total, no account, no connector note). Rendered at 1080p (2026-10-05, pre-cap copy production/scratch/causation-10/
+// LAW-0720.stress-precap.json): full counts → 1:1 area 0.045; after the cap 1:1 0.214, 9:16 0.369, 16:9 0.257. Fallbacks
+// tried: lens right / below / over the rack, panel beside / below, compact rail zones, staggered or focus-only value
+// chips, two-line focus chips.
 import {contractSuite, presetsFor} from '../harness/contract.js';
 import {suppliedTextSuite} from '../harness/supplied-text.js';
 import {ratioChecks} from '../harness/ratio-checks.js';

@@ -73,7 +73,7 @@ export const epFields = {
   labels: obj('Editable captions', {
     key: str('Neutral key (must say that no conclusion is drawn)', 80),
     blank: str('Text shown for a label row the author left blank', 50),
-    seal: str('Caption before the seal number', 30),
+    seal: str('Caption before the seal number', 40),
   }, ['key', 'blank', 'seal']),
 };
 
@@ -93,7 +93,7 @@ export function pouchModel(S, o = {}) {
   const strip = stripModel(w + S * 0.26, S * 0.26, S);
   return {
     S, w, h: hh, fh, strip,
-    inner: {x: w * 0.07, y: S * 0.58, w: w * 0.86, h: S * 0.7},
+    inner: {x: w * 0.07, y: S * 0.66, w: w * 0.86, h: S * 0.66},
     label: {x: w * 0.07, y: S * 1.34, w: w * 0.86, h: S * 0.66},
     rows: Math.max(1, o.rows ?? 3), chainN: Math.max(1, o.chainN ?? 1),
   };
@@ -231,12 +231,20 @@ export function stripArt(ctx, SM, o) {
   );
 }
 
-/** Fit of the seal number on the plate, or null when it would render under the floor (bars are drawn instead). */
-export function numberFit(ctx, SM, text, scale = 1) {
+/**
+ * Fit of the seal number on the plate at the legend size F (design units; supplied content is never smaller than the
+ * legend captions), or null when it does not fit or would render under the floor (bars are drawn instead; the number
+ * is always listed in the legend). Widens / heightens the plate of SM to the fitted text.
+ * @param {number} vs  rendered px per design unit at 1080p
+ */
+export function numberFit(ctx, SM, text, F, vs = 1) {
   if (!ctx.show('key') || !String(text || '').trim()) return null;
-  const size = Math.min(SM.plate.h * 0.66, 24 / scale);
-  const f = fitG(text, {maxWidth: SM.plate.w * 0.9, size, minSize: 16.5 / scale, maxLines: 1, weight: 700, family: 'mono'});
-  return f.ok ? f : null;
+  if (F * vs < 16) return null;
+  const f = fitG(text, {maxWidth: SM.len * 0.4, size: F, minSize: F, maxLines: 1, weight: 700, family: 'mono'});
+  if (!f.ok || F * 1.18 > SM.h * 0.92) return null;
+  SM.plate = {w: Math.max(SM.plate.w, f.width + F * 0.9), h: Math.max(SM.plate.h, F * 1.18)};
+  SM.slitX = Math.min(SM.len / 2 - SM.h * 0.3, Math.max(SM.slitX, SM.plate.w / 2 + SM.h * 0.35));
+  return f;
 }
 
 /** Backing card the strip rests on (local origin = centre, same axes as the strip). */
@@ -266,14 +274,16 @@ export function sealStage(box, o) {
   const S = arr === 'side' ? Sside : Stop;
   const PM = pouchModel(S, {rows: o.rows, chainN: o.chainN});
   const SM = PM.strip;
-  const M = objectModel(o.kind, S * 1.08);
+  const M = objectModel(o.kind, S * 1.04);
   let bag, obj0, strip0;
   if (arr === 'side') {
     const ox = box.x + (box.w - 4.15 * S) / 2;
     const top = box.y + (box.h - 2.6 * S) / 2;
-    strip0 = {c: {x: ox + S * 0.42, y: box.y + box.h / 2}, a: 90};
+    // spare width spreads the strip and the object away from the pouch (bounded, so reaches stay plausible)
+    const spare = Math.min(box.w - 4.15 * S, S * 1.2) * 0.4;
+    strip0 = {c: {x: ox + S * 0.42 - spare, y: box.y + box.h / 2}, a: 90};
     bag = {x: ox + S * 0.95, y: top + PM.fh};
-    obj0 = {x: bag.x + PM.w + S * 0.72, y: bag.y + S * 0.55};
+    obj0 = {x: bag.x + PM.w + S * 0.72 + spare, y: bag.y + S * 0.55};
   } else {
     const ox = box.x + (box.w - 3.6 * S) / 2;
     const top = box.y + (box.h - 3.55 * S) / 2;
@@ -352,7 +362,7 @@ export function sealPose(G, C, W, ua, {doBag = true, doSeal = true} = {}) {
   // while the right hand presses)
   const steadyP = {x: G.bag.x + PM.w * 0.12, y: G.bag.y + PM.h * 0.93};
   let handL;
-  const kSI = io(on(W.steadyIn, doBag)), kSO = io(on(W.steadyOut, doBag));
+  const kSI = io(on(W.steadyIn, doBag)), kSO = io(on(W.steadyOut, doBag && !doSeal));
   if (!doSeal || ua < W.toStrip[0]) handL = kSO > 0 ? mixP(steadyP, C.restL, kSO) : mixP(C.restL, steadyP, kSI);
   else if (ua < W.toStrip[1]) handL = mixP(steadyP, stripG, io(on(W.toStrip)));
   else if (ua < W.back[0]) handL = stripG;

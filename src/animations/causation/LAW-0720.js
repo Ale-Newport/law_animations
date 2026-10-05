@@ -53,6 +53,7 @@ const W = {
 };
 const TARGETS = ['event-1', 'event-2', 'event-3', 'event-4'];
 const VMW = 440; // widest value chip
+const FMW = 320; // widest focus value chip (two lines): it sets the lens's width
 const TR = 1; // the trace line's text size (× the value chips')
 
 const strings = {
@@ -86,8 +87,8 @@ const defaultParamsEs = {
 };
 
 const SHAPES = {
-  landscape: {sizes: [26, 16], modes: ['below', 'side'], sideWs: [0.24, 0.3], lens: ['right', 'above']},
-  square: {sizes: [24, 16], modes: ['side', 'below'], sideWs: [0.34, 0.4, 0.46], lens: ['above', 'right']},
+  landscape: {sizes: [26, 16], modes: ['below'], sideWs: [], lens: ['right', 'above']},
+  square: {sizes: [24, 16], modes: ['side', 'below'], sideWs: [0.3, 0.34, 0.38, 0.42, 0.46], lens: ['above', 'right']},
   portrait: {sizes: [25, 16], modes: ['below'], sideWs: [], lens: ['above', 'below']},
 };
 
@@ -143,12 +144,14 @@ const scene = {
     const stage = size => {
       let st = stMemo.get(size);
       if (st) return st;
-      const cs = showVals ? texts.map((tx, i) => { const a = valueChipSize(ctx, tx, size, VMW); if (i !== k) return a; const b = valueChipSize(ctx, p.afterValue, size, VMW); const c = valueChipSize(ctx, traceText(ctx, p), size * TR, VMW); return {w: Math.max(a.w, b.w, c.w), h: Math.max(a.h, b.h) + c.h + 4, bad: a.bad || b.bad || c.bad}; }) : [];
-      const chipWs = cs.map(c => c.w), chipH = cs.length ? Math.max(...cs.map(c => c.h)) : 0;
+      const cs = showVals ? texts.map((tx, i) => { if (i !== k) return valueChipSize(ctx, tx, size, VMW); const a = valueChipSize(ctx, tx, size, FMW); const b = valueChipSize(ctx, p.afterValue, size, FMW); const c = valueChipSize(ctx, traceText(ctx, p), size * TR, FMW); return {w: Math.max(a.w, b.w, c.w), h: Math.max(a.h, b.h) + c.h + 4, bad: a.bad || b.bad || c.bad}; }) : [];
       st = [];
       // (labels hidden — no panel — : the lens opens over the rack, so the scene alone fills the box at rest)
-      for (const lp of items.length ? SH.lens : ['above']) for (const compact of [false, true]) for (const stagger of [false, true]) {
-        const go = {chipWs, chipH, compact, stagger: stagger && cs.length > 0};
+      // (others: false — tight boxes — : only the focus tray carries its value chip; the other values stay listed in the
+      // allocation chips of the panel)
+      for (const others of [true, false]) for (const lp of items.length ? SH.lens : ['above']) for (const compact of [false, true]) for (const stagger of others ? [false, true] : [false]) {
+        const chipWs = cs.map((c, i) => (others || i === k ? c.w : 0)), chipH = cs.length ? Math.max(...cs.filter((c, i) => others || i === k).map(c => c.h)) : 0;
+        const go = {chipWs, chipH, compact, stagger: stagger && cs.length > 0, others};
         const lensOf = S => {
           let G = stageGeom(S, M.n, fmax, go);
           if (lp === 'above') {
@@ -217,10 +220,11 @@ const scene = {
       : {x: clamp(src.x + src.w / 2 - lw / 2, bx, bx + blockW - lw), y: oy + G.H + LGAP, w: lw, h: lh};
     const bandNodes = placePanel(ctx, A.panel, px, py, it => (it.key === 'note' ? {fill: ctx.theme.accent2Soft, stroke: ctx.theme.accent2} : {}));
     // value chips (context): the focus chip has a before and an after version and a trace line
-    const chipAt = (tx, i, name, y0 = oy + G.chipRowY(i), size = A.size) => valueChip(ctx, tx, {x: ox + G.trayX[i], y: y0, size, mw: G.stagger || i === k ? VMW : G.slot[i] + G.gap * 0.8, name});
-    const chips = showVals ? texts.map((tx, i) => chipAt(tx, i, `val${i}`)) : [];
+    const chipAt = (tx, i, name, y0 = oy + G.chipRowY(i), size = A.size) => valueChip(ctx, tx, {x: ox + G.trayX[i], y: y0, size, mw: i === k ? FMW : G.stagger ? VMW : G.slot[i] + G.gap * 0.8, name});
+    const othersOn = st.go.others !== false;
+    const chips = showVals ? texts.map((tx, i) => (othersOn || i === k ? chipAt(tx, i, `val${i}`) : null)) : [];
     const after = showVals ? chipAt(p.afterValue, k, 'valAfter') : null;
-    const trace = showVals ? (() => { const c = valueChip(ctx, traceText(ctx, p), {x: ox + G.trayX[k], y: oy + G.chipRowY(k) + Math.max(chips[k].box.h, after.box.h) + 4, size: A.size * TR, mw: VMW, name: 'trace', stroke: ctx.theme.inkSoft}); return c; })() : null;
+    const trace = showVals ? (() => { const c = valueChip(ctx, traceText(ctx, p), {x: ox + G.trayX[k], y: oy + G.chipRowY(k) + Math.max(chips[k].box.h, after.box.h) + 4, size: A.size * TR, mw: FMW, name: 'trace', stroke: ctx.theme.inkSoft}); return c; })() : null;
     const th = ctx.theme;
     // lens content: a real copy of the focus column, in the same coordinates
     const content = g(null,
@@ -230,7 +234,7 @@ const scene = {
       h('rect', {x: r(src.x - 2), y: r(oy + G.floorY), width: r(src.w + 4), height: 14, fill: th.paperShade, stroke: th.ink, 'stroke-width': 2}),
       chips.length ? g({name: 'lz-before'}, valueChip(ctx, chips[k].fit.full, {x: ox + G.trayX[k], y: chips[k].box.y, size: A.size, mw: chips[k].box.w + 2}).node) : null,
       after ? g({name: 'lz-after', opacity: 0}, valueChip(ctx, after.fit.full, {x: ox + G.trayX[k], y: after.box.y, size: A.size, mw: after.box.w + 2, stroke: th.accent2}).node) : null,
-      trace ? g({name: 'lz-trace', opacity: 0}, valueChip(ctx, trace.fit.full, {x: ox + G.trayX[k], y: trace.box.y, size: A.size * TR, mw: VMW, stroke: th.inkSoft}).node) : null,
+      trace ? g({name: 'lz-trace', opacity: 0}, valueChip(ctx, trace.fit.full, {x: ox + G.trayX[k], y: trace.box.y, size: A.size * TR, mw: FMW, stroke: th.inkSoft}).node) : null,
     );
     const lz = lensFw(ctx, {name: 'lz', source: src, dest: dest, content, frame: {x: ox - 6, y: oy - 6, w: G.W + 12, h: G.H + 12}, color: th.accent2});
     // the lens window is opaque: text lying under it while it is open counts as covered
@@ -251,7 +255,7 @@ const scene = {
       M.fA.map((_, i) => piece(i, `seg${i}`)),
       art.front,
       gapX.map((x, j) => g({name: `blade${j}`, transform: T(ox + x, oy + G.bladeRestY)}, bladeArt(ctx, {bw: G.bladeW, bh: G.bladeH}))),
-      g({name: 'vals'}, L.chips.map((c, i) => g({name: `valg${i}`, opacity: 0}, c.node)),
+      g({name: 'vals'}, L.chips.map((c, i) => (c ? g({name: `valg${i}`, opacity: 0}, c.node) : null)),
         L.after ? g({name: 'valAfterg', opacity: 0}, h('path', {d: roundRectPath(L.after.box.x, L.after.box.y, L.after.box.w, L.after.box.h, Math.min(L.after.box.h / 2, 16)), fill: th.card, stroke: th.accent2, 'stroke-width': 3}), L.after.node) : null,
         L.trace ? g({name: 'traceg', opacity: 0}, L.trace.node) : null),
       g({name: 'marker', opacity: 0}, changedMarker(ctx, {x: ox + G.trayX[k] + G.tws[k] / 2 + 6, y: oy + G.trayTop - G.t * 0.2, radius: Math.max(16, G.S * 0.035)})),
@@ -285,7 +289,7 @@ const scene = {
     const vs = seg(u, ...W.vals);
     const lensOn = pOpen > 0.001;
     const swapped = u >= W.in[0];
-    L.chips.forEach((_, i) => { nodes[`valg${i}`] = {opacity: r(i === k ? (lensOn || swapped ? 0 : vs) : vs, 3)}; });
+    L.chips.forEach((c, i) => { if (c) nodes[`valg${i}`] = {opacity: r(i === k ? (lensOn || swapped ? 0 : vs) : vs, 3)}; });
     if (L.after) {
       nodes.valAfterg = {opacity: r(!lensOn && swapped ? 1 : 0, 3)};
       nodes.traceg = {opacity: r(!lensOn && swapped ? 1 : 0, 3)};

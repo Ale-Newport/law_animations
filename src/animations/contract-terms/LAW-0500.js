@@ -90,8 +90,8 @@ function geom(ctx, F, minF, place, stack = false, upx = 1) {
   const ctxBox = tall ? {x: pad, y: pad, w: D.w - pad * 2, h: D.h - pad * 2} : right ? {x: pad, y: pad, w: D.w * 0.53 - pad, h: D.h - pad * 2} : {x: pad, y: pad, w: D.w - pad * 2, h: D.h * 0.48 - pad};
   let lensArea = right ? {x: D.w * 0.56, y: pad, w: D.w * 0.44 - pad, h: D.h - pad * 2} : {x: pad, y: D.h * 0.5, w: D.w - pad * 2, h: D.h * 0.5 - pad};
   // the slip
-  const SF = tall ? F * 1.2 : F;
-  const slipW = tall ? clamp(ctxBox.w * 0.46, 300, 600) : stack ? clamp(Math.max(F * 9.6, ctxBox.w * 0.45), 240, 520) : clamp(Math.max(F * 9.6, ctxBox.w * 0.36), 240, Math.max(380, F * 10));
+  const SF = tall ? F * 1.5 : F;
+  const slipW = tall ? clamp(ctxBox.w * (ctx.view.shape === 'portrait' ? 0.54 : 0.46), 300, 720) : stack ? clamp(Math.max(F * 9.6, ctxBox.w * 0.45), 240, 520) : clamp(Math.max(F * 9.6, ctxBox.w * 0.36), 240, Math.max(380, F * 10));
   const sp = 18;
   const label = fitG(p.communication.label, {maxWidth: slipW - sp * 2, size: SF, minSize: minF, maxLines: stress ? 4 : 3, weight: 700});
   const gR = Math.min(13, F * 0.42);
@@ -117,8 +117,8 @@ function geom(ctx, F, minF, place, stack = false, upx = 1) {
   if (head.bad || title.fit.bad || rowFits.some(f => f.bad) || sheetW < 300) why.push('sheet-text');
   // the magnifier rests below the slip
   const R = place === 'top' ? clamp(F * 1.5, 34, 56) : clamp(F * 2.1, 44, 70), hl = R * 1.5;
-  const sheet = {x: ctxBox.x + 18, y: ctxBox.y + 24, w: sheetW, h: tall ? D.h * (ctx.view.shape === 'square' ? 0.56 : 0.5) - 40 : stack ? ctxBox.h - 44 - slipH - 70 : ctxBox.h - 44};
-  if (tall) lensArea = {x: pad, y: pad, w: D.w - pad * 2, h: sheet.y + sheet.h - pad};
+  const sheet = {x: ctxBox.x + 18, y: ctxBox.y + 24, w: sheetW, h: tall ? D.h * (ctx.view.shape === 'square' ? 0.56 : 0.58) - 40 : stack ? ctxBox.h - 44 - slipH - 70 : ctxBox.h - 44};
+  if (tall) lensArea = ctx.view.shape === 'portrait' ? {x: pad, y: D.h * 0.1, w: D.w - pad * 2, h: D.h * 0.8} : {x: pad, y: pad, w: D.w - pad * 2, h: sheet.y + sheet.h - pad};
   const rowH0 = rowFits.map(f => f.height + 28);
   const need = rowH0.reduce((a, b) => a + b, 0) + 14 * (rowFits.length - 1);
   const rowsH = sheet.h - rowsTop - 22;
@@ -139,7 +139,7 @@ function geom(ctx, F, minF, place, stack = false, upx = 1) {
     if (slip.x + slipW > ctxBox.x + ctxBox.w + 2) why.push('context-wide');
     pin = {x: slip.x + 14, y: slip.y + 8};
     tp = threadPath(pin, peg, 0, {x: pin.x - (pin.x - peg.x) * 0.5, y: pin.y}, {x: peg.x + (pin.x - peg.x) * 0.5, y: peg.y});
-    lupaRest = {x: slip.x + 6, y: Math.min(ctxBox.y + ctxBox.h - R - 8, slip.y + slipH + 26 + R), a: -10};
+    lupaRest = {x: slip.x + 6, y: Math.min(ctxBox.y + ctxBox.h - R - 8, slip.y + slipH + 44 + R), a: 0};
   } else {
     // the slip under the sheet, right-aligned under the pegs; the thread rises in the margin right of the pegs
     slip = {x: peg.x + 30 - slipW, y: sheet.y + sheet.h + 46, w: slipW, h: slipH};

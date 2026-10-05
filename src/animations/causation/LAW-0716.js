@@ -60,7 +60,7 @@ const W_SIDE = {
 };
 const W_STACK = {...W_SIDE,
   textOut: [0.21, 0.222], tagOut: [0.203, 0.209], shrink: [0.205, 0.218], open: [0.2185, 0.26],
-  close: [0.765, 0.795], regrow: [0.78, 0.8], tagIn: [0.8, 0.81], textBack: [0.8, 0.82],
+  close: [0.765, 0.795], regrow: [0.78, 0.8], tagIn: [0.796, 0.806], textBack: [0.797, 0.815],
   marker: [0.82, 0.85], trace: [0.83, 0.87], key: [0.84, 0.88],
 };
 // stack2 (record inside the context): the record and captions step out BEFORE the context steps back
@@ -68,7 +68,7 @@ const W_STACK2 = {...W_STACK, textOut: [0.19, 0.204]};
 const TARGETS = ['lane-tag'];
 // the lens copy's text shows only while drawn at >= this size (px at 1080p; baseline floor)
 const LENS_TEXT_MIN = 19.5;
-const ITEM_K = 1.2; // the steps stand a little larger here (the changed object stays a real object)
+const ITEM_K = 1.35; // the steps stand a little larger here (the changed object stays a real object)
 
 const strings = {
   en: {...CA_STRINGS.en, context: 'The two lanes after both conducts ran, with the record, as supplied', marker: 'Changed datum', beforeV: 'Before', afterV: 'After'},
@@ -339,7 +339,7 @@ function compose(ctx, base, cfg) {
     const fill = Math.min(1, (tg.w * tg.h + ov) / (crop.w * crop.h));
     // (context + lens fill the box while the lens is open: >= 0.82 of its height)
     const spanH = arr === 'side' ? Math.max(zg.zH, crop.h * Z) : zg.zH * room.sBack + 16 + crop.h * Z + 14;
-    if (spanH < (arr === 'side' ? 0.9 : 0.88) * (D.h - (room.top || 0)) && !cfg.force) { lastWhy = `span${Math.round(spanH)}`; continue; }
+    if (spanH < (arr === 'side' ? 0.9 : 0.9) * (D.h - (room.top || 0)) && !cfg.force) { lastWhy = `span${Math.round(spanH)}`; continue; }
     // (stacked: the union of the stepped-back context and the lens also spans most of the box's width)
     if (arr !== 'side' && Math.max(zg.zW * room.sBack, crop.w * Z) < 0.9 * full && !cfg.force) { lastWhy = 'unionW'; continue; }
     if ((Z < 1.62 || lensMin < 0.37 * FU.short + 4 || fill < 0.42) && !cfg.force) { lastWhy = `Z${Z.toFixed(2)}/${Math.round(lensMin)}/f${fill.toFixed(2)}`; continue; }
@@ -464,7 +464,7 @@ const scene = {
       const backBottom = L.pivot.y + (F + 16 - L.pivot.y) * L.sBack;
       // the lens takes the foot of the room below the stepped-back context (context + lens then span the box)
       // (a lens narrower than the box stands at its right, so context + lens span the box's width)
-      L.dest = {x: MARGIN + full - dw, y: Math.max(backBottom + 14, Dv.h - dh), w: dw, h: dh};
+      L.dest = {x: ctx.view.shape === 'landscape' ? MARGIN + (full - dw) / 2 : MARGIN + full - dw, y: Math.max(backBottom + 14, Dv.h - dh), w: dw, h: dh};
     }
     L.recOnFloor = L.arr === 'side' || L.arr === 'stack2';
     L.recNode = recordBuild(ctx, L.rec, {prefix: 'rec', x: recX, y: recY});

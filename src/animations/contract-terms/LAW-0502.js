@@ -83,7 +83,7 @@ function geom(ctx, F, minF) {
   let S, S0, S2, pos, notesBox;
   const tabFit = t => fitG(t, {maxWidth: (wide ? D.w * 0.29 : shape === 'square' ? D.w * 0.4 : D.w * 0.7) - 40, size: F, minSize: minF, maxLines: 2, weight: 800});
   const tabs = [tabFit(p.layerLabels.clause), tabFit(p.layerLabels.contour), tabFit(p.layerLabels.category)];
-  const tabH = Math.max(...tabs.map(t => t.height)) + 22;
+  const tabH = Math.max(...tabs.map(t => t.height), F * 2.36) + 22;
   if (wide) {
     const nw = notes.length ? D.w - pad * 2 : 0;
     const nh = notes.length ? Math.max(...notes.map(q => chipOf(q, 0, 0, (nw - gap * (notes.length - 1)) / notes.length).box.h)) : 0;
@@ -94,15 +94,15 @@ function geom(ctx, F, minF) {
   } else if (shape === 'square') {
     const nw = D.w - pad * 2;
     const nh = notes.length ? Math.max(...notes.map(q => chipOf(q, 0, 0, (nw - gap * (notes.length - 1)) / notes.length).box.h)) : 0;
-    const gut = 30 + 24 * n;
+    const gut = 26 + 18 * n;
     const avH = D.h - pad * 2 - (nh ? nh + 22 : 0) - 2 * tabH - 30;
     const w0 = D.w - pad * 2 - gut;
     const hf = fitG(`${p.contract.reference} · ${p.contract.title} · ${p.clauseTitle}`, {maxWidth: w0 - 60, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 800});
     const cf = p.clauses.map(c => fitG(c, {maxWidth: w0 - 80, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 600}));
     const h0 = Math.max(avH * 0.22, hf.height + 36 + cf.reduce((a, f) => a + f.height + 24 + 14, 0) + 30);
     const W2 = D.w - pad * 2 - gut - 30;
-    S = {w: W2 * 0.62, h: avH - h0};
-    S2 = {w: W2 * 0.38, h: avH - h0};
+    S = {w: W2 * 0.7, h: avH - h0};
+    S2 = {w: W2 * 0.3, h: avH - h0};
     S0 = {w: w0, h: h0};
     const y2 = pad + tabH + h0 + 30 + tabH;
     pos = [{x: pad, y: pad + tabH}, {x: pad, y: y2}, {x: pad + S2.w + 30, y: y2}];
@@ -117,6 +117,8 @@ function geom(ctx, F, minF) {
   }
   S0 = S0 ?? S;
   S2 = S2 ?? S;
+  [S0, S2, S].forEach((sz, i) => { tabs[i] = fitG([p.layerLabels.clause, p.layerLabels.contour, p.layerLabels.category][i], {maxWidth: sz.w * 0.92 - 44, size: F, minSize: minF, maxLines: 2, weight: 800}); });
+  if (Math.max(...tabs.map(t => t.height)) + 22 > tabH + 0.5) why.push('tab-height');
   if (S.h < 150) why.push('sheet-small');
   // stacked (start) position: the middle sheet's place
   const stack = pos[1];
@@ -170,7 +172,7 @@ function geom(ctx, F, minF) {
     if (!wide) {
       // portrait / square: each relation runs in its own lane of the right-hand gutter
       a.x = pos[0].x + S0.w - 10; b.x = pos[2].x + t.x + t.w + 4;
-      const lane = pos[2].x + S.w + 22 + i * 24;
+      const lane = pos[2].x + S.w + 18 + i * 18;
       pts = [a, {x: lane, y: a.y}, {x: lane, y: b.y}, b];
     }
     let len = 0;
