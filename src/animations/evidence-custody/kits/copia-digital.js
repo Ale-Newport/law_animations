@@ -210,7 +210,7 @@ export function dockModel(S) {
   return {S, w, h: hh, bayW: bw, bayH: bh,
     src: {x: m, y: by, w: bw, h: bh, c: {x: m + bw / 2, y: by + bh / 2}},
     dst: {x: m + bw + cw, y: by, w: bw, h: bh, c: {x: m + bw + cw + bw / 2, y: by + bh / 2}},
-    chan: {x: m + bw + S * 0.08, y: by + bh / 2 - S * 0.12, w: cw - S * 0.16, h: S * 0.24},
+    chan: {x: m + bw + S * 0.06, y: by + bh / 2 - S * 0.16, w: cw - S * 0.12, h: S * 0.32},
     lampS: {x: m + bw * 0.5, y: m * 0.8}, lampT: {x: m + bw + cw + bw * 0.5, y: m * 0.8}};
 }
 
@@ -286,7 +286,7 @@ const TAG_W = 1.05, TAG_H = 0.46, TAG_DROP = 0.42;
  */
 export function dcStage(B, o) {
   const U = {};
-  const dockW = 3.3, dockH = 1.34, zoneW = 1.5, bagW = 1.5;
+  const dockW = 3.3, dockH = 1.34, zoneW = 1.4, bagW = 1.42;
   let bagH = 2.2, w, hh, spotY = 1.42, lieDy = 0.42;
   const pad = 0.06;
   if (o.orient === 'v') {
@@ -296,16 +296,17 @@ export function dcStage(B, o) {
     bagH += extra * 0.35; spotY += extra * 0.3; lieDy += extra * 0.08;
     U.bag = {x: 0, y: 0};
     U.zone = {x: dockW - zoneW, y: 0};
-    U.dock = {x: 0, y: bagH + 0.35 + extra * 0.4};
+    const eyeU = deviceModel(o.kind, 1).eye.y;
+    U.dock = {x: 0, y: Math.max(bagH + 0.35, spotY + eyeU + TAG_DROP + lieDy + TAG_H / 2 + 0.14) + extra * 0.4};
     hh = U.dock.y + dockH + 0.75 + extra * 0.25;
   } else {
-    w = bagW + 0.25 + dockW + 0.28 + zoneW; hh = 2.42;
+    w = bagW + 0.2 + dockW + 0.22 + zoneW; hh = 2.42;
     // spare height (wide boxes) lengthens the bag and lowers the dock, copy spot and waiting tag
-    const extra = clamp(B.h / (B.w / (w + pad * 2)) - (hh + pad * 2), 0, 1.1);
-    bagH += extra * 0.7; spotY += extra * 0.5; lieDy += extra * 0.35;
+    const extra = clamp(B.h / (B.w / (w + pad * 2)) - (hh + pad * 2), 0, 1.6);
+    bagH += extra * 0.85; spotY += extra * 0.62; lieDy += extra * 0.36;
     U.bag = {x: 0, y: 0};
-    U.dock = {x: bagW + 0.25, y: 0.72 - dockH / 2 + 0.04 + extra * 0.32};
-    U.zone = {x: U.dock.x + dockW + 0.28, y: 0};
+    U.dock = {x: bagW + 0.2, y: 0.72 - dockH / 2 + 0.04 + extra * 0.5};
+    U.zone = {x: U.dock.x + dockW + 0.22, y: 0};
     hh += extra;
   }
   let S = Math.min(B.w / (w + pad * 2), B.h / (hh + pad * 2));
@@ -329,7 +330,7 @@ export function dcStage(B, o) {
   const holeOf = c => ({x: c.x + M.eye.x + 0.02 * S, y: c.y + M.eye.y + TAG_DROP * S});
   // the copy's tag waits on the mat below the copy spot (unattached, no chain)
   const tagFinal = holeOf(copySpot);
-  const tagLie = {x: tagFinal.x - 0.05 * S, y: tagFinal.y + lieDy * S, a: 0};
+  const tagLie = {x: tagFinal.x - 0.05 * S, y: Math.min(tagFinal.y + lieDy * S, B.y + B.h - TAG_H * S * 0.6), a: 0};
   const ext = {x: ox, y: oy, w: w * S, h: hh * S};
   return {S, M, D, dock, bag, origRest, srcBay, dstBay, tray, copyRest, copySpot, tagC: tagModelC, tagO: tagModelO, eyeOf, holeOf, tagFinal, tagLie, ext, orient: o.orient, fits: S >= 60};
 }

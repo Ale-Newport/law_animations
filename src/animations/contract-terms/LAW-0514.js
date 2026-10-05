@@ -97,7 +97,7 @@ function geom(ctx, F, minF, mode, cwPick) {
   // ---- layers
   const tabS = F * 1.4;
   const colW = mode === 'beside' ? (area.w - discCol - g2) / 2 : area.w - discCol;
-  const lw = colW / 1.2, sk = lw * 0.2;
+  const lw = mode === 'beside' ? colW / 1.2 : Math.min(colW, cw - 40) / 1.2, sk = lw * 0.2;
   const labW = lw - tabS - 46 - sk * 0.5;
   const labs = p.schedules.map(sc => fitK(sc.label, {maxWidth: labW, size: F, minSize: minF, maxLines: stress ? 5 : 4, weight: 700}));
   if (labs.some(f => f.bad)) why.push('layer-text');
@@ -105,22 +105,29 @@ function geom(ctx, F, minF, mode, cwPick) {
   const th = 12;
   const baseH = Math.max(F * 2.2, 64);
   const ld = Math.max(lw * 0.28, labH + 28);
+  // legend and key: under the card ('beside') or at the foot of the card column ('above'); the legend shows from the trace
+  const contentMin = Math.min(F, ...labs.map(f => f.size), ...C.rows.map(f => f.size), C.text ? C.text.size : F);
+  const noteDefs = [show && p.relationLabels.position ? {name: 'legend', kind: 'legend', text: p.relationLabels.position} : null, showKey ? {name: 'key', kind: 'key', text: ctx.t.key} : null].filter(Boolean);
+  const noteOpt = q => ({maxWidth: card.w, size: q.kind === 'key' ? contentMin : F, minSize: Math.min(minF, q.kind === 'key' ? contentMin : F), maxLines: stress ? 4 : 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.kind === 'legend' ? ctx.theme.accent2Soft : ctx.theme.card});
+  const noteHs = noteDefs.map(q => chipG(ctx, q.text, {x: 0, y: 0, ...noteOpt(q)}).box.h);
+  const notesH = noteHs.reduce((a, b) => a + b + 14, 0);
+  const legendTop = mode === 'beside' ? card.y + card.h + 22 : D.h - m - notesH + 14;
   let rackTop, rackBot, parkTop, parkBot, rackX, parkX;
   if (mode === 'beside') {
     rackX = area.x; parkX = area.x + colW + discCol + g2;
     rackTop = area.y; rackBot = area.y + area.h;
     parkTop = area.y + ld + 6; parkBot = area.y + area.h - th - 6;
   } else {
-    rackX = area.x; parkX = area.x;
-    const parkH = ns * (ld + th) + (ns - 1) * 12 + 10;
-    parkTop = area.y + ld + 4; parkBot = area.y + parkH - th - 4;
-    rackTop = area.y + parkH + 24; rackBot = area.y + area.h;
+    // the rack takes the whole right column; the layers park in the card column, under the card
+    rackX = area.x; parkX = card.x + 14;
+    parkTop = card.y + card.h + 34 + ld; parkBot = legendTop - 30 - th;
+    rackTop = area.y; rackBot = area.y + area.h;
   }
   const pitchMax = (rackBot - rackTop - baseH - 30 - ld) / Math.max(1, n - 1);
   if (n > 1 && ld + th + 8 > pitchMax) why.push('layer-depth');
   const pitch = n > 1 ? Math.min(pitchMax, ld + th + 70) : 0;
   const stackH = pitch * (n - 1) + ld + th + baseH + 30;
-  const top = rackTop + (rackBot - rackTop - stackH) * (mode === 'beside' ? 0.5 : 0.7) + ld;
+  const top = rackTop + (rackBot - rackTop - stackH) * 0.5 + ld;
   const levels = Array.from({length: n}, (_, k) => ({x: rackX, y: top + k * pitch}));
   const baseY = levels[n - 1].y + th + 20 + baseH * 0.5;
   const spread = ns > 1 ? (parkBot - parkTop) / (ns - 1) : 0;
@@ -131,20 +138,16 @@ function geom(ctx, F, minF, mode, cwPick) {
   const layerB = P0 => ({x: P0.x + sk / 2, y: P0.y - ld / 2});
   // ---- notes
   const placed = [];
-  const below = {x: card.x, w: card.w, top: card.y + card.h + 22, bottom: D.h - m};
-  const tagCol = mode === 'beside' ? {x: parkX - 6, w: colW + 12, top: area.y + 4, bottom: area.y + area.h - 4} : {...below};
+  const below = {x: card.x, w: card.w, top: legendTop, bottom: D.h - m};
+  const tagCol = mode === 'beside' ? {x: parkX - 6, w: colW + 12, top: area.y + 4, bottom: area.y + area.h - 4} : {x: card.x, w: card.w, top: card.y + card.h + 18, bottom: legendTop - 14};
   const busy = [];
   const worstTag = longest([p.stateLabels.priority, p.stateLabels.subordinate]);
   const tagNotes = show ? [{name: 'tagP', kind: 'tag', text: p.stateLabels.priority, k: 0}, {name: 'tagS', kind: 'tag', text: p.stateLabels.subordinate, k: n - 1}] : [];
-  // legend and key under the card (the legend is shown from the trace on)
-  const contentMin = Math.min(F, ...labs.map(f => f.size), ...C.rows.map(f => f.size), C.text ? C.text.size : F);
   let yB = below.top;
-  for (const q of [show && p.relationLabels.position ? {name: 'legend', kind: 'legend', text: p.relationLabels.position} : null, showKey ? {name: 'key', kind: 'key', text: ctx.t.key} : null].filter(Boolean)) {
-    const sz = q.kind === 'key' ? contentMin : F;
-    const c = chipG(ctx, q.text, {x: below.x, y: yB, maxWidth: below.w, size: sz, minSize: Math.min(minF, sz), maxLines: stress ? 4 : 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.kind === 'legend' ? ctx.theme.accent2Soft : ctx.theme.card});
+  for (const q of noteDefs) {
+    const c = chipG(ctx, q.text, {x: below.x, y: yB, ...noteOpt(q)});
     if (c.bad || yB + c.box.h > below.bottom + 0.5) why.push(`note-${q.name}`);
     placed.push({q, c});
-    if (mode !== 'beside') busy.push({y: yB, h: c.box.h});
     yB += c.box.h + 14;
   }
   for (const q of tagNotes) {
@@ -160,7 +163,7 @@ function geom(ctx, F, minF, mode, cwPick) {
   return {
     ok: !why.length, why, F, minF, mode, side: 'left', order, n, card, C, rows, area, lw, sk, ld, th, tabS, labs, levels, parks, baseY, baseH,
     rackX, parkX, colW, discR, discX, rowA, layerB, placed, stress, pitch,
-    parkBoard: mode === 'beside' ? {x: parkX - 16, y: area.y, w: colW + 24, h: area.h} : {x: parkX - 16, y: parkTop - ld - 12, w: area.w + 16, h: parkBot - parkTop + ld + th + 24},
+    parkBoard: mode === 'beside' ? {x: parkX - 16, y: area.y, w: colW + 24, h: area.h} : {x: card.x, y: card.y + card.h + 16, w: card.w, h: legendTop - 16 - (card.y + card.h + 16)},
   };
 }
 

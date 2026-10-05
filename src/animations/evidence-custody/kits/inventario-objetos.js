@@ -250,15 +250,15 @@ export function rowText(P, i) {
  */
 export function stationGeomH(o) {
   const {n, S} = o;
-  const C = S * 1.24, gC = Math.max(8, S * 0.13), p = Math.max(10, S * 0.12);
+  const C = S * 1.12, gC = Math.max(8, S * 0.13), p = Math.max(10, S * 0.12);
   const pitch = C + gC;
   const rackW = n * C + (n - 1) * gC + p * 2, rackH = C + p * 2;
   const tagH = Math.max(30, S * 0.42);
   const tagW = Math.max(S * 0.95, tagH * 2.3, (o.tagTextW || 0) / 0.6);
   const chainL = Math.max(14, S * 0.16);
-  const tagZone = chainL * 0.6 + tagH * 0.95;
-  const linkGap = Math.max(24, S * 0.24) + (o.extraGap || 0);
-  const clipTop = Math.max(18, S * 0.18);
+  const tagZone = chainL * 0.4 + tagH * 0.62;
+  const linkGap = Math.max(16, S * 0.2) + (o.extraGap || 0);
+  const clipTop = 10;
   // the bag lies in one row beside the rack (two rows from 4 objects on)
   let B = null, bagSlots = [];
   const bcols = n <= 3 ? n : Math.ceil(n / 2);
@@ -274,14 +274,15 @@ export function stationGeomH(o) {
     const x = rackX + p + i * pitch, y = rackY + p;
     return {x, y, w: C, h: C, cx: x + C / 2, cy: y + C / 2, eyelet: {x: x + C * 0.16, y: y + C + p * 0.5}};
   });
-  const tags = cells.map(c => ({hole: {x: c.eyelet.x + chainL * 0.25, y: c.eyelet.y + chainL * 0.6 + tagH * 0.3}, angle: 4}));
-  const badgeZone = Math.max(26, S * 0.24);
+  const tags = cells.map(c => ({hole: {x: c.eyelet.x + chainL * 0.25, y: c.eyelet.y + chainL * 0.4 + tagH * 0.05}, angle: 4}));
+  const badgeZone = 6; // the badge sits inline, left of the entry text
+  const bR = Math.max(11, S * 0.11);
   const W = rackX + rackW;
   // the ledger strip runs under the whole station (bag included), so every entry slot is wider than a cell
   const sheetY = Math.max(rackY + rackH + tagZone + linkGap, o.noBag ? 0 : B.h + bagGap * 0.6);
-  const sheet = {x: 0, y: sheetY, w: W, h: clipTop + badgeZone + (o.sheetTextH || 0) + 12};
+  const sheet = {x: 0, y: sheetY, w: W, h: clipTop + badgeZone + Math.max(o.sheetTextH || 0, bR * 2) + 14};
   const slotW = W / n;
-  const rows = cells.map((c, i) => ({x: i * slotW, w: slotW, y: sheetY + clipTop + badgeZone * 0.5, top: sheetY + clipTop, h: sheet.h - clipTop, badge: {x: i * slotW + slotW / 2, y: sheetY + clipTop + badgeZone * 0.5}, textY: sheetY + clipTop + badgeZone + 4}));
+  const rows = cells.map((c, i) => ({x: i * slotW, w: slotW, y: sheetY + clipTop + badgeZone * 0.5, top: sheetY + clipTop, h: sheet.h - clipTop, badge: {x: i * slotW + 10 + bR, y: sheetY + clipTop + badgeZone + 4 + bR}, bR, textX: i * slotW + 18 + bR * 2, textY: sheetY + clipTop + badgeZone + 4}));
   const H = sheet.y + sheet.h;
   const bagY = 0;
   return {orient: 'h', noClip: true, slotW, tagTextW: o.tagTextW || 0, n, S, C, gC, p, pitch, rackW, rackH, rackX, rackY, tagH, tagW, tagZone, linkGap, clipTop, cells, sheet, rows, W, H, B,
@@ -290,7 +291,7 @@ export function stationGeomH(o) {
 
 export function fitSheet(G, texts, F, title) {
   if (G.orient === 'h') {
-    const tw = G.slotW - 20;
+    const tw = G.slotW - 28 - G.rows[0].bR * 2;
     let ok = tw > F * 3.2 && G.tagFitsCell;
     const fits = texts.map(t => {
       if (!t) return null;
@@ -343,10 +344,11 @@ export function fitStation(box, o) {
       return {G, SF};
     };
     let found = null;
-    for (let k = 0; k < 14; k++) {
-      const mid = (hi + lo) / 2;
-      const res = tryS(mid);
-      if (res) { found = res; lo = mid; } else hi = mid;
+    // the fit is not monotonic in S (narrow slots wrap text into more lines), so scan down from an upper bound
+    // instead of bisecting: the first size that fits is the largest
+    for (let S = Math.min(hi, Math.max(box.w, box.h) / 1.4); S >= lo; S *= 0.965) {
+      const res = tryS(S);
+      if (res) { found = res; break; }
     }
     if (!found) { const res = tryS(lo); if (res) found = res; }
     if (found) {
@@ -418,9 +420,9 @@ export function stationNodes(ctx, G, o) {
       const partsH = [];
       const bxh = X(rw.badge.x), byh = Y(rw.badge.y);
       if (fitH) {
-        partsH.push(h('circle', {cx: r(bxh), cy: r(byh), r: r(badgeR), fill: '#fff', stroke: LINK, 'stroke-width': 2.4}));
-        partsH.push(h('circle', {cx: r(bxh), cy: r(byh), r: r(badgeR * 0.38), fill: LINK}));
-        const tx = X(rw.x) + 9;
+        partsH.push(h('circle', {cx: r(bxh), cy: r(byh), r: r(rw.bR), fill: '#fff', stroke: LINK, 'stroke-width': 2.4}));
+        partsH.push(h('circle', {cx: r(bxh), cy: r(byh), r: r(rw.bR * 0.38), fill: LINK}));
+        const tx = X(rw.textX);
         if (o.showText) partsH.push(textAt(fitH, {x: tx, y: Y(rw.textY), fill: INK}));
         else fitH.lines.forEach((_, k) => partsH.push(h('path', {d: scribble(ctx, `${P}-row${i}-${k}`, tx, tx + Math.min(o.SF.tw, fitH.width) * (k === fitH.lines.length - 1 ? 0.8 : 1), Y(rw.textY) + fitH.size * 0.62 + k * fitH.lineHeight, fitH.size * 0.32), fill: 'none', stroke: WRITE_INK, 'stroke-width': 2.2, 'stroke-linecap': 'round'})));
       }
@@ -483,7 +485,7 @@ export function stationNodes(ctx, G, o) {
     const tip = {x: X(t.hole.x) + Math.cos(a) * (TG.x1 + 4), y: Y(t.hole.y) + Math.sin(a) * (TG.x1 + 4)};
     if (G.orient === 'h') {
       const from = {x: X(t.hole.x) + TG.w * 0.45, y: Y(t.hole.y) + G.tagH * 0.52};
-      return linkLine(`${P}-ln${i}`, from, {x: X(G.rows[i].badge.x), y: Y(G.rows[i].badge.y) - N0badge(o, G)}, Math.max(4, S * 0.045), true);
+      return linkLine(`${P}-ln${i}`, from, {x: X(G.rows[i].badge.x), y: Y(G.rows[i].badge.y) - G.rows[i].bR}, Math.max(4, S * 0.045), true);
     }
     const bx = X(sh.x) + 14, by = Y(G.rows[i].y);
     return linkLine(`${P}-ln${i}`, tip, {x: bx, y: by}, Math.max(4, S * 0.045));

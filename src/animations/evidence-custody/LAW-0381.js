@@ -128,11 +128,13 @@ function makePlan(G, C, P) {
   const tagged = P.finalState !== 'pending';
   const off = G.tagC.w * 0.42;
   const grip = p => ({x: p.x + off, y: p.y});
-  const L = [[0.15, C.restL], [0.19, G.origRest], [0.27, G.srcBay], [0.33, C.restL], [0.47, C.restL], [0.52, G.srcBay], [0.6, G.origRest], [0.66, C.restL]];
-  const R = [[0.15, C.restR], [0.19, G.copyRest], [0.27, G.dstBay], [0.33, C.restR], [0.47, C.restR], [0.52, G.dstBay], [0.6, G.copySpot]];
+  const gy = G.M.h * 0.4;
+  const d = p => ({x: p.x, y: p.y + gy});
+  const L = [[0.15, C.restL], [0.19, d(G.origRest)], [0.27, d(G.srcBay)], [0.33, C.restL], [0.47, C.restL], [0.52, d(G.srcBay)], [0.6, d(G.origRest)], [0.66, C.restL]];
+  const R = [[0.15, C.restR], [0.19, d(G.copyRest)], [0.27, d(G.dstBay)], [0.33, C.restR], [0.47, C.restR], [0.52, d(G.dstBay)], [0.6, d(G.copySpot)]];
   if (tagged) R.push([0.63, grip(G.tagLie)], [0.7, grip(G.tagFinal)], [0.76, C.restR]);
   else R.push([0.66, C.restR]);
-  return {L, R, tagged, off};
+  return {L, R, tagged, off, gy};
 }
 
 function poseAt(L, u) {
@@ -142,15 +144,15 @@ function poseAt(L, u) {
   const hL = pathAt(plan.L, ua), hR = pathAt(plan.R, ua);
   let orig, origAt;
   if (ua < 0.19) { orig = G.origRest; origAt = 'bag'; }
-  else if (ua < 0.27) { orig = hL; origAt = 'carried'; }
+  else if (ua < 0.27) { orig = {x: hL.x, y: hL.y - plan.gy}; origAt = 'carried'; }
   else if (ua < 0.52) { orig = G.srcBay; origAt = 'dock'; }
-  else if (ua < 0.6) { orig = hL; origAt = 'carried'; }
+  else if (ua < 0.6) { orig = {x: hL.x, y: hL.y - plan.gy}; origAt = 'carried'; }
   else { orig = G.origRest; origAt = 'bag'; }
   let copy, copyAt;
   if (ua < 0.19) { copy = G.copyRest; copyAt = 'tray'; }
-  else if (ua < 0.27) { copy = hR; copyAt = 'carried'; }
+  else if (ua < 0.27) { copy = {x: hR.x, y: hR.y - plan.gy}; copyAt = 'carried'; }
   else if (ua < 0.52) { copy = G.dstBay; copyAt = 'dock'; }
-  else if (ua < 0.6) { copy = hR; copyAt = 'carried'; }
+  else if (ua < 0.6) { copy = {x: hR.x, y: hR.y - plan.gy}; copyAt = 'carried'; }
   else { copy = G.copySpot; copyAt = 'placed'; }
   let tag = G.tagLie, tagState = 'lying';
   if (plan.tagged && ua >= 0.63) {
@@ -182,7 +184,7 @@ const scene = {
         for (const orient of orients) {
           const c = compose(ctx, P, recs, LG, orient);
           c.F = F;
-          const score = (c.G ? c.G.S : 0) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1);
+          const score = (c.G ? c.G.S : 0) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * (shape === 'square' && opt.mode === 'below' ? 0.6 : 1);
           if (c.ok && firstOk < 0 && F >= 19.5) firstOk = fi;
           if (c.ok && score > bestScore) { best = c; bestScore = score; }
           if (!C || c.problems.length < C.problems.length) C = c;
@@ -267,7 +269,7 @@ const scene = {
     Object.assign(nodes, chainProps('chO', G.eyeOf(s.orig), holeO, G.S * 0.06));
     nodes.copy = {transform: T(s.copy.x, s.copy.y)};
     Object.assign(nodes, copyCellProps('cp', L.nCells, s.flowK * L.nCells));
-    Object.assign(nodes, dockFlowProps('dk', G.D, s.flowK, s.flowA, G.dock.x, G.dock.y));
+    Object.assign(nodes, dockFlowProps('dk', G.D, s.flowK, s.flowA));
     const carried = s.tagState === 'carried';
     nodes.tagCLo = {transform: tagT(s.tag), opacity: carried ? 0 : 1};
     nodes.tagCHi = {transform: tagT(s.tag), opacity: carried ? 1 : 0};
@@ -289,7 +291,7 @@ const scene = {
     return {
       nodes,
       semantic: {
-        beat, handL: R2(pl.hand), handR: R2(pr.hand), orig: R2(s.orig), copy: R2(s.copy), tag: R2(s.tag), tagGrip: R2(tagGrip),
+        beat, handL: R2(pl.hand), handR: R2(pr.hand), orig: R2(s.orig), copy: R2(s.copy), origGrip: R2({x: s.orig.x, y: s.orig.y + L.plan.gy}), copyGrip: R2({x: s.copy.x, y: s.copy.y + L.plan.gy}), tag: R2(s.tag), tagGrip: R2(tagGrip),
         origAt: s.origAt, copyAt: s.copyAt, tagState: s.tagState, flow: r(s.flowA, 3), copied: r(s.flowK, 3),
         copyCells: Math.floor(s.flowK * L.nCells + 1e-6), cells: L.nCells, origCells: L.nCells, chain: r(chK, 3),
         allReached: pl.reached && pr.reached, rows: L.recs.map(rw => rw.filled), finalState: P.finalState, actionCapped: s.capped,
