@@ -67,14 +67,14 @@ export const DP_STRINGS = {
   en: {
     total: 'the whole bar', alsoNoted: 'Also noted', other: 'Put forward', alleged: 'alleged', proposed: 'proposed', disputed: 'disputed',
     link: 'Connector', kindCausal: 'causal (as supplied)', kindSequence: 'sequence (as supplied)', toEvent: 'to event',
-    asSupplied: 'as supplied', lengths: 'Segment lengths follow the supplied values only',
+    asSupplied: 'as supplied', lengths: 'Segment lengths follow the supplied values only', valuesW: 'values',
     neither: 'Neither allocation is preferred',
     key: 'As supplied · no conclusion drawn',
   },
   es: {
     total: 'toda la barra', alsoNoted: 'También consta', other: 'Planteado', alleged: 'alegado', proposed: 'propuesto', disputed: 'discutido',
     link: 'Conector', kindCausal: 'causal (según lo aportado)', kindSequence: 'secuencia (según lo aportado)', toEvent: 'al evento',
-    asSupplied: 'según lo aportado', lengths: 'Los segmentos siguen solo los valores aportados',
+    asSupplied: 'según lo aportado', lengths: 'Los segmentos siguen solo los valores aportados', valuesW: 'valores',
     neither: 'Ninguna asignación se prefiere',
     key: 'Según lo aportado · sin conclusión',
   },
@@ -148,11 +148,12 @@ export function linkNotes(ctx, M) {
 /** Band text of an alternative account. */
 export const altText = (ctx, a) => `${ctx.t.other}: ${a.label} (${a.status === 'alleged' ? ctx.t.alleged : ctx.t.proposed})`;
 
-/** "● A · Proposed allocation: 40 · 35 · 25 (hypothetical)". */
+/** "A · Proposed allocation · values 40 · 35 · 25 (hypothetical)". */
 export function allocText(ctx, p, M, side) {
   const vs = side === 'a' ? M.vA : M.vB;
-  // (the values stay together: never a line that starts with a number)
-  return `${side === 'a' ? 'A' : 'B'} · ${p.allocationLabels[side]}: ${vs.map(fmtV).join('\u00a0·\u00a0')} (${p.unit})`;
+  // (the values stay together and behind the word "values": never a line that starts with a number, and the group
+  // stays short enough for a narrow chip)
+  return `${side === 'a' ? 'A' : 'B'} · ${p.allocationLabels[side]} · ${ctx.t.valuesW} ${vs.map(fmtV).join('\u00a0·\u00a0')} (${p.unit})`;
 }
 
 /* ------------------------------------------------------------------------ */

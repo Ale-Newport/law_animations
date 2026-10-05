@@ -193,7 +193,9 @@ function zoneGeom(M, PH, tg, rec, RW, arr, minW, tagSide = false) {
   const ih = G.itemS * ITEM_K, iw = ih * 0.82;
   const sy = G.cy + ih / 2; // the step's base
   // the leader's two ends: the lower edge of lane A's strip, the upper edge of lane B's strip
-  const ys = [G.yA + G.LT, G.yB - G.LT];
+  // the step's two slots (its base): just under lane A's strip, or standing on lane B's strip edge — the step slides
+  // between them when its supplied lane changes
+  const ys = [G.yA + G.LT + 0.02 * PH + ih, G.yB - G.LT - 0.01 * PH];
   const itemTop = sy - ih;
   const tagX = tagSide ? 6 : G.x0 + 6;
   const tagY = tagSide ? Math.min(G.cy - tg.h / 2, -tg.h - 12) : G.slabTop - 12 - tg.h;
@@ -221,7 +223,9 @@ function slotArt(ctx, {G, at, side}) {
 
 /** The focus step's leader: from the step's centre to the lane edge at y (the dependent geometry of the datum). */
 function stringD(L, y) {
-  return `M${r(L.fxw)} ${r(L.syw - L.zg0.ih / 2)}L${r(L.fxw)} ${r(y)}`;
+  // the tag's string, from the tag (fixed) to the step's side at base y (follows the step)
+  if (!L.tagSide) return `M${r(L.tagAt.x + L.tg.w * 0.5)} ${r(L.tagAt.y + L.tg.h)}L${r(L.fxw - L.zg0.iw * 0.3)} ${r(y - L.zg0.ih)}`;
+  return `M${r(L.tagAt.x + L.tg.w)} ${r(L.tagAt.y + L.tg.h / 2)}L${r(L.fxw - L.zg0.iw / 2 - 2)} ${r(y - L.zg0.ih / 2)}`;
 }
 
 /** The tag's tie: from the tag's right edge (fixed) to the step's left side (fixed). */
@@ -311,8 +315,8 @@ function compose(ctx, base, cfg) {
     // consequence and its string move inside it when the datum changes)
     const G = zg.G;
     // (the tag, the step and both leader ends with their slot pads: the moving leader stays in view)
-    const c0 = {x: zg.tagX - 6, y: Math.min(zg.tagY, zg.ys[0] - G.LT * 0.6) - 6};
-    const c1 = {x: Math.max(zg.tagX + tg.w, zg.fx + zg.iw / 2 + G.headS) + 10, y: Math.max(zg.tagY + tg.h, zg.ys[1] + G.LT * 0.6) + 6};
+    const c0 = {x: zg.tagX - 6, y: Math.min(zg.tagY, G.yA + G.LT * 0.3) - 6};
+    const c1 = {x: Math.max(zg.tagX + tg.w, zg.fx + zg.iw / 2 + G.headS) + 10, y: Math.max(zg.tagY + tg.h, G.yB - G.LT * 0.3) + 6};
     let crop = {x: c0.x, y: c0.y, w: c1.x - c0.x, h: c1.y - c0.y};
     // (a crop narrower than the room widens, centred, up to 1.6× — so the open lens spans the room)
     const ar = room.w / room.h;
@@ -525,7 +529,7 @@ const scene = {
     const zone = (P, tagP) => {
       const tag = tagArt(ctx, L.tg, L.tagAt.x, L.tagAt.y, tagP, textOn);
       const y0 = L.ysw[L.lanes[0] === 'b' ? 1 : 0];
-      const leader = h('path', {name: `${P}string`, d: stringD(L, y0), stroke: th.ink, 'stroke-width': r(Math.max(4, G.PH * 0.02)), 'stroke-linecap': 'round'});
+
       // the state produced by the action: both trolleys at their barriers, both connectors drawn (identical)
       const links = M.links.map(l => laneConnector(ctx, {name: `${P}cn${l.lane}`, G, l: l.lane, kind: l.kind, disputed: l.status === 'disputed'}));
       const stand = [
@@ -533,7 +537,7 @@ const scene = {
         ...L.places.map(q => ({y: q.y, node: g({transform: T(q.x, q.y)}, itemArt(ctx, {i: q.i, s: q.s}))})),
         ...['a', 'b'].map(l => ({y: G.laneY(l) + 0.01, node: g({transform: T(G.xb, G.laneY(l))}, laneBarrier(ctx, {name: `${P}lb${l}`, G}))})),
         ...['a', 'b'].map(l => ({y: G.laneY(l) + 0.02, node: g({name: `${P}cart${l}`, transform: T(G.cartX(1), G.laneY(l))}, cartArt(ctx, {PH: G.PH, side: l}))})),
-        {y: 1e9, node: g(null, leader, g({name: `${P}item`, transform: T(L.fxw, L.syw)}, itemArt(ctx, {i: L.fi, s: G.itemS * ITEM_K})))},
+        {y: 1e9, node: g({name: `${P}item`, transform: T(L.fxw, y0)}, itemArt(ctx, {i: L.fi, s: G.itemS * ITEM_K}))},
       ].sort((a0, b0) => a0.y - b0.y);
       return g(null,
         L.arr !== 'side' || P ? floorArt(ctx, {name: `${P}floor`, x0: MARGIN, x1: L.Dv.w - MARGIN, floorY: L.F}) : null,
@@ -541,10 +545,10 @@ const scene = {
           slabArt(ctx, {G}),
           links.map(lk => { const fr = lk.frame(1); return g(null, applyStatic(lk.node, fr)); }),
           // the two slots of the focus step: a ● pad under lane A, a ◆ pad under lane B (same shape and weight)
-          slotArt(ctx, {G, at: {x: L.fxw, y: L.ysw[0] - G.LT}, side: 'a'}),
-          slotArt(ctx, {G, at: {x: L.fxw, y: L.ysw[1] + G.LT}, side: 'b'}),
+          slotArt(ctx, {G, at: {x: L.fxw, y: L.ysw[0]}, side: 'a'}),
+          slotArt(ctx, {G, at: {x: L.fxw, y: L.ysw[1]}, side: 'b'}),
           stand.map(q => q.node)),
-        h('path', {d: tieD(L), fill: 'none', stroke: th.inkSoft, 'stroke-width': 2.5}),
+        h('path', {name: `${P}string`, d: stringD(L, y0), fill: 'none', stroke: th.inkSoft, 'stroke-width': 2.5}),
         tag.node,
       );
     };
@@ -634,7 +638,8 @@ const scene = {
     const yOf = l => L.ysw[l === 'b' ? 1 : 0];
     const yNow = lerp(yOf(L.lanes[0]), yOf(L.lanes[1]), gp0);
     const pt = {x: L.fxw, y: yNow};
-    for (const P of ['', 'lzs-']) nodes[`${P}string`] = {d: stringD(L, yNow)};
+    // the step slides between its slots (under lane A ↔ on lane B), its string following — in the lens and in context
+    for (const P of ['', 'lzs-']) { nodes[`${P}string`] = {d: stringD(L, yNow)}; nodes[`${P}item`] = {transform: T(L.fxw, yNow)}; }
     const txt = u < W.textOut[1] ? Math.min(seg(u, ...W.textIn), 1 - seg(u, ...W.textOut)) : u < W.textBack[0] ? 0 : seg(u, ...W.textBack);
     nodes['rec-g'] = {opacity: r(L.arr === 'side' ? 1 : txt, 3)};
     for (const bn of L.bandNodes) {
