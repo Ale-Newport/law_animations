@@ -1,0 +1,286 @@
+{
+  "animationId": "LAW-0469",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the attributes are generic placeholders, never personal data. Times are fictional labels. \"Data complete\" and \"capacity pending verification\" are supplied statuses only — a pending state is not a deficiency; no rule on capacity, no threshold, no representation regime, no effect on a contract and no jurisdiction is stated.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional party cards: each party hands its card to the other and both unfold their supplied attributes (a role, who represents the party as supplied, attribute A); the supplied status is data complete.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties and attributes, Party B's card sent first, and the supplied status capacity pending verification: a dashed pending ring round Party B's card — a pending state only.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "PC-118",
+          "title": "Party A, as supplied"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Role",
+            "value": "Tenant (fictional)"
+          },
+          {
+            "key": "other",
+            "label": "Attribute B",
+            "value": "Value 3 (as supplied)"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "PC-119",
+            "text": "Party B, as supplied"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "item",
+            "label": "Role",
+            "value": "Landlord (fictional)"
+          },
+          {
+            "key": "other",
+            "label": "Represented by",
+            "value": "An agent (as supplied)"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "cardB-sent",
+            "time": "Day 4, 09:30 (fictional)"
+          },
+          {
+            "event": "cardA-sent",
+            "time": "Day 4, 09:40 (fictional)"
+          },
+          {
+            "event": "cardB-received",
+            "time": "Day 4, 11:15 (fictional)"
+          },
+          {
+            "event": "cardA-received",
+            "time": "Day 4, 11:20 (fictional)"
+          },
+          {
+            "event": "unfolded",
+            "time": "Pending verification (supplied)"
+          }
+        ],
+        "actorLabels": {
+          "a": "Hands over card PC-118",
+          "b": "Hands over card PC-119"
+        },
+        "finalState": "pending-verification",
+        "pendingParty": "B"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, captions, time labels, rack plate and annotation, three attributes per card, two annotations; the two receipts are supplied with one position (order to be examined); the pending status on Party A's card. Capped (standing rule item 20; pre-cap values in LAW-0469.presets.precap.json): both card references, both card texts, the attribute rows except two labels, and the second annotation. True driver: the party card's height and width in its rack slot — with the pre-cap texts the card cannot fit the rack beside the figure in any ratio (nofit, rackTall, reach and route failures at the 16 px floor); restoring any one capped field alone fails the layout in at least one ratio (re-probed after the racks moved clear of the people). Every capped field is still longer than its baseline counterpart and every count is kept (3 + 3 attribute rows, 2 annotations, 5 events, one shared position).",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "PCARD-2026-A",
+          "title": "Party A, the seller, as supplied"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Role (as given)",
+            "value": "Seller (fictional)"
+          },
+          {
+            "key": "other",
+            "label": "Represented by (as supplied)",
+            "value": "Self only"
+          },
+          {
+            "key": "other",
+            "label": "Attribute A",
+            "value": "Value 1"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "PCARD-2026-B",
+            "text": "Party B, the buyer, as supplied"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "item",
+            "label": "Role in the conversation",
+            "value": "Buyer (fictional)"
+          },
+          {
+            "key": "other",
+            "label": "Attribute A (given)",
+            "value": "Value 2, B"
+          },
+          {
+            "key": "other",
+            "label": "Attribute B",
+            "value": "Value 3"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "cardA-sent",
+            "time": "Day 1, 10:00, front desk (fictional)"
+          },
+          {
+            "event": "cardB-sent",
+            "time": "Day 1, 10:05, front desk (fictional)"
+          },
+          {
+            "event": "cardA-received",
+            "time": "Day 1, 10:20h (fictional)",
+            "position": 3
+          },
+          {
+            "event": "cardB-received",
+            "time": "Day 1, 10:20h (fictional)",
+            "position": 3
+          },
+          {
+            "event": "unfolded",
+            "time": "Pending verification, card A (supplied)"
+          }
+        ],
+        "actorLabels": {
+          "a": "Hands over the seller's party card",
+          "b": "Hands over the buyer's party card"
+        },
+        "objectLabels": {
+          "outgoing": "Party A's cards rack",
+          "incoming": "Party B's cards rack"
+        },
+        "annotations": [
+          {
+            "target": "cardB",
+            "text": "Party B's card, attributes exactly as supplied"
+          },
+          {
+            "target": "sequence",
+            "text": "Order as supplied (not to scale)"
+          }
+        ],
+        "finalState": "pending-verification",
+        "pendingParty": "A"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: cada parte entrega su ficha a la otra y ambas despliegan sus atributos aportados; el estado aportado es datos completos.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Elif Demir",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomas Lind",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "PC-501",
+          "title": "Parte A, según lo aportado"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Papel",
+            "value": "Vendedora"
+          },
+          {
+            "key": "other",
+            "label": "Representada por",
+            "value": "Sí misma"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "PC-502",
+            "text": "Parte B, según lo aportado"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "item",
+            "label": "Papel",
+            "value": "Comprador"
+          },
+          {
+            "key": "other",
+            "label": "Atributo A",
+            "value": "Valor 1"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "cardA-sent",
+            "time": "Día 1, 10:00 (ficticio)"
+          },
+          {
+            "event": "cardB-sent",
+            "time": "Día 1, 10:05 (ficticio)"
+          },
+          {
+            "event": "cardA-received",
+            "time": "Día 1, 10:20 (ficticio)"
+          },
+          {
+            "event": "cardB-received",
+            "time": "Día 1, 10:25 (ficticio)"
+          },
+          {
+            "event": "unfolded",
+            "time": "Datos completos (aportado)"
+          }
+        ],
+        "actorLabels": {
+          "a": "Entrega la ficha PC-501",
+          "b": "Entrega la ficha PC-502"
+        },
+        "objectLabels": {
+          "outgoing": "Casillero A",
+          "incoming": "Casillero B"
+        }
+      }
+    }
+  ]
+}

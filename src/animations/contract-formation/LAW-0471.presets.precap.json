@@ -1,0 +1,373 @@
+{
+  "animationId": "LAW-0471",
+  "note": "Pre-cap copy for review only (standing rule item 20): identical to the presets file except that long-labels-stress carries its values before any caps. Not loaded by the library.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional party cards in two identical stages: the cards cross and unfold in both; only the supplied status differs — data complete in A, capacity pending verification in B (a dashed pending ring round Party B's card).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties and attributes, Party B's card sent first, captions, a changed fact, a shared fact and a neutral note; the same single changed fact.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "PC-118",
+          "title": "Party A, as supplied"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Role",
+            "value": "Tenant (fictional)"
+          },
+          {
+            "key": "other",
+            "label": "Attribute B",
+            "value": "Value 3 (as supplied)"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "PC-119",
+            "text": "Party B, as supplied"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "item",
+            "label": "Role",
+            "value": "Landlord (fictional)"
+          },
+          {
+            "key": "other",
+            "label": "Represented by",
+            "value": "An agent (as supplied)"
+          }
+        ],
+        "scenarioA": {
+          "label": "Data complete",
+          "caption": "Both cards carry every supplied field",
+          "sequence": [
+            {
+              "event": "cardB-sent",
+              "time": "Day 4, 09:30 (fictional)"
+            },
+            {
+              "event": "cardA-sent",
+              "time": "Day 4, 09:40 (fictional)"
+            },
+            {
+              "event": "cardB-received",
+              "time": "Day 4, 11:15 (fictional)"
+            },
+            {
+              "event": "cardA-received",
+              "time": "Day 4, 11:20 (fictional)"
+            },
+            {
+              "event": "unfolded",
+              "time": "Data complete (supplied)"
+            }
+          ],
+          "status": "data-complete"
+        },
+        "scenarioB": {
+          "label": "Capacity pending verification",
+          "caption": "A supplied field is marked as pending",
+          "sequence": [
+            {
+              "event": "cardB-sent",
+              "time": "Day 4, 09:30 (fictional)"
+            },
+            {
+              "event": "cardA-sent",
+              "time": "Day 4, 09:40 (fictional)"
+            },
+            {
+              "event": "cardB-received",
+              "time": "Day 4, 11:15 (fictional)"
+            },
+            {
+              "event": "cardA-received",
+              "time": "Day 4, 11:20 (fictional)"
+            },
+            {
+              "event": "unfolded",
+              "time": "Pending verification (supplied)"
+            }
+          ],
+          "status": "pending-verification"
+        },
+        "changedFact": "Only the supplied status of Party B's card differs",
+        "sharedFacts": [
+          "Same parties and same attributes"
+        ],
+        "comparisonLabels": {
+          "guide": "Status: complete (A) · pending verification (B), as supplied",
+          "neutral": "Supplied statuses only"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, labels, captions, references, titles, attributes and time labels, three attributes per card, two shared facts and a neutral note; the receipts supplied with one position (order to be examined).",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "PARTYCARD-2026-000417-A",
+          "title": "Party A, the seller of the second-hand bicycle, as supplied"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Role in the conversation",
+            "value": "Seller of the second-hand bicycle (fictional)"
+          },
+          {
+            "key": "other",
+            "label": "Represented by (as supplied)",
+            "value": "Nobody else is named on the card"
+          },
+          {
+            "key": "other",
+            "label": "Attribute A (as supplied)",
+            "value": "Value 1, recorded on the first page"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "PARTYCARD-2026-000417-B",
+            "text": "Party B, the buyer of the second-hand bicycle, as supplied"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "item",
+            "label": "Role in the conversation",
+            "value": "Buyer of the second-hand bicycle (fictional)"
+          },
+          {
+            "key": "other",
+            "label": "Attribute A (as supplied)",
+            "value": "Value 2, recorded on the second page"
+          },
+          {
+            "key": "other",
+            "label": "Attribute B (as supplied)",
+            "value": "Value 3, recorded on the last page"
+          }
+        ],
+        "scenarioA": {
+          "label": "Data complete for both party cards (as supplied)",
+          "caption": "Both cards carry every supplied field, as supplied by the author",
+          "sequence": [
+            {
+              "event": "cardA-sent",
+              "time": "Day 1, 10:00, front desk (fictional)"
+            },
+            {
+              "event": "cardB-sent",
+              "time": "Day 1, 10:05, front desk (fictional)"
+            },
+            {
+              "event": "cardA-received",
+              "time": "Day 1, 10:20 h (fictional)",
+              "position": 3
+            },
+            {
+              "event": "cardB-received",
+              "time": "Day 1, 10:20 h (fictional)",
+              "position": 3
+            },
+            {
+              "event": "unfolded",
+              "time": "Data complete for both cards (supplied)"
+            }
+          ],
+          "status": "data-complete"
+        },
+        "scenarioB": {
+          "label": "Capacity pending verification (as supplied)",
+          "caption": "A supplied field on Party B's card is marked as pending verification",
+          "sequence": [
+            {
+              "event": "cardA-sent",
+              "time": "Day 1, 10:00, front desk (fictional)"
+            },
+            {
+              "event": "cardB-sent",
+              "time": "Day 1, 10:05, front desk (fictional)"
+            },
+            {
+              "event": "cardA-received",
+              "time": "Day 1, 10:20 h (fictional)",
+              "position": 3
+            },
+            {
+              "event": "cardB-received",
+              "time": "Day 1, 10:20 h (fictional)",
+              "position": 3
+            },
+            {
+              "event": "unfolded",
+              "time": "Pending verification, card B (supplied)"
+            }
+          ],
+          "status": "pending-verification"
+        },
+        "changedFact": "Only the supplied status of Party B's card differs between the two scenes",
+        "sharedFacts": [
+          "Same parties and the same two party cards",
+          "Same sequence of journeys in both scenes"
+        ],
+        "comparisonLabels": {
+          "guide": "Status: complete (A) · pending verification (B), as supplied here",
+          "neutral": "Both scenes show supplied statuses only; nothing is concluded from them"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: dos escenarios idénticos; solo cambia el estado aportado (datos completos / capacidad pendiente de verificar).",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Elif Demir",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomas Lind",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "PC-501",
+          "title": "Parte A, según lo aportado"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Papel",
+            "value": "Vendedora"
+          },
+          {
+            "key": "other",
+            "label": "Representada por",
+            "value": "Sí misma"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "PC-502",
+            "text": "Parte B, según lo aportado"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "item",
+            "label": "Papel",
+            "value": "Comprador"
+          },
+          {
+            "key": "other",
+            "label": "Atributo A",
+            "value": "Valor 1"
+          }
+        ],
+        "scenarioA": {
+          "label": "Datos completos",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "cardA-sent",
+              "time": "Día 1, 10:00 (ficticio)"
+            },
+            {
+              "event": "cardB-sent",
+              "time": "Día 1, 10:05 (ficticio)"
+            },
+            {
+              "event": "cardA-received",
+              "time": "Día 1, 10:20 (ficticio)"
+            },
+            {
+              "event": "cardB-received",
+              "time": "Día 1, 10:25 (ficticio)"
+            },
+            {
+              "event": "unfolded",
+              "time": "Datos completos"
+            }
+          ],
+          "status": "data-complete"
+        },
+        "scenarioB": {
+          "label": "Capacidad pendiente de verificar",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "cardA-sent",
+              "time": "Día 1, 10:00 (ficticio)"
+            },
+            {
+              "event": "cardB-sent",
+              "time": "Día 1, 10:05 (ficticio)"
+            },
+            {
+              "event": "cardA-received",
+              "time": "Día 1, 10:20 (ficticio)"
+            },
+            {
+              "event": "cardB-received",
+              "time": "Día 1, 10:25 (ficticio)"
+            },
+            {
+              "event": "unfolded",
+              "time": "Pendiente de verificar"
+            }
+          ],
+          "status": "pending-verification"
+        },
+        "changedFact": "",
+        "sharedFacts": [],
+        "comparisonLabels": {
+          "guide": "Estado: completo (A) · pendiente de verificar (B)",
+          "neutral": ""
+        }
+      }
+    }
+  ]
+}

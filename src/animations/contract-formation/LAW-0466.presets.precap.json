@@ -1,0 +1,335 @@
+{
+  "animationId": "LAW-0466",
+  "note": "Pre-cap copy for review only (standing rule item 20): identical to the presets file except that long-labels-stress carries its values before any caps. Not loaded by the library.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional conversation on two lanes: the two messages cross between the lanes; at the gather the supplied context — a social gathering — surrounds the whole diagram; nothing is concluded from it.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties and another conversation (repainting a hall), Party B's message sent first, focus on B's message, another traversal; the supplied context a negotiation meeting.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "N-118",
+          "title": "We could repaint the hall in May"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Room",
+            "value": "The front hall"
+          },
+          {
+            "key": "delivery",
+            "label": "Month",
+            "value": "May"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "N-119",
+            "text": "I would bring the paint"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "messageB-sent",
+            "time": "Day 4, 10:30 (fictional)"
+          },
+          {
+            "event": "messageA-sent",
+            "time": "Day 4, 10:40 (fictional)"
+          },
+          {
+            "event": "messageB-received",
+            "time": "Day 4, 11:15 (fictional)"
+          },
+          {
+            "event": "messageA-received",
+            "time": "Day 4, 11:20 (fictional)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Sends message N-118"
+          },
+          {
+            "id": "partyB",
+            "label": "Sends message N-119"
+          },
+          {
+            "id": "messageA",
+            "label": "A's message"
+          },
+          {
+            "id": "messageB",
+            "label": "B's message"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyB",
+            "to": "messageB",
+            "kind": "communication"
+          },
+          {
+            "from": "messageB",
+            "to": "partyA",
+            "kind": "communication"
+          },
+          {
+            "from": "partyA",
+            "to": "messageA",
+            "kind": "communication"
+          },
+          {
+            "from": "messageA",
+            "to": "partyB",
+            "kind": "communication"
+          }
+        ],
+        "focusElement": "messageB",
+        "traversalOrder": [
+          "partyB",
+          "messageB",
+          "partyA",
+          "messageA",
+          "partyB"
+        ],
+        "setting": "negotiated",
+        "contextLabel": "a negotiation meeting"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, element labels, relation captions, references, texts and time labels, three terms; the two receipts are supplied with one position (order to be examined); a long context description.",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "MESSAGE-2026-000417-A",
+          "title": "I can drive the four of us to the regional fair on Saturday morning"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Day of the trip",
+            "value": "Saturday, early in the morning"
+          },
+          {
+            "key": "quantity",
+            "label": "Seats offered",
+            "value": "Four seats in the family car"
+          },
+          {
+            "key": "delivery",
+            "label": "Meeting point",
+            "value": "The square in front of the library"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "MESSAGE-2026-000417-B",
+            "text": "I will share the fuel cost and bring lunch for everyone, as supplied"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "messageA-sent",
+            "time": "Day 1, 18:00, by phone (fictional)"
+          },
+          {
+            "event": "messageB-sent",
+            "time": "Day 1, 18:05, by phone (fictional)"
+          },
+          {
+            "event": "messageA-received",
+            "time": "Day 1, 18:10 h (fictional)",
+            "position": 3
+          },
+          {
+            "event": "messageB-received",
+            "time": "Day 1, 18:10 h (fictional)",
+            "position": 3
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Sends the message about the trip to the fair"
+          },
+          {
+            "id": "partyB",
+            "label": "Sends the message about sharing the fuel"
+          },
+          {
+            "id": "messageA",
+            "label": "Party A's message about the trip"
+          },
+          {
+            "id": "messageB",
+            "label": "Party B's message about the fuel"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "messageA",
+            "kind": "communication"
+          },
+          {
+            "from": "messageA",
+            "to": "partyB",
+            "kind": "communication"
+          },
+          {
+            "from": "partyB",
+            "to": "messageB",
+            "kind": "communication"
+          },
+          {
+            "from": "messageB",
+            "to": "partyA",
+            "kind": "communication"
+          },
+          {
+            "from": "messageA",
+            "to": "messageB",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "messageB",
+        "relationLabels": {
+          "relation": "same conversation, as supplied",
+          "communication": "communication between the parties",
+          "sequence": "sequence of the events as supplied",
+          "causal": "causal link as supplied by the author"
+        },
+        "traversalOrder": [
+          "partyA",
+          "messageA",
+          "partyB",
+          "messageB",
+          "partyA"
+        ],
+        "setting": "social",
+        "contextLabel": "a social gathering at a family dinner"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: la conversación en dos carriles; al reunir, el contexto aportado —una reunión social— rodea el diagrama; nada se concluye de él.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Priya Nair",
+            "role": "Parte A"
+          },
+          {
+            "name": "Jonas Weber",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "M-401",
+          "title": "Puedo llevarnos a la feria"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Día",
+            "value": "Sábado"
+          },
+          {
+            "key": "quantity",
+            "label": "Asientos",
+            "value": "Dos"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "M-402",
+            "text": "Comparto el gasto de gasolina"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "messageA-sent",
+            "time": "Día 1, 18:00 (ficticio)"
+          },
+          {
+            "event": "messageB-sent",
+            "time": "Día 1, 18:05 (ficticio)"
+          },
+          {
+            "event": "messageA-received",
+            "time": "Día 1, 18:10 (ficticio)"
+          },
+          {
+            "event": "messageB-received",
+            "time": "Día 1, 18:15 (ficticio)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Envía el mensaje M-401"
+          },
+          {
+            "id": "partyB",
+            "label": "Envía el mensaje M-402"
+          },
+          {
+            "id": "messageA",
+            "label": "Mensaje de A"
+          },
+          {
+            "id": "messageB",
+            "label": "Mensaje de B"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación (según lo aportado)",
+          "communication": "comunicación",
+          "sequence": "secuencia (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        },
+        "contextLabel": "una reunión social"
+      }
+    }
+  ]
+}

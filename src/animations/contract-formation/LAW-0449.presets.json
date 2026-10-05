@@ -1,0 +1,230 @@
+{
+  "animationId": "LAW-0449",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Times are fictional labels. The scene depicts the supplied order of the messages only; it never states when a withdrawal takes effect, whether a message arrived in time, which one prevails, or whether the proposal is revoked or still open.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional proposal to supply chairs. The withdrawal message is sent after the proposal and, as supplied, is received before it; the hold shows the supplied state: withdrawal communicated (as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a garden-services proposal; different parties; the two receipts are supplied with the same position, so the strip shows them together as an order to be examined, and the hold brackets the time sequence as to be examined.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "buzz",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "SV-118",
+          "title": "Proposal of garden services"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Service",
+            "value": "Garden maintenance"
+          },
+          {
+            "key": "payment",
+            "label": "Monthly fee (hypothetical)",
+            "value": "95"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "WD-118",
+            "text": "Withdrawal of proposal SV-118"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "proposal-sent",
+            "time": "Day 4, 08:30 (fictional)"
+          },
+          {
+            "event": "withdrawal-sent",
+            "time": "Day 4, 12:15 (fictional)"
+          },
+          {
+            "event": "proposal-received",
+            "time": "Day 5, 09:00 (fictional)",
+            "position": 3
+          },
+          {
+            "event": "withdrawal-received",
+            "time": "Day 5, 09:00 (fictional)",
+            "position": 3
+          }
+        ],
+        "actorLabels": {
+          "a": "Sends both messages",
+          "b": "Addressee"
+        },
+        "finalState": "sequence-to-examine"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, roles and time labels, three terms, four events and two annotations. Standing coordinator rule item 20 (caps with the true reason). The pre-cap values are kept in LAW-0449.presets.precap.json. Each capped field was restored alone to its pre-cap value on top of the shipped preset and rendered (layout verdict, text px, smallest rendered head): proposal reference 13 -> 22 characters: 1:1 has no layout (the two stacked message cards make the racks too tall for the hands to reach; best 16.1 px, heads 50.8 px, flagged). Withdrawal reference 13 -> 24: the same at 1:1. Proposal title 45 -> 79: no layout at 9:16 (the strip no longer fits between the rows) or 1:1 (racks too tall). Item term 41 -> 52: no layout at 1:1. Quantity term 26 -> 33: no layout at 9:16. Annotations 40 -> 72 and 34 -> 54: at 1:1 neither annotation finds a place next to its target or in the band. With every capped field restored: 16:9 fits at 16.1 px; 9:16 and 1:1 have no layout. The delivery term (39) and the withdrawal text (79) are no longer capped. Every capped value stays longer than baseline; names, roles, time labels and every count (3 terms, 4 events, 2 annotations) are kept.",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "PR-2026-417-B",
+          "title": "Proposal to supply ergonomic office furniture"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Item description",
+            "value": "Ergonomic oak office chairs with armrests"
+          },
+          {
+            "key": "quantity",
+            "label": "Quantity requested",
+            "value": "Forty chairs, one per desk"
+          },
+          {
+            "key": "delivery",
+            "label": "Delivery window",
+            "value": "Between Day 10 and Day 14 after receipt"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "WD-2026-417-B",
+            "text": "Withdrawal of the proposal PROPOSAL-2026-000417-B to supply ergonomic furniture"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "proposal-sent",
+            "time": "Day 1, 09:00, head office (fictional)"
+          },
+          {
+            "event": "withdrawal-sent",
+            "time": "Day 1, 11:45, branch office (fictional)"
+          },
+          {
+            "event": "withdrawal-received",
+            "time": "Day 2, 10:20, reception desk (fictional)"
+          },
+          {
+            "event": "proposal-received",
+            "time": "Day 2, 16:05, reception desk (fictional)"
+          }
+        ],
+        "actorLabels": {
+          "a": "Sends the proposal and then the withdrawal",
+          "b": "Addressee of both messages"
+        },
+        "objectLabels": {
+          "outgoing": "Outgoing messages rack",
+          "incoming": "Incoming messages rack"
+        },
+        "annotations": [
+          {
+            "target": "sequence",
+            "text": "Order exactly as supplied (not to scale)"
+          },
+          {
+            "target": "withdrawal",
+            "text": "It names the proposal it refers to"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: propuesta de suministro de sillas; la retirada se envía después y, según lo aportado, se recibe antes; el estado final es «retirada comunicada (según lo aportado)».",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Nadia Park",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomás Ribeiro",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "OF-2041",
+          "title": "Propuesta de suministro"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Artículo",
+            "value": "Sillas de roble"
+          },
+          {
+            "key": "quantity",
+            "label": "Cantidad",
+            "value": "40"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "RT-2041",
+            "text": "Retirada de la propuesta OF-2041"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "proposal-sent",
+            "time": "Día 1, 09:00 (ficticio)"
+          },
+          {
+            "event": "withdrawal-sent",
+            "time": "Día 1, 11:00 (ficticio)"
+          },
+          {
+            "event": "withdrawal-received",
+            "time": "Día 2, 10:00 (ficticio)"
+          },
+          {
+            "event": "proposal-received",
+            "time": "Día 2, 16:00 (ficticio)"
+          }
+        ],
+        "actorLabels": {
+          "a": "Envía ambos mensajes",
+          "b": "Destinatario"
+        },
+        "objectLabels": {
+          "outgoing": "Salida",
+          "incoming": "Entrada"
+        }
+      }
+    }
+  ]
+}

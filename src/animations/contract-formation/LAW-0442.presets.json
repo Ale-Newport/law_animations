@@ -1,0 +1,97 @@
+{
+  "animationId": "LAW-0442",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; amounts are hypothetical. No acceptance or contract formation is shown.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Offer to supply chairs: four term tiles lift out of the offer body; the sealed message travels the channel through composed → sent → in transit → received.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a three-term service offer, focus on the terms, a traversal that skips the term tiles, different relationship captions and a descriptive note from Party B.",
+      "params": {
+        "parties": [
+          {"name": "Ines Duarte", "role": "Party A", "appearance": {"skin": 1, "hair": "long", "hairColor": 4, "outfit": 2}},
+          {"name": "Kwame Asante", "role": "Party B", "appearance": {"skin": 5, "hair": "buzz", "outfit": 6, "glasses": true}}
+        ],
+        "offer": {"reference": "SV-118", "title": "Offer of garden services"},
+        "terms": [
+          {"key": "item", "label": "Service", "value": "Garden maintenance"},
+          {"key": "delivery", "label": "Start", "value": "Day 3"},
+          {"key": "payment", "label": "Monthly fee (hypothetical)", "value": "95"}
+        ],
+        "responses": [{"text": "Received — reviewing"}],
+        "relationships": [
+          {"from": "offeror", "to": "offer", "kind": "relation", "label": "drafts"},
+          {"from": "offer", "to": "terms", "kind": "relation", "label": "lists"},
+          {"from": "offer", "to": "message", "kind": "sequence", "label": "sealed as"},
+          {"from": "message", "to": "offeree", "kind": "communication", "label": "mailed to"}
+        ],
+        "focusElement": "terms",
+        "traversalOrder": ["offeror", "offer", "message", "offeree"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long element labels, relation captions, term labels/values and checkpoint captions.",
+      "params": {
+        "parties": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Party B"}
+        ],
+        "offer": {"reference": "OFFER-2026-000417-B", "title": "Offer to supply ergonomic office furniture and related installation services"},
+        "terms": [
+          {"key": "item", "label": "Item description as written in the offer", "value": "Ergonomic oak office chairs with adjustable armrests"},
+          {"key": "delivery", "label": "Delivery window (fictional relative day)", "value": "Between Day 10 and Day 14 after receipt"},
+          {"key": "quantity", "label": "Quantity requested", "value": "40"},
+          {"key": "unitPrice", "label": "Unit price per chair (hypothetical amount)", "value": "130"}
+        ],
+        "elements": [
+          {"id": "offeror", "label": "Offeror — supplier's sales representative"},
+          {"id": "offer", "label": "Body of the written offer"},
+          {"id": "terms", "label": "Terms stated in the offer"},
+          {"id": "message", "label": "Folded and sealed message"},
+          {"id": "offeree", "label": "Offeree — customer's procurement lead"}
+        ],
+        "relationships": [
+          {"from": "offeror", "to": "offer", "kind": "relation", "label": "writes and signs"},
+          {"from": "offer", "to": "terms", "kind": "relation", "label": "states the terms"},
+          {"from": "offer", "to": "message", "kind": "sequence", "label": "folded and sealed as"},
+          {"from": "message", "to": "offeree", "kind": "communication", "label": "sent by post to"}
+        ],
+        "stateLabels": {"composed": "Composed and sealed", "sent": "Handed to the carrier", "inTransit": "On the way (in transit)", "received": "Reached the offeree"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [{"name": "Nadia Park", "role": "Parte A"}, {"name": "Tomás Ribeiro", "role": "Parte B"}],
+        "offer": {"reference": "OF-2041", "title": "Oferta de suministro"},
+        "terms": [
+          {"key": "item", "label": "Artículo", "value": "Sillas de oficina de roble"},
+          {"key": "delivery", "label": "Entrega", "value": "Día 10"},
+          {"key": "quantity", "label": "Cantidad", "value": "40"},
+          {"key": "unitPrice", "label": "Precio unitario (hipotético)", "value": "130"}
+        ],
+        "elements": [
+          {"id": "offeror", "label": "Oferente (parte A)"},
+          {"id": "offer", "label": "Cuerpo de la oferta"},
+          {"id": "terms", "label": "Términos"},
+          {"id": "message", "label": "Mensaje sellado"},
+          {"id": "offeree", "label": "Destinatario (parte B)"}
+        ],
+        "relationships": [
+          {"from": "offeror", "to": "offer", "kind": "relation", "label": "redacta"},
+          {"from": "offer", "to": "terms", "kind": "relation", "label": "establece"},
+          {"from": "offer", "to": "message", "kind": "sequence", "label": "doblada y sellada"},
+          {"from": "message", "to": "offeree", "kind": "communication", "label": "enviada a"}
+        ],
+        "relationLabels": {"relation": "relación", "communication": "comunicación", "sequence": "secuencia", "causal": "causal (aportada)"},
+        "stateLabels": {"composed": "Redactada", "sent": "Enviada", "inTransit": "En tránsito", "received": "Recibida"}
+      }
+    }
+  ]
+}

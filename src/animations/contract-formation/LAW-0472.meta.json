@@ -1,0 +1,603 @@
+{
+  "id": "LAW-0472",
+  "slug": "contract-formation-08-inspect",
+  "title": "Capacity of the parties, without a rule — inspecting the supplied status of the data and substituting it",
+  "titleEs": "Capacidad de las partes — Inspección y cambio de un dato",
+  "category": "contract-formation",
+  "categoryName": "Formación del contrato",
+  "motif": "Capacidad de las partes",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The story's end state: Party A's card (●) in Party B's rack and Party B's card (◆) in Party A's rack, both unfolded with their supplied attributes (generic and fictional), and the strip \"Sequence as supplied (illustrative)\". A lens enlarges the unfolding's station (a real copy of the scene, ≥ 1.6×); its label, the supplied status \"Data complete (as supplied)\", is struck, then turns over in the scene and returns with the supplied alternative \"Capacity pending verification\"; only the dashed pending ring round the indicated card follows — a pending state only. The lens closes onto the identical station; a Δ marks the changed label. No rule on capacity and no legal effect is stated.",
+  "tags": [
+    "party card",
+    "attributes",
+    "unfold",
+    "pending verification",
+    "lens",
+    "substitution",
+    "changed marker"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/contract-formation/kits/capacidad-partes.js",
+    "src/animations/contract-formation/kits/offer-fields.js",
+    "src/frameworks/lens.js",
+    "src/primitives/person.js",
+    "src/primitives/annotate.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Offeror (first, sends the offer) and offeree (second, the addressee); fictional by default (array replaces the previous value)"
+      },
+      "offer": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Reference printed on the sheet (fictional)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Heading printed on the sheet, e.g. \"Offer to supply\""
+          }
+        },
+        "required": [
+          "reference",
+          "title"
+        ],
+        "description": "The communicated offer sheet"
+      },
+      "terms": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "item",
+                "quantity",
+                "unitPrice",
+                "delivery",
+                "payment",
+                "other"
+              ],
+              "description": "Role of the term (quantity × unitPrice enables a computed total in the inspect treatment)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Printed label, e.g. \"Unit price (hypothetical)\"; label hypothetical amounts as hypothetical"
+            },
+            "value": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Printed value; numbers only for quantity/unitPrice if a computed total is wanted"
+            }
+          },
+          "required": [
+            "key",
+            "label",
+            "value"
+          ],
+          "description": "One term of the offer as printed on the sheet"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Terms printed on the offer, in order (2–4). They travel unchanged from offeror to offeree (array replaces the previous value)"
+      },
+      "responses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "reference": {
+              "type": "string",
+              "maxLength": 32,
+              "description": "Reference printed on Party B's card (fictional)"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Title of Party B's card, as supplied"
+            }
+          },
+          "required": [
+            "reference",
+            "text"
+          ],
+          "description": "Party B's card"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "Party B's party card (its reference and title as supplied) (array replaces the previous value)"
+      },
+      "termsB": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "key": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Key"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Attribute name, as supplied"
+            },
+            "value": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Attribute value, as supplied (fictional)"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ],
+          "description": "Attribute"
+        },
+        "minItems": 1,
+        "maxItems": 4,
+        "description": "Attributes on Party B's card, as supplied (generic and fictional: a role, \"represented by (as supplied)\", attribute A/B — never personal data) (array replaces the previous value)"
+      },
+      "sequence": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "type": "string",
+              "enum": [
+                "cardA-sent",
+                "cardA-received",
+                "cardB-sent",
+                "cardB-received",
+                "unfolded"
+              ],
+              "description": "Which event"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Fictional time label as supplied, e.g. \"Day 3, 10:00 (fictional)\" (for the unfolding station: the supplied status of the data)"
+            },
+            "position": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Optional position in the supplied order (1 = first). Events given the same position are shown together, order to be examined"
+            }
+          },
+          "required": [
+            "event",
+            "time"
+          ],
+          "description": "One event of the supplied sequence. The order of the list is the order shown; events with the same position are shown together as an order to be examined. Times are fictional labels, never computed or compared"
+        },
+        "minItems": 1,
+        "maxItems": 5,
+        "description": "The cards' journeys and the unfolding as supplied, in the order shown (1–5). The order is depicted, never resolved (array replaces the previous value)"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "cardA-sent",
+          "cardA-received",
+          "cardB-sent",
+          "cardB-received",
+          "unfolded"
+        ],
+        "description": "Which station of the supplied sequence has its label inspected and substituted (by default the unfolding's station, whose label is the supplied status of the data; for the other stations, a fictional time label)"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 40,
+        "description": "Label the inspected station shows before the substitution (as supplied; fictional)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 40,
+        "description": "Alternative label supplied for the same station (as supplied; fictional)"
+      },
+      "statusBefore": {
+        "type": "string",
+        "enum": [
+          "data-complete",
+          "pending-verification"
+        ],
+        "description": "Supplied status before the substitution: data-complete, or pending-verification (a dashed pending ring round the indicated card — a pending state only)"
+      },
+      "statusAfter": {
+        "type": "string",
+        "enum": [
+          "data-complete",
+          "pending-verification"
+        ],
+        "description": "Supplied status after the substitution — the pending ring follows it; nothing else changes and nothing is concluded"
+      },
+      "pendingParty": {
+        "type": "string",
+        "enum": [
+          "A",
+          "B"
+        ],
+        "description": "Whose card carries the pending ring"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Magnification of the lens (≥ 1.5)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "right",
+              "below"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Elif Demir",
+        "role": "Party A"
+      },
+      {
+        "name": "Tomas Lind",
+        "role": "Party B"
+      }
+    ],
+    "offer": {
+      "reference": "PC-501",
+      "title": "Party A, as supplied"
+    },
+    "terms": [
+      {
+        "key": "item",
+        "label": "Role",
+        "value": "Seller"
+      },
+      {
+        "key": "other",
+        "label": "Represented by",
+        "value": "Self"
+      }
+    ],
+    "responses": [
+      {
+        "reference": "PC-502",
+        "text": "Party B, as supplied"
+      }
+    ],
+    "termsB": [
+      {
+        "key": "item",
+        "label": "Role",
+        "value": "Buyer"
+      },
+      {
+        "key": "other",
+        "label": "Attribute A",
+        "value": "Value 1"
+      }
+    ],
+    "sequence": [
+      {
+        "event": "cardA-sent",
+        "time": "Day 1, 10:00 (fictional)"
+      },
+      {
+        "event": "cardB-sent",
+        "time": "Day 1, 10:05 (fictional)"
+      },
+      {
+        "event": "cardA-received",
+        "time": "Day 1, 10:20 (fictional)"
+      },
+      {
+        "event": "cardB-received",
+        "time": "Day 1, 10:25 (fictional)"
+      },
+      {
+        "event": "unfolded",
+        "time": "Data complete (as supplied)"
+      }
+    ],
+    "focusTarget": "unfolded",
+    "beforeValue": "Data complete (as supplied)",
+    "afterValue": "Capacity pending verification",
+    "statusBefore": "data-complete",
+    "statusAfter": "pending-verification",
+    "pendingParty": "B",
+    "detailGeometry": {
+      "zoom": 1.8,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "Both cards received and unfolded as supplied",
+      "marker": "Changed: the supplied status of the data"
+    }
+  }
+}

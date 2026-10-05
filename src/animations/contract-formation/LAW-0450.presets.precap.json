@@ -1,0 +1,299 @@
+{
+  "animationId": "LAW-0450",
+  "note": "Pre-cap copy for review only (standing rule item 20): identical to the presets file except that long-labels-stress carries its values before the caps. Not loaded by the library.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional proposal to supply chairs. The withdrawal message is sent after the proposal and, as supplied, received before it: the two lines cross. Relationships: each message is a communication from Party A to Party B; the withdrawal refers to the proposal.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a garden-services proposal; the two receipts are supplied with the same position (order to be examined); a supplied sequence link from the proposal to the withdrawal; the tracer visits the proposal first; the focus is the proposal.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "buzz",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "SV-118",
+          "title": "Proposal of garden services"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Service",
+            "value": "Garden maintenance"
+          },
+          {
+            "key": "payment",
+            "label": "Monthly fee (hypothetical)",
+            "value": "95"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "WD-118",
+            "text": "Withdrawal of proposal SV-118"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "proposal-sent",
+            "time": "Day 4, 08:30 (fictional)"
+          },
+          {
+            "event": "withdrawal-sent",
+            "time": "Day 4, 12:15 (fictional)"
+          },
+          {
+            "event": "proposal-received",
+            "time": "Day 5, 09:00 (fictional)",
+            "position": 3
+          },
+          {
+            "event": "withdrawal-received",
+            "time": "Day 5, 09:00 (fictional)",
+            "position": 3
+          }
+        ],
+        "elements": [
+          {
+            "id": "offeror",
+            "label": "Proposer"
+          },
+          {
+            "id": "offeree",
+            "label": "Recipient"
+          },
+          {
+            "id": "proposal",
+            "label": "Proposal"
+          },
+          {
+            "id": "withdrawal",
+            "label": "Withdrawal"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "offeror",
+            "to": "proposal",
+            "kind": "communication"
+          },
+          {
+            "from": "proposal",
+            "to": "offeree",
+            "kind": "communication"
+          },
+          {
+            "from": "offeror",
+            "to": "withdrawal",
+            "kind": "communication"
+          },
+          {
+            "from": "withdrawal",
+            "to": "offeree",
+            "kind": "communication"
+          },
+          {
+            "from": "proposal",
+            "to": "withdrawal",
+            "kind": "sequence"
+          }
+        ],
+        "focusElement": "proposal",
+        "traversalOrder": [
+          "offeror",
+          "proposal",
+          "withdrawal",
+          "offeree"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "PRE-CAP copy of the long-labels-stress preset (the values before the item-20 caps), kept for re-rendering by reviewers. Not a registered preset.",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "PROPOSAL-2026-000417-B",
+          "title": "Proposal to supply ergonomic office furniture and related installation services"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Item description",
+            "value": "Ergonomic oak office chairs with adjustable armrests"
+          },
+          {
+            "key": "quantity",
+            "label": "Quantity requested",
+            "value": "Forty chairs, one per workstation"
+          },
+          {
+            "key": "delivery",
+            "label": "Delivery window",
+            "value": "Between Day 10 and Day 14 after receipt"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "WITHDRAWAL-2026-000417-B",
+            "text": "Withdrawal of the proposal PROPOSAL-2026-000417-B to supply ergonomic furniture"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "proposal-sent",
+            "time": "Day 1, 09:00, head office (fictional)"
+          },
+          {
+            "event": "withdrawal-sent",
+            "time": "Day 1, 11:45, branch office (fictional)"
+          },
+          {
+            "event": "withdrawal-received",
+            "time": "Day 2, 10:20, reception desk (fictional)"
+          },
+          {
+            "event": "proposal-received",
+            "time": "Day 2, 16:05, reception desk (fictional)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "offeror",
+            "label": "Sends the proposal and later the withdrawal"
+          },
+          {
+            "id": "offeree",
+            "label": "Addressee of both messages"
+          },
+          {
+            "id": "proposal",
+            "label": "Proposal (printed document)"
+          },
+          {
+            "id": "withdrawal",
+            "label": "Withdrawal message"
+          }
+        ],
+        "relationLabels": {
+          "relation": "refers to the proposal (as supplied)",
+          "communication": "communication between the parties",
+          "sequence": "sequence of the events as supplied",
+          "causal": "causal link as supplied by the author"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: propuesta de suministro de sillas; la retirada se envía después y, según lo aportado, se recibe antes: las dos líneas se cruzan.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Nadia Park",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomás Ribeiro",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "OF-2041",
+          "title": "Propuesta de suministro"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Artículo",
+            "value": "Sillas de roble"
+          },
+          {
+            "key": "quantity",
+            "label": "Cantidad",
+            "value": "40"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "RT-2041",
+            "text": "Retirada de la propuesta OF-2041"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "proposal-sent",
+            "time": "Día 1, 09:00 (ficticio)"
+          },
+          {
+            "event": "withdrawal-sent",
+            "time": "Día 1, 11:00 (ficticio)"
+          },
+          {
+            "event": "withdrawal-received",
+            "time": "Día 2, 10:00 (ficticio)"
+          },
+          {
+            "event": "proposal-received",
+            "time": "Día 2, 16:00 (ficticio)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "offeror",
+            "label": "Envía ambos mensajes"
+          },
+          {
+            "id": "offeree",
+            "label": "Destinatario"
+          },
+          {
+            "id": "proposal",
+            "label": "Propuesta"
+          },
+          {
+            "id": "withdrawal",
+            "label": "Retirada"
+          }
+        ],
+        "relationLabels": {
+          "relation": "remite a (según lo aportado)",
+          "communication": "comunicación",
+          "sequence": "secuencia (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,495 @@
+{
+  "id": "LAW-0441",
+  "slug": "contract-formation-01-story",
+  "title": "Communicated offer — the offer travels to the offeree",
+  "titleEs": "Oferta comunicada — Microescena con objetos y actores",
+  "category": "contract-formation",
+  "categoryName": "Formación del contrato",
+  "motif": "Oferta comunicada",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "Two standing parties. The offeror holds the open offer (readable terms), folds it into its own sealed mailer and sends it; it travels along a dotted route into the offeree’s hand at a shared point; the offeree breaks the seal and unfolds the same terms. Final state is supplied: opened, delivered (sealed) or in transit. Descriptive sent/received states only.",
+  "tags": [
+    "offer",
+    "terms",
+    "letter",
+    "mailer",
+    "fold",
+    "send",
+    "receive",
+    "handoff",
+    "route",
+    "characters"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/contract-formation/kits/offer-letter.js",
+    "src/animations/contract-formation/kits/offer-fields.js",
+    "src/primitives/person.js",
+    "src/primitives/annotate.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Offeror (first, sends the offer) and offeree (second, the addressee); fictional by default (array replaces the previous value)"
+      },
+      "offer": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Reference printed on the sheet (fictional)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Heading printed on the sheet, e.g. \"Offer to supply\""
+          }
+        },
+        "required": [
+          "reference",
+          "title"
+        ],
+        "description": "The communicated offer sheet"
+      },
+      "terms": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "item",
+                "quantity",
+                "unitPrice",
+                "delivery",
+                "payment",
+                "other"
+              ],
+              "description": "Role of the term (quantity × unitPrice enables a computed total in the inspect treatment)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Printed label, e.g. \"Unit price (hypothetical)\"; label hypothetical amounts as hypothetical"
+            },
+            "value": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Printed value; numbers only for quantity/unitPrice if a computed total is wanted"
+            }
+          },
+          "required": [
+            "key",
+            "label",
+            "value"
+          ],
+          "description": "One term of the offer as printed on the sheet"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Terms printed on the offer, in order (2–4). They travel unchanged from offeror to offeree (array replaces the previous value)"
+      },
+      "responses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "text": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "Note text (descriptive, not an acceptance)"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "description": "Note"
+        },
+        "minItems": 0,
+        "maxItems": 1,
+        "description": "Descriptive notes shown at the offeree after receipt (e.g. \"Received — reviewing\"); the scene never turns them into an acceptance (array replaces the previous value)"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for the offeror (A)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for the offeree (B)"
+          }
+        },
+        "required": [],
+        "description": "Role captions shown under each party"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mailer": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Small tag printed on the folded mailer face"
+          }
+        },
+        "required": [],
+        "description": "Labels printed on props"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "terms",
+                "mailer",
+                "route"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "opened",
+          "delivered",
+          "in-transit"
+        ],
+        "description": "State supplied for the final hold: opened (received and unfolded), delivered (received, still sealed) or in-transit (sent, not yet received). No legal effect is inferred"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Nadia Park",
+        "role": "Party A"
+      },
+      {
+        "name": "Tomás Ribeiro",
+        "role": "Party B"
+      }
+    ],
+    "offer": {
+      "reference": "OF-2041",
+      "title": "Offer to supply"
+    },
+    "terms": [
+      {
+        "key": "item",
+        "label": "Item",
+        "value": "Oak office chairs"
+      },
+      {
+        "key": "delivery",
+        "label": "Delivery",
+        "value": "Day 10"
+      },
+      {
+        "key": "quantity",
+        "label": "Quantity",
+        "value": "40"
+      },
+      {
+        "key": "unitPrice",
+        "label": "Unit price (hypothetical)",
+        "value": "130"
+      }
+    ],
+    "responses": [
+      {
+        "text": "Received — reviewing the terms"
+      }
+    ],
+    "actorLabels": {
+      "a": "Offeror",
+      "b": "Offeree"
+    },
+    "objectLabels": {
+      "mailer": "OFFER"
+    },
+    "actionProgress": 1,
+    "annotations": [
+      {
+        "target": "terms",
+        "text": "Same terms as written by Party A"
+      }
+    ],
+    "finalState": "opened"
+  }
+}

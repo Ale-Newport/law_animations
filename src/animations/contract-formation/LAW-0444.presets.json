@@ -1,0 +1,58 @@
+{
+  "animationId": "LAW-0444",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; amounts are hypothetical and the total is plain arithmetic on the supplied values (quantity × unit price). No acceptance or outcome is shown.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The unit price on the received offer is inspected and substituted (130 → 120, hypothetical); only the computed total changes (5,200 → 4,800).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: the substituted datum is the delivery day (Day 10 → Day 14); it has no dependent line, so the computed total stays as it was.",
+      "params": {
+        "focusTarget": "delivery",
+        "beforeValue": "Day 10",
+        "afterValue": "Day 14",
+        "detailGeometry": {"zoom": 3, "placement": "auto"},
+        "contextLabels": {"context": "Offer received by Party B", "marker": "Delivery day changed"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels, long item value and long context labels; the substituted datum is the quantity (40 → 25).",
+      "params": {
+        "parties": [{"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"}, {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Party B"}],
+        "offer": {"reference": "OFFER-2026-000417-B", "title": "Offer to supply ergonomic office furniture and related installation services"},
+        "terms": [
+          {"key": "item", "label": "Item description as written in the offer", "value": "Ergonomic oak office chairs with adjustable armrests"},
+          {"key": "delivery", "label": "Delivery window (fictional relative day)", "value": "Between Day 10 and Day 14"},
+          {"key": "quantity", "label": "Quantity requested by the offeror", "value": "40"},
+          {"key": "unitPrice", "label": "Unit price per chair (hypothetical amount)", "value": "130"}
+        ],
+        "focusTarget": "quantity",
+        "beforeValue": "40",
+        "afterValue": "25",
+        "contextLabels": {"context": "Offer received and opened by the customer's procurement lead", "marker": "Quantity replaced"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish.",
+      "params": {
+        "locale": "es",
+        "parties": [{"name": "Nadia Park", "role": "Parte A"}, {"name": "Tomás Ribeiro", "role": "Parte B"}],
+        "offer": {"reference": "OF-2041", "title": "Oferta de suministro"},
+        "terms": [
+          {"key": "item", "label": "Artículo", "value": "Sillas de oficina de roble"},
+          {"key": "delivery", "label": "Entrega", "value": "Día 10"},
+          {"key": "quantity", "label": "Cantidad", "value": "40"},
+          {"key": "unitPrice", "label": "Precio unitario (hipotético)", "value": "130"}
+        ],
+        "beforeValue": "130",
+        "afterValue": "120",
+        "contextLabels": {"context": "Oferta recibida por la parte B", "marker": "Dato cambiado"}
+      }
+    }
+  ]
+}

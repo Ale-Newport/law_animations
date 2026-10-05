@@ -1,0 +1,368 @@
+{
+  "animationId": "LAW-0479",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the rows on the devices are generic placeholders, never real terms; times are fictional labels. \"Action recorded (as supplied)\", \"informed action\" and \"presentation to be examined\" are supplied labels only — the latter a pending question, never a finding or a deficiency. No rule on online acceptance, no consent standard, no enforceability and no jurisdiction is stated.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional devices in two identical stages: in both the screen shows its placeholder terms and the action is recorded, as supplied; only the supplied status of the presentation differs — terms shown in A, to be examined in B (a dashed pending ring round Party A's screen, a supplied, pending question only).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties and rows, captions, a changed fact, a shared fact and a neutral note; the same single changed fact.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "SC-118",
+          "title": "Placeholder terms"
+        },
+        "terms": [
+          {
+            "key": "t1",
+            "label": "Term 1",
+            "value": "(supplied text)"
+          },
+          {
+            "key": "t2",
+            "label": "Term 2",
+            "value": "(supplied text)"
+          },
+          {
+            "key": "t3",
+            "label": "Term 3",
+            "value": "(supplied text)"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "AC-119",
+            "text": "Button press"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "button",
+            "label": "Button",
+            "value": "generic"
+          },
+          {
+            "key": "time",
+            "label": "Time",
+            "value": "09:42 h (fictional)"
+          }
+        ],
+        "scenarioA": {
+          "label": "Informed action (as supplied)",
+          "caption": "The terms are shown before the action, as supplied",
+          "sequence": [
+            {
+              "event": "screen-sent",
+              "time": "Day 4, 09:30 (fictional)"
+            },
+            {
+              "event": "screen-received",
+              "time": "Day 4, 09:31 (fictional)"
+            },
+            {
+              "event": "terms-shown",
+              "time": "Shown (as supplied)"
+            },
+            {
+              "event": "action-sent",
+              "time": "Day 4, 09:42 (fictional)"
+            },
+            {
+              "event": "action-received",
+              "time": "Day 4, 09:43 (fictional)"
+            }
+          ],
+          "status": "action-recorded"
+        },
+        "scenarioB": {
+          "label": "Presentation to examine (as supplied)",
+          "caption": "The presentation is supplied as a question to examine",
+          "sequence": [
+            {
+              "event": "screen-sent",
+              "time": "Day 4, 09:30 (fictional)"
+            },
+            {
+              "event": "screen-received",
+              "time": "Day 4, 09:31 (fictional)"
+            },
+            {
+              "event": "terms-shown",
+              "time": "To examine (as supplied)"
+            },
+            {
+              "event": "action-sent",
+              "time": "Day 4, 09:42 (fictional)"
+            },
+            {
+              "event": "action-received",
+              "time": "Day 4, 09:43 (fictional)"
+            }
+          ],
+          "status": "presentation-to-examine"
+        },
+        "changedFact": "Only the supplied status of the presentation differs",
+        "sharedFacts": [
+          "Same parties, screen and action"
+        ],
+        "comparisonLabels": {
+          "guide": "Presentation: shown (A) · to examine (B), as supplied",
+          "neutral": "Supplied labels only"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, labels, captions, references, headings, rows and time labels, three rows per device, two shared facts and a neutral note; the screen's receipt and the terms-shown station supplied with one position (order to be examined). Not capped: every field at its near-maximum value (the earlier cap of the neutral note and the changed fact was lifted after the 1:1 right-hand column was recomposed — review cf10 fix).",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos",
+            "role": "Party A (screen)"
+          },
+          {
+            "name": "Oluwaseun Bartholomew",
+            "role": "Party B (user)"
+          }
+        ],
+        "offer": {
+          "reference": "SCREEN-2026-A",
+          "title": "Terms on screen (supplied)"
+        },
+        "terms": [
+          {
+            "key": "term1-stress",
+            "label": "Term 1 (A)",
+            "value": "(supplied text 1)"
+          },
+          {
+            "key": "term2-stress",
+            "label": "Term 2 (A)",
+            "value": "(supplied text 2)"
+          },
+          {
+            "key": "term3-stress",
+            "label": "Term 3 (A)",
+            "value": "(supplied text 3)"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "ACTION-2026-B",
+            "text": "User action (as supplied)"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "button-stress",
+            "label": "Button (B)",
+            "value": "generic, pressed"
+          },
+          {
+            "key": "time-stress",
+            "label": "Time B",
+            "value": "10:05:30 h (fictional)"
+          },
+          {
+            "key": "device-stress",
+            "label": "Device B",
+            "value": "tablet (fictional)"
+          }
+        ],
+        "scenarioA": {
+          "label": "Informed action for screen A (as supplied)",
+          "caption": "The terms are shown on screen A before the action, as supplied",
+          "sequence": [
+            {
+              "event": "screen-sent",
+              "time": "Day 1, 10:00, front desk (fictional)"
+            },
+            {
+              "event": "screen-received",
+              "time": "Day 1, 10:01h (fictional)",
+              "position": 2
+            },
+            {
+              "event": "terms-shown",
+              "time": "Terms shown on screen A (as supplied)",
+              "position": 2
+            },
+            {
+              "event": "action-sent",
+              "time": "Day 1, 10:05h (fictional)"
+            },
+            {
+              "event": "action-received",
+              "time": "Day 1, 10:06h (fictional)"
+            }
+          ],
+          "status": "action-recorded"
+        },
+        "scenarioB": {
+          "label": "Presentation of screen A to be examined (supplied)",
+          "caption": "The presentation on screen A is supplied as a question to be examined",
+          "sequence": [
+            {
+              "event": "screen-sent",
+              "time": "Day 1, 10:00, front desk (fictional)"
+            },
+            {
+              "event": "screen-received",
+              "time": "Day 1, 10:01h (fictional)",
+              "position": 2
+            },
+            {
+              "event": "terms-shown",
+              "time": "Screen A to be examined (as supplied)",
+              "position": 2
+            },
+            {
+              "event": "action-sent",
+              "time": "Day 1, 10:05h (fictional)"
+            },
+            {
+              "event": "action-received",
+              "time": "Day 1, 10:06h (fictional)"
+            }
+          ],
+          "status": "presentation-to-examine"
+        },
+        "changedFact": "Only the supplied status of the presentation differs between the scenes",
+        "sharedFacts": [
+          "Same parties, the same screen and the same action",
+          "Same sequence of journeys in both scenes"
+        ],
+        "comparisonLabels": {
+          "guide": "Presentation: shown (A) · to be examined (B), as supplied in each",
+          "neutral": "Both scenes show supplied labels only; nothing is concluded from them"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: dos escenarios idénticos; solo cambia el estado aportado de la presentación (términos mostrados / presentación por examinar).",
+      "params": {
+        "locale": "es",
+        "offer": {
+          "reference": "SC-701",
+          "title": "Términos en pantalla"
+        },
+        "terms": [
+          {
+            "key": "term1",
+            "label": "Término 1",
+            "value": "(aportado)"
+          },
+          {
+            "key": "term2",
+            "label": "Término 2",
+            "value": "(aportado)"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "AC-702",
+            "text": "Acción del usuario"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "button",
+            "label": "Botón",
+            "value": "genérico"
+          },
+          {
+            "key": "time",
+            "label": "Hora",
+            "value": "10:05 h (ficticia)"
+          }
+        ],
+        "scenarioA": {
+          "label": "Acción informada (según lo aportado)",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "screen-sent",
+              "time": "Día 1, 10:00 (ficticio)"
+            },
+            {
+              "event": "screen-received",
+              "time": "Día 1, 10:01 (ficticio)"
+            },
+            {
+              "event": "terms-shown",
+              "time": "Términos mostrados"
+            },
+            {
+              "event": "action-sent",
+              "time": "Día 1, 10:05 (ficticio)"
+            },
+            {
+              "event": "action-received",
+              "time": "Día 1, 10:06 (ficticio)"
+            }
+          ],
+          "status": "action-recorded"
+        },
+        "scenarioB": {
+          "label": "Presentación por examinar (según lo aportado)",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "screen-sent",
+              "time": "Día 1, 10:00 (ficticio)"
+            },
+            {
+              "event": "screen-received",
+              "time": "Día 1, 10:01 (ficticio)"
+            },
+            {
+              "event": "terms-shown",
+              "time": "Por examinar"
+            },
+            {
+              "event": "action-sent",
+              "time": "Día 1, 10:05 (ficticio)"
+            },
+            {
+              "event": "action-received",
+              "time": "Día 1, 10:06 (ficticio)"
+            }
+          ],
+          "status": "presentation-to-examine"
+        },
+        "changedFact": "",
+        "sharedFacts": [],
+        "comparisonLabels": {
+          "guide": "Presentación: mostrada (A) · por examinar (B)",
+          "neutral": ""
+        }
+      }
+    }
+  ]
+}

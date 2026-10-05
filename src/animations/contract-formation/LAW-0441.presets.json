@@ -1,0 +1,82 @@
+{
+  "animationId": "LAW-0441",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; amounts are hypothetical. No acceptance or contract formation is shown.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional offer to supply chairs: folded into its own mailer, sent, caught by Party B, unsealed and opened with the same terms.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a service offer with three terms that reaches Party B but stays sealed (final state 'delivered'); different parties, no reply note.",
+      "params": {
+        "parties": [
+          {"name": "Ines Duarte", "role": "Party A", "appearance": {"skin": 1, "hair": "long", "hairColor": 4, "outfit": 2}},
+          {"name": "Kwame Asante", "role": "Party B", "appearance": {"skin": 5, "hair": "buzz", "outfit": 6, "glasses": true}}
+        ],
+        "offer": {"reference": "SV-118", "title": "Offer of garden services"},
+        "terms": [
+          {"key": "item", "label": "Service", "value": "Garden maintenance"},
+          {"key": "delivery", "label": "Start", "value": "Day 3"},
+          {"key": "payment", "label": "Monthly fee (hypothetical)", "value": "95"}
+        ],
+        "responses": [],
+        "objectLabels": {"mailer": "OFFER"},
+        "annotations": [{"target": "mailer", "text": "Delivered to Party B, still sealed"}],
+        "finalState": "delivered"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, long offer title, long term labels/values, long reply note and two annotations.",
+      "params": {
+        "parties": [
+          {"name": "Maria-Fernanda Castellanos Villavicencio", "role": "Party A"},
+          {"name": "Oluwaseun Bartholomew-Nakamura", "role": "Party B"}
+        ],
+        "offer": {"reference": "OFFER-2026-000417-B", "title": "Offer to supply ergonomic office furniture and related installation services"},
+        "terms": [
+          {"key": "item", "label": "Item description as written in the offer", "value": "Ergonomic oak office chairs with adjustable armrests"},
+          {"key": "delivery", "label": "Delivery window (fictional relative day)", "value": "Between Day 10 and Day 14 after receipt"},
+          {"key": "quantity", "label": "Quantity requested", "value": "40"},
+          {"key": "unitPrice", "label": "Unit price per chair (hypothetical amount)", "value": "130"}
+        ],
+        "responses": [{"text": "Received by the procurement team — the terms are being reviewed"}],
+        "actorLabels": {"a": "Offeror, supplier's sales representative", "b": "Offeree, customer's procurement lead"},
+        "objectLabels": {"mailer": "OFFER · ORIGINAL"},
+        "annotations": [
+          {"target": "terms", "text": "The same four terms written by Party A are now open in front of Party B"},
+          {"target": "route", "text": "Route of the letter from Party A to Party B"}
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "parties": [{"name": "Nadia Park", "role": "Parte A"}, {"name": "Tomás Ribeiro", "role": "Parte B"}],
+        "offer": {"reference": "OF-2041", "title": "Oferta de suministro"},
+        "terms": [
+          {"key": "item", "label": "Artículo", "value": "Sillas de oficina de roble"},
+          {"key": "delivery", "label": "Entrega", "value": "Día 10"},
+          {"key": "quantity", "label": "Cantidad", "value": "40"},
+          {"key": "unitPrice", "label": "Precio unitario (hipotético)", "value": "130"}
+        ],
+        "responses": [{"text": "Recibida — revisando los términos"}],
+        "actorLabels": {"a": "Oferente", "b": "Destinatario"},
+        "objectLabels": {"mailer": "OFERTA"},
+        "annotations": [{"target": "terms", "text": "Los mismos términos que escribió la parte A"}]
+      }
+    },
+    {
+      "name": "sent-in-transit",
+      "description": "Final state 'in-transit': the offer has left Party A and is shown part-way along its route; Party B has not received it.",
+      "params": {
+        "finalState": "in-transit",
+        "annotations": [{"target": "route", "text": "Sent by Party A, not yet received"}]
+      }
+    }
+  ]
+}

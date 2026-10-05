@@ -1,0 +1,276 @@
+{
+  "animationId": "LAW-0459",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Times are fictional labels. \"Reciprocal\" and \"unilateral\" are supplied configurations only — who holds which commitment; neither scene is shown as lacking anything, and nothing states whether a commitment binds, is enforceable or valid, or whether a contract is formed.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional exchange: A: A's commitment to supply 40 chairs and B's commitment to pay cross between the parties; B: only A's commitment is supplied and travels alone. Same parties, same A commitment, same times.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a garden-maintenance commitment between different parties; in A the fee commitment is also supplied and is received before the garden commitment; in B only the garden commitment is supplied.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "short",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "G-118",
+          "title": "Maintain the garden in May"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Service",
+            "value": "Garden maintenance"
+          },
+          {
+            "key": "delivery",
+            "label": "Visits",
+            "value": "Weekly"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "G-119",
+            "text": "Pay a monthly fee (hypothetical)"
+          }
+        ],
+        "scenarioA": {
+          "label": "Reciprocal commitments",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "commitmentA-sent",
+              "time": "Day 4, 08:30 (fictional)"
+            },
+            {
+              "event": "commitmentB-sent",
+              "time": "Day 4, 08:45 (fictional)"
+            },
+            {
+              "event": "commitmentB-received",
+              "time": "Day 4, 12:00 (fictional)"
+            },
+            {
+              "event": "commitmentA-received",
+              "time": "Day 4, 12:15 (fictional)"
+            }
+          ]
+        },
+        "scenarioB": {
+          "label": "Unilateral promise",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "commitmentA-sent",
+              "time": "Day 4, 08:30 (fictional)"
+            },
+            {
+              "event": "commitmentA-received",
+              "time": "Day 4, 12:15 (fictional)"
+            }
+          ]
+        },
+        "changedFact": "Only B's fee commitment differs",
+        "sharedFacts": [
+          "Same garden commitment and parties"
+        ],
+        "comparisonLabels": {
+          "guide": "Fee commitment: supplied (A) · not supplied (B)",
+          "neutral": ""
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, labels, captions, references and time labels, three terms, two shared facts and a neutral note. Standing coordinator rule item 20 (caps with the true reason). The pre-cap values are kept in LAW-0459.presets.precap.json. Each capped field was restored alone to its pre-cap value on top of the shipped preset and rendered: the guide 49 -> 67 and the neutral note 38 -> 67 each make 1:1 keep its text only by fading both stages out at the hold (0 of 4 people visible at the hold; the standing rule keeps the people at the hold). With both restored: the same. The capped guide stays longer than its baseline (49 against 47); the baseline neutral note is empty; every count is kept. Shipped: 16:9 17 px, heads 67.0 px; 9:16 22 px, 60.5 px; 1:1 16.1 px, 50.8 px, 4 people at the hold (rendered).",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "COMMIT-2026-000417-A",
+          "title": "Supply ergonomic office furniture to the regional branch offices"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Item description",
+            "value": "Ergonomic oak office chairs with adjustable armrests"
+          },
+          {
+            "key": "quantity",
+            "label": "Quantity committed",
+            "value": "Forty chairs, one per desk, all floors"
+          },
+          {
+            "key": "delivery",
+            "label": "Delivery window",
+            "value": "Between Day 10 and Day 14 after receipt"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "COMMIT-2026-000417-B",
+            "text": "Pay for the forty ergonomic chairs within the window stated on the card, as supplied"
+          }
+        ],
+        "scenarioA": {
+          "label": "Reciprocal commitments, holders printed on cards",
+          "caption": "Both commitments are supplied and cross between the parties",
+          "sequence": [
+            {
+              "event": "commitmentA-sent",
+              "time": "Day 1, 09:00, head office (fictional)"
+            },
+            {
+              "event": "commitmentB-sent",
+              "time": "Day 1, 09:30, branch office (fictional)"
+            },
+            {
+              "event": "commitmentA-received",
+              "time": "Day 1, 16:05, reception desk (fictional)"
+            },
+            {
+              "event": "commitmentB-received",
+              "time": "Day 1, 16:40, reception desk (fictional)"
+            }
+          ]
+        },
+        "scenarioB": {
+          "label": "Unilateral promise, as supplied in the file",
+          "caption": "Only the furniture supply commitment is supplied",
+          "sequence": [
+            {
+              "event": "commitmentA-sent",
+              "time": "Day 1, 09:00, head office (fictional)"
+            },
+            {
+              "event": "commitmentA-received",
+              "time": "Day 1, 16:05, reception desk (fictional)"
+            }
+          ]
+        },
+        "changedFact": "Only whether Party B also holds a payment commitment differs between the two scenes, as supplied",
+        "sharedFacts": [
+          "Same furniture supply commitment in both scenes",
+          "Same parties and the same sending and receipt times"
+        ],
+        "comparisonLabels": {
+          "guide": "Payment commitment: in A · not in B (as supplied)",
+          "neutral": "Configurations only; nothing concluded"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: A, el compromiso de A de suministrar 40 sillas y el de B de pagarlas se cruzan; B, solo se aporta el compromiso de A, que viaja solo.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Nadia Park",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomás Ribeiro",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "C-101",
+          "title": "Suministrar 40 sillas"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Artículo",
+            "value": "Sillas de roble"
+          },
+          {
+            "key": "quantity",
+            "label": "Cantidad",
+            "value": "40"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "C-102",
+            "text": "Pagar las 40 sillas"
+          }
+        ],
+        "scenarioA": {
+          "label": "Compromisos recíprocos",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "commitmentA-sent",
+              "time": "Día 1, 09:00 (ficticio)"
+            },
+            {
+              "event": "commitmentB-sent",
+              "time": "Día 1, 09:30 (ficticio)"
+            },
+            {
+              "event": "commitmentA-received",
+              "time": "Día 1, 11:00 (ficticio)"
+            },
+            {
+              "event": "commitmentB-received",
+              "time": "Día 1, 11:30 (ficticio)"
+            }
+          ]
+        },
+        "scenarioB": {
+          "label": "Promesa unilateral",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "commitmentA-sent",
+              "time": "Día 1, 09:00 (ficticio)"
+            },
+            {
+              "event": "commitmentA-received",
+              "time": "Día 1, 11:00 (ficticio)"
+            }
+          ]
+        },
+        "changedFact": "Solo cambia si B también es titular de un compromiso",
+        "sharedFacts": [
+          "Mismas partes y mismo compromiso de A"
+        ],
+        "comparisonLabels": {
+          "guide": "Compromiso de B: aportado (A) · no aportado (B)",
+          "neutral": ""
+        }
+      }
+    }
+  ]
+}

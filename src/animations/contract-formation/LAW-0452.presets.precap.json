@@ -1,0 +1,218 @@
+{
+  "animationId": "LAW-0452",
+  "note": "Pre-cap copy for review only (standing rule item 20): identical to the presets file except that long-labels-stress carries its values before the caps. Not loaded by the library.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Baseline: the chair proposal and its withdrawal have both reached Party B; the withdrawal's receipt label Day 2, 10:00 is replaced by the supplied alternative Day 2, 17:30. The stations keep the supplied order.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Alternative: a garden-bench proposal; the proposal's receipt label is inspected and replaced (Day 5, 09:00 → Day 5, 08:10); the receipts are supplied proposal first.",
+      "params": {
+        "parties": [
+          {
+            "name": "Inês Duarte",
+            "role": "Proposer"
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Recipient"
+          }
+        ],
+        "offer": {
+          "reference": "PR-77",
+          "title": "Proposal to deliver garden benches"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Item",
+            "value": "Teak benches"
+          },
+          {
+            "key": "quantity",
+            "label": "Quantity",
+            "value": "6"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "WD-77",
+            "text": "Withdrawal of proposal PR-77"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "proposal-sent",
+            "time": "Day 4, 08:30 (fictional)"
+          },
+          {
+            "event": "withdrawal-sent",
+            "time": "Day 4, 12:15 (fictional)"
+          },
+          {
+            "event": "proposal-received",
+            "time": "Day 5, 09:00 (fictional)"
+          },
+          {
+            "event": "withdrawal-received",
+            "time": "Day 5, 09:40 (fictional)"
+          }
+        ],
+        "focusTarget": "proposal-received",
+        "beforeValue": "Day 5, 09:00 (fictional)",
+        "afterValue": "Day 5, 08:10 (fictional)",
+        "detailGeometry": {
+          "zoom": 2,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Both messages received, proposal listed first",
+          "marker": "Changed: the proposal's receipt time label"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "PRE-CAP copy of the long-labels-stress preset (the values before the item-20 caps), kept for re-rendering by reviewers. Not a registered preset.",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Sends the proposal and then the withdrawal"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Addressee of both messages"
+          }
+        ],
+        "offer": {
+          "reference": "PROPOSAL-2026-000417-B",
+          "title": "Proposal to supply ergonomic office furniture and related installation services"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Item description",
+            "value": "Ergonomic oak office chairs with adjustable armrests"
+          },
+          {
+            "key": "quantity",
+            "label": "Quantity requested",
+            "value": "Forty chairs, one per workstation"
+          },
+          {
+            "key": "delivery",
+            "label": "Delivery window",
+            "value": "Between Day 10 and Day 14 after receipt"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "WITHDRAWAL-2026-000417-B",
+            "text": "Withdrawal of the proposal PROPOSAL-2026-000417-B to supply ergonomic furniture"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "proposal-sent",
+            "time": "Day 1, 09:00, head office (fictional)"
+          },
+          {
+            "event": "withdrawal-sent",
+            "time": "Day 1, 11:45, branch office (fictional)"
+          },
+          {
+            "event": "withdrawal-received",
+            "time": "Day 2, 10:20, reception desk (fictional)"
+          },
+          {
+            "event": "proposal-received",
+            "time": "Day 2, 16:05, reception desk (fictional)"
+          }
+        ],
+        "focusTarget": "withdrawal-received",
+        "beforeValue": "Day 2, 10:20, reception desk (fictional)",
+        "afterValue": "Day 2, 17:45, reception desk (fictional)",
+        "detailGeometry": {
+          "zoom": 2.2,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Both messages received at the reception desk, in the order the author supplied",
+          "marker": "Changed: the withdrawal's receipt time label at the reception desk"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: la propuesta y su retirada han llegado a la Parte B; la etiqueta de recepción de la retirada (Día 2, 10:00) se sustituye por la alternativa aportada (Día 2, 17:30). Las estaciones conservan el orden aportado.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Nadia Park",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomás Ribeiro",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "OF-2041",
+          "title": "Propuesta de suministro"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Artículo",
+            "value": "Sillas de roble"
+          },
+          {
+            "key": "quantity",
+            "label": "Cantidad",
+            "value": "40"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "RT-2041",
+            "text": "Retirada de la propuesta OF-2041"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "proposal-sent",
+            "time": "Día 1, 09:00 (ficticio)"
+          },
+          {
+            "event": "withdrawal-sent",
+            "time": "Día 1, 11:00 (ficticio)"
+          },
+          {
+            "event": "withdrawal-received",
+            "time": "Día 2, 10:00 (ficticio)"
+          },
+          {
+            "event": "proposal-received",
+            "time": "Día 2, 16:00 (ficticio)"
+          }
+        ],
+        "focusTarget": "withdrawal-received",
+        "beforeValue": "Día 2, 10:00 (ficticio)",
+        "afterValue": "Día 2, 17:30 (ficticio)",
+        "detailGeometry": {
+          "zoom": 1.8,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Ambos mensajes recibidos, en el orden aportado",
+          "marker": "Cambio: la etiqueta de recepción de la retirada"
+        }
+      }
+    }
+  ]
+}

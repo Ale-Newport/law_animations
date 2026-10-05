@@ -1,0 +1,296 @@
+{
+  "animationId": "LAW-0451",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Times are fictional labels. Both scenes depict supplied sequences only; nothing states when a withdrawal takes effect, whether a message arrived in time, which one prevails, or whether the proposal is revoked or still open. No winner is shown.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Baseline: the same chair proposal and withdrawal message in both scenes; A supplies the two receipts one after the other, B supplies both for Day 2 with one position (order to be examined).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Alternative: a garden-bench proposal; in A the proposal is supplied as received before the withdrawal; in B the two receipts share one position. The sending times are the same.",
+      "params": {
+        "parties": [
+          {
+            "name": "Inês Duarte",
+            "role": "Proposer"
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Recipient"
+          }
+        ],
+        "offer": {
+          "reference": "PR-77",
+          "title": "Proposal to deliver garden benches"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Item",
+            "value": "Teak benches"
+          },
+          {
+            "key": "quantity",
+            "label": "Quantity",
+            "value": "6"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "WD-77",
+            "text": "Withdrawal of proposal PR-77"
+          }
+        ],
+        "scenarioA": {
+          "label": "Withdrawal communicated",
+          "caption": "The receipts are supplied in order: the proposal, then the withdrawal",
+          "sequence": [
+            {
+              "event": "proposal-sent",
+              "time": "Day 4, 08:30 (fictional)"
+            },
+            {
+              "event": "withdrawal-sent",
+              "time": "Day 4, 12:15 (fictional)"
+            },
+            {
+              "event": "proposal-received",
+              "time": "Day 5, 09:00 (fictional)"
+            },
+            {
+              "event": "withdrawal-received",
+              "time": "Day 5, 09:40 (fictional)"
+            }
+          ]
+        },
+        "scenarioB": {
+          "label": "Time sequence to be examined",
+          "caption": "Both receipts are supplied for Day 5 morning, without an order",
+          "sequence": [
+            {
+              "event": "proposal-sent",
+              "time": "Day 4, 08:30 (fictional)"
+            },
+            {
+              "event": "withdrawal-sent",
+              "time": "Day 4, 12:15 (fictional)"
+            },
+            {
+              "event": "proposal-received",
+              "time": "Day 5, morning (fictional)",
+              "position": 3
+            },
+            {
+              "event": "withdrawal-received",
+              "time": "Day 5, morning (fictional)",
+              "position": 3
+            }
+          ]
+        },
+        "changedFact": "Only the supplied order of the two receipts differs",
+        "sharedFacts": [
+          "Same proposal and withdrawal",
+          "Same parties",
+          "Same sending times"
+        ],
+        "comparisonLabels": {
+          "guide": "Receipts as supplied: in order (A) · order to be examined (B)",
+          "neutral": "Two supplied sequences — no winner and no legal effect is stated"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, roles, references, title, terms, withdrawal text, scenario labels and captions, time labels, changed fact, shared facts, guide and neutral labels; four events in A, three stations in B. Standing coordinator rule item 20 (caps with the true reason). The pre-cap values are kept in LAW-0451.presets.precap.json. At 1:1 the only arrangement that keeps the four people at the hold is the stages stacked in a left column with the comparison table and the notes in a right-hand column, and the table and the notes must share that column's height. Each capped field was restored alone to its pre-cap value on top of the shipped preset and rendered (1:1): A's withdrawal-sent time 32 -> 39 characters (and B's, the same event): 17 px, but no people at the hold (the stages fade at the guide; 0 of 4 visible). A's receipt times 30 -> 40 each: 17 px, no people at the hold. First shared fact 43 -> 58: no layout at 1:1. Shared facts 2 -> 4 (the third restored): no layout at 1:1. Neutral note 39 -> 113: no layout at 1:1. With the caps: 1:1 16.1 px, four people at the hold at 50.8 px (rendered); 16:9 18 px / 60.0 px; 9:16 21 px / 56.5 px. All other fields (both references, title, terms, withdrawal text, B's receipt times, captions, changed fact) keep their pre-cap length. Every capped field stays longer than baseline, and every count is at or above baseline (baseline has one shared fact).",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Sends the proposal and then the withdrawal"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Addressee of both messages"
+          }
+        ],
+        "offer": {
+          "reference": "PROPOSAL-2026-000417-B",
+          "title": "Proposal to supply ergonomic office furniture and related installation services"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Item description",
+            "value": "Ergonomic oak office chairs with adjustable armrests"
+          },
+          {
+            "key": "quantity",
+            "label": "Quantity requested",
+            "value": "Forty chairs, one per workstation"
+          },
+          {
+            "key": "delivery",
+            "label": "Delivery window",
+            "value": "Between Day 10 and Day 14 after receipt"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "WITHDRAWAL-2026-000417-B",
+            "text": "Withdrawal of the proposal PROPOSAL-2026-000417-B to supply ergonomic furniture"
+          }
+        ],
+        "scenarioA": {
+          "label": "Withdrawal communicated, as supplied by the author",
+          "caption": "The two receipts are supplied one after the other, each with its own fictional time label",
+          "sequence": [
+            {
+              "event": "proposal-sent",
+              "time": "Day 1, 09:00, head office (fictional)"
+            },
+            {
+              "event": "withdrawal-sent",
+              "time": "Day 1, 11:45, branch (fictional)"
+            },
+            {
+              "event": "withdrawal-received",
+              "time": "Day 2, 10:20, desk (fictional)"
+            },
+            {
+              "event": "proposal-received",
+              "time": "Day 2, 16:05, desk (fictional)"
+            }
+          ]
+        },
+        "scenarioB": {
+          "label": "Time sequence to be examined, as supplied",
+          "caption": "The two receipts are supplied for the same day at the reception desk, without an order",
+          "sequence": [
+            {
+              "event": "proposal-sent",
+              "time": "Day 1, 09:00, head office (fictional)"
+            },
+            {
+              "event": "withdrawal-sent",
+              "time": "Day 1, 11:45, branch (fictional)"
+            },
+            {
+              "event": "withdrawal-received",
+              "time": "Day 2, reception desk (fictional)",
+              "position": 3
+            },
+            {
+              "event": "proposal-received",
+              "time": "Day 2, reception desk (fictional)",
+              "position": 3
+            }
+          ]
+        },
+        "changedFact": "Only one supplied fact differs between the two scenes: the order of the two receipts at the reception desk",
+        "sharedFacts": [
+          "Same proposal, terms and withdrawal message",
+          "Same two parties, racks and sending moments"
+        ],
+        "comparisonLabels": {
+          "guide": "The receipts as supplied: in a given order (A) · to be examined (B)",
+          "neutral": "No winner and no legal effect is stated"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: la misma propuesta y la misma retirada en ambas escenas; A aporta las dos recepciones una tras otra, B las aporta para el día 2 con una sola posición (orden por examinar).",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Nadia Park",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomás Ribeiro",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "OF-2041",
+          "title": "Propuesta de suministro"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Artículo",
+            "value": "Sillas de roble"
+          },
+          {
+            "key": "quantity",
+            "label": "Cantidad",
+            "value": "40"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "RT-2041",
+            "text": "Retirada de la propuesta OF-2041"
+          }
+        ],
+        "scenarioA": {
+          "label": "Retirada comunicada",
+          "caption": "Recepciones en orden",
+          "sequence": [
+            {
+              "event": "proposal-sent",
+              "time": "Día 1, 09:00 (ficticio)"
+            },
+            {
+              "event": "withdrawal-sent",
+              "time": "Día 1, 11:00 (ficticio)"
+            },
+            {
+              "event": "withdrawal-received",
+              "time": "Día 2, 10:00 (ficticio)"
+            },
+            {
+              "event": "proposal-received",
+              "time": "Día 2, 16:00 (ficticio)"
+            }
+          ]
+        },
+        "scenarioB": {
+          "label": "Secuencia temporal por examinar",
+          "caption": "Recepciones sin orden",
+          "sequence": [
+            {
+              "event": "proposal-sent",
+              "time": "Día 1, 09:00 (ficticio)"
+            },
+            {
+              "event": "withdrawal-sent",
+              "time": "Día 1, 11:00 (ficticio)"
+            },
+            {
+              "event": "withdrawal-received",
+              "time": "Día 2 (ficticio)",
+              "position": 3
+            },
+            {
+              "event": "proposal-received",
+              "time": "Día 2 (ficticio)",
+              "position": 3
+            }
+          ]
+        },
+        "changedFact": "Solo cambia el orden de las recepciones",
+        "sharedFacts": [
+          "Mismos mensajes, partes y envíos"
+        ],
+        "comparisonLabels": {
+          "guide": "Recepciones: en orden (A) · por examinar (B)",
+          "neutral": ""
+        }
+      }
+    }
+  ]
+}

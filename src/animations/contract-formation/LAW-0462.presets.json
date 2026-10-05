@@ -1,0 +1,338 @@
+{
+  "animationId": "LAW-0462",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Times are fictional labels. \"Consideration\" appears only as a concept label supplied and marked illustrative; nothing states a rule about it, nor any validity, enforceability, binding force or formation. \"Performance identified\" and \"question to be analysed\" are supplied statuses only.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional facts on two lanes: the promise token and the performance token cross between the lanes and a plain relation joins them, captioned \"linked as supplied\"; the concept label is shown as supplied and illustrative.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties and facts (a monthly garden fee and the garden work), the performance token sent first, the relation supplied from the performance token to the promise token (still plain: no arrowhead), focus on the promise token and another traversal.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "G-118",
+          "title": "Pay a monthly fee (hypothetical)"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Fee",
+            "value": "95 a month (fictional)"
+          },
+          {
+            "key": "delivery",
+            "label": "For",
+            "value": "Garden maintenance"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "G-119",
+            "text": "Maintain the garden in May"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "performance-sent",
+            "time": "Day 4, 08:30 (fictional)"
+          },
+          {
+            "event": "promise-sent",
+            "time": "Day 4, 09:10 (fictional)"
+          },
+          {
+            "event": "performance-received",
+            "time": "Day 4, 12:15 (fictional)"
+          },
+          {
+            "event": "promise-received",
+            "time": "Day 4, 12:40 (fictional)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Gives promise G-118"
+          },
+          {
+            "id": "partyB",
+            "label": "Gives performance G-119"
+          },
+          {
+            "id": "promise",
+            "label": "Fee promise"
+          },
+          {
+            "id": "performance",
+            "label": "Garden work"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyB",
+            "to": "performance",
+            "kind": "communication"
+          },
+          {
+            "from": "performance",
+            "to": "partyA",
+            "kind": "communication"
+          },
+          {
+            "from": "partyA",
+            "to": "promise",
+            "kind": "communication"
+          },
+          {
+            "from": "promise",
+            "to": "partyB",
+            "kind": "communication"
+          },
+          {
+            "from": "performance",
+            "to": "promise",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "promise",
+        "traversalOrder": [
+          "partyB",
+          "performance",
+          "promise",
+          "partyA",
+          "promise",
+          "partyB"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, element labels, relation captions, references, texts and time labels, three terms; the two receipts are supplied with one position (order to be examined); a long concept label. Standing coordinator rule item 20 (caps with the true reason). The pre-cap values are kept in LAW-0462.presets.precap.json. Each capped field was restored alone to its pre-cap value on top of the shipped preset and rendered: the two grouped receipt time labels 26 -> 40 make every ratio fail (the grouped chip does not fit its lane; the names lose their place); the first party's element label 25 -> 39 makes 1:1 fail (a relation caption finds no place); the third term value 18 -> 39, the performance reference 13 -> 25 and the two token element labels 21 -> 35 and 28 -> 42 each bring the 1:1 portraits to 40.6 px, under the 45 px stress floor. With every capped field restored, every ratio fails. Every capped value stays longer than baseline (receipt time labels 26 vs 24, reference 13 vs 5, element labels 25 vs 19, 21 vs 13 and 28 vs 17; the third term has no baseline counterpart); every count is kept or larger. Shipped: 16:9 18 px, portraits 62.6 px; 9:16 18 px, 69.1 px; 1:1 16.1 px, 56.0 px (rendered).",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "PROMISE-2026-000417-A",
+          "title": "Pay three hundred for the repainted fence and the two garden gates"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Amount promised",
+            "value": "Three hundred (fictional currency)"
+          },
+          {
+            "key": "quantity",
+            "label": "For the work on",
+            "value": "The garden fence and two gates"
+          },
+          {
+            "key": "delivery",
+            "label": "Paid on",
+            "value": "Day 10 (fictional)"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "PERFORM-417-B",
+            "text": "Repaint the garden fence and the two wooden gates in dark green, as supplied"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "promise-sent",
+            "time": "Day 1, 09:00, head office (fictional)"
+          },
+          {
+            "event": "performance-sent",
+            "time": "Day 1, 09:30, branch office (fictional)"
+          },
+          {
+            "event": "promise-received",
+            "time": "Day 1, 16:05 h (fictional)",
+            "position": 3
+          },
+          {
+            "event": "performance-received",
+            "time": "Day 1, 16:05 h (fictional)",
+            "position": 3
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Gives the payment promise"
+          },
+          {
+            "id": "partyB",
+            "label": "Gives the repainting performance token"
+          },
+          {
+            "id": "promise",
+            "label": "Payment promise token"
+          },
+          {
+            "id": "performance",
+            "label": "Repainting performance token"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "promise",
+            "kind": "communication"
+          },
+          {
+            "from": "promise",
+            "to": "partyB",
+            "kind": "communication"
+          },
+          {
+            "from": "partyB",
+            "to": "performance",
+            "kind": "communication"
+          },
+          {
+            "from": "performance",
+            "to": "partyA",
+            "kind": "communication"
+          },
+          {
+            "from": "promise",
+            "to": "performance",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "performance",
+        "relationLabels": {
+          "relation": "linked as supplied in the case file",
+          "communication": "communication between the parties",
+          "sequence": "sequence of the events as supplied",
+          "causal": "causal link as supplied by the author"
+        },
+        "traversalOrder": [
+          "partyA",
+          "promise",
+          "performance",
+          "partyB",
+          "performance",
+          "partyA"
+        ],
+        "conceptLabel": "consideration (illustrative label)"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: las fichas de promesa y de prestación en dos carriles, unidas por una relación simple «vinculadas según lo aportado».",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Lena Okafor",
+            "role": "Parte A"
+          },
+          {
+            "name": "Marco Bellini",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "P-201",
+          "title": "Pagar 300 por la valla"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Importe",
+            "value": "300 (ficticio)"
+          },
+          {
+            "key": "quantity",
+            "label": "Por",
+            "value": "La valla"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "Q-201",
+            "text": "Repintar la valla"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "promise-sent",
+            "time": "Día 1, 09:00 (ficticio)"
+          },
+          {
+            "event": "performance-sent",
+            "time": "Día 1, 09:30 (ficticio)"
+          },
+          {
+            "event": "promise-received",
+            "time": "Día 1, 11:00 (ficticio)"
+          },
+          {
+            "event": "performance-received",
+            "time": "Día 1, 11:30 (ficticio)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Da la promesa P-201"
+          },
+          {
+            "id": "partyB",
+            "label": "Da la prestación Q-201"
+          },
+          {
+            "id": "promise",
+            "label": "Ficha de promesa"
+          },
+          {
+            "id": "performance",
+            "label": "Ficha de prestación"
+          }
+        ],
+        "relationLabels": {
+          "relation": "vinculadas según lo aportado",
+          "communication": "comunicación",
+          "sequence": "secuencia (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

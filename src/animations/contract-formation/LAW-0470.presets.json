@@ -1,0 +1,370 @@
+{
+  "animationId": "LAW-0470",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the attributes are generic placeholders, never personal data. Times are fictional labels. \"Data complete\" and \"capacity pending verification\" are supplied statuses only — a pending state is not a deficiency; no rule on capacity, no threshold, no representation regime, no effect on a contract and no jurisdiction is stated.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional party cards on two lanes: the cards cross between the lanes and unfold their supplied attributes; the supplied status is data complete.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties and attributes, Party B's card sent first, focus on Party A's card, another traversal; the supplied status capacity pending verification (a dashed pending ring round Party B's card and a footer chip).",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "PC-118",
+          "title": "Party A, as supplied"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Role",
+            "value": "Tenant (fictional)"
+          },
+          {
+            "key": "other",
+            "label": "Attribute B",
+            "value": "Value 3 (as supplied)"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "PC-119",
+            "text": "Party B, as supplied"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "item",
+            "label": "Role",
+            "value": "Landlord (fictional)"
+          },
+          {
+            "key": "other",
+            "label": "Represented by",
+            "value": "An agent (as supplied)"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "cardB-sent",
+            "time": "Day 4, 09:30 (fictional)"
+          },
+          {
+            "event": "cardA-sent",
+            "time": "Day 4, 09:40 (fictional)"
+          },
+          {
+            "event": "cardB-received",
+            "time": "Day 4, 11:15 (fictional)"
+          },
+          {
+            "event": "cardA-received",
+            "time": "Day 4, 11:20 (fictional)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Hands over card PC-118"
+          },
+          {
+            "id": "partyB",
+            "label": "Hands over card PC-119"
+          },
+          {
+            "id": "cardA",
+            "label": "Party A's card"
+          },
+          {
+            "id": "cardB",
+            "label": "Party B's card"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyB",
+            "to": "cardB",
+            "kind": "communication"
+          },
+          {
+            "from": "cardB",
+            "to": "partyA",
+            "kind": "communication"
+          },
+          {
+            "from": "partyA",
+            "to": "cardA",
+            "kind": "communication"
+          },
+          {
+            "from": "cardA",
+            "to": "partyB",
+            "kind": "communication"
+          }
+        ],
+        "focusElement": "cardA",
+        "traversalOrder": [
+          "partyB",
+          "cardB",
+          "partyA",
+          "cardA",
+          "partyB"
+        ],
+        "status": "pending-verification",
+        "pendingParty": "B"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, element labels, relation captions, references, titles, attributes and time labels, three attributes per card; the two receipts supplied with one position (order to be examined); the pending status on Party A's card.",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "PARTYCARD-2026-000417-A",
+          "title": "Party A, the seller of the second-hand bicycle, as supplied"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Role in the conversation",
+            "value": "Seller of the second-hand bicycle (fictional)"
+          },
+          {
+            "key": "other",
+            "label": "Represented by (as supplied)",
+            "value": "Nobody else is named on the card"
+          },
+          {
+            "key": "other",
+            "label": "Attribute A (as supplied)",
+            "value": "Value 1, recorded on the first page"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "PARTYCARD-2026-000417-B",
+            "text": "Party B, the buyer of the second-hand bicycle, as supplied"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "item",
+            "label": "Role in the conversation",
+            "value": "Buyer of the second-hand bicycle (fictional)"
+          },
+          {
+            "key": "other",
+            "label": "Attribute A (as supplied)",
+            "value": "Value 2, recorded on the second page"
+          },
+          {
+            "key": "other",
+            "label": "Attribute B (as supplied)",
+            "value": "Value 3, recorded on the last page"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "cardA-sent",
+            "time": "Day 1, 10:00, front desk (fictional)"
+          },
+          {
+            "event": "cardB-sent",
+            "time": "Day 1, 10:05, front desk (fictional)"
+          },
+          {
+            "event": "cardA-received",
+            "time": "Day 1, 10:20h (fictional)",
+            "position": 3
+          },
+          {
+            "event": "cardB-received",
+            "time": "Day 1, 10:20h (fictional)",
+            "position": 3
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Hands over the seller's party card"
+          },
+          {
+            "id": "partyB",
+            "label": "Hands over the buyer's party card"
+          },
+          {
+            "id": "cardA",
+            "label": "Party A's card, as supplied"
+          },
+          {
+            "id": "cardB",
+            "label": "Party B's card, as supplied"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "cardA",
+            "kind": "communication"
+          },
+          {
+            "from": "cardA",
+            "to": "partyB",
+            "kind": "communication"
+          },
+          {
+            "from": "partyB",
+            "to": "cardB",
+            "kind": "communication"
+          },
+          {
+            "from": "cardB",
+            "to": "partyA",
+            "kind": "communication"
+          }
+        ],
+        "focusElement": "cardB",
+        "relationLabels": {
+          "relation": "relation between the cards, as supplied",
+          "communication": "communication between the parties",
+          "sequence": "sequence of the events as supplied",
+          "causal": "causal link as supplied by the author"
+        },
+        "traversalOrder": [
+          "partyA",
+          "cardA",
+          "partyB",
+          "cardB",
+          "partyA"
+        ],
+        "status": "pending-verification",
+        "pendingParty": "A"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: las fichas en dos carriles se cruzan y despliegan sus atributos aportados; el estado aportado es datos completos.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Elif Demir",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomas Lind",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "PC-501",
+          "title": "Parte A, según lo aportado"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Papel",
+            "value": "Vendedora"
+          },
+          {
+            "key": "other",
+            "label": "Representada por",
+            "value": "Sí misma"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "PC-502",
+            "text": "Parte B, según lo aportado"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "item",
+            "label": "Papel",
+            "value": "Comprador"
+          },
+          {
+            "key": "other",
+            "label": "Atributo A",
+            "value": "Valor 1"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "cardA-sent",
+            "time": "Día 1, 10:00 (ficticio)"
+          },
+          {
+            "event": "cardB-sent",
+            "time": "Día 1, 10:05 (ficticio)"
+          },
+          {
+            "event": "cardA-received",
+            "time": "Día 1, 10:20 (ficticio)"
+          },
+          {
+            "event": "cardB-received",
+            "time": "Día 1, 10:25 (ficticio)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Entrega la ficha PC-501"
+          },
+          {
+            "id": "partyB",
+            "label": "Entrega la ficha PC-502"
+          },
+          {
+            "id": "cardA",
+            "label": "Ficha de A"
+          },
+          {
+            "id": "cardB",
+            "label": "Ficha de B"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación (según lo aportado)",
+          "communication": "comunicación",
+          "sequence": "secuencia (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

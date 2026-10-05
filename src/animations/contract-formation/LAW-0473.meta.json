@@ -1,0 +1,597 @@
+{
+  "id": "LAW-0473",
+  "slug": "contract-formation-09-story",
+  "title": "Formalities of conclusion, without a rule — documents connected with the steps as supplied",
+  "titleEs": "Formalidades de celebración — Microescena con objetos y actores",
+  "category": "contract-formation",
+  "categoryName": "Formación del contrato",
+  "motif": "Formalidades de celebración",
+  "treatment": "story",
+  "family": "staged-scene",
+  "description": "Two standing parties with pigeonhole racks. Each hands its document to the other (● Party A's, ◆ Party B's, at equal weight); the documents arrive folded — head and title showing, a flap over the step rows — and at the connection station both flaps open and a connector draws from each document's crease to a node at each step row: the document is connected with the steps as supplied in the scenario (generic, fictional items). Each event adds a station to the strip \"Sequence as supplied (illustrative)\". The hold shows the supplied status: formality provided, or formality pending (a dashed pending ring inside the indicated document — a neutral pending state only). No formality rule and no legal effect is stated.",
+  "tags": [
+    "document",
+    "steps",
+    "connector",
+    "formality pending",
+    "formality provided",
+    "sequence",
+    "rack",
+    "characters"
+  ],
+  "durations": {
+    "defaultMs": 6000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/contract-formation/kits/formalidades-celebracion.js",
+    "src/animations/contract-formation/kits/offer-fields.js",
+    "src/primitives/person.js",
+    "src/primitives/annotate.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 6000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Party A (first) and Party B (second); fictional by default (array replaces the previous value)"
+      },
+      "offer": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Reference printed on Party A's document (fictional)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Title of Party A's document, as supplied (e.g. \"Scenario steps (as supplied)\")"
+          }
+        },
+        "required": [
+          "reference",
+          "title"
+        ],
+        "description": "Party A's document"
+      },
+      "terms": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "key": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Key"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Step name, as supplied in the scenario"
+            },
+            "value": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Step description, as supplied in the scenario (fictional)"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ],
+          "description": "Step of the given scenario, as supplied (generic and fictional, e.g. \"Step 1\": \"Copies reviewed\"; never a requirement of any law)"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Steps printed on Party A's document, as supplied in the scenario (2–4; generic and fictional) (array replaces the previous value)"
+      },
+      "responses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "reference": {
+              "type": "string",
+              "maxLength": 32,
+              "description": "Reference printed on Party B's document (fictional)"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Title of Party B's document, as supplied"
+            }
+          },
+          "required": [
+            "reference",
+            "text"
+          ],
+          "description": "Party B's document"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "Party B's document (its reference and title as supplied) (array replaces the previous value)"
+      },
+      "termsB": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "key": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Key"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Step name, as supplied in the scenario"
+            },
+            "value": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Step description, as supplied in the scenario (fictional)"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ],
+          "description": "Step of the given scenario, as supplied (generic and fictional, e.g. \"Step 1\": \"Copies reviewed\"; never a requirement of any law)"
+        },
+        "minItems": 1,
+        "maxItems": 4,
+        "description": "Steps printed on Party B's document, as supplied in the scenario (1–4; generic and fictional) (array replaces the previous value)"
+      },
+      "sequence": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "type": "string",
+              "enum": [
+                "docA-sent",
+                "docA-received",
+                "docB-sent",
+                "docB-received",
+                "connected"
+              ],
+              "description": "Which event"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Fictional time label as supplied, e.g. \"Day 3, 10:00 (fictional)\" (for the connection station: the supplied status of the formality, e.g. \"Formality pending (as supplied)\")"
+            },
+            "position": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Optional position in the supplied order (1 = first). Events given the same position are shown together, order to be examined"
+            }
+          },
+          "required": [
+            "event",
+            "time"
+          ],
+          "description": "One event of the supplied sequence. The order of the list is the order shown; events with the same position are shown together as an order to be examined. Times are fictional labels, never computed or compared"
+        },
+        "minItems": 1,
+        "maxItems": 5,
+        "description": "The documents' journeys and the connection with the steps as supplied, in the order shown (1–5). The order is depicted, never resolved (array replaces the previous value)"
+      },
+      "actorLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for Party A (hands over document ●)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Caption for Party B (hands over document ◆)"
+          }
+        },
+        "required": [],
+        "description": "Role captions shown under each party"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "outgoing": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Plate on Party A's rack"
+          },
+          "incoming": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Plate on Party B's rack"
+          }
+        },
+        "required": [],
+        "description": "Labels printed on the racks"
+      },
+      "actionProgress": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "How far the concrete action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      },
+      "annotations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "docA",
+                "docB",
+                "sequence"
+              ],
+              "description": "Scene element the annotation points at"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Annotation text"
+            }
+          },
+          "required": [
+            "target",
+            "text"
+          ],
+          "description": "Editorial annotation shown during the hold"
+        },
+        "minItems": 0,
+        "maxItems": 2,
+        "description": "Editorial callouts shown in the final hold (array replaces the previous value)"
+      },
+      "finalState": {
+        "type": "string",
+        "enum": [
+          "formality-provided",
+          "formality-pending",
+          "sequence-to-examine"
+        ],
+        "description": "Status supplied for the hold: formality-provided (a tag \"Formality provided, as supplied\"), formality-pending (a tag \"Formality pending, as supplied\"; a dashed pending ring inside the indicated document's border — a neutral pending state only) or sequence-to-examine. No legal effect is inferred from any of them"
+      },
+      "pendingParty": {
+        "type": "string",
+        "enum": [
+          "A",
+          "B"
+        ],
+        "description": "Whose document carries the pending ring when the status is formality pending"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 6000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Elif Demir",
+        "role": "Party A"
+      },
+      {
+        "name": "Tomas Lind",
+        "role": "Party B"
+      }
+    ],
+    "offer": {
+      "reference": "DC-601",
+      "title": "Scenario steps (as supplied)"
+    },
+    "terms": [
+      {
+        "key": "step1",
+        "label": "Step 1",
+        "value": "Copies reviewed"
+      },
+      {
+        "key": "step2",
+        "label": "Step 2",
+        "value": "Pages numbered"
+      }
+    ],
+    "responses": [
+      {
+        "reference": "DC-602",
+        "text": "Scenario steps (as supplied)"
+      }
+    ],
+    "termsB": [
+      {
+        "key": "step1",
+        "label": "Step 1",
+        "value": "Copies reviewed"
+      },
+      {
+        "key": "step2",
+        "label": "Step 2",
+        "value": "Annex attached"
+      }
+    ],
+    "sequence": [
+      {
+        "event": "docA-sent",
+        "time": "Day 1, 10:00 (fictional)"
+      },
+      {
+        "event": "docB-sent",
+        "time": "Day 1, 10:05 (fictional)"
+      },
+      {
+        "event": "docA-received",
+        "time": "Day 1, 10:20 (fictional)"
+      },
+      {
+        "event": "docB-received",
+        "time": "Day 1, 10:25 (fictional)"
+      },
+      {
+        "event": "connected",
+        "time": "Formality provided (as supplied)"
+      }
+    ],
+    "actorLabels": {
+      "a": "Hands over DC-601",
+      "b": "Hands over DC-602"
+    },
+    "objectLabels": {
+      "outgoing": "Rack A",
+      "incoming": "Rack B"
+    },
+    "actionProgress": 1,
+    "annotations": [],
+    "finalState": "formality-provided",
+    "pendingParty": "B"
+  }
+}

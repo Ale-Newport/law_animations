@@ -1,0 +1,294 @@
+{
+  "animationId": "LAW-0476",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the steps are generic items of the given scenario as supplied, never a requirement of any law. Times are fictional labels. \"Formality provided\" and \"formality pending\" are supplied statuses only — a pending state is not a deficiency; no formality rule, no writing, notarial or registration requirement, no consequence and no jurisdiction is stated.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional facts, the story's end state; the lens enlarges the connection's station; its label, the supplied status \"Formality provided (as supplied)\", is substituted by the supplied alternative \"Formality pending (as supplied)\" and Party B's document takes the dashed pending ring (a neutral pending state only).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other fictional parties and generic steps, Party B's document sent first; the substitution runs the other way — \"formality pending\" becomes \"formality provided\", as supplied (the dashed pending ring leaves Party B's document).",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "DC-118",
+          "title": "Scenario steps (as supplied)"
+        },
+        "terms": [
+          {
+            "key": "step1",
+            "label": "Step 1",
+            "value": "Two copies printed"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2",
+            "value": "Copies exchanged"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "DC-119",
+            "text": "Scenario steps (as supplied)"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "step1",
+            "label": "Step 1",
+            "value": "Two copies printed"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2",
+            "value": "Cover page added"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "docB-sent",
+            "time": "Day 4, 09:30 (fictional)"
+          },
+          {
+            "event": "docA-sent",
+            "time": "Day 4, 09:40 (fictional)"
+          },
+          {
+            "event": "docB-received",
+            "time": "Day 4, 11:15 (fictional)"
+          },
+          {
+            "event": "docA-received",
+            "time": "Day 4, 11:20 (fictional)"
+          },
+          {
+            "event": "connected",
+            "time": "Formality pending (supplied)"
+          }
+        ],
+        "focusTarget": "connected",
+        "beforeValue": "Formality pending (supplied)",
+        "afterValue": "Formality provided (supplied)",
+        "statusBefore": "formality-pending",
+        "statusAfter": "formality-provided",
+        "pendingParty": "B",
+        "detailGeometry": {
+          "zoom": 2,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Both documents received and connected as supplied",
+          "marker": "Changed: the supplied status of the formality"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, references, document texts, step rows (three per document), time labels and context labels, all five events; long before and after labels; the pending ring on Party A's document. Capped (standing rule item 20; pre-cap value in production/scratch/contract-formation-09/LAW-0476.stress.precap.json): the after value only, 'Document A: formality pending (supplied)' (40 characters) → 'Formality pending for A (supplied)' (34). True driver: the lens on the connection's station at 1:1 — the 40-character after value takes a third line in the station's label chip, the receipt-plus-connection crop then grows taller than its printed content and the lens's fill drops under 0.40 (1080x1080: lensSparse, layout flagged); at 34 characters the crop's content fill is ≥ 0.40 (text 16.1 px, head box 81.1 px model). The after value is still longer than its baseline counterpart (31 characters) and every count is kept (3 + 3 steps, 5 events, one shared position).",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "DOCUMENT-2026-000417-A",
+          "title": "Scenario steps for document A, as supplied in the scenario"
+        },
+        "terms": [
+          {
+            "key": "step1",
+            "label": "Step 1 (as supplied in the scenario)",
+            "value": "Both copies reviewed (fictional)"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2 (as supplied in the scenario)",
+            "value": "Every page numbered (fictional)"
+          },
+          {
+            "key": "step3",
+            "label": "Step 3 (as supplied in the scenario)",
+            "value": "A cover page added (fictional)"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "DOCUMENT-2026-000417-B",
+            "text": "Scenario steps for document B, as supplied in the scenario"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "step1",
+            "label": "Step 1 (as supplied in the scenario)",
+            "value": "Both copies reviewed (fictional)"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2 (as supplied in the scenario)",
+            "value": "An annex attached (fictional)"
+          },
+          {
+            "key": "step3",
+            "label": "Step 3 (as supplied in the scenario)",
+            "value": "A cover page added (fictional)"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "docA-sent",
+            "time": "Day 1, 10:00, front desk (fictional)"
+          },
+          {
+            "event": "docB-sent",
+            "time": "Day 1, 10:05, front desk (fictional)"
+          },
+          {
+            "event": "docA-received",
+            "time": "Day 1, 10:20h (fictional)",
+            "position": 3
+          },
+          {
+            "event": "docB-received",
+            "time": "Day 1, 10:20h (fictional)",
+            "position": 3
+          },
+          {
+            "event": "connected",
+            "time": "Formality provided for both (supplied)"
+          }
+        ],
+        "focusTarget": "connected",
+        "beforeValue": "Formality provided for both (supplied)",
+        "afterValue": "Formality pending for A (supplied)",
+        "statusBefore": "formality-provided",
+        "statusAfter": "formality-pending",
+        "pendingParty": "A",
+        "detailGeometry": {
+          "zoom": 1.8,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Both documents received by the other party and connected as supplied",
+          "marker": "Changed: the supplied status of the formality for the two documents"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: la lupa amplía la estación de la conexión; su etiqueta, el estado aportado «Formalidad aportada», se sustituye por «Formalidad pendiente» y el documento de B toma el anillo discontinuo de pendiente (solo un estado pendiente neutro).",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Elif Demir",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomas Lind",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "DC-601",
+          "title": "Pasos del caso (aportados)"
+        },
+        "terms": [
+          {
+            "key": "step1",
+            "label": "Paso 1",
+            "value": "Copias revisadas"
+          },
+          {
+            "key": "step2",
+            "label": "Paso 2",
+            "value": "Hojas numeradas"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "DC-602",
+            "text": "Pasos del caso (aportados)"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "step1",
+            "label": "Paso 1",
+            "value": "Copias revisadas"
+          },
+          {
+            "key": "step2",
+            "label": "Paso 2",
+            "value": "Anexo adjunto"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "docA-sent",
+            "time": "Día 1, 10:00 (ficticio)"
+          },
+          {
+            "event": "docB-sent",
+            "time": "Día 1, 10:05 (ficticio)"
+          },
+          {
+            "event": "docA-received",
+            "time": "Día 1, 10:20 (ficticio)"
+          },
+          {
+            "event": "docB-received",
+            "time": "Día 1, 10:25 (ficticio)"
+          },
+          {
+            "event": "connected",
+            "time": "Formalidad aportada"
+          }
+        ],
+        "focusTarget": "connected",
+        "beforeValue": "Formalidad aportada",
+        "afterValue": "Formalidad pendiente (dato del supuesto)",
+        "statusBefore": "formality-provided",
+        "statusAfter": "formality-pending",
+        "pendingParty": "B",
+        "detailGeometry": {
+          "zoom": 1.8,
+          "placement": "auto"
+        },
+        "contextLabels": {
+          "context": "Ambos documentos recibidos y conectados (según lo aportado)",
+          "marker": "Cambio: el estado aportado de la formalidad"
+        }
+      }
+    }
+  ]
+}

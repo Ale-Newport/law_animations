@@ -1,0 +1,319 @@
+{
+  "animationId": "LAW-0454",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Times are fictional labels. The rule joining the lanes marks a supplied milestone only; events on either side of it are positions in the supplied order, and nothing states what follows from them.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional proposal to supply chairs: the proposal reaches B; B's response travels back to A; the supplied milestone comes last, so the clock's hand reaches its mark at the last row and every event lies before the rule. The tracer ends on the clock, which swells.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a garden-services proposal between different parties with all five events. The proposal's receipt and the reply's sending are supplied with one position (shown across B's lane at one time coordinate, order to be examined); the supplied milestone falls between the reply's sending and its receipt, so the rule crosses the diagram mid-way. A supplied sequence link joins the proposal and the reply; the tracer follows proposer → proposal → reply → proposer with the reply in focus.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "buzz",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "SV-118",
+          "title": "Proposal of garden services"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Service",
+            "value": "Garden maintenance"
+          },
+          {
+            "key": "payment",
+            "label": "Monthly fee (hypothetical)",
+            "value": "95"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "RS-118",
+            "text": "Reply to proposal SV-118"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "proposal-sent",
+            "time": "Day 4, 08:30 (fictional)"
+          },
+          {
+            "event": "proposal-received",
+            "time": "Day 4, 12:15 (fictional)",
+            "position": 2
+          },
+          {
+            "event": "response-sent",
+            "time": "Day 4, 12:15 (fictional)",
+            "position": 2
+          },
+          {
+            "event": "milestone",
+            "time": "Day 6, 18:00 (fictional)"
+          },
+          {
+            "event": "response-received",
+            "time": "Day 7, 11:30 (fictional)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "offeror",
+            "label": "Proposer"
+          },
+          {
+            "id": "offeree",
+            "label": "Recipient"
+          },
+          {
+            "id": "proposal",
+            "label": "Proposal"
+          },
+          {
+            "id": "response",
+            "label": "Reply"
+          },
+          {
+            "id": "clock",
+            "label": "Milestone as supplied (illustrative)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "offeror",
+            "to": "proposal",
+            "kind": "communication"
+          },
+          {
+            "from": "proposal",
+            "to": "offeree",
+            "kind": "communication"
+          },
+          {
+            "from": "offeree",
+            "to": "response",
+            "kind": "communication"
+          },
+          {
+            "from": "response",
+            "to": "offeror",
+            "kind": "communication"
+          },
+          {
+            "from": "proposal",
+            "to": "response",
+            "kind": "sequence"
+          }
+        ],
+        "focusElement": "response",
+        "traversalOrder": [
+          "offeror",
+          "proposal",
+          "response",
+          "offeror"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, element labels, relation captions, references and time labels, three terms and all five events (the milestone between the proposal's receipt and the reply's sending). Standing coordinator rule item 20 (caps with the true reason). The pre-cap values are kept in LAW-0454.presets.precap.json. Each capped field was restored alone to its pre-cap value on top of the shipped preset and rendered (layout verdict, text px, smallest rendered head): quantity term 12 -> 38 characters and delivery term 13 -> 39: at 1:1 the taller proposal card no longer fits on either side of the milestone's rule (cards, rule:text). Milestone time label 25 -> 35: at 1:1 the two communication captions find no clear place (cap1, cap3) and the smallest layout drops the portraits to 40.6 px. With every capped field restored: 1:1 has no layout (rows, cap1, cap2; heads 29.0 px). Every other field (names, element labels, relation captions, references, title, item term, the other time labels) is not capped; every capped value stays longer than baseline (the milestone label 25 against 24; one more character in any of the forms tried — \"Day 3, 17:30h (fictional)\", \"Day 3, 11:11 h (fictional)\", \"Day 3 at 17:30 (fictional)\" — wraps its chip and fails 1:1 as above); every count is kept. Shipped: 16:9 18 px, heads 56.2 px; 9:16 18 px, 62.6 px; 1:1 16.1 px, 56.0 px (rendered).",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "PR-2026-000417-B",
+          "title": "Proposal to supply ergonomic office furniture to the regional branch offices"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Item description",
+            "value": "Ergonomic oak office chairs with adjustable armrests"
+          },
+          {
+            "key": "quantity",
+            "label": "Quantity requested",
+            "value": "Forty chairs"
+          },
+          {
+            "key": "delivery",
+            "label": "Delivery window",
+            "value": "Days 10 to 14"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "RS-2026-000417-B",
+            "text": "Reply to the proposal PROPOSAL-2026-000417-B to supply ergonomic furniture"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "proposal-sent",
+            "time": "Day 1, 09:00, head office (fictional)"
+          },
+          {
+            "event": "proposal-received",
+            "time": "Day 1, 16:05, reception desk (fictional)"
+          },
+          {
+            "event": "milestone",
+            "time": "Day 3, 17:30 (fictitious)"
+          },
+          {
+            "event": "response-sent",
+            "time": "Day 3, 10:20, branch office (fictional)"
+          },
+          {
+            "event": "response-received",
+            "time": "Day 4, 08:45, reception desk (fictional)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "offeror",
+            "label": "Sends the proposal and receives the reply"
+          },
+          {
+            "id": "offeree",
+            "label": "Addressee who sends the reply back"
+          },
+          {
+            "id": "proposal",
+            "label": "Proposal (printed document)"
+          },
+          {
+            "id": "response",
+            "label": "Reply message (printed)"
+          },
+          {
+            "id": "clock",
+            "label": "Milestone exactly as supplied (illustrative)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "set beside the proposal (as supplied)",
+          "communication": "communication between the parties",
+          "sequence": "sequence of the events as supplied",
+          "causal": "causal link as supplied by the author"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: la propuesta llega a B; la respuesta vuelve a A; el hito suministrado es el último, de modo que el reloj llega a su marca en la última fila.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Nadia Park",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomás Ribeiro",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "OF-2041",
+          "title": "Oferta de suministro"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Artículo",
+            "value": "Sillas de roble"
+          },
+          {
+            "key": "quantity",
+            "label": "Cantidad",
+            "value": "40"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "RS-2041",
+            "text": "Respuesta a la propuesta OF-2041"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "proposal-received",
+            "time": "Día 1, 09:00 (ficticio)"
+          },
+          {
+            "event": "response-sent",
+            "time": "Día 2, 10:00 (ficticio)"
+          },
+          {
+            "event": "response-received",
+            "time": "Día 2, 15:00 (ficticio)"
+          },
+          {
+            "event": "milestone",
+            "time": "Día 3, 12:00 (ficticio)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "offeror",
+            "label": "Proponente"
+          },
+          {
+            "id": "offeree",
+            "label": "Destinatario"
+          },
+          {
+            "id": "proposal",
+            "label": "Propuesta"
+          },
+          {
+            "id": "response",
+            "label": "Respuesta"
+          },
+          {
+            "id": "clock",
+            "label": "Hito según lo aportado (ilustrativo)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación (según lo aportado)",
+          "communication": "comunicación",
+          "sequence": "secuencia (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

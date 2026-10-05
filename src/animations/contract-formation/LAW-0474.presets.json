@@ -1,0 +1,370 @@
+{
+  "animationId": "LAW-0474",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the steps are generic items of the given scenario as supplied, never a requirement of any law. Times are fictional labels. \"Formality provided\" and \"formality pending\" are supplied statuses only — a pending state is not a deficiency; no formality rule, no writing, notarial or registration requirement, no consequence and no jurisdiction is stated.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional documents on two lanes: the documents cross between the lanes and each is connected with its steps as supplied in the scenario; the supplied status is formality provided.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties and steps, Party B's document sent first, focus on Party A's document, another traversal; the supplied status formality pending (a dashed pending ring round Party B's document and a footer chip — a neutral pending state only).",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "DC-118",
+          "title": "Scenario steps (as supplied)"
+        },
+        "terms": [
+          {
+            "key": "step1",
+            "label": "Step 1",
+            "value": "Two copies printed"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2",
+            "value": "Copies exchanged"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "DC-119",
+            "text": "Scenario steps (as supplied)"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "step1",
+            "label": "Step 1",
+            "value": "Two copies printed"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2",
+            "value": "Cover page added"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "docB-sent",
+            "time": "Day 4, 09:30 (fictional)"
+          },
+          {
+            "event": "docA-sent",
+            "time": "Day 4, 09:40 (fictional)"
+          },
+          {
+            "event": "docB-received",
+            "time": "Day 4, 11:15 (fictional)"
+          },
+          {
+            "event": "docA-received",
+            "time": "Day 4, 11:20 (fictional)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Hands over DC-118"
+          },
+          {
+            "id": "partyB",
+            "label": "Hands over DC-119"
+          },
+          {
+            "id": "docA",
+            "label": "Document A"
+          },
+          {
+            "id": "docB",
+            "label": "Document B"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyB",
+            "to": "docB",
+            "kind": "communication"
+          },
+          {
+            "from": "docB",
+            "to": "partyA",
+            "kind": "communication"
+          },
+          {
+            "from": "partyA",
+            "to": "docA",
+            "kind": "communication"
+          },
+          {
+            "from": "docA",
+            "to": "partyB",
+            "kind": "communication"
+          }
+        ],
+        "focusElement": "docA",
+        "traversalOrder": [
+          "partyB",
+          "docB",
+          "partyA",
+          "docA",
+          "partyB"
+        ],
+        "status": "formality-pending",
+        "pendingParty": "B"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, element labels, relation captions, references, titles, steps and time labels, three steps per document; the two receipts supplied with one position (order to be examined); the pending status on Party A's document.",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "DOCUMENT-2026-000417-A",
+          "title": "Scenario steps for document A, as supplied in the scenario"
+        },
+        "terms": [
+          {
+            "key": "step1",
+            "label": "Step 1 (as supplied in the scenario)",
+            "value": "Both copies reviewed (fictional)"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2 (as supplied in the scenario)",
+            "value": "Every page numbered (fictional)"
+          },
+          {
+            "key": "step3",
+            "label": "Step 3 (as supplied in the scenario)",
+            "value": "A cover page added (fictional)"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "DOCUMENT-2026-000417-B",
+            "text": "Scenario steps for document B, as supplied in the scenario"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "step1",
+            "label": "Step 1 (as supplied in the scenario)",
+            "value": "Both copies reviewed (fictional)"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2 (as supplied in the scenario)",
+            "value": "An annex attached (fictional)"
+          },
+          {
+            "key": "step3",
+            "label": "Step 3 (as supplied in the scenario)",
+            "value": "A cover page added (fictional)"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "docA-sent",
+            "time": "Day 1, 10:00, front desk (fictional)"
+          },
+          {
+            "event": "docB-sent",
+            "time": "Day 1, 10:05, front desk (fictional)"
+          },
+          {
+            "event": "docA-received",
+            "time": "Day 1, 10:20h (fictional)",
+            "position": 3
+          },
+          {
+            "event": "docB-received",
+            "time": "Day 1, 10:20h (fictional)",
+            "position": 3
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Hands over Party A's own document"
+          },
+          {
+            "id": "partyB",
+            "label": "Hands over Party B's own document"
+          },
+          {
+            "id": "docA",
+            "label": "Document A, as supplied"
+          },
+          {
+            "id": "docB",
+            "label": "Document B, as supplied"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "docA",
+            "kind": "communication"
+          },
+          {
+            "from": "docA",
+            "to": "partyB",
+            "kind": "communication"
+          },
+          {
+            "from": "partyB",
+            "to": "docB",
+            "kind": "communication"
+          },
+          {
+            "from": "docB",
+            "to": "partyA",
+            "kind": "communication"
+          }
+        ],
+        "focusElement": "docB",
+        "relationLabels": {
+          "relation": "relation between the documents (given)",
+          "communication": "communication between the parties",
+          "sequence": "sequence of the events as supplied",
+          "causal": "causal link as supplied by the author"
+        },
+        "traversalOrder": [
+          "partyA",
+          "docA",
+          "partyB",
+          "docB",
+          "partyA"
+        ],
+        "status": "formality-pending",
+        "pendingParty": "A"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: los documentos en dos carriles se cruzan y cada uno se conecta con sus pasos aportados en el supuesto; el estado aportado es formalidad aportada.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Elif Demir",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomas Lind",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "DC-601",
+          "title": "Pasos del caso (aportados)"
+        },
+        "terms": [
+          {
+            "key": "step1",
+            "label": "Paso 1",
+            "value": "Copias revisadas"
+          },
+          {
+            "key": "step2",
+            "label": "Paso 2",
+            "value": "Hojas numeradas"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "DC-602",
+            "text": "Pasos del caso (aportados)"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "step1",
+            "label": "Paso 1",
+            "value": "Copias revisadas"
+          },
+          {
+            "key": "step2",
+            "label": "Paso 2",
+            "value": "Anexo adjunto"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "docA-sent",
+            "time": "Día 1, 10:00 (ficticio)"
+          },
+          {
+            "event": "docB-sent",
+            "time": "Día 1, 10:05 (ficticio)"
+          },
+          {
+            "event": "docA-received",
+            "time": "Día 1, 10:20 (ficticio)"
+          },
+          {
+            "event": "docB-received",
+            "time": "Día 1, 10:25 (ficticio)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Entrega DC-601"
+          },
+          {
+            "id": "partyB",
+            "label": "Entrega DC-602"
+          },
+          {
+            "id": "docA",
+            "label": "Documento A"
+          },
+          {
+            "id": "docB",
+            "label": "Documento B"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación (según lo aportado)",
+          "communication": "comunicación",
+          "sequence": "secuencia (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

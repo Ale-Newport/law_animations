@@ -1,0 +1,652 @@
+{
+  "id": "LAW-0454",
+  "slug": "contract-formation-04-mechanism",
+  "title": "Proposal and a supplied milestone — journeys on two lanes and a clock's mark",
+  "titleEs": "Vencimiento de propuesta — Mecanismo o relación explicada",
+  "category": "contract-formation",
+  "categoryName": "Formación del contrato",
+  "motif": "Vencimiento de propuesta",
+  "treatment": "mechanism",
+  "family": "spatial-mechanism",
+  "description": "A time-lane diagram: Party A's lane and Party B's lane, the supplied order running along both, and an editable clock as a component of its own. The proposal (●) travels on its solid line from A's lane to B's lane and the response (◆) from B's lane back to A's; the events are marked on the lanes with their fictional time labels in the supplied order. The clock's hand turns one step per row and reaches its single mark at the milestone's row, where a solid rule joins the lanes (the supplied milestone, with its time label). Only the supplied relationships are drawn and captioned; a tracer follows the supplied traversal order and the focus element swells. Events before and after the rule are positions in the supplied order only; no consequence is shown or inferred.",
+  "tags": [
+    "proposal",
+    "response",
+    "milestone",
+    "clock",
+    "lanes",
+    "sequence",
+    "relations",
+    "tracer"
+  ],
+  "durations": {
+    "defaultMs": 7000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/contract-formation/kits/hito-propuesta.js",
+    "src/primitives/badges.js",
+    "src/primitives/annotate.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Display name (fictional by default)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Descriptive role label (not a legal finding)"
+            },
+            "appearance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "skin": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "description": "Skin tone index 0–5"
+                },
+                "hair": {
+                  "type": "string",
+                  "enum": [
+                    "short",
+                    "long",
+                    "bun",
+                    "curly",
+                    "buzz",
+                    "scarf"
+                  ],
+                  "description": "Hair style"
+                },
+                "hairColor": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6,
+                  "description": "Hair colour index 0–6"
+                },
+                "outfit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7,
+                  "description": "Outfit colour index 0–7"
+                },
+                "glasses": {
+                  "type": "boolean",
+                  "description": "Wears glasses"
+                }
+              },
+              "required": [],
+              "description": "Optional appearance overrides; defaults derive from the seed"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "description": "A fictional person or party"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Offeror (first, sends the offer) and offeree (second, the addressee); fictional by default (array replaces the previous value)"
+      },
+      "offer": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Reference printed on the sheet (fictional)"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Heading printed on the sheet, e.g. \"Offer to supply\""
+          }
+        },
+        "required": [
+          "reference",
+          "title"
+        ],
+        "description": "The communicated offer sheet"
+      },
+      "terms": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "item",
+                "quantity",
+                "unitPrice",
+                "delivery",
+                "payment",
+                "other"
+              ],
+              "description": "Role of the term (quantity × unitPrice enables a computed total in the inspect treatment)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Printed label, e.g. \"Unit price (hypothetical)\"; label hypothetical amounts as hypothetical"
+            },
+            "value": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Printed value; numbers only for quantity/unitPrice if a computed total is wanted"
+            }
+          },
+          "required": [
+            "key",
+            "label",
+            "value"
+          ],
+          "description": "One term of the offer as printed on the sheet"
+        },
+        "minItems": 2,
+        "maxItems": 4,
+        "description": "Terms printed on the offer, in order (2–4). They travel unchanged from offeror to offeree (array replaces the previous value)"
+      },
+      "responses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "reference": {
+              "type": "string",
+              "maxLength": 32,
+              "description": "Reference printed on the response message (fictional)"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 90,
+              "description": "Text printed on the response message, as supplied"
+            }
+          },
+          "required": [
+            "reference",
+            "text"
+          ],
+          "description": "Response message"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "The response message Party B sends back (its reference and printed text). Nothing states what follows from it (array replaces the previous value)"
+      },
+      "sequence": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "type": "string",
+              "enum": [
+                "proposal-sent",
+                "proposal-received",
+                "response-sent",
+                "response-received",
+                "milestone"
+              ],
+              "description": "Which event"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Fictional time label as supplied, e.g. \"Day 3, 10:00 (fictional)\""
+            },
+            "position": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Optional position in the supplied order (1 = first). Events given the same position are shown together, order to be examined"
+            }
+          },
+          "required": [
+            "event",
+            "time"
+          ],
+          "description": "One event of the supplied sequence. The order of the list is the order shown; events with the same position are shown together as an order to be examined. Times are fictional labels, never computed or compared"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "The sequence as supplied: sent and received events and the supplied milestone, in the order shown (2–5). The clock reaches its mark at the milestone's station. The order is depicted, never resolved (array replaces the previous value)"
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "offeror",
+                "offeree",
+                "proposal",
+                "response",
+                "clock"
+              ],
+              "description": "Component id"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Visible label"
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ],
+          "description": "Component"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Component labels; ids are fixed by the scene, labels are editable (array replaces the previous value)"
+      },
+      "relationships": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "offeror",
+                "offeree",
+                "proposal",
+                "response",
+                "clock"
+              ],
+              "description": "Source component id"
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "offeror",
+                "offeree",
+                "proposal",
+                "response",
+                "clock"
+              ],
+              "description": "Target component id"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "relation",
+                "communication",
+                "sequence",
+                "causal"
+              ],
+              "description": "relation | communication | sequence | causal (causal only when the author supplies it)"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "kind"
+          ],
+          "description": "Relationship"
+        },
+        "minItems": 1,
+        "maxItems": 8,
+        "description": "Explicit relationships between components; kind controls line style (causal only when supplied) (array replaces the previous value)"
+      },
+      "focusElement": {
+        "type": "string",
+        "enum": [
+          "offeror",
+          "offeree",
+          "proposal",
+          "response",
+          "clock"
+        ],
+        "description": "Component enlarged while the tracer passes"
+      },
+      "relationLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for plain relations"
+          },
+          "communication": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for communications"
+          },
+          "sequence": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for sequence links"
+          },
+          "causal": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "Caption for supplied causal links"
+          }
+        },
+        "required": [],
+        "description": "Override the caption used for each relation kind"
+      },
+      "traversalOrder": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "offeror",
+            "offeree",
+            "proposal",
+            "response",
+            "clock"
+          ],
+          "description": "Component id"
+        },
+        "minItems": 2,
+        "maxItems": 8,
+        "description": "Order in which the tracer visits components (array replaces the previous value)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "parties": [
+      {
+        "name": "Nadia Park",
+        "role": "Party A"
+      },
+      {
+        "name": "Tomás Ribeiro",
+        "role": "Party B"
+      }
+    ],
+    "offer": {
+      "reference": "OF-2041",
+      "title": "Offer to supply"
+    },
+    "terms": [
+      {
+        "key": "item",
+        "label": "Item",
+        "value": "Oak office chairs"
+      },
+      {
+        "key": "quantity",
+        "label": "Quantity",
+        "value": "40"
+      }
+    ],
+    "responses": [
+      {
+        "reference": "RS-2041",
+        "text": "Reply to proposal OF-2041"
+      }
+    ],
+    "sequence": [
+      {
+        "event": "proposal-received",
+        "time": "Day 1, 09:00 (fictional)"
+      },
+      {
+        "event": "response-sent",
+        "time": "Day 2, 10:00 (fictional)"
+      },
+      {
+        "event": "response-received",
+        "time": "Day 2, 15:00 (fictional)"
+      },
+      {
+        "event": "milestone",
+        "time": "Day 3, 12:00 (fictional)"
+      }
+    ],
+    "elements": [
+      {
+        "id": "offeror",
+        "label": "Proposer"
+      },
+      {
+        "id": "offeree",
+        "label": "Addressee"
+      },
+      {
+        "id": "proposal",
+        "label": "Proposal"
+      },
+      {
+        "id": "response",
+        "label": "Response"
+      },
+      {
+        "id": "clock",
+        "label": "Milestone as supplied (illustrative)"
+      }
+    ],
+    "relationships": [
+      {
+        "from": "offeror",
+        "to": "proposal",
+        "kind": "communication"
+      },
+      {
+        "from": "proposal",
+        "to": "offeree",
+        "kind": "communication"
+      },
+      {
+        "from": "offeree",
+        "to": "response",
+        "kind": "communication"
+      },
+      {
+        "from": "response",
+        "to": "offeror",
+        "kind": "communication"
+      }
+    ],
+    "focusElement": "clock",
+    "relationLabels": {
+      "relation": "relation (as supplied)",
+      "communication": "communication",
+      "sequence": "sequence (as supplied)",
+      "causal": "causal (as supplied)"
+    },
+    "traversalOrder": [
+      "offeror",
+      "proposal",
+      "offeree",
+      "response",
+      "offeror",
+      "clock"
+    ]
+  }
+}

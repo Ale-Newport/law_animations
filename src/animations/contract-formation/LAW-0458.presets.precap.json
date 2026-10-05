@@ -1,0 +1,302 @@
+{
+  "animationId": "LAW-0458",
+  "note": "Pre-cap copy for review only (standing rule item 20): identical to the presets file except that long-labels-stress carries its values before the caps. Not loaded by the library.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional exchange: A's commitment to supply 40 chairs and B's commitment to pay travel on their own lines between the two lanes and cross; each card prints its holder. Four supplied communications; the tracer follows A → A's commitment → B → B's commitment → A with A's commitment in focus.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a garden-maintenance promise between different parties; only A's promise is in the supplied sequence (unilateral configuration), so one card and one line are drawn, with no empty place for a second; two supplied communications.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "short",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "G-118",
+          "title": "Maintain the garden in May"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Service",
+            "value": "Garden maintenance"
+          },
+          {
+            "key": "delivery",
+            "label": "Visits",
+            "value": "Weekly"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "G-119",
+            "text": "Pay a monthly fee (hypothetical)"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "commitmentA-sent",
+            "time": "Day 4, 08:30 (fictional)"
+          },
+          {
+            "event": "commitmentA-received",
+            "time": "Day 4, 12:15 (fictional)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Holder of G-118"
+          },
+          {
+            "id": "partyB",
+            "label": "Addressee"
+          },
+          {
+            "id": "commitmentA",
+            "label": "A's promise"
+          },
+          {
+            "id": "commitmentB",
+            "label": "B's commitment"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "commitmentA",
+            "kind": "communication"
+          },
+          {
+            "from": "commitmentA",
+            "to": "partyB",
+            "kind": "communication"
+          }
+        ],
+        "focusElement": "commitmentA",
+        "traversalOrder": [
+          "partyA",
+          "commitmentA",
+          "partyB"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, element labels, relation captions, references, titles and time labels, three terms; the two receipts are supplied with one position (order to be examined); a supplied plain relation joins the two commitments.",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "COMMIT-2026-000417-A",
+          "title": "Supply ergonomic office furniture to the regional branch offices"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Item description",
+            "value": "Ergonomic oak office chairs with adjustable armrests"
+          },
+          {
+            "key": "quantity",
+            "label": "Quantity committed",
+            "value": "Forty chairs, one per desk, all floors"
+          },
+          {
+            "key": "delivery",
+            "label": "Delivery window",
+            "value": "Between Day 10 and Day 14 after receipt"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "COMMIT-2026-000417-B",
+            "text": "Pay for the forty ergonomic chairs within the window stated on the card, as supplied"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "commitmentA-sent",
+            "time": "Day 1, 09:00, head office (fictional)"
+          },
+          {
+            "event": "commitmentB-sent",
+            "time": "Day 1, 09:30, branch office (fictional)"
+          },
+          {
+            "event": "commitmentA-received",
+            "time": "Day 1, 16:05, reception desk (fictional)",
+            "position": 3
+          },
+          {
+            "event": "commitmentB-received",
+            "time": "Day 1, 16:05, reception desk (fictional)",
+            "position": 3
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Holder of the furniture supply commitment"
+          },
+          {
+            "id": "partyB",
+            "label": "Holder of the payment commitment"
+          },
+          {
+            "id": "commitmentA",
+            "label": "Party A's commitment (printed card)"
+          },
+          {
+            "id": "commitmentB",
+            "label": "Party B's commitment (printed card)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "commitmentA",
+            "kind": "communication"
+          },
+          {
+            "from": "commitmentA",
+            "to": "partyB",
+            "kind": "communication"
+          },
+          {
+            "from": "partyB",
+            "to": "commitmentB",
+            "kind": "communication"
+          },
+          {
+            "from": "commitmentB",
+            "to": "partyA",
+            "kind": "communication"
+          },
+          {
+            "from": "commitmentA",
+            "to": "commitmentB",
+            "kind": "relation"
+          }
+        ],
+        "relationLabels": {
+          "relation": "exchanged together (as supplied, file)",
+          "communication": "communication between the parties",
+          "sequence": "sequence of the events as supplied",
+          "causal": "causal link as supplied by the author"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: el compromiso de A de suministrar 40 sillas y el de B de pagarlas viajan por sus líneas entre los dos carriles y se cruzan; cada tarjeta muestra su titular.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Nadia Park",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomás Ribeiro",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "C-101",
+          "title": "Suministrar 40 sillas"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Artículo",
+            "value": "Sillas de roble"
+          },
+          {
+            "key": "quantity",
+            "label": "Cantidad",
+            "value": "40"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "C-102",
+            "text": "Pagar las 40 sillas"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "commitmentA-sent",
+            "time": "Día 1, 09:00 (ficticio)"
+          },
+          {
+            "event": "commitmentB-sent",
+            "time": "Día 1, 09:30 (ficticio)"
+          },
+          {
+            "event": "commitmentA-received",
+            "time": "Día 1, 11:00 (ficticio)"
+          },
+          {
+            "event": "commitmentB-received",
+            "time": "Día 1, 11:30 (ficticio)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Titular de C-101"
+          },
+          {
+            "id": "partyB",
+            "label": "Titular de C-102"
+          },
+          {
+            "id": "commitmentA",
+            "label": "Compromiso de A"
+          },
+          {
+            "id": "commitmentB",
+            "label": "Compromiso de B"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación (según lo aportado)",
+          "communication": "comunicación",
+          "sequence": "secuencia (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

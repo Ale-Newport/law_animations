@@ -1,0 +1,372 @@
+{
+  "animationId": "LAW-0478",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the rows on the devices are generic placeholders, never real terms; times are fictional labels. \"Action recorded (as supplied)\", \"informed action\" and \"presentation to be examined\" are supplied labels only — the latter a pending question, never a finding or a deficiency. No rule on online acceptance, no consent standard, no enforceability and no jurisdiction is stated.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional devices on two lanes: the screen crosses to Party B and opens first (placeholder terms and a generic button), then the action device crosses to Party A and opens (the same button, pressed: action recorded, as supplied).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties, three placeholder rows, focus on the screen, another traversal; the supplied status presentation to be examined (a dashed pending ring round Party A's screen and a footer chip — a supplied, pending question only).",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "SC-118",
+          "title": "Placeholder terms"
+        },
+        "terms": [
+          {
+            "key": "t1",
+            "label": "Term 1",
+            "value": "(supplied text)"
+          },
+          {
+            "key": "t2",
+            "label": "Term 2",
+            "value": "(supplied text)"
+          },
+          {
+            "key": "t3",
+            "label": "Term 3",
+            "value": "(supplied text)"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "AC-119",
+            "text": "Button press"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "button",
+            "label": "Button",
+            "value": "generic"
+          },
+          {
+            "key": "time",
+            "label": "Time",
+            "value": "09:42 h (fictional)"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "screen-sent",
+            "time": "Day 4, 09:30 (fictional)"
+          },
+          {
+            "event": "screen-received",
+            "time": "Day 4, 09:31 (fictional)"
+          },
+          {
+            "event": "action-sent",
+            "time": "Day 4, 09:42 (fictional)"
+          },
+          {
+            "event": "action-received",
+            "time": "Day 4, 09:43 (fictional)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Shows screen SC-118"
+          },
+          {
+            "id": "partyB",
+            "label": "Sends action AC-119"
+          },
+          {
+            "id": "screen",
+            "label": "Screen A"
+          },
+          {
+            "id": "action",
+            "label": "Action B"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "screen",
+            "kind": "communication"
+          },
+          {
+            "from": "screen",
+            "to": "partyB",
+            "kind": "communication"
+          },
+          {
+            "from": "partyB",
+            "to": "action",
+            "kind": "communication"
+          },
+          {
+            "from": "action",
+            "to": "partyA",
+            "kind": "communication"
+          }
+        ],
+        "focusElement": "screen",
+        "traversalOrder": [
+          "screen",
+          "partyB",
+          "action",
+          "partyA"
+        ],
+        "status": "presentation-to-examine",
+        "pendingParty": "A"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, element labels, relation captions, references, headings, rows and time labels, three rows per device; the pending status on Party A's screen. (No shared position here: with the screen's receipt and the action's sending in one position, relation caption 1 finds no clear place at 1:1 — layout flag cap1 at 16.1 px; a shared position is covered by the test-only parameter set in tests/animations/LAW-0478.test.js.)",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A (screen)"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B (user)"
+          }
+        ],
+        "offer": {
+          "reference": "SCREEN-2026-000417-A",
+          "title": "Placeholder terms shown on screen A, as supplied"
+        },
+        "terms": [
+          {
+            "key": "term1-stress",
+            "label": "Term 1 (placeholder)",
+            "value": "(supplied text, fictional)"
+          },
+          {
+            "key": "term2-stress",
+            "label": "Term 2 (placeholder)",
+            "value": "(supplied text, fictional)"
+          },
+          {
+            "key": "term3-stress",
+            "label": "Term 3 (placeholder)",
+            "value": "(supplied text, fictional)"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "ACTION-2026-000417-B",
+            "text": "Generic button pressed by the user, as supplied"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "button-stress",
+            "label": "Generic button",
+            "value": "pressed once (fictional)"
+          },
+          {
+            "key": "time-stress",
+            "label": "Time of the action",
+            "value": "10:05 h, front desk (fictional)"
+          },
+          {
+            "key": "device-stress",
+            "label": "Device used",
+            "value": "shared tablet (fictional)"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "screen-sent",
+            "time": "Day 1, 10:00, front desk (fictional)"
+          },
+          {
+            "event": "screen-received",
+            "time": "Day 1, 10:01, front desk (fictional)"
+          },
+          {
+            "event": "action-sent",
+            "time": "Day 1, 10:05, front desk (fictional)"
+          },
+          {
+            "event": "action-received",
+            "time": "Day 1, 10:06, front desk (fictional)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Shows Party A's own screen to Party B"
+          },
+          {
+            "id": "partyB",
+            "label": "Sends Party B's own action to Party A"
+          },
+          {
+            "id": "screen",
+            "label": "Screen A, as supplied"
+          },
+          {
+            "id": "action",
+            "label": "Action B, as supplied"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "partyA",
+            "to": "screen",
+            "kind": "communication"
+          },
+          {
+            "from": "screen",
+            "to": "partyB",
+            "kind": "communication"
+          },
+          {
+            "from": "partyB",
+            "to": "action",
+            "kind": "communication"
+          },
+          {
+            "from": "action",
+            "to": "partyA",
+            "kind": "communication"
+          }
+        ],
+        "focusElement": "action",
+        "relationLabels": {
+          "relation": "relation between the devices (given)",
+          "communication": "communication between the parties",
+          "sequence": "sequence of the events as supplied",
+          "causal": "causal link as supplied by the author"
+        },
+        "traversalOrder": [
+          "partyA",
+          "screen",
+          "partyB",
+          "action",
+          "partyA"
+        ],
+        "status": "presentation-to-examine",
+        "pendingParty": "A"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: la pantalla pasa al carril de B y se abre primero (términos de ejemplo y un botón genérico); después la acción pasa al carril de A y se abre (acción registrada según lo aportado).",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Nadia Okafor",
+            "role": "Parte A"
+          },
+          {
+            "name": "Luca Ferri",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "SC-701",
+          "title": "Términos en pantalla"
+        },
+        "terms": [
+          {
+            "key": "term1",
+            "label": "Término 1",
+            "value": "(aportado)"
+          },
+          {
+            "key": "term2",
+            "label": "Término 2",
+            "value": "(aportado)"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "AC-702",
+            "text": "Acción del usuario"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "button",
+            "label": "Botón",
+            "value": "genérico"
+          },
+          {
+            "key": "time",
+            "label": "Hora",
+            "value": "10:05 h (ficticia)"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "screen-sent",
+            "time": "Día 1, 10:00 (ficticio)"
+          },
+          {
+            "event": "screen-received",
+            "time": "Día 1, 10:01 (ficticio)"
+          },
+          {
+            "event": "action-sent",
+            "time": "Día 1, 10:05 (ficticio)"
+          },
+          {
+            "event": "action-received",
+            "time": "Día 1, 10:06 (ficticio)"
+          }
+        ],
+        "elements": [
+          {
+            "id": "partyA",
+            "label": "Muestra la pantalla SC-701"
+          },
+          {
+            "id": "partyB",
+            "label": "Envía la acción AC-702"
+          },
+          {
+            "id": "screen",
+            "label": "Pantalla A"
+          },
+          {
+            "id": "action",
+            "label": "Acción B"
+          }
+        ],
+        "relationLabels": {
+          "relation": "relación (según lo aportado)",
+          "communication": "comunicación",
+          "sequence": "secuencia (según lo aportado)",
+          "causal": "causal (según lo aportado)"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,363 @@
+{
+  "animationId": "LAW-0475",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the steps are generic items of the given scenario as supplied, never a requirement of any law. Times are fictional labels. \"Formality provided\" and \"formality pending\" are supplied statuses only — a pending state is not a deficiency; no formality rule, no writing, notarial or registration requirement, no consequence and no jurisdiction is stated.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional documents in two identical stages: the documents cross and are connected with their steps in both; only the supplied status differs — formality provided in A, formality pending in B (a dashed pending ring round Party B's document, a neutral pending state only).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties and steps, Party B's document sent first, captions, a changed fact, a shared fact and a neutral note; the same single changed fact.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "DC-118",
+          "title": "Scenario steps (as supplied)"
+        },
+        "terms": [
+          {
+            "key": "step1",
+            "label": "Step 1",
+            "value": "Two copies printed"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2",
+            "value": "Copies exchanged"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "DC-119",
+            "text": "Scenario steps (as supplied)"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "step1",
+            "label": "Step 1",
+            "value": "Two copies printed"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2",
+            "value": "Cover page added"
+          }
+        ],
+        "scenarioA": {
+          "label": "Formality provided",
+          "caption": "Both documents carry every supplied step",
+          "sequence": [
+            {
+              "event": "docB-sent",
+              "time": "Day 4, 09:30 (fictional)"
+            },
+            {
+              "event": "docA-sent",
+              "time": "Day 4, 09:40 (fictional)"
+            },
+            {
+              "event": "docB-received",
+              "time": "Day 4, 11:15 (fictional)"
+            },
+            {
+              "event": "docA-received",
+              "time": "Day 4, 11:20 (fictional)"
+            },
+            {
+              "event": "connected",
+              "time": "Formality provided (supplied)"
+            }
+          ],
+          "status": "formality-provided"
+        },
+        "scenarioB": {
+          "label": "Formality pending",
+          "caption": "The supplied status is marked as pending",
+          "sequence": [
+            {
+              "event": "docB-sent",
+              "time": "Day 4, 09:30 (fictional)"
+            },
+            {
+              "event": "docA-sent",
+              "time": "Day 4, 09:40 (fictional)"
+            },
+            {
+              "event": "docB-received",
+              "time": "Day 4, 11:15 (fictional)"
+            },
+            {
+              "event": "docA-received",
+              "time": "Day 4, 11:20 (fictional)"
+            },
+            {
+              "event": "connected",
+              "time": "Formality pending (supplied)"
+            }
+          ],
+          "status": "formality-pending"
+        },
+        "changedFact": "Only the supplied status of the formality differs",
+        "sharedFacts": [
+          "Same parties and same steps"
+        ],
+        "comparisonLabels": {
+          "guide": "Status: provided (A) · pending (B), as supplied",
+          "neutral": "Supplied statuses only"
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, labels, captions, references, titles, steps and time labels, three steps per document, two shared facts and a neutral note; the receipts supplied with one position (order to be examined). Capped (standing rule item 20; pre-cap values in production/scratch/contract-formation-09/LAW-0475.stress.precap.json): both party names, the step rows (labels 'Step n (as supplied in the scenario)'/'(as given)' → 'Step 1/2/3 (A)' and 'Step 1/2/3 (B)', one pattern for every row; values such as 'Copies reviewed (2)' → 'Copies reviewed: 2') and the changed fact (73 → 69 characters). True driver: the 1:1 frame's right-hand text column (comparison table + footer, where the documents' steps are printed while the stages show the documents as tokens) — pre-cap, the column needs table 508 + footer 560–618 design units against a 992-unit box at 16.1–17 px, so no stacked-column layout fits and the only fitting layout collapses the stages at the guide (people at the hold 0 px); with the cap the column fits at c = 0.38 (head box at the hold 51.9 px, text 16.1 px). Removing any one of the three capped groups brings the collapse back. Every capped field is still longer than its baseline counterpart and every count is kept (3 + 3 steps, 2 shared facts, 5 events, one shared position).",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "DOCUMENT-2026-000417-A",
+          "title": "Scenario steps for document A, as supplied in the scenario"
+        },
+        "terms": [
+          {
+            "key": "step1",
+            "label": "Step 1 (A)",
+            "value": "Copies reviewed: 2"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2 (A)",
+            "value": "Pages numbered: 2"
+          },
+          {
+            "key": "step3",
+            "label": "Step 3 (A)",
+            "value": "Cover added"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "DOCUMENT-2026-000417-B",
+            "text": "Scenario steps for document B, as supplied in the scenario"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "step1",
+            "label": "Step 1 (B)",
+            "value": "Copies reviewed: 2"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2 (B)",
+            "value": "Annex attached: 1"
+          },
+          {
+            "key": "step3",
+            "label": "Step 3 (B)",
+            "value": "Cover added"
+          }
+        ],
+        "scenarioA": {
+          "label": "Formality provided for both documents (supplied)",
+          "caption": "Both documents carry every supplied step, as supplied by the author",
+          "sequence": [
+            {
+              "event": "docA-sent",
+              "time": "Day 1, 10:00, front desk (fictional)"
+            },
+            {
+              "event": "docB-sent",
+              "time": "Day 1, 10:05, front desk (fictional)"
+            },
+            {
+              "event": "docA-received",
+              "time": "Day 1, 10:20 h (fictional)",
+              "position": 3
+            },
+            {
+              "event": "docB-received",
+              "time": "Day 1, 10:20 h (fictional)",
+              "position": 3
+            },
+            {
+              "event": "connected",
+              "time": "Formality provided for both (supplied)"
+            }
+          ],
+          "status": "formality-provided"
+        },
+        "scenarioB": {
+          "label": "Formality pending for document B (as supplied)",
+          "caption": "The supplied status of Party B's document is marked as pending",
+          "sequence": [
+            {
+              "event": "docA-sent",
+              "time": "Day 1, 10:00, front desk (fictional)"
+            },
+            {
+              "event": "docB-sent",
+              "time": "Day 1, 10:05, front desk (fictional)"
+            },
+            {
+              "event": "docA-received",
+              "time": "Day 1, 10:20 h (fictional)",
+              "position": 3
+            },
+            {
+              "event": "docB-received",
+              "time": "Day 1, 10:20 h (fictional)",
+              "position": 3
+            },
+            {
+              "event": "connected",
+              "time": "Formality pending, document B (supplied)"
+            }
+          ],
+          "status": "formality-pending"
+        },
+        "changedFact": "Only the supplied status of the formality differs between the scenes",
+        "sharedFacts": [
+          "Same parties and the same two documents",
+          "Same sequence of journeys in both scenes"
+        ],
+        "comparisonLabels": {
+          "guide": "Status: provided (A) · pending (B), as supplied in each scene",
+          "neutral": "Both scenes show supplied statuses only; nothing is concluded from them"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: dos escenarios idénticos; solo cambia el estado aportado (formalidad aportada / formalidad pendiente).",
+      "params": {
+        "locale": "es",
+        "offer": {
+          "reference": "DC-601",
+          "title": "Pasos del caso (aportados)"
+        },
+        "terms": [
+          {
+            "key": "step1",
+            "label": "Paso 1",
+            "value": "Copias revisadas"
+          },
+          {
+            "key": "step2",
+            "label": "Paso 2",
+            "value": "Hojas numeradas"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "DC-602",
+            "text": "Pasos del caso (aportados)"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "step1",
+            "label": "Paso 1",
+            "value": "Copias revisadas"
+          },
+          {
+            "key": "step2",
+            "label": "Paso 2",
+            "value": "Anexo adjunto"
+          }
+        ],
+        "scenarioA": {
+          "label": "Formalidad aportada",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "docA-sent",
+              "time": "Día 1, 10:00 (ficticio)"
+            },
+            {
+              "event": "docB-sent",
+              "time": "Día 1, 10:05 (ficticio)"
+            },
+            {
+              "event": "docA-received",
+              "time": "Día 1, 10:20 (ficticio)"
+            },
+            {
+              "event": "docB-received",
+              "time": "Día 1, 10:25 (ficticio)"
+            },
+            {
+              "event": "connected",
+              "time": "Formalidad aportada"
+            }
+          ],
+          "status": "formality-provided"
+        },
+        "scenarioB": {
+          "label": "Formalidad pendiente",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "docA-sent",
+              "time": "Día 1, 10:00 (ficticio)"
+            },
+            {
+              "event": "docB-sent",
+              "time": "Día 1, 10:05 (ficticio)"
+            },
+            {
+              "event": "docA-received",
+              "time": "Día 1, 10:20 (ficticio)"
+            },
+            {
+              "event": "docB-received",
+              "time": "Día 1, 10:25 (ficticio)"
+            },
+            {
+              "event": "connected",
+              "time": "Formalidad pendiente"
+            }
+          ],
+          "status": "formality-pending"
+        },
+        "changedFact": "",
+        "sharedFacts": [],
+        "comparisonLabels": {
+          "guide": "Formalidad: aportada (A) · pendiente (B), según lo aportado",
+          "neutral": ""
+        }
+      }
+    }
+  ]
+}

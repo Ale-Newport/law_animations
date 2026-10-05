@@ -1,0 +1,286 @@
+{
+  "animationId": "LAW-0473",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; the steps are generic items of the given scenario as supplied, never a requirement of any law. Times are fictional labels. \"Formality provided\" and \"formality pending\" are supplied statuses only — a pending state is not a deficiency; no formality rule, no writing, notarial or registration requirement, no consequence and no jurisdiction is stated.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional documents: each party hands its document to the other and both are connected with their steps as supplied in the scenario; the supplied status is formality provided.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other parties and steps, Party B's document sent first, and the supplied status formality pending: a dashed pending ring inside Party B's document — a neutral pending state only.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "curly",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "DC-118",
+          "title": "Scenario steps (as supplied)"
+        },
+        "terms": [
+          {
+            "key": "step1",
+            "label": "Step 1",
+            "value": "Two copies printed"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2",
+            "value": "Copies exchanged"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "DC-119",
+            "text": "Scenario steps (as supplied)"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "step1",
+            "label": "Step 1",
+            "value": "Two copies printed"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2",
+            "value": "Cover page added"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "docB-sent",
+            "time": "Day 4, 09:30 (fictional)"
+          },
+          {
+            "event": "docA-sent",
+            "time": "Day 4, 09:40 (fictional)"
+          },
+          {
+            "event": "docB-received",
+            "time": "Day 4, 11:15 (fictional)"
+          },
+          {
+            "event": "docA-received",
+            "time": "Day 4, 11:20 (fictional)"
+          },
+          {
+            "event": "connected",
+            "time": "Formality pending (as supplied)"
+          }
+        ],
+        "actorLabels": {
+          "a": "Hands over DC-118",
+          "b": "Hands over DC-119"
+        },
+        "finalState": "formality-pending",
+        "pendingParty": "B"
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, captions, titles, steps, time labels, rack plates and annotations, three steps per document, two annotations; the two receipts are supplied with one position (order to be examined); the pending status on Party A's document. Capped (standing rule item 20; pre-cap values in production/scratch/contract-formation-09/LAW-0473.stress.precap.json): the step rows only (labels 'Step n (given)' → 'Step n (A)/(B)', values 'Copies reviewed, both' → 'Copies reviewed: 2' and the like). True driver: the document's height in its rack slot at 1:1 — each step row is indented by its connector node (0.62 body sizes), so a pre-cap row wraps to two lines and the three-row document no longer fits the rack beside the figure (1080x1080: nofit, rackTall, reach and route failures at the 16 px floor; head box 51.9 px on the fallback); with rows of at most 'Step 1 (A): Copies reviewed: 2' it fits (head box 64.9 px, text 16.1 px). Every capped field is still longer than its baseline counterpart and every count is kept (3 + 3 steps, 2 annotations, 5 events, one shared position).",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "DOC-2026-A",
+          "title": "Steps for A (as supplied in the scenario)"
+        },
+        "terms": [
+          {
+            "key": "step1",
+            "label": "Step 1 (A)",
+            "value": "Copies reviewed: 2"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2 (A)",
+            "value": "Pages numbered: 2"
+          },
+          {
+            "key": "step3",
+            "label": "Step 3 (A)",
+            "value": "Cover page added"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "DOC-2026-B",
+            "text": "Steps for B (as supplied in the scenario)"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "step1",
+            "label": "Step 1 (B)",
+            "value": "Copies reviewed: 2"
+          },
+          {
+            "key": "step2",
+            "label": "Step 2 (B)",
+            "value": "Annex attached: 1"
+          },
+          {
+            "key": "step3",
+            "label": "Step 3 (B)",
+            "value": "Cover page added"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "docA-sent",
+            "time": "Day 1, 10:00, front desk (fictional)"
+          },
+          {
+            "event": "docB-sent",
+            "time": "Day 1, 10:05, front desk (fictional)"
+          },
+          {
+            "event": "docA-received",
+            "time": "Day 1, 10:20h (fictional)",
+            "position": 3
+          },
+          {
+            "event": "docB-received",
+            "time": "Day 1, 10:20h (fictional)",
+            "position": 3
+          },
+          {
+            "event": "connected",
+            "time": "Formality pending, doc A (as supplied)"
+          }
+        ],
+        "actorLabels": {
+          "a": "Hands over Party A's own document",
+          "b": "Hands over Party B's own document"
+        },
+        "objectLabels": {
+          "outgoing": "Party A's document rack",
+          "incoming": "Party B's document rack"
+        },
+        "annotations": [
+          {
+            "target": "docB",
+            "text": "Party B's document, steps exactly as supplied"
+          },
+          {
+            "target": "sequence",
+            "text": "Order as supplied (not to scale)"
+          }
+        ],
+        "finalState": "formality-pending",
+        "pendingParty": "A"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: cada parte entrega su documento a la otra y ambos se conectan con sus pasos aportados en el supuesto; el estado aportado es formalidad aportada.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Elif Demir",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomas Lind",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "DC-601",
+          "title": "Pasos del caso (aportados)"
+        },
+        "terms": [
+          {
+            "key": "step1",
+            "label": "Paso 1",
+            "value": "Copias revisadas"
+          },
+          {
+            "key": "step2",
+            "label": "Paso 2",
+            "value": "Hojas numeradas"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "DC-602",
+            "text": "Pasos del caso (aportados)"
+          }
+        ],
+        "termsB": [
+          {
+            "key": "step1",
+            "label": "Paso 1",
+            "value": "Copias revisadas"
+          },
+          {
+            "key": "step2",
+            "label": "Paso 2",
+            "value": "Anexo adjunto"
+          }
+        ],
+        "sequence": [
+          {
+            "event": "docA-sent",
+            "time": "Día 1, 10:00 (ficticio)"
+          },
+          {
+            "event": "docB-sent",
+            "time": "Día 1, 10:05 (ficticio)"
+          },
+          {
+            "event": "docA-received",
+            "time": "Día 1, 10:20 (ficticio)"
+          },
+          {
+            "event": "docB-received",
+            "time": "Día 1, 10:25 (ficticio)"
+          },
+          {
+            "event": "connected",
+            "time": "Formalidad aportada"
+          }
+        ],
+        "actorLabels": {
+          "a": "Entrega DC-601",
+          "b": "Entrega DC-602"
+        },
+        "objectLabels": {
+          "outgoing": "Casillero A",
+          "incoming": "Casillero B"
+        }
+      }
+    }
+  ]
+}

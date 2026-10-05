@@ -1,0 +1,308 @@
+{
+  "animationId": "LAW-0455",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Times are fictional labels. The mark on each clock is a supplied milestone only; the two scenes differ in where the response stands relative to it in the supplied order, and nothing states what follows from that.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Fictional proposal to supply chairs. A: the response is sent and received before the supplied milestone (the clock reaches its mark after the response has landed). B: the same proposal, parties and milestone; the response is supplied later, after the milestone (the clock reaches its mark before the response leaves).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a garden-services proposal between different parties. The proposal and the reply (and their times) are identical in both scenes; only the milestone's supplied time differs (Day 8 in A, Day 6 in B), so in A the clock reaches its mark after the reply has landed and in B before the reply leaves.",
+      "params": {
+        "parties": [
+          {
+            "name": "Ines Duarte",
+            "role": "Party A",
+            "appearance": {
+              "skin": 1,
+              "hair": "long",
+              "hairColor": 4,
+              "outfit": 2
+            }
+          },
+          {
+            "name": "Kwame Asante",
+            "role": "Party B",
+            "appearance": {
+              "skin": 5,
+              "hair": "buzz",
+              "outfit": 6,
+              "glasses": true
+            }
+          }
+        ],
+        "offer": {
+          "reference": "SV-118",
+          "title": "Proposal of garden services"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Service",
+            "value": "Garden maintenance"
+          },
+          {
+            "key": "payment",
+            "label": "Monthly fee (hypothetical)",
+            "value": "95"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "RS-118",
+            "text": "Reply to proposal SV-118"
+          }
+        ],
+        "scenarioA": {
+          "label": "Reply before the supplied milestone",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "proposal-received",
+              "time": "Day 4, 12:15 (fictional)"
+            },
+            {
+              "event": "response-sent",
+              "time": "Day 7, 09:00 (fictional)"
+            },
+            {
+              "event": "response-received",
+              "time": "Day 7, 11:30 (fictional)"
+            },
+            {
+              "event": "milestone",
+              "time": "Day 8, 18:00 (fictional)"
+            }
+          ]
+        },
+        "scenarioB": {
+          "label": "Reply after the supplied milestone",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "proposal-received",
+              "time": "Day 4, 12:15 (fictional)"
+            },
+            {
+              "event": "milestone",
+              "time": "Day 6, 18:00 (fictional)"
+            },
+            {
+              "event": "response-sent",
+              "time": "Day 7, 09:00 (fictional)"
+            },
+            {
+              "event": "response-received",
+              "time": "Day 7, 11:30 (fictional)"
+            }
+          ]
+        },
+        "changedFact": "Only the milestone's time differs (Day 8 in A, Day 6 in B)",
+        "sharedFacts": [
+          "Same proposal, reply and parties"
+        ],
+        "comparisonLabels": {
+          "guide": "Milestone: after the reply (A) · before it (B)",
+          "neutral": ""
+        }
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long names, labels, captions, references and time labels, three terms, all five events in each scene, two shared facts and a neutral note. Standing coordinator rule item 20 (caps with the true reason). The pre-cap values are kept in LAW-0455.presets.precap.json. Each capped field was restored alone to its pre-cap value on top of the shipped preset and rendered (layout verdict, text px, people at the hold): A's response-sent 26 -> 39 and response-received 26 -> 40, B's response-sent 26 -> 39 and response-received 26 -> 40 time labels, the changed fact 65 -> 100, the guide 55 -> 70 and the neutral note 33 -> 70: each one restored makes 1:1 keep its text only by fading both stages out at the hold (0 of 4 people visible at the hold; the standing rule keeps the people at the hold). With every capped field restored: the same (1:1 hold, 0 people). Every capped value stays longer than baseline (the response time labels 26 against 24); every count is kept. Shipped: 16:9 18 px, heads 56.5 px; 9:16 21 px, 64.6 px; 1:1 16.1 px, 50.8 px, 4 people at the hold (rendered).",
+      "params": {
+        "parties": [
+          {
+            "name": "Maria-Fernanda Castellanos Villavicencio",
+            "role": "Party A"
+          },
+          {
+            "name": "Oluwaseun Bartholomew-Nakamura",
+            "role": "Party B"
+          }
+        ],
+        "offer": {
+          "reference": "PR-2026-000417-B",
+          "title": "Proposal to supply ergonomic office furniture to the regional branch offices"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Item description",
+            "value": "Ergonomic oak office chairs with adjustable armrests"
+          },
+          {
+            "key": "quantity",
+            "label": "Quantity requested",
+            "value": "Forty chairs, one per desk, all floors"
+          },
+          {
+            "key": "delivery",
+            "label": "Delivery window",
+            "value": "Between Day 10 and Day 14 after receipt"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "RS-2026-000417-B",
+            "text": "Reply to the proposal PROPOSAL-2026-000417-B to supply ergonomic furniture"
+          }
+        ],
+        "scenarioA": {
+          "label": "Reply before the milestone supplied in the file",
+          "caption": "The milestone is supplied after both events of the reply",
+          "sequence": [
+            {
+              "event": "proposal-sent",
+              "time": "Day 1, 09:00, head office (fictional)"
+            },
+            {
+              "event": "proposal-received",
+              "time": "Day 1, 16:05, reception desk (fictional)"
+            },
+            {
+              "event": "response-sent",
+              "time": "Day 3, 10:20 h (fictional)"
+            },
+            {
+              "event": "response-received",
+              "time": "Day 3, 15:45 h (fictional)"
+            },
+            {
+              "event": "milestone",
+              "time": "Day 3, 17:30, file note (fictional)"
+            }
+          ]
+        },
+        "scenarioB": {
+          "label": "Reply after the milestone supplied in the file",
+          "caption": "The milestone is supplied before both events of the reply",
+          "sequence": [
+            {
+              "event": "proposal-sent",
+              "time": "Day 1, 09:00, head office (fictional)"
+            },
+            {
+              "event": "proposal-received",
+              "time": "Day 1, 16:05, reception desk (fictional)"
+            },
+            {
+              "event": "milestone",
+              "time": "Day 3, 17:30, file note (fictional)"
+            },
+            {
+              "event": "response-sent",
+              "time": "Day 4, 10:20 h (fictional)"
+            },
+            {
+              "event": "response-received",
+              "time": "Day 4, 15:45 h (fictional)"
+            }
+          ]
+        },
+        "changedFact": "Only the reply's place relative to the supplied milestone differs",
+        "sharedFacts": [
+          "Same proposal and terms in both scenes",
+          "Same parties and the same milestone label"
+        ],
+        "comparisonLabels": {
+          "guide": "Reply: before the milestone (A) · after the milestone (B)",
+          "neutral": "Positions only; nothing concluded"
+        }
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español: A, la respuesta se envía y se recibe antes del hito suministrado; B, la misma propuesta, partes e hito, con la respuesta aportada después del hito.",
+      "params": {
+        "locale": "es",
+        "parties": [
+          {
+            "name": "Nadia Park",
+            "role": "Parte A"
+          },
+          {
+            "name": "Tomás Ribeiro",
+            "role": "Parte B"
+          }
+        ],
+        "offer": {
+          "reference": "OF-2041",
+          "title": "Oferta de suministro"
+        },
+        "terms": [
+          {
+            "key": "item",
+            "label": "Artículo",
+            "value": "Sillas de roble"
+          },
+          {
+            "key": "quantity",
+            "label": "Cantidad",
+            "value": "40"
+          }
+        ],
+        "responses": [
+          {
+            "reference": "RS-2041",
+            "text": "Respuesta a la propuesta OF-2041"
+          }
+        ],
+        "scenarioA": {
+          "label": "Respuesta anterior al hito suministrado",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "proposal-received",
+              "time": "Día 1, 09:00 (ficticio)"
+            },
+            {
+              "event": "response-sent",
+              "time": "Día 2, 10:00 (ficticio)"
+            },
+            {
+              "event": "response-received",
+              "time": "Día 2, 15:00 (ficticio)"
+            },
+            {
+              "event": "milestone",
+              "time": "Día 3, 12:00 (ficticio)"
+            }
+          ]
+        },
+        "scenarioB": {
+          "label": "Respuesta posterior al hito suministrado",
+          "caption": "",
+          "sequence": [
+            {
+              "event": "proposal-received",
+              "time": "Día 1, 09:00 (ficticio)"
+            },
+            {
+              "event": "milestone",
+              "time": "Día 3, 12:00 (ficticio)"
+            },
+            {
+              "event": "response-sent",
+              "time": "Día 4, 10:00 (ficticio)"
+            },
+            {
+              "event": "response-received",
+              "time": "Día 4, 15:00 (ficticio)"
+            }
+          ]
+        },
+        "changedFact": "Solo cambia el lugar de la respuesta respecto del hito",
+        "sharedFacts": [
+          "Misma propuesta, partes e hito"
+        ],
+        "comparisonLabels": {
+          "guide": "Respuesta: anterior al hito (A) · posterior (B)",
+          "neutral": ""
+        }
+      }
+    }
+  ]
+}
