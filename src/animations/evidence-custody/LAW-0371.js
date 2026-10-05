@@ -101,7 +101,6 @@ function compose(ctx, P, rows, lrows, F, opt) {
   const {w: DW, h: DH} = ctx.design;
   const show = ctx.show('key');
   const gap = F * 1.2;
-  const headH = show ? F * 2.9 : F * 2.2;
   let area, PL = null, panel = null;
   if (!lrows.length) area = {x: 0, y: 0, w: DW, h: DH};
   else if (opt.legend === 'below') {
@@ -116,6 +115,16 @@ function compose(ctx, P, rows, lrows, F, opt) {
     panel = {x: DW - PW, y: Math.max(0, (DH - PL.h) / 2)};
   }
   const sg = F * 1.4;
+  // headers first (their height sets the rooms' top)
+  const tw = (opt.arr === 'row' ? (area.w - sg) / 2 : area.w) - F * 3.2;
+  const heads = [P.scenarioA, P.scenarioB].map(sc => {
+    if (!show) return {};
+    const lab = fitG(sc.label, {maxWidth: tw, size: F * 1.1, minSize: F, maxLines: 2, weight: 700});
+    const cap = ctx.show('all') && sc.caption ? fitG(sc.caption, {maxWidth: tw, size: F * 0.9, minSize: Math.min(F, 16), maxLines: 2, weight: 500}) : null;
+    return {lab, cap, ok: lab.ok && (!cap || cap.ok), h: lab.height + (cap ? cap.height + F * 0.2 : 0)};
+  });
+  const headH = show ? Math.max(F * 2.9, ...heads.map(hd => hd.h + 10)) : F * 2.2;
+  const headOk = heads.every(hd => hd.ok !== false);
   const boxes = [];
   if (opt.arr === 'row') {
     const sw = (area.w - sg) / 2, sh = area.h - headH;
@@ -126,15 +135,6 @@ function compose(ctx, P, rows, lrows, F, opt) {
   }
   const fits = boxes[0].w > 200 && boxes[0].h > 180;
   const G = fits ? boxes.map(b => tcStage({x: 0, y: 0, w: b.w, h: b.h}, opt.orient, {kind: P.items[0].kind, rowsA: rows.a.length, rowsB: rows.b.length})) : null;
-  // headers
-  const heads = [P.scenarioA, P.scenarioB].map(sc => {
-    if (!show) return {};
-    const tw = boxes[0].w - F * 3.2;
-    const lab = fitG(sc.label, {maxWidth: tw, size: F * 1.1, minSize: F, maxLines: 1, weight: 700});
-    const cap = ctx.show('all') && sc.caption ? fitG(sc.caption, {maxWidth: tw, size: F * 0.9, minSize: Math.min(F, 16), maxLines: 1, weight: 500}) : null;
-    return {lab, cap, ok: lab.ok && (!cap || cap.ok)};
-  });
-  const headOk = heads.every(hd => hd.ok !== false) && (!show || heads.every(hd => hd.lab.height + (hd.cap ? hd.cap.height + F * 0.2 : 0) <= headH - 6));
   const ok = (!PL || PL.ok) && G && G.every(q => q.fits) && G[0].S >= 120 && headOk;
   return {F, area, boxes, G, PL, panel, heads, headH, ok, problems: [PL && !PL.ok && 'panel-text', (!G || !G.every(q => q.fits)) && 'stage-fit', (!G || G[0].S < 120) && 'stage-small', !headOk && 'header-text'].filter(Boolean)};
 }
@@ -191,11 +191,11 @@ const scene = {
         i === 1 ? changedMarker(ctx, {name: 'gap-mark', x: SB.x + SB.w - 6, y: SB.y + 8, radius: clamp(G.S * 0.09, 16, 26), opacity: 0}) : null,
       ));
       const hd = C.heads[i];
-      const R = C.headH * 0.36;
+      const R = Math.min(C.headH * 0.36, C.F * 1.05);
       const tx = b.x + R * 2 + C.F * 0.6;
       parts.push(g({name: `head-${pfx}`},
-        h('circle', {cx: r(b.x + R + 2), cy: r(b.headY + C.headH * 0.45), r: r(R), fill: i ? th.accent2 : th.accent3, stroke: th.ink, 'stroke-width': 2.5}),
-        ctx.show('key') ? h('text', {x: r(b.x + R + 2), y: r(b.headY + C.headH * 0.45 + R * 0.42), 'text-anchor': 'middle', 'font-size': r(R * 1.2), 'font-weight': 800, 'font-family': "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif", fill: '#fff'}, i ? 'B' : 'A') : null,
+        h('circle', {cx: r(b.x + R + 2), cy: r(b.headY + R + 4), r: r(R), fill: i ? th.accent2 : th.accent3, stroke: th.ink, 'stroke-width': 2.5}),
+        ctx.show('key') ? h('text', {x: r(b.x + R + 2), y: r(b.headY + R + 4 + R * 0.42), 'text-anchor': 'middle', 'font-size': r(R * 1.2), 'font-weight': 800, 'font-family': "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif", fill: '#fff'}, i ? 'B' : 'A') : null,
         hd.lab ? textAt(hd.lab, {x: tx, y: b.headY + 2, fill: th.fg}) : null,
         hd.cap ? textAt(hd.cap, {x: tx, y: b.headY + 2 + hd.lab.height + C.F * 0.2, fill: th.fgSoft}) : null,
       ));

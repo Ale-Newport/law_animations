@@ -1,0 +1,57 @@
+{
+  "animationId": "LAW-0508",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative: the contract, its clause lines, the claim and the tag wording are generic placeholders, never real contract text or real claims. The before- and after-values are supplied statuses of equal weight (● and ◆ of the same area; the outline has the same colour and width, solid or dashed); the old value stays traceable as \"was: …\" and seeking back restores it. No indemnity doctrine is stated: no duty to indemnify or pay, nothing decided beyond the supplied values, no amount unless supplied (always labelled hypothetical), no jurisdiction; \"scope disputed\" stays an allegation. Brief customizable fields not exposed (coordinator decision BRIEF CUSTOMIZABLE FIELDS, SESSION_HANDOFF 2026-10-05): schedules, definitions, priorities, actorLabels (no actor) and annotations; objectLabels = contextLabels (stand plate, marker label); finalState = the substituted after-value (beforeState / beforeValue / afterValue).",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "The claim slip is connected to the promise line 2 of 3; the lens isolates the scope tag and the supplied status changes from \"Claim covered as per supplied data\" (●, solid outline) to \"Scope disputed (as supplied)\" (◆, dashed outline).",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Reverse substitution on another contract and claim with a supplied hypothetical amount and two clause lines (promise on line 1): the status changes from scope disputed (◆, dashed) to covered as per supplied data (●, solid).",
+      "params": {
+        "contract": {"reference": "CT-907", "title": "Services contract (fictional)"},
+        "clauses": ["Clause 9.1 (supplied text)", "Clause 9.2 (supplied text)"],
+        "promise": 1,
+        "claim": {"label": "Claim 2 (supplied)", "amount": "2,400 units"},
+        "beforeState": "disputed",
+        "beforeValue": "Scope disputed (as supplied)",
+        "afterValue": "Claim covered as per supplied data",
+        "contextLabels": {"context": "Reading stand · second example", "marker": "Supplied status changed"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Long labels: long contract and clause headings, three long clause lines with the promise on line 3, a long claim label, long before- and after-values, a long stand plate and marker label.",
+      "params": {
+        "contract": {"reference": "CONTRACT-2026-0412", "title": "Supply contract with an indemnity clause, fictional example"},
+        "clauseTitle": "Indemnity clause, lines exactly as listed",
+        "clauses": [
+          "Clause 14.1, first line listed in the clause (supplied text)",
+          "Clause 14.2, second line listed in the clause (supplied text)",
+          "Clause 14.3, third line listed in the clause (supplied text)"
+        ],
+        "promise": 3,
+        "claim": {"label": "Claim 1, named in this fictional example (supplied)", "amount": ""},
+        "beforeValue": "Claim covered, exactly as per the supplied data here",
+        "afterValue": "Scope disputed, exactly as it was supplied in this example",
+        "contextLabels": {"context": "Reading stand with the connected claim, as supplied", "marker": "Supplied status changed in this example"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea de base en español: la ficha de la reclamación está conectada a la línea 2 de 3; la lente aísla la etiqueta de alcance y el estado aportado cambia de «Reclamación cubierta según los datos aportados» (●, contorno continuo) a «Alcance discutido (según lo aportado)» (◆, contorno discontinuo).",
+      "params": {
+        "locale": "es",
+        "contract": {"reference": "CT-412", "title": "Contrato de suministro (ficticio)"},
+        "clauseTitle": "Cláusula de indemnidad",
+        "clauses": ["Cláusula 14.1 (texto aportado)", "Cláusula 14.2 (texto aportado)", "Cláusula 14.3 (texto aportado)"],
+        "claim": {"label": "Reclamación 1 (aportada)", "amount": ""},
+        "beforeValue": "Reclamación cubierta según los datos aportados",
+        "afterValue": "Alcance discutido (según lo aportado)",
+        "contextLabels": {"context": "Atril · reclamación conectada según lo aportado", "marker": "Estado aportado cambiado"}
+      }
+    }
+  ]
+}
