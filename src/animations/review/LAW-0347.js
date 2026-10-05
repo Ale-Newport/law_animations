@@ -132,11 +132,15 @@ function compose(ctx, P, F, shape) {
   const place = rows => { let y = 0; rows.forEach(q => { q.y = y; y += q.fit.height + F * 0.45; }); return Math.max(0, y - F * 0.45); };
   const hL = place(L1), hR = place(R1);
   // guide label and neutral note (full width, centred), then the key
-  const note = showAll ? fitG(P.comparisonLabels.neutral, {maxWidth: Math.min(D.w - 2 * mx, F * 34), size: F, minSize: F, maxLines: 2, weight: 600}) : null;
-  const key = showKey ? fitG(P.labels.key, {maxWidth: D.w - 2 * mx, size: F, minSize: F, maxLines: 2, weight: 600}) : null;
+  // the neutral note and the key go under the shorter column (side by side) or under the single column
+  const noteW = stacked ? Math.min(D.w - 2 * mx, F * 34) : colW;
+  const note = showAll ? fitG(P.comparisonLabels.neutral, {maxWidth: noteW, size: F, minSize: F, maxLines: 3, weight: 600}) : null;
+  const key = showKey ? fitG(P.labels.key, {maxWidth: noteW, size: F, minSize: F, maxLines: 2, weight: 600}) : null;
   for (const f of [note, key]) if (f && !f.ok) problems.push('notes');
   const guideH = F * 0.6;
-  const stripH = Math.max(hL, hR) + (note ? F * 0.6 + note.height : 0) + (key ? F * 0.5 + key.height : 0);
+  const notesH = (note ? F * 0.6 + note.height : 0) + (key ? F * 0.5 + key.height : 0);
+  const noteCol = stacked ? 0 : hL <= hR ? 0 : 1;
+  const stripH = stacked ? Math.max(hL, hR) + notesH : Math.max(noteCol === 0 ? hL + notesH : hL, noteCol === 1 ? hR + notesH : hR);
   // headers
   const headW = stacked ? D.w - 2 * mx - F * 3 : (D.w - 2 * mx - gapP) / 2 - F * 3;
   const head = sc => {
@@ -172,7 +176,7 @@ function compose(ctx, P, F, shape) {
   const stripY = guideY + guideH;
   if (stripY + stripH > D.h - my + 0.5) problems.push('strip');
   void cwMin;
-  return {problems, F, stacked, panels, rooms, heads: [hA, hB], headH, L1, R1, colW, iconW, cols, note, key, guideY, stripY, hL, hR, mx};
+  return {problems, F, stacked, panels, rooms, heads: [hA, hB], headH, L1, R1, colW, iconW, cols, note, key, noteCol, guideY, stripY, hL, hR, mx};
 }
 
 const scene = {
@@ -258,11 +262,12 @@ const scene = {
         strip.push(g({name: q.name, opacity: q.late ? 0 : undefined}, iconAt(q, x0, y), textAt(q.fit, {x: x0 + L.iconW, y, fill: th.fg})));
       }
     });
-    const base = L.stripY + Math.max(L.hL, L.hR);
-    if (L.note) strip.push(g({name: 'note', opacity: 0}, textAt(L.note, {x: L.mx, y: base + F * 0.6, fill: th.fg, name: 'note-text'})));
+    const base = L.stripY + (L.stacked ? Math.max(L.hL, L.hR) : L.noteCol === 0 ? L.hL : L.hR);
+    const nx = L.mx + (L.stacked ? 0 : L.noteCol * (L.colW + F * 1.6));
+    if (L.note) strip.push(g({name: 'note', opacity: 0}, textAt(L.note, {x: nx, y: base + F * 0.6, fill: th.fg, name: 'note-text'})));
     if (L.key) {
       const ky = base + (L.note ? F * 0.6 + L.note.height : 0) + F * 0.5;
-      strip.push(g({name: 'key'}, h('line', {x1: r(L.mx), x2: r(L.mx + Math.max(L.key.width, F * 6)), y1: r(ky - F * 0.25), y2: r(ky - F * 0.25), stroke: th.fgSoft, 'stroke-width': 1.5, opacity: 0.6}), textAt(L.key, {x: L.mx, y: ky, fill: th.fg, italic: true})));
+      strip.push(g({name: 'key'}, h('line', {x1: r(nx), x2: r(nx + Math.max(L.key.width, F * 6)), y1: r(ky - F * 0.25), y2: r(ky - F * 0.25), stroke: th.fgSoft, 'stroke-width': 1.5, opacity: 0.6}), textAt(L.key, {x: nx, y: ky, fill: th.fg, italic: true})));
     }
     parts.push(g({name: 'strip'}, strip));
     return g(null, parts);

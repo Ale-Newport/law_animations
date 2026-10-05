@@ -161,11 +161,33 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "pass",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0496/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0496/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0496/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0496/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0496/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0496/sheet-16x9-es.png",
+      "production/scratch/rev2-contract-terms-04/r3-nt-1x1.png",
+      "production/scratch/rev2-contract-terms-04/r3-pb-16x9.png",
+      "production/scratch/rev2-contract-terms-04/r3-lw55-1x1.png",
+      "production/scratch/rev2-contract-terms-04/r3-lw42-9x16.png"
+    ],
+    "findings": [
+      "Round-2 defects fixed: labels-none 1:1 lens crop now clipped to the board (no leg stub, source frame no longer overhangs)",
+      "Print-bar lens text now fills the window with padding from the rim; event card keeps its own text when only an obligation is too long",
+      "55-char token + stress at 1:1 now renders a full scene via word-break pass; 42-char token at 9:16 fine",
+      "Test alone --workers=1: 27 passed; qa pass, no warnings",
+      "Judged acceptable: 1:1 bottom ~20% empty band (caption-safe) and 9:16 top band, consistent with accepted siblings",
+      "Neutral content; Delta marker and struck 'was' read"
+    ],
+    "sourceHash": "a1afffe8b6b3c2a5af68878f818eff0ca34c41f4bd65cfce3a56fee1b331aa26",
+    "renderFingerprint": "c5650852339ed41517a4a5772237cc597e8806a73487ec4d36bc12d3027987a3",
+    "reviewedAt": "2026-10-05T18:44:48.304Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -181,5 +203,10 @@
   "renderFingerprint": "c5650852339ed41517a4a5772237cc597e8806a73487ec4d36bc12d3027987a3",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
   "thumb": "production/evidence/LAW-0496/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

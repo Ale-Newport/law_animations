@@ -397,6 +397,11 @@ const scene = {
         const ok = cands.filter(c => c.PH >= 0.95 * maxPH - 1e-6);
         pick = (ok.filter(c => c.size >= 20).length ? ok.filter(c => c.size >= 20) : ok).sort((a, b) => b.size - a.size)[0];
         if (pick.size < 20) { const c20 = cands.filter(c => c.size >= 20).sort((a, b) => b.PH - a.PH)[0]; if (c20 && c20.PH >= 0.8 * maxPH) pick = c20; }
+        // the physical scene keeps >= 0.205 of the frame's area when a measured size allows it (largest text first)
+        if (sceneShare(ctx, pick) < 0.205) {
+          const big = cands.filter(c => sceneShare(ctx, c) >= 0.205).sort((a0, b0) => b0.size - a0.size || b0.PH - a0.PH)[0];
+          if (big) pick = big;
+        }
       } else {
         // text at >= 20 (the 19.5 px baseline floor) wins unless it costs more than a fifth of the field's size
         const best = cands.reduce((a0, b0) => (b0.PH > a0.PH + 1e-6 ? b0 : a0));
@@ -459,7 +464,8 @@ const scene = {
       L.listTop = top;
     } else if (L.mode === 'tall') {
       const blockH = L.stageH + (L.B.h ? 16 + L.B.h : 0);
-      const top = Math.max(0, (Dv.h - blockH) / 2);
+      // (labels hidden: the slab stands at the foot of the box)
+      const top = Math.max(0, (Dv.h - blockH) * (ctx.show('key') ? 0.5 : 1));
       F = top + L.stageH - 16;
       cx = MARGIN + 10;
       const colX = MARGIN + full - L.recW;
@@ -476,7 +482,8 @@ const scene = {
       const x0 = MARGIN + extra * (1 - spread) / 2;
       L.recGap = 30 + extra * spread;
       const blockH = Math.max(L.stageH, colH) + (L.B.h ? 16 + L.B.h : 0);
-      const top = Math.max(0, (Dv.h - blockH) / 2);
+      // (labels hidden: the block stands at the foot of the box, so the slab reaches down the frame)
+      const top = Math.max(0, (Dv.h - blockH) * (ctx.show('key') ? 0.5 : 1));
       F = top + Math.max(L.stageH, colH) - 16;
       cx = x0 + 10;
       recX = x0 + L.stageW + L.recGap + 10;
@@ -496,11 +503,14 @@ const scene = {
       if (L.B.h) bands.push({band: L.B, x: MARGIN + L.recW + 20, y: F + 32 + Math.max(0, (lowH - L.B.h) / 2), w: full - L.recW - 20, center: false});
     } else {
       const blockH = L.stageH + 32 + L.recH + (L.B.h ? 34 + L.B.h : 0);
-      const top = Math.max(0, (Dv.h - blockH) / 2);
+      // (labels hidden: no band — the slab keeps the top of the box and the record stands at its foot, so the scene
+      // spans the box)
+      const bare = !L.B.h && !ctx.show('key');
+      const top = bare ? 0 : Math.max(0, (Dv.h - blockH) * 0.75);
       F = top + L.stageH - 16;
       cx = MARGIN + (full - L.stageW) / 2 + 10;
       recX = MARGIN + (full - L.recW) / 2 + 10;
-      recY = F + 32 + L.rec.clipH * 0.35;
+      recY = (bare ? Math.max(F + 32, Dv.h - L.recH - 8) : F + 32) + L.rec.clipH * 0.35;
       if (L.B.h) bands.push({band: L.B, x: MARGIN, y: recY - L.rec.clipH * 0.35 + L.recH + 34, w: full, center: true});
     }
     L.F = F;

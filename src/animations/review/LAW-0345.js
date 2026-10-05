@@ -199,7 +199,7 @@ const scene = {
     const px = pxPerUnit(ctx);
     const shape = ctx.view.shape;
     const opts = shape === 'landscape'
-      ? [{s: 1.45, cwMax: 12.5, cardLines: 4}, {s: 1.3, cwMax: 14, cardLines: 4}, {s: 1.15, cwMax: 16, cardLines: 5}, {s: 0.95, cwMax: 20, cardLines: 5}]
+      ? [{s: 1.45, cwMax: 12.5, cardLines: 4}, {s: 1.3, cwMax: 14, cardLines: 4}, {s: 1.15, cwMax: 16, cardLines: 5}, {s: 0.95, cwMax: 20, cardLines: 5}, {s: 0.95, cwMax: 26, cardLines: 4, capLines: 4}, {s: 0.8, cwMax: 26, cardLines: 4, capLines: 4}]
       : shape === 'square'
         ? [{s: 0.9, cwMax: 16, minH: 0.62, cardLines: 4, capLines: 4, stackStrip: false}, {s: 0.8, cwMax: 16, cardLines: 5, capLines: 4, stackStrip: false}, {s: 0.7, cwMax: 16, cardLines: 6, capLines: 5, stackStrip: true}, {s: 0.6, cwMax: 16, cardLines: 7, capLines: 6, stackStrip: true}]
         : [{s: 1.25, cwMax: 16, minH: 1.1, cardLines: 6, capLines: 5, legend: true, stackStrip: true}, {s: 1.1, cwMax: 16, minH: 1, cardLines: 7, capLines: 6, legend: true, stackStrip: true}, {s: 1.0, cwMax: 16, cardLines: 7, capLines: 7, legend: false, stackStrip: true}];

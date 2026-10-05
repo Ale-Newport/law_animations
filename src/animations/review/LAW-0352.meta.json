@@ -1,0 +1,427 @@
+{
+  "id": "LAW-0352",
+  "slug": "review-08-inspect",
+  "title": "Return for a new examination — a lens on the routing tag: the return point is substituted, then the folder runs to the new tray",
+  "titleEs": "Devolución para nuevo examen — Inspección y cambio de un dato",
+  "category": "review",
+  "categoryName": "Impugnaciones y revisión",
+  "motif": "Devolución para nuevo examen",
+  "treatment": "inspect",
+  "family": "focus-and-replay",
+  "description": "The desk after the return: the route board with the folder and its review notes in the configured tray and a routing tag on a rail, joined to the folder by a cord, naming the return point (the supplied datum). A lens opens on the tag (a real enlarged copy at the same coordinates); its value is substituted by the alternative supplied value. The lens closes and only the dependent geometry follows: the old doors close, the new ones open and the folder runs along the lane to the new tray, leaving a ghost outline; a neutral changed-datum marker stays on the tag. Seeking back restores the old datum. No validity, rule or result; jurisdiction unspecified.",
+  "tags": [
+    "review",
+    "return for a new examination",
+    "inspect",
+    "lens",
+    "routing tag",
+    "return point",
+    "substitution",
+    "changed datum",
+    "folder",
+    "filter doors"
+  ],
+  "durations": {
+    "defaultMs": 8000,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/review/kits/devolucion-nuevo-examen.js",
+    "src/animations/review/kits/limites-de-revision.js",
+    "src/frameworks/lens.js",
+    "src/primitives/markers.js",
+    "src/primitives/desk.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 8000,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "decisions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Name of the decision (fictional, as supplied); shown in the legend, the folder label carries filler only"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "description": "The decision of the initial examination carried in the folder (fictional placeholder)"
+      },
+      "grounds": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Text of the note (as supplied)"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Review notes attached to the folder (supplied, fictional; each keyed by a notched index pip) (array replaces the previous value)"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "stations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 48,
+              "description": "Name of the point"
+            },
+            "minItems": 2,
+            "maxItems": 3,
+            "description": "Points of the route, in order (fictional names, as supplied) (array replaces the previous value)"
+          },
+          "origin": {
+            "type": "string",
+            "maxLength": 48,
+            "description": "Name of the desk where the folder starts (fictional, as supplied)"
+          },
+          "returnTo": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2,
+            "description": "Index in `stations` of the configured return point (only its filter doors stand open)"
+          }
+        },
+        "required": [
+          "stations",
+          "origin",
+          "returnTo"
+        ],
+        "description": "The supplied return route: points in order, the desk the folder starts from and the configured return point"
+      },
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "returned": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption when the folder lies at the configured point"
+          },
+          "renewed": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption for the renewed examination (must not state an outcome)"
+          }
+        },
+        "required": [
+          "returned",
+          "renewed"
+        ],
+        "description": "Descriptive state captions (never a result of the renewed examination)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "route": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption of the return route (keep \"as supplied\")"
+          },
+          "point": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of the configured return point marker"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "route",
+          "point",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "focusTarget": {
+        "type": "string",
+        "enum": [
+          "return-point"
+        ],
+        "description": "Detail enlarged and substituted: the routing tag that names the return point"
+      },
+      "beforeValue": {
+        "type": "string",
+        "maxLength": 80,
+        "description": "Text of the routing tag before the substitution (the supplied datum)"
+      },
+      "afterValue": {
+        "type": "string",
+        "maxLength": 80,
+        "description": "Text of the routing tag after the substitution (the alternative supplied datum)"
+      },
+      "afterIndex": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2,
+        "description": "Index in routes.stations of the return point after the substitution (the folder and the open doors follow it)"
+      },
+      "detailGeometry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "zoom": {
+            "type": "number",
+            "minimum": 1.5,
+            "maximum": 4,
+            "description": "Preferred magnification of the lens (at least 1.5 is always kept)"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "right",
+              "bottom"
+            ],
+            "description": "Where the lens sits"
+          }
+        },
+        "required": [
+          "zoom",
+          "placement"
+        ],
+        "description": "Lens geometry"
+      },
+      "contextLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Context caption"
+          },
+          "marker": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label of the changed-datum marker"
+          }
+        },
+        "required": [
+          "context",
+          "marker"
+        ],
+        "description": "Labels for the context view"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 8000,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "decisions": {
+      "title": "Decision of the initial examination (fictional)"
+    },
+    "grounds": [
+      "Note 1: a point to look at again (fictional)",
+      "Note 2: a document to consider (fictional)"
+    ],
+    "routes": {
+      "stations": [
+        "Point 1 · intake (fictional)",
+        "Point 2 · initial examination (fictional)",
+        "Point 3 · file room (fictional)"
+      ],
+      "origin": "Review desk (fictional)",
+      "returnTo": 1
+    },
+    "outcomes": {
+      "returned": "Back at the configured point with review notes (as supplied)",
+      "renewed": "Renewed examination: not shown, no outcome"
+    },
+    "labels": {
+      "route": "Return route as configured (as supplied)",
+      "point": "Configured return point (as supplied)",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "focusTarget": "return-point",
+    "beforeValue": "Return to: Point 2 (as supplied)",
+    "afterValue": "Return to: Point 1 (as supplied)",
+    "afterIndex": 0,
+    "detailGeometry": {
+      "zoom": 2.2,
+      "placement": "auto"
+    },
+    "contextLabels": {
+      "context": "The desk after the return (as supplied)",
+      "marker": "Changed datum: the return point on the tag"
+    }
+  }
+}

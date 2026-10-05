@@ -625,8 +625,8 @@ export const entryRow = (e, extra = {}) => ({key: `ev${e.i}`, icon: 'item', item
 export const CA_DEFAULTS = {
   origin: {name: 'Event X (fictional)'},
   events: [
-    {label: 'Step 1 (supplied): A pushes a trolley along aisle 1', lane: 'a'},
-    {label: 'Step 2 (supplied): B walks a trolley along aisle 2', lane: 'b'},
+    {label: 'Step 1 (supplied): A pushes a trolley', lane: 'a'},
+    {label: 'Step 2 (supplied): B walks a trolley', lane: 'b'},
   ],
   causalLinks: [],
   alternatives: [],
@@ -637,8 +637,8 @@ export const CA_DEFAULTS = {
 export const CA_ES_DEFAULTS = {
   origin: {name: 'Evento X (ficticio)'},
   events: [
-    {label: 'Paso 1 (aportado): A empuja un carro por el pasillo 1', lane: 'a'},
-    {label: 'Paso 2 (aportado): B lleva un carro por el pasillo 2', lane: 'b'},
+    {label: 'Paso 1 (aportado): A empuja un carro', lane: 'a'},
+    {label: 'Paso 2 (aportado): B lleva un carro', lane: 'b'},
   ],
   losses: [{label: 'Pérdida descrita según lo aportado (sin importe)'}],
 };
