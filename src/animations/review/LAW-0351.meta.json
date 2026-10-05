@@ -1,29 +1,29 @@
 {
-  "id": "LAW-0349",
-  "slug": "review-08-story",
-  "title": "Return for a new examination — two hands clip review notes to a folder and carry it back along the supplied route into the configured tray",
-  "titleEs": "Devolución para nuevo examen — Microescena con objetos y actores",
+  "id": "LAW-0351",
+  "slug": "review-08-contrast",
+  "title": "Return for a new examination — two identical route boards; only how the folder reaches the configured point differs (first entry vs back from review with notes)",
+  "titleEs": "Devolución para nuevo examen — Comparación de dos supuestos",
   "category": "review",
   "categoryName": "Impugnaciones y revisión",
   "motif": "Devolución para nuevo examen",
-  "treatment": "story",
-  "family": "staged-scene",
-  "description": "A top-down desk laid out as the supplied return route: one in-tray per supplied point under its name plate, the review desk mat and a lane with chevron arrows. Only the filter doors of the configured return point stand open. A clerk's right hand presses a slip of review notes onto the folder that holds the decision of the initial examination and slides it along the lane; at a shared point the left hand takes over and pushes it into the configured tray. The hold lists the notes as supplied and states that the renewed examination is not shown and has no outcome. Calendar is a fixture; jurisdiction unspecified.",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two complete route boards of equal size (side by side on wide frames, stacked on tall ones) with the same supplied points, review desk, lane, filter doors (only the configured point's open) and calendar. Only one fact differs: in A (initial examination) the folder enters from the left with no notes; in B (renewed examination) it slides onto the review desk with a slip of review notes and comes back. With the same timing both run into the same configured tray. A highlight guide joins the two folders (\"only this differs\"); a neutral note says there is no winner and no result of either examination. Jurisdiction unspecified.",
   "tags": [
     "review",
     "return for a new examination",
-    "remand as supplied",
+    "contrast",
+    "paired scenes",
+    "initial examination",
+    "renewed examination",
     "folder",
     "review notes",
     "route",
     "filter doors",
-    "arrows",
-    "calendar",
-    "hands",
-    "hand-over"
+    "neutral"
   ],
   "durations": {
-    "defaultMs": 6000,
+    "defaultMs": 7500,
     "minMs": 1000,
     "maxMs": 60000,
     "designedFor": [
@@ -75,7 +75,7 @@
     "src/animations/review/kits/devolucion-nuevo-examen.js",
     "src/animations/review/kits/limites-de-revision.js",
     "src/primitives/desk.js",
-    "src/primitives/people-style.js"
+    "src/primitives/annotate.js"
   ],
   "license": "Original vector artwork and code created for this project; no third-party assets.",
   "version": "1.0.0",
@@ -88,7 +88,7 @@
         "type": "number",
         "minimum": 1000,
         "maximum": 60000,
-        "default": 6000,
+        "default": 7500,
         "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
       },
       "seed": {
@@ -297,92 +297,89 @@
         ],
         "description": "Editable captions"
       },
-      "actorLabels": {
+      "scenarioA": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "a": {
+          "label": {
             "type": "string",
-            "maxLength": 60,
-            "description": "Caption for the clerk's hands (generic)"
-          }
-        },
-        "required": [
-          "a"
-        ],
-        "description": "Caption of the actor (legend)"
-      },
-      "objectLabels": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "filter": {
-            "type": "string",
-            "maxLength": 80,
-            "description": "Caption for the filter doors at the tray mouths"
+            "maxLength": 50,
+            "description": "Short label for scenario A"
           },
-          "calendar": {
+          "caption": {
             "type": "string",
-            "maxLength": 70,
-            "description": "Caption for the desk calendar (a fixture only)"
+            "maxLength": 100,
+            "description": "Caption under scene A, shown in the guide beat"
           }
         },
         "required": [
-          "filter",
-          "calendar"
+          "label",
+          "caption"
         ],
-        "description": "Captions of the desk objects in the legend"
+        "description": "Scenario A (the folder reaches the configured point for the first time, without notes)"
       },
-      "actionProgress": {
-        "type": "number",
-        "minimum": 0,
-        "maximum": 1,
-        "description": "How far the action is allowed to progress (1 = complete; lower values freeze it part-way)"
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Caption under scene B, shown in the guide beat"
+          }
+        },
+        "required": [
+          "label",
+          "caption"
+        ],
+        "description": "Scenario B (the folder comes back from the review desk with the supplied notes)"
       },
-      "annotations": {
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B (here: how the folder reaches the configured point)"
+      },
+      "sharedFacts": {
         "type": "array",
         "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "target": {
-              "type": "string",
-              "enum": [
-                "folder",
-                "notes",
-                "doors",
-                "calendar"
-              ],
-              "description": "What the note refers to"
-            },
-            "text": {
-              "type": "string",
-              "maxLength": 90,
-              "description": "Note text"
-            }
-          },
-          "required": [
-            "target",
-            "text"
-          ],
-          "description": "Note"
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
         },
         "minItems": 0,
-        "maxItems": 2,
-        "description": "Editorial notes shown in the hold; each is keyed to a ring on its target (array replaces the previous value)"
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
       },
-      "finalState": {
-        "type": "string",
-        "enum": [
-          "returned",
-          "pending"
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label on the guide joining the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [
+          "guide",
+          "neutral"
         ],
-        "description": "The state supplied by the author (no conclusion is inferred): returned — the folder lies in the configured tray (caption: outcomes.returned); pending — the folder stays on the review mat (built-in caption)"
+        "description": "Labels of the comparison guide"
       }
     }
   },
   "defaultParams": {
-    "durationMs": 6000,
+    "durationMs": 7500,
     "seed": 1,
     "locale": "en",
     "theme": "editorial-flat",
@@ -423,20 +420,22 @@
       "point": "Configured return point (as supplied)",
       "key": "As supplied · no conclusion drawn"
     },
-    "actorLabels": {
-      "a": "Hands of a clerk (fictional, generic)"
+    "scenarioA": {
+      "label": "Initial examination",
+      "caption": "The folder reaches the point for the first time, without notes (as supplied)"
     },
-    "objectLabels": {
-      "filter": "Filter doors: only those of the configured point stand open",
-      "calendar": "Desk calendar (no date marked)"
+    "scenarioB": {
+      "label": "Renewed examination",
+      "caption": "The folder comes back to the same point with review notes (as supplied)"
     },
-    "annotations": [
-      {
-        "target": "doors",
-        "text": "The open doors only show the supplied route"
-      }
+    "changedFact": "Only how the folder reaches the configured point differs",
+    "sharedFacts": [
+      "Same points, doors and review desk",
+      "Same folder and decision"
     ],
-    "actionProgress": 1,
-    "finalState": "returned"
+    "comparisonLabels": {
+      "guide": "only this differs",
+      "neutral": "Two supplied situations side by side: no winner, no result of either examination"
+    }
   }
 }

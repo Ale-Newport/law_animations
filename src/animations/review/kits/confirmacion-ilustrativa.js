@@ -481,7 +481,8 @@ export function filterStrip(ctx, o) {
   };
   return g({name: o.prefix},
     h('rect', {name: o.prefix ? `${o.prefix}-glass` : undefined, x: r(tab - 2), y: 0, width: r(w - 2 * tab + 4), height: r(hh), rx: 6, fill: gc, 'fill-opacity': 0.17, stroke: shade(gc, -0.25), 'stroke-width': 2.4}),
-    h('path', {d: `M${r(tab + hh * 0.5)} ${r(hh * 0.86)}L${r(tab + hh * 0.95)} ${r(hh * 0.14)}M${r(tab + hh * 1.05)} ${r(hh * 0.86)}L${r(tab + hh * 1.5)} ${r(hh * 0.14)}`, stroke: '#ffffff', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.75}),
+    // (a light edge highlight along the glass — no diagonal glints, which would read as strokes through the text below)
+    h('path', {d: `M${r(tab + 6)} 4H${r(w - tab - 6)}`, stroke: '#ffffff', 'stroke-width': 2.4, 'stroke-linecap': 'round', opacity: 0.55}),
     h('rect', {x: 0, y: r(-hh * 0.06), width: r(tab), height: r(hh * 1.12), rx: r(Math.min(8, tab * 0.3)), fill: SLATE, stroke: INK, 'stroke-width': 2}),
     h('rect', {x: r(w - tab), y: r(-hh * 0.06), width: r(tab), height: r(hh * 1.12), rx: r(Math.min(8, tab * 0.3)), fill: SLATE, stroke: INK, 'stroke-width': 2}),
     knurl(0), knurl(w - tab));

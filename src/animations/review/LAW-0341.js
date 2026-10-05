@@ -80,7 +80,7 @@ const sceneSchema = {
 const defaultParams = {...EN, actionProgress: 1, finalState: 'aligned'};
 
 /** Compose desk + panel at text size F. */
-export function compose(ctx, P, F, opts) {
+function compose(ctx, P, F, opts) {
   const {w: DW, h: DH} = ctx.design;
   const shape = ctx.view.shape;
   const showKey = ctx.show('key');

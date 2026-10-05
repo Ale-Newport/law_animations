@@ -1,0 +1,58 @@
+{
+  "animationId": "LAW-0351",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Both scenes share the same supplied route, points, review desk, filter doors (only routes.returnTo stands open), folder and calendar; the ONE changed fact is how the folder reaches the configured point: A (initial examination) enters from the left with no notes, B (renewed examination) comes back from the review desk with the supplied notes. Neither scene shows a result: the renewed examination is not shown and has no outcome; no winner, score or conclusion is drawn. Brief fields: decisions, grounds (B's notes), routes, outcomes, scenarioA, scenarioB, changedFact, sharedFacts and comparisonLabels are editable.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Three points, the configured point is Point 2; A enters from the left without notes, B comes back from the review desk with two notes.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: a two-point route configured to the FIRST point (B's way back is longer, A's entry short), three review notes on B's folder, other names and shared facts.",
+      "params": {
+        "decisions": {"title": "Initial decision in example K (fictional; placeholder)"},
+        "grounds": ["Note A: re-read the account (fictional)", "Note B: a missing annex (fictional)", "Note C: a date to check (fictional)"],
+        "routes": {"stations": ["Desk K1 · first examination (fictional)", "Desk K2 · registry (fictional)"], "origin": "Review desk K (fictional)", "returnTo": 0},
+        "sharedFacts": ["Same two desks and review desk K", "Same folder of example K"]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: three long point names, long origin and decision title, three long notes, long scenario labels and captions, four shared facts and long guide/neutral texts.",
+      "params": {
+        "decisions": {"title": "Decision of the initial examination in this fictional example"},
+        "grounds": [
+          "Note 1: a point of the initial decision to look at again (fictional)",
+          "Note 2: a document the reviewers ask to be considered (fictional)",
+          "Note 3: a passage of the account to be read once more (fictional)"
+        ],
+        "routes": {"stations": ["Point 1 · intake desk of the example (fictional)", "Point 2 · initial examination desk (fictional)", "Point 3 · file room of the example (fictional)"], "origin": "Review desk of this fictional example (supplied)", "returnTo": 1},
+        "outcomes": {"returned": "Back at the configured point with its review notes in this example (as supplied)", "renewed": "Renewed examination: not shown in this example, no outcome is drawn"},
+        "labels": {"route": "Return route of this example as configured by the user (as supplied)", "point": "Configured return point of this example (as supplied)", "key": "As supplied · no conclusion drawn (placeholder content only)"},
+        "scenarioA": {"label": "Initial examination in this example", "caption": "The folder reaches the configured point for the first time, without any notes (as supplied)"},
+        "scenarioB": {"label": "Renewed examination in this example", "caption": "The folder comes back to the same configured point with its review notes (as supplied)"},
+        "changedFact": "Only how the folder reaches the configured point differs between the two scenes of this example",
+        "sharedFacts": ["Same points, filter doors and review desk in both", "Same folder and same decision in both", "Same lane and same calendar in both scenes", "Same configured return point in both"],
+        "comparisonLabels": {"guide": "only this differs between the scenes", "neutral": "Two supplied situations side by side: no winner, no result of either examination is drawn"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {"title": "Resolución del examen inicial (ficticia)"},
+        "grounds": ["Nota 1: un punto que mirar de nuevo (ficticia)", "Nota 2: un documento que considerar (ficticia)"],
+        "routes": {"stations": ["Punto 1 · entrada (ficticio)", "Punto 2 · examen inicial (ficticio)", "Punto 3 · archivo (ficticio)"], "origin": "Mesa de revisión (ficticia)", "returnTo": 1},
+        "outcomes": {"returned": "De vuelta en el punto configurado con notas de revisión (según lo aportado)", "renewed": "Examen renovado: no se muestra, sin resultado"},
+        "labels": {"route": "Ruta de devolución configurada (según lo aportado)", "point": "Punto de devolución configurado (según lo aportado)", "key": "Según lo aportado · sin conclusión"},
+        "scenarioA": {"label": "Examen inicial", "caption": "La carpeta llega al punto por primera vez, sin notas (según lo aportado)"},
+        "scenarioB": {"label": "Examen renovado", "caption": "La carpeta vuelve al mismo punto con notas de revisión (según lo aportado)"},
+        "changedFact": "Solo cambia cómo llega la carpeta al punto configurado",
+        "sharedFacts": ["Mismos puntos, puertas y mesa de revisión", "Misma carpeta y resolución"],
+        "comparisonLabels": {"guide": "solo esto cambia", "neutral": "Dos situaciones aportadas lado a lado: sin ganador ni resultado de ningún examen"}
+      }
+    }
+  ]
+}

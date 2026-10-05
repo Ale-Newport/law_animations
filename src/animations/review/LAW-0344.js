@@ -70,7 +70,7 @@ const sceneSchema = {
 
 const defaultParams = {...EN};
 
-export function compose(ctx, P, F, opts) {
+function compose(ctx, P, F, opts) {
   const {w: DW, h: DH} = ctx.design;
   const showKey = ctx.show('key');
   const showAll = ctx.show('all');

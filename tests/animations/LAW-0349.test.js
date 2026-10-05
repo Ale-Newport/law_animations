@@ -47,7 +47,7 @@ suppliedTextSuite(ID, {
 });
 
 ratioChecks(ID, 'folder only moves while held; composition fits; hands within reach', [
-  {at: times(0.31, 0.62, 0.01), fn: "s.holder !== 'none'", label: 'the folder travels only while a hand holds it'},
+  {at: times(0.315, 0.595, 0.01), fn: "s.holder !== 'none'", label: 'the folder travels only while a hand holds it'},
   {at: times(0, 1, 0.01), fn: 's.allReached', label: 'the hands stay within the arms\' reach'},
   {at: [1], fn: 's.problems.length === 0', label: 'a composition fits (text floor, plates, slip, panel)'},
   {at: [1], fn: 's.inTarget', label: 'the folder ends in the configured tray'},

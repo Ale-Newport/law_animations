@@ -110,7 +110,7 @@ function roomGeometry(ctx, P, w, F, showKey, wasText, chK = 0.68) {
   const head = F * 1.5;
   const vfitW = (t, tw) => fitG(t, {maxWidth: tw, size: F, minSize: F, maxLines: 5, weight: 600});
   // the narrowest plate (from 1.5 card widths up to the table's width) on which both values fit in five lines
-  let plateW = Math.min(tableW - 2 * edge, Math.max(cw * 1.5, F * 13));
+  let plateW = showKey ? Math.min(tableW - 2 * edge, Math.max(cw * 1.5, F * 13)) : cw * 1.15;
   if (showKey) {
     for (let wq = plateW; wq <= tableW - 2 * edge + 0.5; wq += 12) {
       plateW = Math.min(wq, tableW - 2 * edge);
@@ -210,6 +210,15 @@ function roomFrame(G, pre, st) {
 /* Layout                                                              */
 /* ------------------------------------------------------------------ */
 
+/** The context room's top-left and scale when it has stepped back by `back` ∈ [0, 1]. */
+function ctxPlace(L, back) {
+  const R = L.roomRect;
+  const sc = lerp(1, L.lens.s, back);
+  if (L.tall) return {sc, x: R.x, y: lerp(R.y, 0, back)};
+  const cy = R.y + R.h / 2;
+  return {sc, x: lerp(R.x, 0, back), y: cy - (R.h / 2) * sc};
+}
+
 function compose(ctx, P, F, opt) {
   const D = ctx.design;
   const showKey = ctx.show('key');
@@ -228,18 +237,23 @@ function compose(ctx, P, F, opt) {
   if (showAll) rows.push({kind: 'item', icon: 'pips', text: P.labels.order, name: 'order-note'});
   if (showKey) rows.push({kind: 'item', icon: 'delta', text: P.contextLabels.marker, name: 'marker-row'});
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
-  const panelW = tall ? D.w : rows.length ? Math.max(F * 11, D.w * opt.panel) : 0;
+  const panelW = tall ? D.w : Math.max(F * 11, D.w * opt.panel);
   const PL = panelLayout(ctx, rows, {w: panelW - (tall ? 6 : gap), F, maxLines: 4, gap: F * 0.55});
   if (!PL.ok) problems.push('panel');
-  const roomW = tall ? D.w : D.w - panelW;
-  const G = roomGeometry(ctx, P, roomW, showKey ? F : F * 1.5, showKey, ctx.t.was, tall ? (showKey ? 1.0 : 1.35) : 0.68);
+  // (labels hidden on wide frames: no panel; the room stands centred, leaving the lens its space when it steps back)
+  // (labels hidden: no panel; the room stands centred and a little wider, its cards taller, so the scene fills the frame)
+  const roomW = tall ? D.w : rows.length ? D.w - panelW : D.w * (ctx.view.shape === 'square' ? 0.75 : 0.68);
+  const chK = tall ? (rows.length ? 1.0 : 1.7) : rows.length ? 0.68 : ctx.view.shape === 'square' ? 1.15 : 0.8;
+  const G = roomGeometry(ctx, P, roomW, F, showKey, ctx.t.was, chK);
   if (!G.ok) problems.push('plate-text');
   // fit the room into its region (scale k ≤ 1 when it is taller than the space)
   const regionH = tall ? D.h - PL.h - gap * 2 : D.h;
+  // (labels hidden: no panel — the same room grows to fill the frame at rest)
   const k = Math.min(1, regionH / G.h);
   if (showKey && F * k * pxPerUnit(ctx) < (opt.floor ?? 16) - 0.01) problems.push('ctx-text');
   const roomRect = {x: 0, y: tall ? Math.max(0, (D.h - (G.h * k + gap + PL.h)) * 0.3) : (D.h - G.h * k) / 2, w: G.w * k, h: G.h * k};
   if (!tall && k < 1) roomRect.x = (roomW - G.w * k) / 2;
+  if (!rows.length) { roomRect.x = (D.w - G.w * k) / 2; roomRect.y = (D.h - G.h * k) / 2; }
   const panelRect = tall ? {x: 6, y: roomRect.y + roomRect.h + gap, w: D.w - 6, h: PL.h} : {x: roomW + gap, y: (D.h - PL.h) / 2, w: panelW - gap, h: PL.h};
   if (panelRect.y + panelRect.h > D.h + 0.5) problems.push('panel-height');
   return {problems, F, tall, PL, G, k, roomRect, panelRect, roomW};
@@ -261,15 +275,16 @@ const scene = {
     const lensPlan = C => {
       const {G, k, roomRect} = C;
       const crop0 = {x: G.plate.x - 12, y: G.plate.y - 12, w: G.plate.w + 24, h: G.dock.y + G.dock.h - G.plate.y + 24};
-      const anchor = tall ? {x: roomRect.x, y: roomRect.y} : {x: roomRect.x, y: roomRect.y + roomRect.h / 2};
+      // (the context steps back to the frame's left edge — or its top on tall frames — as it shrinks)
       const regionFor = sc => (tall
-        ? {x: 0, y: roomRect.y + roomRect.h * sc + 18, w: D.w, h: D.h - (roomRect.y + roomRect.h * sc + 18)}
-        : {x: roomRect.x + roomRect.w * sc + 18, y: 0, w: D.w - (roomRect.x + roomRect.w * sc + 18), h: D.h});
+        ? {x: 0, y: roomRect.h * sc + 18, w: D.w, h: D.h - (roomRect.h * sc + 18)}
+        : {x: roomRect.w * sc + 18, y: 0, w: D.w - (roomRect.w * sc + 18), h: D.h});
       const shareOf = sc => (tall ? Math.max((roomRect.h * sc * f.scale) / ctx.view.height, (roomRect.w * sc * f.scale) / ctx.view.width) : (roomRect.w * sc * f.scale) / ctx.view.width);
       let sc = 1, region = regionFor(1), ok = false;
       for (const zt of [1.65, 1.56]) {
         for (let q = 1; q >= 0.3 - 1e-9; q -= 0.02) {
           if (shareOf(q) < 0.455) break;
+          if (tall && (roomRect.w * q * f.scale) / ctx.view.width < 0.8) break;
           const rg = regionFor(q);
           sc = q; region = rg;
           const z = Math.min(zoomMax, rg.w / (crop0.w * k), rg.h / (crop0.h * k));
@@ -295,7 +310,7 @@ const scene = {
       dest.y = tall ? region.y + (region.h - dest.h) * (pl === 'bottom' ? 1 : pl === 'top' ? 0 : 0.5) : clamp(roomRect.y + roomRect.h / 2 - dest.h / 2, region.y, region.y + region.h - dest.h);
       if (Math.min(dest.w, dest.h) < 0.36 * shortD - 0.5) problems.push('lens-small');
       if (zm < 1.56) problems.push('lens-zoom');
-      return {anchor, s: sc, region, Z, zm, crop, dest, problems};
+      return {s: sc, region, Z, zm, crop, dest, problems};
     };
     let best = null;
     outer:
@@ -325,11 +340,11 @@ const scene = {
     L.markerR = mR;
     if ((side < 0 && G.plate.x - G.tableX < (28 + 2 * mR) / k) || (side > 0 && G.tableX + G.tableW - (G.plate.x + G.plate.w) < (28 + 2 * mR) / k)) L.problems.push('marker-space');
     // the lens opens only once the stepping-back context no longer lies under it
-    const {dest, anchor, s} = L.lens;
+    const {dest} = L.lens;
     const lensBox = {x: dest.x - 4, y: dest.y - 4, w: dest.w + 14, h: dest.h + 18};
     const clearAt = u => {
-      const sc = lerp(1, s, ease.inOutCubic(seg(u, ...W.back)));
-      return !overlaps({x: anchor.x + (roomRect.x - anchor.x) * sc, y: anchor.y + (roomRect.y - anchor.y) * sc, w: roomRect.w * sc, h: roomRect.h * sc}, lensBox, 0);
+      const q = ctxPlace(L, ease.inOutCubic(seg(u, ...W.back)));
+      return !overlaps({x: q.x, y: q.y, w: roomRect.w * q.sc, h: roomRect.h * q.sc}, lensBox, 0);
     };
     let uClear = W.open[0];
     while (uClear <= W.back[1] && !clearAt(uClear)) uClear += 0.0002;
@@ -365,9 +380,9 @@ const scene = {
     const nodes = {};
     const open = ease.inOutCubic(seg(u, ...L.openW)) * (1 - ease.inOutCubic(seg(u, ...W.close)));
     const back = ease.inOutCubic(seg(u, ...W.back)) * (1 - ease.inOutCubic(seg(u, ...W.forward)));
-    const sc = lerp(1, L.lens.s, back);
-    const a = L.lens.anchor;
-    nodes.ctx = {transform: `${T(a.x - a.x * sc, a.y - a.y * sc)} scale(${r(sc, 4)})`, opacity: r(1 - 0.42 * Math.min(1, open * 1.4), 3)};
+    const q = ctxPlace(L, back);
+    const sc = q.sc;
+    nodes.ctx = {transform: `${T(q.x - L.roomRect.x * sc, q.y - L.roomRect.y * sc)} scale(${r(sc, 4)})`, opacity: r(1 - 0.42 * Math.min(1, open * 1.4), 3)};
     const move = ease.inOutCubic(seg(u, ...W.move));
     const was = seg(u, ...W.was);
     const newIn = seg(u, ...W.newIn);

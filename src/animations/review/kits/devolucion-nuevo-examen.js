@@ -299,7 +299,8 @@ export function boardModel(ctx, o) {
     const cols = [];
     let x = box.x;
     for (let i = 0; i < N; i++) { const w = unit * (i < n ? 1 : rw); cols.push({x, w}); x += w + gx; }
-    const fits = cols.map((c, i) => plateFit(i < n ? names[i] : o.origin, c.w - tm * 2 - (i === o.target ? F * 1.55 : F * 0.5) - F * 0.5));
+    const extL = o.plateExtL ?? 0; // the first plate may reach further left (a sign over free desk space)
+    const fits = cols.map((c, i) => plateFit(i < n ? names[i] : o.origin, c.w + (i ? 0 : extL) - tm * 2 - (i === o.target ? F * 1.55 : F * 0.5) - F * 0.5));
     fits.forEach(f => { if (f && !f.ok) problems.push('plate-text'); });
     const plateH = Math.max(F * 1.9, ...fits.map(f => (f ? f.height + F * 0.9 : 0)));
     const g1 = F * 0.45;
@@ -323,7 +324,7 @@ export function boardModel(ctx, o) {
       const tx = c.x + (c.w - w) / 2;
       const tray = {x: tx, y: trayY, w, h: th};
       const rest = station ? {x: tx + tw / 2, y: trayY + th / 2} : {x: tx + fm + fw / 2, y: trayY + th / 2};
-      slots.push({i, station, plate: {x: c.x + tm, y: y0, w: c.w - tm * 2, h: plateH, fit: fits[i]}, tray, rest, mouth: {x: rest.x, y: trayY + th}});
+      slots.push({i, station, plate: {x: c.x + tm - (i ? 0 : extL), y: y0, w: c.w - tm * 2 + (i ? 0 : extL), h: plateH, fit: fits[i]}, tray, rest, mouth: {x: rest.x, y: trayY + th}});
     });
     const R = slots[n];
     lane = {orient: 'row', w: laneW, a: {x: slots[0].rest.x - laneW * 0.9, y: yL}, b: {x: R.rest.x + laneW * 0.9, y: yL}, drop: {x: R.rest.x, y: yL}};
@@ -332,7 +333,7 @@ export function boardModel(ctx, o) {
     const slip = slipSize(slipN, s);
     M.slipS = s;
     M.slipRest = {x: R.tray.x + fm * 2 + fw + slip.w / 2, y: R.tray.y + R.tray.h / 2};
-    if (s < F * 2.6) problems.push('slip-small');
+    if (s < F * 2.2) problems.push('slip-small');
     const cw = Math.min(fw * 0.42, box.x + box.w - (R.rest.x + fw / 2 + F * 0.6) - F * 0.2);
     M.cal = {w: cw, h: cw * 0.82, x: R.rest.x + fw / 2 + F * 0.6, y: yL - cw * 0.41};
     if (cw < F * 2.4) problems.push('calendar-small');
@@ -383,7 +384,7 @@ export function boardModel(ctx, o) {
     const slip = slipSize(slipN, s);
     M.slipS = s;
     M.slipRest = {x: sideX + slip.w / 2, y: R.rest.y};
-    if (s < F * 2.6) problems.push('slip-small');
+    if (s < F * 2.2) problems.push('slip-small');
     const cw = Math.min(fw * 0.42, sideW - F * 0.3);
     M.cal = {w: cw, h: cw * 0.82, x: sideX, y: slots[0].rest.y - cw * 0.41};
     if (cw < F * 2.4) problems.push('calendar-small');
@@ -436,7 +437,7 @@ export function laneArt(ctx, B, o = {}) {
     for (const s of B.slots) parts.push(strip(s.rest.x - w / 2, s.tray.y + s.tray.h - 4, w, L.a.y - (s.tray.y + s.tray.h) + 4));
     parts.push(strip(L.a.x - w / 2, L.a.y - w / 2, L.b.x - L.a.x + w, w));
     const step = w * 1.5;
-    for (let x = R.rest.x - step; x > L.a.x + w * 0.2; x -= step) {
+    for (let x = R.rest.x - step; o.chev !== false && x > L.a.x + w * 0.2; x -= step) {
       if (B.slots.some(s => Math.abs(s.rest.x - x) < w * 0.75)) continue;
       parts.push(g({transform: T(x, L.a.y, 180)}, chevron(w * 0.5)));
     }
@@ -449,7 +450,7 @@ export function laneArt(ctx, B, o = {}) {
     for (const s of B.slots) parts.push(strip(s.tray.x + s.tray.w - 4, s.rest.y - w / 2, L.a.x - (s.tray.x + s.tray.w) + 4, w));
     parts.push(strip(L.a.x - w / 2, L.a.y - w / 2, w, L.b.y - L.a.y + w));
     const step = w * 1.5;
-    for (let y = R.rest.y - step; y > L.a.y + w * 0.2; y -= step) {
+    for (let y = R.rest.y - step; o.chev !== false && y > L.a.y + w * 0.2; y -= step) {
       if (B.slots.some(s => Math.abs(s.rest.y - y) < w * 0.75)) continue;
       parts.push(g({transform: T(L.a.x, y, -90)}, chevron(w * 0.5)));
     }
@@ -484,6 +485,7 @@ export function dnIcon(ctx, kind, s, o = {}) {
       g({transform: T(-k * 0.8, k * 0.15, 90)}, doorArt(ctx, {len: k * 0.85, t: k * 0.3})),
       g({transform: T(k * 0.8, k * 0.15, 90)}, doorArt(ctx, {len: k * 0.85, t: k * 0.3})));
   }
+  if (kind === 'pip') return g(null, indexPip(o.index ?? 0, k * 0.62));
   if (kind === 'pin') return g({transform: T(0, -k * 0.1)}, pinGlyph(ctx, k * 0.62));
   if (kind === 'calendar') return g({transform: T(-k, -k * 0.82)}, calendarNode(ctx, {w: s, h: s * 0.82}));
   if (kind === 'lane') return g(null, h('rect', {x: r(-k), y: r(-k * 0.35), width: r(s), height: r(k * 0.7), rx: r(k * 0.35), fill: LANE, stroke: shade(LANE, -0.3), 'stroke-width': 2}), g({transform: T(0, 0, 180)}, chevron(k * 0.6)));

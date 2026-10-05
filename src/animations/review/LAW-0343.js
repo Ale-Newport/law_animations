@@ -80,14 +80,18 @@ function deskPlan(P, M, desk, F, tight, compact) {
   return {compact, inner, plan, A, Bt, Bs, strip, cal: plan.cal ? off(plan.cal) : null, fits: plan.needW <= inner.w + 0.5 && plan.needH <= inner.h + 0.5};
 }
 
-export function compose(ctx, P, F, opts) {
+function compose(ctx, P, F, opts) {
   const {w: DW, h: DH} = ctx.design;
   const showKey = ctx.show('key');
   const showAll = ctx.show('all');
   const rows = [];
   if (showKey) rows.push({kind: 'heading', icon: 'guide', text: P.changedFact, name: 'lg-changed'});
+  // (compact desks have no margin under the cards for the guide's label: it is listed here, keyed by the guide's sign)
+  if (showKey && opts.compact) rows.push({kind: 'item', icon: 'guide', text: P.comparisonLabels.guide, name: 'guide-label'});
   if (showAll) P.sharedFacts.forEach((f, i) => rows.push({kind: 'item', icon: 'same', text: f, name: `lg-shared${i}`}));
   if (showAll) rows.push({kind: 'item', icon: 'filter', text: P.routes.label, name: 'lg-guide'});
+  // (compact desks: the scenario captions move from the headers to the panel, keyed by the lane badges)
+  if (showAll && opts.compact) rows.push({kind: 'item', icon: 'laneA', text: P.scenarioA.caption, name: 'lg-capA'}, {kind: 'item', icon: 'laneB', text: P.scenarioB.caption, name: 'lg-capB'});
   if (showKey) rows.push({kind: 'state', text: P.comparisonLabels.neutral, name: 'neutral'});
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
   const gap = F * 1.1;
@@ -113,7 +117,7 @@ export function compose(ctx, P, F, opts) {
     if (!showKey) return {label: null, caption: null, h: badgeR * 2};
     const tw = sw - badgeR * 2 - F * 0.7;
     const label = fitG(sc.label, {maxWidth: tw, size: F * 1.05, minSize: F, maxLines: 2, weight: 700});
-    const caption = showAll ? fitG(sc.caption, {maxWidth: tw, size: F, minSize: F, maxLines: 2, weight: 500}) : null;
+    const caption = showAll && !opts.compact ? fitG(sc.caption, {maxWidth: tw, size: F, minSize: F, maxLines: 2, weight: 500}) : null;
     return {label, caption, h: Math.max(badgeR * 2, label.height + (caption ? F * 0.25 + caption.height : 0)), ok: label.ok && (!caption || caption.ok)};
   });
   const hh = Math.max(hdr[0].h, hdr[1].h);
@@ -253,13 +257,14 @@ const scene = {
       ? {a: {x: R0.x + R0.w / 2, y: R0.y}, b: {x: R1.x + R1.w / 2, y: R1.y}, y: Math.min(R0.y, R1.y) - C.F * 0.9}
       : {a: {x: R0.x + R0.w, y: R0.y + R0.h / 2}, b: {x: R1.x + R1.w, y: R1.y + R1.h / 2}, x: Math.max(R0.x + R0.w, R1.x + R1.w) + C.F * 0.9};
     if (C.arr === 'row') guideKids.push(h('path', {d: `M${r(join.a.x)} ${r(join.a.y)}V${r(join.y)}H${r(join.b.x)}V${r(join.b.y)}`, fill: 'none', stroke: gc, 'stroke-width': 4, 'stroke-linejoin': 'round'}));
-    if (L.guideChip) {
+    if (L.guideChip && !C.D[1].compact) {
       const gch = L.guideChip;
       // the chip sits inside desk B's ring, in its upper part (over the card's header band, never over the result row)
       const cx = R1.x + R1.w / 2;
       // (on the lower edge of desk B's ring: over the card's footer filler, never over its result row)
       const dkB = C.desks[1];
-      const x = cx - gch.w / 2, y = Math.min(R1.y + R1.h - gch.h / 2, dkB.y + dkB.h - gch.h - 4);
+      const x = cx - gch.w / 2;
+      const y = Math.min(R1.y + R1.h - gch.h / 2, dkB.y + dkB.h - gch.h - 4);
       guideKids.push(g({name: 'guide-chip'},
         h('path', {d: roundRectPath(x, y, gch.w, gch.h, Math.min(gch.h / 2, C.F * 0.6)), fill: th.card, stroke: gc, 'stroke-width': 3}),
         textAt(gch.fit, {x: cx, y: y + C.F * 0.35, anchor: 'middle', fill: INK})));
@@ -310,7 +315,10 @@ const scene = {
     });
     const guideK = seg(u, ...W.guide), noteK = seg(u, ...W.note);
     nodes.guide = {opacity: r(guideK, 3)};
-    if (C.PL) for (const row of C.PL.rows) if (row.name === 'neutral') nodes[row.name] = {opacity: r(noteK, 3)};
+    if (C.PL) for (const row of C.PL.rows) {
+      if (row.name === 'neutral') nodes[row.name] = {opacity: r(noteK, 3)};
+      if (row.name === 'guide-label') nodes[row.name] = {opacity: r(guideK, 3)};
+    }
     const beat = u < BEATS.base[1] ? 'base' : u < BEATS.change[1] ? 'change' : u < BEATS.parallel[1] ? 'parallel' : 'guide';
     return {
       nodes,

@@ -106,7 +106,7 @@ const defaultParams = {...EN};
 const ICON = {original: 'cardA', confirming: 'cardB', resultA: 'result', resultB: 'result', guide: 'filter'};
 
 /** Resolved parts, relationships (both ends drawn, no self links, no duplicates) and the visiting order. */
-export function resolve(P) {
+function resolve(P) {
   const shown = new Set(P.elements.map(e => e.id));
   const label = Object.fromEntries(P.elements.map(e => [e.id, e.label]));
   const rels = [];
@@ -122,7 +122,7 @@ export function resolve(P) {
   return {shown, label, rels, order, kinds, focus: shown.has(P.focusElement) ? P.focusElement : null};
 }
 
-export function compose(ctx, P, R, F, opts) {
+function compose(ctx, P, R, F, opts) {
   const {w: DW, h: DH} = ctx.design;
   const showKey = ctx.show('key');
   const showAll = ctx.show('all');
@@ -274,7 +274,9 @@ const scene = {
     };
     const size = {original: {w: M.w, h: M.h}, confirming: {w: M.w, h: M.h}, resultA: {w: C.rw, h: C.rh}, resultB: {w: C.rw, h: C.rh}, guide: {w: C.gw, h: C.gh}};
     // tracer along the visiting order (centre to centre), the focus part enlarged while the marker is on it
-    const centreOf = id => ({x: pos[id].x + size[id].w / 2, y: pos[id].y + size[id].h / 2});
+    // (the marker rests on each part's edge — the cards' and result fields' lower edge, the guide's upper edge —, never
+    // over printed text)
+    const centreOf = id => ({x: pos[id].x + size[id].w / 2, y: id === 'guide' ? pos[id].y : pos[id].y + size[id].h});
     const nSeg = R.order.length - 1;
     const tq = seg(u, ...W.trace);
     const segF = tq * nSeg;
