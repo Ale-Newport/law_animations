@@ -238,7 +238,7 @@ function compose(ctx, P, F, opt) {
   if (showKey) rows.push({kind: 'item', icon: 'delta', text: P.contextLabels.marker, name: 'marker-row'});
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
   const panelW = tall ? D.w : Math.max(F * 11, D.w * opt.panel);
-  const PL = panelLayout(ctx, rows, {w: panelW - (tall ? 6 : gap), F: tall ? F * 1.2 : F, maxLines: 4, gap: F * 0.55});
+  const PL = panelLayout(ctx, rows, {w: panelW - (tall ? 6 : gap), F, maxLines: 4, gap: F * 0.55});
   if (!PL.ok) problems.push('panel');
   // (labels hidden on wide frames: no panel; the room stands centred, leaving the lens its space when it steps back)
   // (labels hidden: no panel; the room stands centred and a little wider, its cards taller, so the scene fills the frame)

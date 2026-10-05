@@ -132,6 +132,9 @@ function compose(ctx, P, R, F, v) {
   const tagH = Math.max(fitB ? fitB.height : F * 1.4, fitA ? fitA.height : F * 1.4) + F * 0.9;
   const B = boardModel(ctx, {orient: 'row', box, F, names: P.routes.stations, origin: P.routes.origin, showText: showKey && !v.pips, target: R.target, slipN: R.notes.length, handRoom: v.mb ? F * 0.6 : tagH + F * 1.4, matBelow: !!v.mb, matGap: tagH + F * 1.6, matPlate: v.mb ? 'under' : undefined, maxFw: v.maxFw ?? (v.mb ? 400 : 320), plateLines: v.pl ?? 3, reviewW: v.rw, folderMin: v.fmin});
   problems.push(...B.problems.filter(q => !(v.relax && (q === 'slip-small' || q === 'calendar-small'))));
+  // (the slip rides on the folder: sized on it; a calendar squeezed out by a narrow mat is left off)
+  B.slipS = Math.max(B.slipS, B.fw * 0.36);
+  if (!(B.cal.w >= F * 1.8)) B.cal = null;
   const tagY = B.lane.a.y + B.fh / 2 + F * 0.9; // top of the tag
   if (tagY + tagH > box.y + box.h + inset * 0.5) problems.push('tag-low');
   const tagX = x => Math.max(box.x, Math.min(box.x + box.w - TW, x - TW / 2));
@@ -203,7 +206,6 @@ const scene = {
       if (!best || c.problems.length < best.n) best = {n: c.problems.length, F, v};
       if (c.ok) { C = c; break outer; }
     }
-    if (globalThis.process?.env?.DN_DBG) { const c = compose(ctx, P, R, 21, sq[0]); console.log(c.problems); }
     C = C || compose(ctx, P, R, best.F, {...best.v, force: true});
     const lensGeom = makeLens(ctx, {name: 'lens', source: C.lsrc || C.src, dest: C.dest, content: null, color: ctx.theme.accent2});
     return {P, R, C, lensGeom};
@@ -247,7 +249,7 @@ const scene = {
         g({'clip-path': desk.clip},
           laneArt(ctx, B, {branchArrow: null}),
           slots,
-          g({transform: T(B.cal.x, B.cal.y)}, calendarNode(ctx, {prefix: 'calendar', w: B.cal.w, h: B.cal.h})),
+          B.cal ? g({transform: T(B.cal.x, B.cal.y)}, calendarNode(ctx, {prefix: 'calendar', w: B.cal.w, h: B.cal.h})) : null,
           doors,
           ghost,
           rail,

@@ -34,7 +34,7 @@ import {
 const ID = 'LAW-0360';
 const DURATION = 8000;
 const BEATS = {build: [0, 0.2], isolate: [0.2, 0.45], substitute: [0.45, 0.75], return: [0.75, 1]};
-const W = {ink: [0.03, 0.14], clips: [0.06, 0.16], badges: [0.14, 0.18], src: [0.2, 0.24], open: [0.24, 0.37], panelOut: [0.2, 0.26], lift: [0.47, 0.53], newIn: [0.56, 0.62], close: [0.75, 0.85], marker: [0.85, 0.9], panelIn: [0.85, 0.91]};
+const W = {ink: [0.03, 0.14], clips: [0.06, 0.16], badges: [0.14, 0.18], src: [0.2, 0.24], open: [0.24, 0.37], panelOut: [0.2, 0.26], lift: [0.47, 0.53], newIn: [0.56, 0.62], close: [0.75, 0.85], marker: [0.85, 0.9], panelIn: [0.77, 0.82]};
 const SIZES = [30, 28, 27, 26, 25, 24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 const FOCI = ['route1', 'route2', 'route3'];
 
@@ -144,7 +144,8 @@ function compose(ctx, P, F, opts) {
   desk.h = Math.min(desk.h, 2 * mI + tabH + folder.h);
   if (panel && opts.band) panel.y = desk.y + desk.h + gap;
   const usedH = PL ? Math.max(desk.y + desk.h, panel.y + PL.h) : desk.y + desk.h;
-  const dyC = Math.max(0, (DH - usedH) / 2) * (!PL && opts.band ? 0.3 : 1);
+  // (tall/square bands: the composition sits high, the free room below goes to the lens)
+  const dyC = Math.max(0, (DH - usedH) / 2) * (opts.band ? 0.3 : 1);
   // the lens source: the focus end card and the last leg of its track (whole fields only)
   const E = pl.E[fi], rt = pl.routes[fi];
   const m = Math.min(Math.max(F * 0.5, 8), Math.max(F * 0.8, 14) * 0.6);
@@ -176,16 +177,19 @@ function compose(ctx, P, F, opts) {
     else { const top = desk.y + desk.h + dyC + F * 0.6; room = {x: 4, y: top, w: DW - 8, h: DH - top - 4}; }
     const zMax = Math.min((room.w - 8) / src.w, (room.h - bandH - 8) / src.h);
     const zNeed = (0.37 * shortSide) / Math.min(src.w, src.h);
-    const zoom = Math.min(Math.max(P.detailGeometry.zoom, zNeed), zMax);
+    // (the lens takes the whole free room — a large, real inspection — bounded by the schema's 4×)
+    const zoom = Math.min(Math.max(P.detailGeometry.zoom, zNeed, zMax), 4, zMax);
     const dW = src.w * zoom, dH = src.h * zoom;
     const s1 = kS < 1 ? {x: desk.x + (src.x - desk.x) * kS, y: (src.y + dyC) * kS - dyC, w: src.w * kS, h: src.h * kS} : src;
     const srcC = {x: s1.x + s1.w / 2, y: s1.y + dyC + s1.h / 2};
-    const dx = placement === 'right' ? room.x + (room.w - dW) / 2 : clamp(srcC.x - dW / 2, room.x, room.x + room.w - dW);
+    const dx = room.x + (room.w - dW) / 2;
     const dy = placement === 'right' ? clamp(srcC.y - (dH + bandH) / 2, room.y, room.y + room.h - dH - bandH) : room.y + Math.max(0, (room.h - dH - bandH) / 2);
     return {dest: {x: dx, y: dy - dyC, w: dW, h: dH}, zoom, big: Math.min(dW, dH) / shortSide, placement};
   };
   // (the supplied placement is a preference: when the lens cannot be large enough there, the other side is used)
   let LZ = lensFor(pref);
+  // (auto: whichever side gives the larger lens)
+  if (P.detailGeometry.placement === 'auto') { const L2 = lensFor(pref === 'right' ? 'bottom' : 'right'); if (L2.zoom >= 1.5 && L2.big > LZ.big) LZ = L2; }
   if (LZ.zoom < 1.5 || LZ.big < 0.355) { const L2 = lensFor(pref === 'right' ? 'bottom' : 'right'); if ((L2.zoom >= 1.5 && L2.big >= 0.355) || L2.big > LZ.big) LZ = L2; }
   const {dest, zoom, placement} = LZ;
   const wasBand = {x: dest.x, y: dest.y + dest.h + 6, w: dest.w, h: bandH - 6};
@@ -206,13 +210,13 @@ const scene = {
     const shape = ctx.view.shape;
     const showKey = ctx.show('key');
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
-    const arrangements = shape === 'portrait' ? [{band: true, orient: 'v', mapK: 0.6}, {band: true, cols: 2, orient: 'v', mapK: 0.6}, {band: true, cols: 2, orient: 'h', mapK: 0.6}]
+    const arrangements = shape === 'portrait' ? [{band: true, orient: 'v', shrink: 0.66}, {band: true, cols: 2, orient: 'v', shrink: 0.6}, {band: true, orient: 'v', mapK: 0.6}, {band: true, cols: 2, orient: 'v', mapK: 0.6}, {band: true, cols: 2, orient: 'h', mapK: 0.6}]
       : shape === 'square' ? [{band: true, cols: 2, orient: 'v', shrink: 0.56, spreadV: 16}, {band: true, cols: 2, orient: 'v', shrink: 0.5, spreadV: 16}, {band: true, cols: 2, orient: 'h', shrink: 0.55}, {band: true, cols: 2, orient: 'h', shrink: 0.5}, {band: true, cols: 3, tight: true, orient: 'v', shrink: 0.48, spreadV: 16}, {band: true, cols: 3, tight: true, orient: 'h', shrink: 0.48}]
         : [{pw: 0.4, orient: 'v'}, {pw: 0.44, orient: 'v'}, {pw: 0.36, orient: 'h'}, {pw: 0.3, orient: 'h', shrink: 0.62}, {pw: 0.3, orient: 'h', shrink: 0.56}, {pw: 0.36, orient: 'h', shrink: 0.56}, {pw: 0.44, orient: 'h'}];
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
     let C = null;
     // (two passes: the context at full size — no stepping back — while key text stays ≥ ~21 px; then everything)
-    const passes = [{arr: arrangements.filter(a => !a.shrink), sizes: sizes.filter(F => F * pxu >= 21)}, {arr: arrangements, sizes}];
+    const passes = [{arr: arrangements.filter(a => !a.shrink || shape !== 'landscape'), sizes: sizes.filter(F => F * pxu >= 21)}, {arr: arrangements, sizes}];
     outer: for (const pass of passes) for (const F of pass.sizes) {
       for (const a of pass.arr) {
         const c = compose(ctx, P, F, a);

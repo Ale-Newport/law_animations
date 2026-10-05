@@ -152,7 +152,7 @@ function compose(ctx, P, F, opt) {
   }
   const CM = cardModel(ctx, {w: cw, F, minF: F, maxLines: opt.cardLines, a: P.decisions.initial, b: P.decisions.later, showText: showKey, minH: showKey ? F * 4.5 * (opt.grow ?? 1) : cw * 0.75});
   if (!CM.ok) problems.push('card-text');
-  plateH = Math.max(Fg * 3.8, Math.min(CM.h * 0.95, plateW * 0.62));
+  plateH = Math.max(Fg * 3.8, Math.min(CM.h * (ctx.view.shape === 'landscape' ? 0.95 : 0.7), plateW * (ctx.view.shape === 'landscape' ? 0.62 : 0.6)));
   // captions: element label (bold) + description (+ grounds) + reserved state
   const capW = tall ? plateW : colW - 24;
   const desc = {intake: P.routes.intake, position: P.decisions.position, history: P.routes.history};

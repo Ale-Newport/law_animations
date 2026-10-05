@@ -31,27 +31,6 @@ contractSuite(ID, {
   ],
 });
 
-identicalBeforeChange} from '../harness/supplied-text.js';
-import {ratioChecks} from '../harness/ratio-checks.js';
-import {textSizeOverTime, CARDS_CLEAR, IN_FRAME, renderedTextFloor, coldCreate, restHoldFill, thinContent, subjectHeight, equalWeight, sweep, inFrameSweep, chipsClearOfProps, bannedDataTest, bannedRenderTest, jurisdictionTest, stressLongerTest, lineBreakTest, noEnglishTest, noTokenTest} from './contribucion-afectada-checks.js';
-
-const ID = 'LAW-0715';
-const P = name => presetsFor(ID).find(q => q.name === name).params;
-
-contractSuite(ID, {
-  continuity: ['itemA', 'itemB'],
-  semantic: [
-    {at: 0.1, fn: "s.beat === 'base' && s.stops === 0 && s.slide === 0 && s.posA === 'start' && s.posB === 'start'", label: 'base: two identical fields, the focus consequence waiting at the event; no stop yet'},
-    {at: 0.36, fn: "s.stops === 1 && s.slide === 0 && s.posB === 'start'", label: 'change: the stops are in place before anything moves'},
-    {at: 0.46, fn: 's.slide > 0 && s.slide < 1 && s.lookA.item === s.lookB.item', label: 'the same action runs in parallel on both fields'},
-    {at: 0.56, fn: "s.slide === 1 && s.posA === 'inner' && s.posB === 'inner'", label: 'both reach the inner slot before B changes'},
-    {at: 0.76, fn: "s.posA === 'inner' && s.posB === 'outer' && !s.guideShown", label: 'only B’s consequence goes on, to the outer slot'},
-    {at: 1, fn: "s.guideShown && s.keyShown && s.posA === 'inner' && s.posB === 'outer'", label: 'hold: guide line, bracket, neutral note and key'},
-    {at: 1, params: P('contrast-or-alternative'), fn: "s.posB === 'outer' && s.guideShown && s.focusItem === 1", label: 'alternative: the shelf collapse; the vase is the contrasted grouping'},
-    {at: 0.9, params: {textVisibility: 'none'}, fn: "s.posB === 'outer' && s.guideShown", label: 'labels hidden: the same contrast'},
-  ],
-});
-
 identicalBeforeChange(ID, 0.2);
 
 ratioChecks(ID, 'layout fits the design box', [

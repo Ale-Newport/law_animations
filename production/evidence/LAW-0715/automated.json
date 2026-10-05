@@ -1,0 +1,440 @@
+{
+  "animationId": "LAW-0715",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0715",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 6
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "origin.name",
+        "rejected": "Invalid animation parameters:\n - params.origin.name: must have at most 48 characters (received 53)"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: base: two identical scenes, every trolley parked; no pad yet @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "base",
+          "lookA": {
+            "a": 0,
+            "b": 0,
+            "stop": 0,
+            "head": 1
+          },
+          "lookB": {
+            "a": 0,
+            "b": 0,
+            "stop": 0,
+            "head": 1
+          },
+          "stops": 0,
+          "roll": 0,
+          "cartAa": {
+            "x": 71.87,
+            "y": 177.35
+          },
+          "cartAb": {
+            "x": 71.87,
+            "y": 400.18
+          },
+          "cartBa": {
+            "x": 924.08,
+            "y": 177.35
+          },
+          "cartBb": {
+            "x": 924.08,
+            "y": 400.18
+          },
+          "runA": "a",
+          "runB": "b",
+          "guideShown": false,
+          "keyShown": false,
+          "arrangement": "row",
+          "layout": {
+            "PH": 222.83,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: change: the pads are in place before anything moves @0.38",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "change",
+          "lookA": {
+            "a": 0,
+            "b": 0,
+            "stop": 1,
+            "head": 1
+          },
+          "lookB": {
+            "a": 0,
+            "b": 0,
+            "stop": 1,
+            "head": 1
+          },
+          "stops": 1,
+          "roll": 0,
+          "cartAa": {
+            "x": 71.87,
+            "y": 177.35
+          },
+          "cartAb": {
+            "x": 71.87,
+            "y": 400.18
+          },
+          "cartBa": {
+            "x": 924.08,
+            "y": 177.35
+          },
+          "cartBb": {
+            "x": 924.08,
+            "y": 400.18
+          },
+          "runA": "a",
+          "runB": "b",
+          "guideShown": false,
+          "keyShown": false,
+          "arrangement": "row",
+          "layout": {
+            "PH": 222.83,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the same roll runs in parallel: lane A in A, lane B in B, at the same place on their lanes @0.54",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "run",
+          "lookA": {
+            "a": 0.335,
+            "b": 0,
+            "stop": 1,
+            "head": 1
+          },
+          "lookB": {
+            "a": 0,
+            "b": 0.335,
+            "stop": 1,
+            "head": 1
+          },
+          "stops": 1,
+          "roll": 0.5,
+          "cartAa": {
+            "x": 146.51,
+            "y": 177.35
+          },
+          "cartAb": {
+            "x": 71.87,
+            "y": 400.18
+          },
+          "cartBa": {
+            "x": 924.08,
+            "y": 177.35
+          },
+          "cartBb": {
+            "x": 998.73,
+            "y": 400.18
+          },
+          "runA": "a",
+          "runB": "b",
+          "guideShown": false,
+          "keyShown": false,
+          "arrangement": "row",
+          "layout": {
+            "PH": 222.83,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: guide line, bracket, neutral note and key; only which conduct ran differs @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "a": 0.67,
+            "b": 0,
+            "stop": 1,
+            "head": 1
+          },
+          "lookB": {
+            "a": 0,
+            "b": 0.67,
+            "stop": 1,
+            "head": 1
+          },
+          "stops": 1,
+          "roll": 1,
+          "cartAa": {
+            "x": 221.16,
+            "y": 177.35
+          },
+          "cartAb": {
+            "x": 71.87,
+            "y": 400.18
+          },
+          "cartBa": {
+            "x": 924.08,
+            "y": 177.35
+          },
+          "cartBb": {
+            "x": 1073.37,
+            "y": 400.18
+          },
+          "runA": "a",
+          "runB": "b",
+          "guideShown": true,
+          "keyShown": true,
+          "arrangement": "row",
+          "layout": {
+            "PH": 222.83,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: alternative: the shelf tipping; the same single difference @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "a": 0.67,
+            "b": 0,
+            "stop": 1,
+            "head": 1
+          },
+          "lookB": {
+            "a": 0,
+            "b": 0.67,
+            "stop": 1,
+            "head": 1
+          },
+          "stops": 1,
+          "roll": 1,
+          "cartAa": {
+            "x": 217.63,
+            "y": 117.29
+          },
+          "cartAb": {
+            "x": 84.5,
+            "y": 316
+          },
+          "cartBa": {
+            "x": 936.71,
+            "y": 117.29
+          },
+          "cartBb": {
+            "x": 1069.85,
+            "y": 316
+          },
+          "runA": "a",
+          "runB": "b",
+          "guideShown": true,
+          "keyShown": true,
+          "arrangement": "row",
+          "layout": {
+            "PH": 198.71,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: labels hidden: the same contrast @0.9",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "guide",
+          "lookA": {
+            "a": 0.67,
+            "b": 0,
+            "stop": 1,
+            "head": 1
+          },
+          "lookB": {
+            "a": 0,
+            "b": 0.67,
+            "stop": 1,
+            "head": 1
+          },
+          "stops": 1,
+          "roll": 1,
+          "cartAa": {
+            "x": 321.04,
+            "y": 209.12
+          },
+          "cartAb": {
+            "x": 96.45,
+            "y": 544.34
+          },
+          "cartBa": {
+            "x": 948.66,
+            "y": 209.12
+          },
+          "cartBb": {
+            "x": 1173.26,
+            "y": 544.34
+          },
+          "runA": "a",
+          "runB": "b",
+          "guideShown": true,
+          "keyShown": true,
+          "arrangement": "row",
+          "layout": {
+            "PH": 335.21,
+            "size": 23,
+            "k": 1,
+            "fallback": false,
+            "why": []
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}
