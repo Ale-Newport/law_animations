@@ -179,7 +179,6 @@ function compose(ctx, P, F, opts) {
     const spare = mapHmax - plan.needH;
     if (spare > 1) plan = mapPlan(P, OM, EM, {F: G, orient, gap: g0 + Math.min(G * 5, spare), slots, routes: routesB});
   }
-  if (globalThis.__trace) globalThis.__trace.push({F: r(G * 1, 1), a: JSON.stringify(opts), mapW: r(mapW), mapHmax: r(mapHmax), needW: r(plan.needW), needH: r(plan.needH), oh: r(OM.h), eh: r(EM.h), PL: PL && r(PL.h)});
   const fits = plan.needW <= mapW + 0.5 && plan.needH <= mapHmax + 0.5;
   const D = desks.map(dk => {
     const folder = {x: dk.x + mI, y: dk.y + mI + tabH, w: dk.w - 2 * mI, h: plan.needH + 2 * pF};
@@ -260,7 +259,6 @@ const scene = {
     outer: for (const F of sizes) {
       for (const a of arrangements) {
         const c = compose(ctx, P, F, a);
-        if (globalThis.__trace) globalThis.__trace.push({P: [r(F * pxu, 1), JSON.stringify(a), c.problems]});
         if (c.ok) { C = c; break outer; }
         if (c.D && (!C || c.problems.length < C.problems.length)) C = c;
       }

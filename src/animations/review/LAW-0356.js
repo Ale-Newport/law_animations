@@ -35,7 +35,7 @@ import {
 const ID = 'LAW-0356';
 const DURATION = 8000;
 const BEATS = {context: [0, 0.2], isolate: [0.2, 0.45], substitute: [0.45, 0.75], back: [0.75, 1]};
-const W = {panelOut: [0.15, 0.21], open: [0.2, 0.36], oldOut: [0.46, 0.5], newIn: [0.5, 0.55], turn: [0.56, 0.64], close: [0.76, 0.86], marker: [0.84, 0.89], panelBack: [0.84, 0.9]};
+const W = {up: [0.15, 0.21], down: [0.86, 0.92], panelOut: [0.15, 0.21], open: [0.2, 0.36], oldOut: [0.46, 0.5], newIn: [0.5, 0.55], turn: [0.56, 0.64], close: [0.76, 0.86], marker: [0.84, 0.89], panelBack: [0.84, 0.9]};
 const SIZES = [30, 28, 26, 24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 const STATES = ['maintained', 'suspended'];
 
@@ -86,10 +86,8 @@ function compose(ctx, P, F, v, pxu) {
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
   const gap = F * 1.2;
   let area, band = null, PL = null;
-  const shortD = Math.min(DW, DH);
   // (the lens's smaller side must reach ~0.35 of the frame's short side: 0.35 × 1080 px in design units)
   const lensMin = (0.35 * 1080) / pxu;
-  void shortD;
   if (side) {
     const bw = DW * v.pw;
     PL = rows.length ? panelLayout(rows, {w: bw - 8, F}) : null;
@@ -159,7 +157,9 @@ function compose(ctx, P, F, v, pxu) {
  
   const panel = PL ? (side ? {x: band.x + 4, y: Math.max(0, (DH - PL.h) / 2)} : {x: 4, y: band.y + (band.h - PL.h) / 2}) : null;
   if (PL && !PL.ok) problems.push('panel-text');
-  return {F, side, M, TM, B, plate, ox, oy, src, dest, k, band, area, PL, panel, before, after, ok: !problems.length, problems};
+  // (labels hidden, stacked: no legend — the board rests centred and rises only while the lens is open)
+  const restDy = !PL && !side ? Math.max(0, (DH - plate.h) / 2) : 0;
+  return {F, side, M, TM, B, plate, ox, oy, src, dest, k, band, area, PL, panel, restDy, before, after, ok: !problems.length, problems};
 }
 
 const scene = {
@@ -170,7 +170,7 @@ const scene = {
     const showKey = ctx.show('key');
     const vs = shape === 'portrait' ? [{}, {cols: 2}]
       : shape === 'square' ? [{cols: 2}, {cols: 2, tight: true}, {cols: 3, tight: true}]
-        : showKey ? [{side: true, pw: 0.36}, {side: true, pw: 0.4}, {side: true, pw: 0.44}] : [{side: true, pw: 0.27}, {side: true, pw: 0.31}, {side: true, pw: 0.36}];
+        : showKey ? [{side: true, pw: 0.36}, {side: true, pw: 0.4}, {side: true, pw: 0.44}] : [{}];
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const sizes = (!showKey ? [34, 30, 27, ...SIZES] : SIZES).map(x => x / pxu);
     let C = null, best = null;
@@ -189,7 +189,6 @@ const scene = {
     const th = ctx.theme;
     const showKey = ctx.show('key');
     const {B, M, TM} = C;
-    const bi = STATES.indexOf(C.before);
     const copy = (p, named) => {
       const bn = boardNodes(ctx, B, TM, {prefix: p, showText: showKey, tagOps: [0, 0]});
       const s0 = B.pos(0, B.tWait), s1 = B.pos(1, B.tEnd);
@@ -200,11 +199,10 @@ const scene = {
         bn.gate,
         named ? g({name: `${p}-mk`, opacity: 0, transform: T(B.tag.x + B.tag.w - 4, B.tag.y + 4)}, changedMarker(ctx, {radius: Math.max(14, C.F * 0.8)})) : null);
     };
-    void bi;
     const lensContent = copy('ln', false);
     const L2 = makeLens(ctx, {name: 'lens', source: C.src, dest: C.dest, content: lensContent, color: th.accent2, frame: C.plate});
     return g({name: 'scene'},
-      g({name: 'context'},
+      g({name: 'context', transform: T(0, C.restDy)},
         h('path', {d: roundRectPath(C.plate.x + 5, C.plate.y + 7, C.plate.w, C.plate.h, 22), fill: th.shadow}),
         h('path', {name: 'board-plate', d: roundRectPath(C.plate.x, C.plate.y, C.plate.w, C.plate.h, 22), fill: th.paper, stroke: INK, 'stroke-width': 2.4}),
         copy('cx', true)),
@@ -250,6 +248,8 @@ const scene = {
     }
     const mk = seg(u, ...W.marker);
     nodes['cx-mk'] = {opacity: r(mk, 3)};
+    const dyNow = C.restDy * (1 - ease.inOutCubic(seg(u, ...W.up)) + ease.inOutCubic(seg(u, ...W.down)));
+    nodes.context = {transform: T(0, dyNow)};
     // legend: steps aside while the lens is open, back after it closes (with the marker and the previous datum)
     const panelOp = clamp(1 - seg(u, ...W.panelOut)) + seg(u, ...W.panelBack);
     if (C.PL) {
@@ -257,8 +257,9 @@ const scene = {
       for (const row of C.PL.rows) if (row.name === 'lg-marker' || row.name === 'lg-previous') nodes[row.name] = {opacity: r(mk, 3)};
     }
     const beat = u < BEATS.context[1] ? 'context' : u < BEATS.isolate[1] ? 'isolate' : u < BEATS.substitute[1] ? 'substitute' : 'back';
-    const tagCtx = {x: C.ox + B.tag.x, y: C.oy + B.tag.y};
-    const lensTag = {x: C.dest.x + (tagCtx.x - C.src.x) * C.k, y: C.dest.y + (tagCtx.y - C.src.y) * C.k};
+    const tagSrc = {x: C.ox + B.tag.x, y: C.oy + B.tag.y};
+    const tagCtx = {x: tagSrc.x, y: tagSrc.y + dyNow};
+    const lensTag = {x: C.dest.x + (tagSrc.x - C.src.x) * C.k, y: C.dest.y + (tagSrc.y - C.src.y) * C.k};
     return {
       nodes,
       semantic: {
@@ -267,7 +268,7 @@ const scene = {
         ctxOld, ctxNew, lensOld: r(lensHolds ? oldOp : 0, 3), lensNew: r(lensHolds ? newOp : 0, 3),
         closed: r(closed, 3), closedBefore: closedBefore, closedAfter: closedAfter, turn: r(kTurn, 3), marker: r(mk, 3), zoom: r(C.k, 3),
         tag: R2(tagCtx), lensTag: R2(lensTag), src: {x: r(C.src.x), y: r(C.src.y), w: r(C.src.w), h: r(C.src.h)}, dest: {x: r(C.dest.x), y: r(C.dest.y), w: r(C.dest.w), h: r(C.dest.h)},
-        cardP: R2(B.pos(0, B.tWait)), problems: C.problems, textPx: r(C.F * L.pxu, 1),
+        cardP: R2({x: C.ox + B.pos(0, B.tWait).x, y: C.oy + B.pos(0, B.tWait).y + dyNow}), restDy: r(C.restDy, 2), problems: C.problems, textPx: r(C.F * L.pxu, 1),
         outcome: P.outcomes[changedNow ? C.after : C.before],
       },
     };

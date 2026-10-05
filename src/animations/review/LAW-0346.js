@@ -185,12 +185,12 @@ function compose(ctx, P, F, opt) {
     spare = D.h - 2 * my - need;
     if (spare < -0.5) problems.push('height');
     const sp = Math.max(0, spare);
-    let y = my + sp * 0.12;
+    let y = my + sp * 0.1;
     const cardY = y + cardCapH;
-    y = cardY + CM.h + corridor + sp * 0.3;
+    y = cardY + CM.h + corridor + sp * 0.62;
     const plateY = y + 14;
     const capY = plateY + plateH + F * 0.6;
-    const legY = D.h - my - legH - sp * 0.12;
+    const legY = D.h - my - legH - sp * 0.04;
     ['intake', 'position', 'history'].forEach((id, i) => {
       const cx = mx + colW * (i + 0.5);
       boxes[id] = {x: cx - plateW / 2, y: plateY, w: plateW, h: plateH};

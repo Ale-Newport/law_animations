@@ -152,9 +152,7 @@ function planMech(P, M, TM, box, F, H) {
   const problems = [];
   if (vD < vTop + laneW * 0.5 - 1e-6 || vA + cv > vBot - laneW * 0.5 + 1e-6) problems.push('cards-height');
   if (u1 >= uEnd - (uEnd - u1) * 0.1 || uEnd - u1 < F * 12) problems.push('lanes-length');
-  const tagBot = H ? tag.y + tag.h : tag.x + tag.w;
   if ((H ? tag.y + tag.h : tag.x + tag.w) > (H ? box.y + vBot - laneW : box.x + vBot - laneW)) problems.push('tag-room');
-  void tagBot;
   if (!boxClear(tag, lanes[1].pts, laneW / 2 + 6) || !boxClear(cal, lanes[0].pts, laneW / 2 + 6) || !boxClear(cal, lanes[1].pts, laneW / 2 + 6)) problems.push('lane-clash');
   if (overlaps(tag, cal, F * 0.4)) problems.push('tag-calendar');
   // chevrons along each lane (world points + angle); the process lane's past-gate chevrons are the lit ones

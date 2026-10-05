@@ -9,10 +9,14 @@
  *             components stand at their places on the route.
  *  0.18–0.43  draw only the supplied relationships, one after the other, anchored on the cards' edges (plain relations
  *             without arrowheads; the return itself is a supplied "sequence as configured" link).
- *  0.43–0.75  a tracer follows `traversalOrder`; the focus component enlarges while the tracer passes; when it reaches
- *             the return point a copy of the folder (with its notes) settles in that card's tray — the transformation.
- *  0.75–1.00  everything stays visible: origin (folder at the review desk), transformation (copy in the configured
- *             tray) and state (the renewed examination's blank sheet); key "as supplied · no conclusion drawn".
+ *  0.43–0.75  a tracer follows `traversalOrder`; the focus component enlarges while the tracer passes; the folder itself
+ *             (with its notes) leaves the review mat, runs down to the lane, along it and up into the configured tray,
+ *             arriving as the tracer reaches the return point — the transformation.
+ *  0.75–1.00  everything stays visible: origin (the review desk mat), transformation (folder in the configured tray)
+ *             and state (the renewed examination's blank sheet); key "as supplied · no conclusion drawn".
+ * Layout: the model scale is searched first (legend as a side column or a compact band, whichever leaves the larger
+ * model); connector captions are direct chips placed in free space with collision avoidance (numbered footnotes only
+ * when no direct placement exists at a comparable scale).
  * @module animations/review/LAW-0350
  */
 import {defineAnimation} from '../../core/define.js';
@@ -21,9 +25,9 @@ import {h, g} from '../../core/svg.js';
 import {T} from '../../core/transform.js';
 import {seg, clamp, lerp, ease, r} from '../../core/time.js';
 import {str, list, obj, oneOf} from '../../schemas/fields.js';
-import {roundRectPath} from '../../core/geometry.js';
+import {roundRectPath, polyline} from '../../core/geometry.js';
 import {relationGraph, kindColor} from '../../frameworks/graph.js';
-import {tracer} from '../../primitives/annotate.js';
+import {tracer, chip} from '../../primitives/annotate.js';
 import {
   dnFields, DN_EN, DN_ES, localisedDn, resolveDn, folderArt, slipArt, slipSize, trayArt, matArt, doorArt, blankSheetArt, pinGlyph, chevron, LANE,
   panelLayout, panelNode, fitG, textAt, overlaps, dnIcon, INK, R2,
@@ -121,14 +125,25 @@ function compose(ctx, P, R, F, v) {
   if (showKey && has('folder')) rows.push({kind: 'item', icon: 'mat', text: P.routes.origin, name: 'sh-origin'});
   if (showKey && has('notes')) R.notes.forEach((t, i) => rows.push({kind: 'item', icon: 'note', index: i, text: t, name: `sh-note${i}`}));
   if (showKey) rows.push({kind: 'item', icon: 'pin', text: `${P.routes.stations[R.target]}`, name: 'sh-target'});
-  if (showKey) P.routes.stations.forEach((st, i) => { if (i !== R.target) rows.push({kind: 'item', icon: 'tray', text: st, name: `sh-st${i}`}); });
+  // the other points share one compact row (they carry no part of the model)
+  const others = P.routes.stations.filter((st, i) => i !== R.target);
+  if (showKey && others.length) rows.push({kind: 'item', icon: 'tray', text: others.join(' · '), name: 'sh-st'});
   if (showKey && has('renewed')) rows.push({kind: 'item', icon: 'blank', text: P.outcomes.renewed, name: 'sh-renewed'});
   if (showKey) rows.push({kind: 'item', icon: 'pin', text: P.labels.point, name: 'sh-point'});
   const relsF = P.relationships.filter(x => x.from !== x.to && has(x.from) && has(x.to));
   if (v.foot && showAll) relsF.forEach((x, i) => rows.push({kind: 'item', icon: 'num', index: i, text: x.label || P.relationLabels[x.kind] || x.kind, name: `sh-rel${i}`}));
   if (showKey) rows.push({kind: 'key', text: P.labels.key, name: 'key'});
   let strip = null;
-  if (rows.length) {
+  let A;
+  if (rows.length && v.leg === 'side') {
+    // legend as a side column at the right; the model takes the full height on the left
+    const cw = DW * v.sw;
+    const PLc = panelLayout(ctx, rows, {w: cw, F});
+    if (!PLc.ok) problems.push('strip-text');
+    if (PLc.h > DH) problems.push('strip-tall');
+    strip = {cols: [{PL: PLc, x: 0}], h: PLc.h, side: true, x: DW - cw, y: Math.max(0, (DH - PLc.h) / 2)};
+    A = {x: 0, y: 0, w: DW - cw - F * 1.4, h: DH};
+  } else if (rows.length) {
     const sc = v.sc, cg = F * 1.4, cw = (DW - cg * (sc - 1)) / sc, per = Math.ceil(rows.length / sc);
     const cols = [];
     for (let c = 0; c < sc; c++) {
@@ -139,11 +154,15 @@ function compose(ctx, P, R, F, v) {
       cols.push({PL: PLc, x: c * (cw + cg)});
     }
     strip = {cols, h: Math.max(...cols.map(c => c.PL.h))};
-  }
-  const stripH = strip ? strip.h + F * 1.0 : 0;
-  const A = {x: 0, y: 0, w: DW, h: DH - stripH};
-  const Mo = MODEL[shape];
-  const U = Math.min(A.w / Mo.U[0], A.h / Mo.U[1]) * v.scale;
+    strip.x = 0; strip.y = DH - strip.h;
+    A = {x: 0, y: 0, w: DW, h: DH - strip.h - F * 1.0};
+  } else A = {x: 0, y: 0, w: DW, h: DH};
+  if (problems.length && !v.force) return {ok: false, problems};
+  // the model's arrangement follows the area left for it (a side legend turns a square frame's area upright)
+  const asp = A.w / A.h;
+  const mode = asp > 1.6 ? 'landscape' : asp > 1.05 ? 'square' : 'portrait';
+  const Mo = MODEL[mode];
+  const U = v.U;
   const fw = U * 1.15, fh = fw * 0.68;
   const tw = fw * 1.22, th = fh * 1.4;
   const mw = fw * 1.3, mh = th;
@@ -170,7 +189,7 @@ function compose(ctx, P, R, F, v) {
   if (has('renewed')) parts0.renewed = mk('renewed', rw, rh);
   if (has('doors')) parts0.doors = mk('doors', tw, dl + dt);
   const xT = A.x + A.w * Mo.tray[0], xM = A.x + A.w * Mo.mat[0];
-  const doorsBelow = shape === 'portrait' || (shape === 'square' && !showKey);
+  const doorsBelow = mode === 'portrait' || (mode === 'square' && !showKey);
   const gap = F * 1.6;
   const hTop = Math.max(parts0.notes ? parts0.notes.bh : 0, parts0.renewed ? parts0.renewed.bh : 0);
   const hMain = Math.max(parts0.point.bh, parts0.folder.bh, !doorsBelow && parts0.doors ? parts0.doors.bh : 0);
@@ -202,7 +221,8 @@ function compose(ctx, P, R, F, v) {
   const els = Object.fromEntries(Object.entries(obj).filter(([k]) => has(k)).map(([k, o]) => [k, {box: o.box}]));
   const boxes = Object.values(els).map(e => e.box);
   for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) if (overlaps(boxes[i], boxes[j], 14)) problems.push('parts-overlap');
-  boxes.forEach(b => { if (b.x < -0.5 || b.y < -0.5 || b.x + b.w > DW + 0.5 || b.y + b.h > A.h + 0.5) problems.push('part-outside'); });
+  boxes.forEach(b => { if (b.x < A.x - 0.5 || b.y < A.y - 0.5 || b.x + b.w > A.x + A.w + 0.5 || b.y + b.h > A.y + A.h + 0.5) problems.push('part-outside'); });
+  if (laneYv + laneH / 2 > A.y + A.h + 0.5) problems.push('model-tall');
   const laneY = laneYv;
   if (problems.length && !v.force) return {ok: false, problems};
   const rels = relsF;
@@ -219,20 +239,63 @@ function compose(ctx, P, R, F, v) {
     });
     return bad;
   };
-  const gctx = v.foot ? {...ctx, show: lvl => (lvl === 'all' ? false : ctx.show(lvl))} : ctx;
+  // connector captions are placed by this entry (direct labels in free space), never by the graph helper
+  const gctx = {...ctx, show: lvl => (lvl === 'all' ? false : ctx.show(lvl))};
   for (let pass = 0; pass < 7; pass++) {
-    graph = relationGraph(gctx, {name: 'rel', elements: els, relationships: rels, relationLabels: P.relationLabels, bend: (rel, i) => bend[bi[i]], chipSize: F, chipMax: Math.max(F * 9, fw * 1.6), bounds: {x: 0, y: 0, w: DW, h: A.h}, separateLabels: true});
+    graph = relationGraph(gctx, {name: 'rel', elements: els, relationships: rels, relationLabels: P.relationLabels, bend: (rel, i) => bend[bi[i]], chipSize: F, chipMax: Math.max(F * 9, fw * 1.6), bounds: {x: A.x, y: A.y, w: A.w, h: A.h}, separateLabels: true});
     const bad = crosses(graph);
     if (!bad.size) break;
     if (pass === 6) problems.push('conn-crosses');
     bad.forEach(i => { bi[i] = Math.min(6, bi[i] + 1); });
   }
-  if (!v.foot && showAll && graph.conns.some(c => c.lab && !c.labelClear)) problems.push('label-overlap');
-  if (!v.foot && showAll && graph.conns.some(c => c.lab && c.lab.fit && (c.lab.fit.size < F - 0.01 || c.lab.fit.truncated))) problems.push('label-shrunk');
-  if (!v.foot && showAll && graph.conns.some(c => c.leader && Math.hypot(c.leader.x2 - c.leader.x1, c.leader.y2 - c.leader.y1) > F * 3)) problems.push('label-far');
+  // direct labels: each caption chip goes to the nearest free spot around its connector's midpoint (clear of the
+  // parts, the folder's travel band, the other connectors and the captions already placed); a dashed leader joins a
+  // chip set off its connector
+  const labs = [];
+  if (!v.foot && showAll) {
+    const obst = boxes.map(b => ({...b}));
+    const fwm = fw, fhm = fh;
+    obst.push({x: trayC.x - fwm / 2, y: laneY - fhm / 2, w: matC.x - trayC.x + fwm, h: fhm});
+    // the folder's drops between the desks and the lane are kept clear when possible (soft: the travelling folder,
+    // drawn above the captions, may pass over one briefly)
+    const soft = [{x: matC.x - fwm / 2, y: matC.y, w: fwm, h: laneY - matC.y}, {x: trayC.x - fwm / 2, y: trayC.y, w: fwm, h: laneY - trayC.y}];
+    const pts = graph.conns.map(c => Array.from({length: 21}, (_, k) => c.c.at(k / 20)));
+    const hitsLine = (b, own) => pts.some((ps, j) => j !== own && ps.some(q => q.x > b.x - 4 && q.x < b.x + b.w + 4 && q.y > b.y - 4 && q.y < b.y + b.h + 4));
+    const inA = b => b.x >= A.x + 2 && b.y >= A.y + 2 && b.x + b.w <= A.x + A.w - 2 && b.y + b.h <= A.y + A.h - 2;
+    const chipMax = Math.max(F * 11, fw * 1.2);
+    graph.conns.forEach((c, i) => {
+      const text = c.rel.label || P.relationLabels[c.rel.kind] || c.rel.kind;
+      const m = c.c.at(0.5);
+      const mk = (x, y, wMax) => chip(ctx, text, {x, y, anchor: 'middle', maxWidth: wMax, size: F, minSize: F, maxLines: 3, fill: ctx.theme.card, stroke: kindColor(ctx, c.rel.kind), name: `rl${i}`, weight: 600});
+      let found = null, bestD = Infinity;
+      for (const [wMax, useSoft] of [[chipMax, 1], [F * 8, 1], [F * 6.5, 1], [chipMax, 0], [F * 8, 0]]) {
+        if (found && !useSoft) break;
+        const probe = mk(0, 0, wMax);
+        if (probe.fit.size < F - 0.01 || probe.fit.truncated) continue;
+        const pb = probe.box;
+        for (let d = 0; d <= F * 22 && d < bestD; d += F * 0.8) {
+          const nA = d ? 16 : 1;
+          let hit = null;
+          for (let a = 0; a < nA; a++) {
+            const ang = (a / nA) * Math.PI * 2 - Math.PI / 2;
+            const ox = m.x + Math.cos(ang) * d, oy = m.y + Math.sin(ang) * d - pb.h / 2;
+            const b = {x: pb.x + ox, y: pb.y + oy, w: pb.w, h: pb.h};
+            if (inA(b) && !obst.some(q => overlaps(b, q, 6)) && !(useSoft && soft.some(q => overlaps(b, q, 6))) && !labs.some(q => overlaps(b, q.box, 6)) && !hitsLine(b, i)) { hit = {ox, oy, wMax}; break; }
+          }
+          if (hit) { found = hit; bestD = d; break; }
+        }
+      }
+      if (found) found = mk(found.ox, found.oy, found.wMax);
+      if (!found) { problems.push('label-far'); return; }
+      const b = found.box;
+      const qx = clamp(m.x, b.x, b.x + b.w), qy = clamp(m.y, b.y, b.y + b.h);
+      const leader = Math.hypot(qx - m.x, qy - m.y) > F * 0.8 ? {x1: m.x, y1: m.y, x2: qx, y2: qy} : null;
+      labs.push({i, node: found.node, box: b, leader, color: kindColor(ctx, c.rel.kind)});
+    });
+  }
   if (problems.length && !v.force) return {ok: false, problems};
   const foot = v.foot && showAll ? graph.conns.map((c, i) => ({i, at: c.c.at(0.5)})) : [];
-  return {F, obj, els, assembled, graph, rels, foot, strip, stripY: DH - (strip ? strip.h : 0), A, fw, fh, tw, th, mw, mh, ss, rw, rh, dl, dt, laneY, trayC, matC, ok: !problems.length, problems};
+  return {F, U, v, labs, obj, els, assembled, graph, rels, foot, strip, A, fw, fh, tw, th, mw, mh, ss, rw, rh, dl, dt, laneY, trayC, matC, ok: !problems.length, problems};
 }
 
 function labelChip(ctx, o, name) {
@@ -250,16 +313,39 @@ const scene = {
     const P = localisedDn(ctx, EN, ES);
     const R = resolveDn(P);
     const shape = ctx.view.shape;
-    const sc0 = shape === 'landscape' ? 3 : 2;
-    const base = [1.5, 1.3, 1.15, 1, 0.92, 0.85, 0.78, 0.7, 0.63, 0.56].flatMap(scale => [{scale, sc: sc0}, {scale, sc: sc0 === 3 ? 4 : 3}]);
-    const vs = [...base, ...base.map(v => ({...v, foot: true}))];
+    const {w: DW, h: DH} = ctx.design;
+    const Mo = MODEL[shape];
+    // absolute model unit candidates (largest first); every legend placement is tried at each size, so the
+    // composition with the largest model wins; direct connector labels are preferred over numbered footnotes
+    const Umax = Math.min(DW / Mo.U[0], DH / Mo.U[1]);
+    const Us = [];
+    for (let k = 1.25; k >= 0.3; k *= 0.9) Us.push(Umax * k);
+    const legs = shape === 'portrait' ? [{leg: 'bottom', sc: 2}, {leg: 'bottom', sc: 3}] : [{leg: 'side', sw: 0.27}, {leg: 'side', sw: 0.33}, {leg: 'bottom', sc: shape === 'landscape' ? 3 : 2}, {leg: 'bottom', sc: shape === 'landscape' ? 4 : 3}];
     const sizes = !ctx.show('key') ? [30, 26, ...SIZES] : SIZES;
     let C = null, best = null;
-    outer: for (const F of sizes) for (const v of vs) {
-      const c = compose(ctx, P, R, F, v);
-      if (c.ok) { C = c; break outer; }
-      if (!best || c.problems.length < best.n) best = {n: c.problems.length, F, v};
+    const tryAll = (F, foot, minU) => {
+      for (const U of Us) {
+        if (U <= minU) return null;
+        for (const lg of legs) {
+          const c = compose(ctx, P, R, F, {...lg, U, foot});
+          if (c.ok) return c;
+          if (!best || c.problems.length < best.n) best = {n: c.problems.length, F, v: {...lg, U, foot}};
+        }
+      }
+      return null;
+    };
+    // text size and model size trade off: among the first sizes that compose, keep the one with the largest model
+    // (weighted mildly by the text size)
+    const score = c => c.U * Math.sqrt(c.F);
+    let tried = 0, D = null, Fo = null;
+    for (const F of sizes) {
+      const d = tryAll(F, false, D ? score(D) / Math.sqrt(F) : 0);
+      if (d && (!D || score(d) > score(D))) D = d;
+      const f = tryAll(F, true, Math.max(D ? score(D) * 1.6 / Math.sqrt(F) : 0, Fo ? score(Fo) / Math.sqrt(F) : 0));
+      if (f && (!Fo || score(f) > score(Fo))) Fo = f;
+      if ((D || Fo) && ++tried >= 4) break;
     }
+    C = Fo && (!D || score(Fo) > score(D) * 1.6) ? Fo : D;
     if (!C) C = compose(ctx, P, R, best.F, {...best.v, force: true});
     const route = C.graph.route(P.traversalOrder.filter(id => C.els[id]));
     return {P, R, C, route};
@@ -290,11 +376,14 @@ const scene = {
     if (O.renewed) parts.push(g({name: 'el-renewed'}, g({name: 'pos-renewed'}, g({transform: T(-C.rw / 2, -C.rh / 2)}, blankSheetArt(ctx, {w: C.rw, h: C.rh}))), labelChip(ctx, O.renewed, 'lab-renewed')));
     // assembly guides: thin lines from where each part sat to where it lifted to
     const guides = ['notes', 'renewed', 'doors'].filter(id => O[id]).map(id => h('line', {name: `guide-${id}`, x1: r(C.assembled[id].x), y1: r(C.assembled[id].y), x2: r(O[id].c.x), y2: r(O[id].c.y), stroke: th.fgSoft, 'stroke-width': 2, 'stroke-dasharray': '3 6', opacity: 0}));
-    const copy = g({name: 'copy', opacity: 0, transform: T(C.trayC.x, C.trayC.y)}, folderArt(ctx, {w: C.fw, h: C.fh}), g({transform: T(C.fw * 0.3, -C.fh * 0.2)}, slipArt(ctx, {n: R.notes.length, s: C.ss * 0.6}).node));
+    // the folder itself (with its notes) travels mat → lane → tray along the supplied route; drawn above the parts
+    const copy = g({name: 'copy', opacity: 0, transform: T(C.matC.x, C.matC.y)}, folderArt(ctx, {w: C.fw, h: C.fh}), g({transform: T(C.fw * 0.3, -C.fh * 0.2)}, slipArt(ctx, {n: R.notes.length, s: C.ss * 0.6}).node));
     return g({name: 'scene'},
-      lane, guides, C.graph.node, tracer(ctx, 'tracer', th.accent2), parts, copy, C.graph.labelsNode,
+      lane, guides, C.graph.node, tracer(ctx, 'tracer', th.accent2), parts,
+      C.labs.map(l => g({name: `rlg${l.i}`, opacity: 0}, l.leader ? h('line', {...l.leader, stroke: l.color, 'stroke-width': 2, 'stroke-dasharray': '3 5'}) : null, l.node)),
+      copy,
       C.foot.map(f => g({name: `foot${f.i}`, opacity: 0, transform: T(f.at.x, f.at.y)}, dnIcon(ctx, 'num', C.F * 1.2, {index: f.i, F: C.F, color: kindColor(ctx, C.rels[f.i].kind)}))),
-      C.strip ? g({name: 'strip', transform: T(0, C.stripY)}, C.strip.cols.map(col => g({transform: T(col.x, 0)}, panelNode(ctx, col.PL)))) : null,
+      C.strip ? g({name: 'strip', transform: T(C.strip.x, C.strip.y)}, C.strip.cols.map(col => g({transform: T(col.x, 0)}, panelNode(ctx, col.PL)))) : null,
     );
   },
   frame(ctx, L, u) {
@@ -327,14 +416,21 @@ const scene = {
       nodes[`el-${id}`] = {transform: `${T(cx, cy, 0, s)} translate(${r(-cx)} ${r(-cy)})`};
     }
     const vPoint = route.visits.find(vv => vv.id === 'point');
-    const kc = vPoint ? clamp((kt - (vPoint.t - 0.03)) / W.copy) * (tr > 0 ? 1 : 0) : 0;
-    const kCopy = u >= W.trace[1] ? (vPoint ? 1 : 0) : kc;
-    nodes.copy = {opacity: r(kCopy, 3)};
-    // one folder at a time: the source on the review mat fades to a faint ghost as the copy settles in the tray
-    nodes['folder-art'] = {opacity: r(1 - 0.8 * kCopy, 3)};
+    // the folder leaves the mat a while before the tracer reaches the point and arrives with it
+    const t1 = vPoint ? vPoint.t : 1, t0 = Math.max(0, t1 - 0.62);
+    const km = vPoint ? (u >= W.trace[1] ? 1 : tr > 0 ? clamp((kt - t0) / Math.max(0.05, t1 - t0)) : 0) : 0;
+    const kCopy = km >= 1 ? 1 : 0;
+    const path = polyline([C.matC, {x: C.matC.x, y: C.laneY}, {x: C.trayC.x, y: C.laneY}, C.trayC]);
+    const fp = path.at(ease.inOutSine(km));
+    const moving = km > 0;
+    nodes.copy = {opacity: moving ? 1 : 0, transform: T(fp.x, fp.y)};
+    // one folder at a time: the folder on the mat is the one that travels
+    nodes['folder-art'] = {opacity: moving ? 0 : 1};
+    for (const id of ['point', 'folder']) if (O[id] && O[id].L) nodes[`lab-${id}`] = {opacity: kEx >= 0.98 ? 1 : 0};
     const n = Math.max(1, C.rels.length);
     const relP = i => ease.inOutCubic(seg(u, W.relate[0] + (i * (W.relate[1] - W.relate[0])) / n, W.relate[0] + ((i + 1) * (W.relate[1] - W.relate[0])) / n));
     Object.assign(nodes, C.graph.frame(relP));
+    for (const l of C.labs) nodes[`rlg${l.i}`] = {opacity: r(clamp((relP(l.i) - 0.55) / 0.45), 3)};
     for (const f of C.foot) nodes[`foot${f.i}`] = {opacity: r(clamp((relP(f.i) - 0.55) / 0.45), 3)};
     const beat = u < BEATS.separate[1] ? 'separate' : u < BEATS.relate[1] ? 'relate' : u < BEATS.trace[1] ? 'trace' : 'hold';
     return {
@@ -349,8 +445,8 @@ const scene = {
         reached: route.visits.filter(vv => kt >= vv.t - 1e-6).map(vv => vv.id),
         connectors: C.graph.conns.map((x, i) => ({from: x.rel.from, to: x.rel.to, kind: x.rel.kind, a: R2(x.c.from), b: R2(x.c.to), drawn: r(relP(i), 3), arrow: x.rel.kind !== 'relation'})),
         boxes: Object.fromEntries(Object.entries(C.els).map(([k, e]) => [k, {x: r(e.box.x), y: r(e.box.y), w: r(e.box.w), h: r(e.box.h)}])),
-        focus: fe, focusScale: r(1 + 0.06 * grow, 4), exploded: r(kEx, 3), copy: r(kCopy, 3),
-        problems: C.problems, textPx: r(C.F, 1),
+        focus: fe, focusScale: r(1 + 0.06 * grow, 4), exploded: r(kEx, 3), copy: r(kCopy, 3), folderPos: R2(moving ? fp : C.matC), folderMove: r(km, 3),
+        problems: C.problems, textPx: r(C.F, 1), modelU: r(C.U, 1), legend: C.strip ? (C.strip.side ? 'side' : 'band') : 'none', footnotes: C.foot.length > 0,
       },
     };
   },

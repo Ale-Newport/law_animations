@@ -120,7 +120,7 @@ export function originModel(P, o) {
   const f = {};
   let ok = true;
   if (st) {
-    f.title = fitG(P.decisions.title, {maxWidth: inner - seal * 2 - F * 0.5, size: F * 1.04, minSize: minF, maxLines: 4, weight: 700, family: 'serif'});
+    f.title = fitG(P.decisions.title, {maxWidth: inner - seal * 2 - F * 1.4, size: F * 1.04, minSize: minF, maxLines: 4, weight: 700, family: 'serif'});
     f.ref = fitG(P.decisions.ref, {maxWidth: inner - F * 1.4, size: F, minSize: minF, maxLines: 2, weight: 600});
     f.grounds = fitG(P.grounds, {maxWidth: inner, size: F, minSize: minF, maxLines: 5, weight: 500});
     ok = f.title.ok && f.ref.ok && f.grounds.ok;

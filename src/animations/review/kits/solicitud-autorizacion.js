@@ -1124,7 +1124,19 @@ export function measureRowG(row, F, w) {
 }
 
 /** Measure a panel row, re-wrapping it narrower when a line would hold a single word. */
+const ROWS = new Map();
 export function measureRowSa(row, F, w) {
+  // (memoised: a pure function of the row and the size — layout searches measure the same rows at the same sizes many
+  // times; bounded)
+  const key = `${JSON.stringify(row)}|${F}|${w}`;
+  const hit = ROWS.get(key);
+  if (hit) return {...hit};
+  const m = measureRowSa0(row, F, w);
+  if (ROWS.size > 4000) ROWS.clear();
+  ROWS.set(key, m);
+  return {...m};
+}
+function measureRowSa0(row, F, w) {
   let first = null;
   for (const q of [1, 0.94, 0.88, 0.82, 0.77, 0.72, 0.67, 0.62, 0.57]) {
     const m = measureRowG(row, F, w * q);

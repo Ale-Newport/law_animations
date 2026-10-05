@@ -94,7 +94,7 @@ const defaultParamsEs = {
 const MARGIN = 10;
 const SHAPES = {
   landscape: {size: 26, minSize: 17, modes: ['row', 'rowcol'], rws: [420, 480, 540, 600]},
-  square: {size: 24, minSize: 17, modes: ['band', 'row', 'rowcol', 'stack'], rws: [340, 380, 420, 480, 540]},
+  square: {size: 24, minSize: 17, modes: ['row', 'rowcol', 'stack'], rws: [340, 380, 420, 480, 540]},
   portrait: {size: 25, minSize: 17, modes: ['stack', 'band'], rws: [460, 520, 620, 720, 930]},
 };
 
@@ -275,7 +275,7 @@ function compose(ctx, base, cfg) {
   const chipsH = stackChips ? cB.h + (cB.h && cA.h ? 8 : 0) + cA.h : Math.max(cB.h, cA.h);
   const zoneH = OH => {
     const R = OH * (mode === 'stack' ? 0.32 : 0.42);
-    return (mode === 'band' ? 0 : 2 * R + relH + 30) + OH + OH * PLINTH + 14 + chipsH;
+    return (mode === 'band' ? 0 : 2 * R + 2 * relH + 70) + OH + OH * PLINTH + 14 + chipsH;
   };
   let availH;
   let bandGeo = null;

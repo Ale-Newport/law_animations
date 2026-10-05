@@ -4,8 +4,8 @@
 // it by its tab) and the transformation recognisable with labels hidden (the route supplied as concluded ends inked to
 // its end card; each way supplied as pending a check ends with a clip across its track).
 // Timing (u): rest 0–0.15 · right hand traces the concluded routes 0.15–0.47 (per route: hop 30 %, trace 70 %), back
-// 0.47–0.54 · left hand lays one clip per pending route 0.44–0.70 (per clip: reach 30 %, carry 55 %, let go 15 %), back
-// 0.70–0.75 · notes 0.76–0.81 · state tag 0.77–0.82; still from 0.82.
+// 0.47–0.54 · left hand lays one clip per pending route 0.44–0.67 (per clip: reach 30 %, carry 55 %, let go 15 %), back
+// 0.67–0.76 (left hand: clips 0.44–0.67) · notes 0.76–0.81 · state tag 0.77–0.82; still from 0.82.
 // Legal: routes and states are supplied; nothing says whether any route is closed or available.
 import {test, expect} from '@playwright/test';
 import {contractSuite, presetsFor} from '../harness/contract.js';

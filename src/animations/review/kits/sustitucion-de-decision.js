@@ -118,7 +118,7 @@ function units(text) {
   const out = [];
   for (const t of toks) {
     const prev = out.length ? out[out.length - 1].split(' ').pop() : '';
-    if (out.length && (GLUE_NEXT.test(t) || GLUE_PREV.test(prev) || (/^[A-Z]\)?[.,;:]?$/.test(t) && /^(card|tarjeta)$/i.test(prev)))) out[out.length - 1] += ` ${t}`;
+    if (out.length && (GLUE_NEXT.test(t) || GLUE_PREV.test(prev) || /^[A-ZÁÉÍÓÚÑ]\)?[.,;:]?$/.test(t))) out[out.length - 1] += ` ${t}`;
     else out.push(t);
   }
   return out;

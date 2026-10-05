@@ -14,7 +14,7 @@ import {ratioChecks, times} from '../harness/ratio-checks.js';
 const ID = 'LAW-0350';
 
 contractSuite(ID, {
-  continuity: ['notesCard', 'tracer'],
+  continuity: ['notesCard', 'tracer', 'folderPos'],
   semantic: [
     {at: 0, fn: "s.beat === 'separate' && s.exploded === 0 && s.copy === 0 && s.connectors.every(c => c.drawn === 0)", label: 'start: notes on the folder; no relation drawn yet'},
     {at: 0.18, fn: 's.exploded === 1 && s.connectors.every(c => c.drawn === 0)', label: 'components separated before any relation is drawn'},
@@ -23,7 +23,9 @@ contractSuite(ID, {
     {at: 1, fn: "s.copy === 1 && s.connectors.filter(c => c.kind === 'relation').every(c => !c.arrow) && s.problems.length === 0", label: 'hold: copy in the configured tray; plain relations without arrowheads; composition fits'},
     {at: 1, params: {relationships: [{from: 'notes', to: 'folder', kind: 'causal'}]}, fn: 's.connectors.length === 1 && s.connectors[0].arrow', label: 'only a supplied directed kind gets an arrowhead'},
     {at: 0.5, fn: "s.focus === 'doors'", label: 'the supplied focus component is used'},
-    {at: 0.1, fn: 's.copy === 0', label: 'seeking back restores the separation beat'},
+    {at: 0.1, fn: 's.copy === 0 && s.folderMove === 0', label: 'seeking back restores the separation beat'},
+    {at: 1, fn: 's.folderMove === 1 && Math.abs(s.folderPos.x - (s.boxes.point.x + s.boxes.point.w / 2)) < s.boxes.point.w / 2', label: 'the folder itself travels to the configured tray (no teleport: continuity track folderPos)'},
+    {at: 1, fn: "s.footnotes === false", label: 'connector captions are direct labels (no numbered footnotes) in the baseline'},
   ],
 });
 

@@ -214,7 +214,6 @@ const scene = {
     outer: for (const pass of passes) for (const F of pass.sizes) {
       for (const a of pass.arr) {
         const c = compose(ctx, P, F, a);
-        if (globalThis.__trace) globalThis.__trace.push([r(F * pxu, 1), JSON.stringify(a), c.problems, c.zoom && r(c.zoom, 2)]);
         if (c.ok) { C = c; break outer; }
         if (c.pl && (!C || c.problems.length < C.problems.length)) C = c;
       }

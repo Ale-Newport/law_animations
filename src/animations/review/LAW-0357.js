@@ -34,7 +34,7 @@ const ID = 'LAW-0357';
 const DURATION = 6000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
 const WR = [0.15, 0.47], WRback = [0.47, 0.54];
-const WL = [0.44, 0.7], WLback = [0.7, 0.75];
+const WL = [0.44, 0.67], WLback = [0.67, 0.76];
 const W = {notes: [0.76, 0.81], state: [0.77, 0.82]};
 const TARGETS = ['origin', 'arrows', 'filter', 'calendar'];
 const SIZES = [26, 25, 24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
@@ -149,7 +149,6 @@ function compose(ctx, P, F, opts) {
     const gapM = clamp(mapHmax - Math.max(OM.h, F * 3.4 * 0.84) - EM.h, F * 6.5, F * 11);
     plan = mapPlan(P, OM, EM, {F, orient, gap: gapM, slots});
   }
-  if (globalThis.__trace) globalThis.__trace.push({F: r(F,1), mapW: r(mapW), mapHmax: r(mapHmax), needW: r(plan.needW), needH: r(plan.needH), oh: r(OM.h), eh: r(EM.h), PL: PL && r(PL.h), DH});
   const fitsW = plan.needW <= mapW + 0.5;
   const fitsH = plan.needH <= mapHmax + 0.5;
   // the folder is as tall as its map needs; the desk keeps its rest band below it
@@ -270,7 +269,6 @@ const scene = {
     outer: for (const F of sizes) {
       for (const a of arrangements) {
         const c = compose(ctx, P, F, a);
-        if (globalThis.__trace) globalThis.__trace.push([r(F * pxu, 1), JSON.stringify(a), c.problems]);
         if (c.ok) { C = c; break outer; }
         if (c.pl && (!C || c.problems.length < C.problems.length)) C = c;
       }

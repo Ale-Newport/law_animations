@@ -83,7 +83,7 @@ function roomIn(box, F, showKey) {
   const s = clamp(cw / 230, 0.6, 1.05);
   const fixed = 2 * wall + 2 * pad + 2 * m + 2 * ins + 2 * edge + 22 * s + 56 * s + 10 + 6;
   // card height: fills the room box (between 0.62 and 1.0 of the card width)
-  const chK = clamp((box.h - 16 - fixed) / cw, 0.62, 1.2);
+  const chK = clamp((box.h - 16 - fixed) / cw, 0.62, 1.9);
   const RGt = c => railGeometry({cw: c, ch: c * chK, gap, inset: ins, margin: m});
   const need = c => fixed - 2 * m - 2 * ins + RGt(c).H;
   while (need(cw) > box.h && cw > 40) cw -= 2;

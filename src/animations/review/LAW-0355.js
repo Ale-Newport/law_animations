@@ -22,13 +22,13 @@ import {fitDesign} from '../../core/layout.js';
 import {makeMetadata} from '../../core/meta.js';
 import {h, g} from '../../core/svg.js';
 import {T} from '../../core/transform.js';
-import {seg, clamp, lerp, ease, r} from '../../core/time.js';
+import {seg, lerp, ease, r} from '../../core/time.js';
 import {roundRectPath} from '../../core/geometry.js';
 import {str, list, obj} from '../../schemas/fields.js';
 import {chip} from '../../primitives/annotate.js';
 import {
   edFields, ED_EN, ED_ES, localisedEd, cardModel, cardNode, tagModel, boardPlan, boardNodes, gateFrame, litFrame,
-  panelLayout, panelNode, fitG, textAt, laneColor, overlaps, R2, INK,
+  panelLayout, panelNode, fitG, textAt, laneColor, R2, INK,
 } from './kits/efectos-durante-revision.js';
 
 const ID = 'LAW-0355';
