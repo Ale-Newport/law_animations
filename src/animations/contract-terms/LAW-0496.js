@@ -19,6 +19,9 @@
  * Labels hidden: the same lens on the event card — its state glyph turns ● → ◆ inside the lens (a non-text change).
  * Labels key / none at 1:1 (cf-08 / cf-10 ruling, the LAW-0472/0476/0480/0492 pattern): the context is laid out large
  * (≥ 0.55 of the frame) at rest and at the hold and shrinks only while the lens is open.
+ * Texts too long for a printed card (an unbroken long word): print bars decided per card (the event card, the obligation
+ * cards); the barred cards' texts are listed once in the panel; a barred event card is printed in the lens, its print
+ * filling the window. The lens crop never takes in the legs or the floor (the lens copy is clipped to the board).
  * No rule on conditions: nothing about fulfilment, no automatic effect, no obligation becoming due, binding or
  * enforceable; no jurisdiction. Produced and pending have equal weight.
  * @module animations/contract-terms/LAW-0496

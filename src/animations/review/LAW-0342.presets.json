@@ -1,1 +1,247 @@
-{"animationId":"LAW-0342","note":"tmp","presets":[{"name":"baseline-illustrative","description":"b","params":{}}]}
+{
+  "animationId": "LAW-0342",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. The exploded view takes the aligned pair apart: card A (original decision), card B (confirmatory decision as supplied), their result fields and the neutral alignment guide. Only the supplied relationships are drawn; a plain relation has no arrowhead and nothing is causal unless the author supplies it (a sequence link is captioned 'as configured (illustrative)'). The printed results are supplied text and never change; no doctrine on what a confirmation means. Brief fields: decisions, grounds, routes, outcomes, elements, relationships, focusElement, relationLabels and traversalOrder are editable.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Five parts, five plain relations; the marker visits card A, its result field, the guide, B's result field and card B; the guide is enlarged as it passes.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: other fictional decisions, a supplied SEQUENCE link from K-1 to K-2 (captioned as configured, illustrative), A's result field not linked to the guide, a shorter visiting order and B's result field as the focus part.",
+      "params": {
+        "decisions": {
+          "a": {
+            "role": "Earlier decision of example K",
+            "title": "Decision K-1 (fictional)",
+            "ref": "Ref. K-114 (fictional)"
+          },
+          "b": {
+            "role": "Later decision supplied as confirming K-1",
+            "title": "Decision K-2 (fictional)",
+            "ref": "Ref. K-207 (fictional)"
+          }
+        },
+        "grounds": {
+          "a": "Reasons of K-1: placeholder lines (as supplied)",
+          "b": "Reasons of K-2: placeholder lines (as supplied)"
+        },
+        "outcomes": {
+          "a": "Result of K-1 as given (placeholder)",
+          "b": "Result of K-2 as given (placeholder)"
+        },
+        "elements": [
+          {
+            "id": "original",
+            "label": "Card K-1: earlier decision (as supplied)"
+          },
+          {
+            "id": "confirming",
+            "label": "Card K-2: later decision supplied as confirming K-1"
+          },
+          {
+            "id": "resultA",
+            "label": "Result field of K-1 (printed as supplied)"
+          },
+          {
+            "id": "resultB",
+            "label": "Result field of K-2 (printed as supplied)"
+          },
+          {
+            "id": "guide",
+            "label": "Alignment guide (neutral strip)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "original",
+            "to": "confirming",
+            "kind": "sequence"
+          },
+          {
+            "from": "original",
+            "to": "resultA",
+            "kind": "relation"
+          },
+          {
+            "from": "confirming",
+            "to": "resultB",
+            "kind": "relation"
+          },
+          {
+            "from": "resultB",
+            "to": "guide",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "resultB",
+        "traversalOrder": [
+          "original",
+          "confirming",
+          "resultB",
+          "guide"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths: long part labels, relation captions, card texts, a communication link, a six-stop visiting order and a long state caption.",
+      "params": {
+        "decisions": {
+          "a": {
+            "role": "Original decision in this fictional example (as supplied)",
+            "title": "Decision 1 of the fictional example (placeholder)",
+            "ref": "Ref. A-01 of this example (fictional)"
+          },
+          "b": {
+            "role": "Confirmatory decision supplied in this example",
+            "title": "Decision 2 of the fictional example (placeholder)",
+            "ref": "Ref. B-01 of this example (fictional)"
+          }
+        },
+        "grounds": {
+          "a": "Reasons printed on card A: placeholder text of this fictional example (as supplied)",
+          "b": "Reasons printed on card B: placeholder text of this fictional example (as supplied)"
+        },
+        "routes": {
+          "align": "result",
+          "label": "Alignment guide laid over the result rows of both cards (as configured by the user)"
+        },
+        "outcomes": {
+          "a": "Result as given on card A in this fictional example (placeholder text)",
+          "b": "Result as given on card B in this fictional example (placeholder text)"
+        },
+        "labels": {
+          "key": "As supplied · no conclusion drawn (placeholder content only)"
+        },
+        "elements": [
+          {
+            "id": "original",
+            "label": "Card A of this example: the original decision (as supplied)"
+          },
+          {
+            "id": "confirming",
+            "label": "Card B of this example: the confirmatory decision (as supplied)"
+          },
+          {
+            "id": "resultA",
+            "label": "Result field of card A in this example (printed as supplied)"
+          },
+          {
+            "id": "resultB",
+            "label": "Result field of card B in this example (printed as supplied)"
+          },
+          {
+            "id": "guide",
+            "label": "Alignment guide of this example: the filter strip (neutral)"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "original",
+            "to": "resultA",
+            "kind": "relation"
+          },
+          {
+            "from": "confirming",
+            "to": "resultB",
+            "kind": "relation"
+          },
+          {
+            "from": "resultA",
+            "to": "guide",
+            "kind": "relation"
+          },
+          {
+            "from": "resultB",
+            "to": "guide",
+            "kind": "relation"
+          },
+          {
+            "from": "original",
+            "to": "confirming",
+            "kind": "communication"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Linked as supplied in this example (no direction)",
+          "communication": "Communication between the cards as supplied",
+          "sequence": "Sequence as configured here (illustrative)",
+          "causal": "Causal link as supplied in this example (rare)"
+        },
+        "traversalOrder": [
+          "original",
+          "resultA",
+          "guide",
+          "resultB",
+          "confirming",
+          "original"
+        ],
+        "stateCaption": "Origin, alignment and state as supplied in this example: the two printed results are unchanged"
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Baseline in Spanish (built-in labels and fictional content).",
+      "params": {
+        "locale": "es",
+        "decisions": {
+          "a": {
+            "role": "Decisión original",
+            "title": "Resolución 1 (ficticia)",
+            "ref": "Ref. A-01 (ficticia)"
+          },
+          "b": {
+            "role": "Decisión confirmatoria suministrada",
+            "title": "Resolución 2 (ficticia)",
+            "ref": "Ref. B-01 (ficticia)"
+          }
+        },
+        "grounds": {
+          "a": "Motivos: texto provisional (según lo aportado)",
+          "b": "Motivos: texto provisional (según lo aportado)"
+        },
+        "routes": {
+          "align": "result",
+          "label": "Guía de alineación sobre las filas del resultado (según lo configurado)"
+        },
+        "outcomes": {
+          "a": "Resultado dado (texto provisional)",
+          "b": "Resultado dado (texto provisional)"
+        },
+        "labels": {
+          "key": "Según lo aportado · sin conclusión"
+        },
+        "elements": [
+          {
+            "id": "original",
+            "label": "Tarjeta A: decisión original (según lo aportado)"
+          },
+          {
+            "id": "confirming",
+            "label": "Tarjeta B: decisión confirmatoria (según lo aportado)"
+          },
+          {
+            "id": "resultA",
+            "label": "Campo de resultado de la tarjeta A (impreso según lo aportado)"
+          },
+          {
+            "id": "resultB",
+            "label": "Campo de resultado de la tarjeta B (impreso según lo aportado)"
+          },
+          {
+            "id": "guide",
+            "label": "Guía de alineación: la tira filtro (neutra)"
+          }
+        ],
+        "relationLabels": {
+          "relation": "Vinculados según lo aportado (sin dirección)",
+          "communication": "Comunicación según lo aportado",
+          "sequence": "Secuencia según lo configurado (ilustrativa)",
+          "causal": "Vínculo causal según lo aportado"
+        }
+      }
+    }
+  ]
+}

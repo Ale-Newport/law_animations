@@ -161,11 +161,41 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0336/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0336/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0336/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0336/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0336/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0336/sheet-16x9-es.png",
+      "production/scratch/rev-review-04/rev2-0336.png",
+      "production/scratch/rev-review-04/rev2-0336-1x1-strip.png",
+      "production/scratch/rev-review-04/rev2-0336-notext-16x9.png",
+      "production/scratch/rev-review-04/rev2-0336-notext-1x1.png",
+      "production/scratch/rev-review-04/rev2-0336-notext-9x16.png",
+      "production/scratch/rev-review-04/x2-0336-1x1-baseline-es.png",
+      "production/scratch/rev-review-04/x2-0336-1x1-contrast-or-alternative.png",
+      "production/scratch/rev-review-04/x2-0336-1x1-long-labels-stress.png",
+      "production/scratch/rev-review-04/x2-0336-9x16-baseline-es.png",
+      "production/scratch/rev-review-04/x2-0336-9x16-contrast-or-alternative.png",
+      "production/scratch/rev-review-04/x2-0336-9x16-long-labels-stress.png",
+      "production/scratch/rev-review-04/rev2-0336-16x9-alt-hold-large.png"
+    ],
+    "findings": [
+      "Re-review after rework. Resolved: lens now magnifies the row titles beside the rail (Section 3/4/5 etc.) at every ratio and in the upper-edge alternative; 1:1 lens is large and filled; 1:1 tag no longer wraps to 5 lines; labels-hidden hold is re-centred",
+      "NEW BLOCKING (regression, 16:9 all presets): the decision sheet shrank to ~15% of canvas width (~80/520 px in the sheets) centred on a desk that is ~46% wide, leaving ~60% of the desk bare wood; at 16:9 context (t=0.10) and final hold (t=1.0) the key object is small and row titles wrap to two lines needlessly in es/alternative/long-labels (e.g. 'Part II - account / (placeholder)', 'Apartado 3 (texto / aportado)'); see rev2-0336-16x9-alt-hold-large.png. The pre-rework 16:9 sheet was about twice as wide. Fix: at 16:9 scale the paper+frame+tag to fill the desk (or shrink the desk to the paper) and scale the lens source window with it; keep the lens size",
+      "Minor: 16:9 t~0.75-0.85 right half of canvas empty between lens close and legend fade-in (transient)",
+      "Minor: source-window outline top edge runs through the first row label like a strikethrough at 1:1 (Section 1 / Apartado 1) during the lens phase; offset it by a few px",
+      "Builder note accepted: rail passes over a section title inside the lens around u=0.55-0.67 - transient motion, acceptable",
+      "35-char section-tag cap justified (same as LAW-0335; long titles fit one line in the lens at 1:1); test file passes alone 7/7; qa automated pass, no warnings; content neutral"
+    ],
+    "sourceHash": "65aa4a951385bcfd612f66533e2c41ff663165b446a41b2c13fa4427064eaa48",
+    "renderFingerprint": "e69fb8076e98ae8b87815846069756c973b8a7e62d0f47ef797499e5e5d447a1",
+    "reviewedAt": "2026-10-05T17:51:39.664Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -182,35 +212,9 @@
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
   "thumb": "production/evidence/LAW-0336/thumb.png",
   "captureErrors": [],
-  "previousVisualReview": {
-    "status": "fail",
-    "reviewer": "claude subagent (independent reviewer, session 2)",
-    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
-    "live": null,
-    "artifacts": [
-      "production/evidence/LAW-0336/sheet-16x9-baseline.png",
-      "production/evidence/LAW-0336/sheet-9x16-baseline.png",
-      "production/evidence/LAW-0336/sheet-1x1-baseline.png",
-      "production/evidence/LAW-0336/sheet-16x9-alternative.png",
-      "production/evidence/LAW-0336/sheet-16x9-long-labels.png",
-      "production/evidence/LAW-0336/sheet-16x9-es.png",
-      "production/scratch/rev-review-04/rev-0336.png",
-      "production/scratch/rev-review-04/rev-0336-notext.png",
-      "production/scratch/rev-review-04/x-0336-1x1-baseline-es.png",
-      "production/scratch/rev-review-04/x-0336-1x1-contrast-or-alternative.png",
-      "production/scratch/rev-review-04/x-0336-1x1-long-labels-stress.png",
-      "production/scratch/rev-review-04/x-0336-9x16-contrast-or-alternative.png"
-    ],
-    "findings": [
-      "Lens content thin: the magnified window covers only the paper's icon column plus bare desk; ~50-60% of the open lens is empty desk texture at 1:1 (baseline, es, alternative t=0.55) and in the upper-edge alternative at 16:9 (t=0.40-0.60); no row title is visible in the lens, so the magnified view does not show which section the frame edge stands at. Fix: move/scale the lens source window left so it includes the row titles next to the rail (or crop to paper+rail only) and enlarge the paper strip inside the lens",
-      "1:1 tag wraps into 5 narrow lines ('Frame / ends / after / Section 4 / (as supplied)') at t=0.10 and t=1.0 while desk space to the right is free; widen the desk tag box",
-      "Labels-hidden 16:9: at hold (t=1.0) the desk stays on the left ~55% and the right ~45% of the canvas is empty once the lens closes; lens is only ~30% of width with a blank tag box. Re-centre/enlarge the scene when the legend is hidden (as LAW-0333 does)",
-      "Minor transient: at 9:16/1:1 isolate (t~0.30) the growing lens overlaps the desk's lower rows; source-outline rect extends below the desk edge in 1:1 long-labels",
-      "60-char before/after cap is justified (fits lens at 1:1); tests pass singly (7/7); content neutral"
-    ],
-    "sourceHash": "1dfc5314765448aba95e35043e8040b878aa3c26a7597dcdce9dc3b7450bed9d",
-    "renderFingerprint": "545c6c44320961aced0ab5d25d9fba0f268708f52552790adac000bdb2fbf61e",
-    "reviewedAt": "2026-10-05T17:28:17.480Z",
-    "invalidated": "source changed and rendered output differs from what was reviewed"
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
   }
 }

@@ -359,49 +359,63 @@ noLoneLetterSplit(ID);
 noTornNumberUnit(ID);
 esAportadoAgrees(ID);
 
-// Print-bar fallback (reviewer request, 2026-10-05): supplied texts too long for a printed card in the context (an
-// unbroken long word, a long event label in the stress content) — the context draws print bars, the panel lists the texts
-// once at rest, the lens prints the event card at its true size once fully open (old state, then the new one), the
-// context card never carries a legible print, the Δ and the hold work as usual, and every case renders a full scene.
-test(`${ID}: print-bar fallback — texts listed in the panel, printed only in the lens (rendered)`, async ({page}) => {
+// Print-bar fallback (reviewer requests, 2026-10-05; fix2): supplied texts too long for a printed card in the context — an
+// unbroken long word — are drawn as print bars PER CARD (the event card, the obligation cards: a long obligation never
+// turns the event card into bars). The texts of the barred cards are listed once in the panel at rest; a barred event card
+// is printed at its true size in the lens once fully open (old state, then the new one), its print filling the lens window
+// (union of its text ≥ 0.35 of the window) with the card's inner padding (state glyph ≥ 14 px from the rim); the context
+// card never carries a legible print; the Δ and the hold work as usual, and every case renders a full scene.
+test(`${ID}: print-bar fallback — per card, texts listed in the panel, printed only in the lens (rendered)`, async ({page}) => {
   test.setTimeout(300000);
   await page.goto('/tests/harness/host.html');
   await page.waitForFunction(() => document.body.dataset.ready === '1');
   const stress = P('long-labels-stress');
   const cands = [
-    {name: 'long-word', params: {obligations: ['Obligation-with-an-extraordinarily-long-hyphenated-name 1', 'Obligation 2 (supplied text)', 'Obligation 3 (supplied text)']}},
-    // (with the stress content as well the long word fits no 1:1 panel — an unbroken 55-character token; the kit never
-    // breaks a word — so that pairing is checked at 16:9 and 9:16 only)
-    {name: 'stress-long-word', ratios: ['16:9', '9:16'], params: {...stress, obligations: ['Obligation-with-an-extraordinarily-long-hyphenated-name 1', ...stress.obligations.slice(1)]}},
-    {name: 'stress-long-event', params: {...stress, event: {label: 'Event 1, a long supplied event name used in this example ok'}}},
+    {name: 'long-obligation', params: {obligations: ['Obligation-with-an-extraordinarily-long-hyphenated-name 1', 'Obligation 2 (supplied text)', 'Obligation 3 (supplied text)']}},
+    {name: 'obligation-token42', params: {obligations: ['Gewaehrleistungsverpflichtungsvereinbarung 1', 'Obligation 2 (supplied text)']}},
+    {name: 'event-token42', params: {event: {label: 'Event Gewaehrleistungsverpflichtungsvereinbarung 1'}}},
+    {name: 'stress-event-token33', params: {...stress, event: {label: 'Event Vertragserfuellungsbedingungenxyz 1'}}},
+    {name: 'both-tokens', params: {event: {label: 'Event Vertragserfuellungsbedingungenxyz 1'}, obligations: ['Gewaehrleistungsverpflichtungsvereinbarung 1', 'Obligation 2 (supplied text)']}},
+    {name: 'stress-long-word', params: {...stress, obligations: ['Obligation-with-an-extraordinarily-long-hyphenated-name 1', ...stress.obligations.slice(1)]}},
   ];
   const out = await page.evaluate(async ([id, cands, ratios, HELP]) => {
     eval(HELP.replace(/const /g, 'globalThis.'));
     const def = await window.__lib.load(id);
     const fails = [], rows = [];
-    let bars = 0;
+    let evBars = 0, oblBars = 0, perCard = 0;
     for (const c of cands) for (const [ratio, w, h] of ratios) {
-      if (c.ratios && !c.ratios.includes(ratio)) continue;
       const el = document.createElement('div');
       document.getElementById('slots').appendChild(el);
       const x = def.create(el, {width: w, height: h, params: c.params});
       await x.ready;
       const svg = x.element;
+      const k = 1080 / Math.min(w, h) * (w / svg.getBoundingClientRect().width);
       const tag = `${c.name} ${ratio}`;
       x.seek(0.1 * x.durationMs);
       const s0 = x.getState({bounds: false}).semantic;
-      rows.push(`${tag}: cardText ${s0.cardText} layoutOk ${s0.layoutOk} text ${s0.textPx}px`);
+      rows.push(`${tag}: event printed ${s0.cardText} · obligations printed ${s0.oblText} · layoutOk ${s0.layoutOk} text ${s0.textPx}px`);
       if (!s0.layoutOk || !svg.querySelector('[data-node="st-ev-in-sheet"]')) { fails.push(`${tag}: no full scene (${s0.why})`); x.destroy(); el.remove(); continue; }
-      if (s0.cardText !== false) { x.destroy(); el.remove(); continue; }
-      bars++;
-      const label = c.params.event?.label ?? def.defaultParams.event.label;
-      const norm = t => t.replace(/[ ⁠]/g, ' ').replace(/\s+/g, ' ').trim();
+      const norm = t => t.replace(/[ ⁠]/g, ' ').replace(/\s+/g, ' ').trim();
       const shown = sel => [...svg.querySelectorAll(sel)].filter(t => eff(svg, t) >= 0.5).map(t => norm(t.textContent)).join(' ');
-      // at rest: the context card shows bars only; the panel lists the event's and the obligations' texts
-      if (svg.querySelectorAll('[data-node="st-ev-in"] text').length) fails.push(`${tag}: the context card carries text`);
       const rest = shown('[data-node="panel-rest"] text');
+      const label = c.params.event?.label ?? def.defaultParams.event.label;
+      const obls = c.params.obligations ?? def.defaultParams.obligations;
+      const evText = svg.querySelectorAll('[data-node="st-ev-in"] text').length;
+      const oblText = svg.querySelectorAll('[data-node^="st-obl"] text').length;
+      // per card: each card printed or barred on its own
+      if (s0.cardText === false && evText) fails.push(`${tag}: the barred event card carries text`);
+      if (s0.cardText !== false && !evText) fails.push(`${tag}: the printed event card has no text`);
+      if (s0.oblText === false && oblText) fails.push(`${tag}: the barred obligation cards carry text`);
+      if (s0.oblText !== false && !oblText) fails.push(`${tag}: the printed obligation cards have no text`);
+      if (s0.cardText !== s0.oblText) perCard++;
+      if (s0.oblText === false) {
+        oblBars++;
+        for (const t of obls) if (!rest.includes(norm(t).split(' ')[0].slice(0, 12))) fails.push(`${tag}: panel at rest lacks the obligation "${t.slice(0, 20)}"`);
+      } else if (rest.includes(norm(obls[0]).slice(0, 18))) fails.push(`${tag}: a printed obligation is listed in the panel as well`);
+      if (s0.cardText !== false) { x.destroy(); el.remove(); continue; }
+      evBars++;
       for (const word of norm(label).split(' ').slice(0, 3)) if (!rest.includes(word)) fails.push(`${tag}: panel at rest lacks "${word}"`);
-      // the lens, fully open: the true-size print with the old state, then the new state
+      // the lens, fully open: the true-size print with the old state, then the new state, filling the window
       for (const [u, st] of [[0.34, s0.before], [0.62, null]]) {
         x.seek(u * x.durationMs);
         const s = x.getState({bounds: false}).semantic;
@@ -411,7 +425,15 @@ test(`${ID}: print-bar fallback — texts listed in the panel, printed only in t
         const lens = shown('[data-node="lzs-evp"] text');
         if (!lens.includes(norm(label).split(' ')[0])) fails.push(`${tag} u${u}: the lens print lacks the event label`);
         const W0 = box(svg, 'lens-border');
-        for (const t of svg.querySelectorAll('[data-node="lzs-evp"] text')) { const b = t.getBoundingClientRect(); if (b.width && (b.left < W0.left - 0.5 || b.right > W0.right + 0.5 || b.top < W0.top - 0.5 || b.bottom > W0.bottom + 0.5)) fails.push(`${tag} u${u}: lens print cut by the rim`); }
+        const tb = [...svg.querySelectorAll('[data-node="lzs-evp"] text')].filter(t => eff(svg, t) >= 0.5).map(t => t.getBoundingClientRect()).filter(b => b.width);
+        for (const b of tb) if (b.left < W0.left - 0.5 || b.right > W0.right + 0.5 || b.top < W0.top - 0.5 || b.bottom > W0.bottom + 0.5) fails.push(`${tag} u${u}: lens print cut by the rim`);
+        if (tb.length) {
+          const U = {l: Math.min(...tb.map(b => b.left)), r: Math.max(...tb.map(b => b.right)), t: Math.min(...tb.map(b => b.top)), b: Math.max(...tb.map(b => b.bottom))};
+          const frac = ((U.r - U.l) * (U.b - U.t)) / (W0.width * W0.height);
+          if (frac < 0.35) fails.push(`${tag} u${u}: the lens print fills ${(frac * 100).toFixed(0)} % of the window`);
+        }
+        const gl = [...svg.querySelectorAll(`[data-node="lzs-evp-in-st-${want}"] > circle, [data-node="lzs-evp-in-st-${want}"] > path`)][0];
+        if (gl) { const gap = (gl.getBoundingClientRect().left - W0.left) * k; if (gap < 14) fails.push(`${tag} u${u}: state glyph ${gap.toFixed(1)} px from the lens rim`); }
       }
       // while the lens opens, its fine print is not yet shown (legible only through the open lens)
       x.seek(0.24 * x.durationMs);
@@ -423,10 +445,12 @@ test(`${ID}: print-bar fallback — texts listed in the panel, printed only in t
       x.destroy();
       el.remove();
     }
-    return {fails, rows, bars};
+    return {fails, rows, evBars, oblBars, perCard};
   }, [ID, cands, RATIOS, HELP]);
   console.log(out.rows.join('\n'));
-  expect(out.bars).toBeGreaterThan(3);
+  expect(out.evBars).toBeGreaterThan(3);
+  expect(out.oblBars).toBeGreaterThan(3);
+  expect(out.perCard).toBeGreaterThan(3);
   expect(out.fails).toEqual([]);
 });
 

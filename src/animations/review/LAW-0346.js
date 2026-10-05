@@ -141,18 +141,18 @@ function compose(ctx, P, F, opt) {
   let cw, plateW, plateH, colW;
   if (!tall) {
     colW = (D.w - 2 * mx) / 3;
-    plateW = Math.min(colW * 0.56, F * 12);
-    cw = Math.min(colW * 0.86, F * opt.cwMax);
+    plateW = Math.min(colW * 0.62, F * 14);
+    cw = Math.min(colW * 0.84, F * opt.cwMax);
   } else {
     colW = D.w - 2 * mx;
-    plateW = Math.min(colW * 0.4, F * 12);
-    cw = Math.min(colW * 0.5, F * opt.cwMax);
+    plateW = Math.min(colW * 0.4, F * 13);
+    cw = Math.min(colW * 0.48, F * opt.cwMax);
   }
   const CM = cardModel(ctx, {w: cw, F, minF: F, maxLines: opt.cardLines, a: P.decisions.initial, b: P.decisions.later, showText: showKey, minH: showKey ? 0 : cw * 0.6});
   if (!CM.ok) problems.push('card-text');
-  plateH = Math.max(F * 3.6, Math.min(CM.h * 0.62, plateW * 0.62));
+  plateH = Math.max(F * 3.8, Math.min(CM.h * 0.7, plateW * 0.6));
   // captions: element label (bold) + description (+ grounds) + reserved state
-  const capW = tall ? colW * 0.42 : colW - 24;
+  const capW = tall ? colW * 0.44 : colW - 24;
   const desc = {intake: P.routes.intake, position: P.decisions.position, history: P.routes.history};
   const states = {position: P.outcomes.position, history: P.outcomes.history};
   const caps = {};
@@ -210,9 +210,9 @@ function compose(ctx, P, F, opt) {
   spare = D.h - 2 * my - need;
   if (spare < -0.5) problems.push('height');
   const sp = Math.max(0, spare);
-  const gapY = gapMin + sp * 0.28;
+  const gapY = gapMin + sp * 0.4;
   let y = my + sp * 0.08 + 12;
-  const plateX = leftX + 8;
+  const plateX = leftX + Math.max(F * 2.2, 46);
   for (const id of ['intake', 'position', 'history']) {
     boxes[id] = {x: plateX, y, w: plateW, h: plateH};
     capAt[id] = {x: plateX, y: y + plateH + F * 0.5};
@@ -290,13 +290,23 @@ const scene = {
     const L = best;
     L.P = P;
     L.px = px;
+    L.tall = tall;
     const B = L.boxes;
     const ctr = b => ({x: b.x + b.w / 2, y: b.y + b.h / 2});
     // connectors: only the supplied relationships (anchored to the real edges; a small gap at each end)
     L.links = P.relationships.map((rel, i) => {
       const A = B[rel.from], Bb = B[rel.to];
       if (!A || !Bb || rel.from === rel.to) return null;
-      const a = edgeAnchor(A, ctr(Bb), 6), b = edgeAnchor(Bb, ctr(A), rel.kind === 'relation' ? 6 : 10);
+      const pad = rel.kind === 'relation' ? 6 : 10;
+      const isCard = id => id === 'later' || id === 'initial';
+      // a card and a place: from the card's edge facing the places to the place's edge facing the cards
+      const port = (bx, id, other, gap) => {
+        const o = ctr(B[other]);
+        if (!isCard(rel.from) === !isCard(rel.to)) return edgeAnchor(bx, o, gap);
+        if (L.tall) return isCard(id) ? {x: bx.x - gap, y: clamp(o.y, bx.y + 14, bx.y + bx.h - 14)} : {x: bx.x + bx.w + gap, y: clamp(o.y, bx.y + 12, bx.y + bx.h - 12)};
+        return isCard(id) ? {x: clamp(o.x, bx.x + 18, bx.x + bx.w - 18), y: bx.y + bx.h + gap} : {x: clamp(o.x, bx.x + 18, bx.x + bx.w - 18), y: bx.y - gap - (id === 'history' ? 12 : 9)};
+      };
+      const a = port(A, rel.from, rel.to, 6), b = port(Bb, rel.to, rel.from, pad);
       const len = Math.hypot(b.x - a.x, b.y - a.y);
       return {i, rel, a, b, len, ang: Math.atan2(b.y - a.y, b.x - a.x)};
     }).filter(Boolean);
@@ -454,8 +464,18 @@ const scene = {
     const tokIn = r(seg(u, W.lift[0] + 0.03, W.lift[1]), 3);
     const tb = ease.inOutSine(seg(u, ...W.tokB)), ta = ease.inOutSine(seg(u, ...W.tokA));
     const c = id => ({x: B[id].x + B[id].w / 2, y: B[id].y + B[id].h / 2});
-    const pB = {x: lerp(c('intake').x, c('position').x, tb), y: lerp(c('intake').y, c('position').y, tb)};
-    const pA = {x: lerp(c('position').x, c('history').x, ta), y: lerp(c('position').y, c('history').y, ta)};
+    const path = (a, b, t) => {
+      if (!L.tall) return {x: lerp(c(a).x, c(b).x, t), y: lerp(c(a).y, c(b).y, t)};
+      // tall: out to the left of the places, down the margin, back in (never over a caption)
+      const lx = B[a].x - L.tokS * 0.75;
+      const pts = [c(a), {x: lx, y: c(a).y}, {x: lx, y: c(b).y}, c(b)];
+      const seglen = pts.slice(1).map((q, i) => Math.hypot(q.x - pts[i].x, q.y - pts[i].y));
+      let d = t * seglen.reduce((x, y) => x + y, 0);
+      for (let i = 0; i < seglen.length; i++) { if (d <= seglen[i] || i === seglen.length - 1) { const k = seglen[i] ? clamp(d / seglen[i]) : 1; return {x: lerp(pts[i].x, pts[i + 1].x, k), y: lerp(pts[i].y, pts[i + 1].y, k)}; } d -= seglen[i]; }
+      return c(b);
+    };
+    const pB = path('intake', 'position', tb);
+    const pA = path('position', 'history', ta);
     nodes['mc-tokB-at'] = {transform: T(pB.x, pB.y)};
     nodes['mc-tokA-at'] = {transform: T(pA.x, pA.y)};
     nodes['mc-tokB'] = {opacity: tokIn};

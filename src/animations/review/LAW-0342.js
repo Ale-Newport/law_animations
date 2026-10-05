@@ -92,10 +92,10 @@ const sceneSchema = {
   }, ['from', 'to', 'kind']), 1, 8),
   focusElement: oneOf('Part enlarged while the marker passes', IDS),
   relationLabels: obj('Caption used for each relation kind (legend)', {
-    relation: str('Caption for plain relations', 50),
-    communication: str('Caption for communications', 50),
-    sequence: str('Caption for sequence links', 50),
-    causal: str('Caption for supplied causal links', 50),
+    relation: str('Caption for plain relations', 60),
+    communication: str('Caption for communications', 60),
+    sequence: str('Caption for sequence links', 60),
+    causal: str('Caption for supplied causal links', 60),
   }, ['relation', 'communication', 'sequence', 'causal']),
   traversalOrder: list('Order in which the marker visits the parts', oneOf('Part id', IDS), 2, 8),
   stateCaption: str('Caption of the gathered state (empty: the built-in caption)', 110),
@@ -137,8 +137,8 @@ export function compose(ctx, P, R, F, opts) {
   if (!rows.length) box = {x: 0, y: 0, w: DW, h: DH};
   else if (opts.band) {
     PL = panelLayout(rows, {w: DW - 8, F, cols: opts.cols || 1, tight: opts.tight});
-    box = {x: 0, y: 0, w: DW, h: DH - PL.h - gapP};
-    panel = {x: 4, y: DH - PL.h};
+    box = {x: 0, y: 0, w: DW, h: DH - PL.h - gapP - F * 0.4};
+    panel = {x: 4, y: DH - PL.h - F * 0.4};
   } else {
     const PW = DW * opts.pw;
     PL = panelLayout(rows, {w: PW, F});
@@ -150,7 +150,7 @@ export function compose(ctx, P, R, F, opts) {
   const inner = {x: box.x + m, y: box.y + m, w: box.w - 2 * m, h: box.h - 2 * m};
   const cardGap = Math.max(F * 5.2, F * 3.6 + F * 1.8, inner.w * 0.1);
   const gapR0 = Math.max(F * 3.2, 58), tab0 = Math.max(F * 1.5, 24);
-  const cw = Math.min(F * (showKey ? 20 : 17), (inner.w - cardGap) / 2, (inner.w - gapR0 - 2 * tab0 - F) / 2 - 2);
+  const cw = Math.min(F * (showKey ? 25 : 17), (inner.w - cardGap) / 2, (inner.w - gapR0 - 2 * tab0 - F) / 2 - 2);
   let M = null;
   for (const bars of [1, 0]) {
     M = cardModel(P, {w: cw, F, showText: showKey, bars, foot: F * 1.0});
@@ -161,16 +161,16 @@ export function compose(ctx, P, R, F, opts) {
   const gapR = Math.max(F * 3.2, 58);
   const tab = Math.max(F * 1.5, 24);
   const reg = registerRow(M, 'result');
-  const gh = reg.half * 2;
+  const gh = Math.max(F * 1.8, 34);
   const gw = 2 * rw + gapR + 1.4 * M.pad + 2 * (tab + F * 0.5);
-  const dyB = rh * 0.5;
-  const minV1 = Math.max(F * 2.6, 44), minV2 = Math.max(F * 2.2, 36);
+  const dyB = rh * 0.22;
+  const minV1 = Math.max(F * 2.0, 36), minV2 = Math.max(F * 1.5, 28);
   const baseH = M.h + minV1 + rh + dyB + minV2 + gh;
   const fitsH = baseH <= inner.h + 0.5;
   const fitsW = gw <= inner.w + 0.5 && cw >= F * 9;
   // spare height goes to the gaps (the parts spread out; no empty band)
   const spare = Math.max(0, inner.h - baseH);
-  const v1 = minV1 + Math.min(spare * 0.55, F * 9), v2 = minV2 + Math.min(spare * 0.45, F * 7);
+  const v1 = minV1 + Math.min(spare * 0.55, F * 14), v2 = minV2 + Math.min(spare * 0.45, F * 11);
   const usedH = M.h + v1 + rh + dyB + v2 + gh;
   const oy = inner.y + Math.max(0, (inner.h - usedH) / 2);
   const cx = inner.x + inner.w / 2;
@@ -178,7 +178,8 @@ export function compose(ctx, P, R, F, opts) {
   const B1 = {x: A1.x + cw + cardGap, y: oy};
   const yRes = oy + M.h + v1;
   const rA1 = {x: cx - gapR / 2 - rw, y: yRes};
-  const rB1 = {x: cx + gapR / 2, y: yRes + dyB};
+  const offX = Math.max(0, Math.min(rw * 0.28, inner.x + inner.w - (cx + gapR / 2 + rw) - 4));
+  const rB1 = {x: cx + gapR / 2 + offX, y: yRes + dyB};
   const rB2 = {x: cx + gapR / 2, y: yRes};
   const G1 = {x: cx - gw / 2, y: yRes + rh + dyB + v2};
   // start: the aligned pair, centred, results in their cards and the strip across them
@@ -187,11 +188,11 @@ export function compose(ctx, P, R, F, opts) {
   const B0 = {x: cx + gapR / 2, y: yS};
   const rA0 = {x: A0.x + res.x, y: A0.y + res.y};
   const rB0 = {x: B0.x + res.x, y: B0.y + res.y};
-  const G0 = {x: cx - gw / 2, y: yS + reg.y - reg.half};
+  const G0 = {x: cx - gw / 2, y: yS + reg.y - gh / 2};
   const calW = F * 3.6, calH = calW * 0.84;
-  const cal = cardGap >= calW + F * 2 ? {x: cx - calW / 2, y: oy + F * 0.3, w: calW, h: calH} : {x: inner.x + inner.w - calW, y: G1.y + gh - calH, w: calW, h: calH};
+  const cal = cardGap >= calW + F * 1.4 ? {x: cx - calW / 2, y: oy + F * 0.3, w: calW, h: calH} : {x: inner.x + inner.w - calW, y: G1.y + gh - calH, w: calW, h: calH};
   const problems = [!fitsH && 'height', !fitsW && 'width', !M.ok && 'card-text', PL && !PL.ok && 'panel-text'].filter(Boolean);
-  return {F, box, inner, panel, PL, M, rw, rh, gw, gh, tab, gapR, A0, A1, B0, B1, rA0, rA1, rB0, rB1, rB2, G0, G1, cal, reg, ok: !problems.length, problems};
+  return {dbg: {baseH: Math.round(baseH), mh: Math.round(M.h), rh: Math.round(rh), gh: Math.round(gh), v: Math.round(minV1 + minV2)}, F, box, inner, panel, PL, M, rw, rh, gw, gh, tab, gapR, A0, A1, B0, B1, rA0, rA1, rB0, rB1, rB2, G0, G1, cal, reg, ok: !problems.length, problems};
 }
 
 /** Edge anchor of a box towards a point (pad outside the box). */
