@@ -127,14 +127,18 @@ function compose(ctx, P, F, opts) {
   let OM, EM, plan;
   if (orient === 'h') {
     const gapM = Math.max(F * 7, mapW * 0.16);
-    const cw = Math.min(F * 17, (mapW - gapM) / 2);
-    if (cw < F * 8) return {F, ok: false, problems: ['map-width']};
-    OM = originModel(P, {w: cw, F, showText: showKey});
-    EM = endModel(P, {w: cw, F, showText: showKey});
-    plan = mapPlan(P, OM, EM, {F, orient, gap: Math.min(gapM * 1.25, mapW - 2 * cw), slots});
+    const tot = Math.min(F * 34, mapW - gapM);
+    if (tot < F * 16) return {F, ok: false, problems: ['map-width']};
+    // the split between the starting resolution and the end cards: even first, then whichever side needs room
+    for (const k of [0.5, 0.56, 0.44, 0.6]) {
+      OM = originModel(P, {w: tot * k, F, showText: showKey});
+      EM = endModel(P, {w: tot * (1 - k), F, showText: showKey});
+      if (OM.ok && EM.ok) break;
+    }
+    plan = mapPlan(P, OM, EM, {F, orient, gap: Math.min(gapM * 1.25, mapW - tot), slots});
     // spare height spreads the end cards apart (a fuller sheet, never a blank band)
     const spare = mapHmax - plan.needH;
-    if (spare > 1 && n > 1) plan = mapPlan(P, OM, EM, {F, orient, gap: Math.min(gapM * 1.25, mapW - 2 * cw), slots, gx: Math.max(F * 0.8, 14) + Math.min(F * 2.2, spare / (n - 1))});
+    if (spare > 1 && n > 1) plan = mapPlan(P, OM, EM, {F, orient, gap: Math.min(gapM * 1.25, mapW - tot), slots, gx: Math.max(F * 0.8, 14) + Math.min(F * 2.2, spare / (n - 1))});
   } else {
     const gx = Math.max(F * 0.8, 14);
     const ew = Math.min(F * 15, (mapW - (n - 1) * gx) / n);
