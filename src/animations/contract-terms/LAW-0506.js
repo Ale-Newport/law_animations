@@ -203,9 +203,9 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
   } else if (arrangement === 'column') {
     const availCol = D.h - 2 * m - tabH0 - 8 - 3 * (tabH0 + 26) + 30;
     const extra = Math.max(0, availCol - (hcNat + hkNat + hfNat + prong + slipNat));
-    hkT = Math.max(hkNat, Math.min(hkNat + extra * 0.55 * ff, D.h - 2 * m - band - nh - 40));
-    hcT = hcNat + extra * 0.15 * ff;
-    slipMin = slipNat + extra * 0.25 * ff;
+    hkT = Math.max(hkNat, Math.min(hkNat + extra * 0.8 * ff, D.h - 2 * m - band - nh - 40));
+    hcT = hcNat + extra * 0.04 * ff;
+    slipMin = slipNat + extra * 0.12 * ff;
   } else {
     const row1 = Math.max(hcNat, hfNat);
     const row2avail = D.h - m - (m + tabH0 + 8 + row1 + tabH0 + 34);
@@ -329,9 +329,10 @@ function geom(ctx, F, minF, arrangement, ff = 1) {
     exp.claim = side === 'top' ? {x: asm.claim.x, y: yy} : {x: asm.claim.x, y: yy + sb.h / 2};
     if (yy + prong + sb.h > D.h - m + 0.5) why.push('column-too-tall');
   } else {
-    const gx = 60, gy = tabH + 34;
-    const c2 = m + Math.max(Wc, Wk) + gx;
+    const gx = 60;
     const r1 = Math.max(hc, hf);
+    const gy = tabH + 34 + Math.max(0, (D.h - m - (top0 + r1 + tabH + 34 + Math.max(hk, sb.h))) * 0.7);
+    const c2 = m + Math.max(Wc, Wk) + gx;
     const row1 = top0, row2 = row1 + r1 + gy;
     exp.contract = {x: m, y: row1};
     exp.promise = {x: c2, y: row1};
