@@ -111,6 +111,7 @@ function panelItems(ctx, p, M) {
   // the rows that appear late come first, so the chips shown from the first frame take the panel's last rows
   const late = [{key: 'status', icon: 'status', text: p.finalState === 'division-disputed' ? t.disputedState : t.shown, when: 'status'}];
   if (allOn) p.annotations.forEach((a, i) => late.push({key: `note${i}`, icon: a.target === 'bar' ? 'bar' : a.target === 'trays' ? 'tray' : 'note', i: 0, text: a.text, when: 'notes'}));
+  late.push({key: 'neither', icon: 'alloc', side: 'a', text: t.neither, when: 'key'});
   late.push({key: 'key', text: t.key, when: 'key'});
   return [...late, ...out];
 }

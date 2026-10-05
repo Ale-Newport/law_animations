@@ -114,7 +114,7 @@ function geom(ctx, F, minF, tw) {
     lensArea = {x: sheet.x + sheet.w + 30, y: pad, w: notesW, h: notesBox.y - 20 - pad};
   }
   const C = {x: sheet.x + 26, y: sheet.y + headH + 14, w: sheet.w - 52, h: sheet.h - headH - 34};
-  const tileH = Math.max(tileH0, Math.min(tileH0 * (tall || sq ? 1.15 : 1.5), (C.h - 20 - (n - 1) * 90) / n));
+  const tileH = Math.max(tileH0, Math.min(tileH0 * (sq || tall ? 1 : 1.25), (C.h - 20 - (n - 1) * 90) / n));
   const neck = clamp(C.w * 0.12, 44, sq ? 56 : 80);
   const tileX = C.x + neck + 20, tileW = C.x + C.w - 16 - tileX;
   const free = C.h - 20 - n * tileH;
@@ -129,7 +129,7 @@ function geom(ctx, F, minF, tw) {
   // the crop: the changed tile's band, from the contour's left side to the end of its text (whole fields only)
   const t = tiles[ci];
   const textEnd = t.x + tileTextX(t.h) + Math.max(t.lab.width, gR * 2 + 12 + Math.max(t.st.width, afterFit.width)) + 26;
-  const vm = Math.min(tg / 2 - 2, tall || sq ? 50 : 90);
+  const vm = Math.min(tg / 2 - 4, tall ? 70 : sq ? 130 : 170);
   const sx = C.x + neck - 22;
   const src = {x: sx, y: t.y - vm, w: Math.min(C.x + C.w + 14, Math.max(textEnd, C.x + neck + 60)) - sx, h: t.h + vm * 2};
   if (tall) {
@@ -183,7 +183,7 @@ const scene = {
     const stress = isStress(p);
     const minF = (stress ? 16.6 : 20) / upx;
     let L = null;
-    search: for (const fpx of stress ? [20, 18.5, 17.5, 16.8] : [25, 23, 21.5, 20.2]) for (const tw of [9.5, 11, 12.5, 16]) { L = geom(ctx, fpx / upx, minF, tw); if (L.ok) break search; }
+    search: for (const fpx of stress ? [20, 18.5, 17.5, 16.8] : [25, 23, 21.5, 20.2]) for (const tw of [8, 9.5, 11, 12.5, 16]) { L = geom(ctx, fpx / upx, minF, tw); if (L.ok) break search; }
     L.upx = upx;
     return L;
   },
@@ -219,7 +219,7 @@ const scene = {
     );
     const t = L.tiles[L.ci];
     const lz = lens(ctx, {name: 'lens', source: L.src, dest: L.dest, content: g(null, content('l'),
-      g({name: 'l-was', opacity: 0}, show ? chipG(ctx, `${ctx.t.was}: ${p.statusLabels[p.beforeValue]}`, {x: t.x + tileTextX(t.h) - 30, y: t.y + t.h + 5, maxWidth: L.src.x + L.src.w - (t.x + tileTextX(t.h) - 30) - 4, size: Math.max(16.4 / L.upx / L.k, Math.min(L.F * 0.6, (L.vm - 9) / 1.8)), padY: 3, maxLines: 1, weight: 600, fill: '#ffffff'}).node : null)),
+      g({name: 'l-was', opacity: 0}, show ? chipG(ctx, `${ctx.t.was}: ${p.statusLabels[p.beforeValue]}`, {x: t.x + tileTextX(t.h) - 30, y: t.y + t.h + 5, maxWidth: L.src.x + L.src.w - (t.x + tileTextX(t.h) - 30) - 4, size: Math.max((isStress(p) ? 16.4 : 19.8) / L.upx / L.k, Math.min(L.F * 0.6, (L.vm - 9) / 1.8)), padY: 3, maxLines: 1, weight: 600, fill: '#ffffff'}).node : null)),
     frame: {x: 0, y: 0, w: ctx.design.w, h: ctx.design.h}, color: th.accent2});
     const marker = changedMarker(ctx, {name: 'marker', x: t.x + t.w - 6, y: t.y + 6, radius: 18, opacity: 0});
     const notes = L.notesPl ? L.notesPl.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node)) : [];
@@ -238,10 +238,10 @@ const scene = {
     nodes['lens-content'] = {...nodes['lens-content'], opacity: r(copy, 3)};
     const outQ = seg(u, ...W.out), inQ = seg(u, ...W.in);
     const sub = inQ > 0;
-    nodes['l-before'] = {opacity: r(1 - outQ, 3), transform: `translate(0 ${r(-outQ * 18, 2)})`};
+    nodes['l-before'] = {opacity: r(1 - outQ, 3), transform: `translate(${r(outQ * 24, 2)} 0)`};
     nodes['l-after'] = {opacity: r(inQ, 3)};
-    nodes['l-was'] = {opacity: r(seg(u, ...W.was) * (u < W.close[0] ? 1 : 1 - close), 3)};
-    const ctxDatum = u < W.open[0] ? 1 : u < W.close[0] ? clamp(1 - copy * 4) : 0;
+    nodes['l-was'] = {opacity: r(seg(u, ...W.was) * (1 - seg(u, W.close[0] - 0.02, W.close[0])), 3)};
+    const ctxDatum = u < W.open[0] ? 1 : u < W.close[0] ? clamp(1 - copy * 8) : 0;
     const ctxIn = seg(u, ...W.ctxIn);
     nodes['c-before'] = {opacity: r(u < W.in[0] ? ctxDatum : 0, 3), transform: 'translate(0 0)'};
     nodes['c-after'] = {opacity: r(u < W.in[0] ? 0 : u < W.close[0] ? 0 : ctxIn, 3)};

@@ -95,14 +95,14 @@ const defaultParamsEs = {
 };
 
 const SHAPES = {
-  landscape: {sizes: [26, 16], modes: ['side', 'below'], sideWs: [0.26, 0.32, 0.38, 0.45], arr: ['ring']},
-  square: {sizes: [24, 16], modes: ['below', 'side'], sideWs: [0.32, 0.38, 0.45], arr: ['ring', 'diamond']},
+  landscape: {sizes: [26, 16], modes: ['side', 'below'], sideWs: [0.2, 0.24, 0.28, 0.32, 0.38], arr: ['ring']},
+  square: {sizes: [24, 16], modes: ['side', 'below'], sideWs: [0.28, 0.32, 0.38, 0.45], arr: ['ring', 'diamond']},
   portrait: {sizes: [25, 16], modes: ['below'], sideWs: [], arr: ['diamond', 'ring']},
 };
 
 /** Part sizes (× U). */
-const PART = {loss: {w: 1, h: 0.36}, barriers: {w: 0.62, h: 0.42}, connectors: {w: 0.62, h: 0.42}, events: null};
-const evW = n => Math.max(0.62, 0.27 * n);
+const PART = {loss: {w: 1, h: 0.5}, barriers: {w: 0.8, h: 0.85}, connectors: {w: 0.8, h: 0.85}, events: null};
+const evW = n => Math.max(0.8, 0.34 * n);
 const partWH = (id, n) => (id === 'events' ? {w: evW(n), h: 0.42} : PART[id]);
 
 function panelItems(ctx, p, M) {
@@ -118,7 +118,12 @@ function panelItems(ctx, p, M) {
   M.alternatives.forEach((a, j) => out.push({key: `alt${j}`, icon: 'alt', text: altText(ctx, a), when: 'legend'}));
   linkNotes(ctx, M).forEach(l => out.push({...l, when: 'legend'}));
   // (the key appears late: it comes first, so the chips shown from the first frame take the panel's last rows)
-  return [{key: 'key', text: t.key, when: 'key'}, ...out];
+  const late = [{key: 'key', text: t.key, when: 'key'}];
+  if (namesInPanel(ctx)) {
+    late.push({key: 'state', icon: 'status', text: stateText(ctx, p, M), when: 'state'});
+    IDS.forEach(id => { const el = p.elements.find(e => e.id === id); late.push({key: `name-${id}`, ...PART_ICON[id], text: el ? el.label : id, when: 'names'}); });
+  }
+  return [...late, ...out];
 }
 
 /** A relation chip: balanced, up to three lines, no one-word line. */
@@ -134,9 +139,19 @@ const relText = (ctx, p, kind) => (p.relationLabels && p.relationLabels[kind]) |
 const kindCol = (th, kind) => (kind === 'communication' ? th.accent2 : kind === 'relation' ? th.inkSoft : th.ink);
 
 /** Name and state chips of each part (measured). */
+/** Wide and square boxes: the part names and the state go to the panel (each with its part's icon), so the parts can
+ * fill the box; tall boxes keep them under each part. */
+const namesInPanel = ctx => ctx.view.shape !== 'portrait';
+const PART_ICON = {loss: {icon: 'bar'}, barriers: {icon: 'alt'}, connectors: {icon: 'link'}, events: {icon: 'tray', i: 0}};
+const stateText = (ctx, p, M) => `${ctx.t.stEvents} ${ctx.t.forA} ${M.vA.map(fmtV).join('\u00a0·\u00a0')} ${ctx.t.and} ${ctx.t.forB} ${M.vB.map(fmtV).join('\u00a0·\u00a0')} (${p.unit})`;
+
 function partChips(ctx, p, M, size, U, arr = 'ring') {
   const t = ctx.t;
   const out = {};
+  if (namesInPanel(ctx)) {
+    for (const id of IDS) out[id] = {n0: null, s0: null, nh: 0, sh: 0, nw: 0, sw: 0, bad: false};
+    return out;
+  }
   for (const id of IDS) {
     const wh = partWH(id, M.n);
     // (wide boxes: wider chips, fewer lines — the ring's two rows of chips then cost less height)
@@ -166,8 +181,8 @@ function partChips(ctx, p, M, size, U, arr = 'ring') {
 function geomFor(ctx, p, M, size, U, arr, gx0, ex = 0, ey = 0) {
   const ch = partChips(ctx, p, M, size, U, arr);
   const dims = arr === 'ring'
-    ? {loss: [1, 0.42], barriers: [0.62, 0.6], connectors: [0.62, 0.6], events: [evW(M.n), 0.52]}
-    : {loss: [1, 0.3], barriers: [0.44, 0.36], connectors: [0.44, 0.36], events: [Math.min(1, Math.max(0.6, 0.3 * M.n)), 0.36]};
+    ? {loss: [1, 0.5], barriers: [0.8, 0.85], connectors: [0.8, 0.85], events: [Math.max(0.8, 0.34 * M.n), 0.75]}
+    : {loss: [1, 0.4], barriers: [0.46, 0.52], connectors: [0.46, 0.52], events: [Math.min(1, Math.max(0.7, 0.32 * M.n)), 0.5]};
   const parts = {};
   for (const id of IDS) parts[id] = {w: dims[id][0] * U, h: dims[id][1] * U, chipH: ch[id].nh + (ch[id].sh ? ch[id].sh + 6 : 0) + 10, chipW: Math.max(ch[id].nw, ch[id].sw)};
   const cellW = id => Math.max(parts[id].w, parts[id].chipW);
@@ -399,7 +414,7 @@ const scene = {
     });
     nodes.tracer = {transform: T(tp.x, tp.y), opacity: tr > 0 && tr < 1 ? 1 : 0};
     const lg = seg(u, ...W.legend);
-    for (const b of L.bandNodes) nodes[`band-${b.key}`] = {opacity: r(b.when === 'key' ? seg(u, ...W.key) : lg, 3)};
+    for (const b of L.bandNodes) nodes[`band-${b.key}`] = {opacity: r(b.when === 'legend' ? lg : seg(u, ...W[b.when]), 3)};
     Object.assign(sem, {
       beat: u < BEATS.separate[1] ? 'separate' : u < BEATS.relate[1] ? 'relate' : u < BEATS.trace[1] ? 'trace' : 'gather',
       explode: r(ex, 3), gather: r(ga, 3), trace: r(tr, 3),

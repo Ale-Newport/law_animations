@@ -238,10 +238,12 @@ const scene = {
     const bbox = pts => { const xs = pts.map(p => p.x), ys = pts.map(p => p.y); return {x: Math.min(...xs), y: Math.min(...ys), w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys)}; };
     const ba = bbox(boxes[0]), bb = bbox(boxes[1]);
     const ca = {x: ba.x + ba.w / 2, y: ba.y + ba.h / 2}, cb = {x: bb.x + bb.w / 2, y: bb.y + bb.h / 2};
-    const edge = (bx, toward) => (C.arr === 'row' ? {x: toward.x > bx.x + bx.w / 2 ? bx.x + bx.w : bx.x, y: bx.y + bx.h / 2} : {x: bx.x + bx.w / 2, y: toward.y > bx.y + bx.h / 2 ? bx.y + bx.h : bx.y});
-    const ea = edge(ba, cb), eb = edge(bb, ca);
+    // side by side: the guide leaves both outlines from their top edge (left part, clear of the Δ) and arcs above the
+    // strips; stacked: it leaves both outlines from their right edge and arcs over the bench to the right
+    const ea = C.arr === 'row' ? {x: ba.x + ba.w * 0.3, y: ba.y} : {x: ba.x + ba.w, y: ba.y + ba.h / 2};
+    const eb = C.arr === 'row' ? {x: bb.x + bb.w * 0.3, y: bb.y} : {x: bb.x + bb.w, y: bb.y + bb.h / 2};
     const lenG = Math.hypot(eb.x - ea.x, eb.y - ea.y);
-    const bend = C.arr === 'row' ? {x: (ea.x + eb.x) / 2, y: Math.min(ea.y, eb.y) - 70} : {x: Math.max(ea.x, eb.x) + 90, y: (ea.y + eb.y) / 2};
+    const bend = C.arr === 'row' ? {x: (ea.x + eb.x) / 2, y: Math.min(ea.y, eb.y) - Math.max(90, C.G[0].S * 0.6)} : {x: Math.max(ea.x, eb.x) + Math.max(110, C.G[0].S * 0.6), y: (ea.y + eb.y) / 2};
     nodes.guide = {opacity: r(Math.min(1, gk * 3), 3)};
     nodes['guide-line'] = {d: `M${r(ea.x)} ${r(ea.y)}Q${r(bend.x)} ${r(bend.y)} ${r(eb.x)} ${r(eb.y)}`, 'stroke-dasharray': `${r(lenG * 1.4)} ${r(lenG * 1.4 + 10)}`, 'stroke-dashoffset': r(lenG * 1.4 * (1 - gk))};
     nodes['guide-a'] = {x: r(ba.x), y: r(ba.y), width: r(ba.w), height: r(ba.h)};
