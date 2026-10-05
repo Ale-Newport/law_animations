@@ -161,11 +161,40 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0496/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0496/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0496/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0496/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0496/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0496/sheet-16x9-es.png",
+      "production/scratch/rev2-contract-terms-04/r496-1x1-big.png",
+      "production/scratch/rev2-contract-terms-04/rev-LAW-0496-1x1.png",
+      "production/scratch/rev2-contract-terms-04/r496-ls-1x1.png",
+      "production/scratch/rev2-contract-terms-04/r496-nt-1x1.png",
+      "production/scratch/rev2-contract-terms-04/r496-nt-1x1-t04.png",
+      "production/scratch/rev2-contract-terms-04/r496-pb-1x1.png",
+      "production/scratch/rev2-contract-terms-04/r496-pbev-1x1.png",
+      "production/scratch/rev2-contract-terms-04/r496-pb-16x9.png",
+      "production/scratch/rev2-contract-terms-04/r496-pb-9x16.png",
+      "production/scratch/rev2-contract-terms-04/r496-stresslw-1x1.png"
+    ],
+    "findings": [
+      "Round-1 items verified fixed: Delta marker at the 1:1 hold sits in the Event panel header clear of the card; stress name plates wrap in two lines; dashed lens-link wedge ties lens to slot; print-bar fallback tested; test file alone --workers=1: 26 passed",
+      "DEFECT (labels none, 1:1, default params, t 0.30-0.60): the lens source frame is taller than the event card and hangs ~45 px (at 900 px) below the board's bottom edge over the easel legs, so the lens copy's lower ~40% shows blank panel bottom plus a cropped brown board-leg stub. Fix: fit the source crop to the event card (or clip it to the board) so the 1:1 none lens magnifies only the card, as in the labels-all case",
+      "DEFECT (print-bar fallback, all ratios, e.g. obligations[0] = a long hyphenated token): the lens prints the event card at its true small size in a mostly empty window (heading + one state line occupying ~25% of the lens) and the state glyph sits ~4 px from the lens's left rim (16:9, 9:16, 1:1 at u 0.34/0.62). Fix: scale the print to fill the lens (or shrink the lens to the print) and give the state row the card's inner padding",
+      "DEFECT (print-bar trigger): a long OBLIGATION text forces the EVENT card into print bars although its own short label fits; decide print-bar per card so the event card keeps its print when it fits",
+      "DEFECT: long-labels-stress + 55-char unbroken obligation token renders an EMPTY scene at 1:1 for the whole timeline (test explicitly skips this pairing); provide a last-resort layout (e.g. smaller print-bar board) instead of no-layout-fits. Same gap in LAW-0494/0495 (33/42-char tokens are fine)",
+      "Non-blocking: 1:1 and 9:16 leave a 20-30% empty bottom band at rest and hold",
+      "Otherwise: inspection action, struck 'was', bracket reopening and Delta marker read; neutral content"
+    ],
+    "sourceHash": "d5032ab7aa2bc853698f54b64209d487f3510eb0223e441a943eecbdc22db394",
+    "renderFingerprint": "b461137a86ec59e3fda0cd1735ba0caae51e41a33ea6bcec2aac52fc1e99ead0",
+    "reviewedAt": "2026-10-05T17:17:58.763Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -182,36 +211,9 @@
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
   "thumb": "production/evidence/LAW-0496/thumb.png",
   "captureErrors": [],
-  "previousVisualReview": {
-    "status": "fail",
-    "reviewer": "claude subagent (independent reviewer, session 2)",
-    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
-    "live": null,
-    "artifacts": [
-      "production/evidence/LAW-0496/sheet-16x9-baseline.png",
-      "production/evidence/LAW-0496/sheet-9x16-baseline.png",
-      "production/evidence/LAW-0496/sheet-1x1-baseline.png",
-      "production/evidence/LAW-0496/sheet-16x9-alternative.png",
-      "production/evidence/LAW-0496/sheet-16x9-long-labels.png",
-      "production/evidence/LAW-0496/sheet-16x9-es.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0496-16x9.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0496-notext.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0496-9x16-pan.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0496-9x16-fine.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0496-1x1-crop.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0496-ls-1x1.png"
-    ],
-    "findings": [
-      "BLOCKING: automatedChecks fail (exit 1), reproduced twice with tests/animations/LAW-0496.test.js: 2 failing tests",
-      "(1) 'Δ marker is clear of every text': default and baseline-illustrative 1:1 hold - Δ badge sits on the event card's top-right border over st-ev-in-sheet (seen in 1:1 crop at t=1); move the badge clear of the card at 1:1",
-      "(2) 'no one-word line': long-labels-stress 1:1 party plate wraps 'Maria-Fernanda / Castellanos / Villavicencio' one word per line; widen the plate or rebalance the wrap",
-      "Note: lens copy appears by cross-fade at a separate spot (slot empties, card fades in below/beside) with no leader tying it to the slot, unlike sibling LAW-0492's stem; consider a connector",
-      "Builder-disclosed print-bar fallback (fine print legible only in lens) is untested; add a test case that triggers it",
-      "Otherwise action, substitution with struck 'was', bracket reopening and final Δ marker read; neutral content"
-    ],
-    "sourceHash": "7ba1ab70b167ff4652527348740edae018cbec54338c9cb34a8370ae078cf8c4",
-    "renderFingerprint": "61fab2c03f58253ac955ef34d7247605f84b8095a5ef661c3dbaddcb78394bc4",
-    "reviewedAt": "2026-10-05T16:42:45.227Z",
-    "invalidated": "source changed and rendered output differs from what was reviewed"
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
   }
 }

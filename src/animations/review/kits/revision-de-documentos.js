@@ -94,7 +94,7 @@ export const RD_EN = {
 
 export const RD_ES = {
   decisions: {title: 'Resolución revisada (ficticia; contenido no mostrado)'},
-  grounds: 'Motivo anotado por quien la propone: «documentos posteriores» (según lo aportado)',
+  grounds: 'Motivo anotado al proponerlas: «documentos posteriores» (según lo aportado)',
   routes: {original: 'A · Expediente original (material original)', additional: 'B · Carpeta aparte: material adicional propuesto', divider: 'Separador entre las carpetas (neutro; no decide nada)'},
   pieces: ['N1 (ficticia)', 'N2 (ficticia)', 'N3 (ficticia)'],
   labels: {heading: 'Revisión de documentos (según lo aportado)', pieces: 'Piezas nuevas', key: 'Según lo aportado · sin conclusión'},
@@ -155,13 +155,15 @@ export function rdGeometry(R, o = {}) {
   const yTop = 30;
   const CH = FH + 2 * pad;
   const rowIntake = intake && arr === 'row';
-  const counterW = pad + 2 * FW + gap + dvW + gap + 2 * FW + (rowIntake ? gap + TW : 0) + pad;
+  // (covers: false — folders without front covers (always open), so the counter is shorter by both covers' widths)
+  const cv = o.covers === false ? 0 : FW;
+  const counterW = pad + FW + cv + gap + dvW + gap + FW + cv + (rowIntake ? gap + TW : 0) + pad;
   // natural layout (dx/dy shift added below)
   const L = {};
   L.counter = {x: mL, y: yTop, w: counterW, h: CH};
-  L.folderO = {x: mL + pad + FW, y: yTop + pad, w: FW, h: FH};
+  L.folderO = {x: mL + pad + cv, y: yTop + pad, w: FW, h: FH};
   L.divider = {x: L.folderO.x + FW + gap, y: yTop + 12, w: dvW, h: CH - 24};
-  L.folderN = {x: L.divider.x + dvW + gap + FW, y: yTop + pad, w: FW, h: FH};
+  L.folderN = {x: L.divider.x + dvW + gap + cv, y: yTop + pad, w: FW, h: FH};
   const yS = yTop + CH / 2;
   const personY = yS + HOLD;
   let needH;
@@ -222,7 +224,7 @@ export function rdGeometry(R, o = {}) {
   if ((o.W || 0) > 0 && o.W + 0.5 < needW) problems.push('room-width');
   if ((o.H || 0) > 0 && o.H + 0.5 < needH) problems.push('room-height');
   return {
-    W, H, t, arr, docK, n, DW, DH, FW, FH, TW, TH, HOLD, CH, pad, gap, dvW, yS: ySS, personY: pY, person, intake, trayRot,
+    W, H, t, arr, docK, n, covers: o.covers !== false, DW, DH, FW, FH, TW, TH, HOLD, CH, pad, gap, dvW, yS: ySS, personY: pY, person, intake, trayRot,
     counter, counter2, folderO, folderN, divider, tray, board, sign: sign, cal: cal ? {...cal} : null,
     needW, needH, problems, slotN, slotO, trayAt, rest, poseFor, coverEdge, coverPose,
     extents: {x: -t, y: -t, w: W + 2 * t, h: H + 2 * t},
@@ -418,12 +420,12 @@ export function rdRoom(ctx, G, o) {
     sheetArt(ctx, DW, DH),
     stripeArt(DW, DH, kind === 'a' ? c.a : c.b, undefined, 1));
   if (o.slotO) parts.push(pieceNode(`${P}-slotO`, G.slotO(), 'a', 0));
-  parts.push(folderCover(fo, c.aSoft, c.a, `${P}-coverA`));
+  if (G.covers) parts.push(folderCover(fo, c.aSoft, c.a, `${P}-coverA`));
   // folder B: back, slot sheets (filing order), front cover
   parts.push(g({name: `${P}-folderB`}, folderBack(fn, c.bSoft, c.b)));
   const nS = o.slotsN ?? G.n;
   for (let j = 0; j < nS; j++) parts.push(pieceNode(`${P}-slotN${j}`, G.slotN(j), o.slotKind || 'b', 0));
-  parts.push(folderCover(fn, c.bSoft, c.b, `${P}-coverB`));
+  if (G.covers) parts.push(folderCover(fn, c.bSoft, c.b, `${P}-coverB`));
   parts.push(g({name: `${P}-divider`}, dividerArt(G.divider)));
   // intake pieces (piece 0 drawn last: on top, taken first)
   if (G.tray) {
@@ -451,7 +453,7 @@ export function rdRoom(ctx, G, o) {
    */
   function frame(st) {
     const nodes = {};
-    for (const [key, F, sx0] of [['A', fo, st.coverA ?? -1], ['B', fn, st.coverB ?? -1]]) {
+    for (const [key, F, sx0] of G.covers ? [['A', fo, st.coverA ?? -1], ['B', fn, st.coverB ?? -1]] : []) {
       const sx = clamp(sx0, -1, 1);
       const s = Math.abs(sx) < 0.02 ? (sx < 0 ? -0.02 : 0.02) : sx;
       nodes[`${P}-cover${key}`] = {transform: `translate(${r(F.x, 2)} 0) scale(${r(s, 4)} 1) translate(${r(-F.x, 2)} 0)`};

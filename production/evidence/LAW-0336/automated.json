@@ -1,0 +1,653 @@
+{
+  "animationId": "LAW-0336",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0336",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "decisions.title"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: context: the old datum on the desk; lens closed @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "context",
+          "datum": "before",
+          "lensOpen": 0,
+          "zoom": 1.5,
+          "src": {
+            "x": 630.52,
+            "y": 405.83,
+            "w": 400.37,
+            "h": 276.73
+          },
+          "dest": {
+            "x": 1085.87,
+            "y": 318.91,
+            "w": 600.55,
+            "h": 415.09
+          },
+          "rail": 443.81,
+          "railBefore": 443.81,
+          "railAfter": 545.53,
+          "tag": {
+            "x": 760.69,
+            "y": 450.94
+          },
+          "lensTag": {
+            "x": 1281.12,
+            "y": 386.57
+          },
+          "datumInLens": false,
+          "ctxOld": 1,
+          "ctxNew": 0,
+          "lensOld": 0,
+          "lensNew": 0,
+          "ghost": 0,
+          "marker": 0,
+          "before": {
+            "from": 1,
+            "to": 2
+          },
+          "after": {
+            "from": 1,
+            "to": 3
+          },
+          "lower": true,
+          "changed": true,
+          "inside": [
+            true,
+            false
+          ],
+          "panel": 1,
+          "problems": [],
+          "textPx": 23,
+          "desk": {
+            "x": 0,
+            "y": 0,
+            "w": 1049.67,
+            "h": 738
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: isolate: the datum is only in the lens (context tag blank) @0.42",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "datum": "before",
+          "lensOpen": 1,
+          "zoom": 1.5,
+          "src": {
+            "x": 630.52,
+            "y": 405.83,
+            "w": 400.37,
+            "h": 276.73
+          },
+          "dest": {
+            "x": 1085.87,
+            "y": 318.91,
+            "w": 600.55,
+            "h": 415.09
+          },
+          "rail": 443.81,
+          "railBefore": 443.81,
+          "railAfter": 545.53,
+          "tag": {
+            "x": 760.69,
+            "y": 450.94
+          },
+          "lensTag": {
+            "x": 1281.12,
+            "y": 386.57
+          },
+          "datumInLens": true,
+          "ctxOld": 0,
+          "ctxNew": 0,
+          "lensOld": 1,
+          "lensNew": 0,
+          "ghost": 0,
+          "marker": 0,
+          "before": {
+            "from": 1,
+            "to": 2
+          },
+          "after": {
+            "from": 1,
+            "to": 3
+          },
+          "lower": true,
+          "changed": true,
+          "inside": [
+            true,
+            false
+          ],
+          "panel": 0,
+          "problems": [],
+          "textPx": 23,
+          "desk": {
+            "x": 0,
+            "y": 0,
+            "w": 1049.67,
+            "h": 738
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: substitute: the new value, rail at the new section, ghost of the old position @0.72",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "substitute",
+          "datum": "after",
+          "lensOpen": 1,
+          "zoom": 1.5,
+          "src": {
+            "x": 630.52,
+            "y": 405.83,
+            "w": 400.37,
+            "h": 276.73
+          },
+          "dest": {
+            "x": 1085.87,
+            "y": 318.91,
+            "w": 600.55,
+            "h": 415.09
+          },
+          "rail": 545.53,
+          "railBefore": 443.81,
+          "railAfter": 545.53,
+          "tag": {
+            "x": 760.69,
+            "y": 552.66
+          },
+          "lensTag": {
+            "x": 1281.12,
+            "y": 539.15
+          },
+          "datumInLens": true,
+          "ctxOld": 0,
+          "ctxNew": 0,
+          "lensOld": 0,
+          "lensNew": 1,
+          "ghost": 1,
+          "marker": 0,
+          "before": {
+            "from": 1,
+            "to": 2
+          },
+          "after": {
+            "from": 1,
+            "to": 3
+          },
+          "lower": true,
+          "changed": true,
+          "inside": [
+            true,
+            true
+          ],
+          "panel": 0,
+          "problems": [],
+          "textPx": 23,
+          "desk": {
+            "x": 0,
+            "y": 0,
+            "w": 1049.67,
+            "h": 738
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: back: context shows the new datum with the changed marker; magnification >= 1.5; composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "back",
+          "datum": "after",
+          "lensOpen": 0,
+          "zoom": 1.5,
+          "src": {
+            "x": 630.52,
+            "y": 405.83,
+            "w": 400.37,
+            "h": 276.73
+          },
+          "dest": {
+            "x": 1085.87,
+            "y": 318.91,
+            "w": 600.55,
+            "h": 415.09
+          },
+          "rail": 545.53,
+          "railBefore": 443.81,
+          "railAfter": 545.53,
+          "tag": {
+            "x": 760.69,
+            "y": 552.66
+          },
+          "lensTag": {
+            "x": 1281.12,
+            "y": 539.15
+          },
+          "datumInLens": false,
+          "ctxOld": 0,
+          "ctxNew": 1,
+          "lensOld": 0,
+          "lensNew": 0,
+          "ghost": 1,
+          "marker": 1,
+          "before": {
+            "from": 1,
+            "to": 2
+          },
+          "after": {
+            "from": 1,
+            "to": 3
+          },
+          "lower": true,
+          "changed": true,
+          "inside": [
+            true,
+            true
+          ],
+          "panel": 1,
+          "problems": [],
+          "textPx": 23,
+          "desk": {
+            "x": 0,
+            "y": 0,
+            "w": 1049.67,
+            "h": 738
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the old datum exactly @0.3",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "isolate",
+          "datum": "before",
+          "lensOpen": 0.649,
+          "zoom": 1.5,
+          "src": {
+            "x": 630.52,
+            "y": 405.83,
+            "w": 400.37,
+            "h": 276.73
+          },
+          "dest": {
+            "x": 1085.87,
+            "y": 318.91,
+            "w": 600.55,
+            "h": 415.09
+          },
+          "rail": 443.81,
+          "railBefore": 443.81,
+          "railAfter": 545.53,
+          "tag": {
+            "x": 760.69,
+            "y": 450.94
+          },
+          "lensTag": {
+            "x": 1281.12,
+            "y": 386.57
+          },
+          "datumInLens": true,
+          "ctxOld": 0,
+          "ctxNew": 0,
+          "lensOld": 1,
+          "lensNew": 0,
+          "ghost": 0,
+          "marker": 0,
+          "before": {
+            "from": 1,
+            "to": 2
+          },
+          "after": {
+            "from": 1,
+            "to": 3
+          },
+          "lower": true,
+          "changed": true,
+          "inside": [
+            true,
+            false
+          ],
+          "panel": 0,
+          "problems": [],
+          "textPx": 23,
+          "desk": {
+            "x": 0,
+            "y": 0,
+            "w": 1049.67,
+            "h": 738
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: upper edge: only the first section changes @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "back",
+          "datum": "after",
+          "lensOpen": 0,
+          "zoom": 1.5,
+          "src": {
+            "x": 630.52,
+            "y": 100.67,
+            "w": 400.37,
+            "h": 276.73
+          },
+          "dest": {
+            "x": 1085.87,
+            "y": 31.49,
+            "w": 600.55,
+            "h": 415.1
+          },
+          "rail": 138.65,
+          "railBefore": 240.37,
+          "railAfter": 138.65,
+          "tag": {
+            "x": 760.69,
+            "y": 145.78
+          },
+          "lensTag": {
+            "x": 1281.12,
+            "y": 99.15
+          },
+          "datumInLens": false,
+          "ctxOld": 0,
+          "ctxNew": 1,
+          "lensOld": 0,
+          "lensNew": 0,
+          "ghost": 1,
+          "marker": 1,
+          "before": {
+            "from": 1,
+            "to": 2
+          },
+          "after": {
+            "from": 0,
+            "to": 2
+          },
+          "lower": false,
+          "changed": true,
+          "inside": [
+            true,
+            false
+          ],
+          "panel": 1,
+          "problems": [],
+          "textPx": 23,
+          "desk": {
+            "x": 0,
+            "y": 0,
+            "w": 1049.67,
+            "h": 738
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the legend follows the new geometry (B now inside, as supplied) @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "back",
+          "datum": "after",
+          "lensOpen": 0,
+          "zoom": 1.5,
+          "src": {
+            "x": 630.52,
+            "y": 405.83,
+            "w": 400.37,
+            "h": 276.73
+          },
+          "dest": {
+            "x": 1085.87,
+            "y": 318.91,
+            "w": 600.55,
+            "h": 415.09
+          },
+          "rail": 545.53,
+          "railBefore": 443.81,
+          "railAfter": 545.53,
+          "tag": {
+            "x": 760.69,
+            "y": 552.66
+          },
+          "lensTag": {
+            "x": 1281.12,
+            "y": 539.15
+          },
+          "datumInLens": false,
+          "ctxOld": 0,
+          "ctxNew": 1,
+          "lensOld": 0,
+          "lensNew": 0,
+          "ghost": 1,
+          "marker": 1,
+          "before": {
+            "from": 1,
+            "to": 2
+          },
+          "after": {
+            "from": 1,
+            "to": 3
+          },
+          "lower": true,
+          "changed": true,
+          "inside": [
+            true,
+            true
+          ],
+          "panel": 1,
+          "problems": [],
+          "textPx": 23,
+          "desk": {
+            "x": 0,
+            "y": 0,
+            "w": 1049.67,
+            "h": 738
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: before the substitution B lies outside (as supplied) @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "context",
+          "datum": "before",
+          "lensOpen": 0,
+          "zoom": 1.5,
+          "src": {
+            "x": 630.52,
+            "y": 405.83,
+            "w": 400.37,
+            "h": 276.73
+          },
+          "dest": {
+            "x": 1085.87,
+            "y": 318.91,
+            "w": 600.55,
+            "h": 415.09
+          },
+          "rail": 443.81,
+          "railBefore": 443.81,
+          "railAfter": 545.53,
+          "tag": {
+            "x": 760.69,
+            "y": 450.94
+          },
+          "lensTag": {
+            "x": 1281.12,
+            "y": 386.57
+          },
+          "datumInLens": false,
+          "ctxOld": 1,
+          "ctxNew": 0,
+          "lensOld": 0,
+          "lensNew": 0,
+          "ghost": 0,
+          "marker": 0,
+          "before": {
+            "from": 1,
+            "to": 2
+          },
+          "after": {
+            "from": 1,
+            "to": 3
+          },
+          "lower": true,
+          "changed": true,
+          "inside": [
+            true,
+            false
+          ],
+          "panel": 1,
+          "problems": [],
+          "textPx": 23,
+          "desk": {
+            "x": 0,
+            "y": 0,
+            "w": 1049.67,
+            "h": 738
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": true
+}

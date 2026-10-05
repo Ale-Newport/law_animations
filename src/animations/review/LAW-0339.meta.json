@@ -1,0 +1,489 @@
+{
+  "id": "LAW-0339",
+  "slug": "review-05-contrast",
+  "title": "Document review — two identical filing rooms: a piece marked as original material is laid with the original file, a piece marked as proposed additional material in the separate folder (as configured)",
+  "titleEs": "Revisión de documentos — Comparación de dos supuestos",
+  "category": "review",
+  "categoryName": "Impugnaciones y revisión",
+  "motif": "Revisión de documentos",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two identical filing rooms seen from above, side by side (or stacked in tall frames). In each, a participant files one plain piece from the intake tray. The only change is the mark the piece receives: in A the blue mark of the original material — the piece is carried past the divider and laid on the original file in folder A; in B the amber mark of the proposed additional material — it is laid in the separate folder B. A guide outlines where each piece ends. Equal weight, no winner, no admissibility rule or outcome; illustrative, jurisdiction unspecified.",
+  "tags": [
+    "review",
+    "document review",
+    "contrast",
+    "original material",
+    "additional material",
+    "kept separate",
+    "divider",
+    "paired rooms",
+    "as configured"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/review/kits/revision-de-documentos.js",
+    "src/animations/review/kits/solicitud-autorizacion.js",
+    "src/animations/hearings/kits/hearings-art.js",
+    "src/animations/hearings/kits/apertura-audiencia.js",
+    "src/animations/courts/kits/courts-art.js",
+    "src/primitives/people-style.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "decisions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Name of the decision sheet (fictional, as supplied)"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "description": "The decision sheet (\"resolución\") lying on top of the original file — a fictional placeholder; its content is never shown"
+      },
+      "grounds": {
+        "type": "string",
+        "maxLength": 130,
+        "description": "Reason noted by whoever proposes the additional pieces (as supplied; shown, never assessed)"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "original": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Caption of folder A: the original file"
+          },
+          "additional": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Caption of folder B: the separate folder for the proposed additional pieces"
+          },
+          "divider": {
+            "type": "string",
+            "maxLength": 110,
+            "description": "Caption of the neutral divider standing between the two folders (it decides nothing)"
+          }
+        },
+        "required": [
+          "original",
+          "additional",
+          "divider"
+        ],
+        "description": "Where each kind of material is kept (as configured): a filing arrangement only — nothing is decided about the material"
+      },
+      "pieces": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 48,
+          "description": "Label of the piece (fictional)"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "The one piece handled in both rooms (fictional placeholder sheet) (array replaces the previous value)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "heading": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Heading of the panel (keep \"as supplied\")"
+          },
+          "pieces": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption introducing the list of new pieces"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "heading",
+          "pieces",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A: the piece is marked as original material"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "One-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B: the piece is marked as proposed additional material"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Label on the guide linking the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [],
+        "description": "Labels of the comparison guide"
+      },
+      "courier": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Label of the participant (as supplied)"
+          },
+          "appearance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "skin": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5,
+                "description": "Skin tone index 0–5"
+              },
+              "hair": {
+                "type": "string",
+                "enum": [
+                  "short",
+                  "long",
+                  "bun",
+                  "curly",
+                  "buzz",
+                  "scarf"
+                ],
+                "description": "Hair style"
+              },
+              "hairColor": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 6,
+                "description": "Hair colour index 0–6"
+              },
+              "outfit": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7,
+                "description": "Outfit colour index 0–7"
+              },
+              "glasses": {
+                "type": "boolean",
+                "description": "Wears glasses"
+              }
+            },
+            "required": [],
+            "description": "Optional appearance overrides; defaults derive from the seed (never tied to a role)"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "The generic participant who files the pieces (fictional; no role, rank or duty implied)"
+      },
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Caption of room A's end state"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Caption of room B's end state"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Captions of where the piece ends in each room (equal weight; as configured, nothing inferred)"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "decisions": {
+      "title": "Decision under review (fictional; content not shown)"
+    },
+    "grounds": "Reason noted by the proposer: “later documents” (as supplied)",
+    "routes": {
+      "original": "A · Original file (material original)",
+      "additional": "B · Separate folder: proposed additional material",
+      "divider": "Divider between the folders (neutral; it decides nothing)"
+    },
+    "pieces": [
+      "P1 (fictional)"
+    ],
+    "labels": {
+      "heading": "Document review (as supplied)",
+      "pieces": "New pieces",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "courier": {
+      "label": "Participant (fictional)"
+    },
+    "scenarioA": {
+      "label": "Material original",
+      "caption": "The piece is marked as original material (as supplied)"
+    },
+    "scenarioB": {
+      "label": "Proposed additional material",
+      "caption": "The piece is marked as proposed additional material (as supplied)"
+    },
+    "changedFact": "Only the mark on the piece differs",
+    "sharedFacts": [
+      "Same room, folders, divider and gesture"
+    ],
+    "outcomes": {
+      "a": "A: laid with the original file (as configured)",
+      "b": "B: laid in folder B (as configured)"
+    },
+    "comparisonLabels": {
+      "guide": "Where the piece ends up",
+      "neutral": "No rule drawn, no side preferred"
+    }
+  }
+}

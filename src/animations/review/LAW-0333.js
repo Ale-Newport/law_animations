@@ -175,7 +175,9 @@ const scene = {
     const shape = ctx.view.shape;
     const pws = shape === 'square' ? [0.38, 0.42, 0.46] : [0.3, 0.34, 0.38];
     let C = null;
-    outer: for (const F of SIZES) {
+    // (tall frames and the labels-hidden variant have spare height: larger geometry first, so the sheet fills the desk)
+    const sizes = shape === 'portrait' || !ctx.show('key') ? [34, 31, 28, 26, 24.5, ...SIZES] : SIZES;
+    outer: for (const F of sizes) {
       for (const pw of shape === 'portrait' ? [1] : pws) {
         const c = compose(ctx, P, R, F, {pw});
         if (c.ok) { C = c; break outer; }

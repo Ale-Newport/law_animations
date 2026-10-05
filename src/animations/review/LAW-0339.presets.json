@@ -1,0 +1,51 @@
+{
+  "animationId": "LAW-0339",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative. Two identical filing rooms; the ONE changed fact is the mark the piece receives (A: original material, blue strip; B: proposed additional material, amber strip), which changes only where the piece is laid (folder A with the original file, or the separate folder B) and therefore its route. Both rooms keep the same scale, timing and objects, the folders the same size and stroke; the divider decides nothing. No winner, score, admissibility rule, time limit, outcome or jurisdiction is drawn. Brief fields: decisions, grounds, routes, outcomes, scenarioA, scenarioB, changedFact, sharedFacts and comparisonLabels are editable.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "One plain piece in each room; A marks it as original material and lays it with the original file; B marks it as proposed additional material and lays it in the separate folder.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Substantive alternative: another piece and participant, other scenario captions and one shared fact.",
+      "params": {
+        "pieces": ["Letter K-2 (fictional)"],
+        "courier": {"label": "Participant B (fictional)", "appearance": {"skin": 4, "hair": "curly", "hairColor": 1, "outfit": 3}},
+        "scenarioA": {"label": "Copy of the original", "caption": "The letter is supplied as a copy of a sheet of the original file (as supplied)"},
+        "scenarioB": {"label": "New piece proposed", "caption": "The letter is supplied as a new piece proposed later (as supplied)"},
+        "changedFact": "Only how the letter is supplied differs: copy of the original (A) or new piece (B)",
+        "sharedFacts": ["The same letter, room, divider and participant"],
+        "outcomes": {"a": "A: the letter is laid on the original file, as configured here", "b": "B: the letter is laid in folder B, as configured here"}
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: long scenario labels and captions, four shared facts, long captions and notes.",
+      "params": {
+        "decisions": {"title": "Decision under review in the fictional example file 2041-B (content not shown here)"},
+        "grounds": "Reason noted by the person who proposes the additional piece: “a document that appeared later” (as supplied)",
+        "routes": {
+          "original": "A · Original file of the fictional example, kept in its own folder (material original)",
+          "additional": "B · Separate folder for the proposed additional material of the example (fictional)",
+          "divider": "Plain divider standing between the two folders of this example (neutral; it decides nothing)"
+        },
+        "pieces": ["P1 · Letter of the example (fictional sheet)"],
+        "labels": {"heading": "Document review in the fictional example file (as supplied)", "pieces": "Piece handled in both rooms of this example", "key": "As supplied · illustrative only · no conclusion drawn"},
+        "courier": {"label": "Participant of the example who files the piece (fictional)"},
+        "scenarioA": {"label": "Material original of the example", "caption": "The piece of the example is marked as part of the original file (as supplied)"},
+        "scenarioB": {"label": "Proposed additional material", "caption": "The piece of the example is marked as proposed additional material (as supplied)"},
+        "changedFact": "Only the mark on the piece of this example differs: original material (A) or proposed additional material (B)",
+        "sharedFacts": ["Same room, folders, divider and participant in both", "Same moment and the same filing gesture in both", "Same piece of paper with the same placeholder text", "Same calendar on the wall, with no date marked"],
+        "outcomes": {"a": "A: the piece of the example is laid with the original file in folder A (as configured)", "b": "B: the piece of the example is laid in the separate folder B, apart (as configured)"},
+        "comparisonLabels": {"guide": "Where the piece of the example ends up — the one detail that differs", "neutral": "Two configured cases of this example side by side: no rule is drawn and no side is preferred"}
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Ejemplo base en español: la misma pieza, marcada como material original (A) o como material adicional propuesto (B).",
+      "params": {"locale": "es"}
+    }
+  ]
+}

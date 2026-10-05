@@ -163,6 +163,9 @@ test(`${ID}: for each finalState the hold text, sign, pins, decision sheet and p
 // trays at 1:1, sign low and plates closer at 9:16 — instead).
 // Measured 2026-10-05 (fix round): stress 1:1 sheet 0.0376, tray 0.088, figure 46.2 px; stress 9:16 sheet 0.0838, tray
 // 0.181, figure 49.5 px; stress 16:9 sheet 0.0396, tray 0.0918.
+// fix-review-03 (thresholds unchanged): four stations at 16:9 — narrower two-column panels allowed, gaps 52, sheets x1.15, a
+// share floor in the arrangement score — stress 16:9 sheet 0.0455, tray 0.104 (names on the stations, one-column panel);
+// stress 1:1 sheets x1.3 / gaps 46 — sheet 0.054, tray 0.123, figure 54 px.
 test(`${ID}: the stations, the prior-examination tray and the petition are large — rendered share of the frame width at the hold`, async ({page}) => {
   test.setTimeout(600000);
   const {bad, stats} = await forAll(page, ID, `

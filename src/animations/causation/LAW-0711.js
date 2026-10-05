@@ -140,6 +140,23 @@ function stopArt(ctx, {name, G, side}) {
   );
 }
 
+/**
+ * A band chip measured for a width, at bounded cost: a chip measured for width W (w wide) is reused for any width in
+ * [w, W] (it fits there; a one-line chip for any width >= w), a chip that does not fit width W is not measured again
+ * for a narrower one.
+ */
+function rangedChip(ctx, memo, key, it, size, mw0, maxLines) {
+  const rk = `${size}|${key}`;
+  let rs = memo.ranges.get(rk);
+  if (!rs) { rs = []; memo.ranges.set(rk, rs); }
+  for (const q of rs) {
+    if (q.c.bad ? mw0 <= q.hi : q.c.w <= mw0 + 0.5 && (mw0 <= q.hi || q.c.lines === 1)) return q.c;
+  }
+  const c = {it, ...iconChip(ctx, it, {size, maxW: mw0, maxLines})};
+  rs.push({hi: mw0, c});
+  return c;
+}
+
 function compose(ctx, base, cfg) {
   const D = ctx.design;
   const {size, arr} = cfg;
@@ -155,7 +172,10 @@ function compose(ctx, base, cfg) {
   if (!cfg.fallback && laneW - 12 < need * v.width / fs + 2) return {bad: 'lane-share'};
   // headSide: each lane's head chip stands right of its field, at the field's top (B's guide chip under it)
   const side = Boolean(cfg.headSide);
-  const heads = base.heads.map(it => headChip(ctx, it, size, side ? Math.min(laneW * 0.4, 420) : laneW, textOn));
+  const hw = side ? Math.min(laneW * 0.4, 420) : laneW;
+  const hk = `${size}|${Math.round(hw)}`;
+  let heads = memo.heads.get(hk);
+  if (!heads) { heads = base.heads.map(it => headChip(ctx, it, size, hw, textOn)); memo.heads.set(hk, heads); }
   if (heads.some(q => q.bad) && !cfg.force) return {bad: 'head'};
   const headH = Math.max(...heads.map(q => q.h));
   // the guide chip beside B's field (measured once)
@@ -178,9 +198,10 @@ function compose(ctx, base, cfg) {
   const gcW = side ? Math.max(gc ? gc.box.w : 0, ...heads.map(q => q.w)) + 30 : gc && !top ? gc.box.w + 36 : 0;
   const bw = textcol ? colW : full;
   const low = textcol && cfg.low;
+  // (half: 1 = chips at most half the band wide, 2 = at most a third — three short chips to a row)
   const measureBand = (items, w, lines, half) => {
-    const mw = half ? (w - 18) / 2 : Math.min(w, 760);
-    const bsz = textOn ? items.map(it => ({it, ...iconChip(ctx, it, {size, maxW: it.key === 'sharedHead' ? w : mw, maxLines: lines})})) : [];
+    const mw = half === 2 ? (w - 36) / 3 : half ? (w - 18) / 2 : Math.min(w, 760);
+    const bsz = textOn ? items.map(it => rangedChip(ctx, memo, `${it.key}|${lines}`, it, size, it.key === 'sharedHead' ? w : mw, lines)) : [];
     const fl = flowRows(bsz, {x: 0, y: 0, w, gap: 18, rowGap: 10});
     return {bsz, bandH: bsz.length ? fl.bottom : 0, bad: bsz.some(q => q.bad || q.w > w + 0.5)};
   };
@@ -188,7 +209,7 @@ function compose(ctx, base, cfg) {
   const sk = `${size}|${Math.round(bw)}|${cfg.half}|${low}|${gband}`;
   let shared = memo.shared.get(sk);
   if (!shared) {
-    shared = measureBand(low ? items.filter(it => it.when === 'shared') : items, bw, textcol ? 6 : 3, cfg.half && !textcol);
+    shared = measureBand(low ? items.filter(it => it.when === 'shared') : items, bw, textcol ? 6 : 3, textcol ? 0 : cfg.half || 0);
     shared.low = low ? measureBand(items.filter(it => it.when !== 'shared'), laneW, 3, false) : null;
     memo.shared.set(sk, shared);
   }
@@ -199,7 +220,6 @@ function compose(ctx, base, cfg) {
   const perLaneH = arr === 'row' ? avail : avail / 2;
   const innerH = perLaneH - (side ? 0 : headH) - 12 - (top && gc ? gc.box.h + 14 + 0 : 0);
   const PH = Math.min((laneW - gcW - 12) / RW_, (innerH - 16) / RH_);
-  if (globalThis.__dbg2) globalThis.__dbg2.push(`${arr}${cfg.half ? 'h' : ''}${side ? 'S' : ''}${top ? 'T' : ''}${cfg.wideGuide ? 'W' : ''}/${cfg.colF}@${size}: laneW${Math.round(laneW)} laneH${Math.round(perLaneH)} headH${Math.round(headH)} gc${gc ? Math.round(gc.box.w) + 'x' + Math.round(gc.box.h) : '-'} band${Math.round(bandH)} PHw${Math.round((laneW - gcW - 12) / RW_)} PHh${Math.round((innerH - 16) / RH_)}`);
   if (!(PH >= cfg.hMin)) return {bad: 'PH', PH};
   // the guide chip fits beside B's field, above B's floor (headSide: under B's head chip)
   if (gc && !top && gc.box.h + (side ? headH + 12 : 0) > RH_ * PH - 20) return {bad: 'guide-h'};
@@ -242,7 +262,7 @@ const scene = {
         {key: 'hB', side: 'after', text: `${head('B', B)} · ${t.outerRing}`, text0: head('B', B)},
       ],
       band, guideText: gp(`${p.comparisonLabels.guide || t.guide}: ${t.item} ${fi + 1} · ${p.losses[0].label}`),
-      memo: {shared: new Map(), gc: new Map()},
+      memo: {shared: new Map(), gc: new Map(), heads: new Map(), ranges: new Map()},
     };
     base.guideItem = {key: 'guide', icon: 'rings', text: base.guideText, when: 'guide'};
     const hMin = ctx.view.shape === 'portrait' ? 160 : 100;
@@ -251,7 +271,7 @@ const scene = {
     const v0 = ctx.view, fs0 = Math.min(v0.content.w / ctx.design.w, v0.content.h / ctx.design.h);
     for (let size = SH.size; size >= SH.minSize - 1e-9; size -= 1) {
       if (best && pick && pick.subj && size < Math.max(best.size - 3, Math.min(best.size, 20)) - 1e-9) break;
-      for (const arr of SH.arr) for (const half of [false, true]) for (const headSide of [false, true]) for (const guideTop of [false, true]) for (const guideBand of [false, true]) for (const wideGuide of [false, true]) for (const colF of arr === 'textcol' ? [0.28, 0.3, 0.32, 0.33] : [0]) {
+      for (const arr of SH.arr) for (const half of arr === 'textcol' ? [0, 1] : [0, 1, 2]) for (const headSide of [false, true]) for (const guideTop of [false, true]) for (const guideBand of [false, true]) for (const wideGuide of [false, true]) for (const colF of arr === 'textcol' ? [0.28, 0.3, 0.32, 0.33] : [0]) {
         const low = arr === 'textcol' && half;
         const X = compose(ctx, base, {size, arr, half: arr === 'textcol' ? false : half, low, colF, headSide, guideTop, guideBand, wideGuide, hMin, dry: true});
         if (!X.cfg) { why.push(`${arr}/${half ? 'h' : ''}@${size}:${X.bad}${X.PH ? Math.round(X.PH) : ''}`); continue; }
@@ -262,7 +282,6 @@ const scene = {
         const ok20 = s0 => s0 >= 20 - 1e-9;
         const key = q => [q.subj ? 1 : 0, ok20(q.size) ? 1 : 0, q.PH];
         X.subj = subj;
-        if (globalThis.__dbg) globalThis.__dbg.push(`${arr}${half ? 'h' : ''}${headSide ? 'S' : ''}${guideTop ? 'T' : ''}${wideGuide ? 'W' : ''}/${colF}@${size}:PH${Math.round(X.PH)}${subj ? '*' : ''}`);
         if (!pick || (() => { const a = key(X), b = key(pick); return a[0] !== b[0] ? a[0] > b[0] : a[1] !== b[1] ? a[1] > b[1] : a[2] > b[2] + 1e-6; })()) pick = X;
       }
     }
@@ -281,7 +300,7 @@ const scene = {
       }
     }
     L.fallback = !pick;
-    L.why = why.filter(w0 => /@17:/.test(w0) || globalThis.__whyAll).slice(0, globalThis.__whyAll ? 4000 : 40);
+    L.why = why.filter(w0 => /@17:/.test(w0)).slice(0, 40);
     L.M = M; L.fi = fi;
     const full = Dv.w - 2 * MARGIN;
     const PH = L.PH;

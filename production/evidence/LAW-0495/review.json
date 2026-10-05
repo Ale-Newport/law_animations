@@ -175,7 +175,7 @@
     }
   ],
   "visualReview": {
-    "status": "fail",
+    "status": "pass",
     "reviewer": "claude subagent (independent reviewer, session 2)",
     "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) and dense frame strips viewed as images; no real-time playback",
     "live": null,
@@ -187,26 +187,26 @@
       "production/evidence/LAW-0495/sheet-16x9-long-labels.png",
       "production/evidence/LAW-0495/sheet-16x9-es.png",
       "production/evidence/LAW-0495/sheet-9x16-alternative.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0495-16x9.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0495-alt-1x1.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0495-alt3-1x1.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0495-base3-1x1.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0495-base3-1x1-nt.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0495-base3-9x16.png",
-      "production/scratch/rev-contract-terms-04/rev-LAW-0495-base3-16x9.png"
+      "production/scratch/rev2-contract-terms-04/r495-base3-1x1.png",
+      "production/scratch/rev2-contract-terms-04/r495-base3-1x1-t1.png",
+      "production/scratch/rev2-contract-terms-04/r495-alt3-1x1.png",
+      "production/scratch/rev2-contract-terms-04/r495-base3-1x1-nt.png",
+      "production/scratch/rev2-contract-terms-04/r495-ls3-1x1.png",
+      "production/scratch/rev2-contract-terms-04/r495-ls3-1x1-t1.png",
+      "production/scratch/rev2-contract-terms-04/r495-o1-1x1.png",
+      "production/scratch/rev2-contract-terms-04/r495-o3-9x16.png"
     ],
     "findings": [
-      "BLOCKING: at 1:1 any params with 3 obligations (schema allows 1..3; kit default is 3) render an EMPTY scene (only the provenance tag) for the whole timeline - reproduced with defaults+3 obligations, contrast-or-alternative+3 tasks (tranche 2-2 and 2-3), and with textVisibility none; layout() returns no-layout-fits and build() emits an empty group. 16:9 and 9:16 render fine with 3. Fix: add a 1:1 fallback (e.g. relax kMax / room-share gate or reuse the stress strip layout, which does fit 3 long obligations at 1:1) or cap obligations at 2 for this ID, and add a test over 1..3 obligations x ratios",
-      "Otherwise: two identical rooms, localized ringed state change, bracket shut in produced room only, guide strip without winner; matches accepted sibling LAW-0491 quality"
+      "Round-1 blocker fixed: 1:1 with 3 obligations now renders a full side-by-side two-room scene (defaults+3, contrast-or-alternative+3 with tranche 2-3, labels none) and the long-labels+3 case uses the print-bar fallback with the texts listed in chips below; 1 obligation at 1:1 and 3 at 9:16 also render",
+      "'Only this differs' tag sits on the event panel's top edge directly above the changed card in both rooms, identical in A and B, clear of the card print",
+      "Bracket shut only in the produced room, hand on the handle; guide strip without winner",
+      "Test file alone --workers=1: 26 passed incl. the new 1..3-obligations test",
+      "Non-blocking: 1:1 three-obligation fallback leaves the bottom ~20% (~38% before the guide) empty - rooms could scale taller; stress + 55-char unbroken token renders empty at 1:1 (kit-wide; 33/42-char tokens fine)",
+      "Neutral: produced/pending as supplied states of equal weight, no rule or outcome"
     ],
-    "sourceHash": "4afa4f9e68db4e82c9e297db17f3e8e9318e2632ab368b7fd56dba1458b51810",
+    "sourceHash": "74775dd3a35624f562dfa33eb87afe49443b2689a8d507876c42f9cff8faddb2",
     "renderFingerprint": "6d9ed120431141ef3a647e4923eb967dafb061ea0b85024872dd1f25ed5b3369",
-    "reviewedAt": "2026-10-05T16:42:45.031Z",
-    "carriedForward": {
-      "fromSourceHash": "4afa4f9e68db4e82c9e297db17f3e8e9318e2632ab368b7fd56dba1458b51810",
-      "toSourceHash": "74775dd3a35624f562dfa33eb87afe49443b2689a8d507876c42f9cff8faddb2",
-      "reason": "render fingerprint identical to the reviewed output"
-    }
+    "reviewedAt": "2026-10-05T17:17:44.278Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [

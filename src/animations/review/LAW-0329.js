@@ -9,7 +9,9 @@
  * generic participant carries it; a status sign on the left wall (low in the
  * corner with four stations at 9:16) shows the supplied state from the pin beat;
  * a wall calendar is a fixture only; with four stations at 1:1 each station's
- * letter stands beside its tray):
+ * letter stands beside its tray; with four stations at 16:9 the stations sit
+ * closer and the legend beside the room may be narrower, so the row, its trays
+ * and sheets take the width):
  *  0.00–0.15  rest: the stations with their names (as supplied), the configured
  *             path with its numbered steps, the petition in the first station's
  *             tray, the participant below it, the status sign still empty (no

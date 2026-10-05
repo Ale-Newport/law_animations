@@ -9,9 +9,9 @@
  *  0.20–0.45  a lens opens from the focus rail's end — a real enlarged copy (same coordinates) of the rail, the rows
  *             it separates (filler only: no supplied text is cut) and the edge tag; while the lens holds the tag, the
  *             context tag is a blank card (the datum is legible in ONE place only).
- *  0.45–0.75  substitution of one datum: the tag's old value lifts away, the rail slides one step to the supplied
- *             alternative section (a ghost outline keeps the old position traceable), then the new value settles and
- *             stays still. Only that rail and its tag change.
+ *  0.45–0.75  substitution of one datum: the tag's old value lifts away and the new value settles (the cause);
+ *             then the rail, carrying the tag, slides to the supplied alternative section (a ghost outline keeps the
+ *             old position traceable) and stays still. Only that rail and its tag change.
  *  0.75–1.00  the lens closes back to the context: the frame now ends at the new section, the ghost outline and the
  *             neutral changed-datum marker (Δ) stay on the rail, the legend updates where each section lies (as
  *             supplied). Seeking back restores the old datum exactly. No validity, scope rule or outcome is inferred.
@@ -35,7 +35,7 @@ import {
 const ID = 'LAW-0336';
 const DURATION = 8000;
 const BEATS = {context: [0, 0.2], isolate: [0.2, 0.45], substitute: [0.45, 0.75], back: [0.75, 1]};
-const W = {open: [0.2, 0.38], oldOut: [0.46, 0.52], move: [0.52, 0.64], newIn: [0.64, 0.69], close: [0.76, 0.86], marker: [0.84, 0.89], panelBack: [0.84, 0.9]};
+const W = {open: [0.2, 0.38], oldOut: [0.46, 0.5], newIn: [0.5, 0.55], move: [0.55, 0.67], close: [0.76, 0.86], marker: [0.84, 0.89], panelBack: [0.84, 0.9]};
 const SIZES = [23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 
 const OWN_EN = {
@@ -123,7 +123,7 @@ function compose(ctx, P, R, F, v) {
   }
   const panelH = PL ? PL.h : 0;
   // lens area: over the legend (the legend fades out while the lens is open)
-  const minLensH = Math.min(DW, DH) * 0.5;
+  const minLensH = Math.min(ctx.view.width, ctx.view.height) / Math.min(ctx.view.content.w / DW, ctx.view.content.h / DH) * 0.45;
   if (portrait) {
     const areaH = Math.max(panelH, minLensH);
     desk = {x: 0, y: 0, w: DW, h: DH - areaH - gap};
@@ -156,8 +156,8 @@ function compose(ctx, P, R, F, v) {
   const railB = R.lower ? Eb.yBot : Eb.yTop;
   const railA = R.lower ? Ea.yBot : Ea.yTop;
   // edge tag (hangs right of the frame from the focus rail's end)
-  const tagFitB = showKey ? fitG(P.beforeValue, {maxWidth: TW - F * 1.2, size: F, maxLines: 5, weight: 600}) : null;
-  const tagFitA = showKey ? fitG(P.afterValue, {maxWidth: TW - F * 1.2, size: F, maxLines: 5, weight: 600}) : null;
+  const tagFitB = showKey ? fitG(P.beforeValue, {maxWidth: TW - F * 1.2, size: F, maxLines: 6, weight: 600}) : null;
+  const tagFitA = showKey ? fitG(P.afterValue, {maxWidth: TW - F * 1.2, size: F, maxLines: 6, weight: 600}) : null;
   if ((tagFitB && !tagFitB.ok) || (tagFitA && !tagFitA.ok)) problems.push('tag-text');
   const tagH = Math.max(tagFitB ? tagFitB.height : F * 1.5, tagFitA ? tagFitA.height : F * 1.5) + F * 1.0;
   const tagDX = Eb.x + Eb.w + 8; // sheet-local x of the tag's left edge
@@ -173,22 +173,34 @@ function compose(ctx, P, R, F, v) {
   const y0 = Math.min(sy + Math.min(railB, railA) - M.rowH * 0.5, tagTopMin - 8);
   const y1 = Math.max(sy + Math.max(railB, railA) + t + M.rowH * 0.5, tagBottomMax + 8);
   const x1 = sx + tagDX + TW + 8;
-  let x0 = sx + M.w * 0.55;
-  let src = {x: x0, y: y0, w: x1 - x0, h: y1 - y0};
   // lens destination: inside the legend area, uniformly scaled, magnification >= 1.5
   const area = {x: panelBox.x + 4, y: panelBox.y + 4, w: panelBox.w - 8, h: panelBox.h - 8};
-  let k = Math.min(area.w / src.w, area.h / src.h, Math.max(1.5, P.detailGeometry.zoom));
-  if (k < 1.5) {
-    // crop narrower (keep the tag and rail end) before giving up
-    x0 = Math.max(sx + M.w * 0.8, x1 - area.w / 1.5);
-    src = {x: x0, y: y0, w: x1 - x0, h: y1 - y0};
-    k = Math.min(area.w / src.w, area.h / src.h, Math.max(1.5, P.detailGeometry.zoom));
+  // (the preferred zoom, raised when needed so the lens is a real inspection: >= ~0.36 of the short side; at most 4)
+  const fitS = Math.min(ctx.view.content.w / DW, ctx.view.content.h / DH);
+  const shortD = Math.min(ctx.view.width, ctx.view.height) / fitS; // the frame's short side in design units
+  const want = s2 => Math.min(4, Math.max(1.5, P.detailGeometry.zoom, (shortD * 0.37) / Math.min(s2.w, s2.h)));
+  // crop from wide (part of the sheet) to narrow (rail end and tag) until the lens is large enough
+  let src = null, k = 0;
+  for (const fx of [0.55, 0.68, 0.8, 0.9]) {
+    const x0 = Math.max(sx + M.w * fx, Math.min(sx + M.w * 0.9, x1 - area.w / 1.5));
+    const s2 = {x: fx === 0.55 ? sx + M.w * 0.55 : x0, y: y0, w: 0, h: y1 - y0};
+    s2.w = x1 - s2.x;
+    const k2 = Math.min(area.w / s2.w, area.h / s2.h, want(s2));
+    if (!src || (k2 >= 1.5 && Math.min(s2.w, s2.h) * k2 > Math.min(src.w, src.h) * k + 0.5 && (k < 1.5 || Math.min(src.w, src.h) * k < shortD * 0.35))) { src = s2; k = k2; }
+    if (k >= 1.5 && Math.min(src.w, src.h) * k >= shortD * 0.35) break;
+  }
+  // still short: grow the crop vertically towards the lens area's proportions (more rows of filler around the rail)
+  if (Math.min(src.w, src.h) * k < shortD * 0.35 && src.h < src.w * area.h / area.w) {
+    const nh = Math.min(src.w * area.h / area.w, M.h + 40);
+    const cy = src.y + src.h / 2;
+    src = {...src, y: clamp(cy - nh / 2, sy - 20, sy + M.h + 20 - nh), h: nh};
+    k = Math.min(area.w / src.w, area.h / src.h, want(src));
   }
   if (k < 1.5 - 1e-6) problems.push('lens-zoom');
   const dest = {w: src.w * k, h: src.h * k};
   dest.x = area.x + (area.w - dest.w) / 2;
   dest.y = clamp(src.y + src.h / 2 - dest.h / 2, area.y, area.y + area.h - dest.h);
-  if (Math.min(dest.w, dest.h) < Math.min(DW, DH) * 0.34) problems.push('lens-small');
+  if (Math.min(dest.w, dest.h) < shortD * 0.35) problems.push('lens-small');
   // arrows and calendar as in the desk scene
   const aH = Math.min(M.rowH * 0.62, F * 2.2);
   const arrows = R.qs.map((q, i) => {
@@ -211,7 +223,7 @@ const scene = {
     const R = resolve(P);
     const pws = ctx.view.shape === 'square' ? [0.38, 0.42, 0.46] : [0.36, 0.4];
     let C = null, best = null;
-    outer: for (const F of SIZES) for (const pw of ctx.view.shape === 'portrait' ? [1] : pws) for (const bars of [2, 1, 0]) for (const tw of ctx.view.shape === 'portrait' ? [1, 1.3] : ctx.view.shape === 'square' ? [0.8, 1, 1.25] : [1, 1.25]) {
+    outer: for (const F of SIZES) for (const pw of ctx.view.shape === 'portrait' ? [1] : pws) for (const bars of [2, 1, 0]) for (const tw of ctx.view.shape === 'portrait' ? [1, 1.3] : ctx.view.shape === 'square' ? [0.8, 1, 1.25, 1.5] : [1, 1.25]) {
       const c = compose(ctx, P, R, F, {pw, bars, tw});
       if (c.ok) { C = c; break outer; }
       if (!best || c.problems.length < best.problems.length) best = c;
@@ -242,7 +254,7 @@ const scene = {
     );
     const ghost = prefix => h('rect', {name: prefix, x: 0, y: 0, width: r(E.w), height: r(C.t), rx: r(C.t * 0.35), fill: 'none', stroke: RAIL, 'stroke-width': 2.5, 'stroke-dasharray': '7 6', opacity: 0});
     // lens copy: same coordinates as the context (rows as filler only; rail; ghost; tag)
-    const lo = Math.max(0, Math.min(R.before.from, R.after.from) - 1), hi = Math.min(C.M.rows.length - 1, Math.max(R.before.to, R.after.to) + 1);
+    const lo = 0, hi = C.M.rows.length - 1;
     const copyRows = [];
     for (let i = lo; i <= hi; i++) copyRows.push(rowParts(ctx, C.M, i, {prefix: 'lc', rowText: () => false}));
     const lensContent = g(null,
@@ -308,8 +320,8 @@ const scene = {
     const lift = -C.F * 0.8 * kOld;
     nodes['ltag-b'] = {opacity: r(oldOp, 3), transform: T(0, lift)};
     nodes['ltag-a'] = {opacity: r(newOp, 3), transform: T(0, 0)};
-    const ctxOld = !lensHolds && u < W.move[0] ? 1 : 0;
-    const ctxNew = !lensHolds && u >= W.move[0] ? 1 : 0;
+    const ctxOld = !lensHolds && u < W.newIn[0] ? 1 : 0;
+    const ctxNew = !lensHolds && u >= W.newIn[0] ? 1 : 0;
     nodes['ctag-b'] = {opacity: ctxOld, transform: T(0, 0)};
     nodes['ctag-a'] = {opacity: ctxNew, transform: T(0, 0)};
     const mk = seg(u, ...W.marker);
@@ -318,7 +330,7 @@ const scene = {
     const panelOp = clamp(1 - kOpen * 3) + clamp((kClose - 0.6) / 0.4);
     if (C.PL) {
       nodes.panel = {opacity: r(clamp(panelOp), 3)};
-      const after = u >= W.move[0] ? 1 : 0;
+      const after = u >= W.newIn[0] ? 1 : 0;
       for (const rw of C.PL.rows) {
         if (rw.sub) nodes[`${rw.name}-sub`] = {opacity: 0};
         if (C.after[rw.name]) { nodes[`${rw.name}-sub1`] = {opacity: after ? 0 : 1}; nodes[`${rw.name}-sub2`] = {opacity: after}; }
@@ -326,7 +338,7 @@ const scene = {
       }
     }
     const beat = u < BEATS.context[1] ? 'context' : u < BEATS.isolate[1] ? 'isolate' : u < BEATS.substitute[1] ? 'substitute' : 'back';
-    const datum = u < W.move[0] ? 'before' : 'after';
+    const datum = u < W.newIn[0] ? 'before' : 'after';
     const tagWorld = {x: C.sx + C.tagDX + C.F * 0.6, y: C.sy + rail + t / 2};
     return {
       nodes,
@@ -341,7 +353,7 @@ const scene = {
         datumInLens: lensHolds, ctxOld, ctxNew, lensOld: r(lensHolds ? oldOp : 0, 3), lensNew: r(lensHolds ? newOp : 0, 3),
         ghost: r(ghostOp, 3), marker: r(R.changed ? mk : 0, 3),
         before: R.before, after: R.after, lower: R.lower, changed: R.changed,
-        inside: R.qs.map(q => (u >= W.move[0] ? q.inAfter : q.inBefore)),
+        inside: R.qs.map(q => (u >= W.newIn[0] ? q.inAfter : q.inBefore)),
         panel: C.PL ? r(clamp(panelOp), 3) : 0,
         problems: C.problems, textPx: r(C.F, 1),
         desk: {x: r(C.desk.x), y: r(C.desk.y), w: r(C.desk.w), h: r(C.desk.h)},

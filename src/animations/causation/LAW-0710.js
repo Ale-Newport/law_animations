@@ -260,7 +260,10 @@ function compose(ctx, base, cfg) {
   const leftBandW = mode === 'band' ? Math.min(leftW, (cD.w && leftW >= cD.w + 16 + 2 * 70 ? cD.w + 16 : 0) + Math.min((leftW - 12) / 2, 150) * 2 + 12) : 0;
   const leftBand = leftIdx.length ? flowBand(leftBandW, leftIdx) : {sz: [], h: 0, bad: false};
   if (band.bad || leftBand.bad) return {bad: 'band'};
-  const bandH = band.h && mode !== 'rowcol' ? band.h + 18 : 0;
+  // (band mode packs tighter — gaps of 12 above the key band and 22 under the top band — so the ring pieces keep the
+  // subject floor in square boxes)
+  const bandGap = mode === 'band' ? 12 : 18, topGap = mode === 'band' ? 22 : 30;
+  const bandH = band.h && mode !== 'rowcol' ? band.h + bandGap : 0;
   const bandColH = band.h && mode === 'rowcol' ? band.h + 18 : 0;
   // relation label height budget (one chip line)
   const relH = textOn ? Math.max(size * 1.9, relHmax + 10) : 40;
@@ -291,12 +294,17 @@ function compose(ctx, base, cfg) {
     const Rw = ((chipLeft ? leftW - cD.w - 56 : leftW) - 12) / 2;
     const lbH = leftBand.h ? leftBand.h + 20 : 0;
     const chipB = cD.w && !chipLeft ? cD.h + 10 : 0;
-    const R = Math.max(70, Math.min(Rw, 150, (recH - altBlock - chipB - lbH) / (2 + (chipB ? grow : 0))));
+    // (the grown disc also keeps clear of the content notice's pill above the design box — at most 12 units into the
+    // notice band's free strip under the pill: when no alternative chip stands above the inset, it moves down by topX)
+    const topXOf = R0 => (grow ? Math.max(0, 0.25 * R0 - altBlock - 2 - 12) : 0);
+    let R = Math.max(70, Math.min(Rw, 150, (recH - altBlock - chipB - lbH) / (2 + (chipB ? grow : 0))));
+    for (let i = 0; i < 3; i++) R = Math.max(70, Math.min(Rw, 150, (recH - altBlock - chipB - lbH - topXOf(R)) / (2 + (chipB ? grow : 0))));
     if (R > Rw) return {bad: 'inset-w'};
+    const topX = topXOf(R);
     const belowH = chipB ? chipB + grow * R : 0;
-    const TB = Math.max(recH, altBlock + 2 * R + belowH + lbH);
-    bandGeo = {R, chipLeft, altBlock, belowH, TB, lbH};
-    availH = D.h - bandH - TB - relH - 30;
+    const TB = Math.max(recH, altBlock + topX + 2 * R + belowH + lbH);
+    bandGeo = {R, chipLeft, altBlock, belowH, TB, lbH, topX};
+    availH = D.h - bandH - TB - relH - topGap;
     if (availH < 100) return {bad: 'band-h'};
   } else if (rowish) {
     availH = D.h - bandH;
@@ -315,7 +323,7 @@ function compose(ctx, base, cfg) {
   const OH = lo;
   if (OH < cfg.hMin) return {bad: 'OH', OH};
   if (cfg.dry) return {OH, size, cfg: {...cfg, dry: false}};
-  return {OH, size, cfg, rec, recW, recH, zoneW, gapR, altV, bandColH, chipsH, stackChips, leftBand, leftW: leftBandW, cB, cA, cD, cAlt, band, bandH, relH, unitW: unitW(OH), zoneH: zoneH(OH), mode, availH, bandGeo, Rin: bandGeo ? bandGeo.R : unitW(OH).R};
+  return {OH, size, cfg, bandGap, topGap, rec, recW, recH, zoneW, gapR, altV, bandColH, chipsH, stackChips, leftBand, leftW: leftBandW, cB, cA, cD, cAlt, band, bandH, relH, unitW: unitW(OH), zoneH: zoneH(OH), mode, availH, bandGeo, Rin: bandGeo ? bandGeo.R : unitW(OH).R};
 }
 
 const scene = {
@@ -355,16 +363,16 @@ const scene = {
       if (L.mode === 'rowcol') { L.bandX = recX - 10; L.bandW = L.recW; L.bandY = top + (blockH - colH) / 2 + L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 18; }
     } else if (L.mode === 'band') {
       const B0 = L.bandGeo;
-      const blockH = B0.TB + L.relH + 30 + L.zoneH;
+      const blockH = B0.TB + L.relH + L.topGap + L.zoneH;
       // spare height: the top band stays high and the objects stand at the foot of the box (the model spans it)
       const spare = Math.max(0, D.h - L.bandH - blockH);
       const top = spare * 0.2;
       recX = MARGIN + full - L.recW + 10; recY = top + (L.rec ? L.rec.clipH * 0.35 : 0);
       altX = MARGIN; altY = top;
-      zx = MARGIN + (full - zoneWd) / 2; zy = top + B0.TB + L.relH + 30 + spare * 0.8;
-      L.insetAt = {x: MARGIN + (B0.chipLeft ? L.cD.w + 12 + B0.R * 0.27 : 0) + B0.R + 6, y: top + B0.altBlock + B0.R + 6};
-      L.leftBandY = top + B0.altBlock + 2 * B0.R + 12 + B0.belowH + 20;
-      L.bandY = top + blockH + spare * 0.8 + 18;
+      zx = MARGIN + (full - zoneWd) / 2; zy = top + B0.TB + L.relH + L.topGap + spare * 0.8;
+      L.insetAt = {x: MARGIN + (B0.chipLeft ? L.cD.w + 12 + B0.R * 0.27 : 0) + B0.R + 6, y: top + B0.altBlock + B0.topX + B0.R + 6};
+      L.leftBandY = top + B0.altBlock + B0.topX + 2 * B0.R + 12 + B0.belowH + 20;
+      L.bandY = top + blockH + spare * 0.8 + L.bandGap;
     } else {
       const blockH = L.recH + (L.cAlt.h ? L.altV + L.cAlt.h : 0) + 30 + L.relH + L.zoneH;
       const top = Math.max(0, (D.h - L.bandH - blockH) / 2);
@@ -386,7 +394,9 @@ const scene = {
       inner: {x: bx, y: baseY}, outer: {x: ax, y: baseY},
       // wide boxes: above the gap, nearer the after state; tall boxes: nearer the before state, so the connector from
       // the after state up to the record runs clear of it
-      boundary: L.mode === 'band' ? L.insetAt : {x: L.mode !== 'stack' ? (bx + ax) / 2 - U.gapX * 0.2 : bx, y: zy + R},
+      // (the inset grown as the focus keeps clear of the content notice's pill: at most 12 units into the notice band's
+      // free strip above the design box)
+      boundary: L.mode === 'band' ? L.insetAt : {x: L.mode !== 'stack' ? (bx + ax) / 2 - U.gapX * 0.2 : bx, y: Math.max(zy + R, p.focusElement === 'boundary' ? 1.25 * R + 4 - 12 : 0)},
     };
     L.floorY = floorY;
     L.boxes = {
