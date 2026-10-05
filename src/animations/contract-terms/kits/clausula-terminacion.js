@@ -585,6 +585,8 @@ export function eventCard(ctx, {name, cw, ch, M, F: F0, state, ring = false, tab
   const F = M.F ?? F0;
   const x0 = -cw / 2, y0 = -ch / 2;
   const tabH = Math.min(ch * 0.5, F * 1.3);
+  // (the folded corner kept inside the card's own margin: never over the print)
+  const dog = Math.max(6, Math.min(F * 0.9, M.padX * 0.9, M.padY * 0.9));
   const kids = [
     // (the grip tab at the card's outer end: the hand holds it, never the print)
     ...(tabW ? [h('path', {name: `${name}-tab`, d: roundRectPath(x0 - tabW, tabY - tabH / 2, tabW + 8, tabH, 5), fill: th.woodTop, stroke: th.woodDark, 'stroke-width': 2.2})] : []),
@@ -593,7 +595,7 @@ export function eventCard(ctx, {name, cw, ch, M, F: F0, state, ring = false, tab
     // (the communication drawn as a letter: an airmail border — alternating blue and amber dashes just inside the edge —,
     // a folded top corner and, on its right edge, the socket the connector cord plugs into; the same in both cases)
     ...airmail(th, x0 + 4.5, y0 + 4.5, cw - 9, ch - 9, Math.max(4, F * 0.2)),
-    h('path', {d: `M${r(x0 + cw - F * 0.9)} ${r(y0)}L${r(x0 + cw)} ${r(y0 + F * 0.9)}L${r(x0 + cw - F * 0.9)} ${r(y0 + F * 0.9)}Z`, fill: shade(th.card, -0.12), stroke: INK, 'stroke-width': 2, 'stroke-linejoin': 'round'}),
+    h('path', {d: `M${r(x0 + cw - dog)} ${r(y0)}L${r(x0 + cw)} ${r(y0 + dog)}L${r(x0 + cw - dog)} ${r(y0 + dog)}Z`, fill: shade(th.card, -0.12), stroke: INK, 'stroke-width': 2, 'stroke-linejoin': 'round'}),
     h('path', {name: `${name}-socket`, d: `M${r(x0 + cw)} ${r(-F * 0.42)}A${r(F * 0.42)} ${r(F * 0.42)} 0 0 1 ${r(x0 + cw)} ${r(F * 0.42)}Z`, fill: th.accent2Soft, stroke: th.accent2, 'stroke-width': r(Math.max(2.4, F * 0.12), 2)}),
   ];
   // (a card taller than its print centres the print)
