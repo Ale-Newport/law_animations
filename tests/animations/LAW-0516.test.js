@@ -38,8 +38,8 @@ ratioChecks(ID, 'lens is a real inspection; one datum place; localized change', 
   {dom: "(() => { const r = svg.querySelector('[data-node=\"lens-border\"]').getBoundingClientRect(); const R = svg.getBoundingClientRect(); const vb = svg.viewBox.baseVal; const k = Math.min(R.width / vb.width, R.height / vb.height); return Math.min(r.width, r.height) / (k * Math.min(vb.width, vb.height)) >= 0.35; })()", at: [0.35], label: 'lens smaller side ≥ 35 % of the frame short side'},
   {at: times(0.12, 0.6, 0.01), fn: '!(s.copyShown >= 0.15 && s.contextDatum >= 0.15)', label: 'never two legible copies of the datum'},
   {at: [0, 1], fn: 's.layoutOk', label: 'layout fits'},
-  {at: [1], fn: 's.othersValues && JSON.stringify(s.stack.filter(i => i !== s.stackAfter[s.stackAfter.length])) === JSON.stringify(s.stackAfter)', label: 'the final stack is the after-order; the other numbers are unchanged'},
-  {at: [1], fn: 'JSON.stringify(s.stackBefore.filter(i => s.stack.includes(i) && i !== s.stack.find(j => s.stackBefore.indexOf(j) !== s.stackAfter.indexOf(j) && false))) !== null', label: 'stack defined'},
+  {at: [1], fn: 's.othersValues && JSON.stringify(s.stack) === JSON.stringify(s.stackAfter)', label: 'the final stack is the after-order; the other numbers are unchanged'},
+  {at: [1], fn: 'JSON.stringify(s.stackBefore.filter(i => i !== s.focus)) === JSON.stringify(s.stackAfter.filter(i => i !== s.focus))', label: 'only the focus binder changes level: the others keep their relative order'},
 ]);
 
 suppliedTextSuite(ID, {

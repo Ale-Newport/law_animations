@@ -377,7 +377,7 @@ const scene = {
       semantic: {
         beat, value: aftQ >= 1 ? 'after' : aftQ > 0 ? 'changing' : 'before', shownValue: aftQ >= 1 ? L.N.after[f] : L.N.before[f],
         lensOpen: r(open, 3), copyShown, contextDatum: r(contextDatum, 3), zoom: r(L.zoom, 3), wasShown: r(Math.max(wasQ * copyO, +nodes['c-was'].opacity), 3),
-        focusBinder: P2(pos[f]), stack, stackBefore: L.N.orderBefore, stackAfter: L.N.orderAfter, moved: shQ >= 1 && inQ >= 1,
+        focusBinder: P2(pos[f]), focus: f, stack, stackBefore: L.N.orderBefore, stackAfter: L.N.orderAfter, moved: shQ >= 1 && inQ >= 1,
         othersValues: L.N.before.filter((_, i) => i !== f).join(',') === L.N.after.filter((_, i) => i !== f).join(','),
         markerShown: r(+nodes.marker.opacity, 3), keyShown: L.placed.some(pl => pl.q.kind === 'key') ? r(+nodes.key.opacity, 3) : 0,
         textPx: r(L.F * L.upx, 2), layoutOk: L.ok, why: L.why.join(','), tried: L.ok ? undefined : L.tried.join(' | '), problems: L.ok ? [] : L.why,
