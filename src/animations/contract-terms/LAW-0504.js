@@ -82,10 +82,11 @@ function geom(ctx, F, minF) {
   const chipOf = (q, x, y, w) => chipG(ctx, q.text, {x, y, maxWidth: w, size: F, minSize: minF, maxLines: 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: '#ffffff'});
   // context sheet
   let sheet, notesBox, lensArea;
-  const ctxW = tall ? D.w - pad * 2 : D.w * 0.47;
+  const ctxW = tall ? D.w - pad * 2 : D.w * 0.44;
   const gR = Math.min(14, F * 0.6);
   // tile text widths (independent of the tile height)
-  const textMax = ctxW - 52 - clamp((ctxW - 52) * 0.12, 44, 80) - 20 - 16 - 98 - gR * 2 - 18;
+  const textMax0 = ctxW - 52 - clamp((ctxW - 52) * 0.12, 44, 80) - 20 - 16 - 98 - gR * 2 - 18;
+  const textMax = Math.min(textMax0, F * 12.5);
   const labFits = p.categories.map(c => fitG(c.label, {maxWidth: textMax + gR * 2 + 12, size: F, minSize: minF, maxLines: 2, weight: 700}));
   const stFit = st => fitG(p.statusLabels[st], {maxWidth: textMax, size: F * 0.92, minSize: minF, maxLines: 2, weight: 600});
   const stFits = statuses(p, 'beforeValue').map(stFit);
@@ -98,12 +99,9 @@ function geom(ctx, F, minF) {
   const tileH = labH + stH + 40;
   const notesW = tall ? D.w - pad * 2 : D.w - ctxW - pad * 2 - 30;
   const nh = notes.length ? notes.reduce((a, q) => a + chipOf(q, 0, 0, notesW).box.h + gap, -gap) : 0;
-  let sheetH;
-  if (tall) {
-    sheetH = Math.min(D.h * 0.5, headH + 40 + n * tileH + (n - 1) * 70 + 40);
-    sheet = {x: pad, y: pad, w: ctxW, h: sheetH};
+    if (tall) {
+    sheet = {x: pad, y: pad, w: ctxW, h: D.h - pad * 2 - (nh ? nh + 20 : 0)};
     notesBox = {x: pad, y: D.h - pad - nh, w: notesW, h: nh};
-    lensArea = {x: pad, y: sheet.y + sheet.h + 26, w: D.w - pad * 2, h: notesBox.y - 20 - (sheet.y + sheet.h + 26)};
   } else {
     sheet = {x: pad, y: pad, w: ctxW, h: D.h - pad * 2};
     notesBox = {x: sheet.x + sheet.w + 30, y: D.h - pad - nh, w: notesW, h: nh};
@@ -125,6 +123,11 @@ function geom(ctx, F, minF) {
   const textEnd = t.x + tileTextX(t.h) + Math.max(t.lab.width, gR * 2 + 12 + Math.max(t.st.width, afterFit.width)) + 26;
   const vm = Math.min(tg / 2 - 2, 60);
   const src = {x: C.x - 16, y: t.y - vm, w: Math.min(C.x + C.w + 14, Math.max(textEnd, C.x + neck + 60)) - (C.x - 16), h: t.h + vm * 2};
+  if (tall) {
+    // the lens opens over the half of the sheet away from the tile (the context stays visible round it)
+    const up = src.y + src.h / 2 > sheet.y + sheet.h / 2;
+    lensArea = up ? {x: pad, y: sheet.y + headH, w: D.w - pad * 2, h: src.y - 30 - (sheet.y + headH)} : {x: pad, y: src.y + src.h + 30, w: D.w - pad * 2, h: sheet.y + sheet.h - 10 - (src.y + src.h + 30)};
+  }
   const k = Math.min(lensArea.w / src.w, lensArea.h / src.h, 2.6);
   if (k < 1.5) why.push('lens-small');
   const dest = {w: src.w * k, h: src.h * k};
