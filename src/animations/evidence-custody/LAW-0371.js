@@ -26,7 +26,7 @@ import {contrastFields} from '../../schemas/fields.js';
 import {T} from '../../core/transform.js';
 import {roundRectPath} from '../../core/geometry.js';
 import {changedMarker} from '../../primitives/markers.js';
-import {localised, R2, fitG, textAt, ringRect} from './kits/evidence-art.js';
+import {localised, fitG, textAt, ringRect} from './kits/evidence-art.js';
 import {
   TC_EN, TC_ES, tcFields, tcLogs, tcRecordLine, tcStage, tcPose, tcArms, bagUnit, tcSceneNodes, tcFrameNodes, tcWriteProps,
   tcPanelLayout, tcPanelNode,
@@ -125,7 +125,7 @@ function compose(ctx, P, rows, lrows, F, opt) {
     for (let i = 0; i < 2; i++) boxes.push({x: area.x, y: area.y + headH + i * (sh + headH + sg), w: area.w, h: sh, headY: area.y + i * (sh + headH + sg)});
   }
   const fits = boxes[0].w > 200 && boxes[0].h > 180;
-  const G = fits ? boxes.map(b => tcStage(b, opt.orient, {kind: P.items[0].kind, rowsA: rows.a.length, rowsB: rows.b.length})) : null;
+  const G = fits ? boxes.map(b => tcStage({x: 0, y: 0, w: b.w, h: b.h}, opt.orient, {kind: P.items[0].kind, rowsA: rows.a.length, rowsB: rows.b.length})) : null;
   // headers
   const heads = [P.scenarioA, P.scenarioB].map(sc => {
     if (!show) return {};
@@ -148,7 +148,7 @@ const scene = {
     const lrows = legendRows(ctx, P, rows);
     const shape = ctx.view.shape;
     const opts = shape === 'portrait' ? [{arr: 'col', orient: 'h', legend: 'below', cols: 1}, {arr: 'col', orient: 'h', legend: 'below', cols: 2}]
-      : shape === 'square' ? [{arr: 'row', orient: 'v', legend: 'below', cols: 2}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.34}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.3}]
+      : shape === 'square' ? [{arr: 'row', orient: 'v', legend: 'below', cols: 2}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.34}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.3}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.4}, {arr: 'col', orient: 'h', legend: 'side', pw: 0.46}, {arr: 'row', orient: 'v', legend: 'below', cols: 3}]
         : [{arr: 'row', orient: 'h', legend: 'below', cols: 3}, {arr: 'row', orient: 'h', legend: 'below', cols: 2}, {arr: 'row', orient: 'v', legend: 'side', pw: 0.24}];
     let C = null, best = null, bestScore = -1;
     for (const F of SIZES) {
@@ -161,7 +161,7 @@ const scene = {
       if (best && F <= 19.5) break;
     }
     if (best) C = best;
-    if (!C.G) C.G = C.boxes.map(b => tcStage(b, 'h', {kind: P.items[0].kind, rowsA: rows.a.length, rowsB: rows.b.length}));
+    if (!C.G) C.G = C.boxes.map(b => tcStage({x: 0, y: 0, w: b.w, h: b.h}, 'h', {kind: P.items[0].kind, rowsA: rows.a.length, rowsB: rows.b.length}));
     const Ls = C.G.map((G, i) => {
       const L0 = {G, rows: i ? rowsB : rows};
       const samples = [];
@@ -182,10 +182,11 @@ const scene = {
       const b = C.boxes[i];
       const clipId = `${pfx}-win`;
       const SB = G.sheets.b;
-      parts.push(g({name: `stage-${pfx}`},
-        h('defs', null, h('clipPath', {id: ctx.id(clipId)}, h('path', {d: roundRectPath(b.x, b.y, b.w, b.h, 20)}))),
+      // each room is drawn in its own local coordinates (identical geometry in A and B) and translated into place
+      parts.push(g({name: `stage-${pfx}`, transform: T(b.x, b.y)},
+        h('defs', null, h('clipPath', {id: ctx.id(clipId)}, h('path', {d: roundRectPath(0, 0, b.w, b.h, 20)}))),
         g({'clip-path': ctx.ref(clipId)}, N.stage, N.sheets, N.shadow, N.bag, N.arms, N.palms, N.pens, N.thumbs, N.persons),
-        h('path', {d: roundRectPath(b.x, b.y, b.w, b.h, 20), fill: 'none', stroke: th.ink, 'stroke-width': th.stroke * 1.2}),
+        h('path', {d: roundRectPath(0, 0, b.w, b.h, 20), fill: 'none', stroke: th.ink, 'stroke-width': th.stroke * 1.2}),
         i === 1 ? g({name: 'gap-ring', opacity: 0}, ringRect({x: SB.paper.x - 5, y: SB.paper.y - 5, w: SB.paper.w + 10, h: SB.paper.h + 10}, th.accent2, 4)) : null,
         i === 1 ? changedMarker(ctx, {name: 'gap-mark', x: SB.x + SB.w - 6, y: SB.y + 8, radius: clamp(G.S * 0.09, 16, 26), opacity: 0}) : null,
       ));
@@ -219,7 +220,8 @@ const scene = {
       const F = tcFrameNodes(ctx, G, s, Li, pfx);
       Object.assign(nodes, F.nodes, tcWriteProps(pfx, Li.rows, s.progress));
       const o = {x: C.boxes[i].x, y: C.boxes[i].y};
-      const rel = p => ({x: r(p.x - o.x), y: r(p.y - o.y)});
+      const rel = p => ({x: r(p.x), y: r(p.y)});
+      const R2 = p => ({x: r(p.x + o.x), y: r(p.y + o.y)});
       const writtenB = Li.rows.b.map((rw, k) => (rw.filled ? r(s.progress.b[k], 3) : 0));
       looks.push({bag: rel(s.bag), holder: s.holder, handAc: rel(s.hands.a.carry), handBc: rel(s.hands.b.carry), handAp: rel(s.hands.a.pen), handBp: rel(s.hands.b.pen),
         writtenA: s.progress.a.map(v => r(v, 3)), writtenB, gapMark: 0});
@@ -238,7 +240,7 @@ const scene = {
     // guide: outlines of sheet B in both rooms, joined
     const gk = seg(u, ...W.guide);
     const pad = 12;
-    const bx = C.G.map(G => ({x: G.logs.b.x - pad, y: G.logs.b.y - pad, w: G.logs.b.w + pad * 2, h: G.logs.b.h + pad * 2}));
+    const bx = C.G.map((G, i) => ({x: C.boxes[i].x + G.logs.b.x - pad, y: C.boxes[i].y + G.logs.b.y - pad, w: G.logs.b.w + pad * 2, h: G.logs.b.h + pad * 2}));
     const [ba, bb] = bx;
     let ea, eb, bend;
     if (C.boxes[0].y === C.boxes[1].y) {
