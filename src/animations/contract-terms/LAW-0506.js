@@ -396,7 +396,7 @@ const scene = {
     const shape = ctx.view.shape;
     const arrangements = shape === 'landscape' ? ['row'] : shape === 'portrait' ? ['column'] : ['grid'];
     let L = null;
-    search: for (const fpx of stress ? [23, 21, 19.5, 18, 17] : [28, 26.5, 25, 23, 21.5, 20.5]) for (const ar of arrangements) for (const ff of [1, 0.6, 0.3, 0]) {
+    search: for (const fpx of stress ? [23, 21, 19.5, 18, 17] : [28, 26.5, 25, 23, 21.5, 20.5]) for (const ar of arrangements) for (const ff of [1, 0.9, 0.8, 0.7, 0.6, 0.45, 0.3, 0]) {
       L = geom(ctx, fpx / upx, minF, ar, ff);
       if (L.ok) break search;
     }
