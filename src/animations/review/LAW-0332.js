@@ -152,7 +152,8 @@ const scene = {
     const recMemo = new Map();
     const scaleFit = (f, q) => (f ? {...f, width: f.width * q, height: f.height * q, size: f.size * q} : f);
     const recordFor = (Ft, rs) => {
-      if (!approx || !showKey) return recordFor0(Ft, rs);
+      if (!showKey) return recordFor0(Ft, rs);
+      if (!approx) { const ke = `e${Ft}|${rs}|${maxRecLines}`; if (!recMemo.has(ke)) recMemo.set(ke, recordFor0(Ft, rs)); return recMemo.get(ke); }
       const Fr = Math.exp(Math.round(Math.log(Ft) / 0.5) * 0.5);
       const key = `${Fr}|${rs}|${maxRecLines}`;
       if (!recMemo.has(key)) recMemo.set(key, recordFor0(Fr, rs));
