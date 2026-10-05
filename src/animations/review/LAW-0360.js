@@ -199,7 +199,7 @@ const scene = {
     const pxu = (fitDesign(ctx.view, ctx.design.w, ctx.design.h).scale * 1080) / Math.min(ctx.view.width, ctx.view.height);
     const arrangements = shape === 'portrait' ? [{band: true, orient: 'v', mapK: 0.6}, {band: true, cols: 2, orient: 'v', mapK: 0.6}, {band: true, cols: 2, orient: 'h', mapK: 0.6}]
       : shape === 'square' ? [{pw: 0.34, orient: 'h'}, {band: true, cols: 2, orient: 'h', shrink: 0.55}, {band: true, cols: 2, orient: 'h', shrink: 0.5}, {pw: 0.4, orient: 'h'}, {band: true, cols: 3, tight: true, orient: 'h', shrink: 0.48}]
-        : [{pw: 0.36, orient: 'h'}, {pw: 0.4, orient: 'h'}, {pw: 0.44, orient: 'h'}, {pw: 0.48, orient: 'h'}];
+        : [{pw: 0.36, orient: 'h'}, {pw: 0.3, orient: 'h', shrink: 0.62}, {pw: 0.3, orient: 'h', shrink: 0.56}, {pw: 0.36, orient: 'h', shrink: 0.56}, {pw: 0.44, orient: 'h'}];
     const sizes = (!showKey ? [40, 36, 32, 29, 26, ...SIZES] : SIZES).map(v => v / pxu);
     let C = null;
     outer: for (const F of sizes) {
