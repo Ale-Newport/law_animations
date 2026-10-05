@@ -141,7 +141,7 @@ export function rfStage(B, o) {
   const anchorU = {x: o.kind === 'key' ? -Mu.anchor.x : Mu.anchor.x, y: Mu.anchor.y};
   const T0u = tagModel({w: 1.0, h: 0.5, rows: Math.max(2, o.rows)});
   const holeU = {x: 1.02, y: -0.72};
-  const bagU = approach === 'left' ? {x: -1.62, y: -1.36, w: 0.8, h: 1.0} : {x: -1.68, y: -0.52, w: 0.84, h: 1.06};
+  const bagU = approach === 'left' ? {x: -1.6, y: -1.42, w: 0.76, h: 0.9} : {x: -1.68, y: -0.52, w: 0.84, h: 1.06};
   const rulerU = {L: 0.82, Lv: 0.6, w: 0.1};
   const rulerPlacedU = {x: -0.62, y: 0.47, a: 0};
   const rulerRestU = {x: 1.02, y: 0.86, a: -12};
@@ -178,7 +178,7 @@ export function rfStage(B, o) {
   // stand base on the far side of the first station; park beside it
   const perp = approach === 'down' ? {x: -1, y: 0} : {x: 0, y: -1};
   const baseU = approach === 'left' ? {x: ov.x - 0.85, y: ov.y + 0.35} : {x: ov.x + a.x * 0.3 + perp.x * 1.25, y: ov.y + a.y * 0.3 + perp.y * 1.25};
-  const parkU = approach === 'left' ? {x: baseU.x + 0.35, y: baseU.y + 0.7} : {x: baseU.x - a.x * 0.75 - perp.x * 0.1, y: baseU.y - a.y * 0.75 - perp.y * 0.1};
+  const parkU = approach === 'left' ? {x: baseU.x + 0.35, y: baseU.y - 0.75} : {x: baseU.x - a.x * 0.75 - perp.x * 0.1, y: baseU.y - a.y * 0.75 - perp.y * 0.1};
   parkU.a = aimDeg(parkU, {x: 0, y: 0});
   // unit bounding box of the stage (cluster, fields used, cameras at their stations, base)
   let bb = items.reduce(boxU);
