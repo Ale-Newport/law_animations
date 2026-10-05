@@ -1,0 +1,446 @@
+{
+  "id": "LAW-0355",
+  "slug": "review-09-contrast",
+  "title": "Effects during review — two identical two-lane boards; only the supplied datum on the filter tag differs, so the decision card passes the gate in A and waits before it in B",
+  "titleEs": "Efectos durante revisión — Comparación de dos supuestos",
+  "category": "review",
+  "categoryName": "Impugnaciones y revisión",
+  "motif": "Efectos durante revisión",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two complete two-lane boards of equal size (side by side on wide frames, stacked on tall ones) with the same decision card on the process lane, the same appeal card on the review lane, the same filter gate, blank tag and calendar. Both cards advance identically; then only the supplied datum differs: A's tag reads \"effect maintained\" and its gate turns open, B's reads \"effect suspended according to the data supplied\" and its gate closes. A's decision card passes the gate; B's waits before it; both appeal cards reach their bays identically. A highlight guide joins the two tags (\"only this differs\"); a neutral note says there is no winner and no outcome. No suspension doctrine, dates or time limits; jurisdiction unspecified.",
+  "tags": [
+    "review",
+    "effects during review",
+    "contrast",
+    "paired scenes",
+    "parallel lanes",
+    "filter gate",
+    "supplied datum",
+    "changed fact",
+    "neutral"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/review/kits/efectos-durante-revision.js",
+    "src/animations/review/kits/confirmacion-ilustrativa.js",
+    "src/primitives/annotate.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "decisions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Fictional title printed on the decision card"
+          },
+          "ref": {
+            "type": "string",
+            "maxLength": 44,
+            "description": "Reference tag printed on the decision card (fictional)"
+          }
+        },
+        "required": [
+          "title",
+          "ref"
+        ],
+        "description": "The decision card that advances along the process lane (fictional; placeholder content)"
+      },
+      "grounds": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "appeal": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Grounds line printed on the appeal card (as supplied)"
+          }
+        },
+        "required": [
+          "appeal"
+        ],
+        "description": "The appeal card that advances along the review lane (fictional; placeholder content, never assessed)"
+      },
+      "routes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "process": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of the process lane (keep \"as configured\")"
+          },
+          "review": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of the review lane (keep \"as configured\")"
+          }
+        },
+        "required": [
+          "process",
+          "review"
+        ],
+        "description": "Captions of the two lanes (as configured; the lanes never cross and imply no hierarchy)"
+      },
+      "outcomes": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "maintained": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Tag text when the supplied datum says the effect is maintained"
+          },
+          "suspended": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Tag text when the supplied datum says the effect is suspended"
+          }
+        },
+        "required": [
+          "maintained",
+          "suspended"
+        ],
+        "description": "The two possible supplied data printed on the filter tag. The animation never infers which applies"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "filter": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption of the filter gate (it shows the supplied datum only)"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          }
+        },
+        "required": [
+          "filter",
+          "key"
+        ],
+        "description": "Editable captions"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Short label for scenario A"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Optional one-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario A (its tag carries outcomes.maintained)"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Short label for scenario B"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Optional one-line description"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "description": "Scenario B (its tag carries outcomes.suspended)"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 120,
+        "description": "The single fact that differs between A and B (here: the supplied datum on the tag)"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 70,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 4,
+        "description": "Facts that stay identical in both scenes (array replaces the previous value)"
+      },
+      "objectLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "arrows": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Caption for the chevrons (direction of travel only)"
+          },
+          "calendar": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption for the calendar (a fixture only)"
+          }
+        },
+        "required": [
+          "arrows",
+          "calendar"
+        ],
+        "description": "Captions of the shared objects in the strip"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Label on the guide joining the changed detail"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Neutral note (no winner, no outcome)"
+          }
+        },
+        "required": [
+          "guide",
+          "neutral"
+        ],
+        "description": "Labels of the comparison guide"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "decisions": {
+      "title": "Decision 1 (fictional)",
+      "ref": "Ref. R-01 (fictional)"
+    },
+    "grounds": {
+      "appeal": "Appeal: placeholder grounds (as supplied)"
+    },
+    "routes": {
+      "process": "Process lane: the decision card (as configured)",
+      "review": "Review lane: the appeal card (as configured)"
+    },
+    "outcomes": {
+      "maintained": "Effect maintained (supplied datum)",
+      "suspended": "Effect suspended according to the data supplied"
+    },
+    "labels": {
+      "filter": "Filter gate: set by the supplied datum only",
+      "key": "As supplied · no conclusion drawn"
+    },
+    "scenarioA": {
+      "label": "A · Effect maintained (supplied datum)",
+      "caption": ""
+    },
+    "scenarioB": {
+      "label": "B · Effect suspended according to the data supplied",
+      "caption": ""
+    },
+    "changedFact": "Only the supplied datum on the tag differs",
+    "sharedFacts": [
+      "Same decision card and appeal card",
+      "Same lanes, gate and calendar"
+    ],
+    "objectLabels": {
+      "arrows": "Chevrons: direction of travel in each lane",
+      "calendar": "Calendar (a fixture; no date marked)"
+    },
+    "comparisonLabels": {
+      "guide": "only this differs",
+      "neutral": "Two supplied situations side by side: no winner, no outcome"
+    }
+  }
+}

@@ -75,8 +75,7 @@ const sceneSchema = {
 
 const defaultParams = {
   ...CA_DEFAULTS,
-  // (captions are optional: empty by default; when supplied they are drawn as band chips beside the lane keys)
-  actorLabels: {a: '', b: ''},
+  actorLabels: {a: 'Lane A: the conduct of A', b: 'Lane B: the conduct of B'},
   objectLabels: {record: '', laneA: '', laneB: ''},
   actionProgress: 1,
   annotations: [{target: 'lanes', text: 'Both lanes are drawn alike; nothing is weighed'}],
@@ -86,6 +85,7 @@ const defaultParams = {
 // Spanish versions of the default content, used with locale "es" for fields left at their English default
 const defaultParamsEs = {
   ...CA_ES_DEFAULTS,
+  actorLabels: {a: 'Carril A: la conducta de A', b: 'Carril B: la conducta de B'},
   annotations: [{target: 'lanes', text: 'Los dos carriles se dibujan igual; nada se pondera'}],
 };
 
@@ -115,14 +115,14 @@ function bandItems(ctx, p, M) {
   if (!ctx.show('key')) return out;
   // the rows that appear late come first, so the chips shown at rest take the band's last rows
   const late = [];
-  out.push({key: 'laneA', icon: 'laneA', text: p.objectLabels.laneA || t.laneA, when: 'legend'});
-  out.push({key: 'laneB', icon: 'laneB', text: p.objectLabels.laneB || t.laneB, when: 'legend'});
+  // each lane key carries its caption (actorLabels) after the lane label: one chip per lane, equal and side by side
+  const cap = l => (allOn && p.actorLabels[l] ? ` · ${p.actorLabels[l]}` : '');
+  out.push({key: 'laneA', icon: 'laneA', text: `${p.objectLabels.laneA || t.laneA}${cap('a')}`, when: 'legend'});
+  out.push({key: 'laneB', icon: 'laneB', text: `${p.objectLabels.laneB || t.laneB}${cap('b')}`, when: 'legend'});
   out.push({key: 'object', icon: 'event', text: `${p.origin.name} · ${t.lanes}`, when: 'legend'});
   if (p.losses[1]) out.push({key: 'loss1', icon: 'loss', text: `${t.alsoNoted}: ${p.losses[1].label}`, when: 'legend'});
   M.alternatives.forEach((a, j) => out.push({key: `alt${j}`, icon: 'alt', text: altText(ctx, a), when: 'legend'}));
   linkNotes(ctx, M).forEach(l => out.push({...l, when: 'legend'}));
-  if (allOn && p.actorLabels.a) out.push({key: 'actA', icon: 'laneA', text: p.actorLabels.a, when: 'legend'});
-  if (allOn && p.actorLabels.b) out.push({key: 'actB', icon: 'laneB', text: p.actorLabels.b, when: 'legend'});
   late.push({key: 'status', icon: 'lanes', text: p.finalState === 'convergence-disputed' ? t.disputedState : t.shown, when: 'status'});
   if (allOn) p.annotations.forEach((a, i) => late.push({key: `note${i}`, icon: a.target === 'record' ? 'record' : a.target === 'field' ? 'event' : 'lanes', text: a.text, when: 'notes'}));
   late.push({key: 'key', text: t.key, when: 'key'});
@@ -364,14 +364,16 @@ const scene = {
     const base = {M, header: p.objectLabels.record || t.record, rows: recordRows(ctx, p, M), band: bandItems(ctx, p, M), varText: glueN(lossText(ctx, p)), memo: {rec: new Map(), band: new Map(), chip: new Map(), ranges: new Map()}};
     const rws = ctx.view.shape === 'landscape' ? [440, 520, 600, 680] : ctx.view.shape === 'square' ? [300, 340, 380, 440, 500] : [520, 640, 760, Math.floor(ctx.design.w - 2 * MARGIN - 20)];
     const nb0 = base.band.length;
-    const ks = [...new Set([1, Math.ceil(nb0 / 3), Math.ceil(nb0 / 2), Math.ceil((2 * nb0) / 3), nb0 - 1].filter(k => k >= 1 && k < nb0))];
+    // (a split never falls between the two lane keys: A and B always stand together, in the same place)
+    const keepAB = k => !(base.band[k - 1] && base.band[k - 1].key === 'laneA');
+    const ks = [...new Set([1, Math.ceil(nb0 / 3), Math.ceil(nb0 / 2), Math.ceil((2 * nb0) / 3), nb0 - 1].filter(k => k >= 1 && k < nb0 && keepAB(k)))];
     let pick = null;
     const why = [];
     const bySize = new Map();
     // (wide and tall boxes: a size under the bound is still measured while no measured size keeps the scene area)
     const areaOK = () => [...bySize.values()].some(c => sceneShare(ctx, c) >= 0.205);
     for (let size = SH.size; size >= SH.minSize - 1e-9; size -= 1) {
-      for (const mode of SH.modes) for (const RW of rws) for (const maxLines of [3, 4]) for (const half of [false, true]) for (const vw of [0, 1, 2]) for (const k of mode === 'split' ? ks : mode === 'tall' ? [...Array(nb0 + 1).keys()] : [0]) {
+      for (const mode of SH.modes) for (const RW of rws) for (const maxLines of [3, 4]) for (const half of [false, true]) for (const vw of [0, 1, 2]) for (const k of mode === 'split' ? ks : mode === 'tall' ? [...Array(nb0 + 1).keys()].filter(keepAB) : [0]) {
         const X = compose(ctx, base, {mode, size, RW, maxLines, half, vw, k, hMin: SH.hMin, dry: true});
         if (!X.cfg) { why.push(`${mode}${k || ''}/${RW}@${size}:${X.bad}${X.PH ? Math.round(X.PH) : ''}`); continue; }
         const b0 = bySize.get(size);

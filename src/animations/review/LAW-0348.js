@@ -108,9 +108,9 @@ function roomGeometry(ctx, P, w, F, showKey, wasText, chK = 0.68) {
   const posCx = (RG.position.x + RG.cards.position.w / 2 + ins);
   const ppad = Math.max(10, F * 0.55);
   const head = F * 1.5;
-  const vfitW = (t, tw) => fitG(t, {maxWidth: tw, size: F, minSize: F, maxLines: 5, weight: 600});
+  const vfitW = (t, tw) => fitG(t, {maxWidth: tw, size: F, minSize: F, maxLines: 6, weight: 600});
   // the narrowest plate (from 1.5 card widths up to the table's width) on which both values fit in five lines
-  let plateW = showKey ? Math.min(tableW - 2 * edge, Math.max(cw * 1.5, F * 13)) : cw * 1.15;
+  let plateW = showKey ? Math.min(tableW - 2 * edge, Math.max(cw * 1.15, F * 9.5)) : cw * 1.15;
   if (showKey) {
     for (let wq = plateW; wq <= tableW - 2 * edge + 0.5; wq += 12) {
       plateW = Math.min(wq, tableW - 2 * edge);
@@ -265,12 +265,12 @@ const scene = {
     const P = localisedSd(ctx, EN, ES);
     const D = ctx.design;
     const px = pxPerUnit(ctx);
-    const tall = ctx.view.shape === 'portrait';
+    const tall0 = ctx.view.shape === 'portrait';
     const f = fitDesign(ctx.view, D.w, D.h);
     const shortD = Math.min(ctx.view.width, ctx.view.height) / f.scale;
     const tightSide = 0.375 * shortD;
     const zoomMax = P.detailGeometry.zoom;
-    const opts = tall ? [{tall: true}] : ctx.view.shape === 'square' ? [{tall: false, panel: 0.4}, {tall: false, panel: 0.46}] : [{tall: false, panel: 0.34}, {tall: false, panel: 0.4}];
+    const opts = tall ? [{tall: true}] : ctx.view.shape === 'square' ? [{tall: true}, {tall: false, panel: 0.4}, {tall: false, panel: 0.46}] : [{tall: false, panel: 0.34}, {tall: false, panel: 0.4}];
     // the lens: where it opens, how far the context steps back, the crop and the zoom
     const lensPlan = C => {
       const {G, k, roomRect} = C;

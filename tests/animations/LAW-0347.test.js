@@ -48,8 +48,8 @@ suppliedTextSuite(ID, {
 
 ratioChecks(ID, 'same scale, arrangement per ratio, reach, composition fits', [
   {at: [0, 0.5, 1], fn: 's.sameScale', label: 'the two scenes have the same scale'},
-  {at: [0.5], ratios: ['9:16'], fn: "s.arrangement === 'column'", label: 'stacked on tall frames'},
-  {at: [0.5], ratios: ['16:9', '1:1'], fn: "s.arrangement === 'row'", label: 'side by side on wide and square frames'},
+  {at: [0.5], ratios: ['9:16', '1:1'], fn: "s.arrangement === 'column'", label: 'stacked on tall and square frames (square: beside a text column)'},
+  {at: [0.5], ratios: ['16:9'], fn: "s.arrangement === 'row'", label: 'side by side on wide frames'},
   {at: times(0.3, 0.75, 0.01), fn: 's.allReached', label: 'the hands stay within reach'},
   {at: [1], tv: ['all'], fn: 's.problems.length === 0', label: 'the composition fits'},
   {at: times(0, 1, 0.02), fn: "s.lookA.position === 'A' && s.lookA.history === 'empty'", label: 'scene A never changes what its position holds (no invented consequence)'},

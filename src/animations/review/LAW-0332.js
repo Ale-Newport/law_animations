@@ -145,7 +145,9 @@ const scene = {
     const zoomMax = P.detailGeometry.zoom;
     // ---- the record's fits (template units) at a plate text multiple rs
     const recMemo = new Map();
-    const recordFor = (Ft, rs) => {
+    let quant = true;
+    const recordFor = (Ft0, rs) => {
+      const Ft = quant ? Math.round(Ft0 * 20) / 20 : Ft0;
       const rk = `${Ft}|${rs}|${maxRecLines}`;
       if (!recMemo.has(rk)) recMemo.set(rk, recordFor0(Ft, rs));
       return recMemo.get(rk);
@@ -310,6 +312,8 @@ const scene = {
       if (b4.problems.length < best.problems.length || (!b4.problems.length && best.problems.length)) { best = b4; textLimit = true; }
     }
     console.log('PROBE', recMemo.size, 'rec', Math.round(globalThis.__r), globalThis.__c1, Math.round(globalThis.__a), Math.round(globalThis.__b), NC, Math.round(performance.now()-T0), rsList.join(), maxRecLines, lensTextMin, best.problems.join('+'));
+    quant = false;
+    { const Cx = compose1(best.roomBox, best.F, best.scale, best.C.refsSize, names); if (Cx.problems.length <= best.C.problems.length) best = {...best, C: Cx}; }
     const {F, C, lay} = best;
     const G = C.G, k = C.k;
     const {dest, crop, Z, zm, s, anchor, wide} = C.lens;

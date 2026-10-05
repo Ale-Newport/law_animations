@@ -170,7 +170,7 @@ export function lossText(ctx, p) {
  * lane offset D from the middle line, lane half-thickness LT, slab margin beyond the lanes, slab thickness, step-object
  * height, trolley parts (wheel radius, body height, mast, flag head).
  */
-export const FIELD = {side: 0.03, laneL: 1.2, conn: 0.34, ev: 0.2, K: 0.62, D: 0.42, LT: 0.08, marg: 0.12, plate: 0.07, item: 0.28, wheel: 0.035, body: 0.11, mast: 0.22, head: 0.15, cartW: 0.26, brace: 0.16};
+export const FIELD = {side: 0.03, laneL: 1.2, conn: 0.34, ev: 0.2, K: 0.62, D: 0.5, LT: 0.08, marg: 0.12, margB: 0.38, plate: 0.07, item: 0.28, wheel: 0.035, body: 0.11, mast: 0.22, head: 0.15, cartW: 0.26, brace: 0.16};
 /** Height of the trolley above its lane line (× PH): wheels, body, mast and flag head. */
 export const CART_TOP = 2 * FIELD.wheel + FIELD.body + FIELD.mast + FIELD.head;
 
@@ -178,9 +178,9 @@ export const CART_TOP = 2 * FIELD.wheel + FIELD.body + FIELD.mast + FIELD.head;
 /** (the right-hand margin holds the brace beside the event pad) */
 export const fieldW = () => FIELD.side + 0.04 + FIELD.laneL + FIELD.conn + 2 * FIELD.ev + FIELD.brace;
 /** Height of the field's top above the middle line (× PH): lane A's trolley flag. */
-export const fieldTop = () => Math.max(FIELD.D + CART_TOP, FIELD.D + FIELD.LT + 0.02 + FIELD.item);
+export const fieldTop = () => FIELD.D + CART_TOP;
 /** Depth below the middle line to the floor (× PH). */
-export const fieldBelow = () => FIELD.D + FIELD.LT + FIELD.marg + FIELD.plate;
+export const fieldBelow = () => FIELD.D + FIELD.LT + FIELD.margB + FIELD.plate;
 export const fieldH = () => fieldTop() + fieldBelow();
 
 /**
@@ -192,6 +192,7 @@ export const fieldH = () => fieldTop() + fieldBelow();
 export function fieldGeom(left, floorY, PH) {
   const F = FIELD;
   const cy = floorY - fieldBelow() * PH;
+  // (each lane's steps stand in FRONT of it — just below its strip — so a step can only belong to the lane above it)
   const xs = left + (F.side + 0.04) * PH, xe = xs + F.laneL * PH;
   const px = xe + (F.conn + F.ev) * PH, py = cy;
   const yA = cy - F.D * PH, yB = cy + F.D * PH;
@@ -206,17 +207,17 @@ export function fieldGeom(left, floorY, PH) {
     LT: F.LT * PH, itemS: F.item * PH, plateT: F.plate * PH, headS: F.head * PH, cartW: F.cartW * PH,
     at: (l, x) => ({x, y: laneY(l)}),
     cartX: f => lerp(xs + 0.17 * PH, xe - 0.36 * PH, f),
-    stand: l => laneY(l) - (F.LT + 0.015) * PH,
+    stand: l => laneY(l) + (F.LT + 0.03 + F.item) * PH,
     conn, floorY,
     x0: left, x1: left + fieldW() * PH, top: cy - fieldTop() * PH,
-    slabTop: cy - (F.D + F.LT + F.marg) * PH, slabBot: cy + (F.D + F.LT + F.marg) * PH,
+    slabTop: cy - (F.D + F.LT + F.marg) * PH, slabBot: cy + (F.D + F.LT + F.margB) * PH,
     bracketY: cy, braceX: px + padR + 0.07 * PH,
-    plateBox: {x: left + F.side * PH, y: cy - (F.D + F.LT + F.marg) * PH, w: (fieldW() - 2 * F.side) * PH, h: 2 * (F.D + F.LT + F.marg) * PH + F.plate * PH},
+    plateBox: {x: left + F.side * PH, y: cy - (F.D + F.LT + F.marg) * PH, w: (fieldW() - 2 * F.side) * PH, h: (2 * (F.D + F.LT) + F.marg + F.margB) * PH + F.plate * PH},
   };
 }
 
 /**
- * Step places: each lane's steps stand behind it, spread evenly along [xs + 0.3, xe − 0.36] (× PH) in the supplied
+ * Step places: each lane's steps stand in front of it (below its strip), spread evenly along [xs + 0.3, xe − 0.36] (× PH) in the supplied
  * order; `skip` = indices left out (posed by the entry). Objects shrink only when a lane holds many steps.
  */
 export function itemPlaces(G, M, skip = []) {
