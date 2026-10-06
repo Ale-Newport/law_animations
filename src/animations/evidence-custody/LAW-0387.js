@@ -85,8 +85,8 @@ function legendRows(ctx, P, recs) {
   if (showKey) rows.push({kind: 'item', icon: 'fc-differ', text: P.matchLabels.differ, name: 'lg-differ'});
   if (showKey) rows.push({kind: 'item', icon: `fc-sym-${P.changeSymbol}`, text: P.changedFact, name: 'lg-changed'});
   if (showAll) P.sharedFacts.forEach((f, i) => rows.push({kind: 'item', icon: 'fc-chain', text: f, name: `lg-shared${i}`}));
-  if (showKey) recs.forEach((rw, i) => rows.push({kind: 'item', icon: rw.filled ? 'row-filled' : 'row-blank', text: fcRecordLine(rw, P.labels.blank), name: `lg-rec${i}`}));
-  if (showAll) P.custodians.forEach((c, i) => rows.push({kind: 'item', icon: i === 0 ? 'glove' : 'custodian', text: `${c.name} · ${c.role}`, name: `lg-cus${i}`}));
+  if (showKey) rows.push({kind: 'item', icon: 'tag', text: recs.map(rw => fcRecordLine(rw, P.labels.blank)).join(' · '), name: 'lg-recs'});
+  if (showAll) rows.push({kind: 'item', icon: 'glove', text: P.custodians.map(c => `${c.name} · ${c.role}`).join('; '), name: 'lg-cus'});
   if (showAll) rows.push({kind: 'item', icon: 'clock', text: P.timestamps.map(t => `${t.label} · ${t.time}`).join('; '), name: 'lg-times'});
   if (showKey) rows.push({kind: 'item', icon: 'ring', color: ctx.theme.accent, text: P.comparisonLabels.guide, name: 'lg-guide'});
   if (showKey) rows.push({kind: 'state', text: P.comparisonLabels.neutral, name: 'state-tag'});
@@ -165,7 +165,7 @@ const scene = {
     const rows = legendRows(ctx, P, recs);
     const shape = ctx.view.shape;
     const opts = shape === 'landscape' ? [{mode: 'below', cols: 3}, {mode: 'below', cols: 2}, {mode: 'side', pw: 0.26}, {mode: 'side', pw: 0.32}]
-      : [{mode: 'below', cols: 2}, {mode: 'below', cols: 3}, {mode: 'side', pw: 0.34}, {mode: 'side', pw: 0.4}];
+      : [{mode: 'below', cols: 2}, {mode: 'below', cols: 3}, {mode: 'side', pw: 0.34}, {mode: 'side', pw: 0.4}, {mode: 'side', pw: 0.45}, {mode: 'side', pw: 0.5}];
     const pairings = shape === 'landscape' ? ['row', 'column'] : ['column'];
     let C = null, best = null, bestScore = -1, firstOk = -1;
     for (const [fi, F] of SIZES.entries()) {
