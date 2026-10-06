@@ -78,7 +78,8 @@ function geom(ctx, F, minF, mode, cwPick) {
   const show = ctx.show('all'), showKey = ctx.show('key');
   const stress = isStress(p);
   const why = [];
-  const m = 30, gap = 70, g2 = 24;
+  const m = 30, g2 = 24;
+  const gap = mode === 'above' ? 46 : 70;
   const order = orderOf(p);
   const n = order.length;
   const ns = p.schedules.length;
@@ -86,10 +87,10 @@ function geom(ctx, F, minF, mode, cwPick) {
   const discCol = discR * 2 + 26;
   const shape = ctx.view.shape;
   // ---- the card column (card on top, legend / key / tags below it) and the assembly area
-  const cwF = cwPick ?? (mode === 'beside' ? (shape === 'landscape' ? 0.3 : 0.36) : (stress ? 0.45 : 0.47));
+  const cwF = cwPick ?? (mode === 'beside' ? (shape === 'landscape' ? 0.3 : 0.36) : (stress ? 0.46 : 0.5));
   const cw = clamp(D.w * cwF, 340, 600);
   // ('above' mode: the right end of each row stays free for the connectors leaving the card towards the parked layers)
-  const C = cardText(p, order, cw, F, minF, {stress, rightPad: mode === 'above' ? 80 : 0});
+  const C = cardText(p, order, cw, F, minF, {stress, rightPad: mode === 'above' ? 40 : 0});
   if (C.bad) why.push('card-fit');
   const card = {x: m, y: m, w: cw, h: Math.min(D.h - 2 * m, C.need + 6)};
   if (C.need > D.h - 2 * m + 0.5) why.push('card-text');
@@ -303,7 +304,7 @@ const scene = {
       const P0 = L.parks[si], P1 = L.levels[k];
       const t = E(q);
       // an arc: out of the parking column, then into the rack at the level's height
-      const P = {x: lerp(P0.x, P1.x, t), y: lerp(P0.y, P1.y, ease.outCubic(clamp(t * 1.25))) - Math.sin(Math.PI * t) * 30};
+      const P = {x: lerp(P0.x, P1.x, t), y: lerp(P0.y, P1.y, ease.outCubic(clamp(t * 1.25))) + Math.sin(Math.PI * t) * (L.mode === 'above' ? 40 : -30)};
       pos[si] = P;
       slideT[si] = t;
       if (q > 0 && q < 1) moving = si;

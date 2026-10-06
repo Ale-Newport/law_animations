@@ -24,6 +24,7 @@ import {h, g} from '../../core/svg.js';
 import {seg, clamp, lerp, ease, r} from '../../core/time.js';
 import {str, num, obj, oneOf} from '../../schemas/fields.js';
 import {T} from '../../core/transform.js';
+import {measure} from '../../core/text.js';
 import {lens} from '../../frameworks/lens.js';
 import {changedMarker} from '../../primitives/markers.js';
 import {
@@ -122,10 +123,12 @@ function compose(ctx, P, recs, fi, F, LG, opt, vs) {
   const pad = T0.h * 0.16;
   const traceH = T0.h * 0.42;
   // crop: the copy device (with its block map), its chain and its whole tag, plus room for the trace line
-  const devTop = G.copySpot.y - G.M.h / 2 - pad;
-  const sx0 = Math.min(hole.x + T0.x0, G.copySpot.x - G.M.w / 2) - pad, sx1 = Math.max(hole.x + T0.x1, G.copySpot.x + G.M.w / 2) + pad;
+  const tagOnly = opt.crop === 'tag';
+  const devTop = tagOnly ? hole.y - T0.h / 2 - pad : G.copySpot.y - G.M.h / 2 - pad;
+  const sx0 = (tagOnly ? hole.x + T0.x0 : Math.min(hole.x + T0.x0, G.copySpot.x - G.M.w / 2)) - pad, sx1 = (tagOnly ? hole.x + T0.x1 : Math.max(hole.x + T0.x1, G.copySpot.x + G.M.w / 2)) + pad;
   const source = {x: sx0, y: devTop, w: sx1 - sx0, h: hole.y + T0.h / 2 + pad + traceH - devTop};
-  if (source.w < source.h) { const d = source.h - source.w; source.x -= d / 2; source.w = source.h; }
+  if (tagOnly && source.h < source.w * 0.75) { const d = source.w * 0.75 - source.h; source.y -= d * 0.3; source.h += d; }
+  if (!tagOnly && source.w < source.h) { const d = source.h - source.w; source.x -= d / 2; source.w = source.h; }
   const zoom = Math.min(zoneLens.w * 0.96 / source.w, zoneLens.h * 0.96 / source.h);
   const dest = {w: source.w * zoom, h: source.h * zoom};
   dest.x = zoneLens.x + (zoneLens.w - dest.w) / 2; dest.y = zoneLens.y + (zoneLens.h - dest.h) / 2;
@@ -133,7 +136,7 @@ function compose(ctx, P, recs, fi, F, LG, opt, vs) {
   const floor = 16 / zoomPx;
   const R0 = T0.rows[0];
   const size = Math.max(floor, Math.min(22 / zoomPx, T0.pitch * 0.62));
-  const fieldW = (T0.rx1 - T0.rx0) * 0.46;
+  const fieldW = Math.min((T0.rx1 - T0.rx0) * 0.46, Math.max(...recs.map(rw => measure(rw.field, size, 500))) + size * 0.2);
   const valueX = T0.rx0 + fieldW + size * 0.5;
   const valW = T0.rx1 - valueX - size * 0.2;
   let tOk = size <= T0.pitch * 0.86 && size >= floor - 1e-9;
@@ -197,8 +200,8 @@ const scene = {
       : shape === 'square' ? [{mode: 'side', pw: 0.24}, {mode: 'side', pw: 0.28}, {mode: 'side', pw: 0.34}, {mode: 'side', pw: 0.4}, {mode: 'below', cols: 2}]
         : [{mode: 'side', pw: 0.24}, {mode: 'side', pw: 0.28}, {mode: 'side', pw: 0.32}];
     const confs = [];
-    for (const split of [0.62, 0.56, 0.5, 0.44, 0.4]) for (const stage of ['h', 'v']) confs.push({orient: 'h', split, stage});
-    for (const split of [0.6, 0.54, 0.48, 0.42]) for (const stage of ['h', 'v']) confs.push({orient: 'v', split, stage});
+    for (const split of [0.62, 0.56, 0.5, 0.44, 0.4]) for (const stage of ['h', 'v']) for (const crop of ['full', 'tag']) confs.push({orient: 'h', split, stage, crop});
+    for (const split of [0.6, 0.54, 0.48, 0.42]) for (const stage of ['h', 'v']) for (const crop of ['full', 'tag']) confs.push({orient: 'v', split, stage, crop});
     const rowsL = legendRows(ctx, P, recs, fi);
     let C = null, best = null, bestScore = -1, firstOk = -1;
     for (const [fj, F] of SIZES.entries()) {
@@ -208,7 +211,7 @@ const scene = {
         if (LG.PL && !LG.PL.ok && C) continue;
         for (const cf of confs) {
           const c = compose(ctx, P, recs, fi, F, LG, cf, vs);
-          const score = c.G.S * Math.sqrt(c.rsc) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * Math.min(1.3, c.zoom / 2.5) * (shape === 'square' && o0.mode === 'below' ? 0.7 : 1);
+          const score = c.G.S * Math.sqrt(c.rsc) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * Math.min(1.3, c.zoom / 2.5) * (shape === 'square' && o0.mode === 'below' ? 0.7 : 1) * (cf.crop === 'tag' ? 0.8 : 1);
           if (c.ok && firstOk < 0 && F >= 19.5) firstOk = fj;
           if (c.ok && score > bestScore) { best = c; bestScore = score; }
           if (!C || c.problems.length < C.problems.length) C = c;

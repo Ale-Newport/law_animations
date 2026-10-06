@@ -1,0 +1,1391 @@
+{
+  "animationId": "LAW-0401",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0401",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "claims.0.text"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "16:9",
+          "k": "handA",
+          "f": 76,
+          "d": 134
+        },
+        {
+          "ratio": "16:9",
+          "k": "ev0",
+          "f": 76,
+          "d": 134
+        },
+        {
+          "ratio": "16:9",
+          "k": "handA",
+          "f": 77,
+          "d": 92
+        },
+        {
+          "ratio": "16:9",
+          "k": "ev0",
+          "f": 77,
+          "d": 92
+        },
+        {
+          "ratio": "16:9",
+          "k": "handA",
+          "f": 98,
+          "d": 117
+        },
+        {
+          "ratio": "16:9",
+          "k": "handA",
+          "f": 107,
+          "d": 116
+        },
+        {
+          "ratio": "16:9",
+          "k": "handA",
+          "f": 108,
+          "d": 103
+        },
+        {
+          "ratio": "16:9",
+          "k": "handA",
+          "f": 111,
+          "d": 184
+        }
+      ]
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "1:1",
+          "f": 0
+        },
+        {
+          "ratio": "1:1",
+          "f": 1
+        },
+        {
+          "ratio": "1:1",
+          "f": 2
+        },
+        {
+          "ratio": "1:1",
+          "f": 3
+        },
+        {
+          "ratio": "1:1",
+          "f": 4
+        }
+      ]
+    },
+    {
+      "name": "semantic: rest: the witness holds her card, the slip lies on the table, every thread hangs loose @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "handA": {
+            "x": 270.72,
+            "y": 550.29
+          },
+          "handW": {
+            "x": 213.24,
+            "y": 493.84
+          },
+          "heldGrip": null,
+          "heldThread": null,
+          "held": null,
+          "holders": [
+            "witness",
+            "table"
+          ],
+          "threads": [
+            "loose",
+            "loose",
+            "loose"
+          ],
+          "linkKinds": [
+            "direct",
+            "direct",
+            "disputed"
+          ],
+          "turnSx": 1,
+          "facing": -1,
+          "allReached": true,
+          "finalState": "linked",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "k": 1.152,
+          "ew": 148,
+          "board": {
+            "x": 332.05,
+            "y": 0,
+            "w": 849.85,
+            "h": 584
+          },
+          "ends": [
+            {
+              "c": {
+                "x": 473.27,
+                "y": 199.67
+              },
+              "e": {
+                "x": 567.18,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 668.79,
+                "y": 199.67
+              },
+              "e": {
+                "x": 903.55,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 942.93,
+                "y": 199.67
+              },
+              "e": {
+                "x": 971.65,
+                "y": 345.16
+              }
+            }
+          ],
+          "threadEnds": [
+            {
+              "x": 490.17,
+              "y": 279.69
+            },
+            {
+              "x": 711.05,
+              "y": 279.69
+            },
+            {
+              "x": 948.1,
+              "y": 279.69
+            }
+          ],
+          "mag": {
+            "x": 838.9589500439238,
+            "y": 541.9,
+            "w": 122.4,
+            "h": 122.4
+          },
+          "cards": [
+            {
+              "x": 463.47732738788574,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            },
+            {
+              "x": 835.3761830247818,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            }
+          ],
+          "ev0": {
+            "x": 213.24,
+            "y": 493.84
+          },
+          "ev1": {
+            "x": 465.12,
+            "y": 533.05
+          },
+          "ev2": {
+            "x": 0,
+            "y": 0
+          },
+          "te0": {
+            "x": 490.17,
+            "y": 279.69
+          },
+          "te1": {
+            "x": 711.05,
+            "y": 279.69
+          },
+          "te2": {
+            "x": 948.1,
+            "y": 279.69
+          },
+          "te3": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: nothing moves during the rest beat @0.145",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "handA": {
+            "x": 270.72,
+            "y": 550.29
+          },
+          "handW": {
+            "x": 213.24,
+            "y": 493.84
+          },
+          "heldGrip": null,
+          "heldThread": null,
+          "held": null,
+          "holders": [
+            "witness",
+            "table"
+          ],
+          "threads": [
+            "loose",
+            "loose",
+            "loose"
+          ],
+          "linkKinds": [
+            "direct",
+            "direct",
+            "disputed"
+          ],
+          "turnSx": 1,
+          "facing": -1,
+          "allReached": true,
+          "finalState": "linked",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "k": 1.152,
+          "ew": 148,
+          "board": {
+            "x": 332.05,
+            "y": 0,
+            "w": 849.85,
+            "h": 584
+          },
+          "ends": [
+            {
+              "c": {
+                "x": 473.27,
+                "y": 199.67
+              },
+              "e": {
+                "x": 567.18,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 668.79,
+                "y": 199.67
+              },
+              "e": {
+                "x": 903.55,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 942.93,
+                "y": 199.67
+              },
+              "e": {
+                "x": 971.65,
+                "y": 345.16
+              }
+            }
+          ],
+          "threadEnds": [
+            {
+              "x": 490.17,
+              "y": 279.69
+            },
+            {
+              "x": 711.05,
+              "y": 279.69
+            },
+            {
+              "x": 948.1,
+              "y": 279.69
+            }
+          ],
+          "mag": {
+            "x": 838.9589500439238,
+            "y": 541.9,
+            "w": 122.4,
+            "h": 122.4
+          },
+          "cards": [
+            {
+              "x": 463.47732738788574,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            },
+            {
+              "x": 835.3761830247818,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            }
+          ],
+          "ev0": {
+            "x": 213.24,
+            "y": 493.84
+          },
+          "ev1": {
+            "x": 465.12,
+            "y": 533.05
+          },
+          "ev2": {
+            "x": 0,
+            "y": 0
+          },
+          "te0": {
+            "x": 490.17,
+            "y": 279.69
+          },
+          "te1": {
+            "x": 711.05,
+            "y": 279.69
+          },
+          "te2": {
+            "x": 948.1,
+            "y": 279.69
+          },
+          "te3": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: every card pinned, every supplied thread joined; composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "rest",
+          "handA": {
+            "x": 267.54,
+            "y": 550.29
+          },
+          "handW": {
+            "x": 85.25,
+            "y": 550.29
+          },
+          "heldGrip": null,
+          "heldThread": null,
+          "held": null,
+          "holders": [
+            "board",
+            "board"
+          ],
+          "threads": [
+            "joined",
+            "joined",
+            "joined"
+          ],
+          "linkKinds": [
+            "direct",
+            "direct",
+            "disputed"
+          ],
+          "turnSx": 1,
+          "facing": 1,
+          "allReached": true,
+          "finalState": "linked",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "k": 1.152,
+          "ew": 148,
+          "board": {
+            "x": 332.05,
+            "y": 0,
+            "w": 849.85,
+            "h": 584
+          },
+          "ends": [
+            {
+              "c": {
+                "x": 473.27,
+                "y": 199.67
+              },
+              "e": {
+                "x": 567.18,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 668.79,
+                "y": 199.67
+              },
+              "e": {
+                "x": 903.55,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 942.93,
+                "y": 199.67
+              },
+              "e": {
+                "x": 971.65,
+                "y": 345.16
+              }
+            }
+          ],
+          "threadEnds": [
+            {
+              "x": 567.18,
+              "y": 345.16
+            },
+            {
+              "x": 903.55,
+              "y": 345.16
+            },
+            {
+              "x": 971.65,
+              "y": 345.16
+            }
+          ],
+          "mag": {
+            "x": 838.9589500439238,
+            "y": 541.9,
+            "w": 122.4,
+            "h": 122.4
+          },
+          "cards": [
+            {
+              "x": 463.47732738788574,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            },
+            {
+              "x": 835.3761830247818,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            }
+          ],
+          "ev0": {
+            "x": 543.5,
+            "y": 401.18
+          },
+          "ev1": {
+            "x": 915.39,
+            "y": 401.18
+          },
+          "ev2": {
+            "x": 0,
+            "y": 0
+          },
+          "te0": {
+            "x": 567.18,
+            "y": 345.16
+          },
+          "te1": {
+            "x": 903.55,
+            "y": 345.16
+          },
+          "te2": {
+            "x": 971.65,
+            "y": 345.16
+          },
+          "te3": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the thread styles follow the supplied link kinds only @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "rest",
+          "handA": {
+            "x": 267.54,
+            "y": 550.29
+          },
+          "handW": {
+            "x": 85.25,
+            "y": 550.29
+          },
+          "heldGrip": null,
+          "heldThread": null,
+          "held": null,
+          "holders": [
+            "board",
+            "board"
+          ],
+          "threads": [
+            "joined",
+            "joined",
+            "joined"
+          ],
+          "linkKinds": [
+            "direct",
+            "direct",
+            "disputed"
+          ],
+          "turnSx": 1,
+          "facing": 1,
+          "allReached": true,
+          "finalState": "linked",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "k": 1.152,
+          "ew": 148,
+          "board": {
+            "x": 332.05,
+            "y": 0,
+            "w": 849.85,
+            "h": 584
+          },
+          "ends": [
+            {
+              "c": {
+                "x": 473.27,
+                "y": 199.67
+              },
+              "e": {
+                "x": 567.18,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 668.79,
+                "y": 199.67
+              },
+              "e": {
+                "x": 903.55,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 942.93,
+                "y": 199.67
+              },
+              "e": {
+                "x": 971.65,
+                "y": 345.16
+              }
+            }
+          ],
+          "threadEnds": [
+            {
+              "x": 567.18,
+              "y": 345.16
+            },
+            {
+              "x": 903.55,
+              "y": 345.16
+            },
+            {
+              "x": 971.65,
+              "y": 345.16
+            }
+          ],
+          "mag": {
+            "x": 838.9589500439238,
+            "y": 541.9,
+            "w": 122.4,
+            "h": 122.4
+          },
+          "cards": [
+            {
+              "x": 463.47732738788574,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            },
+            {
+              "x": 835.3761830247818,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            }
+          ],
+          "ev0": {
+            "x": 543.5,
+            "y": 401.18
+          },
+          "ev1": {
+            "x": 915.39,
+            "y": 401.18
+          },
+          "ev2": {
+            "x": 0,
+            "y": 0
+          },
+          "te0": {
+            "x": 567.18,
+            "y": 345.16
+          },
+          "te1": {
+            "x": 903.55,
+            "y": 345.16
+          },
+          "te2": {
+            "x": 971.65,
+            "y": 345.16
+          },
+          "te3": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: pinned: cards on the board, threads left loose @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "rest",
+          "handA": {
+            "x": 267.54,
+            "y": 550.29
+          },
+          "handW": {
+            "x": 85.25,
+            "y": 550.29
+          },
+          "heldGrip": null,
+          "heldThread": null,
+          "held": null,
+          "holders": [
+            "board",
+            "board"
+          ],
+          "threads": [
+            "loose",
+            "loose",
+            "loose"
+          ],
+          "linkKinds": [
+            "direct",
+            "direct",
+            "disputed"
+          ],
+          "turnSx": 1,
+          "facing": 1,
+          "allReached": true,
+          "finalState": "pinned",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "k": 1.152,
+          "ew": 148,
+          "board": {
+            "x": 332.05,
+            "y": 0,
+            "w": 849.85,
+            "h": 584
+          },
+          "ends": [
+            {
+              "c": {
+                "x": 473.27,
+                "y": 199.67
+              },
+              "e": {
+                "x": 567.18,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 668.79,
+                "y": 199.67
+              },
+              "e": {
+                "x": 903.55,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 942.93,
+                "y": 199.67
+              },
+              "e": {
+                "x": 971.65,
+                "y": 345.16
+              }
+            }
+          ],
+          "threadEnds": [
+            {
+              "x": 490.17,
+              "y": 279.69
+            },
+            {
+              "x": 711.05,
+              "y": 279.69
+            },
+            {
+              "x": 948.1,
+              "y": 279.69
+            }
+          ],
+          "mag": {
+            "x": 838.9589500439238,
+            "y": 541.9,
+            "w": 122.4,
+            "h": 122.4
+          },
+          "cards": [
+            {
+              "x": 463.47732738788574,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            },
+            {
+              "x": 835.3761830247818,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            }
+          ],
+          "ev0": {
+            "x": 543.5,
+            "y": 401.18
+          },
+          "ev1": {
+            "x": 915.39,
+            "y": 401.18
+          },
+          "ev2": {
+            "x": 0,
+            "y": 0
+          },
+          "te0": {
+            "x": 490.17,
+            "y": 279.69
+          },
+          "te1": {
+            "x": 711.05,
+            "y": 279.69
+          },
+          "te2": {
+            "x": 948.1,
+            "y": 279.69
+          },
+          "te3": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: pending: nothing is placed @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "rest",
+          "handA": {
+            "x": 270.72,
+            "y": 550.29
+          },
+          "handW": {
+            "x": 213.24,
+            "y": 493.84
+          },
+          "heldGrip": null,
+          "heldThread": null,
+          "held": null,
+          "holders": [
+            "witness",
+            "table"
+          ],
+          "threads": [
+            "loose",
+            "loose",
+            "loose"
+          ],
+          "linkKinds": [
+            "direct",
+            "direct",
+            "disputed"
+          ],
+          "turnSx": 1,
+          "facing": -1,
+          "allReached": true,
+          "finalState": "pending",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "k": 1.152,
+          "ew": 148,
+          "board": {
+            "x": 332.05,
+            "y": 0,
+            "w": 849.85,
+            "h": 584
+          },
+          "ends": [
+            {
+              "c": {
+                "x": 473.27,
+                "y": 199.67
+              },
+              "e": {
+                "x": 567.18,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 668.79,
+                "y": 199.67
+              },
+              "e": {
+                "x": 903.55,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 942.93,
+                "y": 199.67
+              },
+              "e": {
+                "x": 971.65,
+                "y": 345.16
+              }
+            }
+          ],
+          "threadEnds": [
+            {
+              "x": 490.17,
+              "y": 279.69
+            },
+            {
+              "x": 711.05,
+              "y": 279.69
+            },
+            {
+              "x": 948.1,
+              "y": 279.69
+            }
+          ],
+          "mag": {
+            "x": 838.9589500439238,
+            "y": 541.9,
+            "w": 122.4,
+            "h": 122.4
+          },
+          "cards": [
+            {
+              "x": 463.47732738788574,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            },
+            {
+              "x": 835.3761830247818,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            }
+          ],
+          "ev0": {
+            "x": 213.24,
+            "y": 493.84
+          },
+          "ev1": {
+            "x": 465.12,
+            "y": 533.05
+          },
+          "ev2": {
+            "x": 0,
+            "y": 0
+          },
+          "te0": {
+            "x": 490.17,
+            "y": 279.69
+          },
+          "te1": {
+            "x": 711.05,
+            "y": 279.69
+          },
+          "te2": {
+            "x": 948.1,
+            "y": 279.69
+          },
+          "te3": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "phase": "walk",
+          "handA": {
+            "x": 589.25,
+            "y": 493.84
+          },
+          "handW": {
+            "x": 85.25,
+            "y": 550.29
+          },
+          "heldGrip": null,
+          "heldThread": {
+            "x": 589.25,
+            "y": 493.84
+          },
+          "held": "thread0",
+          "holders": [
+            "board",
+            "table"
+          ],
+          "threads": [
+            "held",
+            "loose",
+            "loose"
+          ],
+          "linkKinds": [
+            "direct",
+            "direct",
+            "disputed"
+          ],
+          "turnSx": 1,
+          "facing": 1,
+          "allReached": true,
+          "finalState": "linked",
+          "actionCapped": true,
+          "problems": [],
+          "textPx": 24,
+          "k": 1.152,
+          "ew": 148,
+          "board": {
+            "x": 332.05,
+            "y": 0,
+            "w": 849.85,
+            "h": 584
+          },
+          "ends": [
+            {
+              "c": {
+                "x": 473.27,
+                "y": 199.67
+              },
+              "e": {
+                "x": 567.18,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 668.79,
+                "y": 199.67
+              },
+              "e": {
+                "x": 903.55,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 942.93,
+                "y": 199.67
+              },
+              "e": {
+                "x": 971.65,
+                "y": 345.16
+              }
+            }
+          ],
+          "threadEnds": [
+            {
+              "x": 589.25,
+              "y": 493.84
+            },
+            {
+              "x": 711.05,
+              "y": 279.69
+            },
+            {
+              "x": 948.1,
+              "y": 279.69
+            }
+          ],
+          "mag": {
+            "x": 838.9589500439238,
+            "y": 541.9,
+            "w": 122.4,
+            "h": 122.4
+          },
+          "cards": [
+            {
+              "x": 463.47732738788574,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            },
+            {
+              "x": 835.3761830247818,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            }
+          ],
+          "ev0": {
+            "x": 543.5,
+            "y": 401.18
+          },
+          "ev1": {
+            "x": 465.12,
+            "y": 533.05
+          },
+          "ev2": {
+            "x": 0,
+            "y": 0
+          },
+          "te0": {
+            "x": 589.25,
+            "y": 493.84
+          },
+          "te1": {
+            "x": 711.05,
+            "y": 279.69
+          },
+          "te2": {
+            "x": 948.1,
+            "y": 279.69
+          },
+          "te3": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the rest state exactly @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "phase": "rest",
+          "handA": {
+            "x": 270.72,
+            "y": 550.29
+          },
+          "handW": {
+            "x": 213.24,
+            "y": 493.84
+          },
+          "heldGrip": null,
+          "heldThread": null,
+          "held": null,
+          "holders": [
+            "witness",
+            "table"
+          ],
+          "threads": [
+            "loose",
+            "loose",
+            "loose"
+          ],
+          "linkKinds": [
+            "direct",
+            "direct",
+            "disputed"
+          ],
+          "turnSx": 1,
+          "facing": -1,
+          "allReached": true,
+          "finalState": "linked",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 24,
+          "k": 1.152,
+          "ew": 148,
+          "board": {
+            "x": 332.05,
+            "y": 0,
+            "w": 849.85,
+            "h": 584
+          },
+          "ends": [
+            {
+              "c": {
+                "x": 473.27,
+                "y": 199.67
+              },
+              "e": {
+                "x": 567.18,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 668.79,
+                "y": 199.67
+              },
+              "e": {
+                "x": 903.55,
+                "y": 345.16
+              }
+            },
+            {
+              "c": {
+                "x": 942.93,
+                "y": 199.67
+              },
+              "e": {
+                "x": 971.65,
+                "y": 345.16
+              }
+            }
+          ],
+          "threadEnds": [
+            {
+              "x": 490.17,
+              "y": 279.69
+            },
+            {
+              "x": 711.05,
+              "y": 279.69
+            },
+            {
+              "x": 948.1,
+              "y": 279.69
+            }
+          ],
+          "mag": {
+            "x": 838.9589500439238,
+            "y": 541.9,
+            "w": 122.4,
+            "h": 122.4
+          },
+          "cards": [
+            {
+              "x": 463.47732738788574,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            },
+            {
+              "x": 835.3761830247818,
+              "y": 330.04328785185197,
+              "w": 265.882248148148,
+              "h": 159.3849365925925
+            }
+          ],
+          "ev0": {
+            "x": 213.24,
+            "y": 493.84
+          },
+          "ev1": {
+            "x": 465.12,
+            "y": 533.05
+          },
+          "ev2": {
+            "x": 0,
+            "y": 0
+          },
+          "te0": {
+            "x": 490.17,
+            "y": 279.69
+          },
+          "te1": {
+            "x": 711.05,
+            "y": 279.69
+          },
+          "te2": {
+            "x": 948.1,
+            "y": 279.69
+          },
+          "te3": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0,
+      "pairs": [
+        [
+          "E1-w — Written statement ofW. ",
+          "E2-d"
+        ],
+        [
+          "E2-d — Delivery slip D-14beari",
+          "E3-p"
+        ]
+      ]
+    },
+    {
+      "kind": "text-overlap",
+      "preset": "long-labels-stress",
+      "ratio": "16:9",
+      "u": 0.35,
+      "pairs": [
+        [
+          "E1-w — Written statement ofW. ",
+          "E2-d"
+        ],
+        [
+          "E2-d — Delivery slip D-14beari",
+          "E3-p"
+        ]
+      ]
+    }
+  ],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}

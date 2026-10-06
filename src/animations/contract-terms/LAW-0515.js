@@ -105,10 +105,12 @@ function geom(ctx, F, minF, arrangement) {
   const O = orders(p);
   const n = O.n;
   // ---- the shared strip (annex legend, shared facts, key; the guide label joins at the hold)
-  const stripW = D.w - 2 * m;
+  const fullW = D.w - 2 * m;
+  const sideNotes = arrangement === 'row' && fullW > 1400; // wide frames: notes stacked beside the legend
+  const stripW = sideNotes ? fullW * 0.62 : fullW;
   const legendItems = p.schedules.map((sc, i) => ({i, fit: null, sc}));
   const chipS = F * 1.4;
-  const colsN = arrangement === 'row' ? Math.min(n, stripW > 1500 ? 4 : 2) : 2;
+  const colsN = sideNotes ? 2 : arrangement === 'row' ? Math.min(n, stripW > 1500 ? 4 : 2) : 2;
   const itemW = (stripW - 40 - (colsN - 1) * 24) / colsN;
   for (const it of legendItems) it.fit = fitK(it.sc.label, {maxWidth: itemW - chipS - 14, size: F, minSize: minF, maxLines: stress ? 3 : 2, weight: 700});
   if (legendItems.some(it => it.fit.bad)) why.push('legend-text');
@@ -123,11 +125,12 @@ function geom(ctx, F, minF, arrangement) {
   if (show && p.changedFact) notes.push({name: 'guideLab', kind: 'guide', text: p.changedFact});
   if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
   const contentMin = Math.min(F, ...legendItems.map(it => it.fit.size));
-  const noteW = notes.length ? (stripW - (notes.length - 1) * 18) / notes.length : 0;
+  const noteW = sideNotes ? fullW - stripW - 24 : notes.length ? (stripW - (notes.length - 1) * 18) / notes.length : 0;
   const chips = notes.map(q => chipG(ctx, q.text, {x: 0, y: 0, maxWidth: noteW, size: q.kind === 'key' ? contentMin : F, minSize: Math.min(minF, contentMin), maxLines: stress ? 4 : 3, weight: q.kind === 'key' ? 500 : 700}));
   if (chips.some(c => c.bad)) why.push('notes-text');
   const notesH = chips.length ? Math.max(...chips.map(c => c.box.h)) : 0;
-  const stripH = legendH + (notesH ? notesH + 14 : 0);
+  const notesStackH = chips.reduce((a, c) => a + c.box.h + 10, -10);
+  const stripH = sideNotes ? Math.max(legendH, notesStackH + 8) : legendH + (notesH ? notesH + 14 : 0);
   // ---- panels
   const avail = {x: m, y: m, w: D.w - 2 * m, h: D.h - 2 * m - stripH - (stripH ? 18 : 0)};
   const pw = arrangement === 'row' ? (avail.w - gap) / 2 : avail.w;
@@ -150,7 +153,8 @@ function geom(ctx, F, minF, arrangement) {
   const tierY = k => stage.y + 12 + k * tierH + (tierH - fh) / 2; // folder top in tier k
   const slotY = k => tierY(k) + fh / 2;
   const letterF = clamp(fh * 0.42, minF, F * 1.6);
-  const placedNotes = notes.map((q, j) => ({q, c: chipG(ctx, q.text, {x: m + j * (noteW + 18) + noteW / 2, anchor: 'middle', y: D.h - m - notesH + (notesH - chips[j].box.h) / 2, maxWidth: noteW, size: q.kind === 'key' ? contentMin : F, minSize: Math.min(minF, contentMin), maxLines: stress ? 4 : 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.kind === 'guide' ? ctx.theme.accent2Soft : ctx.theme.card})}));
+  let ny = D.h - m - stripH;
+  const placedNotes = notes.map((q, j) => ({q, c: chipG(ctx, q.text, {x: sideNotes ? m + stripW + 24 + noteW / 2 : m + j * (noteW + 18) + noteW / 2, anchor: 'middle', y: sideNotes ? (ny += (j ? chips[j - 1].box.h + 10 : 0)) : D.h - m - notesH + (notesH - chips[j].box.h) / 2, maxWidth: noteW, size: q.kind === 'key' ? contentMin : F, minSize: Math.min(minF, contentMin), maxLines: stress ? 4 : 3, weight: q.kind === 'key' ? 500 : 700, name: q.name, fill: q.kind === 'guide' ? ctx.theme.accent2Soft : ctx.theme.card})}));
   const legend = {x: m, y: D.h - m - stripH, w: stripW, h: legendH, head, items: legendItems, colsN, itemW, itemH, chipS};
   return {
     ok: !why.length, why, F, minF, arrangement, O, n, panels, pw, ph, badgeR, hdrFits, hdrH, stage, discR, lcW, chipS, fw, fh, trayX, feedX, tierH,

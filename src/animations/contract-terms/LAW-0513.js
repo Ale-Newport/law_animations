@@ -88,7 +88,7 @@ function geom(ctx, F, minF, arr, cols) {
   // ---- the card and the lower/right zone
   let card, zone;
   if (arr === 'side') {
-    const cw = clamp(D.w * (ctx.view.shape === 'landscape' ? 0.32 : stress ? 0.33 : 0.37), 360, 620);
+    const cw = clamp(D.w * (ctx.view.shape === 'landscape' ? 0.32 : stress ? 0.33 : 0.31), 340, 620);
     card = {x: m, y: m, w: cw, h: D.h - 2 * m};
     zone = {x: m + cw + gap, y: m, w: D.w - 2 * m - cw - gap, h: D.h - 2 * m};
   } else {
@@ -132,7 +132,7 @@ function geom(ctx, F, minF, arr, cols) {
   const grip = {x: bw - 26, y: (bh - bandH) * 0.5};
   const portraitish = arr === 'top';
   const shoulder = portraitish ? {x: D.w + 120, y: D.h * 0.86} : {x: D.w + 150, y: D.h * 0.62};
-  const handRest = portraitish ? {x: D.w - 16, y: D.h * 0.86} : {x: D.w - 16, y: D.h * 0.6};
+  const handRest = portraitish ? {x: D.w + 50, y: D.h * 0.86} : {x: D.w + 50, y: D.h * 0.6};
   const targets = [handRest, ...picks.map(q => ({x: q.x + grip.x, y: q.y + grip.y})), ...slots.map(q => ({x: q.x + grip.x, y: q.y + grip.y}))];
   const far = Math.max(...targets.map(q => Math.hypot(q.x - shoulder.x, q.y - shoulder.y))) + 70;
   const near = Math.min(...targets.slice(1).map(q => Math.hypot(q.x - shoulder.x, q.y - shoulder.y)));
@@ -234,6 +234,8 @@ const scene = {
       h('rect', {x: r(tray.x), y: r(tray.y), width: r(tray.w), height: r(tray.h), rx: 18, fill: '#b5834f', stroke: INK, 'stroke-width': 2.8}),
       h('rect', {x: r(tray.x + L.plateW), y: r(tray.y + 12), width: r(tray.w - L.plateW - 12), height: r(tray.h - 24), rx: 10, fill: '#d7b78b', stroke: shade('#b5834f', -0.25), 'stroke-width': 2}),
     );
+    // ghost outlines of the levels still to fill, so the tray reads as a rack of places
+    const ghosts = L.slots.map((s0, k) => h('path', {name: `ghost${k}`, d: roundRectPath(s0.x, s0.y, L.bw, L.bh, 10), fill: 'none', stroke: '#9a7146', 'stroke-width': 2.5, opacity: 0.5}));
     const plates = L.slots.map((s, k) => {
       const cy = s.y + L.bh - L.bandH / 2;
       return g({name: `plate${k}`, opacity: 0.35}, positionDisc(ctx, tray.x + L.plateW / 2, cy, L.discR, L.n - k, show, {fill: '#fff4d6'}));
@@ -261,7 +263,7 @@ const scene = {
     return g({name: 'scene'},
       desk.surface,
       cardNode,
-      trayNode, plates, trayLab,
+      trayNode, ghosts, plates, trayLab,
       marks,
       low,
       g({'clip-path': desk.clip}, L.arm.arm, L.arm.palm),
@@ -321,6 +323,7 @@ const scene = {
       nodes[`bl${j}`] = {opacity: lifted ? 0 : 1};
       nodes[`bh${j}`] = {opacity: lifted ? 1 : 0, transform: T(r(pos.x, 2), r(pos.y, 2))};
       nodes[`plate${j}`] = {opacity: isPlaced ? 1 : 0.35};
+      nodes[`ghost${j}`] = {opacity: isPlaced ? 0 : 0.5};
     }
     // the loupe walks up the list: line n-1-k while carry k runs
     const rowOf = j => n - 1 - j;

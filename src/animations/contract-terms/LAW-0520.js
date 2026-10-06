@@ -107,8 +107,8 @@ function geom(ctx, F, minF) {
   const srcW = P.w + 28;
   const baseH = P.h + 24 + wasH + 10;
   const k = shape === 'square' ? Math.min(area.w / srcW, 3) : Math.min(area.w / srcW, (area.h * 0.97) / baseH, 4.5);
-  const srcH = Math.min(Math.max(baseH, need / k), area.h / k);
-  const src = {x: P.x - 14, y: shape === 'square' ? P.y - 12 : P.y - 12 - Math.max(0, (srcH - baseH) / 2), w: srcW, h: srcH};
+  const srcH = Math.min(Math.max(baseH, need / k, shape === 'square' ? (area.h * 0.86) / k : 0), area.h / k);
+  const src = {x: P.x - 14, y: shape === 'square' ? P.y - 18 - wasH : P.y - 12 - Math.max(0, (srcH - baseH) / 2), w: srcW, h: srcH};
   const dest = {w: src.w * k, h: src.h * k};
   dest.x = corner ? area.x + area.w - dest.w : area.x + (area.w - dest.w) / 2;
   dest.y = corner ? area.y + area.h - dest.h : area.y + (area.h - dest.h) / 2;
@@ -116,7 +116,7 @@ function geom(ctx, F, minF) {
   if (Math.min(dest.w, dest.h) < need * 0.94) why.push('lens-px');
   const {pl, bad} = ns.place();
   if (bad) why.push('note-text');
-  return {...G, ok: !why.length, why, F, minF, A, ck, stepFit, afterFit, wasFit0, wasSize, src, dest, k, step, notesPl: pl};
+  return {...G, ok: !why.length, why, F, minF, A, ck, stepFit, afterFit, wasFit0, wasSize, src, dest, k, step, wasAbove: shape === 'square', wasH, notesPl: pl};
 }
 
 const scene = {
@@ -166,7 +166,7 @@ const scene = {
     // lens content: a copy of the plate (same coordinates) with its labels, ring and the "was" trace
     const stCopy = stationNode(ctx, L, st, 'l-', showAll, {lampOn: true, noText: true});
     const plateCopy = g(null, stCopy.under, stCopy.plate, stCopy.press);
-    const wasChip = showAll ? chipG(ctx, `${ctx.t.was}: ${p.steps[ck]}`, {x: P.x + 6, y: P.y + P.h + 8, maxWidth: P.w - 8, size: L.wasSize / 1.5, minSize: L.wasSize / 1.5, padY: 3, maxLines: 3, weight: 600, fill: '#ffffff'}).node : null;
+    const wasChip = showAll ? chipG(ctx, `${ctx.t.was}: ${p.steps[ck]}`, {x: P.x + 6, y: L.wasAbove ? P.y - L.wasH - 4 : P.y + P.h + 8, maxWidth: P.w - 8, size: L.wasSize / 1.5, minSize: L.wasSize / 1.5, padY: 3, maxLines: 3, weight: 600, fill: '#ffffff'}).node : null;
     const lensContent = g(null, plateCopy, labels('l', showAll), ring('l'), g({name: 'l-was', opacity: 0}, wasChip));
     const lz = lens(ctx, {name: 'lens', source: L.src, dest: L.dest, content: lensContent, color: th.accent2});
     const marker = changedMarker(ctx, {name: 'marker', x: P.x + P.w - 6, y: P.y + 6, radius: 17, opacity: 0});
@@ -203,7 +203,7 @@ const scene = {
     const st = L.step;
     const sc = 1 + (st.cs - 1) * ease.inOutSine(pq);
     nodes.ctx = {transform: `translate(${r(st.ax, 2)} ${r(st.ay, 2)}) scale(${r(sc, 4)}) translate(${r(-st.ax, 2)} ${r(-st.ay, 2)})`};
-    const tq = clamp((sc - 0.975) / 0.025);
+    const tq = pq <= 0.02 ? 1 : 0; // context text only while the lens is closed (no text under the opening lens)
     nodes.creal = {opacity: r(tq, 3)};
     nodes.ghost = {opacity: r(1 - tq, 3)};
     const S2 = L.src, X = v => st.ax + (v - st.ax) * sc, Y = v => st.ay + (v - st.ay) * sc;

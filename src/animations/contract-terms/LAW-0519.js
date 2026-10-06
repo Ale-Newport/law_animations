@@ -64,7 +64,7 @@ function geom(ctx, F, minF) {
   const pad = 14, gapS = 34;
   const n = p.steps.length;
   const notes = [];
-  if (show) notes.push({name: 'only', kind: 'note0', text: ctx.t.only, fill: ctx.theme.accentSoft});
+  if (show) notes.push({name: 'only', kind: 'note0', text: ctx.t.only, fill: ctx.theme.accent2Soft});
   if (showKey) notes.push({name: 'key', kind: 'key', text: ctx.t.key});
   if (show) p.annotations.forEach((an, i) => notes.push({name: `ann${i}`, kind: 'ann', text: an.text}));
   const ns = notesStrip(ctx, notes, F, minF, {keySize: stress ? minF : undefined});
@@ -91,7 +91,7 @@ function geom(ctx, F, minF) {
   // one small station (gantry + press) per step; the card pauses so that the press of station k meets its tab k
   const cHead = clamp(F * 1.05, 22, 30);
   const stackC = S.w < 700;
-  const cw = Math.min(S.w * (stackC ? (stress ? 0.4 : 0.42) : 0.36), 300);
+  const cw = Math.min(S.w * (stackC ? (stress || n >= 4 ? 0.4 : 0.42) : 0.36), 300);
   const propFit = fitG(p.proposal, {maxWidth: cw - 18, size: F, minSize: minF, maxLines: stress ? 4 : 3, weight: 800});
   const chMin = cHead + 10 + propFit.height + 10;
   const cX = stackC ? cw + 26 : S.w * 0.36, cW = S.w - cX;

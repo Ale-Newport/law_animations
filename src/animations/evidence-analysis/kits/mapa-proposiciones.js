@@ -13,7 +13,7 @@ import {T} from '../../../core/transform.js';
 import {clamp, r} from '../../../core/time.js';
 import {str, obj} from '../../../schemas/fields.js';
 import {
-  fitG, claimCardArt, evidenceArt, exhibitTag, pushpin, noteColors,
+  fitG, textAt, claimCardArt, evidenceArt, exhibitTag, pushpin, noteColors,
 } from './analysis-art.js';
 
 export const MP_LABELS_EN = {
@@ -59,21 +59,35 @@ export function boardLayout(inner, P, links, o = {}) {
   const ew0 = (inner.w * (eb - ea) - pad * 2) / nE;
   // evidence cards: as large as the band below the claims allows, leaving a real gap for the threads
   const gapMin = Math.max(56, inner.h * (o.gap ?? 0.2));
-  const availH = inner.h - pad * 1.5 - ch - gapMin;
-  const ew = Math.max(20, Math.min(ew0 * 0.56, inner.h * 0.34 * k, availH / 1.4));
-  const eh = ew * 1.22;
-  const th = Math.max(26, ew * 0.3);
-  const tw = Math.max(ew * 0.62, (o.idW || 0) / 0.62 + th * 0.2);
+  // optional slot labels printed on the board under each evidence card (o.evLabel(width) → block height)
+  const labW = ew0 * 0.94;
+  const labH = o.evLabel ? o.evLabel(labW) + 10 : 0;
+  const availH = inner.h - pad * 1.5 - ch - gapMin - labH;
+  // portrait cards when the band is tall enough; otherwise squarer cards keep them large
+  let asp = 1.22;
+  let ew = Math.max(20, Math.min(ew0 * 0.56, inner.h * 0.34 * k, availH / 1.4));
+  if (ew < ew0 * 0.42) { asp = 0.88; ew = Math.max(20, Math.min(ew0 * 0.5, inner.h * 0.34 * k, availH / (asp + 0.2))); }
+  let th = Math.max(26, ew * 0.3);
+  let tw = Math.max(ew * 0.62, (o.idW || 0) / 0.62 + th * 0.2);
+  // card + hanging tag stay inside the card's own column (no tag over the neighbouring card)
+  if (ew * 0.94 + tw * 1.2 + 14 > ew0) {
+    ew = Math.max(20, Math.min(ew, (ew0 - 14 - Math.max(0, tw - ew * 0.62) * 1.2) / (0.94 + 0.62 * 1.2)));
+    th = Math.max(26, ew * 0.3);
+    tw = Math.max(ew * 0.62, (o.idW || 0) / 0.62 + th * 0.2);
+  }
+  const eh = ew * asp;
   const claims = P.claims.map((c, i) => {
     const cx = inner.x + inner.w * ca + pad + cw0 * (i + 0.5);
     const x = cx - cw / 2, y = inner.y + pad * 0.9;
     return {i, x, y, w: cw, h: ch, cx, pin: {x: cx, y: y + Math.max(8, ch * 0.08)}};
   });
   const evid = P.evidence.map((e, j) => {
-    const cx = inner.x + inner.w * ea + pad + ew0 * (j + 0.5) - tw * 0.3;
-    const y = inner.y + inner.h - pad * 0.6 - eh - th * 0.55;
+    const rx = inner.x + inner.w * ea + pad + ew0 * (j + 0.5);
+    const cx = rx - tw * 0.3;
+    const y = inner.y + inner.h - pad * 0.6 - labH - eh - (labH ? Math.max(0, th * 1.45 - eh * 0.38) : th * 0.55);
     const x = cx - ew / 2;
-    return {j, x, y, w: ew, h: eh, cx, kind: e.kind, pin: {x: x + ew * 0.16, y: y + Math.max(9, eh * 0.09)}, tag: {x: x + ew - ew * 0.06, y: y + eh * 0.62, tw, th}};
+    const label = labH ? {x: rx - labW / 2, y: y + eh + Math.max(0, th * 1.45 - eh * 0.38) + 8, w: labW, h: labH - 10} : null;
+    return {j, x, y, w: ew, h: eh, cx, kind: e.kind, label, pin: {x: x + ew * 0.16, y: y + Math.max(9, eh * 0.09)}, tag: {x: x + ew - ew * 0.06, y: y + eh * 0.62, tw, th}};
   });
   // ports
   const cPorts = claims.map(() => []), ePorts = evid.map(() => []);
@@ -100,7 +114,7 @@ export function boardLayout(inner, P, links, o = {}) {
     e: {x: evid[l.e].x + portOf[l.n].e.dx, y: evid[l.e].y + portOf[l.n].e.dy},
     eLocal: portOf[l.n].e,
   }));
-  return {inner, claims, evid, ends, portOf, cw, ch, ew, eh, tw, th, pad, band};
+  return {inner, claims, evid, ends, portOf, cw, ch, ew, eh, tw, th, pad, band, labW, labH};
 }
 
 /**
@@ -125,12 +139,28 @@ export function idFits(P, BL, s = 1, textF = null) {
   });
   const text = textF ? P.claims.map(c => claimTextFit(c.text, BL.cw, textF)) : null;
   if (text && text.some(f => !f.ok)) ok = false;
-  return {claim, ev, text, ok};
+  const evText = textF && BL.labH ? P.evidence.map(e => evLabelFit(e, BL.labW, textF)) : null;
+  if (evText && evText.some(f => !f.ok)) ok = false;
+  return {claim, ev, text, evText, ok};
 }
 
 /** Claim text printed on a card of width cw at size F (up to 4 lines, never below F). */
 export function claimTextFit(text, cw, F) {
   return fitG(text, {maxWidth: cw * 0.86, size: F, minSize: F, maxLines: 4, weight: 500});
+}
+
+/** Evidence slot label `E1 — label` printed on the board (up to 3 lines, never below F). */
+export function evLabelFit(e, w, F) {
+  return fitG(`${e.id} — ${e.label}`, {maxWidth: w, size: F, minSize: F, maxLines: 3, weight: 500});
+}
+
+/** Height callback for boardLayout's evLabel option. */
+export const evLabelH = (P, F) => w => Math.max(...P.evidence.map(e => evLabelFit(e, w, F).height));
+
+/** Slot labels on the board (static text under each evidence slot). */
+export function slotLabelNodes(ctx, BL, ids, name) {
+  if (!ids || !ids.evText) return g({name});
+  return g({name}, BL.evid.map((E, j) => textAt(ids.evText[j], {x: E.label.x + E.label.w / 2, y: E.label.y, anchor: 'middle', fill: '#3a3226'})));
 }
 
 /** Height callback for boardLayout's claimText option. */
@@ -190,7 +220,7 @@ export function contentRows(ctx, P, links, o = {}) {
   const rows = [];
   if (!ctx.show('key')) return rows;
   if (o.claims !== false) P.claims.forEach((c, i) => rows.push({kind: 'item', icon: 'claim', index: i, text: `${c.id} — ${c.text}`, name: `lg-c${i}`}));
-  P.evidence.forEach((e, j) => rows.push({kind: 'item', icon: `ev-${e.kind}`, look: (o.looks || [])[j], text: `${e.id} — ${e.label}`, name: `lg-e${j}`}));
+  if (o.evidence !== false) P.evidence.forEach((e, j) => rows.push({kind: 'item', icon: `ev-${e.kind}`, look: (o.looks || [])[j], text: `${e.id} — ${e.label}`, name: `lg-e${j}`}));
   if (o.links === 'each') links.forEach(l => { if (l.n !== o.skipLink) rows.push({kind: 'item', icon: `line-${l.kind}`, text: linkLine(P, l), name: `lg-l${l.n}`}); });
   else if (o.links !== false) for (const kind of ['direct', 'disputed']) if (links.some(l => l.kind === kind)) rows.push({kind: 'item', icon: `line-${kind}`, text: kind === 'direct' ? P.labels.direct : P.labels.disputed, name: `lg-k-${kind}`});
   if (o.open !== false && ctx.show('all')) P.uncertainties.forEach((u, i) => rows.push({kind: 'item', icon: 'open', text: u, name: `lg-u${i}`}));

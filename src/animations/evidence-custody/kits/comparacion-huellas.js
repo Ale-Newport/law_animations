@@ -62,7 +62,7 @@ export const fcFields = {
 const SEG_DEFAULT = [{a: 'arc', b: 'arc'}, {a: 'fork', b: 'fork'}, {a: 'loop', b: 'loop'}, {a: 'end', b: 'dot'}, {a: 'dot', b: 'dot'}];
 
 export const FC_EN = {
-  items: [{id: 'Item E-07 (fictional)', label: 'Drinking mug left on a counter (fictional)', kind: 'cup'}],
+  items: [{id: 'Item E-07 (fictional)', label: 'Mug left on a counter (fictional)', kind: 'cup'}],
   custodians: [{name: 'L. Moreau (fictional)', role: 'Person comparing the cards'}],
   timestamps: [{label: 'Print lifted', time: '11:20 (illustrative)'}, {label: 'Comparison noted', time: '11:48 (illustrative)'}],
   records: [
@@ -72,12 +72,12 @@ export const FC_EN = {
     {field: 'Card', value: 'Lift 1'},
   ],
   segments: SEG_DEFAULT,
-  cards: {a: 'Lifted card · print lifted from the mug (fictional)', b: 'Reference card (fictional)'},
-  matchLabels: {same: 'Bridge: both symbols supplied as the same', differ: 'Open stubs: symbols supplied as different (illustrative)'},
+  cards: {a: 'Lifted card (from the mug, fictional)', b: 'Reference card (fictional)'},
+  matchLabels: {same: 'Bridge: same symbol supplied', differ: 'Open stubs: different symbols supplied'},
   labels: {key: 'As supplied · no conclusion drawn', blank: '(left blank, as supplied)'},
 };
 export const FC_ES = {
-  items: [{id: 'Indicio E-07 (ficticio)', label: 'Taza dejada en una encimera (ficticia)', kind: 'cup'}],
+  items: [{id: 'Indicio E-07 (ficticio)', label: 'Taza en una encimera (ficticia)', kind: 'cup'}],
   custodians: [{name: 'L. Moreau (ficticia)', role: 'Persona que compara las tarjetas'}],
   timestamps: [{label: 'Huella levantada', time: '11:20 (ilustrativo)'}, {label: 'Comparación anotada', time: '11:48 (ilustrativo)'}],
   records: [
@@ -87,8 +87,8 @@ export const FC_ES = {
     {field: 'Tarjeta', value: 'Levantamiento 1'},
   ],
   segments: SEG_DEFAULT,
-  cards: {a: 'Tarjeta levantada · huella levantada de la taza (ficticia)', b: 'Tarjeta de referencia (ficticia)'},
-  matchLabels: {same: 'Puente: ambos símbolos aportados como iguales', differ: 'Tramos abiertos: símbolos aportados como distintos (ilustrativo)'},
+  cards: {a: 'Tarjeta levantada (de la taza, ficticia)', b: 'Tarjeta de referencia (ficticia)'},
+  matchLabels: {same: 'Puente: mismo símbolo aportado', differ: 'Tramos abiertos: símbolos distintos aportados'},
   labels: {key: 'Según lo aportado · sin conclusión', blank: '(en blanco, según lo aportado)'},
 };
 

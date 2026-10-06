@@ -104,7 +104,7 @@ function geom(ctx, F, minF, arr) {
   // ---- the clipboard (table)
   let board, area;
   if (arr === 'side') {
-    const bw = clamp(D.w * (ctx.view.shape === 'landscape' ? 0.4 : 0.47), 400, 760);
+    const bw = clamp(D.w * (ctx.view.shape === 'landscape' ? 0.47 : 0.47), 400, 860);
     board = {x: m, y: m, w: bw, h: D.h - 2 * m};
     area = {x: m + bw + gap, y: m, w: D.w - 2 * m - bw - gap, h: D.h - 2 * m};
   } else {

@@ -35,31 +35,31 @@ const ID = 'LAW-0385';
 const DURATION = 7000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
 const TARGETS = ['object', 'cards', 'pairs', 'reader'];
-let TS_FLOOR = 36;
+const TS_FLOOR = 42;
 const SIZES = [24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 const W = {reachL: [0.15, 0.2], carry: [0.2, 0.3], backL: [0.3, 0.36], reachR: [0.17, 0.24], toCol: [0.28, 0.36], steps: [0.36, 0.72], park: [0.73, 0.79], backR: [0.79, 0.85], notes: [0.8, 0.86], state: [0.8, 0.86]};
 
 const STRINGS = {
   en: {
-    compared: 'Every segment pair is compared in turn: equal values bridged, differing values left open (as supplied)',
-    pending: 'The last segment pair is not yet compared; the other pairs are linked as supplied',
+    compared: 'Every pair compared in turn (as supplied)',
+    pending: 'Last pair not yet compared (as supplied)',
   },
   es: {
-    compared: 'Cada par de segmentos se compara por turno: valores iguales con puente, distintos abiertos (según lo aportado)',
-    pending: 'El último par de segmentos aún no se compara; los demás pares quedan unidos según lo aportado',
+    compared: 'Cada par comparado por turno (según lo aportado)',
+    pending: 'Último par aún sin comparar (según lo aportado)',
   },
 };
 
 const OWN_EN = {
-  actorLabels: {a: 'Gloved hands of the person comparing (fictional, generic)'},
-  objectLabels: {lightbox: 'Light box with two card rows', reader: 'Reading frame slid pair by pair', tag: 'Tag on a ball chain', bag: 'Open evidence bag'},
-  annotations: [{target: 'pairs', text: 'Each pair is linked only once the frame sits on it'}],
+  actorLabels: {a: 'Gloved hands (generic)'},
+  objectLabels: {lightbox: 'Light box', reader: 'Reading frame', tag: 'Tag on a chain', bag: 'Open bag'},
+  annotations: [{target: 'pairs', text: 'A pair is linked once the frame is on it'}],
   stateCaption: '',
 };
 const OWN_ES = {
-  actorLabels: {a: 'Manos enguantadas de quien compara (ficticias, genéricas)'},
-  objectLabels: {lightbox: 'Caja de luz con dos filas de tarjetas', reader: 'Marco de lectura deslizado par a par', tag: 'Etiqueta en una cadena de bolas', bag: 'Bolsa de pruebas abierta'},
-  annotations: [{target: 'pairs', text: 'Cada par se une solo cuando el marco está sobre él'}],
+  actorLabels: {a: 'Manos enguantadas (genéricas)'},
+  objectLabels: {lightbox: 'Caja de luz', reader: 'Marco de lectura', tag: 'Etiqueta en cadena', bag: 'Bolsa abierta'},
+  annotations: [{target: 'pairs', text: 'Un par se une cuando el marco está encima'}],
   stateCaption: '',
 };
 const EN = {...FC_EN, ...OWN_EN};
@@ -98,11 +98,8 @@ function legendRows(ctx, P, recs) {
   if (showKey) rows.push({kind: 'item', icon: 'fc-differ', text: P.matchLabels.differ, name: 'lg-differ'});
   if (showKey) recs.forEach((rw, i) => rows.push({kind: 'item', icon: rw.filled ? 'row-filled' : 'row-blank', text: fcRecordLine(rw, P.labels.blank), name: `lg-rec${i}`}));
   if (showAll) P.custodians.forEach((c, i) => rows.push({kind: 'item', icon: i === 0 ? 'glove' : 'custodian', text: `${c.name} · ${c.role}`, name: `lg-cus${i}`}));
-  if (showAll) P.timestamps.forEach((t, i) => rows.push({kind: 'item', icon: 'clock', text: `${t.label} · ${t.time}`, name: `lg-time${i}`}));
-  if (showAll) rows.push({kind: 'item', icon: 'fc-lightbox', text: P.objectLabels.lightbox, name: 'lg-lightbox'});
-  if (showAll) rows.push({kind: 'item', icon: 'fc-reader', text: P.objectLabels.reader, name: 'lg-reader'});
-  if (showAll) rows.push({kind: 'item', icon: 'tag', text: P.objectLabels.tag, name: 'lg-tag'});
-  if (showAll) rows.push({kind: 'item', icon: 'bag', text: P.objectLabels.bag, name: 'lg-bag'});
+  if (showAll) rows.push({kind: 'item', icon: 'clock', text: P.timestamps.map(t => `${t.label} · ${t.time}`).join('; '), name: 'lg-times'});
+  if (showAll) rows.push({kind: 'item', icon: 'fc-reader', text: [P.objectLabels.lightbox, P.objectLabels.reader, P.objectLabels.tag, P.objectLabels.bag].join(' · '), name: 'lg-props'});
   if (showAll) rows.push({kind: 'item', icon: 'glove', text: P.actorLabels.a, name: 'lg-hands'});
   if (showAll) P.annotations.forEach((a, i) => rows.push({kind: 'item', icon: 'ring', color: notes[i % 2], text: a.text, name: `note${i}`}));
   if (showKey) rows.push({kind: 'state', text: P.stateCaption || ctx.t[P.finalState], name: 'state-tag'});
@@ -197,7 +194,7 @@ const scene = {
     const rows = legendRows(ctx, P, recs);
     const shape = ctx.view.shape;
     const opts = shape === 'portrait' ? [{mode: 'below', cols: 1}, {mode: 'below', cols: 2}]
-      : shape === 'square' ? [{mode: 'side', pw: 0.42}, {mode: 'side', pw: 0.5}, {mode: 'below', cols: 2}, {mode: 'below', cols: 3}]
+      : shape === 'square' ? [{mode: 'side', pw: 0.32}, {mode: 'side', pw: 0.37}, {mode: 'side', pw: 0.42}, {mode: 'side', pw: 0.47}, {mode: 'below', cols: 2}, {mode: 'below', cols: 3}]
         : [{mode: 'side', pw: 0.28}, {mode: 'side', pw: 0.34}, {mode: 'side', pw: 0.4}, {mode: 'side', pw: 0.46, cols: 2}, {mode: 'side', pw: 0.52, cols: 2}];
     const arrs = ['wide', 'wideLow', 'tall'];
     let C = null, best = null, bestScore = -1, firstOk = -1;

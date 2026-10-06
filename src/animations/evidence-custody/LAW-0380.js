@@ -145,9 +145,10 @@ const scene = {
     const kpx = Math.min(ctx.view.content.w / DW, ctx.view.content.h / DH);
     const need = (0.36 * Math.min(ctx.view.width, ctx.view.height)) / kpx;
     const regions = {
-      right: {x: src.x + src.w + gap, y: 4, w: DW - (src.x + src.w + gap) - 4, h: DH - 8},
+      // the lens goes beside the stepped-aside context (clear of its list), not merely beside the source
+      right: {x: Math.max(src.x + src.w, step.x + (B0.x + B0.w) * sc) + gap, y: 4, w: DW - (Math.max(src.x + src.w, step.x + (B0.x + B0.w) * sc) + gap) - 4, h: DH - 8},
       left: {x: 4, y: 4, w: src.x - gap - 4, h: DH - 8},
-      bottom: {x: 4, y: src.y + src.h + gap, w: DW - 8, h: DH - (src.y + src.h + gap) - 4},
+      bottom: {x: 4, y: Math.max(src.y + src.h, tallF ? step.y + (B0.y + B0.h) * sc : 0) + gap, w: DW - 8, h: DH - (Math.max(src.y + src.h, tallF ? step.y + (B0.y + B0.h) * sc : 0) + gap) - 4},
       top: {x: 4, y: 4, w: DW - 8, h: src.y - gap - 4},
     };
     let bestP = null, bz = 0;
