@@ -161,11 +161,27 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "pass",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "re-review after fix: all evidence contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es) plus --safe 5-frame strips at 16:9, 9:16 and 1:1 and labels-hidden 1:1 sheets viewed as images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0520/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0520/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0520/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0520/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0520/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0520/sheet-16x9-es.png"
+    ],
+    "findings": [
+      "Fixed: during the lens phase the context steps aside and the lens with the enlarged station plate fills most of the safe box (1:1 ~80%, 9:16 ~85% of height, 16:9 full)",
+      "Wording swap, was-chip and delta marker read; return to the travelled track; labels-hidden reads",
+      "Residual (non-blocking): ~20% empty at the bottom of the 1:1 safe box during the lens; 16:9 long-labels lens is narrower",
+      "Default, alternative and long-labels render at all ratios"
+    ],
+    "sourceHash": "c06ca6ee81c66bd26a7bff38ae223e3183c88e55c37994568aff38ec773b16d6",
+    "renderFingerprint": "ba9a46d44ad0988fcfe6acfa2de1c060016211e182c4dc8c5634f5d535498ecf",
+    "reviewedAt": "2026-10-06T00:05:32.708Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -181,5 +197,10 @@
   "renderFingerprint": "ba9a46d44ad0988fcfe6acfa2de1c060016211e182c4dc8c5634f5d535498ecf",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.4,0.6,0.8,1",
   "thumb": "production/evidence/LAW-0520/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

@@ -185,6 +185,12 @@ function standFor(M, t) {
   return t.x - SHOULDER.x * M.k - Math.max(28 * M.k, dx);
 }
 
+/** Whether target t is within comfortable reach of the near hand when standing at ax facing +1. */
+function canReach(M, ax, t) {
+  const sh = shoulderAt(M, ax, 1);
+  return Math.hypot(t.x - sh.x, t.y - sh.y) < REACH * M.k * 0.9 && t.x > sh.x - 10 * M.k;
+}
+
 /**
  * Build the action script: keyed analyst x, turn, hand targets, witness hand and holder/thread state intervals.
  * Times are in "units" first, then normalised into ACT.
@@ -209,7 +215,7 @@ function buildScript(M, P, links) {
     for (const j of order) {
       if (j === M.wIdx) {
         steps.push({type: 'handoff', j, ax, f, dur: 1.1});
-        steps.push({type: 'turn', ax, carry: j, dur: 0.32});
+        steps.push({type: 'turn', ax, carry: j, dur: 0.5});
         f = 1;
       } else {
         const lg = M.lying[j];
@@ -221,8 +227,18 @@ function buildScript(M, P, links) {
       if (doLink) {
         for (const l of links.filter(q => q.e === j)) {
           const E = M.ends[l.n];
+          if (canReach(M, ax, E.d) && canReach(M, ax, E.e)) {
+            steps.push({type: 'link', l: l.n, ax, f, at: E.d, to: E.e, dur: 0.75});
+            continue;
+          }
+          const mid = (standFor(M, E.d) + standFor(M, E.e)) / 2;
+          if (canReach(M, mid, E.d) && canReach(M, mid, E.e)) {
+            walk(mid, null);
+            steps.push({type: 'link', l: l.n, ax, f, at: E.d, to: E.e, dur: 0.75});
+            continue;
+          }
           walk(standFor(M, E.d), null);
-          steps.push({type: 'grab', l: l.n, ax, f, at: E.d, dur: 0.42});
+          steps.push({type: 'grab', l: l.n, ax, f, at: E.d, dur: 0.45});
           walk(standFor(M, E.e), {thread: l.n});
           steps.push({type: 'join', l: l.n, ax, f, at: E.e, dur: 0.5});
         }
@@ -292,10 +308,13 @@ function poseAt(L, u) {
       phase = done ? phase : 'handoff';
     } else if (s.type === 'turn') {
       ax = s.ax;
-      sx = Math.max(0.06, Math.abs(1 - 2 * E3(t)));
-      f = E3(t) < 0.5 ? -1 : 1;
+      const kt = E3(t);
+      sx = Math.max(0.06, Math.abs(1 - 2 * kt));
+      f = kt < 0.5 ? -1 : 1;
       if (done) { sx = 1; f = 1; }
-      hand = carryHand(M, ax, f);
+      // the card is drawn in to the chest while turning, then held out again
+      const near = 1 - Math.abs(1 - 2 * kt);
+      hand = mixP(carryHand(M, ax, f), {x: ax + f * 34 * M.k, y: M.floor - 215 * M.k}, done ? 0 : near);
       held = {card: s.carry};
       handW = wRest;
       phase = done ? phase : 'turn';
@@ -313,6 +332,15 @@ function poseAt(L, u) {
       else { hand = mixP(s.at, restHand(M, ax, f), E3((t - 0.72) / 0.28)); held = null; cards[s.j].holder = 'board'; cards[s.j].pin = 1; }
       if (done) { cards[s.j].holder = 'board'; cards[s.j].pin = 1; hand = restHand(M, ax, f); held = null; }
       phase = done ? phase : 'pin';
+    } else if (s.type === 'link') {
+      ax = s.ax; f = s.f;
+      if (t < 0.36) { hand = mixP(restHand(M, ax, f), s.at, E3(t / 0.36)); held = null; }
+      else if (t < 0.44) { hand = s.at; held = {thread: s.l}; threads[s.l].state = 'held'; }
+      else if (t < 0.78) { hand = mixP(s.at, s.to, E3((t - 0.44) / 0.34)); held = {thread: s.l}; threads[s.l].state = 'held'; }
+      else if (t < 0.86) { hand = s.to; held = {thread: s.l}; threads[s.l].state = 'held'; }
+      else { hand = mixP(s.to, restHand(M, ax, f), E3((t - 0.86) / 0.14)); held = null; threads[s.l].state = 'joined'; }
+      if (done) { hand = restHand(M, ax, f); held = null; threads[s.l].state = 'joined'; }
+      phase = done ? phase : 'link';
     } else if (s.type === 'grab') {
       ax = s.ax; f = s.f;
       if (t < 0.7) { hand = mixP(restHand(M, ax, f), s.at, E3(t / 0.7)); held = null; }

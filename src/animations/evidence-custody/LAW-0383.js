@@ -111,7 +111,7 @@ function plan(G, rest, lane) {
   const hover = {x: (G.srcBay.x + G.dstBay.x) / 2, y: G.dock.y + G.dock.h + G.S * 0.25};
   const off = G.tagC.w * 0.42;
   const grip = p => ({x: p.x + off, y: p.y});
-  const keys = [[0.05, rest], [0.15, hover]];
+  const keys = [[0.05, rest], [0.15, hover], [0.17, hover]];
   if (lane === 0) keys.push([0.27, d(G.srcBay)], [0.4, d(G.srcBay)], [0.55, d(G.origRest)], [0.66, rest]);
   else keys.push([0.27, d(G.dstBay)], [0.4, d(G.dstBay)], [0.55, d(G.copySpot)], [0.58, grip(G.tagLie)], [0.66, grip(G.tagFinal)], [0.74, rest]);
   return {keys, gy, off};

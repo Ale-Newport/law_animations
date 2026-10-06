@@ -136,13 +136,14 @@ export function fcStage(box, o) {
   const n = o.n;
   const AWu = U.cw + U.cg + n + (n - 1) * U.tg;
   const LBw = AWu + U.pad * 2, LBh = U.ch * 2 + U.rowGap + U.pad * 2;
-  const bagW = 3.0, bagH = 3.3, zoneW = 3.25, zoneH = bagH + 1.5;
+  const zs = o.compact ? 0.74 : 1;
+  const bagW = 3.0 * zs, bagH = 3.3 * zs, zoneW = 3.25 * zs, zoneH = bagH + 1.5 * zs;
   const restDy = o.cardRest ? 1.95 : 0;
   const readerLen = (U.ch + U.rowGap) + 1.4 + U.handle;
   let lay;
   if (o.arrangement === 'wide') {
-    const lbx = zoneW + 0.55;
-    const rx = lbx + LBw + (o.reader === false ? 0 : 0.5 + U.rw / 2);
+    const lbx = zoneW + 0.35;
+    const rx = lbx + LBw + (o.reader === false ? 0 : 0.32 + U.rw / 2);
     const W = o.reader === false ? lbx + LBw : rx + U.rw / 2 + 0.05;
     const H = LBh + (o.cardRest ? restDy - U.pad + 0.35 : 0);
     lay = {W, H: Math.max(H, zoneH + 0.2), zone: {x: 0, y: 0}, lb: {x: lbx, y: 0}, park: {x: rx, y: Math.min(LBh, H) / 2 + 0.1, a: 0}};
@@ -178,12 +179,12 @@ export function fcStage(box, o) {
   const zx = P(lay.zone.x, lay.zone.y);
   const B = bagModel(bagW * ts, bagH * ts);
   const bag = {x: zx.x + 0.1 * ts, y: zx.y + 0.05 * ts, B};
-  const S = 2.05 * ts;
+  const S = 2.05 * ts * zs;
   const M = objectModel(o.kind, S);
   const objC = {x: bag.x + B.inner.x + B.inner.w / 2, y: bag.y + B.inner.y + B.inner.h / 2 + 0.1 * ts};
   const anchor = {x: objC.x + M.anchor.x, y: objC.y + M.anchor.y};
-  const T0 = tagModel({w: 2.75 * ts, h: 1.25 * ts, rows: o.rows});
-  const hole = {x: bag.x + 0.42 * ts, y: bag.y + B.h + 0.78 * ts};
+  const T0 = tagModel({w: 2.75 * ts * zs, h: 1.25 * ts * zs, rows: o.rows});
+  const hole = {x: bag.x + 0.42 * ts * zs, y: bag.y + B.h + 0.78 * ts * zs};
   void mir;
   const xs = [LB.x, LB.x + LB.w, bag.x, bag.x + B.w, hole.x + T0.x1];
   const ys = [LB.y, LB.y + LB.h, bag.y, hole.y + T0.h / 2];

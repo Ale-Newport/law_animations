@@ -34,7 +34,7 @@ const ID = 'LAW-0387';
 const DURATION = 7500;
 const SIZES = [24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 const W = {reach: [0.04, 0.12], ring: [0.18, 0.38], flipOut: [0.22, 0.27], flipIn: [0.27, 0.32], toCol: [0.4, 0.45], steps: [0.45, 0.74], park: [0.74, 0.78], back: [0.78, 0.82], guide: [0.79, 0.85], note: [0.82, 0.87]};
-const TS_FLOOR = 34;
+const TS_FLOOR = 32;
 
 const BASE_SEG = [{a: 'arc', b: 'arc'}, {a: 'fork', b: 'fork'}, {a: 'loop', b: 'loop'}, {a: 'dot', b: 'dot'}, {a: 'end', b: 'end'}];
 const OWN_EN = {
@@ -43,9 +43,9 @@ const OWN_EN = {
   scenarioB: {label: 'Illustrative discrepancy', caption: 'One symbol on the lifted chain differs'},
   changeIndex: 2,
   changeSymbol: 'fork',
-  changedFact: 'Only the third symbol of the lifted chain differs (loop in A, fork in B)',
-  sharedFacts: ['Same cards, same item, same order of comparison'],
-  comparisonLabels: {guide: 'The only pair that differs between A and B', neutral: 'Two supplied situations side by side · no conclusion drawn'},
+  changedFact: 'Only the third lifted symbol differs (loop in A, fork in B)',
+  sharedFacts: ['Same cards, item and order'],
+  comparisonLabels: {guide: 'The only pair that differs in A and B', neutral: 'Two supplied situations · no conclusion drawn'},
 };
 const OWN_ES = {
   segments: BASE_SEG,
@@ -53,9 +53,9 @@ const OWN_ES = {
   scenarioB: {label: 'Discrepancia ilustrativa', caption: 'Un símbolo de la cadena levantada difiere'},
   changeIndex: 2,
   changeSymbol: 'fork',
-  changedFact: 'Solo difiere el tercer símbolo de la cadena levantada (lazo en A, bifurcación en B)',
-  sharedFacts: ['Mismas tarjetas, mismo objeto, mismo orden de comparación'],
-  comparisonLabels: {guide: 'El único par que difiere entre A y B', neutral: 'Dos situaciones aportadas lado a lado · sin conclusión'},
+  changedFact: 'Solo difiere el tercer símbolo levantado (lazo en A, bifurcación en B)',
+  sharedFacts: ['Mismas tarjetas, objeto y orden'],
+  comparisonLabels: {guide: 'El único par distinto entre A y B', neutral: 'Dos situaciones aportadas · sin conclusión'},
 };
 const EN = {...FC_EN, ...OWN_EN};
 const ES = {...FC_ES, ...OWN_ES};
@@ -107,8 +107,8 @@ function compose(ctx, P, recs, LG, arrangement, pairing, F) {
   });
   const b0 = benches[0];
   const inset = Math.max(12, Math.min(b0.w, b0.h) * 0.035);
-  const mat = {x: b0.x + inset * 1.5, y: b0.y + inset * 1.5, w: b0.w - inset * 3, h: b0.h - inset * 3 - Math.min(40, b0.h * 0.06)};
-  const G = fcStage(mat, {n: P.segments.length, rows: recs.length, kind: P.items[0].kind, arrangement, cardRest: false});
+  const mat = {x: b0.x + inset * 1.2, y: b0.y + inset * 1.2, w: b0.w - inset * 2.4, h: b0.h - inset * 2.4};
+  const G = fcStage(mat, {n: P.segments.length, rows: recs.length, kind: P.items[0].kind, arrangement, cardRest: false, compact: true});
   const ok = (!LG.PL || LG.PL.ok) && G.fits && G.ts >= TS_FLOOR && b0.h > 200;
   return {F, LG, benches, mat, G, pairing, ok, problems: [LG.PL && !LG.PL.ok && 'panel-text', !G.fits && 'stage-fit', G.ts < TS_FLOOR && 'stage-small'].filter(Boolean)};
 }
@@ -165,8 +165,8 @@ const scene = {
     const rows = legendRows(ctx, P, recs);
     const shape = ctx.view.shape;
     const opts = shape === 'landscape' ? [{mode: 'below', cols: 3}, {mode: 'below', cols: 2}, {mode: 'side', pw: 0.26}, {mode: 'side', pw: 0.32}]
-      : [{mode: 'below', cols: 2}, {mode: 'below', cols: 3}, {mode: 'side', pw: 0.34}, {mode: 'side', pw: 0.4}, {mode: 'side', pw: 0.45}, {mode: 'side', pw: 0.5}];
-    const pairings = shape === 'landscape' ? ['row', 'column'] : ['column'];
+      : [{mode: 'below', cols: 2}, {mode: 'below', cols: 3}, {mode: 'below', cols: 4}, {mode: 'side', pw: 0.34}, {mode: 'side', pw: 0.4}, {mode: 'side', pw: 0.45}, {mode: 'side', pw: 0.5}];
+    const pairings = shape === 'portrait' ? ['column'] : ['row', 'column'];
     let C = null, best = null, bestScore = -1, firstOk = -1;
     for (const [fi, F] of SIZES.entries()) {
       if (firstOk >= 0 && fi > firstOk + 2) break;
