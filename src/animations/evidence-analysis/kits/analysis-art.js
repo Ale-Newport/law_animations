@@ -326,7 +326,7 @@ export function exhibitTag(ctx, o) {
     h('path', {d: `M0 0Q${r(x0 * 0.4)} ${r(y0 * 0.9)} ${r(x0 + hh * 0.16)} ${r(y0 + hh / 2)}`, fill: 'none', stroke: '#6b5a3a', 'stroke-width': 1.8}),
     h('path', {d: `M${r(x0 + c)} ${r(y0)}H${r(x0 + tw - 5)}Q${r(x0 + tw)} ${r(y0)} ${r(x0 + tw)} ${r(y0 + 5)}V${r(y0 + hh - 5)}Q${r(x0 + tw)} ${r(y0 + hh)} ${r(x0 + tw - 5)} ${r(y0 + hh)}H${r(x0 + c)}L${r(x0)} ${r(y0 + hh - c)}V${r(y0 + c)}Z`, fill: MANILA, stroke: INK, 'stroke-width': 2, 'stroke-linejoin': 'round'}),
     h('circle', {cx: r(x0 + hh * 0.16), cy: r(y0 + hh / 2), r: r(hh * 0.08), fill: shade(MANILA, -0.3)}),
-    o.idFit ? textAt(o.idFit, {x: x0 + hh * 0.34, y: y0 + hh / 2 - o.idFit.size * 0.56, fill: INK}) : h('path', {d: `M${r(x0 + hh * 0.36)} ${r(y0 + hh / 2)}H${r(x0 + tw * 0.8)}`, stroke: MANILA_DARK, 'stroke-width': r(Math.max(3, hh * 0.12)), 'stroke-linecap': 'round'}),
+    o.idFit ? g({name: o.idName}, textAt(o.idFit, {x: x0 + hh * 0.34, y: y0 + hh / 2 - o.idFit.size * 0.56, fill: INK})) : h('path', {d: `M${r(x0 + hh * 0.36)} ${r(y0 + hh / 2)}H${r(x0 + tw * 0.8)}`, stroke: MANILA_DARK, 'stroke-width': r(Math.max(3, hh * 0.12)), 'stroke-linecap': 'round'}),
   );
 }
 

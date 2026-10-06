@@ -133,7 +133,7 @@ function compose(ctx, P, recs, fi, F, LG, opt, vs) {
   const dest = {w: source.w * zoom, h: source.h * zoom};
   dest.x = zoneLens.x + (zoneLens.w - dest.w) / 2; dest.y = zoneLens.y + (zoneLens.h - dest.h) / 2;
   const zoomPx = zoom * vs;
-  const floor = 16 / zoomPx;
+  const floor = (opt.floorPx || 19.6) / zoomPx;
   const R0 = T0.rows[0];
   const size = Math.max(floor, Math.min(22 / zoomPx, T0.pitch * 0.62));
   const fieldW = Math.min((T0.rx1 - T0.rx0) * 0.46, Math.max(...recs.map(rw => measure(rw.field, size, 500))) + size * 0.2);
@@ -154,9 +154,10 @@ function compose(ctx, P, recs, fi, F, LG, opt, vs) {
   const E = G.ext;
   const rsc = clamp(Math.min(mat.h * 0.96 / E.h, mat.w * 0.96 / E.w), 1, 2.2);
   const stageOk = G.S >= 60 && G.S * rsc >= 80;
-  const ok = (!PL || PL.ok) && zoomOk && textOk && lensBig && stageOk;
+  const ctxOk = Math.max(E.w / mat.w, E.h / mat.h) >= 0.47;
+  const ok = (!PL || PL.ok) && zoomOk && textOk && lensBig && stageOk && ctxOk;
   return {F, rsc, bench, mat, panel, PL, G, fi, source, dest, zoom, size, texts, valueX, bFit, aFit, trace, ok, kText: 16.3 / (Math.min(size, trace.size) * vs),
-    zoneCtx, problems: [PL && !PL.ok && 'panel-text', !zoomOk && 'zoom', !textOk && 'lens-text', !lensBig && 'lens-small', !stageOk && 'stage-small'].filter(Boolean)};
+    zoneCtx, problems: [PL && !PL.ok && 'panel-text', !zoomOk && 'zoom', !textOk && 'lens-text', !lensBig && 'lens-small', !stageOk && 'stage-small', !ctxOk && 'context-small'].filter(Boolean)};
 }
 
 function lensParts(ctx, L) {
@@ -174,8 +175,13 @@ function lensParts(ctx, L) {
     h('rect', {x: r(C.source.x - 40), y: r(C.source.y - 40), width: r(C.source.w + 80), height: r(C.source.h + 80), fill: '#3f6b5a'}),
     g({transform: `translate(${r(G.copySpot.x)} ${r(G.copySpot.y)})`}, deviceArt(ctx, G.M, {prefix: 'lzc', role: 'copy', filled: true})),
     h('path', {d: `M${r(G.eyeOf(G.copySpot).x)} ${r(G.eyeOf(G.copySpot).y)}L${r(hole.x)} ${r(hole.y)}`, stroke: '#9ea5ab', 'stroke-width': r(Math.max(4, G.S * 0.04)), 'stroke-linecap': 'round', 'stroke-dasharray': `0.01 ${r(Math.max(5, G.S * 0.05))}`}),
-    g({transform: tagT(hole)}, tagArt(ctx, T0, {prefix: 'lzt', rows: rowsArt, texts: showText ? C.texts : null, valueX: C.valueX, seedKey: 'dc-copy'})),
+    g({transform: tagT(hole)}, tagArt(ctx, T0, {prefix: 'lzt', rows: rowsArt, texts: null, seedKey: 'dc-copy'})),
     g({name: 'lv-text'},
+      showText ? g({transform: tagT(hole)}, h('rect', {x: r(T0.rx0 - 2), y: r(-T0.h / 2 + T0.h * 0.1), width: r(T0.rx1 - T0.rx0 + 4), height: r(T0.h * 0.8), fill: '#ecd6a1'}),
+        C.texts.map((t, i) => g(null,
+          h('line', {x1: r(C.valueX - 4), x2: r(T0.rx1), y1: r(T0.rows[i].y + 2), y2: r(T0.rows[i].y + 2), stroke: '#c9ad6e', 'stroke-width': 1.2}),
+          textAt(t.fieldFit, {x: T0.rx0, y: T0.rows[i].y - t.fieldFit.size * 0.86, fill: '#5b4a2a'}),
+          i !== C.fi && L.recs[i].filled ? textAt(t.valueFit, {x: C.valueX, y: T0.rows[i].y - t.valueFit.size * 0.86, fill: WRITE_INK}) : null))) : null,
       P.beforeValue.trim() ? val(C.bFit, 'lv-before', 1, 0.55) : g({name: 'lv-before'}),
       P.afterValue.trim() ? val(C.aFit, 'lv-after', 0, 0.85) : g({name: 'lv-after', opacity: 0}),
       g({name: 'lv-trace', opacity: 0}, showText ? g(null,
@@ -200,21 +206,29 @@ const scene = {
       : shape === 'square' ? [{mode: 'side', pw: 0.24}, {mode: 'side', pw: 0.28}, {mode: 'side', pw: 0.34}, {mode: 'side', pw: 0.4}, {mode: 'below', cols: 2}]
         : [{mode: 'side', pw: 0.24}, {mode: 'side', pw: 0.28}, {mode: 'side', pw: 0.32}];
     const confs = [];
-    for (const split of [0.62, 0.56, 0.5, 0.44, 0.4]) for (const stage of ['h', 'v']) for (const crop of ['full', 'tag']) confs.push({orient: 'h', split, stage, crop});
-    for (const split of [0.6, 0.54, 0.48, 0.42]) for (const stage of ['h', 'v']) for (const crop of ['full', 'tag']) confs.push({orient: 'v', split, stage, crop});
+    for (const split of [0.62, 0.54, 0.46, 0.4]) for (const stage of ['h', 'v']) for (const crop of ['full', 'tag']) confs.push({orient: 'h', split, stage, crop});
+    for (const split of [0.58, 0.5, 0.42]) for (const stage of ['h', 'v']) for (const crop of ['full', 'tag']) confs.push({orient: 'v', split, stage, crop});
     const rowsL = legendRows(ctx, P, recs, fi);
-    let C = null, best = null, bestScore = -1, firstOk = -1;
-    for (const [fj, F] of SIZES.entries()) {
-      if (firstOk >= 0 && fj > firstOk + 1) break;
-      for (const o0 of opts) {
-        const LG = dcLegendFor(ctx, rowsL, F, o0);
-        if (LG.PL && !LG.PL.ok && C) continue;
-        for (const cf of confs) {
-          const c = compose(ctx, P, recs, fi, F, LG, cf, vs);
-          const score = c.G.S * Math.sqrt(c.rsc) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * Math.min(1.3, c.zoom / 2.5) * (shape === 'square' && o0.mode === 'below' ? 0.7 : 1) * (cf.crop === 'tag' ? 0.8 : 1);
-          if (c.ok && firstOk < 0 && F >= 19.5) firstOk = fj;
-          if (c.ok && score > bestScore) { best = c; bestScore = score; }
-          if (!C || c.problems.length < C.problems.length) C = c;
+    let C = null, best = null, bestScore = -1;
+    const lgs = new Map();
+    // pass 1: lens text at the baseline size (>= 19.5 px); pass 2 (only when nothing fits): the 16 px floor
+    for (const floorPx of [19.6, 16]) {
+      if (best) break;
+      let firstOk = -1;
+      for (const [fj, F] of SIZES.entries()) {
+        if (firstOk >= 0 && fj > firstOk + 1) break;
+        for (const o0 of opts) {
+          const key = `${F}|${o0.mode}|${o0.pw || o0.cols}`;
+          if (!lgs.has(key)) lgs.set(key, dcLegendFor(ctx, rowsL, F, o0));
+          const LG = lgs.get(key);
+          if (LG.PL && !LG.PL.ok && C) continue;
+          for (const cf of confs) {
+            const c = compose(ctx, P, recs, fi, F, LG, {...cf, floorPx}, vs);
+            const score = c.G.S * Math.sqrt(c.rsc) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * Math.min(1.3, c.zoom / 2.5) * (shape === 'square' && o0.mode === 'below' ? 0.7 : 1) * (cf.crop === 'tag' ? 0.8 : 1);
+            if (c.ok && firstOk < 0 && F >= 19.5) firstOk = fj;
+            if (c.ok && score > bestScore) { best = c; bestScore = score; }
+            if (!C || c.problems.length < C.problems.length) C = c;
+          }
         }
       }
     }

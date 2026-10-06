@@ -1,13 +1,13 @@
 {
-  "animationId": "LAW-0515",
+  "animationId": "LAW-0383",
   "generatedBy": "scripts/qa.mjs",
   "treatment": "contrast",
-  "sourceHash": "4ded83c40db8c3c42808b07025c6b4f5864ef9faf89d03d88649f7848c59e005",
-  "implementationHash": "88a6e58f92391b81e8d16879e2bdd7acfb488800c08cef71875a7856a86cbeb6",
+  "sourceHash": "766d45f1c3b39fb0ad623f8961a3932fb3c2ed6e9b6217df763a48071fa5538b",
+  "implementationHash": "98be95866892bab7b4f3b8f4f6c5a41a052ac414bfb349ddce35ae97279d90d1",
   "dependencies": [
-    "src/animations/contract-terms/LAW-0515.js",
-    "src/animations/contract-terms/kits/orden-documentos.js",
-    "src/animations/contract-terms/kits/terminacion-comunicaciones.js",
+    "src/animations/evidence-custody/LAW-0383.js",
+    "src/animations/evidence-custody/kits/copia-digital.js",
+    "src/animations/evidence-custody/kits/evidence-art.js",
     "src/core/define.js",
     "src/core/geometry.js",
     "src/core/i18n.js",
@@ -20,7 +20,9 @@
     "src/core/theme.js",
     "src/core/time.js",
     "src/core/transform.js",
+    "src/frameworks/graph.js",
     "src/primitives/annotate.js",
+    "src/primitives/desk.js",
     "src/primitives/paper.js",
     "src/schemas/fields.js"
   ],
@@ -33,16 +35,16 @@
   },
   "commands": [
     {
-      "command": "npx playwright test tests/animations/LAW-0515.test.js --reporter=line",
+      "command": "npx playwright test tests/animations/LAW-0383.test.js --reporter=line",
       "exitCode": 0
     }
   ],
   "structure": {
     "files": {
-      "module": "src/animations/contract-terms/LAW-0515.js",
-      "metadata": "src/animations/contract-terms/LAW-0515.meta.json",
-      "presets": "src/animations/contract-terms/LAW-0515.presets.json",
-      "test": "tests/animations/LAW-0515.test.js"
+      "module": "src/animations/evidence-custody/LAW-0383.js",
+      "metadata": "src/animations/evidence-custody/LAW-0383.meta.json",
+      "presets": "src/animations/evidence-custody/LAW-0383.presets.json",
+      "test": "tests/animations/LAW-0383.test.js"
     },
     "exists": {
       "module": true,
@@ -61,14 +63,14 @@
   "automatedChecks": {
     "status": "pass",
     "exitCode": 0,
-    "checks": 30,
+    "checks": 26,
     "failed": [],
-    "details": "production/evidence/LAW-0515/automated.json",
-    "sourceHashAtRun": "4ded83c40db8c3c42808b07025c6b4f5864ef9faf89d03d88649f7848c59e005"
+    "details": "production/evidence/LAW-0383/automated.json",
+    "sourceHashAtRun": "766d45f1c3b39fb0ad623f8961a3932fb3c2ed6e9b6217df763a48071fa5538b"
   },
   "captures": [
     {
-      "path": "production/evidence/LAW-0515/sheet-16x9-baseline.png",
+      "path": "production/evidence/LAW-0383/sheet-16x9-baseline.png",
       "ratio": "16:9",
       "preset": "baseline-illustrative",
       "times": [
@@ -83,7 +85,7 @@
       "externalRequests": []
     },
     {
-      "path": "production/evidence/LAW-0515/sheet-9x16-baseline.png",
+      "path": "production/evidence/LAW-0383/sheet-9x16-baseline.png",
       "ratio": "9:16",
       "preset": "baseline-illustrative",
       "times": [
@@ -98,7 +100,7 @@
       "externalRequests": []
     },
     {
-      "path": "production/evidence/LAW-0515/sheet-1x1-baseline.png",
+      "path": "production/evidence/LAW-0383/sheet-1x1-baseline.png",
       "ratio": "1:1",
       "preset": "baseline-illustrative",
       "times": [
@@ -113,7 +115,7 @@
       "externalRequests": []
     },
     {
-      "path": "production/evidence/LAW-0515/sheet-16x9-alternative.png",
+      "path": "production/evidence/LAW-0383/sheet-16x9-alternative.png",
       "ratio": "16:9",
       "preset": "contrast-or-alternative",
       "times": [
@@ -128,7 +130,7 @@
       "externalRequests": []
     },
     {
-      "path": "production/evidence/LAW-0515/sheet-16x9-long-labels.png",
+      "path": "production/evidence/LAW-0383/sheet-16x9-long-labels.png",
       "ratio": "16:9",
       "preset": "long-labels-stress",
       "times": [
@@ -143,7 +145,7 @@
       "externalRequests": []
     },
     {
-      "path": "production/evidence/LAW-0515/sheet-16x9-es.png",
+      "path": "production/evidence/LAW-0383/sheet-16x9-es.png",
       "ratio": "16:9",
       "preset": "baseline-es",
       "times": [
@@ -158,7 +160,7 @@
       "externalRequests": []
     },
     {
-      "path": "production/evidence/LAW-0515/sheet-9x16-alternative.png",
+      "path": "production/evidence/LAW-0383/sheet-9x16-alternative.png",
       "ratio": "9:16",
       "preset": "contrast-or-alternative",
       "times": [
@@ -174,31 +176,11 @@
     }
   ],
   "visualReview": {
-    "status": "pass",
-    "reviewer": "claude subagent (independent reviewer, session 2)",
-    "method": "contact sheets (16:9, 9:16, 1:1, alternative, long-labels, es; plus 9:16 alternative for LAW-0515) and dense frame strips viewed as images; labels-hidden 1:1 safe-box sheet viewed; no real-time playback",
-    "live": null,
-    "artifacts": [
-      "production/evidence/LAW-0515/sheet-16x9-baseline.png",
-      "production/evidence/LAW-0515/sheet-9x16-baseline.png",
-      "production/evidence/LAW-0515/sheet-1x1-baseline.png",
-      "production/evidence/LAW-0515/sheet-16x9-alternative.png",
-      "production/evidence/LAW-0515/sheet-9x16-alternative.png",
-      "production/evidence/LAW-0515/sheet-16x9-long-labels.png",
-      "production/evidence/LAW-0515/sheet-16x9-es.png",
-      "production/scratch/rev-contract-terms-09/rev-LAW-0515.png",
-      "production/scratch/rev-contract-terms-09/rev-LAW-0515-nolabels.png"
-    ],
-    "findings": [
-      "Paired identical trays; only listed position of one annex differs and its folder slides into a different tier; difference chip at hold",
-      "9:16 stacks A/B, 1:1 side by side; fills safe box",
-      "Labels-hidden reads",
-      "Minor: emptied source rack (~1/3 of each panel) left as ghost at hold; folders overlap briefly mid-slide in long-labels t=0.55; stage art modest",
-      "Neutral content"
-    ],
-    "sourceHash": "4ded83c40db8c3c42808b07025c6b4f5864ef9faf89d03d88649f7848c59e005",
-    "renderFingerprint": "b6b3655c4f28711f0b72541216eec96aa476a6f6652230d923479732293727f9",
-    "reviewedAt": "2026-10-06T00:09:00.436Z"
+    "status": "not_reviewed",
+    "reviewer": null,
+    "method": null,
+    "artifacts": [],
+    "findings": []
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -212,13 +194,8 @@
   ],
   "knownIssues": [],
   "accepted": false,
-  "renderFingerprint": "b6b3655c4f28711f0b72541216eec96aa476a6f6652230d923479732293727f9",
+  "renderFingerprint": "ed7db75f3b9d95c57502492e08b9b395c3f52cb53c0d6f92e8e3944d4c5cb621",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.3,0.55,0.72,1",
-  "thumb": "production/evidence/LAW-0515/thumb.png",
-  "captureErrors": [],
-  "contentReview": {
-    "status": "pass",
-    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
-    "legalStatus": "illustrative-unverified"
-  }
+  "thumb": "production/evidence/LAW-0383/thumb.png",
+  "captureErrors": []
 }

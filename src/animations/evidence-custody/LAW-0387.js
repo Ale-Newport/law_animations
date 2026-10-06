@@ -23,8 +23,7 @@ import {seg, clamp, lerp, ease, r} from '../../core/time.js';
 import {str, num, int, list, obj, oneOf} from '../../schemas/fields.js';
 import {T} from '../../core/transform.js';
 import {roundRectPath} from '../../core/geometry.js';
-import {scenarioHeader} from '../../frameworks/paired.js';
-import {ecFields, localised, benchNode, gloveArm, R2, pathAt} from './kits/evidence-art.js';
+import {ecFields, localised, benchNode, gloveArm, R2, pathAt, fitG, textAt} from './kits/evidence-art.js';
 import {
   FC_EN, FC_ES, fcFields, fcRecords, fcRecordLine, SYMBOLS, fcStage, cardArt, lightBoxArt, linkArt, linkProps, readerArt,
   stationBag, poseAt, fcLegendFor, fcPanels,
@@ -34,7 +33,7 @@ const ID = 'LAW-0387';
 const DURATION = 7500;
 const SIZES = [24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 const W = {reach: [0.04, 0.12], ring: [0.18, 0.38], flipOut: [0.22, 0.27], flipIn: [0.27, 0.32], toCol: [0.4, 0.45], steps: [0.45, 0.74], park: [0.74, 0.78], back: [0.78, 0.82], guide: [0.79, 0.85], note: [0.82, 0.87]};
-const TS_FLOOR = 30;
+const TS_FLOOR = 31.5;
 
 const BASE_SEG = [{a: 'arc', b: 'arc'}, {a: 'fork', b: 'fork'}, {a: 'loop', b: 'loop'}, {a: 'dot', b: 'dot'}, {a: 'end', b: 'end'}];
 const OWN_EN = {
@@ -74,6 +73,28 @@ const sceneSchema = {
 };
 const defaultParams = {...EN};
 
+/** Scenario header: lane-coloured letter badge, label (bold) and caption on one line each, both >= the legend size. */
+function header(ctx, o) {
+  const th = ctx.theme;
+  const F = o.F;
+  const R = F * 0.9;
+  const parts = [h('circle', {cx: r(o.x + R), cy: r(o.y + R + 2), r: r(R), fill: o.color, stroke: th.ink, 'stroke-width': 2.5})];
+  if (ctx.show('key')) parts.push(h('text', {x: r(o.x + R), y: r(o.y + R + 2 + F * 0.36), 'text-anchor': 'middle', 'font-size': r(F), 'font-weight': 800, 'font-family': "'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif", fill: '#fff'}, o.letter));
+  const tx = o.x + R * 2 + F * 0.5, tw = o.w - R * 2 - F * 0.6;
+  let ok = true;
+  if (ctx.show('key')) {
+    const f = fitG(o.label, {maxWidth: tw, size: F * 1.05, minSize: F, maxLines: 1, weight: 700});
+    if (!f.ok) ok = false;
+    parts.push(textAt(f, {x: tx, y: o.y, fill: th.fg}));
+  }
+  if (ctx.show('all') && o.caption) {
+    const f2 = fitG(o.caption, {maxWidth: tw, size: F, minSize: F, maxLines: 1, weight: 500});
+    if (!f2.ok) ok = false;
+    parts.push(textAt(f2, {x: tx, y: o.y + F * 1.3, fill: th.fgSoft}));
+  }
+  return {node: g({name: o.name}, parts), ok};
+}
+
 function legendRows(ctx, P, recs) {
   const showKey = ctx.show('key'), showAll = ctx.show('all');
   const rows = [];
@@ -96,7 +117,7 @@ function legendRows(ctx, P, recs) {
 
 function compose(ctx, P, recs, LG, arrangement, pairing, F) {
   const A = LG.area;
-  const head = F * 2.7;
+  const head = F * 2.75;
   const gap = F * 1.2;
   const pw = pairing === 'row' ? (A.w - gap) / 2 : A.w;
   const ph = pairing === 'row' ? A.h : (A.h - gap) / 2;
@@ -109,8 +130,9 @@ function compose(ctx, P, recs, LG, arrangement, pairing, F) {
   const inset = Math.max(12, Math.min(b0.w, b0.h) * 0.035);
   const mat = {x: b0.x + inset * 1.2, y: b0.y + inset * 1.2, w: b0.w - inset * 2.4, h: b0.h - inset * 2.4};
   const G = fcStage(mat, {n: P.segments.length, rows: recs.length, kind: P.items[0].kind, arrangement, cardRest: false, compact: true});
-  const ok = (!LG.PL || LG.PL.ok) && G.fits && G.ts >= TS_FLOOR && b0.h > 200;
-  return {F, LG, benches, mat, G, pairing, ok, problems: [LG.PL && !LG.PL.ok && 'panel-text', !G.fits && 'stage-fit', G.ts < TS_FLOOR && 'stage-small'].filter(Boolean)};
+  const hd = [P.scenarioA, P.scenarioB].every(sc => header(ctx, {F, x: 0, y: 0, w: pw, label: sc.label, caption: sc.caption, color: '#000', letter: 'A'}).ok);
+  const ok = (!LG.PL || LG.PL.ok) && G.fits && G.ts >= TS_FLOOR && b0.h > 200 && hd;
+  return {F, LG, benches, mat, G, pairing, ok, problems: [LG.PL && !LG.PL.ok && 'panel-text', !hd && 'header-text', !G.fits && 'stage-fit', G.ts < TS_FLOOR && 'stage-small'].filter(Boolean)};
 }
 
 function plan(n) {
@@ -234,7 +256,7 @@ const scene = {
           ),
         ),
         bench.frame,
-        scenarioHeader(ctx, {name: `head${K}`, letter: K, label: bi ? P.scenarioB.label : P.scenarioA.label, caption: bi ? P.scenarioB.caption : P.scenarioA.caption, x: b.hx, y: b.hy, w: b.w, h: b.hh, color: bi ? th.accent2 : th.accent3}),
+        header(ctx, {name: `head${K}`, F: C.F, letter: K, label: bi ? P.scenarioB.label : P.scenarioA.label, caption: bi ? P.scenarioB.caption : P.scenarioA.caption, x: b.hx, y: b.hy, w: b.w, color: bi ? th.accent2 : th.accent3}).node,
       );
     });
     // guide: a highlight box around the changed pair in each station and a line joining them

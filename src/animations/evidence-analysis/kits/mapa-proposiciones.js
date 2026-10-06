@@ -183,7 +183,7 @@ export function cardNodes(ctx, BL, P, o) {
     const look = (o.looks || [])[j];
     return g({name: `${o.prefix}-e${j}`, transform: T(E.x, E.y)},
       evidenceArt(ctx, {kind: E.kind, w: E.w, h: E.h, ports: E.ports, look}),
-      g({transform: T(E.w - E.w * 0.06, E.h * 0.62)}, exhibitTag(ctx, {tw: BL.tw, th: BL.th, idFit: show ? o.ids.ev[j] : null})),
+      g({transform: T(E.w - E.w * 0.06, E.h * 0.62)}, exhibitTag(ctx, {tw: BL.tw, th: BL.th, idFit: show ? o.ids.ev[j] : null, idName: show ? `${o.prefix}-e${j}-id` : undefined})),
       g({name: `${o.prefix}-e${j}-pin`, transform: T(E.w * 0.16, Math.max(9, E.h * 0.09)), opacity: o.pinOpacity ?? 1}, pushpin(Math.max(6, E.h * 0.06))),
     );
   });

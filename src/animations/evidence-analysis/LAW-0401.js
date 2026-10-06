@@ -549,6 +549,7 @@ const scene = {
       else { G = M.lying[j]; sy = LIE; }
       grips.push(G);
       nodes[`cd-e${j}`] = {transform: `translate(${r(G.x - (BL.ew / 2) * sxc)} ${r(G.y - (BL.eh / 2) * sy)}) scale(${r(sxc, 4)} ${r(sy, 4)})`};
+      if (L.C.ids && ctx.show('key')) nodes[`cd-e${j}-id`] = {opacity: sy > 0.92 && sxc > 0.92 ? 1 : 0};
       nodes[`cd-e${j}-pin`] = {opacity: r(cs.holder === 'board' ? 1 : cs.pin ?? 0, 3)};
     });
     // threads
