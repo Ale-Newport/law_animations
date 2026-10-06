@@ -4,9 +4,9 @@
 // copy while it is carried, then the tag while it is carried to the copy's eyelet) and the transformation recognisable
 // with labels hidden (the copy's block map is written cell by cell, the original goes back to its bag, the tag ends on
 // the copy's chain).
-// Timing (u, 6 s): rest 0–0.15 · hands to devices 0.15–0.19 · carried into the bays 0.19–0.27 · hands back 0.27–0.33 ·
-// copy written 0.30–0.46 (lamps 0.28–0.48) · hands to the bays 0.47–0.52 · original back to its bag / copy to its spot
-// 0.52–0.60 · right hand to the tag 0.60–0.63, tag carried 0.63–0.70, chain 0.69–0.72 · hand back 0.70–0.76 · notes /
+// Timing (u, 6 s): rest 0–0.15 · hands to devices 0.15–0.21 · carried into the bays 0.21–0.29 · hands back 0.29–0.35 ·
+// copy written 0.32–0.46 (lamps 0.30–0.47) · hands to the bays 0.47–0.53 · original back to its bag / copy to its spot
+// 0.53–0.61 · right hand to the tag 0.61–0.64, tag carried 0.64–0.71, chain 0.70–0.73 · hand back 0.71–0.77 · notes /
 // state 0.77–0.83.
 // Legal: neutral process; the final state is only the supplied state; no doctrine on digital evidence.
 import {test, expect} from '@playwright/test';
@@ -19,22 +19,22 @@ const ID = 'LAW-0381';
 contractSuite(ID, {
   continuity: ['handL', 'handR', 'orig', 'copy', 'tag'],
   attach: [
-    {from: 0.1905, to: 0.2695, a: 'handL', b: 'origGrip', tol: 1.5},
-    {from: 0.5205, to: 0.5995, a: 'handL', b: 'origGrip', tol: 1.5},
-    {from: 0.1905, to: 0.2695, a: 'handR', b: 'copyGrip', tol: 1.5},
-    {from: 0.5205, to: 0.5995, a: 'handR', b: 'copyGrip', tol: 1.5},
-    {from: 0.6305, to: 0.6995, a: 'handR', b: 'tagGrip', tol: 1.5},
+    {from: 0.2105, to: 0.2895, a: 'handL', b: 'origGrip', tol: 1.5},
+    {from: 0.5305, to: 0.6095, a: 'handL', b: 'origGrip', tol: 1.5},
+    {from: 0.2105, to: 0.2895, a: 'handR', b: 'copyGrip', tol: 1.5},
+    {from: 0.5305, to: 0.6095, a: 'handR', b: 'copyGrip', tol: 1.5},
+    {from: 0.6405, to: 0.7095, a: 'handR', b: 'tagGrip', tol: 1.5},
   ],
   semantic: [
     {at: 0, fn: "s.beat === 'rest' && s.origAt === 'bag' && s.copyAt === 'tray' && s.copyCells === 0 && s.tagState === 'lying'", label: 'rest: original in its bag, blank copy in the tray, tag unattached'},
     {at: 0.145, fn: "s.origAt === 'bag' && s.copyCells === 0 && s.flow === 0", label: 'nothing moves during the rest beat'},
-    {at: 0.23, fn: "s.origAt === 'carried' && s.copyAt === 'carried' && s.copyCells === 0", label: 'both devices carried to the dock before any block is written'},
+    {at: 0.25, fn: "s.origAt === 'carried' && s.copyAt === 'carried' && s.copyCells === 0", label: 'both devices carried to the dock before any block is written'},
     {at: 0.38, fn: "s.origAt === 'dock' && s.copyAt === 'dock' && s.flow === 1 && s.copyCells > 0 && s.copyCells < s.cells", label: 'the copy is written while both sit in the dock'},
     {at: 0.5, fn: 's.copyCells === s.cells && s.origCells === s.cells && s.flow === 0', label: 'copy complete; the original map is unchanged'},
-    {at: 0.66, fn: "s.origAt === 'bag' && s.copyAt === 'placed' && s.tagState === 'carried'", label: 'original back in its bag; the tag is carried to the copy'},
+    {at: 0.67, fn: "s.origAt === 'bag' && s.copyAt === 'placed' && s.tagState === 'carried'", label: 'original back in its bag; the tag is carried to the copy'},
     {at: 1, fn: "s.tagState === 'attached' && s.chain === 1 && s.allReached && s.problems.length === 0", label: 'hold: the copy carries its own tag; composition fits'},
     {at: 1, params: {finalState: 'pending'}, fn: "s.tagState === 'lying' && s.chain === 0 && s.copyCells === s.cells && s.origAt === 'bag'", label: 'pending: copy made, tag left unattached'},
-    {at: 1, params: {actionProgress: 0.3}, fn: 's.actionCapped && s.copyCells === 0', label: 'actionProgress freezes the action part-way'},
+    {at: 1, params: {actionProgress: 0.1}, fn: 's.actionCapped && s.copyCells === 0', label: 'actionProgress freezes the action part-way'},
     {at: 0.1, fn: "s.origAt === 'bag' && s.copyCells === 0", label: 'seeking back restores the rest state exactly'},
   ],
 });
@@ -48,7 +48,7 @@ suppliedTextSuite(ID, {
 ratioChecks(ID, 'props held while moved, hands within reach, composition fits', [
   {at: [1], presets: ['baseline-es'], tv: ['all'], fn: 's.textPx >= 19.5', label: 'baseline-es keeps text at >= 19.5 px (baseline floor) in every ratio'},
   {at: times(0.15, 0.8, 0.01), fn: 's.allReached', label: 'the hands stay within reach'},
-  {at: times(0.2, 0.26, 0.01), fn: 'Math.hypot(s.handL.x - s.origGrip.x, s.handL.y - s.origGrip.y) < 2 && Math.hypot(s.handR.x - s.copyGrip.x, s.handR.y - s.copyGrip.y) < 2', label: 'the devices move only in the hands'},
+  {at: times(0.22, 0.28, 0.01), fn: 'Math.hypot(s.handL.x - s.origGrip.x, s.handL.y - s.origGrip.y) < 2 && Math.hypot(s.handR.x - s.copyGrip.x, s.handR.y - s.copyGrip.y) < 2', label: 'the devices move only in the hands'},
   {at: [1], fn: 's.problems.length === 0 && s.S >= 95', label: 'a composition fits with large devices'},
 ]);
 

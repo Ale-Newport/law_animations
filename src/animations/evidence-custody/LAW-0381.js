@@ -7,7 +7,7 @@
  * grey tray; an unattached tag for the copy lies on the mat; two gloved hands rest at the bench edge; a legend lists
  * the item, the copy tag's rows, custodians, times, captions, notes, the supplied state and the neutral key):
  *  0.00–0.15  rest: nothing moves; the original's block map is complete, the copy's cells are empty outlines.
- *  0.15–0.42  the action starts: the left hand lifts the original out of its bag and seats it in the source bay
+ *  0.15–0.42  the action starts (reach 0.15–0.21, carry 0.21–0.29, copy 0.32–0.46): the left hand lifts the original out of its bag and seats it in the source bay
  *             (its tag and chain travel with it); the right hand takes the blank copy from the tray and seats it in
  *             the target bay; the hands withdraw, both lamps turn blue and blocks travel through the dock's window
  *             from the source bay to the target bay while the copy's block map is written cell by cell with exactly
@@ -40,8 +40,8 @@ const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], ho
 const TARGETS = ['original', 'copy', 'dock', 'tag'];
 const SIZES = [24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 const W = {
-  flowOn: [0.28, 0.3], flow: [0.3, 0.46], flowOff: [0.46, 0.48],
-  chain: [0.69, 0.72], notes: [0.77, 0.83], state: [0.77, 0.83],
+  flowOn: [0.3, 0.32], flow: [0.32, 0.46], flowOff: [0.46, 0.47],
+  chain: [0.7, 0.73], notes: [0.77, 0.83], state: [0.77, 0.83],
 };
 
 const STRINGS = {
@@ -130,10 +130,10 @@ function makePlan(G, C, P) {
   const grip = p => ({x: p.x + off, y: p.y});
   const gy = G.M.h * 0.4;
   const d = p => ({x: p.x, y: p.y + gy});
-  const L = [[0.15, C.restL], [0.19, d(G.origRest)], [0.27, d(G.srcBay)], [0.33, C.restL], [0.47, C.restL], [0.52, d(G.srcBay)], [0.6, d(G.origRest)], [0.66, C.restL]];
-  const R = [[0.15, C.restR], [0.19, d(G.copyRest)], [0.27, d(G.dstBay)], [0.33, C.restR], [0.47, C.restR], [0.52, d(G.dstBay)], [0.6, d(G.copySpot)]];
-  if (tagged) R.push([0.63, grip(G.tagLie)], [0.7, grip(G.tagFinal)], [0.76, C.restR]);
-  else R.push([0.66, C.restR]);
+  const L = [[0.15, C.restL], [0.21, d(G.origRest)], [0.29, d(G.srcBay)], [0.35, C.restL], [0.47, C.restL], [0.53, d(G.srcBay)], [0.61, d(G.origRest)], [0.67, C.restL]];
+  const R = [[0.15, C.restR], [0.21, d(G.copyRest)], [0.29, d(G.dstBay)], [0.35, C.restR], [0.47, C.restR], [0.53, d(G.dstBay)], [0.61, d(G.copySpot)]];
+  if (tagged) R.push([0.64, grip(G.tagLie)], [0.71, grip(G.tagFinal)], [0.77, C.restR]);
+  else R.push([0.67, C.restR]);
   return {L, R, tagged, off, gy};
 }
 
@@ -143,20 +143,20 @@ function poseAt(L, u) {
   const ua = P.actionProgress >= 1 ? u : Math.min(u, capU);
   const hL = pathAt(plan.L, ua), hR = pathAt(plan.R, ua);
   let orig, origAt;
-  if (ua < 0.19) { orig = G.origRest; origAt = 'bag'; }
-  else if (ua < 0.27) { orig = {x: hL.x, y: hL.y - plan.gy}; origAt = 'carried'; }
-  else if (ua < 0.52) { orig = G.srcBay; origAt = 'dock'; }
-  else if (ua < 0.6) { orig = {x: hL.x, y: hL.y - plan.gy}; origAt = 'carried'; }
+  if (ua < 0.21) { orig = G.origRest; origAt = 'bag'; }
+  else if (ua < 0.29) { orig = {x: hL.x, y: hL.y - plan.gy}; origAt = 'carried'; }
+  else if (ua < 0.53) { orig = G.srcBay; origAt = 'dock'; }
+  else if (ua < 0.61) { orig = {x: hL.x, y: hL.y - plan.gy}; origAt = 'carried'; }
   else { orig = G.origRest; origAt = 'bag'; }
   let copy, copyAt;
-  if (ua < 0.19) { copy = G.copyRest; copyAt = 'tray'; }
-  else if (ua < 0.27) { copy = {x: hR.x, y: hR.y - plan.gy}; copyAt = 'carried'; }
-  else if (ua < 0.52) { copy = G.dstBay; copyAt = 'dock'; }
-  else if (ua < 0.6) { copy = {x: hR.x, y: hR.y - plan.gy}; copyAt = 'carried'; }
+  if (ua < 0.21) { copy = G.copyRest; copyAt = 'tray'; }
+  else if (ua < 0.29) { copy = {x: hR.x, y: hR.y - plan.gy}; copyAt = 'carried'; }
+  else if (ua < 0.53) { copy = G.dstBay; copyAt = 'dock'; }
+  else if (ua < 0.61) { copy = {x: hR.x, y: hR.y - plan.gy}; copyAt = 'carried'; }
   else { copy = G.copySpot; copyAt = 'placed'; }
   let tag = G.tagLie, tagState = 'lying';
-  if (plan.tagged && ua >= 0.63) {
-    if (ua < 0.7) { tag = {x: hR.x - plan.off, y: hR.y}; tagState = 'carried'; }
+  if (plan.tagged && ua >= 0.64) {
+    if (ua < 0.71) { tag = {x: hR.x - plan.off, y: hR.y}; tagState = 'carried'; }
     else { tag = G.tagFinal; tagState = 'attached'; }
   }
   const flowA = seg(ua, ...W.flowOn) * (1 - seg(ua, ...W.flowOff));

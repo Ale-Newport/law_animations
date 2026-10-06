@@ -1,0 +1,620 @@
+{
+  "id": "LAW-0387",
+  "slug": "evidence-custody-07-contrast",
+  "title": "Fingerprint comparison — two identical comparison stations; in B one symbol of the lifted chain turns over, so when both frames are slid along the chains that pair gets open stubs in B and a bridge in A",
+  "titleEs": "Comparación de huellas digitales — Comparación de dos supuestos",
+  "category": "evidence-custody",
+  "categoryName": "Recogida y custodia de pruebas",
+  "motif": "Comparación de huellas digitales",
+  "treatment": "contrast",
+  "family": "paired-comparison",
+  "description": "Two complete, identical comparison stations (A: values match; B: an illustrative discrepancy), side by side on wide frames and stacked on tall ones. Each has the object in its open bag with its tag, a light box with the reference and lifted cards and their symbolic chains, a reading frame and a gloved hand. In B only, one tile of the lifted chain turns over to show a different symbol. Then both hands slide their frames segment by segment in parallel; each pair is linked once the frame sits on it, so the changed pair gets a bridge in A and open stubs in B. A guide joins the changed pair in A and B; a neutral note. No winner, score or conclusion; fictional; jurisdiction unspecified.",
+  "tags": [
+    "evidence",
+    "custody",
+    "fingerprint",
+    "comparison",
+    "contrast",
+    "symbolic chain",
+    "segments",
+    "light box",
+    "reading frame",
+    "discrepancy"
+  ],
+  "durations": {
+    "defaultMs": 7500,
+    "minMs": 1000,
+    "maxMs": 60000,
+    "designedFor": [
+      2000,
+      6000,
+      12000
+    ]
+  },
+  "sizes": [
+    "16:9",
+    "9:16",
+    "1:1"
+  ],
+  "compatibility": {
+    "runtime": "javascript-esm-svg",
+    "requiresDom": "create() only; importing is DOM-free",
+    "themes": [
+      "editorial-flat"
+    ],
+    "locales": [
+      "en",
+      "es"
+    ],
+    "palettes": [
+      "editorial",
+      "slate",
+      "warm",
+      "mono"
+    ],
+    "backgrounds": [
+      "transparent",
+      "paper",
+      "white",
+      "light-grey",
+      "charcoal",
+      "#rrggbb"
+    ]
+  },
+  "content": {
+    "jurisdiction": "unspecified",
+    "legalStatus": "illustrative-unverified",
+    "asOfDate": null,
+    "sources": [],
+    "fictionalExample": true,
+    "note": "Visual illustration only. It does not state the law of any jurisdiction or decide validity, responsibility or outcomes."
+  },
+  "schemaVersion": 1,
+  "assets": [
+    "src/animations/evidence-custody/kits/evidence-art.js",
+    "src/animations/evidence-custody/kits/comparacion-huellas.js",
+    "src/frameworks/paired.js",
+    "src/primitives/desk.js"
+  ],
+  "license": "Original vector artwork and code created for this project; no third-party assets.",
+  "version": "1.0.0",
+  "paramsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "x-arrayMerge": "replace",
+    "properties": {
+      "durationMs": {
+        "type": "number",
+        "minimum": 1000,
+        "maximum": 60000,
+        "default": 7500,
+        "description": "Total length of the finite timeline in milliseconds. Phases scale proportionally; the final state is held."
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "default": 1,
+        "description": "Seed for small deterministic variations (appearance defaults, hand-drawn jitter). Same seed + time + params = same frame."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ],
+        "default": "en",
+        "description": "Language of built-in labels (en or es). User-supplied text is never translated."
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "editorial-flat"
+        ],
+        "default": "editorial-flat",
+        "description": "Render treatment. Only tested themes are listed."
+      },
+      "palette": {
+        "type": "string",
+        "enum": [
+          "editorial",
+          "slate",
+          "warm",
+          "mono"
+        ],
+        "default": "editorial",
+        "description": "Colour palette applied to props, actors and accents."
+      },
+      "background": {
+        "type": "string",
+        "x-format": "background",
+        "default": "transparent",
+        "description": "transparent, paper, white, light-grey, charcoal or a #rrggbb colour."
+      },
+      "safeArea": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Caption-safe margins as fractions of the frame.",
+        "properties": {
+          "top": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "right": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          },
+          "bottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.2
+          },
+          "left": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.45,
+            "default": 0.06
+          }
+        }
+      },
+      "reducedMotion": {
+        "type": "boolean",
+        "default": false,
+        "description": "Removes decorative motion (overshoot, idle sway, camera drift) while keeping instructional motion."
+      },
+      "textVisibility": {
+        "type": "string",
+        "enum": [
+          "all",
+          "key",
+          "none"
+        ],
+        "default": "all",
+        "description": "all labels, key labels only, or none (the action must remain readable without labels)."
+      },
+      "jurisdiction": {
+        "type": "string",
+        "maxLength": 60,
+        "default": "unspecified",
+        "description": "Descriptive jurisdiction tag. \"unspecified\" means no legal system is asserted."
+      },
+      "contentNotice": {
+        "type": "boolean",
+        "default": true,
+        "description": "Shows a small \"illustrative example\" tag inside the safe area."
+      },
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 24,
+              "description": "Item reference printed in the legend (fictional)"
+            },
+            "label": {
+              "type": "string",
+              "maxLength": 70,
+              "description": "Short description of the item (fictional)"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "key",
+                "cup",
+                "box"
+              ],
+              "description": "Drawn object: key, cup or box"
+            }
+          },
+          "required": [
+            "id",
+            "label",
+            "kind"
+          ],
+          "description": "Item"
+        },
+        "minItems": 1,
+        "maxItems": 1,
+        "description": "The item handled in the scene (fictional). kind picks the drawn object (array replaces the previous value)"
+      },
+      "custodians": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 40,
+              "description": "Name (fictional)"
+            },
+            "role": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Descriptive role (not a legal finding)"
+            }
+          },
+          "required": [
+            "name",
+            "role"
+          ],
+          "description": "Custodian"
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "People who handle the item (fictional; descriptive roles only). The first one wears the gloves shown (array replaces the previous value)"
+      },
+      "timestamps": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "What the time refers to"
+            },
+            "time": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Time as supplied (illustrative)"
+            }
+          },
+          "required": [
+            "label",
+            "time"
+          ],
+          "description": "Timestamp"
+        },
+        "minItems": 1,
+        "maxItems": 3,
+        "description": "Times noted by the author (illustrative; no time limit is implied) (array replaces the previous value)"
+      },
+      "records": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "type": "string",
+              "maxLength": 30,
+              "description": "Field name printed on the tag"
+            },
+            "value": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Value written in the row (empty = left blank)"
+            }
+          },
+          "required": [
+            "field",
+            "value"
+          ],
+          "description": "Record row"
+        },
+        "minItems": 2,
+        "maxItems": 5,
+        "description": "Rows written on the tag, top to bottom. An empty value leaves that row blank (as supplied) (array replaces the previous value)"
+      },
+      "segments": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "a": {
+              "type": "string",
+              "enum": [
+                "arc",
+                "loop",
+                "fork",
+                "dot",
+                "end"
+              ],
+              "description": "Symbol on the lifted chain"
+            },
+            "b": {
+              "type": "string",
+              "enum": [
+                "arc",
+                "loop",
+                "fork",
+                "dot",
+                "end"
+              ],
+              "description": "Symbol on the reference chain"
+            }
+          },
+          "required": [
+            "a",
+            "b"
+          ],
+          "description": "Segment pair"
+        },
+        "minItems": 3,
+        "maxItems": 6,
+        "description": "Segment pairs of the two symbolic chains, left to right: a = symbol on the lifted card's chain, b = symbol on the reference card's chain (equal symbols are bridged, differing ones left open — as supplied) (array replaces the previous value)"
+      },
+      "cards": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of the lifted card (chain on the lower row)"
+          },
+          "b": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of the reference card (chain on the upper row)"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "description": "Captions of the two print cards (fictional)"
+      },
+      "matchLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "same": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption for a pair with equal values (bridge)"
+          },
+          "differ": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Caption for a pair with differing values (open stubs)"
+          }
+        },
+        "required": [
+          "same",
+          "differ"
+        ],
+        "description": "Captions of the two pair states (descriptive only)"
+      },
+      "labels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Neutral key (must say that no conclusion is drawn)"
+          },
+          "blank": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Text shown for a tag row the author left blank"
+          }
+        },
+        "required": [
+          "key",
+          "blank"
+        ],
+        "description": "Editable captions"
+      },
+      "scenarioA": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Scenario label"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Scenario caption (shown with all labels)"
+          }
+        },
+        "required": [
+          "label",
+          "caption"
+        ],
+        "description": "Scenario A (base symbols)"
+      },
+      "scenarioB": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Scenario label"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Scenario caption (shown with all labels)"
+          }
+        },
+        "required": [
+          "label",
+          "caption"
+        ],
+        "description": "Scenario B (one symbol of the lifted chain replaced)"
+      },
+      "changeIndex": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 5,
+        "description": "Zero-based segment whose lifted symbol differs in B (clamped to the segment count)"
+      },
+      "changeSymbol": {
+        "type": "string",
+        "enum": [
+          "arc",
+          "loop",
+          "fork",
+          "dot",
+          "end"
+        ],
+        "description": "Symbol shown on the lifted chain at that segment in B"
+      },
+      "changedFact": {
+        "type": "string",
+        "maxLength": 110,
+        "description": "Description of the one changed fact"
+      },
+      "sharedFacts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Shared fact"
+        },
+        "minItems": 0,
+        "maxItems": 3,
+        "description": "Facts that stay the same in A and B (array replaces the previous value)"
+      },
+      "comparisonLabels": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "guide": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "Caption of the guide joining the changed pair"
+          },
+          "neutral": {
+            "type": "string",
+            "maxLength": 90,
+            "description": "Neutral note (no winner, no conclusion)"
+          }
+        },
+        "required": [
+          "guide",
+          "neutral"
+        ],
+        "description": "Comparison captions"
+      }
+    }
+  },
+  "defaultParams": {
+    "durationMs": 7500,
+    "seed": 1,
+    "locale": "en",
+    "theme": "editorial-flat",
+    "palette": "editorial",
+    "background": "transparent",
+    "safeArea": {
+      "top": 0.06,
+      "right": 0.06,
+      "bottom": 0.2,
+      "left": 0.06
+    },
+    "reducedMotion": false,
+    "textVisibility": "all",
+    "jurisdiction": "unspecified",
+    "contentNotice": true,
+    "items": [
+      {
+        "id": "Item E-07 (fictional)",
+        "label": "Mug left on a counter (fictional)",
+        "kind": "cup"
+      }
+    ],
+    "custodians": [
+      {
+        "name": "L. Moreau (fictional)",
+        "role": "Person comparing the cards"
+      }
+    ],
+    "timestamps": [
+      {
+        "label": "Print lifted",
+        "time": "11:20 (illustrative)"
+      },
+      {
+        "label": "Comparison noted",
+        "time": "11:48 (illustrative)"
+      }
+    ],
+    "records": [
+      {
+        "field": "Item no.",
+        "value": "E-07"
+      },
+      {
+        "field": "Description",
+        "value": "Drinking mug"
+      },
+      {
+        "field": "Lifted by",
+        "value": "L. Moreau"
+      },
+      {
+        "field": "Card",
+        "value": "Lift 1"
+      }
+    ],
+    "segments": [
+      {
+        "a": "arc",
+        "b": "arc"
+      },
+      {
+        "a": "fork",
+        "b": "fork"
+      },
+      {
+        "a": "loop",
+        "b": "loop"
+      },
+      {
+        "a": "dot",
+        "b": "dot"
+      },
+      {
+        "a": "end",
+        "b": "end"
+      }
+    ],
+    "cards": {
+      "a": "Lifted card (from the mug, fictional)",
+      "b": "Reference card (fictional)"
+    },
+    "matchLabels": {
+      "same": "Bridge: same symbol supplied",
+      "differ": "Open stubs: different symbols supplied"
+    },
+    "labels": {
+      "key": "As supplied · no conclusion drawn",
+      "blank": "(left blank, as supplied)"
+    },
+    "scenarioA": {
+      "label": "Values match",
+      "caption": "Every symbol pair supplied as equal"
+    },
+    "scenarioB": {
+      "label": "Illustrative discrepancy",
+      "caption": "One symbol on the lifted chain differs"
+    },
+    "changeIndex": 2,
+    "changeSymbol": "fork",
+    "changedFact": "Only the third symbol of the lifted chain differs (loop in A, fork in B)",
+    "sharedFacts": [
+      "Same cards, same item, same order of comparison"
+    ],
+    "comparisonLabels": {
+      "guide": "The only pair that differs between A and B",
+      "neutral": "Two supplied situations side by side · no conclusion drawn"
+    }
+  }
+}
