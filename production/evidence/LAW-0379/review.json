@@ -177,11 +177,34 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "evidence contact sheets (16:9 baseline/alternative/long-labels/es, 9:16 baseline, 1:1 baseline; plus 9:16 alternative for LAW-0379) and a 10-frame 16:9 dense strip with --safe plus labels-hidden 9:16 and 1:1 strips (t=0.5,1.0, --safe) viewed as still images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0379/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0379/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0379/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0379/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0379/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0379/sheet-16x9-es.png",
+      "production/evidence/LAW-0379/sheet-9x16-alternative.png",
+      "production/scratch/rev-evidence-custody-05/rev-LAW-0379.png",
+      "production/scratch/rev-evidence-custody-05/rev-LAW-0379-nolabels-9x16.png",
+      "production/scratch/rev-evidence-custody-05/rev-LAW-0379-nolabels-1x1.png"
+    ],
+    "findings": [
+      "Brief asks A/B side by side in horizontal; 16:9 stacks the two benches",
+      "16:9 baseline: rack+list occupy middle ~55-60% of each bench, ~20% empty green at both bench ends; alternative preset worse (rack+list ~35% of bench width, centred)",
+      "16:9 objects small: baseline key ~25 px in 300-px cell (~8% safe width); long-labels stress objects ~47 units",
+      "Long slanted tag-to-row links on horizontal stations cross other cells' tags (16:9, 1:1 at t=0.55-1.0)",
+      "9:16 is good: two benches fill safe box, objects large, A/B difference (unjoined 3rd row/empty cell outline) reads labels-hidden",
+      "Neutral: no winner/consequence note present",
+      "Fix: at 16:9 place A and B side by side (each a vertical rack+list station as in 9:16) or widen rack/list to bench width; scale objects up into freed space; route links straight down to the row below each cell"
+    ],
+    "sourceHash": "242e8827ccff769072d970d9db4f2e267b83f12d395d184ee5b0b424f805b3f9",
+    "renderFingerprint": "163141fd180fb8836a8b62adf6af9ab75f7ac2b0920133a4ef473d4d42e01f22",
+    "reviewedAt": "2026-10-06T00:11:12.959Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -198,5 +221,10 @@
   "renderFingerprint": "163141fd180fb8836a8b62adf6af9ab75f7ac2b0920133a4ef473d4d42e01f22",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.1,0.3,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0379/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

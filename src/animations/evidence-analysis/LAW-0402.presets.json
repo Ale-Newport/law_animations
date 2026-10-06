@@ -1,0 +1,298 @@
+{
+  "animationId": "LAW-0402",
+  "note": "Presets are saved parameter sets for the same animation; they do not count as additional animations. All content is fictional and illustrative; jurisdiction unspecified. Only explicit relationships are drawn; a plain relation has no arrowhead and causal is drawn only when supplied. Links: solid = supplied as direct support, dashed through an inference ring = supplied as a disputed inference. Nothing weighs evidence or draws a conclusion. Editable brief fields: claims, evidence, links, uncertainties, elements, relationships, focusElement, relationLabels, traversalOrder.",
+  "presets": [
+    {
+      "name": "baseline-illustrative",
+      "description": "Two claims, a witness statement and a delivery slip; the witness is related to her statement; the slip supports P1 directly and P2 only through a disputed inference.",
+      "params": {}
+    },
+    {
+      "name": "contrast-or-alternative",
+      "description": "Apoyo directo / inferencia discutida: a photo supports P1 directly while the statement reaches P1 only through a disputed inference; the key in a sleeve reaches P2 through a disputed inference; the traversal starts at the photo and the focus is the statement.",
+      "params": {
+        "claims": [
+          {
+            "id": "P1",
+            "text": "The side gate was open at night (as alleged, fictional)"
+          },
+          {
+            "id": "P2",
+            "text": "Party C used the gate key (as alleged, fictional)"
+          }
+        ],
+        "evidence": [
+          {
+            "id": "E1",
+            "label": "Statement of N. Osei, night porter (fictional)",
+            "kind": "witness"
+          },
+          {
+            "id": "E2",
+            "label": "Photo of the gate, taken 23:10 (fictional)",
+            "kind": "photo"
+          },
+          {
+            "id": "E3",
+            "label": "Gate key K-2 in a sleeve (fictional)",
+            "kind": "object"
+          }
+        ],
+        "links": [
+          {
+            "evidence": 1,
+            "claim": 0,
+            "kind": "direct"
+          },
+          {
+            "evidence": 0,
+            "claim": 0,
+            "kind": "disputed"
+          },
+          {
+            "evidence": 2,
+            "claim": 1,
+            "kind": "disputed"
+          }
+        ],
+        "uncertainties": [
+          "Whether the key was in C's possession that night is disputed (as supplied)"
+        ],
+        "elements": [
+          {
+            "id": "witness",
+            "label": "Night porter: source of statement E1 (fictional)"
+          },
+          {
+            "id": "e2",
+            "label": "Photo of the gate, pinned below"
+          },
+          {
+            "id": "p1",
+            "label": "Claim about the gate, above"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "witness",
+            "to": "e1",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "e1",
+        "traversalOrder": [
+          "e2",
+          "p1",
+          "e1",
+          "witness"
+        ]
+      }
+    },
+    {
+      "name": "long-labels-stress",
+      "description": "Near-maximum lengths and counts: three claims, three pieces of evidence, four links, two open points, three relationships, seven component labels and an eight-step traversal.",
+      "params": {
+        "claims": [
+          {
+            "id": "P1-a",
+            "text": "The parcel reached the second-floor flat on Monday before ten (as alleged, fictional)"
+          },
+          {
+            "id": "P2-b",
+            "text": "Party B personally signed the delivery slip at the door (as alleged, fictional)"
+          },
+          {
+            "id": "P3-c",
+            "text": "The parcel was later handed to a neighbour on the same floor (as alleged, fictional)"
+          }
+        ],
+        "evidence": [
+          {
+            "id": "E1-w",
+            "label": "Written statement of W. Abara, neighbour across the hall (fictional)",
+            "kind": "witness"
+          },
+          {
+            "id": "E2-d",
+            "label": "Delivery slip D-14 bearing handwritten initials and a time (fictional)",
+            "kind": "document"
+          },
+          {
+            "id": "E3-p",
+            "label": "Photograph of the landing taken by the courier on arrival (fictional)",
+            "kind": "photo"
+          }
+        ],
+        "links": [
+          {
+            "evidence": 0,
+            "claim": 0,
+            "kind": "direct"
+          },
+          {
+            "evidence": 1,
+            "claim": 1,
+            "kind": "disputed"
+          },
+          {
+            "evidence": 2,
+            "claim": 0,
+            "kind": "direct"
+          },
+          {
+            "evidence": 0,
+            "claim": 2,
+            "kind": "disputed"
+          }
+        ],
+        "uncertainties": [
+          "Whether the initials on the delivery slip were written by Party B is disputed (as supplied)",
+          "The statement does not say who received the parcel at the door; left open (as supplied)"
+        ],
+        "labels": {
+          "direct": "Direct support exactly as supplied (illustrative)",
+          "disputed": "Disputed inference exactly as supplied (illustrative)",
+          "key": "Links exactly as supplied · no weighing of evidence, no credibility judgement, no conclusion drawn"
+        },
+        "elements": [
+          {
+            "id": "witness",
+            "label": "Witness W. Abara: source of statement E1-w"
+          },
+          {
+            "id": "e1",
+            "label": "Written statement card in the evidence tier"
+          },
+          {
+            "id": "e2",
+            "label": "Delivery slip with initials, evidence tier"
+          },
+          {
+            "id": "e3",
+            "label": "Photograph of the landing, evidence tier"
+          },
+          {
+            "id": "p1",
+            "label": "Proposition on delivery time, claim tier"
+          },
+          {
+            "id": "p2",
+            "label": "Proposition on who signed, claim tier above"
+          },
+          {
+            "id": "p3",
+            "label": "Proposition on the hand-over, claim tier"
+          }
+        ],
+        "relationships": [
+          {
+            "from": "witness",
+            "to": "e1",
+            "kind": "relation"
+          },
+          {
+            "from": "e3",
+            "to": "e2",
+            "kind": "sequence"
+          },
+          {
+            "from": "witness",
+            "to": "e3",
+            "kind": "relation"
+          }
+        ],
+        "focusElement": "p1",
+        "relationLabels": {
+          "relation": "gave or saw it as supplied (relation)",
+          "communication": "communication as supplied",
+          "sequence": "photo before slip, as configured",
+          "causal": "causal only as supplied"
+        },
+        "traversalOrder": [
+          "witness",
+          "e1",
+          "p1",
+          "e3",
+          "p1",
+          "e2",
+          "p2",
+          "e1"
+        ]
+      }
+    },
+    {
+      "name": "baseline-es",
+      "description": "Línea base en español.",
+      "params": {
+        "locale": "es",
+        "claims": [
+          {
+            "id": "P1",
+            "text": "El paquete llegó al piso el lunes (según se alega, ficticio)"
+          },
+          {
+            "id": "P2",
+            "text": "La parte B firmó la recepción (según se alega, ficticio)"
+          }
+        ],
+        "evidence": [
+          {
+            "id": "E1",
+            "label": "Declaración de W. Abara, vecina (ficticia)",
+            "kind": "witness"
+          },
+          {
+            "id": "E2",
+            "label": "Albarán D-14 con iniciales (ficticio)",
+            "kind": "document"
+          }
+        ],
+        "links": [
+          {
+            "evidence": 0,
+            "claim": 0,
+            "kind": "direct"
+          },
+          {
+            "evidence": 1,
+            "claim": 0,
+            "kind": "direct"
+          },
+          {
+            "evidence": 1,
+            "claim": 1,
+            "kind": "disputed"
+          }
+        ],
+        "uncertainties": [
+          "Se discute si las iniciales del albarán son de B (según lo aportado)"
+        ],
+        "labels": {
+          "direct": "Apoyo directo (según lo aportado)",
+          "disputed": "Inferencia discutida (según lo aportado)",
+          "key": "Vínculos según lo aportado · sin valorar la prueba ni extraer conclusiones"
+        },
+        "elements": [
+          {
+            "id": "witness",
+            "label": "Testigo: origen de la declaración E1 (ficticia)"
+          },
+          {
+            "id": "e1",
+            "label": "Prueba etiquetada, clavada abajo"
+          },
+          {
+            "id": "p1",
+            "label": "Afirmación que pretende apoyar, arriba"
+          }
+        ],
+        "relationLabels": {
+          "relation": "prestó la declaración (relación)",
+          "communication": "comunicación",
+          "sequence": "secuencia según configuración",
+          "causal": "causal (aportado)"
+        }
+      }
+    }
+  ]
+}

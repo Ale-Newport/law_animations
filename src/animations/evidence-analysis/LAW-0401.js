@@ -223,24 +223,20 @@ function buildScript(M, P, links) {
         steps.push({type: 'pick', j, ax, f, at: {...lg}, dur: 0.8});
       }
       walk(standFor(M, slotGrip(j)), j);
-      steps.push({type: 'pin', j, ax, f, at: slotGrip(j), dur: 0.7});
+      const pin = {type: 'pin', j, ax, f, at: slotGrip(j), dur: 0.7, stay: false};
+      steps.push(pin);
+      let last = pin;
+      let from = slotGrip(j);
       if (doLink) {
         for (const l of links.filter(q => q.e === j)) {
           const E = M.ends[l.n];
-          if (canReach(M, ax, E.d) && canReach(M, ax, E.e)) {
-            steps.push({type: 'link', l: l.n, ax, f, at: E.d, to: E.e, dur: 0.75});
-            continue;
-          }
-          const mid = (standFor(M, E.d) + standFor(M, E.e)) / 2;
-          if (canReach(M, mid, E.d) && canReach(M, mid, E.e)) {
-            walk(mid, null);
-            steps.push({type: 'link', l: l.n, ax, f, at: E.d, to: E.e, dur: 0.75});
-            continue;
-          }
-          walk(standFor(M, E.d), null);
-          steps.push({type: 'grab', l: l.n, ax, f, at: E.d, dur: 0.45});
-          walk(standFor(M, E.e), {thread: l.n});
-          steps.push({type: 'join', l: l.n, ax, f, at: E.e, dur: 0.5});
+          if (!(canReach(M, ax, E.d) && canReach(M, ax, E.e))) {
+            last.stay = false; from = null;
+            walk(Math.min(standFor(M, E.d), standFor(M, E.e)), null);
+          } else last.stay = true;
+          const st = {type: 'link', l: l.n, ax, f, from, at: E.d, to: E.e, dur: 0.55, stay: false};
+          steps.push(st);
+          last = st; from = E.e;
         }
       }
     }
@@ -327,19 +323,22 @@ function poseAt(L, u) {
       phase = done ? phase : 'pick';
     } else if (s.type === 'pin') {
       ax = s.ax; f = s.f;
+      const end = s.stay ? s.at : restHand(M, ax, f);
       if (t < 0.55) { hand = mixP(carryHand(M, ax, f), s.at, E3(t / 0.55)); held = {card: s.j}; cards[s.j].holder = 'analyst'; }
-      else if (t < 0.72) { hand = s.at; held = {card: s.j}; cards[s.j].holder = 'analyst'; cards[s.j].pin = seg(t, 0.58, 0.7); }
-      else { hand = mixP(s.at, restHand(M, ax, f), E3((t - 0.72) / 0.28)); held = null; cards[s.j].holder = 'board'; cards[s.j].pin = 1; }
-      if (done) { cards[s.j].holder = 'board'; cards[s.j].pin = 1; hand = restHand(M, ax, f); held = null; }
+      else if (t < 0.75) { hand = s.at; held = {card: s.j}; cards[s.j].holder = 'analyst'; cards[s.j].pin = seg(t, 0.58, 0.72); }
+      else { hand = mixP(s.at, end, E3((t - 0.75) / 0.25)); held = null; cards[s.j].holder = 'board'; cards[s.j].pin = 1; }
+      if (done) { cards[s.j].holder = 'board'; cards[s.j].pin = 1; hand = end; held = null; }
       phase = done ? phase : 'pin';
     } else if (s.type === 'link') {
       ax = s.ax; f = s.f;
-      if (t < 0.36) { hand = mixP(restHand(M, ax, f), s.at, E3(t / 0.36)); held = null; }
-      else if (t < 0.44) { hand = s.at; held = {thread: s.l}; threads[s.l].state = 'held'; }
-      else if (t < 0.78) { hand = mixP(s.at, s.to, E3((t - 0.44) / 0.34)); held = {thread: s.l}; threads[s.l].state = 'held'; }
-      else if (t < 0.86) { hand = s.to; held = {thread: s.l}; threads[s.l].state = 'held'; }
-      else { hand = mixP(s.to, restHand(M, ax, f), E3((t - 0.86) / 0.14)); held = null; threads[s.l].state = 'joined'; }
-      if (done) { hand = restHand(M, ax, f); held = null; threads[s.l].state = 'joined'; }
+      const start = s.from || restHand(M, ax, f);
+      const end = s.stay ? s.to : restHand(M, ax, f);
+      if (t < 0.32) { hand = mixP(start, s.at, E3(t / 0.32)); held = null; }
+      else if (t < 0.42) { hand = s.at; held = {thread: s.l}; threads[s.l].state = 'held'; }
+      else if (t < 0.74) { hand = mixP(s.at, s.to, E3((t - 0.42) / 0.32)); held = {thread: s.l}; threads[s.l].state = 'held'; }
+      else if (t < 0.82) { hand = s.to; held = {thread: s.l}; threads[s.l].state = 'held'; }
+      else { hand = mixP(s.to, end, E3((t - 0.82) / 0.18)); held = null; threads[s.l].state = 'joined'; }
+      if (done) { hand = end; held = null; threads[s.l].state = 'joined'; }
       phase = done ? phase : 'link';
     } else if (s.type === 'grab') {
       ax = s.ax; f = s.f;
@@ -409,8 +408,9 @@ function finishModel(ctx, P, links, M) {
   const sy = M.floor + SHOULDER.y * M.k;
   const reachTop = sy - REACH * M.k * 0.8;
   M.ends = BL.ends.map((E, n) => {
-    const dy = Math.max(E.c.y + 36, Math.min(E.e.y - 24, Math.max(reachTop + 6, E.c.y + (E.e.y - E.c.y) * 0.55)));
-    const d = {x: E.c.x + (E.e.x - E.c.x) * 0.18, y: dy};
+    // the loose end waits on a parking pin just above its evidence slot, on the claim's side
+    const side = Math.sign(E.c.x - E.e.x) || 1;
+    const d = {x: E.e.x + side * Math.min(BL.ew * 0.22, 26), y: E.e.y - Math.max(34, BL.eh * 0.3)};
     return {c: E.c, e: E.e, d};
   });
   const problems = [];

@@ -24,6 +24,8 @@ import {clamp, r} from '../../../core/time.js';
 import {roundRectPath} from '../../../core/geometry.js';
 import {str, list, obj, oneOf, int} from '../../../schemas/fields.js';
 import {shade} from '../../../primitives/paper.js';
+import {LINK_STYLES} from '../../../primitives/annotate.js';
+import {kindColor} from '../../../frameworks/graph.js';
 import {fitG, textAt, wrapG, localised, overlaps, R2, pathAt} from '../../evidence-custody/kits/evidence-art.js';
 
 export {fitG, textAt, wrapG, localised, overlaps, R2, pathAt};
@@ -375,6 +377,17 @@ export function legendIcon(ctx, kind, s, o = {}) {
       h('path', {d: `M${r(-s * 0.46)} ${r(s * 0.12)}Q0 ${r(s * 0.28)} ${r(s * 0.46)} ${r(-s * 0.12)}`, fill: 'none', stroke: THREAD, 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-dasharray': disp ? DISPUTED_DASH(4) : undefined}),
       g({transform: T(-s * 0.46, s * 0.12)}, eyelet(5)),
       g({transform: T(s * 0.46, -s * 0.12)}, eyelet(5)),
+    );
+  }
+  if (kind.startsWith('rel-')) {
+    const k = kind.slice(4);
+    const st = LINK_STYLES[k] || LINK_STYLES.relation;
+    const c = kindColor(ctx, k);
+    return g(null,
+      h('line', {x1: r(-s * 0.45), y1: 0, x2: r(st.arrow ? s * 0.22 : s * 0.45), y2: 0, stroke: c, 'stroke-width': st.width, 'stroke-dasharray': st.dash || undefined, 'stroke-linecap': 'round'}),
+      st.arrow ? h('path', {d: `M${r(s * 0.45)} 0l${r(-s * 0.26)} ${r(-s * 0.15)}v${r(s * 0.3)}z`, fill: c}) : null,
+      st.endDots ? h('circle', {cx: r(-s * 0.45), cy: 0, r: r(st.width * 1.6), fill: c}) : null,
+      st.endDots ? h('circle', {cx: r(s * 0.45), cy: 0, r: r(st.width * 1.6), fill: c}) : null,
     );
   }
   if (kind === 'open') {

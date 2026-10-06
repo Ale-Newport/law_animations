@@ -161,11 +161,33 @@
     }
   ],
   "visualReview": {
-    "status": "not_reviewed",
-    "reviewer": null,
-    "method": null,
-    "artifacts": [],
-    "findings": []
+    "status": "fail",
+    "reviewer": "claude subagent (independent reviewer, session 2)",
+    "method": "evidence contact sheets (16:9 baseline/alternative/long-labels/es, 9:16 baseline, 1:1 baseline; plus 9:16 alternative for LAW-0379) and a 10-frame 16:9 dense strip with --safe plus labels-hidden 9:16 and 1:1 strips (t=0.5,1.0, --safe) viewed as still images; no real-time playback",
+    "live": null,
+    "artifacts": [
+      "production/evidence/LAW-0378/sheet-16x9-baseline.png",
+      "production/evidence/LAW-0378/sheet-9x16-baseline.png",
+      "production/evidence/LAW-0378/sheet-1x1-baseline.png",
+      "production/evidence/LAW-0378/sheet-16x9-alternative.png",
+      "production/evidence/LAW-0378/sheet-16x9-long-labels.png",
+      "production/evidence/LAW-0378/sheet-16x9-es.png",
+      "production/scratch/rev-evidence-custody-05/rev-LAW-0378.png",
+      "production/scratch/rev-evidence-custody-05/rev-LAW-0378-nolabels-9x16.png",
+      "production/scratch/rev-evidence-custody-05/rev-LAW-0378-nolabels-1x1.png"
+    ],
+    "findings": [
+      "No object physically moves into a cell or the list: components appear in place and only connectors draw; concrete action not performed",
+      "Key objects small vs safe box: 16:9 key ~14% of safe width, bag/cell ~20% of safe height; 1:1 key ~15% of safe width; large empty beige gaps between components (no bench/ground) at all ratios",
+      "Connectors very short: 16:9 ~25-35 px of 1920-equivalent ~5% safe width; 1:1 and 9:16 vertical links ~4-8% of safe height; arrowheads barely readable",
+      "Labels-hidden: list row and tag become blank boxes, chain-to-cell link unreadable; action does not read",
+      "Tag 'No. 1' text crossed by tag-hole string at 1:1/16:9",
+      "Same exploded-components + tracer recipe and brass key/ball chain/tag/bag set as LAW-0362 (different grid, but near-clone concept)",
+      "Fix: animate the object travelling into its cell and the tag line to the list row; scale components to fill the safe box (~2x); lengthen connectors (>=12% safe width) and move the tag text clear of the hole"
+    ],
+    "sourceHash": "d2fc2c7ecbdfd7571d0fc5398c3453549dabed85281ff56ae800b5e7132a94db",
+    "renderFingerprint": "b5eff0322b5d2b5e5ac397bb3ce0eab84954a67a2d6e0f1f5c266075110086ff",
+    "reviewedAt": "2026-10-06T00:11:12.823Z"
   },
   "legalStatus": "illustrative-unverified",
   "testedConfigurations": [
@@ -181,5 +203,10 @@
   "renderFingerprint": "b5eff0322b5d2b5e5ac397bb3ce0eab84954a67a2d6e0f1f5c266075110086ff",
   "renderFingerprintScope": "baseline-illustrative, contrast-or-alternative, long-labels-stress × 16:9/9:16/1:1 × t=0.12,0.35,0.55,0.72,1",
   "thumb": "production/evidence/LAW-0378/thumb.png",
-  "captureErrors": []
+  "captureErrors": [],
+  "contentReview": {
+    "status": "pass",
+    "scope": "Illustrative labelling, fictional data, no legal conclusion/verdict/ranking in the rendered scene. Not a legal verification.",
+    "legalStatus": "illustrative-unverified"
+  }
 }

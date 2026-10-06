@@ -473,15 +473,30 @@ export function fcLegendFor(ctx, rows, F, opt) {
       }
       if (best) PLs = best.cols;
     }
-    if (cols === 3 && rows.length >= 3) {
+    if (cols >= 3 && rows.length >= cols) {
       const one = rows.map(rw => panelLayout(ctx, [rw], {w: colW, F}).h + F * 0.5);
-      let best3 = null;
-      for (let i = 1; i < rows.length - 1; i++) for (let j = i + 1; j < rows.length; j++) {
-        const hs = [one.slice(0, i), one.slice(i, j), one.slice(j)].map(a => a.reduce((x, y) => x + y, 0));
-        const hh = Math.max(...hs);
-        if (!best3 || hh < best3.h) best3 = {h: hh, i, j};
-      }
-      PLs = [rows.slice(0, best3.i), rows.slice(best3.i, best3.j), rows.slice(best3.j)].map(rr => panelLayout(ctx, rr, {w: colW, F}));
+      const n = rows.length;
+      const sum = (i, j) => one.slice(i, j).reduce((x, y) => x + y, 0);
+      // best[c][i] = minimal max height splitting rows[i..] into c columns
+      const memo = new Map();
+      const best = (c, i) => {
+        const key = `${c}|${i}`;
+        if (memo.has(key)) return memo.get(key);
+        let res;
+        if (c === 1) res = {h: sum(i, n), cuts: []};
+        else {
+          res = {h: Infinity, cuts: []};
+          for (let j = i + 1; j <= n - (c - 1); j++) {
+            const rest = best(c - 1, j);
+            const hh = Math.max(sum(i, j), rest.h);
+            if (hh < res.h) res = {h: hh, cuts: [j, ...rest.cuts]};
+          }
+        }
+        memo.set(key, res);
+        return res;
+      };
+      const cuts = [0, ...best(cols, 0).cuts, n];
+      PLs = cuts.slice(0, -1).map((c0, i) => panelLayout(ctx, rows.slice(c0, cuts[i + 1]), {w: colW, F}));
     }
     const ph = Math.max(...PLs.map(q => q.h));
     return {area: {x: 0, y: 0, w: DW, h: DH - ph - gap}, panel: {x: 4, y: DH - ph}, PL: {cols: PLs, h: ph, ok: PLs.every(q => q.ok) && ph < DH * 0.62, colW, F}};

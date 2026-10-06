@@ -224,7 +224,8 @@ const scene = {
           if (LG.PL && !LG.PL.ok && C) continue;
           for (const cf of confs) {
             const c = compose(ctx, P, recs, fi, F, LG, {...cf, floorPx}, vs);
-            const score = c.G.S * Math.sqrt(c.rsc) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * Math.min(1.3, c.zoom / 2.5) * (shape === 'square' && o0.mode === 'below' ? 0.7 : 1) * (cf.crop === 'tag' ? 0.8 : 1);
+            const fillRest = Math.sqrt((c.G.ext.w * c.rsc * c.G.ext.h * c.rsc) / (c.mat.w * c.mat.h));
+            const score = fillRest * Math.sqrt(c.G.S) * 12 * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * Math.min(1.3, c.zoom / 2.5) * (shape === 'square' && o0.mode === 'below' ? 0.7 : 1) * (cf.crop === 'tag' ? 0.8 : 1);
             if (c.ok && firstOk < 0 && F >= 19.5) firstOk = fj;
             if (c.ok && score > bestScore) { best = c; bestScore = score; }
             if (!C || c.problems.length < C.problems.length) C = c;

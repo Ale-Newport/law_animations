@@ -108,7 +108,7 @@ function compose(ctx, P, recs, LG, opt, vs) {
   const bench = LG.area;
   const inset = Math.max(14, Math.min(bench.w, bench.h) * 0.035);
   const mat = {x: bench.x + inset * 1.5, y: bench.y + inset * 1.5, w: bench.w - inset * 3, h: bench.h - inset * 3};
-  const wide = opt.orient === 'h';
+  const wide = opt.orient !== 'v';
   const pl = P.detailGeometry.placement;
   const lensFirst = wide ? pl === 'left' : pl === 'top';
   const split = opt.split;
@@ -118,12 +118,15 @@ function compose(ctx, P, recs, LG, opt, vs) {
   const zoneLens = wide
     ? {x: lensFirst ? mat.x : mat.x + mat.w * split, y: mat.y, w: mat.w * (1 - split), h: mat.h}
     : {x: mat.x, y: lensFirst ? mat.y : mat.y + mat.h * split, w: mat.w, h: mat.h * (1 - split)};
+  if (opt.orient === 'hx') { // the lens may open over the legend column (an opaque overlay, marked data-occludes)
+    zoneLens.x = mat.x + mat.w * split + 10; zoneLens.w = ctx.design.w - zoneLens.x - 6; zoneLens.y = bench.y + 6; zoneLens.h = bench.h - 12;
+  }
   const G = fcStage(zoneCtx, {n: P.segments.length, rows: recs.length, kind: P.items[0].kind, arrangement: opt.arr, cardRest: false});
   const ts = G.ts, k = P.k;
   const ta = G.tileA(k), tb = G.tileB(k);
   const halfW = (1 + G.CM.tg / ts + 0.5 + 0.2) * ts;
-  const source = {x: ta.x - halfW, y: tb.y - 0.8 * ts, w: halfW * 2, h: ta.y - tb.y + 2.2 * ts};
-  const zoom = Math.min(zoneLens.w * 0.96 / source.w, zoneLens.h * 0.96 / source.h);
+  const source = {x: ta.x - halfW, y: tb.y - 0.72 * ts, w: halfW * 2, h: ta.y - tb.y + 1.44 * ts};
+  const zoom = Math.min(zoneLens.w * 0.99 / source.w, zoneLens.h * 0.99 / source.h);
   const dest = {w: source.w * zoom, h: source.h * zoom};
   dest.x = zoneLens.x + (zoneLens.w - dest.w) / 2; dest.y = zoneLens.y + (zoneLens.h - dest.h) / 2;
   // rest: the station centred and enlarged in the whole mat (bounded so the aside view stays >= MIN_ASIDE of it)
@@ -136,6 +139,7 @@ function compose(ctx, P, recs, LG, opt, vs) {
   const zoomOk = zoomRest >= Math.max(1.5, P.detailGeometry.zoom) - 1e-6;
   const restTs = ts * rs;
   const ok = (!LG.PL || LG.PL.ok) && G.fits && zoomOk && lensBig && restTs >= 44 && ts >= 30;
+  if (globalThis.__D) globalThis.__D.push([opt.arr, opt.orient, opt.split, LG.PL ? LG.PL.ok : 1, r(LG.PL ? LG.PL.h : 0), r(ts), r(rs, 2), r(zoomRest, 2), r(Math.min(dest.w, dest.h) * vs), r(vs, 2), G.fits, ok].join(' '));
   return {bench, mat, LG, G, source, dest, zoom, zoomRest, rest, ok, restTs,
     problems: [LG.PL && !LG.PL.ok && 'panel-text', !G.fits && 'stage-fit', !zoomOk && 'zoom', !lensBig && 'lens-small', (restTs < 44 || ts < 30) && 'stage-small'].filter(Boolean)};
 }
@@ -152,9 +156,9 @@ function pairNodes(ctx, L, pre, opts) {
     g({transform: T(ta.x, ta.y)},
       g({name: `${pre}-before`}, glyphArt(P.beforeValue, ts)),
       g({name: `${pre}-after`, opacity: 0}, glyphArt(P.afterValue, ts))),
-    opts.trace ? g({name: `${pre}-trace`, opacity: 0, transform: T(ta.x, ta.y + ts * 1.02)},
-      h('path', {d: roundRectPath(-ts * 0.3, -ts * 0.3, ts * 0.6, ts * 0.6, ts * 0.1), fill: '#fbfaf6', stroke: '#6d7780', 'stroke-width': 2, 'stroke-dasharray': '5 4'}),
-      glyphArt(P.beforeValue, ts * 0.6, {color: '#6d7780'})) : null,
+    opts.trace ? g({name: `${pre}-trace`, opacity: 0, transform: T(ta.x + ts * 0.71, ta.y - ts * 1.05)},
+      h('path', {d: roundRectPath(-ts * 0.27, -ts * 0.27, ts * 0.54, ts * 0.54, ts * 0.1), fill: '#fbfaf6', stroke: '#6d7780', 'stroke-width': 2, 'stroke-dasharray': '5 4'}),
+      glyphArt(P.beforeValue, ts * 0.54, {color: '#6d7780'})) : null,
   );
 }
 
@@ -180,10 +184,10 @@ const scene = {
     const shape = ctx.view.shape;
     const vs = Math.min(ctx.view.content.w / ctx.design.w, ctx.view.content.h / ctx.design.h) * 1080 / Math.min(ctx.view.width, ctx.view.height);
     const opts = shape === 'portrait' ? [{mode: 'below', cols: 1}, {mode: 'below', cols: 2}]
-      : shape === 'square' ? [{mode: 'side', pw: 0.3}, {mode: 'side', pw: 0.36}, {mode: 'side', pw: 0.42}, {mode: 'below', cols: 2}, {mode: 'below', cols: 3}]
+      : shape === 'square' ? [{mode: 'side', pw: 0.3}, {mode: 'side', pw: 0.36}, {mode: 'side', pw: 0.41}, {mode: 'side', pw: 0.46}, {mode: 'below', cols: 2}, {mode: 'below', cols: 3}, {mode: 'below', cols: 4}]
         : [{mode: 'side', pw: 0.24}, {mode: 'side', pw: 0.28}, {mode: 'side', pw: 0.33}];
     const sps = [];
-    for (const arr of ['wide', 'wideLow', 'tall']) for (const [orient, split] of [['h', 0.72], ['h', 0.66], ['h', 0.6], ['h', 0.55], ['h', 0.5], ['v', 0.64], ['v', 0.56], ['v', 0.5]]) sps.push({arr, orient, split});
+    for (const arr of ['wide', 'wideLow', 'tall']) for (const [orient, split] of [['h', 0.72], ['h', 0.66], ['h', 0.6], ['h', 0.55], ['h', 0.5], ['v', 0.64], ['v', 0.56], ['v', 0.5], ['hx', 0.8], ['hx', 0.72], ['hx', 0.64], ['hx', 0.56]]) sps.push({arr, orient, split});
     let C = null, best = null, bestScore = -1, firstOk = -1;
     for (const [fi, F] of SIZES.entries()) {
       if (firstOk >= 0 && fi > firstOk + 1) break;
@@ -191,9 +195,11 @@ const scene = {
         const LG = fcLegendFor(ctx, rows, F, o0);
         if (LG.PL && !LG.PL.ok && C) continue;
         for (const sp of sps) {
+          if (sp.orient === 'hx' && (!LG.PL || LG.panel.x < ctx.design.w * 0.4)) continue;
           const c = compose(ctx, P, recs, LG, sp, vs);
           c.F = F;
           const score = c.G.ts * Math.sqrt(c.rest.s) * Math.sqrt(F / 24) * (F < 19.5 ? 0.3 : 1) * Math.min(1.3, c.zoomRest / 1.8);
+          if (globalThis.__E && c.ok) globalThis.__E.push([F, o0.mode, o0.pw, sp.arr, sp.orient, sp.split, r(score)].join(' '));
           if (c.ok && firstOk < 0 && F >= 19.5) firstOk = fi;
           if (c.ok && score > bestScore) { best = c; bestScore = score; }
           if (!C || c.problems.length < C.problems.length) C = c;
@@ -235,7 +241,7 @@ const scene = {
         ),
       ),
       bench.frame,
-      L.Lz.node,
+      g({'data-occludes': 1}, L.Lz.node),
       fcPanels(ctx, C.LG),
     );
   },

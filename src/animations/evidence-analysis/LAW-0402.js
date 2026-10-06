@@ -203,7 +203,8 @@ const scene = {
     const rels = P.relationships.filter(q => q.from !== q.to && present(q.from) && present(q.to)).map((q, i) => {
       const a = elemCenter(M, q.from), b = elemCenter(M, q.to);
       const from = elemAnchor(M, q.from, b), to = elemAnchor(M, q.to, a, q.kind === 'relation' ? 6 : 12);
-      return {...q, i, from, to};
+      const c = connector(ctx, {name: `rel${i}`, from, to, kind: q.kind, bend: 0.08, color: kindColor(ctx, q.kind)});
+      return {kind: q.kind, idFrom: q.from, idTo: q.to, i, from, to, c};
     });
     // tracer route through the traversal order along the drawn lines
     const order = P.traversalOrder.filter(present);
@@ -214,16 +215,9 @@ const scene = {
       let pts;
       if (link) { pts = M.routes[link.n].pts.slice(); if (a[0] === 'p') pts.reverse(); }
       else {
-        const rel = rels.find(q => (q.from === a && q.to === b) || (q.from === b && q.to === a));
-        if (rel) pts = rel.from && (rel.from === a) ? [rel.from, rel.to] : [rel.from, rel.to];
-        if (rel) pts = rel.from === undefined ? null : (rel.from && rel.from === a ? [rel.from, rel.to] : (rel.from === a ? [rel.from, rel.to] : (rel.from === b ? [rel.to, rel.from] : [rel.from, rel.to])));
-        if (rel) pts = (rel.from === a || rel.from === b) ? null : null;
-        if (rel) pts = rel.fromId === undefined ? (rel.from === a ? null : null) : null;
-        if (rel) { const fa = rel.from === undefined; pts = fa ? null : (rel.from && (rel.from === a) ? null : null); }
-        if (rel) pts = rel.from_id;
-        if (rel) pts = (rel.from && rel.to) ? (rel.from === a ? [rel.from, rel.to] : [rel.from, rel.to]) : null;
-        if (rel && rel.from) pts = (P.relationships[rel.i].from === a) ? [rel.from, rel.to] : [rel.to, rel.from];
-        if (!pts) pts = [elemCenter(M, a), elemCenter(M, b)];
+        const rel = rels.find(q => (q.idFrom === a && q.idTo === b) || (q.idFrom === b && q.idTo === a));
+        if (rel) pts = rel.idFrom === a ? [rel.from, rel.to] : [rel.to, rel.from];
+        else pts = [];
         pts = [elemCenter(M, a), ...pts, elemCenter(M, b)];
       }
       if (link) pts = [elemCenter(M, a), ...pts, elemCenter(M, b)];
@@ -242,8 +236,7 @@ const scene = {
       h('circle', {r: 15, fill: th.paper, stroke: THREAD, 'stroke-width': 4}),
       h('circle', {r: 4, fill: THREAD})) : null));
     const relNodes = L.rels.map(q => {
-      const c = connector(ctx, {name: `rel${q.i}`, from: q.from, to: q.to, kind: q.kind, bend: 0.08, color: kindColor(ctx, q.kind)});
-      q.c = c;
+      const c = q.c;
       let lab = null;
       if (ctx.show('all')) {
         const ch = chip(ctx, P.relationLabels[q.kind], {x: c.mid.x, y: c.mid.y + 14, anchor: 'middle', maxWidth: 260, size: Math.max(16, C.F * 0.84), minSize: 16, maxLines: 2, name: `rel${q.i}-lab`});
@@ -273,7 +266,7 @@ const scene = {
     const kS = ease.inOutCubic(seg(u, ...W.separate));
     const kG = ease.inOutCubic(seg(u, ...W.gather));
     const sepY = (1 - kS) * 0.32;
-    const gath = kG * 0.05;
+    const gath = 0;
     const dyC = (M.cy - (BL.claims[0].y + BL.ch / 2)) * (sepY + gath);
     const dyE = (M.cy - (BL.evid[0].y + BL.eh / 2)) * (sepY + gath);
     const dxW = (M.cx - M.badge.x) * (1 - kS) * 0.4;
@@ -290,7 +283,6 @@ const scene = {
       const p = ease.inOutCubic(seg(u, W.relate[0] + i * span, W.relate[0] + (i + 0.85) * span));
       if (it.t === 'rel') {
         Object.assign(nodes, it.q.c.frame(p, p > 0 ? 1 : 0));
-        nodes[`relg${it.q.i}`] = {transform: T(0, dyE * (1 - 0) * 0 + 0)};
         if (ctx.show('all')) nodes[`rel${it.q.i}-labg`] = {opacity: r(seg(u, W.relate[0] + (i + 0.6) * span, W.relate[0] + (i + 1) * span), 3)};
       } else {
         const R = M.routes[it.l.n];
