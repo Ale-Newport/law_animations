@@ -1,0 +1,922 @@
+{
+  "animationId": "LAW-0381",
+  "runner": "@playwright/test chromium",
+  "checks": [
+    {
+      "name": "definition exports id/version/metadata/defaultParams/paramsSchema/create",
+      "pass": true,
+      "detail": {
+        "id": "LAW-0381",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "metadata declares illustrative-unverified content and unspecified jurisdiction",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pre-ready seek is applied on readiness",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "determinism across ordered/reverse/shuffled/repeated seeks",
+      "pass": true,
+      "detail": {
+        "mismatchedTimes": []
+      }
+    },
+    {
+      "name": "scene state changes over time (not a static card)",
+      "pass": true,
+      "detail": {
+        "distinctStates": 5
+      }
+    },
+    {
+      "name": "renderFrame(n,{fps}) equals seek(n*1000/fps) at 24/30/60 fps; overshoot clamps",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "invalid dimensions/duration/fps/params/ids raise descriptive errors",
+      "pass": true,
+      "detail": {
+        "notRejected": []
+      }
+    },
+    {
+      "name": "setParams keeps absolute time and accepts a frozen patch (no mutation)",
+      "pass": true,
+      "detail": {
+        "setErr": null
+      }
+    },
+    {
+      "name": "shortening duration clamps current time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "resize recomputes layout and keeps scene time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "getState() is serializable and includes transforms and bounds",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "presets × 16:9/9:16/1:1: no NaN, no forbidden/external elements, visible text inside frame and caption-safe area",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "backgrounds, locale es, label visibility, reduced motion, seeds and palettes render cleanly",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "textVisibility \"none\" hides all labels (action must read without them)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "user text is inserted as text nodes (no markup injection)",
+      "pass": true,
+      "detail": {
+        "field": "items.0.label"
+      }
+    },
+    {
+      "name": "two simultaneous instances: independent state and no duplicate SVG ids",
+      "pass": true,
+      "detail": {
+        "duplicates": []
+      }
+    },
+    {
+      "name": "destroy() is idempotent, removes its nodes, keeps other instances, and later calls raise",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "instance id can be reused after disposal (remount)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tracked points move continuously at 60 fps in 16:9, 9:16 and 1:1 (no teleport)",
+      "pass": false,
+      "detail": [
+        {
+          "ratio": "16:9",
+          "k": "handL",
+          "f": 62,
+          "d": 95
+        },
+        {
+          "ratio": "16:9",
+          "k": "handR",
+          "f": 62,
+          "d": 99
+        },
+        {
+          "ratio": "9:16",
+          "k": "handL",
+          "f": 61,
+          "d": 118
+        },
+        {
+          "ratio": "9:16",
+          "k": "handR",
+          "f": 61,
+          "d": 122
+        },
+        {
+          "ratio": "9:16",
+          "k": "handL",
+          "f": 62,
+          "d": 131
+        },
+        {
+          "ratio": "9:16",
+          "k": "handR",
+          "f": 62,
+          "d": 136
+        },
+        {
+          "ratio": "9:16",
+          "k": "handL",
+          "f": 63,
+          "d": 97
+        },
+        {
+          "ratio": "9:16",
+          "k": "handR",
+          "f": 63,
+          "d": 101
+        }
+      ]
+    },
+    {
+      "name": "attached pairs coincide during their attachment windows (all ratios)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "every IK target is within arm reach on every frame in all ratios (hands never stretch off their props)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "semantic: rest: original in its bag, blank copy in the tray, tag unattached @0",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "handL": {
+            "x": 225.54,
+            "y": 707.83
+          },
+          "handR": {
+            "x": 996.48,
+            "y": 707.83
+          },
+          "orig": {
+            "x": 165.21,
+            "y": 166.89
+          },
+          "copy": {
+            "x": 1024.97,
+            "y": 140.07
+          },
+          "origGrip": {
+            "x": 165.21,
+            "y": 211.13
+          },
+          "copyGrip": {
+            "x": 1024.97,
+            "y": 184.32
+          },
+          "tag": {
+            "x": 961.29,
+            "y": 655.58
+          },
+          "tagGrip": {
+            "x": 1035.19,
+            "y": 655.58
+          },
+          "origAt": "bag",
+          "copyAt": "tray",
+          "tagState": "lying",
+          "flow": 0,
+          "copied": 0,
+          "copyCells": 0,
+          "cells": 18,
+          "origCells": 18,
+          "chain": 0,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true
+          ],
+          "finalState": "identified",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 22,
+          "S": 167.6,
+          "orient": "h",
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1188.51,
+            "h": 738
+          },
+          "stage": {
+            "x": 46.22,
+            "y": 46.22,
+            "w": 1096.07,
+            "h": 645.56
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: nothing moves during the rest beat @0.145",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "handL": {
+            "x": 225.54,
+            "y": 707.83
+          },
+          "handR": {
+            "x": 996.48,
+            "y": 707.83
+          },
+          "orig": {
+            "x": 165.21,
+            "y": 166.89
+          },
+          "copy": {
+            "x": 1024.97,
+            "y": 140.07
+          },
+          "origGrip": {
+            "x": 165.21,
+            "y": 211.13
+          },
+          "copyGrip": {
+            "x": 1024.97,
+            "y": 184.32
+          },
+          "tag": {
+            "x": 961.29,
+            "y": 655.58
+          },
+          "tagGrip": {
+            "x": 1035.19,
+            "y": 655.58
+          },
+          "origAt": "bag",
+          "copyAt": "tray",
+          "tagState": "lying",
+          "flow": 0,
+          "copied": 0,
+          "copyCells": 0,
+          "cells": 18,
+          "origCells": 18,
+          "chain": 0,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true
+          ],
+          "finalState": "identified",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 22,
+          "S": 167.6,
+          "orient": "h",
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1188.51,
+            "h": 738
+          },
+          "stage": {
+            "x": 46.22,
+            "y": 46.22,
+            "w": 1096.07,
+            "h": 645.56
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: both devices carried to the dock before any block is written @0.23",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "handL": {
+            "x": 300.12,
+            "y": 279.51
+          },
+          "handR": {
+            "x": 889.22,
+            "y": 266.1
+          },
+          "orig": {
+            "x": 300.12,
+            "y": 235.26
+          },
+          "copy": {
+            "x": 889.22,
+            "y": 221.85
+          },
+          "origGrip": {
+            "x": 300.12,
+            "y": 279.51
+          },
+          "copyGrip": {
+            "x": 889.22,
+            "y": 266.1
+          },
+          "tag": {
+            "x": 961.29,
+            "y": 655.58
+          },
+          "tagGrip": {
+            "x": 1035.19,
+            "y": 655.58
+          },
+          "origAt": "carried",
+          "copyAt": "carried",
+          "tagState": "lying",
+          "flow": 0,
+          "copied": 0,
+          "copyCells": 0,
+          "cells": 18,
+          "origCells": 18,
+          "chain": 0,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true
+          ],
+          "finalState": "identified",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 22,
+          "S": 167.6,
+          "orient": "h",
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1188.51,
+            "h": 738
+          },
+          "stage": {
+            "x": 46.22,
+            "y": 46.22,
+            "w": 1096.07,
+            "h": 645.56
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: the copy is written while both sit in the dock @0.38",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "action",
+          "handL": {
+            "x": 225.54,
+            "y": 707.83
+          },
+          "handR": {
+            "x": 996.48,
+            "y": 707.83
+          },
+          "orig": {
+            "x": 435.04,
+            "y": 303.64
+          },
+          "copy": {
+            "x": 753.47,
+            "y": 303.64
+          },
+          "origGrip": {
+            "x": 435.04,
+            "y": 347.88
+          },
+          "copyGrip": {
+            "x": 753.47,
+            "y": 347.88
+          },
+          "tag": {
+            "x": 961.29,
+            "y": 655.58
+          },
+          "tagGrip": {
+            "x": 1035.19,
+            "y": 655.58
+          },
+          "origAt": "dock",
+          "copyAt": "dock",
+          "tagState": "lying",
+          "flow": 1,
+          "copied": 0.5,
+          "copyCells": 9,
+          "cells": 18,
+          "origCells": 18,
+          "chain": 0,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true
+          ],
+          "finalState": "identified",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 22,
+          "S": 167.6,
+          "orient": "h",
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1188.51,
+            "h": 738
+          },
+          "stage": {
+            "x": 46.22,
+            "y": 46.22,
+            "w": 1096.07,
+            "h": 645.56
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: copy complete; the original map is unchanged @0.5",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "handL": {
+            "x": 381.41,
+            "y": 440.03
+          },
+          "handR": {
+            "x": 815.68,
+            "y": 440.03
+          },
+          "orig": {
+            "x": 435.04,
+            "y": 303.64
+          },
+          "copy": {
+            "x": 753.47,
+            "y": 303.64
+          },
+          "origGrip": {
+            "x": 435.04,
+            "y": 347.88
+          },
+          "copyGrip": {
+            "x": 753.47,
+            "y": 347.88
+          },
+          "tag": {
+            "x": 961.29,
+            "y": 655.58
+          },
+          "tagGrip": {
+            "x": 1035.19,
+            "y": 655.58
+          },
+          "origAt": "dock",
+          "copyAt": "dock",
+          "tagState": "lying",
+          "flow": 0,
+          "copied": 1,
+          "copyCells": 18,
+          "cells": 18,
+          "origCells": 18,
+          "chain": 0,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true
+          ],
+          "finalState": "identified",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 22,
+          "S": 167.6,
+          "orient": "h",
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1188.51,
+            "h": 738
+          },
+          "stage": {
+            "x": 46.22,
+            "y": 46.22,
+            "w": 1096.07,
+            "h": 645.56
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: original back in its bag; the tag is carried to the copy @0.66",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "complete",
+          "handL": {
+            "x": 225.54,
+            "y": 707.83
+          },
+          "handR": {
+            "x": 1037.83,
+            "y": 619.27
+          },
+          "orig": {
+            "x": 165.21,
+            "y": 166.89
+          },
+          "copy": {
+            "x": 1033.35,
+            "y": 432.99
+          },
+          "origGrip": {
+            "x": 165.21,
+            "y": 211.13
+          },
+          "copyGrip": {
+            "x": 1033.35,
+            "y": 477.24
+          },
+          "tag": {
+            "x": 963.92,
+            "y": 619.27
+          },
+          "tagGrip": {
+            "x": 1037.83,
+            "y": 619.27
+          },
+          "origAt": "bag",
+          "copyAt": "placed",
+          "tagState": "carried",
+          "flow": 0,
+          "copied": 1,
+          "copyCells": 18,
+          "cells": 18,
+          "origCells": 18,
+          "chain": 0,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true
+          ],
+          "finalState": "identified",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 22,
+          "S": 167.6,
+          "orient": "h",
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1188.51,
+            "h": 738
+          },
+          "stage": {
+            "x": 46.22,
+            "y": 46.22,
+            "w": 1096.07,
+            "h": 645.56
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: hold: the copy carries its own tag; composition fits @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "handL": {
+            "x": 225.54,
+            "y": 707.83
+          },
+          "handR": {
+            "x": 996.48,
+            "y": 707.83
+          },
+          "orig": {
+            "x": 165.21,
+            "y": 166.89
+          },
+          "copy": {
+            "x": 1033.35,
+            "y": 432.99
+          },
+          "origGrip": {
+            "x": 165.21,
+            "y": 211.13
+          },
+          "copyGrip": {
+            "x": 1033.35,
+            "y": 477.24
+          },
+          "tag": {
+            "x": 969.67,
+            "y": 540.25
+          },
+          "tagGrip": {
+            "x": 1043.57,
+            "y": 540.25
+          },
+          "origAt": "bag",
+          "copyAt": "placed",
+          "tagState": "attached",
+          "flow": 0,
+          "copied": 1,
+          "copyCells": 18,
+          "cells": 18,
+          "origCells": 18,
+          "chain": 1,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true
+          ],
+          "finalState": "identified",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 22,
+          "S": 167.6,
+          "orient": "h",
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1188.51,
+            "h": 738
+          },
+          "stage": {
+            "x": 46.22,
+            "y": 46.22,
+            "w": 1096.07,
+            "h": 645.56
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: pending: copy made, tag left unattached @1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "handL": {
+            "x": 225.54,
+            "y": 707.83
+          },
+          "handR": {
+            "x": 996.48,
+            "y": 707.83
+          },
+          "orig": {
+            "x": 165.21,
+            "y": 166.89
+          },
+          "copy": {
+            "x": 1033.35,
+            "y": 432.99
+          },
+          "origGrip": {
+            "x": 165.21,
+            "y": 211.13
+          },
+          "copyGrip": {
+            "x": 1033.35,
+            "y": 477.24
+          },
+          "tag": {
+            "x": 961.29,
+            "y": 655.58
+          },
+          "tagGrip": {
+            "x": 1035.19,
+            "y": 655.58
+          },
+          "origAt": "bag",
+          "copyAt": "placed",
+          "tagState": "lying",
+          "flow": 0,
+          "copied": 1,
+          "copyCells": 18,
+          "cells": 18,
+          "origCells": 18,
+          "chain": 0,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true
+          ],
+          "finalState": "pending",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 22,
+          "S": 167.6,
+          "orient": "h",
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1188.51,
+            "h": 738
+          },
+          "stage": {
+            "x": 46.22,
+            "y": 46.22,
+            "w": 1096.07,
+            "h": 645.56
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: actionProgress freezes the action part-way @1",
+      "pass": false,
+      "detail": {
+        "semantic": {
+          "beat": "hold",
+          "handL": {
+            "x": 225.54,
+            "y": 707.83
+          },
+          "handR": {
+            "x": 996.48,
+            "y": 707.83
+          },
+          "orig": {
+            "x": 435.04,
+            "y": 303.64
+          },
+          "copy": {
+            "x": 753.47,
+            "y": 303.64
+          },
+          "origGrip": {
+            "x": 435.04,
+            "y": 347.88
+          },
+          "copyGrip": {
+            "x": 753.47,
+            "y": 347.88
+          },
+          "tag": {
+            "x": 961.29,
+            "y": 655.58
+          },
+          "tagGrip": {
+            "x": 1035.19,
+            "y": 655.58
+          },
+          "origAt": "dock",
+          "copyAt": "dock",
+          "tagState": "lying",
+          "flow": 1,
+          "copied": 0.281,
+          "copyCells": 5,
+          "cells": 18,
+          "origCells": 18,
+          "chain": 0,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true
+          ],
+          "finalState": "identified",
+          "actionCapped": true,
+          "problems": [],
+          "textPx": 22,
+          "S": 167.6,
+          "orient": "h",
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1188.51,
+            "h": 738
+          },
+          "stage": {
+            "x": 46.22,
+            "y": 46.22,
+            "w": 1096.07,
+            "h": 645.56
+          }
+        }
+      }
+    },
+    {
+      "name": "semantic: seeking back restores the rest state exactly @0.1",
+      "pass": true,
+      "detail": {
+        "semantic": {
+          "beat": "rest",
+          "handL": {
+            "x": 225.54,
+            "y": 707.83
+          },
+          "handR": {
+            "x": 996.48,
+            "y": 707.83
+          },
+          "orig": {
+            "x": 165.21,
+            "y": 166.89
+          },
+          "copy": {
+            "x": 1024.97,
+            "y": 140.07
+          },
+          "origGrip": {
+            "x": 165.21,
+            "y": 211.13
+          },
+          "copyGrip": {
+            "x": 1024.97,
+            "y": 184.32
+          },
+          "tag": {
+            "x": 961.29,
+            "y": 655.58
+          },
+          "tagGrip": {
+            "x": 1035.19,
+            "y": 655.58
+          },
+          "origAt": "bag",
+          "copyAt": "tray",
+          "tagState": "lying",
+          "flow": 0,
+          "copied": 0,
+          "copyCells": 0,
+          "cells": 18,
+          "origCells": 18,
+          "chain": 0,
+          "allReached": true,
+          "rows": [
+            true,
+            true,
+            true
+          ],
+          "finalState": "identified",
+          "actionCapped": false,
+          "problems": [],
+          "textPx": 22,
+          "S": 167.6,
+          "orient": "h",
+          "bench": {
+            "x": 0,
+            "y": 0,
+            "w": 1188.51,
+            "h": 738
+          },
+          "stage": {
+            "x": 46.22,
+            "y": 46.22,
+            "w": 1096.07,
+            "h": 645.56
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "warningsNote": "Heuristic, non-blocking: overlapping visible text blocks and low use of the caption-safe box (<80% on both axes at the final hold). Reviewers must look at these cases.",
+  "consoleErrors": [],
+  "externalRequests": [],
+  "passed": false
+}
