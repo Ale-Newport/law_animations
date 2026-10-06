@@ -183,7 +183,7 @@ const scene = {
       : shape === 'square' ? [{mode: 'side', pw: 0.3}, {mode: 'side', pw: 0.36}, {mode: 'side', pw: 0.42}, {mode: 'below', cols: 2}, {mode: 'below', cols: 3}]
         : [{mode: 'side', pw: 0.24}, {mode: 'side', pw: 0.28}, {mode: 'side', pw: 0.33}];
     const sps = [];
-    for (const arr of ['wide', 'wideLow', 'tall']) for (const [orient, split] of [['h', 0.72], ['h', 0.66], ['h', 0.6], ['v', 0.64], ['v', 0.56], ['v', 0.5]]) sps.push({arr, orient, split});
+    for (const arr of ['wide', 'wideLow', 'tall']) for (const [orient, split] of [['h', 0.72], ['h', 0.66], ['h', 0.6], ['h', 0.55], ['h', 0.5], ['v', 0.64], ['v', 0.56], ['v', 0.5]]) sps.push({arr, orient, split});
     let C = null, best = null, bestScore = -1, firstOk = -1;
     for (const [fi, F] of SIZES.entries()) {
       if (firstOk >= 0 && fi > firstOk + 1) break;
