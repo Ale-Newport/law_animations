@@ -239,8 +239,10 @@ const scene = {
       const c = q.c;
       let lab = null;
       if (ctx.show('all')) {
-        const ch = chip(ctx, P.relationLabels[q.kind], {x: c.mid.x, y: c.mid.y + 14, anchor: 'middle', maxWidth: 260, size: Math.max(16, C.F * 0.84), minSize: 16, maxLines: 2, name: `rel${q.i}-lab`});
-        lab = ch.node;
+        const ch = chip(ctx, P.relationLabels[q.kind], {x: c.mid.x, y: 0, anchor: 'middle', maxWidth: 260, size: Math.max(16, C.F * 0.84), minSize: 16, maxLines: 2, name: `rel${q.i}-lab`});
+        // above the line, clear of the cards and the badge
+        let y = Math.min(c.from.y, c.to.y) - ch.box.h - 14;
+        lab = g({transform: T(0, y)}, ch.node);
       }
       return g({name: `relg${q.i}`}, c.node, lab ? g({name: `rel${q.i}-labg`, opacity: 0}, lab) : null);
     });

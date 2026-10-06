@@ -34,7 +34,7 @@ import {
 const ID = 'LAW-0514';
 const DURATION = 7000;
 const BEATS = {rest: [0, 0.15], action: [0.15, 0.42], complete: [0.42, 0.73], hold: [0.73, 1]};
-const W = {trace: [0.15, 0.42], slide: [0.42, 0.71], focus: [0.71, 0.79], tags: [0.76, 0.81], key: [0.79, 0.84], legend: [0.15, 0.2]};
+const W = {trace: [0.15, 0.42], slide: [0.42, 0.71], zoom: [0.71, 0.77], focus: [0.72, 0.8], tags: [0.76, 0.81], key: [0.79, 0.84], legend: [0.15, 0.2]};
 const ACTION_END = 0.79;
 
 const strings = {
@@ -127,7 +127,7 @@ function geom(ctx, F, minF, mode, cwPick) {
   }
   const pitchMax = (rackBot - rackTop - baseH - 30 - ld) / Math.max(1, n - 1);
   if (n > 1 && ld + th + 8 > pitchMax) why.push('layer-depth');
-  const pitch = n > 1 ? Math.min(pitchMax, ld + th + 70) : 0;
+  const pitch = n > 1 ? (mode === 'above' ? pitchMax : Math.min(pitchMax, ld + th + 70)) : 0;
   const stackH = pitch * (n - 1) + ld + th + baseH + 30;
   const top = rackTop + (rackBot - rackTop - stackH) * 0.5 + ld;
   const levels = Array.from({length: n}, (_, k) => ({x: rackX, y: top + k * pitch}));
@@ -160,19 +160,31 @@ function geom(ctx, F, minF, mode, cwPick) {
     placed.push({q, c});
     yB += c.box.h + 14;
   }
+  // ---- the hold: the parking panel collapses and the rack zooms into the freed space (tags in a column at its right)
+  const tagW = tagNotes.length ? Math.max(...tagNotes.map(q => chipG(ctx, q.text, {x: 0, y: 0, maxWidth: Math.min(360, D.w * 0.3), size: F, minSize: minF, maxLines: 4, weight: 700}).box.w)) : 0;
+  const TB = mode === 'beside' ? {x: area.x, y: area.y, w: area.w - (tagW ? tagW + 24 : 0), h: area.h}
+    : {x: m, y: card.y + card.h + 24, w: D.w - 2 * m - (tagW ? tagW + 24 : 0), h: legendTop - 24 - (card.y + card.h + 24)};
+  const RB = {x: rackX - 34, y: levels[0].y - ld - 44, w: (discX + discR + 6) - (rackX - 34), h: (baseY + baseH / 2 + 4) - (levels[0].y - ld - 44)};
+  let zs = Math.min(TB.w / RB.w, TB.h / RB.h, 1.9);
+  let zo = {x: RB.x, y: RB.y};
+  if (zs < 1.04) zs = 1; else zo = {x: TB.x + (TB.w - RB.w * zs) / 2, y: TB.y + (TB.h - RB.h * zs) / 2};
+  const zoomAt = z => { const s0 = 1 + (zs - 1) * z; const o = {x: lerp(RB.x, zo.x, z), y: lerp(RB.y, zo.y, z)}; return {s: s0, P: Q => ({x: o.x + s0 * (Q.x - RB.x), y: o.y + s0 * (Q.y - RB.y)}), str: `${T(r(o.x - s0 * RB.x, 2), r(o.y - s0 * RB.y, 2))} scale(${r(s0, 4)})`}; };
+  const Z1 = zoomAt(1);
+  const tagX = mode === 'beside' ? Math.min(TB.x + TB.w + 24, Z1.P({x: discX + discR, y: 0}).x + 24) : Math.min(TB.x + TB.w + 24, Z1.P({x: discX + discR, y: 0}).x + 24);
+  const tagCol2 = {x: tagX, w: D.w - m - tagX, top: mode === 'beside' ? area.y + 4 : card.y + card.h + 18, bottom: mode === 'beside' ? area.y + area.h - 4 : D.h - m};
   for (const q of tagNotes) {
-    const c0 = chipG(ctx, worstTag, {x: tagCol.x, y: 0, maxWidth: tagCol.w, size: F, minSize: minF, maxLines: 4, weight: 700});
-    const cy = levels[q.k].y - ld / 2;
-    let y = clamp(cy - c0.box.h / 2, tagCol.top, tagCol.bottom - c0.box.h);
+    const c0 = chipG(ctx, worstTag, {x: tagCol2.x, y: 0, maxWidth: tagCol2.w, size: F, minSize: minF, maxLines: 4, weight: 700});
+    const cy = Z1.P({x: 0, y: levels[q.k].y - ld / 2}).y;
+    let y = clamp(cy - c0.box.h / 2, tagCol2.top, tagCol2.bottom - c0.box.h);
     for (let it = 0; it < 3; it++) for (const b of busy) if (y < b.y + b.h + 12 && y + c0.box.h > b.y - 12) y = b.y + b.h + 14;
-    const c = chipG(ctx, q.text, {x: tagCol.x, y, maxWidth: tagCol.w, size: F, minSize: minF, maxLines: 4, weight: 700, name: q.name, fill: '#fffaf0'});
-    if (c0.bad || y + c0.box.h > tagCol.bottom + 0.5 || y < tagCol.top - 0.5) why.push(`note-${q.name}`);
+    const c = chipG(ctx, q.text, {x: tagCol2.x, y, maxWidth: tagCol2.w, size: F, minSize: minF, maxLines: 4, weight: 700, name: q.name, fill: '#fffaf0'});
+    if (c0.bad || y + c0.box.h > tagCol2.bottom + 0.5 || y < tagCol2.top - 0.5 || tagCol2.w < 150) why.push(`note-${q.name}`);
     placed.push({q, c});
     busy.push({y, h: c0.box.h});
   }
   return {
     ok: !why.length, why, F, minF, mode, side: 'left', order, n, card, C, rows, area, lw, sk, ld, th, tabS, labs, levels, parks, baseY, baseH,
-    rackX, parkX, colW, discR, discX, rowA, layerB, placed, stress, pitch,
+    rackX, parkX, colW, discR, discX, rowA, layerB, placed, stress, pitch, zoomAt, zs,
     parkBoard: mode === 'beside' ? {x: parkX - 16, y: area.y, w: colW + 24, h: area.h} : {x: card.x, y: card.y + card.h + 16, w: card.w, h: legendTop - 16 - (card.y + card.h + 16)},
   };
 }
@@ -262,11 +274,13 @@ const scene = {
     const tracer = h('circle', {name: 'tracer', r: 12, fill: th.accent2, stroke: '#fff', 'stroke-width': 3, opacity: 0});
     // layers: z order = position (lower positions drawn later, i.e. on top) — each layer has its own group
     const zOrder = L.order.slice().reverse();
-    const layers = zOrder.map(si => g({name: `lay${si}`, transform: T(L.parks[si].x, L.parks[si].y)}, layerArt(ctx, L, si, show, `art${si}`)));
+    const layers = zOrder.map(si => g({name: `lay${si}`, transform: T(L.parks[si].x, L.parks[si].y), 'data-occludes': 1}, layerArt(ctx, L, si, show, `art${si}`)));
+    // the layer in flight is drawn on top of everything, print attached (an opaque copy)
+    const flys = zOrder.map(si => g({name: `fly${si}`, transform: T(L.parks[si].x, L.parks[si].y), opacity: 0, 'data-occludes': 1}, layerArt(ctx, L, si, show, `flyart${si}`)));
     const lp = loupe(ctx, {name: 'loupe', R: L.discR + 13, a: -95, handle: L.discR * 1.6, opacity: 0});
     const notes = L.placed.map(pl => g({name: `${pl.q.name}-g`, opacity: 0}, pl.c.node));
     const pb = L.parkBoard;
-    const board = g(null,
+    const board = g({name: 'board'},
       h('rect', {x: r(pb.x + 6), y: r(pb.y + 8), width: r(pb.w), height: r(pb.h), rx: 18, fill: th.shadow}),
       h('rect', {x: r(pb.x), y: r(pb.y), width: r(pb.w), height: r(pb.h), rx: 18, fill: '#efe7d8', stroke: '#b9ab90', 'stroke-width': 2.4}),
       L.order.map(si => h('path', {d: `M${r(L.parks[si].x)} ${r(L.parks[si].y)}L${r(L.parks[si].x + L.lw)} ${r(L.parks[si].y)}L${r(L.parks[si].x + L.lw + L.sk)} ${r(L.parks[si].y - L.ld)}L${r(L.parks[si].x + L.sk)} ${r(L.parks[si].y - L.ld)}Z`, fill: '#e3d8c3', stroke: '#c9bb9f', 'stroke-width': 2})),
@@ -274,10 +288,10 @@ const scene = {
     return g({name: 'scene'},
       cardNode,
       board,
-      base, backRods, ticks, discs,
+      g({name: 'rackBack'}, base, backRods, ticks, discs),
       layers,
-      frontRods,
-      conns, tracer,
+      g({name: 'rackFront'}, frontRods),
+      conns, tracer, flys,
       g({name: 'loupeG'}, lp),
       notes,
     );

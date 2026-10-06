@@ -29,7 +29,7 @@ import {personRig} from '../../primitives/person.js';
 import {actorLook} from '../../primitives/people-style.js';
 import {
   eaFields, EA_EN, EA_ES, localised, resolveLinks, boardNode, threadNode, threadD, magnifierArt, magnifierBox,
-  legendColumns, panelNode, ringRect, fitG, noteColors, R2, overlaps, unionBox, INK, FRAME, THREAD,
+  legendColumns, panelNode, ringRect, fitG, pushpin, noteColors, R2, overlaps, unionBox, INK, FRAME, THREAD,
 } from './kits/analysis-art.js';
 import {
   MP_LABELS_EN, MP_LABELS_ES, mpLabelFields, boardLayout, idFits, claimTextH, evLabelH, slotLabelNodes, cardNodes, evidenceBox, slotNodes, contentRows,
@@ -518,6 +518,7 @@ const scene = {
       table,
       g({transform: T(M.mag.x, M.mag.y, M.mag.rot)}, magnifierArt(M.mag.R, 'mag')),
       cards.evid,
+      g({name: 'park'}, L.links.map(l => g({transform: T(M.ends[l.n].d.x, M.ends[l.n].d.y)}, pushpin(Math.max(5, BL.eh * 0.045))))),
       threads,
       g({name: 'wit-wrap'}, L.witness.node),
       g({name: 'an-wrap'}, L.analyst.node),
@@ -558,7 +559,7 @@ const scene = {
       const E = M.ends[l.n];
       const st = s.threads[l.n].state;
       let end, sag;
-      if (st === 'loose') { end = E.d; nodes[`th${l.n}`] = {d: `M${r(E.c.x)} ${r(E.c.y)}Q${r(E.c.x + 22)} ${r((E.c.y + E.d.y) / 2)} ${r(E.d.x)} ${r(E.d.y)}`}; tEnds.push(E.d); return; }
+      if (st === 'loose') { end = E.d; nodes[`th${l.n}`] = {d: threadD(E.c, E.d, clamp(Math.hypot(E.d.x - E.c.x, E.d.y - E.c.y) * 0.12, 10, 40))}; tEnds.push(E.d); return; }
       if (st === 'held') { end = aHand; sag = clamp(Math.hypot(end.x - E.c.x, end.y - E.c.y) * 0.06, 4, 30); }
       else { end = E.e; sag = 3; }
       nodes[`th${l.n}`] = {d: threadD(E.c, end, sag)};
