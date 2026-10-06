@@ -34,7 +34,7 @@ const ID = 'LAW-0387';
 const DURATION = 7500;
 const SIZES = [24, 23, 22, 21, 20.5, 20, 19.5, 19, 18, 17, 16.5, 16];
 const W = {reach: [0.04, 0.12], ring: [0.18, 0.38], flipOut: [0.22, 0.27], flipIn: [0.27, 0.32], toCol: [0.4, 0.45], steps: [0.45, 0.74], park: [0.74, 0.78], back: [0.78, 0.82], guide: [0.79, 0.85], note: [0.82, 0.87]};
-const TS_FLOOR = 32;
+const TS_FLOOR = 30;
 
 const BASE_SEG = [{a: 'arc', b: 'arc'}, {a: 'fork', b: 'fork'}, {a: 'loop', b: 'loop'}, {a: 'dot', b: 'dot'}, {a: 'end', b: 'end'}];
 const OWN_EN = {
